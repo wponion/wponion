@@ -6,8 +6,8 @@
  * Initial version created 05-05-2018 / 03:38 PM
  * @version 1.0
  * @since 1.0
- * @package bullet-wp
- * @link http://github.com/bullet-wp
+ * @package wponion
+ * @link http://github.com/wponion
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */

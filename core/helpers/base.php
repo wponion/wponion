@@ -19,11 +19,11 @@ if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	/**
 	 * Checks if current request is ajax.
 	 *
-	 * @param bool $is_bullet_ajax if set to true then it checks if ajax request from bullet-wp
+	 * @param bool $is_wponion_ajax if set to true then it checks if ajax request from wponion
 	 *
 	 * @return bool
 	 */
-	function wponion_is_ajax( $is_bullet_ajax = false ) {
+	function wponion_is_ajax( $is_wponion_ajax = false ) {
 		if ( isset( $_POST ) && isset( $_POST['action'] ) && 'heartbeat' === $_POST['action'] ) {
 			return true;
 		}

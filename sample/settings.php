@@ -55,7 +55,7 @@ $options = array(
 new WPOnion_Settings( $options, array(
 	'menu'      => array(
 		'type'  => 'management',
-		'title' => 'Bullet-WP',
+		'title' => 'wponion',
 		'slug'  => 'bwpt',
 	),
 	'plugin_id' => 'boilerplate',
@@ -64,7 +64,7 @@ new WPOnion_Settings( $options, array(
 new WPOnion_Settings( $options, array(
 	'menu'          => array(
 		'type'  => 'management',
-		'title' => 'Bullet-WP',
+		'title' => 'wponion',
 		'slug'  => 'bwpt2',
 	),
 	'plugin_id'     => 'boilerplate2',

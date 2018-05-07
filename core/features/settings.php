@@ -6,8 +6,8 @@
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  * @version 1.0
  * @since 1.0
- * @package bullet-wp
- * @link http://github.com/bullet-wp
+ * @package wponion
+ * @link http://github.com/wponion
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
@@ -213,7 +213,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'type'       => 'themes.php', # submenu | management | dashboard | options | plugins | theme
 				'parent'     => '',
 				'title'      => WPONION_NAME,
-				'slug'       => 'bullet-wp',
+				'slug'       => 'wponion',
 				'capability' => 'manage_options',
 				'icon'       => null,
 				'position'   => null,
@@ -228,7 +228,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'extra_css'     => array(),
 				'extra_js'      => array(),
 				'style'         => 'modern',
-				'option_name'   => '_bullet_wp',
+				'option_name'   => '_wponion',
 				'plugin_id'     => false,
 				'theme'         => 'modern',
 				'template_path' => false,
