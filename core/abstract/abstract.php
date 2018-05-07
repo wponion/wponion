@@ -175,11 +175,17 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 			return $this->global_action_filter( 'apply_filters', func_get_args() );
 		}
 
+		/**
+		 * @param string $key
+		 * @param bool   $default
+		 *
+		 * @return bool|mixed
+		 */
 		public function option( $key = '', $default = false ) {
 			if ( isset( $this->settings[ $key ] ) ) {
 				return $this->settings[ $key ];
 			}
-			return false;
+			return $default;
 		}
 
 		/**

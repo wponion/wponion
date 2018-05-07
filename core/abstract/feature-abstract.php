@@ -46,6 +46,13 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		protected $raw_options = array();
 
 		/**
+		 * unique for database.
+		 *
+		 * @var string
+		 */
+		protected $unique = '';
+
+		/**
 		 * WPOnion_Settings constructor.
 		 *
 		 * @param array $fields Array of settings fields.
