@@ -29,6 +29,7 @@ if ( ! function_exists( 'wponion_init' ) ) {
 		 */
 		require_once WPONION_PATH . 'core/helpers/base.php';
 		require_once WPONION_PATH . 'core/class-autoloader.php';
+		require_once WPONION_PATH . 'core/class-assets.php';
 		do_action( 'wponion_loaded' );
 	}
 
