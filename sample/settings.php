@@ -55,19 +55,9 @@ $options = array(
 new WPOnion_Settings( $options, array(
 	'menu'      => array(
 		'type'  => 'management',
-		'title' => 'wponion',
-		'slug'  => 'bwpt',
+		'title' => 'WP Onion',
+		'slug'  => 'wponion',
 	),
+	'theme'     => 'wp',
 	'plugin_id' => 'boilerplate',
-) );
-
-new WPOnion_Settings( $options, array(
-	'menu'          => array(
-		'type'  => 'management',
-		'title' => 'wponion',
-		'slug'  => 'bwpt2',
-	),
-	'plugin_id'     => 'boilerplate2',
-	'theme'         => 'modern2',
-	'template_path' => __DIR__ . '/templates',
 ) );
