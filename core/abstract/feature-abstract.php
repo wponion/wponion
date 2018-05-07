@@ -19,6 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 	abstract class WPOnion_Feature_Abstract extends WPOnion_Abstract {
 		/**
+		 * Stores Fields MD5.
+		 *
+		 * @var bool
+		 */
+		protected $fields_md5 = false;
+
+		/**
 		 * Store All Settings Menu.
 		 *
 		 * @var array
@@ -47,6 +54,21 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		public function __construct( $fields = array(), $settings = array() ) {
 			$this->fields   = $fields;
 			$this->settings = $this->set_args( $settings );
+		}
+
+		/**
+		 * Generated A Unique ID For each Options Array And stores it.
+		 *
+		 * @param array $fields
+		 *
+		 * @return bool|string
+		 */
+		protected function fields_md5( $fields = array() ) {
+			if ( false === $this->fields_md5 ) {
+				$fields           = empty( $fields ) ? $this->fields : $fields;
+				$this->fields_md5 = md5( wp_json_encode( $fields ) );
+			}
+			return $this->fields_md5;
 		}
 	}
 }
