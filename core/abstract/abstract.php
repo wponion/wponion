@@ -157,13 +157,12 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 		 * @param bool $plugin_id
 		 *
 		 * @return string
-		 * @todo AddPlugin Related Hook.
 		 */
 		protected function get_action_filter_slugs( $plugin_id = false ) {
 			if ( false === $plugin_id ) {
 				return 'wponion_' . $this->type . '_';
 			}
-			return 'wponion_' . $this->type . '_' . $this->plugin_id() . '_';#@todo Add hook for plugin.;
+			return 'wponion_' . $this->type . '_' . $this->plugin_id() . '_';
 		}
 
 		/**
