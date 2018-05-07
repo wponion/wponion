@@ -27,9 +27,9 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 		 * This is used in do_action & apply_filters to provide plugin developers with a custom hook to run only when
 		 * their instance is created / running.
 		 *
-		 * @var array
+		 * @var null.
 		 */
-		protected $plugin_id = array();
+		protected $plugin_id = null;
 
 		/**
 		 * Settings
@@ -163,7 +163,7 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 			if ( false === $plugin_id ) {
 				return 'wponion_' . $this->type . '_';
 			}
-			return 'wponion_' . $this->type . '_' . $this->plugin_id . '_';#@todo Add hook for plugin.;
+			return 'wponion_' . $this->type . '_' . $this->plugin_id() . '_';#@todo Add hook for plugin.;
 		}
 
 		/**
@@ -181,6 +181,13 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 				return $this->settings[ $key ];
 			}
 			return false;
+		}
+
+		/**
+		 * @return array
+		 */
+		public function plugin_id() {
+			return $this->plugin_id;
 		}
 	}
 }
