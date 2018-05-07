@@ -45,10 +45,26 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		 */
 		public static function init() {
 			self::init_array();
+			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
+
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
-			} else {
-				add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ) );
+			}
+		}
+
+		/**
+		 * Registers Assets With WordPress.
+		 *
+		 * @static
+		 */
+		public static function register_assets() {
+			foreach ( self::$style as $id => $file ) {
+				$url = self::is_debug( WPONION_URL . $file[0] );
+				wp_register_style( $id, $url, $file[1], $file[2], 'all' );
+			}
+			foreach ( self::$scripts as $iid => $ffile ) {
+				$url = self::is_debug( WPONION_URL . $ffile[0] );
+				wp_register_script( $iid, $url, $ffile[1], $ffile[2], true );
 			}
 		}
 
@@ -58,7 +74,8 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		 * @static
 		 */
 		public static function init_array() {
-
+			self::$scripts['bootstrap'] = array( 'assets/js/wponion-plugins', array(), '4.1.1', true );
+			self::$style['bootstrap']   = array( 'assets/css/wponion-base', array(), '4.1.1', true );
 		}
 
 		/**
@@ -79,4 +96,4 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 	}
 }
 
-return false;
+WPOnion_Assets::init();
