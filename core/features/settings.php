@@ -26,6 +26,13 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		protected $type = 'settings';
 
 		/**
+		 * options_cache
+		 *
+		 * @var array
+		 */
+		protected $options_cache = false;
+
+		/**
 		 * Stores WP Admin Menu Page Slug / Hook which returns from any of these functions
 		 *
 		 * @uses \add_submenu_page()
@@ -66,8 +73,67 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 					$this->plugin_id = $this->settings['plugin_id'];
 				}
 
+				$this->unique = $this->settings['option_name'];
+
+				$this->add_action( 'admin_init', 'wp_admin_init' );
 				$this->add_action( 'admin_menu', 'register_admin_menu' );
 			}
+		}
+
+		/**
+		 * On WP_Admin_Ini.
+		 */
+		public function wp_admin_init() {
+			register_setting( $this->unique, $this->unique, array(
+				'sanitize_callback' => array( &$this, 'save_validate' ),
+			) );
+
+			$cache = $this->get_cache();
+
+			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
+				$async_handler = new WPOnion_Async_Request();
+				$async_handler->data( array(
+					'type'        => 'settings_default_save',
+					'plugin_id'   => $this->plugin_id(),
+					'option_name' => $this->unique,
+				) )
+					->dispatch();
+			}
+		}
+
+		/**
+		 * Handles To Set Defaults.
+		 */
+		protected function set_defaults() {
+			$this->options_cache['fuid']            = $this->fields_md5();
+			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
+			$this->set_cache( $this->options_cache );
+		}
+
+		/**
+		 * Saves Cache.
+		 *
+		 * @param array $data .
+		 */
+		protected function set_cache( $data = array() ) {
+			update_option( $this->unique . '-setcache', $data );
+			$this->options_cache = $data;
+		}
+
+
+		/**
+		 * Returns Options Cache.
+		 */
+		protected function get_cache() {
+			if ( false === $this->options_cache ) {
+				$db_key              = $this->unique . '-setcache';
+				$values              = get_option( $db_key, array() );
+				$this->options_cache = ( is_array( $values ) ) ? $values : array();
+				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
+					$this->options_cache = array();
+				}
+			}
+			return $this->options_cache;
 		}
 
 		/**
@@ -110,6 +176,9 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$this->init_theme();
 		}
 
+		/**
+		 * inits selected theme.
+		 */
 		protected function init_theme() {
 			if ( false === $this->current_theme ) {
 				$theme         = $this->option( 'theme' );
@@ -123,7 +192,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 						'file'      => $file,
 						'html_file' => wponion_locate_template( $theme . '/' . $theme . '-html.php', $template_path ),
 					);
-					wponion_get_template( $theme . '/' . $theme . '-init.php', array( 'class' => &$this ) );
+					wponion_get_template( $theme . '/' . $theme . '-init.php', array( 'wponion_class' => &$this ) );
 				} else {
 					$this->current_theme = array(
 						'success' => false,
@@ -145,6 +214,15 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		public function on_settings_page_load() {
 			$this->menus = $this->extract_settings_sections();
 			$this->init_theme();
+			$this->add_action( 'admin_enqueue_scripts', 'load_admin_styles' );
+		}
+
+		/**
+		 * Loads Required Style for the current settings page.
+		 */
+		public function load_admin_styles() {
+			wp_enqueue_script( 'bootstrap' );
+			wp_enqueue_style( 'bootstrap' );
 		}
 
 		/**
@@ -233,6 +311,17 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'theme'         => 'modern',
 				'template_path' => false,
 			);
+		}
+
+		/**
+		 * @param string $template_name
+		 * @param array  $args
+		 *
+		 * @return string
+		 */
+		public function load_template( $template_name = '', $args = array() ) {
+			$template_path = $this->option( 'template_path' );
+			return wponion_get_template_html( $template_name, $args, $template_path );
 		}
 	}
 }
