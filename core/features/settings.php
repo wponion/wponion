@@ -278,18 +278,20 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 */
 		protected function init_theme() {
 			if ( false === $this->current_theme ) {
-				$theme         = $this->option( 'theme' );
-				$template_path = $this->option( 'template_path' );
-				$file          = wponion_locate_template( $theme . '/' . $theme . '-init.php', $template_path );
-				$html_file     = wponion_locate_template( $theme . '/' . $theme . '-html.php', $template_path );
+				$theme          = $this->option( 'theme' );
+				$template_path  = $this->option( 'template_path' );
+				$file           = wponion_locate_template( $theme . '/' . $theme . '-init.php', $template_path );
+				$html_file      = wponion_locate_template( $theme . '/' . $theme . '-html.php', $template_path );
+				$callback_class = 'WPOnion_' . strtolower( $theme ) . '_Theme';
 
 				if ( file_exists( $file ) && file_exists( $html_file ) ) {
 					$this->current_theme = array(
+						'class'     => $callback_class,
 						'success'   => true,
 						'file'      => $file,
 						'html_file' => wponion_locate_template( $theme . '/' . $theme . '-html.php', $template_path ),
 					);
-					wponion_get_template( $theme . '/' . $theme . '-init.php', array( 'wponion_class' => &$this ) );
+					wponion_get_template( $theme . '/' . $theme . '-init.php', array( 'plugin_id' => $this->plugin_id() ) );
 				} else {
 					$this->current_theme = array(
 						'success' => false,
@@ -303,6 +305,15 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 					include $this->current_theme['html_file'];
 				}
 			}
+		}
+
+		/**
+		 * Returns Current Theme's instance.
+		 *
+		 * @return bool
+		 */
+		protected function theme_instance() {
+			return wponion_core_registry( $this->current_theme['class'] );
 		}
 
 		/**
@@ -323,8 +334,9 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$this->init_theme();
 		}
 
-		/*************************************************************************************************************/
-
+		/**************************************************************************************************************
+		 * Below Functions Are Related Only To find the current active menu and submenu in settings.
+		 *************************************************************************************************************/
 		/**
 		 * Returns Default Active Menu of current settings Page.
 		 *
@@ -465,7 +477,10 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			}
 			return isset( $this->active_menu['section_id'] ) ? $this->active_menu['section_id'] : false;
 		}
-		/*************************************************************************************************************/
+
+		/**************************************************************************************************************
+		 * Above Functions Are Related Only To find the current active menu and submenu in settings.
+		 *************************************************************************************************************/
 
 		/**
 		 * Loads Required Style for the current settings page.
@@ -503,7 +518,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 					if ( isset( $field['sections'] ) && false === empty( $field['sections'] ) ) {
 						$menu                               = $this->handle_single_menu( $field, $is_child, $parent );
 						$return[ $menu['name'] ]            = $menu;
-						$return[ $menu['name'] ]['submenu'] = $this->_extract_settings_menus( $field['sections'] );
+						$return[ $menu['name'] ]['submenu'] = $this->_extract_settings_menus( $field['sections'], true, $menu['name'] );
 					} elseif ( ( isset( $field['fields'] ) && false === empty( $field['fields'] ) ) || isset( $field['callback'] ) || isset( $field['href'] ) ) {
 						$menu                    = $this->handle_single_menu( $field, $is_child, $parent );
 						$return[ $menu['name'] ] = $menu;
@@ -622,5 +637,69 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$template_path = $this->option( 'template_path' );
 			return wponion_get_template_html( $template_name, $args, $template_path );
 		}
+
+		/**
+		 * Checks if current settings instance page load type.
+		 *
+		 * @return bool|string
+		 */
+		public function is_single_page() {
+			if ( true === $this->option( 'is_single_page' ) ) {
+				return true;
+			} elseif ( 'submenu' === $this->option( 'is_single_page' ) ) {
+				return 'only_submenu';
+			} else {
+				return false;
+			}
+		}
+
+		/**************************************************************************************************************
+		 * Below Functions are Related To Settings Page Themes.
+		 *************************************************************************************************************/
+		/**
+		 * @param string $extra_class
+		 * @param bool   $bootstrap
+		 *
+		 * @return string
+		 */
+		public function wrap_class( $extra_class = '', $bootstrap = false ) {
+			$class = $this->default_wrap_class( $bootstrap );
+
+			$class .= ( true === $this->is_single_page() ) ? ' wponion-single-page ' : '';
+			$class .= ( 'only_submenu' === $this->is_single_page() ) ? ' wponion-submenu-single-page ' : '';
+			$class .= ' wponion-' . $this->option( 'theme' ) . '-theme ';
+			$class .= ' ' . $extra_class;
+			return esc_attr( $class );
+		}
+
+		/**
+		 * Renders InnerHTML.
+		 *
+		 * @return string
+		 */
+		public function render_inner_html() {
+			$return = '';
+			$theme  = $this->theme_instance();
+			foreach ( $this->fields as $option ) {
+				if ( ! isset( $option['fields'] ) && ! isset( $option['callback'] ) && ! isset( $option['sections'] ) ) {
+					continue;
+				}
+
+				$is_parent        = ( $option['name'] === $this->active( true ) ) ? true : false;
+				$is_parent_hidden = ( false === $is_parent ) ? ' hidden ' : '';
+				$tab_wrap         = '<div id="wponion-tab-' . $option['name'] . '" class="' . $is_parent_hidden . '" data-parent="' . $option['name'] . '">';
+
+				$return .= $theme->tab_wrap_start( $tab_wrap, $option, $is_parent );
+
+
+				$return .= $theme->tab_wrap_end( '</div>', $option, $is_parent );
+
+
+			}
+			return $return;
+		}
+		/**************************************************************************************************************
+		 * Above Functions are Related To Settings Page Themes.
+		 *************************************************************************************************************/
 	}
 }
