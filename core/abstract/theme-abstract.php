@@ -52,6 +52,11 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 			wponion_core_registry( $this );
 		}
 
+		/**
+		 * Registers / Load Theme's Assets With WP.
+		 *
+		 * @return mixed
+		 */
 		abstract function register_assets();
 
 		/**
