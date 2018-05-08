@@ -33,14 +33,29 @@ if ( ! class_exists( 'WPOnion_Async_Request' ) ) {
 		protected $action = 'wponion_async';
 
 		/**
-		 *
+		 * Handles ASync Request.
 		 */
 		protected function handle() {
 			if ( isset( $_POST['type'] ) ) {
 				if ( 'settings_default_save' === $_POST['type'] ) {
-					
+					$this->handle_default_settings_save();
+				}
+			}
+		}
+
+		/**
+		 * Handles Saving Settings Default Values.
+		 */
+		protected function handle_default_settings_save() {
+			$plugin_id = ( isset( $_REQUEST['plugin_id'] ) ) ? $_REQUEST['plugin_id'] : false;
+			if ( false !== $plugin_id ) {
+				$instance = wponion_settings_registry( $plugin_id );
+				if ( false !== $instance ) {
+					$instance->force_set_defaults( true );
 				}
 			}
 		}
 	}
 }
+
+return wponion_async();
