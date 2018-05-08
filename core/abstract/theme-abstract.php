@@ -17,8 +17,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
+	/**
+	 * Class WPOnion_Theme_Abstract
+	 *
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	abstract class WPOnion_Theme_Abstract extends WPOnion_Abstract {
-
 		/**
 		 * dir
 		 *
@@ -33,12 +38,11 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 		 */
 		protected $url = false;
 
-
 		/**
 		 * WPOnion_Theme_Abstract constructor.
 		 *
-		 * @param \WPOnion_Settings $settings_instance
-		 * @param string            $theme_file
+		 * @param        $plugin_id
+		 * @param string $theme_file
 		 */
 		public function __construct( $plugin_id, $theme_file = __FILE__ ) {
 			add_action( 'admin_enqueue_scripts', array( &$this, 'register_assets' ), 1 );
