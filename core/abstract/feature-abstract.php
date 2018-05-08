@@ -84,5 +84,24 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 			}
 			return $this->fields_md5;
 		}
+
+		/**
+		 * Generates Few Default Wrap Class.
+		 *
+		 * @param bool $bootstrap
+		 *
+		 * @return string
+		 */
+		protected function default_wrap_class( $bootstrap = false ) {
+			$class = 'wponion-settings-framework wponion-framework';
+
+			$class .= ' wponion-' . $this->plugin_id() . '-' . $this->type;
+			$class .= ' wponion-' . $this->type;
+
+			if ( true === $bootstrap ) {
+				$class .= ' wponion-framework-bootstrap ';
+			}
+			return $class;
+		}
 	}
 }
