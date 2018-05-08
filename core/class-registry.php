@@ -16,14 +16,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! interface_exists( 'WPOnion_Registry_Interface' ) ) {
+	interface WPOnion_Registry_Interface {
+		/**
+		 * Stores Instance of a give feature.
+		 *
+		 * @param string            $feature_type
+		 * @param \WPOnion_Abstract $instance
+		 *
+		 * @return mixed
+		 */
+		public function add( $feature_type = 'settings', \WPOnion_Abstract &$instance );
+
+		/**
+		 * Get And Returns An Instance of a give key.
+		 *
+		 * @param string $feature_type
+		 * @param        $plugin_id
+		 *
+		 * @return mixed
+		 */
+		public function get( $feature_type = 'settings', $plugin_id );
+	}
+}
+
+
 if ( ! class_exists( 'WPOnion_Registry' ) ) {
 	/**
-	 * Class WPOnion_Registery
+	 * Class WPOnion_Feature_Registry
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WPOnion_Registery {
+	class WPOnion_Registry implements WPOnion_Registry_Interface {
 		/**
 		 * Stores All Instances
 		 *
@@ -37,14 +62,14 @@ if ( ! class_exists( 'WPOnion_Registry' ) ) {
 		 * @param string            $type
 		 * @param \WPOnion_Abstract $instance
 		 *
-		 * @static
+		 * @return mixed|void
 		 */
-		public function add( $type = 'settings', \WPOnion_Abstract $instance ) {
+		public function add( $type = 'settings', \WPOnion_Abstract &$instance ) {
 			if ( ! isset( $this->registry[ $type ] ) ) {
 				$this->registry[ $type ] = array();
 			}
 
-			$key = $this->get_id( $instance );
+			$key = $instance->plugin_id();
 
 			if ( ! isset( $registry[ $type ][ $key ] ) ) {
 				$this->registry[ $type ][ $key ] = $instance;
@@ -65,52 +90,6 @@ if ( ! class_exists( 'WPOnion_Registry' ) ) {
 				return $this->registry[ $type ][ $key ];
 			}
 			return false;
-		}
-
-		/**
-		 * @param $instance
-		 *
-		 * @return mixed
-		 */
-		abstract function get_id( $instance );
-	}
-}
-
-if ( ! class_exists( 'WPOnion_Feature_Registry' ) ) {
-	/**
-	 * Class WPOnion_Feature_Registry
-	 *
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
-	 */
-	class WPOnion_Feature_Registry extends WPOnion_Registery {
-		/**
-		 * @param $feature
-		 *
-		 * @return mixed
-		 */
-		public function get_id( $feature ) {
-			return $feature->plugin_id();
-		}
-
-	}
-}
-
-if ( ! class_exists( 'WPOnion_Settings_Registry' ) ) {
-	/**
-	 * Class WPOnion_Settings_Registry
-	 *
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
-	 */
-	class WPOnion_Settings_Registry extends WPOnion_Registery {
-		/**
-		 * @param $feature
-		 *
-		 * @return mixed
-		 */
-		public function get_id( $feature ) {
-			return $feature->plugin_id();
 		}
 	}
 }
