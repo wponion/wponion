@@ -52,6 +52,13 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		 */
 		protected $unique = '';
 
+		public function __call( $name, $arguments ) {
+			if ( isset( $this->{$name} ) ) {
+				return $this->{$name};
+			}
+			return false;
+		}
+
 		/**
 		 * WPOnion_Settings constructor.
 		 *
