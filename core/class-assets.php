@@ -63,7 +63,7 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 				wp_register_style( $id, $url, $file[1], $file[2], 'all' );
 			}
 			foreach ( self::$scripts as $iid => $ffile ) {
-				$url = self::is_debug( WPONION_URL . $ffile[0] );
+				$url = self::is_debug( WPONION_URL . $ffile[0], 'js' );
 				wp_register_script( $iid, $url, $ffile[1], $ffile[2], true );
 			}
 		}
@@ -74,8 +74,8 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		 * @static
 		 */
 		public static function init_array() {
-			self::$scripts['bootstrap'] = array( 'assets/js/wponion-plugins', array(), '4.1.1', true );
-			self::$style['bootstrap']   = array( 'assets/css/wponion-base', array(), '4.1.1', true );
+			#self::$scripts['bootstrap'] = array( 'assets/js/wponion-plugins', array(), '4.1.1', true );
+			self::$style['bootstrap'] = array( 'assets/css/wponion-base', array(), '4.1.1', true );
 		}
 
 		/**
