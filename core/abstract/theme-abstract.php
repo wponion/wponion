@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
-	abstract class WPOnion_Theme_Abstract {
+	abstract class WPOnion_Theme_Abstract extends WPOnion_Abstract {
 
 		/**
 		 * dir
@@ -33,12 +33,6 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 		 */
 		protected $url = false;
 
-		/**
-		 * settings
-		 *
-		 * @var null
-		 */
-		protected $settings = null;
 
 		/**
 		 * WPOnion_Theme_Abstract constructor.
@@ -46,11 +40,12 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 		 * @param \WPOnion_Settings $settings_instance
 		 * @param string            $theme_file
 		 */
-		public function __construct( WPOnion_Settings $settings_instance, $theme_file = __FILE__ ) {
+		public function __construct( $plugin_id, $theme_file = __FILE__ ) {
 			add_action( 'admin_enqueue_scripts', array( &$this, 'register_assets' ), 1 );
-			$this->dir      = plugin_dir_path( $theme_file );
-			$this->url      = plugin_dir_url( $theme_file );
-			$this->settings = $settings_instance;
+			$this->dir       = plugin_dir_path( $theme_file );
+			$this->url       = plugin_dir_url( $theme_file );
+			$this->plugin_id = $plugin_id;
+			wponion_core_registry( $this );
 		}
 
 		abstract function register_assets();
@@ -75,10 +70,11 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 
 		/**
 		 * Returns Settings Instance.
-		 * @return null|\WPOnion_Settings
+		 *
+		 * @return mixed
 		 */
 		public function settings() {
-			return $this->settings;
+			return wponion_settings_registry( $this->plugin_id );
 		}
 	}
 }
