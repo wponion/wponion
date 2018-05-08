@@ -228,22 +228,32 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				$this->page_hook = $page_hook;
 				$this->set_page_url( menu_page_url( $menu['slug'], false ) );
 
-				if ( isset( $user_menu['show_submenus'] ) && true === $user_menu['show_submenus'] ) {
+				if ( isset( $user_menu['submenus'] ) && true === $user_menu['submenus'] ) {
 					$this->find_active_menu();
-					foreach ( $this->fields as $field ) {
+					$menus = $this->settings_menus();
+					foreach ( $menus as $id => $_menu ) {
+						if ( isset( $_menu['is_seperator'] ) && true == $_menu['is_seperator'] ) {
+							continue;
+						}
+						add_submenu_page( $menu['slug'], $_menu['title'], $_menu['title'], $menu['capability'], $id, $callback );
+					}
+
+					/*foreach ( $this->fields as $field ) {
 						if ( isset( $field['sections'] ) || isset( $field['fields'] ) || $field['callback'] ) {
 							$_slug = isset( $field['name'] ) ? $field['name'] : false;
 							add_submenu_page( $menu['slug'], $field['title'], $field['title'], $menu['capability'], $_slug, $callback );
 						}
-					}
+					}*/
 
 					global $submenu;
 					if ( isset( $submenu[ $menu['slug'] ] ) && ! empty( $submenu[ $menu['slug'] ] ) ) {
 						foreach ( $submenu[ $menu['slug'] ] as $id => $smenu ) {
 							if ( $menu['slug'] !== $submenu[ $menu['slug'] ][ $id ][2] ) {
-								$submenu[ $menu['slug'] ][ $id ][2] = add_query_arg( array(
+								/*$submenu[ $menu['slug'] ][ $id ][2] = add_query_arg( array(
 									'parent-id' => $smenu[2],
-								), $this->page_url( true ) );
+								), $this->page_url( true ) );*/
+
+								$submenu[ $menu['slug'] ][ $id ][2] = isset( $menus[ $smenu[2] ]['part_href'] ) ? $menus[ $smenu[2] ]['part_href'] : false;
 							} elseif ( $menu['slug'] === $submenu[ $menu['slug'] ][ $id ][2] ) {
 								unset( $submenu[ $menu['slug'] ][ $id ] );
 							}
@@ -299,18 +309,18 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * Triggers Only When Current Instance's Settings Page Loads.
 		 */
 		public function on_settings_page_load() {
-			$this->menus = $this->extract_settings_sections();
-			$this->init_theme();
-			$this->add_action( 'admin_enqueue_scripts', 'load_admin_styles' );
 			$this->find_active_menu();
-
+			$this->settings_menus();
+			$this->add_action( 'admin_enqueue_scripts', 'load_admin_styles' );
 			$user_menu = $this->option( 'menu' );
-			if ( isset( $user_menu['show_submenus'] ) && true === $user_menu['show_submenus'] ) {
+			if ( isset( $user_menu['submenus'] ) && true === $user_menu['submenus'] ) {
 				global $submenu_file;
 				$submenu_file = add_query_arg( array(
 					'parent-id' => $this->active( true ),
 				), $this->page_url( true ) );
 			}
+
+			$this->init_theme();
 		}
 
 		/*************************************************************************************************************/
@@ -344,6 +354,9 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * Finds Which Parent And SubMenu is Active.
 		 */
 		protected function find_active_menu() {
+			if ( ! empty( $this->active_menu ) ) {
+				return $this->active_menu;
+			}
 			$cache    = $this->get_cache();
 			$_cache   = array(
 				'parent_id'  => ( ! empty( $cache['parent_id'] ) ) ? $cache['parent_id'] : false,
@@ -371,6 +384,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				$default['section_id'] = $default['parent_id'];
 			}
 			$this->active_menu = $default;
+			return $this->active_menu;
 		}
 
 		/**
@@ -461,14 +475,24 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			wp_enqueue_style( 'bootstrap' );
 		}
 
+		public function settings_menus() {
+			if ( ! empty( $this->menus ) ) {
+				return $this->menus;
+			}
+			$this->menus = $this->_extract_settings_menus();
+			return $this->menus;
+		}
+
 		/**
 		 * Extracts Settings Sections and its subsections from the $this->fields array.
 		 *
 		 * @param array $fields
+		 * @param bool  $is_child
+		 * @param bool  $parent
 		 *
 		 * @return array
 		 */
-		protected function extract_settings_sections( $fields = array() ) {
+		protected function _extract_settings_menus( $fields = array(), $is_child = false, $parent = false ) {
 			$return = array();
 			if ( empty( $fields ) ) {
 				$fields = $this->fields;
@@ -477,14 +501,14 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			if ( is_array( $fields ) ) {
 				foreach ( $fields as $field ) {
 					if ( isset( $field['sections'] ) && false === empty( $field['sections'] ) ) {
-						$menu                               = $this->handle_single_menu( $field, true );
+						$menu                               = $this->handle_single_menu( $field, $is_child, $parent );
 						$return[ $menu['name'] ]            = $menu;
-						$return[ $menu['name'] ]['submenu'] = $this->extract_settings_sections( $field['sections'] );
-					} elseif ( ( isset( $field['fields'] ) && false === empty( $field['fields'] ) ) || isset( $field['callback'] ) ) {
-						$menu                    = $this->handle_single_menu( $field, true );
+						$return[ $menu['name'] ]['submenu'] = $this->_extract_settings_menus( $field['sections'] );
+					} elseif ( ( isset( $field['fields'] ) && false === empty( $field['fields'] ) ) || isset( $field['callback'] ) || isset( $field['href'] ) ) {
+						$menu                    = $this->handle_single_menu( $field, $is_child, $parent );
 						$return[ $menu['name'] ] = $menu;
 					} else {
-						$menu                                    = $this->handle_single_menu( $field, true );
+						$menu                                    = $this->handle_single_menu( $field, $is_child, $parent );
 						$return[ $menu['name'] ]                 = $menu;
 						$return[ $menu['name'] ]['is_seperator'] = true;
 					}
@@ -497,21 +521,61 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * Handles Single Field args and converts into a menu.
 		 *
 		 * @param      $menu
-		 * @param bool $has_child
+		 * @param bool $is_child
+		 * @param bool $parent
 		 *
 		 * @return array
 		 */
-		protected function handle_single_menu( $menu, $has_child = false ) {
-			$title = isset( $menu['title'] ) ? $menu['title'] : false;
-			$name  = isset( $menu['name'] ) ? $menu['name'] : sanitize_title( $title );
-			$icon  = isset( $menu['icon'] ) ? $menu['icon'] : false;
+		protected function handle_single_menu( $menu, $is_child = false, $parent = false ) {
+			$title         = isset( $menu['title'] ) ? $menu['title'] : false;
+			$name          = isset( $menu['name'] ) ? $menu['name'] : sanitize_title( $title );
+			$icon          = isset( $menu['icon'] ) ? $menu['icon'] : false;
+			$attributes    = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
+			$internal_href = isset( $menu['href'] ) ? false : true;
+			$is_active     = false;
+
+			if ( false === $parent ) {
+				if ( true === $internal_href ) {
+					$menu['href']      = add_query_arg( array( 'parent-id' => $name ), $this->page_url() );
+					$menu['part_href'] = add_query_arg( array( 'parent-id' => $name ), $this->page_url( true ) );
+				}
+
+				if ( $name === $this->active( true ) ) {
+					$is_active = true;
+				}
+			} elseif ( true === $is_child && false !== $parent ) {
+				if ( true === $internal_href ) {
+					$menu['href'] = add_query_arg( array(
+						'parent-id'  => $parent,
+						'section-id' => $name,
+					), $this->page_url() );
+
+					$menu['part_href'] = add_query_arg( array(
+						'parent-id'  => $parent,
+						'section-id' => $name,
+					), $this->page_url( true ) );
+				}
+
+				if ( $name === $this->active( false ) ) {
+					$is_active = true;
+				}
+			}
+
+			if ( isset( $menu['query_args'] ) && ! empty( $menu['query_args'] ) ) {
+				$menu['href']      = add_query_arg( $menu['query_args'], $menu['href'] );
+				$menu['part_href'] = add_query_arg( $menu['query_args'], $menu['part_href'] );
+			}
+
 			return array(
-				'title'      => $title,
-				'name'       => $name,
-				'icon'       => $icon,
-				'is_active'  => false,
-				'href'       => ( isset( $menu['href'] ) ) ? $menu['href'] : false,
-				'query_args' => isset( $menu['query_args'] ) ? $menu['query_args'] : false,
+				'attributes'       => $attributes,
+				'title'            => $title,
+				'name'             => $name,
+				'icon'             => $icon,
+				'is_active'        => $is_active,
+				'is_internal_href' => $internal_href,
+				'href'             => ( isset( $menu['href'] ) ) ? $menu['href'] : false,
+				'part_href'        => ( isset( $menu['part_href'] ) ) ? $menu['part_href'] : false,
+				'query_args'       => isset( $menu['query_args'] ) ? $menu['query_args'] : false,
 			);
 		}
 
@@ -541,7 +605,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'menu'          => $menu,
 				'extra_css'     => array(),
 				'extra_js'      => array(),
-				'style'         => 'modern',
 				'option_name'   => '_wponion',
 				'plugin_id'     => false,
 				'theme'         => 'modern',
