@@ -17,47 +17,54 @@ if ( ! defined( 'ABSPATH' ) ) {
 $options = array(
 	array(
 		'name'   => 'page1',
-		'title'  => __( 'Page1' ),
-		'icon'   => 'fa fa-o',
-		'fields' => array(),
+		'title'  => __( 'Simple Tab' ),
+		'fields' => array( array() ),
+	),
+	array(
+		'name'   => 'page2',
+		'title'  => __( 'Tab With Icon' ),
+		'icon'   => 'dashicons dashicons-menu',
+		'fields' => array( array() ),
+	),
+	array(
+		'name'       => 'page3',
+		'title'      => __( 'Custom Query Args' ),
+		'query_args' => array( 'custom-query' => 'hello' ),
+		'fields'     => array( array() ),
+	),
+	array(
+		'name'  => 'page4',
+		'title' => __( 'Custom Page Link' ),
+		'href'  => 'http://google.com',
+	),
+	array(
+		'name'       => 'page5',
+		'title'      => __( 'Custom Attributes' ),
+		'attributes' => array( 'class' => 'bg-success' ),
+		'fields'     => array( array() ),
+	),
+	array(
+		'name'     => 'page6',
+		'title'    => __( 'Custom Callback' ),
+		'callback' => 'yourcallbackhere',
 	),
 
-	array(
-		'name'     => 'page2',
-		'title'    => __( 'Page2' ),
-		'sections' => array(
-			array(
-				'name'   => 'page2-1',
-				'title'  => __( 'Page2-1' ),
-				'fields' => array(),
-			),
-			array(
-				'name'   => 'page2-2',
-				'title'  => __( 'Page2-2' ),
-				'fields' => array(),
-			),
-			array(
-				'name'   => 'page2-3',
-				'title'  => __( 'Page2-3' ),
-				'fields' => array(),
-			),
-		),
-	),
-
-	array(
-		'name'     => 'page3',
-		'title'    => __( 'Page3' ),
-		'callback' => 'customcallback',
-	),
 );
 
 
 new WPOnion_Settings( $options, array(
 	'menu'      => array(
-		'type'  => 'management',
-		'title' => 'WP Onion',
-		'slug'  => 'wponion',
+		'type'     => 'parent',
+		'title'    => 'WP Onion',
+		'slug'     => 'wponion',
+		'submenus' => true,
 	),
 	'theme'     => 'wp',
 	'plugin_id' => 'boilerplate',
 ) );
+
+add_action( 'wponion_settings_boilerplate_register_submenu', function ( $slug ) {
+	add_submenu_page( $slug, 'Custom Page 1', 'Custom Page1', 'manage_options', 'custompage1', function () {
+		echo 'This is from custom page';
+	} );
+} );
