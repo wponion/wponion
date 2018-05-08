@@ -85,5 +85,35 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 		public function settings() {
 			return wponion_settings_registry( $this->plugin_id );
 		}
+
+		/**
+		 * This function called  before
+		 * each parent section's div creation (<div class="wponion-"></div>)
+		 *
+		 * @param       $tab_wrap
+		 * @param array $options
+		 * @param       $is_parent_hidden
+		 *
+		 * @return string
+		 */
+		public function tab_wrap_start( $tab_wrap, $options = array(), $is_parent_hidden ) {
+			return $tab_wrap;
+		}
+
+		/**
+		 * This function called  after
+		 * each parent section's div creation (<div class="wponion-"></div>)
+		 *
+		 * @param       $tab_wrap
+		 * @param array $options
+		 * @param       $is_parent_hidden
+		 *
+		 * @return string
+		 */
+		public function tab_wrap_end( $tab_wrap, $options = array(), $is_parent_hidden ) {
+			return $tab_wrap;
+		}
+
+
 	}
 }
