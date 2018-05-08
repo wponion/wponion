@@ -127,20 +127,52 @@ if ( ! function_exists( 'wponion_get_template_html' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_registry' ) ) {
-	function wponion_registry( $type = '' ) {
-		static $data = array();
-
-		if ( ! isset( $data[ $type ] ) ) {
-			$data[ $type ] = new $type;
+if ( ! function_exists( 'wponion_get_var' ) ) {
+	/**
+	 * Getting POST Var
+	 *
+	 * @param        $var
+	 * @param string $default
+	 *
+	 * @return string
+	 */
+	function wponion_get_var( $var, $default = '' ) {
+		if ( isset( $_POST[ $var ] ) ) {
+			return $_POST[ $var ];
 		}
-		return $data[ $type ];
+		if ( isset( $_GET[ $var ] ) ) {
+			return $_GET[ $var ];
+		}
+		return $default;
 	}
 }
 
-if ( ! function_exists( 'wponion_feature_registry' ) ) {
-	function wponion_feature_registry() {
-		return wponion_registry( 'WPOnion_Feature_Registry' );
+if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
+	/**
+	 * @param array $ids
+	 *
+	 * @return array|bool
+	 */
+	function wponion_validate_parent_section_ids( $ids = array() ) {
+		if ( empty( array_filter( $ids ) ) ) {
+			return false;
+		} elseif ( empty( $ids['section_id'] ) && ! empty( $ids['parent_id'] ) ) {
+			return array(
+				'section_id' => false,
+				'parent_id'  => $ids['parent_id'],
+			);
+		} elseif ( ! empty( $ids['section_id'] ) && empty( $ids['parent_id'] ) ) {
+			return array(
+				'section_id' => false,
+				'parent_id'  => $ids['section_id'],
+			);
+		} else {
+			return array(
+				'section_id' => $ids['section_id'],
+				'parent_id'  => $ids['parent_id'],
+			);
+		}
 	}
-
 }
+
+require_once WPONION_PATH . 'core/helpers/registry.php';
