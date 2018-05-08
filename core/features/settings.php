@@ -23,6 +23,11 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 	 * @since 1.0
 	 */
 	class WPOnion_Settings extends WPOnion_Feature_Abstract {
+		/**
+		 * type
+		 *
+		 * @var string
+		 */
 		protected $type = 'settings';
 
 		/**
@@ -57,6 +62,20 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		protected $current_theme = false;
 
 		/**
+		 * active_menu
+		 *
+		 * @var array
+		 */
+		protected $active_menu = array();
+
+		/**
+		 * Stores Current Instances Settings Page URL.
+		 *
+		 * @var null
+		 */
+		protected $page_url = array();
+
+		/**
 		 * WPOnion_Settings constructor.
 		 *
 		 * @param array $fields Array of settings fields.
@@ -77,6 +96,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 
 				$this->add_action( 'admin_init', 'wp_admin_init' );
 				$this->add_action( 'admin_menu', 'register_admin_menu' );
+				wponion_settings_registry( $this );
 			}
 		}
 
@@ -88,21 +108,36 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'sanitize_callback' => array( &$this, 'save_validate' ),
 			) );
 
+			$this->force_set_defaults( false );
+		}
+
+		/**
+		 * Handles SettingUP Settings Defaults.
+		 *
+		 * @param bool $force
+		 */
+		public function force_set_defaults( $force = false ) {
 			$cache = $this->get_cache();
 
 			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
-				$async_handler = new WPOnion_Async_Request();
-				$async_handler->data( array(
-					'type'        => 'settings_default_save',
-					'plugin_id'   => $this->plugin_id(),
-					'option_name' => $this->unique,
-				) )
-					->dispatch();
+				if ( false === $force ) {
+					wponion_async()
+						->data( array(
+							'type'        => 'settings_default_save',
+							'plugin_id'   => $this->plugin_id(),
+							'option_name' => $this->unique,
+						) )
+						->dispatch();
+				} elseif ( true === $force ) {
+					$this->set_defaults();
+				}
 			}
 		}
 
 		/**
 		 * Handles To Set Defaults.
+		 *
+		 * @todo Actually Work on setting up default values.
 		 */
 		protected function set_defaults() {
 			$this->options_cache['fuid']            = $this->fields_md5();
@@ -120,7 +155,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$this->options_cache = $data;
 		}
 
-
 		/**
 		 * Returns Options Cache.
 		 */
@@ -134,6 +168,33 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				}
 			}
 			return $this->options_cache;
+		}
+
+		/**
+		 * Set Admin Page Url.
+		 *
+		 * @param string $page_url
+		 *
+		 */
+		protected function set_page_url( $page_url = '' ) {
+			$this->page_url = array(
+				'full_url' => $page_url,
+				'part'     => str_replace( admin_url(), '', $page_url ),
+			);
+		}
+
+		/**
+		 * Returns Settings Page Url.
+		 *
+		 * @param bool $part_url
+		 *
+		 * @return mixed
+		 */
+		public function page_url( $part_url = false ) {
+			if ( false === $part_url ) {
+				return $this->page_url['full_url'];
+			}
+			return $this->page_url['part'];
 		}
 
 		/**
@@ -165,6 +226,32 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				}
 
 				$this->page_hook = $page_hook;
+				$this->set_page_url( menu_page_url( $menu['slug'], false ) );
+
+				if ( isset( $user_menu['show_submenus'] ) && true === $user_menu['show_submenus'] ) {
+					$this->find_active_menu();
+					foreach ( $this->fields as $field ) {
+						if ( isset( $field['sections'] ) || isset( $field['fields'] ) || $field['callback'] ) {
+							$_slug = isset( $field['name'] ) ? $field['name'] : false;
+							add_submenu_page( $menu['slug'], $field['title'], $field['title'], $menu['capability'], $_slug, $callback );
+						}
+					}
+
+					global $submenu;
+					if ( isset( $submenu[ $menu['slug'] ] ) && ! empty( $submenu[ $menu['slug'] ] ) ) {
+						foreach ( $submenu[ $menu['slug'] ] as $id => $smenu ) {
+							if ( $menu['slug'] !== $submenu[ $menu['slug'] ][ $id ][2] ) {
+								$submenu[ $menu['slug'] ][ $id ][2] = add_query_arg( array(
+									'parent-id' => $smenu[2],
+								), $this->page_url( true ) );
+							} elseif ( $menu['slug'] === $submenu[ $menu['slug'] ][ $id ][2] ) {
+								unset( $submenu[ $menu['slug'] ][ $id ] );
+							}
+						}
+					}
+					$this->_action( 'register_submenu', $menu['slug'], $this );
+				}
+
 				$this->add_action( 'load-' . $this->page_hook, 'on_settings_page_load' );
 			}
 		}
@@ -215,7 +302,156 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$this->menus = $this->extract_settings_sections();
 			$this->init_theme();
 			$this->add_action( 'admin_enqueue_scripts', 'load_admin_styles' );
+			$this->find_active_menu();
+
+			$user_menu = $this->option( 'menu' );
+			if ( isset( $user_menu['show_submenus'] ) && true === $user_menu['show_submenus'] ) {
+				global $submenu_file;
+				$submenu_file = add_query_arg( array(
+					'parent-id' => $this->active( true ),
+				), $this->page_url( true ) );
+			}
 		}
+
+		/*************************************************************************************************************/
+
+		/**
+		 * Returns Default Active Menu of current settings Page.
+		 *
+		 * @return array
+		 */
+		protected function get_default_actives() {
+			$first_fields = current( $this->fields );
+			if ( isset( $first_fields['sections'] ) ) {
+				$first_section = current( $first_fields['sections'] );
+				return array(
+					'parent_id'  => ( isset( $first_fields['name'] ) ) ? $first_fields['name'] : false,
+					'section_id' => ( isset( $first_section['name'] ) ) ? $first_section['name'] : false,
+				);
+			} elseif ( isset( $first_fields['fields'] ) || isset( $first_fields['callback'] ) ) {
+				return array(
+					'section_id' => false,
+					'parent_id'  => ( isset( $first_fields['name'] ) ) ? $first_fields['name'] : false,
+				);
+			}
+			return array(
+				'section_id' => false,
+				'parent_id'  => false,
+			);
+		}
+
+		/**
+		 * Finds Which Parent And SubMenu is Active.
+		 */
+		protected function find_active_menu() {
+			$cache    = $this->get_cache();
+			$_cache   = array(
+				'parent_id'  => ( ! empty( $cache['parent_id'] ) ) ? $cache['parent_id'] : false,
+				'section_id' => ( ! empty( $cache['section_id'] ) ) ? $cache['section_id'] : false,
+			);
+			$_url     = array(
+				'parent_id'  => wponion_get_var( 'parent-id', false ),
+				'section_id' => wponion_get_var( 'section-id', false ),
+			);
+			$_cache_v = wponion_validate_parent_section_ids( $_cache );
+			$_url_v   = wponion_validate_parent_section_ids( $_url );
+
+			if ( false !== $_cache_v ) {
+				$default                           = $this->validate_sections( $_cache_v['parent_id'], $_cache_v['section_id'] );
+				$this->options_cache['section_id'] = false;
+				$this->options_cache['parent_id']  = false;
+				$this->set_cache( $this->options_cache );
+			} elseif ( false !== $_url_v ) {
+				$default = $this->validate_sections( $_url_v['parent_id'], $_url_v['section_id'] );
+			} else {
+				$default = $this->validate_sections( false, false );
+			}
+
+			if ( ( null === $default['section_id'] || false === $default['section_id'] ) && $default['parent_id'] ) {
+				$default['section_id'] = $default['parent_id'];
+			}
+			$this->active_menu = $default;
+		}
+
+		/**
+		 * @param string $parent_id
+		 * @param string $section_id
+		 *
+		 * @return array
+		 */
+		public function validate_sections( $parent_id = '', $section_id = '' ) {
+			$parent_id  = $this->is_page_section_exists( $parent_id, $section_id );
+			$section_id = $this->is_page_section_exists( $parent_id, $section_id, true );
+			return array(
+				'section_id' => $section_id,
+				'parent_id'  => $parent_id,
+			);
+		}
+
+		/**
+		 * @param string $page_id
+		 * @param string $section_id
+		 * @param bool   $is_section
+		 *
+		 * @return bool|string
+		 */
+		public function is_page_section_exists( $page_id = '', $section_id = '', $is_section = false ) {
+			foreach ( $this->fields as $option ) {
+				if ( $option['name'] === $page_id && false === $is_section ) {
+					return $page_id;
+				} elseif ( $option['name'] === $page_id && isset( $option['sections'] ) ) {
+					foreach ( $option['sections'] as $section ) {
+						if ( $section['name'] === $section_id ) {
+							return $section_id;
+						}
+					}
+				}
+			}
+			$page_id = ( true === $is_section ) ? $page_id : null;
+			return $this->get_page_section_id( $is_section, $page_id );
+		}
+
+		/**
+		 * @param bool $is_section
+		 * @param null $page
+		 *
+		 * @return bool
+		 */
+		private function get_page_section_id( $is_section = true, $page = null ) {
+			if ( null !== $page ) {
+				foreach ( $this->fields as $option ) {
+					if ( $option['name'] === $page && false === $is_section ) {
+						return $option['name'];
+					} elseif ( $option['name'] === $page && true === $is_section && isset( $option['sections'] ) ) {
+						$cs = current( $option['sections'] );
+						return $cs['name'];
+					}
+				}
+			} else {
+				$cs = current( $this->fields );
+				if ( true === $is_section && isset( $cs['sections'] ) ) {
+					$cs = current( $cs['sections'] );
+					return $cs['name'];
+				}
+				return isset( $cs['name'] ) ? $cs['name'] : false;
+			}
+			return false;
+		}
+
+		/**
+		 * Returns Active Menu Slug Based on is_parent
+		 *
+		 * @param $is_parent
+		 *
+		 * @return bool|string
+		 */
+		public function active( $is_parent ) {
+			if ( true === $is_parent ) {
+				return isset( $this->active_menu['parent_id'] ) ? $this->active_menu['parent_id'] : false;
+			}
+			return isset( $this->active_menu['section_id'] ) ? $this->active_menu['section_id'] : false;
+		}
+		/*************************************************************************************************************/
 
 		/**
 		 * Loads Required Style for the current settings page.
