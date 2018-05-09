@@ -103,5 +103,14 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 			}
 			return $class;
 		}
+
+		/**
+		 * Returns Fields.
+		 *
+		 * @return array
+		 */
+		protected function fields() {
+			return $this->fields;
+		}
 	}
 }
