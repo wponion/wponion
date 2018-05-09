@@ -71,7 +71,7 @@ if ( ! class_exists( 'WPOnion_Autoloader' ) ) {
 		 * @static
 		 */
 		public static function get_filename( $class_name, $replace = 'WPOnion_' ) {
-			$file_name = strtolower( str_replace( 'WPOnion_', '', $class_name ) );
+			$file_name = strtolower( str_replace( $replace, '', $class_name ) );
 			$file_name = str_replace( '_', '-', $file_name ) . '.php';
 			return $file_name;
 		}
