@@ -175,27 +175,6 @@ if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
-	/**
-	 * Converts PHP Array To HTML Attributes.
-	 *
-	 * @param $attributes
-	 *
-	 * @return string
-	 */
-	function wponion_array_to_html_attributes( $attributes ) {
-		$atts = '';
-		if ( ! empty( $attributes ) ) {
-			foreach ( $attributes as $key => $value ) {
-				if ( 'only-key' === $value ) {
-					$atts .= ' ' . esc_attr( $key );
-				} else {
-					$atts .= ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
-				}
-			}
-		}
-		return $atts;
-	}
-}
 
+require_once WPONION_PATH . 'core/helpers/field.php';
 require_once WPONION_PATH . 'core/helpers/registry.php';
