@@ -83,3 +83,36 @@ if ( ! function_exists( '_wponion_get_field_value' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'wponion_js_vars' ) ) {
+	/**
+	 * Converts PHP Array into JS JSON String with script tag and returns it.
+	 *
+	 * @param      $object_name
+	 * @param      $l10n
+	 * @param bool $with_script_tag
+	 *
+	 * @return string
+	 */
+	function wponion_js_vars( $object_name = '', $l10n, $with_script_tag = true ) {
+		foreach ( (array) $l10n as $key => $value ) {
+			if ( ! is_scalar( $value ) ) {
+				continue;
+			}
+			$l10n[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
+		}
+		$script = null;
+		if ( ! empty( $object_name ) ) {
+			$script = "var $object_name = " . wp_json_encode( $l10n ) . ';';
+		} else {
+			$script = wp_json_encode( $l10n );
+		}
+		if ( ! empty( $after ) ) {
+			$script .= "\n$after;";
+		}
+		if ( $with_script_tag ) {
+			return '<script type="text/javascript" >' . $script . '</script>';
+		}
+		return $script;
+	}
+}
