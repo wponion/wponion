@@ -95,8 +95,8 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		protected function default_wrap_class( $bootstrap = false ) {
 			$class = 'wponion-settings-framework wponion-framework';
 
-			$class .= ' wponion-' . $this->plugin_id() . '-' . $this->type;
-			$class .= ' wponion-' . $this->type;
+			$class .= ' wponion-' . $this->plugin_id() . '-' . $this->module;
+			$class .= ' wponion-' . $this->module;
 
 			if ( true === $bootstrap ) {
 				$class .= ' wponion-framework-bootstrap ';
