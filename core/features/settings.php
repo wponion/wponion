@@ -28,7 +28,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $type = 'settings';
+		protected $module = 'settings';
 
 		/**
 		 * options_cache
@@ -238,27 +238,17 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 						add_submenu_page( $menu['slug'], $_menu['title'], $_menu['title'], $menu['capability'], $id, $callback );
 					}
 
-					/*foreach ( $this->fields as $field ) {
-						if ( isset( $field['sections'] ) || isset( $field['fields'] ) || $field['callback'] ) {
-							$_slug = isset( $field['name'] ) ? $field['name'] : false;
-							add_submenu_page( $menu['slug'], $field['title'], $field['title'], $menu['capability'], $_slug, $callback );
-						}
-					}*/
-
 					global $submenu;
 					if ( isset( $submenu[ $menu['slug'] ] ) && ! empty( $submenu[ $menu['slug'] ] ) ) {
 						foreach ( $submenu[ $menu['slug'] ] as $id => $smenu ) {
 							if ( $menu['slug'] !== $submenu[ $menu['slug'] ][ $id ][2] ) {
-								/*$submenu[ $menu['slug'] ][ $id ][2] = add_query_arg( array(
-									'parent-id' => $smenu[2],
-								), $this->page_url( true ) );*/
-
 								$submenu[ $menu['slug'] ][ $id ][2] = isset( $menus[ $smenu[2] ]['part_href'] ) ? $menus[ $smenu[2] ]['part_href'] : false;
 							} elseif ( $menu['slug'] === $submenu[ $menu['slug'] ][ $id ][2] ) {
 								unset( $submenu[ $menu['slug'] ][ $id ] );
 							}
 						}
 					}
+
 					$this->_action( 'register_submenu', $menu['slug'], $this );
 				}
 
@@ -281,7 +271,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				$theme          = $this->option( 'theme' );
 				$template_path  = $this->option( 'template_path' );
 				$file           = wponion_locate_template( $theme . '/' . $theme . '-init.php', $template_path );
-				$html_file      = wponion_locate_template( $theme . '/' . $theme . '-html.php', $template_path );
+				$html_file      = wponion_locate_template( $theme . '/' . $theme . '-settings-html.php', $template_path );
 				$callback_class = 'WPOnion_' . strtolower( $theme ) . '_Theme';
 
 				if ( file_exists( $file ) && file_exists( $html_file ) ) {
@@ -289,7 +279,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 						'class'     => $callback_class,
 						'success'   => true,
 						'file'      => $file,
-						'html_file' => wponion_locate_template( $theme . '/' . $theme . '-html.php', $template_path ),
+						'html_file' => wponion_locate_template( $theme . '/' . $theme . '-settings-html.php', $template_path ),
 					);
 					wponion_get_template( $theme . '/' . $theme . '-init.php', array( 'plugin_id' => $this->plugin_id() ) );
 				} else {
@@ -326,7 +316,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$user_menu = $this->option( 'menu' );
 			if ( isset( $user_menu['submenus'] ) && true === $user_menu['submenus'] ) {
 				global $submenu_file;
-				$submenu_file = add_query_arg( array(
+				$menus        = $this->settings_menus();
+				$submenu_file = isset( $menus[ $this->active( true ) ] ) ? $menus[ $this->active( true ) ]['part_href'] : add_query_arg( array(
 					'parent-id' => $this->active( true ),
 				), $this->page_url( true ) );
 			}
@@ -553,6 +544,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				if ( true === $internal_href ) {
 					$menu['href']      = add_query_arg( array( 'parent-id' => $name ), $this->page_url() );
 					$menu['part_href'] = add_query_arg( array( 'parent-id' => $name ), $this->page_url( true ) );
+				} else {
+					$menu['part_href'] = $menu['href'];
 				}
 
 				if ( $name === $this->active( true ) ) {
@@ -569,6 +562,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 						'parent-id'  => $parent,
 						'section-id' => $name,
 					), $this->page_url( true ) );
+				} else {
+					$menu['part_href'] = $menu['href'];
 				}
 
 				if ( $name === $this->active( false ) ) {
@@ -656,6 +651,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		/**************************************************************************************************************
 		 * Below Functions are Related To Settings Page Themes.
 		 *************************************************************************************************************/
+
 		/**
 		 * @param string $extra_class
 		 * @param bool   $bootstrap
@@ -673,33 +669,63 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		}
 
 		/**
-		 * Renders InnerHTML.
+		 * Checks if Option Loop Is Valid.
 		 *
-		 * @return string
+		 * @param array $option
+		 *
+		 * @return bool
 		 */
-		public function render_inner_html() {
-			$return = '';
-			$theme  = $this->theme_instance();
-			foreach ( $this->fields as $option ) {
-				if ( ! isset( $option['fields'] ) && ! isset( $option['callback'] ) && ! isset( $option['sections'] ) ) {
-					continue;
-				}
-
-				$is_parent        = ( $option['name'] === $this->active( true ) ) ? true : false;
-				$is_parent_hidden = ( false === $is_parent ) ? ' hidden ' : '';
-				$tab_wrap         = '<div id="wponion-tab-' . $option['name'] . '" class="' . $is_parent_hidden . '" data-parent="' . $option['name'] . '">';
-
-				$return .= $theme->tab_wrap_start( $tab_wrap, $option, $is_parent );
-
-
-				$return .= $theme->tab_wrap_end( '</div>', $option, $is_parent );
-
-
+		public function valid_option( $option = array() ) {
+			if ( ! isset( $option['fields'] ) && ! isset( $option['callback'] ) && ! isset( $option['sections'] ) ) {
+				return false;
 			}
-			return $return;
+			return true;
 		}
+
+		/**
+		 * @param bool $parent
+		 * @param bool $child
+		 *
+		 * @return bool
+		 */
+		public function is_tab_active( $parent = false, $child = false ) {
+			if ( false !== $parent && false === $child ) {
+				return ( $parent === $this->active( true ) ) ? true : false;
+			} else {
+				return ( $parent === $this->active( true ) && $child === $this->active( false ) ) ? true : false;
+			}
+		}
+
+		/**
+		 * This function should be used in each loop when parent loop is runnig.
+		 *
+		 * @param $options
+		 *
+		 * @return array|bool|mixed
+		 */
+		public function get_first_section( $options ) {
+			$first_sec = current( $options['sections'] );
+			return ( is_array( $first_sec ) && isset( $first_sec['name'] ) ) ? $first_sec : false;
+		}
+
 		/**************************************************************************************************************
 		 * Above Functions are Related To Settings Page Themes.
 		 *************************************************************************************************************/
+
+		/**
+		 * Renders Fields Output.
+		 *
+		 * @param array $field
+		 *
+		 * @return string
+		 */
+		public function render_field( $field = array() ) {
+			$value = _wponion_get_field_value( $field, array() );
+
+			return wponion_add_element( $field, $value, array(
+				'plugin_id' => $this->plugin_id(),
+				'unique'    => $this->unique,
+			) );
+		}
 	}
 }
