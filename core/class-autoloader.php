@@ -89,8 +89,8 @@ if ( ! class_exists( 'WPOnion_Autoloader' ) ) {
 				include_once self::path( 'core/' . 'class-' . $file_name );
 			} elseif ( file_exists( self::path( 'core/abstract/' . $file_name ) ) ) {
 				include_once self::path( 'core/abstract/' . $file_name );
-			} elseif ( file_exists( self::path( 'core/features/' . $file_name ) ) ) {
-				include_once self::path( 'core/features/' . $file_name );
+			} elseif ( file_exists( self::path( 'core/modules/' . $file_name ) ) ) {
+				include_once self::path( 'core/modules/' . $file_name );
 			}
 		}
 
