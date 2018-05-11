@@ -86,33 +86,53 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 			return wponion_settings_registry( $this->plugin_id );
 		}
 
+		/**************************************************************************************************************
+		 * Below Functions Are Related To Settings Module
+		 *************************************************************************************************************/
+
 		/**
-		 * This function called  before
-		 * each parent section's div creation (<div class="wponion-"></div>)
+		 * This function called twice inside a loop
+		 * 1. For starting
+		 * 2. For Ending.
 		 *
-		 * @param       $tab_wrap
-		 * @param array $options
-		 * @param       $is_parent_hidden
+		 * @param string $return
+		 * @param string $place
+		 * @param array  $options
+		 * @param bool   $is_parent_active
 		 *
 		 * @return string
 		 */
-		public function tab_wrap_start( $tab_wrap, $options = array(), $is_parent_hidden ) {
-			return $tab_wrap;
+		public function settings_tab_level1_wrap( $return = '', $place = 'start', $options = array(), $is_parent_active = false ) {
+			if ( 'start' === $place ) {
+				return $return;
+			} else {
+				return $return;
+			}
 		}
 
 		/**
-		 * This function called  after
-		 * each parent section's div creation (<div class="wponion-"></div>)
+		 * This function called twice inside a loop
+		 * 1. For starting
+		 * 2. For Ending.
 		 *
-		 * @param       $tab_wrap
-		 * @param array $options
-		 * @param       $is_parent_hidden
+		 * @param string $return
+		 * @param string $place
+		 * @param array  $options
+		 * @param bool   $is_parent_active
 		 *
 		 * @return string
 		 */
-		public function tab_wrap_end( $tab_wrap, $options = array(), $is_parent_hidden ) {
-			return $tab_wrap;
+		public function settings_tab_wrap_after( $return = '', $place = 'start', $options = array(), $is_parent_active = false ) {
+			if ( 'start' === $place ) {
+				return $return;
+			} else {
+				return $return;
+			}
 		}
+
+		/**************************************************************************************************************
+		 * Above Functions Are Related To Settings Module
+		 *************************************************************************************************************/
 
 
 	}
