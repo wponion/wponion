@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $type = '';
+		protected $module = '';
 
 		/**
 		 * Merges And sets the given args
@@ -145,9 +145,11 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 			$_args            = $args;
 			$actual_hook_slug = $args[0];
 			$_args[0]         = $this->get_action_filter_slugs( true ) . $actual_hook_slug;
-			$data             = $this->action_filter( $type, $_args );
-			$_args[0]         = $this->get_action_filter_slugs( false ) . $actual_hook_slug;
-			$data             = $this->action_filter( $type, $_args );
+			#$var_dump( $_args[0] );
+			$data     = $this->action_filter( $type, $_args );
+			$_args[0] = $this->get_action_filter_slugs( false ) . $actual_hook_slug;
+			#$var_dump( $_args[0] );
+			$data = $this->action_filter( $type, $_args );
 			return $data;
 		}
 
@@ -160,9 +162,35 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 		 */
 		protected function get_action_filter_slugs( $plugin_id = false ) {
 			if ( false === $plugin_id ) {
-				return 'wponion_' . $this->type . '_';
+				return $this->generate_filter_slug( array(
+					'wponion',
+					$this->module,
+				) );
 			}
-			return 'wponion_' . $this->type . '_' . $this->plugin_id() . '_';
+			return $this->generate_filter_slug( array(
+				'wponion',
+				$this->module,
+				$this->plugin_id(),
+			) );
+		}
+
+
+		/**
+		 * Generates Slug For Apply Filters.
+		 *
+		 * @param array $args
+		 *
+		 * @return string
+		 */
+		protected function generate_filter_slug( $args = array() ) {
+			$html = array();
+			foreach ( $args as $slug ) {
+				if ( ! empty( $slug ) ) {
+					$html[] = $slug;
+				}
+			}
+			return implode( '_', $html ) . '_';
+
 		}
 
 		/**
