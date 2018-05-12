@@ -14,11 +14,25 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$options = array(
+/*$options = array(
 	array(
 		'name'   => 'page1',
 		'title'  => __( 'Simple Tab' ),
-		'fields' => array( array() ),
+		'fields' => array(
+			array(
+				'type'  => 'text',
+				'id'    => 'somevalue',
+				'title' => 'Simple Text Field.',
+				'desc'  => 'The spacer to the section menu as seen to the left (after this section block) is the divide "section". Also the divider below is the divide "field".',
+			),
+
+			array(
+				'type'       => 'text',
+				'id'         => 'somevalue',
+				'title'      => 'Simple Text Field.',
+				'desc_field' => 'The spacer to the section menu as seen to the left (after this section block) is the divide "section". Also the divider below is the divide "field".',
+			),
+		),
 	),
 	array(
 		'name'   => 'page2',
@@ -48,20 +62,73 @@ $options = array(
 		'title'    => __( 'Custom Callback' ),
 		'callback' => 'yourcallbackhere',
 	),
+	array(
+		'name'     => 'page7',
+		'title'    => 'With Sub Menus',
+		'sections' => array(
+			array(
+				'name'   => 'page7-1',
+				'title'  => __( 'Submenu 1' ),
+				'fields' => array( array() ),
+			),
 
-);
+			array(
+				'name'   => 'page7-2',
+				'title'  => __( 'Submenu 2' ),
+				'fields' => array( array() ),
+			),
 
+			array(
+				'name'   => 'page7-3',
+				'title'  => __( 'Submenu 3' ),
+				'fields' => array( array() ),
+			),
 
-new WPOnion_Settings( $options, array(
-	'menu'      => array(
-		'type'     => 'parent',
-		'title'    => 'WP Onion',
-		'slug'     => 'wponion',
-		'submenus' => true,
+			array(
+				'name'   => 'page7-4',
+				'title'  => __( 'Submenu 4' ),
+				'fields' => array( array() ),
+			),
+		),
 	),
-	'theme'     => 'wp',
-	'plugin_id' => 'boilerplate',
+
+);*/
+
+
+$settings_instance = new WPOnion_Settings( array(
+	'extra_css'     => array( 'plugin-css-1' ),
+	'extra_js'      => array( 'plugin-js-1' ),
+	'option_name'   => '_wpboilerplate_settings',
+	'template_path' => false,
+	'menu'          => array(
+		'type'       => 'parent',
+		'title'      => 'WP Onion',
+		'capability' => 'manage_options',
+		'icon'       => false, # Or Provide A Actual URL of the icon
+		'position'   => false, #set to false to auto set via wp
+		'slug'       => 'wponion',
+		'submenus'   => true,
+	),
+	'theme'         => 'wp',
+	'plugin_id'     => 'boilerplate',
 ) );
+
+$settings_instance->add_page( 'page1', 'Page 1' );
+$settings_instance->add_field( 'page1', false, array(
+	'id'         => 'field1',
+	'type'       => 'text',
+	'title'      => 'Simple text',
+	'help'       => 'SomeHelpText',
+	'inputmask'  => '9-a{1,3}9{1,3}',
+
+) );
+
+$settings_instance->add_page( 'page2', 'Page 2' )
+	->add_section( 'page2', 'section1', 'Section1' )
+	->add_field( 'page2', 'section1', array(
+		'title' => 'Some Title',
+		'type'  => 'text',
+	) );
 
 add_action( 'wponion_settings_boilerplate_register_submenu', function ( $slug ) {
 	add_submenu_page( $slug, 'Custom Page 1', 'Custom Page1', 'manage_options', 'custompage1', function () {
