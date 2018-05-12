@@ -6,7 +6,8 @@
  */
 var wponion = {
   helper: {},
-  fields: {}
+  fields: {},
+  themes: {}
 };
 
 //@codekit-append ../vendors/node_modules/jquery.actual/jquery.actual.js

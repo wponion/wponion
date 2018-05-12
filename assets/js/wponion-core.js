@@ -57,6 +57,12 @@ var wponion_elem = function wponion_elem() {
 		return $default;
 	};
 
+	wponion.url_param = function (str) {
+		return (str || document.location.search).replace(/(^\?)/, '').split("&").map(function (n) {
+			return n = n.split("="), this[n[0]] = n[1], this;
+		}.bind({}))[0];
+	};
+
 	/**
   * Below Code Runs On Document Ready
   */
