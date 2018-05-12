@@ -74,8 +74,23 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		 * @static
 		 */
 		public static function init_array() {
-			#self::$scripts['bootstrap'] = array( 'assets/js/wponion-plugins', array(), '4.1.1', true );
-			self::$style['bootstrap'] = array( 'assets/css/wponion-base', array(), '4.1.1', true );
+			self::$scripts['wponion-plugins'] = array(
+				'assets/js/wponion-plugins',
+				array( 'jquery' ),
+				WPONION_VERSION,
+			);
+			self::$scripts['wponion-core']    = array(
+				'assets/js/wponion-core',
+				array( 'wponion-plugins' ),
+				WPONION_VERSION,
+			);
+			self::$scripts['wponion-fields']  = array(
+				'assets/js/wponion-fields',
+				array( 'wponion-core' ),
+				WPONION_VERSION,
+			);
+
+			self::$style['wponion-core'] = array( 'assets/css/wponion-base', array(), '4.1.1', true );
 		}
 
 		/**
@@ -88,10 +103,7 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		 * @static
 		 */
 		public static function is_debug( $file_name = '', $ext = 'css' ) {
-			if ( ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) || defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) {
-				return $file_name . '.' . $ext;
-			}
-			return $file_name . '.min.' . $ext;
+			return wponion_debug_assets( $file_name, $ext );
 		}
 	}
 }
