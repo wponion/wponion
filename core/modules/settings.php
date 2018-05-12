@@ -666,7 +666,19 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$class .= ( true === $this->is_single_page() ) ? ' wponion-single-page ' : '';
 			$class .= ( 'only_submenu' === $this->is_single_page() ) ? ' wponion-submenu-single-page ' : '';
 			$class .= ' wponion-' . $this->option( 'theme' ) . '-theme ';
+
+			if ( 1 === count( $this->fields ) ) {
+				$class .= ' wponion-hide-nav ';
+
+				$current = current( $this->fields );
+				if ( isset( $current['fields'] ) || ( isset( $current['sections'] ) && 1 === count( $current['sections'] ) ) ) {
+					$class .= ' wponion-no-subnav ';
+				}
+			}
+
 			$class .= ' ' . $extra_class;
+
+
 			return esc_attr( $class );
 		}
 
