@@ -122,7 +122,7 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 
 					$return[] = '<li> <a ' . $attr . '>' . $icon . $page_title . '</a>';
 				}
-				$return = implode( '| </li>', $return );
+				$return = implode( '  </li>', $return );
 				$return = '<ul class="wponion-submenus subsubsub"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';
 				return '<h2 class="wponion-subnav-container hndle">' . $return . '</h2>';
 			} else {
