@@ -222,5 +222,25 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 		public function plugin_id() {
 			return $this->plugin_id;
 		}
+
+		/**
+		 * Checks And handles data.
+		 *
+		 * @param array  $data
+		 * @param array  $defaults
+		 * @param string $save_with
+		 *
+		 * @return array
+		 */
+		protected function handle_data( $data = array(), $defaults = array(), $save_with = '' ) {
+			if ( true === $data ) {
+				return $data;
+			} elseif ( is_array( $data ) ) {
+				return $this->parse_args( $data, $defaults );
+			} elseif ( false !== $data && isset( $defaults[ $save_with ] ) ) {
+				$defaults[ $save_with ] = $data;
+			}
+			return $defaults;
+		}
 	}
 }
