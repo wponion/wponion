@@ -37,6 +37,7 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 
 		public function register_assets() {
 			wp_enqueue_style( 'wponion-wp-theme', $this->asset( 'assets/wponion-wp-theme' ), array( 'wponion-core' ) );
+			wp_enqueue_script( 'wponion-wp-theme', $this->asset( 'assets/wponion-wp-theme', 'js' ), array( 'wponion-plugins' ) );
 		}
 
 		/**
@@ -48,7 +49,6 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 			$return = '<nav class="nav-tab-wrapper">';
 			$menus  = $this->settings()
 				->settings_menus();
-			//
 
 			if ( is_array( $menus ) ) {
 				foreach ( $menus as $slug => $menu ) {

@@ -4,6 +4,15 @@
    */
 }
 
+.wponion-framework.wponion-wp-theme nav.nav-tab-wrapper a {
+  outline: none;
+}
+
+.wponion-framework.wponion-wp-theme nav.nav-tab-wrapper a:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 .wponion-framework.wponion-wp-theme #poststuff {
   display: inline-block;
   width: 100%;
@@ -24,6 +33,12 @@
 .wponion-framework.wponion-wp-theme #poststuff div.postbox .wponion-subnav-container .wponion-submenus li a {
   padding: 0 5px !important;
   font-size: 14px;
+  outline: none;
+}
+
+.wponion-framework.wponion-wp-theme #poststuff div.postbox .wponion-subnav-container .wponion-submenus li a:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .wponion-framework.wponion-wp-theme #poststuff div.postbox div.inside {
