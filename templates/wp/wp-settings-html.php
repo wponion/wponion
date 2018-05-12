@@ -5,6 +5,19 @@ $settings = $wponion_wp_theme->settings();
 <div class="wrap">
 
 	<div class="<?php echo $settings->wrap_class( '', true ); ?>">
+		<div class="wponion-framework-header">
+			<?php
+			if ( ! empty( $settings->option( 'framework_title' ) ) ) {
+				echo '<h1>' . $settings->option( 'framework_title' ) . '</h1>';
+			}
+
+			if ( ! empty( $settings->option( 'framework_desc' ) ) ) {
+				echo '<p>' . $settings->option( 'framework_desc' ) . '</p>';
+			}
+
+			?>
+
+		</div>
 		<?php echo $wponion_wp_theme->get_main_menu_html(); ?>
 		<div id="poststuff">
 			<div class="metabox-holder wponion-framework-bootstrap" id="post-body">
