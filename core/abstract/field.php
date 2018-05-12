@@ -526,8 +526,9 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * var_dump( wp_script_is( 'wponion-fields', 'done' ) );
 		 */
 		protected function localize_field() {
-			if ( ! empty( $this->js_field_args() ) ) {
-				wp_localize_script( 'wponion-fields', $this->js_field_id(), $this->js_field_args() );
+			$data = $this->js_field_args();
+			if ( ! empty( $data ) ) {
+				wp_localize_script( 'wponion-fields', $this->js_field_id(), $data );
 			}
 		}
 
