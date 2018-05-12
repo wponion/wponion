@@ -25,95 +25,128 @@ if ( ! class_exists( 'WPOnion_Module_Field_Handler' ) ) {
 		 */
 		protected $fields = array();
 
+		protected $current_section = false;
+		protected $current_page    = false;
+
 		/**
-		 * @param string $page_id
+		 * @param string $page_slug
 		 * @param string $page_title
 		 * @param array  $page_args
 		 *
 		 * @return $this
 		 */
-		public function add_page( $page_id = '', $page_title = '', $page_args = array() ) {
-			if ( ( false === $page_title || empty( $page_title ) ) || ( false === $page_id || empty( $page_id ) ) ) {
-				return $this;
+		public function add_page( $page_slug = '', $page_title = '', $page_args = array() ) {
+			if ( ! isset( $this->fields[ $page_slug ] ) ) {
+				$args = $this->parse_args( $page_args, array(
+					'name'  => $page_slug,
+					'title' => $page_title,
+					'icon'  => false,
+				) );
+
+				$this->fields[ $args['name'] ] = $args;
+				$this->current_page            = $args['name'];
+				$this->current_section         = false;
 			}
-			$args = $this->parse_args( $page_args, array(
-				'name'  => $page_id,
-				'title' => $page_title,
-			) );
-
-			$this->fields[ $args['name'] ] = $args;
-
 			return $this;
 		}
 
 		/**
-		 * @param string $page_id
-		 * @param string $section_id
+		 * @param bool   $page_id
+		 * @param string $section_slug
 		 * @param string $section_title
 		 * @param array  $section_args
 		 *
 		 * @return $this
 		 */
-		public function add_section( $page_id = '', $section_id = '', $section_title = '', $section_args = array() ) {
-			if ( ( false === $page_id || empty( $page_id ) ) || ( false === $section_title || empty( $section_title ) ) || ( false === $section_id || empty( $section_id ) ) ) {
-				return $this;
-			}
+		public function add_section( $page_id = false, $section_slug = '', $section_title = '', $section_args = array() ) {
+			if ( isset( $this->fields[ $page_id ] ) && ! isset( $this->fields[ $page_id ]['sections'][ $section_slug ] ) ) {
+				$args = $this->parse_args( $section_args, array(
+					'name'  => $section_slug,
+					'title' => $section_title,
+					'icon'  => false,
+				) );
 
-			$page_slug = ( empty( $section_id ) && ! empty( $section_title ) ) ? sanitize_title( $section_title ) : $section_id;
-			$args      = $this->parse_args( $section_args, array(
-				'name'  => $page_slug,
-				'title' => $section_title,
-			) );
-
-			if ( ! isset( $this->fields[ $page_id ]['sections'] ) ) {
-				$this->fields[ $page_id ]['sections'] = array();
+				$this->fields[ $page_id ]['sections'][ $args['name'] ] = $args;
+				$this->current_section                                 = $args['name'];
 			}
-			$this->fields[ $page_id ]['sections'][ $section_id ] = $args;
 			return $this;
 		}
 
 		/**
-		 * Adds A Field To Field Array.
+		 * @param array $new_args
+		 * @param       $fields
 		 *
-		 * @param string $page_id
-		 * @param bool   $section_id
-		 * @param array  $field
+		 * @return array
+		 */
+		protected function __add_fields( $new_args = array(), $fields ) {
+			if ( isset( $new_args[0] ) ) {
+				return array_merge( $new_args, $fields );
+			}
+			$fields[] = $new_args;
+			return $fields;
+		}
+
+		/**
+		 * @param bool  $page_id
+		 * @param bool  $section_id
+		 * @param array $fields
 		 *
 		 * @return $this
 		 */
-		public function add_field( $page_id = '', $section_id = false, $field = array() ) {
-			if ( false === $page_id || empty( $page_id ) ) {
-				return $this;
-			}
-
-			if ( false === $section_id ) {
-				if ( isset( $this->fields[ $page_id ] ) ) {
-					if ( ! isset( $this->fields[ $page_id ]['fields'] ) ) {
-						$this->fields[ $page_id ]['fields'] = array();
-					}
-
-					if ( isset( $field[0] ) ) {
-						$this->fields[ $page_id ]['fields'] = array_merge( $this->fields[ $page_id ]['fields'], $field );
-					} else {
-						$this->fields[ $page_id ]['fields'][] = $field;
-					}
+		public function add_field( $page_id = false, $section_id = false, $fields = array() ) {
+			if ( false !== $page_id && false === $section_id && isset( $this->fields[ $page_id ] ) ) {
+				if ( ! isset( $this->fields[ $page_id ]['fields'] ) ) {
+					$this->fields[ $page_id ]['fields'] = array();
 				}
-			} else {
-				if ( isset( $this->fields[ $page_id ] ) ) {
-					if ( ! isset( $this->fields[ $page_id ]['sections'][ $section_id ]['fields'] ) ) {
-						$this->fields[ $page_id ]['sections'][ $section_id ]['fields'] = array();
-					}
+				$this->fields[ $page_id ]['fields'] = $this->__add_fields( $fields, $this->fields[ $page_id ]['fields'] );
 
-					if ( isset( $field[0] ) ) {
-						$this->fields[ $page_id ]['sections'][ $section_id ]['fields'] = array_merge( $this->fields[ $page_id ]['sections'][ $section_id ]['fields'], $field );
-					} else {
-						$this->fields[ $page_id ]['sections'][ $section_id ]['fields'][] = $field;
-					}
+			} elseif ( false !== $page_id && false !== $section_id && isset( $this->fields[ $page_id ] ) && isset( $this->fields[ $page_id ] ['sections'] [ $section_id ] ) ) {
+				if ( ! isset( $this->fields[ $page_id ]['sections'][ $section_id ]['fields'] ) ) {
+					$this->fields[ $page_id ]['sections'][ $section_id ]['fields'] = array();
 				}
+				$this->fields[ $page_id ]['sections'][ $section_id ]['fields'] = $this->__add_fields( $fields, $this->fields[ $page_id ]['sections'][ $section_id ]['fields'] );
 			}
-
 
 			return $this;
+		}
+
+		/**
+		 * @param string $page_slug
+		 * @param string $page_title
+		 * @param array  $page_args
+		 *
+		 * @return \WPOnion_Module_Field_Handler
+		 */
+		public function page( $page_slug = '', $page_title = '', $page_args = array() ) {
+			return $this->add_page( $page_slug, $page_title, $page_args );
+		}
+
+		/**
+		 * @param string $section_slug
+		 * @param string $section_title
+		 * @param array  $section_args
+		 *
+		 * @return \WPOnion_Module_Field_Handler
+		 */
+		public function section( $section_slug = '', $section_title = '', $section_args = array() ) {
+			return $this->add_section( $this->current_page, $section_slug, $section_title, $section_args );
+		}
+
+		/**
+		 * @param string $field_type
+		 * @param string $field_id
+		 * @param string $field_title
+		 * @param array  $field_args
+		 *
+		 * @return \WPOnion_Module_Field_Handler
+		 */
+		public function field( $field_type = '', $field_id = '', $field_title = '', $field_args = array() ) {
+			$field_args = $this->parse_args( $field_args, array(
+				'id'    => $field_id,
+				'type'  => $field_type,
+				'title' => $field_title,
+			) );
+			return $this->add_field( $this->current_page, $this->current_section, $field_args );
 		}
 	}
 }
