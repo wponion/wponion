@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
-	abstract class WPOnion_Feature_Abstract extends WPOnion_Abstract {
+	abstract class WPOnion_Feature_Abstract extends WPOnion_Module_Field_Handler {
 		/**
 		 * Stores Fields MD5.
 		 *
@@ -98,8 +98,12 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 			$class .= ' wponion-' . $this->plugin_id() . '-' . $this->module;
 			$class .= ' wponion-' . $this->module;
 
-			if ( true === $bootstrap ) {
-				$class .= ' wponion-framework-bootstrap ';
+			if ( 'all' === $bootstrap || true === $bootstrap ) {
+				$class .= ' wponion-framework-bootstrap-grid wponion-framework-bootstrap';
+			} elseif ( 'grid' === $bootstrap ) {
+				$class .= ' wponion-framework-bootstrap-grid';
+			} elseif ( 'base' === $bootstrap ) {
+				$class .= ' wponion-framework-bootstrap';
 			}
 			return $class;
 		}
