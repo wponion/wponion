@@ -689,10 +689,19 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function valid_option( $option = array() ) {
+		public function valid_option( $option = array(), $section = false ) {
 			if ( ! isset( $option['fields'] ) && ! isset( $option['callback'] ) && ! isset( $option['sections'] ) ) {
 				return false;
 			}
+
+			if ( false === $section && ( false === $this->is_single_page() || 'only_submenu' === $this->is_single_page() ) && $option['name'] !== $this->active( true ) ) {
+				return false;
+			}
+
+			if ( true === $section && false === $this->is_single_page() && $option['name'] !== $this->active( false ) ) {
+				return false;
+			}
+
 			return true;
 		}
 
