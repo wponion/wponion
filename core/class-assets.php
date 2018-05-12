@@ -59,11 +59,15 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		 */
 		public static function register_assets() {
 			foreach ( self::$style as $id => $file ) {
-				$url = self::is_debug( WPONION_URL . $file[0] );
+				$url     = self::is_debug( WPONION_URL . $file[0] );
+				$file[2] = isset( $file[2] ) ? $file[2] : WPONION_VERSION;
+				$file[1] = isset( $file[1] ) ? $file[1] : array();
 				wp_register_style( $id, $url, $file[1], $file[2], 'all' );
 			}
 			foreach ( self::$scripts as $iid => $ffile ) {
-				$url = self::is_debug( WPONION_URL . $ffile[0], 'js' );
+				$url      = self::is_debug( WPONION_URL . $ffile[0], 'js' );
+				$ffile[2] = isset( $ffile[2] ) ? $ffile[2] : WPONION_VERSION;
+				$ffile[1] = isset( $ffile[1] ) ? $ffile[1] : array();
 				wp_register_script( $iid, $url, $ffile[1], $ffile[2], true );
 			}
 		}
@@ -74,23 +78,10 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		 * @static
 		 */
 		public static function init_array() {
-			self::$scripts['wponion-plugins'] = array(
-				'assets/js/wponion-plugins',
-				array( 'jquery' ),
-				WPONION_VERSION,
-			);
-			self::$scripts['wponion-core']    = array(
-				'assets/js/wponion-core',
-				array( 'wponion-plugins' ),
-				WPONION_VERSION,
-			);
-			self::$scripts['wponion-fields']  = array(
-				'assets/js/wponion-fields',
-				array( 'wponion-core' ),
-				WPONION_VERSION,
-			);
+			global $wponion_js, $wponion_css;
 
-			self::$style['wponion-core'] = array( 'assets/css/wponion-base', array(), '4.1.1', true );
+			self::$scripts = $wponion_js;
+			self::$style   = $wponion_css;
 		}
 
 		/**
