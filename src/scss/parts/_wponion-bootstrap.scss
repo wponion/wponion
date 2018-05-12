@@ -17,5 +17,18 @@
 }
 
 .wponion-framework-bootstrap {
+  @import "../../vendors/node_modules/bootstrap/scss/type";
+  @import "../../vendors/node_modules/bootstrap/scss/bootstrap-reboot";
+  @import "../../vendors/node_modules/bootstrap/scss/buttons";
   @import "../../vendors/node_modules/bootstrap/scss/badge";
+  @import "../../vendors/node_modules/bootstrap/scss/alert";
+  @import "../../vendors/node_modules/bootstrap/scss/card"; /**
+   * Bootstrap Fixes.
+   */
+
+  .btn {
+	outline:         none;
+	text-decoration: none;
+  }
+
 }
