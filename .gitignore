@@ -18,3 +18,4 @@ wp-content/plugins/hello.php
 .github/ISSUE_TEMPLATE
 .travis.yml
 LICENSE
+src/vendors/node_modules/
