@@ -79,7 +79,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * @param array  $value
 		 * @param string $unique
 		 */
-		public function __construct( $field = array(), $value = array(), $unique = '' ) {
+		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			$this->orginal_field = $field;
 			$this->orginal_value = $value;
 
@@ -91,7 +91,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$this->plugin_id = false;
 			} else {
 				$this->unique    = ( isset( $unique['unique'] ) ) ? $unique['unique'] : false;
-				$this->plugin_id = isset( $unique['plugin_id'] ) ? $unique['plugin_id'] : false;
+				$this->plugin_id = ( isset( $unique['plugin_id'] ) ) ? $unique['plugin_id'] : false;
 			}
 
 			if ( defined( 'WPONION_FIELD_FORECE_ASSETS' ) && true === WPONION_FIELD_FORECE_ASSETS ) {
@@ -223,7 +223,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				echo $this->field_wrapper( true );
 				echo $this->output();
 			} else {
-				echo $this->field_wrapper( false );
+				echo $this->field_wrapper( false ) . '<div class="clear"></div>';
 				echo '</div>';
 				if ( 12 === self::$columns ) {
 					echo '</div>';
@@ -260,8 +260,35 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			if ( $this->has( 'title' ) ) {
 				$html .= '<div class="wponion-field-title wponion-element-title">';
 				$html .= $this->title_before_after( false ) . '<h4>' . $this->data( 'title' ) . '</h4>' . $this->title_before_after( true );
+				$html .= $this->field_help();
 				$html .= $this->title_desc();
 				$html .= '</div>';
+			}
+			return $html;
+		}
+
+		/**
+		 * Renders HTML for ToolTip.
+		 *
+		 * @todo Finish the pending HTML Work.
+		 */
+		protected function field_help() {
+			$html = '';
+			if ( $this->has( 'help' ) ) {
+				$data = $this->handle_data( $this->data( 'help' ), array(
+					'icon'     => 'dashicons dashicons-editor-help',
+					'content'  => false,
+					'position' => 'bottom',
+				), 'content' );
+
+				$span_attr = wponion_array_to_html_attributes( array(
+					'data-toggle'    => 'tooltip',
+					'data-placement' => $data['position'],
+					'data-title'     => $data['content'],
+					'class'          => 'wponion-help',
+				) );
+
+				$html = '<span ' . $span_attr . '><span class="' . $data['icon'] . '"></span></span>';
 			}
 			return $html;
 		}
@@ -456,5 +483,29 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 */
 		abstract protected function output();
 
+		/**
+		 * Generates A New JS Field ID.
+		 */
+		protected function js_field_id() {
+			if ( ! isset( $this->js_field_id ) ) {
+				$key               = sanitize_key( $this->plugin_id() . '_' . $this->field_id() ) . intval( microtime( true ) ) . wp_rand();
+				$key               = str_replace( array( '-', '_' ), '', $key );
+				$this->js_field_id = $key;
+			}
+			return $this->js_field_id;
+		}
+
+		/**
+		 * Handles JS Values For A Element.
+		 *
+		 * @param string $object_name
+		 * @param array  $settings
+		 *
+		 * @todo check for script is done. if its then add inline to the fileds html.
+		 * var_dump( wp_script_is( 'wponion-fields', 'done' ) );
+		 */
+		protected function localize_field( $object_name = '', $settings = array() ) {
+			wp_localize_script( 'wponion-fields', $this->js_field_id(), $settings );
+		}
 	}
 }
