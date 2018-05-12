@@ -92,7 +92,11 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 		public function submenu_html( $menu_slug = '' ) {
 			$menus = $this->settings()
 				->settings_menus();
+
 			if ( isset( $menus[ $menu_slug ]['submenu'] ) && ! empty( $menus[ $menu_slug ]['submenu'] ) && is_array( $menus[ $menu_slug ]['submenu'] ) ) {
+				if ( count( $menus[ $menu_slug ]['submenu'] ) <= 1 ) {
+					return '';
+				}
 				$return = array();
 				foreach ( $menus[ $menu_slug ]['submenu'] as $slug => $menu ) {
 					if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
