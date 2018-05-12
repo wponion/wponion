@@ -5,6 +5,7 @@
 const wponion = {
 	helper: {},
 	fields: {},
+	themes: {}
 };
 
 //@codekit-append ../vendors/node_modules/jquery.actual/jquery.actual.js
