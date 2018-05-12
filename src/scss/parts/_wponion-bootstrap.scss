@@ -1,0 +1,21 @@
+@import "../../vendors/node_modules/bootstrap/scss/functions";
+@import "../../vendors/node_modules/bootstrap/scss/variables";
+@import "../../vendors/node_modules/bootstrap/scss/mixins";
+@import "../../vendors/node_modules/bootstrap/scss/tooltip";
+
+.wponion-framework-bootstrap-grid {
+  *, *::before, *::after {
+	box-sizing: inherit;
+  }
+
+  @import "../../vendors/node_modules/bootstrap/scss/mixins/breakpoints";
+  @import "../../vendors/node_modules/bootstrap/scss/mixins/grid-framework";
+  @import "../../vendors/node_modules/bootstrap/scss/mixins/grid";
+  @import "../../vendors/node_modules/bootstrap/scss/grid";
+  @import "../../vendors/node_modules/bootstrap/scss/utilities/display";
+  @import "../../vendors/node_modules/bootstrap/scss/utilities/flex";
+}
+
+.wponion-framework-bootstrap {
+  @import "../../vendors/node_modules/bootstrap/scss/badge";
+}

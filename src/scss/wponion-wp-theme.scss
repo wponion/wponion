@@ -1,0 +1,43 @@
+.wponion-framework.wponion-wp-theme {
+  #poststuff {
+	display: inline-block;
+	width:   100%;
+
+	div.postbox {
+	  border: 1px solid #d5d5d5;
+	  .wponion-subnav-container {
+		.wponion-submenus {
+		  margin-top:  0;
+		  display:     inline-block;
+		  float:       none;
+		  font-size:   14px;
+		  line-height: 2;
+		  li {
+			a {
+			  padding:   0 5px !important;
+			  font-size: 14px;
+			}
+		  }
+		}
+	  }
+
+	  div.inside {
+		margin:  0 !important;
+		padding: 0;
+
+		.wponion-element {
+		  padding: 15px;
+		}
+	  }
+	}
+  }
+
+  /***
+   * Handle Hiding Main Nav / Subnav.
+   */
+  &.wponion-hide-nav {
+	nav.nav-tab-wrapper {
+	  display: none;
+	}
+  }
+}

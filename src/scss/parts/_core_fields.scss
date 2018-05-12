@@ -1,0 +1,58 @@
+.wponion-element {
+  padding: 30px;
+
+  .wponion-desc {
+	margin-top:    10px;
+	margin-bottom: 0;
+	font-style:    italic;
+	font-weight:   400;
+	color:         #666;
+	font-size:     13px;
+  }
+
+  .wponion-field-title {
+	position: relative;
+	width:    30%;
+	float:    left;
+	h4 {
+	  margin:    0;
+	  font-size: 14px;
+	}
+  }
+
+  .wponion-fieldset {
+	margin-left: 30%;
+  }
+
+  .wponion-help {
+	position: absolute;
+	padding:  5px;
+	color:    #aaa;
+	right:    20px;
+	top:      0;
+	cursor:   pointer;
+	&:hover {
+	  color: #666;
+	}
+  }
+
+}
+
+.wponion-element + .wponion-element {
+  border-top: 1px solid #dfdfdf;
+}
+
+.wponion-framework {
+  .wponion-framework-header {
+	h1 {
+	  padding: 0;
+	}
+	p {
+	  font-style:    italic;
+	  color:         #606060;
+	  font-size:     14px;
+	  margin-bottom: 10px;
+	  margin-top:    10px;
+	}
+  }
+}
