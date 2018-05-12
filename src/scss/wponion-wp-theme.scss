@@ -1,4 +1,12 @@
 .wponion-framework.wponion-wp-theme {
+  nav.nav-tab-wrapper {
+	a {
+	  outline: none;
+	  &:focus {box-shadow: none;}
+
+	}
+  }
+
   #poststuff {
 	display: inline-block;
 	width:   100%;
@@ -16,6 +24,8 @@
 			a {
 			  padding:   0 5px !important;
 			  font-size: 14px;
+			  outline:   none;
+			  &:focus {box-shadow: none;}
 			}
 		  }
 		}
