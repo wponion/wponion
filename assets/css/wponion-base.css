@@ -2258,19 +2258,6 @@
   }
 }
 
-.wponion-framework-bootstrap {
-  /*!
- * Bootstrap Reboot v4.1.1 (https://getbootstrap.com/)
- * Copyright 2011-2018 The Bootstrap Authors
- * Copyright 2011-2018 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
- */
-  /**
-   * Bootstrap Fixes.
-   */
-}
-
 .wponion-framework-bootstrap h1, .wponion-framework-bootstrap h2, .wponion-framework-bootstrap h3, .wponion-framework-bootstrap h4, .wponion-framework-bootstrap h5, .wponion-framework-bootstrap h6,
 .wponion-framework-bootstrap .h1, .wponion-framework-bootstrap .h2, .wponion-framework-bootstrap .h3, .wponion-framework-bootstrap .h4, .wponion-framework-bootstrap .h5, .wponion-framework-bootstrap .h6 {
   margin-bottom: 0.5rem;
@@ -2388,6 +2375,11 @@
 
 .wponion-framework-bootstrap .blockquote-footer::before {
   content: "\2014 \00A0";
+}
+
+.wponion-framework-bootstrap .btn {
+  outline: none;
+  text-decoration: none;
 }
 
 .wponion-framework-bootstrap *,
@@ -2518,14 +2510,12 @@
 }
 
 .wponion-framework-bootstrap a {
-  color: #007bff;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 
 .wponion-framework-bootstrap a:hover {
-  color: #0056b3;
   text-decoration: underline;
 }
 
@@ -3937,11 +3927,6 @@
 .wponion-framework-bootstrap .accordion .card:last-of-type {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-}
-
-.wponion-framework-bootstrap .btn {
-  outline: none;
-  text-decoration: none;
 }
 
 .wponion-element {
