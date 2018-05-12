@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 
 		public function handle_field_args( $field_data = array() ) {
 			if ( false !== $field_data['maxlength'] ) {
-				$data              = $field_data( 'attributes' );
+				$data              = $field_data['attributes'];
 				$data['maxlength'] = ( ! isset( $data['maxlength'] ) ) ? $field_data['maxlength'] : $data['maxlength'];
 				unset( $field_data['maxlength'] );
 				$field_data['attributes'] = $data;
@@ -81,7 +81,6 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 			if ( false !== $this->has( 'inputmask' ) ) {
 				$args['inputmask'] = $this->data( 'inputmask' );
 			}
-			var_dump($this->data( 'inputmask' ));
 			return $args;
 		}
 	}
