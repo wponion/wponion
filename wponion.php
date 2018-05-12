@@ -27,6 +27,7 @@ if ( ! function_exists( 'wponion_init' ) ) {
 		/**
 		 * Include All Functions Files.
 		 */
+		require_once WPONION_PATH . 'core/helpers/assets.php';
 		require_once WPONION_PATH . 'core/helpers/base.php';
 		require_once WPONION_PATH . 'core/class-registry.php';
 		require_once WPONION_PATH . 'core/class-autoloader.php';
