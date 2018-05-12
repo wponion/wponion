@@ -78,12 +78,12 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		/**
 		 * WPOnion_Settings constructor.
 		 *
-		 * @param array $fields Array of settings fields.
 		 * @param array $settings array of WPOnion Settings Configuration.
+		 * @param array $fields Array of settings fields.
 		 */
-		public function __construct( $fields = array(), $settings = array() ) {
+		public function __construct( $settings = array(), $fields = array() ) {
 			parent::__construct( $fields, $settings );
-			if ( ! empty( $this->fields ) && ! empty( $this->settings ) && false === wponion_is_ajax() ) {
+			if ( ! empty( $this->settings ) && false === wponion_is_ajax() ) {
 				$this->raw_options = $settings;
 
 				if ( false === $this->settings['plugin_id'] ) {
@@ -260,7 +260,9 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * Renders Settings Page HTML.
 		 */
 		public function render_page() {
+			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
 			$this->init_theme();
+			echo '</form>';
 		}
 
 		/**
@@ -477,8 +479,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * Loads Required Style for the current settings page.
 		 */
 		public function load_admin_styles() {
-			wp_enqueue_script( 'bootstrap' );
-			wp_enqueue_style( 'bootstrap' );
+			wp_enqueue_script( 'wponion-fields' );
+			wp_enqueue_style( 'wponion-core' );
 		}
 
 		public function settings_menus() {
