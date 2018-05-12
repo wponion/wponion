@@ -479,7 +479,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * Loads Required Style for the current settings page.
 		 */
 		public function load_admin_styles() {
-			wp_enqueue_script( 'wponion-fields' );
+			wp_enqueue_script( 'wponion-core' );
 			wp_enqueue_style( 'wponion-core' );
 		}
 
