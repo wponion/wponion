@@ -36,6 +36,12 @@
 	}
   }
 
+  &.wponion-element-no-title {
+	.wponion-fieldset {
+	  margin: 0;
+	}
+  }
+
 }
 
 .wponion-element + .wponion-element {
@@ -53,6 +59,48 @@
 	  font-size:     14px;
 	  margin-bottom: 10px;
 	  margin-top:    10px;
+	}
+  }
+}
+
+/**
+ * Below Are related To Fields.
+ */
+
+.wponion-element {
+  /** Heading Element Style. **/
+  &.wponion-element-heading {
+	font-size:        1.5em;
+	font-weight:      bold;
+	color:            #23282d;
+	background-color: #f5f5f5 !important;
+  }
+
+  /** Sub Heading Element Style.**/
+  &.wponion-element-subheading {
+	font-size:        14px;
+	font-weight:      bold;
+	padding-top:      17px;
+	padding-bottom:   17px;
+	color:            #23282d;
+	background-color: #f7f7f7 !important;
+  }
+
+  /** Notice Element Handler **/
+  &.wponion-element-notice {
+	margin-bottom: 0;
+	border-radius: 0;
+	& + .wponion-element {
+	  border-top: 0;
+	}
+  }
+
+  &.wponion-element-card {
+	div.card {
+	  margin-top: 0;
+	  padding:    0;
+	  box-shadow: none;
+	  max-width:  none;
 	}
   }
 }
