@@ -36,6 +36,7 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 		}
 
 		public function register_assets() {
+			wp_enqueue_style( 'wponion-wp-theme', $this->asset( 'assets/wponion-wp-theme' ), array( 'wponion-core' ) );
 		}
 
 		/**
@@ -125,6 +126,14 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 			}
 		}
 
+		public function settings_tab_level1_wrap( $return = '', $place = 'start', $options = array(), $is_parent_active = false ) {
+			if ( 'start' === $place ) {
+				return $return . '<div class="postbox">' . $this->submenu_html( $options['name'] );
+			} else {
+				return '</div>' . $return;
+			}
+		}
+
 		/**
 		 * @param $tab_wrap
 		 * @param $options
@@ -132,7 +141,7 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 		 *
 		 * @return string
 		 */
-		public function tab_wrap_start( $tab_wrap, $options, $is_parent_hidden ) {
+		public function settings_tab_wrap_start( $tab_wrap, $options = array(), $is_parent_active ) {
 			return $tab_wrap . '<div class="postbox">' . $this->submenu_html( $options['name'] );
 		}
 
@@ -143,10 +152,31 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 		 *
 		 * @return string
 		 */
-		public function tab_wrap_end( $tab_wrap, $options, $is_parent_hidden ) {
+		public function settings_tab_wrap_end( $tab_wrap, $options = array(), $is_parent_active ) {
 			return $tab_wrap . '</div>';
 		}
 
+		/**
+		 * @param $content
+		 * @param $options
+		 * @param $is_parent_active
+		 *
+		 * @return mixed|string
+		 */
+		public function settings_section_start( $content, $options, $is_parent_active ) {
+			return '<div class="inside">' . $content;
+		}
+
+		/**
+		 * @param $content
+		 * @param $options
+		 * @param $is_parent_active
+		 *
+		 * @return mixed|string
+		 */
+		public function settings_section_end( $content, $options, $is_parent_active ) {
+			return '</div>';
+		}
 	}
 }
 
