@@ -26,7 +26,8 @@ $wponion_js = array(
 );
 
 $wponion_css = array(
-	'wponion-core' => array( 'assets/css/wponion-base' ),
+	'wponion-plugins' => array( 'assets/css/wponion-plugins' ),
+	'wponion-core'    => array( 'assets/css/wponion-base', array( 'wponion-plugins' ) ),
 );
 
 if ( ! function_exists( 'wponion_load_asset' ) ) {
