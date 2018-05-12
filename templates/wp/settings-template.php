@@ -37,10 +37,9 @@ foreach ( $settings->fields() as $option ) {
 				foreach ( $option['fields'] as $field ) {
 					echo $settings->render_field( $field );
 				}
-
 				echo '</div>';
 
-			} elseif ( isset( $option['callback'] ) ) {
+			} elseif ( isset( $option['callback'] ) && false !== $option['callback'] ) {
 				$with_wrap = ( isset( $option['with_wrap'] ) && true === $option['with_wrap'] || ! isset( $option['with_wrap'] ) ) ? true : false;
 				if ( $with_wrap ) {
 					echo '<div class="inside">';
