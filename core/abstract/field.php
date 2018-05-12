@@ -83,7 +83,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			$this->orginal_field = $field;
 			$this->orginal_value = $value;
 
-			$this->field = $this->set_args( $field );
+			$this->field = $this->handle_field_args( $this->set_args( $field ) );
 			$this->value = $value;
 
 			if ( is_string( $unique ) ) {
@@ -94,15 +94,29 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$this->plugin_id = ( isset( $unique['plugin_id'] ) ) ? $unique['plugin_id'] : false;
 			}
 
-			if ( defined( 'WPONION_FIELD_FORECE_ASSETS' ) && true === WPONION_FIELD_FORECE_ASSETS ) {
+			if ( defined( 'WPONION_FIELD_ASSETS' ) && true === WPONION_FIELD_ASSETS || ( did_action( 'admin_enqueue_scripts' ) || did_action( 'wp_enqueue_scripts' ) ) ) {
 				$this->field_assets();
+				$this->localize_field();
 			} else {
 				add_action( 'admin_enqueue_scripts', array( &$this, 'field_assets' ), 1 );
+				add_action( 'admin_enqueue_scripts', array( &$this, 'localize_field' ), 1 );
 
 				if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 					add_action( 'wp_enqueue_scripts', array( &$this, 'field_assets' ), 1 );
+					add_action( 'wp_enqueue_scripts', array( &$this, 'localize_field' ), 1 );
 				}
 			}
+		}
+
+		/**
+		 * This function is called after array merge with default is done.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
+		public function handle_field_args( $data = array() ) {
+			return $data;
 		}
 
 		/**
@@ -157,6 +171,16 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				}
 			}
 			return false;
+		}
+
+		/**
+		 * Sets A Given Args To Field Array.
+		 *
+		 * @param string $key
+		 * @param        $value
+		 */
+		public function set_field( $key = '', $value ) {
+			$this->field[ $key ] = $value;
 		}
 
 		/**
@@ -498,14 +522,22 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		/**
 		 * Handles JS Values For A Element.
 		 *
-		 * @param string $object_name
-		 * @param array  $settings
-		 *
 		 * @todo check for script is done. if its then add inline to the fileds html.
 		 * var_dump( wp_script_is( 'wponion-fields', 'done' ) );
 		 */
-		protected function localize_field( $object_name = '', $settings = array() ) {
-			wp_localize_script( 'wponion-fields', $this->js_field_id(), $settings );
+		protected function localize_field() {
+			if ( ! empty( $this->js_field_args() ) ) {
+				wp_localize_script( 'wponion-fields', $this->js_field_id(), $this->js_field_args() );
+			}
+		}
+
+		/**
+		 * This function is used to set any args that requires in javascript for the current field.
+		 *
+		 * @return array
+		 */
+		protected function js_field_args() {
+			return array();
 		}
 	}
 }
