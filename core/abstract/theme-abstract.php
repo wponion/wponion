@@ -62,19 +62,35 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 		/**
 		 * Returns Current Theme URL.
 		 *
+		 * @param string $extra
+		 *
 		 * @return string
 		 */
-		public function url() {
-			return $this->url;
+		public function url( $extra = '' ) {
+			return $this->url . $extra;
 		}
 
 		/**
 		 * Returns Current Theme Dir.
 		 *
+		 * @param string $extra
+		 *
 		 * @return string
 		 */
-		public function dir() {
-			return $this->dir;
+		public function dir( $extra = '' ) {
+			return $this->dir . $extra;
+		}
+
+		/**
+		 * Handles Assets Url.
+		 *
+		 * @param string $url
+		 * @param string $ext
+		 *
+		 * @return string
+		 */
+		protected function asset( $url = '', $ext = 'css' ) {
+			return wponion_debug_assets( $this->url( $url ), $ext );
 		}
 
 		/**
