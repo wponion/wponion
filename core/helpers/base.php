@@ -175,6 +175,20 @@ if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_debug_assets' ) ) {
+	/**
+	 * @param string $file_name
+	 * @param string $ext
+	 *
+	 * @return string
+	 */
+	function wponion_debug_assets( $file_name = '', $ext = 'css' ) {
+		if ( ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) || defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) {
+			return $file_name . '.' . $ext;
+		}
+		return $file_name . '.min.' . $ext;
+	}
+}
 
 require_once WPONION_PATH . 'core/helpers/field.php';
 require_once WPONION_PATH . 'core/helpers/registry.php';
