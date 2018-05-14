@@ -23,13 +23,7 @@ if ( ! class_exists( 'WPOnion_Field_notice' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_Notice extends WPOnion_Field {
-
-		protected function output() {
-			echo $this->before();
-			echo $this->data( 'content' );
-			echo $this->after();
-		}
+	class WPOnion_Field_Notice extends WPOnion_Field_heading {
 
 		protected function field_default() {
 			return array(
@@ -45,10 +39,6 @@ if ( ! class_exists( 'WPOnion_Field_notice' ) ) {
 				$data['wrap_class'] .= ' alert alert-' . $data['notice_type'];
 			}
 			return $data;
-		}
-
-		public function field_assets() {
-			// TODO: Implement field_assets() method.
 		}
 	}
 }
