@@ -92,6 +92,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			} else {
 				$this->unique    = ( isset( $unique['unique'] ) ) ? $unique['unique'] : false;
 				$this->plugin_id = ( isset( $unique['plugin_id'] ) ) ? $unique['plugin_id'] : false;
+				$this->module    = ( isset( $unique['module'] ) ) ? $unique['module'] : false;
 			}
 
 			if ( defined( 'WPONION_FIELD_ASSETS' ) && true === WPONION_FIELD_ASSETS || ( did_action( 'admin_enqueue_scripts' ) || did_action( 'wp_enqueue_scripts' ) ) ) {
