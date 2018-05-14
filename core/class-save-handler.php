@@ -24,9 +24,52 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 	 */
 	class WPOnion_Save_Handler extends WPOnion_Abstract {
 		/**
-		 * WPOnion_Save_Handler constructor.
+		 * Database Key.
+		 *
+		 * @var string
 		 */
+		protected $unique = '';
+
+		/**
+		 * fields
+		 *
+		 * @var array
+		 */
+		protected $fields = array();
+
+		/**
+		 * db_values
+		 *
+		 * @var array
+		 */
+		protected $db_values = array();
+
+		protected $args = array();
+
 		public function __construct() {
+		}
+
+		/**
+		 * inits class.
+		 *
+		 * @param array $args
+		 */
+		public function init_class( $args = array() ) {
+			$args = $this->parse_args( $args, array(
+				'module'    => false,
+				'plugin_id' => false,
+				'unique'    => false,
+				'fields'    => false,
+				'db_values' => false,
+				'args'      => array(),
+			) );
+
+			$this->module    = $args['module'];
+			$this->plugin_id = $args['plugin_id'];
+			$this->unique    = $args['unique'];
+			$this->fields    = $args['fields'];
+			$this->db_values = $args['db_values'];
+			$this->args      = $args['args'];
 		}
 	}
 }
