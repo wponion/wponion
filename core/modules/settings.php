@@ -120,6 +120,16 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * @todo work on the save feature.
 		 */
 		public function save_validate( $request ) {
+			$instance = new WPOnion_Settings_Save_Handler();
+			$instance->init_class( array(
+				'module'    => 'settings',
+				'plugin_id' => $this->plugin_id(),
+				'unique'    => $this->unique,
+				'fields'    => $this->fields,
+				'db_values' => $this->get_db_values(),
+			) );
+			$instance->run();
+			exit;
 			return $request;
 		}
 
