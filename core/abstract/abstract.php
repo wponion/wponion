@@ -240,5 +240,23 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 			}
 			return $defaults;
 		}
+
+		/**
+		 * Catchs Output.
+		 *
+		 * @param string $status
+		 *
+		 * @return string
+		 */
+		protected function catch_output( $status = 'start' ) {
+			$data = '';
+			if ( 'start' === $status ) {
+				ob_start();
+			} else {
+				$data = ob_get_clean();
+				ob_flush();
+			}
+			return $data;
+		}
 	}
 }
