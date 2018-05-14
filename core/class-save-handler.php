@@ -104,9 +104,11 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		 * @return array|mixed
 		 */
 		protected function sanitize( $field = array(), $value = array() ) {
-			$functions = $field['type'];
+			$functions = false;
 
-			if ( isset( $field['sanitize'] ) ) {
+			if ( isset( $field['sanitize'] ) && true === $field['sanitize'] || false === isset( $field['sanitize'] ) ) {
+				$functions = 'wponion_field_' . $field['type'] . '_sanitize';
+			} elseif ( isset( $field['sanitize'] ) && true !== $field['sanitize'] ) {
 				$functions = $field['sanitize'];
 			}
 
@@ -118,12 +120,18 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 							'plugin_id' => $this->plugin_id(),
 							'field'     => $field,
 						) );
-					} elseif ( is_string( $value ) && has_filter( 'wponion_' . $functions ) ) {
-						$value = apply_filters( 'wponion_' . $functions, $value, $this->plugin_id(), $this->module, $field );
+					} elseif ( is_string( $value ) && has_filter( $functions ) ) {
+						$value = apply_filters( $functions, $value, $this->plugin_id(), $this->module, $field );
 					}
 				}
-			} elseif ( has_filter( 'wponion_' . $functions ) ) {
-				$value = apply_filters( 'wponion_' . $functions, $value, $this->plugin_id(), $this->module, $field );
+			} elseif ( is_callable( $functions ) ) {
+				$value = call_user_func_array( $functions, array(
+					'value'     => $value,
+					'plugin_id' => $this->plugin_id(),
+					'field'     => $field,
+				) );
+			} elseif ( has_filter( $functions ) ) {
+				$value = apply_filters( $functions, $value, $this->plugin_id(), $this->module, $field );
 			}
 
 			return $value;
