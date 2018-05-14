@@ -145,11 +145,9 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 			$_args            = $args;
 			$actual_hook_slug = $args[0];
 			$_args[0]         = $this->get_action_filter_slugs( true ) . $actual_hook_slug;
-			#$var_dump( $_args[0] );
-			$data     = $this->action_filter( $type, $_args );
-			$_args[0] = $this->get_action_filter_slugs( false ) . $actual_hook_slug;
-			#$var_dump( $_args[0] );
-			$data = $this->action_filter( $type, $_args );
+			$data             = $this->action_filter( $type, $_args );
+			$_args[0]         = $this->get_action_filter_slugs( false ) . $actual_hook_slug;
+			$data             = $this->action_filter( $type, $_args );
 			return $data;
 		}
 
