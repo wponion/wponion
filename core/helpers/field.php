@@ -35,6 +35,99 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_hash_string' ) ) {
+	/**
+	 * Returns A MD5 Hash.
+	 *
+	 * @param $string
+	 *
+	 * @return string
+	 */
+	function wponion_hash_string( $string = '' ) {
+		return md5( $string );
+	}
+}
+
+if ( ! function_exists( 'wponion_hash_array' ) ) {
+	/**
+	 * Returns A MD Encoded Value of a array.
+	 *
+	 * @param $array
+	 *
+	 * @return string
+	 */
+	function wponion_hash_array( $array ) {
+		$encode = wp_json_encode( $array );
+		return wponion_hash_string( $encode );
+	}
+}
+
+if ( ! function_exists( 'wponion_get_field_class' ) ) {
+	/**
+	 * Checks And Returns Fields Class.
+	 *
+	 * @param string $field
+	 *
+	 * @return bool|string
+	 */
+	function wponion_get_field_class( $field = '' ) {
+		if ( is_array( $field ) ) {
+			$field = isset( $field['type'] ) ? $field['type'] : false;
+		}
+
+		if ( ! empty( $field ) ) {
+			$class = 'WPOnion_Field_' . $field;
+			if ( class_exists( $class ) ) {
+				return $class;
+			}
+		}
+		return false;
+	}
+}
+
+if ( ! function_exists( 'wponion_field' ) ) {
+	/**
+	 * Creates A New instance for a field or returns an existing field instance.
+	 *
+	 * @param array  $field
+	 * @param string $value
+	 * @param array  $unique
+	 *
+	 * @return bool
+	 */
+	function wponion_field( $field = array(), $value = '', $unique = array() ) {
+		$class = wponion_get_field_class( $field );
+		if ( false !== $class ) {
+			$plugin_id = '';
+			$module    = 'core';
+
+			if ( is_array( $unique ) ) {
+				$plugin_id = isset( $unique['plugin_id'] ) ? $unique['plugin_id'] : '';
+				$unique    = isset( $unique['unique'] ) ? $unique['unique'] : '';
+				$module    = isset( $unique['module'] ) ? $unique['module'] : '';
+			}
+
+			if ( ! isset( $field['id'] ) ) {
+				$uid = wponion_hash_array( $field );
+				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $uid . '_' . $unique );
+			} else {
+				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $field['id'] . '_' . $unique );
+			}
+
+			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, 'WPOnion_Field_Registry' );
+
+			if ( false !== $registry->get( $uid ) ) {
+				return $registry->get();
+			}
+			$instance = new $class( $field, $value, $unique );
+			$registry->add( $uid, $instance );
+			return $instance;
+		}
+		return false;
+	}
+}
+
+
 if ( ! function_exists( 'wponion_add_element' ) ) {
 	/**
 	 * Adds A WPOnion Field & Renders it.
@@ -48,15 +141,20 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 	function wponion_add_element( $field = array(), $value = array(), $unique = '' ) {
 		$output = '';
 
-		$class = 'WPOnion_Field_' . $field['type'];
+		$class = wponion_field( $field, $value, $unique );
 
-		if ( class_exists( $class ) ) {
+		if ( false === $class ) {
+			$class = wponion_get_field_class( $field );
+		}
+
+		if ( false !== $class ) {
 			ob_start();
-			$element = new $class( $field, $value, $unique );
+			$element = ( is_string( $class ) ) ? new $class( $field, $value, $unique ) : $class;
 			$element->final_output();
 			$output .= ob_get_clean();
 		} else {
-			$output .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . $class . '</strong>' ) . ' </p > ';
+			$field_type = isset( $field['type'] ) ? $field['type'] : false;
+			$output     .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . $field_type . '</strong>' ) . ' </p> ';
 		}
 		return $output;
 	}
