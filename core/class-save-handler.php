@@ -249,5 +249,20 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 			}
 		}
 
+		/**
+		 * Stores Errors in LocalDB.
+		 *
+		 * @param        $message
+		 * @param string $type
+		 * @param string $id
+		 */
+		public function error( $message, $type = 'error', $id = 'global' ) {
+			$this->errors[] = array(
+				'setting' => 'wponion-errors',
+				'code'    => $id,
+				'message' => $message,
+				'type'    => $type,
+			);
+		}
 	}
 }
