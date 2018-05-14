@@ -1,0 +1,19 @@
+/**
+ * FontAwesome Styles.
+ */
+@import '../vendors/fontawesome-free-5.0.13/scss/variables';
+
+$fa-font-path: "./webfonts";
+@import '../vendors/fontawesome-free-5.0.13/scss/mixins';
+@import '../vendors/fontawesome-free-5.0.13/scss/core';
+@import '../vendors/fontawesome-free-5.0.13/scss/larger';
+@import '../vendors/fontawesome-free-5.0.13/scss/fixed-width';
+@import '../vendors/fontawesome-free-5.0.13/scss/list';
+@import '../vendors/fontawesome-free-5.0.13/scss/bordered-pulled';
+@import '../vendors/fontawesome-free-5.0.13/scss/animated';
+@import '../vendors/fontawesome-free-5.0.13/scss/rotated-flipped';
+@import '../vendors/fontawesome-free-5.0.13/scss/stacked';
+@import '../vendors/fontawesome-free-5.0.13/scss/icons';
+@import '../vendors/fontawesome-free-5.0.13/scss/fa-brands';
+@import '../vendors/fontawesome-free-5.0.13/scss/fa-regular';
+@import '../vendors/fontawesome-free-5.0.13/scss/fa-solid';
