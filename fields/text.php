@@ -40,19 +40,26 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 		}
 
 		public function handle_field_args( $field_data = array() ) {
-			if ( false !== $field_data['maxlength'] ) {
-				$data              = $field_data['attributes'];
-				$data['maxlength'] = ( ! isset( $data['maxlength'] ) ) ? $field_data['maxlength'] : $data['maxlength'];
-				unset( $field_data['maxlength'] );
-				$field_data['attributes'] = $data;
-			}
-
 			if ( false !== $field_data['inputmask'] ) {
 				$field_data['wrap_class']                           = ( false !== $field_data['wrap_class'] ) ? '' : $field_data['wrap_class'];
 				$field_data['wrap_class']                           = $field_data['wrap_class'] . ' ' . ' wponion-inputmask ';
 				$field_data['attributes']['data-wponion-inputmask'] = 'yes';
 			}
 
+			if ( false !== $field_data['maxlength'] || is_array( $field_data['max_length'] ) ) {
+				if ( is_array( $field_data['maxlength'] ) ) {
+					$field_data['max_length'] = $field_data['maxlength'];
+					$field_data['maxlength']  = isset( $field_data['max_length']['limit'] ) ? $field_data['max_length']['limit'] : false;
+				} elseif ( is_array( $field_data['max_length'] ) ) {
+					$field_data['maxlength'] = isset( $field_data['max_length']['limit'] ) ? $field_data['max_length']['limit'] : $field_data['maxlength'];
+				}
+
+				$data              = $field_data['attributes'];
+				$data['maxlength'] = ( ! isset( $data['maxlength'] ) ) ? $field_data['maxlength'] : $data['maxlength'];
+				unset( $field_data['maxlength'] );
+				$field_data['attributes']                           = $data;
+				$field_data['attributes']['data-wponion-maxlength'] = 'yes';
+			}
 
 			return $field_data;
 		}
@@ -71,8 +78,9 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'inputmask' => false,
-				'maxlength' => false,
+				'inputmask'  => false,
+				'max_length' => false,
+				'maxlength'  => false,
 			);
 		}
 
@@ -80,6 +88,10 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 			$args = array();
 			if ( false !== $this->has( 'inputmask' ) ) {
 				$args['inputmask'] = $this->data( 'inputmask' );
+			}
+
+			if ( false !== $this->has( 'max_length' ) ) {
+				$args['max_length'] = $this->data( 'max_length' );
 			}
 			return $args;
 		}
