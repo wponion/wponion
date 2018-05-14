@@ -120,17 +120,27 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * @todo work on the save feature.
 		 */
 		public function save_validate( $request ) {
+			$this->get_cache();
 			$instance = new WPOnion_Settings_Save_Handler();
+
 			$instance->init_class( array(
-				'module'    => 'settings',
-				'plugin_id' => $this->plugin_id(),
-				'unique'    => $this->unique,
-				'fields'    => $this->fields,
-				'db_values' => $this->get_db_values(),
-			) );
-			$instance->run();
-			exit;
-			return $request;
+				'module'      => 'settings',
+				'plugin_id'   => $this->plugin_id(),
+				'unique'      => $this->unique,
+				'fields'      => $this->fields,
+				'user_values' => $request,
+				'db_values'   => $this->get_db_values(),
+				'args'        => array(
+					'settings' => &$this,
+				),
+			) )
+				->run();
+
+			$this->options_cache['parent_id']    = $_POST['wponion-parent-id'];
+			$this->options_cache['section_id']   = $_POST['wponion-section-id'];
+			$this->options_cache['field_errors'] = $instance->get_errors();
+			$this->set_cache( $this->options_cache );
+			return $instance->get_values();
 		}
 
 		/**
@@ -238,6 +248,12 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				$this->options_cache = ( is_array( $values ) ) ? $values : array();
 				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
 					$this->options_cache = array();
+				} else {
+					if ( isset( $this->options_cache['field_errors'] ) ) {
+						$instance = wponion_registry( $this->module . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
+						$instance->set( $this->options_cache['field_errors'] );
+						var_dump( $instance );
+					}
 				}
 			}
 			return $this->options_cache;
