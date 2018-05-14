@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+
 if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	/**
 	 * Checks if current request is ajax.
@@ -190,5 +191,24 @@ if ( ! function_exists( 'wponion_debug_assets' ) ) {
 	}
 }
 
+
+/**
+ * WPOnion Assets Related Functions.
+ */
+require_once WPONION_PATH . 'core/helpers/assets.php';
+
+/**
+ * WPOnion Fields Related Functions.
+ */
 require_once WPONION_PATH . 'core/helpers/field.php';
+
+/**
+ * WPOnion Registry Related Functions.
+ */
 require_once WPONION_PATH . 'core/helpers/registry.php';
+
+/**
+ * WPOnion Field Sanitize Related Functions.
+ */
+require_once WPONION_PATH . 'core/helpers/sanitize.php';
+
