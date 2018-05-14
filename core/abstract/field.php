@@ -73,6 +73,13 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		protected $is_external = false;
 
 		/**
+		 * Stores Field Errors.
+		 *
+		 * @var null
+		 */
+		protected $errors = null;
+
+		/**
 		 * WPOnion_Field constructor.
 		 *
 		 * @param array  $field
@@ -89,6 +96,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			if ( is_string( $unique ) ) {
 				$this->unique    = $unique;
 				$this->plugin_id = false;
+				$this->module    = false;
 			} else {
 				$this->unique    = ( isset( $unique['unique'] ) ) ? $unique['unique'] : false;
 				$this->plugin_id = ( isset( $unique['plugin_id'] ) ) ? $unique['plugin_id'] : false;
@@ -214,8 +222,9 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * Returns Default Wrap Class.
 		 */
 		protected function default_wrap_class() {
-			$type = $this->data( 'type' );
-			return 'wponion-element wponion-element-' . $type . ' wponion-field-' . $type;
+			$type      = $this->data( 'type' );
+			$has_error = ( $this->has_errors() ) ? ' wponion-element-has-error ' : '';
+			return 'wponion-element wponion-element-' . $type . ' wponion-field-' . $type . ' ' . $has_error;
 		}
 
 		/**
@@ -380,7 +389,49 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		protected function after() {
 			$data = ( false !== $this->has( 'after' ) ) ? $this->data( 'after' ) : '';
 			$data .= $this->field_desc();
+			$data .= $this->field_error();
 			return $data;
+		}
+
+		/**
+		 * Returns Field Errors.
+		 *
+		 * @return array|false
+		 */
+		protected function get_errors() {
+			if ( null === $this->errors ) {
+				$error_instance = wponion_registry( $this->module . '_' . $this->plugin_id() );
+				$field_id       = sanitize_key( $this->unique( $this->field_id() ) );
+				$this->errors   = $error_instance->get( $field_id );
+			}
+			return $this->errors;
+		}
+
+		/**
+		 * Returns True if has errors.
+		 *
+		 * @return bool
+		 */
+		protected function has_errors() {
+			return ( is_array( $this->get_errors() ) );
+		}
+
+		/**
+		 * Renders Field Errors.
+		 *
+		 * @return string
+		 */
+		protected function field_error() {
+			$errors = $this->get_errors();
+			if ( false !== $errors && isset( $errors['message'] ) ) {
+				$html = '<div class="wponion-field-errors invalid-feedback"><ul>';
+				foreach ( $errors['message'] as $message ) {
+					$html .= '<li>' . $message . '</li>';
+				}
+				$html .= '</ul></div>';
+				return $html;
+			}
+			return '';
 		}
 
 		/**
