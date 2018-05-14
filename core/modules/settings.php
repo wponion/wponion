@@ -261,6 +261,11 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 */
 		public function render_page() {
 			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
+			echo '<div class="hidden" style="display:none;" id="wponino-hidden-fields">';
+			settings_fields( $this->unique );
+			echo '<input type="hidden" name="wponion-parent-id" value="' . $this->active( true ) . '"/>';
+			echo '<input type="hidden" name="wponion-section-id" value="' . $this->active( false ) . '"/>';
+			echo '</div>';
 			$this->init_theme();
 			echo '</form>';
 		}
@@ -325,6 +330,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			}
 
 			$this->init_theme();
+			$this->_action( 'page_onload' );
+			$this->init_fields();
 		}
 
 		/**************************************************************************************************************
@@ -481,8 +488,14 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		public function load_admin_styles() {
 			wp_enqueue_script( 'wponion-core' );
 			wp_enqueue_style( 'wponion-core' );
+			$this->_action( 'page_assets' );
 		}
 
+		/**
+		 * Generates A Array of Settings Menu.
+		 *
+		 * @return array
+		 */
 		public function settings_menus() {
 			if ( ! empty( $this->menus ) ) {
 				return $this->menus;
@@ -683,9 +696,10 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		}
 
 		/**
-		 * Checks if Option Loop Is Valid.
+		 * Checks if Option Loop Is Valid
 		 *
 		 * @param array $option
+		 * @param bool  $section
 		 *
 		 * @return bool
 		 */
@@ -748,7 +762,51 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			return wponion_add_element( $field, $value, array(
 				'plugin_id' => $this->plugin_id(),
 				'unique'    => $this->unique,
+				'module'    => 'settings',
 			) );
+		}
+
+		/**
+		 * Inits All Base Fields.
+		 */
+		public function init_fields() {
+			foreach ( $this->fields as $options ) {
+				if ( false === $this->valid_option( $options ) ) {
+					continue;
+				}
+
+				if ( isset( $options['callback'] ) && false !== $options['callback'] ) {
+					continue;
+				}
+
+				if ( isset( $options['sections'] ) ) {
+					foreach ( $options['sections'] as $section ) {
+						if ( false === $this->valid_option( $options, true ) ) {
+							continue;
+						}
+
+						if ( isset( $section['callback'] ) && false !== $section['callback'] || false === isset( $section['fields'] ) ) {
+							continue;
+						}
+
+						foreach ( $section['fields'] as $field ) {
+							wponion_field( $field, _wponion_get_field_value( $field, array() ), array(
+								'plugin_id' => $this->plugin_id(),
+								'unique'    => $this->unique,
+								'module'    => 'setttings',
+							) );
+						}
+					}
+				} elseif ( isset( $options['fields'] ) ) {
+					foreach ( $options['fields'] as $field ) {
+						wponion_field( $field, _wponion_get_field_value( $field, array() ), array(
+							'plugin_id' => $this->plugin_id(),
+							'unique'    => $this->unique,
+							'module'    => 'setttings',
+						) );
+					}
+				}
+			}
 		}
 	}
 }
