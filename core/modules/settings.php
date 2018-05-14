@@ -249,10 +249,12 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
 					$this->options_cache = array();
 				} else {
+
 					if ( isset( $this->options_cache['field_errors'] ) ) {
 						$instance = wponion_registry( $this->module . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
 						$instance->set( $this->options_cache['field_errors'] );
-						var_dump( $instance );
+						unset( $this->options_cache['field_errors'] );
+						$this->set_cache( $this->options_cache );
 					}
 				}
 			}
