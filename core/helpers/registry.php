@@ -22,14 +22,15 @@ if ( ! function_exists( 'wponion_get_registry' ) ) {
 	 * Always return the same instance of the registry.
 	 *
 	 * @param string $type
+	 * @param string $class
 	 *
 	 * @return mixed
 	 */
-	function wponion_get_registry( $type = '' ) {
+	function wponion_get_registry( $type = '', $class = '' ) {
 		static $data = array();
 
 		if ( ! isset( $data[ $type ] ) ) {
-			$data[ $type ] = new $type;
+			$data[ $type ] = new $class;
 		}
 		return $data[ $type ];
 	}
@@ -41,22 +42,24 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	 * Always return the same instance of the registry.
 	 *
 	 * @param string $type
+	 * @param null   $class
 	 *
 	 * @return mixed
 	 */
-	function wponion_registry( $type = '' ) {
-		$class = null;
+	function wponion_registry( $type = '', $class = null ) {
 		switch ( $type ) {
 			case 'settings':
-				$class = 'WPOnion_Registry';
+				$class = 'WPOnion_Module_Registry';
 				break;
 			case 'core':
 				$class = 'WPOnion_Core_Registry';
 				break;
-			default:
-				$class = $type;
+			case 'field':
+			case 'settings_fields':
+				$class = 'WPOnion_Field_Registry';
+				break;
 		}
-		return wponion_get_registry( $class );
+		return wponion_get_registry( $type, $class );
 	}
 }
 
