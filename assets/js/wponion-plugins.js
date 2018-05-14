@@ -1,13 +1,11 @@
-"use strict";
-
 /**
  * Stores Framework Related Functions.
  * @type {{}}
  */
 var wponion = {
-  helper: {},
-  fields: {},
-  themes: {}
+	helper: {},
+	fields: {},
+	themes: {}
 };
 
 //@codekit-append ../vendors/node_modules/jquery.actual/jquery.actual.js
@@ -16,9 +14,13 @@ var wponion = {
 //@codekit-append ../vendors/node_modules/popper.js/dist/umd/popper.js
 
 //@codekit-append ./parts/wponion-jquery-noclf-header.js
+//@codekit-append ../vendors/node_modules/bootstrap/js/dist/index.js
 //@codekit-append ../vendors/node_modules/bootstrap/js/dist/util.js
 //@codekit-append ../vendors/node_modules/bootstrap/js/dist/tooltip.js
 //@codekit-append ../vendors/node_modules/bootstrap/js/dist/popover.js
+//@codekit-append ../vendors/node_modules/bootstrap/js/dist/button.js
+//@codekit-append ../vendors/node_modules/bootstrap/js/dist/dropdown.js
+//@codekit-append ../vendors/node_modules/bootstrap-maxlength/src/bootstrap-maxlength.js
 //@codekit-append ./parts/wponion-jquery-noclf-footer.js
 /*! Copyright 2012, Ben Lin (http://dreamerslab.com/)
  * Licensed under the MIT License (LICENSE.txt).
@@ -3413,6 +3415,29 @@ return Popper;
 ( function (window, document, $, wponion,wphooks) {
 /**
  * --------------------------------------------------------------------------
+ * Bootstrap (v4.1.1): index.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+(function ($) {
+  if (typeof $ === 'undefined') {
+    throw new TypeError('Bootstrap\'s JavaScript requires jQuery. jQuery must be included before Bootstrap\'s JavaScript.');
+  }
+
+  var version = $.fn.jquery.split(' ')[0].split('.');
+  var minMajor = 1;
+  var ltMajor = 2;
+  var minMinor = 9;
+  var minPatch = 1;
+  var maxMajor = 4;
+
+  if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
+    throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
+  }
+})($);
+
+/**
+ * --------------------------------------------------------------------------
  * Bootstrap (v4.1.1): util.js
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
@@ -4422,6 +4447,1164 @@ var Popover = function ($) {
 
   return Popover;
 }($);
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.1.1): button.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+var Button = function ($) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'button';
+  var VERSION = '4.1.1';
+  var DATA_KEY = 'bs.button';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $.fn[NAME];
+  var ClassName = {
+    ACTIVE: 'active',
+    BUTTON: 'btn',
+    FOCUS: 'focus'
+  };
+  var Selector = {
+    DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
+    DATA_TOGGLE: '[data-toggle="buttons"]',
+    INPUT: 'input',
+    ACTIVE: '.active',
+    BUTTON: '.btn'
+  };
+  var Event = {
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY,
+    FOCUS_BLUR_DATA_API: "focus" + EVENT_KEY + DATA_API_KEY + " " + ("blur" + EVENT_KEY + DATA_API_KEY)
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Button =
+  /*#__PURE__*/
+  function () {
+    function Button(element) {
+      this._element = element;
+    } // Getters
+
+
+    var _proto = Button.prototype;
+
+    // Public
+    _proto.toggle = function toggle() {
+      var triggerChangeEvent = true;
+      var addAriaPressed = true;
+      var rootElement = $(this._element).closest(Selector.DATA_TOGGLE)[0];
+
+      if (rootElement) {
+        var input = $(this._element).find(Selector.INPUT)[0];
+
+        if (input) {
+          if (input.type === 'radio') {
+            if (input.checked && $(this._element).hasClass(ClassName.ACTIVE)) {
+              triggerChangeEvent = false;
+            } else {
+              var activeElement = $(rootElement).find(Selector.ACTIVE)[0];
+
+              if (activeElement) {
+                $(activeElement).removeClass(ClassName.ACTIVE);
+              }
+            }
+          }
+
+          if (triggerChangeEvent) {
+            if (input.hasAttribute('disabled') || rootElement.hasAttribute('disabled') || input.classList.contains('disabled') || rootElement.classList.contains('disabled')) {
+              return;
+            }
+
+            input.checked = !$(this._element).hasClass(ClassName.ACTIVE);
+            $(input).trigger('change');
+          }
+
+          input.focus();
+          addAriaPressed = false;
+        }
+      }
+
+      if (addAriaPressed) {
+        this._element.setAttribute('aria-pressed', !$(this._element).hasClass(ClassName.ACTIVE));
+      }
+
+      if (triggerChangeEvent) {
+        $(this._element).toggleClass(ClassName.ACTIVE);
+      }
+    };
+
+    _proto.dispose = function dispose() {
+      $.removeData(this._element, DATA_KEY);
+      this._element = null;
+    }; // Static
+
+
+    Button._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var data = $(this).data(DATA_KEY);
+
+        if (!data) {
+          data = new Button(this);
+          $(this).data(DATA_KEY, data);
+        }
+
+        if (config === 'toggle') {
+          data[config]();
+        }
+      });
+    };
+
+    _createClass(Button, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }]);
+
+    return Button;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE_CARROT, function (event) {
+    event.preventDefault();
+    var button = event.target;
+
+    if (!$(button).hasClass(ClassName.BUTTON)) {
+      button = $(button).closest(Selector.BUTTON);
+    }
+
+    Button._jQueryInterface.call($(button), 'toggle');
+  }).on(Event.FOCUS_BLUR_DATA_API, Selector.DATA_TOGGLE_CARROT, function (event) {
+    var button = $(event.target).closest(Selector.BUTTON)[0];
+    $(button).toggleClass(ClassName.FOCUS, /^focus(in)?$/.test(event.type));
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
+
+  $.fn[NAME] = Button._jQueryInterface;
+  $.fn[NAME].Constructor = Button;
+
+  $.fn[NAME].noConflict = function () {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Button._jQueryInterface;
+  };
+
+  return Button;
+}($);
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+/**
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.1.1): dropdown.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
+ */
+var Dropdown = function ($) {
+  /**
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
+   */
+  var NAME = 'dropdown';
+  var VERSION = '4.1.1';
+  var DATA_KEY = 'bs.dropdown';
+  var EVENT_KEY = "." + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $.fn[NAME];
+  var ESCAPE_KEYCODE = 27; // KeyboardEvent.which value for Escape (Esc) key
+
+  var SPACE_KEYCODE = 32; // KeyboardEvent.which value for space key
+
+  var TAB_KEYCODE = 9; // KeyboardEvent.which value for tab key
+
+  var ARROW_UP_KEYCODE = 38; // KeyboardEvent.which value for up arrow key
+
+  var ARROW_DOWN_KEYCODE = 40; // KeyboardEvent.which value for down arrow key
+
+  var RIGHT_MOUSE_BUTTON_WHICH = 3; // MouseEvent.which value for the right button (assuming a right-handed mouse)
+
+  var REGEXP_KEYDOWN = new RegExp(ARROW_UP_KEYCODE + "|" + ARROW_DOWN_KEYCODE + "|" + ESCAPE_KEYCODE);
+  var Event = {
+    HIDE: "hide" + EVENT_KEY,
+    HIDDEN: "hidden" + EVENT_KEY,
+    SHOW: "show" + EVENT_KEY,
+    SHOWN: "shown" + EVENT_KEY,
+    CLICK: "click" + EVENT_KEY,
+    CLICK_DATA_API: "click" + EVENT_KEY + DATA_API_KEY,
+    KEYDOWN_DATA_API: "keydown" + EVENT_KEY + DATA_API_KEY,
+    KEYUP_DATA_API: "keyup" + EVENT_KEY + DATA_API_KEY
+  };
+  var ClassName = {
+    DISABLED: 'disabled',
+    SHOW: 'show',
+    DROPUP: 'dropup',
+    DROPRIGHT: 'dropright',
+    DROPLEFT: 'dropleft',
+    MENURIGHT: 'dropdown-menu-right',
+    MENULEFT: 'dropdown-menu-left',
+    POSITION_STATIC: 'position-static'
+  };
+  var Selector = {
+    DATA_TOGGLE: '[data-toggle="dropdown"]',
+    FORM_CHILD: '.dropdown form',
+    MENU: '.dropdown-menu',
+    NAVBAR_NAV: '.navbar-nav',
+    VISIBLE_ITEMS: '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)'
+  };
+  var AttachmentMap = {
+    TOP: 'top-start',
+    TOPEND: 'top-end',
+    BOTTOM: 'bottom-start',
+    BOTTOMEND: 'bottom-end',
+    RIGHT: 'right-start',
+    RIGHTEND: 'right-end',
+    LEFT: 'left-start',
+    LEFTEND: 'left-end'
+  };
+  var Default = {
+    offset: 0,
+    flip: true,
+    boundary: 'scrollParent',
+    reference: 'toggle',
+    display: 'dynamic'
+  };
+  var DefaultType = {
+    offset: '(number|string|function)',
+    flip: 'boolean',
+    boundary: '(string|element)',
+    reference: '(string|element)',
+    display: 'string'
+    /**
+     * ------------------------------------------------------------------------
+     * Class Definition
+     * ------------------------------------------------------------------------
+     */
+
+  };
+
+  var Dropdown =
+  /*#__PURE__*/
+  function () {
+    function Dropdown(element, config) {
+      this._element = element;
+      this._popper = null;
+      this._config = this._getConfig(config);
+      this._menu = this._getMenuElement();
+      this._inNavbar = this._detectNavbar();
+
+      this._addEventListeners();
+    } // Getters
+
+
+    var _proto = Dropdown.prototype;
+
+    // Public
+    _proto.toggle = function toggle() {
+      if (this._element.disabled || $(this._element).hasClass(ClassName.DISABLED)) {
+        return;
+      }
+
+      var parent = Dropdown._getParentFromElement(this._element);
+
+      var isActive = $(this._menu).hasClass(ClassName.SHOW);
+
+      Dropdown._clearMenus();
+
+      if (isActive) {
+        return;
+      }
+
+      var relatedTarget = {
+        relatedTarget: this._element
+      };
+      var showEvent = $.Event(Event.SHOW, relatedTarget);
+      $(parent).trigger(showEvent);
+
+      if (showEvent.isDefaultPrevented()) {
+        return;
+      } // Disable totally Popper.js for Dropdown in Navbar
+
+
+      if (!this._inNavbar) {
+        /**
+         * Check for Popper dependency
+         * Popper - https://popper.js.org
+         */
+        if (typeof Popper === 'undefined') {
+          throw new TypeError('Bootstrap dropdown require Popper.js (https://popper.js.org)');
+        }
+
+        var referenceElement = this._element;
+
+        if (this._config.reference === 'parent') {
+          referenceElement = parent;
+        } else if (Util.isElement(this._config.reference)) {
+          referenceElement = this._config.reference; // Check if it's jQuery element
+
+          if (typeof this._config.reference.jquery !== 'undefined') {
+            referenceElement = this._config.reference[0];
+          }
+        } // If boundary is not `scrollParent`, then set position to `static`
+        // to allow the menu to "escape" the scroll parent's boundaries
+        // https://github.com/twbs/bootstrap/issues/24251
+
+
+        if (this._config.boundary !== 'scrollParent') {
+          $(parent).addClass(ClassName.POSITION_STATIC);
+        }
+
+        this._popper = new Popper(referenceElement, this._menu, this._getPopperConfig());
+      } // If this is a touch-enabled device we add extra
+      // empty mouseover listeners to the body's immediate children;
+      // only needed because of broken event delegation on iOS
+      // https://www.quirksmode.org/blog/archives/2014/02/mouse_event_bub.html
+
+
+      if ('ontouchstart' in document.documentElement && $(parent).closest(Selector.NAVBAR_NAV).length === 0) {
+        $(document.body).children().on('mouseover', null, $.noop);
+      }
+
+      this._element.focus();
+
+      this._element.setAttribute('aria-expanded', true);
+
+      $(this._menu).toggleClass(ClassName.SHOW);
+      $(parent).toggleClass(ClassName.SHOW).trigger($.Event(Event.SHOWN, relatedTarget));
+    };
+
+    _proto.dispose = function dispose() {
+      $.removeData(this._element, DATA_KEY);
+      $(this._element).off(EVENT_KEY);
+      this._element = null;
+      this._menu = null;
+
+      if (this._popper !== null) {
+        this._popper.destroy();
+
+        this._popper = null;
+      }
+    };
+
+    _proto.update = function update() {
+      this._inNavbar = this._detectNavbar();
+
+      if (this._popper !== null) {
+        this._popper.scheduleUpdate();
+      }
+    }; // Private
+
+
+    _proto._addEventListeners = function _addEventListeners() {
+      var _this = this;
+
+      $(this._element).on(Event.CLICK, function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        _this.toggle();
+      });
+    };
+
+    _proto._getConfig = function _getConfig(config) {
+      config = _objectSpread({}, this.constructor.Default, $(this._element).data(), config);
+      Util.typeCheckConfig(NAME, config, this.constructor.DefaultType);
+      return config;
+    };
+
+    _proto._getMenuElement = function _getMenuElement() {
+      if (!this._menu) {
+        var parent = Dropdown._getParentFromElement(this._element);
+
+        this._menu = $(parent).find(Selector.MENU)[0];
+      }
+
+      return this._menu;
+    };
+
+    _proto._getPlacement = function _getPlacement() {
+      var $parentDropdown = $(this._element).parent();
+      var placement = AttachmentMap.BOTTOM; // Handle dropup
+
+      if ($parentDropdown.hasClass(ClassName.DROPUP)) {
+        placement = AttachmentMap.TOP;
+
+        if ($(this._menu).hasClass(ClassName.MENURIGHT)) {
+          placement = AttachmentMap.TOPEND;
+        }
+      } else if ($parentDropdown.hasClass(ClassName.DROPRIGHT)) {
+        placement = AttachmentMap.RIGHT;
+      } else if ($parentDropdown.hasClass(ClassName.DROPLEFT)) {
+        placement = AttachmentMap.LEFT;
+      } else if ($(this._menu).hasClass(ClassName.MENURIGHT)) {
+        placement = AttachmentMap.BOTTOMEND;
+      }
+
+      return placement;
+    };
+
+    _proto._detectNavbar = function _detectNavbar() {
+      return $(this._element).closest('.navbar').length > 0;
+    };
+
+    _proto._getPopperConfig = function _getPopperConfig() {
+      var _this2 = this;
+
+      var offsetConf = {};
+
+      if (typeof this._config.offset === 'function') {
+        offsetConf.fn = function (data) {
+          data.offsets = _objectSpread({}, data.offsets, _this2._config.offset(data.offsets) || {});
+          return data;
+        };
+      } else {
+        offsetConf.offset = this._config.offset;
+      }
+
+      var popperConfig = {
+        placement: this._getPlacement(),
+        modifiers: {
+          offset: offsetConf,
+          flip: {
+            enabled: this._config.flip
+          },
+          preventOverflow: {
+            boundariesElement: this._config.boundary
+          }
+        } // Disable Popper.js if we have a static display
+
+      };
+
+      if (this._config.display === 'static') {
+        popperConfig.modifiers.applyStyle = {
+          enabled: false
+        };
+      }
+
+      return popperConfig;
+    }; // Static
+
+
+    Dropdown._jQueryInterface = function _jQueryInterface(config) {
+      return this.each(function () {
+        var data = $(this).data(DATA_KEY);
+
+        var _config = typeof config === 'object' ? config : null;
+
+        if (!data) {
+          data = new Dropdown(this, _config);
+          $(this).data(DATA_KEY, data);
+        }
+
+        if (typeof config === 'string') {
+          if (typeof data[config] === 'undefined') {
+            throw new TypeError("No method named \"" + config + "\"");
+          }
+
+          data[config]();
+        }
+      });
+    };
+
+    Dropdown._clearMenus = function _clearMenus(event) {
+      if (event && (event.which === RIGHT_MOUSE_BUTTON_WHICH || event.type === 'keyup' && event.which !== TAB_KEYCODE)) {
+        return;
+      }
+
+      var toggles = $.makeArray($(Selector.DATA_TOGGLE));
+
+      for (var i = 0; i < toggles.length; i++) {
+        var parent = Dropdown._getParentFromElement(toggles[i]);
+
+        var context = $(toggles[i]).data(DATA_KEY);
+        var relatedTarget = {
+          relatedTarget: toggles[i]
+        };
+
+        if (!context) {
+          continue;
+        }
+
+        var dropdownMenu = context._menu;
+
+        if (!$(parent).hasClass(ClassName.SHOW)) {
+          continue;
+        }
+
+        if (event && (event.type === 'click' && /input|textarea/i.test(event.target.tagName) || event.type === 'keyup' && event.which === TAB_KEYCODE) && $.contains(parent, event.target)) {
+          continue;
+        }
+
+        var hideEvent = $.Event(Event.HIDE, relatedTarget);
+        $(parent).trigger(hideEvent);
+
+        if (hideEvent.isDefaultPrevented()) {
+          continue;
+        } // If this is a touch-enabled device we remove the extra
+        // empty mouseover listeners we added for iOS support
+
+
+        if ('ontouchstart' in document.documentElement) {
+          $(document.body).children().off('mouseover', null, $.noop);
+        }
+
+        toggles[i].setAttribute('aria-expanded', 'false');
+        $(dropdownMenu).removeClass(ClassName.SHOW);
+        $(parent).removeClass(ClassName.SHOW).trigger($.Event(Event.HIDDEN, relatedTarget));
+      }
+    };
+
+    Dropdown._getParentFromElement = function _getParentFromElement(element) {
+      var parent;
+      var selector = Util.getSelectorFromElement(element);
+
+      if (selector) {
+        parent = $(selector)[0];
+      }
+
+      return parent || element.parentNode;
+    }; // eslint-disable-next-line complexity
+
+
+    Dropdown._dataApiKeydownHandler = function _dataApiKeydownHandler(event) {
+      // If not input/textarea:
+      //  - And not a key in REGEXP_KEYDOWN => not a dropdown command
+      // If input/textarea:
+      //  - If space key => not a dropdown command
+      //  - If key is other than escape
+      //    - If key is not up or down => not a dropdown command
+      //    - If trigger inside the menu => not a dropdown command
+      if (/input|textarea/i.test(event.target.tagName) ? event.which === SPACE_KEYCODE || event.which !== ESCAPE_KEYCODE && (event.which !== ARROW_DOWN_KEYCODE && event.which !== ARROW_UP_KEYCODE || $(event.target).closest(Selector.MENU).length) : !REGEXP_KEYDOWN.test(event.which)) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (this.disabled || $(this).hasClass(ClassName.DISABLED)) {
+        return;
+      }
+
+      var parent = Dropdown._getParentFromElement(this);
+
+      var isActive = $(parent).hasClass(ClassName.SHOW);
+
+      if (!isActive && (event.which !== ESCAPE_KEYCODE || event.which !== SPACE_KEYCODE) || isActive && (event.which === ESCAPE_KEYCODE || event.which === SPACE_KEYCODE)) {
+        if (event.which === ESCAPE_KEYCODE) {
+          var toggle = $(parent).find(Selector.DATA_TOGGLE)[0];
+          $(toggle).trigger('focus');
+        }
+
+        $(this).trigger('click');
+        return;
+      }
+
+      var items = $(parent).find(Selector.VISIBLE_ITEMS).get();
+
+      if (items.length === 0) {
+        return;
+      }
+
+      var index = items.indexOf(event.target);
+
+      if (event.which === ARROW_UP_KEYCODE && index > 0) {
+        // Up
+        index--;
+      }
+
+      if (event.which === ARROW_DOWN_KEYCODE && index < items.length - 1) {
+        // Down
+        index++;
+      }
+
+      if (index < 0) {
+        index = 0;
+      }
+
+      items[index].focus();
+    };
+
+    _createClass(Dropdown, null, [{
+      key: "VERSION",
+      get: function get() {
+        return VERSION;
+      }
+    }, {
+      key: "Default",
+      get: function get() {
+        return Default;
+      }
+    }, {
+      key: "DefaultType",
+      get: function get() {
+        return DefaultType;
+      }
+    }]);
+
+    return Dropdown;
+  }();
+  /**
+   * ------------------------------------------------------------------------
+   * Data Api implementation
+   * ------------------------------------------------------------------------
+   */
+
+
+  $(document).on(Event.KEYDOWN_DATA_API, Selector.DATA_TOGGLE, Dropdown._dataApiKeydownHandler).on(Event.KEYDOWN_DATA_API, Selector.MENU, Dropdown._dataApiKeydownHandler).on(Event.CLICK_DATA_API + " " + Event.KEYUP_DATA_API, Dropdown._clearMenus).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE, function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    Dropdown._jQueryInterface.call($(this), 'toggle');
+  }).on(Event.CLICK_DATA_API, Selector.FORM_CHILD, function (e) {
+    e.stopPropagation();
+  });
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
+
+  $.fn[NAME] = Dropdown._jQueryInterface;
+  $.fn[NAME].Constructor = Dropdown;
+
+  $.fn[NAME].noConflict = function () {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Dropdown._jQueryInterface;
+  };
+
+  return Dropdown;
+}($, Popper);
+
+(function ($) {
+  'use strict';
+  /**
+   * We need an event when the elements are destroyed
+   * because if an input is removed, we have to remove the
+   * maxlength object associated (if any).
+   * From:
+   * http://stackoverflow.com/questions/2200494/jquery-trigger-event-when-an-element-is-removed-from-the-dom
+   */
+  if (!$.event.special.destroyed) {
+    $.event.special.destroyed = {
+      remove: function (o) {
+        if (o.handler) {
+          o.handler();
+        }
+      }
+    };
+  }
+
+
+  $.fn.extend({
+    maxlength: function (options, callback) {
+      var documentBody = $('body'),
+        defaults = {
+          showOnReady: false, // true to always show when indicator is ready
+          alwaysShow: false, // if true the indicator it's always shown.
+          threshold: 10, // Represents how many chars left are needed to show up the counter
+          warningClass: 'label label-success',
+          limitReachedClass: 'label label-important label-danger',
+          separator: ' / ',
+          preText: '',
+          postText: '',
+          showMaxLength: true,
+          placement: 'bottom',
+          message: null, // an alternative way to provide the message text
+          showCharsTyped: true, // show the number of characters typed and not the number of characters remaining
+          validate: false, // if the browser doesn't support the maxlength attribute, attempt to type more than
+          // the indicated chars, will be prevented.
+          utf8: false, // counts using bytesize rather than length. eg: '£' is counted as 2 characters.
+          appendToParent: false, // append the indicator to the input field's parent instead of body
+          twoCharLinebreak: true,  // count linebreak as 2 characters to match IE/Chrome textarea validation. As well as DB storage.
+          allowOverMax: false  // false = use maxlength attribute and browswer functionality.
+          // true = removes maxlength attribute and replaces with 'data-bs-mxl'.
+          // Form submit validation is handled on your own.  when maxlength has been exceeded 'overmax' class added to element
+        };
+
+      if ($.isFunction(options) && !callback) {
+        callback = options;
+        options = {};
+      }
+      options = $.extend(defaults, options);
+
+      /**
+      * Return the length of the specified input.
+      *
+      * @param input
+      * @return {number}
+      */
+      function inputLength(input) {
+        var text = input.val();
+
+        if (options.twoCharLinebreak) {
+          // Count all line breaks as 2 characters
+          text = text.replace(/\r(?!\n)|\n(?!\r)/g, '\r\n');
+        } else {
+          // Remove all double-character (\r\n) linebreaks, so they're counted only once.
+          text = text.replace(new RegExp('\r?\n', 'g'), '\n');
+        }
+
+        var currentLength = 0;
+
+        if (options.utf8) {
+          currentLength = utf8Length(text);
+        } else {
+          currentLength = text.length;
+        }
+        return currentLength;
+      }
+
+      /**
+      * Truncate the text of the specified input.
+      *
+      * @param input
+      * @param limit
+      */
+      function truncateChars(input, maxlength) {
+        var text = input.val();
+        var newlines = 0;
+
+        if (options.twoCharLinebreak) {
+          text = text.replace(/\r(?!\n)|\n(?!\r)/g, '\r\n');
+
+          if (text.substr(text.length - 1) === '\n' && text.length % 2 === 1) {
+            newlines = 1;
+          }
+        }
+
+        input.val(text.substr(0, maxlength - newlines));
+      }
+
+      /**
+      * Return the length of the specified input in UTF8 encoding.
+      *
+      * @param input
+      * @return {number}
+      */
+      function utf8Length(string) {
+        var utf8length = 0;
+        for (var n = 0; n < string.length; n++) {
+          var c = string.charCodeAt(n);
+          if (c < 128) {
+            utf8length++;
+          }
+          else if ((c > 127) && (c < 2048)) {
+            utf8length = utf8length + 2;
+          }
+          else {
+            utf8length = utf8length + 3;
+          }
+        }
+        return utf8length;
+      }
+
+      /**
+       * Return true if the indicator should be showing up.
+       *
+       * @param input
+       * @param thereshold
+       * @param maxlength
+       * @return {number}
+       */
+      function charsLeftThreshold(input, thereshold, maxlength) {
+        var output = true;
+        if (!options.alwaysShow && (maxlength - inputLength(input) > thereshold)) {
+          output = false;
+        }
+        return output;
+      }
+
+      /**
+       * Returns how many chars are left to complete the fill up of the form.
+       *
+       * @param input
+       * @param maxlength
+       * @return {number}
+       */
+      function remainingChars(input, maxlength) {
+        var length = maxlength - inputLength(input);
+        return length;
+      }
+
+      /**
+       * When called displays the indicator.
+       *
+       * @param indicator
+       */
+      function showRemaining(currentInput, indicator) {
+        indicator.css({
+          display: 'block'
+        });
+        currentInput.trigger('maxlength.shown');
+      }
+
+      /**
+       * When called shows the indicator.
+       *
+       * @param indicator
+       */
+      function hideRemaining(currentInput, indicator) {
+        indicator.css({
+          display: 'none'
+        });
+        currentInput.trigger('maxlength.hidden');
+      }
+
+      /**
+      * This function updates the value in the indicator
+      *
+      * @param maxLengthThisInput
+      * @param typedChars
+      * @return String
+      */
+      function updateMaxLengthHTML(currentInputText, maxLengthThisInput, typedChars) {
+        var output = '';
+        if (options.message) {
+          if (typeof options.message === 'function') {
+            output = options.message(currentInputText, maxLengthThisInput);
+          } else {
+            output = options.message.replace('%charsTyped%', typedChars)
+              .replace('%charsRemaining%', maxLengthThisInput - typedChars)
+              .replace('%charsTotal%', maxLengthThisInput);
+          }
+        } else {
+          if (options.preText) {
+            output += options.preText;
+          }
+          if (!options.showCharsTyped) {
+            output += maxLengthThisInput - typedChars;
+          }
+          else {
+            output += typedChars;
+          }
+          if (options.showMaxLength) {
+            output += options.separator + maxLengthThisInput;
+          }
+          if (options.postText) {
+            output += options.postText;
+          }
+        }
+        return output;
+      }
+
+      /**
+       * This function updates the value of the counter in the indicator.
+       * Wants as parameters: the number of remaining chars, the element currently managed,
+       * the maxLength for the current input and the indicator generated for it.
+       *
+       * @param remaining
+       * @param currentInput
+       * @param maxLengthCurrentInput
+       * @param maxLengthIndicator
+       */
+      function manageRemainingVisibility(remaining, currentInput, maxLengthCurrentInput, maxLengthIndicator) {
+        if (maxLengthIndicator) {
+          maxLengthIndicator.html(updateMaxLengthHTML(currentInput.val(), maxLengthCurrentInput, (maxLengthCurrentInput - remaining)));
+
+          if (remaining > 0) {
+            if (charsLeftThreshold(currentInput, options.threshold, maxLengthCurrentInput)) {
+              showRemaining(currentInput, maxLengthIndicator.removeClass(options.limitReachedClass).addClass(options.warningClass));
+            } else {
+              hideRemaining(currentInput, maxLengthIndicator);
+            }
+          } else {
+            showRemaining(currentInput, maxLengthIndicator.removeClass(options.warningClass).addClass(options.limitReachedClass));
+          }
+        }
+
+        if (options.allowOverMax) {
+          // class to use for form validation on custom maxlength attribute
+          if (remaining < 0) {
+            currentInput.addClass('overmax');
+          } else {
+            currentInput.removeClass('overmax');
+          }
+        }
+      }
+
+      /**
+       * This function returns an object containing all the
+       * informations about the position of the current input
+       *
+       * @param currentInput
+       * @return object {bottom height left right top width}
+       *
+       */
+      function getPosition(currentInput) {
+        var el = currentInput[0];
+        return $.extend({}, (typeof el.getBoundingClientRect === 'function') ? el.getBoundingClientRect() : {
+          width: el.offsetWidth,
+          height: el.offsetHeight
+        }, currentInput.offset());
+      }
+
+      /**
+       * This function places the maxLengthIndicator at the
+       * top / bottom / left / right of the currentInput
+       *
+       * @param currentInput
+       * @param maxLengthIndicator
+       * @return null
+       *
+       */
+      function place(currentInput, maxLengthIndicator) {
+        var pos = getPosition(currentInput);
+
+        // Supports custom placement handler
+        if ($.type(options.placement) === 'function'){
+          options.placement(currentInput, maxLengthIndicator, pos);
+          return;
+        }
+
+        // Supports custom placement via css positional properties
+        if ($.isPlainObject(options.placement)){
+          placeWithCSS(options.placement, maxLengthIndicator);
+          return;
+        }
+
+        var inputOuter = currentInput.outerWidth(),
+          outerWidth = maxLengthIndicator.outerWidth(),
+          actualWidth = maxLengthIndicator.width(),
+          actualHeight = maxLengthIndicator.height();
+
+        // get the right position if the indicator is appended to the input's parent
+        if (options.appendToParent) {
+          pos.top -= currentInput.parent().offset().top;
+          pos.left -= currentInput.parent().offset().left;
+        }
+
+        switch (options.placement) {
+          case 'bottom':
+            maxLengthIndicator.css({ top: pos.top + pos.height, left: pos.left + pos.width / 2 - actualWidth / 2 });
+            break;
+          case 'top':
+            maxLengthIndicator.css({ top: pos.top - actualHeight, left: pos.left + pos.width / 2 - actualWidth / 2 });
+            break;
+          case 'left':
+            maxLengthIndicator.css({ top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left - actualWidth });
+            break;
+          case 'right':
+            maxLengthIndicator.css({ top: pos.top + pos.height / 2 - actualHeight / 2, left: pos.left + pos.width });
+            break;
+          case 'bottom-right':
+            maxLengthIndicator.css({ top: pos.top + pos.height, left: pos.left + pos.width });
+            break;
+          case 'top-right':
+            maxLengthIndicator.css({ top: pos.top - actualHeight, left: pos.left + inputOuter });
+            break;
+          case 'top-left':
+            maxLengthIndicator.css({ top: pos.top - actualHeight, left: pos.left - outerWidth });
+            break;
+          case 'bottom-left':
+            maxLengthIndicator.css({ top: pos.top + currentInput.outerHeight(), left: pos.left - outerWidth });
+            break;
+          case 'centered-right':
+            maxLengthIndicator.css({ top: pos.top + (actualHeight / 2), left: pos.left + inputOuter - outerWidth - 3 });
+            break;
+
+            // Some more options for placements
+          case 'bottom-right-inside':
+            maxLengthIndicator.css({ top: pos.top + pos.height, left: pos.left + pos.width - outerWidth });
+            break;
+          case 'top-right-inside':
+            maxLengthIndicator.css({ top: pos.top - actualHeight, left: pos.left + inputOuter - outerWidth });
+            break;
+          case 'top-left-inside':
+            maxLengthIndicator.css({ top: pos.top - actualHeight, left: pos.left });
+            break;
+          case 'bottom-left-inside':
+            maxLengthIndicator.css({ top: pos.top + currentInput.outerHeight(), left: pos.left });
+            break;
+        }
+      }
+
+      /**
+       * This function places the maxLengthIndicator based on placement config object.
+       *
+       * @param {object} placement
+       * @param {$} maxLengthIndicator
+       * @return null
+       *
+       */
+      function placeWithCSS(placement, maxLengthIndicator) {
+        if (!placement || !maxLengthIndicator){
+          return;
+        }
+
+        var POSITION_KEYS = [
+          'top',
+          'bottom',
+          'left',
+          'right',
+          'position'
+        ];
+
+        var cssPos = {};
+
+        // filter css properties to position
+        $.each(POSITION_KEYS, function (i, key) {
+          var val = options.placement[key];
+          if (typeof val !== 'undefined'){
+            cssPos[key] = val;
+          }
+        });
+
+        maxLengthIndicator.css(cssPos);
+
+        return;
+      }
+
+      /**
+       * This function retrieves the maximum length of currentInput
+       *
+       * @param currentInput
+       * @return {number}
+       *
+       */
+      function getMaxLength(currentInput) {
+        var attr = 'maxlength';
+        if (options.allowOverMax) {
+          attr = 'data-bs-mxl';
+        }
+        return currentInput.attr(attr) || currentInput.attr('size');
+      }
+
+      return this.each(function () {
+
+        var currentInput = $(this),
+          maxLengthCurrentInput,
+          maxLengthIndicator;
+
+        $(window).resize(function () {
+          if (maxLengthIndicator) {
+            place(currentInput, maxLengthIndicator);
+          }
+        });
+
+        if (options.allowOverMax) {
+          $(this).attr('data-bs-mxl', $(this).attr('maxlength'));
+          $(this).removeAttr('maxlength');
+        }
+
+        function firstInit() {
+          var maxlengthContent = updateMaxLengthHTML(currentInput.val(), maxLengthCurrentInput, '0');
+          maxLengthCurrentInput = getMaxLength(currentInput);
+
+          if (!maxLengthIndicator) {
+            maxLengthIndicator = $('<span class="bootstrap-maxlength"></span>').css({
+              display: 'none',
+              position: 'absolute',
+              whiteSpace: 'nowrap',
+              zIndex: 1099
+            }).html(maxlengthContent);
+          }
+
+          // We need to detect resizes if we are dealing with a textarea:
+          if (currentInput.is('textarea')) {
+            currentInput.data('maxlenghtsizex', currentInput.outerWidth());
+            currentInput.data('maxlenghtsizey', currentInput.outerHeight());
+
+            currentInput.mouseup(function () {
+              if (currentInput.outerWidth() !== currentInput.data('maxlenghtsizex') || currentInput.outerHeight() !== currentInput.data('maxlenghtsizey')) {
+                place(currentInput, maxLengthIndicator);
+              }
+
+              currentInput.data('maxlenghtsizex', currentInput.outerWidth());
+              currentInput.data('maxlenghtsizey', currentInput.outerHeight());
+            });
+          }
+
+          if (options.appendToParent) {
+            currentInput.parent().append(maxLengthIndicator);
+            currentInput.parent().css('position', 'relative');
+          } else {
+            documentBody.append(maxLengthIndicator);
+          }
+
+          var remaining = remainingChars(currentInput, getMaxLength(currentInput));
+          manageRemainingVisibility(remaining, currentInput, maxLengthCurrentInput, maxLengthIndicator);
+          place(currentInput, maxLengthIndicator);
+        }
+
+        if (options.showOnReady) {
+          currentInput.ready(function () {
+            firstInit();
+          });
+        } else {
+          currentInput.focus(function () {
+            firstInit();
+          });
+        }
+
+        currentInput.on('maxlength.reposition', function () {
+          place(currentInput, maxLengthIndicator);
+        });
+
+
+        currentInput.on('destroyed', function () {
+          if (maxLengthIndicator) {
+            maxLengthIndicator.remove();
+          }
+        });
+
+        currentInput.on('blur', function () {
+          if (maxLengthIndicator && !options.showOnReady) {
+            maxLengthIndicator.remove();
+          }
+        });
+
+        currentInput.on('input', function () {
+          var maxlength = getMaxLength(currentInput),
+            remaining = remainingChars(currentInput, maxlength),
+            output = true;
+
+          if (options.validate && remaining < 0) {
+            truncateChars(currentInput, maxlength);
+            output = false;
+          } else {
+            manageRemainingVisibility(remaining, currentInput, maxLengthCurrentInput, maxLengthIndicator);
+          }
+
+          //reposition the indicator if placement "bottom-right-inside" & "top-right-inside" is used
+          if (options.placement === 'bottom-right-inside' || options.placement === 'top-right-inside') {
+            place(currentInput, maxLengthIndicator);
+          }
+
+          return output;
+        });
+      });
+    }
+  });
+}(jQuery));
 
 })
 ( window, document, jQuery, wponion, wp.hooks );
