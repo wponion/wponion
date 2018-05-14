@@ -525,7 +525,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * @todo check for script is done. if its then add inline to the fileds html.
 		 * var_dump( wp_script_is( 'wponion-fields', 'done' ) );
 		 */
-		protected function localize_field() {
+		public function localize_field() {
 			$data = $this->js_field_args();
 			if ( ! empty( $data ) ) {
 				wp_localize_script( 'wponion-fields', $this->js_field_id(), $data );
