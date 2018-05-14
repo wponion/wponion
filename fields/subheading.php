@@ -24,19 +24,6 @@ if ( ! class_exists( 'WPOnion_Field_subheading' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_subheading extends WPOnion_Field {
-		public function output() {
-			echo $this->before();
-			echo $this->data( 'content' );
-			echo $this->after();
-		}
-
-		public function field_assets() {
-			// TODO: Implement field_assets() method.
-		}
-
-		protected function field_default() {
-			return array( 'content' => false );
-		}
+	class WPOnion_Field_subheading extends WPOnion_Field_heading {
 	}
 }
