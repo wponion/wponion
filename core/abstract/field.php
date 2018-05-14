@@ -400,9 +400,13 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 */
 		protected function get_errors() {
 			if ( null === $this->errors ) {
-				$error_instance = wponion_registry( $this->module . '_' . $this->plugin_id() );
-				$field_id       = sanitize_key( $this->unique( $this->field_id() ) );
-				$this->errors   = $error_instance->get( $field_id );
+				$error_instance = wponion_registry( $this->module . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
+				if ( $error_instance ) {
+					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
+					$this->errors = $error_instance->get( $field_id );
+				} else {
+					$this->errors = false;
+				}
 			}
 			return $this->errors;
 		}
