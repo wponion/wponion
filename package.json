@@ -1,0 +1,30 @@
+{
+  "name": "WPOnion",
+  "version": "1.0.0",
+  "description": "WPOnion Simple & Light Weight Framework For WordPress.",
+  "main": "",
+  "scripts": {},
+  "keywords": [
+    "wordpress",
+    "wordpress-plugin",
+    "wordpress-theme",
+    "wordpress-options-framework"
+  ],
+  "author": "varunsridharan",
+  "license": "GPLV3",
+  "devDependencies": {
+    "animate.css": "^3.6.1",
+    "bootstrap": "^4.1.1",
+    "bootstrap-maxlength": "^1.6.0",
+    "chosen-js": "^1.8.5",
+    "flag-icon-css": "^3.0.0",
+    "inputmask": "^3.3.11",
+    "ionicons": "^4.0.0",
+    "jquery": "^3.3.1",
+    "jquery.actual": "^1.0.19",
+    "popper.js": "^1.14.3",
+    "select2": "^4.0.6-rc.1",
+    "selectize.js": "^0.12.12"
+  },
+  "dependencies": {}
+}
