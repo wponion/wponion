@@ -96,7 +96,7 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 		/**
 		 * Returns Settings Instance.
 		 *
-		 * @return mixed
+		 * @return \WPOnion_Settings
 		 */
 		public function settings() {
 			return wponion_settings_registry( $this->plugin_id );
