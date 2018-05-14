@@ -44,7 +44,7 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	 * @param string $type
 	 * @param null   $class
 	 *
-	 * @return mixed
+	 * @return $class
 	 */
 	function wponion_registry( $type = '', $class = null ) {
 		switch ( $type ) {
