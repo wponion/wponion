@@ -2258,6 +2258,11 @@
   }
 }
 
+.wponion-framework-bootstrap {
+  /* =============   Form Element  ============= */
+  /*Taken From http://www.aksisweb.com/theme/fixed-v21/layouts-1/assets/scss/*/
+}
+
 .wponion-framework-bootstrap h1, .wponion-framework-bootstrap h2, .wponion-framework-bootstrap h3, .wponion-framework-bootstrap h4, .wponion-framework-bootstrap h5, .wponion-framework-bootstrap h6,
 .wponion-framework-bootstrap .h1, .wponion-framework-bootstrap .h2, .wponion-framework-bootstrap .h3, .wponion-framework-bootstrap .h4, .wponion-framework-bootstrap .h5, .wponion-framework-bootstrap .h6 {
   margin-bottom: 0.5rem;
@@ -2511,12 +2516,11 @@
 
 .wponion-framework-bootstrap a {
   text-decoration: none;
-  background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 
 .wponion-framework-bootstrap a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .wponion-framework-bootstrap a:not([href]):not([tabindex]) {
@@ -3364,14 +3368,14 @@
   pointer-events: none;
 }
 
-.wponion-framework-bootstrap .btn-lg {
+.wponion-framework-bootstrap .btn-lg, .wponion-framework-bootstrap .btn-group-lg > .btn {
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
   border-radius: 0.3rem;
 }
 
-.wponion-framework-bootstrap .btn-sm {
+.wponion-framework-bootstrap .btn-sm, .wponion-framework-bootstrap .btn-group-sm > .btn {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -3391,6 +3395,358 @@
 .wponion-framework-bootstrap input[type="reset"].btn-block,
 .wponion-framework-bootstrap input[type="button"].btn-block {
   width: 100%;
+}
+
+.wponion-framework-bootstrap .btn-group,
+.wponion-framework-bootstrap .btn-group-vertical {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.wponion-framework-bootstrap .btn-group > .btn,
+.wponion-framework-bootstrap .btn-group-vertical > .btn {
+  position: relative;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+}
+
+.wponion-framework-bootstrap .btn-group > .btn:hover,
+.wponion-framework-bootstrap .btn-group-vertical > .btn:hover {
+  z-index: 1;
+}
+
+.wponion-framework-bootstrap .btn-group > .btn:focus, .wponion-framework-bootstrap .btn-group > .btn:active, .wponion-framework-bootstrap .btn-group > .btn.active,
+.wponion-framework-bootstrap .btn-group-vertical > .btn:focus,
+.wponion-framework-bootstrap .btn-group-vertical > .btn:active,
+.wponion-framework-bootstrap .btn-group-vertical > .btn.active {
+  z-index: 1;
+}
+
+.wponion-framework-bootstrap .btn-group .btn + .btn,
+.wponion-framework-bootstrap .btn-group .btn + .btn-group,
+.wponion-framework-bootstrap .btn-group .btn-group + .btn,
+.wponion-framework-bootstrap .btn-group .btn-group + .btn-group,
+.wponion-framework-bootstrap .btn-group-vertical .btn + .btn,
+.wponion-framework-bootstrap .btn-group-vertical .btn + .btn-group,
+.wponion-framework-bootstrap .btn-group-vertical .btn-group + .btn,
+.wponion-framework-bootstrap .btn-group-vertical .btn-group + .btn-group {
+  margin-left: -1px;
+}
+
+.wponion-framework-bootstrap .btn-toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.wponion-framework-bootstrap .btn-toolbar .input-group {
+  width: auto;
+}
+
+.wponion-framework-bootstrap .btn-group > .btn:first-child {
+  margin-left: 0;
+}
+
+.wponion-framework-bootstrap .btn-group > .btn:not(:last-child):not(.dropdown-toggle),
+.wponion-framework-bootstrap .btn-group > .btn-group:not(:last-child) > .btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.wponion-framework-bootstrap .btn-group > .btn:not(:first-child),
+.wponion-framework-bootstrap .btn-group > .btn-group:not(:first-child) > .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.wponion-framework-bootstrap .dropdown-toggle-split {
+  padding-right: 0.5625rem;
+  padding-left: 0.5625rem;
+}
+
+.wponion-framework-bootstrap .dropdown-toggle-split::after,
+.dropup .wponion-framework-bootstrap .dropdown-toggle-split::after,
+.dropright .wponion-framework-bootstrap .dropdown-toggle-split::after {
+  margin-left: 0;
+}
+
+.dropleft .wponion-framework-bootstrap .dropdown-toggle-split::before {
+  margin-right: 0;
+}
+
+.wponion-framework-bootstrap .btn-sm + .dropdown-toggle-split, .wponion-framework-bootstrap .btn-group-sm > .btn + .dropdown-toggle-split {
+  padding-right: 0.375rem;
+  padding-left: 0.375rem;
+}
+
+.wponion-framework-bootstrap .btn-lg + .dropdown-toggle-split, .wponion-framework-bootstrap .btn-group-lg > .btn + .dropdown-toggle-split {
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+}
+
+.wponion-framework-bootstrap .btn-group-vertical {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.wponion-framework-bootstrap .btn-group-vertical .btn,
+.wponion-framework-bootstrap .btn-group-vertical .btn-group {
+  width: 100%;
+}
+
+.wponion-framework-bootstrap .btn-group-vertical > .btn + .btn,
+.wponion-framework-bootstrap .btn-group-vertical > .btn + .btn-group,
+.wponion-framework-bootstrap .btn-group-vertical > .btn-group + .btn,
+.wponion-framework-bootstrap .btn-group-vertical > .btn-group + .btn-group {
+  margin-top: -1px;
+  margin-left: 0;
+}
+
+.wponion-framework-bootstrap .btn-group-vertical > .btn:not(:last-child):not(.dropdown-toggle),
+.wponion-framework-bootstrap .btn-group-vertical > .btn-group:not(:last-child) > .btn {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.wponion-framework-bootstrap .btn-group-vertical > .btn:not(:first-child),
+.wponion-framework-bootstrap .btn-group-vertical > .btn-group:not(:first-child) > .btn {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.wponion-framework-bootstrap .btn-group-toggle > .btn,
+.wponion-framework-bootstrap .btn-group-toggle > .btn-group > .btn {
+  margin-bottom: 0;
+}
+
+.wponion-framework-bootstrap .btn-group-toggle > .btn input[type="radio"],
+.wponion-framework-bootstrap .btn-group-toggle > .btn input[type="checkbox"],
+.wponion-framework-bootstrap .btn-group-toggle > .btn-group > .btn input[type="radio"],
+.wponion-framework-bootstrap .btn-group-toggle > .btn-group > .btn input[type="checkbox"] {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  pointer-events: none;
+}
+
+.wponion-framework-bootstrap .dropup,
+.wponion-framework-bootstrap .dropright,
+.wponion-framework-bootstrap .dropdown,
+.wponion-framework-bootstrap .dropleft {
+  position: relative;
+}
+
+.wponion-framework-bootstrap .dropdown-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+}
+
+.wponion-framework-bootstrap .dropdown-toggle:empty::after {
+  margin-left: 0;
+}
+
+.wponion-framework-bootstrap .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+.wponion-framework-bootstrap .dropdown-menu-right {
+  right: 0;
+  left: auto;
+}
+
+.wponion-framework-bootstrap .dropup .dropdown-menu {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 0.125rem;
+}
+
+.wponion-framework-bootstrap .dropup .dropdown-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0.3em solid;
+  border-left: 0.3em solid transparent;
+}
+
+.wponion-framework-bootstrap .dropup .dropdown-toggle:empty::after {
+  margin-left: 0;
+}
+
+.wponion-framework-bootstrap .dropright .dropdown-menu {
+  top: 0;
+  right: auto;
+  left: 100%;
+  margin-top: 0;
+  margin-left: 0.125rem;
+}
+
+.wponion-framework-bootstrap .dropright .dropdown-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid transparent;
+  border-right: 0;
+  border-bottom: 0.3em solid transparent;
+  border-left: 0.3em solid;
+}
+
+.wponion-framework-bootstrap .dropright .dropdown-toggle:empty::after {
+  margin-left: 0;
+}
+
+.wponion-framework-bootstrap .dropright .dropdown-toggle::after {
+  vertical-align: 0;
+}
+
+.wponion-framework-bootstrap .dropleft .dropdown-menu {
+  top: 0;
+  right: 100%;
+  left: auto;
+  margin-top: 0;
+  margin-right: 0.125rem;
+}
+
+.wponion-framework-bootstrap .dropleft .dropdown-toggle::after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+}
+
+.wponion-framework-bootstrap .dropleft .dropdown-toggle::after {
+  display: none;
+}
+
+.wponion-framework-bootstrap .dropleft .dropdown-toggle::before {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid transparent;
+  border-right: 0.3em solid;
+  border-bottom: 0.3em solid transparent;
+}
+
+.wponion-framework-bootstrap .dropleft .dropdown-toggle:empty::after {
+  margin-left: 0;
+}
+
+.wponion-framework-bootstrap .dropleft .dropdown-toggle::before {
+  vertical-align: 0;
+}
+
+.wponion-framework-bootstrap .dropdown-menu[x-placement^="top"], .wponion-framework-bootstrap .dropdown-menu[x-placement^="right"], .wponion-framework-bootstrap .dropdown-menu[x-placement^="bottom"], .wponion-framework-bootstrap .dropdown-menu[x-placement^="left"] {
+  right: auto;
+  bottom: auto;
+}
+
+.wponion-framework-bootstrap .dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+}
+
+.wponion-framework-bootstrap .dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.wponion-framework-bootstrap .dropdown-item:hover, .wponion-framework-bootstrap .dropdown-item:focus {
+  color: #16181b;
+  text-decoration: none;
+  background-color: #f8f9fa;
+}
+
+.wponion-framework-bootstrap .dropdown-item.active, .wponion-framework-bootstrap .dropdown-item:active {
+  color: #fff;
+  text-decoration: none;
+  background-color: #007bff;
+}
+
+.wponion-framework-bootstrap .dropdown-item.disabled, .wponion-framework-bootstrap .dropdown-item:disabled {
+  color: #6c757d;
+  background-color: transparent;
+}
+
+.wponion-framework-bootstrap .dropdown-menu.show {
+  display: block;
+}
+
+.wponion-framework-bootstrap .dropdown-header {
+  display: block;
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+.wponion-framework-bootstrap .dropdown-item-text {
+  display: block;
+  padding: 0.25rem 1.5rem;
+  color: #212529;
 }
 
 .wponion-framework-bootstrap .badge {
@@ -3929,6 +4285,1578 @@
   border-top-right-radius: 0;
 }
 
+.wponion-framework-bootstrap .form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .wponion-framework-bootstrap .form-control {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none;
+  }
+}
+
+.wponion-framework-bootstrap .form-control::-ms-expand {
+  background-color: transparent;
+  border: 0;
+}
+
+.wponion-framework-bootstrap .form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.wponion-framework-bootstrap .form-control::-webkit-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.wponion-framework-bootstrap .form-control:-ms-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.wponion-framework-bootstrap .form-control::-ms-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.wponion-framework-bootstrap .form-control::placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+.wponion-framework-bootstrap .form-control:disabled, .wponion-framework-bootstrap .form-control[readonly] {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+.wponion-framework-bootstrap select.form-control:not([size]):not([multiple]) {
+  height: calc(2.25rem + 2px);
+}
+
+.wponion-framework-bootstrap select.form-control:focus::-ms-value {
+  color: #495057;
+  background-color: #fff;
+}
+
+.wponion-framework-bootstrap .form-control-file,
+.wponion-framework-bootstrap .form-control-range {
+  display: block;
+  width: 100%;
+}
+
+.wponion-framework-bootstrap .col-form-label {
+  padding-top: calc(0.375rem + 1px);
+  padding-bottom: calc(0.375rem + 1px);
+  margin-bottom: 0;
+  font-size: inherit;
+  line-height: 1.5;
+}
+
+.wponion-framework-bootstrap .col-form-label-lg {
+  padding-top: calc(0.5rem + 1px);
+  padding-bottom: calc(0.5rem + 1px);
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.wponion-framework-bootstrap .col-form-label-sm {
+  padding-top: calc(0.25rem + 1px);
+  padding-bottom: calc(0.25rem + 1px);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.wponion-framework-bootstrap .form-control-plaintext {
+  display: block;
+  width: 100%;
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #212529;
+  background-color: transparent;
+  border: solid transparent;
+  border-width: 1px 0;
+}
+
+.wponion-framework-bootstrap .form-control-plaintext.form-control-sm, .wponion-framework-bootstrap .input-group-sm > .form-control-plaintext.form-control, .wponion-framework-bootstrap .input-group-sm > .input-group-prepend > .form-control-plaintext.input-group-text, .wponion-framework-bootstrap .input-group-sm > .input-group-append > .form-control-plaintext.input-group-text, .wponion-framework-bootstrap .input-group-sm > .input-group-prepend > .form-control-plaintext.btn, .wponion-framework-bootstrap .input-group-sm > .input-group-append > .form-control-plaintext.btn, .wponion-framework-bootstrap .form-control-plaintext.form-control-lg, .wponion-framework-bootstrap .input-group-lg > .form-control-plaintext.form-control, .wponion-framework-bootstrap .input-group-lg > .input-group-prepend > .form-control-plaintext.input-group-text, .wponion-framework-bootstrap .input-group-lg > .input-group-append > .form-control-plaintext.input-group-text, .wponion-framework-bootstrap .input-group-lg > .input-group-prepend > .form-control-plaintext.btn, .wponion-framework-bootstrap .input-group-lg > .input-group-append > .form-control-plaintext.btn {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.wponion-framework-bootstrap .form-control-sm, .wponion-framework-bootstrap .input-group-sm > .form-control, .wponion-framework-bootstrap .input-group-sm > .input-group-prepend > .input-group-text, .wponion-framework-bootstrap .input-group-sm > .input-group-append > .input-group-text, .wponion-framework-bootstrap .input-group-sm > .input-group-prepend > .btn, .wponion-framework-bootstrap .input-group-sm > .input-group-append > .btn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+.wponion-framework-bootstrap select.form-control-sm:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-sm > select.form-control:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-sm > .input-group-prepend > select.input-group-text:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-sm > .input-group-append > select.input-group-text:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-sm > .input-group-prepend > select.btn:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-sm > .input-group-append > select.btn:not([size]):not([multiple]) {
+  height: calc(1.8125rem + 2px);
+}
+
+.wponion-framework-bootstrap .form-control-lg, .wponion-framework-bootstrap .input-group-lg > .form-control, .wponion-framework-bootstrap .input-group-lg > .input-group-prepend > .input-group-text, .wponion-framework-bootstrap .input-group-lg > .input-group-append > .input-group-text, .wponion-framework-bootstrap .input-group-lg > .input-group-prepend > .btn, .wponion-framework-bootstrap .input-group-lg > .input-group-append > .btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
+
+.wponion-framework-bootstrap select.form-control-lg:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-lg > select.form-control:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-lg > .input-group-prepend > select.input-group-text:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-lg > .input-group-append > select.input-group-text:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]), .wponion-framework-bootstrap .input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]) {
+  height: calc(2.875rem + 2px);
+}
+
+.wponion-framework-bootstrap .form-group {
+  margin-bottom: 1rem;
+}
+
+.wponion-framework-bootstrap .form-text {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.wponion-framework-bootstrap .form-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.wponion-framework-bootstrap .form-row > .col,
+.wponion-framework-bootstrap .form-row > [class*="col-"] {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.wponion-framework-bootstrap .form-check {
+  position: relative;
+  display: block;
+  padding-left: 1.25rem;
+}
+
+.wponion-framework-bootstrap .form-check-input {
+  position: absolute;
+  margin-top: 0.3rem;
+  margin-left: -1.25rem;
+}
+
+.wponion-framework-bootstrap .form-check-input:disabled ~ .form-check-label {
+  color: #6c757d;
+}
+
+.wponion-framework-bootstrap .form-check-label {
+  margin-bottom: 0;
+}
+
+.wponion-framework-bootstrap .form-check-inline {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-left: 0;
+  margin-right: 0.75rem;
+}
+
+.wponion-framework-bootstrap .form-check-inline .form-check-input {
+  position: static;
+  margin-top: 0;
+  margin-right: 0.3125rem;
+  margin-left: 0;
+}
+
+.wponion-framework-bootstrap .valid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #28a745;
+}
+
+.wponion-framework-bootstrap .valid-tooltip {
+  position: absolute;
+  top: 100%;
+  z-index: 5;
+  display: none;
+  max-width: 100%;
+  padding: .5rem;
+  margin-top: .1rem;
+  font-size: .875rem;
+  line-height: 1;
+  color: #fff;
+  background-color: rgba(40, 167, 69, 0.8);
+  border-radius: .2rem;
+}
+
+.was-validated .wponion-framework-bootstrap .form-control:valid, .wponion-framework-bootstrap .form-control.is-valid, .was-validated
+.wponion-framework-bootstrap .custom-select:valid,
+.wponion-framework-bootstrap .custom-select.is-valid {
+  border-color: #28a745;
+}
+
+.was-validated .wponion-framework-bootstrap .form-control:valid:focus, .wponion-framework-bootstrap .form-control.is-valid:focus, .was-validated
+.wponion-framework-bootstrap .custom-select:valid:focus,
+.wponion-framework-bootstrap .custom-select.is-valid:focus {
+  border-color: #28a745;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.was-validated .wponion-framework-bootstrap .form-control:valid ~ .valid-feedback,
+.was-validated .wponion-framework-bootstrap .form-control:valid ~ .valid-tooltip, .wponion-framework-bootstrap .form-control.is-valid ~ .valid-feedback,
+.wponion-framework-bootstrap .form-control.is-valid ~ .valid-tooltip, .was-validated
+.wponion-framework-bootstrap .custom-select:valid ~ .valid-feedback,
+.was-validated
+.wponion-framework-bootstrap .custom-select:valid ~ .valid-tooltip,
+.wponion-framework-bootstrap .custom-select.is-valid ~ .valid-feedback,
+.wponion-framework-bootstrap .custom-select.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .form-control-file:valid ~ .valid-feedback,
+.was-validated .wponion-framework-bootstrap .form-control-file:valid ~ .valid-tooltip, .wponion-framework-bootstrap .form-control-file.is-valid ~ .valid-feedback,
+.wponion-framework-bootstrap .form-control-file.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .form-check-input:valid ~ .form-check-label, .wponion-framework-bootstrap .form-check-input.is-valid ~ .form-check-label {
+  color: #28a745;
+}
+
+.was-validated .wponion-framework-bootstrap .form-check-input:valid ~ .valid-feedback,
+.was-validated .wponion-framework-bootstrap .form-check-input:valid ~ .valid-tooltip, .wponion-framework-bootstrap .form-check-input.is-valid ~ .valid-feedback,
+.wponion-framework-bootstrap .form-check-input.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:valid ~ .custom-control-label, .wponion-framework-bootstrap .custom-control-input.is-valid ~ .custom-control-label {
+  color: #28a745;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:valid ~ .custom-control-label::before, .wponion-framework-bootstrap .custom-control-input.is-valid ~ .custom-control-label::before {
+  background-color: #71dd8a;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:valid ~ .valid-feedback,
+.was-validated .wponion-framework-bootstrap .custom-control-input:valid ~ .valid-tooltip, .wponion-framework-bootstrap .custom-control-input.is-valid ~ .valid-feedback,
+.wponion-framework-bootstrap .custom-control-input.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:valid:checked ~ .custom-control-label::before, .wponion-framework-bootstrap .custom-control-input.is-valid:checked ~ .custom-control-label::before {
+  background-color: #34ce57;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:valid:focus ~ .custom-control-label::before, .wponion-framework-bootstrap .custom-control-input.is-valid:focus ~ .custom-control-label::before {
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.was-validated .wponion-framework-bootstrap .custom-file-input:valid ~ .custom-file-label, .wponion-framework-bootstrap .custom-file-input.is-valid ~ .custom-file-label {
+  border-color: #28a745;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-file-input:valid ~ .custom-file-label::before, .wponion-framework-bootstrap .custom-file-input.is-valid ~ .custom-file-label::before {
+  border-color: inherit;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-file-input:valid ~ .valid-feedback,
+.was-validated .wponion-framework-bootstrap .custom-file-input:valid ~ .valid-tooltip, .wponion-framework-bootstrap .custom-file-input.is-valid ~ .valid-feedback,
+.wponion-framework-bootstrap .custom-file-input.is-valid ~ .valid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-file-input:valid:focus ~ .custom-file-label, .wponion-framework-bootstrap .custom-file-input.is-valid:focus ~ .custom-file-label {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.wponion-framework-bootstrap .invalid-feedback {
+  display: none;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.wponion-framework-bootstrap .invalid-tooltip {
+  position: absolute;
+  top: 100%;
+  z-index: 5;
+  display: none;
+  max-width: 100%;
+  padding: .5rem;
+  margin-top: .1rem;
+  font-size: .875rem;
+  line-height: 1;
+  color: #fff;
+  background-color: rgba(220, 53, 69, 0.8);
+  border-radius: .2rem;
+}
+
+.was-validated .wponion-framework-bootstrap .form-control:invalid, .wponion-framework-bootstrap .form-control.is-invalid, .was-validated
+.wponion-framework-bootstrap .custom-select:invalid,
+.wponion-framework-bootstrap .custom-select.is-invalid {
+  border-color: #dc3545;
+}
+
+.was-validated .wponion-framework-bootstrap .form-control:invalid:focus, .wponion-framework-bootstrap .form-control.is-invalid:focus, .was-validated
+.wponion-framework-bootstrap .custom-select:invalid:focus,
+.wponion-framework-bootstrap .custom-select.is-invalid:focus {
+  border-color: #dc3545;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.was-validated .wponion-framework-bootstrap .form-control:invalid ~ .invalid-feedback,
+.was-validated .wponion-framework-bootstrap .form-control:invalid ~ .invalid-tooltip, .wponion-framework-bootstrap .form-control.is-invalid ~ .invalid-feedback,
+.wponion-framework-bootstrap .form-control.is-invalid ~ .invalid-tooltip, .was-validated
+.wponion-framework-bootstrap .custom-select:invalid ~ .invalid-feedback,
+.was-validated
+.wponion-framework-bootstrap .custom-select:invalid ~ .invalid-tooltip,
+.wponion-framework-bootstrap .custom-select.is-invalid ~ .invalid-feedback,
+.wponion-framework-bootstrap .custom-select.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .form-control-file:invalid ~ .invalid-feedback,
+.was-validated .wponion-framework-bootstrap .form-control-file:invalid ~ .invalid-tooltip, .wponion-framework-bootstrap .form-control-file.is-invalid ~ .invalid-feedback,
+.wponion-framework-bootstrap .form-control-file.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .form-check-input:invalid ~ .form-check-label, .wponion-framework-bootstrap .form-check-input.is-invalid ~ .form-check-label {
+  color: #dc3545;
+}
+
+.was-validated .wponion-framework-bootstrap .form-check-input:invalid ~ .invalid-feedback,
+.was-validated .wponion-framework-bootstrap .form-check-input:invalid ~ .invalid-tooltip, .wponion-framework-bootstrap .form-check-input.is-invalid ~ .invalid-feedback,
+.wponion-framework-bootstrap .form-check-input.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:invalid ~ .custom-control-label, .wponion-framework-bootstrap .custom-control-input.is-invalid ~ .custom-control-label {
+  color: #dc3545;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:invalid ~ .custom-control-label::before, .wponion-framework-bootstrap .custom-control-input.is-invalid ~ .custom-control-label::before {
+  background-color: #efa2a9;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:invalid ~ .invalid-feedback,
+.was-validated .wponion-framework-bootstrap .custom-control-input:invalid ~ .invalid-tooltip, .wponion-framework-bootstrap .custom-control-input.is-invalid ~ .invalid-feedback,
+.wponion-framework-bootstrap .custom-control-input.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:invalid:checked ~ .custom-control-label::before, .wponion-framework-bootstrap .custom-control-input.is-invalid:checked ~ .custom-control-label::before {
+  background-color: #e4606d;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-control-input:invalid:focus ~ .custom-control-label::before, .wponion-framework-bootstrap .custom-control-input.is-invalid:focus ~ .custom-control-label::before {
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.was-validated .wponion-framework-bootstrap .custom-file-input:invalid ~ .custom-file-label, .wponion-framework-bootstrap .custom-file-input.is-invalid ~ .custom-file-label {
+  border-color: #dc3545;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-file-input:invalid ~ .custom-file-label::before, .wponion-framework-bootstrap .custom-file-input.is-invalid ~ .custom-file-label::before {
+  border-color: inherit;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-file-input:invalid ~ .invalid-feedback,
+.was-validated .wponion-framework-bootstrap .custom-file-input:invalid ~ .invalid-tooltip, .wponion-framework-bootstrap .custom-file-input.is-invalid ~ .invalid-feedback,
+.wponion-framework-bootstrap .custom-file-input.is-invalid ~ .invalid-tooltip {
+  display: block;
+}
+
+.was-validated .wponion-framework-bootstrap .custom-file-input:invalid:focus ~ .custom-file-label, .wponion-framework-bootstrap .custom-file-input.is-invalid:focus ~ .custom-file-label {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.wponion-framework-bootstrap .form-inline {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.wponion-framework-bootstrap .form-inline .form-check {
+  width: 100%;
+}
+
+@media (min-width: 576px) {
+  .wponion-framework-bootstrap .form-inline label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  .wponion-framework-bootstrap .form-inline .form-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-bottom: 0;
+  }
+  .wponion-framework-bootstrap .form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+  .wponion-framework-bootstrap .form-inline .form-control-plaintext {
+    display: inline-block;
+  }
+  .wponion-framework-bootstrap .form-inline .input-group,
+  .wponion-framework-bootstrap .form-inline .custom-select {
+    width: auto;
+  }
+  .wponion-framework-bootstrap .form-inline .form-check {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: auto;
+    padding-left: 0;
+  }
+  .wponion-framework-bootstrap .form-inline .form-check-input {
+    position: relative;
+    margin-top: 0;
+    margin-right: 0.25rem;
+    margin-left: 0;
+  }
+  .wponion-framework-bootstrap .form-inline .custom-control {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  .wponion-framework-bootstrap .form-inline .custom-control-label {
+    margin-bottom: 0;
+  }
+}
+
+.wponion-framework-bootstrap .custom-control {
+  position: relative;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.wponion-framework-bootstrap .custom-control-inline {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-right: 1rem;
+}
+
+.wponion-framework-bootstrap .custom-control-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.wponion-framework-bootstrap .custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  background-color: #007bff;
+}
+
+.wponion-framework-bootstrap .custom-control-input:focus ~ .custom-control-label::before {
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.wponion-framework-bootstrap .custom-control-input:active ~ .custom-control-label::before {
+  color: #fff;
+  background-color: #b3d7ff;
+}
+
+.wponion-framework-bootstrap .custom-control-input:disabled ~ .custom-control-label {
+  color: #6c757d;
+}
+
+.wponion-framework-bootstrap .custom-control-input:disabled ~ .custom-control-label::before {
+  background-color: #e9ecef;
+}
+
+.wponion-framework-bootstrap .custom-control-label {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.wponion-framework-bootstrap .custom-control-label::before {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+  content: "";
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #dee2e6;
+}
+
+.wponion-framework-bootstrap .custom-control-label::after {
+  position: absolute;
+  top: 0.25rem;
+  left: -1.5rem;
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  content: "";
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+}
+
+.wponion-framework-bootstrap .custom-checkbox .custom-control-label::before {
+  border-radius: 0.25rem;
+}
+
+.wponion-framework-bootstrap .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #007bff;
+}
+
+.wponion-framework-bootstrap .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+}
+
+.wponion-framework-bootstrap .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
+  background-color: #007bff;
+}
+
+.wponion-framework-bootstrap .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 4'%3E%3Cpath stroke='%23fff' d='M0 2h4'/%3E%3C/svg%3E");
+}
+
+.wponion-framework-bootstrap .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: rgba(0, 123, 255, 0.5);
+}
+
+.wponion-framework-bootstrap .custom-checkbox .custom-control-input:disabled:indeterminate ~ .custom-control-label::before {
+  background-color: rgba(0, 123, 255, 0.5);
+}
+
+.wponion-framework-bootstrap .custom-radio .custom-control-label::before {
+  border-radius: 50%;
+}
+
+.wponion-framework-bootstrap .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #007bff;
+}
+
+.wponion-framework-bootstrap .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Ccircle r='3' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+.wponion-framework-bootstrap .custom-radio .custom-control-input:disabled:checked ~ .custom-control-label::before {
+  background-color: rgba(0, 123, 255, 0.5);
+}
+
+.wponion-framework-bootstrap .custom-select {
+  display: inline-block;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
+  line-height: 1.5;
+  color: #495057;
+  vertical-align: middle;
+  background: #fff url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+  background-size: 8px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.wponion-framework-bootstrap .custom-select:focus {
+  border-color: #80bdff;
+  outline: 0;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(128, 189, 255, 0.5);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075), 0 0 5px rgba(128, 189, 255, 0.5);
+}
+
+.wponion-framework-bootstrap .custom-select:focus::-ms-value {
+  color: #495057;
+  background-color: #fff;
+}
+
+.wponion-framework-bootstrap .custom-select[multiple], .wponion-framework-bootstrap .custom-select[size]:not([size="1"]) {
+  height: auto;
+  padding-right: 0.75rem;
+  background-image: none;
+}
+
+.wponion-framework-bootstrap .custom-select:disabled {
+  color: #6c757d;
+  background-color: #e9ecef;
+}
+
+.wponion-framework-bootstrap .custom-select::-ms-expand {
+  opacity: 0;
+}
+
+.wponion-framework-bootstrap .custom-select-sm {
+  height: calc(1.8125rem + 2px);
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  font-size: 75%;
+}
+
+.wponion-framework-bootstrap .custom-select-lg {
+  height: calc(2.875rem + 2px);
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+  font-size: 125%;
+}
+
+.wponion-framework-bootstrap .custom-file {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  margin-bottom: 0;
+}
+
+.wponion-framework-bootstrap .custom-file-input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  margin: 0;
+  opacity: 0;
+}
+
+.wponion-framework-bootstrap .custom-file-input:focus ~ .custom-file-label {
+  border-color: #80bdff;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.wponion-framework-bootstrap .custom-file-input:focus ~ .custom-file-label::after {
+  border-color: #80bdff;
+}
+
+.wponion-framework-bootstrap .custom-file-input:lang(en) ~ .custom-file-label::after {
+  content: "Browse";
+}
+
+.wponion-framework-bootstrap .custom-file-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.wponion-framework-bootstrap .custom-file-label::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: block;
+  height: 2.25rem;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  color: #495057;
+  content: "Browse";
+  background-color: #e9ecef;
+  border-left: 1px solid #ced4da;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.wponion-framework-bootstrap .custom-range {
+  width: 100%;
+  padding-left: 0;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.wponion-framework-bootstrap .custom-range:focus {
+  outline: none;
+}
+
+.wponion-framework-bootstrap .custom-range::-moz-focus-outer {
+  border: 0;
+}
+
+.wponion-framework-bootstrap .custom-range::-webkit-slider-thumb {
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.25rem;
+  background-color: #007bff;
+  border: 0;
+  border-radius: 1rem;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.wponion-framework-bootstrap .custom-range::-webkit-slider-thumb:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.wponion-framework-bootstrap .custom-range::-webkit-slider-thumb:active {
+  background-color: #b3d7ff;
+}
+
+.wponion-framework-bootstrap .custom-range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 0.5rem;
+  color: transparent;
+  cursor: pointer;
+  background-color: #dee2e6;
+  border-color: transparent;
+  border-radius: 1rem;
+}
+
+.wponion-framework-bootstrap .custom-range::-moz-range-thumb {
+  width: 1rem;
+  height: 1rem;
+  background-color: #007bff;
+  border: 0;
+  border-radius: 1rem;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.wponion-framework-bootstrap .custom-range::-moz-range-thumb:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.wponion-framework-bootstrap .custom-range::-moz-range-thumb:active {
+  background-color: #b3d7ff;
+}
+
+.wponion-framework-bootstrap .custom-range::-moz-range-track {
+  width: 100%;
+  height: 0.5rem;
+  color: transparent;
+  cursor: pointer;
+  background-color: #dee2e6;
+  border-color: transparent;
+  border-radius: 1rem;
+}
+
+.wponion-framework-bootstrap .custom-range::-ms-thumb {
+  width: 1rem;
+  height: 1rem;
+  background-color: #007bff;
+  border: 0;
+  border-radius: 1rem;
+  appearance: none;
+}
+
+.wponion-framework-bootstrap .custom-range::-ms-thumb:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.wponion-framework-bootstrap .custom-range::-ms-thumb:active {
+  background-color: #b3d7ff;
+}
+
+.wponion-framework-bootstrap .custom-range::-ms-track {
+  width: 100%;
+  height: 0.5rem;
+  color: transparent;
+  cursor: pointer;
+  background-color: transparent;
+  border-color: transparent;
+  border-width: 0.5rem;
+}
+
+.wponion-framework-bootstrap .custom-range::-ms-fill-lower {
+  background-color: #dee2e6;
+  border-radius: 1rem;
+}
+
+.wponion-framework-bootstrap .custom-range::-ms-fill-upper {
+  margin-right: 15px;
+  background-color: #dee2e6;
+  border-radius: 1rem;
+}
+
+.wponion-framework-bootstrap .input-group {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  width: 100%;
+}
+
+.wponion-framework-bootstrap .input-group > .form-control,
+.wponion-framework-bootstrap .input-group > .custom-select,
+.wponion-framework-bootstrap .input-group > .custom-file {
+  position: relative;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 1%;
+  margin-bottom: 0;
+}
+
+.wponion-framework-bootstrap .input-group > .form-control:focus,
+.wponion-framework-bootstrap .input-group > .custom-select:focus,
+.wponion-framework-bootstrap .input-group > .custom-file:focus {
+  z-index: 3;
+}
+
+.wponion-framework-bootstrap .input-group > .form-control + .form-control,
+.wponion-framework-bootstrap .input-group > .form-control + .custom-select,
+.wponion-framework-bootstrap .input-group > .form-control + .custom-file,
+.wponion-framework-bootstrap .input-group > .custom-select + .form-control,
+.wponion-framework-bootstrap .input-group > .custom-select + .custom-select,
+.wponion-framework-bootstrap .input-group > .custom-select + .custom-file,
+.wponion-framework-bootstrap .input-group > .custom-file + .form-control,
+.wponion-framework-bootstrap .input-group > .custom-file + .custom-select,
+.wponion-framework-bootstrap .input-group > .custom-file + .custom-file {
+  margin-left: -1px;
+}
+
+.wponion-framework-bootstrap .input-group > .form-control:not(:last-child),
+.wponion-framework-bootstrap .input-group > .custom-select:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.wponion-framework-bootstrap .input-group > .form-control:not(:first-child),
+.wponion-framework-bootstrap .input-group > .custom-select:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.wponion-framework-bootstrap .input-group > .custom-file {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.wponion-framework-bootstrap .input-group > .custom-file:not(:last-child) .custom-file-label,
+.wponion-framework-bootstrap .input-group > .custom-file:not(:last-child) .custom-file-label::after {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.wponion-framework-bootstrap .input-group > .custom-file:not(:first-child) .custom-file-label {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.wponion-framework-bootstrap .input-group-prepend,
+.wponion-framework-bootstrap .input-group-append {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.wponion-framework-bootstrap .input-group-prepend .btn,
+.wponion-framework-bootstrap .input-group-append .btn {
+  position: relative;
+  z-index: 2;
+}
+
+.wponion-framework-bootstrap .input-group-prepend .btn + .btn,
+.wponion-framework-bootstrap .input-group-prepend .btn + .input-group-text,
+.wponion-framework-bootstrap .input-group-prepend .input-group-text + .input-group-text,
+.wponion-framework-bootstrap .input-group-prepend .input-group-text + .btn,
+.wponion-framework-bootstrap .input-group-append .btn + .btn,
+.wponion-framework-bootstrap .input-group-append .btn + .input-group-text,
+.wponion-framework-bootstrap .input-group-append .input-group-text + .input-group-text,
+.wponion-framework-bootstrap .input-group-append .input-group-text + .btn {
+  margin-left: -1px;
+}
+
+.wponion-framework-bootstrap .input-group-prepend {
+  margin-right: -1px;
+}
+
+.wponion-framework-bootstrap .input-group-append {
+  margin-left: -1px;
+}
+
+.wponion-framework-bootstrap .input-group-text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.wponion-framework-bootstrap .input-group-text input[type="radio"],
+.wponion-framework-bootstrap .input-group-text input[type="checkbox"] {
+  margin-top: 0;
+}
+
+.wponion-framework-bootstrap .input-group > .input-group-prepend > .btn,
+.wponion-framework-bootstrap .input-group > .input-group-prepend > .input-group-text,
+.wponion-framework-bootstrap .input-group > .input-group-append:not(:last-child) > .btn,
+.wponion-framework-bootstrap .input-group > .input-group-append:not(:last-child) > .input-group-text,
+.wponion-framework-bootstrap .input-group > .input-group-append:last-child > .btn:not(:last-child):not(.dropdown-toggle),
+.wponion-framework-bootstrap .input-group > .input-group-append:last-child > .input-group-text:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.wponion-framework-bootstrap .input-group > .input-group-append > .btn,
+.wponion-framework-bootstrap .input-group > .input-group-append > .input-group-text,
+.wponion-framework-bootstrap .input-group > .input-group-prepend:not(:first-child) > .btn,
+.wponion-framework-bootstrap .input-group > .input-group-prepend:not(:first-child) > .input-group-text,
+.wponion-framework-bootstrap .input-group > .input-group-prepend:first-child > .btn:not(:first-child),
+.wponion-framework-bootstrap .input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.wponion-framework-bootstrap .form-control {
+  font-size: 13px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #dde6e9;
+  -webkit-transition-duration: .5s;
+  -o-transition-duration: .5s;
+  transition-duration: .5s;
+  display: block;
+  width: 100%;
+  height: 39px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+}
+
+.wponion-framework-bootstrap input[type="text"], .wponion-framework-bootstrap input[type="email"] {
+  font-size: 13px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #dde6e9;
+  -webkit-transition-duration: .5s;
+  -o-transition-duration: .5s;
+  transition-duration: .5s;
+  display: block;
+  width: 100%;
+  height: 39px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+}
+
+.wponion-framework-bootstrap textarea {
+  font-size: 13px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #dde6e9;
+  -webkit-transition-duration: .5s;
+  -o-transition-duration: .5s;
+  transition-duration: .5s;
+  display: block;
+  width: 100%;
+  height: 39px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+}
+
+.wponion-framework-bootstrap .form-control:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  box-shadow: none;
+  outline: 0 !important;
+  border-color: #007bff;
+}
+
+.wponion-framework-bootstrap input[type="text"]:focus, .wponion-framework-bootstrap input[type="email"]:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  box-shadow: none;
+  outline: 0 !important;
+  border-color: #007bff;
+}
+
+.wponion-framework-bootstrap textarea:focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  -ms-box-shadow: none;
+  box-shadow: none;
+  outline: 0 !important;
+  border-color: #007bff;
+}
+
+.wponion-framework-bootstrap .input-xs {
+  height: 24px;
+  padding: 2px 10px;
+  font-size: 10px;
+  line-height: 1.5;
+  border-radius: 3px;
+  font-weight: 400;
+}
+
+.wponion-framework-bootstrap .checkbox label, .wponion-framework-bootstrap .radio label {
+  padding-left: 0px;
+}
+
+.wponion-framework-bootstrap .checkbox {
+  padding-left: 5px;
+}
+
+.wponion-framework-bootstrap .checkbox label {
+  display: inline-block;
+  padding-left: 5px;
+  position: relative;
+}
+
+.wponion-framework-bootstrap .checkbox label span {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 5px;
+  font-size: 13px;
+  line-height: 22px;
+}
+
+.wponion-framework-bootstrap .checkbox label::before {
+  -o-transition: 0.3s ease-in-out;
+  -webkit-transition: 0.3s ease-in-out;
+  background-color: #fff;
+  border-radius: 1px;
+  border: 1px solid rgba(120, 130, 140, 0.5);
+  content: "";
+  display: inline-block;
+  height: 17px;
+  left: 0;
+  margin-left: -20px;
+  margin-top: 2px;
+  position: absolute;
+  transition: 0.3s ease-in-out;
+  width: 17px;
+  outline: none !important;
+}
+
+.wponion-framework-bootstrap .checkbox label::after {
+  color: #2b2b2b;
+  display: inline-block;
+  font-size: 11px;
+  height: 16px;
+  left: 0;
+  margin-left: -20px;
+  padding-left: 3px;
+  position: absolute;
+  top: 0;
+  width: 16px;
+}
+
+.wponion-framework-bootstrap .checkbox input[type="checkbox"] {
+  cursor: pointer;
+  opacity: 0;
+  z-index: 1;
+  outline: none !important;
+}
+
+.wponion-framework-bootstrap .checkbox input[type="checkbox"]:disabled + label {
+  opacity: 0.65;
+}
+
+.wponion-framework-bootstrap .checkbox input[type="checkbox"]:focus + label::before {
+  outline-offset: -2px;
+  outline: none;
+  outline: thin dotted;
+}
+
+.wponion-framework-bootstrap .checkbox input[type="checkbox"]:checked + label::after {
+  content: "\f00c";
+  font-family: 'FontAwesome';
+}
+
+.wponion-framework-bootstrap .checkbox input[type="checkbox"]:disabled + label::before {
+  background-color: #e4e7ea;
+  cursor: not-allowed;
+}
+
+.wponion-framework-bootstrap .checkbox.checkbox-circle label::before {
+  border-radius: 50%;
+}
+
+.wponion-framework-bootstrap .checkbox.checkbox-inline {
+  margin-top: 0;
+}
+
+.wponion-framework-bootstrap .checkbox.checkbox-single label {
+  height: 17px;
+}
+
+.wponion-framework-bootstrap .checkbox-primary input[type="checkbox"]:checked + label::before {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.wponion-framework-bootstrap .checkbox-primary input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
+.wponion-framework-bootstrap .checkbox-danger input[type="checkbox"]:checked + label::before {
+  background-color: #fb9678;
+  border-color: #fb9678;
+}
+
+.wponion-framework-bootstrap .checkbox-danger input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
+.wponion-framework-bootstrap .checkbox-info input[type="checkbox"]:checked + label::before {
+  background-color: #56afd7;
+  border-color: #56afd7;
+}
+
+.wponion-framework-bootstrap .checkbox-info input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
+.wponion-framework-bootstrap .checkbox-warning input[type="checkbox"]:checked + label::before {
+  background-color: #f8c200;
+  border-color: #f8c200;
+}
+
+.wponion-framework-bootstrap .checkbox-warning input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
+.wponion-framework-bootstrap .checkbox-success input[type="checkbox"]:checked + label::before {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.wponion-framework-bootstrap .checkbox-success input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
+.wponion-framework-bootstrap .checkbox-purple input[type="checkbox"]:checked + label::before {
+  background-color: #796AEE;
+  border-color: #796AEE;
+}
+
+.wponion-framework-bootstrap .checkbox-purple input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
+.wponion-framework-bootstrap .checkbox-red input[type="checkbox"]:checked + label::before {
+  background-color: #fb9678;
+  border-color: #fb9678;
+}
+
+.wponion-framework-bootstrap .checkbox-red input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
+.wponion-framework-bootstrap .checkbox-inverse input[type="checkbox"]:checked + label::before {
+  background-color: #4c5667;
+  border-color: #4c5667;
+}
+
+.wponion-framework-bootstrap .checkbox-inverse input[type="checkbox"]:checked + label::after {
+  color: #fff;
+}
+
+.wponion-framework-bootstrap .radio {
+  padding-left: 20px;
+}
+
+.wponion-framework-bootstrap .radio label {
+  display: inline-block;
+  padding-left: 5px;
+  position: relative;
+  line-height: 18px;
+}
+
+.wponion-framework-bootstrap .radio label::before {
+  -o-transition: border 0.5s ease-in-out;
+  -webkit-transition: border 0.5s ease-in-out;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid rgba(120, 130, 140, 0.5);
+  content: "";
+  display: inline-block;
+  height: 17px;
+  left: 0;
+  margin-left: -20px;
+  position: absolute;
+  transition: border 0.5s ease-in-out;
+  width: 17px;
+  outline: none !important;
+}
+
+.wponion-framework-bootstrap .radio label::after {
+  -moz-transition: -moz-transform 0.3s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  -ms-transform: scale(0, 0);
+  -o-transform: scale(0, 0);
+  -o-transition: -o-transform 0.3s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  -webkit-transform: scale(0, 0);
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  background-color: #2b2b2b;
+  border-radius: 50%;
+  content: " ";
+  display: inline-block;
+  height: 7px;
+  left: 5px;
+  margin-left: -20px;
+  position: absolute;
+  top: 5px;
+  transform: scale(0, 0);
+  transition: -webkit-transform 0.3s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  -o-transition: transform 0.3s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  transition: transform 0.3s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  transition: transform 0.3s cubic-bezier(0.8, -0.33, 0.2, 1.33), -webkit-transform 0.3s cubic-bezier(0.8, -0.33, 0.2, 1.33);
+  width: 7px;
+}
+
+.wponion-framework-bootstrap .radio input[type="radio"] {
+  cursor: pointer;
+  opacity: 0;
+  z-index: 1;
+  outline: none !important;
+}
+
+.wponion-framework-bootstrap .radio input[type="radio"]:disabled + label {
+  opacity: 0.65;
+}
+
+.wponion-framework-bootstrap .radio input[type="radio"]:focus + label::before {
+  outline-offset: -2px;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline: thin dotted;
+}
+
+.wponion-framework-bootstrap .radio input[type="radio"]:checked + label::after {
+  -ms-transform: scale(1, 1);
+  -o-transform: scale(1, 1);
+  -webkit-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+
+.wponion-framework-bootstrap .radio input[type="radio"]:disabled + label::before {
+  cursor: not-allowed;
+}
+
+.wponion-framework-bootstrap .radio.radio-inline {
+  margin-top: 0;
+}
+
+.wponion-framework-bootstrap .radio.radio-single label {
+  height: 17px;
+}
+
+.wponion-framework-bootstrap .radio-primary input[type="radio"] + label::after {
+  background-color: #007bff;
+}
+
+.wponion-framework-bootstrap .radio-primary input[type="radio"]:checked + label::before {
+  border-color: #007bff;
+}
+
+.wponion-framework-bootstrap .radio-primary input[type="radio"]:checked + label::after {
+  background-color: #007bff;
+}
+
+.wponion-framework-bootstrap .radio-danger input[type="radio"] + label::after {
+  background-color: #dc3545;
+}
+
+.wponion-framework-bootstrap .radio-danger input[type="radio"]:checked + label::before {
+  border-color: #dc3545;
+}
+
+.wponion-framework-bootstrap .radio-danger input[type="radio"]:checked + label::after {
+  background-color: #dc3545;
+}
+
+.wponion-framework-bootstrap .radio-info input[type="radio"] + label::after {
+  background-color: #56afd7;
+}
+
+.wponion-framework-bootstrap .radio-info input[type="radio"]:checked + label::before {
+  border-color: #56afd7;
+}
+
+.wponion-framework-bootstrap .radio-info input[type="radio"]:checked + label::after {
+  background-color: #56afd7;
+}
+
+.wponion-framework-bootstrap .radio-warning input[type="radio"] + label::after {
+  background-color: #f8c200;
+}
+
+.wponion-framework-bootstrap .radio-warning input[type="radio"]:checked + label::before {
+  border-color: #f8c200;
+}
+
+.wponion-framework-bootstrap .radio-warning input[type="radio"]:checked + label::after {
+  background-color: #f8c200;
+}
+
+.wponion-framework-bootstrap .radio-success input[type="radio"] + label::after {
+  background-color: #28a745;
+}
+
+.wponion-framework-bootstrap .radio-success input[type="radio"]:checked + label::before {
+  border-color: #28a745;
+}
+
+.wponion-framework-bootstrap .radio-success input[type="radio"]:checked + label::after {
+  background-color: #28a745;
+}
+
+.wponion-framework-bootstrap .radio-purple input[type="radio"] + label::after {
+  background-color: #796AEE;
+}
+
+.wponion-framework-bootstrap .radio-purple input[type="radio"]:checked + label::before {
+  border-color: #796AEE;
+}
+
+.wponion-framework-bootstrap .radio-purple input[type="radio"]:checked + label::after {
+  background-color: #796AEE;
+}
+
+.wponion-framework-bootstrap .radio-red input[type="radio"] + label::after {
+  background-color: #fb9678;
+}
+
+.wponion-framework-bootstrap .radio-red input[type="radio"]:checked + label::before {
+  border-color: #fb9678;
+}
+
+.wponion-framework-bootstrap .radio-red input[type="radio"]:checked + label::after {
+  background-color: #fb9678;
+}
+
+.wponion-framework-bootstrap .radio-inverse input[type="radio"] + label::after {
+  background-color: #4c5667;
+}
+
+.wponion-framework-bootstrap .radio-inverse input[type="radio"]:checked + label::before {
+  border-color: #4c5667;
+}
+
+.wponion-framework-bootstrap .radio-inverse input[type="radio"]:checked + label::after {
+  background-color: #4c5667;
+}
+
+.wponion-framework-bootstrap .fileupload {
+  overflow: hidden;
+  position: relative;
+}
+
+.wponion-framework-bootstrap .fileupload input.upload {
+  cursor: pointer;
+  filter: alpha(opacity=0);
+  font-size: 20px;
+  margin: 0;
+  opacity: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.wponion-framework-bootstrap .group-icon {
+  position: relative;
+  overflow: hidden;
+}
+
+.wponion-framework-bootstrap .group-icon .form-control {
+  padding-right: 40px;
+}
+
+.wponion-framework-bootstrap .group-icon .icon-input {
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  width: 40px;
+  text-align: center;
+}
+
+.wponion-framework-bootstrap fieldset {
+  padding-bottom: 20px;
+  border-bottom: 1px dashed #eee;
+  margin-bottom: 20px;
+}
+
+.wponion-framework-bootstrap .form-control-rounded {
+  border-radius: 100px;
+}
+
+@media (min-width: 768px) {
+  .wponion-framework-bootstrap .form-horizontal .control-label {
+    margin-bottom: 0;
+    text-align: right;
+  }
+}
+
+.wponion-framework-bootstrap legend {
+  padding-bottom: 5px;
+}
+
+.wponion-framework-bootstrap .form-control {
+  -webkit-box-shadow: 0 0 0 #000 !important;
+  box-shadow: 0 0 0 #000 !important;
+}
+
+.wponion-framework-bootstrap .has-success .checkbox, .wponion-framework-bootstrap .has-success .checkbox-inline, .wponion-framework-bootstrap .has-success.checkbox-inline label, .wponion-framework-bootstrap .has-success.checkbox label, .wponion-framework-bootstrap .has-success .control-label, .wponion-framework-bootstrap .has-success .help-block, .wponion-framework-bootstrap .has-success .radio, .wponion-framework-bootstrap .has-success .radio-inline, .wponion-framework-bootstrap .has-success.radio-inline label, .wponion-framework-bootstrap .has-success.radio label {
+  color: #28a745;
+}
+
+.wponion-framework-bootstrap .has-warning .checkbox, .wponion-framework-bootstrap .has-warning .checkbox-inline, .wponion-framework-bootstrap .has-warning.checkbox-inline label, .wponion-framework-bootstrap .has-warning.checkbox label, .wponion-framework-bootstrap .has-warning .control-label, .wponion-framework-bootstrap .has-warning .help-block, .wponion-framework-bootstrap .has-warning .radio, .wponion-framework-bootstrap .has-warning .radio-inline, .wponion-framework-bootstrap .has-warning.radio-inline label, .wponion-framework-bootstrap .has-warning.radio label {
+  color: #f8c200;
+}
+
+.wponion-framework-bootstrap .has-danger .help-block {
+  color: #dc3545;
+}
+
+.wponion-framework-bootstrap .has-error .checkbox, .wponion-framework-bootstrap .has-error .checkbox-inline, .wponion-framework-bootstrap .has-error.checkbox-inline label, .wponion-framework-bootstrap .has-error.checkbox label, .wponion-framework-bootstrap .has-error .control-label, .wponion-framework-bootstrap .has-error .help-block, .wponion-framework-bootstrap .has-error .radio, .wponion-framework-bootstrap .has-error .radio-inline, .wponion-framework-bootstrap .has-error.radio-inline label, .wponion-framework-bootstrap .has-error.radio label {
+  color: #dc3545;
+}
+
+.wponion-framework-bootstrap .has-success .form-control {
+  border-color: #28a745;
+}
+
+.wponion-framework-bootstrap .has-warning .form-control {
+  border-color: #f8c200;
+}
+
+.wponion-framework-bootstrap .has-danger .form-control, .wponion-framework-bootstrap .has-error .form-control {
+  border-color: #dc3545;
+}
+
+.wponion-framework-bootstrap .input-group-addon {
+  border-radius: 0;
+  font-size: 14px;
+}
+
+.wponion-framework-bootstrap .input-group {
+  padding: 0px;
+}
+
+.wponion-framework-bootstrap .fileinput-preview {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
 .wponion-element {
   padding: 30px;
 }
@@ -3944,17 +5872,19 @@
 
 .wponion-element .wponion-field-title {
   position: relative;
-  width: 30%;
+  width: 20%;
   float: left;
 }
 
 .wponion-element .wponion-field-title h4 {
   margin: 0;
   font-size: 14px;
+  color: #23282d;
+  font-weight: 600;
 }
 
 .wponion-element .wponion-fieldset {
-  margin-left: 30%;
+  margin-left: 20%;
 }
 
 .wponion-element .wponion-help {
@@ -3975,7 +5905,7 @@
 }
 
 .wponion-element + .wponion-element {
-  border-top: 1px solid #dfdfdf;
+  border-top: 1px solid #dadada;
 }
 
 .wponion-framework .wponion-framework-header h1 {
@@ -4030,6 +5960,13 @@
   -webkit-box-shadow: none;
   box-shadow: none;
   max-width: none;
+}
+
+.wponion-element.wponion-element-textarea textarea {
+  min-width: 500px;
+  resize: both;
+  max-width: 100%;
+  min-height: 125px;
 }
 
 /*# sourceMappingURL=wponion-base.css.map */
