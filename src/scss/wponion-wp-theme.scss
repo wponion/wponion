@@ -12,20 +12,45 @@
 	width:   100%;
 
 	div.postbox {
-	  border: 1px solid #d5d5d5;
+	  border: 1px solid #dadada;
 	  .wponion-subnav-container {
+		display:       inline-block;
+		background:    #f5f5f5;
+		width:         100%;
+		border-bottom: 1px solid #dadada;
+		padding:       0;
+
 		.wponion-submenus {
-		  margin-top:  0;
-		  display:     inline-block;
-		  float:       none;
-		  font-size:   14px;
-		  line-height: 2;
+		  margin-top:    0;
+		  display:       inline-block;
+		  font-size:     14px;
+		  line-height:   2;
+		  margin-bottom: 0;
+		  width:         100%;
 		  li {
 			a {
-			  padding:   0 5px !important;
-			  font-size: 14px;
-			  outline:   none;
+			  padding:       5px 10px;
+			  font-size:     14px;
+			  outline:       none;
+			  display:       inline-block;
+			  border-right:  1px solid transparent;
+			  border-left:   1px solid transparent;
+			  border-bottom: 1px solid transparent;
+			  margin-bottom: -1px;
+
 			  &:focus {box-shadow: none;}
+
+			  &.current {
+				background:    white;
+				border-bottom: 1px solid white;
+				border-right:  1px solid #dadada;
+				border-left:   1px solid #dadada;
+			  }
+			}
+			&:first-child {
+			  a.current, a:hover, a {
+				border-left: none;
+			  }
 			}
 		  }
 		}
