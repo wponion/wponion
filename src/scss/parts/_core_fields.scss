@@ -12,16 +12,18 @@
 
   .wponion-field-title {
 	position: relative;
-	width:    30%;
+	width:    20%;
 	float:    left;
 	h4 {
-	  margin:    0;
-	  font-size: 14px;
+	  margin:      0;
+	  font-size:   14px;
+	  color:       #23282d;
+	  font-weight: 600;
 	}
   }
 
   .wponion-fieldset {
-	margin-left: 30%;
+	margin-left: 20%;
   }
 
   .wponion-help {
@@ -45,7 +47,7 @@
 }
 
 .wponion-element + .wponion-element {
-  border-top: 1px solid #dfdfdf;
+  border-top: 1px solid #dadada;
 }
 
 .wponion-framework {
@@ -101,6 +103,15 @@
 	  padding:    0;
 	  box-shadow: none;
 	  max-width:  none;
+	}
+  }
+
+  &.wponion-element-textarea {
+	textarea {
+	  min-width:  500px;
+	  resize:     both;
+	  max-width:  100%;
+	  min-height: 125px;
 	}
   }
 }

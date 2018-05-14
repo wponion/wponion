@@ -7,9 +7,8 @@ wponion.fields.input_mask = function ($elem) {
 		$elem.each( function () {
 			let $settings = wponion.field_js_args( $( this ) );
 			if ( $settings[ 'inputmask' ] !== undefined ) {
-				$settings = $settings[ 'inputmask' ];
+				$( this ).inputmask( $settings[ 'inputmask' ] );
 			}
-			$( this ).inputmask( $settings );
 		} )
 	}
 };
@@ -18,5 +17,5 @@ wponion.fields.input_mask = function ($elem) {
  * Hooked To Auto Reload Fields.
  */
 wphooks.addAction( 'wponion_reload_fields', ( () => {
-	wponion.fields.input_mask( wponion_elem().find( ".wponion-inputmask input[data-wponion-inputmask]" ) );
+	wponion.fields.input_mask( wponion_elem().find( "input[data-wponion-inputmask]" ) );
 } ) );
