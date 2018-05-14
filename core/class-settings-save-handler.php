@@ -16,9 +16,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Settings_Save_Handler' ) ) {
+	/**
+	 * Class WPOnion_Settings_Save_Handler
+	 *
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class WPOnion_Settings_Save_Handler extends WPOnion_Save_Handler {
 		public function run() {
-			var_dump( $_REQUEST );
+			foreach ( $this->fields as $option ) {
+				if ( ! $this->args['settings']->valid_option( $option, false, false ) ) {
+					continue;
+				}
+
+				if ( isset( $option['sections'] ) ) {
+					foreach ( $option['sections'] as $section ) {
+						if ( ! $this->args['settings']->valid_option( $section, false, false ) ) {
+							continue;
+						}
+
+						if ( ! isset( $section['fields'] ) ) {
+							continue;
+						}
+
+						$this->field_loop( $section );
+					}
+				} elseif ( isset( $option['fields'] ) ) {
+					$this->field_loop( $option );
+				}
+			}
 		}
 	}
 }
