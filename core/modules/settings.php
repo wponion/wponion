@@ -112,6 +112,18 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		}
 
 		/**
+		 * Handles WP Settings Save.
+		 *
+		 * @param $request
+		 *
+		 * @return mixed
+		 * @todo work on the save feature.
+		 */
+		public function save_validate( $request ) {
+			return $request;
+		}
+
+		/**
 		 * Handles SettingUP Settings Defaults.
 		 *
 		 * @param bool $force
@@ -136,13 +148,64 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 
 		/**
 		 * Handles To Set Defaults.
-		 *
-		 * @todo Actually Work on setting up default values.
 		 */
 		protected function set_defaults() {
+			$this->get_db_values();
 			$this->options_cache['fuid']            = $this->fields_md5();
 			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
+			$default                                = array();
+
+			foreach ( $this->fields as $options ) {
+				if ( false !== $this->valid_option( $options, false, false ) ) {
+					if ( isset( $options['fields'] ) ) {
+						foreach ( $options['fields'] as $field ) {
+							if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
+								continue;
+							}
+
+							if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
+								$this->db_values[ $field['id'] ] = $field['default'];
+								$default[ $field['id'] ]         = $field['default'];
+							}
+						}
+					} elseif ( isset( $options['sections'] ) ) {
+						foreach ( $options['sections'] as $section ) {
+							if ( false !== $this->valid_option( $section, true, false ) ) {
+								foreach ( $options['fields'] as $field ) {
+									if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
+										continue;
+									}
+
+									if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
+										$this->db_values[ $field['id'] ] = $field['default'];
+										$default[ $field['id'] ]         = $field['default'];
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			if ( ! empty( $default ) ) {
+				update_option( $this->unique, $this->db_values );
+			}
 			$this->set_cache( $this->options_cache );
+		}
+
+		/**
+		 * Returns Database Values of the settings.
+		 *
+		 * @return array|mixed
+		 */
+		protected function get_db_values() {
+			if ( empty( $this->db_values ) ) {
+				$this->db_values = get_option( $this->unique );
+				if ( ! is_array( $this->db_values ) ) {
+					$this->db_values = array();
+				}
+			}
+			return $this->db_values;
 		}
 
 		/**
@@ -634,6 +697,11 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'plugin_id'     => false,
 				'theme'         => 'modern',
 				'template_path' => false,
+				'buttons'       => array(
+					'save'    => __( 'Save Settings' ),
+					'restore' => __( 'Restore' ),
+					'reset'   => __( 'Reset All Options' ),
+				),
 			);
 		}
 
@@ -700,22 +768,24 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 *
 		 * @param array $option
 		 * @param bool  $section
+		 * @param bool  $check_current_page
 		 *
 		 * @return bool
 		 */
-		public function valid_option( $option = array(), $section = false ) {
+		public function valid_option( $option = array(), $section = false, $check_current_page = true ) {
 			if ( ! isset( $option['fields'] ) && ! isset( $option['callback'] ) && ! isset( $option['sections'] ) ) {
 				return false;
 			}
 
-			if ( false === $section && ( false === $this->is_single_page() || 'only_submenu' === $this->is_single_page() ) && $option['name'] !== $this->active( true ) ) {
-				return false;
-			}
+			if ( true === $check_current_page ) {
+				if ( false === $section && ( false === $this->is_single_page() || 'only_submenu' === $this->is_single_page() ) && $option['name'] !== $this->active( true ) ) {
+					return false;
+				}
 
-			if ( true === $section && false === $this->is_single_page() && $option['name'] !== $this->active( false ) ) {
-				return false;
+				if ( true === $section && false === $this->is_single_page() && $option['name'] !== $this->active( false ) ) {
+					return false;
+				}
 			}
-
 			return true;
 		}
 
@@ -757,7 +827,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * @return string
 		 */
 		public function render_field( $field = array() ) {
-			$value = _wponion_get_field_value( $field, array() );
+			$value = _wponion_get_field_value( $field, $this->get_db_values() );
 
 			return wponion_add_element( $field, $value, array(
 				'plugin_id' => $this->plugin_id(),
@@ -807,6 +877,48 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 					}
 				}
 			}
+		}
+
+
+		public function _button( $user, $default_attr = array(), $label = '' ) {
+			$user_attr  = ( is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
+			$attributes = $this->parse_args( $user_attr, $default_attr );
+			$text       = ( is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
+			$text       = ( false === $text && is_string( $user ) ) ? $user : $label;
+			return '<button ' . wponion_array_to_html_attributes( $attributes ) . ' >' . $text . '</button>';
+		}
+
+		/**
+		 * Returns Settings Button
+		 *
+		 * @return string
+		 */
+		public function settings_button() {
+			$options = $this->option( 'buttons' );
+			$html    = '';
+			if ( false !== $options ) {
+				if ( false !== $options['save'] ) {
+					$html .= $this->_button( $options['save'], array(
+						'class' => 'btn btn-success btn-sm wponion-save',
+						'type'  => 'submit',
+					), __( 'Save Settings' ) );
+				}
+
+				if ( false !== $options['restore'] ) {
+					$html .= $this->_button( $options['restore'], array(
+						'class' => 'btn btn-secondary btn-sm wponion-restore',
+						'type'  => 'submit',
+					), __( 'Restore' ) );
+				}
+
+				if ( false !== $options['reset'] ) {
+					$html .= $this->_button( $options['reset'], array(
+						'class' => 'btn btn-danger btn-sm wponion-reset',
+						'type'  => 'submit',
+					), __( 'Reset All' ) );
+				}
+			}
+			return $html;
 		}
 	}
 }
