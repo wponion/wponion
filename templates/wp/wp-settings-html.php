@@ -26,8 +26,6 @@ $settings = $wponion_wp_theme->settings();
 						<div class="wponion-sections">
 							<?php include_once 'settings-template.php'; ?>
 						</div>
-
-
 					</div>
 				</div>
 			</div>
