@@ -28,5 +28,11 @@
   @import "../../../node_modules/bootstrap/scss/forms";
   @import "../../../node_modules/bootstrap/scss/custom-forms";
   @import "../../../node_modules/bootstrap/scss/input-group";
-  @import "./bootstrap-fixes";
+  @import "../../../node_modules/bootstrap/scss/utilities/background";
+  @import "../../../node_modules/bootstrap/scss/utilities/align";
+  @import "../../../node_modules/bootstrap/scss/utilities/borders";
+  @import "../../../node_modules/bootstrap/scss/utilities/text";
+  @import "../../../node_modules/bootstrap/scss/utilities/shadows";
+  //@import "bootstrap-fixes-new";
+  //@import "./bootstrap-fixes";
 }
