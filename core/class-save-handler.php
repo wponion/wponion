@@ -66,6 +66,13 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		protected $args = array();
 
 		/**
+		 * Stores Return Values
+		 *
+		 * @var array
+		 */
+		protected $return_values = array();
+
+		/**
 		 * WPOnion_Save_Handler constructor.
 		 */
 		public function __construct() {
@@ -96,8 +103,18 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 			$this->args         = $args['args'];
 		}
 
+		/**
+		 * Handles Single Field.
+		 *
+		 * @param array $field
+		 * @param bool  $value
+		 * @param bool  $database
+		 *
+		 * @return array|bool|mixed
+		 */
 		protected function handle_field( $field = array(), $value = false, $database = false ) {
-
+			$value = $this->sanitize( $field, $value );
+			return $value;
 		}
 
 		/**
@@ -194,5 +211,43 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 
 			return $default;
 		}
+
+		/**
+		 * Saves A Value.
+		 *
+		 * @param $value
+		 * @param $field
+		 *
+		 * @return bool|void
+		 */
+		protected function save_value( $value, $field ) {
+			if ( ! isset( $field['id'] ) ) {
+				return;
+			}
+
+			$this->return_values[ $field['id'] ] = $value;
+			return true;
+		}
+
+		/**
+		 * Returns Final Value.
+		 *
+		 * @return array
+		 */
+		public function get_values() {
+			return $this->return_values;
+		}
+
+		/**
+		 * Runs A Field.Inner Loop.
+		 *
+		 * @param $section
+		 */
+		protected function field_loop( $section ) {
+			foreach ( $section['fields'] as $field ) {
+				$this->save_value( $this->handle_field( $field, $this->user_options( $field ), $this->db_options( $field ) ), $field );
+			}
+		}
+
 	}
 }
