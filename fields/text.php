@@ -25,21 +25,23 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 	 */
 	class WPOnion_Field_text extends WPOnion_Field {
 
-		protected function output() {
-			echo $this->before();
+		protected function _input_attributes() {
 			$field_class = 'form-control';
 			$field_class = ( $this->has_errors() ) ? $field_class . ' is-invalid ' : $field_class;
 
-			$attributes = $this->attributes( array(
+			return $this->attributes( array(
 				'type'              => $this->element_type(),
 				'class'             => $this->element_class( $field_class ),
 				'value'             => $this->value(),
 				'name'              => $this->name(),
 				'data-wponion-jsid' => $this->js_field_id(),
 			) );
-			echo '<input ' . $attributes . '/>';
-			echo $this->after();
+		}
 
+		protected function output() {
+			echo $this->before();
+			echo '<input ' . $this->_input_attributes() . '/>';
+			echo $this->after();
 		}
 
 		public function handle_field_args( $field_data = array() ) {
