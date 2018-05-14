@@ -131,7 +131,6 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_add_element' ) ) {
 	/**
 	 * Adds A WPOnion Field & Renders it.
