@@ -79,4 +79,30 @@
   display: none;
 }
 
+.wponion-framework.wponion-wp-theme .wponion-form-actions {
+  float: right;
+  width: 100%;
+  text-align: right;
+  padding: 15px;
+  background: white;
+  border: 1px solid #dadada;
+}
+
+.wponion-framework.wponion-wp-theme .wponion-form-actions button {
+  float: right;
+  margin: 0 10px;
+}
+
+.wponion-framework.wponion-wp-theme .wponion-form-actions button.wponion-restore, .wponion-framework.wponion-wp-theme .wponion-form-actions button.wponion-reset {
+  float: left;
+}
+
+.wponion-framework.wponion-wp-theme .wponion-form-actions button.wponion-save {
+  margin-right: 0;
+}
+
+.wponion-framework.wponion-wp-theme .wponion-form-actions button.wponion-restore {
+  margin-left: 0;
+}
+
 /*# sourceMappingURL=wponion-wp-theme.css.map */
