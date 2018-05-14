@@ -52,6 +52,13 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		 */
 		protected $unique = '';
 
+		/**
+		 * Stores Database Values.
+		 *
+		 * @var array
+		 */
+		protected $db_values = array();
+
 		public function __call( $name, $arguments ) {
 			if ( isset( $this->{$name} ) ) {
 				return $this->{$name};
