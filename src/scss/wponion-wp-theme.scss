@@ -75,4 +75,30 @@
 	  display: none;
 	}
   }
+
+  .wponion-form-actions {
+	float:      right;
+	width:      100%;
+	text-align: right;
+	padding:    15px;
+	background: white;
+	border:     1px solid #dadada;
+
+	button {
+	  float:  right;
+	  margin: 0 10px;
+	  &.wponion-restore, &.wponion-reset {
+		float: left;
+	  }
+
+	  &.wponion-save {
+		margin-right: 0;
+	  }
+
+	  &.wponion-restore {
+		margin-left: 0;
+	  }
+
+	}
+  }
 }
