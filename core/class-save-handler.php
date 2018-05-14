@@ -101,6 +101,7 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 			$this->db_values    = $args['db_values'];
 			$this->user_options = $args['user_values'];
 			$this->args         = $args['args'];
+			return $this;
 		}
 
 		/**
@@ -114,6 +115,7 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		 */
 		protected function handle_field( $field = array(), $value = false, $database = false ) {
 			$value = $this->sanitize( $field, $value );
+			$value = $this->validate( $field, $value, $database );
 			return $value;
 		}
 
@@ -164,6 +166,63 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 			}
 
 			return $value;
+		}
+
+		/**
+		 * Runs Loop with fields array and triggers validation function.
+		 *
+		 * @param array $field
+		 * @param array $value
+		 * @param array $db_value
+		 *
+		 * @return array|mixed
+		 */
+		protected function validate( $field = array(), $value = array(), $db_value = array() ) {
+			$functions = false;
+
+			if ( isset( $field['validate'] ) && true !== $field['validate'] ) {
+				$functions = $field['validate'];
+			}
+
+			if ( false === $functions ) {
+				return $value;
+			}
+
+			$errors = array();
+			if ( is_array( $functions ) ) {
+				foreach ( $functions as $function ) {
+					if ( is_callable( $function ) ) {
+						$value = $this->_validate( $functions, $field, $value );
+						if ( ! empty( $value ) ) {
+							$errors[] = $value;
+						}
+					}
+				}
+			} elseif ( is_callable( $functions ) ) {
+				$value = $this->_validate( $functions, $field, $value );
+				if ( ! empty( $value ) ) {
+					$errors[] = $value;
+				}
+			}
+
+			if ( ! empty( $errors ) ) {
+				$this->error( $errors, 'error', $field['error_id'] );
+				return $db_value;
+			}
+			return $value;
+		}
+
+		/**
+		 * Triggers a Validation Function.
+		 *
+		 * @param $function
+		 * @param $field
+		 * @param $value
+		 *
+		 * @return mixed
+		 */
+		protected function _validate( $function, $field, $value ) {
+			return call_user_func_array( $function, array( $value, $this->plugin_id(), $field ) );
 		}
 
 		/**
@@ -239,12 +298,26 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		}
 
 		/**
+		 * Returns Errors Array.
+		 *
+		 * @return array
+		 */
+		public function get_errors() {
+			return $this->errors;
+		}
+
+		/**
 		 * Runs A Field.Inner Loop.
 		 *
 		 * @param $section
 		 */
 		protected function field_loop( $section ) {
 			foreach ( $section['fields'] as $field ) {
+				if ( ! isset( $field['id'] ) ) {
+					continue;
+				}
+
+				$field['error_id'] = sanitize_key( $this->unique . $field['id'] );
 				$this->save_value( $this->handle_field( $field, $this->user_options( $field ), $this->db_options( $field ) ), $field );
 			}
 		}
@@ -257,7 +330,7 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		 * @param string $id
 		 */
 		public function error( $message, $type = 'error', $id = 'global' ) {
-			$this->errors[] = array(
+			$this->errors[ $id ] = array(
 				'setting' => 'wponion-errors',
 				'code'    => $id,
 				'message' => $message,
