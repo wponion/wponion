@@ -29,7 +29,12 @@ if ( ! function_exists( 'wponion_init' ) ) {
 		 */
 		require_once WPONION_PATH . 'core/helpers/assets.php';
 		require_once WPONION_PATH . 'core/helpers/base.php';
-		require_once WPONION_PATH . 'core/class-registry.php';
+
+		require_once WPONION_PATH . 'core/registry/class-registry-interface.php';
+		require_once WPONION_PATH . 'core/registry/class-core-registry.php';
+		require_once WPONION_PATH . 'core/registry/class-module-registry.php';
+		require_once WPONION_PATH . 'core/registry/class-field-registry.php';
+
 		require_once WPONION_PATH . 'core/class-autoloader.php';
 		require_once WPONION_PATH . 'core/class-async-request.php';
 		require_once WPONION_PATH . 'core/class-assets.php';
