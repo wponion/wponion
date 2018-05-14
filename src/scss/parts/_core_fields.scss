@@ -44,6 +44,11 @@
 	}
   }
 
+  &.wponion-element-has-error {
+	.wponion-field-errors {
+	  display: block;
+	}
+  }
 }
 
 .wponion-element + .wponion-element {
@@ -51,6 +56,16 @@
 }
 
 .wponion-framework {
+  .wponion-field-errors {
+	font-size:  100%;
+	margin-top: 10px;
+	ul {
+	  margin:     0;
+	  list-style: inside;
+	}
+
+  }
+
   .wponion-framework-header {
 	h1 {
 	  padding: 0;
