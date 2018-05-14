@@ -19,3 +19,4 @@ wp-content/plugins/hello.php
 .travis.yml
 LICENSE
 src/vendors/node_modules/
+node_module/
