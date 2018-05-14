@@ -24,6 +24,13 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 	 */
 	class WPOnion_Save_Handler extends WPOnion_Abstract {
 		/**
+		 * Stores User Posted Options
+		 *
+		 * @var array
+		 */
+		protected $user_options = array();
+
+		/**
 		 * Stores All Field Errors.
 		 *
 		 * @var array
@@ -58,6 +65,9 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		 */
 		protected $args = array();
 
+		/**
+		 * WPOnion_Save_Handler constructor.
+		 */
 		public function __construct() {
 		}
 
@@ -68,20 +78,22 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		 */
 		public function init_class( $args = array() ) {
 			$args = $this->parse_args( $args, array(
-				'module'    => false,
-				'plugin_id' => false,
-				'unique'    => false,
-				'fields'    => false,
-				'db_values' => false,
-				'args'      => array(),
+				'module'      => false,
+				'plugin_id'   => false,
+				'unique'      => false,
+				'fields'      => false,
+				'db_values'   => false,
+				'user_values' => false,
+				'args'        => array(),
 			) );
 
-			$this->module    = $args['module'];
-			$this->plugin_id = $args['plugin_id'];
-			$this->unique    = $args['unique'];
-			$this->fields    = $args['fields'];
-			$this->db_values = $args['db_values'];
-			$this->args      = $args['args'];
+			$this->module       = $args['module'];
+			$this->plugin_id    = $args['plugin_id'];
+			$this->unique       = $args['unique'];
+			$this->fields       = $args['fields'];
+			$this->db_values    = $args['db_values'];
+			$this->user_options = $args['user_values'];
+			$this->args         = $args['args'];
 		}
 
 		protected function handle_field( $field = array(), $value = false, $database = false ) {
@@ -135,6 +147,52 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 			}
 
 			return $value;
+		}
+
+		/**
+		 * This returns value from db array.
+		 *
+		 * @param string $field
+		 * @param bool   $value_arr
+		 * @param bool   $default
+		 *
+		 * @return bool|mixed
+		 */
+		protected function db_options( $field = '', $value_arr = false, $default = false ) {
+			$value_arr = ( false === $value_arr ) ? $this->db_values : $value_arr;
+			$field     = ( is_array( $field ) && isset( $field['id'] ) ) ? $field['id'] : $field;
+			if ( ! $field ) {
+				return false;
+			}
+
+			if ( isset( $value_arr[ $field ] ) ) {
+				return $value_arr[ $field ];
+			}
+
+			return $default;
+		}
+
+		/**
+		 * This returns value from User array.
+		 *
+		 * @param string $field
+		 * @param bool   $value_arr
+		 * @param bool   $default
+		 *
+		 * @return bool|mixed
+		 */
+		protected function user_options( $field = '', $value_arr = false, $default = false ) {
+			$value_arr = ( false === $value_arr ) ? $this->user_options : $value_arr;
+			$field     = ( is_array( $field ) && isset( $field['id'] ) ) ? $field['id'] : $field;
+			if ( ! $field ) {
+				return false;
+			}
+
+			if ( isset( $value_arr[ $field ] ) ) {
+				return $value_arr[ $field ];
+			}
+
+			return $default;
 		}
 	}
 }
