@@ -81,6 +81,7 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 				return $class;
 			}
 		}
+
 		return false;
 	}
 }
@@ -154,7 +155,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			$output .= ob_get_clean();
 		} else {
 			$field_type = isset( $field['type'] ) ? $field['type'] : false;
-			$output     .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . $field_type . '</strong>' ) . ' </p> ';
+			$output     .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . print_r( $field, true ) . '</strong>' ) . ' </p> ';
 		}
 		return $output;
 	}
