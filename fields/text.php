@@ -27,9 +27,12 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 
 		protected function output() {
 			echo $this->before();
+			$field_class = 'form-control';
+			$field_class = ( $this->has_errors() ) ? $field_class . ' is-invalid ' : $field_class;
+
 			$attributes = $this->attributes( array(
 				'type'              => $this->element_type(),
-				'class'             => $this->element_class( 'form-control' ),
+				'class'             => $this->element_class( $field_class ),
 				'value'             => $this->value(),
 				'name'              => $this->name(),
 				'data-wponion-jsid' => $this->js_field_id(),
