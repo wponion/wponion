@@ -613,7 +613,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		public function localize_field() {
 			$data = $this->js_field_args();
 			if ( ! empty( $data ) ) {
-				wponion_asset()->add( $this->js_field_id(), $data, true );
+				wponion_localize()->add( $this->js_field_id(), $data, true );
 			}
 		}
 
