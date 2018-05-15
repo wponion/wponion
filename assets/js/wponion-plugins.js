@@ -24,6 +24,7 @@ var wponion = {
  * Removed Sources
  * codekit-append ../../node_modules/bootstrap/js/dist/tooltip.js
  * codekit-append ../../node_modules/bootstrap/js/dist/popover.js
+ * codekit-append ../../node_modules/bootstrap/js/dist/dropdown.js
  * codekit-append ../../node_modules/popper.js/dist/umd/popper.js
  */
 /*! Copyright 2012, Ben Lin (http://dreamerslab.com/)
