@@ -24,7 +24,8 @@
     "jquery.actual": "^1.0.19",
     "popper.js": "^1.14.3",
     "select2": "^4.0.6-rc.1",
-    "selectize.js": "^0.12.12"
+    "selectize.js": "^0.12.12",
+    "tippy.js": "^2.5.2"
   },
   "dependencies": {}
 }
