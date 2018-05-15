@@ -17,7 +17,6 @@ var wponion = {
 //@codekit-append ../../node_modules/bootstrap/js/dist/index.js
 //@codekit-append ../../node_modules/bootstrap/js/dist/util.js
 //@codekit-append ../../node_modules/bootstrap/js/dist/button.js
-//@codekit-append ../../node_modules/bootstrap/js/dist/dropdown.js
 //@codekit-append ../../node_modules/bootstrap-maxlength/src/bootstrap-maxlength.js
 //@codekit-append ./parts/wponion-jquery-noclf-footer.js
 
