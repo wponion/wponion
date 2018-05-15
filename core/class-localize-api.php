@@ -31,6 +31,18 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 		 */
 		private $js_args = array();
 
+		/**
+		 * core_data
+		 *
+		 * @var bool
+		 */
+		private static $core_data = false;
+
+		/**
+		 * scripts_check
+		 *
+		 * @var array
+		 */
 		private $scripts_check = array( 'wponion-plugins', 'wponion-core', 'wponion-fields' );
 
 		/**
@@ -41,6 +53,18 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 				$this->add_action( 'wp_footer', 'render_js_args' );
 			}
+
+			if ( false === self::$core_data ) {
+				$this->js_args['wponion_core'] = array(
+					'ajaxurl'     => admin_url( 'admin-ajax.php' ),
+					'ajax_action' => 'wponion-ajax',
+					'ajax_url'    => admin_url( 'admin-ajax.php?wponion-ajax' ),
+					'debug'       => ( true === defined( 'WP_DEBUG' ) || true === defined( 'SCRIPT_DEBUG' ) ) ? true : false,
+				);
+
+				self::$core_data = true;
+			}
+
 		}
 
 		/**
@@ -77,6 +101,7 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 		 */
 		private function localize_script( $handle = '' ) {
 			foreach ( $this->js_args as $key => $value ) {
+				$key = str_replace( '-', '_', $key );
 				wp_localize_script( $handle, $key, $value );
 			}
 			return true;
