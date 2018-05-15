@@ -105,16 +105,14 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 
 			if ( defined( 'WPONION_FIELD_ASSETS' ) && true === WPONION_FIELD_ASSETS || ( did_action( 'admin_enqueue_scripts' ) || did_action( 'wp_enqueue_scripts' ) ) ) {
 				$this->field_assets();
-				$this->localize_field();
 			} else {
-				add_action( 'admin_enqueue_scripts', array( &$this, 'field_assets' ), 1 );
-				add_action( 'admin_enqueue_scripts', array( &$this, 'localize_field' ), 1 );
+				$this->add_action( 'admin_enqueue_scripts', 'field_assets', 1 );
 
 				if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
-					add_action( 'wp_enqueue_scripts', array( &$this, 'field_assets' ), 1 );
-					add_action( 'wp_enqueue_scripts', array( &$this, 'localize_field' ), 1 );
+					$this->add_action( 'wp_enqueue_scripts', 'field_assets', 1 );
 				}
 			}
+			$this->localize_field();
 		}
 
 		/**
@@ -354,7 +352,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * @return string
 		 */
 		protected function unid() {
-			return $this->module . '_' . $this->plugin_id() . '_' . $this->field_id();
+			return $this->module() . '_' . $this->plugin_id() . '_' . $this->field_id();
 		}
 
 		/**
@@ -430,7 +428,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 */
 		protected function get_errors() {
 			if ( null === $this->errors ) {
-				$error_instance = wponion_registry( $this->module . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
+				$error_instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
 				if ( $error_instance ) {
 					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
 					$this->errors = $error_instance->get( $field_id );
@@ -598,9 +596,10 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 */
 		protected function js_field_id() {
 			if ( ! isset( $this->js_field_id ) ) {
-				$key               = sanitize_key( $this->plugin_id() . '_' . $this->field_id() ) . intval( microtime( true ) ) . wp_rand();
+				$key               = $this->unid() . '_' . $this->unique() . '_' . uniqid( time() );
+				$key               = wponion_localize_object_name( 'wponion', 'field', $key );
 				$key               = str_replace( array( '-', '_' ), '', $key );
-				$this->js_field_id = $key;
+				$this->js_field_id = sanitize_key( $key );
 			}
 			return $this->js_field_id;
 		}
@@ -614,7 +613,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		public function localize_field() {
 			$data = $this->js_field_args();
 			if ( ! empty( $data ) ) {
-				wp_localize_script( 'wponion-fields', $this->js_field_id(), $data );
+				wponion_asset()->add( $this->js_field_id(), $data, true );
 			}
 		}
 
