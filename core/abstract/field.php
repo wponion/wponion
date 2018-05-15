@@ -232,25 +232,40 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 */
 		protected function wrapper( $is_start = true ) {
 			if ( true === $is_start ) {
-				$is_pseudo       = $this->data( 'pseudo' );
-				$wrap_attrs_user = $this->data( 'wrap_attributes' );
-				$_wrap_class     = $this->data( 'wrap_class' );
-				$has_title       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
-				$is_pseudo       = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
-				$wrap_class      = $this->default_wrap_class() . ' ' . $is_pseudo . ' ' . $has_title . ' ' . $_wrap_class . ' ';
+				$is_pseudo   = $this->data( 'pseudo' );
+				$_wrap_attr  = $this->data( 'wrap_attributes' );
+				$_wrap_class = $this->data( 'wrap_class' );
+				$has_title   = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
+				$is_pseudo   = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
+				$wrap_class  = $this->default_wrap_class() . ' ' . $is_pseudo . ' ' . $has_title . ' ' . $_wrap_class . ' ';
 
-				if ( is_array( $wrap_attrs_user ) ) {
-					$wrap_attrs_user['class'] = isset( $wrap_attrs_user['class'] ) ? $wrap_class . $wrap_attrs_user['class'] : $wrap_class;
+				$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
+
+				if ( $this->has( 'dependency' ) ) {
+					//$is_sub     = ( $this->has( 'sub' ) && true === $this->data( 'sub' ) ) ? 'sub-' : '';
+					$wrap_class .= ' wponion-has-dependency ';
+					$dependency = $this->data( 'dependency' );
+					wponion_localize()->add( $this->js_field_id(), array(
+						'dependency' => array(
+							'controller' => explode( '|', $dependency[0] ),
+							'condition'  => explode( '|', $dependency[1] ),
+							'value'      => explode( '|', $dependency[2] ),
+						),
+					) );
+				}
+
+				if ( is_array( $_wrap_attr ) ) {
+					$_wrap_attr['class'] = isset( $_wrap_attr['class'] ) ? $wrap_class . $_wrap_attr['class'] : $wrap_class;
 				}
 
 				if ( false !== $this->data( 'columns' ) ) {
 					echo ( 0 === self::$columns ) ? '<div class="row wponion-row">' : '';
-					$wrap_attrs_user['class'] .= ' col';
-					self::$columns            += $this->data( 'columns' );
+					$_wrap_attr['class'] .= ' col';
+					self::$columns       += $this->data( 'columns' );
 				}
 
-				$wrap_attrs_user = wponion_array_to_html_attributes( $wrap_attrs_user );
-				echo '<div ' . $wrap_attrs_user . '>';
+				$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
+				echo '<div ' . $_wrap_attr . '>';
 				echo $this->title();
 				echo $this->field_wrapper( true );
 				echo $this->output();
@@ -301,8 +316,6 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 
 		/**
 		 * Renders HTML for ToolTip.
-		 *
-		 * @todo Finish the pending HTML Work.
 		 */
 		protected function field_help() {
 			$html = '';
@@ -310,9 +323,6 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$data      = $this->tooltip_data( $this->data( 'help' ), array( 'icon' => 'dashicons dashicons-editor-help' ) );
 				$span_attr = wponion_array_to_html_attributes( $data['attr'] );
 				$html      = '<span ' . $span_attr . '><span class="' . $data['data']['icon'] . '"></span></span>';
-				if ( true !== $data ) {
-					$html .= $data['js_data'];
-				}
 			}
 			return $html;
 		}
@@ -320,29 +330,27 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		/**
 		 * @param array $main_data
 		 * @param array $extra_args
+		 * @param bool  $localize
 		 *
 		 * @return array
 		 */
-		protected function tooltip_data( $main_data = array(), $extra_args = array() ) {
-			$data                      = $this->handle_data( $main_data, $this->parse_args( $extra_args, array(
+		protected function tooltip_data( $main_data = array(), $extra_args = array(), $localize = true ) {
+			$data = $this->handle_data( $main_data, $this->parse_args( $extra_args, array(
 				'content'   => false,
 				'arrow'     => true,
 				'arrowType' => 'round',
 			) ), 'content' );
-			$attr                      = array(
+			$attr = array(
 				'title' => $data['content'],
 				'class' => 'wponion-help',
 			);
-			$object_name               = wponion_localize_object_name( 'wponion', 'tooltip', $this->unid() );
-			$attr['data-wponion-jsid'] = $object_name;
 
-			unset( $data['content'] );
-
+			if ( true === $localize ) {
+				wponion_localize()->add( $this->js_field_id(), array( 'field_help' => $data ) );
+			}
 			return array(
-				'attr'    => $attr,
-				'data'    => $data,
-				'js_data' => wponion_plugin_localize( $object_name, $data ),
-				'jsid'    => $object_name,
+				'attr' => $attr,
+				'data' => $data,
 			);
 		}
 
@@ -499,7 +507,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function attributes( $field_attributes = array() ) {
+		protected function attributes( $field_attributes = array(), $dep_key = array() ) {
 			$user_attrs = ( false !== $this->has( 'attributes' ) ) ? $this->data( 'attributes' ) : array();
 
 			if ( false !== $this->has( 'style' ) ) {
@@ -508,6 +516,15 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 
 			if ( false !== $this->has( 'placeholder' ) ) {
 				$user_attrs['placeholder'] = $this->data( 'placeholder' );
+			}
+
+
+			$is_sub_dep = ( $this->has( 'sub' ) ) ? 'sub-' : '';
+
+			if ( is_string( $dep_key ) || is_numeric( $dep_key ) ) {
+				$user_attrs[ 'data-' . $is_sub_dep . 'depend-id' ] = $this->field_id() . '_' . $dep_key;
+			} elseif ( empty( $dep_key ) && $this->field_id() ) {
+				$user_attrs[ 'data-' . $is_sub_dep . 'depend-id' ] = $this->field_id();
 			}
 
 			$user_attrs = $this->parse_args( $user_attrs, $field_attributes );
@@ -533,6 +550,20 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 */
 		protected function value() {
 			return $this->value;
+		}
+
+		/**
+		 * Checks if array key exists in $this->value
+		 *
+		 * @param string $key
+		 *
+		 * @return bool|mixed
+		 */
+		protected function get_value( $key = '' ) {
+			if ( isset( $this->value[ $key ] ) ) {
+				return $this->value[ $key ];
+			}
+			return false;
 		}
 
 		/**
@@ -565,31 +596,6 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			}
 			return $unique;
 		}
-
-		/***************************************************************************************************************
-		 *  Elements Few Abstract Functions.
-		 **************************************************************************************************************/
-
-		/**
-		 * Function Required To Register / Load current field's assets.
-		 *
-		 * @return mixed
-		 */
-		abstract public function field_assets();
-
-		/**
-		 * Custom Function To Return Current Fields Default Args.
-		 *
-		 * @return mixed
-		 */
-		abstract protected function field_default();
-
-		/**
-		 * Function Where all field can output their html.
-		 *
-		 * @return mixed
-		 */
-		abstract protected function output();
 
 		/**
 		 * Generates A New JS Field ID.
@@ -645,7 +651,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 
 			if ( false !== $value['tooltip'] ) {
 				$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
-				$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'position' => 'right' ) );
+				$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'position' => 'right' ), false );
 			}
 
 			if ( true === $value['disabled'] ) {
@@ -657,5 +663,52 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			}
 			return $value;
 		}
+
+		/**
+		 * @param string $helper
+		 * @param string $current
+		 * @param string $type
+		 * @param bool   $echo
+		 *
+		 * @return string
+		 */
+		public function checked( $helper = '', $current = '', $type = 'checked', $echo = false ) {
+			if ( is_array( $helper ) && in_array( $current, $helper ) ) {
+				$result = ' ' . $type . '="' . $type . '"';
+			} elseif ( $helper == $current ) {
+				$result = ' ' . $type . '="' . $type . '"';
+			} else {
+				$result = '';
+			}
+			if ( $echo ) {
+				echo $result;
+			}
+			return $result;
+		}
+
+		/***************************************************************************************************************
+		 *  Elements Few Abstract Functions.
+		 **************************************************************************************************************/
+
+		/**
+		 * Function Required To Register / Load current field's assets.
+		 *
+		 * @return mixed
+		 */
+		abstract public function field_assets();
+
+		/**
+		 * Custom Function To Return Current Fields Default Args.
+		 *
+		 * @return mixed
+		 */
+		abstract protected function field_default();
+
+		/**
+		 * Function Where all field can output their html.
+		 *
+		 * @return mixed
+		 */
+		abstract protected function output();
 	}
 }
