@@ -85,7 +85,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			parent::__construct( $fields, $settings );
 			if ( ! empty( $this->settings ) && false === wponion_is_ajax() ) {
 				$this->raw_options = $settings;
-
 				if ( false === $this->settings['plugin_id'] ) {
 					$this->plugin_id = $this->settings['option_name'];
 				} else {
@@ -251,7 +250,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				} else {
 
 					if ( isset( $this->options_cache['field_errors'] ) ) {
-						$instance = wponion_registry( $this->module . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
+						$instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
 						$instance->set( $this->options_cache['field_errors'] );
 						unset( $this->options_cache['field_errors'] );
 						$this->set_cache( $this->options_cache );
@@ -848,20 +847,29 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 *************************************************************************************************************/
 
 		/**
-		 * Renders Fields Output.
+		 * Renders Given Field.
 		 *
 		 * @param array $field
+		 * @param bool  $is_init_field
 		 *
 		 * @return string
 		 */
-		public function render_field( $field = array() ) {
+		public function render_field( $field = array(), $is_init_field = false ) {
 			$value = _wponion_get_field_value( $field, $this->get_db_values() );
 
-			return wponion_add_element( $field, $value, array(
-				'plugin_id' => $this->plugin_id(),
-				'unique'    => $this->unique,
-				'module'    => 'settings',
-			) );
+			if ( false === $is_init_field ) {
+				return wponion_add_element( $field, $value, array(
+					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->unique,
+					'module'    => 'setttings',
+				) );
+			} else {
+				wponion_field( $field, $value, array(
+					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->unique,
+					'module'    => 'setttings',
+				) );
+			}
 		}
 
 		/**
@@ -888,20 +896,12 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 						}
 
 						foreach ( $section['fields'] as $field ) {
-							wponion_field( $field, _wponion_get_field_value( $field, array() ), array(
-								'plugin_id' => $this->plugin_id(),
-								'unique'    => $this->unique,
-								'module'    => 'setttings',
-							) );
+							$this->render_field( $field, true );
 						}
 					}
 				} elseif ( isset( $options['fields'] ) ) {
 					foreach ( $options['fields'] as $field ) {
-						wponion_field( $field, _wponion_get_field_value( $field, array() ), array(
-							'plugin_id' => $this->plugin_id(),
-							'unique'    => $this->unique,
-							'module'    => 'setttings',
-						) );
+						$this->render_field( $field, true );
 					}
 				}
 			}
