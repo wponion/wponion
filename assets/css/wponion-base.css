@@ -10771,9 +10771,56 @@ a > .wponion-framework-bootstrap code {
  * Below Are related To Fields.
  */
 .wponion-element {
+  /*********************************************************************************************************************
+   * User Usable Fields
+   ********************************************************************************************************************/
+  /** Textarea **/
+  /**
+   * UI Related Fields.
+   */
   /** Heading Element Style. **/
   /** Sub Heading Element Style.**/
   /** Notice Element Handler **/
+  /** Boostrap Card Element. **/
+  /** Boostrap well/jambotron **/
+}
+
+.wponion-element.wponion-element-textarea textarea {
+  min-width: 500px;
+  resize: both;
+  max-width: 100%;
+  min-height: 125px;
+}
+
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group {
+  display: inline-block;
+  min-width: 200px;
+  margin-right: 25px;
+  border: 1px solid #dadada;
+}
+
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group .wponion-group-header, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group .wponion-group-header {
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  background: #f8f8f8;
+  border-bottom: 1px solid #dadada;
+}
+
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group .wponion-group-header h4, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group .wponion-group-header h4 {
+  margin-bottom: 0;
+  font-size: 1.0rem;
+}
+
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists {
+  padding: 0 15px;
+}
+
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li div, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li div {
+  margin-bottom: 0;
+}
+
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group:last-child, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group:last-child {
+  margin-right: 0;
 }
 
 .wponion-element.wponion-element-heading {
@@ -10807,13 +10854,6 @@ a > .wponion-framework-bootstrap code {
   -webkit-box-shadow: none;
   box-shadow: none;
   max-width: none;
-}
-
-.wponion-element.wponion-element-textarea textarea {
-  min-width: 500px;
-  resize: both;
-  max-width: 100%;
-  min-height: 125px;
 }
 
 .wponion-element.wponion-element-jambo_content {

@@ -85,6 +85,54 @@
  */
 
 .wponion-element {
+  /*********************************************************************************************************************
+   * User Usable Fields
+   ********************************************************************************************************************/
+  /** Textarea **/
+  &.wponion-element-textarea {
+	textarea {
+	  min-width:  500px;
+	  resize:     both;
+	  max-width:  100%;
+	  min-height: 125px;
+	}
+  }
+
+  &.wponion-element-checkbox, &.wponion-element-radio {
+	.wponion-checkbox-radio-group {
+	  display:      inline-block;
+	  min-width:    200px;
+	  margin-right: 25px;
+	  border:       1px solid #dadada;
+	  .wponion-group-header {
+		padding:       10px 15px;
+		margin-bottom: 15px;
+		background:    #f8f8f8;
+		border-bottom: 1px solid #dadada;
+		h4 {
+		  margin-bottom: 0;
+		  font-size:     1.0rem;
+		}
+	  }
+
+	  ul.wponion-checkbox-group-lists {
+		padding: 0 15px;
+		li {
+		  div {
+			margin-bottom: 0;
+		  }
+		}
+	  }
+
+	  &:last-child {
+		margin-right: 0;
+	  }
+	}
+  }
+
+  /**
+   * UI Related Fields.
+   */
   /** Heading Element Style. **/
   &.wponion-element-heading {
 	font-size:        1.5em;
@@ -112,6 +160,7 @@
 	}
   }
 
+  /** Boostrap Card Element. **/
   &.wponion-element-card {
 	div.card {
 	  margin-top: 0;
@@ -121,15 +170,7 @@
 	}
   }
 
-  &.wponion-element-textarea {
-	textarea {
-	  min-width:  500px;
-	  resize:     both;
-	  max-width:  100%;
-	  min-height: 125px;
-	}
-  }
-
+  /** Boostrap well/jambotron **/
   &.wponion-element-jambo_content {
 	padding: 0 !important;
 	div.jumbotron {
@@ -137,4 +178,5 @@
 	  border-radius: 0;
 	}
   }
+
 }
