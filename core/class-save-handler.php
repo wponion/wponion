@@ -152,7 +152,7 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 							'field'     => $field,
 						) );
 					} elseif ( is_string( $value ) && has_filter( $functions ) ) {
-						$value = apply_filters( $functions, $value, $this->plugin_id(), $this->module, $field );
+						$value = apply_filters( $functions, $value, $this->plugin_id(), $this->module(), $field );
 					}
 				}
 			} elseif ( is_callable( $functions ) ) {
@@ -162,7 +162,7 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 					'field'     => $field,
 				) );
 			} elseif ( has_filter( $functions ) ) {
-				$value = apply_filters( $functions, $value, $this->plugin_id(), $this->module, $field );
+				$value = apply_filters( $functions, $value, $this->plugin_id(), $this->module(), $field );
 			}
 
 			return $value;
