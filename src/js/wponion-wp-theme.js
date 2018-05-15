@@ -59,10 +59,7 @@
 				wponion.themes.wp.mainmenu_single_page();
 				wponion.themes.wp.submenu_single_page();
 			}
-
-
 		} );
 	} ) );
-
 
 } )( window, document, jQuery, wp, wponion, wp.hooks );
