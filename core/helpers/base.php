@@ -191,6 +191,39 @@ if ( ! function_exists( 'wponion_debug_assets' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_plugin_localize' ) ) {
+	/**
+	 * wponion localize_script plugin.js
+	 *
+	 * @param string $object
+	 * @param array  $data
+	 *
+	 * @return bool
+	 */
+	function wponion_plugin_localize( $object = '', $data = array() ) {
+		$add = wp_localize_script( 'wponion-plugins', $object, $data );
+		if ( false === $add ) {
+			return wp_localize_script( 'wponion-core', $object, $data );
+		}
+		return wponion_js_vars( $object, $data, true );
+	}
+}
+
+if ( ! function_exists( 'wponion_localize_object_name' ) ) {
+	/**
+	 * Returns a quniue js key.
+	 *
+	 * @param string $prefix
+	 * @param string $surfix
+	 * @param string $inner_content
+	 *
+	 * @return string
+	 */
+	function wponion_localize_object_name( $prefix = '', $surfix = '', $inner_content = '' ) {
+		return $prefix . wponion_hash_string( $inner_content ) . $surfix;
+
+	}
+}
 
 /**
  * WPOnion Assets Related Functions.
