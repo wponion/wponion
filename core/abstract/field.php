@@ -309,22 +309,52 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		protected function field_help() {
 			$html = '';
 			if ( $this->has( 'help' ) ) {
-				$data = $this->handle_data( $this->data( 'help' ), array(
-					'icon'     => 'dashicons dashicons-editor-help',
-					'content'  => false,
-					'position' => 'bottom',
-				), 'content' );
-
-				$span_attr = wponion_array_to_html_attributes( array(
-					'data-toggle'    => 'tooltip',
-					'data-placement' => $data['position'],
-					'data-title'     => $data['content'],
-					'class'          => 'wponion-help',
-				) );
-
-				$html = '<span ' . $span_attr . '><span class="' . $data['icon'] . '"></span></span>';
+				$data      = $this->tooltip_data( $this->data( 'help' ), array( 'icon' => 'dashicons dashicons-editor-help' ) );
+				$span_attr = wponion_array_to_html_attributes( $data['attr'] );
+				$html      = '<span ' . $span_attr . '><span class="' . $data['data']['icon'] . '"></span></span>';
+				if ( true !== $data ) {
+					$html .= $data['js_data'];
+				}
 			}
 			return $html;
+		}
+
+		/**
+		 * @param array $main_data
+		 * @param array $extra_args
+		 *
+		 * @return array
+		 */
+		protected function tooltip_data( $main_data = array(), $extra_args = array() ) {
+			$data                      = $this->handle_data( $main_data, $this->parse_args( $extra_args, array(
+				'content'   => false,
+				'arrow'     => true,
+				'arrowType' => 'round',
+			) ), 'content' );
+			$attr                      = array(
+				'title' => $data['content'],
+				'class' => 'wponion-help',
+			);
+			$object_name               = wponion_localize_object_name( 'wponion', 'tooltip', $this->unid() );
+			$attr['data-wponion-jsid'] = $object_name;
+
+			unset( $data['content'] );
+
+			return array(
+				'attr'    => $attr,
+				'data'    => $data,
+				'js_data' => wponion_plugin_localize( $object_name, $data ),
+				'jsid'    => $object_name,
+			);
+		}
+
+		/**
+		 * Returns A Unique ID
+		 *
+		 * @return string
+		 */
+		protected function unid() {
+			return $this->module . '_' . $this->plugin_id() . '_' . $this->field_id();
 		}
 
 		/**
@@ -595,6 +625,38 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 */
 		protected function js_field_args() {
 			return array();
+		}
+
+		protected function handle_options( $key, $value, $more_defaults = array() ) {
+			$defaults = $this->set_args( $more_defaults, array(
+				'label'      => '',
+				'key'        => '',
+				'attributes' => array(),
+				'disabled'   => false,
+				'tooltip'    => false,
+			) );
+
+			if ( ! is_array( $value ) ) {
+				$defaults['key']   = $key;
+				$defaults['label'] = $value;
+				return $defaults;
+			}
+
+			$value = $this->parse_args( $value, $defaults );
+
+			if ( false !== $value['tooltip'] ) {
+				$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
+				$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'position' => 'right' ) );
+			}
+
+			if ( true === $value['disabled'] ) {
+				$value['attributes']['disabled'] = 'disabled';
+			}
+
+			if ( '' === $value['key'] ) {
+				$value['key'] = $key;
+			}
+			return $value;
 		}
 	}
 }
