@@ -9,7 +9,7 @@
   * @param $elem
   */
 	wponion.fields.input_mask = function ($elem) {
-		if (1 >= $elem.length) {
+		if ($elem.length > 0) {
 			$elem.each(function () {
 				var $settings = wponion.field_js_args($(this));
 				if ($settings['inputmask'] !== undefined) {
