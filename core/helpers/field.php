@@ -100,15 +100,16 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	 * @return bool
 	 */
 	function wponion_field( $field = array(), $value = '', $unique = array() ) {
-		$class = wponion_get_field_class( $field );
+		$class       = wponion_get_field_class( $field );
+		$base_unique = $unique;
 		if ( false !== $class ) {
 			$plugin_id = '';
 			$module    = 'core';
 
 			if ( is_array( $unique ) ) {
 				$plugin_id = isset( $unique['plugin_id'] ) ? $unique['plugin_id'] : '';
-				$unique    = isset( $unique['unique'] ) ? $unique['unique'] : '';
 				$module    = isset( $unique['module'] ) ? $unique['module'] : '';
+				$unique    = isset( $unique['unique'] ) ? $unique['unique'] : '';
 			}
 
 			if ( ! isset( $field['id'] ) ) {
@@ -121,9 +122,10 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, 'WPOnion_Field_Registry' );
 
 			if ( false !== $registry->get( $uid ) ) {
-				return $registry->get();
+				return $registry->get( $uid );
 			}
-			$instance = new $class( $field, $value, $unique );
+
+			$instance = new $class( $field, $value, $base_unique );
 			$registry->add( $uid, $instance );
 			return $instance;
 		}
@@ -212,7 +214,12 @@ if ( ! function_exists( 'wponion_js_vars' ) ) {
 			$script .= "\n$after;";
 		}
 		if ( $with_script_tag ) {
-			return '<script type="text/javascript" >' . $script . '</script>';
+			$h = "<script type='text/javascript'>\n"; // CDATA and type='text/javascript' is not needed for HTML 5
+			$h .= "/* <![CDATA[ */\n";
+			$h .= "$script\n";
+			$h .= "/* ]]> */\n";
+			$h .= "</script>\n";
+			return $h;
 		}
 		return $script;
 	}
