@@ -162,12 +162,12 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 			if ( false === $plugin_id ) {
 				return $this->generate_filter_slug( array(
 					'wponion',
-					$this->module,
+					$this->module(),
 				) );
 			}
 			return $this->generate_filter_slug( array(
 				'wponion',
-				$this->module,
+				$this->module(),
 				$this->plugin_id(),
 			) );
 		}
@@ -219,6 +219,15 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 		 */
 		public function plugin_id() {
 			return $this->plugin_id;
+		}
+
+		/**
+		 * Returns Current Module Slug.
+		 *
+		 * @return string
+		 */
+		public function module() {
+			return $this->module;
 		}
 
 		/**
