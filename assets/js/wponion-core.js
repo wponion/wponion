@@ -25,9 +25,16 @@ var wponion_elem = function wponion_elem() {
   * @constructor
   */
 	wponion.tooltip = function ($elem) {
-		if (1 >= $elem.length) {
+		if ($elem.length >= 1) {
 			return $elem.each(function () {
-				$(this).tooltip();
+				/*$( this ).tooltip( {
+    	container: $( this ).parent()
+    } );*/
+
+				tippy($(this)[0], wponion.field_js_args($(this), {
+					arrow: true,
+					arrowType: 'sharp'
+				}));
 			});
 		}
 	};
@@ -49,7 +56,8 @@ var wponion_elem = function wponion_elem() {
   * @type {function()}
   */
 	wponion.reload = function () {
-		wponion.tooltip(wponion.elem.find('.wponion-help'));
+		wponion.tooltip(wponion.elem.find(' .wponion-help'));
+		//wponion.tooltip( wponion.elem.find( ' .wponion-field-tooltip ' ) );
 		wponion.dropdown(wponion.elem.find('.dropdown-toggle'));
 		wphooks.doAction("wponion_reload_fields");
 		wponion.elem.trigger('reload');
