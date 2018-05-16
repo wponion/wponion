@@ -17,6 +17,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
+	/**
+	 * Class WPOnion_Feature_Abstract
+	 *
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	abstract class WPOnion_Feature_Abstract extends WPOnion_Module_Field_Handler {
 		/**
 		 * Stores Fields MD5.
@@ -31,6 +37,7 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		 * @var array
 		 */
 		protected $menus = array();
+
 		/**
 		 * Fields
 		 *
@@ -59,6 +66,12 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		 */
 		protected $db_values = array();
 
+		/**
+		 * @param $name
+		 * @param $arguments
+		 *
+		 * @return bool
+		 */
 		public function __call( $name, $arguments ) {
 			if ( isset( $this->{$name} ) ) {
 				return $this->{$name};
@@ -97,22 +110,25 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		 *
 		 * @param bool $bootstrap
 		 *
-		 * @return string
+		 * @return array|string
 		 */
 		protected function default_wrap_class( $bootstrap = false ) {
-			$class = 'wponion-settings-framework wponion-framework';
+			$class   = array( 'wponion-framework' );
+			$class[] = 'wponion-module-' . $this->module() . '-framework';
+			$class[] = 'wponion-module-' . $this->module();
+			$class[] = 'wponion-' . $this->plugin_id() . '-' . $this->module();
+			$class[] = 'wponion-' . $this->module();
 
-			$class .= ' wponion-' . $this->plugin_id() . '-' . $this->module();
-			$class .= ' wponion-' . $this->module();
 
-			if ( 'all' === $bootstrap || true === $bootstrap ) {
-				$class .= ' wponion-framework-bootstrap-grid wponion-framework-bootstrap';
-			} elseif ( 'grid' === $bootstrap ) {
-				$class .= ' wponion-framework-bootstrap-grid';
-			} elseif ( 'base' === $bootstrap ) {
-				$class .= ' wponion-framework-bootstrap';
+			if ( 'grid' === $bootstrap || 'all' === $bootstrap || true === $bootstrap ) {
+				$class[] = 'wponion-framework-bootstrap-grid';
 			}
-			return $class;
+
+			if ( 'base' === $bootstrap || 'all' === $bootstrap || true === $bootstrap ) {
+				$class[] = 'wponion-framework-bootstrap';
+			}
+
+			return wponion_html_class( $class );
 		}
 
 		/**
