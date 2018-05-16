@@ -358,6 +358,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			echo '</div>';
 			$this->init_theme();
 			echo '</form>';
+			echo $this->debug_bar();
 		}
 
 		/**
