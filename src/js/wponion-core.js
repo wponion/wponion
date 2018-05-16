@@ -34,6 +34,18 @@ let wponion_elem = function () {
 	 */
 	wponion.text = null;
 
+	wponion.tost = swal.mixin( {
+		toast: true,
+		position: 'top-end',
+		showConfirmButton: false,
+		customClass: 'wpsweatalert2',
+		onOpen: ( () => {
+			let $height = parseInt( $( "#wpadminbar" ).actual( 'height' ) ) + 3;
+			$( "div.wpsweatalert2" ).parent().css( 'top', $height + 'px' );
+		} ),
+		timer: 4000
+	} );
+
 	//Core Functions
 
 	/**
@@ -99,11 +111,6 @@ let wponion_elem = function () {
 			wponion_elem().find( '.wponion-page-loader' ).fadeOut( 'slow', function () {
 				$( this ).hide();
 			} );
-
-			window.onbeforeunload = function () {
-				wponion_elem().find( '.wponion-page-loader' ).show();
-				//return 'Are you sure';
-			};
 		}
 	} );
 
@@ -111,9 +118,9 @@ let wponion_elem = function () {
 	 * Inits Field Debug Info.
 	 * @type {function()}
 	 */
-	wponion.init_field_debug = ( () => {
-		if ( wponion_elem().find( '.wponion-field-debug' ).length > 0 ) {
-			wponion_elem().find( '.wponion-field-debug a.wponion-field-debug-handle' ).on( 'click', function () {
+	wponion.init_field_debug = ( ($elem) => {
+		if ( $elem.find( '.wponion-field-debug' ).length > 0 ) {
+			$elem.find( '.wponion-field-debug a.wponion-field-debug-handle' ).on( 'click', function () {
 				let $data = wponion.field_js_args( $( this ), {} );
 				if ( $data[ 'debug_info' ] !== undefined ) {
 					let $divID = wponion.field_js_id( $( this ) ) + 'debugINFO',
@@ -250,8 +257,8 @@ let wponion_elem = function () {
 	 * Handles Field Dependency.
 	 * @type {function()}
 	 */
-	wponion.dependency = ( ($is_sub) => {
-		if ( wponion.elem.find( '.wponion-has-dependency' ).length > 0 ) {
+	wponion.dependency = ( ($elem, $is_sub) => {
+		if ( $elem.find( '.wponion-has-dependency' ).length > 0 ) {
 			let $app = {
 
 
@@ -283,7 +290,7 @@ let wponion_elem = function () {
 				} ),
 
 				dep_root: ( () => {
-					wponion_elem().find( '.wponion-has-dependency' ).each( function () {
+					$elem.find( '.wponion-has-dependency' ).each( function () {
 						let $elem = $( this ),
 							$dep_data = wponion.field_js_args( $elem, {} ),
 							$_rules = $app.ruleset;
@@ -312,12 +319,12 @@ let wponion_elem = function () {
 	 * Triggers A Hook To Reload All Fields.
 	 * @type {function()}
 	 */
-	wponion.reload = ( () => {
-		wponion.dependency();
-		wponion.tooltip( wponion.elem.find( ' .wponion-help' ) );
-		wponion.tooltip_field( wponion.elem.find( '.wponion-field-tooltip' ) );
+	wponion.reload = ( ($elem) => {
+		$elem = ( $elem === undefined ) ? wponion.elem : $elem;
+		wponion.dependency( $elem );
+		wponion.tooltip( $elem.find( ' .wponion-help' ) );
+		wponion.tooltip_field( $elem.find( '.wponion-field-tooltip' ) );
 		wponion.init_field_debug();
-		wponion.init_debug_popup();
 		wphooks.doAction( "wponion_reload_fields" );
 	} );
 
@@ -330,10 +337,9 @@ let wponion_elem = function () {
 		 */
 		wponion.settings_args = wponion.window_vars( 'wponion_core', {} );
 		wponion.text = wponion.window_vars( 'wponion_i18n', {} );
-
 		/** Inits All Fields. **/
 		wponion.reload();
-
+		wponion.init_debug_popup();
 		wponion.handle_loading_screen();
 		wphooks.doAction( 'wponion_init' );
 	} ) );
