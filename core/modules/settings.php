@@ -691,6 +691,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'href'             => ( isset( $menu['href'] ) ) ? $menu['href'] : false,
 				'part_href'        => ( isset( $menu['part_href'] ) ) ? $menu['part_href'] : false,
 				'query_args'       => isset( $menu['query_args'] ) ? $menu['query_args'] : false,
+				'class'            => isset( $menu['class'] ) ? $menu['class'] : false,
 			);
 		}
 
