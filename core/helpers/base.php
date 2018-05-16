@@ -342,6 +342,30 @@ if ( ! function_exists( 'wponion_hash_array' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_is_debug' ) ) {
+	/**
+	 * Checks if WP_Debug Is enabled.
+	 * WP_DEBUG
+	 * WPONION_DEV_MODE
+	 *
+	 * @return bool
+	 */
+	function wponion_is_debug() {
+		return ( defined( 'WP_DEBUG' ) && true === WP_DEBUG || defined( 'WPONION_DEV_MODE' ) && true === WPONION_DEV_MODE );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_debug' ) ) {
+	/**
+	 * Checks if field debug is enabled.
+	 *
+	 * @return bool
+	 */
+	function wponion_field_debug() {
+		return ( wponion_is_debug() || defined( 'WPONION_FIELD_DEBUG' ) && true === WPONION_FIELD_DEBUG );
+	}
+}
+
 /**
  * WPOnion Assets Related Functions.
  */
