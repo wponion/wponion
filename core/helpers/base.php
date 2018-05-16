@@ -294,7 +294,7 @@ if ( ! function_exists( 'wponion_html_class' ) ) {
 	 * @param array $default_class
 	 * @param bool  $return_string
 	 *
-	 * @return array
+	 * @return string|array
 	 */
 	function wponion_html_class( $user_class = array(), $default_class = array(), $return_string = true ) {
 		if ( ! is_array( $user_class ) ) {
