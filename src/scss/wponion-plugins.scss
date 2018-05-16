@@ -7,3 +7,22 @@
  */
 @import "../../node_modules/tippy.js/dist/themes/translucent";
 @import "../../node_modules/tippy.js/dist/themes/light";
+/**
+ * Pure CSS Loader
+ */
+@import '../../node_modules/pure-css-loader/src/config';
+@import '../../node_modules/pure-css-loader/src/general/base';
+@import '../../node_modules/pure-css-loader/src/general/animations';
+@import '../../node_modules/pure-css-loader/src/general/utils';
+@import '../../node_modules/pure-css-loader/src/loaders/loader';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-double';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-bar';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-bar-ping-pong';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-border';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-ball';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-smartphone';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-clock';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-curtain';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-music';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-pokeball';
+@import '../../node_modules/pure-css-loader/src/loaders/loader-bouncing';
