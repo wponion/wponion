@@ -217,12 +217,21 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		}
 
 		/**
-		 * Returns Default Wrap Class.
+		 * Returns Default HTML Class.
+		 *
+		 * @param array $extra_class
+		 *
+		 * @return array
 		 */
-		protected function default_wrap_class() {
+		protected function default_wrap_class( $extra_class = array() ) {
 			$type      = $this->data( 'type' );
 			$has_error = ( $this->has_errors() ) ? ' wponion-element-has-error ' : '';
-			return 'wponion-element wponion-element-' . $type . ' wponion-field-' . $type . ' ' . $has_error;
+			return wponion_html_class( array(
+				'wponion-element',
+				'wponion-element-' . $type,
+				'wponion-field-' . $type,
+				$has_error,
+			), $extra_class, false );
 		}
 
 		/**
@@ -232,19 +241,17 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 */
 		protected function wrapper( $is_start = true ) {
 			if ( true === $is_start ) {
-				$is_pseudo   = $this->data( 'pseudo' );
-				$_wrap_attr  = $this->data( 'wrap_attributes' );
-				$_wrap_class = $this->data( 'wrap_class' );
-				$has_title   = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
-				$is_pseudo   = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
-				$wrap_class  = $this->default_wrap_class() . ' ' . $is_pseudo . ' ' . $has_title . ' ' . $_wrap_class . ' ';
-
+				$is_pseudo                       = $this->data( 'pseudo' );
+				$_wrap_attr                      = $this->data( 'wrap_attributes' );
+				$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
+				$is_pseudo                       = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
+				$col_class                       = false;
 				$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
 
 				if ( $this->has( 'dependency' ) ) {
 					//$is_sub     = ( $this->has( 'sub' ) && true === $this->data( 'sub' ) ) ? 'sub-' : '';
-					$wrap_class .= ' wponion-has-dependency ';
-					$dependency = $this->data( 'dependency' );
+					$wrap_class[] = 'wponion-has-dependency';
+					$dependency   = $this->data( 'dependency' );
 					wponion_localize()->add( $this->js_field_id(), array(
 						'dependency' => array(
 							'controller' => explode( '|', $dependency[0] ),
@@ -254,17 +261,20 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 					) );
 				}
 
-				if ( is_array( $_wrap_attr ) ) {
-					$_wrap_attr['class'] = isset( $_wrap_attr['class'] ) ? $wrap_class . $_wrap_attr['class'] : $wrap_class;
-				}
-
 				if ( false !== $this->data( 'columns' ) ) {
 					echo ( 0 === self::$columns ) ? '<div class="row wponion-row">' : '';
-					$_wrap_attr['class'] .= ' col';
-					self::$columns       += $this->data( 'columns' );
+					$col_class     = 'col';
+					self::$columns += $this->data( 'columns' );
 				}
 
+				$_wrap_attr['class'] = wponion_html_class( $this->data( 'wrap_class' ), $this->default_wrap_class( array(
+					$is_pseudo,
+					$has_title,
+					$col_class,
+				) ) );
+
 				$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
+
 				echo '<div ' . $_wrap_attr . '>';
 				echo $this->title();
 				echo $this->field_wrapper( true );
@@ -527,7 +537,8 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$user_attrs[ 'data-' . $is_sub_dep . 'depend-id' ] = $this->field_id();
 			}
 
-			$user_attrs = $this->parse_args( $user_attrs, $field_attributes );
+			$user_attrs          = $this->parse_args( $user_attrs, $field_attributes );
+			$user_attrs['class'] = wponion_html_class( $user_attrs['class'], array() );
 			return wponion_array_to_html_attributes( $user_attrs );
 		}
 
@@ -539,8 +550,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * @return string
 		 */
 		protected function element_class( $field_class = '' ) {
-			$user_class = ( false !== $this->has( 'class' ) ) ? $this->data( 'class' ) : '';
-			return $this->_filter( 'field_html_class', $user_class . ' ' . $field_class );
+			return $this->_filter( 'field_html_class', wponion_html_class( $this->data( 'class' ), $field_class, false ) );
 		}
 
 		/**
