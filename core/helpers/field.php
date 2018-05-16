@@ -15,56 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
-	/**
-	 * Converts PHP Array To HTML Attributes.
-	 *
-	 * @param $attributes
-	 *
-	 * @return string
-	 */
-	function wponion_array_to_html_attributes( $attributes ) {
-		$atts = '';
-		if ( ! empty( $attributes ) ) {
-			foreach ( $attributes as $key => $value ) {
-				if ( 'only-key' === $value ) {
-					$atts .= ' ' . esc_attr( $key );
-				} else {
-					$atts .= ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
-				}
-			}
-		}
-		return $atts;
-	}
-}
-
-if ( ! function_exists( 'wponion_hash_string' ) ) {
-	/**
-	 * Returns A MD5 Hash.
-	 *
-	 * @param $string
-	 *
-	 * @return string
-	 */
-	function wponion_hash_string( $string = '' ) {
-		return md5( $string );
-	}
-}
-
-if ( ! function_exists( 'wponion_hash_array' ) ) {
-	/**
-	 * Returns A MD Encoded Value of a array.
-	 *
-	 * @param $array
-	 *
-	 * @return string
-	 */
-	function wponion_hash_array( $array ) {
-		$encode = wp_json_encode( $array );
-		return wponion_hash_string( $encode );
-	}
-}
-
 if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	/**
 	 * Checks And Returns Fields Class.
@@ -184,43 +134,5 @@ if ( ! function_exists( '_wponion_get_field_value' ) ) {
 			return $value[ $field_id ];
 		}
 		return false;
-	}
-}
-
-if ( ! function_exists( 'wponion_js_vars' ) ) {
-	/**
-	 * Converts PHP Array into JS JSON String with script tag and returns it.
-	 *
-	 * @param      $object_name
-	 * @param      $l10n
-	 * @param bool $with_script_tag
-	 *
-	 * @return string
-	 */
-	function wponion_js_vars( $object_name = '', $l10n, $with_script_tag = true ) {
-		foreach ( (array) $l10n as $key => $value ) {
-			if ( ! is_scalar( $value ) ) {
-				continue;
-			}
-			$l10n[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
-		}
-		$script = null;
-		if ( ! empty( $object_name ) ) {
-			$script = "var $object_name = " . wp_json_encode( $l10n ) . ';';
-		} else {
-			$script = wp_json_encode( $l10n );
-		}
-		if ( ! empty( $after ) ) {
-			$script .= "\n$after;";
-		}
-		if ( $with_script_tag ) {
-			$h = "<script type='text/javascript'>\n"; // CDATA and type='text/javascript' is not needed for HTML 5
-			$h .= "/* <![CDATA[ */\n";
-			$h .= "$script\n";
-			$h .= "/* ]]> */\n";
-			$h .= "</script>\n";
-			return $h;
-		}
-		return $script;
 	}
 }
