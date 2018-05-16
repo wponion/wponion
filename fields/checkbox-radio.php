@@ -60,12 +60,18 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 		}
 
 		protected function render_element( $options, $in_group = false, $group_title = false ) {
-			$attr          = $options['attributes'];
-			$attr['type']  = $this->element_type();
-			$ex_class      = $this->element_class( ' form-check-input ' );
-			$attr['class'] = isset( $attr['class'] ) ? $attr['class'] . ' ' . $ex_class : $ex_class;
+			$attr         = $options['attributes'];
+			$attr['type'] = $this->element_type();
+
+			if ( ! isset( $attr['class'] ) ) {
+				$attr['class'] = array();
+			}
+			$attr['class'] = wponion_html_class( $attr['class'], $this->element_class( 'form-check-input' ) );
 			$attr['value'] = $options['key'];
 			$value         = $this->value();
+			$wrap_attr     = array();
+			$label_attr    = array();
+
 			if ( true === $in_group ) {
 				$gptitle      = sanitize_key( $group_title );
 				$attr['name'] = $this->name( '[' . $gptitle . '][]' );
@@ -79,10 +85,6 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 			$elem_id    = sanitize_title( $attr['name'] );
 			$attr['id'] = $elem_id;
 
-			$wrap_attr  = array();
-			$label_attr = array();
-			$wrap_class = ' form-group form-check ';
-
 			if ( isset( $options['tooltip'] ) && is_array( $options['tooltip'] ) ) {
 				$label_attr                      = $options['tooltip']['attr'];
 				$label_attr['data-wponion-jsid'] = $this->js_field_id();
@@ -91,7 +93,7 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 				wponion_localize()->add( $this->js_field_id(), array( $elem_id . 'tooltip' => $options['tooltip']['data'] ) );
 			}
 
-			$wrap_attr['class'] = $wrap_class;
+			$wrap_attr['class'] = wponion_html_class( array( 'form-group', 'form-check' ) );
 			$field_attr         = $this->attributes( $attr, $dep_id );
 
 			return '<div class=" form-group form-check ">
