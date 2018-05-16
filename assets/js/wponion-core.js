@@ -129,9 +129,12 @@ var wponion_elem = function wponion_elem() {
 						showCloseButton: false,
 						width: '500px',
 						onOpen: function onOpen() {
-							$('#swal2-content #' + $divID).JSONView($data['debug_info'], {
+							$('#swal2-content > div > #' + $divID).JSONView($data['debug_info'], {
 								collapsed: true,
 								recursive_collapser: true
+							}).overlayScrollbars({
+								className: "os-theme-dark",
+								resize: "both"
 							});
 						}
 					}).then(function (result) {
@@ -178,6 +181,9 @@ var wponion_elem = function wponion_elem() {
 					$('#swal2-content #wponion-global-debug-content').JSONView(wponion.debug_info, {
 						collapsed: true,
 						recursive_collapser: true
+					}).overlayScrollbars({
+						className: "os-theme-dark",
+						resize: "both"
 					});
 				}
 			}).then(function (result) {

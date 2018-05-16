@@ -127,9 +127,12 @@ let wponion_elem = function () {
 						showCloseButton: false,
 						width: '500px',
 						onOpen: ( () => {
-							$( '#swal2-content #' + $divID ).JSONView( $data[ 'debug_info' ], {
+							$( '#swal2-content > div > #' + $divID ).JSONView( $data[ 'debug_info' ], {
 								collapsed: true,
 								recursive_collapser: true,
+							} ).overlayScrollbars( {
+								className: "os-theme-dark",
+								resize: "both",
 							} );
 						} )
 					} ).then( (result) => {
@@ -177,6 +180,9 @@ let wponion_elem = function () {
 					$( '#swal2-content #wponion-global-debug-content' ).JSONView( wponion.debug_info, {
 						collapsed: true,
 						recursive_collapser: true,
+					} ).overlayScrollbars( {
+						className: "os-theme-dark",
+						resize: "both",
 					} );
 				} )
 			} ).then( (result) => {

@@ -14,6 +14,7 @@ var wponion = {
 //@codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
 //@codekit-append ../vendors/wp-js-hooks.js
 //@codekit-append ../../node_modules/tippy.js/dist/tippy.all.js
+//@codekit-append ../../node_modules/overlayscrollbars/js/jquery.overlayScrollbars.js
 
 //@codekit-append ./parts/wponion-jquery-noclf-header.js
 //@codekit-append ../../node_modules/bootstrap-maxlength/src/bootstrap-maxlength.js
