@@ -246,12 +246,13 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
 				$is_pseudo                       = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
 				$col_class                       = false;
+				$has_dep                         = false;
 				$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
 
 				if ( $this->has( 'dependency' ) ) {
 					//$is_sub     = ( $this->has( 'sub' ) && true === $this->data( 'sub' ) ) ? 'sub-' : '';
-					$wrap_class[] = 'wponion-has-dependency';
-					$dependency   = $this->data( 'dependency' );
+					$has_dep    = 'wponion-has-dependency';
+					$dependency = $this->data( 'dependency' );
 					wponion_localize()->add( $this->js_field_id(), array(
 						'dependency' => array(
 							'controller' => explode( '|', $dependency[0] ),
@@ -270,6 +271,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$_wrap_attr['class'] = wponion_html_class( $this->data( 'wrap_class' ), $this->default_wrap_class( array(
 					$is_pseudo,
 					$has_title,
+					$has_dep,
 					$col_class,
 				) ) );
 
