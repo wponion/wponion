@@ -25,16 +25,15 @@ if ( ! class_exists( 'WPOnion_Field_card' ) ) {
 
 			echo '<div class="row">';
 			foreach ( $this->data( 'options' ) as $option ) {
-				$option = $this->parse_args( $option, array(
+				$option             = $this->parse_args( $option, array(
 					'image'           => false,
 					'content'         => false,
 					'body'            => false,
 					'wrap_attributes' => false,
 					'wrap_class'      => false,
 				) );
-
 				$wrap_attr          = $option['wrap_attributes'];
-				$wrap_attr['class'] = isset( $wrap_attr['class'] ) ? $wrap_attr['class'] . ' ' . $option['wrap_class'] . ' card ' : $option['wrap_class'] . ' card ';
+				$wrap_attr['class'] = wponion_html_class( $wrap_attr['class'], array( $option['wrap_class'], 'card' ) );
 
 				echo '<div class="' . $this->data( 'card_col' ) . '">';
 				echo '<div ' . wponion_array_to_html_attributes( $wrap_attr ) . '>';
