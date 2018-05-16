@@ -20,9 +20,12 @@ $settings = $wponion_wp_theme->settings();
 		</div>
 		<?php echo $wponion_wp_theme->get_main_menu_html(); ?>
 		<div id="poststuff">
+
 			<div class="metabox-holder wponion-framework-bootstrap" id="post-body">
 				<div id="post-body-content">
 					<div class="wponion-content">
+						<div class="loader loader-default wponion-page-loader is-active"
+							 data-text="<?php _e( "Loading Please Wait..." ); ?>"></div>
 						<div class="wponion-sections">
 							<?php include_once 'settings-template.php'; ?>
 						</div>
