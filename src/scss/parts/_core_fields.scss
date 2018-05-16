@@ -49,42 +49,36 @@
 	  display: block;
 	}
   }
-}
 
-.wponion-element + .wponion-element {
-  border-top: 1px solid #dadada;
-}
-
-.wponion-framework {
-  .wponion-field-errors {
-	font-size:  100%;
-	margin-top: 10px;
-	ul {
-	  margin:     0;
-	  list-style: inside;
+  &.wponion-field-debug {
+	a.wponion-field-debug-handle {
+	  position: absolute;
+	  left:     -15px;
+	  top:      25px;
+	  opacity:  0;
+	  cursor:   pointer;
 	}
-
-  }
-
-  .wponion-framework-header {
-	h1 {
-	  padding: 0;
-	}
-	p {
-	  font-style:    italic;
-	  color:         #606060;
-	  font-size:     14px;
-	  margin-bottom: 10px;
-	  margin-top:    10px;
+	&:hover {
+	  a.wponion-field-debug-handle {
+		opacity: 1;
+		> .badge {
+		  font-size:                 90%;
+		  padding:                   5px 10px;
+		  border-top-left-radius:    0;
+		  border-bottom-left-radius: 0;
+		}
+	  }
 	}
   }
-}
 
-/**
- * Below Are related To Fields.
- */
+  + .wponion-element {
+	border-top: 1px solid #dadada;
+  }
 
-.wponion-element {
+  /**
+   * Below Are related To Fields.
+   */
+
   /*********************************************************************************************************************
    * User Usable Fields
    ********************************************************************************************************************/
@@ -98,6 +92,9 @@
 	}
   }
 
+  /**
+   * Checkbox & Radio Box Styles.
+   */
   &.wponion-element-checkbox, &.wponion-element-radio {
 	.wponion-checkbox-radio-group {
 	  display:      inline-block;
@@ -178,5 +175,80 @@
 	  border-radius: 0;
 	}
   }
+}
 
+/**
+ * Basic Styles.
+ */
+.wponion-framework {
+  .wponion-field-errors {
+	font-size:  100%;
+	margin-top: 10px;
+	ul {
+	  margin:     0;
+	  list-style: inside;
+	}
+
+  }
+
+  .wponion-framework-header {
+	h1 {
+	  padding: 0;
+	}
+	p {
+	  font-style:    italic;
+	  color:         #606060;
+	  font-size:     14px;
+	  margin-bottom: 10px;
+	  margin-top:    10px;
+	}
+  }
+}
+
+/**
+ * Global / Field Debug POPUP Style Codes.
+ */
+.wponion-field-debug-popup {
+  .wponion-field-debug-notice {
+	margin-top:       -2px;
+	color:            red;
+	padding:          10px;
+	background-color: white;
+	font-size:        11px;
+  }
+}
+
+.wponion-global-debug-handle {
+  position:         fixed;
+  width:            60px;
+  height:           60px;
+  bottom:           40px;
+  right:            40px;
+  background-color: #0C9;
+  color:            #FFF;
+  border-radius:    50px;
+  text-align:       center;
+  box-shadow:       2px 2px 3px #999;
+  font-size:        25px;
+  outline:          none;
+  &:hover, &:focus {
+	outline:         none;
+	text-decoration: none;
+  }
+  i {
+	margin:     0 auto;
+	margin-top: 30%;
+  }
+}
+
+#wponion-global-debug-content {
+  .jsonview {
+	font-size:  14px !important;
+	margin:     0 !important;
+	margin-top: 10px;
+	padding:    0 !important;
+	min-height: 0 !important;
+	height:     100% !important;
+	max-height: 520px;
+  }
 }
