@@ -105,4 +105,18 @@
   margin-left: 0;
 }
 
+.wponion-framework.wponion-wp-theme .wponion-page-loader {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.85);
+  left: -10px;
+}
+
+.wponion-framework.wponion-wp-theme .wponion-page-loader:before, .wponion-framework.wponion-wp-theme .wponion-page-loader:after {
+  color: black;
+  border-color: rgba(0, 0, 0, 0.57);
+  border-left-color: transparent;
+}
+
 /*# sourceMappingURL=wponion-wp-theme.css.map */
