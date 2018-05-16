@@ -1,3 +1,11 @@
+/**
+ * jQuery Interdependencies library
+ *
+ * http://miohtama.github.com/jquery-interdependencies/
+ *
+ * Copyright 2012-2013 Mikko Ohtamaa, others
+ */
+
 /*global console, window*/
 
 ( function ($) {
@@ -10,9 +18,39 @@
 	 * @ignore
 	 */
 	function log(msg) {
-		if ( console && console.log ) {
+		if ( window.console && window.console.log ) {
 			console.log( msg );
 		}
+	}
+
+
+	/**
+	 * jQuery.find() workaround for IE7
+	 *
+	 * If your selector is an pure tag id (#foo) IE7 finds nothing
+	 * if you do jQuery.find() in a specific jQuery context.
+	 *
+	 * This workaround makes a (false) assumptions
+	 * ids are always unique across the page.
+	 *
+	 * @ignore
+	 *
+	 * @param  {jQuery} context  jQuery context where we look child elements
+	 * @param  {String} selector selector as a string
+	 * @return {jQuery}          context.find() result
+	 */
+	function safeFind(context, selector) {
+
+		if ( selector[ 0 ] == "#" ) {
+
+			// Pseudo-check that this is a simple id selector
+			// and not a complex jQuery selector
+			if ( selector.indexOf( " " ) < 0 ) {
+				return $( selector );
+			}
+		}
+
+		return context.find( selector );
 	}
 
 	/**
@@ -113,22 +151,75 @@
 		 * @param  {Object} val2      Something we got out of input
 		 * @return {Boolean}          true or false
 		 */
-		evalCondition: function (control, context, condition, val1, val2) {
+		evalCondition: function (context, control, condition, val1, val2) {
 
-			if ( this.condition == "==" ) {
-				return val1 == val2;
+			/**
+			 *
+			 * Codestar Framework
+			 * Added new condition for Codestar Framework
+			 *
+			 * @since 1.0.0
+			 * @version 1.0.0
+			 *
+			 */
+			if ( condition == "==" || condition == "OR" ) {
+				return this.checkBoolean( val1 ) == this.checkBoolean( val2 );
 			} else if ( condition == "!=" ) {
-				return val1 != val2;
+				return this.checkBoolean( val1 ) != this.checkBoolean( val2 );
+			} else if ( condition == ">=" ) {
+				return Number( val2 ) >= Number( val1 );
+			} else if ( condition == "<=" ) {
+				return Number( val2 ) <= Number( val1 );
+			} else if ( condition == ">" ) {
+				return Number( val2 ) > Number( val1 );
+			} else if ( condition == "<" ) {
+				return Number( val2 ) < Number( val1 );
 			} else if ( condition == "()" ) {
-				return val1( context, control, val2 );
+				return window[ val1 ]( context, control, val2 ); // FIXED: function method
 			} else if ( condition == "any" ) {
-				return val1.indexOf( val2 ) >= 0;
+				return $.inArray( val2, val1.split( ',' ) ) > -1;
 			} else if ( condition == "not-any" ) {
-				return val1.indexOf( val2 ) < 0;
+				return $.inArray( val2, val1.split( ',' ) ) == -1;
 			} else {
 				throw new Error( "Unknown condition:" + condition );
 			}
 
+		},
+
+		/**
+		 *
+		 * Codestar Framework
+		 * Added Boolean value type checker
+		 *
+		 * @since 1.0.0
+		 * @version 1.0.0
+		 *
+		 */
+		checkBoolean: function (value) {
+
+			switch ( value ) {
+
+				case true:
+				case 'true':
+				case 1:
+				case '1':
+					//case 'on':
+					//case 'yes':
+					value = true;
+					break;
+
+				case false:
+				case 'false':
+				case 0:
+				case '0':
+					//case 'off':
+					//case 'no':
+					value = false;
+					break;
+
+			}
+
+			return value;
 		},
 
 		/**
@@ -162,7 +253,7 @@
 
 			val = this.normalizeValue( control, this.value, val );
 
-			return this.evalCondition( context, this.control, this.condition, this.value, val );
+			return this.evalCondition( context, control, this.condition, this.value, val );
 		},
 
 		/**
@@ -182,17 +273,31 @@
 		/**
 		 * Read value from a diffent HTML controls.
 		 *
-		 * Handle, text, checkbox, select.
+		 * Handle, text, checkbox, radio, select.
 		 *
 		 */
 		getControlValue: function (context, control) {
 
-			// Handle checkboxes
-			if ( control.attr( "type" ) == "checkbox" ) {
+			/**
+			 *
+			 * Codestar Framework
+			 * Added multiple checkbox value control
+			 *
+			 * @since 1.0.0
+			 * @version 1.0.0
+			 *
+			 */
+			if ( ( control.attr( "type" ) == "radio" || control.attr( "type" ) == "checkbox" ) && control.size() > 1 ) {
+				return control.filter( ":checked" ).val();
+			}
+
+			// Handle individual checkboxes & radio
+			if ( control.attr( "type" ) == "checkbox" || control.attr( "type" ) == "radio" ) {
 				return control.is( ":checked" );
 			}
 
 			return control.val();
+
 		},
 
 		/**
@@ -257,7 +362,7 @@
 				control.show();
 			};
 
-			var hide = cfg.show || function (control) {
+			var hide = cfg.hide || function (control) {
 				control.hide();
 			};
 
@@ -288,7 +393,9 @@
 
 				// Evaluate all child rules
 				$( this.rules ).each( function () {
-					this.applyRule( context, cfg );
+					if ( this.condition !== "OR" ) {
+						this.applyRule( context, cfg );
+					}
 				} );
 
 			} else {
@@ -306,7 +413,11 @@
 
 				// Supress all child rules
 				$( this.rules ).each( function () {
-					this.applyRule( context, cfg, false );
+					if ( this.condition !== "OR" ) {
+						this.applyRule( context, cfg, false );
+					} else {
+						this.applyRule( context, cfg );
+					}
 				} );
 			}
 		}
@@ -388,6 +499,8 @@
 		 *
 		 * Throws an Error if any of them are missing.
 		 *
+		 * @param {jQuery} context jQuery selection of items
+		 *
 		 * @param  {Configuration} cfg
 		 */
 		checkTargets: function (context, cfg) {
@@ -398,7 +511,7 @@
 			$( rules ).each( function () {
 
 				if ( context.find( this.controller ).size() === 0 ) {
-					throw new Error( "Rule's controller does not exist:" + this );
+					throw new Error( "Rule's controller does not exist:" + this.controller );
 				}
 
 				if ( this.controls.length === 0 ) {
@@ -406,8 +519,9 @@
 				}
 
 				$( this.controls ).each( function () {
-					if ( context.find( this ).size() === 0 ) {
-						throw new Error( "Rule's target control does not exist:" + this );
+
+					if ( safeFind( context, this ) === 0 ) {
+						throw new Error( "Rule's target control " + this + " does not exist in context " + context.get( 0 ) );
 					}
 
 					controls++;
@@ -489,9 +603,10 @@
 
 			// Namespace our handler to avoid conflicts
 			//
-			var val = selection.live( "change.deps", function () {
+			var handler = function () {
 				ruleset.applyRules( selection, cfg );
-			} );
+			};
+			var val = selection.on ? selection.on( "change.deps", null, null, handler ) : selection.live( "change.deps", handler );
 
 			ruleset.applyRules( selection, cfg );
 
