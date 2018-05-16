@@ -62,5 +62,4 @@
 		});
 	});
 })(window, document, jQuery, wp, wponion, wp.hooks);
-
 //# sourceMappingURL=wponion-wp-theme.js.map
