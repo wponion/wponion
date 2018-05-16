@@ -56,18 +56,18 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 						continue;
 					}
 					$attr          = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
-					$attr['class'] = isset( $attr['class'] ) ? $attr['class'] . ' nav-tab ' : ' nav-tab ';
 					$attr['title'] = isset( $attr['title'] ) ? $attr['title'] : $menu['title'];
 					$page_title    = $menu['title'];
-
-					$attr['class'] .= ( ! empty( $menu['icon'] ) ) ? ' nav-with-icon ' : '';
-					$attr['class'] .= ( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? ' nav-internal-href ' : '';
-
-					if ( true === $menu['is_active'] ) {
-						$attr['class'] .= ' nav-tab-active ';
-					}
-					$attr['href'] = $menu['href'];
-					$attr         = wponion_array_to_html_attributes( $attr );
+					$attr['href']  = $menu['href'];
+					$attr['class'] = isset( $attr['class'] ) ? $attr['class'] : array();
+					$attr['class'] = wponion_html_class( $attr['class'], array(
+						wponion_html_class( $menu['class'] ),
+						'nav-tab',
+						( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
+						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
+						( true === $menu['is_active'] ) ? 'nav-tab-active' : '',
+					) );
+					$attr          = wponion_array_to_html_attributes( $attr );
 
 					$return .= '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
 				}
@@ -99,20 +99,20 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 					}
 
 					$attr          = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
-					$attr['class'] = isset( $attr['class'] ) ? $attr['class'] : '';
 					$attr['title'] = isset( $attr['title'] ) ? $attr['title'] : $menu['title'];
 					$page_title    = $menu['title'];
+					$attr['href']  = $menu['href'];
+					$attr['class'] = isset( $attr['class'] ) ? $attr['class'] : array();
+					$attr['class'] = wponion_html_class( $attr['class'], array(
+						wponion_html_class( $menu['class'] ),
+						( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
+						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
+						( true === $menu['is_active'] ) ? 'current' : '',
+					) );
 
-					$attr['class'] .= ( ! empty( $menu['icon'] ) ) ? ' nav-with-icon ' : '';
-					$attr['class'] .= ( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? ' nav-internal-href ' : '';
 
-					if ( true === $menu['is_active'] ) {
-						$attr['class'] .= ' current ';
-					}
-
-					$attr['href'] = $menu['href'];
-					$attr         = wponion_array_to_html_attributes( $attr );
-					$return[]     = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+					$attr     = wponion_array_to_html_attributes( $attr );
+					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
 				}
 				$return = implode( '  </li>', $return );
 				$return = '<ul class="wponion-submenus subsubsub"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';
