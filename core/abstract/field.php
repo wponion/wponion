@@ -80,6 +80,13 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		protected $errors = null;
 
 		/**
+		 * Stores Debug Data.
+		 *
+		 * @var array
+		 */
+		protected $debug_data = array();
+
+		/**
 		 * WPOnion_Field constructor.
 		 *
 		 * @param array  $field
@@ -112,6 +119,11 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 					$this->add_action( 'wp_enqueue_scripts', 'field_assets', 1 );
 				}
 			}
+			$this->debug( __( 'Field Args' ), $this->field );
+			$this->debug( __( 'Field Value' ), $this->value );
+			$this->debug( __( 'Unique' ), $this->unique );
+			$this->debug( __( 'Plugin ID' ), $this->plugin_id() );
+			$this->debug( __( 'Module' ), $this->module() );
 			$this->localize_field();
 		}
 
@@ -157,6 +169,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				'debug_light'     => false,
 				'only_field'      => false,
 				'name'            => false,
+				'debug'           => wponion_field_debug(),
 			);
 			return $this->parse_args( $this->field_default(), $defaults );
 		}
@@ -247,6 +260,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$is_pseudo                       = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
 				$col_class                       = false;
 				$has_dep                         = false;
+				$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
 				$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
 
 				if ( $this->has( 'dependency' ) ) {
@@ -273,6 +287,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 					$has_title,
 					$has_dep,
 					$col_class,
+					$is_debug,
 				) ) );
 
 				$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
@@ -289,6 +304,23 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 					self::$columns = 0;
 				}
 			}
+		}
+
+		/**
+		 * Stores Debug Info.
+		 *
+		 * @param string $key
+		 * @param array  $data
+		 *
+		 * @return array|bool
+		 */
+		protected function debug( $key = '', $data = array() ) {
+			if ( true === $key ) {
+				return $this->debug_data;
+			} elseif ( $this->has( 'debug' ) && false === isset( $this->debug_data[ $key ] ) ) {
+				$this->debug_data[ $key ] = $data;
+			}
+			return false;
 		}
 
 		/**
@@ -321,9 +353,20 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$html .= $this->title_before_after( false ) . '<h4>' . $this->data( 'title' ) . '</h4>' . $this->title_before_after( true );
 				$html .= $this->field_help();
 				$html .= $this->title_desc();
+				$html .= $this->debug_notice();
 				$html .= '</div>';
 			}
 			return $html;
+		}
+
+		/**
+		 * Adds A Simple Debug Notice.
+		 */
+		protected function debug_notice() {
+			if ( $this->has( 'debug' ) ) {
+				return '<a class="wponion-field-debug-handle" data-wponion-jsid="' . $this->js_field_id() . '"><span class="badge badge-primary">' . __( 'Debug Field' ) . '</span></a>';
+			}
+			return '';
 		}
 
 		/**
@@ -631,7 +674,11 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		public function localize_field() {
 			$data = $this->js_field_args();
 			if ( ! empty( $data ) ) {
-				wponion_localize()->add( $this->js_field_id(), $data, true );
+				wponion_localize()->add( $this->js_field_id(), $data );
+
+			}
+			if ( $this->has( 'debug' ) ) {
+				wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ) );
 			}
 		}
 
