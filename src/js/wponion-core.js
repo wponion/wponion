@@ -111,11 +111,8 @@ let wponion_elem = function () {
 
 							$.each( $controller, ( ($i, $el) => {
 								let $_value = $value[ $i ] || '',
-									$_condition = $condition[ $i ] || $condition[ 0 ];
-								console.log( $el );
-								console.log( $controller );
-								console.log( $_value );
-								let $_ruless = $_rules.createRule( '[data-depend-id="' + $el + '"]', $_condition, $_value );
+									$_condition = $condition[ $i ] || $condition[ 0 ],
+									$_ruless = $_rules.createRule( '[data-depend-id="' + $el + '"]', $_condition, $_value );
 								$_ruless.include( $elem );
 							} ) );
 						}
@@ -174,12 +171,24 @@ let wponion_elem = function () {
 		}.bind( {} ) )[ 0 ];
 	};
 
-
 	/**
-	 * Below Code Runs On Document Ready
+	 * Handles WPOnion Settings Page Loading Screen.
+	 * @type {function()}
 	 */
-	$( document ).on( "ready", ( () => {
-	} ) );
+	wponion.handle_loading_screen = ( () => {
+		if ( wponion_elem().hasClass( 'wponion-settings-module' ) ) {
+			if ( wponion_elem().find( '.wponion-page-loader' ).length > 0 ) {
+				wponion_elem().find( '.wponion-page-loader' ).fadeOut( 'slow', function () {
+					$( this ).hide();
+				} )
+			}
+
+			window.onbeforeunload = function () {
+				wponion_elem().find( '.wponion-page-loader' ).show();
+			};
+		}
+
+	} );
 
 	/**
 	 * Below Code Runs On Window.load
@@ -187,6 +196,7 @@ let wponion_elem = function () {
 	$( window ).on( "load", ( () => {
 		wponion.settings_args = wponion.window_vars( 'wponion_core', {} );
 		wponion.reload();
+		wponion.handle_loading_screen();
 		wphooks.doAction( 'wponion_init' );
 	} ) );
 
