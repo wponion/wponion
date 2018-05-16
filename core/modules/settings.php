@@ -427,6 +427,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		/**************************************************************************************************************
 		 * Below Functions Are Related Only To find the current active menu and submenu in settings.
 		 *************************************************************************************************************/
+
 		/**
 		 * Returns Default Active Menu of current settings Page.
 		 *
@@ -770,24 +771,24 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * @return string
 		 */
 		public function wrap_class( $extra_class = '', $bootstrap = false ) {
-			$class = $this->default_wrap_class( $bootstrap );
+			$default_class = $this->default_wrap_class( $bootstrap );
 
-			$class .= ( true === $this->is_single_page() ) ? ' wponion-single-page ' : '';
-			$class .= ( 'only_submenu' === $this->is_single_page() ) ? ' wponion-submenu-single-page ' : '';
-			$class .= ' wponion-' . $this->option( 'theme' ) . '-theme ';
+			$class   = array();
+			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
+			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
+			$class[] = ' wponion-' . $this->option( 'theme' ) . '-theme ';
 
 			if ( 1 === count( $this->fields ) ) {
-				$class .= ' wponion-hide-nav ';
+				$class[] = 'wponion-hide-nav';
 
 				$current = current( $this->fields );
 				if ( isset( $current['fields'] ) || ( isset( $current['sections'] ) && 1 === count( $current['sections'] ) ) ) {
-					$class .= ' wponion-no-subnav ';
+					$class[] = 'wponion-no-subnav';
 				}
 			}
 
-			$class .= ' ' . $extra_class;
-
-
+			$class = wponion_html_class( $class, $default_class );
+			$class = wponion_html_class( $extra_class, $class );
 			return esc_attr( $class );
 		}
 
@@ -865,7 +866,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 					'module'    => 'setttings',
 				) );
 			} else {
-				wponion_field( $field, $value, array(
+				return wponion_field( $field, $value, array(
 					'plugin_id' => $this->plugin_id(),
 					'unique'    => $this->unique,
 					'module'    => 'setttings',
@@ -908,7 +909,13 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			}
 		}
 
-
+		/**
+		 * @param        $user
+		 * @param array  $default_attr
+		 * @param string $label
+		 *
+		 * @return string
+		 */
 		public function _button( $user, $default_attr = array(), $label = '' ) {
 			$user_attr  = ( is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
 			$attributes = $this->parse_args( $user_attr, $default_attr );
