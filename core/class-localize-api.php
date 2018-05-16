@@ -54,14 +54,19 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 				$this->add_action( 'wp_footer', 'render_js_args' );
 			}
 
+			$js_notice = __( 'this debug data is only visible when %sWP_DEBUG%s or %sWPONION_FIELD_DEBUG%s is defined %strue%s' );
+			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<code>', '</code>', '<strong>', '</strong>' );
+
 			if ( false === self::$core_data ) {
 				$this->js_args['wponion_core'] = array(
-					'ajaxurl'     => admin_url( 'admin-ajax.php' ),
-					'ajax_action' => 'wponion-ajax',
-					'ajax_url'    => admin_url( 'admin-ajax.php?wponion-ajax' ),
-					'debug'       => ( true === defined( 'WP_DEBUG' ) || true === defined( 'SCRIPT_DEBUG' ) ) ? true : false,
+					'ajaxurl'      => admin_url( 'admin-ajax.php' ),
+					'ajax_action'  => 'wponion-ajax',
+					'ajax_url'     => admin_url( 'admin-ajax.php?wponion-ajax' ),
+					'debug'        => ( true === defined( 'WP_DEBUG' ) || true === defined( 'SCRIPT_DEBUG' ) ) ? true : false,
+					'debug_notice' => $js_notice,
 				);
-
+				$this->text( 'get_json_output', __( 'Get Json Output' ) );
+				$this->text( 'global_json_output', __( 'Global WPOnion JSON Output' ) );
 				self::$core_data = true;
 			}
 
@@ -81,9 +86,30 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 		}
 
 		/**
+		 * Custom Text which will be used in JS.
+		 *
+		 * @param string $key
+		 * @param string $value
+		 *
+		 * @return $this
+		 */
+		public function text( $key = '', $value = '' ) {
+			if ( ! isset( $this->js_args['wponion_i18n'] ) ) {
+				$this->js_args['wponion_i18n'] = array();
+			}
+
+			$this->js_args['wponion_i18n'][ $key ] = $value;
+			return $this;
+		}
+
+		/**
 		 * Renders JS Args.
 		 */
 		public function render_js_args() {
+			if ( wponion_is_debug() ) {
+				$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
+			}
+
 			foreach ( $this->scripts_check as $script ) {
 				if ( true === wp_script_is( $script ) && false === wp_script_is( $script, 'done' ) ) {
 					return $this->localize_script( $script );
