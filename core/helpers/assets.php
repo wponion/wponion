@@ -18,11 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $wponion_js, $wponion_css;
 
 $wponion_js = array(
-	'wponion-plugins'   => array( 'assets/js/wponion-plugins', array( 'jquery' ) ),
-	'wponion-fields'    => array( 'assets/js/wponion-fields', array( 'wponion-plugins' ) ),
-	'wponion-core'      => array( 'assets/js/wponion-core', array( 'wponion-fields' ) ),
+	'wponion-plugins'           => array( 'assets/js/wponion-plugins', array( 'jquery' ) ),
+	'wponion-fields'            => array( 'assets/js/wponion-fields', array( 'wponion-plugins' ) ),
+	'wponion-core'              => array( 'assets/js/wponion-core', array( 'wponion-fields' ) ),
 	// WPOnion Related Plugins.
-	'wponion-inputmask' => array( 'assets/js/plugins/wponion-inputmask', array( 'jquery', 'wponion-plugins' ) ),
+	'wponion-inputmask'         => array( 'assets/plugins/wponion-inputmask', array( 'jquery', 'wponion-plugins' ) ),
+	'wponion-select-frameworks' => array(
+		'assets/plugins/wponion-select-frameworks',
+		array( 'jquery', 'wponion-plugins' ),
+	),
 );
 
 $wponion_css = array(
