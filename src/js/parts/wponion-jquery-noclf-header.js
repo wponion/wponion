@@ -1,1 +1,0 @@
-( function (window, document, $, wponion,wphooks) {
