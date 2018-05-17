@@ -26,7 +26,7 @@
 				}
 			});
 		}
-		return wpo;
+		return this;
 	};
 
 	/**
@@ -58,7 +58,7 @@
 				}
 			});
 		}
-		return wpo;
+		return this;
 	};
 
 	/**

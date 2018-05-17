@@ -24,7 +24,7 @@
 				}
 			} )
 		}
-		return wpo;
+		return this;
 	};
 
 	/**
@@ -56,9 +56,8 @@
 				}
 			} )
 		}
-		return wpo;
+		return this;
 	};
-
 
 	/**
 	 * Renders Fields Debug Popup.
