@@ -1,36 +1,110 @@
 /**
- * Stores Framework Related Functions.
- * @type {{}}
+ * WPOnion Field Handler.
+ * @param selector
+ * @param context
+ * @returns {*}
  */
-var wponion = {
-	helper: {},
-	fields: {},
-	themes: {}
+var $wponion_field = function ( selector, context ) {
+	return $wponion_field.fn.init( selector, context );
 };
 
-//@codekit-append ../../node_modules/sweetalert2/dist/sweetalert2.all.js
-//@codekit-append ../vendors/json-view/json-view.js
-//@codekit-append ../../node_modules/jquery.actual/jquery.actual.js
-//@codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
-//@codekit-append ../vendors/wp-js-hooks.js
-//@codekit-append ../../node_modules/tippy.js/dist/tippy.all.js
-//@codekit-append ../../node_modules/overlayscrollbars/js/jquery.overlayScrollbars.js
+/**
+ * WPOnion Field Functions
+ * @type {{constructor: $wponion_field, init: $wponion_field.init}}
+ */
+$wponion_field.fn = $wponion_field.prototype = {
+	constructor: $wponion_field,
+	init: function ( selector, context ) {
+		if ( !selector.jQuery ) {
+			selector = jQuery( selector );
+		}
+		this.elem   = selector;
+		this.contxt = context;
+		return this;
+	}
+};
 
-//@codekit-append ./parts/wponion-jquery-noclf-header.js
-//@codekit-append ../../node_modules/bootstrap-maxlength/src/bootstrap-maxlength.js
-//@codekit-append ./parts/wponion-jquery-noclf-footer.js
 
 /**
- * Removed Sources
- * codekit-append ../../node_modules/bootstrap/js/dist/tooltip.js
- * codekit-append ../../node_modules/bootstrap/js/dist/popover.js
- * codekit-append ../../node_modules/bootstrap/js/dist/dropdown.js
- * codekit-append ../../node_modules/popper.js/dist/umd/popper.js
- *
- * codekit-append ../../node_modules/bootstrap/js/dist/button.js
- * codekit-append ../../node_modules/bootstrap/js/dist/index.js
- * codekit-append ../../node_modules/bootstrap/js/dist/util.js
+ * WPOnion Theme Handler & Functions.
+ * @param selector
+ * @param context
  */
+var $wponion_theme = function ( selector, context ) {
+	return $wponion_theme.fn.init( selector, context );
+};
+
+/**
+ * WPOnion Theme Handler & Functions.
+ * @type {{constructor: $wponion_theme, init: $wponion_theme.init}}
+ */
+$wponion_theme.fn = $wponion_theme.prototype = {
+	constructor: $wponion_theme,
+	init: function ( selector, context ) {
+		if ( !selector.jQuery ) {
+			selector = jQuery( selector );
+		}
+		this.elem   = selector;
+		this.contxt = context;
+		return this;
+	}
+};
+
+/**
+ * Base Gloabl WPOnion Functions & Vars.
+ * @type {{}}
+ */
+var $wponion = {
+	/**
+	 * Returns An Prototype instance of field.
+	 * @returns {{constructor: $wponion_field, init: $wponion_field.init}}
+	 * @private
+	 */
+	_field: function () {
+		return $wponion_field
+	},
+
+	/**
+	 * Returns An Prototype instance of theme
+	 * @returns {{constructor: $wponion_theme, init: $wponion_theme.init}}
+	 * @private
+	 */
+	_theme: function () {
+		return $wponion_theme
+	},
+
+	/**
+	 * Returns An Instance of field
+	 * @param selector
+	 * @param context
+	 * @returns {*}
+	 */
+	field: function ( selector, context ) {
+		return $wponion_field( selector, context );
+	},
+
+	/**
+	 * Returns An Instance of theme
+	 * @param selector
+	 * @param context
+	 * @returns {*}
+	 */
+	theme: function ( selector, context ) {
+		return $wponion_field( selector, context );
+	},
+};
+
+/**
+ * Simple JS Addons.
+ */
+//@codekit-append ../../node_modules/sweetalert2/dist/sweetalert2.all.js
+//@codekit-append ../vendors/json-view/json-view.js
+//@codekit-append ../vendors/wp-js-hooks.js
+//@codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
+//@codekit-append ../../node_modules/jquery.actual/jquery.actual.js
+//@codekit-append ../../node_modules/tippy.js/dist/tippy.all.js
+//@codekit-append ../../node_modules/overlayscrollbars/js/jquery.overlayScrollbars.js
+//@codekit-append ../../node_modules/bootstrap-maxlength/src/bootstrap-maxlength.js
 /*!
 * sweetalert2 v7.20.4
 * Released under the MIT License.
@@ -3451,409 +3525,485 @@ if (typeof window !== 'undefined' && window.Sweetalert2){  window.swal = window.
 "  100% {\n" +
 "    -webkit-transform: rotate(360deg);\n" +
 "            transform: rotate(360deg); } }");
-/*!
-jQuery JSONView.
-Licensed under the MIT License.
+/**
+ * jquery.json-view - jQuery collapsible JSON plugin
+ * @version v1.0.0
+ * @link http://github.com/bazh/jquery.json-view
+ * @license MIT
  */
-( function (jQuery) {
-	var $, Collapser, JSONFormatter, JSONView, JSON_VALUE_TYPES;
-	JSON_VALUE_TYPES = [ 'object', 'array', 'number', 'string', 'boolean', 'null' ];
-	JSONFormatter = ( function () {
-		function JSONFormatter(options) {
-			if ( options == null ) {
-				options = {};
+;( function ( $ ) {
+	'use strict';
+
+	var collapser = function ( collapsed ) {
+		var item = $( '<span />', {
+			'class': 'collapser',
+			on: {
+				click: function () {
+					var $this = $( this );
+
+					$this.toggleClass( 'collapsed' );
+					var block = $this.parent().children( '.block' );
+					var ul    = block.children( 'ul' );
+
+					if ( $this.hasClass( 'collapsed' ) ) {
+						ul.hide();
+						block.children( '.dots, .comments' ).show();
+					} else {
+						ul.show();
+						block.children( '.dots, .comments' ).hide();
+					}
+				}
 			}
-			this.options = options;
+		} );
+
+		if ( collapsed ) {
+			item.addClass( 'collapsed' );
 		}
 
-		JSONFormatter.prototype.htmlEncode = function (html) {
-			if ( html !== null ) {
-				return html.toString().replace( /&/g, "&amp;" ).replace( /"/g, "&quot;" ).replace( /</g, "&lt;" ).replace( />/g, "&gt;" );
-			} else {
+		return item;
+	};
+
+	var formatter = function ( json, opts ) {
+		var options = $.extend( {}, {
+			nl2br: true
+		}, opts );
+
+		var htmlEncode = function ( html ) {
+			if ( !html.toString() ) {
 				return '';
 			}
+
+			return html.toString().replace( /&/g, "&amp;" ).replace( /"/g, "&quot;" ).replace( /</g, "&lt;" ).replace( />/g, "&gt;" );
 		};
 
-		JSONFormatter.prototype.jsString = function (s) {
-			s = JSON.stringify( s ).slice( 1, -1 );
-			return this.htmlEncode( s );
-		};
-
-		JSONFormatter.prototype.decorateWithSpan = function (value, className) {
-			return "<span class=\"" + className + "\">" + ( this.htmlEncode( value ) ) + "</span>";
-		};
-
-		JSONFormatter.prototype.valueToHTML = function (value, level) {
-			var valueType;
-			if ( level == null ) {
-				level = 0;
-			}
-			valueType = Object.prototype.toString.call( value ).match( /\s(.+)]/ )[ 1 ].toLowerCase();
-			if ( this.options.strict && !jQuery.inArray( valueType, JSON_VALUE_TYPES ) ) {
-				throw new Error( "" + valueType + " is not a valid JSON value type" );
-			}
-			return this[ "" + valueType + "ToHTML" ].call( this, value, level );
-		};
-
-		JSONFormatter.prototype.nullToHTML = function (value) {
-			return this.decorateWithSpan( 'null', 'null' );
-		};
-
-		JSONFormatter.prototype.undefinedToHTML = function () {
-			return this.decorateWithSpan( 'undefined', 'undefined' );
-		};
-
-		JSONFormatter.prototype.numberToHTML = function (value) {
-			return this.decorateWithSpan( value, 'num' );
-		};
-
-		JSONFormatter.prototype.stringToHTML = function (value) {
-			var multilineClass, newLinePattern;
-			if ( /^(http|https|file):\/\/[^\s]+$/i.test( value ) ) {
-				return "<a href=\"" + ( this.htmlEncode( value ) ) + "\"><span class=\"q\">\"</span>" + ( this.jsString( value ) ) + "<span class=\"q\">\"</span></a>";
-			} else {
-				multilineClass = '';
-				value = this.jsString( value );
-				if ( this.options.nl2br ) {
-					newLinePattern = /([^>\\r\\n]?)(\\r\\n|\\n\\r|\\r|\\n)/g;
-					if ( newLinePattern.test( value ) ) {
-						multilineClass = ' multiline';
-						value = ( value + '' ).replace( newLinePattern, '$1' + '<br />' );
-					}
-				}
-				return "<span class=\"string" + multilineClass + "\">\"" + value + "\"</span>";
-			}
-		};
-
-		JSONFormatter.prototype.booleanToHTML = function (value) {
-			return this.decorateWithSpan( value, 'bool' );
-		};
-
-		JSONFormatter.prototype.arrayToHTML = function (array, level) {
-			var collapsible, hasContents, index, numProps, output, value, _i, _len;
-			if ( level == null ) {
-				level = 0;
-			}
-			hasContents = false;
-			output = '';
-			numProps = array.length;
-			for ( index = _i = 0, _len = array.length; _i < _len; index = ++_i ) {
-				value = array[ index ];
-				hasContents = true;
-				output += '<li>' + this.valueToHTML( value, level + 1 );
-				if ( numProps > 1 ) {
-					output += ',';
-				}
-				output += '</li>';
-				numProps--;
-			}
-			if ( hasContents ) {
-				collapsible = level === 0 ? '' : ' collapsible';
-				return "[<ul class=\"array level" + level + collapsible + "\">" + output + "</ul>]";
-			} else {
-				return '[ ]';
-			}
-		};
-
-		JSONFormatter.prototype.objectToHTML = function (object, level) {
-			var collapsible, hasContents, key, numProps, output, prop, value;
-			if ( level == null ) {
-				level = 0;
-			}
-			hasContents = false;
-			output = '';
-			numProps = 0;
-			for ( prop in object ) {
-				numProps++;
-			}
-			for ( prop in object ) {
-				value = object[ prop ];
-				hasContents = true;
-				key = this.options.escape ? this.jsString( prop ) : prop;
-				output += "<li><a class=\"prop\" href=\"javascript:;\"><span class=\"q\">\"</span>" + key + "<span class=\"q\">\"</span></a>: " + ( this.valueToHTML( value, level + 1 ) );
-				if ( numProps > 1 ) {
-					output += ',';
-				}
-				output += '</li>';
-				numProps--;
-			}
-			if ( hasContents ) {
-				collapsible = level === 0 ? '' : ' collapsible';
-				return "{<ul class=\"obj level" + level + collapsible + "\">" + output + "</ul>}";
-			} else {
-				return '{ }';
-			}
-		};
-
-		JSONFormatter.prototype.jsonToHTML = function (json) {
-			return "<div class=\"jsonview\">" + ( this.valueToHTML( json ) ) + "</div>";
-		};
-
-		return JSONFormatter;
-
-	} )();
-	( typeof module !== "undefined" && module !== null ) && ( module.exports = JSONFormatter );
-	Collapser = ( function () {
-		function Collapser() {
-		}
-
-		Collapser.bindEvent = function (item, options) {
-			var collapser;
-			item.firstChild.addEventListener( 'click', ( function (_this) {
-				return function (event) {
-					return _this.toggle( event.target.parentNode.firstChild, options );
-				};
-			} )( this ) );
-			collapser = document.createElement( 'div' );
-			collapser.className = 'collapser';
-			collapser.innerHTML = options.collapsed ? '+' : '-';
-			collapser.addEventListener( 'click', ( function (_this) {
-				return function (event) {
-					return _this.toggle( event.target, options );
-				};
-			} )( this ) );
-			item.insertBefore( collapser, item.firstChild );
-			if ( options.collapsed ) {
-				return this.collapse( collapser );
-			}
-		};
-
-		Collapser.expand = function (collapser) {
-			var ellipsis, target;
-			target = this.collapseTarget( collapser );
-			if ( target.style.display === '' ) {
-				return;
-			}
-			ellipsis = target.parentNode.getElementsByClassName( 'ellipsis' )[ 0 ];
-			target.parentNode.removeChild( ellipsis );
-			target.style.display = '';
-			return collapser.innerHTML = '-';
-		};
-
-		Collapser.collapse = function (collapser) {
-			var ellipsis, target;
-			target = this.collapseTarget( collapser );
-			if ( target.style.display === 'none' ) {
-				return;
-			}
-			target.style.display = 'none';
-			ellipsis = document.createElement( 'span' );
-			ellipsis.className = 'ellipsis';
-			ellipsis.innerHTML = ' &hellip; ';
-			target.parentNode.insertBefore( ellipsis, target );
-			return collapser.innerHTML = '+';
-		};
-
-		Collapser.toggle = function (collapser, options) {
-			var action, collapsers, target, _i, _len, _results;
-			if ( options == null ) {
-				options = {};
-			}
-			target = this.collapseTarget( collapser );
-			action = target.style.display === 'none' ? 'expand' : 'collapse';
-			if ( options.recursive_collapser ) {
-				collapsers = collapser.parentNode.getElementsByClassName( 'collapser' );
-				_results = [];
-				for ( _i = 0, _len = collapsers.length; _i < _len; _i++ ) {
-					collapser = collapsers[ _i ];
-					_results.push( this[ action ]( collapser ) );
-				}
-				return _results;
-			} else {
-				return this[ action ]( collapser );
-			}
-		};
-
-		Collapser.collapseTarget = function (collapser) {
-			var target, targets;
-			targets = collapser.parentNode.getElementsByClassName( 'collapsible' );
-			if ( !targets.length ) {
-				return;
-			}
-			return target = targets[ 0 ];
-		};
-
-		return Collapser;
-
-	} )();
-	$ = jQuery;
-	JSONView = {
-		collapse: function (el) {
-			if ( el.innerHTML === '-' ) {
-				return Collapser.collapse( el );
-			}
-		},
-		expand: function (el) {
-			if ( el.innerHTML === '+' ) {
-				return Collapser.expand( el );
-			}
-		},
-		toggle: function (el) {
-			return Collapser.toggle( el );
-		}
-	};
-	return $.fn.JSONView = function () {
-		var args, defaultOptions, formatter, json, method, options, outputDoc;
-		args = arguments;
-		if ( JSONView[ args[ 0 ] ] != null ) {
-			method = args[ 0 ];
-			return this.each( function () {
-				var $this, level;
-				$this = $( this );
-				if ( args[ 1 ] != null ) {
-					level = args[ 1 ];
-					return $this.find( ".jsonview .collapsible.level" + level ).siblings( '.collapser' ).each( function () {
-						return JSONView[ method ]( this );
-					} );
-				} else {
-					return $this.find( '.jsonview > ul > li .collapsible' ).siblings( '.collapser' ).each( function () {
-						return JSONView[ method ]( this );
-					} );
-				}
+		var span = function ( val, cls ) {
+			return $( '<span />', {
+				'class': cls,
+				html: htmlEncode( val )
 			} );
-		} else {
-			json = args[ 0 ];
-			options = args[ 1 ] || {};
-			defaultOptions = {
-				collapsed: false,
-				nl2br: false,
-				recursive_collapser: false,
-				escape: true,
-				strict: false
-			};
-			options = $.extend( defaultOptions, options );
-			formatter = new JSONFormatter( options );
-			if ( Object.prototype.toString.call( json ) === '[object String]' ) {
-				json = JSON.parse( json );
-			}
-			outputDoc = formatter.jsonToHTML( json );
-			return this.each( function () {
-				var $this, item, items, _i, _len, _results;
-				$this = $( this );
-				$this.html( outputDoc );
-				items = $this[ 0 ].getElementsByClassName( 'collapsible' );
-				_results = [];
-				for ( _i = 0, _len = items.length; _i < _len; _i++ ) {
-					item = items[ _i ];
-					if ( item.parentNode.nodeName === 'LI' ) {
-						_results.push( Collapser.bindEvent( item.parentNode, options ) );
+		};
+
+		var genBlock = function ( val, level ) {
+			switch ( $.type( val ) ) {
+				case 'object':
+					if ( !level ) {
+						level = 0;
+					}
+
+					var output = $( '<span />', {
+						'class': 'block'
+					} );
+
+					var cnt = Object.keys( val ).length;
+					if ( !cnt ) {
+						return output
+							.append( span( '{', 'b' ) )
+							.append( ' ' )
+							.append( span( '}', 'b' ) );
+					}
+
+					output.append( span( '{', 'b' ) );
+
+					var items = $( '<ul />', {
+						'class': 'obj collapsible level' + level
+					} );
+
+					$.each( val, function ( key, data ) {
+						cnt--;
+						var item = $( '<li />' )
+							.append( span( '"', 'q' ) )
+							.append( key )
+							.append( span( '"', 'q' ) )
+							.append( ': ' )
+							.append( genBlock( data, level + 1 ) );
+
+						if ( [ 'object', 'array' ].indexOf( $.type( data ) ) !== -1 && !$.isEmptyObject( data ) ) {
+							item.prepend( collapser() );
+						}
+
+						if ( cnt > 0 ) {
+							item.append( ',' );
+						}
+
+						items.append( item );
+					} );
+
+					output.append( items );
+					output.append( span( '...', 'dots' ) );
+					output.append( span( '}', 'b' ) );
+					if ( Object.keys( val ).length === 1 ) {
+						output.append( span( '// 1 item', 'comments' ) );
 					} else {
-						_results.push( void 0 );
+						output.append( span( '// ' + Object.keys( val ).length + ' items', 'comments' ) );
 					}
-				}
-				return _results;
-			} );
-		}
+
+					return output;
+
+				case 'array':
+					if ( !level ) {
+						level = 0;
+					}
+
+					var cnt = val.length;
+
+					var output = $( '<span />', {
+						'class': 'block'
+					} );
+
+					if ( !cnt ) {
+						return output
+							.append( span( '[', 'b' ) )
+							.append( ' ' )
+							.append( span( ']', 'b' ) );
+					}
+
+					output.append( span( '[', 'b' ) );
+
+					var items = $( '<ul />', {
+						'class': 'obj collapsible level' + level
+					} );
+
+					$.each( val, function ( key, data ) {
+						cnt--;
+						var item = $( '<li />' )
+							.append( genBlock( data, level + 1 ) );
+
+						if ( [ 'object', 'array' ].indexOf( $.type( data ) ) !== -1 && !$.isEmptyObject( data ) ) {
+							item.prepend( collapser() );
+						}
+
+						if ( cnt > 0 ) {
+							item.append( ',' );
+						}
+
+						items.append( item );
+					} );
+
+					output.append( items );
+					output.append( span( '...', 'dots' ) );
+					output.append( span( ']', 'b' ) );
+					if ( val.length === 1 ) {
+						output.append( span( '// 1 item', 'comments' ) );
+					} else {
+						output.append( span( '// ' + val.length + ' items', 'comments' ) );
+					}
+
+					return output;
+
+				case 'string':
+					val = htmlEncode( val );
+					if ( /^(http|https|file):\/\/[^\s]+$/i.test( val ) ) {
+						return $( '<span />' )
+							.append( span( '"', 'q' ) )
+							.append( $( '<a />', {
+								href: val,
+								text: val
+							} ) )
+							.append( span( '"', 'q' ) );
+					}
+					if ( options.nl2br ) {
+						var pattern = /\n/g;
+						if ( pattern.test( val ) ) {
+							val = ( val + '' ).replace( pattern, '<br />' );
+						}
+					}
+
+					var text = $( '<span />', { 'class': 'str' } )
+						.html( val );
+
+					return $( '<span />' )
+						.append( span( '"', 'q' ) )
+						.append( text )
+						.append( span( '"', 'q' ) );
+
+				case 'number':
+					return span( val.toString(), 'num' );
+
+				case 'undefined':
+					return span( 'undefined', 'undef' );
+
+				case 'null':
+					return span( 'null', 'null' );
+
+				case 'boolean':
+					return span( val ? 'true' : 'false', 'bool' );
+			}
+		};
+
+		return genBlock( json );
 	};
+
+	return $.fn.jsonView = function ( json, options ) {
+		var $this = $( this );
+
+		options = $.extend( {}, {
+			nl2br: true
+		}, options );
+
+		if ( typeof json === 'string' ) {
+			try {
+				json = JSON.parse( json );
+			} catch ( err ) {
+			}
+		}
+
+		$this.append( $( '<div />', {
+			class: 'json-view'
+		} ).append( formatter( json, options ) ) );
+
+		return $this;
+	};
+
 } )( jQuery );
 
-/*! Copyright 2012, Ben Lin (http://dreamerslab.com/)
- * Licensed under the MIT License (LICENSE.txt).
- *
- * Version: 1.0.19
- *
- * Requires: jQuery >= 1.2.3
- */
-;( function ( factory ) {
-if ( typeof define === 'function' && define.amd ) {
-    // AMD. Register module depending on jQuery using requirejs define.
-    define( ['jquery'], factory );
-} else {
-    // No AMD.
-    factory( jQuery );
-}
-}( function ( $ ){
-  $.fn.addBack = $.fn.addBack || $.fn.andSelf;
+( function (window, undefined) {
+	'use strict';
 
-  $.fn.extend({
+	/**
+	 * Handles managing all events for whatever you plug it into. Priorities for hooks are based on lowest to highest in
+	 * that, lowest priority hooks are fired first.
+	 */
+	var EventManager = function () {
+		var slice = Array.prototype.slice;
 
-    actual : function ( method, options ){
-      // check if the jQuery method exist
-      if( !this[ method ]){
-        throw '$.actual => The jQuery method "' + method + '" you called does not exist';
-      }
+		/**
+		 * Maintain a reference to the object scope so our public methods never get confusing.
+		 */
+		var MethodsAvailable = {
+			removeFilter: removeFilter,
+			applyFilters: applyFilters,
+			addFilter: addFilter,
+			removeAction: removeAction,
+			doAction: doAction,
+			addAction: addAction
+		};
 
-      var defaults = {
-        absolute      : false,
-        clone         : false,
-        includeMargin : false,
-        display       : 'block'
-      };
+		/**
+		 * Contains the hooks that get registered with this EventManager. The array for storage utilizes a "flat"
+		 * object literal such that looking up the hook utilizes the native object literal hash.
+		 */
+		var STORAGE = {
+			actions: {},
+			filters: {}
+		};
 
-      var configs = $.extend( defaults, options );
+		/**
+		 * Adds an action to the event manager.
+		 *
+		 * @param action Must contain namespace.identifier
+		 * @param callback Must be a valid callback function before this action is added
+		 * @param [priority=10] Used to control when the function is executed in relation to other callbacks bound to the same hook
+		 * @param [context] Supply a value to be used for this
+		 */
+		function addAction(action, callback, priority, context) {
+			if ( typeof action === 'string' && typeof callback === 'function' ) {
+				priority = parseInt( ( priority || 10 ), 10 );
+				_addHook( 'actions', action, callback, priority, context );
+			}
 
-      var $target = this.eq( 0 );
-      var fix, restore;
+			return MethodsAvailable;
+		}
 
-      if( configs.clone === true ){
-        fix = function (){
-          var style = 'position: absolute !important; top: -1000 !important; ';
+		/**
+		 * Performs an action if it exists. You can pass as many arguments as you want to this function; the only rule is
+		 * that the first argument must always be the action.
+		 */
+		function doAction(/* action, arg1, arg2, ... */) {
+			var args = slice.call( arguments );
+			var action = args.shift();
 
-          // this is useful with css3pie
-          $target = $target.
-            clone().
-            attr( 'style', style ).
-            appendTo( 'body' );
-        };
+			if ( typeof action === 'string' ) {
+				_runHook( 'actions', action, args );
+			}
 
-        restore = function (){
-          // remove DOM element after getting the width
-          $target.remove();
-        };
-      }else{
-        var tmp   = [];
-        var style = '';
-        var $hidden;
+			return MethodsAvailable;
+		}
 
-        fix = function (){
-          // get all hidden parents
-          $hidden = $target.parents().addBack().filter( ':hidden' );
-          style   += 'visibility: hidden !important; display: ' + configs.display + ' !important; ';
+		/**
+		 * Removes the specified action if it contains a namespace.identifier & exists.
+		 *
+		 * @param action The action to remove
+		 * @param [callback] Callback function to remove
+		 */
+		function removeAction(action, callback) {
+			if ( typeof action === 'string' ) {
+				_removeHook( 'actions', action, callback );
+			}
 
-          if( configs.absolute === true ) style += 'position: absolute !important; ';
+			return MethodsAvailable;
+		}
 
-          // save the origin style props
-          // set the hidden el css to be got the actual value later
-          $hidden.each( function (){
-            // Save original style. If no style was set, attr() returns undefined
-            var $this     = $( this );
-            var thisStyle = $this.attr( 'style' );
+		/**
+		 * Adds a filter to the event manager.
+		 *
+		 * @param filter Must contain namespace.identifier
+		 * @param callback Must be a valid callback function before this action is added
+		 * @param [priority=10] Used to control when the function is executed in relation to other callbacks bound to the same hook
+		 * @param [context] Supply a value to be used for this
+		 */
+		function addFilter(filter, callback, priority, context) {
+			if ( typeof filter === 'string' && typeof callback === 'function' ) {
+				priority = parseInt( ( priority || 10 ), 10 );
+				_addHook( 'filters', filter, callback, priority, context );
+			}
 
-            tmp.push( thisStyle );
-            // Retain as much of the original style as possible, if there is one
-            $this.attr( 'style', thisStyle ? thisStyle + ';' + style : style );
-          });
-        };
+			return MethodsAvailable;
+		}
 
-        restore = function (){
-          // restore origin style values
-          $hidden.each( function ( i ){
-            var $this = $( this );
-            var _tmp  = tmp[ i ];
+		/**
+		 * Performs a filter if it exists. You should only ever pass 1 argument to be filtered. The only rule is that
+		 * the first argument must always be the filter.
+		 */
+		function applyFilters(/* filter, filtered arg, arg2, ... */) {
+			var args = slice.call( arguments );
+			var filter = args.shift();
 
-            if( _tmp === undefined ){
-              $this.removeAttr( 'style' );
-            }else{
-              $this.attr( 'style', _tmp );
-            }
-          });
-        };
-      }
+			if ( typeof filter === 'string' ) {
+				return _runHook( 'filters', filter, args );
+			}
 
-      fix();
-      // get the actual value with user specific methed
-      // it can be 'width', 'height', 'outerWidth', 'innerWidth'... etc
-      // configs.includeMargin only works for 'outerWidth' and 'outerHeight'
-      var actual = /(outer)/.test( method ) ?
-        $target[ method ]( configs.includeMargin ) :
-        $target[ method ]();
+			return MethodsAvailable;
+		}
 
-      restore();
-      // IMPORTANT, this plugin only return the value of the first element
-      return actual;
-    }
-  });
-}));
+		/**
+		 * Removes the specified filter if it contains a namespace.identifier & exists.
+		 *
+		 * @param filter The action to remove
+		 * @param [callback] Callback function to remove
+		 */
+		function removeFilter(filter, callback) {
+			if ( typeof filter === 'string' ) {
+				_removeHook( 'filters', filter, callback );
+			}
+
+			return MethodsAvailable;
+		}
+
+		/**
+		 * Removes the specified hook by resetting the value of it.
+		 *
+		 * @param type Type of hook, either 'actions' or 'filters'
+		 * @param hook The hook (namespace.identifier) to remove
+		 * @private
+		 */
+		function _removeHook(type, hook, callback, context) {
+			var handlers, handler, i;
+
+			if ( !STORAGE[ type ][ hook ] ) {
+				return;
+			}
+			if ( !callback ) {
+				STORAGE[ type ][ hook ] = [];
+			} else {
+				handlers = STORAGE[ type ][ hook ];
+				if ( !context ) {
+					for ( i = handlers.length; i--; ) {
+						if ( handlers[ i ].callback === callback ) {
+							handlers.splice( i, 1 );
+						}
+					}
+				}
+				else {
+					for ( i = handlers.length; i--; ) {
+						handler = handlers[ i ];
+						if ( handler.callback === callback && handler.context === context ) {
+							handlers.splice( i, 1 );
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * Adds the hook to the appropriate storage container
+		 *
+		 * @param type 'actions' or 'filters'
+		 * @param hook The hook (namespace.identifier) to add to our event manager
+		 * @param callback The function that will be called when the hook is executed.
+		 * @param priority The priority of this hook. Must be an integer.
+		 * @param [context] A value to be used for this
+		 * @private
+		 */
+		function _addHook(type, hook, callback, priority, context) {
+			var hookObject = {
+				callback: callback,
+				priority: priority,
+				context: context
+			};
+
+			// Utilize 'prop itself' : http://jsperf.com/hasownproperty-vs-in-vs-undefined/19
+			var hooks = STORAGE[ type ][ hook ];
+			if ( hooks ) {
+				hooks.push( hookObject );
+				hooks = _hookInsertSort( hooks );
+			}
+			else {
+				hooks = [ hookObject ];
+			}
+
+			STORAGE[ type ][ hook ] = hooks;
+		}
+
+		/**
+		 * Use an insert sort for keeping our hooks organized based on priority. This function is ridiculously faster
+		 * than bubble sort, etc: http://jsperf.com/javascript-sort
+		 *
+		 * @param hooks The custom array containing all of the appropriate hooks to perform an insert sort on.
+		 * @private
+		 */
+		function _hookInsertSort(hooks) {
+			var tmpHook, j, prevHook;
+			for ( var i = 1, len = hooks.length; i < len; i++ ) {
+				tmpHook = hooks[ i ];
+				j = i;
+				while ( ( prevHook = hooks[ j - 1 ] ) && prevHook.priority > tmpHook.priority ) {
+					hooks[ j ] = hooks[ j - 1 ];
+					--j;
+				}
+				hooks[ j ] = tmpHook;
+			}
+
+			return hooks;
+		}
+
+		/**
+		 * Runs the specified hook. If it is an action, the value is not modified but if it is a filter, it is.
+		 *
+		 * @param type 'actions' or 'filters'
+		 * @param hook The hook ( namespace.identifier ) to be ran.
+		 * @param args Arguments to pass to the action/filter. If it's a filter, args is actually a single parameter.
+		 * @private
+		 */
+		function _runHook(type, hook, args) {
+			var handlers = STORAGE[ type ][ hook ], i, len;
+
+			if ( !handlers ) {
+				return ( type === 'filters' ) ? args[ 0 ] : false;
+			}
+
+			len = handlers.length;
+			if ( type === 'filters' ) {
+				for ( i = 0; i < len; i++ ) {
+					args[ 0 ] = handlers[ i ].callback.apply( handlers[ i ].context, args );
+				}
+			} else {
+				for ( i = 0; i < len; i++ ) {
+					handlers[ i ].callback.apply( handlers[ i ].context, args );
+				}
+			}
+
+			return ( type === 'filters' ) ? args[ 0 ] : true;
+		}
+
+		// return all of the publicly available methods
+		return MethodsAvailable;
+
+	};
+
+	window.wp = window.wp || {};
+	window.wp.hooks = window.wp.hooks || new EventManager();
+
+} )( window );
 
 /**
  * jQuery Interdependencies library
@@ -4474,254 +4624,113 @@ if ( typeof define === 'function' && define.amd ) {
 	$.deps = deps;
 
 } )( jQuery );
-( function (window, undefined) {
-	'use strict';
+/*! Copyright 2012, Ben Lin (http://dreamerslab.com/)
+ * Licensed under the MIT License (LICENSE.txt).
+ *
+ * Version: 1.0.19
+ *
+ * Requires: jQuery >= 1.2.3
+ */
+;( function ( factory ) {
+if ( typeof define === 'function' && define.amd ) {
+    // AMD. Register module depending on jQuery using requirejs define.
+    define( ['jquery'], factory );
+} else {
+    // No AMD.
+    factory( jQuery );
+}
+}( function ( $ ){
+  $.fn.addBack = $.fn.addBack || $.fn.andSelf;
 
-	/**
-	 * Handles managing all events for whatever you plug it into. Priorities for hooks are based on lowest to highest in
-	 * that, lowest priority hooks are fired first.
-	 */
-	var EventManager = function () {
-		var slice = Array.prototype.slice;
+  $.fn.extend({
 
-		/**
-		 * Maintain a reference to the object scope so our public methods never get confusing.
-		 */
-		var MethodsAvailable = {
-			removeFilter: removeFilter,
-			applyFilters: applyFilters,
-			addFilter: addFilter,
-			removeAction: removeAction,
-			doAction: doAction,
-			addAction: addAction
-		};
+    actual : function ( method, options ){
+      // check if the jQuery method exist
+      if( !this[ method ]){
+        throw '$.actual => The jQuery method "' + method + '" you called does not exist';
+      }
 
-		/**
-		 * Contains the hooks that get registered with this EventManager. The array for storage utilizes a "flat"
-		 * object literal such that looking up the hook utilizes the native object literal hash.
-		 */
-		var STORAGE = {
-			actions: {},
-			filters: {}
-		};
+      var defaults = {
+        absolute      : false,
+        clone         : false,
+        includeMargin : false,
+        display       : 'block'
+      };
 
-		/**
-		 * Adds an action to the event manager.
-		 *
-		 * @param action Must contain namespace.identifier
-		 * @param callback Must be a valid callback function before this action is added
-		 * @param [priority=10] Used to control when the function is executed in relation to other callbacks bound to the same hook
-		 * @param [context] Supply a value to be used for this
-		 */
-		function addAction(action, callback, priority, context) {
-			if ( typeof action === 'string' && typeof callback === 'function' ) {
-				priority = parseInt( ( priority || 10 ), 10 );
-				_addHook( 'actions', action, callback, priority, context );
-			}
+      var configs = $.extend( defaults, options );
 
-			return MethodsAvailable;
-		}
+      var $target = this.eq( 0 );
+      var fix, restore;
 
-		/**
-		 * Performs an action if it exists. You can pass as many arguments as you want to this function; the only rule is
-		 * that the first argument must always be the action.
-		 */
-		function doAction(/* action, arg1, arg2, ... */) {
-			var args = slice.call( arguments );
-			var action = args.shift();
+      if( configs.clone === true ){
+        fix = function (){
+          var style = 'position: absolute !important; top: -1000 !important; ';
 
-			if ( typeof action === 'string' ) {
-				_runHook( 'actions', action, args );
-			}
+          // this is useful with css3pie
+          $target = $target.
+            clone().
+            attr( 'style', style ).
+            appendTo( 'body' );
+        };
 
-			return MethodsAvailable;
-		}
+        restore = function (){
+          // remove DOM element after getting the width
+          $target.remove();
+        };
+      }else{
+        var tmp   = [];
+        var style = '';
+        var $hidden;
 
-		/**
-		 * Removes the specified action if it contains a namespace.identifier & exists.
-		 *
-		 * @param action The action to remove
-		 * @param [callback] Callback function to remove
-		 */
-		function removeAction(action, callback) {
-			if ( typeof action === 'string' ) {
-				_removeHook( 'actions', action, callback );
-			}
+        fix = function (){
+          // get all hidden parents
+          $hidden = $target.parents().addBack().filter( ':hidden' );
+          style   += 'visibility: hidden !important; display: ' + configs.display + ' !important; ';
 
-			return MethodsAvailable;
-		}
+          if( configs.absolute === true ) style += 'position: absolute !important; ';
 
-		/**
-		 * Adds a filter to the event manager.
-		 *
-		 * @param filter Must contain namespace.identifier
-		 * @param callback Must be a valid callback function before this action is added
-		 * @param [priority=10] Used to control when the function is executed in relation to other callbacks bound to the same hook
-		 * @param [context] Supply a value to be used for this
-		 */
-		function addFilter(filter, callback, priority, context) {
-			if ( typeof filter === 'string' && typeof callback === 'function' ) {
-				priority = parseInt( ( priority || 10 ), 10 );
-				_addHook( 'filters', filter, callback, priority, context );
-			}
+          // save the origin style props
+          // set the hidden el css to be got the actual value later
+          $hidden.each( function (){
+            // Save original style. If no style was set, attr() returns undefined
+            var $this     = $( this );
+            var thisStyle = $this.attr( 'style' );
 
-			return MethodsAvailable;
-		}
+            tmp.push( thisStyle );
+            // Retain as much of the original style as possible, if there is one
+            $this.attr( 'style', thisStyle ? thisStyle + ';' + style : style );
+          });
+        };
 
-		/**
-		 * Performs a filter if it exists. You should only ever pass 1 argument to be filtered. The only rule is that
-		 * the first argument must always be the filter.
-		 */
-		function applyFilters(/* filter, filtered arg, arg2, ... */) {
-			var args = slice.call( arguments );
-			var filter = args.shift();
+        restore = function (){
+          // restore origin style values
+          $hidden.each( function ( i ){
+            var $this = $( this );
+            var _tmp  = tmp[ i ];
 
-			if ( typeof filter === 'string' ) {
-				return _runHook( 'filters', filter, args );
-			}
+            if( _tmp === undefined ){
+              $this.removeAttr( 'style' );
+            }else{
+              $this.attr( 'style', _tmp );
+            }
+          });
+        };
+      }
 
-			return MethodsAvailable;
-		}
+      fix();
+      // get the actual value with user specific methed
+      // it can be 'width', 'height', 'outerWidth', 'innerWidth'... etc
+      // configs.includeMargin only works for 'outerWidth' and 'outerHeight'
+      var actual = /(outer)/.test( method ) ?
+        $target[ method ]( configs.includeMargin ) :
+        $target[ method ]();
 
-		/**
-		 * Removes the specified filter if it contains a namespace.identifier & exists.
-		 *
-		 * @param filter The action to remove
-		 * @param [callback] Callback function to remove
-		 */
-		function removeFilter(filter, callback) {
-			if ( typeof filter === 'string' ) {
-				_removeHook( 'filters', filter, callback );
-			}
-
-			return MethodsAvailable;
-		}
-
-		/**
-		 * Removes the specified hook by resetting the value of it.
-		 *
-		 * @param type Type of hook, either 'actions' or 'filters'
-		 * @param hook The hook (namespace.identifier) to remove
-		 * @private
-		 */
-		function _removeHook(type, hook, callback, context) {
-			var handlers, handler, i;
-
-			if ( !STORAGE[ type ][ hook ] ) {
-				return;
-			}
-			if ( !callback ) {
-				STORAGE[ type ][ hook ] = [];
-			} else {
-				handlers = STORAGE[ type ][ hook ];
-				if ( !context ) {
-					for ( i = handlers.length; i--; ) {
-						if ( handlers[ i ].callback === callback ) {
-							handlers.splice( i, 1 );
-						}
-					}
-				}
-				else {
-					for ( i = handlers.length; i--; ) {
-						handler = handlers[ i ];
-						if ( handler.callback === callback && handler.context === context ) {
-							handlers.splice( i, 1 );
-						}
-					}
-				}
-			}
-		}
-
-		/**
-		 * Adds the hook to the appropriate storage container
-		 *
-		 * @param type 'actions' or 'filters'
-		 * @param hook The hook (namespace.identifier) to add to our event manager
-		 * @param callback The function that will be called when the hook is executed.
-		 * @param priority The priority of this hook. Must be an integer.
-		 * @param [context] A value to be used for this
-		 * @private
-		 */
-		function _addHook(type, hook, callback, priority, context) {
-			var hookObject = {
-				callback: callback,
-				priority: priority,
-				context: context
-			};
-
-			// Utilize 'prop itself' : http://jsperf.com/hasownproperty-vs-in-vs-undefined/19
-			var hooks = STORAGE[ type ][ hook ];
-			if ( hooks ) {
-				hooks.push( hookObject );
-				hooks = _hookInsertSort( hooks );
-			}
-			else {
-				hooks = [ hookObject ];
-			}
-
-			STORAGE[ type ][ hook ] = hooks;
-		}
-
-		/**
-		 * Use an insert sort for keeping our hooks organized based on priority. This function is ridiculously faster
-		 * than bubble sort, etc: http://jsperf.com/javascript-sort
-		 *
-		 * @param hooks The custom array containing all of the appropriate hooks to perform an insert sort on.
-		 * @private
-		 */
-		function _hookInsertSort(hooks) {
-			var tmpHook, j, prevHook;
-			for ( var i = 1, len = hooks.length; i < len; i++ ) {
-				tmpHook = hooks[ i ];
-				j = i;
-				while ( ( prevHook = hooks[ j - 1 ] ) && prevHook.priority > tmpHook.priority ) {
-					hooks[ j ] = hooks[ j - 1 ];
-					--j;
-				}
-				hooks[ j ] = tmpHook;
-			}
-
-			return hooks;
-		}
-
-		/**
-		 * Runs the specified hook. If it is an action, the value is not modified but if it is a filter, it is.
-		 *
-		 * @param type 'actions' or 'filters'
-		 * @param hook The hook ( namespace.identifier ) to be ran.
-		 * @param args Arguments to pass to the action/filter. If it's a filter, args is actually a single parameter.
-		 * @private
-		 */
-		function _runHook(type, hook, args) {
-			var handlers = STORAGE[ type ][ hook ], i, len;
-
-			if ( !handlers ) {
-				return ( type === 'filters' ) ? args[ 0 ] : false;
-			}
-
-			len = handlers.length;
-			if ( type === 'filters' ) {
-				for ( i = 0; i < len; i++ ) {
-					args[ 0 ] = handlers[ i ].callback.apply( handlers[ i ].context, args );
-				}
-			} else {
-				for ( i = 0; i < len; i++ ) {
-					handlers[ i ].callback.apply( handlers[ i ].context, args );
-				}
-			}
-
-			return ( type === 'filters' ) ? args[ 0 ] : true;
-		}
-
-		// return all of the publicly available methods
-		return MethodsAvailable;
-
-	};
-
-	window.wp = window.wp || {};
-	window.wp.hooks = window.wp.hooks || new EventManager();
-
-} )( window );
+      restore();
+      // IMPORTANT, this plugin only return the value of the first element
+      return actual;
+    }
+  });
+}));
 
 /*!
 * Tippy.js v2.5.2
@@ -13821,7 +13830,6 @@ return tippy;
     }
 ));
 
-( function (window, document, $, wponion,wphooks) {
 (function ($) {
   'use strict';
   /**
@@ -14324,7 +14332,5 @@ return tippy;
   });
 }(jQuery));
 
-})
-( window, document, jQuery, wponion, wp.hooks );
 
 //# sourceMappingURL=wponion-plugins.js.map
