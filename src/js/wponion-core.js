@@ -1,354 +1,282 @@
 /**
- * Returns WPOnionElement Instance.
+ * Stores Global Debug Info.
+ * @type {null}
+ */
+$wponion.debug_info = null;
+
+/**
+ * Stores Field Debug Info.
+ * @type {null}
+ */
+$wponion.field_debug_info = null;
+
+/**
+ * Stores Global Settings Args.
+ * @type {null}
+ */
+$wponion.settings_args = null;
+
+/**
+ * Stores All Global Translation String.
+ * @type {null}
+ */
+$wponion.text = null;
+
+/**
+ * Creates A Instance of Swal Tost.
+ */
+$wponion.tost = swal.mixin( {
+	toast: true,
+	position: 'top-end',
+	showConfirmButton: false,
+	customClass: 'wpsweatalert2',
+	onOpen: ( () => {
+		let $height = parseInt( jQuery( "#wpadminbar" ).actual( 'height' ) ) + 3;
+		jQuery( "div.wpsweatalert2" ).parent().css( 'top', $height + 'px' );
+	} ),
+	timer: 4000
+} );
+
+/**
+ * Returns Field JS ID
+ * @type {function(*)}
+ */
+$wponion.field_js_id = ( ( $elem ) => {
+	return $elem.attr( 'data-wponion-jsid' );
+} );
+
+/**
+ * Checks and returns variable from window object.
+ * @type {function(*=, *=)}
+ */
+$wponion.js_args = ( ( $var_id, $default ) => {
+	$default = $default || {};
+	if ( $var_id ) {
+		if ( typeof window[ $var_id ] === 'undefined' || window[ $var_id ] === undefined ) {
+			return $default;
+		}
+		return window[ $var_id ];
+	}
+
+	return $default;
+} );
+
+/**
+ * Checks And Returns Field Args.
+ * @type {function(*=, *=)}
+ */
+$wponion.field_args = ( ( $elem, $default ) => {
+	$default = $default || {};
+	return JSON.parse( JSON.stringify( $wponion.js_args( $wponion.field_js_id( $elem ), $default ) ) );
+} );
+
+/**
+ * Returns URL String into a object
+ * @example http://example.com?q1=22&q2=49 turns into
+ * { q1 : 22 , q2 : 49 }
+ * @type {function(*=)}
+ */
+$wponion.url_to_object = ( ( $url ) => {
+	return ( $url || document.location.search ).replace( /(^\?)/, '' ).split( "&" ).map( function ( n ) {
+		return n = n.split( "=" ), this[ n[ 0 ] ] = n[ 1 ], this
+	}.bind( {} ) )[ 0 ];
+} );
+
+/**
+ * Chceks and returns global translation string.
+ * @type {function(*, *=)}
+ */
+$wponion.txt = ( ( $key, $default ) => {
+	$default = $default || 'string_default_not_found';
+	return ( $wponion.text[ $key ] !== undefined ) ? $wponion.text[ $key ] : $default;
+} );
+
+/**
+ * Handles Loading Screen.
+ * @type {function(*)}
+ */
+$wponion.loading_screen = ( ( $elem ) => {
+	$elem.find( '.wponion-page-loader' ).fadeOut( 'slow' );
+	return $wponion;
+} );
+
+/**
+ * Handles Global Debug View.
+ * @type {function()}
+ */
+$wponion.global_debug_view = ( () => {
+	let $handle = jQuery( "a.wponion-global-debug-handle" );
+
+	if ( $wponion.debug_info === null ) {
+		if ( $handle.length > 0 ) {
+			let $defined_vars = $wponion.js_args( 'wponion_defined_vars' ),
+				$json         = {};
+			jQuery.each( $defined_vars, ( ( $i, $el ) => {
+				$json[ $el ] = $wponion.js_args( $el );
+			} ) );
+			$wponion.debug_info = $json;
+		}
+	}
+
+	$handle.on( 'click', ( ( e ) => {
+		e.preventDefault();
+		let $debug_popup = swal( {
+			title: $wponion.txt( 'global_json_output', "Global WPOnion Debug Data" ),
+			html: jQuery( '#wponiondebuginfopopup > div' ),
+			showConfirmButton: true,
+			confirmButtonText: $wponion.txt( 'get_json_output', 'Get JSON Output' ),
+			showCloseButton: false,
+			animation: false,
+			width: '800px',
+			onBeforeOpen: ( () => {
+				swal.enableLoading();
+			} ),
+
+			onOpen: ( () => {
+				jQuery( '#swal2-content #wponion-global-debug-content' )
+					.jsonView( $wponion.debug_info )
+					.overlayScrollbars( {
+						className: "os-theme-dark",
+						resize: "vertical",
+					} );
+				swal.disableLoading();
+			} )
+		} ).then( ( result ) => {
+			if ( result.value ) {
+				return swal( {
+					width: '600px',
+					html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( $wponion.debug_info ) + '</textarea>'
+				} )
+			}
+		} );
+	} ) );
+	return $wponion;
+} );
+
+/**
+ * Checks and Retrives Values from $wponion.settings
+ * @type {function(*, *=)}
+ */
+$wponion.settings = ( ( $key, $default ) => {
+	$default = $default || {};
+	if ( $wponion.settings_args[ $key ] !== undefined ) {
+		return $wponion.settings_args[ $key ];
+	}
+	return $default;
+} );
+
+/**
+ * Checks if current instance is debug.
  * @returns {*}
  */
-let wponion_elem = function () {
-	return wponion.elem;
+$wponion.is_debug = function () {
+	return $wponion.settings( 'debug' );
 };
 
 /**
- * WPOnion Core Functions.
+ * Gather All Field JS Codes.
+ * @private
  */
-( function (window, document, $, wp, wponion, wphooks) {
-	/**
-	 * WPOnion Core Element To Work With.
-	 * @type {*|HTMLElement}
-	 */
-	wponion.elem = $( '.wponion-framework' );
+$wponion.__field_debug_info = function () {
+	if ( $wponion.is_debug() ) {
+		if ( $wponion.field_debug_info === null ) {
+			let $defined_vars = $wponion.js_args( 'wponion_defined_vars' ),
+				$json         = {},
+				$utxt         = $wponion.txt( "unmodified_debug" ),
+				$mtxt         = $wponion.txt( "modified_debug" );
+			jQuery.each( $defined_vars, ( ( $i, $el ) => {
+				let $data             = $wponion.js_args( $el );
+				$json[ $el ]          = {};
+				$json[ $el ][ $utxt ] = $data[ 'debug_info' ] || $data;
+				$json[ $el ][ $mtxt ] = {};
+			} ) );
 
-	/**
-	 * Stores Global Debug Info.
-	 * @type {null}
-	 */
-	wponion.debug_info = null;
+			$wponion.field_debug_info = $json;
+		}
+	}
+	return $wponion;
+};
 
-	/**
-	 * Stores Global Settings args.
-	 * @type {null}
-	 */
-	wponion.settings_args = null;
-
-	/**
-	 * Stores Global Translation.
-	 * @type {null}
-	 */
-	wponion.text = null;
-
-	/**
-	 * Creates a Tost Instance of Sweetalert2
-	 */
-	wponion.tost = swal.mixin( {
-		toast: true,
-		position: 'top-end',
-		showConfirmButton: false,
-		customClass: 'wpsweatalert2',
-		onOpen: ( () => {
-			let $height = parseInt( $( "#wpadminbar" ).actual( 'height' ) ) + 3;
-			$( "div.wpsweatalert2" ).parent().css( 'top', $height + 'px' );
-		} ),
-		timer: 4000
-	} );
-
-	//Core Functions
-
-	/**
-	 * Checks for Document / Window for the elemnts JS settings. if exists it returns or default will be returned.
-	 * @type {function(*, *)}
-	 */
-	wponion.field_js_args = ( ($elem, $default) => {
-		return wponion.window_vars( wponion.field_js_id( $elem ), $default );
-	} );
-
-	/**
-	 * Returns Fields JS ID.
-	 * @type {function(*)}
-	 */
-	wponion.field_js_id = ( ($elem) => {
-		return $elem.attr( "data-wponion-jsid" );
-	} );
-
-	/**
-	 * Checks And Returns Variable From Window.
-	 * @type {function(*=, *)}
-	 */
-	wponion.window_vars = ( ($var_id, $default) => {
-		if ( $var_id ) {
-			if ( typeof window[ $var_id ] === 'undefined' || window[ $var_id ] === undefined ) {
-				return $default;
-			}
-			return window[ $var_id ];
+/**
+ * Stores Updated Plugin Debug Info.
+ * @param $elemid
+ * @param $key
+ * @param $value
+ * @returns {{}}
+ * @private
+ */
+$wponion.__plugin_debug_info = function ( $elemid, $key, $value ) {
+	if ( $wponion.is_debug() ) {
+		if ( typeof $elemid === 'object' ) {
+			$elemid = $wponion.field_js_id( $elemid );
 		}
 
-		return $default;
-	} );
+		let $mtxt = $wponion.txt( "modified_debug" );
 
-	/**
-	 * Returns URL Query String as object
-	 * @example http://example.com?q1=22&q2=49 turns into {q1:22,q2:49}
-	 * @param str
-	 * @returns {any}
-	 */
-	wponion.url_param = function (str) {
-		return ( str || document.location.search ).replace( /(^\?)/, '' ).split( "&" ).map( function (n) {
-			return n = n.split( "=" ), this[ n[ 0 ] ] = n[ 1 ], this
-		}.bind( {} ) )[ 0 ];
-	};
-
-	/**
-	 * Stores / Retrives Display Text
-	 * @type {function(*, *)}
-	 * @private
-	 */
-	wponion.__ = ( ($key, $default) => {
-		return ( wponion.text[ $key ] !== undefined ) ? wponion.text[ $key ] : $default;
-	} );
-
-	//Gloabl Functions / Fields
-
-	/**
-	 * Handles WPOnion Settings Page Loading Screen.
-	 * @type {function()}
-	 */
-	wponion.handle_loading_screen = ( () => {
-		if ( wponion_elem().find( '.wponion-page-loader' ).length > 0 ) {
-			wponion_elem().find( '.wponion-page-loader' ).fadeOut( 'slow', function () {
-				$( this ).hide();
-			} );
-		}
-	} );
-
-	/**
-	 * Inits Field Debug Info.
-	 * @type {function()}
-	 */
-	wponion.init_field_debug = ( ($elem) => {
-		if ( $elem.find( '.wponion-field-debug' ).length > 0 ) {
-			$elem.find( '.wponion-field-debug a.wponion-field-debug-handle' ).on( 'click', function () {
-				let $data = wponion.field_js_args( $( this ), {} );
-				if ( $data[ 'debug_info' ] !== undefined ) {
-					let $divID = wponion.field_js_id( $( this ) ) + 'debugINFO',
-						$notice_txt = "<p class='wponion-field-debug-notice'>" + wponion.settings( 'debug_notice' ) + "</p>",
-						$elem = $( "<div id='" + $divID + "' class='wponion-field-debug-popup' ><div id='" + $divID + "' ></div> " + $notice_txt + "</div>" );
-					let $ops = swal( {
-						html: $elem,
-						showConfirmButton: true,
-						confirmButtonText: wponion.__( 'get_json_output', 'Get JSON Output' ),
-						showCloseButton: false,
-						width: '500px',
-						onOpen: ( () => {
-							$( '#swal2-content > div > #' + $divID ).JSONView( $data[ 'debug_info' ], {
-								collapsed: true,
-								recursive_collapser: true,
-							} ).overlayScrollbars( {
-								className: "os-theme-dark",
-								resize: "both",
-							} );
-						} )
-					} ).then( (result) => {
-						if ( result.value ) {
-							swal( {
-								width: '600px',
-								html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( wponion.debug_info ) + '</textarea>'
-
-							} )
-						}
-					} );
-
-				}
-			} )
-		}
-	} );
-
-	/**
-	 * Renders Gloabl Debug Info.
-	 * @type {function()}
-	 */
-	wponion.init_debug_popup = ( () => {
-		let $ahandle = $( 'a.wponion-global-debug-handle' );
-		if ( wponion.debug_info === null ) {
-			if ( $ahandle.length > 0 ) {
-				let $defined_vars = wponion.window_vars( 'wponion_defined_vars' ),
-					$json = {};
-				$.each( $defined_vars, ( ($i, $el) => {
-					$json[ $el ] = wponion.window_vars( $el );
-				} ) );
-				wponion.debug_info = $json;
+		if ( $wponion.field_debug_info[ $elemid ] !== undefined ) {
+			if ( $wponion.field_debug_info[ $elemid ][ $mtxt ][ $key ] === undefined ) {
+				$wponion.field_debug_info[ $elemid ][ $mtxt ][ $key ] = $value;
 			}
 		}
+	}
+	return $wponion;
+};
 
-		$ahandle.on( 'click', function (e) {
-			e.preventDefault();
-			let $ops = swal( {
-				title: wponion.__( 'global_json_output', "Global WPOnion Debug Data" ),
-				html: $( "#wponiondebuginfopopup > div" ),
-				showConfirmButton: true,
-				confirmButtonText: wponion.__( 'get_json_output', 'Get JSON Output' ),
-				showCloseButton: false,
-				width: '800px',
-				onOpen: ( () => {
-					$( '#swal2-content #wponion-global-debug-content' ).JSONView( wponion.debug_info, {
-						collapsed: true,
-						recursive_collapser: true,
-					} ).overlayScrollbars( {
-						className: "os-theme-dark",
-						resize: "both",
-					} );
-				} )
-			} ).then( (result) => {
-				if ( result.value ) {
-					swal( {
-						width: '600px',
-						html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( wponion.debug_info ) + '</textarea>'
-
-					} )
-				}
-			} );
-		} );
-
-	} );
-
-	/**
-	 * Handles Framework ToolTip Functions.
-	 * @constructor
-	 */
-	wponion.tooltip = ( ($elem) => {
-		if ( $elem.length > 0 ) {
-			return $elem.each( function () {
-				let $data = wponion.field_js_args( $( this ).parent().parent(), {} ),
-					$settings = {
-						arrow: true,
-						arrowType: 'sharp',
-					};
-
-				if ( $data[ 'field_help' ] !== undefined ) {
-					$settings = $data[ 'field_help' ];
-				}
-				tippy( $( this )[ 0 ], $settings );
-			} );
+/**
+ * Gets Plugin Debug Info.
+ * @param $elemid
+ * @returns {*}
+ * @private
+ */
+$wponion._get_debug_info = function ( $elemid ) {
+	if ( $wponion.is_debug() ) {
+		if ( typeof $elemid === 'object' ) {
+			$elemid = $wponion.field_js_id( $elemid );
 		}
-	} );
 
-	/**
-	 * Handles Fields ToolTip.
-	 * @type {function(*)}
-	 */
-	wponion.tooltip_field = ( ($elem) => {
-		if ( $elem.length > 0 ) {
-			return $elem.each( function () {
-				let $data = wponion.field_js_args( $( this ), {} );
-				let $fieldID = $( this ).data( 'field-jsid' );
-				if ( $data[ $fieldID + 'tooltip' ] !== undefined ) {
-					tippy( $( this )[ 0 ], $data[ $fieldID + 'tooltip' ] );
-				}
-			} );
+		if ( $wponion.field_debug_info[ $elemid ] !== undefined ) {
+			return $wponion.field_debug_info[ $elemid ];
 		}
-	} );
+	}
+	return {};
+};
 
-	/**
-	 * Retrives Option values from wponion.settings
-	 * @type {function(*, *)}
-	 */
-	wponion.settings = ( ($key, $default) => {
-		if ( wponion.settings_args[ $key ] !== undefined ) {
-			return wponion.settings_args[ $key ];
-		}
-		return $default;
-	} );
+/**
+ * @param window = Window Object
+ * @param document = Document Object
+ * @param $ = jQuery Object
+ * @param wpo = $wponion object
+ * @param wpf = $wonion.field object
+ * @param wpt = $wponion.theme object.
+ */
+( ( window, document, $, wpo, wp ) => {
+	let $wph = wp.hooks;
 
-	/**
-	 * Handles Field Dependency.
-	 * @type {function()}
-	 */
-	wponion.dependency = ( ($elem, $is_sub) => {
-		if ( $elem.find( '.wponion-has-dependency' ).length > 0 ) {
-			let $app = {
-
-
-				/**
-				 * Inits dependency framework.
-				 * @type {function()}
-				 */
-				init: ( () => {
-					$app.ruleset = $.deps.createRuleset();
-
-					let $config = {
-						show: function ($el) {
-							$el.removeClass( 'hidden' );
-						},
-						hide: function ($el) {
-							$el.addClass( 'hidden' );
-						},
-						log: wponion.settings( 'debug' ),
-						checkTargets: false,
-					};
-
-					if ( $is_sub !== undefined ) {
-						$app.dep_sub();
-					} else {
-						$app.dep_root();
-					}
-
-					$.deps.enable( wponion.elem, $app.ruleset, $config );
-				} ),
-
-				dep_root: ( () => {
-					$elem.find( '.wponion-has-dependency' ).each( function () {
-						let $elem = $( this ),
-							$dep_data = wponion.field_js_args( $elem, {} ),
-							$_rules = $app.ruleset;
-
-						if ( $dep_data[ 'dependency' ] !== undefined ) {
-							let $controller = $dep_data[ 'dependency' ][ 'controller' ],
-								$condition = $dep_data[ 'dependency' ][ 'condition' ],
-								$value = $dep_data[ 'dependency' ][ 'value' ];
-
-							$.each( $controller, ( ($i, $el) => {
-								let $_value = $value[ $i ] || '',
-									$_condition = $condition[ $i ] || $condition[ 0 ],
-									$_ruless = $_rules.createRule( '[data-depend-id="' + $el + '"]', $_condition, $_value );
-								$_ruless.include( $elem );
-							} ) );
-						}
-					} );
-				} )
-			};
-
-			$app.init();
-		}
-	} );
-
-	/**
-	 * Triggers A Hook To Reload All Fields.
-	 * @type {function()}
-	 */
-	wponion.reload = ( ($elem) => {
-		$elem = ( $elem === undefined ) ? wponion.elem : $elem;
-		wponion.dependency( $elem );
-		wponion.tooltip( $elem.find( ' .wponion-help' ) );
-		wponion.tooltip_field( $elem.find( '.wponion-field-tooltip' ) );
-		wponion.init_field_debug( $elem );
-		wphooks.doAction( "wponion_reload_fields" );
-	} );
-
-	/**
-	 * Below Code Runs On Window.load
-	 */
-	$( window ).on( "load", ( () => {
+	$( window ).on( 'load', ( () => {
 		/**
 		 * Retrives Basic Varaibles.
 		 */
-		wponion.settings_args = wponion.window_vars( 'wponion_core', {} );
-		wponion.text = wponion.window_vars( 'wponion_i18n', {} );
-		/** Inits All Fields. **/
-		wponion.reload();
-		wponion.init_debug_popup();
-		wponion.handle_loading_screen();
-		wphooks.doAction( 'wponion_init' );
+		wpo.settings_args = wpo.js_args( 'wponion_core', {} );
+		wpo.text = wpo.js_args( 'wponion_i18n', {} );
+
+		wpo.__field_debug_info();
+
+		/**
+		 * Triggers Before any of the core js functions called.
+		 */
+		$wph.doAction( 'wponion_before_init' );
+
+		wpo.global_debug_view();
+		wpo.loading_screen( $( '.wponion-framework' ) );
+
+		/**
+		 * Triggered after all fields are set.
+		 */
+		$wph.doAction( 'wponion_init' );
+
+
 	} ) );
 
-	/**
-	 * Hook Fired To Make sure all fields are using it.
-	 */
-	wphooks.doAction( "wponion_loaded" );
+	$wph.doAction( 'wponion_loaded' );
 
-} )( window, document, jQuery, wp, wponion, wp.hooks );
+} )( window, document, jQuery, $wponion, wp );
