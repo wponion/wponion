@@ -34,6 +34,9 @@ let wponion_elem = function () {
 	 */
 	wponion.text = null;
 
+	/**
+	 * Creates a Tost Instance of Sweetalert2
+	 */
 	wponion.tost = swal.mixin( {
 		toast: true,
 		position: 'top-end',
@@ -126,7 +129,6 @@ let wponion_elem = function () {
 					let $divID = wponion.field_js_id( $( this ) ) + 'debugINFO',
 						$notice_txt = "<p class='wponion-field-debug-notice'>" + wponion.settings( 'debug_notice' ) + "</p>",
 						$elem = $( "<div id='" + $divID + "' class='wponion-field-debug-popup' ><div id='" + $divID + "' ></div> " + $notice_txt + "</div>" );
-
 					let $ops = swal( {
 						html: $elem,
 						showConfirmButton: true,
@@ -324,7 +326,7 @@ let wponion_elem = function () {
 		wponion.dependency( $elem );
 		wponion.tooltip( $elem.find( ' .wponion-help' ) );
 		wponion.tooltip_field( $elem.find( '.wponion-field-tooltip' ) );
-		wponion.init_field_debug();
+		wponion.init_field_debug( $elem );
 		wphooks.doAction( "wponion_reload_fields" );
 	} );
 
