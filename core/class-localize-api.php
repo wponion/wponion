@@ -54,8 +54,11 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 				$this->add_action( 'wp_footer', 'render_js_args' );
 			}
 
-			$js_notice = __( 'this debug data is only visible when %sWP_DEBUG%s or %sWPONION_FIELD_DEBUG%s is defined %strue%s' );
-			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<code>', '</code>', '<strong>', '</strong>' );
+			$js_notice = __( '%5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$sstrue%4$s' );
+			$js_notice .= __( '%5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php' );
+			$js_notice .= __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it' );
+			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<strong>', '</strong>', '<br/>' );
+
 
 			if ( false === self::$core_data ) {
 				$this->js_args['wponion_core'] = array(
@@ -67,6 +70,8 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 				);
 				$this->text( 'get_json_output', __( 'Get Json Output' ) );
 				$this->text( 'global_json_output', __( 'Global WPOnion JSON Output' ) );
+				$this->text( 'unmodified_debug', __( 'PHP Args' ) );
+				$this->text( 'modified_debug', __( 'JS Args' ) );
 				self::$core_data = true;
 			}
 
