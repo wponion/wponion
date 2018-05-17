@@ -34,3 +34,25 @@
 @import '../../node_modules/pure-css-loader/src/loaders/loader-music';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-pokeball';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-bouncing';
+/**
+ * JS Select Framework.
+ */
+@import "../../node_modules/select2/src/scss/core";
+@import "../../node_modules/chosen-js/chosen";
+@import "../../node_modules/selectize.js/dist/css/selectize.css";
+
+.selectize-control.plugin-condensed_dropdown .option {
+  display: inline-block;
+}
+
+.selectize-legacy {@import "../../node_modules/selectize.js/dist/css/selectize.legacy";}
+
+.selectize-bs2 {@import "../../node_modules/selectize.js/dist/css/selectize.bootstrap2";}
+
+.selectize-bs3 {@import "../../node_modules/selectize.js/dist/css/selectize.bootstrap3";}
+
+.selectize-default {@import "../../node_modules/selectize.js/dist/css/selectize.default";}
+
+.selectize-bs4 {@import "../vendors/selectize-themes/selectize-bs4";}
+
+.selectize-dark {@import "../vendors/selectize-themes/dark";}
