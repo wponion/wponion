@@ -1,65 +1,81 @@
 'use strict';
 
-(function (window, document, $, wp, wponion, wphooks) {
-	wponion.themes.wp = {
-		submenu_single_page: function submenu_single_page() {
-			wponion_elem().find('.wponion-submenus.subsubsub a').on('click', function (e) {
-				e.preventDefault();
-				var $href = $(this).attr('href');
-				$href = wponion.url_param($href);
+/**
+ * @param window = Window Object
+ * @param document = Document Object
+ * @param $ = jQuery Object
+ * @param wpo = $wponion object
+ * @param wpf = $wonion.field object
+ * @param wpt = $wponion.theme object.
+ */
+(function (window, document, $, wpo, wp) {
+	var $wpt = wpo._theme();
+	var wpt = $wpt.fn;
+	var wphooks = wp.hooks;
 
-				if ($href['section-id'] !== undefined && $href['parent-id'] !== undefined) {
-					var $parent = 'wponion-tab-' + $href['parent-id'];
-					var $section = $parent + '-' + $href['section-id'];
-					var $all_actives = wponion_elem().find('div#' + $parent + ' div.wponion-section-wraps');
-					var $current = wponion_elem().find('div#' + $parent + ' div#' + $section);
+	/**
+  * Handles Single Submenu
+  */
+	wpt.WP_submenu = function () {
+		var $this = this;
+		$this.elem.find('.wponion-submenus.subsubsub a').on('click', function (e) {
+			e.preventDefault();
+			var $href = $(this).attr('href');
+			$href = wpo.url_to_object($href);
 
-					$all_actives.hide();
-					$current.show();
-					$(this).parent().parent().find('a.current').removeClass('current');
-					$(this).addClass('current');
-				} else {
-					window.location.href = $(this).attr('href');
-				}
-			});
-		},
-		mainmenu_single_page: function mainmenu_single_page() {
-			wponion_elem().find('nav.nav-tab-wrapper a').on('click', function (e) {
-				e.preventDefault();
+			if ($href['section-id'] !== undefined && $href['parent-id'] !== undefined) {
+				var $parent = 'wponion-tab-' + $href['parent-id'];
+				var $section = $parent + '-' + $href['section-id'];
+				var $all_actives = $this.elem.find('div#' + $parent + ' div.wponion-section-wraps');
+				var $current = $this.elem.find('div#' + $parent + ' div#' + $section);
 
-				var $href = $(this).attr('href');
-				$href = wponion.url_param($href);
-
-				if ($href['parent-id'] !== undefined) {
-					var $parent = 'wponion-tab-' + $href['parent-id'];
-					var $all_actives = wponion_elem().find(' div.wponion-parent-wraps');
-					var $current = wponion_elem().find('div#' + $parent);
-
-					$all_actives.hide();
-					$current.show();
-					$(this).parent().find('a.nav-tab-active ').removeClass('nav-tab-active ');
-					$(this).addClass('nav-tab-active ');
-				} else {
-					window.location.href = $(this).attr('href');
-				}
-			});
-		}
-
-	};
-
-	wphooks.addAction('wponion_loaded', function () {
-		$(window).on('load', function () {});
-
-		$(document).on('ready', function () {
-			if (wponion_elem().hasClass('wponion-submenu-single-page')) {
-				wponion.themes.wp.submenu_single_page();
-			}
-
-			if (wponion_elem().hasClass('wponion-single-page')) {
-				wponion.themes.wp.mainmenu_single_page();
-				wponion.themes.wp.submenu_single_page();
+				$all_actives.hide();
+				$current.show();
+				$(this).parent().parent().find('a.current').removeClass('current');
+				$(this).addClass('current');
+			} else {
+				window.location.href = $(this).attr('href');
 			}
 		});
+		return $this;
+	};
+
+	/**
+  * Handles Main Menu.
+  * @returns {$wpt}
+  */
+	wpt.WP_main_menu = function () {
+		var $this = this;
+		$this.elem.find('nav.nav-tab-wrapper a').on('click', function (e) {
+			e.preventDefault();
+
+			var $href = $(this).attr('href');
+			$href = wpo.url_to_object($href);
+
+			if ($href['parent-id'] !== undefined) {
+				var $parent = 'wponion-tab-' + $href['parent-id'];
+				var $all_actives = $this.elem.find(' div.wponion-parent-wraps');
+				var $current = $this.elem.find('div#' + $parent);
+				$all_actives.hide();
+				$current.show();
+				$(this).parent().find('a.nav-tab-active ').removeClass('nav-tab-active ');
+				$(this).addClass('nav-tab-active ');
+			} else {
+				window.location.href = $(this).attr('href');
+			}
+		});
+		return $this;
+	};
+
+	wphooks.addAction('wponion_before_init', function () {
+		var $elem = $('.wponion-framework');
+		if ($elem.hasClass('wponion-submenu-single-page')) {
+			$wpt('.wponion-framework').WP_submenu();
+		}
+
+		if ($elem.hasClass('wponion-single-page')) {
+			$wpt('.wponion-framework').WP_main_menu().WP_submenu();
+		}
 	});
-})(window, document, jQuery, wp, wponion, wp.hooks);
+})(window, document, jQuery, $wponion, wp);
 //# sourceMappingURL=wponion-wp-theme.js.map
