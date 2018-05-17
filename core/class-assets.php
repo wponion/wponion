@@ -58,15 +58,16 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		 * @static
 		 */
 		public static function register_assets() {
+			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
 			foreach ( self::$style as $id => $file ) {
 				$url     = self::is_debug( WPONION_URL . $file[0] );
-				$file[2] = isset( $file[2] ) ? $file[2] : WPONION_VERSION;
+				$file[2] = isset( $file[2] ) ? $file[2] : $version;
 				$file[1] = isset( $file[1] ) ? $file[1] : array();
 				wp_register_style( $id, $url, $file[1], $file[2], 'all' );
 			}
 			foreach ( self::$scripts as $iid => $ffile ) {
 				$url      = self::is_debug( WPONION_URL . $ffile[0], 'js' );
-				$ffile[2] = isset( $ffile[2] ) ? $ffile[2] : WPONION_VERSION;
+				$ffile[2] = isset( $ffile[2] ) ? $ffile[2] : $version;
 				$ffile[1] = isset( $ffile[1] ) ? $ffile[1] : array();
 				wp_register_script( $iid, $url, $ffile[1], $ffile[2], true );
 			}
