@@ -136,3 +136,71 @@ if ( ! function_exists( '_wponion_get_field_value' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'wponion_select_frameworks' ) ) {
+	/**
+	 * Returns A List of select framework.
+	 *
+	 * @return mixed
+	 */
+	function wponion_select_frameworks() {
+		return apply_filters( 'wponion_select_input_frameworks', array( 'select2', 'chosen', 'selectize' ) );
+	}
+}
+
+if ( ! function_exists( 'wponion_validate_select_framework' ) ) {
+	/**
+	 * Validates And Returns The Selected Framework Name.
+	 * This only used for selectbox.
+	 *
+	 * @param $field
+	 *
+	 * @return bool
+	 */
+	function wponion_validate_select_framework( $field ) {
+		$frameworks = wponion_select_frameworks();
+
+		foreach ( $frameworks as $f ) {
+			if ( isset( $field[ 'is_' . $f ] ) && true === $field[ 'is_' . $f ] || isset( $field[ $f ] ) && true === $field[ $f ] ) {
+				return $f;
+			}
+		}
+
+		if ( isset( $field['attributes']['class'] ) ) {
+			$class = is_string( $field['attributes']['class'] ) ? explode( ' ', $field['attributes']['class'] ) : $field['attributes']['class'];
+			foreach ( $frameworks as $f ) {
+				if ( in_array( $f, $class ) ) {
+					return $f;
+				}
+			}
+		}
+		return false;
+	}
+}
+
+if ( ! function_exists( 'wponion_select_classes' ) ) {
+	/**
+	 * Checks and returns select framework html class.
+	 *
+	 * @param bool $framework
+	 *
+	 * @return array
+	 */
+	function wponion_select_classes( $framework = false ) {
+		$return = '';
+		if ( false !== $framework ) {
+			switch ( $framework ) {
+				case 'select2':
+					$return = ( is_rtl() ) ? 'select2 select2-rtl' : 'select2';
+					break;
+				case 'chosen' :
+					$return = ( is_rtl() ) ? 'chosen chosen-rtl' : 'chosen';
+					break;
+				case'selectize':
+					$return = 'selectize';
+					break;
+			}
+		}
+		return apply_filters( 'wponion_select_input_frameworks_html_class', explode( ' ', $return ), $framework );
+	}
+}
