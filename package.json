@@ -18,6 +18,8 @@
     "bootstrap-maxlength": "^1.6.0",
     "chosen-js": "^1.8.5",
     "flag-icon-css": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.3",
     "inputmask": "^3.3.11",
     "ionicons": "^4.0.0",
     "jquery": "^3.3.1",
