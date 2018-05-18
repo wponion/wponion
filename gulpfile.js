@@ -1,5 +1,5 @@
 let $gulp        = require( 'gulp' );
-let rename       = require( 'gulp-rename' );
+//let rename       = require( 'gulp-rename' );
 let $node_path   = "./node_modules/";
 let $assets_path = "./assets/";
 
@@ -20,6 +20,7 @@ let $filesToCopy = {
 	'flag-icon-css/css/*.min.*': 'plugins/flag-icon-css/css/',
 	'flag-icon-css/flags/*/*/': 'plugins/flag-icon-css/flags/',
 	'animate.css/*.min.css': 'plugins/animate.css/',
+	'typicons.font/src/font/*': 'plugins/typicons/',
 };
 
 $gulp.task( 'copy', () => {
