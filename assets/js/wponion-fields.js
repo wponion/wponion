@@ -10,15 +10,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
  * @param wpf = $wonion.field object
  * @param wpt = $wponion.theme object.
  */
-(function (window, document, $, wpo, wp) {
-	var $wpf = wpo._field();
-	var wpf = $wpf.fn;
+(function (window, document, $, wpo, $wpf, wp) {
 	var wphooks = wp.hooks;
 
 	/**
   * Input Mask JS Handler.
   */
-	wpf.inputmask = function () {
+	$wpf.fn.inputmask = function () {
 		if (this.elem.length > 0) {
 			var $settings = this.arg('inputmask');
 			if ($settings) {
@@ -32,7 +30,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	/**
   * Handles Maxlength Field.
   */
-	wpf.maxlength = function () {
+	$wpf.fn.maxlength = function () {
 		if (this.elem.length > 0) {
 			var $settings = this.arg('max_length');
 			if ($settings) {
@@ -60,7 +58,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	/**
   * Renders Fields Debug Popup.
   */
-	wpf.field_debug = function () {
+	$wpf.fn.field_debug = function () {
 		if (this.elem.find('.wponion-field-debug').length > 0) {
 			var $elem = this.elem;
 
@@ -98,7 +96,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	/**
   * Icon Picker Field Handler.
   */
-	wpf.icon_picker = function () {
+	$wpf.fn.icon_picker = function () {
 		var $_this = this,
 		    $elem = $_this.elem,
 		    $args = $_this.args(),
@@ -278,22 +276,25 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		});
 	};
 
+	$wpf.fn.select2 = function () {
+		this.elem.select2();
+	};
+
 	/**
   * Reloads All Fields Instance. For the given key.
   */
-	wpf.reload = function () {
+	$wpf.fn.reload = function () {
 		wphooks.addAction('wponion_before_fields_reload');
-		var $elem = this.elem;
 		this.init_field('input[data-wponion-inputmask]', 'inputmask');
 		this.init_field('[data-wponion-maxlength]', 'maxlength');
-		this.field_debug();
-
 		this.init_field('.wponion-element-icon_picker', 'icon_picker');
+		this.init_field('.select2', 'select2');
+		this.field_debug();
 		wphooks.addAction('wponion_after_fields_reload');
 	};
 
 	wphooks.addAction('wponion_before_init', function () {
-		$wpf('.wponion-framework').reload();
+		wponion_field('.wponion-framework').reload();
 	});
-})(window, document, jQuery, $wponion, wp);
+})(window, document, jQuery, $wponion, $wponion_field, wp);
 //# sourceMappingURL=wponion-fields.js.map

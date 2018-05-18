@@ -6,15 +6,14 @@
  * @param wpf = $wonion.field object
  * @param wpt = $wponion.theme object.
  */
-( ( window, document, $, wpo, wp ) => {
-	let $wpf    = wpo._field();
-	let wpf     = $wpf.fn;
+( ( window, document, $, wpo, $wpf, wp ) => {
 	let wphooks = wp.hooks;
+
 
 	/**
 	 * Input Mask JS Handler.
 	 */
-	wpf.inputmask = function () {
+	$wpf.fn.inputmask = function () {
 		if ( this.elem.length > 0 ) {
 			let $settings = this.arg( 'inputmask' );
 			if ( $settings ) {
@@ -28,7 +27,7 @@
 	/**
 	 * Handles Maxlength Field.
 	 */
-	wpf.maxlength = function () {
+	$wpf.fn.maxlength = function () {
 		if ( this.elem.length > 0 ) {
 			let $settings = this.arg( 'max_length' );
 			if ( $settings ) {
@@ -56,7 +55,7 @@
 	/**
 	 * Renders Fields Debug Popup.
 	 */
-	wpf.field_debug = function () {
+	$wpf.fn.field_debug = function () {
 		if ( this.elem.find( '.wponion-field-debug' ).length > 0 ) {
 			let $elem = this.elem;
 
@@ -94,7 +93,7 @@
 	/**
 	 * Icon Picker Field Handler.
 	 */
-	wpf.icon_picker = function () {
+	$wpf.fn.icon_picker = function () {
 		let $_this      = this,
 			$elem       = $_this.elem,
 			$args       = $_this.args(),
@@ -212,6 +211,7 @@
 			$preview.hide();
 		}
 
+
 		/**
 		 * Handles Blur Even / change even in inputfield.
 		 */
@@ -279,22 +279,26 @@
 		} );
 	};
 
+	$wpf.fn.select2 = function () {
+		this.elem.select2();
+	};
+
+
 	/**
 	 * Reloads All Fields Instance. For the given key.
 	 */
-	wpf.reload = function () {
+	$wpf.fn.reload = function () {
 		wphooks.addAction( 'wponion_before_fields_reload' );
-		let $elem = this.elem;
 		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
 		this.init_field( '[data-wponion-maxlength]', 'maxlength' );
-		this.field_debug();
-
 		this.init_field( '.wponion-element-icon_picker', 'icon_picker' );
+		this.init_field( '.select2', 'select2' );
+		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
 
 	wphooks.addAction( 'wponion_before_init', ( () => {
-		$wpf( '.wponion-framework' ).reload();
+		wponion_field( '.wponion-framework' ).reload();
 	} ) );
 
-} )( window, document, jQuery, $wponion, wp );
+} )( window, document, jQuery, $wponion, $wponion_field, wp );
