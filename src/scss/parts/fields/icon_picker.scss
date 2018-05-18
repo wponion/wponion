@@ -1,0 +1,132 @@
+/** Icon Preview Button Style **/
+.wponion-icon-preview {
+  display:          inline-block;
+  font-size:        14px;
+  width:            30px;
+  height:           26px;
+  line-height:      26px;
+  margin-right:     5px;
+  text-align:       center;
+  vertical-align:   top;
+  color:            #555;
+  border:           1px solid #ccc;
+  background-color: #f7f7f7;
+  border-radius:    3px;
+  box-shadow:       0 1px 0 rgba(0, 0, 0, .08);
+}
+
+/** Element Style **/
+.wponion-element {
+  &.wponion-element-icon_picker {
+	.wponion-icon-picker-input[type=text] {
+	  margin-right: 10px;
+	}
+	.wponion-icon-preview {
+	  margin-right: 10px;
+	}
+	button {
+	  margin-right: 10px;
+	}
+
+  }
+}
+
+/** Icon Select POPUP Style */
+.wponion-icon-picker-model {
+  border-radius:  0 !important;
+  padding-left:   0 !important;
+  padding-right:  0 !important;
+  padding-bottom: 15px !important;
+
+  #swal2-title {
+	vertical-align: top;
+	font-size:      24px;
+	margin-top:     -5px;
+	margin-bottom:  5px;
+  }
+
+  #swal2-content {
+	display:     block !important;
+	min-height:  100px !important;
+	max-height:  600px;
+	padding-top: 10px;
+	text-align:  left !important;
+
+	.wponion-icon-picker-model-header {
+	  padding:       0.5em 1.25em;
+	  background:    #f5f5f5;
+	  border:        1px solid #ddd;
+	  border-right:  none;
+	  border-left:   none;
+	  margin-bottom: 10px;
+	  text-align:    center;
+	  input {
+		margin:         0;
+		font-size:      15px;
+		width:          200px;
+		line-height:    25px;
+		vertical-align: middle;
+	  }
+	  select {
+		height:         33px;
+		margin:         0;
+		padding:        3px 5px;
+		vertical-align: middle;
+		margin-left:    20px;
+		min-width:      200px;
+	  }
+	}
+	.wponion-icon-picker-container-scroll {
+	  overflow:   hidden;
+	  max-height: 500px;
+	  .wponion-icon-picker-container {
+		padding:    0 1.25em;
+		text-align: center;
+	  }
+	}
+
+	.wponion-icon-preview-wrap {
+	  margin-right:  0px;
+	  margin-bottom: 5px;
+	  text-align:    left;
+	  display:       inline-block;
+	  padding:       5px;
+	  cursor:        pointer;
+	  .wponion-icon-preview {
+		position:         relative;
+		padding:          5px;
+		display:          inline-block;
+		font-size:        14px;
+		width:            30px;
+		height:           26px;
+		line-height:      26px;
+		text-align:       center;
+		vertical-align:   top;
+		color:            #555;
+		border:           1px solid #ccc;
+		background-color: #f7f7f7;
+		border-radius:    3px;
+		box-shadow:       0 1px 0 rgba(0, 0, 0, .08);
+		&:hover {
+		  color:            #fff;
+		  border-color:     #222;
+		  background-color: #222;
+		}
+	  }
+	}
+  }
+
+  .swal2-loading {
+	display:    flex;
+	position:   absolute;
+	z-index:    1;
+	width:      100%;
+	background: rgba(255, 255, 255, 0.14);
+	padding:    40px 0;
+	margin-top: 0 !important;
+	top:        0;
+	bottom:     0;
+  }
+
+}
+

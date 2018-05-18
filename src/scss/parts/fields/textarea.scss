@@ -1,0 +1,9 @@
+/** Textarea **/
+&.wponion-element-textarea {
+  textarea {
+	min-width:  500px;
+	resize:     both;
+	max-width:  100%;
+	min-height: 125px;
+  }
+}
