@@ -30,7 +30,7 @@ foreach ( $settings->fields() as $option ) {
 						$section_active    = ( true === $is_section_active ) ? ' wponion-section-wraps ' : 'wponion-section-wraps hidden';
 						echo '<div id="wponion-tab-' . $slug . '-' . $child_slug . '" class="' . $section_active . '" data-section-id="' . $child_slug . '">';
 						foreach ( $section['fields'] as $field ) {
-							echo $settings->render_field( $field );
+							echo $settings->render_field( $field, $option['name'], $section['name'] );
 						}
 						echo '</div>';
 					}
@@ -41,7 +41,7 @@ foreach ( $settings->fields() as $option ) {
 			} elseif ( isset( $option['fields'] ) ) {
 				echo '<div class="inside">';
 				foreach ( $option['fields'] as $field ) {
-					echo $settings->render_field( $field );
+					echo $settings->render_field( $field, $option['name'] );
 				}
 				echo '</div>';
 
