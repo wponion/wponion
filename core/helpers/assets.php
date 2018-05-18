@@ -18,21 +18,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $wponion_js, $wponion_css;
 
 $wponion_js = array(
-	'wponion-plugins'           => array( 'assets/js/wponion-plugins', array( 'jquery' ) ),
-	'wponion-fields'            => array( 'assets/js/wponion-fields', array( 'wponion-plugins' ) ),
-	'wponion-core'              => array( 'assets/js/wponion-core', array( 'wponion-fields' ) ),
-	// WPOnion Related Plugins.
-	'wponion-inputmask'         => array( 'assets/plugins/wponion-inputmask', array( 'jquery', 'wponion-plugins' ) ),
-	'wponion-select-frameworks' => array(
-		'assets/plugins/wponion-select-frameworks',
-		array( 'jquery', 'wponion-plugins' ),
+	'wponion-plugins'   => array(
+		wponion_debug_assets( 'assets/js/wponion-plugins', 'js' ),
+		array( 'jquery' ),
 	),
+	'wponion-fields'    => array(
+		wponion_debug_assets( 'assets/js/wponion-fields', 'js' ),
+		array( 'wponion-plugins' ),
+	),
+	'wponion-core'      => array(
+		wponion_debug_assets( 'assets/js/wponion-core', 'js' ),
+		array( 'wponion-fields' ),
+	),
+	// WPOnion Related Plugins.
+	'wponion-inputmask' => array(
+		'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
+		array( 'jquery' ),
+	),
+	'select2'           => array(
+		'assets/plugins/select2/select2.full.min.js',
+		array( 'jquery' ),
+	),
+	'selectize'         => array( 'assets/plugins/selectize/selectize.min.js', array( 'jquery' ) ),
+	'chosen'            => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
 );
 
 $wponion_css = array(
-	'fontawesome'     => array( 'assets/vendors/fontawesome/fontawesome', array(), '5.0.13' ),
-	'wponion-plugins' => array( 'assets/css/wponion-plugins' ),
-	'wponion-core'    => array( 'assets/css/wponion-base', array( 'wponion-plugins' ) ),
+	'flag-icon-css'   => array( 'assets/plugins/flag-icon-css/css/flag-icon.min.css' ),
+	'chosen'          => array( 'assets/plugins/chosen/chosen.min.css' ),
+	'select2'         => array( 'assets/plugins/select2/select2.min.css' ),
+	'animate.css'     => array( 'assets/plugins/animate.css/animate.min.css' ),
+	'wponion-plugins' => array( wponion_debug_assets( 'assets/css/wponion-plugins', 'css' ) ),
+	'fontawesome'     => array( 'assets/plugins/fontawesome/fontawesome.min.css', array(), '5.0.13', ),
+	'typicons'        => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
+	'wponion-core'    => array(
+		wponion_debug_assets( 'assets/css/wponion-base', 'css' ),
+		array( 'wponion-plugins', 'fontawesome', 'typicons' ),
+	),
 );
 
 if ( ! function_exists( 'wponion_load_asset' ) ) {
@@ -53,33 +75,6 @@ if ( ! function_exists( 'wponion_load_asset' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_load_icon' ) ) {
-	/**
-	 * Checks and load icon font based on the font class.
-	 *
-	 * @param $str
-	 */
-	function wponion_load_icon( $str ) {
-		if ( true === wponion_is_fontawesome( $str ) ) {
-			wponion_load_asset( 'fontawesome' );
-		}
-	}
-}
-
-if ( ! function_exists( 'wponion_is_fontawesome' ) ) {
-	/**
-	 * Checks if given string is a fontawesome class.
-	 *
-	 * @param $str
-	 *
-	 * @return bool
-	 */
-	function wponion_is_fontawesome( $str ) {
-		#return ( false !== strpos( $str, 'fab ' ) || false !== strpos( $str, 'far ' ) || false !== strpos( $str, 'fas ' ) || false !== strpos( $str, 'fa ' ) );
-		return ( false !== strpos( $str, ' fa-' ) );
-	}
-}
-
 if ( ! function_exists( 'wponion_icon' ) ) {
 	/**
 	 * Checks and returns icon html + load the required icon font.
@@ -89,7 +84,6 @@ if ( ! function_exists( 'wponion_icon' ) ) {
 	 * @return string
 	 */
 	function wponion_icon( $icon ) {
-		wponion_load_icon( $icon );
 		if ( $icon ) {
 			return '<i class="' . $icon . ' wponion-icon"></i>';
 		}
@@ -105,5 +99,22 @@ if ( ! function_exists( 'wponion_localize' ) ) {
 	 */
 	function wponion_localize() {
 		return wponion_registry( 'wponion-global-localize-api', 'WPOnion_Localize_API' );
+	}
+}
+
+
+if ( ! function_exists( 'wponion_icon_libraries' ) ) {
+	/**
+	 * Returns a list of Icon Libs.
+	 *
+	 * @return mixed
+	 */
+	function wponion_icon_libraries() {
+		return apply_filters( 'wponion_icon_libraries', array(
+			__( 'DashIcons' )   => WPONION_PATH . 'assets/plugins/dashicons.json',
+			__( 'FontAwesome' ) => WPONION_PATH . 'assets/plugins/fontawesome/icons.json',
+			__( 'TypIcons' )    => WPONION_PATH . 'assets/plugins/typicons/icons.json',
+			__( 'FlatIcons' )   => '',// WPONION_PATH . 'ic/json.json',
+		) );
 	}
 }
