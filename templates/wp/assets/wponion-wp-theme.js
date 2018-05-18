@@ -8,15 +8,13 @@
  * @param wpf = $wonion.field object
  * @param wpt = $wponion.theme object.
  */
-(function (window, document, $, wpo, wp) {
-	var $wpt = wpo._theme();
-	var wpt = $wpt.fn;
+(function (window, document, $, wpo, wpt, wp) {
 	var wphooks = wp.hooks;
 
 	/**
   * Handles Single Submenu
   */
-	wpt.WP_submenu = function () {
+	wpt.fn.WP_submenu = function () {
 		var $this = this;
 		$this.elem.find('.wponion-submenus.subsubsub a').on('click', function (e) {
 			e.preventDefault();
@@ -44,7 +42,7 @@
   * Handles Main Menu.
   * @returns {$wpt}
   */
-	wpt.WP_main_menu = function () {
+	wpt.fn.WP_main_menu = function () {
 		var $this = this;
 		$this.elem.find('nav.nav-tab-wrapper a').on('click', function (e) {
 			e.preventDefault();
@@ -70,12 +68,12 @@
 	wphooks.addAction('wponion_before_init', function () {
 		var $elem = $('.wponion-framework');
 		if ($elem.hasClass('wponion-submenu-single-page')) {
-			$wpt('.wponion-framework').WP_submenu();
+			wponion_theme('.wponion-framework').WP_submenu();
 		}
 
 		if ($elem.hasClass('wponion-single-page')) {
-			$wpt('.wponion-framework').WP_main_menu().WP_submenu();
+			wponion_theme('.wponion-framework').WP_main_menu().WP_submenu();
 		}
 	});
-})(window, document, jQuery, $wponion, wp);
+})(window, document, jQuery, $wponion, $wponion_theme, wp);
 //# sourceMappingURL=wponion-wp-theme.js.map
