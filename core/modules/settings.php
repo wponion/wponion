@@ -857,18 +857,20 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		public function render_field( $field = array(), $is_init_field = false ) {
+		public function render_field( $field = array(), $parent_section = false, $section = false, $is_init_field = false ) {
 			$value = _wponion_get_field_value( $field, $this->get_db_values() );
 
 			if ( false === $is_init_field ) {
 				return wponion_add_element( $field, $value, array(
 					'plugin_id' => $this->plugin_id(),
+					'hash'      => sanitize_title( $parent_section . '-' . $section ),
 					'unique'    => $this->unique,
 					'module'    => 'setttings',
 				) );
 			} else {
 				return wponion_field( $field, $value, array(
 					'plugin_id' => $this->plugin_id(),
+					'hash'      => sanitize_title( $parent_section . '-' . $section ),
 					'unique'    => $this->unique,
 					'module'    => 'setttings',
 				) );
@@ -899,12 +901,12 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 						}
 
 						foreach ( $section['fields'] as $field ) {
-							$this->render_field( $field, true );
+							$this->render_field( $field, $options['name'], $section['name'], true );
 						}
 					}
 				} elseif ( isset( $options['fields'] ) ) {
 					foreach ( $options['fields'] as $field ) {
-						$this->render_field( $field, true );
+						$this->render_field( $field, $options['name'], false, true );
 					}
 				}
 			}
