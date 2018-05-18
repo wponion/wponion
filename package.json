@@ -19,21 +19,16 @@
     "chosen-js": "^1.8.5",
     "flag-icon-css": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-rename": "^1.2.3",
     "inputmask": "^3.3.11",
-    "ionicons": "^4.0.0",
     "jquery": "^3.3.1",
     "jquery.actual": "^1.0.19",
-    "lodash": "^4.17.10",
     "overlayscrollbars": "^1.4.4",
-    "popper.js": "^1.14.3",
     "pure-css-loader": "^3.1.2",
     "select2": "^4.0.6-rc.1",
-    "selectize": "^0.12.4",
     "selectize.js": "^0.12.12",
     "sweetalert": "^2.1.0",
     "sweetalert2": "^7.20.4",
-    "tippy.js": "^2.5.2"
-  },
-  "dependencies": {}
+    "tippy.js": "^2.5.2",
+    "typicons.font": "^2.0.9"
+  }
 }
