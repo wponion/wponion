@@ -62,16 +62,18 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 
 			if ( false === self::$core_data ) {
 				$this->js_args['wponion_core'] = array(
-					'ajaxurl'      => admin_url( 'admin-ajax.php' ),
-					'ajax_action'  => 'wponion-ajax',
-					'ajax_url'     => admin_url( 'admin-ajax.php?wponion-ajax' ),
-					'debug'        => ( true === defined( 'WP_DEBUG' ) || true === defined( 'SCRIPT_DEBUG' ) ) ? true : false,
-					'debug_notice' => $js_notice,
+					'ajaxurl'         => admin_url( 'admin-ajax.php' ),
+					'ajax_action'     => 'wponion-ajax',
+					'ajax_action_key' => 'wponion-ajax',
+					'ajax_url'        => admin_url( 'admin-ajax.php?action=wponion-ajax' ),
+					'debug'           => ( true === defined( 'WP_DEBUG' ) || true === defined( 'SCRIPT_DEBUG' ) ) ? true : false,
+					'debug_notice'    => $js_notice,
 				);
 				$this->text( 'get_json_output', __( 'Get Json Output' ) );
 				$this->text( 'global_json_output', __( 'Global WPOnion JSON Output' ) );
 				$this->text( 'unmodified_debug', __( 'PHP Args' ) );
 				$this->text( 'modified_debug', __( 'JS Args' ) );
+				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.' ) );
 				self::$core_data = true;
 			}
 
