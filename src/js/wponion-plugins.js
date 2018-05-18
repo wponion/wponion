@@ -1,3 +1,5 @@
+var $wponion = {};
+
 /**
  * WPOnion Field Handler.
  * @param selector
@@ -5,8 +7,26 @@
  * @returns {*}
  */
 var $wponion_field = function ( selector, context ) {
-	return $wponion_field.fn.init( selector, context );
+	return this.init( selector, context );
 };
+
+/**
+ * WPOnion Theme Handler.
+ * @param selector
+ * @param contxt
+ * @returns {*}
+ */
+var $wponion_theme = function ( selector, contxt ) {
+	return this.init( selector, contxt );
+};
+
+function wponion_theme ( selector, contxt ) {
+	return new $wponion_theme( selector, contxt );
+}
+
+function wponion_field ( selector, contxt ) {
+	return new $wponion_field( selector, contxt );
+}
 
 /**
  * WPOnion Field Functions
@@ -43,10 +63,10 @@ $wponion_field.fn = $wponion_field.prototype = {
 		if ( !$elem.jQuery ) {
 			$elem = this.elem.find( $elem );
 		}
+
 		$elem.each( function () {
 			if ( $wponion_field.fn[ $callback ] !== undefined ) {
-				var $_data = $wponion_field( jQuery( this ) );
-				$_data[ 'handle_callback' ]( $callback );
+				wponion_field( jQuery( this ) )[ 'handle_callback' ]( $callback );
 			}
 		} )
 	},
@@ -133,16 +153,6 @@ $wponion_field.fn = $wponion_field.prototype = {
 	},
 };
 
-
-/**
- * WPOnion Theme Handler & Functions.
- * @param selector
- * @param context
- */
-var $wponion_theme = function ( selector, context ) {
-	return $wponion_theme.fn.init( selector, context );
-};
-
 /**
  * WPOnion Theme Handler & Functions.
  * @type {{constructor: $wponion_theme, init: $wponion_theme.init}}
@@ -166,7 +176,7 @@ $wponion_theme.fn = $wponion_theme.prototype = {
  * Base Gloabl WPOnion Functions & Vars.
  * @type {{}}
  */
-var $wponion = {
+$wponion = {
 	/**
 	 * Returns An Prototype instance of field.
 	 * @returns {{constructor: $wponion_field, init: $wponion_field.init}}
