@@ -55,18 +55,20 @@ if ( ! function_exists( 'wponion_field' ) ) {
 		if ( false !== $class ) {
 			$plugin_id = '';
 			$module    = 'core';
+			$hash      = null;
 
 			if ( is_array( $unique ) ) {
 				$plugin_id = isset( $unique['plugin_id'] ) ? $unique['plugin_id'] : '';
 				$module    = isset( $unique['module'] ) ? $unique['module'] : '';
+				$hash      = isset( $unique['hash'] ) ? $unique['hash'] : '';
 				$unique    = isset( $unique['unique'] ) ? $unique['unique'] : '';
 			}
 
 			if ( ! isset( $field['id'] ) ) {
 				$uid = wponion_hash_array( $field );
-				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $uid . '_' . $unique );
+				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $uid . '_' . $unique . '_' . $hash );
 			} else {
-				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $field['id'] . '_' . $unique );
+				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $field['id'] . '_' . $unique . '_' . $hash );
 			}
 
 			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, 'WPOnion_Field_Registry' );
