@@ -244,6 +244,148 @@ $wponion._get_debug_info = function ($elemid) {
 };
 
 /**
+ * Checks and returns a arg from field js args.
+ * @param $elem
+ * @param $key
+ * @param $default
+ * @returns {*}
+ */
+$wponion.get_js_arg = function ($elem, $key, $default) {
+	$default = $default || {};
+	var $arg = $wponion.js_args($elem, $default);
+	if ($arg[$key] !== undefined) {
+		return $arg[$key];
+	}
+	return $default;
+};
+
+/**
+ * Returns Module Name From Field.
+ * @param $elem
+ * @returns {*}
+ */
+$wponion.get_module = function ($elem) {
+	return $wponion.get_js_arg($elem, 'module', false);
+};
+
+/**
+ * Returns Plugin ID From Field.
+ * @param $elem
+ * @returns {*}
+ */
+$wponion.get_plugin_id = function ($elem) {
+	return $wponion.get_js_arg($elem, 'plugin_id', false);
+};
+
+/**
+ * Handles Array Merge.
+ * @returns {*}
+ */
+$wponion.array_merge = function () {
+	var args = Array.prototype.slice.call(arguments);
+	var argl = args.length;
+	var arg;
+	var retObj = {};
+	var k = '';
+	var argil = 0;
+	var j = 0;
+	var i = 0;
+	var ct = 0;
+	var toStr = Object.prototype.toString;
+	var retArr = true;
+	for (i = 0; i < argl; i++) {
+		if (toStr.call(args[i]) !== '[object Array]') {
+			retArr = false;
+			break;
+		}
+	}
+	if (retArr) {
+		retArr = [];
+		for (i = 0; i < argl; i++) {
+			retArr = retArr.concat(args[i]);
+		}
+		return retArr;
+	}
+	for (i = 0, ct = 0; i < argl; i++) {
+		arg = args[i];
+		if (toStr.call(arg) === '[object Array]') {
+			for (j = 0, argil = arg.length; j < argil; j++) {
+				retObj[ct++] = arg[j];
+			}
+		} else {
+			for (k in arg) {
+				if (arg.hasOwnProperty(k)) {
+					if (parseInt(k, 10) + '' === k) {
+						retObj[ct++] = arg[k];
+					} else {
+						retObj[k] = arg[k];
+					}
+				}
+			}
+		}
+	}
+	return retObj;
+};
+
+/**
+ * Custom Ajax Wrapper for jQuery.ajax();
+ * @param $action
+ * @param $data
+ * @param $onSuccess
+ * @param $onError
+ * @param $onAlways
+ * @returns {*}
+ */
+$wponion.ajax = function ($action, $data, $onSuccess, $onError, $onAlways) {
+	var $defaults = {
+		url: $wponion.settings('ajax_url'),
+		method: "post"
+	};
+	$data = $data || {};
+	if ((typeof $action === 'undefined' ? 'undefined' : _typeof($action)) === 'object') {
+		$data = $action;
+	} else {
+		$defaults['url'] = $defaults['url'] + '&' + $wponion.settings('ajax_action_key') + '=' + $action;
+	}
+
+	$defaults = $wponion.array_merge($defaults, $data);
+
+	if ($defaults.onSuccess !== undefined) {
+		$onSuccess = $defaults.onSuccess;
+	}
+
+	if ($defaults.onError !== undefined) {
+		$onError = $defaults.onError;
+	}
+
+	if ($defaults.onAlways !== undefined) {
+		$onAlways = $defaults.onAlways;
+	}
+
+	var $ajax = jQuery.ajax($defaults);
+
+	$ajax.done(function (res) {
+		if ($onSuccess !== undefined) {
+			$onSuccess(res);
+		}
+	});
+
+	$ajax.fail(function (res) {
+		if ($onError !== undefined) {
+			$onError(res);
+		}
+	});
+
+	$ajax.always(function (res) {
+		if ($onAlways !== undefined) {
+			$onAlways(res);
+		}
+	});
+
+	return $ajax;
+};
+
+/**
  * @param window = Window Object
  * @param document = Document Object
  * @param $ = jQuery Object
@@ -258,7 +400,9 @@ $wponion._get_debug_info = function ($elemid) {
 		/**
    * Retrives Basic Varaibles.
    */
+		// Stores Basic Settings.
 		wpo.settings_args = wpo.js_args('wponion_core', {});
+		// Stores Translation Strings.
 		wpo.text = wpo.js_args('wponion_i18n', {});
 
 		wpo.__field_debug_info();
