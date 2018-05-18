@@ -685,6 +685,11 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			if ( $this->has( 'debug' ) ) {
 				wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ) );
 			}
+
+			wponion_localize()->add( $this->js_field_id(), array(
+				'module'    => $this->module(),
+				'plugin_id' => $this->plugin_id(),
+			) );
 		}
 
 		/**
