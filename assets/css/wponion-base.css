@@ -10929,6 +10929,16 @@ a > .wponion-framework-bootstrap code {
   border-radius: 0;
 }
 
+.wponion-element.wponion-element-font .wponion-font-select-container {
+  margin-right: 10px;
+  min-width: 200px;
+  display: inline-block;
+}
+
+.wponion-element.wponion-element-font select {
+  min-width: 200px;
+}
+
 /** Icon Picker Style */
 /** Icon Preview Button Style **/
 .wponion-icon-preview {

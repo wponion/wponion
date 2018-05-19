@@ -88,6 +88,17 @@
   /** UI Related Fields.*/
   @import "./fields/heading_subheading_notice";
   @import "./fields/bootstrap-fields";
+
+  &.wponion-element-font {
+	.wponion-font-select-container {
+	  margin-right: 10px;
+	  min-width:    200px;
+	  display:      inline-block;
+	}
+	select {
+	  min-width: 200px;
+	}
+  }
 }
 
 /** Icon Picker Style */
