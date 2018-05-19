@@ -190,7 +190,7 @@
 									className: "os-theme-dark",
 									resize: "vertical",
 								} );
-							$manager.init();
+							$manager.init( $manager.popupel, $manager.popup );
 
 						} else {
 							$( $manager.popupel ).find( ".wponion-icon-picker-container-scroll" ).remove();
@@ -306,6 +306,69 @@
 		this.elem.selectize( $arg );
 	};
 
+	$wpf.fn.clone_element = function () {
+		let
+			$this        = this,
+			$elem        = $this.elem,
+			$clone_wrap  = $elem.find( 'div.wponion-clone-wrap' ),
+			$add_btn     = $clone_wrap.find( ".wponion-clone-add" ),
+			$remove_btn  = $clone_wrap.find( ".wponion-clone-remove" ),
+			$arg         = $this.arg( 'clone' ),
+			$limit       = ( $arg[ 'limit' ] !== undefined ) ? $arg[ 'limit' ] : false,
+			$is_toast    = ( $arg[ 'toast_error' ] !== undefined ) ? $arg[ 'toast_error' ] : true,
+			$eror_msg    = $arg[ 'error_msg' ],
+			$remove_func = function () {
+				if ( $( this ).hasClass( 'removing' ) ) {
+					return;
+				}
+				$( this ).addClass( 'removing' ).parent().parent().remove();
+				let $count = parseInt( $clone_wrap.attr( 'data-wponion-clone-count' ) ) - 1;
+				$clone_wrap.attr( 'data-wponion-clone-count', $count )
+			};
+
+		$add_btn.on( 'click', function () {
+			let $template = $this.arg( 'clone_template' ),
+				$ex_limit = parseInt( $clone_wrap.attr( 'data-wponion-clone-count' ) );
+
+			if ( false !== $limit ) {
+				if ( $limit === $ex_limit ) {
+					if ( $is_toast === true ) {
+						wpo.tost( {
+							type: "error",
+							title: $eror_msg,
+						} );
+					} else {
+						let $html = $( '<div class="alert alert-warning" role="alert">' + $eror_msg + '</div>' );
+						$html.hide();
+						$add_btn.parent().prepend( $html );
+
+						$html = $add_btn.parent().find( "div.alert" );
+						$html.fadeIn( function () {
+							setTimeout( function () {
+								$html.fadeOut( 'slow', function () {
+									$html.remove();
+								} );
+							}, 1000 )
+						} )
+					}
+					return;
+				}
+			}
+			let $count = $ex_limit + 1;
+
+			if ( $template ) {
+				$template = $template.replace( /{cloneid}/g, $count );// $( $template );
+				$clone_wrap.attr( 'data-wponion-clone-count', $count );
+				$( this ).parent().parent().find( 'div.wponion-clone-actions' ).before( $( $template ) );
+				let $added_ins = $( this ).parent().parent().before();
+				$added_ins.find( '.wponion-clone-remove' ).on( 'click', $remove_func );
+				wponion_field( $added_ins ).reload();
+			}
+		} );
+
+		$remove_btn.on( 'click', $remove_func )
+	};
+
 	/**
 	 * Reloads All Fields Instance. For the given key.
 	 */
@@ -317,6 +380,7 @@
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
+		this.init_field( '.wponion-element-clone', 'clone_element' );
 		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
