@@ -217,3 +217,71 @@ if ( ! function_exists( 'wponion_select_classes' ) ) {
 		return apply_filters( 'wponion_select_input_frameworks_html_class', explode( ' ', $return ), $framework );
 	}
 }
+
+if ( ! function_exists( 'wponion_websafe_fonts' ) ) {
+	/**
+	 * Returns Websafe Fonts.
+	 *
+	 * @return mixed
+	 */
+	function wponion_websafe_fonts() {
+		return apply_filters( 'wponion_websafe_fonts', array(
+			'variants' => array(
+				'regular'   => 'Regular',
+				'italic'    => 'Italic',
+				'700'       => '700',
+				'700italic' => '700 Italic',
+				'inherit'   => 'inherit',
+			),
+			'fonts'    => array(
+				'Arial'               => 'Arial',
+				'Arial Black'         => 'Arial Black',
+				'Comic Sans MS'       => 'Comic Sans MS',
+				'Impact'              => 'Impact',
+				'Lucida Sans Unicode' => 'Lucida Sans Unicode',
+				'Tahoma'              => 'Tahoma',
+				'Trebuchet MS'        => 'Trebuchet MS',
+				'Verdana'             => 'Verdana',
+				'Courier New'         => 'Courier New',
+				'Lucida Console'      => 'Lucida Console',
+				'Georgia, serif'      => 'Georgia, serif',
+				'Palatino Linotype'   => 'Palatino Linotype',
+				'Times New Roman'     => 'Times New Roman',
+			),
+
+		) );
+	}
+}
+
+if ( ! function_exists( 'wponion_google_fonts' ) ) {
+	/**
+	 * Reads Google Fonts. Data.
+	 *
+	 * @return mixed
+	 */
+	function wponion_google_fonts() {
+		return apply_filters( 'wponion_google_fonts', wponion_read_json_files( WPONION_PATH . 'assets/json/google_fonts.json' ) );
+	}
+}
+
+if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
+	function wponion_google_fonts_data() {
+		$data   = wponion_google_fonts();
+		$return = array();
+
+		if ( is_array( $data ) ) {
+			foreach ( $data as $d => $v ) {
+				$vars = array();
+				if ( isset( $v['variants'] ) ) {
+					foreach ( $v['variants'] as $_d ) {
+						$vars[ $_d['id'] ] = $_d['name'];
+					}
+					$return[ $d ] = $vars;
+				} else {
+					$return[ $d ] = $d;
+				}
+			}
+		}
+		return $return;
+	}
+}
