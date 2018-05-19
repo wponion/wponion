@@ -64,9 +64,7 @@ if ( ! class_exists( 'WPOnion_Field_select' ) ) {
 			$select_class                = wponion_select_classes( $this->select_framework );
 			$data['attributes']['class'] = wponion_html_class( $data['attributes']['class'], $select_class, false );
 			wponion_localize()->add( $this->js_field_id(), array(
-				$this->select_framework => array(
-					'theme' => 'classic',
-				),
+				$this->select_framework => ( isset( $data[ $this->select_framework ] ) && is_array( $data[ $this->select_framework ] ) ) ? $data[ $this->select_framework ] : array(),
 			) );
 			return $data;
 		}
@@ -79,7 +77,7 @@ if ( ! class_exists( 'WPOnion_Field_select' ) ) {
 		}
 
 		public function field_assets() {
-			wponion_load_asset( 'wponion-select-frameworks' );
+			wponion_load_asset( $this->select_framework );
 		}
 	}
 }
