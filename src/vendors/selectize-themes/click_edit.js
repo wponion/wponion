@@ -20,25 +20,26 @@
  * @author Kris Salvador <krissalvador27@gmail.com>
  */
 
-Selectize.define( 'click_to_edit', function (options) {
+Selectize.define( 'click_to_edit', function ( options ) {
 	var self = this;
 
-	options.text = options.text || function (option) {
+	options.text = options.text || function ( option ) {
 		return option[ this.settings.labelField ];
 	};
 
-	this.onClick = ( function (e) {
-		var original = self.onClick,
+	this.onClick = ( function ( e ) {
+		var original     = self.onClick,
 			maxItemIsOne = self.settings.maxItems === 1,
-			activeClass = maxItemIsOne ? 'item active' : 'input active';
+			activeClass  = maxItemIsOne ? 'item active' : 'input active';
 
-		return function (e) {
+		return function ( e ) {
 			var index, option, key;
 
 			if ( e.target.className.indexOf( activeClass ) ) {
 				index = this.caretPos - 1;
 				if ( index >= 0 && index < this.items.length ) {
-					key = maxItemIsOne ? $( e.target ).children().first().data( 'value' ) : $( e.target ).data( 'value' );
+					key    = maxItemIsOne ? $( e.target ).children().first().data( 'value' ) : $( e.target )
+						.data( 'value' );
 					option = this.options[ key ];
 
 					if ( this.deleteSelection( e ) ) {
