@@ -79,6 +79,8 @@
    * Below Are related To Fields.
    ############################################*/
 
+  @import "./fields/clone_field";
+
   /*User Usable Fields*/
   @import "./fields/textarea";
   @import "./fields/check_radio";
@@ -87,7 +89,6 @@
   @import "./fields/heading_subheading_notice";
   @import "./fields/bootstrap-fields";
 }
-
 
 /** Icon Picker Style */
 @import "./fields/icon_picker";

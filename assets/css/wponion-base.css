@@ -10778,6 +10778,42 @@ a > .wponion-framework-bootstrap code {
   border-top: 1px solid #dadada;
 }
 
+.wponion-element.wponion-element-clone .wponion-clone-wrap {
+  padding: 10px;
+  border: 1px solid #dadada;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-element {
+  padding: 10px 5px !important;
+  display: inline-block;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-clone-action {
+  display: none;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:hover .wponion-clone-action {
+  display: inline-block;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:first-child .wponion-element {
+  padding-top: 5px !important;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:last-child .wponion-element {
+  padding-bottom: 5px !important;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone + .wponion-field-clone {
+  border-top: 1px solid #dadada;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-clone-actions {
+  padding-top: 10px;
+}
+
 .wponion-element.wponion-element-textarea textarea {
   min-width: 500px;
   resize: both;

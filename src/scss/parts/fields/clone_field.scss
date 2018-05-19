@@ -1,0 +1,42 @@
+&.wponion-element-clone {
+  .wponion-clone-wrap {
+	.wponion-field-clone {
+	  .wponion-element {
+		padding: 10px 5px !important;
+		display: inline-block;
+	  }
+
+	  .wponion-clone-action {
+		display:        none;
+		vertical-align: middle;
+		margin-left:    10px;
+	  }
+	  &:hover {
+		.wponion-clone-action {
+		  display: inline-block;
+		}
+	  }
+
+	  &:first-child {
+		.wponion-element {
+		  padding-top: 5px !important;
+		}
+	  }
+
+	  &:last-child {
+		.wponion-element {
+		  padding-bottom: 5px !important;
+		}
+	  }
+	}
+	.wponion-field-clone + .wponion-field-clone {
+	  border-top: 1px solid #dadada;
+	}
+	.wponion-clone-actions {
+	  padding-top: 10px;
+	}
+
+	padding: 10px;
+	border:  1px solid #dadada;
+  }
+}
