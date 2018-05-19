@@ -167,7 +167,7 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 			) );
 
 			if ( null === $data['clone']['error_msg'] ) {
-				$data['clone']['error_msg'] = sprintf( __( 'You Cann\'t Add More Than %s' ), $data['clone']['limit'] );
+				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s' ), $data['clone']['limit'] );
 			}
 
 			return $data;
