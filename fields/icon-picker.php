@@ -34,13 +34,14 @@ if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
 				'type'  => ( $this->has( 'show_input' ) ) ? 'text' : 'hidden',
 				'value' => $this->value(),
 				'class' => ( $this->has( 'show_input' ) ) ? 'wponion-icon-picker-input' : 'hidden',
+				'name'  => $this->name(),
 			);
 
 			return '<input ' . $this->attributes( $attr ) . '/>';
 		}
 
 		protected function render_value() {
-			return '<span class="wponion-icon-preview">' . wponion_icon( 'fab fa-facebook' ) . '</span>';
+			return '<span class="wponion-icon-preview">' . wponion_icon( $this->value() ) . '</span>';
 		}
 
 
