@@ -24,17 +24,27 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	 * @return bool|string
 	 */
 	function wponion_get_field_class( $field = '' ) {
+		$field_type = null;
 		if ( is_array( $field ) ) {
-			$field = isset( $field['type'] ) ? $field['type'] : false;
+			$field_type = isset( $field['type'] ) ? $field['type'] : false;
 		}
 
-		if ( ! empty( $field ) ) {
-			$class = 'WPOnion_Field_' . $field;
-			if ( class_exists( $class ) ) {
-				return $class;
+		if ( ! empty( $field_type ) || ! empty( $field ) ) {
+			$is_in_clone = ( isset( $field['in_clone'] ) && true === $field['in_clone'] ) ? true : false;
+
+			if ( false === $is_in_clone && isset( $field['clone'] ) && ( true === $field['clone'] || true === is_array( $field['clone'] ) ) ) {
+				if ( ! class_exists( 'WPOnion_Field_Cloner', false ) ) {
+					require_once WPONION_PATH . 'core/class-field-cloner.php';
+				}
+
+				return 'WPOnion_Field_Cloner';
+			} else {
+				$class = 'WPOnion_Field_' . $field_type;
+				if ( class_exists( $class ) ) {
+					return $class;
+				}
 			}
 		}
-
 		return false;
 	}
 }
@@ -50,7 +60,8 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	 * @return bool
 	 */
 	function wponion_field( $field = array(), $value = '', $unique = array() ) {
-		$class       = wponion_get_field_class( $field );
+		$class = wponion_get_field_class( $field );
+
 		$base_unique = $unique;
 		if ( false !== $class ) {
 			$plugin_id = '';
@@ -64,12 +75,12 @@ if ( ! function_exists( 'wponion_field' ) ) {
 				$unique    = isset( $unique['unique'] ) ? $unique['unique'] : '';
 			}
 
-			if ( ! isset( $field['id'] ) ) {
+			if ( is_string( $base_unique ) || ! isset( $field['id'] ) ) {
 				$uid = wponion_hash_array( $field );
-				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $uid . '_' . $unique . '_' . $hash );
 			} else {
 				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $field['id'] . '_' . $unique . '_' . $hash );
 			}
+
 
 			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, 'WPOnion_Field_Registry' );
 
