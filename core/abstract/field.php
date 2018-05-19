@@ -89,9 +89,9 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		/**
 		 * WPOnion_Field constructor.
 		 *
-		 * @param array  $field
-		 * @param array  $value
-		 * @param string $unique
+		 * @param array        $field
+		 * @param array        $value
+		 * @param string|array $unique
 		 */
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			$this->orginal_field = $field;
@@ -157,7 +157,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				'wrap_attributes' => array(),
 				'placeholder'     => false,
 				'default'         => null, # Stores Default Value,
-				'dependency'      => null, # dependency for showing and hiding fields
+				'dependency'      => array(), # dependency for showing and hiding fields
 				'attributes'      => array(), # attributes of field. supporting only html standard attributes
 				'sanitize'        => null,    #sanitize of field. can be enabled or disabled
 				'validate'        => null,    #validate of field. can be enabled or disabled
@@ -166,9 +166,10 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				'before_title'    => null,
 				'after_title'     => null,
 				'debug'           => false,
-				'debug_light'     => false,
 				'only_field'      => false,
 				'name'            => false,
+				'clone'           => false,
+				'clone_settings'  => array(),
 				'debug'           => wponion_field_debug(),
 			);
 			return $this->parse_args( $this->field_default(), $defaults );
@@ -207,11 +208,10 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
-			if ( $this->data( 'only_field', true ) ) {
-
+			if ( $this->has( 'only_field' ) ) {
+				$this->output();
 			} else {
 				$this->wrapper();
-				$this->wrapper( false );
 			}
 		}
 
@@ -249,60 +249,56 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 
 		/**
 		 * Generates Elements Wrapper.
-		 *
-		 * @param bool $is_start
 		 */
-		protected function wrapper( $is_start = true ) {
-			if ( true === $is_start ) {
-				$is_pseudo                       = $this->data( 'pseudo' );
-				$_wrap_attr                      = $this->data( 'wrap_attributes' );
-				$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
-				$is_pseudo                       = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
-				$col_class                       = false;
-				$has_dep                         = false;
-				$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
-				$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
+		protected function wrapper() {
 
-				if ( $this->has( 'dependency' ) ) {
-					//$is_sub     = ( $this->has( 'sub' ) && true === $this->data( 'sub' ) ) ? 'sub-' : '';
-					$has_dep    = 'wponion-has-dependency';
-					$dependency = $this->data( 'dependency' );
-					wponion_localize()->add( $this->js_field_id(), array(
-						'dependency' => array(
-							'controller' => explode( '|', $dependency[0] ),
-							'condition'  => explode( '|', $dependency[1] ),
-							'value'      => explode( '|', $dependency[2] ),
-						),
-					) );
-				}
+			$is_pseudo                       = $this->data( 'pseudo' );
+			$_wrap_attr                      = $this->data( 'wrap_attributes' );
+			$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
+			$is_pseudo                       = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
+			$col_class                       = false;
+			$has_dep                         = false;
+			$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
+			$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
 
-				if ( false !== $this->data( 'columns' ) ) {
-					echo ( 0 === self::$columns ) ? '<div class="row wponion-row">' : '';
-					$col_class     = 'col';
-					self::$columns += $this->data( 'columns' );
-				}
+			if ( $this->has( 'dependency' ) ) {
+				//$is_sub     = ( $this->has( 'sub' ) && true === $this->data( 'sub' ) ) ? 'sub-' : '';
+				$has_dep    = 'wponion-has-dependency';
+				$dependency = $this->data( 'dependency' );
+				wponion_localize()->add( $this->js_field_id(), array(
+					'dependency' => array(
+						'controller' => explode( '|', $dependency[0] ),
+						'condition'  => explode( '|', $dependency[1] ),
+						'value'      => explode( '|', $dependency[2] ),
+					),
+				) );
+			}
 
-				$_wrap_attr['class'] = wponion_html_class( $this->data( 'wrap_class' ), $this->default_wrap_class( array(
-					$is_pseudo,
-					$has_title,
-					$has_dep,
-					$col_class,
-					$is_debug,
-				) ) );
+			if ( false !== $this->data( 'columns' ) ) {
+				echo ( 0 === self::$columns ) ? '<div class="row wponion-row">' : '';
+				$col_class     = 'col';
+				self::$columns += $this->data( 'columns' );
+			}
 
-				$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
+			$_wrap_attr['class'] = wponion_html_class( $this->data( 'wrap_class' ), $this->default_wrap_class( array(
+				$is_pseudo,
+				$has_title,
+				$has_dep,
+				$col_class,
+				$is_debug,
+			) ) );
 
-				echo '<div ' . $_wrap_attr . '>';
-				echo $this->title();
-				echo $this->field_wrapper( true );
-				echo $this->output();
-			} else {
-				echo $this->field_wrapper( false ) . '<div class="clear"></div>';
+			$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
+
+			echo '<div ' . $_wrap_attr . '>';
+			echo $this->title();
+			echo $this->field_wrapper( true );
+			echo $this->output();
+			echo $this->field_wrapper( false ) . '<div class="clear"></div>';
+			echo '</div>';
+			if ( 12 === self::$columns ) {
 				echo '</div>';
-				if ( 12 === self::$columns ) {
-					echo '</div>';
-					self::$columns = 0;
-				}
+				self::$columns = 0;
 			}
 		}
 
@@ -673,23 +669,26 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		/**
 		 * Handles JS Values For A Element.
 		 *
-		 * @todo check for script is done. if its then add inline to the fileds html.
-		 * var_dump( wp_script_is( 'wponion-fields', 'done' ) );
+		 * @param null $data
 		 */
-		public function localize_field() {
-			$data = $this->js_field_args();
-			if ( ! empty( $data ) ) {
+		public function localize_field( $data = null ) {
+			if ( null === $data ) {
+				$data = $this->js_field_args();
+				if ( ! empty( $data ) ) {
+					wponion_localize()->add( $this->js_field_id(), $data );
+
+				}
+				if ( $this->has( 'debug' ) ) {
+					wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ) );
+				}
+
+				wponion_localize()->add( $this->js_field_id(), array(
+					'module'    => $this->module(),
+					'plugin_id' => $this->plugin_id(),
+				) );
+			} else {
 				wponion_localize()->add( $this->js_field_id(), $data );
-
 			}
-			if ( $this->has( 'debug' ) ) {
-				wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ) );
-			}
-
-			wponion_localize()->add( $this->js_field_id(), array(
-				'module'    => $this->module(),
-				'plugin_id' => $this->plugin_id(),
-			) );
 		}
 
 		/**
