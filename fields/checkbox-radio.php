@@ -92,7 +92,7 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 				$dep_id       = $options['key'];
 			}
 
-			$elem_id    = sanitize_title( $attr['name'] );
+			$elem_id    = sanitize_title( $attr['name'].'_'.$options['key'] );
 			$attr['id'] = $elem_id;
 
 			if ( isset( $options['tooltip'] ) && is_array( $options['tooltip'] ) ) {
@@ -106,6 +106,10 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 			$wrap_attr['class'] = wponion_html_class( array( 'form-group', 'form-check' ) );
 			$field_attr         = $this->attributes( $attr, $dep_id );
 
+			return $this->_element_html( $label_attr, $field_attr, $value, $attr, $options );
+		}
+
+		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
 			return '<div class=" form-group form-check ">
 				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
 					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />' . $options['label'] . '
