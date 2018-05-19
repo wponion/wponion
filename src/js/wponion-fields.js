@@ -9,7 +9,6 @@
 ( ( window, document, $, wpo, $wpf, wp ) => {
 	let wphooks = wp.hooks;
 
-
 	/**
 	 * Input Mask JS Handler.
 	 */
@@ -279,10 +278,33 @@
 		} );
 	};
 
+	/**
+	 * Select2 Field Handler.
+	 */
 	$wpf.fn.select2 = function () {
-		this.elem.select2();
+		let $arg = this.arg( 'select2', {} );
+		this.elem.select2( $arg );
 	};
 
+	/**
+	 * Chosen Field Handler
+	 */
+	$wpf.fn.chosen = function () {
+		let $arg = this.arg( 'chosen' );
+		this.elem.chosen( $arg );
+	};
+
+	/**
+	 * Selectize Field Handler.
+	 */
+	$wpf.fn.selectize = function () {
+		let $arg = this.arg( 'selectize' );
+		if ( $arg[ 'theme' ] !== undefined ) {
+			this.elem.parent().addClass( $arg[ 'theme' ] );
+		}
+
+		this.elem.selectize( $arg );
+	};
 
 	/**
 	 * Reloads All Fields Instance. For the given key.
@@ -293,6 +315,8 @@
 		this.init_field( '[data-wponion-maxlength]', 'maxlength' );
 		this.init_field( '.wponion-element-icon_picker', 'icon_picker' );
 		this.init_field( '.select2', 'select2' );
+		this.init_field( '.chosen', 'chosen' );
+		this.init_field( '.selectize', 'selectize' );
 		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};

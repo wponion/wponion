@@ -276,8 +276,32 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		});
 	};
 
+	/**
+  * Select2 Field Handler.
+  */
 	$wpf.fn.select2 = function () {
-		this.elem.select2();
+		var $arg = this.arg('select2', {});
+		this.elem.select2($arg);
+	};
+
+	/**
+  * Chosen Field Handler
+  */
+	$wpf.fn.chosen = function () {
+		var $arg = this.arg('chosen');
+		this.elem.chosen($arg);
+	};
+
+	/**
+  * Selectize Field Handler.
+  */
+	$wpf.fn.selectize = function () {
+		var $arg = this.arg('selectize');
+		if ($arg['theme'] !== undefined) {
+			this.elem.parent().addClass($arg['theme']);
+		}
+
+		this.elem.selectize($arg);
 	};
 
 	/**
@@ -289,6 +313,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		this.init_field('[data-wponion-maxlength]', 'maxlength');
 		this.init_field('.wponion-element-icon_picker', 'icon_picker');
 		this.init_field('.select2', 'select2');
+		this.init_field('.chosen', 'chosen');
+		this.init_field('.selectize', 'selectize');
 		this.field_debug();
 		wphooks.addAction('wponion_after_fields_reload');
 	};
