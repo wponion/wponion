@@ -97,7 +97,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			$this->orginal_field = $field;
 			$this->orginal_value = $value;
 
-			$this->field = $this->handle_field_args( $this->set_args( $field ) );
+			$this->field = $this->_handle_field_args( $this->set_args( $field ) );
 			$this->value = $value;
 
 			if ( is_string( $unique ) ) {
@@ -119,12 +119,23 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 					$this->add_action( 'wp_enqueue_scripts', 'field_assets', 1 );
 				}
 			}
-			$this->debug( __( 'Field Args' ), $this->field );
-			$this->debug( __( 'Field Value' ), $this->value );
-			$this->debug( __( 'Unique' ), $this->unique );
-			$this->debug( __( 'Plugin ID' ), $this->plugin_id() );
-			$this->debug( __( 'Module' ), $this->module() );
-			$this->localize_field();
+		}
+
+		/**
+		 * Handles Defaults Field Args.
+		 *
+		 * @param $data
+		 *
+		 * @return array
+		 */
+		public function _handle_field_args( $data ) {
+			if ( isset( $data['class'] ) ) {
+				$data['attributes']          = ( isset( $data['attributes'] ) ) ? $data['attributes'] : array();
+				$data['attributes']['class'] = isset( $data['attributes']['class'] ) ? $data['attributes']['class'] : array();
+				$data['attributes']['class'] = wponion_html_class( $data['attributes']['class'], $data['class'], false );
+
+			}
+			return $this->handle_field_args( $data );
 		}
 
 		/**
@@ -213,6 +224,13 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			} else {
 				$this->wrapper();
 			}
+
+			$this->debug( __( 'Field Args' ), $this->field );
+			$this->debug( __( 'Field Value' ), $this->value );
+			$this->debug( __( 'Unique' ), $this->unique );
+			$this->debug( __( 'Plugin ID' ), $this->plugin_id() );
+			$this->debug( __( 'Module' ), $this->module() );
+			$this->localize_field();
 		}
 
 		/**
@@ -251,7 +269,6 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * Generates Elements Wrapper.
 		 */
 		protected function wrapper() {
-
 			$is_pseudo                       = $this->data( 'pseudo' );
 			$_wrap_attr                      = $this->data( 'wrap_attributes' );
 			$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
@@ -463,7 +480,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * @return bool|mixed|string
 		 */
 		protected function before() {
-			if ( false !== $this->has( 'before' ) ) {
+			if ( false !== $this->has( 'before' ) && false === $this->has( 'only_field' ) ) {
 				return $this->data( 'before' );
 			}
 			return '';
@@ -475,10 +492,13 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * @return string
 		 */
 		protected function after() {
-			$data = ( false !== $this->has( 'after' ) ) ? $this->data( 'after' ) : '';
-			$data .= $this->field_desc();
-			$data .= $this->field_error();
-			return $data;
+			if ( false === $this->has( 'only_field' ) ) {
+				$data = ( false !== $this->has( 'after' ) ) ? $this->data( 'after' ) : '';
+				$data .= $this->field_desc();
+				$data .= $this->field_error();
+				return $data;
+			}
+			return '';
 		}
 
 		/**
