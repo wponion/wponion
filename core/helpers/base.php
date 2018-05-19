@@ -366,6 +366,22 @@ if ( ! function_exists( 'wponion_field_debug' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_read_json_files' ) ) {
+	/**
+	 * Reads Given File Path.
+	 *
+	 * @param $file_path
+	 *
+	 * @return array|mixed|object
+	 */
+	function wponion_read_json_files( $file_path ) {
+		if ( file_exists( $file_path ) ) {
+			return json_decode( file_get_contents( $file_path ), true );
+		}
+		return array();
+	}
+}
+
 /**
  * WPOnion Assets Related Functions.
  */
