@@ -18,29 +18,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $wponion_js, $wponion_css;
 
 $wponion_js = array(
-	'wponion-plugins'   => array(
+	'wponion-plugins'           => array(
 		wponion_debug_assets( 'assets/js/wponion-plugins', 'js' ),
 		array( 'jquery' ),
 	),
-	'wponion-fields'    => array(
+	'wponion-fields'            => array(
 		wponion_debug_assets( 'assets/js/wponion-fields', 'js' ),
 		array( 'wponion-plugins' ),
 	),
-	'wponion-core'      => array(
+	'wponion-core'              => array(
 		wponion_debug_assets( 'assets/js/wponion-core', 'js' ),
 		array( 'wponion-fields' ),
 	),
+	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
 	// WPOnion Related Plugins.
-	'wponion-inputmask' => array(
+	'wponion-inputmask'         => array(
 		'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
 		array( 'jquery' ),
 	),
-	'select2'           => array(
+	'select2'                   => array(
 		'assets/plugins/select2/select2.full.min.js',
 		array( 'jquery' ),
 	),
-	'selectize'         => array( 'assets/plugins/selectize/selectize.min.js', array( 'jquery' ) ),
-	'chosen'            => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
+	'selectize'                 => array(
+		'assets/plugins/selectize/selectize.min.js',
+		array( 'jquery' ),
+	),
+	'chosen'                    => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
 );
 
 $wponion_css = array(
