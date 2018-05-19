@@ -41,15 +41,15 @@
  * @author Ran Tavory <rantav@gmail.com>
  */
 
-Selectize.define( 'condensed_dropdown', function (options) {
-	var self = this;
+Selectize.define( 'condensed_dropdown', function ( options ) {
+	var self       = this;
 	this.onKeyDown = ( function () {
 		var original = self.onKeyDown;
-		return function (e) {
+		return function ( e ) {
 			if ( ( e.keyCode === KEY_LEFT || e.keyCode === KEY_RIGHT ) &&
 				self.$activeOption ) {
 				self.ignoreHover = true;
-				var direction = 0;
+				var direction    = 0;
 				if ( e.keyCode === KEY_LEFT ) {
 					direction = -1;
 				}
