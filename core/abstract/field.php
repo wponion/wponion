@@ -388,6 +388,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		protected function tooltip_data( $main_data = array(), $extra_args = array(), $localize = true ) {
 			$data = $this->handle_data( $main_data, $this->parse_args( $extra_args, array(
 				'content'   => false,
+				'image'     => false,
 				'arrow'     => true,
 				'arrowType' => 'round',
 			) ), 'content' );
