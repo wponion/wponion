@@ -10821,35 +10821,70 @@ a > .wponion-framework-bootstrap code {
   min-height: 125px;
 }
 
-.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group {
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group, .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group {
   display: inline-block;
   min-width: 200px;
   margin-right: 25px;
   border: 1px solid #dadada;
 }
 
-.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group .wponion-group-header, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group .wponion-group-header {
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group .wponion-group-header, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group .wponion-group-header, .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group .wponion-group-header {
   padding: 10px 15px;
   margin-bottom: 15px;
   background: #f8f8f8;
   border-bottom: 1px solid #dadada;
 }
 
-.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group .wponion-group-header h4, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group .wponion-group-header h4 {
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group .wponion-group-header h4, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group .wponion-group-header h4, .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group .wponion-group-header h4 {
   margin-bottom: 0;
   font-size: 1.0rem;
 }
 
-.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists {
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists, .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists {
   padding: 0 15px;
 }
 
-.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li div, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li div {
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li div, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li div, .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li div {
   margin-bottom: 0;
 }
 
-.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group:last-child, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group:last-child {
+.wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group:last-child, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group:last-child, .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group:last-child {
   margin-right: 0;
+}
+
+.wponion-element.wponion-element-image_select .form-group {
+  padding: 0;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.wponion-element.wponion-element-image_select .form-group label {
+  margin-bottom: 0;
+}
+
+.wponion-element.wponion-element-image_select .form-group label input {
+  visibility: hidden;
+}
+
+.wponion-element.wponion-element-image_select .form-group label input:checked + img {
+  border-color: #444;
+}
+
+.wponion-element.wponion-element-image_select .form-group label img {
+  border: 2px solid #fff;
+}
+
+.wponion-element.wponion-element-image_select .form-group label img:hover {
+  border-color: #444;
+}
+
+.wponion-element.wponion-element-image_select .wponion-checkbox-radio-group {
+  display: block;
+  margin-bottom: 25px;
+}
+
+.wponion-element.wponion-element-image_select .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li {
+  display: inline-block;
 }
 
 .wponion-element.wponion-element-heading {

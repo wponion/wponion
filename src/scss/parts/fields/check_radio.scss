@@ -1,7 +1,7 @@
 /**
    * Checkbox & Radio Box Styles.
    */
-&.wponion-element-checkbox, &.wponion-element-radio {
+&.wponion-element-checkbox, &.wponion-element-radio, &.wponion-element-image_select {
   .wponion-checkbox-radio-group {
 	display:      inline-block;
 	min-width:    200px;
@@ -29,6 +29,42 @@
 
 	&:last-child {
 	  margin-right: 0;
+	}
+  }
+}
+
+&.wponion-element-image_select {
+  .form-group {
+	padding:      0;
+	display:      inline-block;
+	label {
+	  margin-bottom: 0;
+	  input {
+		visibility: hidden;
+
+		&:checked + img {
+		  border-color: #444;
+		}
+	  }
+
+	  img {
+		border: 2px solid #fff;
+		&:hover {
+		  border-color: #444;
+		}
+	  }
+	}
+	margin-right: 10px;
+  }
+
+  .wponion-checkbox-radio-group {
+	display:       block;
+	margin-bottom: 25px;
+	ul.wponion-checkbox-group-lists {
+
+	  li {
+		display: inline-block;
+	  }
 	}
   }
 }
