@@ -383,6 +383,18 @@ $wponion.ajax = function ( $action, $data, $onSuccess, $onError, $onAlways ) {
 	return $ajax;
 };
 
+$wponion.trigger_update_select = function ( $elem ) {
+	if ( $elem.hasClass( 'chosen' ) ) {
+		$elem.trigger( 'chosen:updated' );
+	} else if ( $elem.hasClass( 'select2' ) ) {
+		$elem.trigger( 'change' );
+	} else if ( $elem.hasClass( 'selectize' ) ) {
+		$elem.trigger( 'selectize_updated' );
+
+	}
+
+};
+
 /**
  * @param window = Window Object
  * @param document = Document Object
