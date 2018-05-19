@@ -304,6 +304,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		this.elem.selectize($arg);
 	};
 
+	/**
+  * Handles Clone Element Functions.
+  */
 	$wpf.fn.clone_element = function () {
 		var $this = this,
 		    $elem = $this.elem,
@@ -367,6 +370,58 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	};
 
 	/**
+  * Handles Fields ToolTip Along With A Image Option.
+  */
+	$wpf.fn.field_tooltip = function () {
+		var $fid = this.elem.attr('data-field-jsid');
+		var $tip = {};
+		console.log(this.args());
+		if (this.arg($fid)) {
+			var $arg = this.arg($fid + 'tooltip');
+			if ($arg['image'] !== false) {
+				if ($('#wponiontooltipimagetippy').length === 0) {
+					$('body').append($('<div id="wponiontooltipimagetippy" style="display: none;">Loading.</div>'));
+				}
+
+				$arg.html = '#wponiontooltipimagetippy';
+				$arg.onShow = function () {
+					var content = this.querySelector('.tippy-content');
+					if ($tip.loading) return;
+
+					$tip.loading = true;
+
+					fetch($arg['image']).then(function (resp) {
+						return resp.blob();
+					}).then(function (blob) {
+						var url = URL.createObjectURL(blob);
+						content.innerHTML = '<img width="200" height="200" src="' + url + '">';
+						$tip.loading = false;
+					}).catch(function (e) {
+						content.innerHTML = 'Loading failed';
+						$tip.loading = false;
+					});
+				};
+				$arg.onHidden = function () {
+					var content = this.querySelector(".tippy-content");
+					content.innerHTML = '';
+				};
+				$arg.popperOptions = {
+					modifiers: {
+						preventOverflow: {
+							enabled: false
+						},
+						hide: {
+							enabled: false
+						}
+					}
+				};
+			}
+
+			$tip = tippy(this.elem[0], $arg);
+		}
+	};
+
+	/**
   * Reloads All Fields Instance. For the given key.
   */
 	$wpf.fn.reload = function () {
@@ -378,6 +433,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		this.init_field('.chosen', 'chosen');
 		this.init_field('.selectize', 'selectize');
 		this.init_field('.wponion-element-clone', 'clone_element');
+		this.init_field('.wponion-field-tooltip', 'field_tooltip');
 		this.field_debug();
 		wphooks.addAction('wponion_after_fields_reload');
 	};
