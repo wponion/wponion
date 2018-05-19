@@ -427,6 +427,35 @@
 		}
 	};
 
+	$wpf.fn.font_selector = function () {
+		let $this        = this,
+			$elem        = this.elem,
+			$font_select = $elem.find( 'select.wponion-font-selector' ),
+			$variant     = $elem.find( 'select.wponion-variant-selector' ),
+			$websafe     = wpo.js_args( 'wponion_websafe_fonts' ),
+			$gfonts      = wpo.js_args( 'wponion_gfonts' );
+
+		let $build_options = function ( data ) {
+			let $return = '';
+			for ( let $_d in data ) {
+				$return += `<option value="${$_d}">${data[ $_d ]}</option>`;
+			}
+			return $return;
+		};
+
+		$font_select.on( 'change', function () {
+			let $val  = $( this ).val();
+			let $html = null;
+			if ( $websafe[ 'fonts' ][ $val ] !== undefined ) {
+				$html = $build_options( $websafe[ 'variants' ] );
+			} else if ( $gfonts[ $val ] !== undefined ) {
+				$html = $build_options( $gfonts[ $val ] );
+			}
+			$variant.html( $html );
+			wpo.trigger_update_select( $variant );
+		} )
+	};
+
 	/**
 	 * Reloads All Fields Instance. For the given key.
 	 */
@@ -440,6 +469,7 @@
 		this.init_field( '.selectize', 'selectize' );
 		this.init_field( '.wponion-element-clone', 'clone_element' );
 		this.init_field( '.wponion-field-tooltip', 'field_tooltip' );
+		this.init_field( '.wponion-element-font', 'font_selector' );
 		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
