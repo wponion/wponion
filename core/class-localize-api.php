@@ -113,6 +113,11 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 		 * Renders JS Args.
 		 */
 		public function render_js_args() {
+			if ( defined( 'WPONION_ADD_FONT_DATA' ) && true === WPONION_ADD_FONT_DATA ) {
+				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts() );
+				$this->add( 'wponion_gfonts', wponion_google_fonts_data() );
+			}
+
 			if ( wponion_is_debug() ) {
 				$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
 			}
