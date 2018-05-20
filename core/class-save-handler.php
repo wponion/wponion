@@ -236,13 +236,11 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		 */
 		protected function db_options( $field = '', $value_arr = false, $default = false ) {
 			$value_arr = ( false === $value_arr ) ? $this->db_values : $value_arr;
-			$field     = ( is_array( $field ) && isset( $field['id'] ) ) ? $field['id'] : $field;
-			if ( ! $field ) {
-				return false;
-			}
 
-			if ( isset( $value_arr[ $field ] ) ) {
-				return $value_arr[ $field ];
+			$_value = _wponion_get_field_value( $field, $value_arr );
+
+			if ( $_value ) {
+				return $_value;
 			}
 
 			return $default;
@@ -259,13 +257,11 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		 */
 		protected function user_options( $field = '', $value_arr = false, $default = false ) {
 			$value_arr = ( false === $value_arr ) ? $this->user_options : $value_arr;
-			$field     = ( is_array( $field ) && isset( $field['id'] ) ) ? $field['id'] : $field;
-			if ( ! $field ) {
-				return false;
-			}
 
-			if ( isset( $value_arr[ $field ] ) ) {
-				return $value_arr[ $field ];
+			$_value = _wponion_get_field_value( $field, $value_arr );
+
+			if ( $_value ) {
+				return $_value;
 			}
 
 			return $default;
@@ -284,7 +280,12 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 				return;
 			}
 
-			$this->return_values[ $field['id'] ] = $value;
+			if ( wponion_is_unarrayed( $field ) ) {
+				$this->return_values = array_merge( $this->return_values, $value );
+			} else {
+				$this->return_values[ $field['id'] ] = $value;
+			}
+
 			return true;
 		}
 
@@ -319,6 +320,32 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 
 				$field['error_id'] = sanitize_key( $this->unique . $field['id'] );
 				$this->save_value( $this->handle_field( $field, $this->user_options( $field ), $this->db_options( $field ) ), $field );
+				if ( isset( $field['fields'] ) ) {
+					$this->nested_field_loop( $field );
+				}
+			}
+		}
+
+		protected function nested_field_loop( $field ) {
+			$parent_field = $field;
+
+			if ( is_array( $field['fields'] ) ) {
+				foreach ( $field['fields'] as $_field ) {
+					if ( ! isset( $_field['id'] ) ) {
+						continue;
+					}
+
+					if ( wponion_is_unarrayed( $field ) ) {
+						$parent_field = $_field;
+					}
+
+					$_field['error_id'] = sanitize_key( $this->unique . $field['id'] . '' . $_field['id'] );
+					$this->save_value( $this->handle_field( $_field, $this->user_options( $parent_field ), $this->db_options( $parent_field ) ), $parent_field );
+
+					if ( isset( $_field['fields'] ) ) {
+						$this->nested_field_loop( $_field );
+					}
+				}
 			}
 		}
 
