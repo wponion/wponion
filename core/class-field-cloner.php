@@ -60,7 +60,11 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 		 * @param $extra_unique
 		 */
 		protected function clone_single_element( $value, $extra_unique ) {
+			$sort = $this->data( 'clone' );
 			echo '<div class="wponion-field-clone" data-wponion-jsid="' . $this->js_field_id() . '">';
+			if ( false !== $sort['sort'] ) {
+				echo '<div class="wponion-field-clone-sorter">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
+			}
 			$args          = $this->get_clone_attrs();
 			$args['name']  = $this->name( $extra_unique );
 			$args['value'] = $value;
@@ -145,6 +149,7 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 		 */
 		public function handle_field_args( $data = array() ) {
 			$defaults = array(
+				'sort'          => true,
 				'toast_error'   => false,
 				'error_msg'     => null,
 				'limit'         => null,
@@ -170,6 +175,11 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s' ), $data['clone']['limit'] );
 			}
 
+			if ( true === $data['clone']['sort'] ) {
+				$data['clone']['sort'] = 'dashicons dashicons-menu';
+			}
+
+
 			return $data;
 		}
 
@@ -179,7 +189,10 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			// TODO: Implement field_assets() method.
+			$sort = $this->data( 'clone' );
+			if ( false !== $sort['sort'] ) {
+				wp_enqueue_script( 'jquery-ui-sortable' );
+			}
 		}
 
 		/**
