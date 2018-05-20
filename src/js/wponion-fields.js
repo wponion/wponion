@@ -16,7 +16,7 @@
 		if ( this.elem.length > 0 ) {
 			let $settings = this.arg( 'inputmask' );
 			if ( $settings ) {
-				this.elem.inputmask( $settings );
+				this.save( this.elem.inputmask( $settings ) );
 				wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
 			}
 		}
@@ -44,7 +44,7 @@
 					$settings[ 'limitReachedClass' ] = 'badge badge-danger';
 				}
 
-				this.elem.maxlength( $settings );
+				this.save( this.elem.maxlength( $settings ) );
 				wpo.__plugin_debug_info( this.elem, 'max_length', $settings );
 			}
 		}
@@ -276,6 +276,7 @@
 			$preview.hide();
 			$remove_btn.hide();
 		} );
+		return this;
 	};
 
 	/**
@@ -283,7 +284,8 @@
 	 */
 	$wpf.fn.select2 = function () {
 		let $arg = this.arg( 'select2', {} );
-		this.elem.select2( $arg );
+		this.save( this.elem.select2( $arg ) );
+		return this;
 	};
 
 	/**
@@ -291,7 +293,9 @@
 	 */
 	$wpf.fn.chosen = function () {
 		let $arg = this.arg( 'chosen' );
-		this.elem.chosen( $arg );
+		this.save( this.elem.chosen( $arg ) );
+
+		return this;
 	};
 
 	/**
@@ -303,7 +307,8 @@
 			this.elem.parent().addClass( $arg[ 'theme' ] );
 		}
 
-		this.elem.selectize( $arg );
+		this.save( this.elem.selectize( $arg ) );
+		return this;
 	};
 
 	/**
@@ -369,7 +374,9 @@
 			}
 		} );
 
-		$remove_btn.on( 'click', $remove_func )
+		$remove_btn.on( 'click', $remove_func );
+
+		return this;
 	};
 
 	/**
@@ -378,7 +385,7 @@
 	$wpf.fn.field_tooltip = function () {
 		let $fid = this.elem.attr( 'data-field-jsid' );
 		let $tip = {};
-		console.log( this.args() );
+
 		if ( this.arg( $fid ) ) {
 			let $arg = this.arg( $fid + 'tooltip' );
 			if ( $arg[ 'image' ] !== false ) {
@@ -424,9 +431,15 @@
 
 
 			$tip = tippy( this.elem[ 0 ], $arg );
+			this.save( $tip );
 		}
+		return this;
 	};
 
+	/**
+	 * Handles Font Selector.
+	 * @returns {$wponion_field}
+	 */
 	$wpf.fn.font_selector = function () {
 		let $this        = this,
 			$elem        = this.elem,
@@ -434,6 +447,7 @@
 			$variant     = $elem.find( 'select.wponion-variant-selector' ),
 			$websafe     = wpo.js_args( 'wponion_websafe_fonts' ),
 			$gfonts      = wpo.js_args( 'wponion_gfonts' );
+
 
 		let $build_options = function ( data ) {
 			let $return = '';
@@ -453,7 +467,8 @@
 			}
 			$variant.html( $html );
 			wpo.trigger_update_select( $variant );
-		} )
+		} );
+		return this;
 	};
 
 	/**

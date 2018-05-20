@@ -20,7 +20,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		if (this.elem.length > 0) {
 			var $settings = this.arg('inputmask');
 			if ($settings) {
-				this.elem.inputmask($settings);
+				this.save(this.elem.inputmask($settings));
 				wpo.__plugin_debug_info(this.elem, 'inputmask', $settings);
 			}
 		}
@@ -48,7 +48,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					$settings['limitReachedClass'] = 'badge badge-danger';
 				}
 
-				this.elem.maxlength($settings);
+				this.save(this.elem.maxlength($settings));
 				wpo.__plugin_debug_info(this.elem, 'max_length', $settings);
 			}
 		}
@@ -274,6 +274,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			$preview.hide();
 			$remove_btn.hide();
 		});
+		return this;
 	};
 
 	/**
@@ -281,7 +282,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   */
 	$wpf.fn.select2 = function () {
 		var $arg = this.arg('select2', {});
-		this.elem.select2($arg);
+		this.save(this.elem.select2($arg));
+		return this;
 	};
 
 	/**
@@ -289,7 +291,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   */
 	$wpf.fn.chosen = function () {
 		var $arg = this.arg('chosen');
-		this.elem.chosen($arg);
+		this.save(this.elem.chosen($arg));
+
+		return this;
 	};
 
 	/**
@@ -301,7 +305,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			this.elem.parent().addClass($arg['theme']);
 		}
 
-		this.elem.selectize($arg);
+		this.save(this.elem.selectize($arg));
+		return this;
 	};
 
 	/**
@@ -367,6 +372,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		});
 
 		$remove_btn.on('click', $remove_func);
+
+		return this;
 	};
 
 	/**
@@ -375,7 +382,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	$wpf.fn.field_tooltip = function () {
 		var $fid = this.elem.attr('data-field-jsid');
 		var $tip = {};
-		console.log(this.args());
+
 		if (this.arg($fid)) {
 			var $arg = this.arg($fid + 'tooltip');
 			if ($arg['image'] !== false) {
@@ -418,9 +425,15 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			}
 
 			$tip = tippy(this.elem[0], $arg);
+			this.save($tip);
 		}
+		return this;
 	};
 
+	/**
+  * Handles Font Selector.
+  * @returns {$wponion_field}
+  */
 	$wpf.fn.font_selector = function () {
 		var $this = this,
 		    $elem = this.elem,
@@ -448,6 +461,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			$variant.html($html);
 			wpo.trigger_update_select($variant);
 		});
+		return this;
 	};
 
 	/**
