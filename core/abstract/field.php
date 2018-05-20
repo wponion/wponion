@@ -110,6 +110,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$this->module    = ( isset( $unique['module'] ) ) ? $unique['module'] : false;
 			}
 
+			$this->get_errors();
 			if ( defined( 'WPONION_FIELD_ASSETS' ) && true === WPONION_FIELD_ASSETS || ( did_action( 'admin_enqueue_scripts' ) || did_action( 'wp_enqueue_scripts' ) ) ) {
 				$this->field_assets();
 			} else {
@@ -623,9 +624,17 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		/**
 		 * Returns Current Elements Value.
 		 *
+		 * @param string $key
+		 *
 		 * @return array
 		 */
-		protected function value() {
+		protected function value( $key = '' ) {
+			if ( ! empty( $key ) ) {
+				if ( isset( $this->value[ $key ] ) ) {
+					return $this->value[ $key ];
+				}
+				return false;
+			}
 			return $this->value;
 		}
 
@@ -653,6 +662,8 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		protected function name( $extra_name = '' ) {
 			if ( false !== $this->has( 'name' ) ) {
 				return $this->data( 'name' ) . $extra_name;
+			} elseif ( false !== $this->has( 'un_array' ) && true === $this->data( 'un_array' ) ) {
+				return $this->unique() . $extra_name;
 			} else {
 				return $this->unique( $this->field_id() ) . $extra_name;
 			}
