@@ -10808,10 +10808,33 @@ a > .wponion-framework-bootstrap code {
 
 .wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone + .wponion-field-clone {
   border-top: 1px solid #dadada;
+  padding: 5px 0;
 }
 
 .wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-clone-actions {
   padding-top: 10px;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone-sorter {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 10px;
+  cursor: move;
+  margin-top: 5px;
+}
+
+.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap {
+  display: inline-block;
+  min-width: 50%;
+  border: 1px solid #dadada;
+}
+
+.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap .wponion-element .wponion-element-title {
+  width: 40%;
+}
+
+.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap .wponion-element .wponion-element-title + .wponion-fieldset {
+  margin-left: 40%;
 }
 
 .wponion-element.wponion-element-textarea textarea {
