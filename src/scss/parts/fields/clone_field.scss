@@ -31,12 +31,22 @@
 	}
 	.wponion-field-clone + .wponion-field-clone {
 	  border-top: 1px solid #dadada;
+	  padding:    5px 0;
 	}
 	.wponion-clone-actions {
 	  padding-top: 10px;
+	}
+
+	.wponion-field-clone-sorter {
+	  display:        inline-block;
+	  vertical-align: top;
+	  margin-right:   10px;
+	  cursor:         move;
+	  margin-top:     5px;
 	}
 
 	padding: 10px;
 	border:  1px solid #dadada;
   }
 }
+
