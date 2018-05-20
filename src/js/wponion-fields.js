@@ -376,6 +376,25 @@
 
 		$remove_btn.on( 'click', $remove_func );
 
+		$clone_wrap.sortable( {
+			items: '.wponion-field-clone',
+			cursor: 'move',
+			axis: 'y',
+			handle: '.wponion-field-clone-sorter',
+			scrollSensitivity: 40,
+			forcePlaceholderSize: true,
+			helper: 'clone',
+			opacity: 0.65,
+			placeholder: 'wponion-cloner-placeholder',
+			start: function ( event, ui ) {
+				ui.item.css( 'background-color', '#eeee' );
+			},
+			stop: function ( event, ui ) {
+				ui.item.removeAttr( 'style' );
+			}
+		} );
+
+
 		return this;
 	};
 
