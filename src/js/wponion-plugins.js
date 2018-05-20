@@ -133,6 +133,18 @@ $wponion_field.fn = $wponion_field.prototype = {
 	},
 
 	/**
+	 * Returns Field Type String.
+	 * @returns {$wponion_field.field}
+	 */
+	field: function () {
+		return this.field;
+	},
+
+	id: function () {
+		return $wponion.field_js_id( this.elem );
+	},
+
+	/**
 	 * Handles Ajax Requests.
 	 * @param $action
 	 * @param $data
@@ -151,6 +163,62 @@ $wponion_field.fn = $wponion_field.prototype = {
 		}, $data );
 		return $wponion.ajax( $data );
 	},
+
+	/**
+	 * Handles applyFilters & doAction.
+	 * @param $type
+	 * @param $data
+	 * @returns {*}
+	 * @private
+	 */
+	_action_filter: function ( $type, $data ) {
+		var $plugin_id  = this.plugin_id(),
+			$module     = this.module(),
+			$field_type = this.field();
+
+		if ( $plugin_id && $module && $field_type ) {
+			$data = wp.hooks[ $type ]( 'wponion_' + $plugin_id + '_' + $module + '_' + $field_type, $data, this );
+		}
+
+		if ( $plugin_id && $module ) {
+			$data = wp.hooks[ $type ]( 'wponion_' + $plugin_id + '_' + $module, $data, this );
+		}
+
+		if ( $plugin_id && $module ) {
+			$data = wp.hooks[ $type ]( 'wponion_' + $plugin_id, $data, this );
+		}
+
+		if ( $plugin_id && $module ) {
+			$data = wp.hooks[ $type ]( 'wponion_' + $field_type, $data, this );
+		}
+		return $data;
+	},
+
+	/**
+	 * Handles applyFilters
+	 * @param $data
+	 * @returns {*}
+	 */
+	filter: function ( $data ) {
+		return this._action_filter( 'applyFilters', $data );
+	},
+
+	/**
+	 * Handles doAction.
+	 * @param $data
+	 * @returns {*}
+	 */
+	action: function ( $data ) {
+		return this._action_filter( 'doAction', $data );
+	},
+
+	/**
+	 * Saves An Instance.
+	 * @param $instance
+	 */
+	save: function ( $instance ) {
+		return $wponion.save_instance( this.id(), $instance );
+	}
 };
 
 /**
