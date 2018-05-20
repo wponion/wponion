@@ -135,8 +135,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			) )
 				->run();
 
-			$this->options_cache['parent_id']    = $_POST['wponion-parent-id'];
-			$this->options_cache['section_id']   = $_POST['wponion-section-id'];
+			$this->options_cache['parent_id']    = isset( $_POST['wponion-parent-id'] ) ? $_POST['wponion-parent-id'] : null;
+			$this->options_cache['section_id']   = isset( $_POST['wponion-section-id'] ) ? $_POST['wponion-section-id'] : null;
 			$this->options_cache['field_errors'] = $instance->get_errors();
 			$this->set_cache( $this->options_cache );
 			return $instance->get_values();
@@ -183,8 +183,13 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 							}
 
 							if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
-								$this->db_values[ $field['id'] ] = $field['default'];
-								$default[ $field['id'] ]         = $field['default'];
+								$default[ $field['id'] ] = $field['default'];
+								if ( wponion_is_unarrayed( $field ) ) {
+									$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
+								} else {
+									$this->db_values[ $field['id'] ] = $field['default'];
+
+								}
 							}
 						}
 					} elseif ( isset( $options['sections'] ) ) {
@@ -196,8 +201,13 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 									}
 
 									if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
-										$this->db_values[ $field['id'] ] = $field['default'];
-										$default[ $field['id'] ]         = $field['default'];
+										$default[ $field['id'] ] = $field['default'];
+										if ( wponion_is_unarrayed( $field ) ) {
+											$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
+										} else {
+											$this->db_values[ $field['id'] ] = $field['default'];
+
+										}
 									}
 								}
 							}
@@ -205,6 +215,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 					}
 				}
 			}
+
 
 			if ( ! empty( $default ) ) {
 				update_option( $this->unique, $this->db_values );
@@ -248,10 +259,12 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
 					$this->options_cache = array();
 				} else {
-
 					if ( isset( $this->options_cache['field_errors'] ) ) {
 						$instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
 						$instance->set( $this->options_cache['field_errors'] );
+						if ( wponion_is_debug() ) {
+							wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'] );
+						}
 						unset( $this->options_cache['field_errors'] );
 						$this->set_cache( $this->options_cache );
 					}
@@ -860,20 +873,17 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		public function render_field( $field = array(), $parent_section = false, $section = false, $is_init_field = false ) {
 			$value = _wponion_get_field_value( $field, $this->get_db_values() );
 
+			$_unique = array(
+				'plugin_id' => $this->plugin_id(),
+				'module'    => $this->module(),
+				'unique'    => $this->unique,
+				'hash'      => sanitize_title( $parent_section . '-' . $section ),
+			);
+
 			if ( false === $is_init_field ) {
-				return wponion_add_element( $field, $value, array(
-					'plugin_id' => $this->plugin_id(),
-					'hash'      => sanitize_title( $parent_section . '-' . $section ),
-					'unique'    => $this->unique,
-					'module'    => 'setttings',
-				) );
+				return wponion_add_element( $field, $value, $_unique );
 			} else {
-				return wponion_field( $field, $value, array(
-					'plugin_id' => $this->plugin_id(),
-					'hash'      => sanitize_title( $parent_section . '-' . $section ),
-					'unique'    => $this->unique,
-					'module'    => 'setttings',
-				) );
+				return wponion_field( $field, $value, $_unique );
 			}
 		}
 
@@ -881,7 +891,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * Inits All Base Fields.
 		 */
 		public function init_fields() {
-			foreach ( $this->fields as $options ) {
+			$i = '__instance';
+			foreach ( $this->fields as $o => $options ) {
 				if ( false === $this->valid_option( $options ) ) {
 					continue;
 				}
@@ -891,7 +902,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				}
 
 				if ( isset( $options['sections'] ) ) {
-					foreach ( $options['sections'] as $section ) {
+					foreach ( $options['sections'] as $s => $section ) {
 						if ( false === $this->valid_option( $options, true ) ) {
 							continue;
 						}
@@ -900,13 +911,13 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 							continue;
 						}
 
-						foreach ( $section['fields'] as $field ) {
-							$this->render_field( $field, $options['name'], $section['name'], true );
+						foreach ( $section['fields'] as $f => $field ) {
+							$this->fields[ $o ]['sections'][ $s ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], $section['name'], true );
 						}
 					}
 				} elseif ( isset( $options['fields'] ) ) {
-					foreach ( $options['fields'] as $field ) {
-						$this->render_field( $field, $options['name'], false, true );
+					foreach ( $options['fields'] as $f => $field ) {
+						$this->fields[ $o ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], false, true );
 					}
 				}
 			}
