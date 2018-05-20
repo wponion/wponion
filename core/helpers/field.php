@@ -109,10 +109,14 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 	function wponion_add_element( $field = array(), $value = array(), $unique = '' ) {
 		$output = '';
 
-		$class = wponion_field( $field, $value, $unique );
+		if ( isset( $field['__instance'] ) ) {
+			$class = $field['__instance'];
+		} else {
+			$class = wponion_field( $field, $value, $unique );
 
-		if ( false === $class ) {
-			$class = wponion_get_field_class( $field );
+			if ( false === $class ) {
+				$class = wponion_get_field_class( $field );
+			}
 		}
 
 		if ( false !== $class ) {
@@ -128,6 +132,45 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 	}
 }
 
+if ( ! function_exists( '_wponion_valid_field' ) ) {
+	/**
+	 * Checks if field is db saveable.
+	 *
+	 * @param $field
+	 *
+	 * @return bool
+	 */
+	function _wponion_valid_field( $field ) {
+		return ( _wponion_field_id( $field ) ) ? true : false;
+	}
+}
+
+if ( ! function_exists( 'wponion_is_unarrayed' ) ) {
+	/**
+	 * Check if a field is unarrayed.
+	 *
+	 * @param $field
+	 *
+	 * @return bool
+	 */
+	function wponion_is_unarrayed( $field ) {
+		return ( isset( $field['un_array'] ) && true === $field['un_array'] ) ? true : false;
+	}
+}
+
+if ( ! function_exists( '_wponion_field_id' ) ) {
+	/**
+	 * Checks And Returns Field ID.
+	 *
+	 * @param $field
+	 *
+	 * @return bool
+	 */
+	function _wponion_field_id( $field ) {
+		return ( isset( $field['id'] ) ) ? $field['id'] : false;
+	}
+}
+
 if ( ! function_exists( '_wponion_get_field_value' ) ) {
 	/**
 	 * @param array $field
@@ -138,11 +181,21 @@ if ( ! function_exists( '_wponion_get_field_value' ) ) {
 	 * @return bool
 	 */
 	function _wponion_get_field_value( $field = array(), $value = array() ) {
-		if ( ! isset( $field['id'] ) ) {
+		if ( false === _wponion_valid_field( $field ) ) {
 			return false;
 		}
 
-		$field_id = $field['id'];
+		$field_id = _wponion_field_id( $field );
+
+		if ( wponion_is_unarrayed( $field ) && isset( $field['fields'] ) && is_array( $field['fields'] ) ) {
+			$return_values = array();
+			foreach ( $field['fields'] as $_field ) {
+				if ( false !== _wponion_valid_field( $_field ) ) {
+					$return_values[ _wponion_field_id( $_field ) ] = _wponion_get_field_value( $_field, $value );
+				}
+			}
+			return $return_values;
+		}
 		if ( isset( $value[ $field_id ] ) ) {
 			return $value[ $field_id ];
 		}
