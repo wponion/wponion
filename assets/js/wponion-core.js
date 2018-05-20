@@ -27,6 +27,13 @@ $wponion.settings_args = null;
 $wponion.text = null;
 
 /**
+ * Stores All Instance ina object.
+ * @type {{}}
+ * @private
+ */
+$wponion._instances = {};
+
+/**
  * Creates A Instance of Swal Tost.
  */
 $wponion.tost = swal.mixin({
@@ -385,14 +392,48 @@ $wponion.ajax = function ($action, $data, $onSuccess, $onError, $onAlways) {
 	return $ajax;
 };
 
+/**
+ * Triggers An Update.
+ * @param $elem
+ */
 $wponion.trigger_update_select = function ($elem) {
 	if ($elem.hasClass('chosen')) {
 		$elem.trigger('chosen:updated');
 	} else if ($elem.hasClass('select2')) {
 		$elem.trigger('change');
 	} else if ($elem.hasClass('selectize')) {
-		$elem.trigger('selectize_updated');
+		var $instance = $wponion.get($elem);
+		$instance = $instance[0].selectize;
+		//console.log( $instance );
+		console.log($instance.clearOptions());
+		console.log($instance.refreshOptions(true));
 	}
+};
+
+/**
+ * Saves A Instance to array.
+ * @param $field_id
+ * @param $instance
+ */
+$wponion.save_instance = function ($field_id, $instance) {
+	if ($wponion._instances[$field_id] === undefined) {
+		$wponion._instances[$field_id] = $instance;
+	}
+};
+
+/**
+ * Returns A Saved Instance.
+ * @param $elem
+ * @returns {*}
+ */
+$wponion.get = function ($elem) {
+	if (typeof $elem !== 'string') {
+		$elem = $wponion.field_js_id($elem);
+	}
+	if ($wponion._instances[$elem] !== undefined) {
+		return $wponion._instances[$elem];
+	}
+	return false;
 };
 
 /**
