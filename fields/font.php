@@ -98,7 +98,6 @@ if ( ! class_exists( 'WPOnion_Field_font' ) ) {
 		}
 
 		public function field_assets() {
-			// TODO: Implement field_assets() method.
 		}
 	}
 }
