@@ -88,12 +88,11 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 			}
 
 			$this->catch_output( 'start' );
-			echo $this->clone_single_element( null, '[{cloneid}]' );
+			echo $this->clone_single_element( null, '[{wponionCloneID}]' );
 			$data = $this->catch_output( 'stop' );
 			$this->localize_field( array( 'clone_template' => $data ) );
-
-			echo '<div class="wponion-clone-actions">' . $this->clone_btn() . '</div> ';
 			echo '</div>';
+			echo '<div class="wponion-clone-actions">' . $this->clone_btn() . '</div> ';
 		}
 
 		/**
@@ -190,6 +189,7 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 		 */
 		public function field_assets() {
 			$sort = $this->data( 'clone' );
+			wp_enqueue_script( 'wponion-cloner' );
 			if ( false !== $sort['sort'] ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
