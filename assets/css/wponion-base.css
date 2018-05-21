@@ -10811,15 +10811,16 @@ a > .wponion-framework-bootstrap code {
   padding: 5px 0;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-clone-actions {
-  padding-top: 10px;
-}
-
 .wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone-sorter {
   display: inline-block;
   vertical-align: top;
   margin-right: 10px;
   cursor: move;
+  margin-top: 5px;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-actions {
+  padding-top: 5px;
   margin-top: 5px;
 }
 
