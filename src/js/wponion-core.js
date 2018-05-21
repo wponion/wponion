@@ -431,6 +431,44 @@ $wponion.get = function ( $elem ) {
 };
 
 /**
+ * Converts Simple function string into JS functions.
+ * @param $string
+ * @returns {*}
+ */
+$wponion.validate_single_function = function ( $string ) {
+	var $fuc_regex = /function(.*){/,
+		$fuc_regex = $fuc_regex.exec( $string ),
+		$func      = $string;
+
+	if ( $fuc_regex[ 0 ] !== undefined ) {
+		$func = $func.replace( $fuc_regex[ 0 ], '' );
+		$func = $func.substring( 0, $func.length - 1 );
+	}
+
+	if ( $fuc_regex[ 1 ] !== undefined ) {
+		$fuc_regex[ 1 ] = $fuc_regex[ 1 ].split( '(' );
+		$fuc_regex[ 1 ] = $fuc_regex[ 1 ][ 1 ].split( ")" );
+		return new Function( $fuc_regex[ 1 ], $func );
+	}
+	return null;
+};
+
+/**
+ * Handles a array of data to check if there any function string that needs to be converted.
+ * @param $data
+ * @returns {*}
+ */
+$wponion.validate_js_function = function ( $data ) {
+	if ( typeof $data === 'object' || $data === 'array' ) {
+		for ( var $_d in $data ) {
+			$data[ $_d ] = $wponion.validate_single_function( $data[ $_d ] );
+		}
+	}
+	return $data;
+
+};
+
+/**
  * @param window = Window Object
  * @param document = Document Object
  * @param $ = jQuery Object
