@@ -8,7 +8,7 @@
 
 /*global console, window*/
 
-( function ($) {
+( function ( $ ) {
 
 	"use strict";
 
@@ -17,7 +17,7 @@
 	 *
 	 * @ignore
 	 */
-	function log(msg) {
+	function log ( msg ) {
 		if ( window.console && window.console.log ) {
 			console.log( msg );
 		}
@@ -39,7 +39,7 @@
 	 * @param  {String} selector selector as a string
 	 * @return {jQuery}          context.find() result
 	 */
-	function safeFind(context, selector) {
+	function safeFind ( context, selector ) {
 
 		if ( selector[ 0 ] == "#" ) {
 
@@ -113,7 +113,7 @@
 	 *
 	 *
 	 */
-	function Rule(controller, condition, value) {
+	function Rule ( controller, condition, value ) {
 		this.init( controller, condition, value );
 	}
 
@@ -129,7 +129,7 @@
 		 * @param value Matching value of **controller** when widgets become visible
 		 *
 		 */
-		init: function (controller, condition, value) {
+		init: function ( controller, condition, value ) {
 			this.controller = controller;
 
 			this.condition = condition;
@@ -151,7 +151,7 @@
 		 * @param  {Object} val2      Something we got out of input
 		 * @return {Boolean}          true or false
 		 */
-		evalCondition: function (context, control, condition, val1, val2) {
+		evalCondition: function ( context, control, condition, val1, val2 ) {
 
 			/**
 			 *
@@ -195,7 +195,7 @@
 		 * @version 1.0.0
 		 *
 		 */
-		checkBoolean: function (value) {
+		checkBoolean: function ( value ) {
 
 			switch ( value ) {
 
@@ -230,7 +230,7 @@
 		 * @param {jQuery} context The jQuery selection in which this rule is evaluated.
 		 *
 		 */
-		checkCondition: function (context, cfg) {
+		checkCondition: function ( context, cfg ) {
 
 			// We do not have condition set, we are always true
 			if ( !this.condition ) {
@@ -260,7 +260,7 @@
 		 * Make sure that what we read from input field is comparable against Javascript primitives
 		 *
 		 */
-		normalizeValue: function (control, baseValue, val) {
+		normalizeValue: function ( control, baseValue, val ) {
 
 			if ( typeof baseValue == "number" ) {
 				// Make sure we compare numbers against numbers
@@ -276,7 +276,7 @@
 		 * Handle, text, checkbox, radio, select.
 		 *
 		 */
-		getControlValue: function (context, control) {
+		getControlValue: function ( context, control ) {
 
 			/**
 			 *
@@ -310,7 +310,7 @@
 		 *
 		 * @return Rule instance
 		 */
-		createRule: function (controller, condition, value) {
+		createRule: function ( controller, condition, value ) {
 			var rule = new Rule( controller, condition, value );
 			this.rules.push( rule );
 			return rule;
@@ -321,7 +321,7 @@
 		 *
 		 * @param  {String} input     jQuery expression to match the input within ruleset context
 		 */
-		include: function (input) {
+		include: function ( input ) {
 
 			if ( !input ) {
 				throw new Error( "Must give an input selector" );
@@ -338,7 +338,7 @@
 		 * @param  {Object} enforced Recursive rule enforcer: undefined to evaluate condition, true show always, false hide always
 		 *
 		 */
-		applyRule: function (context, cfg, enforced) {
+		applyRule: function ( context, cfg, enforced ) {
 
 			var result;
 
@@ -358,18 +358,18 @@
 
 			// Get show/hide callback functions
 
-			var show = cfg.show || function (control) {
+			var show = cfg.show || function ( control ) {
 				control.show();
 			};
 
-			var hide = cfg.hide || function (control) {
+			var hide = cfg.hide || function ( control ) {
 				control.hide();
 			};
 
 
 			// Resolve controls from ids to jQuery selections
 			// we are controlling in this context
-			var controls = $.map( this.controls, function (elem, idx) {
+			var controls = $.map( this.controls, function ( elem, idx ) {
 				var control = context.find( elem );
 				if ( cfg.log && control.size() === 0 ) {
 					log( "Could not find element:" + elem );
@@ -426,7 +426,7 @@
 	/**
 	 * A class which manages interdependenice rules.
 	 */
-	function Ruleset() {
+	function Ruleset () {
 
 		// Hold a tree of rules
 		this.rules = [];
@@ -440,7 +440,7 @@
 		 * See  {@link Rule} about the contstruction parameters.
 		 * @return {Rule}
 		 */
-		createRule: function (controller, condition, value) {
+		createRule: function ( controller, condition, value ) {
 			var rule = new Rule( controller, condition, value );
 			this.rules.push( rule );
 			return rule;
@@ -453,7 +453,7 @@
 		 *
 		 * @param cfg {@link Configuration} object or undefined.
 		 */
-		applyRules: function (context, cfg) {
+		applyRules: function ( context, cfg ) {
 			var i;
 
 			cfg = cfg || {};
@@ -477,7 +477,7 @@
 
 			var rules = [];
 
-			function descent(rule) {
+			function descent ( rule ) {
 
 				rules.push( rule );
 
@@ -503,10 +503,10 @@
 		 *
 		 * @param  {Configuration} cfg
 		 */
-		checkTargets: function (context, cfg) {
+		checkTargets: function ( context, cfg ) {
 
 			var controls = 0;
-			var rules = this.walk();
+			var rules    = this.walk();
 
 			$( rules ).each( function () {
 
@@ -544,7 +544,7 @@
 		 * @param  {Configuration} cfg {@link Configuration} object or undefined
 		 *
 		 */
-		install: function (cfg) {
+		install: function ( cfg ) {
 			$.deps.enable( $( document.body ), this, cfg );
 		}
 
@@ -587,7 +587,7 @@
 		 * @param  {Ruleset} ruleset
 		 * @param  {Configuration} cfg
 		 */
-		enable: function (selection, ruleset, cfg) {
+		enable: function ( selection, ruleset, cfg ) {
 
 			cfg = cfg || {};
 
@@ -606,7 +606,7 @@
 			var handler = function () {
 				ruleset.applyRules( selection, cfg );
 			};
-			var val = selection.on ? selection.on( "change.deps", null, null, handler ) : selection.live( "change.deps", handler );
+			var val     = selection.on ? selection.on( "change.deps", null, null, handler ) : selection.live( "change.deps", handler );
 
 			ruleset.applyRules( selection, cfg );
 
