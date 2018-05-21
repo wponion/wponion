@@ -19,6 +19,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WPOnion_Field_fieldset' ) ) {
 	class WPOnion_Field_fieldset extends WPOnion_Field {
 
+		protected function init_subfields() {
+			if ( $this->has( 'fields' ) ) {
+				foreach ( $this->data( 'fields' ) as $field_id => $field ) {
+					$this->field[ $field_id ] = $this->sub_field( $field, _wponion_get_field_value( $field, $this->get_value() ), $this->name(), true );
+				}
+			}
+		}
+
 		protected function output() {
 			echo '<div class="wponion-fieldset-wrap">';
 
@@ -31,12 +39,7 @@ if ( ! class_exists( 'WPOnion_Field_fieldset' ) ) {
 				}
 
 				foreach ( $this->data( 'fields' ) as $field ) {
-					$id = isset( $field['id'] ) ? $field['id'] : null;
-					echo wponion_add_element( $field, $this->value( $id ), array(
-						'unique'    => $this->name(),
-						'plugin_id' => $this->plugin_id(),
-						'module'    => $this->module(),
-					) );
+					$this->sub_field( $field, _wponion_get_field_value( $field, $this->get_value() ), $this->name(), false );
 				}
 			}
 
