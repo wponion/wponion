@@ -120,6 +120,15 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 					$this->add_action( 'wp_enqueue_scripts', 'field_assets', 1 );
 				}
 			}
+
+			$this->init_subfields();
+		}
+
+		/**
+		 * Handles Field's Sub Fields.
+		 */
+		protected function init_subfields() {
+
 		}
 
 		/**
@@ -786,6 +795,16 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$value['key'] = $key;
 			}
 			return $value;
+		}
+
+		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
+			$func = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
+			return $func( $field, $value, array(
+				'unique'    => $unqiue,
+				'plugin_id' => $this->plugin_id(),
+				'module'    => $this->module(),
+			) );
+
 		}
 
 		/**
