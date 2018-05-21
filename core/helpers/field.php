@@ -219,21 +219,21 @@ if ( ! function_exists( 'wponion_validate_select_framework' ) ) {
 	 * Validates And Returns The Selected Framework Name.
 	 * This only used for selectbox.
 	 *
-	 * @param $field
+	 * @param $fld
 	 *
 	 * @return bool
 	 */
-	function wponion_validate_select_framework( $field ) {
+	function wponion_validate_select_framework( $fld ) {
 		$frameworks = wponion_select_frameworks();
 
 		foreach ( $frameworks as $f ) {
-			if ( isset( $field[ 'is_' . $f ] ) && true === $field[ 'is_' . $f ] || isset( $field[ $f ] ) && true === $field[ $f ] ) {
+			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || true === is_array( $fld[ 'is_' . $f ] ) ) || isset( $fld[ $f ] ) && ( true === $fld[ $f ] || true === is_array( $fld[ $f ] ) ) ) {
 				return $f;
 			}
 		}
 
 		if ( isset( $field['attributes']['class'] ) ) {
-			$class = is_string( $field['attributes']['class'] ) ? explode( ' ', $field['attributes']['class'] ) : $field['attributes']['class'];
+			$class = is_string( $fld['attributes']['class'] ) ? explode( ' ', $fld['attributes']['class'] ) : $fld['attributes']['class'];
 			foreach ( $frameworks as $f ) {
 				if ( in_array( $f, $class ) ) {
 					return $f;
@@ -332,6 +332,33 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 					$return[ $d ] = $vars;
 				} else {
 					$return[ $d ] = $d;
+				}
+			}
+		}
+		return $return;
+	}
+}
+
+if ( ! function_exists( 'wponion_get_all_fields_ids' ) ) {
+	function wponion_get_all_fields_ids( $fields = array() ) {
+		$return = array();
+		if ( isset( $fields['fields'] ) ) {
+			foreach ( $fields['fields'] as $f ) {
+				if ( isset( $f['id'] ) ) {
+					$return[ $f['id'] ] = isset( $f['fields'] ) ? wponion_get_all_fields_ids( $f['fields'] ) : $f['id'];
+				}
+			}
+		} elseif ( isset( $fields['sections'] ) ) {
+			foreach ( $fields['sections'] as $section ) {
+				$return[ $section['name'] ] = wponion_get_all_fields_ids( $section );
+			}
+		} elseif ( is_array( $fields ) ) {
+			foreach ( $fields as $page ) {
+				if ( isset( $page['fields'] ) || isset( $page['sections'] ) ) {
+					$id            = isset( $page['name'] ) ? $page['name'] : '';
+					$return[ $id ] = wponion_get_all_fields_ids( $page );
+				} else {
+					$return[ _wponion_field_id( $page ) ] = _wponion_field_id( $page );
 				}
 			}
 		}
