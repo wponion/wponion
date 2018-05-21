@@ -471,12 +471,63 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					collapsible: true,
 					animate: 250,
 					heightStyle: 'content',
+					active: $(this).hasClass('is_open'),
 					icons: {
 						'header': 'dashicons dashicons-arrow-right',
 						'activeHeader': 'dashicons dashicons-arrow-down'
 					}
 				});
 			});
+		});
+	};
+
+	$wpf.fn.group = function () {
+		var $this = this,
+		    $elem = $this.elem,
+		    $add = $elem.find('> .wponion-fieldset > .wponion-add-group'),
+		    $group_wrap = $elem.find('> .wponion-fieldset > .wponion-group-wrap'),
+		    $limit = $this.arg('limit'),
+		    $error_msg = $this.arg('error_msg');
+		wponion_field($elem).accordion();
+
+		$group_wrap.WPOnionCloner({
+			add_btn: $add,
+			limit: parseInt($limit),
+			clone_elem: '> .wponion-fieldset > .wponion-accordion-wrap',
+			remove_btn: ".wponion-group-remove",
+			template: $this.arg('group_template'),
+			onRemove: function onRemove($elem) {
+				$elem.parent().parent().parent().remove();
+			},
+			templateAfterRender: function templateAfterRender($_wrap) {
+				var $data = $group_wrap.find("> .wponion-accordion-wrap:last-child");
+				wponion_field($group_wrap).accordion();
+				wponion_field($data).reload();
+			},
+			sortable: {
+				items: '.wponion-accordion-wrap',
+				handle: '.wponion-accordion-title',
+				placeholder: '.wponion-accordion-placeholder',
+				start: function start(event, ui) {
+					ui.item.css('background-color', '#eeee');
+				},
+				stop: function stop(event, ui) {
+					ui.item.removeAttr('style');
+				}
+
+			},
+			onLimitReached: function onLimitReached() {
+				var $html = $('<div class="alert alert-warning" role="alert">' + $error_msg + '</div>').hide();
+				$add.before($html);
+				$add.parent().find("div.alert").fadeIn(function () {
+					var $__E = $(this);
+					setTimeout(function () {
+						$__E.fadeOut('slow', function () {
+							$__E.remove();
+						});
+					}, 1000);
+				});
+			}
 		});
 	};
 
@@ -587,6 +638,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		this.init_field('.chosen', 'chosen');
 		this.init_field('.selectize', 'selectize');
 		this.init_field('.wponion-element-accordion', 'accordion');
+		this.init_field('.wponion-element-group', 'group');
 		this.init_field('.wponion-element-clone', 'clone_element');
 		this.init_field('.wponion-field-tooltip', 'field_tooltip');
 		this.init_field('.wponion-element-font', 'font_selector');
