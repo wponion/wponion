@@ -27,17 +27,29 @@ if ( ! class_exists( 'WPOnion_Field_accordion' ) ) {
 			}
 		}
 
-		protected function output() {
-			echo $this->before();
+		protected function render_fields() {
 			echo '<div class="wponion-accordion-wrap">';
 			echo '<h4 class="wponion-accordion-title">' . $this->data( 'accordion_title' ) . '</h4>';
 			echo '<div class="wponion-accordion-content">';
 			foreach ( $this->data( 'fields' ) as $field_id => $field ) {
-				echo $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), false );
+				$this->render_single_field( $field );
 			}
+			echo $this->after_accordion();
 			echo '</div>';
 			echo '</div>';
+		}
 
+		protected function after_accordion() {
+		}
+
+		protected function render_single_field( $field ) {
+			echo $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), false );
+		}
+
+
+		protected function output() {
+			echo $this->before();
+			$this->render_fields();
 			echo $this->after();
 		}
 
