@@ -99,8 +99,9 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		 */
 		protected function fields_md5( $fields = array() ) {
 			if ( false === $this->fields_md5 ) {
-				$fields           = empty( $fields ) ? $this->fields : $fields;
-				$this->fields_md5 = md5( wp_json_encode( $fields ) );
+				$fields = empty( $fields ) ? $this->fields : $fields;
+				//$this->fields_md5 = md5( wp_json_encode( $fields ) );
+				$this->fields_md5 = wponion_hash_array( wponion_get_all_fields_ids( $fields ) );
 			}
 			return $this->fields_md5;
 		}
