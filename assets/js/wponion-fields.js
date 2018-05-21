@@ -282,6 +282,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   */
 	$wpf.fn.select2 = function () {
 		var $arg = this.arg('select2', {});
+		$arg = wpo.validate_js_function($arg);
 		this.save(this.elem.select2($arg));
 		return this;
 	};
@@ -316,64 +317,59 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		var $this = this,
 		    $elem = $this.elem,
 		    $clone_wrap = $elem.find('div.wponion-clone-wrap'),
-		    $add_btn = $clone_wrap.find(".wponion-clone-add"),
+		    $add_btn = $elem.find(".wponion-clone-add"),
 		    $remove_btn = $clone_wrap.find(".wponion-clone-remove"),
 		    $arg = $this.arg('clone'),
 		    $limit = $arg['limit'] !== undefined ? $arg['limit'] : false,
 		    $is_toast = $arg['toast_error'] !== undefined ? $arg['toast_error'] : true,
-		    $eror_msg = $arg['error_msg'],
-		    $remove_func = function $remove_func() {
-			if ($(this).hasClass('removing')) {
-				return;
-			}
-			$(this).addClass('removing').parent().parent().remove();
-			var $count = parseInt($clone_wrap.attr('data-wponion-clone-count')) - 1;
-			$clone_wrap.attr('data-wponion-clone-count', $count);
-		};
+		    $eror_msg = $arg['error_msg'];
 
-		$add_btn.on('click', function () {
-			var $template = $this.arg('clone_template'),
-			    $ex_limit = parseInt($clone_wrap.attr('data-wponion-clone-count'));
+		$clone_wrap.WPOnionCloner({
+			add_btn: $add_btn,
+			limit: $limit,
+			clone_elem: '.wponion-field-clone',
+			remove_btn: ".wponion-clone-remove",
+			template: $this.arg('clone_template'),
+			onRemove: function onRemove($elem) {
+				$elem.parent().parent().remove();
+			},
+			templateAfterRender: function templateAfterRender($_wrap) {
+				var $data = $_wrap.find("> div.wponion-field-clone:last-child");
+				wponion_field($data).reload();
+			},
+			sortable: {
+				items: '.wponion-field-clone',
+				handle: '.wponion-field-clone-sorter',
+				placeholder: '.wponion-cloner-placeholder',
+				start: function start(event, ui) {
+					ui.item.css('background-color', '#eeee');
+				},
+				stop: function stop(event, ui) {
+					ui.item.removeAttr('style');
+				}
 
-			if (false !== $limit) {
-				if ($limit === $ex_limit) {
-					if ($is_toast === true) {
-						wpo.tost({
-							type: "error",
-							title: $eror_msg
-						});
-					} else {
-						var $html = $('<div class="alert alert-warning" role="alert">' + $eror_msg + '</div>');
-						$html.hide();
-						$add_btn.parent().prepend($html);
+			},
+			onLimitReached: function onLimitReached() {
 
-						$html = $add_btn.parent().find("div.alert");
-						$html.fadeIn(function () {
-							setTimeout(function () {
-								$html.fadeOut('slow', function () {
-									$html.remove();
-								});
-							}, 1000);
-						});
-					}
-					return;
+				if ($is_toast === true) {
+					wpo.tost({
+						type: "error",
+						title: $eror_msg
+					});
+				} else {
+					var $html = $('<div class="alert alert-warning" role="alert">' + $eror_msg + '</div>').hide();
+					$add_btn.parent().prepend($html);
+					$add_btn.parent().find("div.alert").fadeIn(function () {
+						var $__E = $(this);
+						setTimeout(function () {
+							$__E.fadeOut('slow', function () {
+								$__E.remove();
+							});
+						}, 1000);
+					});
 				}
 			}
-			var $count = $ex_limit + 1;
-
-			if ($template) {
-				$template = $template.replace(/{cloneid}/g, $count); // $( $template );
-				$clone_wrap.attr('data-wponion-clone-count', $count);
-				$(this).parent().parent().find('div.wponion-clone-actions').before($($template));
-				var $added_ins = $(this).parent().parent().before();
-				$added_ins.find('.wponion-clone-remove').on('click', $remove_func);
-				wponion_field($added_ins).reload();
-			}
 		});
-
-		$remove_btn.on('click', $remove_func);
-
-		return this;
 	};
 
 	/**
@@ -465,6 +461,101 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	};
 
 	/**
+  * Handles Field Dependency.
+  * @type {function()}
+  */
+	$wpf.fn.dependency = function ($elem, $is_sub) {
+		if ($elem.find('.wponion-has-dependency').length > 0) {
+			var $app = {
+
+				/**
+     * Inits dependency framework.
+     * @type {function()}
+     */
+				init: function init() {
+					$app.ruleset = $.deps.createRuleset();
+
+					var $config = {
+						show: function show($el) {
+							$el.show();
+						},
+						hide: function hide($el) {
+							$el.hide();
+						},
+						log: false, //wpo.settings( 'debug' ),
+						checkTargets: false
+					};
+
+					if ($is_sub !== undefined) {
+						$app.dep_sub();
+					} else {
+						$app.dep_root();
+					}
+
+					$.deps.enable($elem, $app.ruleset, $config);
+				},
+
+				dep_root: function dep_root() {
+					$elem.find('.wponion-has-dependency').each(function () {
+						var $elem = $(this),
+						    $dep_data = wpo.field_args($elem, {}),
+						    $_rules = $app.ruleset;
+
+						if ($dep_data['dependency'] !== undefined) {
+							var $controller = $dep_data['dependency']['controller'],
+							    $condition = $dep_data['dependency']['condition'],
+							    $value = $dep_data['dependency']['value'];
+
+							$.each($controller, function ($i, $el) {
+								var $_value = $value[$i] || '',
+								    $_condition = $condition[$i] || $condition[0],
+								    $_ruless = $_rules.createRule('[data-depend-id="' + $el + '"]', $_condition, $_value);
+								$_ruless.include($elem);
+							});
+						}
+					});
+				}
+			};
+
+			$app.init();
+		}
+	};
+
+	$wpf.fn.__dependency = function () {
+		var $this = this,
+		    $el = $('.wponion-framework'),
+		    $base = $this,
+		    $dep_data = $this.arg('dependency');
+
+		$base.init = function () {
+			$base.ruleset = $.deps.createRuleset();
+			var $cgf = {
+				log: true, //wpo.is_debug(),
+				checkTargets: false
+			};
+
+			$base.dep_root();
+			$.deps.enable($el, $base.ruleset, $cgf);
+		};
+
+		$base.dep_root = function () {
+			var $controller = $dep_data['controller'],
+			    $condition = $dep_data['condition'],
+			    $value = $dep_data['value'],
+			    $_rules = $base.ruleset;
+
+			$.each($controller, function ($i, $_el) {
+				var $_value = $value[$i] || '',
+				    $_condition = $condition[$i] || $condition[0],
+				    $_ruless = $_rules.createRule('[data-depend-id="' + $_el + '"]', $_condition, $_value);
+				$_ruless.include($el);
+			});
+		};
+
+		$base.init();
+	};
+
+	/**
   * Reloads All Fields Instance. For the given key.
   */
 	$wpf.fn.reload = function () {
@@ -484,6 +575,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 	wphooks.addAction('wponion_before_init', function () {
 		wponion_field('.wponion-framework').reload();
+		$wpf.fn.dependency($('.wponion-framework'));
 	});
 })(window, document, jQuery, $wponion, $wponion_field, wp);
 //# sourceMappingURL=wponion-fields.js.map
