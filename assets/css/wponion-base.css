@@ -10953,12 +10953,12 @@ a > .wponion-framework-bootstrap code {
   border-radius: 0;
 }
 
-.wponion-element.wponion-element-accordion .wponion-accordion-wrap {
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap, .wponion-element.wponion-element-group .wponion-accordion-wrap {
   position: relative;
   margin-bottom: 5px;
 }
 
-.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title {
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title {
   border: 1px solid #e5e5e5;
   background: #fafafa;
   -webkit-transition: border-color 0.15s;
@@ -10973,32 +10973,32 @@ a > .wponion-framework-bootstrap code {
   font-size: 100%;
 }
 
-.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:active, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:hover, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:focus {
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:active, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:hover, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:focus, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:active, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:hover, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:focus {
   border: 1px solid #bbb;
   background: #fafafa;
   outline: none;
 }
 
-.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-content {
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-content, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-content {
   border: 1px solid #e5e5e5;
   background: #fff;
   padding: 0;
   border-top: 0;
 }
 
-.wponion-element.wponion-element-accordion span.ui-accordion-header-icon.ui-icon {
+.wponion-element.wponion-element-accordion span.ui-accordion-header-icon.ui-icon, .wponion-element.wponion-element-group span.ui-accordion-header-icon.ui-icon {
   background-image: none !important;
 }
 
-.wponion-element.wponion-element-accordion .ui-accordion > .wponion-accordion-wrap {
+.wponion-element.wponion-element-accordion .ui-accordion > .wponion-accordion-wrap, .wponion-element.wponion-element-group .ui-accordion > .wponion-accordion-wrap {
   display: block;
 }
 
-.wponion-element.wponion-element-accordion .ui-accordion-icons {
+.wponion-element.wponion-element-accordion .ui-accordion-icons, .wponion-element.wponion-element-group .ui-accordion-icons {
   padding-left: 30px !important;
 }
 
-.wponion-element.wponion-element-accordion .ui-accordion-header-icon {
+.wponion-element.wponion-element-accordion .ui-accordion-header-icon, .wponion-element.wponion-element-group .ui-accordion-header-icon {
   position: absolute;
   left: .5em;
   top: 50%;
@@ -11007,8 +11007,18 @@ a > .wponion-framework-bootstrap code {
   color: #bbb;
 }
 
-.wponion-element.wponion-element-accordion .ui-sortable-helper .wponion-accordion-content {
+.wponion-element.wponion-element-accordion .ui-sortable-helper .wponion-accordion-content, .wponion-element.wponion-element-group .ui-sortable-helper .wponion-accordion-content {
   display: none !important;
+}
+
+.wponion-element.wponion-element-group .wponion-group-wrap .wponion-accordion-wrap {
+  margin-bottom: 15px;
+}
+
+.wponion-element.wponion-element-group .wponion-group-wrap .wponion-accordion-wrap .wponion-group-action {
+  padding: 30px;
+  border-top: 1px solid #dedede;
+  text-align: right;
 }
 
 .wponion-element.wponion-element-font .wponion-font-select-container {
