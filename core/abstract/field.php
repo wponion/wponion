@@ -765,6 +765,14 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			return array();
 		}
 
+		/**
+		 * Handles Options Value.
+		 * @param       $key
+		 * @param       $value
+		 * @param array $more_defaults
+		 *
+		 * @return array
+		 */
 		protected function handle_options( $key, $value, $more_defaults = array() ) {
 			$defaults = $this->set_args( $more_defaults, array(
 				'label'      => '',
@@ -797,6 +805,16 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			return $value;
 		}
 
+		/**
+		 * Handles Fields Sub Field instances.
+		 *
+		 * @param      $field
+		 * @param      $value
+		 * @param      $unqiue
+		 * @param bool $is_init
+		 *
+		 * @return mixed
+		 */
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
 			$func = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
 			return $func( $field, $value, array(
