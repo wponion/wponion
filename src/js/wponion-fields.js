@@ -466,6 +466,27 @@
 		return this;
 	};
 
+	/**
+	 * Handles Accordion Field.
+	 */
+	$wpf.fn.accordion = function () {
+		this.elem.each( function () {
+			$( this ).find( '.wponion-accordion-wrap' ).each( function () {
+				$( this ).accordion( {
+					header: '> .wponion-accordion-title',
+					collapsible: true,
+					animate: 250,
+					heightStyle: 'content',
+					icons: {
+						'header': 'dashicons dashicons-arrow-right',
+						'activeHeader': 'dashicons dashicons-arrow-down'
+					}
+				} );
+			} );
+
+		} );
+	};
+
 
 	/**
 	 * Handles Field Dependency.
@@ -574,6 +595,7 @@
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
+		this.init_field( '.wponion-element-accordion', 'accordion' );
 		this.init_field( '.wponion-element-clone', 'clone_element' );
 		this.init_field( '.wponion-field-tooltip', 'field_tooltip' );
 		this.init_field( '.wponion-element-font', 'font_selector' );
