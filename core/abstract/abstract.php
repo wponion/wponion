@@ -172,7 +172,6 @@ if ( ! class_exists( 'WPOnion_Abstract' ) ) {
 			) );
 		}
 
-
 		/**
 		 * Generates Slug For Apply Filters.
 		 *
