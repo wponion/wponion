@@ -10953,6 +10953,64 @@ a > .wponion-framework-bootstrap code {
   border-radius: 0;
 }
 
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title {
+  border: 1px solid #e5e5e5;
+  background: #fafafa;
+  -webkit-transition: border-color 0.15s;
+  -o-transition: border-color 0.15s;
+  transition: border-color 0.15s;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  margin: 0;
+  padding: 15px;
+  min-height: 0;
+  font-size: 100%;
+}
+
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:active, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:hover, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:focus {
+  border: 1px solid #bbb;
+  background: #fafafa;
+  outline: none;
+}
+
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-content {
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  padding: 0;
+  border-top: 0;
+}
+
+.wponion-element.wponion-element-accordion span.ui-accordion-header-icon.ui-icon {
+  background-image: none !important;
+}
+
+.wponion-element.wponion-element-accordion .ui-accordion > .wponion-accordion-wrap {
+  display: block;
+}
+
+.wponion-element.wponion-element-accordion .ui-accordion-icons {
+  padding-left: 30px !important;
+}
+
+.wponion-element.wponion-element-accordion .ui-accordion-header-icon {
+  position: absolute;
+  left: .5em;
+  top: 50%;
+  margin-top: -10px;
+  text-indent: 0;
+  color: #bbb;
+}
+
+.wponion-element.wponion-element-accordion .ui-sortable-helper .wponion-accordion-content {
+  display: none !important;
+}
+
 .wponion-element.wponion-element-font .wponion-font-select-container {
   margin-right: 10px;
   min-width: 200px;
