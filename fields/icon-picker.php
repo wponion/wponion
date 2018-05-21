@@ -55,16 +55,16 @@ if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
 		}
 
 		protected function render_buttons() {
-			$add    = $this->attributes( array(
-				'type'  => 'button',
-				'class' => array( 'wponion-add-icon', 'btn', 'btn-success', 'btn-sm' ),
-			) );
-			$html   = '<button ' . $add . '>' . __( 'Add Icon' ) . '</button>';
-			$remove = $this->attributes( array(
-				'type'  => 'button',
-				'class' => array( 'wponion-remove-icon', 'btn', 'btn-danger', 'btn-sm' ),
-			) );
-			$html   = $html . '<button ' . $remove . '>' . __( 'Remove Icon' ) . '</button>';
+
+			$html = '<button ' . $this->_sub_attributes( array(
+					'type'  => 'button',
+					'class' => array( 'btn btn-success btn-sm wponion-add-icon' ),
+				) ) . '>' . __( 'Add Icon' ) . '</button>';
+
+			$html .= '<button ' . $this->_sub_attributes( array(
+					'type'  => 'button',
+					'class' => array( 'btn btn-danger btn-sm wponion-remove-icon' ),
+				) ) . '>' . __( 'Remove Icon' ) . '</button>';
 			return $html;
 		}
 
