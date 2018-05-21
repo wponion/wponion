@@ -513,6 +513,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				if ( $error_instance ) {
 					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
 					$this->errors = $error_instance->get( $field_id );
+					$this->debug( __( 'Field Errors' ), $this->errors );
 				} else {
 					$this->errors = false;
 				}
@@ -574,9 +575,32 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		}
 
 		/**
+		 * Renders Attributes HTML for FIelds sub elements.
+		 *
+		 * @param array $field_attributes
+		 * @param array $user_attributes
+		 *
+		 * @return string
+		 */
+		protected function _sub_attributes( $field_attributes = array(), $user_attributes = array() ) {
+			if ( isset( $field_attributes['class'] ) ) {
+				$field_attributes['class'] = wponion_html_class( $field_attributes['class'] );
+			}
+
+			$user_attrs = $this->parse_args( $user_attributes, $field_attributes );
+
+			if ( ! isset( $user_attrs['data-wponion-jsid'] ) ) {
+				$user_attrs['data-wponion-jsid'] = $this->js_field_id();
+			}
+
+			return wponion_array_to_html_attributes( $user_attrs );
+		}
+
+		/**
 		 * Generates Field Attributes HTML.
 		 *
 		 * @param array $field_attributes
+		 * @param array $dep_key
 		 *
 		 * @return string
 		 */
@@ -601,7 +625,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 			}
 
 			$user_attrs          = $this->parse_args( $user_attrs, $field_attributes );
-			$user_attrs['class'] = wponion_html_class( $user_attrs['class'], array() );
+			$user_attrs['class'] = wponion_html_class( $user_attrs['class'], isset( $field_attributes['class'] ) ? $field_attributes['class'] : array() );
 
 			if ( ! isset( $user_attrs['data-wponion-jsid'] ) ) {
 				$user_attrs['data-wponion-jsid'] = $this->js_field_id();
