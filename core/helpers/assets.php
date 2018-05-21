@@ -107,7 +107,6 @@ if ( ! function_exists( 'wponion_localize' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_icon_libraries' ) ) {
 	/**
 	 * Returns a list of Icon Libs.
