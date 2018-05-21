@@ -31,6 +31,7 @@ $wponion_js = array(
 		array( 'wponion-fields' ),
 	),
 	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
+	'wponion-cloner'            => array( wponion_debug_assets( 'assets/js/wponion-cloner', 'js' ), ),
 	// WPOnion Related Plugins.
 	'wponion-inputmask'         => array(
 		'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
@@ -115,10 +116,9 @@ if ( ! function_exists( 'wponion_icon_libraries' ) ) {
 	 */
 	function wponion_icon_libraries() {
 		return apply_filters( 'wponion_icon_libraries', array(
-			__( 'DashIcons' )   => WPONION_PATH . 'assets/plugins/dashicons.json',
-			__( 'FontAwesome' ) => WPONION_PATH . 'assets/plugins/fontawesome/icons.json',
-			__( 'TypIcons' )    => WPONION_PATH . 'assets/plugins/typicons/icons.json',
-			__( 'FlatIcons' )   => '',// WPONION_PATH . 'ic/json.json',
+			__( 'DashIcons' )   => WPONION_PATH . 'assets/json/dashicons.json',
+			__( 'FontAwesome' ) => WPONION_PATH . 'assets/json/fontawesome.json',
+			__( 'TypIcons' )    => WPONION_PATH . 'assets/json/typicons.json',
 		) );
 	}
 }
