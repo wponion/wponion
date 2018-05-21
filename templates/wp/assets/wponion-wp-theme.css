@@ -71,7 +71,7 @@
   padding: 0;
 }
 
-.wponion-framework.wponion-wp-theme #poststuff div.postbox div.inside .wponion-element {
+.wponion-framework.wponion-wp-theme #poststuff div.postbox div.inside .wponion-element, .wponion-framework.wponion-wp-theme #poststuff div.postbox div.inside .wponion-group-action {
   padding: 15px;
 }
 
