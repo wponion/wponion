@@ -347,6 +347,7 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 if ( ! function_exists( 'wponion_get_all_fields_ids' ) ) {
 	/**
 	 * Extracts all fileds ids and returns it.
+	 *
 	 * @param array $fields
 	 *
 	 * @return array
