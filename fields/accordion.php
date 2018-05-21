@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPOnion_Field_accordion' ) ) {
 		protected function init_subfields() {
 			if ( $this->has( 'fields' ) ) {
 				foreach ( $this->data( 'fields' ) as $field_id => $field ) {
-					$this->field[ $field_id ] = $this->sub_field( $field, _wponion_get_field_value( $field, $this->get_value() ), $this->name(), true );
+					$this->field['fields'][ $field_id ] = $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), true );
 				}
 			}
 		}
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WPOnion_Field_accordion' ) ) {
 			echo '<h4 class="wponion-accordion-title">' . $this->data( 'accordion_title' ) . '</h4>';
 			echo '<div class="wponion-accordion-content">';
 			foreach ( $this->data( 'fields' ) as $field_id => $field ) {
-				echo $this->sub_field( $field, _wponion_get_field_value( $field, $this->get_value() ), $this->name(), false );
+				echo $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), false );
 			}
 			echo '</div>';
 			echo '</div>';
