@@ -57,7 +57,10 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 						echo '</div>';
 					}
 				}
-			} elseif ( true === $this->has( 'label' ) && 'checkbox' === $this->element_type() ) {
+			} elseif ( true === $this->has( 'label' ) && in_array( $this->element_type(), array(
+					'switch',
+					'checkbox',
+				) ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			}
 
@@ -68,7 +71,7 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 
 		protected function render_element( $options, $in_group = false, $group_title = false ) {
 			$attr         = $options['attributes'];
-			$attr['type'] = $this->element_type();
+			$attr['type'] = ( 'switch' === $this->element_type() ) ? 'checkbox' : $this->element_type();
 
 			if ( ! isset( $attr['class'] ) ) {
 				$attr['class'] = array();
@@ -92,7 +95,7 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 				$dep_id       = $options['key'];
 			}
 
-			$elem_id    = sanitize_title( $attr['name'].'_'.$options['key'] );
+			$elem_id    = sanitize_title( $attr['name'] . '_' . $options['key'] );
 			$attr['id'] = $elem_id;
 
 			if ( isset( $options['tooltip'] ) && is_array( $options['tooltip'] ) ) {
