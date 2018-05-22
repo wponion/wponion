@@ -2,8 +2,9 @@
   nav.nav-tab-wrapper {
 	a {
 	  outline: none;
-	  &:focus {box-shadow: none;}
-
+	  &:focus {
+		box-shadow: none;
+	  }
 	}
   }
 
@@ -27,6 +28,7 @@
 		  line-height:   2;
 		  margin-bottom: 0;
 		  width:         100%;
+
 		  li {
 			a {
 			  padding:       5px 10px;
@@ -38,7 +40,9 @@
 			  border-bottom: 1px solid transparent;
 			  margin-bottom: -1px;
 
-			  &:focus {box-shadow: none;}
+			  &:focus {
+				box-shadow: none;
+			  }
 
 			  &.current {
 				background:    white;
@@ -47,6 +51,7 @@
 				border-left:   1px solid #dadada;
 			  }
 			}
+
 			&:first-child {
 			  a.current, a:hover, a {
 				border-left: none;
@@ -60,43 +65,63 @@
 		margin:  0 !important;
 		padding: 0;
 
-		.wponion-element, .wponion-group-action {
+		.wponion-group-action {
 		  padding: 15px;
 		}
 
 		.wponion-element {
-		  padding:    0 !important;
-		  background: #FAFAFA;
-		  display:    flex;
+		  position: relative;
+		  display:  flex;
+		  width:    100% !important;
+		  padding:  0 !important;
+
+		  &:before {
+			content:      '';
+			position:     absolute;
+			z-index:      0;
+			left:         0;
+			top:          0;
+			bottom:       0;
+			width:        20%;
+			background:   #fafafa;
+			border-right: 1px solid #ddd;
+		  }
+
+		  &.wponion-element-no-title:before {
+			background-color: #fff;
+			border-right:     0px;
+		  }
 
 		  .wponion-element-title {
-			float:        left;
-			border-right: 1px solid #dadada;
-			display:      flow-root;
+			box-sizing: border-box;
+			padding:    15px 12px;
+			position:   relative;
+			z-index:    1;
+			flex:       0 0 20%;
 		  }
-		  .wponion-element-title, .wponion-fieldset {
-			padding: 15px;
-		  }
+
 		  .wponion-fieldset {
-			margin-left: 0;
-			float:       left;
+			flex:        0 0 80%;
 			width:       80%;
-			background:  white;
+			margin-left: 0 !important;
+			box-sizing:  border-box;
+			padding:     15px 12px;
+			position:    relative;
+			z-index:     1;
 		  }
 		}
 	  }
 	}
   }
 
-  /***
-   * Handle Hiding Main Nav / Subnav.
-   */
+  /* Handle Hiding Main Nav / Subnav.*/
   &.wponion-hide-nav {
 	nav.nav-tab-wrapper {
 	  display: none;
 	}
   }
 
+  /* Handles Page Actions */
   .wponion-form-actions {
 	float:      right;
 	width:      100%;
@@ -123,6 +148,7 @@
 	}
   }
 
+  /* Handles Page Load Scss. */
   .wponion-page-loader {
 	position:         absolute;
 	top:              0;
