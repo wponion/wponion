@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Initial version created 05-05-2018 / 04:37 PM
+ * Initial version created 22-05-2018 / 10:37 AM
  *
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  * @version 1.0
@@ -11,127 +11,146 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	die;
 }
-/*$options = array(
+$fields_types = array(
 	array(
-		'name'   => 'page1',
-		'title'  => __( 'Simple Tab' ),
+		'title'  => __( 'Basic Features' ),
+		'name'   => 'basicfeatures',
 		'fields' => array(
 			array(
+				'id'    => 'simplefield',
 				'type'  => 'text',
-				'id'    => 'somevalue',
-				'title' => 'Simple Text Field.',
-				'desc'  => 'The spacer to the section menu as seen to the left (after this section block) is the divide "section". Also the divider below is the divide "field".',
+				'title' => __( 'Simple Field' ),
 			),
-
 			array(
+				'id'    => 'field_desc',
+				'desc'  => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ),
+				'type'  => 'text',
+				'title' => __( 'Simple Field With Description' ),
+			),
+			array(
+				'id'         => 'field_desc_field',
+				'desc_field' => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ),
 				'type'       => 'text',
-				'id'         => 'somevalue',
-				'title'      => 'Simple Text Field.',
-				'desc_field' => 'The spacer to the section menu as seen to the left (after this section block) is the divide "section". Also the divider below is the divide "field".',
+				'title'      => __( 'Simple Field With Description 2' ),
 			),
-		),
-	),
-	array(
-		'name'   => 'page2',
-		'title'  => __( 'Tab With Icon' ),
-		'icon'   => 'dashicons dashicons-menu',
-		'fields' => array( array() ),
-	),
-	array(
-		'name'       => 'page3',
-		'title'      => __( 'Custom Query Args' ),
-		'query_args' => array( 'custom-query' => 'hello' ),
-		'fields'     => array( array() ),
-	),
-	array(
-		'name'  => 'page4',
-		'title' => __( 'Custom Page Link' ),
-		'href'  => 'http://google.com',
-	),
-	array(
-		'name'       => 'page5',
-		'title'      => __( 'Custom Attributes' ),
-		'attributes' => array( 'class' => 'bg-success' ),
-		'fields'     => array( array() ),
-	),
-	array(
-		'name'     => 'page6',
-		'title'    => __( 'Custom Callback' ),
-		'callback' => 'yourcallbackhere',
-	),
-	array(
-		'name'     => 'page7',
-		'title'    => 'With Sub Menus',
-		'sections' => array(
 			array(
-				'name'   => 'page7-1',
-				'title'  => __( 'Submenu 1' ),
-				'fields' => array( array() ),
+				'id'    => 'field_help_icon',
+				'help'  => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ),
+				'type'  => 'text',
+				'title' => __( 'Field With Help Icon' ),
 			),
 
 			array(
-				'name'   => 'page7-2',
-				'title'  => __( 'Submenu 2' ),
-				'fields' => array( array() ),
+				'id'     => 'field_before',
+				'before' => '<p>' . __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ) . '</p>',
+				'type'   => 'text',
+				'title'  => __( 'Field With Before Value' ),
 			),
-
 			array(
-				'name'   => 'page7-3',
-				'title'  => __( 'Submenu 3' ),
-				'fields' => array( array() ),
+				'id'    => 'field_after',
+				'after' => '<p>' . __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ) . '</p>',
+				'type'  => 'text',
+				'title' => __( 'Field With After Value' ),
 			),
-
 			array(
-				'name'   => 'page7-4',
-				'title'  => __( 'Submenu 4' ),
-				'fields' => array( array() ),
+				'id'     => 'field_after_before',
+				'after'  => '<p>' . __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ) . '</p>',
+				'before' => '<p>' . __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ) . '</p>',
+				'type'   => 'text',
+				'title'  => __( 'Field With Before & After Value' ),
 			),
 		),
 	),
 
-);*/
+	/**
+	 * Text Fields
+	 */
+	array(
+		'title'  => __( 'Text Field' ),
+		'name'   => 'textfields',
+		'fields' => array(
+			array(
+				'id'    => 'textbox',
+				'type'  => 'text',
+				'title' => __( 'Textbox' ),
+			),
+			array(
+				'id'    => 'textbox_desc',
+				'desc'  => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ),
+				'type'  => 'text',
+				'title' => __( 'Textbox' ),
+			),
+			array(
+				'id'         => 'textbox_desc_field',
+				'desc_field' => __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.' ),
+				'type'       => 'text',
+				'title'      => __( 'Textbox' ),
+			),
+			array(
+				'type'    => 'subheading',
+				'content' => __( 'Field With Inputmask Plugin' ),
+			),
+			array(
+				'id'        => 'textbox_inputmask_phone',
+				'inputmask' => array( 'mask' => '(999) 999-9999' ),
+				'type'      => 'text',
+				'title'     => __( 'Inputmask With Phone' ),
+			),
+			array(
+				'id'        => 'textbox_inputmask_date',
+				'inputmask' => array( 'mask' => '99/99/9999', 'placeholder' => 'dd/mm/yyyy' ),
+				'type'      => 'text',
+				'title'     => __( 'Inputmask With Date' ),
+			),
+			array(
+				'id'        => 'textbox_inputmask_withevent',
+				'inputmask' => array(
+					'mask'         => '99/99/9999',
+					'placeholder'  => 'dd/mm/yyyy',
+					'onincomplete' => "function(){ alert('inputmask incomplete'); }",
+				),
+				'type'      => 'text',
+				'title'     => __( 'Triggers an alert on complete' ),
+			),
+
+		),
+	),
+
+);
 
 
-$settings_instance = new WPOnion_Settings( array(
-	'extra_css'     => array( 'plugin-css-1' ),
-	'extra_js'      => array( 'plugin-js-1' ),
-	'option_name'   => '_wpboilerplate_settings',
-	'template_path' => false,
-	'menu'          => array(
-		'type'       => 'parent',
-		'title'      => 'WP Onion',
+$options = array(
+	array(
+		'name'     => 'fields',
+		'title'    => __( 'Field Types' ),
+		'sections' => $fields_types,
+	),
+);
+
+$_instance = new WPOnion_Settings( array(
+	'menu'        => array(
+		'type'       => 'parent', # submenu | management | dashboard | options | plugins | theme
+		'parent'     => '',
+		'title'      => __( 'WPOnion Demo' ),
+		'slug'       => 'wponion-demo',
 		'capability' => 'manage_options',
-		'icon'       => false, # Or Provide A Actual URL of the icon
-		'position'   => false, #set to false to auto set via wp
-		'slug'       => 'wponion',
-		'submenus'   => true,
+		'icon'       => null,
+		'position'   => null,
 	),
-	'theme'         => 'wp',
-	'plugin_id'     => 'boilerplate',
-) );
+	'extra_css'   => array(),
+	'extra_js'    => array(),
+	'option_name' => '_wponion_demo',
+	'plugin_id'   => 'wponion-demo',
+	'theme'       => 'wp',
+	'buttons'     => array(
+		'save'    => __( 'Save Settings' ),
+		'restore' => __( 'Restore' ),
+		'reset'   => __( 'Reset All Options' ),
+	),
+), $options );
 
-$settings_instance->add_page( 'page1', 'Page 1' );
-$settings_instance->add_field( 'page1', false, array(
-	'id'         => 'field1',
-	'type'       => 'text',
-	'title'      => 'Simple text',
-	'help'       => 'SomeHelpText',
-	'inputmask'  => '9-a{1,3}9{1,3}',
-
-) );
-
-$settings_instance->add_page( 'page2', 'Page 2' )
-	->add_section( 'page2', 'section1', 'Section1' )
-	->add_field( 'page2', 'section1', array(
-		'title' => 'Some Title',
-		'type'  => 'text',
-	) );
-
-add_action( 'wponion_settings_boilerplate_register_submenu', function ( $slug ) {
-	add_submenu_page( $slug, 'Custom Page 1', 'Custom Page1', 'manage_options', 'custompage1', function () {
-		echo 'This is from custom page';
-	} );
-} );
+require_once 'settings-dev.php';
