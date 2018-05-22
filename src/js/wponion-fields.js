@@ -17,6 +17,7 @@
 			let $settings = this.arg( 'inputmask' );
 			if ( $settings ) {
 				$settings = wpo.validate_js_function( $settings );
+				console.log( $settings );
 				this.save( this.elem.inputmask( $settings ) );
 				//wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
 			}
@@ -307,9 +308,13 @@
 		let $arg = this.arg( 'selectize' );
 		if ( $arg[ 'theme' ] !== undefined ) {
 			this.elem.parent().addClass( $arg[ 'theme' ] );
+		} else {
+			this.elem.parent().addClass( 'selectize-default' );
 		}
 
-		this.save( this.elem.selectize( $arg ) );
+		this.elem.removeClass( 'form-control' );
+		let $ins = this.elem.selectize( $arg );
+		this.save( $ins );
 		return this;
 	};
 
@@ -382,7 +387,7 @@
 		let $fid = this.elem.attr( 'data-field-jsid' );
 		let $tip = {};
 
-		if ( this.arg( $fid ) ) {
+		if ( this.arg( $fid + 'tooltip' ) ) {
 			let $arg = this.arg( $fid + 'tooltip' );
 			if ( $arg[ 'image' ] !== false ) {
 				if ( $( '#wponiontooltipimagetippy' ).length === 0 ) {
@@ -401,7 +406,7 @@
 						.then( resp => resp.blob() )
 						.then( blob => {
 							const url         = URL.createObjectURL( blob );
-							content.innerHTML = `<img width="200" height="200" src="${url}">`;
+							content.innerHTML = `<img src="${url}">`;
 							$tip.loading      = false
 						} )
 						.catch( e => {
