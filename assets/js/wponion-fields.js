@@ -20,8 +20,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		if (this.elem.length > 0) {
 			var $settings = this.arg('inputmask');
 			if ($settings) {
+				$settings = wpo.validate_js_function($settings);
 				this.save(this.elem.inputmask($settings));
-				wpo.__plugin_debug_info(this.elem, 'inputmask', $settings);
+				//wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
 			}
 		}
 		return this;
