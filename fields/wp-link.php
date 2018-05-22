@@ -30,9 +30,9 @@ if ( ! class_exists( 'WPOnion_Field_wp_link' ) ) {
 			echo $this->before();
 
 			echo '<div class="wponion-wp-links-wrap">';
-			echo '<input type="hidden" name="' . $this->name( '[url]' ) . '" value="' . $this->value() . '" id="url"/>';
-			echo '<input type="hidden" name="' . $this->name( '[title]' ) . '" value="' . $this->value() . '" id="title"/>';
-			echo '<input type="hidden" name="' . $this->name( '[target]' ) . '" value="' . $this->value() . '" id="target"/>';
+			echo '<input type="hidden" name="' . $this->name( '[url]' ) . '" value="' . $this->get_value( 'url' ) . '" id="url"/>';
+			echo '<input type="hidden" name="' . $this->name( '[title]' ) . '" value="' . $this->get_value( 'title' ) . '" id="title"/>';
+			echo '<input type="hidden" name="' . $this->name( '[target]' ) . '" value="' . $this->get_value( 'target' ) . '" id="target"/>';
 
 			echo '<span class="url"><strong>' . __( 'URL : ' ) . '</strong><span class="value"></span></span><br/>';
 			echo '<span class="title"><strong>' . __( 'Title : ' ) . '</strong><span class="value"></span></span><br/>';
