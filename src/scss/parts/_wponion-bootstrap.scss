@@ -4,7 +4,7 @@
 
 .wponion-framework-bootstrap-grid, .wponion-framework-bootstrap {
   @import "../../../node_modules/bootstrap/scss/root";
-  @import "../../../node_modules/bootstrap/scss/reboot";
+  //@import "../../../node_modules/bootstrap/scss/reboot";
   @import "bootstrap-reboot";
   @import "../../../node_modules/bootstrap/scss/utilities";
 }
