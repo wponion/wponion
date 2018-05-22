@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPOnion_Field_select' ) ) {
 			$this->before();
 			$options = $this->data( 'options' );
 			$attr    = $this->attributes( array(
-				'name'  => $this->name(),
+				'name'  => ( true === $this->has( 'multiple' ) ) ? $this->name( '[]' ) : $this->name(),
 				'class' => array( 'form-control' ),
 			) );
 
@@ -47,6 +47,15 @@ if ( ! class_exists( 'WPOnion_Field_select' ) ) {
 		}
 
 		protected function sel_option( $data ) {
+			$elem_id = sanitize_title( $this->name() . '_' . $data['key'] );
+			if ( isset( $data['tooltip'] ) && is_array( $data['tooltip'] ) ) {
+				$data['attributes']['title']             = $data['tooltip']['attr']['title'];
+				$data['attributes']['data-wponion-jsid'] = $this->js_field_id();
+				$data['attributes']['data-field-jsid']   = $elem_id;
+				$data['attributes']['class']             = ' wponion-field-tooltip ';
+				wponion_localize()->add( $this->js_field_id(), array( $elem_id . 'tooltip' => $data['tooltip']['data'] ) );
+			}
+
 			$data['attributes']['value'] = $data['key'];
 			return '<option ' . wponion_array_to_html_attributes( $data['attributes'] ) . $this->checked( $this->value(), $data['key'], 'selected' ) . ' > ' . $data['label'] . ' </option > ';
 		}
