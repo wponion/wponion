@@ -25,6 +25,7 @@ add_action( 'wponion_loaded', 'wponion_load_sample_files' );
 if ( ! function_exists( 'wponion_load_sample_files' ) ) {
 	function wponion_load_sample_files() {
 		include plugin_dir_path( __FILE__ ) . 'sample/settings.php';
+		include plugin_dir_path( __FILE__ ) . 'sample/dashboard-widgets.php';
 	}
 }
 
