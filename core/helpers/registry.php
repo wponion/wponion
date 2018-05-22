@@ -95,6 +95,17 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_dashboard_registry' ) ) {
+	/**
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_dashboard_registry( &$instance ) {
+		return wponion_get_registry_instance( 'dashboard_widgets', $instance, 'settings' );
+	}
+}
+
 if ( ! function_exists( 'wponion_core_registry' ) ) {
 	/**
 	 * @param $instance
