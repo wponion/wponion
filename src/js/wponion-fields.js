@@ -16,8 +16,9 @@
 		if ( this.elem.length > 0 ) {
 			let $settings = this.arg( 'inputmask' );
 			if ( $settings ) {
+				$settings = wpo.validate_js_function( $settings );
 				this.save( this.elem.inputmask( $settings ) );
-				wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
+				//wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
 			}
 		}
 		return this;
