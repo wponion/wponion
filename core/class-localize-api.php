@@ -85,11 +85,47 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 		 * @param bool   $merge
 		 */
 		public function add( $object_id = '', $args = array(), $merge = true ) {
+			$args = $this->handle_js_function( $args );
 			if ( true === $merge && isset( $this->js_args[ $object_id ] ) ) {
 				$this->js_args[ $object_id ] = $this->parse_args( $args, $this->js_args[ $object_id ] );
 			} else {
 				$this->js_args[ $object_id ] = $args;
 			}
+		}
+
+		/**
+		 * Converts Javascript Function into array.
+		 *
+		 * @param $args
+		 *
+		 * @return mixed
+		 */
+		protected function handle_js_function( $args ) {
+			foreach ( $args as $i => $ar ) {
+				if ( is_array( $ar ) ) {
+					$args[ $i ] = $this->handle_js_function( $ar );
+				} else {
+					$re = '/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';
+					preg_match_all( $re, $ar, $matches, PREG_SET_ORDER, 0 );
+
+					if ( is_array( $matches ) && ! empty( array_filter( $matches ) ) ) {
+						$args[ $i ] = array(
+							'wponino_js_args'     => false,
+							'wponino_js_contents' => false,
+						);
+
+						if ( isset( $matches[0][2] ) ) {
+							$args[ $i ]['wponino_js_args'] = ( empty( $matches[0][2] ) ) ? false : $matches[0][2];
+						}
+
+						if ( isset( $matches[0][4] ) ) {
+							$args[ $i ]['wponino_js_contents'] = ( empty( $matches[0][4] ) ) ? false : $matches[0][4];
+						}
+					}
+
+				}
+			}
+			return $args;
 		}
 
 		/**
