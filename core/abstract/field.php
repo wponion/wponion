@@ -184,8 +184,6 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				'validate'        => null,    #validate of field. can be enabled or disabled
 				'before'          => null,
 				'after'           => null,
-				'before_title'    => null,
-				'after_title'     => null,
 				'debug'           => false,
 				'only_field'      => false,
 				'name'            => false,
