@@ -440,17 +440,24 @@ $wponion.validate_single_function = function ($string) {
 	    $fuc_regex = $fuc_regex.exec($string),
 	    $func = $string;
 
-	if ($fuc_regex[0] !== undefined) {
-		$func = $func.replace($fuc_regex[0], '');
-		$func = $func.substring(0, $func.length - 1);
+	if ($fuc_regex !== null) {
+		if ($fuc_regex[0] !== undefined) {
+			$func = $func.replace($fuc_regex[0], '');
+			$func = $func.substring(0, $func.length - 1);
+		}
+		console.log($string);
+		console.log($fuc_regex[1]);
+		if ($fuc_regex[1] !== undefined) {
+			if ($fuc_regex[1] !== '()') {
+				$fuc_regex[1] = $fuc_regex[1].split('(');
+				$fuc_regex[1] = $fuc_regex[1][1].split(")");
+				return new Function($fuc_regex[1], $func);
+			} else {
+				return new Function($func);
+			}
+		}
 	}
-
-	if ($fuc_regex[1] !== undefined) {
-		$fuc_regex[1] = $fuc_regex[1].split('(');
-		$fuc_regex[1] = $fuc_regex[1][1].split(")");
-		return new Function($fuc_regex[1], $func);
-	}
-	return null;
+	return $string;
 };
 
 /**
