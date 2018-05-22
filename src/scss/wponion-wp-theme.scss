@@ -63,6 +63,27 @@
 		.wponion-element, .wponion-group-action {
 		  padding: 15px;
 		}
+
+		.wponion-element {
+		  padding:    0 !important;
+		  background: #FAFAFA;
+		  display:    flex;
+
+		  .wponion-element-title {
+			float:        left;
+			border-right: 1px solid #dadada;
+			display:      flow-root;
+		  }
+		  .wponion-element-title, .wponion-fieldset {
+			padding: 15px;
+		  }
+		  .wponion-fieldset {
+			margin-left: 0;
+			float:       left;
+			width:       80%;
+			background:  white;
+		  }
+		}
 	  }
 	}
   }
