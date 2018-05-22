@@ -66,6 +66,10 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 				$field_data['attributes']['data-wponion-maxlength'] = 'yes';
 			}
 
+			if ( false !== $field_data['placeholder'] ) {
+				$field_data['attributes']['placeholder'] = $field_data['placeholder'];
+			}
+
 			return $field_data;
 		}
 
@@ -83,9 +87,10 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'inputmask'  => false,
-				'max_length' => false,
-				'maxlength'  => false,
+				'inputmask'   => false,
+				'max_length'  => false,
+				'maxlength'   => false,
+				'placeholder' => false,
 			);
 		}
 
