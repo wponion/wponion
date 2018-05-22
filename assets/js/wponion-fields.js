@@ -21,6 +21,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			var $settings = this.arg('inputmask');
 			if ($settings) {
 				$settings = wpo.validate_js_function($settings);
+				console.log($settings);
 				this.save(this.elem.inputmask($settings));
 				//wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
 			}
@@ -305,9 +306,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		var $arg = this.arg('selectize');
 		if ($arg['theme'] !== undefined) {
 			this.elem.parent().addClass($arg['theme']);
+		} else {
+			this.elem.parent().addClass('selectize-default');
 		}
 
-		this.save(this.elem.selectize($arg));
+		this.elem.removeClass('form-control');
+		var $ins = this.elem.selectize($arg);
+		this.save($ins);
 		return this;
 	};
 
@@ -380,7 +385,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		var $fid = this.elem.attr('data-field-jsid');
 		var $tip = {};
 
-		if (this.arg($fid)) {
+		if (this.arg($fid + 'tooltip')) {
 			var $arg = this.arg($fid + 'tooltip');
 			if ($arg['image'] !== false) {
 				if ($('#wponiontooltipimagetippy').length === 0) {
@@ -398,7 +403,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 						return resp.blob();
 					}).then(function (blob) {
 						var url = URL.createObjectURL(blob);
-						content.innerHTML = '<img width="200" height="200" src="' + url + '">';
+						content.innerHTML = '<img src="' + url + '">';
 						$tip.loading = false;
 					}).catch(function (e) {
 						content.innerHTML = 'Loading failed';
