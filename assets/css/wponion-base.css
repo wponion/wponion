@@ -1,3 +1,20 @@
+.wponion-framework-bootstrap-grid, .wponion-framework-bootstrap {
+  /*.btn {
+  outline:         none;
+  text-decoration: none;
+}
+
+a {
+  text-decoration:  none !important;
+  color:            inherit !important;
+  background-color: inherit !important;
+  @include hover {
+	text-decoration: none !important;
+	color:           inherit;
+  }
+}*/
+}
+
 .wponion-framework-bootstrap-grid :root, .wponion-framework-bootstrap :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -39,12 +56,9 @@
 }
 
 .wponion-framework-bootstrap-grid html, .wponion-framework-bootstrap html {
-  font-family: sans-serif;
-  line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: transparent;
 }
 
 @-ms-viewport {
@@ -57,13 +71,7 @@
 
 .wponion-framework-bootstrap-grid body, .wponion-framework-bootstrap body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #212529;
   text-align: left;
-  background-color: #fff;
 }
 
 .wponion-framework-bootstrap-grid [tabindex="-1"]:focus, .wponion-framework-bootstrap [tabindex="-1"]:focus {
@@ -164,18 +172,6 @@
 
 .wponion-framework-bootstrap-grid sup, .wponion-framework-bootstrap sup {
   top: -.5em;
-}
-
-.wponion-framework-bootstrap-grid a, .wponion-framework-bootstrap a {
-  color: #007bff;
-  text-decoration: none;
-  background-color: transparent;
-  -webkit-text-decoration-skip: objects;
-}
-
-.wponion-framework-bootstrap-grid a:hover, .wponion-framework-bootstrap a:hover {
-  color: #0056b3;
-  text-decoration: underline;
 }
 
 .wponion-framework-bootstrap-grid a:not([href]):not([tabindex]), .wponion-framework-bootstrap a:not([href]):not([tabindex]) {
@@ -367,39 +363,6 @@
 .wponion-framework-bootstrap-grid ::-webkit-file-upload-button, .wponion-framework-bootstrap ::-webkit-file-upload-button {
   font: inherit;
   -webkit-appearance: button;
-}
-
-.wponion-framework-bootstrap-grid output, .wponion-framework-bootstrap output {
-  display: inline-block;
-}
-
-.wponion-framework-bootstrap-grid summary, .wponion-framework-bootstrap summary {
-  display: list-item;
-  cursor: pointer;
-}
-
-.wponion-framework-bootstrap-grid template, .wponion-framework-bootstrap template {
-  display: none;
-}
-
-.wponion-framework-bootstrap-grid [hidden], .wponion-framework-bootstrap [hidden] {
-  display: none !important;
-}
-
-.wponion-framework-bootstrap-grid .btn, .wponion-framework-bootstrap .btn {
-  outline: none;
-  text-decoration: none;
-}
-
-.wponion-framework-bootstrap-grid a, .wponion-framework-bootstrap a {
-  text-decoration: none !important;
-  color: inherit !important;
-  background-color: inherit !important;
-}
-
-.wponion-framework-bootstrap-grid a:hover, .wponion-framework-bootstrap a:hover {
-  text-decoration: none !important;
-  color: inherit;
 }
 
 .wponion-framework-bootstrap-grid .align-baseline, .wponion-framework-bootstrap .align-baseline {
@@ -10757,14 +10720,13 @@ a > .wponion-framework-bootstrap code {
 
 .wponion-element.wponion-field-debug a.wponion-field-debug-handle {
   position: absolute;
-  left: -15px;
-  top: 25px;
+  left: 0px;
   opacity: 0;
   cursor: pointer;
 }
 
 .wponion-element.wponion-field-debug:hover a.wponion-field-debug-handle {
-  opacity: 1;
+  opacity: 0.75;
 }
 
 .wponion-element.wponion-field-debug:hover a.wponion-field-debug-handle > .badge {
@@ -11191,6 +11153,16 @@ a > .wponion-framework-bootstrap code {
   font-size: 14px;
   margin-bottom: 10px;
   margin-top: 10px;
+}
+
+.wponion-framework .wponion-row {
+  margin: 0;
+  border-bottom: 1px solid #dadada;
+}
+
+.wponion-framework .wponion-row .col + .col {
+  border-left: 1px solid #dadada;
+  border-top: none;
 }
 
 /* Global / Field Debug POPUP Style Codes. */
