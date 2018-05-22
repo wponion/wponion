@@ -436,26 +436,16 @@ $wponion.get = function ( $elem ) {
  * @returns {*}
  */
 $wponion.validate_single_function = function ( $string ) {
-	var $fuc_regex = /function(.*){/,
-		$fuc_regex = $fuc_regex.exec( $string ),
-		$func      = $string;
+	if ( typeof $string === 'object' ) {
+		let $args     = ( $string[ 'wponino_js_args' ] === false ) ? false : $string[ 'wponino_js_args' ];
+		let $contents = ( $string[ 'wponino_js_contents' ] === false ) ? false : $string[ 'wponino_js_contents' ];
 
-	if ( $fuc_regex !== null ) {
-		if ( $fuc_regex[ 0 ] !== undefined ) {
-			$func = $func.replace( $fuc_regex[ 0 ], '' );
-			$func = $func.substring( 0, $func.length - 1 );
-		}
-		console.log( $string );
-		console.log( $fuc_regex[ 1 ] );
-		if ( $fuc_regex[ 1 ] !== undefined ) {
-			if ( $fuc_regex[ 1 ] !== '()' ) {
-				$fuc_regex[ 1 ] = $fuc_regex[ 1 ].split( '(' );
-				$fuc_regex[ 1 ] = $fuc_regex[ 1 ][ 1 ].split( ")" );
-				return new Function( $fuc_regex[ 1 ], $func );
-			} else {
-				return new Function( $func );
-			}
-
+		if ( $args === false && $contents !== false ) {
+			return new Function( $contents );
+		} else if ( $args !== false && $contents !== false ) {
+			return new Function( $args, $contents );
+		} else {
+			return $string;
 		}
 	}
 	return $string;
