@@ -78,7 +78,6 @@
 		  &:before {
 			content:      '';
 			position:     absolute;
-			z-index:      0;
 			left:         0;
 			top:          0;
 			bottom:       0;
@@ -87,16 +86,18 @@
 			border-right: 1px solid #ddd;
 		  }
 
-		  &.wponion-element-no-title:before {
-			background-color: #fff;
-			border-right:     0px;
+		  &.wponion-field-no-title {
+
+			&:before {
+			  background-color: transparent;
+			  border-right:     0px;
+			}
 		  }
 
 		  .wponion-element-title {
 			box-sizing: border-box;
 			padding:    15px 12px;
 			position:   relative;
-			z-index:    1;
 			flex:       0 0 20%;
 		  }
 
@@ -107,7 +108,6 @@
 			box-sizing:  border-box;
 			padding:     15px 12px;
 			position:    relative;
-			z-index:     1;
 		  }
 		}
 	  }
@@ -159,6 +159,25 @@
 	  color:             black;
 	  border-color:      rgba(0, 0, 0, 0.57);
 	  border-left-color: transparent;
+	}
+  }
+}
+
+.wponion-element {
+  &.wponion-element-jambo_content {
+	.wponion-fieldset {
+	  width:   100% !important;
+	  flex:    0 0 100% !important;
+	  padding: 0 !important;
+	}
+  }
+}
+
+.wponion-element {
+  &.wponion-field-no-title {
+	.wponion-fieldset {
+	  width: 100% !important;
+	  flex:  0 0 100% !important;
 	}
   }
 }
