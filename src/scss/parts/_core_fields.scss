@@ -53,14 +53,13 @@
   &.wponion-field-debug {
 	a.wponion-field-debug-handle {
 	  position: absolute;
-	  left:     -15px;
-	  top:      25px;
+	  left:     0px;
 	  opacity:  0;
 	  cursor:   pointer;
 	}
 	&:hover {
 	  a.wponion-field-debug-handle {
-		opacity: 1;
+		opacity: 0.75;
 		> .badge {
 		  font-size:                 90%;
 		  padding:                   5px 10px;
@@ -128,6 +127,15 @@
 	  font-size:     14px;
 	  margin-bottom: 10px;
 	  margin-top:    10px;
+	}
+  }
+
+  .wponion-row {
+	margin:        0;
+	border-bottom: 1px solid #dadada;
+	.col + .col {
+	  border-left: 1px solid #dadada;
+	  border-top:  none;
 	}
   }
 }
