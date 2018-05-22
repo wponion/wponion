@@ -279,10 +279,9 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 * Generates Elements Wrapper.
 		 */
 		protected function wrapper() {
-			$is_pseudo                       = $this->data( 'pseudo' );
 			$_wrap_attr                      = $this->data( 'wrap_attributes' );
 			$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
-			$is_pseudo                       = ( true === $is_pseudo ) ? ' wponion-pseudo-field ' : '';
+			$is_pseudo                       = ( true === $this->data( 'pseudo' ) ) ? ' wponion-pseudo-field ' : '';
 			$col_class                       = false;
 			$has_dep                         = false;
 			$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
@@ -301,10 +300,12 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				) );
 			}
 
-			if ( false !== $this->data( 'columns' ) ) {
+			if ( 12 === self::$columns ) {
+				self::$columns = 0;
+			} elseif ( false !== $this->data( 'columns' ) ) {
 				echo ( 0 === self::$columns ) ? '<div class="row wponion-row">' : '';
 				$col_class     = 'col';
-				self::$columns += $this->data( 'columns' );
+				self::$columns = ( 0 === self::$columns ) ? $this->data( 'columns' ) : $this->data( 'columns' ) + self::$columns;
 			}
 
 			$_wrap_attr['class'] = wponion_html_class( $this->data( 'wrap_class' ), $this->default_wrap_class( array(
@@ -314,8 +315,7 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 				$col_class,
 				$is_debug,
 			) ) );
-
-			$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
+			$_wrap_attr          = wponion_array_to_html_attributes( $_wrap_attr );
 
 			echo '<div ' . $_wrap_attr . '>';
 			echo $this->title();
