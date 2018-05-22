@@ -488,6 +488,9 @@
 		} );
 	};
 
+	/**
+	 * Handles Group Field.
+	 */
 	$wpf.fn.group = function () {
 		let $this       = this,
 			$elem       = $this.elem,
@@ -538,6 +541,47 @@
 		} );
 	};
 
+	/**
+	 * Handles WP Links Fields.
+	 */
+	$wpf.fn.wp_links = function () {
+		let $this     = this,
+			$elem     = $this.elem,
+			$textarea = $elem.find( 'textarea' );
+		$elem.find( '.wponion-wp-link-picker' ).on( 'click', function () {
+			$textarea.val( '' );
+			let $dialog = !window.wpLink && $.fn.wpdialog && $( "#wp-link" ).length ? {
+				$link: !1,
+				open: function () {
+					this.$link = $( '#wp-link' ).wpdialog( {
+						title: wpLinkL10n.title,
+						width: 480,
+						height: "auto",
+						modal: !0,
+						dialogClass: "wp-dialog",
+						zIndex: 3e5
+					} )
+				},
+				close: function () {
+					this.$link.wpdialog( 'close' );
+				}
+			} : window.wpLink;
+			$dialog.open( $textarea.attr( 'id' ) );
+		} );
+
+		$textarea.on( 'change', function () {
+			let $data = $( $( this ).val() );
+			console.log( $elem );
+			$elem.find( 'span.example_output span.value' ).html( $( this ).val() );
+			$elem.find( "input#url" ).val( $data.attr( 'href' ) );
+			$elem.find( "input#title" ).val( $data.text() );
+			$elem.find( "input#target" ).val( $data.attr( 'target' ) );
+			$elem.find( "span.url span.value" ).html( $data.attr( 'href' ) );
+			$elem.find( "span.title span.value" ).html( $data.text() );
+			$elem.find( "span.target span.value" ).html( $data.attr( 'target' ) );
+		} );
+		return this;
+	};
 
 	/**
 	 * Handles Field Dependency.
@@ -651,6 +695,7 @@
 		this.init_field( '.wponion-element-clone', 'clone_element' );
 		this.init_field( '.wponion-field-tooltip', 'field_tooltip' );
 		this.init_field( '.wponion-element-font', 'font_selector' );
+		this.init_field( '.wponion-element-wp_link', 'wp_links' );
 		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
