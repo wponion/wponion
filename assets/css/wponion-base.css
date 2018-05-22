@@ -10873,6 +10873,69 @@ a > .wponion-framework-bootstrap code {
   display: inline-block;
 }
 
+.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: relative;
+  width: 41px;
+  height: 24px;
+  border: 1px solid #dfdfdf;
+  outline: 0;
+  border-radius: 16px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #dfdfdf;
+}
+
+.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:before, .wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:after {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 15px;
+  -webkit-transition: -webkit-transform 0.3s;
+  transition: -webkit-transform 0.3s;
+  -o-transition: transform 0.3s;
+  transition: transform 0.3s;
+  transition: transform 0.3s, -webkit-transform 0.3s;
+}
+
+.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:before {
+  width: 39px;
+  height: 22px;
+  background-color: #fdfdfd;
+}
+
+.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:after {
+  width: 22px;
+  height: 22px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:checked {
+  border-color: #04be02;
+  background-color: #04be02;
+}
+
+.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:checked:before {
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+}
+
+.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:checked:after {
+  -webkit-transform: translateX(17px);
+  -ms-transform: translateX(17px);
+  transform: translateX(17px);
+}
+
+.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:checked, .wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:focus {
+  outline: 0;
+}
+
 .wponion-element.wponion-element-heading {
   font-size: 1.5em;
   font-weight: bold;
