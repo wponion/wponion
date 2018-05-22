@@ -102,6 +102,15 @@ if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
 			return wponion_settings_registry( $this->plugin_id );
 		}
 
+		/**
+		 * Returns Dashboard Instance.
+		 *
+		 * @return \WPOnion_Dashboard_Widgets
+		 */
+		public function dashboard_widgets() {
+			return wponion_dashboard_registry( $this->plugin_id );
+		}
+
 		/**************************************************************************************************************
 		 * Below Functions Are Related To Settings Module
 		 *************************************************************************************************************/
