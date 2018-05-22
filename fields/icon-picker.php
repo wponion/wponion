@@ -55,23 +55,39 @@ if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
 		}
 
 		protected function render_buttons() {
+			$html = $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
+				'class'       => array( 'btn', 'btn-success', 'btn-sm' ),
+				'type'        => 'button',
+				'attributes'  => array(
+					'data-wponion-jsid'           => $this->js_field_id(),
+					'data-wponion-iconpicker-add' => 'yes',
+				),
+				'only_field'  => true,
+				'button_type' => 'button',
+				'label'       => __( 'Add Icon' ),
+			) ), null, null );
 
-			$html = '<button ' . $this->_sub_attributes( array(
-					'type'  => 'button',
-					'class' => array( 'btn btn-success btn-sm wponion-add-icon' ),
-				) ) . '>' . __( 'Add Icon' ) . '</button>';
+			$html .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
+				'class'       => array( 'btn', 'btn-danger', 'btn-sm' ),
+				'type'        => 'button',
+				'attributes'  => array(
+					'data-wponion-jsid'              => $this->js_field_id(),
+					'data-wponion-iconpicker-remove' => 'yes',
+				),
+				'only_field'  => true,
+				'button_type' => 'button',
+				'label'       => __( 'Remove Icon' ),
+			) ), null, null );
 
-			$html .= '<button ' . $this->_sub_attributes( array(
-					'type'  => 'button',
-					'class' => array( 'btn btn-danger btn-sm wponion-remove-icon' ),
-				) ) . '>' . __( 'Remove Icon' ) . '</button>';
 			return $html;
 		}
 
 		protected function field_default() {
 			return array(
-				'show_input'   => true,
-				'icon_tooltip' => array(
+				'add_button'    => __( 'Add Icon' ),
+				'remove_button' => __( 'Remove Icon' ),
+				'show_input'    => true,
+				'icon_tooltip'  => array(
 					'placement' => 'bottom',
 					'arrow'     => true,
 				),

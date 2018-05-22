@@ -50,7 +50,18 @@ if ( ! class_exists( 'WPOnion_Field_group' ) ) {
 				}
 			}
 			echo '</div>';
-			echo '<button type="button" class="button button-primary wponion-add-group" data-wponion-jsid="' . $this->js_field_id() . '">' . $this->data( 'button_title' ) . '</button>';
+
+			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
+				'class'       => array( 'btn', 'btn-success', 'btn-sm' ),
+				'type'        => 'button',
+				'attributes'  => array(
+					'data-wponion-jsid'      => $this->js_field_id(),
+					'data-wponion-group-add' => 'yes',
+				),
+				'only_field'  => true,
+				'button_type' => 'button',
+				'label'       => __( 'Add New' ),
+			) ), null, null );
 			echo $this->after();
 
 
@@ -59,7 +70,16 @@ if ( ! class_exists( 'WPOnion_Field_group' ) ) {
 
 		protected function after_accordion() {
 			echo '<div class="wponion-group-action">';
-			echo '<button class="btn btn-danger btn-sm wponion-group-remove" type="button">' . $this->data( 'remove_button_title' ) . '</button>';
+			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
+				'class'       => array( 'btn', 'btn-danger', 'btn-sm' ),
+				'type'        => 'button',
+				'attributes'  => array(
+					'data-wponion-jsid' => $this->js_field_id(),
+				),
+				'only_field'  => true,
+				'button_type' => 'button',
+				'label'       => __( 'Remove ' ),
+			) ), null, null );
 			echo '</div>';
 		}
 
@@ -73,10 +93,10 @@ if ( ! class_exists( 'WPOnion_Field_group' ) ) {
 
 		protected function field_default() {
 			return $this->parse_args( array(
-				'button_title'        => __( 'Add New' ),
-				'remove_button_title' => __( 'Remove' ),
-				'limit'               => 4,
-				'error_msg'           => __( 'You Can\'t Add More..' ),
+				'add_button'    => __( 'Add New' ),
+				'remove_button' => __( 'Remove' ),
+				'limit'         => 4,
+				'error_msg'     => __( 'You Can\'t Add More..' ),
 			), parent::field_default() );
 		}
 

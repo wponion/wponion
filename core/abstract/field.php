@@ -764,6 +764,21 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		}
 
 		/**
+		 * @param       $key
+		 * @param       $value
+		 * @param array $defaults
+		 *
+		 * @return array
+		 */
+		protected function handle_args( $key, $value, $defaults = array() ) {
+			if ( is_array( $value ) ) {
+				return $this->parse_args( $value, $defaults );
+			}
+			$defaults[ $key ] = $value;
+			return $defaults;
+		}
+
+		/**
 		 * Handles Options Value.
 		 *
 		 * @param       $key

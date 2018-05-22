@@ -99,8 +99,8 @@
 			$elem       = $_this.elem,
 			$args       = $_this.args(),
 			$input      = $elem.find( ".wponion-icon-picker-input" ),
-			$remove_btn = $elem.find( 'button.wponion-remove-icon' ),
-			$add_btn    = $elem.find( "button.wponion-add-icon" ),
+			$remove_btn = $elem.find( 'button[data-wponion-iconpicker-remove]' ),
+			$add_btn    = $elem.find( "button[data-wponion-iconpicker-add]" ),
 			$preview    = $elem.find( 'span.wponion-icon-preview' );
 
 		let $manager = {
@@ -325,8 +325,8 @@
 		let $this       = this,
 			$elem       = $this.elem,
 			$clone_wrap = $elem.find( 'div.wponion-clone-wrap' ),
-			$add_btn    = $elem.find( ".wponion-clone-add" ),
-			$remove_btn = $clone_wrap.find( ".wponion-clone-remove" ),
+			$add_btn    = $elem.find( "button[data-wponion-clone-add]" ),
+			$remove_btn = $clone_wrap.find( "button[data-wponion-clone-remove]" ),
 			$arg        = $this.arg( 'clone' ),
 			$limit      = ( $arg[ 'limit' ] !== undefined ) ? $arg[ 'limit' ] : false,
 			$is_toast   = ( $arg[ 'toast_error' ] !== undefined ) ? $arg[ 'toast_error' ] : true,
@@ -336,7 +336,7 @@
 			add_btn: $add_btn,
 			limit: $limit,
 			clone_elem: '.wponion-field-clone',
-			remove_btn: ".wponion-clone-remove",
+			remove_btn: "button[data-wponion-clone-remove]",
 			template: $this.arg( 'clone_template' ),
 			onRemove: function ( $elem ) {
 				$elem.parent().parent().remove();
@@ -500,7 +500,7 @@
 	$wpf.fn.group = function () {
 		let $this       = this,
 			$elem       = $this.elem,
-			$add        = $elem.find( '> .wponion-fieldset > .wponion-add-group' ),
+			$add        = $elem.find( '> .wponion-fieldset > button[data-wponion-group-add]' ),
 			$group_wrap = $elem.find( '> .wponion-fieldset > .wponion-group-wrap' ),
 			$limit      = $this.arg( 'limit' ),
 			$error_msg  = $this.arg( 'error_msg' );
@@ -510,7 +510,7 @@
 			add_btn: $add,
 			limit: parseInt( $limit ),
 			clone_elem: '> .wponion-fieldset > .wponion-accordion-wrap',
-			remove_btn: ".wponion-group-remove",
+			remove_btn: ".wponion-group-action > button",
 			template: $this.arg( 'group_template' ),
 			onRemove: function ( $elem ) {
 				$elem.parent().parent().parent().remove();
@@ -554,7 +554,7 @@
 		let $this     = this,
 			$elem     = $this.elem,
 			$textarea = $elem.find( 'textarea' );
-		$elem.find( '.wponion-wp-link-picker' ).on( 'click', function () {
+		$elem.find( '#wponion-wp-link-picker > button' ).on( 'click', function () {
 			$textarea.val( '' );
 			let $dialog = !window.wpLink && $.fn.wpdialog && $( "#wp-link" ).length ? {
 				$link: !1,
@@ -575,9 +575,9 @@
 			$dialog.open( $textarea.attr( 'id' ) );
 		} );
 
+
 		$textarea.on( 'change', function () {
 			let $data = $( $( this ).val() );
-			console.log( $elem );
 			$elem.find( 'span.example_output span.value' ).html( $( this ).val() );
 			$elem.find( "input#url" ).val( $data.attr( 'href' ) );
 			$elem.find( "input#title" ).val( $data.text() );

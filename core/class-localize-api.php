@@ -104,7 +104,7 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 			foreach ( $args as $i => $ar ) {
 				if ( is_array( $ar ) ) {
 					$args[ $i ] = $this->handle_js_function( $ar );
-				} else {
+				} elseif ( is_string( $ar ) ) {
 					$re = '/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';
 					preg_match_all( $re, $ar, $matches, PREG_SET_ORDER, 0 );
 
@@ -122,7 +122,6 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 							$args[ $i ]['wponino_js_contents'] = ( empty( $matches[0][4] ) ) ? false : $matches[0][4];
 						}
 					}
-
 				}
 			}
 			return $args;

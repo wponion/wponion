@@ -20,18 +20,26 @@ if ( ! class_exists( 'WPOnion_Field_button' ) ) {
 
 		protected function output() {
 			echo $this->before();
-			echo '<button ' . $this->attributes() . ' >' . $this->value() . '</button>';
+			$label = ( false !== $this->has( 'label' ) ) ? $this->data( 'label' ) : $this->value();
+			echo '<button ' . $this->attributes() . ' >' . $label . '</button>';
 			echo $this->after();
 		}
 
+		public function handle_field_args( $data = array() ) {
+			if ( false !== $data['button_type'] ) {
+				$data['attributes']['type'] = $data['button_type'];
+			}
+			return $data;
+		}
+
 		protected function field_default() {
-			// TODO: Implement field_default() method.
+			return array(
+				'button_type' => 'button',
+				'label'       => false,
+			);
 		}
 
 		public function field_assets() {
-			return array(
-				'button_type' => 'button',
-			);
 		}
 	}
 }

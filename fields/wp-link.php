@@ -39,7 +39,19 @@ if ( ! class_exists( 'WPOnion_Field_wp_link' ) ) {
 			echo '<span class="target"><strong>' . __( 'Target : ' ) . '</strong><span class="value"></span></span><br/><br/>';
 			echo '<span class="example_output"><strong>' . __( 'Example : ' ) . '</strong><span class="value"></span></span><br/><br/>';
 			echo '<textarea id="' . $this->js_field_id() . '" class="hidden"></textarea>';
-			echo '<button type="button" class="btn btn-secondary btn-sm wponion-wp-link-picker" id="wponion-wp-link-selector-btn">' . $this->data( 'button_label' ) . '</button>';
+
+			echo '<div id="wponion-wp-link-picker">';
+			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'button' ), array(
+				'button_type' => 'button',
+				'only_field'  => true,
+				'type'        => 'button',
+				'class'       => 'btn btn-secondary btn-sm',
+				'label'       => __( 'Select URL' ),
+				'attributes'  => array(
+					'data-wponion-jsid' => $this->js_field_id(),
+				),
+			) ), null, null, false );
+			echo '</div>';
 			echo '</div>';
 
 			echo $this->after();
@@ -47,7 +59,7 @@ if ( ! class_exists( 'WPOnion_Field_wp_link' ) ) {
 
 		protected function field_default() {
 			return array(
-				'button_label' => __( 'Select URL' ),
+				'button' => __( 'Select URL' ),
 			);
 		}
 

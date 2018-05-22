@@ -43,14 +43,34 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 		 */
 		protected function clone_btn( $type = 'add' ) {
 			if ( 'add' === $type ) {
-				$add_attrs          = $this->data( 'clone' )['add_button'];
-				$add_attrs['class'] = $add_attrs['class'] . ' wponion-clone-add';
-				return '<button type="button" class="' . wponion_html_class( $add_attrs['class'] ) . '">' . $add_attrs['label'] . '</button>';
+				$add_attrs = $this->data( 'clone' )['add_button'];
+
+				return $this->sub_field( $this->handle_args( 'label', $add_attrs, array(
+					'class'       => array( 'btn', 'btn-sm' ),
+					'type'        => 'button',
+					'attributes'  => array(
+						'data-wponion-jsid'      => $this->js_field_id(),
+						'data-wponion-clone-add' => 'yes',
+					),
+					'only_field'  => true,
+					'button_type' => 'button',
+					'label'       => __( 'Add + ' ),
+				) ), null, null );
+
 			}
 
-			$add_attrs          = $this->data( 'clone' )['remove_button'];
-			$add_attrs['class'] = $add_attrs['class'] . ' wponion-clone-remove';
-			return '<button type="button" class="' . wponion_html_class( $add_attrs['class'] ) . '">' . $add_attrs['label'] . '</button>';
+			$add_attrs = $this->data( 'clone' )['remove_button'];
+			return $this->sub_field( $this->handle_args( 'label', $add_attrs, array(
+				'class'       => array( 'btn', 'btn-sm' ),
+				'type'        => 'button',
+				'attributes'  => array(
+					'data-wponion-jsid'         => $this->js_field_id(),
+					'data-wponion-clone-remove' => 'yes',
+				),
+				'only_field'  => true,
+				'button_type' => 'button',
+				'label'       => '<i class="far fa-trash-alt"></i>',
+			) ), null, null );
 		}
 
 		/**
@@ -160,15 +180,7 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 				$data['clone'] = array();
 			}
 
-			$data['clone']                  = $this->parse_args( $data['clone'], $defaults );
-			$data['clone']['add_button']    = $this->handle_options( 'label', $data['clone']['add_button'], array(
-				'label' => __( 'Add+' ),
-				'class' => 'btn btn-sm',
-			) );
-			$data['clone']['remove_button'] = $this->handle_options( 'label', $data['clone']['remove_button'], array(
-				'label' => wponion_icon( 'far fa-trash-alt' ),
-				'class' => 'btn btn-secondary btn-sm',
-			) );
+			$data['clone'] = $this->parse_args( $data['clone'], $defaults );
 
 			if ( null === $data['clone']['error_msg'] ) {
 				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s' ), $data['clone']['limit'] );
@@ -212,9 +224,11 @@ if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
 		protected function js_field_args() {
 			return array(
 				'clone' => array(
-					'limit'       => $this->data( 'clone' )['limit'],
-					'error_msg'   => $this->data( 'clone' )['error_msg'],
-					'toast_error' => $this->data( 'clone' )['toast_error'],
+					'add_button'    => __( 'Add +' ),
+					'remove_button' => '<i class="far fa-trash-alt"></i>',
+					'limit'         => $this->data( 'clone' )['limit'],
+					'error_msg'     => $this->data( 'clone' )['error_msg'],
+					'toast_error'   => $this->data( 'clone' )['toast_error'],
 				),
 			);
 		}
