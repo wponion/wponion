@@ -582,6 +582,25 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	};
 
 	/**
+  * Handles Key Value Pair Fields.
+  */
+	$wpf.fn.keyvalue_pair = function () {
+		var $this = this,
+		    $elem = $this.elem,
+		    $keyvalue_wrap = $elem.find('.wponion-keyvalue_wrap');
+		$keyvalue_wrap.WPOnionCloner({
+			add_btn: $elem.find('.wponion-fieldset > button[data-wponion-keyvalue-add]'),
+			limit: false,
+			clone_elem: '> .wponion-fieldset > .wponion-keyvalue-field',
+			remove_btn: ".wponion-keyvalue-field > button[data-wponion-keyvalue-remove]",
+			template: $this.arg('html_template'),
+			onRemove: function onRemove($elem) {
+				$elem.parent().remove();
+			}
+		});
+	};
+
+	/**
   * Handles Field Dependency.
   * @type {function()}
   */
@@ -693,6 +712,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		this.init_field('.wponion-field-tooltip', 'field_tooltip');
 		this.init_field('.wponion-element-font', 'font_selector');
 		this.init_field('.wponion-element-wp_link', 'wp_links');
+		this.init_field('.wponion-element-key_value', 'keyvalue_pair');
 		this.field_debug();
 		wphooks.addAction('wponion_after_fields_reload');
 	};
