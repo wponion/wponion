@@ -770,11 +770,20 @@ if ( ! class_exists( 'WPOnion_Field' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function handle_args( $key, $value, $defaults = array() ) {
+		protected function handle_args( $key, $value, $defaults = array(), $force_defaults = array() ) {
 			if ( is_array( $value ) ) {
-				return $this->parse_args( $value, $defaults );
+				$defaults = $this->parse_args( $value, $defaults );
+			} else {
+				$defaults[ $key ] = $value;
 			}
-			$defaults[ $key ] = $value;
+
+			foreach ( $force_defaults as $key => $val ) {
+				if ( ! isset( $defaults[ $key ] ) ) {
+					$defaults[ $key ] = array();
+				}
+				$defaults[ $key ] = $this->handle_args( $key, $val, $defaults[ $key ] );
+			}
+
 			return $defaults;
 		}
 
