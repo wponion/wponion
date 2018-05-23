@@ -1,0 +1,69 @@
+.wponion-tab-wrap {
+  ul {
+	margin-bottom: 0;
+	li {
+	  margin-bottom: 0;
+	  a {
+		text-decoration: none;
+		outline:         none;
+	  }
+	}
+  }
+
+  &.wponion-tab- {
+
+	&style1 {
+	  overflow: hidden;
+	  border:   1px solid #ccc;
+	  ul {
+		margin:           0;
+		min-width:        10%;
+		float:            left;
+		line-height:      1em;
+		padding:          0 0 10px;
+		position:         relative;
+		background-color: #fafafa;
+		border-right:     1px solid #eee;
+		box-sizing:       border-box;
+		li {
+		  margin:   0;
+		  padding:  0;
+		  display:  block;
+		  position: relative;
+		  a {
+			margin:             0;
+			padding:            6px 10px;
+			display:            block;
+			-webkit-box-shadow: none;
+			box-shadow:         none;
+			text-decoration:    none;
+			line-height:        20px !important;
+			border-bottom:      1px solid #eee;
+		  }
+		  &.wponion-tab-current {
+			a {
+			  color:            #555;
+			  position:         relative;
+			  background-color: #eee;
+			}
+		  }
+		}
+		&::after {
+		  content:          '';
+		  display:          block;
+		  width:            100%;
+		  height:           9999em;
+		  position:         absolute;
+		  bottom:           -9999em;
+		  left:             0;
+		  background-color: #fafafa;
+		  border-right:     1px solid #eee;
+		}
+	  }
+	  .wponion-tab-page {
+		float: left;
+		width: 90%;
+	  }
+	}
+  }
+}

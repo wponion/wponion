@@ -74,6 +74,7 @@
 	border-top: 1px solid #dadada;
   }
 
+
   /**###########################################
    * Below Are related To Fields.
    ############################################*/
@@ -109,6 +110,7 @@
   @import "./fields/heading_subheading_notice";
   @import "./fields/bootstrap-fields";
   @import "./fields/accordion";
+  @import "./fields/tab";
 
   &.wponion-element-font {
 	.wponion-font-select-container {
