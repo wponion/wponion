@@ -348,7 +348,7 @@
 			sortable: {
 				items: '.wponion-field-clone',
 				handle: '.wponion-field-clone-sorter',
-				placeholder: '.wponion-cloner-placeholder',
+				placeholder: 'wponion-cloner-placeholder',
 				start: function ( event, ui ) {
 					ui.item.css( 'background-color', '#eeee' );
 				},
@@ -523,7 +523,7 @@
 			sortable: {
 				items: '.wponion-accordion-wrap',
 				handle: '.wponion-accordion-title',
-				placeholder: '.wponion-accordion-placeholder',
+				placeholder: 'wponion-accordion-placeholder',
 				start: function ( event, ui ) {
 					ui.item.css( 'background-color', '#eeee' );
 				},
