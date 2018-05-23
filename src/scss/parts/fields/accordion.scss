@@ -58,6 +58,16 @@
 	  display: none !important;
 	}
   }
+
+  .wponion-field-clone {
+	.wponion-field-clone-sorter {
+	}
+	.wponion-element {
+	  max-width: 90% !important;
+	  display: inline-block !important;
+	  vertical-align: middle !important;
+	}
+  }
 }
 
 &.wponion-element-group {

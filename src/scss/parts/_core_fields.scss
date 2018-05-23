@@ -51,14 +51,14 @@
   }
 
   &.wponion-field-debug {
-	a.wponion-field-debug-handle {
+	> .wponion-field-title > a.wponion-field-debug-handle {
 	  position: absolute;
 	  left:     0px;
 	  opacity:  0;
 	  cursor:   pointer;
 	}
 	&:hover {
-	  a.wponion-field-debug-handle {
+	  > .wponion-field-title > a.wponion-field-debug-handle {
 		opacity: 0.75;
 		> .badge {
 		  font-size:                 90%;
@@ -85,7 +85,6 @@
   @import "./fields/textarea";
   @import "./fields/check_radio";
   @import "./fields/switcher";
-
 
   /** UI Related Fields.*/
   @import "./fields/heading_subheading_notice";

@@ -2,8 +2,9 @@
   .wponion-clone-wrap {
 	.wponion-field-clone {
 	  .wponion-element {
-		padding: 10px 5px !important;
-		display: inline-block;
+		padding:        10px 5px !important;
+		display:        inline-block;
+		vertical-align: middle;
 	  }
 
 	  .wponion-clone-action {
@@ -37,10 +38,10 @@
 
 	.wponion-field-clone-sorter {
 	  display:        inline-block;
-	  vertical-align: top;
+	  vertical-align: middle;
 	  margin-right:   10px;
 	  cursor:         move;
-	  margin-top:     5px;
+	  margin-top:     0px;
 	}
 
 	padding: 10px;
