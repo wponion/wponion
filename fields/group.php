@@ -52,7 +52,7 @@ if ( ! class_exists( 'WPOnion_Field_group' ) ) {
 			echo '</div>';
 
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
-				'class'       => array( 'btn', 'btn-success', 'btn-sm' ),
+				'class'       => array( 'button button-primary' ),
 				'type'        => 'button',
 				'attributes'  => array(
 					'data-wponion-jsid'      => $this->js_field_id(),
@@ -71,7 +71,7 @@ if ( ! class_exists( 'WPOnion_Field_group' ) ) {
 		protected function after_accordion() {
 			echo '<div class="wponion-group-action">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
-				'class'       => array( 'btn', 'btn-danger', 'btn-sm' ),
+				'class'       => array( 'button button-secondary' ),
 				'type'        => 'button',
 				'attributes'  => array(
 					'data-wponion-jsid' => $this->js_field_id(),
