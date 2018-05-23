@@ -37,6 +37,12 @@ if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
 				'name'  => $this->name(),
 			);
 
+			return $this->sub_field( array(
+				'type'       => 'text',
+				'only_field' => true,
+				'class'      => ( $this->has( 'show_input' ) ) ? 'wponion-icon-picker-input' : 'wponion-icon-picker-input hidden',
+			), $this->value(), $this->name() );
+
 			return '<input ' . $this->attributes( $attr ) . '/>';
 		}
 
@@ -56,7 +62,7 @@ if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
 
 		protected function render_buttons() {
 			$html = $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
-				'class'       => array( 'btn', 'btn-success', 'btn-sm' ),
+				'class'       => array( 'button', 'button-primary' ),
 				'type'        => 'button',
 				'attributes'  => array(
 					'data-wponion-jsid'           => $this->js_field_id(),
@@ -68,7 +74,7 @@ if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
 			) ), null, null );
 
 			$html .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
-				'class'       => array( 'btn', 'btn-danger', 'btn-sm' ),
+				'class'       => array( 'button button-secondary' ),
 				'type'        => 'button',
 				'attributes'  => array(
 					'data-wponion-jsid'              => $this->js_field_id(),
