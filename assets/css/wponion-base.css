@@ -10937,6 +10937,31 @@ a > .wponion-framework-bootstrap code {
   outline: 0;
 }
 
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap {
+  margin-bottom: 15px;
+}
+
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field {
+  margin-bottom: 15px;
+}
+
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field input {
+  display: inline-block;
+  min-width: 200px;
+  margin-right: 15px;
+  width: auto;
+  vertical-align: middle;
+}
+
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field:last-child {
+  margin-bottom: 0;
+}
+
 .wponion-element.wponion-element-heading {
   font-size: 1.5em;
   font-weight: bold;
