@@ -141,7 +141,7 @@ if ( ! function_exists( '_wponion_valid_field' ) ) {
 	 * @return bool
 	 */
 	function _wponion_valid_field( $field ) {
-		return ( _wponion_field_id( $field ) ) ? true : false;
+		return ( _wponion_field_id( $field ) || is_string( $field ) ) ? true : false;
 	}
 }
 
