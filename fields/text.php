@@ -26,7 +26,7 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 	class WPOnion_Field_text extends WPOnion_Field {
 
 		protected function _input_attributes() {
-			$field_class = 'form-control';
+			$field_class = 'wponion-form-control';
 			$field_class = ( $this->has_errors() ) ? $field_class . ' is-invalid ' : $field_class;
 
 			return $this->attributes( array(
@@ -40,7 +40,15 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 
 		protected function output() {
 			echo $this->before();
+			echo '<div class="wponion-input-group">';
+			if ( false !== $this->has( 'prefix' ) ) {
+				echo '<span class="input-group input-group-before">' . $this->data( 'prefix' ) . '</span>';
+			}
 			echo '<input ' . $this->_input_attributes() . '/>';
+			if ( false !== $this->has( 'surfix' ) ) {
+				echo '<span class="input-group input-group-after">' . $this->data( 'surfix' ) . '</span>';
+			}
+			echo '</div>';
 			echo $this->after();
 		}
 
@@ -91,6 +99,8 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 				'max_length'  => false,
 				'maxlength'   => false,
 				'placeholder' => false,
+				'prefix'      => false,
+				'surfix'      => false,
 			);
 		}
 
