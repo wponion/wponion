@@ -1,0 +1,23 @@
+&.wponion-element-key_value {
+  .wponion-keyvalue_wrap {
+	margin-bottom: 15px;
+	.wponion-keyvalue-field {
+	  margin-bottom:  15px;
+	  input {
+		display:        inline-block;
+		min-width:      200px;
+		margin-right:   15px;
+		width:          auto;
+		vertical-align: middle;
+	  }
+	  button {
+		display:        inline-block;
+		vertical-align: middle;
+	  }
+
+	  &:last-child {
+		margin-bottom: 0;
+	  }
+	}
+  }
+}
