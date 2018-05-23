@@ -18,11 +18,10 @@
 /** Element Style **/
 .wponion-element {
   &.wponion-element-icon_picker {
-	.wponion-icon-picker-input[type=text] {
-	  margin-right: 10px;
-	}
+
 	.wponion-icon-preview {
 	  margin-right: 10px;
+	  margin-left:  10px;
 	}
 	button {
 	  margin-right: 10px;

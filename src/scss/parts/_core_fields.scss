@@ -78,6 +78,24 @@
    * Below Are related To Fields.
    ############################################*/
 
+  .wponion-input-group {
+	display: inline-block;
+	.input-group {
+	  display:    inline-block;
+	  padding:    5px;
+	  width:      auto;
+	  background: #f2f2f2;
+	  border:     1px solid #dedede;
+
+	  &.input-group-before {
+		border-right: none;
+	  }
+	  &.input-group-after {
+		border-left: none;
+	  }
+	}
+  }
+
   @import "./fields/clone_field";
   @import "./fields/fieldset";
 
@@ -86,7 +104,6 @@
   @import "./fields/check_radio";
   @import "./fields/switcher";
   @import "./fields/key_value";
-
 
   /** UI Related Fields.*/
   @import "./fields/heading_subheading_notice";

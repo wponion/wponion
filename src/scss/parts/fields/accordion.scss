@@ -63,8 +63,9 @@
 	.wponion-field-clone-sorter {
 	}
 	.wponion-element {
-	  max-width: 90% !important;
-	  display: inline-block !important;
+	  max-width:      90% !important;
+	  display:        inline-block !important;
+	  width:          auto !important;
 	  vertical-align: middle !important;
 	}
   }

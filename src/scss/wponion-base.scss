@@ -1,3 +1,13 @@
 @import "parts/wponion-bootstrap";
 
+input.wponion-form-control {
+  padding:       5px !important;
+  border-radius: 0 !important;
+}
+
 @import "parts/core_fields";
+
+.wponion-accordion-placeholder {
+  border:        1px dashed #bdbdbd;
+  margin-bottom: 10px;
+}
