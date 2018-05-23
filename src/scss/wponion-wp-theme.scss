@@ -68,49 +68,18 @@
 		.wponion-group-action {
 		  padding: 15px;
 		}
-
-		.wponion-element {
-		  position: relative;
-		  display:  flex;
-		  width:    100%;
-		  padding:  0 !important;
-
-		  &:before {
-			content:      '';
-			position:     absolute;
-			left:         0;
-			top:          0;
-			bottom:       0;
-			width:        20%;
-			background:   #fafafa;
-			border-right: 1px solid #ddd;
-		  }
-
-		  &.wponion-field-no-title {
-
-			&:before {
-			  background-color: transparent;
-			  border-right:     0px;
-			}
-		  }
-
-		  .wponion-element-title {
-			box-sizing: border-box;
-			padding:    15px 12px;
-			position:   relative;
-			flex:       0 0 20%;
-		  }
-
-		  .wponion-fieldset {
-			flex:        0 0 80%;
-			width:       80%;
-			margin-left: 0 !important;
-			box-sizing:  border-box;
-			padding:     15px 12px;
-			position:    relative;
-		  }
-		}
 	  }
+	}
+  }
+
+  .wponion-framework.wponion-wp-theme {
+	.wponion-element {
+	  &:after, &:before {
+		content: " ";
+		display: table;
+	  }
+	  padding: 15px;
+	  width:   100%;
 	}
   }
 
@@ -161,23 +130,5 @@
 	  border-left-color: transparent;
 	}
   }
-}
 
-.wponion-element {
-  &.wponion-element-jambo_content {
-	.wponion-fieldset {
-	  width:   100% !important;
-	  flex:    0 0 100% !important;
-	  padding: 0 !important;
-	}
-  }
-}
-
-.wponion-element {
-  &.wponion-field-no-title {
-	.wponion-fieldset {
-	  width: 100% !important;
-	  flex:  0 0 100% !important;
-	}
-  }
 }
