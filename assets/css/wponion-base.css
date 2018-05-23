@@ -6650,6 +6650,78 @@ input.wponion-form-control {
   text-align: right;
 }
 
+.wponion-element .wponion-tab-wrap ul {
+  margin-bottom: 0;
+}
+
+.wponion-element .wponion-tab-wrap ul li {
+  margin-bottom: 0;
+}
+
+.wponion-element .wponion-tab-wrap ul li a {
+  text-decoration: none;
+  outline: none;
+}
+
+.wponion-element .wponion-tab-wrap.wponion-tab-style2 {
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul {
+  margin: 0;
+  min-width: 10%;
+  float: left;
+  line-height: 1em;
+  padding: 0 0 10px;
+  position: relative;
+  background-color: #fafafa;
+  border-right: 1px solid #eee;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul li {
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+}
+
+.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul li a {
+  margin: 0;
+  padding: 6px 10px;
+  display: block;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  text-decoration: none;
+  line-height: 20px !important;
+  border-bottom: 1px solid #eee;
+}
+
+.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul li.wponion-tab-current a {
+  color: #555;
+  position: relative;
+  background-color: #eee;
+}
+
+.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 9999em;
+  position: absolute;
+  bottom: -9999em;
+  left: 0;
+  background-color: #fafafa;
+  border-right: 1px solid #eee;
+}
+
+.wponion-element .wponion-tab-wrap.wponion-tab-style2 .wponion-tab-page {
+  float: left;
+  width: 90%;
+}
+
 .wponion-element.wponion-element-font .wponion-font-select-container {
   margin-right: 10px;
   min-width: 200px;
