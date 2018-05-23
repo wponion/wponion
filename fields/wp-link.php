@@ -45,7 +45,7 @@ if ( ! class_exists( 'WPOnion_Field_wp_link' ) ) {
 				'button_type' => 'button',
 				'only_field'  => true,
 				'type'        => 'button',
-				'class'       => 'btn btn-secondary btn-sm',
+				'class'       => 'button button-primary',
 				'label'       => __( 'Select URL' ),
 				'attributes'  => array(
 					'data-wponion-jsid' => $this->js_field_id(),
