@@ -10718,18 +10718,18 @@ a > .wponion-framework-bootstrap code {
   display: block;
 }
 
-.wponion-element.wponion-field-debug a.wponion-field-debug-handle {
+.wponion-element.wponion-field-debug > .wponion-field-title > a.wponion-field-debug-handle {
   position: absolute;
   left: 0px;
   opacity: 0;
   cursor: pointer;
 }
 
-.wponion-element.wponion-field-debug:hover a.wponion-field-debug-handle {
+.wponion-element.wponion-field-debug:hover > .wponion-field-title > a.wponion-field-debug-handle {
   opacity: 0.75;
 }
 
-.wponion-element.wponion-field-debug:hover a.wponion-field-debug-handle > .badge {
+.wponion-element.wponion-field-debug:hover > .wponion-field-title > a.wponion-field-debug-handle > .badge {
   font-size: 90%;
   padding: 5px 10px;
   border-top-left-radius: 0;
@@ -10748,6 +10748,7 @@ a > .wponion-framework-bootstrap code {
 .wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-element {
   padding: 10px 5px !important;
   display: inline-block;
+  vertical-align: middle;
 }
 
 .wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-clone-action {
@@ -10775,10 +10776,10 @@ a > .wponion-framework-bootstrap code {
 
 .wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone-sorter {
   display: inline-block;
-  vertical-align: top;
+  vertical-align: middle;
   margin-right: 10px;
   cursor: move;
-  margin-top: 5px;
+  margin-top: 0px;
 }
 
 .wponion-element.wponion-element-clone .wponion-clone-actions {
@@ -11034,6 +11035,12 @@ a > .wponion-framework-bootstrap code {
 
 .wponion-element.wponion-element-accordion .ui-sortable-helper .wponion-accordion-content, .wponion-element.wponion-element-group .ui-sortable-helper .wponion-accordion-content {
   display: none !important;
+}
+
+.wponion-element.wponion-element-accordion .wponion-field-clone .wponion-element, .wponion-element.wponion-element-group .wponion-field-clone .wponion-element {
+  max-width: 90% !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
 }
 
 .wponion-element.wponion-element-group .wponion-group-wrap .wponion-accordion-wrap {
