@@ -346,7 +346,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			sortable: {
 				items: '.wponion-field-clone',
 				handle: '.wponion-field-clone-sorter',
-				placeholder: '.wponion-cloner-placeholder',
+				placeholder: 'wponion-cloner-placeholder',
 				start: function start(event, ui) {
 					ui.item.css('background-color', '#eeee');
 				},
@@ -516,7 +516,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			sortable: {
 				items: '.wponion-accordion-wrap',
 				handle: '.wponion-accordion-title',
-				placeholder: '.wponion-accordion-placeholder',
+				placeholder: 'wponion-accordion-placeholder',
 				start: function start(event, ui) {
 					ui.item.css('background-color', '#eeee');
 				},
