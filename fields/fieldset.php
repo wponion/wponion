@@ -39,7 +39,7 @@ if ( ! class_exists( 'WPOnion_Field_fieldset' ) ) {
 				}
 
 				foreach ( $this->data( 'fields' ) as $field ) {
-					$this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), false );
+					echo $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), false );
 				}
 			}
 
