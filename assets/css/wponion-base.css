@@ -6199,6 +6199,29 @@ a {
   color: #040505;
 }
 
+.wponion-warning-primary {
+  color: #fff !important;
+  border-color: #d02c21 #ba281e #ba281e !important;
+  background: #e14d43 !important;
+  -webkit-box-shadow: 0 1px 0 #ba281e !important;
+  box-shadow: 0 1px 0 #ba281e !important;
+  text-shadow: 0 -1px 1px #ba281e, 1px 0 1px #ba281e, 0 1px 1px #ba281e, -1px 0 1px #ba281e !important;
+}
+
+.wponion-warning-primary:hover, .wponion-warning-primary:focus {
+  border-color: #ba281e !important;
+  background: #e35950 !important;
+  -webkit-box-shadow: 0 1px 0 #ba281e !important;
+  box-shadow: 0 1px 0 #ba281e !important;
+}
+
+.wponion-warning-primary:active {
+  border-color: #ba281e !important;
+  background: #d02c21 !important;
+  -webkit-box-shadow: inset 0 2px 0 #ba281e !important;
+  box-shadow: inset 0 2px 0 #ba281e !important;
+}
+
 input.wponion-form-control {
   padding: 5px !important;
   border-radius: 0 !important;
@@ -6663,12 +6686,12 @@ input.wponion-form-control {
   outline: none;
 }
 
-.wponion-element .wponion-tab-wrap.wponion-tab-style2 {
+.wponion-element .wponion-tab-wrap.wponion-tab-style1 {
   overflow: hidden;
   border: 1px solid #ccc;
 }
 
-.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul {
+.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul {
   margin: 0;
   min-width: 10%;
   float: left;
@@ -6681,14 +6704,14 @@ input.wponion-form-control {
   box-sizing: border-box;
 }
 
-.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul li {
+.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul li {
   margin: 0;
   padding: 0;
   display: block;
   position: relative;
 }
 
-.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul li a {
+.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul li a {
   margin: 0;
   padding: 6px 10px;
   display: block;
@@ -6699,13 +6722,13 @@ input.wponion-form-control {
   border-bottom: 1px solid #eee;
 }
 
-.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul li.wponion-tab-current a {
+.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul li.wponion-tab-current a {
   color: #555;
   position: relative;
   background-color: #eee;
 }
 
-.wponion-element .wponion-tab-wrap.wponion-tab-style2 ul::after {
+.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul::after {
   content: '';
   display: block;
   width: 100%;
@@ -6717,7 +6740,7 @@ input.wponion-form-control {
   border-right: 1px solid #eee;
 }
 
-.wponion-element .wponion-tab-wrap.wponion-tab-style2 .wponion-tab-page {
+.wponion-element .wponion-tab-wrap.wponion-tab-style1 .wponion-tab-page {
   float: left;
   width: 90%;
 }
@@ -6733,6 +6756,84 @@ input.wponion-form-control {
 }
 
 /** Icon Picker Style */
+.wponion-image-preview .wponion-preview {
+  margin-right: 10px;
+}
+
+.wponion-image-preview .wponion-preview, .wponion-image-preview .wponion-preview-add {
+  display: inline-block;
+  position: relative;
+  padding: 4px;
+  min-width: 100px;
+  min-height: 100px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.wponion-image-preview .wponion-preview .wponion-remove, .wponion-image-preview .wponion-preview-add .wponion-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  font-size: 11px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  background-color: #e14d43;
+  opacity: 0.8;
+  border-radius: 2px;
+  -webkit-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.wponion-image-preview .wponion-preview .wponion-remove:hover, .wponion-image-preview .wponion-preview-add .wponion-remove:hover {
+  background-color: #df4136;
+}
+
+.wponion-image-preview .wponion-preview img, .wponion-image-preview .wponion-preview-add img {
+  max-height: 90px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.wponion-image-preview .wponion-preview-add {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  color: green;
+  cursor: pointer;
+}
+
+.wponion-image-preview .wponion-preview-add i {
+  color: #87D148;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.wponion-image-preview .wponion-preview-add:hover {
+  background-color: #f6f6f6;
+}
+
+.wponion-element.wponion-element-gallery .wponion-gallery-actions {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.wponion-element.wponion-element-gallery .wponion-gallery-actions button {
+  margin-right: 15px;
+}
+
 /** Icon Preview Button Style **/
 .wponion-icon-preview {
   display: inline-block;
