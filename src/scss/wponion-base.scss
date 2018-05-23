@@ -1,5 +1,29 @@
 @import "parts/wponion-bootstrap";
 
+.wponion-warning-primary {
+  color:        #fff !important;
+  border-color: #d02c21 #ba281e #ba281e !important;
+  background:   #e14d43 !important;
+  box-shadow:   0 1px 0 #ba281e !important;
+  text-shadow:  0 -1px 1px #ba281e,
+				1px 0 1px #ba281e,
+				0 1px 1px #ba281e,
+				-1px 0 1px #ba281e !important;
+
+  &:hover,
+  &:focus {
+	border-color: #ba281e !important;
+	background:   #e35950 !important;
+	box-shadow:   0 1px 0 #ba281e !important;
+  }
+
+  &:active {
+	border-color: #ba281e !important;
+	background:   #d02c21 !important;
+	box-shadow:   inset 0 2px 0 #ba281e !important;
+  }
+}
+
 input.wponion-form-control {
   padding:       5px !important;
   border-radius: 0 !important;
