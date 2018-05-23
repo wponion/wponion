@@ -57,7 +57,7 @@ if ( ! class_exists( 'WPOnion_Field_key_value' ) ) {
 			echo '</div>';
 
 			$this->catch_output( 'start' );
-			echo $this->key_value( $this->name( '[{wponionCloneID}]' ), 'Key', 'Value' );
+			echo $this->key_value( $this->name( '[{wponionCloneID}]' ) );
 			$template = $this->catch_output( 'stop' );
 			$this->localize_field( array( 'html_template' => $template ) );
 
