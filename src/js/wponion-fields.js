@@ -608,6 +608,30 @@
 		} );
 	};
 
+	$wpf.fn.jquery_tab = function () {
+		let $this = this,
+			$elem = $this.elem;
+
+
+		$elem.find( 'ul.wponion-tab-menus li a' ).on( "click", function ( e ) {
+			e.preventDefault();
+			$( this ).parent().parent().find( '.wponion-tab-current' ).removeClass( 'wponion-tab-current' );
+			$( this ).parent().addClass( 'wponion-tab-current' );
+			$elem.find( '.wponion-tab-page' ).hide();
+			$elem.find( '.wponion-tab-page' ).removeClass( 'wponion-tab-current' );
+			let $tab = $( this ).attr( 'data-tab-name' );
+			$elem.find( 'div#wponion-tab-' + $tab ).addClass( 'wponion-tab-current' ).show();
+		} );
+
+		if ( $elem.find( 'ul.wponion-tab-menus li.current' ).length > 0 ) {
+			$elem.find( 'ul.wponion-tab-menus li.current a' ).trigger( 'click' );
+		} else {
+			$elem.find( 'ul.wponion-tab-menus li:first-child a' ).trigger( 'click' );
+		}
+
+
+	};
+
 	/**
 	 * Handles Field Dependency.
 	 * @type {function()}
@@ -722,6 +746,7 @@
 		this.init_field( '.wponion-element-font', 'font_selector' );
 		this.init_field( '.wponion-element-wp_link', 'wp_links' );
 		this.init_field( '.wponion-element-key_value', 'keyvalue_pair' );
+		this.init_field( '.wponion-element-tab', 'jquery_tab' );
 		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
