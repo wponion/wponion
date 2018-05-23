@@ -23,12 +23,14 @@ if ( ! class_exists( 'WPOnion_Field_key_value' ) ) {
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
 				'id'         => 'key',
 				'type'       => 'text',
+				'prefix'     => __( 'Key' ),
 				'only_field' => true,
 			) ), $key, $name );
 
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'value_input' ), array(
 				'id'         => 'value',
 				'type'       => 'text',
+				'prefix'     => __( 'Value' ),
 				'only_field' => true,
 			) ), $value, $name );
 
@@ -37,7 +39,7 @@ if ( ! class_exists( 'WPOnion_Field_key_value' ) ) {
 				'label'      => '-',
 				'only_field' => true,
 				'attributes' => array( 'data-wponion-keyvalue-remove' => 'yes' ),
-				'class'      => 'btn btn-danger btn-sm',
+				'class'      => 'button button-secondary',
 			) ), null, null );
 
 			echo '</div>';
@@ -64,7 +66,7 @@ if ( ! class_exists( 'WPOnion_Field_key_value' ) ) {
 				'label'      => __( 'Add +' ),
 				'attributes' => array( 'data-wponion-keyvalue-add' => 'yes' ),
 				'only_field' => true,
-				'class'      => 'btn btn-success btn-sm',
+				'class'      => 'button button-primary',
 			) ), null, null );
 
 			echo $this->after();
