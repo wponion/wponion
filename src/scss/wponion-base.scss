@@ -1,27 +1,28 @@
-@import "parts/wponion-bootstrap";
-
-.wponion-warning-primary {
+@mixin btnCOl($base1,$base2,$base3,$hover) {
   color:        #fff !important;
-  border-color: #d02c21 #ba281e #ba281e !important;
-  background:   #e14d43 !important;
-  box-shadow:   0 1px 0 #ba281e !important;
-  text-shadow:  0 -1px 1px #ba281e,
-				1px 0 1px #ba281e,
-				0 1px 1px #ba281e,
-				-1px 0 1px #ba281e !important;
+  border-color: $base1 $base2 $base2 !important;
+  background:   $base3 !important;
+  box-shadow:   0 1px 0 $base2 !important;
+  text-shadow:  0 -1px 1px $base2,
+				1px 0 1px $base2,
+				0 1px 1px $base2,
+				-1px 0 1px $base2 !important;
 
-  &:hover,
-  &:focus {
-	border-color: #ba281e !important;
-	background:   #e35950 !important;
-	box-shadow:   0 1px 0 #ba281e !important;
+  &:hover, &:focus {
+	border-color: $base2 !important;
+	background:   $hover !important;
+	box-shadow:   0 1px 0 $base2 !important;
   }
 
   &:active {
-	border-color: #ba281e !important;
-	background:   #d02c21 !important;
-	box-shadow:   inset 0 2px 0 #ba281e !important;
+	border-color: $base2 !important;
+	background:   $base1 !important;
+	box-shadow:   inset 0 2px 0 $base2 !important;
   }
+}
+
+.button-danger, .wponion-button-custom-danger {
+  @include btnCOl(darken(#e14d43, 5%), darken(#e14d43, 10%), #e14d43, lighten(#e14d43, 3%));
 }
 
 input.wponion-form-control {
@@ -34,4 +35,37 @@ input.wponion-form-control {
 .wponion-accordion-placeholder {
   border:        1px dashed #bdbdbd;
   margin-bottom: 10px;
+}
+
+$primary: #007bff;
+$secondary: #6c757d;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #343a40;
+
+$wponionThemes: () !default;
+$wponionThemes: map-merge((
+		"primary": $primary,
+		"secondary": $secondary,
+		"success": $success,
+		"info": $info,
+		"warning": $warning,
+		"danger": $danger,
+		"light": $light,
+		"dark": $dark
+), $wponionThemes);
+
+@import "parts/wponion-bootstrap";
+
+//
+// Alternate buttons
+//
+
+@each $color, $value in $wponionThemes {
+  .wponion-button-#{$color} {
+	@include btnCOl(darken($value, 5%), darken($value, 10%), $value, lighten($value, 3%));
+  }
 }
