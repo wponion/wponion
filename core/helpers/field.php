@@ -162,17 +162,17 @@ if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_valid_user_input_fields' ) ) {
+if ( ! function_exists( 'wponion_valid_user_input_field' ) ) {
 	/**
-	 * Checks if field type is not user input field.
+	 * Checks if field type is a valid user editable field.
 	 *
 	 * @param $field
 	 *
 	 * @return bool
 	 */
-	function wponion_valid_user_input_fields( $field ) {
+	function wponion_valid_user_input_field( $field ) {
 		$field = ( is_array( $field ) ) ? ( isset( $field['type'] ) ) ? $field['type'] : false : $field;
-		return ( in_array( $field, wponion_noninput_fields() ) ) ? false : true;
+		return ( ! in_array( $field, wponion_noninput_fields() ) );
 	}
 }
 
@@ -387,7 +387,7 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 		$return = array();
 		if ( isset( $fields['fields'] ) ) {
 			foreach ( $fields['fields'] as $f ) {
-				if ( isset( $f['id'] ) && false === wponion_valid_user_input_fields( $f ) ) {
+				if ( isset( $f['id'] ) && true === wponion_valid_user_input_field( $f ) ) {
 					$_fields            = isset( $f['fields'] ) ? wponion_get_all_fields_ids_and_defaults( $f['fields'] ) : array();
 					$default            = isset( $f['default'] ) ? $f['default'] : false;
 					$return[ $f['id'] ] = array(
