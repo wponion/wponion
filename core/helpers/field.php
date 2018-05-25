@@ -145,6 +145,37 @@ if ( ! function_exists( '_wponion_valid_field' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_noninput_fields' ) ) {
+	/**
+	 * Returns a list of non editable fileds type.
+	 *
+	 * @return array
+	 */
+	function wponion_noninput_fields() {
+		return apply_filters( 'wponion_non_input_fields', array(
+			'card',
+			'notice',
+			'subheading',
+			'heading',
+			'jambo_content',
+		) );
+	}
+}
+
+if ( ! function_exists( 'wponion_valid_user_input_fields' ) ) {
+	/**
+	 * Checks if field type is not user input field.
+	 *
+	 * @param $field
+	 *
+	 * @return bool
+	 */
+	function wponion_valid_user_input_fields( $field ) {
+		$field = ( is_array( $field ) ) ? ( isset( $field['type'] ) ) ? $field['type'] : false : $field;
+		return ( in_array( $field, wponion_noninput_fields() ) ) ? false : true;
+	}
+}
+
 if ( ! function_exists( 'wponion_is_unarrayed' ) ) {
 	/**
 	 * Check if a field is unarrayed.
@@ -344,7 +375,7 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_get_all_fields_ids' ) ) {
+if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 	/**
 	 * Extracts all fileds ids and returns it.
 	 *
@@ -352,23 +383,29 @@ if ( ! function_exists( 'wponion_get_all_fields_ids' ) ) {
 	 *
 	 * @return array
 	 */
-	function wponion_get_all_fields_ids( $fields = array() ) {
+	function wponion_get_all_fields_ids_and_defaults( $fields = array() ) {
 		$return = array();
 		if ( isset( $fields['fields'] ) ) {
 			foreach ( $fields['fields'] as $f ) {
-				if ( isset( $f['id'] ) ) {
-					$return[ $f['id'] ] = isset( $f['fields'] ) ? wponion_get_all_fields_ids( $f['fields'] ) : $f['id'];
+				if ( isset( $f['id'] ) && false === wponion_valid_user_input_fields( $f ) ) {
+					$_fields            = isset( $f['fields'] ) ? wponion_get_all_fields_ids_and_defaults( $f['fields'] ) : array();
+					$default            = isset( $f['default'] ) ? $f['default'] : false;
+					$return[ $f['id'] ] = array(
+						'default' => $default,
+						'fields'  => $_fields,
+						'id'      => $f['id'],
+					);
 				}
 			}
 		} elseif ( isset( $fields['sections'] ) ) {
 			foreach ( $fields['sections'] as $section ) {
-				$return[ $section['name'] ] = wponion_get_all_fields_ids( $section );
+				$return[ $section['name'] ] = wponion_get_all_fields_ids_and_defaults( $section );
 			}
 		} elseif ( is_array( $fields ) ) {
 			foreach ( $fields as $page ) {
 				if ( isset( $page['fields'] ) || isset( $page['sections'] ) ) {
 					$id            = isset( $page['name'] ) ? $page['name'] : '';
-					$return[ $id ] = wponion_get_all_fields_ids( $page );
+					$return[ $id ] = wponion_get_all_fields_ids_and_defaults( $page );
 				} else {
 					$return[ _wponion_field_id( $page ) ] = _wponion_field_id( $page );
 				}
