@@ -27,7 +27,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 	 */
 	class Settings extends \WPOnion\Bridge\Module {
 		/**
-		 * type
+		 * Module Type.
 		 *
 		 * @var string
 		 */
@@ -50,7 +50,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		protected $page_hook = null;
 
 		/**
-		 * active_menu
+		 * Active Menu Info.
 		 *
 		 * @var array
 		 */
@@ -111,11 +111,10 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @param $request
 		 *
 		 * @return mixed
-		 * @todo work on the save feature.
 		 */
 		public function save_validate( $request ) {
 			$this->get_cache();
-			$instance = new WPOnion_Settings_Save_Handler();
+			$instance = new \WPOnion\DB\Settings\Save_Handler();
 
 			$instance->init_class( array(
 				'module'      => 'settings',
@@ -401,6 +400,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
+		 * Validates given parent id & section id.
+		 *
 		 * @param string $parent_id
 		 * @param string $section_id
 		 *
@@ -416,6 +417,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
+		 * checks if page & section id exists in given fields array.
+		 *
 		 * @param string $page_id
 		 * @param string $section_id
 		 * @param bool   $is_section
@@ -439,6 +442,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
+		 * returns a active & isset page / section id.
+		 *
 		 * @param bool $is_section
 		 * @param null $page
 		 *
@@ -669,6 +674,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 *************************************************************************************************************/
 
 		/**
+		 * Returns all common HTML wrap class.
+		 *
 		 * @param string $extra_class
 		 * @param bool   $bootstrap
 		 *
@@ -719,6 +726,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
+		 * checks if given (PAGE/SECTION) is active [CALLED AS TAB]
+		 *
 		 * @param bool $parent
 		 * @param bool $child
 		 *
@@ -749,6 +758,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 *************************************************************************************************************/
 
 		/**
+		 * Renders / Creates An First Instance based on the $is_init_field variable value.
+		 *
 		 * @param array $field
 		 * @param bool  $parent_section
 		 * @param bool  $section
@@ -803,6 +814,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
+		 * Generates HTML Button to print in settings page.
+		 *
 		 * @param        $user
 		 * @param array  $default_attr
 		 * @param string $label
