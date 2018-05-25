@@ -23,11 +23,7 @@ if ( ! class_exists( 'WPOnion_Field_switch' ) ) {
 			return '<div class=" form-group form-check wponion-fancy-checkbox">
 				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
 					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
-					<span class="wponion-fancy-checkbox-wrap wp-ui-highlight"> <span class="wponion-fancy-checkbox-button"></span> </span>
-					' .
-
-				$options['label'] . '
-				</label>
+					<span class="wponion-fancy-checkbox-wrap wp-ui-highlight"> <span class="wponion-fancy-checkbox-button"></span> </span> ' . $options['label'] . ' </label>
 			</div>';
 		}
 	}
