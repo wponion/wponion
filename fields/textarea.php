@@ -27,7 +27,7 @@ if ( ! class_exists( 'WPOnion_Field_textarea' ) ) {
 
 		protected function output() {
 			echo $this->before();
-			echo '<textarea ' . $this->_input_attributes() . '></textarea>';
+			echo '<textarea ' . $this->_input_attributes() . '>' . $this->value() . '</textarea>';
 			echo $this->after();
 		}
 
