@@ -128,7 +128,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
-		 * Handles Field's Sub Fields.
+		 * Fired after __constructor fired for the current plugin to handle subplugins.
 		 */
 		protected function init_subfields() {
 
@@ -187,7 +187,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'validate'        => null,    #validate of field. can be enabled or disabled
 				'before'          => null,
 				'after'           => null,
-				'debug'           => false,
 				'only_field'      => false,
 				'name'            => false,
 				'clone'           => false,
@@ -857,6 +856,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Check if value is === to given value and returns an html output.
+		 *
 		 * @param string $helper
 		 * @param string $current
 		 * @param string $type
