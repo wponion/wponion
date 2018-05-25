@@ -12,12 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_switch' ) ) {
-	class WPOnion_Field_switch extends WPOnion_Field_checkbox_radio {
+if ( ! class_exists( '\WPOnion\Field\switcher' ) ) {
+	class switcher extends \WPOnion\Field\checkbox_radio {
 
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
 			return '<div class=" form-group form-check wponion-fancy-checkbox">

@@ -12,12 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_gallery' ) ) {
-	class WPOnion_Field_gallery extends WPOnion_Field_image {
+if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
+	class gallery extends \WPOnion\Field\image {
 
 		protected function output() {
 			echo $this->before();

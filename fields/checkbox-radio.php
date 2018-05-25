@@ -12,12 +12,14 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
-	class WPOnion_Field_checkbox_radio extends \WPOnion\Field {
+if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
+	class checkbox_radio extends \WPOnion\Field {
 		public function field_assets() {
 			// TODO: Implement field_assets() method.
 		}

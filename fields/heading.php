@@ -12,18 +12,19 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_heading' ) ) {
+if ( ! class_exists( '\WPOnion\Field\heading' ) ) {
 	/**
 	 * Class WPOnion_Field_heading
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_heading extends \WPOnion\Field {
+	class heading extends \WPOnion\Field {
 		public function output() {
 			echo $this->before();
 			echo $this->data( 'content' );

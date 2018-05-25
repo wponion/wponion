@@ -12,18 +12,19 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_image_select' ) ) {
+if ( ! class_exists( '\WPOnion\Field\image_select' ) ) {
 	/**
 	 * Class WPOnion_Field_image_select
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_image_select extends WPOnion_Field_checkbox_radio {
+	class image_select extends \WPOnion\Field\checkbox_radio {
 
 		protected function output() {
 			$this->field['type'] = $this->field['image_type'];

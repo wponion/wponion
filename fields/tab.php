@@ -12,18 +12,19 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_tab' ) ) {
+if ( ! class_exists( '\WPOnion\Field\tab' ) ) {
 	/**
 	 * Class WPOnion_Field_tab
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_tab extends \WPOnion\Field {
+	class tab extends \WPOnion\Field {
 		protected function output() {
 			echo $this->before();
 			echo $this->tab_output();

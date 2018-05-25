@@ -11,12 +11,14 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_key_value' ) ) {
-	class WPOnion_Field_key_value extends \WPOnion\Field {
+if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
+	class key_value extends \WPOnion\Field {
 
 		protected function key_value( $name = '', $key = '', $value = '' ) {
 			echo '<div class="wponion-keyvalue-field">';

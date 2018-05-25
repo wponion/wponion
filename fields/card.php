@@ -12,12 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_card' ) ) {
-	class WPOnion_Field_card extends \WPOnion\Field {
+if ( ! class_exists( '\WPOnion\Field\card' ) ) {
+	class card extends \WPOnion\Field {
 		protected function output() {
 			if ( ! $this->has( 'options' ) ) {
 				return false;

@@ -11,11 +11,13 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
-if ( ! class_exists( 'WPOnion_Field_select' ) ) {
-	class WPOnion_Field_select extends \WPOnion\Field {
+if ( ! class_exists( '\WPOnion\Field\select' ) ) {
+	class select extends \WPOnion\Field {
 		protected $select_framework = null;
 
 		protected function output() {

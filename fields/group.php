@@ -11,12 +11,14 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_group' ) ) {
-	class WPOnion_Field_group extends WPOnion_Field_accordion {
+if ( ! class_exists( '\WPOnion\Field\group' ) ) {
+	class group extends \WPOnion\Field\accordion {
 		protected $loop_count   = '{wponionCloneID}';
 		protected $is_js_sample = false;
 		protected $loop_value   = array();
@@ -63,8 +65,6 @@ if ( ! class_exists( 'WPOnion_Field_group' ) ) {
 				'label'       => __( 'Add New' ),
 			) ), null, null );
 			echo $this->after();
-
-
 			$this->localize_field( array( 'group_template' => $template ) );
 		}
 

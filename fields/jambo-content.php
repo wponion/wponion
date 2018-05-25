@@ -11,9 +11,11 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
-if ( ! class_exists( 'WPOnion_Field_jambo_content' ) ) {
 
-	class WPOnion_Field_jambo_content extends WPOnion_Field_heading {
+namespace WPOnion\Field;
+if ( ! class_exists( '\WPOnion\Field\jambo_content' ) ) {
+
+	class jambo_content extends \WPOnion\Field\heading {
 		public function output() {
 			echo $this->before();
 			echo '<div class="jumbotron">' . $this->data( 'content' ) . '</div>';

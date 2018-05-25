@@ -11,12 +11,15 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_font' ) ) {
-	class WPOnion_Field_font extends \WPOnion\Field {
+if ( ! class_exists( '\WPOnion\Field\font' ) ) {
+	class font extends \WPOnion\Field {
 
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			if ( ! defined( 'WPONION_ADD_FONT_DATA' ) ) {
@@ -28,7 +31,6 @@ if ( ! class_exists( 'WPOnion_Field_font' ) ) {
 		protected function output() {
 			$this->before();
 
-			$defaults_value         = array( 'family' => 'Arial', 'variant' => 'regular', 'font' => 'websafe', );
 			$websafe                = wponion_websafe_fonts();
 			$this->select_framework = wponion_validate_select_framework( $this->field );
 
@@ -91,7 +93,6 @@ if ( ! class_exists( 'WPOnion_Field_font' ) ) {
 		protected function field_default() {
 			// TODO: Implement field_default() method.
 		}
-
 
 		protected function js_field_args() {
 			return array();

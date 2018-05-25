@@ -11,12 +11,15 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_button' ) ) {
-	class WPOnion_Field_button extends \WPOnion\Field {
+if ( ! class_exists( '\WPOnion\Field\button' ) ) {
+	class button extends \WPOnion\Field {
 
 		protected function output() {
 			echo $this->before();

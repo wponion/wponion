@@ -12,12 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_fieldset' ) ) {
-	class WPOnion_Field_fieldset extends \WPOnion\Field {
+if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
+	class fieldset extends \WPOnion\Field {
 
 		protected function init_subfields() {
 			if ( $this->has( 'fields' ) ) {

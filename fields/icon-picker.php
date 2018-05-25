@@ -12,12 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
-	class WPOnion_Field_icon_picker extends \WPOnion\Field {
+if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
+	class icon_picker extends \WPOnion\Field {
 
 		protected function output() {
 			echo $this->before();
@@ -30,20 +31,11 @@ if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
 		}
 
 		protected function render_input() {
-			$attr = array(
-				'type'  => ( $this->has( 'show_input' ) ) ? 'text' : 'hidden',
-				'value' => $this->value(),
-				'class' => ( $this->has( 'show_input' ) ) ? 'wponion-icon-picker-input' : 'hidden',
-				'name'  => $this->name(),
-			);
-
 			return $this->sub_field( array(
 				'type'       => 'text',
 				'only_field' => true,
 				'class'      => ( $this->has( 'show_input' ) ) ? 'wponion-icon-picker-input' : 'wponion-icon-picker-input hidden',
 			), $this->value(), $this->name() );
-
-			return '<input ' . $this->attributes( $attr ) . '/>';
 		}
 
 		protected function render_value() {

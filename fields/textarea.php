@@ -12,18 +12,20 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_textarea' ) ) {
+if ( ! class_exists( '\WPOnion\Field\textarea' ) ) {
 	/**
 	 * Class WPOnion_Field_text
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_textarea extends WPOnion_Field_text {
+	class textarea extends \WPOnion\Field\text {
 
 		protected function output() {
 			echo $this->before();

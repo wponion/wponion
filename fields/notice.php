@@ -12,18 +12,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_notice' ) ) {
+
+if ( ! class_exists( '\WPOnion\Field\notice' ) ) {
 	/**
 	 * Class WPOnion_Field_Notice
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_Notice extends WPOnion_Field_heading {
+	class notice extends \WPOnion\Field\heading {
 
 		protected function field_default() {
 			return array(
