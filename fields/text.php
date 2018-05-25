@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPOnion_Field_text' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_text extends WPOnion_Field {
+	class WPOnion_Field_text extends \WPOnion\Field {
 
 		protected function _input_attributes() {
 			$field_class = 'wponion-form-control';

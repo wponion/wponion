@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPOnion_Field_heading' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_heading extends WPOnion_Field {
+	class WPOnion_Field_heading extends \WPOnion\Field {
 		public function output() {
 			echo $this->before();
 			echo $this->data( 'content' );

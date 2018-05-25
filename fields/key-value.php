@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Field_key_value' ) ) {
-	class WPOnion_Field_key_value extends WPOnion_Field {
+	class WPOnion_Field_key_value extends \WPOnion\Field {
 
 		protected function key_value( $name = '', $key = '', $value = '' ) {
 			echo '<div class="wponion-keyvalue-field">';

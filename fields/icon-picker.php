@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Field_icon_picker' ) ) {
-	class WPOnion_Field_icon_picker extends WPOnion_Field {
+	class WPOnion_Field_icon_picker extends \WPOnion\Field {
 
 		protected function output() {
 			echo $this->before();

@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Field_fieldset' ) ) {
-	class WPOnion_Field_fieldset extends WPOnion_Field {
+	class WPOnion_Field_fieldset extends \WPOnion\Field {
 
 		protected function init_subfields() {
 			if ( $this->has( 'fields' ) ) {

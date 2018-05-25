@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Field_image' ) ) {
-	class WPOnion_Field_image extends WPOnion_Field {
+	class WPOnion_Field_image extends \WPOnion\Field {
 		protected function output() {
 			echo $this->before();
 			$add_show     = ( ! empty( $this->value() ) ) ? 'style="display:none;"' : false;

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Field_font' ) ) {
-	class WPOnion_Field_font extends WPOnion_Field {
+	class WPOnion_Field_font extends \WPOnion\Field {
 
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			if ( ! defined( 'WPONION_ADD_FONT_DATA' ) ) {

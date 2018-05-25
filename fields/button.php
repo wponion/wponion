@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Field_button' ) ) {
-	class WPOnion_Field_button extends WPOnion_Field {
+	class WPOnion_Field_button extends \WPOnion\Field {
 
 		protected function output() {
 			echo $this->before();

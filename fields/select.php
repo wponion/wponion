@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 if ( ! class_exists( 'WPOnion_Field_select' ) ) {
-	class WPOnion_Field_select extends WPOnion_Field {
+	class WPOnion_Field_select extends \WPOnion\Field {
 		protected $select_framework = null;
 
 		protected function output() {

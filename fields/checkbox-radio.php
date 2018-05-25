@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
-	class WPOnion_Field_checkbox_radio extends WPOnion_Field {
+	class WPOnion_Field_checkbox_radio extends \WPOnion\Field {
 		public function field_assets() {
 			// TODO: Implement field_assets() method.
 		}

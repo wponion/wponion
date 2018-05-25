@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPOnion_Field_tab' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_tab extends WPOnion_Field {
+	class WPOnion_Field_tab extends \WPOnion\Field {
 		protected function output() {
 			echo $this->before();
 			echo $this->tab_output();
