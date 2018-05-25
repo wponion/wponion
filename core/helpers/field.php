@@ -39,7 +39,7 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 
 				return '\WPOnion\Field\Cloner';
 			} else {
-				$class = 'WPOnion_Field_' . $field_type;
+				$class = 'WPOnion\\Field\\' . $field_type;
 				if ( class_exists( $class ) ) {
 					return $class;
 				}

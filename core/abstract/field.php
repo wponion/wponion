@@ -660,7 +660,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @param string $key
 		 *
-		 * @return array
+		 * @return array|string|mixed
 		 */
 		protected function value( $key = '' ) {
 			if ( ! empty( $key ) ) {

@@ -45,7 +45,7 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 		 * @static
 		 */
 		public static function load( $class_name = '' ) {
-			if ( false !== strpos( $class_name, 'WPOnion_Field_' ) ) {
+			if ( false !== strpos( $class_name, 'WPOnion\\Field\\' ) ) {
 				self::load_field( $class_name );
 			} elseif ( false !== strpos( $class_name, 'WPOnion\\' ) ) {
 				self::load_core( $class_name );
@@ -107,7 +107,9 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 		 * @static
 		 */
 		public static function load_field( $class_name ) {
-			$file_name = self::get_filename( $class_name, 'WPOnion_Field_' );
+			$file_name = explode( '\\', $class_name );
+			$file_name = end( $file_name );
+			$file_name = self::get_filename( $file_name, 'WPOnion_Field_' );
 			$folder    = str_replace( '.php', '', $file_name );
 			if ( file_exists( self::path( 'fields/' . $file_name ) ) ) {
 				include_once self::path( 'fields/' . $file_name );
