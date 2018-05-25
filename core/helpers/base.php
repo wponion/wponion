@@ -150,6 +150,8 @@ if ( ! function_exists( 'wponion_get_var' ) ) {
 
 if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
 	/**
+	 * Checks if given section and parent id are valid and none of them has empty values.
+	 *
 	 * @param array $ids
 	 *
 	 * @return array|bool
@@ -178,6 +180,8 @@ if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
 
 if ( ! function_exists( 'wponion_debug_assets' ) ) {
 	/**
+	 * Checks if assets needs to be loaded a unminifed version.
+	 *
 	 * @param string $file_name
 	 * @param string $ext
 	 *
