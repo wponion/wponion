@@ -87,6 +87,8 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 
 if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	/**
+	 * Creates & Returns an static instance for settings module.
+	 *
 	 * @param $instance
 	 *
 	 * @return bool
@@ -99,6 +101,8 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 
 if ( ! function_exists( 'wponion_value_registry' ) ) {
 	/**
+	 * Creates & Returns an static instance for module's value API.
+	 *
 	 * @param $instance
 	 *
 	 * @return bool
@@ -111,6 +115,8 @@ if ( ! function_exists( 'wponion_value_registry' ) ) {
 
 if ( ! function_exists( 'wponion_dashboard_registry' ) ) {
 	/**
+	 * Creates & Returns an static instance for dashboard widgets module.
+	 *
 	 * @param $instance
 	 *
 	 * @return bool
@@ -122,6 +128,8 @@ if ( ! function_exists( 'wponion_dashboard_registry' ) ) {
 
 if ( ! function_exists( 'wponion_core_registry' ) ) {
 	/**
+	 * Creates an static instance for core classes.
+	 *
 	 * @param $instance
 	 *
 	 * @return bool
@@ -133,6 +141,8 @@ if ( ! function_exists( 'wponion_core_registry' ) ) {
 
 if ( ! function_exists( 'wponion_async' ) ) {
 	/**
+	 * Creates an instance of Async_Request
+	 *
 	 * @return bool|\WPOnion\Async_Request
 	 */
 	function wponion_async() {
