@@ -17,9 +17,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 if ( ! class_exists( '\WPOnion\Field\select' ) ) {
+	/**
+	 * Class select
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class select extends \WPOnion\Field {
+		/**
+		 * select_framework
+		 *
+		 * @var null
+		 */
 		protected $select_framework = null;
 
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			$this->before();
 			$options = $this->data( 'options' );
@@ -48,6 +65,13 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 			$this->after();
 		}
 
+		/**
+		 * Handles Option array.
+		 *
+		 * @param $data
+		 *
+		 * @return string
+		 */
 		protected function sel_option( $data ) {
 			$elem_id = sanitize_title( $this->name() . '_' . $data['key'] );
 			if ( isset( $data['tooltip'] ) && is_array( $data['tooltip'] ) ) {
@@ -62,6 +86,13 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 			return '<option ' . wponion_array_to_html_attributes( $data['attributes'] ) . $this->checked( $this->value(), $data['key'], 'selected' ) . ' > ' . $data['label'] . ' </option > ';
 		}
 
+		/**
+		 * checks and updated fields args based on field config.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
 		public function handle_field_args( $data = array() ) {
 			if ( true === $data['multiple'] ) {
 				$data['attributes']['multiple'] = 'multiple';
@@ -80,6 +111,11 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 			return $data;
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'options'  => array(),
@@ -87,6 +123,11 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 			);
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wponion_load_asset( $this->select_framework );
 		}
