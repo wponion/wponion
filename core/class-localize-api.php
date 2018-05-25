@@ -83,6 +83,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		}
 
 		/**
+		 * Adds a given object to array based on the ID.
+		 *
 		 * @param string $object_id
 		 * @param array  $args
 		 * @param bool   $merge
