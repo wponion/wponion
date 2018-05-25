@@ -27,7 +27,11 @@ if ( ! class_exists( '\WPOnion\Field\notice' ) ) {
 	 * @since 1.0
 	 */
 	class notice extends \WPOnion\Field\heading {
-
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function field_default() {
 			return array(
 				'content'     => false,
@@ -35,6 +39,13 @@ if ( ! class_exists( '\WPOnion\Field\notice' ) ) {
 			);
 		}
 
+		/**
+		 * checks and updated fields args based on field config.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
 		public function handle_field_args( $data = array() ) {
 			if ( false === $data['wrap_class'] ) {
 				$data['wrap_class'] = ' alert alert-' . $data['notice_type'];
