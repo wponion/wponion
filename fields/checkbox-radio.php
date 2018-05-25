@@ -19,11 +19,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
+	/**
+	 * Class checkbox_radio
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class checkbox_radio extends \WPOnion\Field {
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			// TODO: Implement field_assets() method.
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'options' => array(),
@@ -31,6 +48,11 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 			);
 		}
 
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 
@@ -56,7 +78,7 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 					}
 				}
 			} elseif ( in_array( $this->element_type(), array(
-				'switch',
+				'switcher',
 				'checkbox',
 			) ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
@@ -67,9 +89,18 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Renders Elements Options as html.
+		 *
+		 * @param      $options
+		 * @param bool $in_group
+		 * @param bool $group_title
+		 *
+		 * @return string
+		 */
 		protected function render_element( $options, $in_group = false, $group_title = false ) {
 			$attr         = $options['attributes'];
-			$attr['type'] = ( 'switch' === $this->element_type() ) ? 'checkbox' : $this->element_type();
+			$attr['type'] = ( 'switcher' === $this->element_type() ) ? 'checkbox' : $this->element_type();
 
 			if ( ! isset( $attr['class'] ) ) {
 				$attr['class'] = array();
@@ -110,6 +141,17 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 			return $this->_element_html( $label_attr, $field_attr, $value, $attr, $options );
 		}
 
+		/**
+		 * Renders Single Option as html.
+		 *
+		 * @param $label_attr
+		 * @param $field_attr
+		 * @param $value
+		 * @param $attr
+		 * @param $options
+		 *
+		 * @return string
+		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
 			return '<div class=" form-group form-check ">
 				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
