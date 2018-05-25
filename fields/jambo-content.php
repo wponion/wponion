@@ -14,8 +14,19 @@
 
 namespace WPOnion\Field;
 if ( ! class_exists( '\WPOnion\Field\jambo_content' ) ) {
-
+	/**
+	 * Class jambo_content
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class jambo_content extends \WPOnion\Field\heading {
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		public function output() {
 			echo $this->before();
 			echo '<div class="jumbotron">' . $this->data( 'content' ) . '</div>';
