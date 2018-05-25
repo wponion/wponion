@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WPOnion_Feature_Abstract extends WPOnion_Module_Field_Handler {
+	abstract class WPOnion_Feature_Abstract extends WPOnion_Module_Field_Builder {
 		/**
 		 * Stores Current template information.
 		 * current_theme
@@ -73,6 +73,13 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		 * @var array
 		 */
 		protected $db_values = array();
+
+		/**
+		 * options_cache
+		 *
+		 * @var array
+		 */
+		protected $options_cache = false;
 
 		/**
 		 * @param $name
@@ -203,6 +210,89 @@ if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
 		 */
 		protected function theme_instance() {
 			return wponion_core_registry( $this->current_theme['class'] );
+		}
+
+		/**
+		 * Returns DB Slug.
+		 *
+		 * @return string
+		 */
+		public function unique() {
+			return $this->unique;
+		}
+
+		/**
+		 * Returns Unique Cache ID For each instance but only once.
+		 *
+		 * @return string
+		 */
+		protected function get_cache_id() {
+			return 'wponion_' . wponion_hash_string( $this->unique() . '_' . $this->module() ) . '_cache';
+		}
+
+		/**
+		 * Returns Options Cache.
+		 */
+		protected function get_cache() {
+			if ( false === $this->options_cache ) {
+				$values              = get_option( $this->get_cache_id(), array() );
+				$this->options_cache = ( is_array( $values ) ) ? $values : array();
+				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
+					$this->options_cache = array();
+				} else {
+					if ( isset( $this->options_cache['field_errors'] ) ) {
+						$instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
+						$instance->set( $this->options_cache['field_errors'] );
+						if ( wponion_is_debug() ) {
+							wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'] );
+						}
+						unset( $this->options_cache['field_errors'] );
+						$this->set_cache( $this->options_cache );
+					}
+				}
+			}
+			return $this->options_cache;
+		}
+
+		/**
+		 * Saves Cache.
+		 *
+		 * @param array $data .
+		 */
+		protected function set_cache( $data = array() ) {
+			update_option( $this->get_cache_id(), $data );
+			$this->options_cache = $data;
+		}
+
+		/**
+		 * Returns Database Values of the settings.
+		 *
+		 * @return array|mixed
+		 */
+		protected function get_db_values() {
+			if ( empty( $this->db_values ) ) {
+				$this->db_values = get_option( $this->unique );
+				if ( ! is_array( $this->db_values ) ) {
+					$this->db_values = array();
+				}
+			}
+			return $this->db_values;
+		}
+
+		/**
+		 * @return bool|\WPOnion_Value_API
+		 */
+		public function values() {
+			if ( wponion_value_registry( $this->plugin_id() ) ) {
+				return wponion_value_registry( $this->plugin_id() );
+			}
+			$instance = new WPOnion_Value_API( $this->get_db_values(), $this->fields(), array(
+				'module'    => $this->module(),
+				'plugin_id' => $this->plugin_id(),
+				'unique'    => $this->unique(),
+			) );
+			wponion_value_registry( $instance );
+			return $instance;
 		}
 	}
 }
