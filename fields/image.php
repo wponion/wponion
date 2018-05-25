@@ -18,7 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\image' ) ) {
+	/**
+	 * Class image
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class image extends \WPOnion\Field {
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 			$add_show     = ( ! empty( $this->value() ) ) ? 'style="display:none;"' : false;
@@ -36,6 +48,12 @@ if ( ! class_exists( '\WPOnion\Field\image' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Renders Value HTML.
+		 *
+		 * @param string $value
+		 * @param string $preview_show
+		 */
 		protected function show_image( $value = '', $preview_show = '' ) {
 			echo '<div class="wponion-preview" ' . $preview_show . '>';
 			echo wponion_icon( 'fas fa-times wponion-remove' );
@@ -47,10 +65,20 @@ if ( ! class_exists( '\WPOnion\Field\image' ) ) {
 			echo '</div>';
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array();
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_media();
 		}
