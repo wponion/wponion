@@ -47,6 +47,8 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Error' ) ) {
 		}
 
 		/**
+		 * Stores an given data to array.
+		 *
 		 * @param array $errors
 		 */
 		public function set( $errors = array() ) {
