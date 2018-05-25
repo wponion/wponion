@@ -332,6 +332,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 
 		/**
 		 * This function is used for nested field loops.
+		 *
 		 * @param $field
 		 */
 		protected function nested_field_loop( $field ) {
@@ -339,7 +340,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 
 			if ( is_array( $field['fields'] ) ) {
 				foreach ( $field['fields'] as $_field ) {
-					if ( ! isset( $_field['id'] ) ) {
+					if ( _wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 						continue;
 					}
 
