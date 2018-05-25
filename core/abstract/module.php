@@ -243,7 +243,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$this->options_cache = array();
 				} else {
 					if ( isset( $this->options_cache['field_errors'] ) ) {
-						$instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
+						$instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), '\WPOnion\Registry\Field_Error' );
 						$instance->set( $this->options_cache['field_errors'] );
 						if ( wponion_is_debug() ) {
 							wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'] );

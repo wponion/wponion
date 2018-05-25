@@ -82,7 +82,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			}
 
 
-			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, 'WPOnion_Field_Registry' );
+			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, '\WPOnion\Registry\Fields' );
 
 			if ( false !== $registry->get( $uid ) ) {
 				return $registry->get( $uid );

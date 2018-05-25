@@ -25,7 +25,7 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_wp_Theme extends WPOnion_Theme_Abstract {
+	class WPOnion_wp_Theme extends \WPOnion\Theme {
 		/**
 		 * WPOnion_wp_Theme constructor.
 		 *

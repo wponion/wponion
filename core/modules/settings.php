@@ -302,7 +302,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Renders Settings Page HTML.
 		 */
 		public function render_page() {
-			LoadTime::start();
 			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
 			echo '<div class="hidden" style="display:none;" id="wponino-hidden-fields">';
 			settings_fields( $this->unique );
@@ -312,7 +311,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$this->init_theme();
 			echo '</form>';
 			echo $this->debug_bar();
-			var_dump( LoadTime::end() );
 		}
 
 		/**
