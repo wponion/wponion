@@ -314,7 +314,7 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		 */
 		protected function field_loop( $section ) {
 			foreach ( $section['fields'] as $field ) {
-				if ( _wponion_valid_field( $field ) && false === wponion_valid_user_input_fields( $field ) ) {
+				if ( _wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 					continue;
 				}
 
