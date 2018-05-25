@@ -18,7 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\card' ) ) {
+	/**
+	 * Class card
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class card extends \WPOnion\Field {
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			if ( ! $this->has( 'options' ) ) {
 				return false;
@@ -70,10 +82,20 @@ if ( ! class_exists( '\WPOnion\Field\card' ) ) {
 			echo '</div>';
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			// TODO: Implement field_assets() method.
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'options'  => array(),
