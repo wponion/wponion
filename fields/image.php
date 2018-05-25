@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPOnion_Field_image' ) ) {
 			$add_show     = ( ! empty( $this->value() ) ) ? 'style="display:none;"' : false;
 			$preview_show = ( empty( $this->value() ) ) ? 'style="display:none;"' : false;
 
-			echo '<input type="hidden" id="image_id" name="' . $this->name() . '"/>';
+			echo '<input type="hidden" id="image_id" value="' . $this->value() . '" name="' . $this->name() . '"/>';
 			echo '<div class="wponion-image-preview">';
 
 			echo '<div class="wponion-preview-add" ' . $add_show . '>';
