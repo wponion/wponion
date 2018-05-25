@@ -204,6 +204,8 @@ if ( ! function_exists( '_wponion_field_id' ) ) {
 
 if ( ! function_exists( '_wponion_get_field_value' ) ) {
 	/**
+	 * Checks and returns the fields values based on the field config.
+	 *
 	 * @param array $field
 	 * @param array $value
 	 *
