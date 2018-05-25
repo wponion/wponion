@@ -18,8 +18,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\wp_link' ) ) {
+	/**
+	 * Class wp_link
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class wp_link extends \WPOnion\Field {
-
+		/**
+		 * Creates / inits its sub fields.
+		 */
 		protected function init_subfields() {
 			if ( ! class_exists( '_WP_Editors' ) ) {
 				require_once ABSPATH . 'wp-includes/class-wp-editor.php';
@@ -27,6 +36,11 @@ if ( ! class_exists( '\WPOnion\Field\wp_link' ) ) {
 			}
 		}
 
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 
@@ -58,12 +72,22 @@ if ( ! class_exists( '\WPOnion\Field\wp_link' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'button' => __( 'Select URL' ),
 			);
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_script( 'jquery-ui-dialog' );
 			wp_enqueue_style( 'editor-buttons' );
