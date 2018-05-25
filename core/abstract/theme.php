@@ -22,7 +22,7 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 	/**
 	 * Class Theme
 	 *
-	 * @package WPOnion\Bridge
+	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
@@ -99,7 +99,7 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		/**
 		 * Returns Settings Instance.
 		 *
-		 * @return \WPOnion_Settings
+		 * @return \WPOnion\Modules\Settings
 		 */
 		public function settings() {
 			return wponion_settings_registry( $this->plugin_id );
@@ -108,7 +108,7 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		/**
 		 * Returns Dashboard Instance.
 		 *
-		 * @return \WPOnion_Dashboard_Widgets
+		 * @return \WPOnion\Modules\Dashboard_Widgets
 		 */
 		public function dashboard_widgets() {
 			return wponion_dashboard_registry( $this->plugin_id );
@@ -161,7 +161,5 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		/**************************************************************************************************************
 		 * Above Functions Are Related To Settings Module
 		 *************************************************************************************************************/
-
-
 	}
 }
