@@ -25,16 +25,31 @@ if ( ! class_exists( '\WPOnion\Field\heading' ) ) {
 	 * @since 1.0
 	 */
 	class heading extends \WPOnion\Field {
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		public function output() {
 			echo $this->before();
 			echo $this->data( 'content' );
 			echo $this->after();
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			// TODO: Implement field_assets() method.
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array( 'content' => false );
 		}
