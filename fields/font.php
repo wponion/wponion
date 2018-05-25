@@ -19,8 +19,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\font' ) ) {
+	/**
+	 * Class font
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class font extends \WPOnion\Field {
-
+		/**
+		 * font constructor.
+		 *
+		 * @param array $field
+		 * @param array $value
+		 * @param array $unique
+		 */
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			if ( ! defined( 'WPONION_ADD_FONT_DATA' ) ) {
 				define( 'WPONION_ADD_FONT_DATA', true );
@@ -28,6 +41,11 @@ if ( ! class_exists( '\WPOnion\Field\font' ) ) {
 			parent::__construct( $field, $value, $unique );
 		}
 
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			$this->before();
 
@@ -44,7 +62,6 @@ if ( ! class_exists( '\WPOnion\Field\font' ) ) {
 
 			$this->after();
 		}
-
 
 		/**
 		 * Returns Font Select Args.
@@ -90,14 +107,29 @@ if ( ! class_exists( '\WPOnion\Field\font' ) ) {
 			return $data;
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			// TODO: Implement field_default() method.
 		}
 
+		/**
+		 * Returns all required values to use in js.
+		 *
+		 * @return array
+		 */
 		protected function js_field_args() {
 			return array();
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 	}
