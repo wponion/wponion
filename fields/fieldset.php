@@ -18,8 +18,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
+	/**
+	 * Class fieldset
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class fieldset extends \WPOnion\Field {
-
+		/**
+		 * Creates / inits its sub fields.
+		 */
 		protected function init_subfields() {
 			if ( $this->has( 'fields' ) ) {
 				foreach ( $this->data( 'fields' ) as $field_id => $field ) {
@@ -28,6 +37,11 @@ if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
 			}
 		}
 
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo '<div class="wponion-fieldset-wrap">';
 
@@ -47,6 +61,11 @@ if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
 			echo '</div>';
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'fields'   => array(),
@@ -55,6 +74,11 @@ if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
 			);
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			// TODO: Implement field_assets() method.
 		}
