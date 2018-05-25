@@ -37,7 +37,7 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 		 * Adds An Instance To Array.
 		 *
 		 * @param string            $type
-		 * @param \WPOnion_Abstract $instance
+		 * @param \WPOnion\Bridge $instance
 		 *
 		 * @return mixed|void
 		 */
