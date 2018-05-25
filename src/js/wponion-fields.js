@@ -17,7 +17,6 @@
 			let $settings = this.arg( 'inputmask' );
 			if ( $settings ) {
 				$settings = wpo.validate_js_function( $settings );
-				console.log( $settings );
 				this.save( this.elem.inputmask( $settings ) );
 				//wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
 			}
@@ -47,7 +46,6 @@
 				}
 
 				this.save( this.elem.maxlength( $settings ) );
-				wpo.__plugin_debug_info( this.elem, 'max_length', $settings );
 			}
 		}
 		return this;
@@ -388,15 +386,12 @@
 		let $tip = {};
 
 		if ( this.arg( $fid + 'tooltip' ) ) {
-			let $arg = this.arg( $fid + 'tooltip' );
+			let $arg              = this.arg( $fid + 'tooltip' );
+			$arg[ 'performance' ] = false;
 			if ( $arg[ 'image' ] !== false ) {
-				if ( $( '#wponiontooltipimagetippy' ).length === 0 ) {
-					$( 'body' )
-						.append( $( '<div id="wponiontooltipimagetippy" style="display: none;">Loading.</div>' ) );
-				}
 
-				$arg.html          = '#wponiontooltipimagetippy';
-				$arg.onShow        = function () {
+				$arg.html               = '#wponiontooltipimagetippy';
+				$arg.onShow             = function () {
 					const content = this.querySelector( '.tippy-content' );
 					if ( $tip.loading ) return;
 
@@ -414,11 +409,11 @@
 							$tip.loading      = false
 						} )
 				};
-				$arg.onHidden      = function () {
+				$arg.onHidden           = function () {
 					const content     = this.querySelector( ".tippy-content" );
 					content.innerHTML = '';
 				};
-				$arg.popperOptions = {
+				$arg[ 'popperOptions' ] = {
 					modifiers: {
 						preventOverflow: {
 							enabled: false
@@ -934,14 +929,21 @@
 		this.init_field( '.wponion-element-tab', 'jquery_tab' );
 		this.init_field( '.wponion-element-image', 'image_upload' );
 		this.init_field( '.wponion-element-gallery', 'gallery' );
-		this.field_debug();
+		//this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
 
 
 	wphooks.addAction( 'wponion_before_init', ( () => {
+		if ( $( '#wponiontooltipimagetippy' ).length === 0 ) {
+			$( 'body' )
+				.append( $( '<div id="wponiontooltipimagetippy" style="display: none;min-width:300px;min-height:400px;">Loading.</div>' ) );
+		}
+
+		console.time('WPONIONSTART');
 		wponion_field( '.wponion-framework' ).reload();
 		$wpf.fn.dependency( $( '.wponion-framework' ) );
+		console.timeEnd('WPONIONSTART');
 	} ) );
 
 } )( window, document, jQuery, $wponion, $wponion_field, wp );
