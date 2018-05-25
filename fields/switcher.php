@@ -18,8 +18,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\switcher' ) ) {
+	/**
+	 * Class switcher
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class switcher extends \WPOnion\Field\checkbox_radio {
-
+		/**
+		 * Renders Elements HTML.
+		 *
+		 * @param $label_attr
+		 * @param $field_attr
+		 * @param $value
+		 * @param $attr
+		 * @param $options
+		 *
+		 * @return string
+		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
 			return '<div class=" form-group form-check wponion-fancy-checkbox">
 				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
