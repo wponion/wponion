@@ -27,6 +27,9 @@ if ( ! class_exists( '\WPOnion\DB\Settings\Save_Handler' ) ) {
 	 * @since 1.0
 	 */
 	class Save_Handler extends \WPOnion\DB\Save_Handler {
+		/**
+		 * Runs custom loop to work with Settings fields array.
+		 */
 		public function run() {
 			foreach ( $this->fields as $option ) {
 				if ( ! $this->args['settings']->valid_option( $option, false, false ) ) {
