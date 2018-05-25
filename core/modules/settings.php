@@ -31,13 +31,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		protected $module = 'settings';
 
 		/**
-		 * options_cache
-		 *
-		 * @var array
-		 */
-		protected $options_cache = false;
-
-		/**
 		 * Stores WP Admin Menu Page Slug / Hook which returns from any of these functions
 		 *
 		 * @uses \add_submenu_page()
@@ -52,7 +45,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * @var null
 		 */
 		protected $page_hook = null;
-
 
 		/**
 		 * active_menu
@@ -80,6 +72,9 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$this->init();
 		}
 
+		/**
+		 * Inits The Class.
+		 */
 		public function init() {
 			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax() ) {
 				if ( false === $this->settings['plugin_id'] ) {
@@ -126,9 +121,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'fields'      => $this->fields,
 				'user_values' => $request,
 				'db_values'   => $this->get_db_values(),
-				'args'        => array(
-					'settings' => &$this,
-				),
+				'args'        => array( 'settings' => &$this ),
 			) )
 				->run();
 
@@ -184,7 +177,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 									$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
 								} else {
 									$this->db_values[ $field['id'] ] = $field['default'];
-
 								}
 							}
 						}
@@ -202,7 +194,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 											$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
 										} else {
 											$this->db_values[ $field['id'] ] = $field['default'];
-
 										}
 									}
 								}
@@ -216,56 +207,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				update_option( $this->unique, $this->db_values );
 			}
 			$this->set_cache( $this->options_cache );
-		}
-
-		/**
-		 * Returns Database Values of the settings.
-		 *
-		 * @return array|mixed
-		 */
-		protected function get_db_values() {
-			if ( empty( $this->db_values ) ) {
-				$this->db_values = get_option( $this->unique );
-				if ( ! is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
-		}
-
-		/**
-		 * Saves Cache.
-		 *
-		 * @param array $data .
-		 */
-		protected function set_cache( $data = array() ) {
-			update_option( $this->unique . '-setcache', $data );
-			$this->options_cache = $data;
-		}
-
-		/**
-		 * Returns Options Cache.
-		 */
-		protected function get_cache() {
-			if ( false === $this->options_cache ) {
-				$db_key              = $this->unique . '-setcache';
-				$values              = get_option( $db_key, array() );
-				$this->options_cache = ( is_array( $values ) ) ? $values : array();
-				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
-					$this->options_cache = array();
-				} else {
-					if ( isset( $this->options_cache['field_errors'] ) ) {
-						$instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), 'WPOnion_Field_Error_Registry' );
-						$instance->set( $this->options_cache['field_errors'] );
-						if ( wponion_is_debug() ) {
-							wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'] );
-						}
-						unset( $this->options_cache['field_errors'] );
-						$this->set_cache( $this->options_cache );
-					}
-				}
-			}
-			return $this->options_cache;
 		}
 
 		/**
@@ -358,6 +299,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * Renders Settings Page HTML.
 		 */
 		public function render_page() {
+			LoadTime::start();
 			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
 			echo '<div class="hidden" style="display:none;" id="wponino-hidden-fields">';
 			settings_fields( $this->unique );
@@ -367,8 +309,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			$this->init_theme();
 			echo '</form>';
 			echo $this->debug_bar();
+			var_dump( LoadTime::end() );
 		}
-
 
 		/**
 		 * Triggers Only When Current Instance's Settings Page Loads.
@@ -658,8 +600,8 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 				'is_internal_href' => $internal_href,
 				'href'             => ( isset( $menu['href'] ) ) ? $menu['href'] : false,
 				'part_href'        => ( isset( $menu['part_href'] ) ) ? $menu['part_href'] : false,
-				'query_args'       => isset( $menu['query_args'] ) ? $menu['query_args'] : false,
-				'class'            => isset( $menu['class'] ) ? $menu['class'] : false,
+				'query_args'       => ( isset( $menu['query_args'] ) ) ? $menu['query_args'] : false,
+				'class'            => ( isset( $menu['class'] ) ) ? $menu['class'] : false,
 			);
 		}
 
@@ -718,13 +660,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * @return bool|string
 		 */
 		public function is_single_page() {
-			if ( true === $this->option( 'is_single_page' ) ) {
-				return true;
-			} elseif ( 'submenu' === $this->option( 'is_single_page' ) ) {
-				return 'only_submenu';
-			} else {
-				return false;
-			}
+			return ( true === $this->option( 'is_single_page' ) ) ? true : ( 'submenu' === $this->option( 'is_single_page' ) ) ? 'only_submenu' : false;
 		}
 
 		/**************************************************************************************************************
@@ -739,24 +675,20 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 */
 		public function wrap_class( $extra_class = '', $bootstrap = false ) {
 			$default_class = $this->default_wrap_class( $bootstrap );
-
-			$class   = array();
-			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
-			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
-			$class[] = ' wponion-' . $this->option( 'theme' ) . '-theme ';
+			$class         = array();
+			$class[]       = ' wponion-' . $this->option( 'theme' ) . '-theme ';
+			$class[]       = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
+			$class[]       = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
 
 			if ( 1 === count( $this->fields ) ) {
 				$class[] = 'wponion-hide-nav';
-
 				$current = current( $this->fields );
 				if ( isset( $current['fields'] ) || ( isset( $current['sections'] ) && 1 === count( $current['sections'] ) ) ) {
 					$class[] = 'wponion-no-subnav';
 				}
 			}
 
-			$class = wponion_html_class( $class, $default_class );
-			$class = wponion_html_class( $extra_class, $class );
-			return esc_attr( $class );
+			return esc_attr( wponion_html_class( $extra_class, wponion_html_class( array_filter( $class ), $default_class ) ) );
 		}
 
 		/**
@@ -816,28 +748,21 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 *************************************************************************************************************/
 
 		/**
-		 * Renders Given Field.
-		 *
 		 * @param array $field
+		 * @param bool  $parent_section
+		 * @param bool  $section
 		 * @param bool  $is_init_field
 		 *
-		 * @return string
+		 * @return mixed
 		 */
 		public function render_field( $field = array(), $parent_section = false, $section = false, $is_init_field = false ) {
-			$value = _wponion_get_field_value( $field, $this->get_db_values() );
-
-			$_unique = array(
+			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
+			return $callback( $field, _wponion_get_field_value( $field, $this->get_db_values() ), array(
 				'plugin_id' => $this->plugin_id(),
 				'module'    => $this->module(),
 				'unique'    => $this->unique,
 				'hash'      => sanitize_title( $parent_section . '-' . $section ),
-			);
-
-			if ( false === $is_init_field ) {
-				return wponion_add_element( $field, $value, $_unique );
-			} else {
-				return wponion_field( $field, $value, $_unique );
-			}
+			) );
 		}
 
 		/**
@@ -884,11 +809,10 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 * @return string
 		 */
 		public function _button( $user, $default_attr = array(), $label = '' ) {
-			$user_attr  = ( is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
-			$attributes = $this->parse_args( $user_attr, $default_attr );
-			$text       = ( is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
-			$text       = ( false === $text && is_string( $user ) ) ? $user : $label;
-			return '<button ' . wponion_array_to_html_attributes( $attributes ) . ' >' . $text . '</button>';
+			$user_attr = ( is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
+			$text      = ( is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
+			$text      = ( false === $text && is_string( $user ) ) ? $user : $label;
+			return '<button ' . wponion_array_to_html_attributes( $this->parse_args( $user_attr, $default_attr ) ) . ' >' . $text . '</button>';
 		}
 
 		/**
