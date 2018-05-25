@@ -76,8 +76,12 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 */
 		public function __construct( $settings = array(), $fields = array() ) {
 			parent::__construct( $fields, $settings );
-			if ( ! empty( $this->settings ) && false === wponion_is_ajax() ) {
-				$this->raw_options = $settings;
+			$this->raw_options = $settings;
+			$this->init();
+		}
+
+		public function init() {
+			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax() ) {
 				if ( false === $this->settings['plugin_id'] ) {
 					$this->plugin_id = $this->settings['option_name'];
 				} else {
@@ -142,7 +146,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 		 */
 		public function force_set_defaults( $force = false ) {
 			$cache = $this->get_cache();
-
 			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
 				if ( false === $force ) {
 					wponion_async()
@@ -188,7 +191,7 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 					} elseif ( isset( $options['sections'] ) ) {
 						foreach ( $options['sections'] as $section ) {
 							if ( false !== $this->valid_option( $section, true, false ) ) {
-								foreach ( $options['fields'] as $field ) {
+								foreach ( $section['fields'] as $field ) {
 									if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 										continue;
 									}
@@ -208,7 +211,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 					}
 				}
 			}
-
 
 			if ( ! empty( $default ) ) {
 				update_option( $this->unique, $this->db_values );
@@ -366,7 +368,6 @@ if ( ! class_exists( 'WPOnion_Settings' ) ) {
 			echo '</form>';
 			echo $this->debug_bar();
 		}
-
 
 
 		/**
