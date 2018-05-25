@@ -27,6 +27,11 @@ if ( ! class_exists( '\WPOnion\Registry\Fields' ) ) {
 	 * @since 1.0
 	 */
 	class Fields {
+		/**
+		 * Stores all instance data.
+		 *
+		 * @var array
+		 */
 		private $registry = array();
 
 		/**
@@ -44,6 +49,8 @@ if ( ! class_exists( '\WPOnion\Registry\Fields' ) ) {
 		}
 
 		/**
+		 * Check and returns an instance.
+		 *
 		 * @param string $instance_id
 		 *
 		 * @return bool
