@@ -292,89 +292,253 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * Below Are Fields Related Functions
 		 ************************************/
 
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function text( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'text', $id, $title, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function textarea( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'textarea', $id, $title, $args );
 		}
 
+		/**
+		 * @param string $type
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $options
+		 * @param array  $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function checkbox_radio( $type = '', $id = false, $title = false, $options = array(), $args = array() ) {
 			$defaults = ( is_string( $options ) ) ? array( 'label' => $options ) : array( 'options' => $options );
 			return $this->add_field( $type, $id, $title, $this->parse_args( $args, $defaults ) );
 		}
 
-		public function switch( $id = false, $title = false, $label = false, $args = array() ) {
-			return $this->checkbox_radio( 'switch', $id, $title, $label, $args );
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param bool  $label
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
+		public function switcher( $id = false, $title = false, $label = false, $args = array() ) {
+			return $this->checkbox_radio( 'switcher', $id, $title, $label, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $options
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function checkbox( $id = false, $title = false, $options = array(), $args = array() ) {
 			return $this->checkbox_radio( 'checkbox', $id, $title, $options, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $options
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function radio( $id = false, $title = false, $options = array(), $args = array() ) {
 			return $this->checkbox_radio( 'radio', $id, $title, $options, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $options
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function select( $id = false, $title = false, $options = array(), $args = array() ) {
 			return $this->checkbox_radio( 'select', $id, $title, $options, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $options
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function multi_select( $id = false, $title = false, $options = array(), $args = array() ) {
 			return $this->select( $id, $title, $options, $this->parse_args( $args, array( 'multiple' => true ) ) );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function wp_link( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'wp_link', $id, $title, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function key_value( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'key_value', $id, $title, $args );
 		}
 
+		/**
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $options
+		 * @param string $image_type
+		 * @param array  $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function image_select( $id = false, $title = false, $options = array(), $image_type = 'checkbox', $args = array() ) {
 			return $this->checkbox_radio( 'image_select', $id, $title, $options, $this->parse_args( $args, array(
 				'image_type' => $image_type,
 			) ) );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function image( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'image', $id, $title, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function gallery( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'gallery', $id, $title, $args );
 		}
 
+		/**
+		 * @param string $content
+		 * @param string $notice_type
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function notice( $content = '', $notice_type = '', $id = false, $title = false, $args = array() ) {
 			return $this->_content_field( 'notice', $content, $id, $title, $this->parse_args( $args, array( 'notice_type' => $notice_type ) ) );
 		}
 
+		/**
+		 * @param string $content
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function heading( $content = '', $id = false, $title = false, $args = array() ) {
 			return $this->_content_field( 'heading', $content, $id, $title, $args );
 		}
 
+		/**
+		 * @param string $content
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function subheading( $content = '', $id = false, $title = false, $args = array() ) {
 			return $this->_content_field( 'subheading', $content, $id, $title, $args );
 		}
 
+		/**
+		 * @param string $content
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function jambo_content( $content = '', $id = false, $title = false, $args = array() ) {
 			return $this->_content_field( 'jambo_content', $content, $id, $title, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $options
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function card( $id = false, $title = false, $options = array(), $args = array() ) {
 			return $this->add_field( 'card', $id, $title, $this->parse_args( $args, array( 'options' => $options ) ) );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function icon_picker( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'icon_picker', $id, $title, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function font( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'font', $id, $title, $args );
 		}
 
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $fields
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
 		public function accordion( $id = false, $title = false, $fields = array(), $args = array() ) {
 			return $this->add_field( 'accordion', $id, $title, $this->parse_args( $args, array(
 				'fields' => $fields,
