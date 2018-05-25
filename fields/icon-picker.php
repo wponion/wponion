@@ -18,8 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
+	/**
+	 * Class icon_picker
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class icon_picker extends \WPOnion\Field {
-
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 
@@ -30,6 +41,11 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Renders It Sub Field INPUT.
+		 *
+		 * @return mixed
+		 */
 		protected function render_input() {
 			return $this->sub_field( array(
 				'type'       => 'text',
@@ -38,11 +54,20 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 			), $this->value(), $this->name() );
 		}
 
+		/**
+		 * Renders Icon HTML.
+		 *
+		 * @return string
+		 */
 		protected function render_value() {
 			return '<span class="wponion-icon-preview">' . wponion_icon( $this->value() ) . '</span>';
 		}
 
-
+		/**
+		 * Returns all required values to use in js.
+		 *
+		 * @return array
+		 */
 		protected function js_field_args() {
 			$tooltip = $this->data( 'icon_tooltip' );
 			$tooltip = ( false === $tooltip ) ? 'false' : $tooltip;
@@ -52,6 +77,11 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 			);
 		}
 
+		/**
+		 * Renders IT Subfield buttons.
+		 *
+		 * @return mixed|string
+		 */
 		protected function render_buttons() {
 			$html = $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
 				'class'       => array( 'button', 'button-primary' ),
@@ -80,6 +110,11 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 			return $html;
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'add_button'    => __( 'Add Icon' ),
@@ -92,6 +127,11 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 			);
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			// TODO: Implement field_assets() method.
 		}
