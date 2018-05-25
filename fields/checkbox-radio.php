@@ -30,10 +30,6 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 		}
 
 		protected function output() {
-			if ( ! $this->has( 'options' ) && ! $this->has( 'label' ) ) {
-				return;
-			}
-
 			echo $this->before();
 
 			$options = $this->data( 'options' );
@@ -57,10 +53,10 @@ if ( ! class_exists( 'WPOnion_Field_checkbox_radio' ) ) {
 						echo '</div>';
 					}
 				}
-			} elseif ( true === $this->has( 'label' ) && in_array( $this->element_type(), array(
-					'switch',
-					'checkbox',
-				) ) ) {
+			} elseif ( in_array( $this->element_type(), array(
+				'switch',
+				'checkbox',
+			) ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			}
 
