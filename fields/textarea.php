@@ -26,13 +26,24 @@ if ( ! class_exists( '\WPOnion\Field\textarea' ) ) {
 	 * @since 1.0
 	 */
 	class textarea extends \WPOnion\Field\text {
-
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 			echo '<textarea ' . $this->_input_attributes() . '>' . $this->value() . '</textarea>';
 			echo $this->after();
 		}
 
+		/**
+		 * Handles fields args based on config.
+		 *
+		 * @param array $field_data
+		 *
+		 * @return array
+		 */
 		public function handle_field_args( $field_data = array() ) {
 			$field_data = parent::handle_field_args( $field_data );
 			if ( isset( $field_data['rows'] ) ) {
@@ -45,6 +56,11 @@ if ( ! class_exists( '\WPOnion\Field\textarea' ) ) {
 			return $field_data;
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array_merge( parent::field_default(), array(
 				'rows' => 5,
