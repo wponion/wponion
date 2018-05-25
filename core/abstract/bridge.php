@@ -17,6 +17,7 @@ namespace WPOnion;
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 	/**
 	 * Class Bridge
@@ -88,6 +89,8 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		}
 
 		/**
+		 * add a function to a hook with like add_action() function dose.
+		 *
 		 * @param     $hook
 		 * @param     $function_to_add
 		 * @param int $priority
@@ -100,6 +103,8 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		}
 
 		/**
+		 * add a function to a hook with like add_filter() function dose.
+		 *
 		 * @param     $tag
 		 * @param     $function_to_add
 		 * @param int $priority
@@ -205,6 +210,8 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		}
 
 		/**
+		 * Checks for values in $this->settings and returns it if exists.
+		 *
 		 * @param string $key
 		 * @param bool   $default
 		 *
@@ -218,6 +225,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		}
 
 		/**
+		 * Returns current plugin_id
 		 * @return array
 		 */
 		public function plugin_id() {
