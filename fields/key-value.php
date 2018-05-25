@@ -18,8 +18,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
+	/**
+	 * Class key_value
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class key_value extends \WPOnion\Field {
-
+		/**
+		 * Renders Key Value Pair HTML.
+		 *
+		 * @param string $name
+		 * @param string $key
+		 * @param string $value
+		 */
 		protected function key_value( $name = '', $key = '', $value = '' ) {
 			echo '<div class="wponion-keyvalue-field">';
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
@@ -47,6 +60,11 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 			echo '</div>';
 		}
 
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 
@@ -74,6 +92,11 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'add_button'    => __( 'Add +' ),
@@ -83,6 +106,11 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 			);
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_script( 'wponion-cloner' );
 		}
