@@ -25,7 +25,11 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 	 * @since 1.0
 	 */
 	class text extends \WPOnion\Field {
-
+		/**
+		 * Handles Input Attributes.
+		 *
+		 * @return string
+		 */
 		protected function _input_attributes() {
 			$field_class = 'wponion-form-control';
 			$field_class = ( $this->has_errors() ) ? $field_class . ' is-invalid ' : $field_class;
@@ -39,6 +43,11 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 			) );
 		}
 
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 			echo '<div class="wponion-input-group">';
@@ -53,6 +62,13 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * checks and updated fields args based on field config.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
 		public function handle_field_args( $field_data = array() ) {
 			if ( false !== $field_data['inputmask'] ) {
 				$field_data['wrap_class']                           = ( false !== $field_data['wrap_class'] ) ? '' : $field_data['wrap_class'];
@@ -83,6 +99,8 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 		}
 
 		/**
+		 * Loads the required plugins assets.
+		 *
 		 * @return mixed|void
 		 */
 		public function field_assets() {
@@ -92,6 +110,8 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 		}
 
 		/**
+		 * Returns all fields default.
+		 *
 		 * @return array|mixed
 		 */
 		protected function field_default() {
@@ -105,6 +125,11 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 			);
 		}
 
+		/**
+		 * Returns required Datas to use in Javascript.
+		 *
+		 * @return array
+		 */
 		protected function js_field_args() {
 			$args = array();
 			if ( false !== $this->has( 'inputmask' ) ) {
