@@ -18,6 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\radio' ) ) {
+	/**
+	 * Class radio
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class radio extends \WPOnion\Field\checkbox_radio {
 
 	}
