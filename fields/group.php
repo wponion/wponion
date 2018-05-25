@@ -18,20 +18,57 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\group' ) ) {
+	/**
+	 * Class group
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class group extends \WPOnion\Field\accordion {
-		protected $loop_count   = '{wponionCloneID}';
-		protected $is_js_sample = false;
-		protected $loop_value   = array();
+		/**
+		 * loop_count
+		 *
+		 * @var string
+		 */
+		protected $loop_count = '{wponionCloneID}';
 
+		/**
+		 * is_js_sample
+		 *
+		 * @var bool
+		 */
+		protected $is_js_sample = false;
+
+		/**
+		 * loop_value
+		 *
+		 * @var array
+		 */
+		protected $loop_value = array();
+
+		/**
+		 * Creates / inits its sub fields.
+		 */
 		protected function init_subfields() {
 			return false;
 		}
 
+		/**
+		 * Renders Single Field HTML.
+		 *
+		 * @param $field
+		 */
 		protected function render_single_field( $field ) {
 			$value = ( false === $this->is_js_sample ) ? _wponion_get_field_value( $field, $this->loop_value ) : null;
 			echo $this->sub_field( $field, $value, $this->name( '[' . $this->loop_count . ']' ), false );
 		}
 
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 
@@ -68,6 +105,9 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 			$this->localize_field( array( 'group_template' => $template ) );
 		}
 
+		/**
+		 * After Accordion Callback
+		 */
 		protected function after_accordion() {
 			echo '<div class="wponion-group-action">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
@@ -83,6 +123,11 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 			echo '</div>';
 		}
 
+		/**
+		 * Returns all required values to use in js.
+		 *
+		 * @return array
+		 */
 		protected function js_field_args() {
 			return array(
 				'limit'               => $this->data( 'limit' ),
@@ -91,6 +136,11 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 			);
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return $this->parse_args( array(
 				'add_button'    => __( 'Add New' ),
@@ -100,6 +150,11 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 			), parent::field_default() );
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_script( 'wponion-cloner' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
