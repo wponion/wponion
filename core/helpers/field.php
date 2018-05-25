@@ -33,11 +33,11 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 			$is_in_clone = ( isset( $field['in_clone'] ) && true === $field['in_clone'] ) ? true : false;
 
 			if ( false === $is_in_clone && isset( $field['clone'] ) && ( true === $field['clone'] || true === is_array( $field['clone'] ) ) ) {
-				if ( ! class_exists( 'WPOnion_Field_Cloner', false ) ) {
+				if ( ! class_exists( '\WPOnion\Field\Cloner', false ) ) {
 					require_once WPONION_PATH . 'core/class-field-cloner.php';
 				}
 
-				return 'WPOnion_Field_Cloner';
+				return '\WPOnion\Field\Cloner';
 			} else {
 				$class = 'WPOnion_Field_' . $field_type;
 				if ( class_exists( $class ) ) {

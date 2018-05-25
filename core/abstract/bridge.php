@@ -11,17 +11,21 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-if ( ! class_exists( 'WPOnion_Abstract' ) ) {
+if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 	/**
-	 * Class WPOnion_Abstract
+	 * Class Bridge
 	 *
+	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WPOnion_Abstract {
+	abstract class Bridge {
 		/**
 		 * Plugin_id
 		 * This is used in do_action & apply_filters to provide plugin developers with a custom hook to run only when

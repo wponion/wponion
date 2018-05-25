@@ -12,18 +12,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\JS;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
+if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 	/**
-	 * Class WPOnion_Localize_API
+	 * Class Localize_API
 	 *
+	 * @package WPOnion\JS
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Localize_API extends WPOnion_Abstract {
+	class Localize_API extends \WPOnion\Bridge {
 		/**
 		 * js_args
 		 *
@@ -54,9 +57,9 @@ if ( ! class_exists( 'WPOnion_Localize_API' ) ) {
 				$this->add_action( 'wp_footer', 'render_js_args' );
 			}
 
-			$js_notice = __( '%5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$sstrue%4$s' );
-			$js_notice .= __( '%5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php' );
-			$js_notice .= __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it' );
+			$js_notice = __( ' %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$sstrue%4$s ' );
+			$js_notice = $js_notice . __( ' %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php ' );
+			$js_notice = $js_notice . __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it' );
 			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<strong>', '</strong>', '<br/>' );
 
 

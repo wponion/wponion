@@ -11,18 +11,21 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion\Modules;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'WPOnion_Settings' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 	/**
 	 * Class WPOnion_Settings
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Settings extends WPOnion_Feature_Abstract {
+	class Settings extends \WPOnion\Bridge\Module {
 		/**
 		 * type
 		 *

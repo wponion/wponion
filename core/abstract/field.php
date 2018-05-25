@@ -11,18 +11,21 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field' ) ) {
+if ( ! class_exists( '\WPOnion\Field' ) ) {
 	/**
-	 * Class WPOnion_Field
+	 * Class Field
 	 *
+	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WPOnion_Field extends WPOnion_Abstract {
+	abstract class Field extends \WPOnion\Bridge {
 		/**
 		 * columns
 		 *

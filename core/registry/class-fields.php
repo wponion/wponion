@@ -12,27 +12,30 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Registry;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_Registry' ) ) {
+if ( ! class_exists( '\WPOnion\Registry\Fields' ) ) {
 	/**
-	 * Class WPOnion_Field_Registry
+	 * Class Fields
 	 *
+	 * @package WPOnion\Registry
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_Registry {
+	class Fields {
 		private $registry = array();
 
 		/**
-		 * @param string            $instance_id
-		 * @param \WPOnion_Abstract $instance
+		 * @param string          $instance_id
+		 * @param \WPOnion\Bridge $instance
 		 *
 		 * @return bool
 		 */
-		public function add( $instance_id = 'settings', \WPOnion_Abstract &$instance ) {
+		public function add( $instance_id = 'settings', \WPOnion\Bridge &$instance ) {
 			if ( ! isset( $this->registry[ $instance_id ] ) ) {
 				$this->registry[ $instance_id ] = $instance;
 				return true;

@@ -12,18 +12,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Registry;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_Error_Registry' ) ) {
+if ( ! class_exists( '\WPOnion\Registry\Field_Error' ) ) {
 	/**
-	 * Class WPOnion_Field_Error_Registry
+	 * Class Field_Error
 	 *
+	 * @package WPOnion\Registry
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_Error_Registry {
+	class Field_Error {
 		private $errors = array();
 
 		/**

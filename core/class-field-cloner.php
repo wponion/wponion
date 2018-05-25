@@ -12,18 +12,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Field_Cloner' ) ) {
+if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 	/**
-	 * Class WPOnion_Field_Cloner
+	 * Class Cloner
 	 *
+	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Field_Cloner extends WPOnion_Field {
+	class Cloner extends \WPOnion\Field {
 		/**
 		 * Handles Fields Wrapper.
 		 */

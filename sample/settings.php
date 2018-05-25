@@ -70,11 +70,8 @@ function wponino_field_notice_types( $notice_type ) {
 		'content'     => 'This is a <strong>' . $notice_type . '</strong> Bootstrap Notice',
 	);
 }
-
+/*
 $fields_types = array(
-	/**
-	 * Text Fields
-	 */
 	array(
 		'title'  => __( 'Text Field' ),
 		'name'   => 'textfields',
@@ -139,10 +136,6 @@ $fields_types = array(
 			),
 		),
 	),
-
-	/**
-	 * Textarea
-	 */
 	array(
 		'title'  => __( 'Textarea' ),
 		'name'   => 'textarea',
@@ -169,10 +162,6 @@ $fields_types = array(
 			),
 		),
 	),
-
-	/**
-	 * Checkbox Fields.
-	 */
 	array(
 		'name'   => 'checkbox',
 		'title'  => __( 'Checkbox' ),
@@ -209,10 +198,6 @@ $fields_types = array(
 			),
 		),
 	),
-
-	/**
-	 * Radio Fields.
-	 */
 	array(
 		'name'   => 'radio',
 		'title'  => __( 'Radio' ),
@@ -237,7 +222,6 @@ $fields_types = array(
 			),
 		),
 	),
-
 	array(
 		'name'   => 'select',
 		'title'  => 'Select',
@@ -402,10 +386,6 @@ $fields_types = array(
 
 		),
 	),
-
-	/**
-	 * UI Related Fields.
-	 */
 	array(
 		'name'   => 'uifields',
 		'title'  => 'UI Fields',
@@ -610,8 +590,8 @@ $options = array(
 		'sections' => $fields_types,
 	),
 );
-
-$_instance = new WPOnion_Settings( array(
+*/
+/*$_instance = new WPOnion_Settings( array(
 	'menu'        => array(
 		'type'       => 'parent', # submenu | management | dashboard | options | plugins | theme
 		'parent'     => '',
@@ -631,6 +611,6 @@ $_instance = new WPOnion_Settings( array(
 		'restore' => __( 'Restore' ),
 		'reset'   => __( 'Reset All Options' ),
 	),
-), $options );
+), $options );*/
 
 require_once 'settings-dev.php';

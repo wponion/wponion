@@ -100,10 +100,10 @@ if ( ! function_exists( 'wponion_localize' ) ) {
 	/**
 	 * Returns an active instance of WPOnion_Localize_API.
 	 *
-	 * @return \WPOnion_Localize_API
+	 * @return \WPOnion\JS\Localize_API
 	 */
 	function wponion_localize() {
-		return wponion_registry( 'wponion-global-localize-api', 'WPOnion_Localize_API' );
+		return wponion_registry( 'wponion-global-localize-api', '\WPOnion\JS\Localize_API' );
 	}
 }
 

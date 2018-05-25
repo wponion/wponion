@@ -11,18 +11,22 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion\DB\Settings;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Settings_Save_Handler' ) ) {
+if ( ! class_exists( '\WPOnion\DB\Settings\Save_Handler' ) ) {
 	/**
-	 * Class WPOnion_Settings_Save_Handler
+	 * Class Save_Handler
 	 *
+	 * @package WPOnion\DB\Settings
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Settings_Save_Handler extends WPOnion_Save_Handler {
+	class Save_Handler extends \WPOnion\DB\Save_Handler {
 		public function run() {
 			foreach ( $this->fields as $option ) {
 				if ( ! $this->args['settings']->valid_option( $option, false, false ) ) {

@@ -12,18 +12,20 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Bridge;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Module_Field_Builder' ) ) {
+if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 	/**
-	 * Class WPOnion_Module_Field_Builder
+	 * Class Field_Builder
 	 *
+	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WPOnion_Module_Field_Builder extends WPOnion_Abstract {
+	abstract class Field_Builder extends \WPOnion\Bridge {
 		/**
 		 * Fields
 		 *
@@ -119,7 +121,7 @@ if ( ! class_exists( 'WPOnion_Module_Field_Builder' ) ) {
 		 * Adds Page To Array.
 		 *
 		 * @param string $page_title
-		 * @param string $page_slug
+		 * @param bool   $page_slug
 		 * @param bool   $page_icon
 		 * @param array  $page_args
 		 *

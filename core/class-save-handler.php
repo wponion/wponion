@@ -11,18 +11,22 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion\DB;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
+if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 	/**
-	 * Class WPOnion_Save_Handler
+	 * Class Save_Handler
 	 *
+	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Save_Handler extends WPOnion_Abstract {
+	class Save_Handler extends \WPOnion\Bridge {
 		/**
 		 * Stores User Posted Options
 		 *
@@ -73,15 +77,15 @@ if ( ! class_exists( 'WPOnion_Save_Handler' ) ) {
 		protected $return_values = array();
 
 		/**
-		 * WPOnion_Save_Handler constructor.
+		 * \WPOnion\DB\Save_Handler constructor.
 		 */
 		public function __construct() {
 		}
 
 		/**
-		 * inits class.
-		 *
 		 * @param array $args
+		 *
+		 * @return $this
 		 */
 		public function init_class( $args = array() ) {
 			$args = $this->parse_args( $args, array(

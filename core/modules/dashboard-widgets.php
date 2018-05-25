@@ -12,22 +12,40 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Modules;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Dashboard_Widgets' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 	/**
-	 * Class WPOnion_Dashboard_Widgets
+	 * Class Dashboard_Widgets
 	 *
+	 * @package WPOnion\Modules
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @todo work on widget save handler.
+	 * @todo work on save handler.
 	 */
-	class WPOnion_Dashboard_Widgets extends WPOnion_Feature_Abstract {
-		protected $module         = 'dashboard_widgets';
+	class Dashboard_Widgets extends \WPOnion\Bridge\Module {
+		/**
+		 * module
+		 *
+		 * @var string
+		 */
+		protected $module = 'dashboard_widgets';
+
+		/**
+		 * is_widget_edit
+		 *
+		 * @var bool
+		 */
 		protected $is_widget_edit = false;
+
+		/**
+		 * current_widget
+		 *
+		 * @var bool
+		 */
 		protected $current_widget = false;
 
 

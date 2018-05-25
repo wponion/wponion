@@ -11,20 +11,24 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
+namespace WPOnion;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Core_Ajax' ) ) {
+if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 	/**
-	 * Class WPOnion_Core_Ajax
+	 * Class Core_Ajax
 	 *
+	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_Core_Ajax extends WPOnion_Abstract {
+	class Core_Ajax extends \WPOnion\Bridge {
 		/**
-		 * WPOnion_Core_Ajax constructor.
+		 * Core_Ajax constructor.
 		 */
 		public function __construct() {
 			add_action( 'wp_ajax_wponion-ajax', array( &$this, 'handle_ajax_request' ) );
@@ -98,4 +102,4 @@ if ( ! class_exists( 'WPOnion_Core_Ajax' ) ) {
 		}
 	}
 }
-return new WPOnion_Core_Ajax;
+return new Core_Ajax;

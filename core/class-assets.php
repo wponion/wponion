@@ -12,18 +12,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+namespace WPOnion;
 
-if ( ! class_exists( 'WPOnion_Assets' ) ) {
+if ( ! class_exists( '\WPOnion\Assets' ) ) {
 	/**
-	 * Class WPOnion_Assets
+	 * Class Assets
 	 *
+	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	final class WPOnion_Assets {
+	final class Assets {
 		/**
 		 * Scripts
 		 *
@@ -46,31 +45,10 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		public static function init() {
 			self::init_array();
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
-
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			}
-		}
-
-		/**
-		 * Registers Assets With WordPress.
-		 *
-		 * @static
-		 */
-		public static function register_assets() {
-			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
-			foreach ( self::$style as $id => $file ) {
-				//$url     = self::is_debug( WPONION_URL . $file[0] );
-				$file[2] = isset( $file[2] ) ? $file[2] : $version;
-				$file[1] = isset( $file[1] ) ? $file[1] : array();
-				wp_register_style( $id, WPONION_URL . $file[0], $file[1], $file[2], 'all' );
-			}
-			foreach ( self::$scripts as $iid => $ffile ) {
-				//$url      = self::is_debug( WPONION_URL . $ffile[0], 'js' );
-				$ffile[2] = isset( $ffile[2] ) ? $ffile[2] : $version;
-				$ffile[1] = isset( $ffile[1] ) ? $ffile[1] : array();
-				wp_register_script( $iid, WPONION_URL . $ffile[0], $ffile[1], $ffile[2], true );
-			}
+			return true;
 		}
 
 		/**
@@ -83,6 +61,25 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 
 			self::$scripts = $wponion_js;
 			self::$style   = $wponion_css;
+		}
+
+		/**
+		 * Registers Assets With WordPress.
+		 *
+		 * @static
+		 */
+		public static function register_assets() {
+			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
+			foreach ( self::$style as $id => $file ) {
+				$file[2] = isset( $file[2] ) ? $file[2] : $version;
+				$file[1] = isset( $file[1] ) ? $file[1] : array();
+				wp_register_style( $id, WPONION_URL . $file[0], $file[1], $file[2], 'all' );
+			}
+			foreach ( self::$scripts as $iid => $ffile ) {
+				$ffile[2] = isset( $ffile[2] ) ? $ffile[2] : $version;
+				$ffile[1] = isset( $ffile[1] ) ? $ffile[1] : array();
+				wp_register_script( $iid, WPONION_URL . $ffile[0], $ffile[1], $ffile[2], true );
+			}
 		}
 
 		/**
@@ -99,5 +96,4 @@ if ( ! class_exists( 'WPOnion_Assets' ) ) {
 		}
 	}
 }
-
-WPOnion_Assets::init();
+return Assets::init();

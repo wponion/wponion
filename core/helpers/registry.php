@@ -46,17 +46,18 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	 *
 	 * @return $class
 	 */
+
 	function wponion_registry( $type = '', $class = null ) {
 		switch ( $type ) {
 			case 'settings':
-				$class = 'WPOnion_Module_Registry';
+				$class = '\WPOnion\Registry\Modules';
 				break;
 			case 'core':
-				$class = 'WPOnion_Core_Registry';
+				$class = '\WPOnion\Registry\Core';
 				break;
 			case 'field':
 			case 'settings_fields':
-				$class = 'WPOnion_Field_Registry';
+				$class = '\WPOnion\Registry\Fields';
 				break;
 		}
 		return wponion_get_registry( $type, $class );
@@ -74,7 +75,7 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	 * @return bool
 	 */
 	function wponion_get_registry_instance( $type = 'settings', &$instance, $registry_type = 'core' ) {
-		if ( $instance instanceof WPOnion_Abstract ) {
+		if ( $instance instanceof \WPOnion\Bridge ) {
 			$_registry = wponion_registry( $registry_type );
 			$_registry->add( $type, $instance );
 		} elseif ( is_string( $instance ) ) {
@@ -132,13 +133,13 @@ if ( ! function_exists( 'wponion_core_registry' ) ) {
 
 if ( ! function_exists( 'wponion_async' ) ) {
 	/**
-	 * @return \WPOnion_Async_Request
+	 * @return bool|\WPOnion\Async_Request
 	 */
 	function wponion_async() {
 		static $instance = false;
 
 		if ( false === $instance ) {
-			$instance = new WPOnion_Async_Request();
+			$instance = new WPOnion\Async_Request();
 		}
 		return $instance;
 	}

@@ -12,18 +12,20 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Bridge;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Feature_Abstract' ) ) {
+if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	/**
-	 * Class WPOnion_Feature_Abstract
+	 * Class Module
 	 *
+	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WPOnion_Feature_Abstract extends WPOnion_Module_Field_Builder {
+	abstract class Module extends \WPOnion\Bridge\Field_Builder {
 		/**
 		 * Stores Current template information.
 		 * current_theme

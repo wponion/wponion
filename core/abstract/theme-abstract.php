@@ -12,18 +12,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Theme_Abstract' ) ) {
+if ( ! class_exists( '\WPOnion\Theme' ) ) {
 	/**
-	 * Class WPOnion_Theme_Abstract
+	 * Class Theme
 	 *
+	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WPOnion_Theme_Abstract extends WPOnion_Abstract {
+	abstract class Theme extends \WPOnion\Bridge {
 		/**
 		 * dir
 		 *

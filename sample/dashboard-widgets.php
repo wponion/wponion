@@ -11,7 +11,7 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
-
+/*
 new WPOnion_Dashboard_Widgets( array(
 	'plugin_id' => 'wponion',
 ), array(
@@ -49,4 +49,4 @@ new WPOnion_Dashboard_Widgets( array(
 			),
 		),
 	),
-) );
+) );*/

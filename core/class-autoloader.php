@@ -12,26 +12,29 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'WPOnion_Autoloader' ) ) {
+if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 	/**
-	 * Class WPOnion_Autoloader
+	 * Class Autoloader
 	 *
+	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 * @package wponion
 	 */
-	final class WPOnion_Autoloader {
+	final class Autoloader {
 		/**
 		 * Inits WPOnion_Autoloader.
 		 *
 		 * @static
 		 */
 		public static function init() {
-			spl_autoload_register( 'WPOnion_Autoloader::load' );
+			spl_autoload_register( '\WPOnion\Autoloader::load' );
+			return true;
 		}
 
 		/**
@@ -44,7 +47,7 @@ if ( ! class_exists( 'WPOnion_Autoloader' ) ) {
 		public static function load( $class_name = '' ) {
 			if ( false !== strpos( $class_name, 'WPOnion_Field_' ) ) {
 				self::load_field( $class_name );
-			} elseif ( false !== strpos( $class_name, 'WPOnion_' ) ) {
+			} elseif ( false !== strpos( $class_name, 'WPOnion\\' ) ) {
 				self::load_core( $class_name );
 			}
 		}
@@ -84,7 +87,9 @@ if ( ! class_exists( 'WPOnion_Autoloader' ) ) {
 		 * @static
 		 */
 		public static function load_core( $class_name ) {
-			$file_name = self::get_filename( $class_name );
+			$file_name = explode( '\\', $class_name );
+			$file_name = end( $file_name );
+			$file_name = self::get_filename( $file_name );
 			if ( file_exists( self::path( 'core/' . 'class-' . $file_name ) ) ) {
 				include_once self::path( 'core/' . 'class-' . $file_name );
 			} elseif ( file_exists( self::path( 'core/abstract/' . $file_name ) ) ) {
@@ -112,4 +117,4 @@ if ( ! class_exists( 'WPOnion_Autoloader' ) ) {
 		}
 	}
 }
-return WPOnion_Autoloader::init();
+return Autoloader::init();

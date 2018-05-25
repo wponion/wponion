@@ -12,18 +12,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+namespace WPOnion\Registry;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! interface_exists( 'WPOnion_Registry_Interface' ) ) {
+if ( ! interface_exists( '\WPOnion\Registry\Common' ) ) {
 	/**
-	 * Interface WPOnion_Registry_Interface
+	 * Interface Common
 	 *
+	 * @package WPOnion\Registry
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	interface WPOnion_Registry_Interface {
+	interface Common {
 		/**
 		 * Stores Instance of a give feature.
 		 *
@@ -32,7 +35,7 @@ if ( ! interface_exists( 'WPOnion_Registry_Interface' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function add( $feature_type = 'settings', \WPOnion_Abstract &$instance );
+		public function add( $feature_type = 'settings', \WPOnion\Bridge &$instance );
 
 		/**
 		 * Get And Returns An Instance of a give key.
