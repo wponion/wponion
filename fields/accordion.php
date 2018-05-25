@@ -19,8 +19,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\accordion' ) ) {
+	/**
+	 * Class accordion
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class accordion extends \WPOnion\Field {
-
+		/**
+		 * Creates / inits its sub fields.
+		 */
 		protected function init_subfields() {
 			if ( $this->has( 'fields' ) ) {
 				foreach ( $this->data( 'fields' ) as $field_id => $field ) {
@@ -29,6 +38,9 @@ if ( ! class_exists( '\WPOnion\Field\accordion' ) ) {
 			}
 		}
 
+		/**
+		 * Renders Fields HTML.
+		 */
 		protected function render_fields() {
 			echo '<div class="wponion-accordion-wrap">';
 			echo '<h4 class="wponion-accordion-title">' . $this->data( 'accordion_title' ) . '</h4>';
@@ -41,20 +53,37 @@ if ( ! class_exists( '\WPOnion\Field\accordion' ) ) {
 			echo '</div>';
 		}
 
+		/**
+		 * After Accordion Callback
+		 */
 		protected function after_accordion() {
 		}
 
+		/**
+		 * Renders Single Sub Field.
+		 *
+		 * @param $field
+		 */
 		protected function render_single_field( $field ) {
 			echo $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), false );
 		}
 
-
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 			$this->render_fields();
 			echo $this->after();
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'fields'          => array(),
@@ -64,6 +93,11 @@ if ( ! class_exists( '\WPOnion\Field\accordion' ) ) {
 			);
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_script( 'jquery-ui-accordion' );
 		}
