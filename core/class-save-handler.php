@@ -330,6 +330,10 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 			}
 		}
 
+		/**
+		 * This function is used for nested field loops.
+		 * @param $field
+		 */
 		protected function nested_field_loop( $field ) {
 			$parent_field = $field;
 
