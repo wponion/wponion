@@ -31,7 +31,7 @@ if ( ! interface_exists( '\WPOnion\Registry\Common' ) ) {
 		 * Stores Instance of a give feature.
 		 *
 		 * @param string            $feature_type
-		 * @param \WPOnion_Abstract $instance
+		 * @param \WPOnion\Bridge $instance
 		 *
 		 * @return mixed
 		 */
