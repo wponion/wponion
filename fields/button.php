@@ -20,7 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( '\WPOnion\Field\button' ) ) {
 	class button extends \WPOnion\Field {
-
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 			$label = ( false !== $this->has( 'label' ) ) ? $this->data( 'label' ) : $this->value();
@@ -28,6 +32,13 @@ if ( ! class_exists( '\WPOnion\Field\button' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Modified Fields Args based on current config.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
 		public function handle_field_args( $data = array() ) {
 			if ( false !== $data['button_type'] ) {
 				$data['attributes']['type'] = $data['button_type'];
@@ -35,6 +46,11 @@ if ( ! class_exists( '\WPOnion\Field\button' ) ) {
 			return $data;
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'button_type' => 'button',
@@ -42,6 +58,11 @@ if ( ! class_exists( '\WPOnion\Field\button' ) ) {
 			);
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 	}
