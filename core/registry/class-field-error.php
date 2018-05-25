@@ -27,6 +27,11 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Error' ) ) {
 	 * @since 1.0
 	 */
 	class Field_Error {
+		/**
+		 * Stores ALL Erros Instance.
+		 *
+		 * @var array
+		 */
 		private $errors = array();
 
 		/**
