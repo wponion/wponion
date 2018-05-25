@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Array_Finder extends \WPOnion_Abstract implements \ArrayAccess, \Countable, \Iterator, \Serializable {
+	class Array_Finder extends \WPOnion\Bridge implements \ArrayAccess, \Countable, \Iterator, \Serializable {
 		/**
 		 * position
 		 *
@@ -272,7 +272,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 * @param string $path Path where the values will be insered.
 		 * @param mixed  $value Value ti insert.
 		 *
-		 * @return \WPOnion_Array_Finder Current instance.
+		 * @return \WPOnion\Core\Array_Finder
 		 */
 		public function set( $path, $value ) {
 			$this->call_at_path( $path, function ( &$offset ) use ( $value ) {
