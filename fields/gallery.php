@@ -18,8 +18,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
+	/**
+	 * Class gallery
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class gallery extends \WPOnion\Field\image {
-
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function output() {
 			echo $this->before();
 			$add_show = ( ! empty( $this->value() ) ) ? 'style="display:none;"' : false;
@@ -44,6 +55,13 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Renders its sub fields (Only Button).
+		 *
+		 * @param $type
+		 *
+		 * @return mixed
+		 */
 		protected function button( $type ) {
 			$button = array();
 			if ( 'add' === $type ) {
@@ -87,6 +105,11 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			return $this->sub_field( $button, null, null, false );
 		}
 
+		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'add_button'   => __( 'Create Gallery' ),
@@ -95,6 +118,11 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			);
 		}
 
+		/**
+		 * Returns all required values to use in js.
+		 *
+		 * @return array
+		 */
 		protected function js_field_args() {
 			$this->catch_output( 'start' );
 			$this->show_image( false, null );
@@ -104,6 +132,11 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			);
 		}
 
+		/**
+		 * Loads the required plugins assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_media();
 		}
