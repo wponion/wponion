@@ -21,7 +21,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			var $settings = this.arg('inputmask');
 			if ($settings) {
 				$settings = wpo.validate_js_function($settings);
-				console.log($settings);
 				this.save(this.elem.inputmask($settings));
 				//wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
 			}
@@ -51,7 +50,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				}
 
 				this.save(this.elem.maxlength($settings));
-				wpo.__plugin_debug_info(this.elem, 'max_length', $settings);
 			}
 		}
 		return this;
@@ -387,10 +385,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 		if (this.arg($fid + 'tooltip')) {
 			var $arg = this.arg($fid + 'tooltip');
+			$arg['performance'] = false;
 			if ($arg['image'] !== false) {
-				if ($('#wponiontooltipimagetippy').length === 0) {
-					$('body').append($('<div id="wponiontooltipimagetippy" style="display: none;">Loading.</div>'));
-				}
 
 				$arg.html = '#wponiontooltipimagetippy';
 				$arg.onShow = function () {
@@ -414,7 +410,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					var content = this.querySelector(".tippy-content");
 					content.innerHTML = '';
 				};
-				$arg.popperOptions = {
+				$arg['popperOptions'] = {
 					modifiers: {
 						preventOverflow: {
 							enabled: false
@@ -919,13 +915,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		this.init_field('.wponion-element-tab', 'jquery_tab');
 		this.init_field('.wponion-element-image', 'image_upload');
 		this.init_field('.wponion-element-gallery', 'gallery');
-		this.field_debug();
+		//this.field_debug();
 		wphooks.addAction('wponion_after_fields_reload');
 	};
 
 	wphooks.addAction('wponion_before_init', function () {
+		if ($('#wponiontooltipimagetippy').length === 0) {
+			$('body').append($('<div id="wponiontooltipimagetippy" style="display: none;min-width:300px;min-height:400px;">Loading.</div>'));
+		}
+
+		console.time('WPONIONSTART');
 		wponion_field('.wponion-framework').reload();
 		$wpf.fn.dependency($('.wponion-framework'));
+		console.timeEnd('WPONIONSTART');
 	});
 })(window, document, jQuery, $wponion, $wponion_field, wp);
 //# sourceMappingURL=wponion-fields.js.map
