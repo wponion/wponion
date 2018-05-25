@@ -16,14 +16,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_Module_Field_Handler' ) ) {
+if ( ! class_exists( 'WPOnion_Module_Field_Builder' ) ) {
 	/**
-	 * Class WPOnion_Module_Field_Handler
+	 * Class WPOnion_Module_Field_Builder
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WPOnion_Module_Field_Handler extends WPOnion_Abstract {
+	abstract class WPOnion_Module_Field_Builder extends WPOnion_Abstract {
 		/**
 		 * Fields
 		 *
@@ -60,10 +60,19 @@ if ( ! class_exists( 'WPOnion_Module_Field_Handler' ) ) {
 		 */
 		protected $return_field = false;
 
+		/**
+		 * @return array
+		 */
 		public function get() {
 			return $this->fields;
 		}
 
+		/**
+		 * @param $name
+		 * @param $arguments
+		 *
+		 * @return mixed
+		 */
 		public function __call( $name, $arguments ) {
 			$return = null;
 			$name   = str_replace( '_', '', $name );
@@ -185,6 +194,8 @@ if ( ! class_exists( 'WPOnion_Module_Field_Handler' ) ) {
 		 * @param bool  $page_id
 		 * @param bool  $section_id
 		 * @param array $field_array
+		 *
+		 * @return $this
 		 */
 		protected function _add_field( $page_id = false, $section_id = false, $field_array = array() ) {
 			if ( false !== $page_id && false !== $section_id ) {
@@ -269,7 +280,7 @@ if ( ! class_exists( 'WPOnion_Module_Field_Handler' ) ) {
 		 * @param bool   $title
 		 * @param array  $args
 		 *
-		 * @return \WPOnion_Module_Field_Handler
+		 * @return $this
 		 */
 		protected function _content_field( $type = '', $content = '', $id = false, $title = false, $args = array() ) {
 			return $this->add_field( $type, $id, $title, $this->parse_args( $args, array( 'content' => $content ) ) );
