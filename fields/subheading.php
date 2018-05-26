@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Field\heading' ) ) {
+if ( ! class_exists( '\WPOnion\Field\subheading' ) ) {
 	/**
 	 * Class WPOnion_Field_subheading
 	 *
