@@ -1,0 +1,26 @@
+language: php
+sudo: false
+php: 7.1
+script:
+    - phpenv config-rm xdebug.ini || return 0
+
+after_script:
+    - |
+        if [[ $TRAVIS_BRANCH == "master" ]]; then
+          cd ../../
+          composer require apigen/apigen --dev
+          cd $TRAVIS_REPO_SLUG
+          mkdir ./docs/
+          ../../vendor/bin/apigen generate -s ../../$TRAVIS_REPO_SLUG/ --destination ../../$TRAVIS_REPO_SLUG/docs/
+          cd ../../$TRAVIS_REPO_SLUG/docs/
+          git init
+          git remote add origin https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
+          git config --global user.email "travis@travis-ci.org"
+          git config --global user.name "Travis"
+          git add .
+          git commit -m "API Regenerated"
+          git push origin master:gh-pages -f
+        fi
+        
+notifications:
+email: never
