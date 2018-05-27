@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\DB\Settings;
+namespace WPOnion\DB;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\DB\Settings\Save_Handler' ) ) {
+if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 	/**
 	 * Class Save_Handler
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\DB\Settings\Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Save_Handler extends \WPOnion\DB\Save_Handler {
+	class Settings_Save_Handler extends \WPOnion\DB\Save_Handler {
 		/**
 		 * Runs custom loop to work with Settings fields array.
 		 */
