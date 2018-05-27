@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Initial version created 18-05-2018 / 07:20 PM
+ * Initial version created 27-05-2018 / 08:00 AM
  *
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  * @version 1.0
@@ -12,12 +12,10 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+namespace WPOnion\Value;
 
-if ( ! class_exists( 'WPOnion_CRUD_Handler' ) ) {
-	class WPOnion_CRUD_Handler extends WPOnion_Abstract {
+if ( ! class_exists( '\WPOnion\Value\radio' ) ) {
+	class radio extends \WPOnion\Bridge\Value {
 
 	}
 }
