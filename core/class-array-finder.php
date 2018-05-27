@@ -101,7 +101,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 * @param bool     $create_path
 		 * @param null     $current_offset
 		 */
-		private function call_at_path( $path, callable $callback, $create_path = false, &$current_offset = null ) {
+		protected function call_at_path( $path, callable $callback, $create_path = false, &$current_offset = null ) {
 			if ( null === $current_offset ) {
 				$current_offset = &$this->contents;
 				if ( is_string( $path ) && '' === $path ) {
