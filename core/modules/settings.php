@@ -114,7 +114,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function save_validate( $request ) {
 			$this->get_cache();
-			$instance = new \WPOnion\DB\Settings\Save_Handler();
+			$instance = new \WPOnion\DB\Settings_Save_Handler();
 
 			$instance->init_class( array(
 				'module'      => 'settings',
