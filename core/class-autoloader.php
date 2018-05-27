@@ -47,6 +47,8 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 		public static function load( $class_name = '' ) {
 			if ( false !== strpos( $class_name, 'WPOnion\\Field\\' ) ) {
 				self::load_field( $class_name );
+			} elseif ( false !== strpos( $class_name, 'WPOnion\\Value\\' ) ) {
+				self::load_field_value( $class_name );
 			} elseif ( false !== strpos( $class_name, 'WPOnion\\' ) ) {
 				self::load_core( $class_name );
 			}
@@ -61,7 +63,7 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 		 * @static
 		 */
 		public static function path( $extra = '' ) {
-			return WPONION_PATH . '/' . $extra;
+			return untrailingslashit( WPONION_PATH ) . '/' . $extra;
 		}
 
 		/**
@@ -109,12 +111,31 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 		public static function load_field( $class_name ) {
 			$file_name = explode( '\\', $class_name );
 			$file_name = end( $file_name );
-			$file_name = self::get_filename( $file_name, 'WPOnion_Field_' );
+			$file_name = self::get_filename( $file_name, 'WPOnion\\Field\\' );
 			$folder    = str_replace( '.php', '', $file_name );
 			if ( file_exists( self::path( 'fields/' . $file_name ) ) ) {
 				include_once self::path( 'fields/' . $file_name );
 			} elseif ( file_exists( self::path( 'fields/' . $folder . '/' . $file_name ) ) ) {
 				include_once self::path( 'fields/' . $folder . '/' . $file_name );
+			}
+		}
+
+		/**
+		 * Loads Framework Field.
+		 *
+		 * @param $class_name
+		 *
+		 * @static
+		 */
+		public static function load_field_value( $class_name ) {
+			$file_name = explode( '\\', $class_name );
+			$file_name = end( $file_name );
+			$file_name = self::get_filename( $file_name, 'WPOnion\\Value\\' );
+			$folder    = str_replace( '.php', '', $file_name );
+			if ( file_exists( self::path( 'fields/value-' . $file_name ) ) ) {
+				include_once self::path( 'fields/value-' . $file_name );
+			} elseif ( file_exists( self::path( 'fields/' . $folder . '/value.php' ) ) ) {
+				include_once self::path( 'fields/' . $folder . '/value.php' );
 			}
 		}
 	}
