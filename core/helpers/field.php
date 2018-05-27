@@ -416,3 +416,21 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 		return $return;
 	}
 }
+
+if ( ! function_exists( 'wponion_field_value_class' ) ) {
+	/**
+	 * Generates Field Value Class Name.
+	 *
+	 * @param $field_type
+	 *
+	 * @return bool|string
+	 */
+	function wponion_field_value_class( $field_type ) {
+		$field_type = ( is_array( $field_type ) ) ? $field_type['type'] : $field_type;
+		$class      = '\WPOnion\Value\\' . $field_type;
+		if ( class_exists( $class ) ) {
+			return $class;
+		}
+		return false;
+	}
+}
