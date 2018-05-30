@@ -26,6 +26,13 @@ if ( ! class_exists( 'WPOnion\Value_API' ) ) {
 	 */
 	class Value_API extends \WPOnion\Core\Array_Finder {
 		/**
+		 * variable
+		 *
+		 * @var string
+		 */
+		protected $variable = 'contents';
+
+		/**
 		 * unique
 		 *
 		 * @var null
@@ -61,16 +68,61 @@ if ( ! class_exists( 'WPOnion\Value_API' ) ) {
 		 * @param array $args
 		 */
 		public function __construct( $db_values = array(), $fields = array(), $args = array() ) {
-			$this->contents  = null;
-			$this->db_values = $db_values;
-			$this->fields    = $fields;
-			$args            = $this->parse_args( $args, $this->defaults() );
-			$this->plugin_id = $args['plugin_id'];
-			$this->module    = $args['module'];
-			$this->unique    = $args['unique'];
+			$this->{$this->variable} = null;
+			$this->db_values         = $db_values;
+			$this->fields            = $fields;
+			$args                    = $this->parse_args( $args, $this->defaults() );
+			$this->plugin_id         = $args['plugin_id'];
+			$this->module            = $args['module'];
+			$this->unique            = $args['unique'];
 			parent::__construct();
 			$this->init();
 			//var_dump( $this->contents );
+		}
+
+		/**
+		 * @param          $path
+		 * @param callable $callback
+		 * @param bool     $create_path
+		 * @param null     $current_offset
+		 */
+		protected function call_at_path( $path, callable $callback, $create_path = false, &$current_offset = null ) {
+			if ( null === $current_offset ) {
+				$current_offset = &$this->{$this->variable};
+				if ( is_string( $path ) && '' === $path ) {
+					$callback( $current_offset );
+					return;
+				}
+			}
+
+			$explode_path = $this->explode( $path );
+			$next_path    = array_shift( $explode_path );
+
+			if ( $current_offset instanceof \WPOnion\Bridge\Value ) {
+				$current_offset = $current_offset->get( $next_path );
+			} else {
+				if ( ! isset( $current_offset[ $next_path ] ) ) {
+					if ( $create_path ) {
+						$current_offset[ $next_path ] = [];
+					} else {
+						return;
+					}
+				}
+			}
+
+			if ( count( $explode_path ) > 0 ) {
+				if ( $current_offset instanceof \WPOnion\Bridge\Value ) {
+					$this->call_at_path( $this->implode( $explode_path ), $callback, $create_path, $current_offset );
+				} else {
+					$this->call_at_path( $this->implode( $explode_path ), $callback, $create_path, $current_offset[ $next_path ] );
+				}
+			} else {
+				if ( $current_offset instanceof \WPOnion\Bridge\Value ) {
+					$callback( $current_offset );
+				} else {
+					$callback( $current_offset[ $next_path ] );
+				}
+			}
 		}
 
 		/**
