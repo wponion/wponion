@@ -802,7 +802,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	/**
   * Handles Color Picker Field.
   */
-	$wpf.fn.color = function () {
+	$wpf.fn.color_picker = function () {
 		this.elem.find('input').wpColorPicker();
 	};
 
@@ -916,13 +916,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		this.init_field('.wponion-element-group', 'group');
 		this.init_field('.wponion-element-clone', 'clone_element');
 		this.init_field('.wponion-field-tooltip', 'field_tooltip');
-		this.init_field('.wponion-element-font', 'font_selector');
+		this.init_field('.wponion-element-font_picker', 'font_selector');
 		this.init_field('.wponion-element-wp_link', 'wp_links');
 		this.init_field('.wponion-element-key_value', 'keyvalue_pair');
 		this.init_field('.wponion-element-tab', 'jquery_tab');
 		this.init_field('.wponion-element-image', 'image_upload');
 		this.init_field('.wponion-element-gallery', 'gallery');
-		this.init_field('.wponion-element-color', 'color');
+		this.init_field('.wponion-element-color_picker', 'color_picker');
 		this.field_debug();
 		wphooks.addAction('wponion_after_fields_reload');
 	};
