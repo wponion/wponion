@@ -206,6 +206,11 @@ input.wponion-form-control {
   margin-left: 40%;
 }
 
+.wponion-element.wponion-element-font_picker .wponion-font-select-container {
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .wponion-element.wponion-element-textarea textarea {
   min-width: 500px;
   resize: both;
