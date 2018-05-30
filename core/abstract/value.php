@@ -59,6 +59,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 		 * @param array $unique
 		 */
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
+			$this->field_id  = $field['id'];
 			$unique          = $this->parse_args( $unique );
 			$this->plugin_id = ( ! empty( $unique['plugin_id'] ) ) ? $unique['plugin_id'] : null;
 			$this->module    = ( ! empty( $unique['module'] ) ) ? $unique['module'] : null;
@@ -195,6 +196,51 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 		 */
 		public function _html( $tag = 'p', $attributes = '' ) {
 			echo $this->html( $tag, $attributes );
+		}
+
+		/**
+		 * @param          $path
+		 * @param callable $callback
+		 * @param bool     $create_path
+		 * @param null     $current_offset
+		 */
+		protected function call_at_path( $path, callable $callback, $create_path = false, &$current_offset = null ) {
+			if ( null === $current_offset ) {
+				$current_offset = &$this->contents;
+				if ( is_string( $path ) && '' === $path ) {
+					$callback( $current_offset );
+					return;
+				}
+			}
+
+			$explode_path = $this->explode( $path );
+			$next_path    = array_shift( $explode_path );
+
+			if ( $current_offset instanceof \WPOnion\Bridge\Value ) {
+				$current_offset = $current_offset->get( $next_path );
+			} else {
+				if ( ! isset( $current_offset[ $next_path ] ) ) {
+					if ( $create_path ) {
+						$current_offset[ $next_path ] = [];
+					} else {
+						return;
+					}
+				}
+			}
+
+			if ( count( $explode_path ) > 0 ) {
+				if ( $current_offset instanceof \WPOnion\Bridge\Value ) {
+					$this->call_at_path( $this->implode( $explode_path ), $callback, $create_path, $current_offset );
+				} else {
+					$this->call_at_path( $this->implode( $explode_path ), $callback, $create_path, $current_offset[ $next_path ] );
+				}
+			} else {
+				if ( $current_offset instanceof \WPOnion\Bridge\Value ) {
+					$callback( $current_offset );
+				} else {
+					$callback( $current_offset[ $next_path ] );
+				}
+			}
 		}
 
 		/**
