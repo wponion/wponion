@@ -46,19 +46,27 @@ $wponion_js = array(
 		array( 'jquery' ),
 	),
 	'chosen'                    => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
+	'wponion-colorpicker'       => array(
+		'assets/plugins/wp-color-picker-alpha/wp-color-picker-alpha.min.js',
+		array( 'wp-color-picker' ),
+	),
 );
 
 $wponion_css = array(
-	'flag-icon-css'   => array( 'assets/plugins/flag-icon-css/css/flag-icon.min.css' ),
-	'chosen'          => array( 'assets/plugins/chosen/chosen.min.css' ),
-	'select2'         => array( 'assets/plugins/select2/select2.min.css' ),
-	'animate.css'     => array( 'assets/plugins/animate.css/animate.min.css' ),
-	'wponion-plugins' => array( wponion_debug_assets( 'assets/css/wponion-plugins', 'css' ) ),
-	'fontawesome'     => array( 'assets/plugins/fontawesome/fontawesome.min.css', array(), '5.0.13', ),
-	'typicons'        => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
-	'wponion-core'    => array(
+	'flag-icon-css'       => array( 'assets/plugins/flag-icon-css/css/flag-icon.min.css' ),
+	'chosen'              => array( 'assets/plugins/chosen/chosen.min.css' ),
+	'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
+	'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
+	'wponion-plugins'     => array( wponion_debug_assets( 'assets/css/wponion-plugins', 'css' ) ),
+	'fontawesome'         => array( 'assets/plugins/fontawesome/fontawesome.min.css', array(), '5.0.13', ),
+	'typicons'            => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
+	'wponion-core'        => array(
 		wponion_debug_assets( 'assets/css/wponion-base', 'css' ),
 		array( 'wponion-plugins', 'fontawesome', 'typicons' ),
+	),
+	'wponion-colorpicker' => array(
+		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.min.css',
+		array( 'wp-color-picker' ),
 	),
 );
 
