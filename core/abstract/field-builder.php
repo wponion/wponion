@@ -13,6 +13,9 @@
  */
 
 namespace WPOnion\Bridge;
+
+use WPOnion\Core\Array_Finder;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -25,7 +28,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Field_Builder extends \WPOnion\Bridge {
+	class Field_Builder extends Array_Finder {
 		/**
 		 * Fields
 		 *
@@ -34,57 +37,116 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		protected $fields = array();
 
 		/**
-		 * current_section
+		 * variable
 		 *
-		 * @var bool
+		 * @var string
 		 */
-		protected $current_section = false;
+		protected $variable = 'fields';
+
+		/**
+		 * Stores Current Path.
+		 *
+		 * @var string
+		 */
+		protected $current_path = array();
 
 		/**
 		 * current_page
 		 *
-		 * @var bool
+		 * @var null
 		 */
-		protected $current_page = false;
+		protected $current_page = null;
 
 		/**
-		 * Stores Current Field Value.
+		 * current_section
 		 *
-		 * @var bool
+		 * @var null
 		 */
-		protected $current_field = false;
+		protected $current_section = null;
 
 		/**
-		 * Checks if field needs to be returned.
-		 * return_field
+		 * current_field
 		 *
-		 * @var bool
+		 * @var null
 		 */
-		protected $return_field = false;
+		protected $current_field = null;
 
 		/**
-		 * @return array
+		 * @param      $value
+		 * @param bool $force
+		 *
+		 * @return $this
 		 */
-		public function get() {
-			return $this->fields;
+		protected function set_current_path( $value, $force = false ) {
+			if ( true === $force ) {
+				$this->current_path = array();
+			}
+
+			if ( is_array( $value ) ) {
+				foreach ( $value as $k => $val ) {
+					$k                        = ( is_numeric( $k ) ) ? $val : $k;
+					$this->current_path[ $k ] = $val;
+				}
+			} else {
+				$this->current_path[ $value ] = $value;
+			}
+
+			return $this;
 		}
 
 		/**
-		 * @param $name
-		 * @param $arguments
+		 * @param array $extra
+		 * @param bool  $is_implode
 		 *
-		 * @return mixed
+		 * @return string|array
 		 */
-		public function __call( $name, $arguments ) {
-			$return = null;
-			$name   = str_replace( '_', '', $name );
-			if ( method_exists( $this, $name ) ) {
-				$this->return_field = true;
-				$return             = call_user_func_array( array( &$this, $name ), $arguments );
-				$this->return_field = false;
+		protected function get_current_path( $extra = array(), $is_fields = false, $is_implode = true ) {
+			$_extra = array();
+
+			if ( ! empty( $this->current_page ) && ! empty( $this->current_section ) ) {
+				$_extra[ $this->current_page ]    = $this->current_page;
+				$_extra['sections']               = 'sections';
+				$_extra[ $this->current_section ] = $this->current_section;
+				if ( false !== $is_fields ) {
+					$_extra['fields'] = 'fields';
+				}
+			} elseif ( empty( $this->current_section ) && ! empty( $this->current_page ) ) {
+				$_extra[ $this->current_page ] = $this->current_page;
+				if ( false !== $is_fields ) {
+					$_extra['fields'] = 'fields';
+				}
 			}
 
-			return $return;
+			$_path = $this->parse_args( $this->current_path, $_extra );
+			if ( ! empty( $extra ) ) {
+				$_old               = $this->current_path;
+				$this->current_path = $_path;
+				$this->set_current_path( $extra );
+				$_path              = $this->current_path;
+				$this->current_path = $_old;
+			}
+			return ( $is_implode ) ? $this->implode( $_path ) : $_path;
+		}
+
+		/**
+		 * End a accordion / fieldset / group nestable field.
+		 *
+		 * @param bool $close_count Set true to close all nested fields and back to full parent / enter numeric value to get back to few levels Like 4 | 1
+		 *
+		 * @return $this
+		 */
+		public function close( $close_count = false ) {
+			if ( true === $close_count ) {
+				$this->current_path = null;
+			} else {
+				$count = ( is_numeric( $close_count ) ) ? $close_count * 2 : 2;
+				$i     = 1;
+				while ( $i <= $count ) {
+					array_pop( $this->current_path );
+					$i++;
+				}
+			}
+			return $this;
 		}
 
 		/**
@@ -99,12 +161,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 */
 		public function page_section_args( $page_title = '', $page_slug = false, $page_icon = false, $page_args = array() ) {
 			if ( is_array( $page_title ) ) {
-				$page = $this->parse_args( $page_title, array(
+				$page         = $this->parse_args( $page_title, array(
 					'name'  => false,
 					'title' => false,
 					'icon'  => false,
 				) );
-
 				$page['name'] = ( ! empty( $page['name'] ) ) ? $page['name'] : sanitize_title( $page['title'] );
 				return $page;
 			} else {
@@ -118,8 +179,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		}
 
 		/**
-		 * Adds Page To Array.
-		 *
 		 * @param string $page_title
 		 * @param bool   $page_slug
 		 * @param bool   $page_icon
@@ -139,6 +198,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		}
 
 		/**
+		 * @return array
+		 */
+		public function __fields() {
+			return $this->fields;
+		}
+
+		/**
 		 * Adds A Section To A Page.
 		 *
 		 * @param string $section_title
@@ -150,77 +216,28 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @return $this
 		 */
 		public function add_section( $page_slug = '', $section_title = '', $section_slug = '', $section_icon = false, $section_args = array() ) {
-			if ( is_array( $page_slug ) ) {
-				$args = $this->page_section_args( $page_slug );
-			} else {
-				$args = $this->page_section_args( $section_title, $section_slug, $section_icon, $section_args );
+			$args                  = ( is_array( $page_slug ) ) ? $this->page_section_args( $page_slug ) : $this->page_section_args( $section_title, $section_slug, $section_icon, $section_args );
+			$this->current_section = $args['name'];
+			$this->current_field   = false;
+			$_page                 = ( isset( $args['page'] ) && ! empty( $args['page'] ) ) ? $args['page'] : ( ! empty( $page_slug ) ) ? $page_slug : false;
+			if ( false !== $_page ) {
+				$this->current_page = $_page;
 			}
 
-			$args['fields'] = array();
-			$page           = ( isset( $args['page'] ) ) ? $args['page'] : ( empty( $page_slug ) ) ? $this->current_page : $page_slug;
-			$slug           = $args['name'];
-
-			if ( ! isset( $this->fields[ $page ]['sections'] ) ) {
-				$this->fields[ $page ]['sections'] = array();
-			}
-
-			$this->fields[ $page ]['sections'][ $slug ] = $args;
-			$this->current_section                      = $slug;
-			$this->current_field                        = false;
+			$this->set( $this->get_current_path( false, false ), $args );
 			return $this;
 		}
 
 		/**
-		 * Adds A Section To Fields Array.
+		 * @param string $title
+		 * @param string $slug
+		 * @param string $icon
+		 * @param array  $args
 		 *
-		 * @param string $section_title
-		 * @param string $section_slug
-		 * @param bool   $section_icon
-		 * @param array  $section_args
-		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
-		public function section( $section_title = '', $section_slug = '', $section_icon = false, $section_args = array() ) {
-			if ( is_array( $section_title ) ) {
-				$this->add_section( $section_title );
-			} else {
-				$this->add_section( false, $section_title, $section_slug, $section_icon, $section_args );
-			}
-
-			return $this;
-		}
-
-		/**
-		 * Add A Field To Selected Section or page.
-		 *
-		 * @param bool  $page_id
-		 * @param bool  $section_id
-		 * @param array $field_array
-		 *
-		 * @return $this
-		 */
-		protected function _add_field( $page_id = false, $section_id = false, $field_array = array() ) {
-			if ( false !== $page_id && false !== $section_id ) {
-				if ( isset( $this->fields[ $page_id ] ) ) {
-					if ( isset( $this->fields[ $page_id ]['sections'][ $section_id ] ) ) {
-						if ( ! isset( $this->fields[ $page_id ]['sections'][ $section_id ]['fields'] ) ) {
-							$this->fields[ $page_id ]['sections'][ $section_id ]['fields'] = array();
-						}
-						$this->fields[ $page_id ]['sections'][ $section_id ]['fields'][ $field_array['id'] ] = $field_array;
-					}
-				}
-			} elseif ( false !== $page_id ) {
-				if ( isset( $this->fields[ $page_id ] ) ) {
-					if ( ! isset( $this->fields[ $page_id ]['fields'] ) ) {
-						$this->fields[ $page_id ]['fields'] = array();
-					}
-					$this->fields[ $page_id ]['fields'][ $field_array['id'] ] = $field_array;
-				}
-			} else {
-				$this->fields[ $field_array['id'] ] = $field_array;
-			}
-			$this->current_field = $field_array['id'];
-			return $this;
+		public function section( $title = '', $slug = '', $icon = false, $args = array() ) {
+			return $this->add_section( false, $title, $slug, $icon, $args );
 		}
 
 		/**
@@ -232,31 +249,16 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @return array
 		 */
 		protected function field_args( $type = false, $id = false, $title = false, $args = array() ) {
-			$page    = ( isset( $args['page'] ) ) ? $args['page'] : $this->current_page;
-			$section = ( isset( $args['section'] ) ) ? $args['section'] : $this->current_section;
-
 			$args = $this->parse_args( $args, array(
 				'type'  => $type,
 				'id'    => $id,
 				'title' => $title,
 			) );
 
-			if ( isset( $args['page'] ) ) {
-				unset( $args['page'] );
-			}
-
-			if ( isset( $args['section'] ) ) {
-				unset( $args['section'] );
-			}
-
 			if ( false === $args['id'] ) {
 				$args['id'] = wponion_hash_array( $args );
 			}
-			return array(
-				'page'    => $page,
-				'section' => $section,
-				'field'   => $args,
-			);
+			return $args;
 		}
 
 		/**
@@ -268,125 +270,318 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @return $this
 		 */
 		public function add_field( $type = false, $id = false, $title = false, $args = array() ) {
-			$args = $this->field_args( $type, $id, $title, $args );
-			if ( $this->return_field ) {
-				return $args['field'];
-			}
-			return $this->_add_field( $args['page'], $args['section'], $args['field'] );
+			$args                = $this->field_args( $type, $id, $title, $args );
+			$this->current_field = $args['id'];
+			$path                = $this->get_current_path( $args['id'], true );
+			$this->set( $path, $args );
+			return $this;
 		}
 
 		/**
-		 * @param string $type
+		 * This returns a sub instance.
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
+		public function builder() {
+			return new Field_Builder();
+		}
+
+		/***************************************************************************************************************
+		 * Global Single Field Functions
+		 **************************************************************************************************************/
+
+		/**
+		 * Internal Helper Function.
+		 *
+		 * @param $path
+		 * @param $args
+		 *
+		 * @return $this
+		 */
+		protected function _field_hack( $path, $args ) {
+			return $this->set( $this->get_current_path( array( $this->current_field, $path ), true ), $args );
+		}
+
+		/**
+		 * Sets Field Description.
+		 *
 		 * @param string $content
-		 * @param bool   $id
-		 * @param bool   $title
+		 * @param bool   $field_side
+		 *
+		 * @return $this
+		 */
+		public function desc( $content = '', $field_side = false ) {
+			return $this->_field_hack( ( true === $field_side ) ? 'desc_field' : 'desc', $content );
+		}
+
+		/**
+		 * @param string $content
+		 * @param string $icon
 		 * @param array  $args
 		 *
 		 * @return $this
 		 */
-		protected function _content_field( $type = '', $content = '', $id = false, $title = false, $args = array() ) {
-			return $this->add_field( $type, $id, $title, $this->parse_args( $args, array( 'content' => $content ) ) );
+		public function help( $content = '', $icon = 'dashicons dashicons-editor-help', $args = array() ) {
+			if ( is_array( $content ) ) {
+				$args = $this->parse_args( $content, array(
+					'content' => false,
+					'icon'    => $icon,
+				) );
+			} elseif ( ! empty( $args ) || ! empty( $icon ) ) {
+				$args = $this->parse_args( $args, array(
+					'content' => $content,
+					'icon'    => $icon,
+				) );
+			}
+
+			return $this->_field_hack( 'help', $args );
+
 		}
 
-		/*************************************
-		 * Below Are Fields Related Functions
-		 ************************************/
+		/**
+		 * @return $this
+		 */
+		public function unarray() {
+			return $this->_field_hack( 'un_array', true );
+		}
 
+		/**
+		 * @param string $type
+		 * @param        $content
+		 *
+		 * @return $this
+		 */
+		public function before_after( $type = 'before', $content ) {
+			return $this->_field_hack( $type, $content );
+		}
+
+		/**
+		 * @param string $content
+		 *
+		 * @return $this
+		 */
+		public function before( $content = '' ) {
+			return $this->before_after( 'before', $content );
+		}
+
+		/**
+		 * @param string $content
+		 *
+		 * @return $this
+		 */
+		public function after( $content = '' ) {
+			return $this->before_after( 'after', $content );
+		}
+
+		/**
+		 * @return $this
+		 */
+		public function multipe() {
+			return $this->_field_hack( 'multiple', true );
+		}
+
+		/**
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function edit_button( $args = array() ) {
+			return $this->_field_hack( 'edit_button', $args );
+		}
+
+		/**
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function add_button( $args = array() ) {
+			return $this->_field_hack( 'add_button', $args );
+		}
+
+		/**
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function clear_button( $args = array() ) {
+			return $this->_field_hack( 'clear_button', $args );
+		}
+
+		/**
+		 * @param null $limit
+		 *
+		 * @return $this
+		 */
+		public function limit( $limit = null ) {
+			return $this->_field_hack( 'limit', $limit );
+		}
+
+		/**
+		 * @param bool $msg
+		 *
+		 * @return $this
+		 */
+		public function error_msg( $msg = false ) {
+			if ( $msg ) {
+				return $this->_field_hack( 'error_msg', $msg );
+			}
+			return $this;
+		}
+
+		/***************************************************************************************************************
+		 * Global Above Single Field Functions
+		 **************************************************************************************************************/
+
+		/**
+		 * Nested Fields Handler.
+		 *
+		 * @param string $type
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $fields
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		protected function nested_fields( $type = 'accordion', $id = false, $title = false, $fields = array(), $args = array() ) {
+			$args['fields'] = $fields;
+			$this->add_field( $type, $id, $title, $args );
+			return $this;
+		}
+
+		/**
+		 * Accordion Field Handler.
+		 *
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $fields
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function accordion( $id = false, $title = false, $fields = array(), $args = array() ) {
+			return $this->nested_fields( 'accordion', $id, $title, $fields, $args );
+		}
+
+		/**
+		 * @param string $title
+		 *
+		 * @return $this
+		 */
+		public function accordion_title( $title = '' ) {
+			return $this->_field_hack( 'accordion_title', $title );
+		}
+
+		/**
+		 * Fieldset Handler.
+		 *
+		 * @param bool        $id
+		 * @param bool        $title
+		 * @param array       $fields
+		 * @param string|null $heading
+		 * @param array       $args
+		 *
+		 * @return $this
+		 */
+		public function fieldset( $id = false, $title = false, $fields = array(), $heading = null, $args = array() ) {
+			if ( ! empty( $heading ) ) {
+				$args['heading'] = $heading;
+			}
+			return $this->nested_fields( 'fieldset', $id, $title, $fields, $args );
+		}
 
 		/**
 		 * @param bool  $id
 		 * @param bool  $title
+		 * @param array $fields
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
+		 */
+		public function group( $id = false, $title = false, $fields = array(), $args = array() ) {
+			return $this->nested_fields( 'group', $id, $title, $fields, $args );
+		}
+
+		/**
+		 * Adds Text Field.
+		 *
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return $this
 		 */
 		public function text( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'text', $id, $title, $args );
 		}
 
 		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function textarea( $id = false, $title = false, $args = array() ) {
-			return $this->add_field( 'textarea', $id, $title, $args );
-		}
-
-		/**
 		 * @param string $type
 		 * @param bool   $id
 		 * @param bool   $title
-		 * @param array  $options
+		 * @param bool   $options
 		 * @param array  $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
-		public function checkbox_radio( $type = '', $id = false, $title = false, $options = array(), $args = array() ) {
-			$defaults = ( is_string( $options ) ) ? array( 'label' => $options ) : array( 'options' => $options );
-			return $this->add_field( $type, $id, $title, $this->parse_args( $args, $defaults ) );
+		protected function checkbox_radio( $type = 'checkbox', $id = false, $title = false, $options = false, $args = array() ) {
+			if ( ( 'checkbox' === $type || 'switcher' === $type ) && ! is_array( $options ) ) {
+				$args['label'] = $options;
+			} else {
+				$args['options'] = $options;
+			}
+			return $this->add_field( $type, $id, $title, $args );
 		}
 
 		/**
 		 * @param bool  $id
 		 * @param bool  $title
-		 * @param bool  $label
+		 * @param bool  $options
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
-		public function switcher( $id = false, $title = false, $label = false, $args = array() ) {
-			return $this->checkbox_radio( 'switcher', $id, $title, $label, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $options
-		 * @param array $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function checkbox( $id = false, $title = false, $options = array(), $args = array() ) {
+		public function checkbox( $id = false, $title = false, $options = false, $args = array() ) {
 			return $this->checkbox_radio( 'checkbox', $id, $title, $options, $args );
 		}
 
 		/**
 		 * @param bool  $id
 		 * @param bool  $title
-		 * @param array $options
+		 * @param bool  $options
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
-		public function radio( $id = false, $title = false, $options = array(), $args = array() ) {
+		public function radio( $id = false, $title = false, $options = false, $args = array() ) {
 			return $this->checkbox_radio( 'radio', $id, $title, $options, $args );
 		}
 
 		/**
 		 * @param bool  $id
 		 * @param bool  $title
-		 * @param array $options
+		 * @param bool  $options
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
-		public function select( $id = false, $title = false, $options = array(), $args = array() ) {
+		public function select( $id = false, $title = false, $options = false, $args = array() ) {
 			return $this->checkbox_radio( 'select', $id, $title, $options, $args );
 		}
 
 		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $options
-		 * @param array $args
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param string $label
+		 * @param string $button_type
+		 * @param array  $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
-		public function multi_select( $id = false, $title = false, $options = array(), $args = array() ) {
-			return $this->select( $id, $title, $options, $this->parse_args( $args, array( 'multiple' => true ) ) );
+		public function button( $id = false, $title = false, $label = '', $button_type = 'button', $args = array() ) {
+			$args['label']       = $label;
+			$args['button_type'] = $button_type;
+			return $this->add_field( 'button', $id, $title, $args );
 		}
 
 		/**
@@ -394,36 +589,229 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
+		 */
+		public function font_picker( $id = false, $title = false, $args = array() ) {
+			return $this->add_field( 'font_picker', $id, $title, $args );
+		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function gallery( $id = false, $title = false, $args = array() ) {
+			return $this->add_field( 'gallery', $id, $title, $args );
+		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param bool  $show_input
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function icon_picker( $id = false, $title = false, $show_input = true, $args = array() ) {
+			$args['show_input'] = $show_input;
+			return $this->add_field( 'icon_picker', $id, $title, $args );
+		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $options
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function image_select( $id = false, $title = false, $options = array(), $args = array() ) {
+			return $this->checkbox_radio( 'image_select', $id, $title, $options, $args );
+		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function switcher( $id = false, $title = false, $args = array() ) {
+			return $this->checkbox_radio( 'switcher', $id, $title, array(), $args );
+		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function textarea( $id = false, $title = false, $args = array() ) {
+			return $this->add_field( 'textarea', $id, $title, $args );
+		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return $this
 		 */
 		public function wp_link( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'wp_link', $id, $title, $args );
 		}
 
 		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function key_value( $id = false, $title = false, $args = array() ) {
-			return $this->add_field( 'key_value', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool   $id
 		 * @param bool   $title
 		 * @param array  $options
-		 * @param string $image_type
+		 * @param string $card_cols
 		 * @param array  $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
-		public function image_select( $id = false, $title = false, $options = array(), $image_type = 'checkbox', $args = array() ) {
-			return $this->checkbox_radio( 'image_select', $id, $title, $options, $this->parse_args( $args, array(
-				'image_type' => $image_type,
-			) ) );
+		public function card( $title = false, $options = array(), $card_cols = 'col', $args = array() ) {
+			$args['options']   = $options;
+			$args['card_cols'] = $card_cols;
+			return $this->add_field( 'card', false, $title, $args );
+		}
+
+		/**
+		 * @param string $type
+		 * @param bool   $title
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		protected function content_field( $type = '', $title = false, $content = '', $args = array() ) {
+			$args['content'] = $content;
+			return $this->add_field( $type, false, $title, $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function heading( $content = '', $args = array() ) {
+			return $this->content_field( 'heading', false, $content, $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function subheading( $content = '', $args = array() ) {
+			return $this->content_field( 'subheading', false, $content, $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function jambo_content( $content = '', $args = array() ) {
+			return $this->content_field( 'jambo_content', false, $content, $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param string $notice_type
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice( $content = '', $notice_type = 'success', $args = array() ) {
+			$args['notice_type'] = $notice_type;
+			return $this->content_field( 'notice', false, $content, $args );
+		}
+
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice_primary( $content = '', $args = array() ) {
+			return $this->notice( $content, 'primary', $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice_secondary( $content = '', $args = array() ) {
+			return $this->notice( $content, 'secondary', $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice_success( $content = '', $args = array() ) {
+			return $this->notice( $content, 'success', $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice_danger( $content = '', $args = array() ) {
+			return $this->notice( $content, 'danger', $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice_warning( $content = '', $args = array() ) {
+			return $this->notice( $content, 'warning', $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice_info( $content = '', $args = array() ) {
+			return $this->notice( $content, 'info', $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice_light( $content = '', $args = array() ) {
+			return $this->notice( $content, 'light', $args );
+		}
+
+		/**
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function notice_dark( $content = '', $args = array() ) {
+			return $this->notice( $content, 'dark', $args );
 		}
 
 		/**
@@ -431,7 +819,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
 		public function image( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'image', $id, $title, $args );
@@ -442,107 +830,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
-		public function gallery( $id = false, $title = false, $args = array() ) {
-			return $this->add_field( 'gallery', $id, $title, $args );
+		public function key_value( $id = false, $title = false, $args = array() ) {
+			return $this->add_field( 'key_value', $id, $title, $args );
 		}
 
-		/**
-		 * @param string $content
-		 * @param string $notice_type
-		 * @param bool   $id
-		 * @param bool   $title
-		 * @param array  $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function notice( $content = '', $notice_type = '', $id = false, $title = false, $args = array() ) {
-			return $this->_content_field( 'notice', $content, $id, $title, $this->parse_args( $args, array( 'notice_type' => $notice_type ) ) );
-		}
-
-		/**
-		 * @param string $content
-		 * @param bool   $id
-		 * @param bool   $title
-		 * @param array  $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function heading( $content = '', $id = false, $title = false, $args = array() ) {
-			return $this->_content_field( 'heading', $content, $id, $title, $args );
-		}
-
-		/**
-		 * @param string $content
-		 * @param bool   $id
-		 * @param bool   $title
-		 * @param array  $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function subheading( $content = '', $id = false, $title = false, $args = array() ) {
-			return $this->_content_field( 'subheading', $content, $id, $title, $args );
-		}
-
-		/**
-		 * @param string $content
-		 * @param bool   $id
-		 * @param bool   $title
-		 * @param array  $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function jambo_content( $content = '', $id = false, $title = false, $args = array() ) {
-			return $this->_content_field( 'jambo_content', $content, $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $options
-		 * @param array $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function card( $id = false, $title = false, $options = array(), $args = array() ) {
-			return $this->add_field( 'card', $id, $title, $this->parse_args( $args, array( 'options' => $options ) ) );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function icon_picker( $id = false, $title = false, $args = array() ) {
-			return $this->add_field( 'icon_picker', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function font( $id = false, $title = false, $args = array() ) {
-			return $this->add_field( 'font', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $fields
-		 * @param array $args
-		 *
-		 * @return \WPOnion\Bridge\Field_Builder
-		 */
-		public function accordion( $id = false, $title = false, $fields = array(), $args = array() ) {
-			return $this->add_field( 'accordion', $id, $title, $this->parse_args( $args, array(
-				'fields' => $fields,
-			) ) );
-		}
 	}
 }
