@@ -74,6 +74,19 @@
 	border-top: 1px solid #dadada;
   }
 
+  &.hirozantal {
+	> .wponion-field-title {
+	  width:         100%;
+	  float:         none;
+	  display:       block;
+	  margin-bottom: 10px;
+	}
+
+	> .wponion-fieldset {
+	  margin-left: 0;
+	  float:       none;
+	}
+  }
 
   /**###########################################
    * Below Are related To Fields.
@@ -105,6 +118,7 @@
   @import "./fields/check_radio";
   @import "./fields/switcher";
   @import "./fields/key_value";
+  @import "./fields/color";
 
   /** UI Related Fields.*/
   @import "./fields/heading_subheading_notice";
