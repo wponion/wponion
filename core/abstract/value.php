@@ -67,6 +67,23 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 			$this->value     = $value;
 			$this->field     = $field;
 			$this->init_subfields();
+			$this->init_class();
+		}
+
+		/**
+		 * Calls After Basesetup is done.
+		 */
+		protected function init_class() {
+
+		}
+
+		/**
+		 * returns value.
+		 *
+		 * @return mixed
+		 */
+		public function value() {
+			return $this->value;
 		}
 
 		/**
