@@ -61,10 +61,10 @@ if ( ! class_exists( '\WPOnion\Field\color_palette' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			$attr['value'] = ( is_numeric( $attr['value'] ) ) ? $options['label'] : $attr['value'];
+			$attr['value'] = ( is_numeric( $options['key'] ) ) ? $options['label'] : $options['key'];
 			return '
 			<label ' . wponion_array_to_html_attributes( $label_attr ) . ' style="width:' . $this->data( 'size' ) . 'px;height:' . $this->data( 'size' ) . 'px;"> 
-				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  /><span class="color-palette-color" style="background:' . $attr['value'] . '">' . $value . '</span> 
+				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '   /><span class="color-palette-color" style="background:' . $attr['value'] . '">' . $attr['value'] . '</span>
 			</label>';
 		}
 	}
