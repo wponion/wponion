@@ -72,14 +72,12 @@
 	}
   }
 
-  .wponion-framework.wponion-wp-theme {
-	.wponion-element {
-	  &:after, &:before {
-		content: " ";
-		display: table;
-	  }
-	  padding: 15px;
-	  width:   100%;
+  .wponion-element {
+	padding: 15px !important;
+	width:   100%;
+	&:after, &:before {
+	  content: " ";
+	  display: table;
 	}
   }
 
@@ -130,5 +128,4 @@
 	  border-left-color: transparent;
 	}
   }
-
 }
