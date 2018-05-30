@@ -105,6 +105,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		public function __construct( $fields = array(), $settings = array() ) {
 			$this->fields   = $fields;
 			$this->settings = $this->set_args( $settings );
+
+			if ( false === $this->settings['plugin_id'] ) {
+				$this->plugin_id = $this->settings['option_name'];
+			} else {
+				$this->plugin_id = $this->settings['plugin_id'];
+			}
+
+			$this->unique = $this->settings['option_name'];
 		}
 
 		/**
@@ -296,5 +304,18 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			wponion_value_registry( $instance );
 			return $instance;
 		}
+
+		/**
+		 * Returns a default array.
+		 *
+		 * @return array
+		 */
+		protected function defaults() {
+			return array(
+				'option_name' => false,
+				'plugin_id'   => false,
+			);
+		}
+
 	}
 }
