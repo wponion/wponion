@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Field\font' ) ) {
+if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 	/**
 	 * Class font
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Field\font' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class font extends \WPOnion\Field {
+	class font_picker extends \WPOnion\Field {
 		/**
 		 * font constructor.
 		 *
