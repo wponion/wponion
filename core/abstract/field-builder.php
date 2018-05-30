@@ -231,10 +231,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		/**
 		 * @param string $title
 		 * @param string $slug
-		 * @param string $icon
+		 * @param bool   $icon
 		 * @param array  $args
 		 *
-		 * @return \WPOnion\Bridge\Field_Builder
+		 * @return $this
 		 */
 		public function section( $title = '', $slug = '', $icon = false, $args = array() ) {
 			return $this->add_section( false, $title, $slug, $icon, $args );
@@ -836,5 +836,36 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 			return $this->add_field( 'key_value', $id, $title, $args );
 		}
 
+		/**
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $options
+		 * @param string $palette_type
+		 * @param int    $size
+		 * @param string $style
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function color_palette( $id = false, $title = false, $options = array(), $size = 25, $palette_type = 'checkbox', $style = 'round with-margin', $args = array() ) {
+			$args['palette_type'] = $palette_type;
+			$args['size']         = $size;
+			$args['options']      = $options;
+			$args['style']        = $style;
+			return $this->add_field( 'color_palette', $id, $title, $args );
+		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param bool  $rgba
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function color_picker( $id = false, $title = false, $rgba = true, $args = array() ) {
+			$args['rgba'] = $rgba;
+			return $this->add_field( 'color_picker', $id, $title, $args );
+		}
 	}
 }
