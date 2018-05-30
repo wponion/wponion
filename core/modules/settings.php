@@ -80,14 +80,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function init() {
 			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax() ) {
-				if ( false === $this->settings['plugin_id'] ) {
-					$this->plugin_id = $this->settings['option_name'];
-				} else {
-					$this->plugin_id = $this->settings['plugin_id'];
-				}
-
-				$this->unique = $this->settings['option_name'];
-
 				$this->add_action( 'admin_init', 'wp_admin_init' );
 				$this->add_action( 'admin_menu', 'register_admin_menu' );
 				wponion_settings_registry( $this );
