@@ -89,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 					),
 				) );
 			} elseif ( 'clear' === $type ) {
-				$button = $this->handle_args( 'label', $this->data( 'clear_button' ), array(
+				$button = $this->handle_args( 'label', $this->data( 'remove_button' ), array(
 					'button_type' => 'button',
 					'type'        => 'button',
 					'label'       => __( 'Edit Gallery' ),
@@ -112,9 +112,9 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'add_button'   => __( 'Create Gallery' ),
-				'edit_button'  => __( 'Edit Gallery' ),
-				'clear_button' => __( 'Clear Gallery' ),
+				'add_button'    => __( 'Create Gallery' ),
+				'edit_button'   => __( 'Edit Gallery' ),
+				'remove_button' => __( 'Clear Gallery' ),
 			);
 		}
 
