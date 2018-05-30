@@ -53,6 +53,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 */
 		public function __construct() {
 			$this->add_action( 'admin_footer', 'render_js_args' );
+			$this->add_action( 'customize_controls_print_scripts', 'render_js_args' );
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 				$this->add_action( 'wp_footer', 'render_js_args' );
 			}
