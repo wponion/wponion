@@ -434,3 +434,10 @@ if ( ! function_exists( 'wponion_field_value_class' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'wponion_extract_font_variant' ) ) {
+	function wponion_extract_font_variant( $value ) {
+		preg_match( '/(\d+)([a-z]+)/', $value, $matches );
+		return $matches;
+	}
+}
