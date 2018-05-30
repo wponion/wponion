@@ -45,6 +45,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		public static function init() {
 			self::init_array();
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
+			add_action( 'customize_controls_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			}
