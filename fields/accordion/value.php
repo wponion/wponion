@@ -14,6 +14,19 @@
 
 namespace WPOnion\Value;
 
-class accordion extends \WPOnion\Bridge\Value {
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
+if ( ! class_exists( '\WPOnion\Value\accordion' ) ) {
+	/**
+	 * Class accordion
+	 *
+	 * @package WPOnion\Value
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
+	class accordion extends \WPOnion\Bridge\Value {
+
+	}
 }
