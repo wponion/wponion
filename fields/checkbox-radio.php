@@ -112,16 +112,19 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 			$label_attr    = array();
 
 			if ( true === $in_group || 'group' === $in_group ) {
-				$gptitle      = sanitize_key( $group_title );
-				$attr['name'] = $this->name( '[' . $gptitle . '][]' );
-				$value        = $this->get_value( $gptitle );
-				$dep_id       = $gptitle . '_' . $options['key'];
+				$gptitle       = sanitize_key( $group_title );
+				$attr['value'] = ( is_numeric( $options['key'] ) ) ? $options['label'] : $options['key'];
+				$attr['name']  = $this->name( '[' . $gptitle . '][' . $attr['value'] . ']' );
+				$value         = $this->get_value( $gptitle );
+				$dep_id        = $gptitle . '_' . $options['key'];
 			} elseif ( 'single' === $in_group ) {
-				$attr['name'] = $this->name();
-				$dep_id       = $options['key'];
+				$attr['name']  = $this->name();
+				$attr['value'] = $options['key'];
+				$dep_id        = $options['key'];
 			} else {
-				$attr['name'] = $this->name( '[]' );
-				$dep_id       = $options['key'];
+				$attr['value'] = ( is_numeric( $options['key'] ) ) ? $options['label'] : $options['key'];
+				$attr['name']  = $this->name( '[' . $attr['value'] . ']' );
+				$dep_id        = $options['key'];
 			}
 
 			$elem_id    = sanitize_title( $attr['name'] . '_' . $options['key'] );
