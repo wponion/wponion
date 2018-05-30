@@ -424,24 +424,24 @@ input.wponion-form-control {
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-.wponion-element.wponion-element-color button.wp-color-result .color-alpha {
+.wponion-element.wponion-element-color_picker button.wp-color-result .color-alpha {
   height: 23px !important;
 }
 
-.wponion-element.wponion-element-color input.wp-color-picker {
+.wponion-element.wponion-element-color_picker input.wp-color-picker {
   width: 175px !important;
 }
 
-.wponion-element.wponion-element-color .wp-picker-holder {
+.wponion-element.wponion-element-color_picker .wp-picker-holder {
   display: inline;
 }
 
-.wponion-element.wponion-element-color .wp-picker-container {
+.wponion-element.wponion-element-color_picker .wp-picker-container {
   padding: 10px;
   margin: -10px;
 }
 
-.wponion-element.wponion-element-color .wp-picker-container.wp-picker-active {
+.wponion-element.wponion-element-color_picker .wp-picker-container.wp-picker-active {
   display: inline-block;
   border: 1px solid #e1e1e1;
   background: #fcfcfcb3;
