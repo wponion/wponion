@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
+if ( ! class_exists( '\WPOnion\Core\Array_Finder' ) ) {
 	/**
 	 * Class Array_Finder
 	 *
@@ -27,6 +27,13 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 	 * @since 1.0
 	 */
 	class Array_Finder extends \WPOnion\Bridge implements \ArrayAccess, \Countable, \Iterator, \Serializable {
+		/**
+		 * variable
+		 *
+		 * @var string
+		 */
+		protected $variable = 'contents';
+
 		/**
 		 * position
 		 *
@@ -56,8 +63,8 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 */
 		public function __construct( $contents = array(), $separator = '.' ) {
 			if ( ! empty( $contents ) ) {
-				$this->contents       = $contents;
-				$this->path_separator = $separator;
+				$this->{$this->variable} = $contents;
+				$this->path_separator    = $separator;
 			}
 		}
 
@@ -91,7 +98,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 */
 		public function explode( $data = null, $separator = null ) {
 			$separator = ( is_null( $separator ) ) ? $this->path_separator : $separator;
-			$data      = ( is_null( $data ) ) ? $this->contents : $data;
+			$data      = ( is_null( $data ) ) ? $this->{$this->variable} : $data;
 			return explode( $separator, $data );
 		}
 
@@ -103,7 +110,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 */
 		protected function call_at_path( $path, callable $callback, $create_path = false, &$current_offset = null ) {
 			if ( null === $current_offset ) {
-				$current_offset = &$this->contents;
+				$current_offset = &$this->{$this->variable};
 				if ( is_string( $path ) && '' === $path ) {
 					$callback( $current_offset );
 					return;
@@ -161,7 +168,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 */
 		public function get( $path = null, $default = null ) {
 			if ( null === $path ) {
-				return $this->contents;
+				return $this->{$this->variable};
 			}
 
 			$value = $default;
@@ -179,9 +186,9 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 */
 		public function offsetSet( $offset, $value ) {
 			if ( is_null( $offset ) ) {
-				$this->contents[] = $value;
+				$this->{$this->variable}[] = $value;
 			} else {
-				$this->contents[ $offset ] = $value;
+				$this->{$this->variable}[ $offset ] = $value;
 			}
 		}
 
@@ -201,15 +208,15 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 * @return int
 		 */
 		public function count() {
-			return count( $this->contents );
+			return count( $this->{$this->variable} );
 		}
 
 		/**
 		 * @return mixed
 		 */
 		public function current() {
-			$keys = array_keys( $this->contents );
-			return $this->contents[ $keys[ $this->position ] ];
+			$keys = array_keys( $this->{$this->variable} );
+			return $this->{$this->variable}[ $keys[ $this->position ] ];
 		}
 
 		/**
@@ -223,7 +230,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 * @return mixed
 		 */
 		public function key() {
-			$keys = array_keys( $this->contents );
+			$keys = array_keys( $this->{$this->variable} );
 			return $keys[ $this->position ];
 		}
 
@@ -231,7 +238,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 * @return bool
 		 */
 		public function valid() {
-			$keys = array_keys( $this->contents );
+			$keys = array_keys( $this->{$this->variable} );
 			return isset( $keys[ $this->position ] );
 		}
 
@@ -246,14 +253,14 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 * @return string
 		 */
 		public function serialize() {
-			return serialize( $this->contents );
+			return serialize( $this->{$this->variable} );
 		}
 
 		/**
 		 * @param string $content
 		 */
 		public function unserialize( $content ) {
-			$this->contents = unserialize( $content );
+			$this->{$this->variable} = unserialize( $content );
 		}
 
 		/**
@@ -272,7 +279,7 @@ if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 		 * @param string $path Path where the values will be insered.
 		 * @param mixed  $value Value ti insert.
 		 *
-		 * @return \WPOnion\Core\Array_Finder
+		 * @return $this
 		 */
 		public function set( $path, $value ) {
 			$this->call_at_path( $path, function ( &$offset ) use ( $value ) {
