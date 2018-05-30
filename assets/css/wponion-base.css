@@ -113,6 +113,18 @@ input.wponion-form-control {
   border-top: 1px solid #dadada;
 }
 
+.wponion-element.hirozantal > .wponion-field-title {
+  width: 100%;
+  float: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.wponion-element.hirozantal > .wponion-fieldset {
+  margin-left: 0;
+  float: none;
+}
+
 .wponion-element .wponion-input-group {
   display: inline-block;
 }
@@ -353,6 +365,86 @@ input.wponion-form-control {
 
 .wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field:last-child {
   margin-bottom: 0;
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper .color-palette-color {
+  color: transparent;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper.round label {
+  padding: 3px;
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper.round .color-palette-color {
+  border-radius: 50%;
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper.box-shadow .color-palette-color {
+  -webkit-box-shadow: inset 3px 3px 13px 2px rgba(0, 0, 0, 0.22);
+  box-shadow: inset 3px 3px 13px 2px rgba(0, 0, 0, 0.22);
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper input:checked + .color-palette-color {
+  border: 0;
+  width: 115%;
+  height: 115%;
+  position: relative;
+  left: -10%;
+  top: -10%;
+  z-index: 1;
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper.with-margin label {
+  margin: 0.5%;
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper input {
+  display: none;
+}
+
+.wponion-element.wponion-element-color_palette .colors-wrapper input:checked + .color-palette-color {
+  -webkit-box-shadow: 1px 1px 5px 0px #333333;
+  box-shadow: 1px 1px 5px 0px #333333;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.wponion-element.wponion-element-color button.wp-color-result .color-alpha {
+  height: 23px !important;
+}
+
+.wponion-element.wponion-element-color input.wp-color-picker {
+  width: 175px !important;
+}
+
+.wponion-element.wponion-element-color .wp-picker-holder {
+  display: inline;
+}
+
+.wponion-element.wponion-element-color .wp-picker-container {
+  padding: 10px;
+  margin: -10px;
+}
+
+.wponion-element.wponion-element-color .wp-picker-container.wp-picker-active {
+  display: inline-block;
+  border: 1px solid #e1e1e1;
+  background: #fcfcfcb3;
 }
 
 .wponion-element.wponion-element-heading {
