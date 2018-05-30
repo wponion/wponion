@@ -813,6 +813,13 @@
 	};
 
 	/**
+	 * Handles Color Picker Field.
+	 */
+	$wpf.fn.color = function () {
+		this.elem.find( 'input' ).wpColorPicker();
+	};
+
+	/**
 	 * Handles Field Dependency.
 	 * @type {function()}
 	 */
@@ -929,21 +936,28 @@
 		this.init_field( '.wponion-element-tab', 'jquery_tab' );
 		this.init_field( '.wponion-element-image', 'image_upload' );
 		this.init_field( '.wponion-element-gallery', 'gallery' );
-		//this.field_debug();
+		this.init_field( '.wponion-element-color', 'color' );
+		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
 
-
+	/**
+	 * Hooks With before init to base init / reload fileds.
+	 */
 	wphooks.addAction( 'wponion_before_init', ( () => {
 		if ( $( '#wponiontooltipimagetippy' ).length === 0 ) {
 			$( 'body' )
 				.append( $( '<div id="wponiontooltipimagetippy" style="display: none;min-width:300px;min-height:400px;">Loading.</div>' ) );
 		}
 
-		console.time('WPONIONSTART');
-		wponion_field( '.wponion-framework' ).reload();
-		$wpf.fn.dependency( $( '.wponion-framework' ) );
-		console.timeEnd('WPONIONSTART');
+		if ( $( '.wp-customizer' ).length > 0 ) {
+			wponion_field( '.wp-customizer' ).reload();
+		}
+
+		if ( $( '.wponion-framework' ).length > 0 ) {
+			wponion_field( '.wponion-framework' ).reload();
+		}
+		//$wpf.fn.dependency( $( '.wponion-framework' ) );
 	} ) );
 
 } )( window, document, jQuery, $wponion, $wponion_field, wp );
