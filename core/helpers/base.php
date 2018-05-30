@@ -386,6 +386,15 @@ if ( ! function_exists( 'wponion_read_json_files' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_builder' ) ) {
+	/**
+	 * @return \WPOnion\Bridge\Field_Builder
+	 */
+	function wponion_builder() {
+		return new \WPOnion\Bridge\Field_Builder();
+	}
+}
+
 /**
  * WPOnion Assets Related Functions.
  */
