@@ -436,8 +436,23 @@ if ( ! function_exists( 'wponion_field_value_class' ) ) {
 }
 
 if ( ! function_exists( 'wponion_extract_font_variant' ) ) {
+	/**
+	 * Checks and extracts font details.
+	 *
+	 * @param $value
+	 *
+	 * @return mixed
+	 */
 	function wponion_extract_font_variant( $value ) {
 		preg_match( '/(\d+)([a-z]+)/', $value, $matches );
-		return $matches;
+		$return = array();
+		if ( isset( $matches[1] ) ) {
+			$return['weight'] = $matches[1];
+		}
+		if ( isset( $matches[2] ) ) {
+			$return['style'] = $matches[2];
+		}
+
+		return $return;
 	}
 }
