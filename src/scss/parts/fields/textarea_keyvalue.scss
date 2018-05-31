@@ -1,0 +1,40 @@
+/*||||||||||||||||||||||||||||||||||||
+|| Textarea,KeyValue Element Styles ||
+||||||||||||||||||||||||||||||||||||*/
+
+.wponion-element {
+  // Key Value
+  &.wponion-element-key_value {
+	.wponion-keyvalue_wrap {
+	  margin-bottom: 15px;
+	  .wponion-keyvalue-field {
+		margin-bottom: 15px;
+		.wponion-input-group {
+		  display:        inline-block;
+		  min-width:      200px;
+		  margin-right:   15px;
+		  width:          auto;
+		  vertical-align: middle;
+		}
+		button {
+		  display:        inline-block;
+		  vertical-align: middle;
+		}
+
+		&:last-child {
+		  margin-bottom: 0;
+		}
+	  }
+	}
+  }
+
+  // Textarea Style
+  &.wponion-element-textarea {
+	textarea {
+	  min-width:  500px;
+	  resize:     both;
+	  max-width:  100%;
+	  min-height: 125px;
+	}
+  }
+}

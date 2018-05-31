@@ -60,10 +60,9 @@ $wponionThemes: map-merge((
 
 @import "parts/wponion-bootstrap";
 
-//
-// Alternate buttons
-//
-
+/******************************
+ * Bootstrap Custom buttons ***
+ *****************************/
 @each $color, $value in $wponionThemes {
   .wponion-button-#{$color} {
 	@include btnCOl(darken($value, 5%), darken($value, 10%), $value, lighten($value, 3%));
