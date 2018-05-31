@@ -293,12 +293,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return bool|\WPOnion\Value_API
 		 */
 		public function values() {
-			if ( wponion_value_registry( $this->plugin_id() ) ) {
-				return wponion_value_registry( $this->plugin_id() );
+			$plugin_id = $this->plugin_id();
+			if ( wponion_value_registry( $plugin_id ) ) {
+				return wponion_value_registry( $plugin_id );
 			}
 			$instance = new \WPOnion\Value_API( $this->get_db_values(), $this->fields(), array(
 				'module'    => $this->module(),
-				'plugin_id' => $this->plugin_id(),
+				'plugin_id' => $plugin_id,
 				'unique'    => $this->unique(),
 			) );
 			wponion_value_registry( $instance );
