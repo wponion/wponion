@@ -116,16 +116,16 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 
 					if ( is_array( $matches ) && ! empty( array_filter( $matches ) ) ) {
 						$args[ $i ] = array(
-							'wponino_js_args'     => false,
-							'wponino_js_contents' => false,
+							'wponion_js_args'     => false,
+							'wponion_js_contents' => false,
 						);
 
 						if ( isset( $matches[0][2] ) ) {
-							$args[ $i ]['wponino_js_args'] = ( empty( $matches[0][2] ) ) ? false : $matches[0][2];
+							$args[ $i ]['wponion_js_args'] = ( empty( $matches[0][2] ) ) ? false : $matches[0][2];
 						}
 
 						if ( isset( $matches[0][4] ) ) {
-							$args[ $i ]['wponino_js_contents'] = ( empty( $matches[0][4] ) ) ? false : $matches[0][4];
+							$args[ $i ]['wponion_js_contents'] = ( empty( $matches[0][4] ) ) ? false : $matches[0][4];
 						}
 					}
 				}
