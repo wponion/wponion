@@ -41,12 +41,24 @@ if ( ! class_exists( '\WPOnion\Field\color_palette' ) ) {
 			echo '</div>';
 		}
 
+		/**
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return $this->parse_args( array(
 				'style'        => 'round with-margin',
 				'palette_type' => 'radio',
 				'size'         => 25,
 			), parent::field_default() );
+		}
+
+		/**
+		 * @param $options
+		 *
+		 * @return mixed
+		 */
+		protected function element_value( $options ) {
+			return is_numeric( $options['key'] ) ? $options['label'] : $options['key'];
 		}
 
 		/**
