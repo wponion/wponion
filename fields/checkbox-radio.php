@@ -90,6 +90,17 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 		}
 
 		/**
+		 * Returns Elements Value.
+		 *
+		 * @param $options
+		 *
+		 * @return mixed
+		 */
+		protected function element_value( $options ) {
+			return $options['key'];
+		}
+
+		/**
 		 * Renders Elements Options as html.
 		 *
 		 * @param      $options
@@ -106,25 +117,23 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 				$attr['class'] = array();
 			}
 			$attr['class'] = wponion_html_class( $attr['class'], $this->element_class( 'form-check-input' ) );
-			$attr['value'] = $options['key'];
+			$attr['value'] = $this->element_value( $options );
 			$value         = $this->value();
 			$wrap_attr     = array();
 			$label_attr    = array();
 
 			if ( true === $in_group || 'group' === $in_group ) {
-				$gptitle       = sanitize_key( $group_title );
-				$attr['value'] = ( is_numeric( $options['key'] ) ) ? $options['label'] : $options['key'];
-				$attr['name']  = $this->name( '[' . $gptitle . '][' . $attr['value'] . ']' );
-				$value         = $this->get_value( $gptitle );
-				$dep_id        = $gptitle . '_' . $options['key'];
+				$gptitle      = sanitize_key( $group_title );
+				$attr['name'] = $this->name( '[' . $gptitle . '][]' );
+				$value        = $this->get_value( $gptitle );
+				$dep_id       = $gptitle . '_' . $options['key'];
 			} elseif ( 'single' === $in_group ) {
 				$attr['name']  = $this->name();
 				$attr['value'] = $options['key'];
 				$dep_id        = $options['key'];
 			} else {
-				$attr['value'] = ( is_numeric( $options['key'] ) ) ? $options['label'] : $options['key'];
-				$attr['name']  = $this->name( '[' . $attr['value'] . ']' );
-				$dep_id        = $options['key'];
+				$attr['name'] = $this->name( '[]' );
+				$dep_id       = $options['key'];
 			}
 
 			$elem_id    = sanitize_title( $attr['name'] . '_' . $options['key'] );
