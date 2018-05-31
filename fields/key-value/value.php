@@ -19,6 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Value\key_value' ) ) {
+	/**
+	 * Class key_value
+	 *
+	 * @package WPOnion\Value
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class key_value extends \WPOnion\Bridge\value_loop {
 	}
 }
