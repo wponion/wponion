@@ -114,11 +114,14 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			}
 
 			$this->get_errors();
-			if ( defined( 'WPONION_FIELD_ASSETS' ) && true === WPONION_FIELD_ASSETS || ( did_action( 'admin_enqueue_scripts' ) || did_action( 'wp_enqueue_scripts' ) ) ) {
+
+			$is_did_action = ( did_action( 'admin_enqueue_scripts' ) || did_action( 'customize_controls_enqueue_scripts' ) || did_action( 'wp_enqueue_scripts' ) || did_action( 'customize_controls_print_scripts' ) || did_action( 'customize_controls_print_footer_scripts' ) || did_action( 'customize_controls_print_styles' ) );
+
+			if ( defined( 'WPONION_FIELD_ASSETS' ) && true === WPONION_FIELD_ASSETS || true === $is_did_action ) {
 				$this->field_assets();
 			} else {
 				$this->add_action( 'admin_enqueue_scripts', 'field_assets', 1 );
-				$this->add_action( 'customize_controls_enqueue_scripts', 'field_assets', 1 );
+				$this->add_action( 'customize_controls_enqueue_scripts', 'field_assets', 99999 );
 
 				if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 					$this->add_action( 'wp_enqueue_scripts', 'field_assets', 1 );
