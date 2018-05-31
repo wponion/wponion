@@ -620,6 +620,20 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		}
 
 		/**
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param array  $options
+		 * @param string $image_pick_type
+		 * @param array  $args
+		 *
+		 * @return $this
+		 */
+		public function image_select( $id = false, $title = false, $options = array(), $image_pick_type = 'checkbox', $args = array() ) {
+			$args['image_type'] = $image_pick_type;
+			return $this->checkbox_radio( 'image_select', $id, $title, $options, $args );
+		}
+
+		/**
 		 * @param bool  $id
 		 * @param bool  $title
 		 * @param array $options
@@ -627,8 +641,20 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function image_select( $id = false, $title = false, $options = array(), $args = array() ) {
-			return $this->checkbox_radio( 'image_select', $id, $title, $options, $args );
+		public function radio_image( $id = false, $title = false, $options = array(), $args = array() ) {
+			return $this->image_select( $id, $title, $options, 'radio', $args );
+		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $options
+		 * @param array $args
+		 *
+		 * @return $this
+		 */
+		public function checkbox_image( $id = false, $title = false, $options = array(), $args = array() ) {
+			return $this->image_select( $id, $title, $options, 'checkbox', $args );
 		}
 
 		/**
