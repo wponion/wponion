@@ -19,6 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Modules\customize_control' ) ) {
+	/**
+	 * Class customize_control
+	 *
+	 * @package WPOnion\Modules
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class customize_control extends \WP_Customize_Control {
 
 		/**
@@ -42,11 +49,41 @@ if ( ! class_exists( '\WPOnion\Modules\customize_control' ) ) {
 		 */
 		public $options = array();
 
+		/**
+		 * wrap_class
+		 *
+		 * @var null|string
+		 */
+		protected $wrap_class = null;
+
+		/**
+		 * customize_control constructor.
+		 *
+		 * @param \WP_Customize_Manager $manager
+		 * @param string                $id
+		 * @param array                 $args
+		 * @param string                $wrap_class
+		 */
+		public function __construct( \WP_Customize_Manager $manager, string $id, array $args = array(), $wrap_class = '' ) {
+			parent::__construct( $manager, $id, $args );
+			$this->wrap_class = $wrap_class;
+		}
+
+		/**
+		 * Renders HTML Output.
+		 */
 		public function render_content() {
 			$this->options['id']                                        = $this->id;
 			$this->options['default']                                   = $this->setting->default;
 			$this->options['attributes']['data-customize-setting-link'] = $this->settings['default']->id;
+
+			if ( ! empty( $this->wrap_class ) ) {
+				echo '<div class="' . $this->wrap_class . '">';
+			}
 			echo wponion_add_element( $this->options, $this->value(), $this->unique );
+			if ( ! empty( $this->wrap_class ) ) {
+				echo '</div>';
+			}
 		}
 	}
 }
