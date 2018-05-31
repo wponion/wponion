@@ -294,7 +294,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function render_page() {
 			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
-			echo '<div class="hidden" style="display:none;" id="wponino-hidden-fields">';
+			echo '<div class="hidden" style="display:none;" id="wponion-hidden-fields">';
 			settings_fields( $this->unique );
 			echo '<input type="hidden" name="wponion-parent-id" value="' . $this->active( true ) . '"/>';
 			echo '<input type="hidden" name="wponion-section-id" value="' . $this->active( false ) . '"/>';
@@ -658,7 +658,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return bool|string
 		 */
 		public function is_single_page() {
-			return ( true === $this->option( 'is_single_page' ) ) ? true : ( 'submenu' === $this->option( 'is_single_page' ) ) ? 'only_submenu' : false;
+			if ( 'submenu' === $this->option( 'is_single_page' ) ) {
+				return 'only_submenu';
+			} elseif ( true === $this->option( 'is_single_page' ) ) {
+				return true;
+			}
+
+			return false;
 		}
 
 		/**************************************************************************************************************
