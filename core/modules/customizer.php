@@ -28,6 +28,13 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 	 */
 	class customizer extends \WPOnion\Bridge\Module {
 		/**
+		 * module
+		 *
+		 * @var string
+		 */
+		protected $module = 'customizer';
+
+		/**
 		 * priority
 		 *
 		 * @var int
@@ -49,6 +56,54 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 		protected $outers = array();
 
 		/**
+		 * Renders / Creates An First Instance based on the $is_init_field variable value.
+		 *
+		 * @param array $field
+		 * @param bool  $parent_section
+		 * @param bool  $section
+		 *
+		 * @return mixed
+		 */
+		public function render_field( $field = array(), $parent_section = false, $section = false ) {
+			$callback = 'wponion_field';
+			return $callback( $field, _wponion_get_field_value( $field, $this->get_db_values() ), array(
+				'plugin_id' => $this->plugin_id(),
+				'module'    => $this->module(),
+				'unique'    => $this->unique,
+				'hash'      => sanitize_title( $parent_section . '-' . $section ),
+			) );
+		}
+
+		/**
+		 * Inits All Base Fields.
+		 */
+		public function init_fields() {
+			$i = '__instance';
+
+			foreach ( $this->fields as $o => $options ) {
+				if ( isset( $options['callback'] ) && false !== $options['callback'] ) {
+					continue;
+				}
+
+				if ( isset( $options['sections'] ) ) {
+					foreach ( $options['sections'] as $s => $section ) {
+						if ( isset( $section['callback'] ) && false !== $section['callback'] || false === isset( $section['fields'] ) ) {
+							continue;
+						}
+
+						foreach ( $section['fields'] as $f => $field ) {
+							$this->fields[ $o ]['sections'][ $s ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], $section['name'] );
+						}
+					}
+				} elseif ( isset( $options['fields'] ) ) {
+					foreach ( $options['fields'] as $f => $field ) {
+						$this->fields[ $o ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], false );
+					}
+				}
+			}
+		}
+
+		/**
 		 * customizer constructor.
 		 *
 		 * @param array $settings
@@ -64,8 +119,12 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 		 */
 		public function init() {
 			if ( ! empty( $this->fields ) ) {
+				if ( defined( 'IFRAME_REQUEST' ) ) {
+					$this->init_fields();
+				}
+
 				$this->add_action( 'customize_register', 'customize_register' );
-				$this->add_action( 'customize_controls_print_footer_scripts', 'outer_sections_css' );
+				$this->add_action( 'customize_controls_enqueue_scripts', 'outer_sections_css' );
 				$this->add_action( 'customize_controls_enqueue_scripts', 'load_styles' );
 			}
 		}
@@ -153,7 +212,7 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 					);
 
 					$call_class = '\WPOnion\Modules\customize_control';
-					$this->wp->add_control( new $call_class( $this->wp, $field['id'], $control_args ) );
+					$this->wp->add_control( new $call_class( $this->wp, $field['id'], $control_args, $this->default_wrap_class() ) );
 				}
 			}
 		}
