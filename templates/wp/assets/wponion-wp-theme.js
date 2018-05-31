@@ -13,6 +13,8 @@
 
 	/**
   * Handles Single Submenu
+  * @returns {wpt.fn.WP_submenu}
+  * @constructor
   */
 	wpt.fn.WP_submenu = function () {
 		var $this = this;
@@ -40,7 +42,8 @@
 
 	/**
   * Handles Main Menu.
-  * @returns {$wpt}
+  * @returns {wpt.fn.WP_main_menu}
+  * @constructor
   */
 	wpt.fn.WP_main_menu = function () {
 		var $this = this;
