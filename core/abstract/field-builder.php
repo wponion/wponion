@@ -205,13 +205,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		}
 
 		/**
-		 * Adds A Section To A Page.
-		 *
+		 * @param string $page_slug
 		 * @param string $section_title
 		 * @param string $section_slug
 		 * @param bool   $section_icon
 		 * @param array  $section_args
-		 * @param string $page_slug
 		 *
 		 * @return $this
 		 */
@@ -234,7 +232,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool   $icon
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function section( $title = '', $slug = '', $icon = false, $args = array() ) {
 			return $this->add_section( false, $title, $slug, $icon, $args );
@@ -450,14 +448,43 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		}
 
 		/**
-		 * Accordion Field Handler.
+		 * @param string $type
+		 * @param bool   $id
+		 * @param bool   $title
+		 * @param bool   $options
+		 * @param array  $args
 		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
+		protected function checkbox_radio( $type = 'checkbox', $id = false, $title = false, $options = false, $args = array() ) {
+			if ( ( 'checkbox' === $type || 'switcher' === $type ) && ! is_array( $options ) ) {
+				$args['label'] = $options;
+			} else {
+				$args['options'] = $options;
+			}
+			return $this->add_field( $type, $id, $title, $args );
+		}
+
+		/**
+		 * @param string $type
+		 * @param bool   $title
+		 * @param string $content
+		 * @param array  $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
+		protected function content_field( $type = '', $title = false, $content = '', $args = array() ) {
+			$args['content'] = $content;
+			return $this->add_field( $type, false, $title, $args );
+		}
+
+		/**
 		 * @param bool  $id
 		 * @param bool  $title
 		 * @param array $fields
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function accordion( $id = false, $title = false, $fields = array(), $args = array() ) {
 			return $this->nested_fields( 'accordion', $id, $title, $fields, $args );
@@ -466,22 +493,20 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		/**
 		 * @param string $title
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function accordion_title( $title = '' ) {
 			return $this->_field_hack( 'accordion_title', $title );
 		}
 
 		/**
-		 * Fieldset Handler.
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $fields
+		 * @param null  $heading
+		 * @param array $args
 		 *
-		 * @param bool        $id
-		 * @param bool        $title
-		 * @param array       $fields
-		 * @param string|null $heading
-		 * @param array       $args
-		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function fieldset( $id = false, $title = false, $fields = array(), $heading = null, $args = array() ) {
 			if ( ! empty( $heading ) ) {
@@ -496,41 +521,21 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param array $fields
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function group( $id = false, $title = false, $fields = array(), $args = array() ) {
 			return $this->nested_fields( 'group', $id, $title, $fields, $args );
 		}
 
 		/**
-		 * Adds Text Field.
-		 *
 		 * @param bool  $id
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function text( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'text', $id, $title, $args );
-		}
-
-		/**
-		 * @param string $type
-		 * @param bool   $id
-		 * @param bool   $title
-		 * @param bool   $options
-		 * @param array  $args
-		 *
-		 * @return $this
-		 */
-		protected function checkbox_radio( $type = 'checkbox', $id = false, $title = false, $options = false, $args = array() ) {
-			if ( ( 'checkbox' === $type || 'switcher' === $type ) && ! is_array( $options ) ) {
-				$args['label'] = $options;
-			} else {
-				$args['options'] = $options;
-			}
-			return $this->add_field( $type, $id, $title, $args );
 		}
 
 		/**
@@ -539,7 +544,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $options
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function checkbox( $id = false, $title = false, $options = false, $args = array() ) {
 			return $this->checkbox_radio( 'checkbox', $id, $title, $options, $args );
@@ -551,7 +556,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $options
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function radio( $id = false, $title = false, $options = false, $args = array() ) {
 			return $this->checkbox_radio( 'radio', $id, $title, $options, $args );
@@ -563,7 +568,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $options
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function select( $id = false, $title = false, $options = false, $args = array() ) {
 			return $this->checkbox_radio( 'select', $id, $title, $options, $args );
@@ -576,7 +581,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $button_type
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function button( $id = false, $title = false, $label = '', $button_type = 'button', $args = array() ) {
 			$args['label']       = $label;
@@ -589,7 +594,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function font_picker( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'font_picker', $id, $title, $args );
@@ -600,7 +605,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function gallery( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'gallery', $id, $title, $args );
@@ -612,7 +617,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $show_input
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function icon_picker( $id = false, $title = false, $show_input = true, $args = array() ) {
 			$args['show_input'] = $show_input;
@@ -626,7 +631,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $image_pick_type
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function image_select( $id = false, $title = false, $options = array(), $image_pick_type = 'checkbox', $args = array() ) {
 			$args['image_type'] = $image_pick_type;
@@ -639,7 +644,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param array $options
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function radio_image( $id = false, $title = false, $options = array(), $args = array() ) {
 			return $this->image_select( $id, $title, $options, 'radio', $args );
@@ -651,7 +656,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param array $options
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function checkbox_image( $id = false, $title = false, $options = array(), $args = array() ) {
 			return $this->image_select( $id, $title, $options, 'checkbox', $args );
@@ -662,7 +667,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function switcher( $id = false, $title = false, $args = array() ) {
 			return $this->checkbox_radio( 'switcher', $id, $title, array(), $args );
@@ -673,7 +678,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function textarea( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'textarea', $id, $title, $args );
@@ -684,7 +689,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function wp_link( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'wp_link', $id, $title, $args );
@@ -696,7 +701,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $card_cols
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function card( $title = false, $options = array(), $card_cols = 'col', $args = array() ) {
 			$args['options']   = $options;
@@ -705,23 +710,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		}
 
 		/**
-		 * @param string $type
-		 * @param bool   $title
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
-		 */
-		protected function content_field( $type = '', $title = false, $content = '', $args = array() ) {
-			$args['content'] = $content;
-			return $this->add_field( $type, false, $title, $args );
-		}
-
-		/**
-		 * @param string $content
-		 * @param array  $args
-		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function heading( $content = '', $args = array() ) {
 			return $this->content_field( 'heading', false, $content, $args );
@@ -731,7 +723,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function subheading( $content = '', $args = array() ) {
 			return $this->content_field( 'subheading', false, $content, $args );
@@ -741,7 +733,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function jambo_content( $content = '', $args = array() ) {
 			return $this->content_field( 'jambo_content', false, $content, $args );
@@ -752,19 +744,18 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $notice_type
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice( $content = '', $notice_type = 'success', $args = array() ) {
 			$args['notice_type'] = $notice_type;
 			return $this->content_field( 'notice', false, $content, $args );
 		}
 
-
 		/**
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice_primary( $content = '', $args = array() ) {
 			return $this->notice( $content, 'primary', $args );
@@ -774,7 +765,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice_secondary( $content = '', $args = array() ) {
 			return $this->notice( $content, 'secondary', $args );
@@ -784,7 +775,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice_success( $content = '', $args = array() ) {
 			return $this->notice( $content, 'success', $args );
@@ -794,7 +785,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice_danger( $content = '', $args = array() ) {
 			return $this->notice( $content, 'danger', $args );
@@ -804,7 +795,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice_warning( $content = '', $args = array() ) {
 			return $this->notice( $content, 'warning', $args );
@@ -814,7 +805,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice_info( $content = '', $args = array() ) {
 			return $this->notice( $content, 'info', $args );
@@ -824,7 +815,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice_light( $content = '', $args = array() ) {
 			return $this->notice( $content, 'light', $args );
@@ -834,7 +825,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param string $content
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function notice_dark( $content = '', $args = array() ) {
 			return $this->notice( $content, 'dark', $args );
@@ -845,7 +836,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function image( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'image', $id, $title, $args );
@@ -856,7 +847,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function key_value( $id = false, $title = false, $args = array() ) {
 			return $this->add_field( 'key_value', $id, $title, $args );
@@ -866,12 +857,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool   $id
 		 * @param bool   $title
 		 * @param array  $options
-		 * @param string $palette_type
 		 * @param int    $size
+		 * @param string $palette_type
 		 * @param string $style
 		 * @param array  $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function color_palette( $id = false, $title = false, $options = array(), $size = 25, $palette_type = 'checkbox', $style = 'round with-margin', $args = array() ) {
 			$args['palette_type'] = $palette_type;
@@ -887,7 +878,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @param bool  $rgba
 		 * @param array $args
 		 *
-		 * @return $this
+		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		public function color_picker( $id = false, $title = false, $rgba = true, $args = array() ) {
 			$args['rgba'] = $rgba;
