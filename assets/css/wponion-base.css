@@ -26,22 +26,13 @@ input.wponion-form-control {
   border-radius: 0 !important;
 }
 
+.wponion {
+  /* Basic Styles. */
+  /* Global / Field Debug POPUP Style Codes. */
+}
+
 .wponion-element {
   padding: 30px;
-  /**###########################################
-   * Below Are related To Fields.
-   ############################################*/
-  /*User Usable Fields*/
-  /** Textarea **/
-  /**
-   * Checkbox & Radio Box Styles.
-   */
-  /** UI Related Fields.*/
-  /** Heading Element Style. **/
-  /** Sub Heading Element Style.**/
-  /** Notice Element Handler **/
-  /** Boostrap Card Element. **/
-  /** Boostrap well/jambotron **/
 }
 
 .wponion-element .wponion-desc {
@@ -83,6 +74,10 @@ input.wponion-form-control {
   color: #666;
 }
 
+.wponion-element + .wponion-element {
+  border-top: 1px solid #dadada;
+}
+
 .wponion-element.wponion-element-no-title .wponion-fieldset {
   margin: 0;
 }
@@ -107,10 +102,6 @@ input.wponion-form-control {
   padding: 5px 10px;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-}
-
-.wponion-element + .wponion-element {
-  border-top: 1px solid #dadada;
 }
 
 .wponion-element.hirozantal > .wponion-field-title {
@@ -145,51 +136,283 @@ input.wponion-form-control {
   border-left: none;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap {
+.wponion-framework .wponion-field-errors {
+  font-size: 100%;
+  margin-top: 10px;
+}
+
+.wponion-framework .wponion-field-errors ul {
+  margin: 0;
+  list-style: inside;
+}
+
+.wponion-framework .wponion-framework-header h1 {
+  padding: 0;
+}
+
+.wponion-framework .wponion-framework-header p {
+  font-style: italic;
+  color: #606060;
+  font-size: 14px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.wponion-framework .wponion-row {
+  margin: 0;
+  border-bottom: 1px solid #dadada;
+}
+
+.wponion-framework .wponion-row .col + .col {
+  border-left: 1px solid #dadada;
+  border-top: none;
+}
+
+.wponion-field-debug-popup .wponion-field-debug-notice {
+  margin-top: -2px;
+  color: red;
   padding: 10px;
-  border: 1px solid #dadada;
+  background-color: white;
+  font-size: 11px;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-element {
-  padding: 10px 5px !important;
-  display: inline-block;
-  vertical-align: middle;
+.wponion-global-debug-handle {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  bottom: 40px;
+  right: 40px;
+  background-color: #0C9;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  -webkit-box-shadow: 2px 2px 3px #999;
+  box-shadow: 2px 2px 3px #999;
+  font-size: 25px;
+  outline: none;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-clone-action {
-  display: none;
-  vertical-align: middle;
-  margin-left: 10px;
+.wponion-global-debug-handle:hover, .wponion-global-debug-handle:focus {
+  outline: none;
+  text-decoration: none;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:hover .wponion-clone-action {
-  display: inline-block;
+.wponion-global-debug-handle i {
+  margin: 0 auto;
+  margin-top: 30%;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:first-child .wponion-element {
-  padding-top: 5px !important;
+#wponion-global-debug-content .jsonview {
+  font-size: 14px !important;
+  margin: 0 !important;
+  margin-top: 10px;
+  padding: 0 !important;
+  min-height: 0 !important;
+  height: 100% !important;
+  max-height: 520px;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:last-child .wponion-element {
-  padding-bottom: 5px !important;
+.wponion-element {
+  /** Heading Element Style. **/
+  /** Sub Heading Element Style.**/
+  /** Notice Element Handler **/
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone + .wponion-field-clone {
-  border-top: 1px solid #dadada;
-  padding: 5px 0;
+.wponion-element.wponion-element-heading {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #23282d;
+  background-color: #f5f5f5 !important;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone-sorter {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-  cursor: move;
-  margin-top: 0px;
+.wponion-element.wponion-element-subheading {
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  color: #23282d;
+  background-color: #f7f7f7 !important;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-actions {
-  padding-top: 5px;
-  margin-top: 5px;
+.wponion-element.wponion-element-notice {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.wponion-element.wponion-element-notice + .wponion-element {
+  border-top: 0;
+}
+
+.wponion-element {
+  /** Boostrap Card Element. **/
+  /** Boostrap well/jambotron **/
+}
+
+.wponion-element.wponion-element-card div.card {
+  margin-top: 0;
+  padding: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  max-width: none;
+}
+
+.wponion-element.wponion-element-jambo_content {
+  padding: 0 !important;
+}
+
+.wponion-element.wponion-element-jambo_content div.jumbotron {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.wponion-tab-wrap ul {
+  margin-bottom: 0;
+}
+
+.wponion-tab-wrap ul li {
+  margin-bottom: 0;
+}
+
+.wponion-tab-wrap ul li a {
+  text-decoration: none;
+  outline: none;
+}
+
+.wponion-tab-wrap.wponion-tab-style1 {
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.wponion-tab-wrap.wponion-tab-style1 ul {
+  margin: 0;
+  min-width: 10%;
+  float: left;
+  line-height: 1em;
+  padding: 0 0 10px;
+  position: relative;
+  background-color: #fafafa;
+  border-right: 1px solid #eee;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.wponion-tab-wrap.wponion-tab-style1 ul li {
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+}
+
+.wponion-tab-wrap.wponion-tab-style1 ul li a {
+  margin: 0;
+  padding: 6px 10px;
+  display: block;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  text-decoration: none;
+  line-height: 20px !important;
+  border-bottom: 1px solid #eee;
+}
+
+.wponion-tab-wrap.wponion-tab-style1 ul li.wponion-tab-current a {
+  color: #555;
+  position: relative;
+  background-color: #eee;
+}
+
+.wponion-tab-wrap.wponion-tab-style1 ul::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 9999em;
+  position: absolute;
+  bottom: -9999em;
+  left: 0;
+  background-color: #fafafa;
+  border-right: 1px solid #eee;
+}
+
+.wponion-tab-wrap.wponion-tab-style1 .wponion-tab-page {
+  float: left;
+  width: 90%;
+}
+
+/*||||||||||||||||||||||||||||||||||||
+|| Accordion , Group Element Styles ||
+||||||||||||||||||||||||||||||||||||*/
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap, .wponion-element.wponion-element-group .wponion-accordion-wrap {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title {
+  border: 1px solid #e5e5e5;
+  background: #fafafa;
+  -webkit-transition: border-color 0.15s;
+  -o-transition: border-color 0.15s;
+  transition: border-color 0.15s;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  margin: 0;
+  padding: 15px;
+  min-height: 0;
+  font-size: 100%;
+}
+
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:active, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:hover, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:focus, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:active, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:hover, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:focus {
+  border: 1px solid #bbb;
+  background: #fafafa;
+  outline: none;
+}
+
+.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-content, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-content {
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  padding: 0;
+  border-top: 0;
+}
+
+.wponion-element.wponion-element-accordion span.ui-accordion-header-icon.ui-icon, .wponion-element.wponion-element-group span.ui-accordion-header-icon.ui-icon {
+  background-image: none !important;
+}
+
+.wponion-element.wponion-element-accordion .ui-accordion > .wponion-accordion-wrap, .wponion-element.wponion-element-group .ui-accordion > .wponion-accordion-wrap {
+  display: block;
+}
+
+.wponion-element.wponion-element-accordion .ui-accordion-icons, .wponion-element.wponion-element-group .ui-accordion-icons {
+  padding-left: 30px !important;
+}
+
+.wponion-element.wponion-element-accordion .ui-accordion-header-icon, .wponion-element.wponion-element-group .ui-accordion-header-icon {
+  position: absolute;
+  left: .5em;
+  top: 50%;
+  margin-top: -10px;
+  text-indent: 0;
+  color: #bbb;
+}
+
+.wponion-element.wponion-element-accordion .ui-sortable-helper .wponion-accordion-content, .wponion-element.wponion-element-group .ui-sortable-helper .wponion-accordion-content {
+  display: none !important;
+}
+
+.wponion-element.wponion-element-accordion .wponion-field-clone .wponion-element, .wponion-element.wponion-element-group .wponion-field-clone .wponion-element {
+  max-width: 90% !important;
+  display: inline-block !important;
+  width: auto !important;
+  vertical-align: middle !important;
+}
+
+.wponion-element.wponion-element-group .wponion-group-wrap .wponion-accordion-wrap {
+  margin-bottom: 15px;
+}
+
+.wponion-element.wponion-element-group .wponion-group-wrap .wponion-accordion-wrap .wponion-group-action {
+  padding: 30px;
+  border-top: 1px solid #dedede;
+  text-align: right;
 }
 
 .wponion-element.wponion-element-fieldset .wponion-fieldset-wrap {
@@ -206,18 +429,9 @@ input.wponion-form-control {
   margin-left: 40%;
 }
 
-.wponion-element.wponion-element-font_picker .wponion-font-select-container {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.wponion-element.wponion-element-textarea textarea {
-  min-width: 500px;
-  resize: both;
-  max-width: 100%;
-  min-height: 125px;
-}
-
+/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|| Checkbox,Radio,Image Select,Switcher Element Styles ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 .wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group, .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group {
   display: inline-block;
   min-width: 200px;
@@ -347,6 +561,9 @@ input.wponion-form-control {
   outline: 0;
 }
 
+/*||||||||||||||||||||||||||||||||||||
+|| Textarea,KeyValue Element Styles ||
+||||||||||||||||||||||||||||||||||||*/
 .wponion-element.wponion-element-key_value .wponion-keyvalue_wrap {
   margin-bottom: 15px;
 }
@@ -370,6 +587,23 @@ input.wponion-form-control {
 
 .wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field:last-child {
   margin-bottom: 0;
+}
+
+.wponion-element.wponion-element-textarea textarea {
+  min-width: 500px;
+  resize: both;
+  max-width: 100%;
+  min-height: 125px;
+}
+
+.wponion-element.wponion-element-font_picker .wponion-font-select-container {
+  display: inline-block;
+  margin-right: 10px;
+  min-width: 200px;
+}
+
+.wponion-element.wponion-element-font_picker select {
+  min-width: 200px;
 }
 
 .wponion-element.wponion-element-color_palette .colors-wrapper {
@@ -452,206 +686,53 @@ input.wponion-form-control {
   background: #fcfcfcb3;
 }
 
-.wponion-element.wponion-element-heading {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #23282d;
-  background-color: #f5f5f5 !important;
+.wponion-element.wponion-element-clone .wponion-clone-wrap {
+  padding: 10px;
+  border: 1px solid #dadada;
 }
 
-.wponion-element.wponion-element-subheading {
-  font-size: 14px;
-  font-weight: bold;
-  padding-top: 17px;
-  padding-bottom: 17px;
-  color: #23282d;
-  background-color: #f7f7f7 !important;
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-element {
+  padding: 10px 5px !important;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.wponion-element.wponion-element-notice {
-  margin-bottom: 0;
-  border-radius: 0;
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-clone-action {
+  display: none;
+  vertical-align: middle;
+  margin-left: 10px;
 }
 
-.wponion-element.wponion-element-notice + .wponion-element {
-  border-top: 0;
-}
-
-.wponion-element.wponion-element-card div.card {
-  margin-top: 0;
-  padding: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  max-width: none;
-}
-
-.wponion-element.wponion-element-jambo_content {
-  padding: 0 !important;
-}
-
-.wponion-element.wponion-element-jambo_content div.jumbotron {
-  margin-bottom: 0;
-  border-radius: 0;
-}
-
-.wponion-element.wponion-element-accordion .wponion-accordion-wrap, .wponion-element.wponion-element-group .wponion-accordion-wrap {
-  position: relative;
-  margin-bottom: 5px;
-}
-
-.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title {
-  border: 1px solid #e5e5e5;
-  background: #fafafa;
-  -webkit-transition: border-color 0.15s;
-  -o-transition: border-color 0.15s;
-  transition: border-color 0.15s;
-  display: block;
-  cursor: pointer;
-  position: relative;
-  margin: 0;
-  padding: 15px;
-  min-height: 0;
-  font-size: 100%;
-}
-
-.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:active, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:hover, .wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-title:focus, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:active, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:hover, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-title:focus {
-  border: 1px solid #bbb;
-  background: #fafafa;
-  outline: none;
-}
-
-.wponion-element.wponion-element-accordion .wponion-accordion-wrap .wponion-accordion-content, .wponion-element.wponion-element-group .wponion-accordion-wrap .wponion-accordion-content {
-  border: 1px solid #e5e5e5;
-  background: #fff;
-  padding: 0;
-  border-top: 0;
-}
-
-.wponion-element.wponion-element-accordion span.ui-accordion-header-icon.ui-icon, .wponion-element.wponion-element-group span.ui-accordion-header-icon.ui-icon {
-  background-image: none !important;
-}
-
-.wponion-element.wponion-element-accordion .ui-accordion > .wponion-accordion-wrap, .wponion-element.wponion-element-group .ui-accordion > .wponion-accordion-wrap {
-  display: block;
-}
-
-.wponion-element.wponion-element-accordion .ui-accordion-icons, .wponion-element.wponion-element-group .ui-accordion-icons {
-  padding-left: 30px !important;
-}
-
-.wponion-element.wponion-element-accordion .ui-accordion-header-icon, .wponion-element.wponion-element-group .ui-accordion-header-icon {
-  position: absolute;
-  left: .5em;
-  top: 50%;
-  margin-top: -10px;
-  text-indent: 0;
-  color: #bbb;
-}
-
-.wponion-element.wponion-element-accordion .ui-sortable-helper .wponion-accordion-content, .wponion-element.wponion-element-group .ui-sortable-helper .wponion-accordion-content {
-  display: none !important;
-}
-
-.wponion-element.wponion-element-accordion .wponion-field-clone .wponion-element, .wponion-element.wponion-element-group .wponion-field-clone .wponion-element {
-  max-width: 90% !important;
-  display: inline-block !important;
-  width: auto !important;
-  vertical-align: middle !important;
-}
-
-.wponion-element.wponion-element-group .wponion-group-wrap .wponion-accordion-wrap {
-  margin-bottom: 15px;
-}
-
-.wponion-element.wponion-element-group .wponion-group-wrap .wponion-accordion-wrap .wponion-group-action {
-  padding: 30px;
-  border-top: 1px solid #dedede;
-  text-align: right;
-}
-
-.wponion-element .wponion-tab-wrap ul {
-  margin-bottom: 0;
-}
-
-.wponion-element .wponion-tab-wrap ul li {
-  margin-bottom: 0;
-}
-
-.wponion-element .wponion-tab-wrap ul li a {
-  text-decoration: none;
-  outline: none;
-}
-
-.wponion-element .wponion-tab-wrap.wponion-tab-style1 {
-  overflow: hidden;
-  border: 1px solid #ccc;
-}
-
-.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul {
-  margin: 0;
-  min-width: 10%;
-  float: left;
-  line-height: 1em;
-  padding: 0 0 10px;
-  position: relative;
-  background-color: #fafafa;
-  border-right: 1px solid #eee;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul li {
-  margin: 0;
-  padding: 0;
-  display: block;
-  position: relative;
-}
-
-.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul li a {
-  margin: 0;
-  padding: 6px 10px;
-  display: block;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  text-decoration: none;
-  line-height: 20px !important;
-  border-bottom: 1px solid #eee;
-}
-
-.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul li.wponion-tab-current a {
-  color: #555;
-  position: relative;
-  background-color: #eee;
-}
-
-.wponion-element .wponion-tab-wrap.wponion-tab-style1 ul::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 9999em;
-  position: absolute;
-  bottom: -9999em;
-  left: 0;
-  background-color: #fafafa;
-  border-right: 1px solid #eee;
-}
-
-.wponion-element .wponion-tab-wrap.wponion-tab-style1 .wponion-tab-page {
-  float: left;
-  width: 90%;
-}
-
-.wponion-element.wponion-element-font .wponion-font-select-container {
-  margin-right: 10px;
-  min-width: 200px;
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:hover .wponion-clone-action {
   display: inline-block;
 }
 
-.wponion-element.wponion-element-font select {
-  min-width: 200px;
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:first-child .wponion-element {
+  padding-top: 5px !important;
 }
 
-/** Icon Picker Style */
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:last-child .wponion-element {
+  padding-bottom: 5px !important;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone + .wponion-field-clone {
+  border-top: 1px solid #dadada;
+  padding: 5px 0;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone-sorter {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  cursor: move;
+  margin-top: 0px;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-actions {
+  padding-top: 5px;
+  margin-top: 5px;
+}
+
 .wponion-image-preview .wponion-preview {
   margin-right: 10px;
 }
@@ -865,104 +946,9 @@ input.wponion-form-control {
   bottom: 0;
 }
 
-/* Basic Styles. */
-.wponion-framework .wponion-field-errors {
-  font-size: 100%;
-  margin-top: 10px;
-}
-
-.wponion-framework .wponion-field-errors ul {
-  margin: 0;
-  list-style: inside;
-}
-
-.wponion-framework .wponion-framework-header h1 {
-  padding: 0;
-}
-
-.wponion-framework .wponion-framework-header p {
-  font-style: italic;
-  color: #606060;
-  font-size: 14px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-
-.wponion-framework .wponion-row {
-  margin: 0;
-  border-bottom: 1px solid #dadada;
-}
-
-.wponion-framework .wponion-row .col + .col {
-  border-left: 1px solid #dadada;
-  border-top: none;
-}
-
-/* Global / Field Debug POPUP Style Codes. */
-.wponion-field-debug-popup .wponion-field-debug-notice {
-  margin-top: -2px;
-  color: red;
-  padding: 10px;
-  background-color: white;
-  font-size: 11px;
-}
-
-.wponion-global-debug-handle {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 40px;
-  right: 40px;
-  background-color: #0C9;
-  color: #FFF;
-  border-radius: 50px;
-  text-align: center;
-  -webkit-box-shadow: 2px 2px 3px #999;
-  box-shadow: 2px 2px 3px #999;
-  font-size: 25px;
-  outline: none;
-}
-
-.wponion-global-debug-handle:hover, .wponion-global-debug-handle:focus {
-  outline: none;
-  text-decoration: none;
-}
-
-.wponion-global-debug-handle i {
-  margin: 0 auto;
-  margin-top: 30%;
-}
-
-#wponion-global-debug-content .jsonview {
-  font-size: 14px !important;
-  margin: 0 !important;
-  margin-top: 10px;
-  padding: 0 !important;
-  min-height: 0 !important;
-  height: 100% !important;
-  max-height: 520px;
-}
-
 .wponion-accordion-placeholder {
   border: 1px dashed #bdbdbd;
   margin-bottom: 10px;
-}
-
-.wponion-framework-bootstrap-grid, .wponion-framework-bootstrap {
-  /*.btn {
-  outline:         none;
-  text-decoration: none;
-}
-
-a {
-  text-decoration:  none !important;
-  color:            inherit !important;
-  background-color: inherit !important;
-  @include hover {
-	text-decoration: none !important;
-	color:           inherit;
-  }
-}*/
 }
 
 .wponion-framework-bootstrap-grid :root, .wponion-framework-bootstrap :root {
@@ -7149,6 +7135,9 @@ a {
   color: #040505;
 }
 
+/******************************
+ * Bootstrap Custom buttons ***
+ *****************************/
 .wponion-button-primary {
   color: #fff !important;
   border-color: #006fe6 #0062cc #0062cc !important;
