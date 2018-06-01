@@ -951,7 +951,7 @@
 		}
 
 		if ( $( '.wp-customizer' ).length > 0 ) {
-			wponion_field( '.wp-customizer' ).reload();
+			//wponion_field( '.wp-customizer' ).reload();
 		}
 
 		if ( $( '.wponion-framework' ).length > 0 ) {
