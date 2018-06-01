@@ -936,7 +936,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		}
 
 		if ($('.wp-customizer').length > 0) {
-			wponion_field('.wp-customizer').reload();
+			//wponion_field( '.wp-customizer' ).reload();
 		}
 
 		if ($('.wponion-framework').length > 0) {
