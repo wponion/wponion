@@ -53,7 +53,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 */
 		public function __construct() {
 			$this->add_action( 'admin_footer', 'render_js_args' );
-			$this->add_action( 'customize_controls_print_scripts', 'render_js_args' );
+			$this->add_action( 'customize_controls_print_footer_scripts', 'render_js_args', 9999999999999 );
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 				$this->add_action( 'wp_footer', 'render_js_args' );
 			}
@@ -184,6 +184,11 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				wp_localize_script( $handle, $key, $value );
 			}
 			return true;
+		}
+
+		public function clear() {
+			$this->js_args = array();
+			return $this;
 		}
 
 		/**
