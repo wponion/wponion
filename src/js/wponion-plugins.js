@@ -287,6 +287,7 @@ $wponion = {
 /**
  * Simple JS Addons.
  */
+//@codekit-append ../vendors/inputToArray.js
 //@codekit-append ../../node_modules/sweetalert2/dist/sweetalert2.all.js
 //@codekit-append ../vendors/json-view/json-view.js
 //@codekit-append ../vendors/wp-js-hooks.js
