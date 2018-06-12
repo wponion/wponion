@@ -597,8 +597,12 @@
 			clone_elem: '> .wponion-fieldset > .wponion-keyvalue-field',
 			remove_btn: ".wponion-keyvalue-field > button[data-wponion-keyvalue-remove]",
 			template: $this.arg( 'html_template' ),
+			templateAfterRender: function ( $elem ) {
+				wphooks.doAction( 'wponion_key_value_updated', $elem );
+			},
 			onRemove: function ( $elem ) {
 				$elem.parent().remove();
+				wphooks.doAction( 'wponion_key_value_updated', $elem );
 			},
 		} );
 	};

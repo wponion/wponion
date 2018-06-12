@@ -590,8 +590,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			clone_elem: '> .wponion-fieldset > .wponion-keyvalue-field',
 			remove_btn: ".wponion-keyvalue-field > button[data-wponion-keyvalue-remove]",
 			template: $this.arg('html_template'),
+			templateAfterRender: function templateAfterRender($elem) {
+				wphooks.doAction('wponion_key_value_updated', $elem);
+			},
 			onRemove: function onRemove($elem) {
 				$elem.parent().remove();
+				wphooks.doAction('wponion_key_value_updated', $elem);
 			}
 		});
 	};
