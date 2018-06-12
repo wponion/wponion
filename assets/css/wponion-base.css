@@ -498,7 +498,7 @@ input.wponion-form-control {
   display: inline-block;
 }
 
-.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox] {
+.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox] {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -513,7 +513,7 @@ input.wponion-form-control {
   background: #dfdfdf;
 }
 
-.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:before, .wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:after {
+.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:before, .wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:after {
   content: " ";
   position: absolute;
   top: 0;
@@ -526,13 +526,13 @@ input.wponion-form-control {
   transition: transform 0.3s, -webkit-transform 0.3s;
 }
 
-.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:before {
+.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:before {
   width: 39px;
   height: 22px;
   background-color: #fdfdfd;
 }
 
-.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:after {
+.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:after {
   width: 22px;
   height: 22px;
   background-color: #fff;
@@ -540,25 +540,108 @@ input.wponion-form-control {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:checked {
+.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:checked {
   border-color: #04be02;
   background-color: #04be02;
 }
 
-.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:checked:before {
+.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:checked:before {
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
   transform: scale(0);
 }
 
-.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:checked:after {
+.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:checked:after {
   -webkit-transform: translateX(17px);
   -ms-transform: translateX(17px);
   transform: translateX(17px);
 }
 
-.wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:checked, .wponion-element.wponion-element-switch .wponion-fancy-checkbox input[type=checkbox]:focus {
+.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:checked, .wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:focus {
   outline: 0;
+}
+
+.wponion-element.wponion-element-switcher label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.wponion-element.wponion-element-switcher label input {
+  display: none;
+  visibility: hidden;
+}
+
+.wponion-element.wponion-element-switcher label input:checked + .switch:before {
+  background: rgba(0, 115, 170, 0.075);
+  -webkit-transform: translate3d(100%, -50%, 0) scale(1);
+  transform: translate3d(100%, -50%, 0) scale(1);
+}
+
+.wponion-element.wponion-element-switcher label input:checked + .switch:after {
+  background: #0073aa;
+  -webkit-transform: translate3d(100%, -50%, 0);
+  transform: translate3d(100%, -50%, 0);
+}
+
+.wponion-element.wponion-element-switcher label input:checked + .switch:active:before {
+  background: rgba(0, 115, 170, 0.075);
+  -webkit-transform: translate3d(100%, -50%, 0) scale(3);
+  transform: translate3d(100%, -50%, 0) scale(3);
+}
+
+.wponion-element.wponion-element-switcher label .switch {
+  border: 1px solid #b4b9be;
+  display: inline-block;
+  width: 35px;
+  height: 12px;
+  border-radius: 8px;
+  background: #b4b9be;
+  vertical-align: middle;
+  position: relative;
+  top: 4px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background 350ms ease;
+  -o-transition: background 350ms ease;
+  transition: background 350ms ease;
+}
+
+.wponion-element.wponion-element-switcher label .switch:after, .wponion-element.wponion-element-switcher label .switch:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: -3px;
+  -webkit-transition: all 350ms cubic-bezier(0, 0.95, 0.38, 0.98), background 150ms ease;
+  -o-transition: all 350ms cubic-bezier(0, 0.95, 0.38, 0.98), background 150ms ease;
+  transition: all 350ms cubic-bezier(0, 0.95, 0.38, 0.98), background 150ms ease;
+}
+
+.wponion-element.wponion-element-switcher label .switch:before {
+  background: rgba(0, 0, 0, 0.2);
+  -webkit-transform: translate3d(0, -50%, 0) scale(0);
+  transform: translate3d(0, -50%, 0) scale(0);
+}
+
+.wponion-element.wponion-element-switcher label .switch:after {
+  background: #999;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  -webkit-transform: translate3d(0, -50%, 0);
+  transform: translate3d(0, -50%, 0);
+}
+
+.wponion-element.wponion-element-switcher label .switch:active:before {
+  -webkit-transform: translate3d(0, -50%, 0) scale(3);
+  transform: translate3d(0, -50%, 0) scale(3);
 }
 
 /*||||||||||||||||||||||||||||||||||||
