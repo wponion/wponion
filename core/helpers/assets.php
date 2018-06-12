@@ -30,6 +30,10 @@ $wponion_js = array(
 		wponion_debug_assets( 'assets/js/wponion-core', 'js' ),
 		array( 'wponion-fields' ),
 	),
+	'wponion-customizer'        => array(
+		wponion_debug_assets( 'assets/js/wponion-customizer', 'js' ),
+		array( 'wponion-core' ),
+	),
 	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
 	'wponion-cloner'            => array( wponion_debug_assets( 'assets/js/wponion-cloner', 'js' ), ),
 	// WPOnion Related Plugins.
