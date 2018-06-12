@@ -78,8 +78,7 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 		 * Inits All Base Fields.
 		 */
 		public function init_fields() {
-			$i = '__instance';
-
+			//$i = '__instance';
 			foreach ( $this->fields as $o => $options ) {
 				if ( isset( $options['callback'] ) && false !== $options['callback'] ) {
 					continue;
@@ -92,12 +91,14 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 						}
 
 						foreach ( $section['fields'] as $f => $field ) {
-							$this->fields[ $o ]['sections'][ $s ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], $section['name'] );
+							//$this->fields[ $o ]['sections'][ $s ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], $section['name'] );
+							$this->render_field( $field, $options['name'], $section['name'] );
 						}
 					}
 				} elseif ( isset( $options['fields'] ) ) {
 					foreach ( $options['fields'] as $f => $field ) {
-						$this->fields[ $o ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], false );
+						//$this->fields[ $o ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], false );
+						$this->render_field( $field, $options['name'], false );
 					}
 				}
 			}
@@ -129,26 +130,28 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 			}
 		}
 
+		/**
+		 * Loads Required Styles.
+		 */
 		public function load_styles() {
 			wponion_load_asset( 'wponion-plugins' );
-			wponion_load_asset( 'wponion-core' );
+			wponion_load_asset( 'wponion-customizer' );
 		}
 
 		/**
 		 * @param $wp_customize \WP_Customize_Manager
 		 */
-		public function customize_register( $wp_customize = null, $fields = array() ) {
-			if ( empty( $fields ) ) {
+		public function customize_register( $wp_customize = null ) {
+			if ( empty( $this->wp ) ) {
 				$this->wp = $wp_customize;
-				$fields   = $this->fields;
 			}
 
-			foreach ( $fields as $page ) {
+			foreach ( $this->fields as $page ) {
 				if ( isset( $page['sections'] ) ) {
 					$this->panels( $page, true );
 					$this->register_section( $page['sections'], $page['name'] );
 				} elseif ( isset( $page['fields'] ) ) {
-					$this->register_section( array( $page ), '' );
+					$this->register_section( array( $page ) );
 				}
 			}
 		}
@@ -192,12 +195,14 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 					'panel' => $parent,
 				) ) );
 				foreach ( $section['fields'] as $field ) {
-					$field_db = $this->unique() . '[' . $field['id'] . ']';
-					$this->wp->add_setting( $field_db, wp_parse_args( $field, array(
-						'type'              => 'option',
-						'capability'        => 'edit_theme_options',
-						'sanitize_callback' => null,
-					) ) );
+					$field_db            = $this->unique() . '[' . $field['id'] . ']';
+					$_fdbs               = wp_parse_args( $field, array(
+						'type'       => 'option',
+						'capability' => 'edit_theme_options',
+					) );
+					$_fdbs['field_type'] = $_fdbs['type'];
+					$_fdbs['type']       = 'option';
+					$this->wp->add_setting( $field_db, $_fdbs );
 
 					$control_args = array(
 						'unique'   => array(
@@ -211,8 +216,13 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 						'options'  => $field,
 					);
 
-					$call_class = '\WPOnion\Modules\customize_control';
-					$this->wp->add_control( new $call_class( $this->wp, $field['id'], $control_args, $this->default_wrap_class() ) );
+					if ( class_exists( '\WPOnion\Modules\customize_control_' . $field['type'] ) ) {
+						$class = '\WPOnion\Modules\customize_control_' . $field['type'];
+					} else {
+						$class = '\WPOnion\Modules\customize_control';
+					}
+
+					$this->wp->add_control( new $class( $this->wp, $field['id'], $control_args, $this->default_wrap_class() ) );
 				}
 			}
 		}
