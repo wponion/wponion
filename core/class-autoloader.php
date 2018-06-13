@@ -98,6 +98,8 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 				include_once self::path( 'core/abstract/' . $file_name );
 			} elseif ( file_exists( self::path( 'core/modules/' . $file_name ) ) ) {
 				include_once self::path( 'core/modules/' . $file_name );
+			} elseif ( file_exists( self::path( 'core/modules/customize_control/' . $file_name ) ) ) {
+				include_once self::path( 'core/modules/customize_control/' . $file_name );
 			}
 		}
 
