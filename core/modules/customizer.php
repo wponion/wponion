@@ -78,7 +78,6 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 		 * Inits All Base Fields.
 		 */
 		public function init_fields() {
-			//$i = '__instance';
 			foreach ( $this->fields as $o => $options ) {
 				if ( isset( $options['callback'] ) && false !== $options['callback'] ) {
 					continue;
@@ -91,13 +90,11 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 						}
 
 						foreach ( $section['fields'] as $f => $field ) {
-							//$this->fields[ $o ]['sections'][ $s ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], $section['name'] );
 							$this->render_field( $field, $options['name'], $section['name'] );
 						}
 					}
 				} elseif ( isset( $options['fields'] ) ) {
 					foreach ( $options['fields'] as $f => $field ) {
-						//$this->fields[ $o ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], false );
 						$this->render_field( $field, $options['name'], false );
 					}
 				}
@@ -216,8 +213,8 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 						'options'  => $field,
 					);
 
-					if ( class_exists( '\WPOnion\Modules\customize_control_' . $field['type'] ) ) {
-						$class = '\WPOnion\Modules\customize_control_' . $field['type'];
+					if ( class_exists( '\WPOnion\Modules\Customize_Control\\' . $field['type'] ) ) {
+						$class = '\WPOnion\Modules\Customize_Control\\' . $field['type'];
 					} else {
 						$class = '\WPOnion\Modules\customize_control';
 					}
