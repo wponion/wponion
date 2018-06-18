@@ -484,8 +484,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Loads Required Style for the current settings page.
 		 */
 		public function load_admin_styles() {
-			wp_enqueue_script( 'wponion-core' );
-			wp_enqueue_style( 'wponion-core' );
+			wponion_load_core_assets();
 			$this->_action( 'page_assets' );
 		}
 
