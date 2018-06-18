@@ -34,6 +34,7 @@ $wponion_js = array(
 		wponion_debug_assets( 'assets/js/wponion-customizer', 'js' ),
 		array( 'wponion-core' ),
 	),
+	'wponion-postmessags'       => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
 	'wponion-cloner'            => array( wponion_debug_assets( 'assets/js/wponion-cloner', 'js' ), ),
 	// WPOnion Related Plugins.
@@ -73,6 +74,26 @@ $wponion_css = array(
 		array( 'wp-color-picker' ),
 	),
 );
+
+if ( ! function_exists( 'wponion_load_core_assets' ) ) {
+	/**
+	 * Loads More assets and also with core.
+	 *
+	 * @param array $extra
+	 */
+	function wponion_load_core_assets( $extra = array() ) {
+		wponion_load_asset( 'wponion-core' );
+
+		if ( is_array( $extra ) ) {
+			foreach ( $extra as $slug ) {
+				wponion_load_asset( $slug );
+			}
+		} else {
+			wponion_load_asset( $extra );
+		}
+
+	}
+}
 
 if ( ! function_exists( 'wponion_load_asset' ) ) {
 	/**
