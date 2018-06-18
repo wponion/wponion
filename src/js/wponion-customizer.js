@@ -41,6 +41,21 @@
 		} ),
 
 		/**
+		 * Links WIth KeyValue to auto get and save data.
+		 */
+		get_keyval_data: ( ( $control ) => {
+			let $values = $control.container.find( ':input' )
+								  .inputToArray( { key: 'name', value: true } );
+			$.each( $values, function ( $k, $vs ) {
+				$.each( $vs, function ( $e, $ep ) {
+					$values = $ep;
+				} );
+			} );
+
+			return $values;
+		} ),
+
+		/**
 		 * Enables Cloneable fields.
 		 */
 		cloneable: ( ( $control ) => {
@@ -52,21 +67,59 @@
 		} ),
 	};
 
+	let $wpc = wp.customize.controlConstructor;
+
 	/**
 	 * Handles Key Value field in customizer.
 	 */
-	wp.customize.controlConstructor.wponion_field_key_value = wp.customize.Control.extend( {
+	$wpc.wponion_field_key_value = wp.customize.Control.extend( {
 		ready: function () {
-			'use strict';
 			let control = this;
 			wphooks.addAction( 'wponion_key_value_updated', ( ( $elem ) => {
-				control.linkElements();
-				$wponion_customizer.cloneable_update( control );
+				let $val = $wponion_customizer.get_keyval_data( control );
+				control.setting.set( $val );
 			} ), 11 );
 
-			$wponion_customizer.cloneable( control );
+			control.container.on( 'change', 'input[type=text]', function () {
+				let $val = $wponion_customizer.get_keyval_data( control );
+				control.setting.set( $val );
+			} );
+		}
+	} );
+
+	$wpc.wponion_field_checkbox = wp.customize.Control.extend( {
+		ready: function () {
+			let control = this;
+			control.container.on( 'change', ':input', function () {
+				let $val = $wponion_customizer.get_keyval_data( control );
+				control.setting.set( $val );
+			} );
+		}
+	} );
+
+
+	/**
+	 * Handles Fieldset And Checkbox Field.
+	 */
+	$wpc.wponion_field_fieldset = wp.customize.Control.extend( {
+		ready: function () {
+			$wponion_customizer.cloneable( this );
+		}
+	} );
+
+	/**
+	 * Handles Image Picker.
+	 */
+	$wpc.wponion_field_image = $wpc.wponion_field_gallery = wp.customize.Control.extend( {
+		initialize: function ( id, options ) {
+			let $html  = $( '<div>' + options.params.content + '</div>' );
+			let $input = $html.find( 'input#image_id' );
+			$input.attr( 'data-customize-setting-link', $html.find( 'input#image_id' ).attr( 'name' ) );
+			options.params.content = $html.html();
+			wp.customize.Control.prototype.initialize.call( this, id, options );
 		},
 	} );
+
 
 	/**
 	 * Inits Customizer Instance.
