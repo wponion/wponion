@@ -17,8 +17,9 @@
 			let $settings = this.arg( 'inputmask' );
 			if ( $settings ) {
 				$settings = wpo.validate_js_function( $settings );
-				this.save( this.elem.inputmask( $settings ) );
-				//wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
+				this.elem.inputmask( $settings );
+				this.save( $settings );
+				wpo.__plugin_debug_info( this.elem, 'inputmask', $settings );
 			}
 		}
 		return this;
@@ -389,8 +390,9 @@
 			let $arg              = this.arg( $fid + 'tooltip' );
 			$arg[ 'performance' ] = false;
 			if ( $arg[ 'image' ] !== false ) {
-
 				$arg.html               = '#wponiontooltipimagetippy';
+				$arg.updateDuration     = 2000;
+				$arg.followCursor       = false;
 				$arg.onShow             = function () {
 					const content = this.querySelector( '.tippy-content' );
 					if ( $tip.loading ) return;
@@ -402,7 +404,8 @@
 						.then( blob => {
 							const url         = URL.createObjectURL( blob );
 							content.innerHTML = `<img src="${url}">`;
-							$tip.loading      = false
+							$tip.loading      = false;
+							this.on( 'mousemove' );
 						} )
 						.catch( e => {
 							content.innerHTML = 'Loading failed';
@@ -424,8 +427,6 @@
 					}
 				};
 			}
-
-
 			$tip = tippy( this.elem[ 0 ], $arg );
 			this.save( $tip );
 		}
@@ -666,6 +667,8 @@
 				$preview_add.hide();
 				$preview.show();
 			}
+
+			wphooks.doAction( 'wponion_image_upload_updated', $input, $preview, $preview_add );
 		} );
 
 		$preview_add.on( 'click', function () {
