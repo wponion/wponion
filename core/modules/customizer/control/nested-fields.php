@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules\Customize_Control;
+namespace WPOnion\Modules\Customize\Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize_Control\nested_fields' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control\nested_fields' ) ) {
 	/**
 	 * Class nested_fields
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize_Control\nested_fields' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class nested_fields extends \WPOnion\Modules\customize_control {
+	class nested_fields extends \WPOnion\Modules\Customize\control {
 		/**
 		 * @return array
 		 */
