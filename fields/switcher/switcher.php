@@ -38,11 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\switcher' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			return '<div class=" form-group form-check wponion-fancy-checkbox">
-				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
-					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
-					<span class="wponion-fancy-checkbox-wrap wp-ui-highlight"> <span class="wponion-fancy-checkbox-button"></span> </span> ' . $options['label'] . ' </label>
-			</div>';
+			return '<label><input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  /><span class="switch"></span></label>';
 		}
 	}
 }

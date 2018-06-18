@@ -131,6 +131,8 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
+			$this->select_framework = wponion_validate_select_framework( $this->field );
+			wponion_load_asset( $this->select_framework );
 		}
 	}
 }

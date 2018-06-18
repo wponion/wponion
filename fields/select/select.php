@@ -33,9 +33,7 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 		protected $select_framework = null;
 
 		/**
-		 * Final HTML Output;
-		 *
-		 * @return mixed;
+		 * Final HTML Output
 		 */
 		protected function output() {
 			$this->before();
@@ -46,7 +44,6 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 			) );
 
 			echo '<select ' . $attr . '>';
-
 			foreach ( $options as $key => $option ) {
 				if ( is_array( $option ) && isset( $option['label'] ) ) {
 					echo $this->sel_option( $this->handle_options( $key, $option ) );
