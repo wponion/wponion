@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Customize;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\customize_control' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\control' ) ) {
 	/**
 	 * Class customize_control
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\customize_control' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class customize_control extends \WP_Customize_Control {
+	class control extends \WP_Customize_Control {
 
 		/**
 		 * unique
@@ -125,10 +125,6 @@ if ( ! class_exists( '\WPOnion\Modules\customize_control' ) ) {
 			$this->options['id']                                        = $this->id;
 			$this->options['default']                                   = $this->setting->default;
 			$this->options['attributes']['data-customize-setting-link'] = $this->settings['default']->id;
-
-			if ( ! isset( $this->options['wrap_attributes'] ) ) {
-				$this->options['wrap_attributes'] = array();
-			}
 			return $this->options;
 		}
 
