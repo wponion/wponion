@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules\Customize_Control;
+namespace WPOnion\Modules\Customize\Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize_Control\cloneable' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control\cloneable' ) ) {
 	/**
 	 * Class cloneable
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize_Control\cloneable' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class cloneable extends \WPOnion\Modules\customize_control {
+	class cloneable extends \WPOnion\Modules\Customize\control {
 		/**
 		 * type
 		 *
