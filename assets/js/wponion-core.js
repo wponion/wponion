@@ -437,9 +437,8 @@ $wponion.get = function ($elem) {
  */
 $wponion.validate_single_function = function ($string) {
 	if ((typeof $string === 'undefined' ? 'undefined' : _typeof($string)) === 'object') {
-		var $args = $string['wponino_js_args'] === false ? false : $string['wponino_js_args'];
-		var $contents = $string['wponino_js_contents'] === false ? false : $string['wponino_js_contents'];
-
+		var $args = $string['wponion_js_args'] === false ? false : $string['wponion_js_args'];
+		var $contents = $string['wponion_js_contents'] === false ? false : $string['wponion_js_contents'];
 		if ($args === false && $contents !== false) {
 			return new Function($contents);
 		} else if ($args !== false && $contents !== false) {
