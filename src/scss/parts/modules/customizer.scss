@@ -1,58 +1,63 @@
-.wponion-framework.wponion-module-customizer {
-  .wponion-element {
-	padding: 0;
-	.wponion-field-title {
-	  display:       block;
-	  width:         100%;
-	  margin-bottom: 10px;
-	}
-	.wponion-fieldset {
-	  width:       100%;
-	  display:     block;
-	  margin-left: 0 !important;
-	}
-
-	.wponion-input-group {
-	  display: inline-block;
-	  input {
-		width:         auto;
-		min-width:     200px;
+body.wp-customizer {
+  .wponion-framework.wponion-module-customizer {
+	.wponion-element {
+	  padding: 0;
+	  .wponion-field-title {
+		display:       block;
+		width:         100%;
 		margin-bottom: 10px;
 	  }
-
-	  + .wponion-input-group {
-		margin-bottom: 10px !important;
+	  .wponion-fieldset {
+		width:       100%;
+		display:     block;
+		margin-left: 0 !important;
 	  }
-	}
 
-	/**
-	 * Element Fixes
-	 */
-	&.wponion-element-key_value {
-	  .wponion-keyvalue-field, .wponion-keyvalue-field {
-		margin-bottom: 15px;
-		> .wponion-input-group {
-		  width:  100%;
-		  margin: 0;
+	  .wponion-input-group {
+		display: inline-block;
+		input {
+		  width:         auto;
+		  min-width:     200px;
+		  margin-bottom: 10px;
+		}
+
+		+ .wponion-input-group {
+		  margin-bottom: 10px !important;
+		}
+	  }
+
+	  /**
+	   * Element Fixes
+	   */
+	  .wponion-keyvalue_wrap {
+		.wponion-keyvalue-field, .wponion-keyvalue-field {
+		  margin-bottom: 15px;
+		  > .wponion-input-group {
+			width:  100%;
+			margin: 0;
+		  }
+		}
+		+ button {
+		  margin-bottom: 10px;
 		}
 	  }
 	}
   }
-}
 
-li.customize-control-wponion_field {
-  margin-bottom: 15px;
-  padding:       15px 0;
-  border-bottom: 1px solid #dedede;
-  &:first-child {
-	padding-top: 0;
+  li.customize-control-wponion_field {
+	margin-bottom: 15px;
+	padding:       15px 0;
+	border-bottom: 1px solid #dedede;
+	&:first-child {
+	  padding-top: 0;
+	}
+	&:last-child {
+	  padding-bottom: 0;
+	  border-bottom:  none;
+	}
   }
-  &:last-child {
-	padding-bottom: 0;
-	border-bottom:  none;
-  }
-}
 
-.swal2-container {
-  z-index: 9999999999999999999999999999999999999999999 !important;
+  .swal2-container, .tippy-popper {
+	z-index: 9999999999999999999999999999999999999999999 !important;
+  }
 }
