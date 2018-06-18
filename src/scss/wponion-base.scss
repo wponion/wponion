@@ -31,8 +31,6 @@ input.wponion-form-control {
 }
 
 @import "parts/core_fields";
-@import "parts/modules/customizer";
-
 
 .wponion-accordion-placeholder {
   border:        1px dashed #bdbdbd;
@@ -70,3 +68,6 @@ $wponionThemes: map-merge((
 	@include btnCOl(darken($value, 5%), darken($value, 10%), $value, lighten($value, 3%));
   }
 }
+
+
+@import "parts/modules/customizer";
