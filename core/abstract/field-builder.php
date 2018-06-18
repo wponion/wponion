@@ -271,8 +271,26 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 			$args                = $this->field_args( $type, $id, $title, $args );
 			$this->current_field = $args['id'];
 			$path                = $this->get_current_path( $args['id'], true );
-			$this->set( $path, $args );
-			return $this;
+			return $this->set( $path, $args );
+		}
+
+		/**
+		 * @param $extra_fields
+		 *
+		 * @return $this
+		 */
+		public function merge_fields( $extra_fields ) {
+			$path  = ( ! empty( $path ) ) ? $path : $this->get_current_path( array(), true );
+			$array = $this->get( $path );
+			$array = ( ! is_array( $array ) ) ? array() : $array;
+
+			if ( $extra_fields instanceof \WPOnion\Bridge\Field_Builder ) {
+				$extra_fields = $extra_fields->get();
+			}
+
+			$fields = array_merge( $array, $extra_fields );
+
+			return $this->set( $path, $fields );
 		}
 
 		/**
@@ -310,6 +328,17 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 */
 		public function desc( $content = '', $field_side = false ) {
 			return $this->_field_hack( ( true === $field_side ) ? 'desc_field' : 'desc', $content );
+		}
+
+		/**
+		 * Adds Custom Style.
+		 *
+		 * @param string $style_attr
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
+		public function style( $style_attr = '' ) {
+			return $this->_field_hack( 'style', $style_attr );
 		}
 
 		/**
