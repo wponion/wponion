@@ -52,7 +52,10 @@
 			if ( $this.element.is( 'input[type=checkbox]' ) || $this.element.is( 'input[type=radio]' ) ) {
 				$value = ( $this.element.is( ":checked" ) ) ? $this.element.val() : false;
 			} else if ( $this.element.is( 'textarea' ) ) {
-				$value = $this.element.html();
+				$value = $this.element.val();
+				if ( $value === '' ) {
+					$value = $this.element.html();
+				}
 			} else {
 				$value = $this.element.val();
 			}
