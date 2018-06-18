@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class customizer extends \WPOnion\Bridge\Module {
+	class customizer extends \WPOnion\Modules\Customize\Postmessage {
 		/**
 		 * module
 		 *
@@ -74,6 +74,12 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 			) );
 		}
 
+		protected function handle_single_field( $field = array(), $page = false, $section = false ) {
+			$this->handle_field_script( $field );
+			$this->register_partials( $field );
+			$this->render_field( $field, $page, $section );
+		}
+
 		/**
 		 * Inits All Base Fields.
 		 */
@@ -117,10 +123,9 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 		 */
 		public function init() {
 			if ( ! empty( $this->fields ) ) {
-				if ( defined( 'IFRAME_REQUEST' ) ) {
+				if ( is_customize_preview() ) {
 					$this->init_fields();
 				}
-
 				$this->add_action( 'customize_register', 'customize_register' );
 				$this->add_action( 'customize_controls_enqueue_scripts', 'outer_sections_css' );
 				$this->add_action( 'customize_controls_enqueue_scripts', 'load_styles' );
@@ -131,8 +136,8 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 		 * Loads Required Styles.
 		 */
 		public function load_styles() {
-			wponion_load_asset( 'wponion-plugins' );
-			wponion_load_asset( 'wponion-customizer' );
+			wponion_load_core_assets( array( 'wponion-customizer', 'wponion-postmessags' ) );
+			$this->postmessage();
 		}
 
 		/**
@@ -213,10 +218,10 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 						'options'  => $field,
 					);
 
-					if ( class_exists( '\WPOnion\Modules\Customize_Control\\' . $field['type'] ) ) {
-						$class = '\WPOnion\Modules\Customize_Control\\' . $field['type'];
+					if ( class_exists( '\WPOnion\Modules\Customize\Control\\' . $field['type'] ) ) {
+						$class = '\WPOnion\Modules\Customize\Control\\' . $field['type'];
 					} else {
-						$class = '\WPOnion\Modules\customize_control';
+						$class = '\WPOnion\Modules\Customize\control';
 					}
 
 					$this->wp->add_control( new $class( $this->wp, $field['id'], $control_args, $this->default_wrap_class() ) );
@@ -237,6 +242,30 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 			}
 			if ( ! empty( $css ) ) {
 				echo '<style>' . esc_attr( $css ) . '</style>';
+			}
+		}
+
+		/**
+		 * Parses all fields and searches for the "partial_refresh" argument inside them.
+		 * If that argument is found, then it starts parsing the array of arguments.
+		 * Registers a selective_refresh in the customizer for each one of them.
+		 *
+		 * @param $field
+		 */
+		public function register_partials( $field ) {
+			if ( ! isset( $this->wp->selective_refresh ) ) {
+				return;
+			}
+
+			if ( isset( $field['partial_refresh'] ) && ! empty( $field['partial_refresh'] ) ) {
+				foreach ( $field['partial_refresh'] as $partial_refresh => $partial_refresh_args ) {
+					if ( isset( $partial_refresh_args['render_callback'] ) && isset( $partial_refresh_args['selector'] ) ) {
+						$partial_refresh_args = wp_parse_args( $partial_refresh_args, array(
+							'settings' => $field['settings'],
+						) );
+						$this->wp->selective_refresh->add_partial( $partial_refresh, $partial_refresh_args );
+					}
+				}
 			}
 		}
 	}
