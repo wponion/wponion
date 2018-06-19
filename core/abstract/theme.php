@@ -106,6 +106,15 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		}
 
 		/**
+		 * Returns Metabox Instance.
+		 *
+		 * @return \WPOnion\Modules\metabox
+		 */
+		public function metabox() {
+			return wponion_metabox_registry( $this->plugin_id );
+		}
+
+		/**
 		 * Returns Dashboard Instance.
 		 *
 		 * @return \WPOnion\Modules\Dashboard_Widgets
