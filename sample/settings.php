@@ -63,3 +63,4 @@ $ins->section( 'Font Picker', 'font_picker' )
 $ins->init();
 
 require_once 'customizer.php';
+require_once 'metabox.php';
