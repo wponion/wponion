@@ -34,6 +34,10 @@ $wponion_js = array(
 		wponion_debug_assets( 'assets/js/wponion-customizer', 'js' ),
 		array( 'wponion-core' ),
 	),
+	'wponion-metabox'           => array(
+		wponion_debug_assets( 'assets/js/wponion-metabox', 'js' ),
+		array( 'wponion-core' ),
+	),
 	'wponion-postmessags'       => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
 	'wponion-cloner'            => array( wponion_debug_assets( 'assets/js/wponion-cloner', 'js' ), ),
