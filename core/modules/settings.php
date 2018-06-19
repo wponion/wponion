@@ -497,43 +497,10 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( ! empty( $this->menus ) ) {
 				return $this->menus;
 			}
-			$this->menus = $this->_extract_settings_menus();
+			$this->menus = $this->extract_fields_menus();
 			return $this->menus;
 		}
 
-		/**
-		 * Extracts Settings Sections and its subsections from the $this->fields array.
-		 *
-		 * @param array $fields
-		 * @param bool  $is_child
-		 * @param bool  $parent
-		 *
-		 * @return array
-		 */
-		protected function _extract_settings_menus( $fields = array(), $is_child = false, $parent = false ) {
-			$return = array();
-			if ( empty( $fields ) ) {
-				$fields = $this->fields;
-			}
-
-			if ( is_array( $fields ) ) {
-				foreach ( $fields as $field ) {
-					if ( isset( $field['sections'] ) && false === empty( $field['sections'] ) ) {
-						$menu                               = $this->handle_single_menu( $field, $is_child, $parent );
-						$return[ $menu['name'] ]            = $menu;
-						$return[ $menu['name'] ]['submenu'] = $this->_extract_settings_menus( $field['sections'], true, $menu['name'] );
-					} elseif ( ( isset( $field['fields'] ) && false === empty( $field['fields'] ) ) || isset( $field['callback'] ) || isset( $field['href'] ) ) {
-						$menu                    = $this->handle_single_menu( $field, $is_child, $parent );
-						$return[ $menu['name'] ] = $menu;
-					} else {
-						$menu                                    = $this->handle_single_menu( $field, $is_child, $parent );
-						$return[ $menu['name'] ]                 = $menu;
-						$return[ $menu['name'] ]['is_seperator'] = true;
-					}
-				}
-			}
-			return $return;
-		}
 
 		/**
 		 * Handles Single Field args and converts into a menu.
@@ -630,7 +597,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'extra_js'      => array(),
 				'option_name'   => '_wponion',
 				'plugin_id'     => false,
-				'theme'         => 'modern',
+				'theme'         => 'wp',
 				'template_path' => false,
 				'buttons'       => array(
 					'save'    => __( 'Save Settings' ),
@@ -765,13 +732,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return mixed
 		 */
 		public function render_field( $field = array(), $parent_section = false, $section = false, $is_init_field = false ) {
-			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
-			return $callback( $field, _wponion_get_field_value( $field, $this->get_db_values() ), array(
-				'plugin_id' => $this->plugin_id(),
-				'module'    => $this->module(),
-				'unique'    => $this->unique,
-				'hash'      => sanitize_title( $parent_section . '-' . $section ),
-			) );
+			return parent::render_field( $field, sanitize_title( $parent_section . '-' . $section ), $is_init_field );
 		}
 
 		/**
