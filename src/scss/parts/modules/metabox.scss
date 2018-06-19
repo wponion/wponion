@@ -1,0 +1,123 @@
+$wponion_metabox_menu_color: #e14d43;
+$wponion_metabox_a_color: #fff;
+$wponion_metabox_a_bg: #363b3f;
+$wponion_metabox_menu_bg_color: #26292c;
+$wponion_metabox_menu_width: 200px;
+
+.postbox.wponion-metabox {
+  z-index: 0;
+  .inside {
+	padding: 0;
+	margin:  0 !important;
+	.wponion-metabox-inside-wrap {
+	  width:   100%;
+	  display: inline-block;
+
+	  .wponion-metabox-menu-wrap {
+		float:      left;
+		width:      $wponion_metabox_menu_width;
+		background: $wponion_metabox_a_bg;
+
+		ul {
+		  padding-left: 0px;
+		  margin-top:   0;
+		  li {
+			list-style: none;
+			a {
+			  text-decoration: none;
+			  color:           $wponion_metabox_a_color;
+			  box-shadow:      none;
+			  outline:         none;
+			  display:         block;
+			  transition:      all .25s ease;
+			  padding:         10px;
+
+			  &.active {
+				background: $wponion_metabox_menu_color;
+			  }
+			  i {
+				width:      20px;
+				height:     20px;
+				text-align: center;
+			  }
+			}
+
+			&:hover {
+			  transition: all .25s ease;
+			  > a {
+				background: $wponion_metabox_menu_color;
+			  }
+			}
+		  }
+		}
+
+		> ul {
+		  background: $wponion_metabox_a_bg;
+		  max-width:  200px;
+		  > li {
+			> a {
+			  &.dropdown {
+				&::after {
+				  content:        '';
+				  display:        inline-block;
+				  width:          0;
+				  height:         0;
+				  margin-left:    2px;
+				  vertical-align: middle;
+				  border-top:     4px dashed;
+				  border-right:   4px solid transparent;
+				  border-left:    4px solid transparent;
+				  float:          right;
+				  margin-top:     9px;
+				}
+			  }
+			}
+			> ul {
+			  display:          none;
+			  background-color: $wponion_metabox_menu_bg_color;
+			  padding:          7px 0;
+			  > li {
+				> a {
+				  padding-left: 20px;
+				  &.active {
+					font-weight: bold;
+				  }
+				}
+			  }
+			}
+
+			&:hover {
+			  > ul {
+				> li {
+				  &:hover {
+					a {
+					  background: none;
+					  color:      $wponion_metabox_menu_color;
+					}
+				  }
+				}
+			  }
+
+			}
+		  }
+		}
+	  }
+
+	  .wponion-metabox-menu-bg-wrap {
+		position:   absolute;
+		top:        0;
+		background: $wponion_metabox_a_bg;
+		bottom:     0;
+		width:      $wponion_metabox_menu_width;
+		z-index:    -1;
+	  }
+
+	  .wponion-metabox-content-wrap {
+		float:      left;
+		width:      calc(100% - $wponion_metabox_menu_width);
+		background: #fff;
+	  }
+	}
+
+  }
+}
