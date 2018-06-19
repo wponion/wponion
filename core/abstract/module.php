@@ -182,7 +182,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param string $theme_init
 		 * @param string $theme_html
 		 */
-		protected function init_theme( $theme_init = '-init.php', $theme_html = '-settings-html.php' ) {
+		protected function init_theme( $theme_html = '-settings-html.php', $theme_init = '-init.php' ) {
 			if ( false === $this->current_theme ) {
 				$theme          = $this->option( 'theme' );
 				$template_path  = $this->option( 'template_path' );
@@ -318,5 +318,77 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			);
 		}
 
+		/**
+		 * Extracts Settings Sections and its subsections from the $this->fields array.
+		 *
+		 * @param array $fields
+		 * @param bool  $is_child
+		 * @param bool  $parent
+		 *
+		 * @uses \WPOnion\Modules\Metabox
+		 * @uses \WPOnion\Modules\Settings
+		 *
+		 * @return array
+		 */
+		protected function extract_fields_menus( $fields = array(), $is_child = false, $parent = false ) {
+			$return = array();
+			if ( empty( $fields ) ) {
+				$fields = $this->fields;
+			}
+
+			if ( is_array( $fields ) ) {
+				foreach ( $fields as $field ) {
+					if ( isset( $field['sections'] ) && false === empty( $field['sections'] ) ) {
+						$menu                               = $this->handle_single_menu( $field, $is_child, $parent );
+						$return[ $menu['name'] ]            = $menu;
+						$return[ $menu['name'] ]['submenu'] = $this->extract_fields_menus( $field['sections'], true, $menu['name'] );
+					} elseif ( ( isset( $field['fields'] ) && false === empty( $field['fields'] ) ) || isset( $field['callback'] ) || isset( $field['href'] ) ) {
+						$menu                    = $this->handle_single_menu( $field, $is_child, $parent );
+						$return[ $menu['name'] ] = $menu;
+					} else {
+						$menu                                    = $this->handle_single_menu( $field, $is_child, $parent );
+						$return[ $menu['name'] ]                 = $menu;
+						$return[ $menu['name'] ]['is_seperator'] = true;
+					}
+				}
+			}
+			return $return;
+		}
+
+		/**
+		 * Checks if Option Loop Is Valid
+		 *
+		 * @param array $option
+		 * @param bool  $section
+		 * @param bool  $check_current_page
+		 *
+		 * @return bool
+		 */
+		public function valid_option( $option = array() ) {
+			if ( ! isset( $option['fields'] ) && ! isset( $option['callback'] ) && ! isset( $option['sections'] ) ) {
+				return false;
+			}
+
+			return true;
+		}
+
+		/**
+		 * Renders / Creates An First Instance based on the $is_init_field variable value.
+		 *
+		 * @param array $field
+		 * @param bool  $hash
+		 * @param bool  $is_init_field
+		 *
+		 * @return mixed
+		 */
+		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
+			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
+			return $callback( $field, _wponion_get_field_value( $field, $this->get_db_values() ), array(
+				'plugin_id' => $this->plugin_id(),
+				'module'    => $this->module(),
+				'unique'    => $this->unique,
+				'hash'      => $hash,
+			) );
+		}
 	}
 }
