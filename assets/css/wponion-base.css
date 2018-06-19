@@ -7470,4 +7470,119 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
   z-index: 9999999999999999999999999999999999999999999 !important;
 }
 
+.postbox.wponion-metabox {
+  z-index: 0;
+}
+
+.postbox.wponion-metabox .inside {
+  padding: 0;
+  margin: 0 !important;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap {
+  width: 100%;
+  display: inline-block;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap {
+  float: left;
+  width: 200px;
+  background: #363b3f;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul {
+  padding-left: 0px;
+  margin-top: 0;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul li {
+  list-style: none;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul li a {
+  text-decoration: none;
+  color: #fff;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+  display: block;
+  -webkit-transition: all .25s ease;
+  -o-transition: all .25s ease;
+  transition: all .25s ease;
+  padding: 10px;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul li a.active {
+  background: #e14d43;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul li a i {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul li:hover {
+  -webkit-transition: all .25s ease;
+  -o-transition: all .25s ease;
+  transition: all .25s ease;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul li:hover > a {
+  background: #e14d43;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul {
+  background: #363b3f;
+  max-width: 200px;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li > a.dropdown::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  float: right;
+  margin-top: 9px;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li > ul {
+  display: none;
+  background-color: #26292c;
+  padding: 7px 0;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li > ul > li > a {
+  padding-left: 20px;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li > ul > li > a.active {
+  font-weight: bold;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li:hover > ul > li:hover a {
+  background: none;
+  color: #e14d43;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-bg-wrap {
+  position: absolute;
+  top: 0;
+  background: #363b3f;
+  bottom: 0;
+  width: 200px;
+  z-index: -1;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-content-wrap {
+  float: left;
+  width: calc(100% - $wponion_metabox_menu_width);
+  background: #fff;
+}
+
 /*# sourceMappingURL=wponion-base.css.map */
