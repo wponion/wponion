@@ -98,6 +98,18 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_metabox_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for metabox module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_metabox_registry( &$instance ) {
+		return wponion_get_registry_instance( 'metabox', $instance, 'settings' );
+	}
+}
 
 if ( ! function_exists( 'wponion_value_registry' ) ) {
 	/**
