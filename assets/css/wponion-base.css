@@ -1,3 +1,17 @@
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
 .button-danger, .wponion-button-custom-danger {
   color: #fff !important;
   border-color: #dd382d #d02c21 #d02c21 !important;
@@ -7487,7 +7501,7 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap {
   float: left;
   width: 200px;
-  background: #363b3f;
+  background: #26292c;
 }
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul {
@@ -7509,11 +7523,12 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
   -webkit-transition: all .25s ease;
   -o-transition: all .25s ease;
   transition: all .25s ease;
-  padding: 10px;
+  padding: 10px !important;
 }
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul li a.active {
   background: #e14d43;
+  font-weight: bold;
 }
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap ul li a i {
@@ -7533,7 +7548,7 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
 }
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul {
-  background: #363b3f;
+  background: #26292c;
   max-width: 200px;
 }
 
@@ -7553,7 +7568,7 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li > ul {
   display: none;
-  background-color: #26292c;
+  background-color: #32373C;
   padding: 7px 0;
 }
 
@@ -7561,19 +7576,35 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
   padding-left: 20px;
 }
 
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li > ul > li > a::after {
+  left: 180px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li > ul > li > a.active {
   font-weight: bold;
+  background: #3D434A;
+  color: white;
+}
+
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li > ul > li > a.active::after {
+  border-right-color: #fff;
+  border-width: 10px;
 }
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap > ul > li:hover > ul > li:hover a {
-  background: none;
-  color: #e14d43;
+  background: #3D434A;
 }
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-bg-wrap {
   position: absolute;
   top: 0;
-  background: #363b3f;
+  background: #26292c;
   bottom: 0;
   width: 200px;
   z-index: -1;
@@ -7581,8 +7612,39 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-content-wrap {
   float: left;
-  width: calc(100% - $wponion_metabox_menu_width);
+  /***
+		 * @todo please change 200px here also when updating the width above.
+		 */
+  width: calc(100% - 200px);
   background: #fff;
+}
+
+.postbox.wponion-metabox .inside .ajax-container {
+  display: inline-block;
+  width: 100%;
+  background: #Fff;
+  text-align: right;
+  border-top: 1px solid #eee;
+}
+
+.blockUI.blockOverlay::before {
+  height: 1em;
+  width: 1em;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.5em;
+  margin-top: -0.5em;
+  content: '';
+  -webkit-animation: spin 1s ease-in-out infinite;
+  animation: spin 1s ease-in-out infinite;
+  background: url("../img/loader.svg") center center;
+  background-size: cover;
+  line-height: 1;
+  text-align: center;
+  font-size: 2em;
+  color: rgba(0, 0, 0, 0.75);
 }
 
 /*# sourceMappingURL=wponion-base.css.map */
