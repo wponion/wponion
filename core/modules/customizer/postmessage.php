@@ -22,7 +22,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Postmessage' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class postmessage extends \WPOnion\Bridge\Module {
+	abstract class postmessage extends \WPOnion\Bridge\Module {
 		/**
 		 * The script.
 		 *
@@ -48,7 +48,6 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Postmessage' ) ) {
 		 * The rest is handled via JS.
 		 */
 		public function postmessage() {
-			var_dump( $this->script );
 			$this->script = apply_filters( 'wponion_postmessage_script', $this->script );
 			wp_add_inline_script( 'wponion-postmessags', $this->script, 'after' );
 		}
