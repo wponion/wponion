@@ -36,7 +36,7 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 		/**
 		 * Adds An Instance To Array.
 		 *
-		 * @param string            $type
+		 * @param string          $type
 		 * @param \WPOnion\Bridge $instance
 		 *
 		 * @return mixed|void
@@ -46,7 +46,11 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 				$this->registry[ $type ] = array();
 			}
 
-			$key = $instance->plugin_id();
+			if ( method_exists( $instance, 'uid' ) ) {
+				$key = $instance->uid();
+			} else {
+				$key = $instance->plugin_id();
+			}
 
 			if ( ! isset( $registry[ $type ][ $key ] ) ) {
 				$this->registry[ $type ][ $key ] = $instance;
