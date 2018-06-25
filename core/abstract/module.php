@@ -161,7 +161,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function fields() {
+		public function fields() {
 			return $this->fields;
 		}
 
@@ -197,7 +197,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 						'file'      => $file,
 						'html_file' => wponion_locate_template( $theme . '/' . $theme . $theme_html, $template_path ),
 					);
-					wponion_get_template( $theme . '/' . $theme . $theme_init, array( 'plugin_id' => $this->plugin_id() ) );
+					wponion_get_template( $theme . '/' . $theme . $theme_init, $this->theme_callback_args() );
 				} else {
 					$this->current_theme = array(
 						'success' => false,
@@ -211,6 +211,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					include $this->current_theme['html_file'];
 				}
 			}
+		}
+
+		/**
+		 * Returns A Array of callback args for the theme.
+		 *
+		 * @return array
+		 */
+		protected function theme_callback_args() {
+			return array( 'plugin_id' => $this->plugin_id() );
 		}
 
 		/**
@@ -241,11 +250,20 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Retrives Stored DB Cache.
+		 *
+		 * @return mixed
+		 */
+		protected function get_db_cache() {
+			return get_option( $this->get_cache_id(), array() );
+		}
+
+		/**
 		 * Returns Options Cache.
 		 */
 		protected function get_cache() {
 			if ( false === $this->options_cache ) {
-				$values              = get_option( $this->get_cache_id(), array() );
+				$values              = $this->get_db_cache();
 				$this->options_cache = ( is_array( $values ) ) ? $values : array();
 				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
 					$this->options_cache = array();
@@ -356,6 +374,73 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Handles Single Field args and converts into a menu.
+		 *
+		 * @param      $menu
+		 * @param bool $is_child
+		 * @param bool $parent
+		 *
+		 * @return array
+		 */
+		protected function handle_single_menu( $menu, $is_child = false, $parent = false ) {
+			$title         = isset( $menu['title'] ) ? $menu['title'] : false;
+			$name          = isset( $menu['name'] ) ? $menu['name'] : sanitize_title( $title );
+			$icon          = isset( $menu['icon'] ) ? $menu['icon'] : false;
+			$attributes    = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
+			$internal_href = isset( $menu['href'] ) ? false : true;
+			$is_active     = false;
+
+			if ( false === $parent ) {
+				if ( true === $internal_href ) {
+					$menu['href']      = add_query_arg( array( 'parent-id' => $name ), $this->page_url() );
+					$menu['part_href'] = add_query_arg( array( 'parent-id' => $name ), $this->page_url( true ) );
+				} else {
+					$menu['part_href'] = $menu['href'];
+				}
+
+				if ( $name === $this->active( true ) ) {
+					$is_active = true;
+				}
+			} elseif ( true === $is_child && false !== $parent ) {
+				if ( true === $internal_href ) {
+					$menu['href'] = add_query_arg( array(
+						'parent-id'  => $parent,
+						'section-id' => $name,
+					), $this->page_url() );
+
+					$menu['part_href'] = add_query_arg( array(
+						'parent-id'  => $parent,
+						'section-id' => $name,
+					), $this->page_url( true ) );
+				} else {
+					$menu['part_href'] = $menu['href'];
+				}
+
+				if ( $name === $this->active( false ) ) {
+					$is_active = true;
+				}
+			}
+
+			if ( isset( $menu['query_args'] ) && ! empty( $menu['query_args'] ) ) {
+				$menu['href']      = add_query_arg( $menu['query_args'], $menu['href'] );
+				$menu['part_href'] = add_query_arg( $menu['query_args'], $menu['part_href'] );
+			}
+
+			return array(
+				'attributes'       => $attributes,
+				'title'            => $title,
+				'name'             => $name,
+				'icon'             => $icon,
+				'is_active'        => $is_active,
+				'is_internal_href' => $internal_href,
+				'href'             => ( isset( $menu['href'] ) ) ? $menu['href'] : false,
+				'part_href'        => ( isset( $menu['part_href'] ) ) ? $menu['part_href'] : false,
+				'query_args'       => ( isset( $menu['query_args'] ) ) ? $menu['query_args'] : false,
+				'class'            => ( isset( $menu['class'] ) ) ? $menu['class'] : false,
+			);
+		}
+
+		/**
 		 * Checks if Option Loop Is Valid
 		 *
 		 * @param array $option
@@ -390,5 +475,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'hash'      => $hash,
 			) );
 		}
+
+		/**
+		 * Returns all common HTML wrap class.
+		 *
+		 * @param string $extra_class
+		 */
+		abstract public function wrap_class( $extra_class = '' );
 	}
 }
