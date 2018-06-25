@@ -77,6 +77,7 @@ $wponion_text_options = wponion_builder()
 				'property' => 'background-color',
 			),
 		),
+		'validate'  => 'wponion_required_value',
 	) )
 	->text( 'textfield_description', 'Text Field With Desc' )
 	->desc( 'Description With Title Side' )
