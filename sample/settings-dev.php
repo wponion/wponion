@@ -11,6 +11,7 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -79,13 +80,12 @@ $opgs = array(
 	'Group4' => wpongpo( 'group4' ),
 );
 
-/*
-$ins = new WPOnion_Settings( array(
+$ins = wponion_settings( array(
 	'extra_css'       => array( 'plugin - css - 1' ),
 	'extra_js'        => array( 'plugin - js - 1' ),
 	'option_name'     => '_wpboilerplate_settings',
 	'template_path'   => false,
-	'is_single_page'  => true,
+	'is_single_page'  => 'submenu',
 	'menu'            => array(
 		'type'       => 'parent',
 		'title'      => 'WP Onion',
@@ -99,61 +99,84 @@ $ins = new WPOnion_Settings( array(
 	'framework_desc'  => 'These are the settings for your website loading screen . Note that the loading screen will only show up if your page has images( because if you dont have any images then your page will load fast)',
 ) );
 
-$ins->page( 'Page1' )
-	->section( 'Section1' )
-	->text( 'text_field', 'Textfield' )
-	->notice( 'Sample Error Notice', 'danger' )
+global $major_fields;
+$major_fields = $fields = wponion_builder()
+	->text( 'text', 'Text Field' )
 	->textarea( 'textarea', 'Textarea' )
-	->switch( 'simple_switch', 'Switcher' )
-	->notice( 'Sample Error Notice', 'success' )
-	->checkbox( 'checbox', 'Simple Checkbox', 'Are you Sure ?' )
-	->checkbox( 'checkbox_options', 'Checkbox Options', $ops )
-	->heading( 'Sample Heading' )
-	->checkbox( 'checkbox_group', 'Checkbox Groups', $opgs )
-	->radio( 'radio_options', 'radio Options', $ops )
-	->radio( 'radio_group', 'radio Groups', $opgs )
-	->subheading( 'Sample Subheading' )
-	->select( 'selectbox', 'Selectbox', $ops )
-	->select( 'selectbox_group', 'Selectbox Group', $opgs )
-	->multi_select( 'select_multi', 'Selectbox Multiple', $ops )
-	->multi_select( 'select_multi_group', 'Selectbox Multiple Group', $opgs )
-	->wp_link( 'wp_link', 'Simple WP Links' )
-	->key_value( 'key_value', 'Key Value' )
-	->image_select( 'image_select', 'Image Select', wponion_image_select_options( 'simple', '100', '200', 'jpg' ) )
-	->image_select( 'image_select_group', 'Image Select Group', array(
-		__( 'Header Layout' ) => wponion_image_select_options( 'header', '100', '200', 'jpg' ),
-		__( 'Footer Layout' ) => wponion_image_select_options( 'footer', '100', '200', 'jpg' ),
-	) )
-	->image( 'image_field', 'WP Image Select' )
-	->gallery( 'image_gallery', 'WP Image Gallery' )
-	->icon_picker( 'icon_picker', 'Icon Picker' )
-	->font( 'font_picker', 'Font Picker' )
-	->add_field( 'accordion', 'simple_accordion', 'Accordion baby', array(
-		'fields' => array(
-			'text'      => array(
-				'id'    => 'acc_text',
-				'title' => 'Accordion Text',
-				'type'  => 'text',
-			),
-			'accordion' => array(
-				'id'     => 'cep',
-				'title'  => 'subacc',
-				'type'   => 'accordion',
-				'fields' => array(
-					'text' => array(
-						'id'    => 'acc_atext',
-						'title' => 'Accordion Text',
-						'type'  => 'text',
-					),
-				),
-			),
+	->select( 'select', 'Select', $ops, array( 'select2' => true ) )
+	->checkbox( 'checkbox', 'Checkbox', $ops )
+	->checkbox( 'checkbox_group', 'Checkbox Group', $opgs )
+	->radio( 'radio', 'Radio', $ops )
+	->radio( 'radio_group', 'Radio Group', $opgs )
+	->wp_link( 'wplinks', 'WP Links' )
+	->image( 'simple_image', 'Image Select' )
+	->gallery( 'image_gallery', 'Image Gallery' )
+	->switcher( 'switcher', 'Simple Switcher' )
+	->image_select( 'imageSelect', 'Image Select', wponion_image_select_options() )
+	->icon_picker( 'iconPicker', 'Icon Picker' )
+	->color_picker( 'colorpicker', 'Color Picker' )
+	->color_palette( 'pallet', 'Color Palette', \WPOnion\Helper::get_material_design_colors( 'primary' ) )
+	->key_value( 'keyvalue', 'Key Value' )
+	->font_picker( 'fontpicker', 'FontPicker' );
+
+$ins->page( 'Page1', 'page1', false, array( 'fields' => $fields->get() ) );
+
+
+$ins->page( 'Advanced Fields', 'page2' )
+	->section( 'Fieldset' )
+	->card( 'Cards', array(
+		array(
+			'image'   => 'http://via.placeholder.com/200x200',
+			'content' => '<h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>',
 		),
-	) );
+		array(
+			'image'   => 'http://via.placeholder.com/200x200',
+			'content' => '<h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>',
+		),
+		array(
+			'image'   => 'http://via.placeholder.com/200x200',
+			'content' => '<h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>',
+		),
+		array(
+			'image'   => 'http://via.placeholder.com/200x200',
+			'content' => '<h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>',
+		),
+		array(
+			'image'   => 'http://via.placeholder.com/200x200',
+			'content' => '<h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>',
+		),
+	) )
+	->fieldset( 'simplefildset', 'Fieldset', $fields->get() );
+
+
+$ins->section( 'Accordion', 'section2' )
+	->accordion( 'accordion_simple', 'Accordion Simple', wponion_builder()
+		->text( 'simple_txt', 'Simple Txt' )
+		->textarea( 'textarea', 'Simple TextArea' ) )
+	->accordion( 'accordion_nested', 'Accordion Nested', wponion_builder()
+		->textarea( 'txt_level0', 'Textarea Level 0' )
+		->accordion( 'accordion_nested_1', 'Accordion Nested 1', wponion_builder()
+			->textarea( 'txt_level1', 'Textarea Level 1' )
+			->accordion( 'accordion_nested_2', 'Accordion Nested 2', wponion_builder()
+				->textarea( 'txt_level2', 'Textarea Level 2' )
+				->accordion( 'accordion_nested_3', 'Accordion Nested 3', wponion_builder()->textarea( 'txt_level2', 'Textarea Level 2' ) ) ) ) )
+	->accordion( 'accordion', 'Accordion With All Fields', $fields->get() );
+
 
 $ins->init();
-/*if ( ! is_admin() && ! defined( 'DOING_AJAX' ) ) {
-	LoadTime::start();
-	var_dump($ins->values());
-	var_dump( LoadTime::end() );
-	exit;
-}*/
+
+if ( ! is_admin() && ! defined( 'DOING_AJAX' ) ) {
+	$vals = $ins->values();
+	$data = $vals->get( 'gallery' );
+	#exit;
+}
