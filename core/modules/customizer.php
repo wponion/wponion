@@ -268,5 +268,9 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 				}
 			}
 		}
+
+		public function wrap_class( $extra_class = '' ) {
+			// TODO: Implement wrap_class() method.
+		}
 	}
 }
