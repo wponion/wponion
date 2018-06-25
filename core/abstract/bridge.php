@@ -226,6 +226,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 
 		/**
 		 * Returns current plugin_id
+		 *
 		 * @return array
 		 */
 		public function plugin_id() {
