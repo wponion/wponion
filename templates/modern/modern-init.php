@@ -27,13 +27,15 @@ if ( ! class_exists( 'WPOnion_modern_Theme' ) ) {
 	 * @since 1.0
 	 */
 	class WPOnion_modern_Theme extends \WPOnion\Theme {
+
 		/**
-		 * WPOnion_wp_Theme constructor.
+		 * WPOnion_modern_Theme constructor.
 		 *
-		 * @param $plugin_id
+		 * @param array  $data
+		 * @param string $theme_file
 		 */
-		public function __construct( $plugin_id ) {
-			parent::__construct( $plugin_id, __FILE__ );
+		public function __construct( $data, $theme_file = __FILE__ ) {
+			parent::__construct( $data, __FILE__, 'modern' );
 		}
 
 		/**
@@ -73,5 +75,4 @@ if ( ! class_exists( 'WPOnion_modern_Theme' ) ) {
 	}
 }
 
-$wponion_modern_theme = new WPOnion_modern_Theme( $plugin_id );
-return $wponion_modern_theme;
+new WPOnion_modern_Theme( $data );
