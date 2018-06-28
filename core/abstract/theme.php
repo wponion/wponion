@@ -42,17 +42,43 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		protected $url = false;
 
 		/**
+		 * Stores Theme Slug / Name.
+		 *
+		 * @var null
+		 */
+		protected $theme = null;
+
+		/**
+		 * Stores Custom Unique Data.
+		 *
+		 * @var null
+		 */
+		protected $unique = null;
+
+		/**
 		 * WPOnion_Theme_Abstract constructor.
 		 *
-		 * @param        $plugin_id
+		 * @param array  $data
 		 * @param string $theme_file
 		 */
-		public function __construct( $plugin_id, $theme_file = __FILE__ ) {
+		public function __construct( $data, $theme_file = __FILE__, $theme_name = false ) {
+			$data = $this->parse_args( $data, array( 'plugin_id' => false, 'unique' => false ) );
 			add_action( 'admin_enqueue_scripts', array( &$this, 'register_assets' ), 1 );
 			$this->dir       = plugin_dir_path( $theme_file );
 			$this->url       = plugin_dir_url( $theme_file );
-			$this->plugin_id = $plugin_id;
-			wponion_core_registry( $this );
+			$this->theme     = $theme_name;
+			$this->plugin_id = $data['plugin_id'];
+			$this->unique    = $data['unique'];
+			wponion_theme_registry( $this );
+		}
+
+		/**
+		 * Creates Custom Unique Code.
+		 *
+		 * @return string
+		 */
+		public function uid() {
+			return $this->theme . '_' . $this->unique . '_' . $this->plugin_id;
 		}
 
 		/**
@@ -170,5 +196,35 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		/**************************************************************************************************************
 		 * Above Functions Are Related To Settings Module
 		 *************************************************************************************************************/
+
+
+		/**
+		 * Below Functions are related to render HTML for the current module.
+		 */
+
+		/**
+		 * Searches And returns files path
+		 *
+		 * @param $file
+		 *
+		 * @return string
+		 */
+		protected function find_html_file( $file ) {
+			return wponion_locate_template( $this->theme . '/' . $this->theme . '-' . $file, $this->dir );
+		}
+
+		/**
+		 * Generates Metabox HTML Webpage.
+		 */
+		public function render_metabox_html() {
+			include $this->find_html_file( 'metabox-html.php' );
+		}
+
+		/**
+		 * Generates Settings Page HTML.
+		 */
+		public function render_settings_html() {
+			include $this->find_html_file( 'settings-html.php' );
+		}
 	}
 }
