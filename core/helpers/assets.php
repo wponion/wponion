@@ -154,7 +154,7 @@ if ( ! function_exists( 'wponion_icon_libraries' ) ) {
 		return apply_filters( 'wponion_icon_libraries', array(
 			__( 'DashIcons' )   => WPONION_PATH . 'assets/json/dashicons.json',
 			__( 'FontAwesome' ) => WPONION_PATH . 'assets/json/fontawesome_icons.json',
-			__( 'TypIcons' )    => WPONION_PATH . 'assets/json/typicons_icons.json',
+			__( 'TypIcons' )    => WPONION_PATH . 'assets/json/typ_icons.json',
 		) );
 	}
 }
