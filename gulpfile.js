@@ -21,6 +21,8 @@ let $filesToCopy = {
 	'flag-icon-css/flags/*/*/': 'plugins/flag-icon-css/flags/',
 	'animate.css/*.min.css': 'plugins/animate.css/',
 	'typicons.font/src/font/*': 'plugins/typicons/',
+	'boxicons/css/*': 'plugins/boxicons/css/',
+	'boxicons/fonts/*': 'plugins/boxicons/fonts/',
 };
 
 $gulp.task( 'copy', () => {
