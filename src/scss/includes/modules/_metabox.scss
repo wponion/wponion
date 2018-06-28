@@ -1,0 +1,165 @@
+.postbox.wponion-metabox {
+  z-index: 0;
+  .inside {
+	padding: 0;
+	margin:  0 !important;
+
+	.wponion-metabox-inside-wrap {
+	  width:   100%;
+	  display: inline-block;
+
+	  .wponion-metabox-menu-wrap {
+		float:      left;
+		width:      $wponion_metabox_menu_width;
+		background: $wponion_metabox_a_bg;
+
+		ul {
+		  padding-left: 0px;
+		  margin-top:   0;
+		  li {
+			list-style: none;
+			a {
+			  text-decoration: none;
+			  color:           $wponion_metabox_a_color;
+			  box-shadow:      none;
+			  outline:         none;
+			  display:         block;
+			  transition:      all .25s ease;
+			  padding:         10px !important;
+
+			  &.active {
+				background:  $wponion_metabox_menu_color;
+				font-weight: bold;
+			  }
+
+			  i {
+				width:      20px;
+				height:     20px;
+				text-align: center;
+			  }
+			}
+
+			&:hover {
+			  transition: all .25s ease;
+			  > a {
+				background: $wponion_metabox_menu_color;
+			  }
+			}
+		  }
+		}
+
+		> ul {
+		  background: $wponion_metabox_a_bg;
+		  max-width:  $wponion_metabox_menu_width;
+		  > li {
+			> a {
+			  &.dropdown {
+				&::after {
+				  content:        '';
+				  display:        inline-block;
+				  width:          0;
+				  height:         0;
+				  margin-left:    2px;
+				  vertical-align: middle;
+				  border-top:     4px dashed;
+				  border-right:   4px solid transparent;
+				  border-left:    4px solid transparent;
+				  float:          right;
+				  margin-top:     9px;
+				}
+			  }
+			}
+			> ul {
+			  display:          none;
+			  background-color: $wponion_metabox_menu_bg_color;
+			  padding:          7px 0;
+			  > li {
+				> a {
+				  padding-left: 20px;
+
+				  &::after {
+					left:           180px;
+					border:         solid transparent;
+					content:        " ";
+					height:         0;
+					width:          0;
+					position:       absolute;
+					pointer-events: none;
+				  }
+				  &.active {
+					font-weight: bold;
+					background:  #3D434A;
+					color:       white;
+
+					&::after {
+					  border-right-color: #fff;
+					  border-width:       10px;
+					}
+				  }
+				}
+			  }
+			}
+
+			&:hover {
+			  > ul {
+				> li {
+				  &:hover {
+					a {
+					  background: #3D434A;
+					}
+				  }
+				}
+			  }
+
+			}
+		  }
+		}
+	  }
+
+	  .wponion-metabox-menu-bg-wrap {
+		position:   absolute;
+		top:        0;
+		background: $wponion_metabox_a_bg;
+		bottom:     0;
+		width:      $wponion_metabox_menu_width;
+		z-index:    -1;
+	  }
+
+	  .wponion-metabox-content-wrap {
+		float:      left;
+		/***
+		 * @todo please change 200px here also when updating the width above.
+		 */
+		width:      calc(100% - 200px);
+		background: #fff;
+	  }
+	}
+
+	.ajax-container {
+	  display:    inline-block;
+	  width:      100%;
+	  background: #Fff;
+	  text-align: right;
+	  border-top: 1px solid #eee;
+	}
+  }
+
+  &.wponion-metabox-side {
+	.inside {
+	  .wponion-metabox-inside-wrap {
+		.wponion-metabox-menu-wrap, .wponion-metabox-menu-bg-wrap {
+		  display:    none;
+		  visibility: hidden;
+		}
+		.wponion-metabox-content-wrap {
+		  width: 100% !important;
+		  .wponion-element {
+			padding: 15px;
+			@include wponion_field_hirozantal();
+		  }
+		}
+	  }
+	}
+  }
+}
+

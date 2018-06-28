@@ -1,0 +1,43 @@
+/**
+ * Generates WPonion / Bootstrap Custom Button Styles.
+ */
+.button-danger, .wponion-button-custom-danger {
+  @include bootstrabtns(darken(#e14d43, 5%), darken(#e14d43, 10%), #e14d43, lighten(#e14d43, 3%));
+}
+
+@each $color, $value in $wponionThemes {
+  .wponion-button-#{$color} {
+	@include bootstrabtns(darken($value, 5%), darken($value, 10%), $value, lighten($value, 3%));
+  }
+}
+
+/**
+ * Generates Common WPOnion Input Style
+ */
+input.wponion-form-control {
+  padding:       5px !important;
+  border-radius: 0 !important;
+}
+
+/**
+ * Accordion PlaceHolder
+ */
+.wponion-accordion-placeholder {
+  border:        1px dashed #bdbdbd;
+  margin-bottom: 10px;
+}
+
+/**
+ * BlockUI Overlay Style.
+ */
+.blockUI.blockOverlay {
+  @include loader();
+}
+
+/**
+ * Custom Chosen Hack.
+ */
+.chosen-container.chosen-container-single, .chosen-container.chosen-container-multi {
+  width:     auto !important; /* or any value that fits your needs */
+  min-width: 200px !important;
+}

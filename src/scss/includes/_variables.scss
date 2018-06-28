@@ -1,0 +1,30 @@
+/**
+ * All variables required by WPOnion To generate styles.
+ */
+
+$primary: #007bff;
+$secondary: #6c757d;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #343a40;
+
+$wponionThemes: () !default;
+$wponionThemes: map-merge((
+		"primary": $primary,
+		"secondary": $secondary,
+		"success": $success,
+		"info": $info,
+		"warning": $warning,
+		"danger": $danger,
+		"light": $light,
+		"dark": $dark
+), $wponionThemes);
+
+$wponion_metabox_menu_color: #e14d43;
+$wponion_metabox_a_color: #fff;
+$wponion_metabox_a_bg: #26292c;
+$wponion_metabox_menu_bg_color: #32373C;
+$wponion_metabox_menu_width: 200px;

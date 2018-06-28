@@ -1,0 +1,315 @@
+/**
+ * Base Elements Style.
+ */
+.wponion {
+  &-element {
+	padding: 30px;
+	.wponion- {
+	  &desc {
+		margin-top:    10px;
+		margin-bottom: 0;
+		font-style:    italic;
+		font-weight:   400;
+		color:         #666;
+		font-size:     13px;
+	  }
+	  &field-title {
+		position: relative;
+		width:    20%;
+		float:    left;
+		h4 {
+		  margin:      0;
+		  font-size:   14px;
+		  color:       #23282d;
+		  font-weight: 600;
+		}
+	  }
+	  &fieldset {
+		margin-left: 20%;
+	  }
+	  &help {
+		position: absolute;
+		padding:  5px;
+		color:    #aaa;
+		right:    20px;
+		top:      0;
+		cursor:   pointer;
+		&:hover {
+		  color: #666;
+		}
+	  }
+	}
+	+ .wponion-element {
+	  border-top: 1px solid #dadada;
+	}
+
+	&.wponion- {
+	  &element- {
+		&no-title {
+		  .wponion-fieldset {
+			margin: 0;
+		  }
+		}
+		&has-error {
+		  .wponion-field-errors {
+			display: block;
+			color:   red;
+		  }
+		}
+	  }
+	  &field-debug {
+		> .wponion-field-title > a.wponion-field-debug-handle {
+		  position: absolute;
+		  left:     0px;
+		  opacity:  0;
+		  cursor:   pointer;
+		}
+		&:hover {
+		  > .wponion-field-title > a.wponion-field-debug-handle {
+			opacity: 0.75;
+			> .badge {
+			  font-size:                 90%;
+			  padding:                   5px 10px;
+			  border-top-left-radius:    0;
+			  border-bottom-left-radius: 0;
+			}
+		  }
+		}
+	  }
+	}
+	&.hirozantal {
+	  @include wponion_field_hirozantal();
+	}
+	.wponion-input-group {
+	  display: inline-block;
+	  .input-group {
+		display:    inline-block;
+		padding:    5px;
+		width:      auto;
+		background: #f2f2f2;
+		border:     1px solid #dedede;
+		&.input-group-before {
+		  border-right: none;
+		}
+		&.input-group-after {
+		  border-left: none;
+		}
+	  }
+	}
+  }
+
+  /* Basic Styles. */
+  &-framework {
+	.wponion-field-errors {
+	  font-size:  100%;
+	  margin-top: 10px;
+	  ul {
+		margin:     0;
+		list-style: inside;
+	  }
+	}
+
+	.wponion-framework-header {
+	  h1 {
+		padding: 0;
+	  }
+	  p {
+		font-style:    italic;
+		color:         #606060;
+		font-size:     14px;
+		margin-bottom: 10px;
+		margin-top:    10px;
+	  }
+	}
+
+	.wponion-row {
+	  margin:        0;
+	  border-bottom: 1px solid #dadada;
+	  .col + .col {
+		border-left: 1px solid #dadada;
+		border-top:  none;
+	  }
+	}
+  }
+
+  /* Global / Field Debug POPUP Style Codes. */
+  &-field-debug-popup {
+	.wponion-field-debug-notice {
+	  margin-top:       -2px;
+	  color:            red;
+	  padding:          10px;
+	  background-color: white;
+	  font-size:        11px;
+	}
+  }
+
+  &-global-debug-handle {
+	position:         fixed;
+	width:            60px;
+	height:           60px;
+	bottom:           40px;
+	right:            40px;
+	background-color: #0C9;
+	color:            #FFF;
+	border-radius:    50px;
+	text-align:       center;
+	box-shadow:       2px 2px 3px #999;
+	font-size:        25px;
+	outline:          none;
+	&:hover, &:focus {
+	  outline:         none;
+	  text-decoration: none;
+	}
+	i {
+	  margin:     0 auto;
+	  margin-top: 30%;
+	}
+  }
+}
+
+/*@import "accordion_group";
+@import "base";
+@import "cards";
+@import "checkbox";
+@import "checkbox_radio_image_select";
+@import "clone_field";
+@import "color_palette";
+@import "color_picker";
+@import "content";
+@import "fieldset";
+@import "font_picker";
+@import "heading";
+@import "icon_picker";
+@import "image_gallery";
+@import "image_select";
+@import "jambo_content";
+@import "key_value";
+@import "notice";
+@import "radio";
+@import "subheading";
+@import "switcher";
+@import "tab";
+@import "text";
+@import "textarea";*/
+/**
+ * Common Field Includes
+ */
+@import "accordion_group/common";
+@import "base/common";
+@import "cards/common";
+@import "checkbox/common";
+@import "checkbox_radio_image_select/common";
+@import "clone_field/common";
+@import "color_palette/common";
+@import "color_picker/common";
+@import "content/common";
+@import "fieldset/common";
+@import "font_picker/common";
+@import "heading/common";
+@import "icon_picker/common";
+@import "image_gallery/common";
+@import "image_select/common";
+@import "jambo_content/common";
+@import "key_value/common";
+@import "notice/common";
+@import "radio/common";
+@import "subheading/common";
+@import "switcher/common";
+@import "tab/common";
+@import "text/common";
+@import "textarea/common";
+
+/**
+ * Styles Based on Modules.
+ */
+.wponion-framework {
+  /**
+   * WPOnion Settings Module.
+   */
+  &.wponion-module-settings {
+	@import "accordion_group/settings";
+	@import "base/settings";
+	@import "cards/settings";
+	@import "checkbox/settings";
+	@import "checkbox_radio_image_select/settings";
+	@import "clone_field/settings";
+	@import "color_palette/settings";
+	@import "color_picker/settings";
+	@import "content/settings";
+	@import "fieldset/settings";
+	@import "font_picker/settings";
+	@import "heading/settings";
+	@import "icon_picker/settings";
+	@import "image_gallery/settings";
+	@import "image_select/settings";
+	@import "jambo_content/settings";
+	@import "key_value/settings";
+	@import "notice/settings";
+	@import "radio/settings";
+	@import "subheading/settings";
+	@import "switcher/settings";
+	@import "tab/settings";
+	@import "text/settings";
+	@import "textarea/settings";
+  }
+
+  /**
+   * WPOnion Metabox Module.
+   */
+  &.wponion-module-metabox {
+	@import "accordion_group/metabox";
+	@import "base/metabox";
+	@import "cards/metabox";
+	@import "checkbox/metabox";
+	@import "checkbox_radio_image_select/metabox";
+	@import "clone_field/metabox";
+	@import "color_palette/metabox";
+	@import "color_picker/metabox";
+	@import "content/metabox";
+	@import "fieldset/metabox";
+	@import "font_picker/metabox";
+	@import "heading/metabox";
+	@import "icon_picker/metabox";
+	@import "image_gallery/metabox";
+	@import "image_select/metabox";
+	@import "jambo_content/metabox";
+	@import "key_value/metabox";
+	@import "notice/metabox";
+	@import "radio/metabox";
+	@import "subheading/metabox";
+	@import "switcher/metabox";
+	@import "tab/metabox";
+	@import "text/metabox";
+	@import "textarea/metabox";
+  }
+
+  /**
+   * WPOnion Customizer Module.
+   */
+  &.wponion-module-customizer {
+	@import "accordion_group/customizer";
+	@import "base/customizer";
+	@import "cards/customizer";
+	@import "checkbox/customizer";
+	@import "checkbox_radio_image_select/customizer";
+	@import "clone_field/customizer";
+	@import "color_palette/customizer";
+	@import "color_picker/customizer";
+	@import "content/customizer";
+	@import "fieldset/customizer";
+	@import "font_picker/customizer";
+	@import "heading/customizer";
+	@import "icon_picker/customizer";
+	@import "image_gallery/customizer";
+	@import "image_select/customizer";
+	@import "jambo_content/customizer";
+	@import "key_value/customizer";
+	@import "notice/customizer";
+	@import "radio/customizer";
+	@import "subheading/customizer";
+	@import "switcher/customizer";
+	@import "tab/customizer";
+	@import "text/customizer";
+	@import "textarea/customizer";
+  }
+}

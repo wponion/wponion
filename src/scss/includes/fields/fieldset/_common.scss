@@ -1,0 +1,18 @@
+/**
+ * Fieldset Styles.
+ */
+.wponion-element.wponion-element-fieldset {
+  .wponion-fieldset-wrap {
+	display:   inline-block;
+	min-width: 50%;
+	border:    1px solid #dadada;
+	.wponion-element {
+	  .wponion-element-title {
+		width: 40%;
+		+ .wponion-fieldset {
+		  margin-left: 40%;
+		}
+	  }
+	}
+  }
+}
