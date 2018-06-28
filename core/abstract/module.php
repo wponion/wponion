@@ -177,27 +177,27 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * inits selected theme.
-		 *
 		 * @param string $theme_init
-		 * @param string $theme_html
+		 *
+		 * @return \WPOnion\Theme
 		 */
-		protected function init_theme( $theme_html = '-settings-html.php', $theme_init = '-init.php' ) {
+		protected function init_theme( $theme_init = '-init.php' ) {
+			$return = false;
 			if ( false === $this->current_theme ) {
 				$theme          = $this->option( 'theme' );
 				$template_path  = $this->option( 'template_path' );
 				$file           = wponion_locate_template( $theme . '/' . $theme . $theme_init, $template_path );
-				$html_file      = wponion_locate_template( $theme . '/' . $theme . $theme_html, $template_path );
 				$callback_class = 'WPOnion_' . strtolower( $theme ) . '_Theme';
-
-				if ( file_exists( $file ) && file_exists( $html_file ) ) {
+				if ( file_exists( $file ) ) {
+					$theme_args          = $this->theme_callback_args();
 					$this->current_theme = array(
 						'class'     => $callback_class,
 						'success'   => true,
 						'file'      => $file,
-						'html_file' => wponion_locate_template( $theme . '/' . $theme . $theme_html, $template_path ),
+						'html_file' => $theme . '_' . $theme_args['data']['unique'] . '_' . $theme_args['data']['plugin_id'],
 					);
-					wponion_get_template( $theme . '/' . $theme . $theme_init, $this->theme_callback_args() );
+					wponion_get_template( $theme . '/' . $theme . $theme_init, $theme_args );
+					$return = true;
 				} else {
 					$this->current_theme = array(
 						'success' => false,
@@ -205,12 +205,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					);
 				}
 			} else {
-				if ( false === $this->current_theme['success'] ) {
-					echo $this->current_theme['html'];
-				} else {
-					include $this->current_theme['html_file'];
+				if ( true === $this->current_theme['success'] ) {
+					$return = wponion_theme_registry( $this->current_theme['html_file'] );
 				}
 			}
+			return $return;
 		}
 
 		/**
@@ -219,7 +218,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array
 		 */
 		protected function theme_callback_args() {
-			return array( 'plugin_id' => $this->plugin_id() );
+			return array(
+				'data' => array(
+					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->unique(),
+				),
+			);
 		}
 
 		/**
@@ -455,6 +459,20 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			}
 
 			return true;
+		}
+
+		/**
+		 * Checks If given array is a valid field array.
+		 *
+		 * @param array $option
+		 *
+		 * @return bool
+		 */
+		public function valid_field( $option = array() ) {
+			if ( isset( $option['type'] ) ) {
+				return true;
+			}
+			return false;
 		}
 
 		/**
