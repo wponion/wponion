@@ -1,104 +1,14 @@
-@keyframes spin {
-  100% {
-	transform: rotate(360deg);
-  }
-}
-
-@mixin btnCOl($base1,$base2,$base3,$hover) {
-  color:        #fff !important;
-  border-color: $base1 $base2 $base2 !important;
-  background:   $base3 !important;
-  box-shadow:   0 1px 0 $base2 !important;
-  text-shadow:  0 -1px 1px $base2,
-				1px 0 1px $base2,
-				0 1px 1px $base2,
-				-1px 0 1px $base2 !important;
-
-  &:hover, &:focus {
-	border-color: $base2 !important;
-	background:   $hover !important;
-	box-shadow:   0 1px 0 $base2 !important;
-  }
-
-  &:active {
-	border-color: $base2 !important;
-	background:   $base1 !important;
-	box-shadow:   inset 0 2px 0 $base2 !important;
-  }
-}
-
-@mixin loader() {
-  &::before {
-	height:          1em;
-	width:           1em;
-	display:         block;
-	position:        absolute;
-	top:             50%;
-	left:            50%;
-	margin-left:     -0.5em;
-	margin-top:      -0.5em;
-	content:         '';
-	animation:       spin 1s ease-in-out infinite;
-	background:      url('../img/loader.svg') center center;
-	background-size: cover;
-	line-height:     1;
-	text-align:      center;
-	font-size:       2em;
-	color:           rgba(#000, 0.75);
-  }
-}
-
-.button-danger, .wponion-button-custom-danger {
-  @include btnCOl(darken(#e14d43, 5%), darken(#e14d43, 10%), #e14d43, lighten(#e14d43, 3%));
-}
-
-input.wponion-form-control {
-  padding:       5px !important;
-  border-radius: 0 !important;
-}
-
-@import "parts/core_fields";
-
-.wponion-accordion-placeholder {
-  border:        1px dashed #bdbdbd;
-  margin-bottom: 10px;
-}
-
-$primary: #007bff;
-$secondary: #6c757d;
-$success: #28a745;
-$info: #17a2b8;
-$warning: #ffc107;
-$danger: #dc3545;
-$light: #f8f9fa;
-$dark: #343a40;
-
-$wponionThemes: () !default;
-$wponionThemes: map-merge((
-		"primary": $primary,
-		"secondary": $secondary,
-		"success": $success,
-		"info": $info,
-		"warning": $warning,
-		"danger": $danger,
-		"light": $light,
-		"dark": $dark
-), $wponionThemes);
-
+/**
+ * Basic Core Styles
+ */
+@import "includes/mixins";
+@import "includes/variables";
+@import "includes/basic_style";
+@import "includes/fields/fields";
+/**
+ * Core Fields Styles
+ */
 @import "parts/wponion-bootstrap";
-
-/******************************
- * Bootstrap Custom buttons ***
- *****************************/
-@each $color, $value in $wponionThemes {
-  .wponion-button-#{$color} {
-	@include btnCOl(darken($value, 5%), darken($value, 10%), $value, lighten($value, 3%));
-  }
-}
-
 @import "parts/modules/customizer";
-@import "parts/modules/metabox";
 
-.blockUI.blockOverlay {
-  @include loader();
-}
+@import "includes/modules/metabox";
