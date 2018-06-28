@@ -72,6 +72,36 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		protected $current_field = null;
 
 		/**
+		 * has_page
+		 *
+		 * @var bool
+		 */
+		protected $has_page = false;
+
+		/**
+		 * has_section
+		 *
+		 * @var bool
+		 */
+		protected $has_section = false;
+
+
+		/**
+		 * @return bool
+		 */
+		public function has_page() {
+			return $this->has_page;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function has_section() {
+			return $this->has_section;
+		}
+
+
+		/**
 		 * @param      $value
 		 * @param bool $force
 		 *
@@ -193,6 +223,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 				$this->current_page            = $args['name'];
 				$this->current_section         = false;
 				$this->current_field           = false;
+				$this->has_page                = true;
 			}
 			return $this;
 		}
@@ -223,6 +254,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 			}
 
 			$this->set( $this->get_current_path( false, false ), $args );
+			$this->has_section = true;
 			return $this;
 		}
 
