@@ -14,7 +14,7 @@
 
 $ins = new \WPOnion\Modules\Metabox( array(
 	'option_name'   => '_wcrbp_metabox',
-	'metabox_title' => 'Sample Metabox',
+	'metabox_title' => 'WPOnion All In 1 Metabox',
 	'screens'       => 'page',
 	'metabox_id'    => false,
 	'context'       => 'normal',
@@ -25,27 +25,30 @@ function wponion_required_value() {
 	return 'Value Is Required';
 }
 
+$ins->page( 'Core Fields', 'core_fields' );
+foreach ( $wpof as $key => $fields ) {
+	$ins->section( $key, $key )
+		->merge_fields( $fields );
 
-$ins->page( 'Core Fields', 'core_fields' )
-	->section( 'Text Field', 'text' )
-	->merge_fields( $wponion_text_options );
+	$instance_mbf = new \WPOnion\Modules\metabox( array(
+		'option_name'   => '_wponion_metabox_side_' . $key,
+		'metabox_title' => 'WPOnion : ' . $key,
+		'screens'       => 'page',
+		'metabox_id'    => false,
+		'context'       => 'side',
+	) );
+	$instance_mbf->merge_fields( $fields )
+		->init();
 
-$ins->section( 'Textarea', 'textarea' )
-	->merge_fields( $wponion_textarea );
-
-$ins->section( 'Checkbox', 'checkbox' )
-	->merge_fields( $wponion_checkbox );
-
-$ins->section( 'Radio', 'radio' )
-	->merge_fields( $wponion_radio );
-
-$ins->section( 'Color Palette', 'color-palette' )
-	->merge_fields( $wponion_color_palette );
-
-$ins->section( 'Color Picker', 'color_picker' )
-	->merge_fields( $wponion_color_picker );
-
-$ins->section( 'Font Picker', 'font_picker' )
-	->merge_fields( $wponion_font_picker );
+	$instance_mbf = new \WPOnion\Modules\metabox( array(
+		'option_name'   => '_wponion_metabox_' . $key,
+		'metabox_title' => 'WPOnion : ' . $key,
+		'screens'       => 'page',
+		'metabox_id'    => false,
+		'context'       => 'normal',
+	) );
+	$instance_mbf->merge_fields( $fields )
+		->init();
+}
 
 $ins->init();
