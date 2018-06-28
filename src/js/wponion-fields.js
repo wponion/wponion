@@ -295,8 +295,8 @@
 	 */
 	$wpf.fn.chosen = function () {
 		let $arg = this.arg( 'chosen' );
+		wpo.__plugin_debug_info( this.elem, 'chosen', $arg );
 		this.save( this.elem.chosen( $arg ) );
-
 		return this;
 	};
 
@@ -312,8 +312,7 @@
 		}
 
 		this.elem.removeClass( 'form-control' );
-		let $ins = this.elem.selectize( $arg );
-		this.save( $ins );
+		this.save( this.elem.selectize( $arg ) );
 		return this;
 	};
 
@@ -927,7 +926,6 @@
 	 */
 	$wpf.fn.reload = function () {
 		wphooks.addAction( 'wponion_before_fields_reload' );
-		console.log( this.elem.find( 'input[data-wponion-inputmask]' ) );
 		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
 		this.init_field( '[data-wponion-maxlength]', 'maxlength' );
 		this.init_field( '.wponion-element-icon_picker', 'icon_picker' );
