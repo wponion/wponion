@@ -140,6 +140,10 @@ $wponion_field.fn = $wponion_field.prototype = {
 		return this.field;
 	},
 
+	/**
+	 * Returns Elements ID.
+	 * @returns {*}
+	 */
 	id: function () {
 		return $wponion.field_js_id( this.elem );
 	},
@@ -297,7 +301,6 @@ $wponion = {
 //@codekit-append ../../node_modules/tippy.js/dist/tippy.all.js
 //@codekit-append ../../node_modules/overlayscrollbars/js/jquery.overlayScrollbars.js
 //@codekit-append ../../node_modules/bootstrap-maxlength/src/bootstrap-maxlength.js
-
 ;( function ( $ ) {
 	'use strict';
 
