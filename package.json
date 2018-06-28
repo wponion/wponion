@@ -16,6 +16,7 @@
     "animate.css": "^3.6.1",
     "bootstrap": "^4.1.1",
     "bootstrap-maxlength": "^1.6.0",
+    "boxicons": "^1.0.7",
     "chosen-js": "^1.8.5",
     "flag-icon-css": "^3.0.0",
     "gulp": "^3.9.1",
