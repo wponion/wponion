@@ -37,28 +37,42 @@ $ins = wponion_settings( array(
 	'framework_desc'  => 'These are the settings for your website loading screen . Note that the loading screen will only show up if your page has images( because if you dont have any images then your page will load fast)',
 ) );
 
-$ins->page( 'Core Fields', 'core_fields' )
+$ins->page( 'Simple Fields', 'core_fields' )
 	->section( 'Text Field', 'text' )
-	->merge_fields( $wponion_text_options );
+	->merge_fields( $wpof['text'] )
+	->section( 'Textarea', 'textarea' )
+	->merge_fields( $wpof['textarea'] )
+	->section( 'Checkbox', 'checkbox' )
+	->merge_fields( $wpof['checkbox'] )
+	->section( 'Radio', 'radio' )
+	->merge_fields( $wpof['radio'] )
+	->section( 'Select', 'select' )
+	->merge_fields( $wpof['select'] )
+	->heading( 'Advanced Select Configs' )
+	->merge_fields( $wpof['select_advanced'] );
 
-$ins->section( 'Textarea', 'textarea' )
-	->merge_fields( $wponion_textarea );
+$ins->page( 'Advanced Fields', 'advanced_fields' )
+	->section( 'Color Palette', 'color-palette' )
+	->merge_fields( $wpof['color_palette'] )
+	->section( 'Color Picker', 'color_picker' )
+	->merge_fields( $wpof['color_picker'] )
+	->section( 'Font Picker', 'font_picker' )
+	->merge_fields( $wpof['font_picker'] )
+	->section( 'key Value', 'key_value' )
+	->merge_fields( $wpof['key_value'] )
+	->section( 'Icon Picker', 'icon_picker' )
+	->merge_fields( $wpof['icon_picker'] )
+	->section( 'Image Select', 'image_select' )
+	->merge_fields( $wpof['image_select'] );
 
-$ins->section( 'Checkbox', 'checkbox' )
-	->merge_fields( $wponion_checkbox );
+$ins->page( 'WP Fields', 'wp_fields' )
+	->section( 'WP Images', 'wp_image_picker' )
+	->merge_fields( $wpof['images'] )->section( 'WP Links', 'wp_links_picker' )
+	->merge_fields( $wpof['wp_links'] );
 
+$ins->page( 'UI Fields', 'ui_fields' )
+	->merge_fields( $wpof['userinterface'] );
 
-$ins->section( 'Radio', 'radio' )
-	->merge_fields( $wponion_radio );
-
-$ins->section( 'Color Palette', 'color-palette' )
-	->merge_fields( $wponion_color_palette );
-
-$ins->section( 'Color Picker', 'color_picker' )
-	->merge_fields( $wponion_color_picker );
-
-$ins->section( 'Font Picker', 'font_picker' )
-	->merge_fields( $wponion_font_picker );
 
 $ins->init();
 
