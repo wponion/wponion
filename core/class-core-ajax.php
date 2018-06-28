@@ -111,11 +111,10 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				$plugin_id       = $_REQUEST['plugin_id'];
 				$this->plugin_id = $plugin_id;
 				$this->module    = 'metabox';
-				$instance        = md5( $plugin_id . '_' . $metabox_id );
+				$instance        = $plugin_id . '_' . $metabox_id;
 				$instance        = wponion_metabox_registry( $instance );
 				$post_id         = $_REQUEST['wponion_postid'];
-
-
+				$instance->set_post_id( $post_id );
 				$instance->save_metabox( $post_id );
 				$this->_action( 'ajax_before_render' );
 				$instance->on_page_load();
