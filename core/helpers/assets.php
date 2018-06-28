@@ -68,10 +68,11 @@ $wponion_css = array(
 	'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
 	'wponion-plugins'     => array( wponion_debug_assets( 'assets/css/wponion-plugins', 'css' ) ),
 	'fontawesome'         => array( 'assets/plugins/fontawesome/fontawesome.min.css', array(), '5.0.13', ),
+	'boxicons'            => array( 'assets/plugins/boxicons/css/boxicons.min.css', array(), '1.0.7', ),
 	'typicons'            => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
 	'wponion-core'        => array(
 		wponion_debug_assets( 'assets/css/wponion-base', 'css' ),
-		array( 'wponion-plugins', 'fontawesome', 'typicons' ),
+		array( 'wponion-plugins', 'fontawesome', 'typicons', 'boxicons' ),
 	),
 	'wponion-colorpicker' => array(
 		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.min.css',
@@ -155,6 +156,7 @@ if ( ! function_exists( 'wponion_icon_libraries' ) ) {
 			__( 'DashIcons' )   => WPONION_PATH . 'assets/json/dashicons.json',
 			__( 'FontAwesome' ) => WPONION_PATH . 'assets/json/fontawesome_icons.json',
 			__( 'TypIcons' )    => WPONION_PATH . 'assets/json/typ_icons.json',
+			__( 'BoxIcons' )    => WPONION_PATH . 'assets/json/box_icons.json',
 		) );
 	}
 }
