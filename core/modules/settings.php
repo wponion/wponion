@@ -299,7 +299,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			echo '<input type="hidden" name="wponion-parent-id" value="' . $this->active( true ) . '"/>';
 			echo '<input type="hidden" name="wponion-section-id" value="' . $this->active( false ) . '"/>';
 			echo '</div>';
-			$this->init_theme();
+			$instance = $this->init_theme();
+			$instance->render_settings_html();
 			echo '</form>';
 			echo $this->debug_bar();
 		}
