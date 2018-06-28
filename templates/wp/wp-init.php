@@ -31,8 +31,8 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 		 *
 		 * @param $plugin_id
 		 */
-		public function __construct( $plugin_id ) {
-			parent::__construct( $plugin_id, __FILE__ );
+		public function __construct( $data ) {
+			parent::__construct( $data, __FILE__, 'wp' );
 		}
 
 		public function register_assets() {
@@ -176,5 +176,4 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 	}
 }
 
-$wponion_wp_theme = new WPOnion_wp_Theme( $plugin_id );
-return $wponion_wp_theme;
+new WPOnion_wp_Theme( $data );

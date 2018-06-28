@@ -1,24 +1,20 @@
-<?php
-global $wponion_wp_theme;
-$settings = $wponion_wp_theme->settings();
-?>
 <div class="wrap">
 
-	<div class="<?php echo $settings->wrap_class( '', true ); ?>">
+	<div class="<?php echo $this->settings()->wrap_class( '', true ); ?>">
 		<div class="wponion-framework-header">
 			<?php
-			if ( ! empty( $settings->option( 'framework_title' ) ) ) {
-				echo '<h1>' . $settings->option( 'framework_title' ) . '</h1>';
+			if ( ! empty( $this->settings()->option( 'framework_title' ) ) ) {
+				echo '<h1>' . $this->settings()->option( 'framework_title' ) . '</h1>';
 			}
 
-			if ( ! empty( $settings->option( 'framework_desc' ) ) ) {
-				echo '<p>' . $settings->option( 'framework_desc' ) . '</p>';
+			if ( ! empty( $this->settings()->option( 'framework_desc' ) ) ) {
+				echo '<p>' . $this->settings()->option( 'framework_desc' ) . '</p>';
 			}
 
 			?>
 
 		</div>
-		<?php echo $wponion_wp_theme->get_main_menu_html(); ?>
+		<?php echo $this->get_main_menu_html(); ?>
 		<div id="poststuff">
 
 			<div class="metabox-holder wponion-framework-bootstrap" id="post-body">
@@ -30,7 +26,7 @@ $settings = $wponion_wp_theme->settings();
 							<?php include_once 'settings-template.php'; ?>
 						</div>
 						<div class="wponion-sections wponion-form-actions">
-							<?php echo $settings->settings_button(); ?>
+							<?php echo $this->settings()->settings_button(); ?>
 						</div>
 					</div>
 				</div>
