@@ -1,10 +1,12 @@
+/**
+ * Basic Core Styles
+ */
 @-webkit-keyframes spin {
   100% {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
-
 @keyframes spin {
   100% {
     -webkit-transform: rotate(360deg);
@@ -12,6 +14,12 @@
   }
 }
 
+/**
+ * All variables required by WPOnion To generate styles.
+ */
+/**
+ * Generates WPonion / Bootstrap Custom Button Styles.
+ */
 .button-danger, .wponion-button-custom-danger {
   color: #fff !important;
   border-color: #dd382d #d02c21 #d02c21 !important;
@@ -35,11 +43,241 @@
   box-shadow: inset 0 2px 0 #d02c21 !important;
 }
 
+.wponion-button-primary {
+  color: #fff !important;
+  border-color: #006fe6 #0062cc #0062cc !important;
+  background: #007bff !important;
+  -webkit-box-shadow: 0 1px 0 #0062cc !important;
+  box-shadow: 0 1px 0 #0062cc !important;
+  text-shadow: 0 -1px 1px #0062cc, 1px 0 1px #0062cc, 0 1px 1px #0062cc, -1px 0 1px #0062cc !important;
+}
+
+.wponion-button-primary:hover, .wponion-button-primary:focus {
+  border-color: #0062cc !important;
+  background: #0f83ff !important;
+  -webkit-box-shadow: 0 1px 0 #0062cc !important;
+  box-shadow: 0 1px 0 #0062cc !important;
+}
+
+.wponion-button-primary:active {
+  border-color: #0062cc !important;
+  background: #006fe6 !important;
+  -webkit-box-shadow: inset 0 2px 0 #0062cc !important;
+  box-shadow: inset 0 2px 0 #0062cc !important;
+}
+
+.wponion-button-secondary {
+  color: #fff !important;
+  border-color: #60686f #545b62 #545b62 !important;
+  background: #6c757d !important;
+  -webkit-box-shadow: 0 1px 0 #545b62 !important;
+  box-shadow: 0 1px 0 #545b62 !important;
+  text-shadow: 0 -1px 1px #545b62, 1px 0 1px #545b62, 0 1px 1px #545b62, -1px 0 1px #545b62 !important;
+}
+
+.wponion-button-secondary:hover, .wponion-button-secondary:focus {
+  border-color: #545b62 !important;
+  background: #737d85 !important;
+  -webkit-box-shadow: 0 1px 0 #545b62 !important;
+  box-shadow: 0 1px 0 #545b62 !important;
+}
+
+.wponion-button-secondary:active {
+  border-color: #545b62 !important;
+  background: #60686f !important;
+  -webkit-box-shadow: inset 0 2px 0 #545b62 !important;
+  box-shadow: inset 0 2px 0 #545b62 !important;
+}
+
+.wponion-button-success {
+  color: #fff !important;
+  border-color: #23923d #1e7e34 #1e7e34 !important;
+  background: #28a745 !important;
+  -webkit-box-shadow: 0 1px 0 #1e7e34 !important;
+  box-shadow: 0 1px 0 #1e7e34 !important;
+  text-shadow: 0 -1px 1px #1e7e34, 1px 0 1px #1e7e34, 0 1px 1px #1e7e34, -1px 0 1px #1e7e34 !important;
+}
+
+.wponion-button-success:hover, .wponion-button-success:focus {
+  border-color: #1e7e34 !important;
+  background: #2bb34a !important;
+  -webkit-box-shadow: 0 1px 0 #1e7e34 !important;
+  box-shadow: 0 1px 0 #1e7e34 !important;
+}
+
+.wponion-button-success:active {
+  border-color: #1e7e34 !important;
+  background: #23923d !important;
+  -webkit-box-shadow: inset 0 2px 0 #1e7e34 !important;
+  box-shadow: inset 0 2px 0 #1e7e34 !important;
+}
+
+.wponion-button-info {
+  color: #fff !important;
+  border-color: #148ea1 #117a8b #117a8b !important;
+  background: #17a2b8 !important;
+  -webkit-box-shadow: 0 1px 0 #117a8b !important;
+  box-shadow: 0 1px 0 #117a8b !important;
+  text-shadow: 0 -1px 1px #117a8b, 1px 0 1px #117a8b, 0 1px 1px #117a8b, -1px 0 1px #117a8b !important;
+}
+
+.wponion-button-info:hover, .wponion-button-info:focus {
+  border-color: #117a8b !important;
+  background: #19aec6 !important;
+  -webkit-box-shadow: 0 1px 0 #117a8b !important;
+  box-shadow: 0 1px 0 #117a8b !important;
+}
+
+.wponion-button-info:active {
+  border-color: #117a8b !important;
+  background: #148ea1 !important;
+  -webkit-box-shadow: inset 0 2px 0 #117a8b !important;
+  box-shadow: inset 0 2px 0 #117a8b !important;
+}
+
+.wponion-button-warning {
+  color: #fff !important;
+  border-color: #edb100 #d39e00 #d39e00 !important;
+  background: #ffc107 !important;
+  -webkit-box-shadow: 0 1px 0 #d39e00 !important;
+  box-shadow: 0 1px 0 #d39e00 !important;
+  text-shadow: 0 -1px 1px #d39e00, 1px 0 1px #d39e00, 0 1px 1px #d39e00, -1px 0 1px #d39e00 !important;
+}
+
+.wponion-button-warning:hover, .wponion-button-warning:focus {
+  border-color: #d39e00 !important;
+  background: #ffc516 !important;
+  -webkit-box-shadow: 0 1px 0 #d39e00 !important;
+  box-shadow: 0 1px 0 #d39e00 !important;
+}
+
+.wponion-button-warning:active {
+  border-color: #d39e00 !important;
+  background: #edb100 !important;
+  -webkit-box-shadow: inset 0 2px 0 #d39e00 !important;
+  box-shadow: inset 0 2px 0 #d39e00 !important;
+}
+
+.wponion-button-danger {
+  color: #fff !important;
+  border-color: #d32535 #bd2130 #bd2130 !important;
+  background: #dc3545 !important;
+  -webkit-box-shadow: 0 1px 0 #bd2130 !important;
+  box-shadow: 0 1px 0 #bd2130 !important;
+  text-shadow: 0 -1px 1px #bd2130, 1px 0 1px #bd2130, 0 1px 1px #bd2130, -1px 0 1px #bd2130 !important;
+}
+
+.wponion-button-danger:hover, .wponion-button-danger:focus {
+  border-color: #bd2130 !important;
+  background: #de4251 !important;
+  -webkit-box-shadow: 0 1px 0 #bd2130 !important;
+  box-shadow: 0 1px 0 #bd2130 !important;
+}
+
+.wponion-button-danger:active {
+  border-color: #bd2130 !important;
+  background: #d32535 !important;
+  -webkit-box-shadow: inset 0 2px 0 #bd2130 !important;
+  box-shadow: inset 0 2px 0 #bd2130 !important;
+}
+
+.wponion-button-light {
+  color: #fff !important;
+  border-color: #e9ecef #dae0e5 #dae0e5 !important;
+  background: #f8f9fa !important;
+  -webkit-box-shadow: 0 1px 0 #dae0e5 !important;
+  box-shadow: 0 1px 0 #dae0e5 !important;
+  text-shadow: 0 -1px 1px #dae0e5, 1px 0 1px #dae0e5, 0 1px 1px #dae0e5, -1px 0 1px #dae0e5 !important;
+}
+
+.wponion-button-light:hover, .wponion-button-light:focus {
+  border-color: #dae0e5 !important;
+  background: white !important;
+  -webkit-box-shadow: 0 1px 0 #dae0e5 !important;
+  box-shadow: 0 1px 0 #dae0e5 !important;
+}
+
+.wponion-button-light:active {
+  border-color: #dae0e5 !important;
+  background: #e9ecef !important;
+  -webkit-box-shadow: inset 0 2px 0 #dae0e5 !important;
+  box-shadow: inset 0 2px 0 #dae0e5 !important;
+}
+
+.wponion-button-dark {
+  color: #fff !important;
+  border-color: #292d32 #1d2124 #1d2124 !important;
+  background: #343a40 !important;
+  -webkit-box-shadow: 0 1px 0 #1d2124 !important;
+  box-shadow: 0 1px 0 #1d2124 !important;
+  text-shadow: 0 -1px 1px #1d2124, 1px 0 1px #1d2124, 0 1px 1px #1d2124, -1px 0 1px #1d2124 !important;
+}
+
+.wponion-button-dark:hover, .wponion-button-dark:focus {
+  border-color: #1d2124 !important;
+  background: #3b4248 !important;
+  -webkit-box-shadow: 0 1px 0 #1d2124 !important;
+  box-shadow: 0 1px 0 #1d2124 !important;
+}
+
+.wponion-button-dark:active {
+  border-color: #1d2124 !important;
+  background: #292d32 !important;
+  -webkit-box-shadow: inset 0 2px 0 #1d2124 !important;
+  box-shadow: inset 0 2px 0 #1d2124 !important;
+}
+
+/**
+ * Generates Common WPOnion Input Style
+ */
 input.wponion-form-control {
   padding: 5px !important;
   border-radius: 0 !important;
 }
 
+/**
+ * Accordion PlaceHolder
+ */
+.wponion-accordion-placeholder {
+  border: 1px dashed #bdbdbd;
+  margin-bottom: 10px;
+}
+
+/**
+ * BlockUI Overlay Style.
+ */
+.blockUI.blockOverlay::before {
+  height: 1em;
+  width: 1em;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -0.5em;
+  margin-top: -0.5em;
+  content: '';
+  -webkit-animation: spin 1s ease-in-out infinite;
+  animation: spin 1s ease-in-out infinite;
+  background: url("../img/loader.svg") center center;
+  background-size: cover;
+  line-height: 1;
+  text-align: center;
+  font-size: 2em;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+/**
+ * Custom Chosen Hack.
+ */
+.chosen-container.chosen-container-single, .chosen-container.chosen-container-multi {
+  width: auto !important;
+  /* or any value that fits your needs */
+  min-width: 200px !important;
+}
+
+/**
+ * Base Elements Style.
+ */
 .wponion {
   /* Basic Styles. */
   /* Global / Field Debug POPUP Style Codes. */
@@ -98,6 +336,7 @@ input.wponion-form-control {
 
 .wponion-element.wponion-element-has-error .wponion-field-errors {
   display: block;
+  color: red;
 }
 
 .wponion-element.wponion-field-debug > .wponion-field-title > a.wponion-field-debug-handle {
@@ -216,141 +455,33 @@ input.wponion-form-control {
   margin-top: 30%;
 }
 
-#wponion-global-debug-content .jsonview {
-  font-size: 14px !important;
-  margin: 0 !important;
-  margin-top: 10px;
-  padding: 0 !important;
-  min-height: 0 !important;
-  height: 100% !important;
-  max-height: 520px;
-}
-
-.wponion-element {
-  /** Heading Element Style. **/
-  /** Sub Heading Element Style.**/
-  /** Notice Element Handler **/
-}
-
-.wponion-element.wponion-element-heading {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #23282d;
-  background-color: #f5f5f5 !important;
-}
-
-.wponion-element.wponion-element-subheading {
-  font-size: 14px;
-  font-weight: bold;
-  padding-top: 17px;
-  padding-bottom: 17px;
-  color: #23282d;
-  background-color: #f7f7f7 !important;
-}
-
-.wponion-element.wponion-element-notice {
-  margin-bottom: 0;
-  border-radius: 0;
-}
-
-.wponion-element.wponion-element-notice + .wponion-element {
-  border-top: 0;
-}
-
-.wponion-element {
-  /** Boostrap Card Element. **/
-  /** Boostrap well/jambotron **/
-}
-
-.wponion-element.wponion-element-card div.card {
-  margin-top: 0;
-  padding: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  max-width: none;
-}
-
-.wponion-element.wponion-element-jambo_content {
-  padding: 0 !important;
-}
-
-.wponion-element.wponion-element-jambo_content div.jumbotron {
-  margin-bottom: 0;
-  border-radius: 0;
-}
-
-.wponion-tab-wrap ul {
-  margin-bottom: 0;
-}
-
-.wponion-tab-wrap ul li {
-  margin-bottom: 0;
-}
-
-.wponion-tab-wrap ul li a {
-  text-decoration: none;
-  outline: none;
-}
-
-.wponion-tab-wrap.wponion-tab-style1 {
-  overflow: hidden;
-  border: 1px solid #ccc;
-}
-
-.wponion-tab-wrap.wponion-tab-style1 ul {
-  margin: 0;
-  min-width: 10%;
-  float: left;
-  line-height: 1em;
-  padding: 0 0 10px;
-  position: relative;
-  background-color: #fafafa;
-  border-right: 1px solid #eee;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.wponion-tab-wrap.wponion-tab-style1 ul li {
-  margin: 0;
-  padding: 0;
-  display: block;
-  position: relative;
-}
-
-.wponion-tab-wrap.wponion-tab-style1 ul li a {
-  margin: 0;
-  padding: 6px 10px;
-  display: block;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  text-decoration: none;
-  line-height: 20px !important;
-  border-bottom: 1px solid #eee;
-}
-
-.wponion-tab-wrap.wponion-tab-style1 ul li.wponion-tab-current a {
-  color: #555;
-  position: relative;
-  background-color: #eee;
-}
-
-.wponion-tab-wrap.wponion-tab-style1 ul::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 9999em;
-  position: absolute;
-  bottom: -9999em;
-  left: 0;
-  background-color: #fafafa;
-  border-right: 1px solid #eee;
-}
-
-.wponion-tab-wrap.wponion-tab-style1 .wponion-tab-page {
-  float: left;
-  width: 90%;
-}
-
+/*@import "accordion_group";
+@import "base";
+@import "cards";
+@import "checkbox";
+@import "checkbox_radio_image_select";
+@import "clone_field";
+@import "color_palette";
+@import "color_picker";
+@import "content";
+@import "fieldset";
+@import "font_picker";
+@import "heading";
+@import "icon_picker";
+@import "image_gallery";
+@import "image_select";
+@import "jambo_content";
+@import "key_value";
+@import "notice";
+@import "radio";
+@import "subheading";
+@import "switcher";
+@import "tab";
+@import "text";
+@import "textarea";*/
+/**
+ * Common Field Includes
+ */
 /*||||||||||||||||||||||||||||||||||||
 || Accordion , Group Element Styles ||
 ||||||||||||||||||||||||||||||||||||*/
@@ -429,18 +560,12 @@ input.wponion-form-control {
   text-align: right;
 }
 
-.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap {
-  display: inline-block;
-  min-width: 50%;
-  border: 1px solid #dadada;
-}
-
-.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap .wponion-element .wponion-element-title {
-  width: 40%;
-}
-
-.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap .wponion-element .wponion-element-title + .wponion-fieldset {
-  margin-left: 40%;
+.wponion-element.wponion-element-card div.card {
+  margin-top: 0;
+  padding: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  max-width: none;
 }
 
 /*|||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -477,230 +602,51 @@ input.wponion-form-control {
   margin-right: 0;
 }
 
-.wponion-element.wponion-element-image_select .form-group {
-  padding: 0;
+.wponion-element.wponion-element-clone .wponion-clone-wrap {
+  padding: 10px;
+  border: 1px solid #dadada;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-element {
+  padding: 10px 5px !important;
   display: inline-block;
-  margin-right: 10px;
+  vertical-align: middle;
 }
 
-.wponion-element.wponion-element-image_select .form-group label {
-  margin-bottom: 0;
-}
-
-.wponion-element.wponion-element-image_select .form-group label input {
-  visibility: hidden;
-}
-
-.wponion-element.wponion-element-image_select .form-group label input:checked + img {
-  border-color: #444;
-}
-
-.wponion-element.wponion-element-image_select .form-group label img {
-  border: 2px solid #fff;
-}
-
-.wponion-element.wponion-element-image_select .form-group label img:hover {
-  border-color: #444;
-}
-
-.wponion-element.wponion-element-image_select .wponion-checkbox-radio-group {
-  display: block;
-  margin-bottom: 25px;
-}
-
-.wponion-element.wponion-element-image_select .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li {
-  display: inline-block;
-}
-
-.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  position: relative;
-  width: 41px;
-  height: 24px;
-  border: 1px solid #dfdfdf;
-  outline: 0;
-  border-radius: 16px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  background: #dfdfdf;
-}
-
-.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:before, .wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:after {
-  content: " ";
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 15px;
-  -webkit-transition: -webkit-transform 0.3s;
-  transition: -webkit-transform 0.3s;
-  -o-transition: transform 0.3s;
-  transition: transform 0.3s;
-  transition: transform 0.3s, -webkit-transform 0.3s;
-}
-
-.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:before {
-  width: 39px;
-  height: 22px;
-  background-color: #fdfdfd;
-}
-
-.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:after {
-  width: 22px;
-  height: 22px;
-  background-color: #fff;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-}
-
-.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:checked {
-  border-color: #04be02;
-  background-color: #04be02;
-}
-
-.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:checked:before {
-  -webkit-transform: scale(0);
-  -ms-transform: scale(0);
-  transform: scale(0);
-}
-
-.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:checked:after {
-  -webkit-transform: translateX(17px);
-  -ms-transform: translateX(17px);
-  transform: translateX(17px);
-}
-
-.wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:checked, .wponion-element.wponion-element-switcher .wponion-fancy-checkbox input[type=checkbox]:focus {
-  outline: 0;
-}
-
-.wponion-element.wponion-element-switcher label {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.wponion-element.wponion-element-switcher label input {
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-clone-action {
   display: none;
-  visibility: hidden;
-}
-
-.wponion-element.wponion-element-switcher label input:checked + .switch:before {
-  background: rgba(0, 115, 170, 0.075);
-  -webkit-transform: translate3d(100%, -50%, 0) scale(1);
-  transform: translate3d(100%, -50%, 0) scale(1);
-}
-
-.wponion-element.wponion-element-switcher label input:checked + .switch:after {
-  background: #0073aa;
-  -webkit-transform: translate3d(100%, -50%, 0);
-  transform: translate3d(100%, -50%, 0);
-}
-
-.wponion-element.wponion-element-switcher label input:checked + .switch:active:before {
-  background: rgba(0, 115, 170, 0.075);
-  -webkit-transform: translate3d(100%, -50%, 0) scale(3);
-  transform: translate3d(100%, -50%, 0) scale(3);
-}
-
-.wponion-element.wponion-element-switcher label .switch {
-  border: 1px solid #b4b9be;
-  display: inline-block;
-  width: 35px;
-  height: 12px;
-  border-radius: 8px;
-  background: #b4b9be;
   vertical-align: middle;
-  position: relative;
-  top: 4px;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-transition: background 350ms ease;
-  -o-transition: background 350ms ease;
-  transition: background 350ms ease;
+  margin-left: 10px;
 }
 
-.wponion-element.wponion-element-switcher label .switch:after, .wponion-element.wponion-element-switcher label .switch:before {
-  content: "";
-  display: block;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: -3px;
-  -webkit-transition: all 350ms cubic-bezier(0, 0.95, 0.38, 0.98), background 150ms ease;
-  -o-transition: all 350ms cubic-bezier(0, 0.95, 0.38, 0.98), background 150ms ease;
-  transition: all 350ms cubic-bezier(0, 0.95, 0.38, 0.98), background 150ms ease;
-}
-
-.wponion-element.wponion-element-switcher label .switch:before {
-  background: rgba(0, 0, 0, 0.2);
-  -webkit-transform: translate3d(0, -50%, 0) scale(0);
-  transform: translate3d(0, -50%, 0) scale(0);
-}
-
-.wponion-element.wponion-element-switcher label .switch:after {
-  background: #999;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  -webkit-transform: translate3d(0, -50%, 0);
-  transform: translate3d(0, -50%, 0);
-}
-
-.wponion-element.wponion-element-switcher label .switch:active:before {
-  -webkit-transform: translate3d(0, -50%, 0) scale(3);
-  transform: translate3d(0, -50%, 0) scale(3);
-}
-
-/*||||||||||||||||||||||||||||||||||||
-|| Textarea,KeyValue Element Styles ||
-||||||||||||||||||||||||||||||||||||*/
-.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap {
-  margin-bottom: 15px;
-}
-
-.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field {
-  margin-bottom: 15px;
-}
-
-.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field .wponion-input-group {
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:hover .wponion-clone-action {
   display: inline-block;
-  min-width: 200px;
-  margin-right: 15px;
-  width: auto;
-  vertical-align: middle;
 }
 
-.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field button {
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:first-child .wponion-element {
+  padding-top: 5px !important;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:last-child .wponion-element {
+  padding-bottom: 5px !important;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone + .wponion-field-clone {
+  border-top: 1px solid #dadada;
+  padding: 5px 0;
+}
+
+.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone-sorter {
   display: inline-block;
   vertical-align: middle;
-}
-
-.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field:last-child {
-  margin-bottom: 0;
-}
-
-.wponion-element.wponion-element-textarea textarea {
-  min-width: 500px;
-  resize: both;
-  max-width: 100%;
-  min-height: 125px;
-}
-
-.wponion-element.wponion-element-font_picker .wponion-font-select-container {
-  display: inline-block;
   margin-right: 10px;
-  min-width: 200px;
+  cursor: move;
+  margin-top: 0px;
 }
 
-.wponion-element.wponion-element-font_picker select {
-  min-width: 200px;
+.wponion-element.wponion-element-clone .wponion-clone-actions {
+  padding-top: 5px;
+  margin-top: 5px;
 }
 
 .wponion-element.wponion-element-color_palette .colors-wrapper {
@@ -783,129 +729,54 @@ input.wponion-form-control {
   background: #fcfcfcb3;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap {
-  padding: 10px;
+/**
+ * Fieldset Styles.
+ */
+.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap {
+  display: inline-block;
+  min-width: 50%;
   border: 1px solid #dadada;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-element {
-  padding: 10px 5px !important;
-  display: inline-block;
-  vertical-align: middle;
+.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap .wponion-element .wponion-element-title {
+  width: 40%;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone .wponion-clone-action {
-  display: none;
-  vertical-align: middle;
+.wponion-element.wponion-element-fieldset .wponion-fieldset-wrap .wponion-element .wponion-element-title + .wponion-fieldset {
+  margin-left: 40%;
+}
+
+.wponion-element.wponion-element-font_picker .wponion-font-select-container {
+  display: inline-block;
+  margin-right: 10px;
+  min-width: 200px;
+}
+
+.wponion-element.wponion-element-font_picker select {
+  min-width: 200px;
+}
+
+/**
+ * Heading Element Style.
+ */
+.wponion-element.wponion-element-heading {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #23282d;
+  background-color: #f5f5f5 !important;
+}
+
+/**
+ * Icon Picker Style.
+ */
+/** Element Style **/
+.wponion-element.wponion-element-icon_picker .wponion-icon-preview {
+  margin-right: 10px;
   margin-left: 10px;
 }
 
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:hover .wponion-clone-action {
-  display: inline-block;
-}
-
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:first-child .wponion-element {
-  padding-top: 5px !important;
-}
-
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone:last-child .wponion-element {
-  padding-bottom: 5px !important;
-}
-
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone + .wponion-field-clone {
-  border-top: 1px solid #dadada;
-  padding: 5px 0;
-}
-
-.wponion-element.wponion-element-clone .wponion-clone-wrap .wponion-field-clone-sorter {
-  display: inline-block;
-  vertical-align: middle;
+.wponion-element.wponion-element-icon_picker button {
   margin-right: 10px;
-  cursor: move;
-  margin-top: 0px;
-}
-
-.wponion-element.wponion-element-clone .wponion-clone-actions {
-  padding-top: 5px;
-  margin-top: 5px;
-}
-
-.wponion-image-preview .wponion-preview {
-  margin-right: 10px;
-}
-
-.wponion-image-preview .wponion-preview, .wponion-image-preview .wponion-preview-add {
-  display: inline-block;
-  position: relative;
-  padding: 4px;
-  min-width: 100px;
-  min-height: 100px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  border-radius: 2px;
-  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-}
-
-.wponion-image-preview .wponion-preview .wponion-remove, .wponion-image-preview .wponion-preview-add .wponion-remove {
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 22px;
-  height: 22px;
-  font-size: 11px;
-  line-height: 22px;
-  text-align: center;
-  cursor: pointer;
-  color: #fff;
-  background-color: #e14d43;
-  opacity: 0.8;
-  border-radius: 2px;
-  -webkit-transition: opacity 0.2s;
-  -o-transition: opacity 0.2s;
-  transition: opacity 0.2s;
-}
-
-.wponion-image-preview .wponion-preview .wponion-remove:hover, .wponion-image-preview .wponion-preview-add .wponion-remove:hover {
-  background-color: #df4136;
-}
-
-.wponion-image-preview .wponion-preview img, .wponion-image-preview .wponion-preview-add img {
-  max-height: 90px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.wponion-image-preview .wponion-preview-add {
-  width: 100px;
-  height: 100px;
-  text-align: center;
-  color: green;
-  cursor: pointer;
-}
-
-.wponion-image-preview .wponion-preview-add i {
-  color: #87D148;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-
-.wponion-image-preview .wponion-preview-add:hover {
-  background-color: #f6f6f6;
-}
-
-.wponion-element.wponion-element-gallery .wponion-gallery-actions {
-  text-align: center;
-  margin-top: 15px;
-}
-
-.wponion-element.wponion-element-gallery .wponion-gallery-actions button {
-  margin-right: 15px;
 }
 
 /** Icon Preview Button Style **/
@@ -924,16 +795,6 @@ input.wponion-form-control {
   border-radius: 3px;
   -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-}
-
-/** Element Style **/
-.wponion-element.wponion-element-icon_picker .wponion-icon-preview {
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.wponion-element.wponion-element-icon_picker button {
-  margin-right: 10px;
 }
 
 /** Icon Select POPUP Style */
@@ -1043,11 +904,222 @@ input.wponion-form-control {
   bottom: 0;
 }
 
-.wponion-accordion-placeholder {
-  border: 1px dashed #bdbdbd;
-  margin-bottom: 10px;
+/**
+ * Image Gallery
+ */
+.wponion-image-preview .wponion-preview {
+  margin-right: 10px;
 }
 
+.wponion-image-preview .wponion-preview, .wponion-image-preview .wponion-preview-add {
+  display: inline-block;
+  position: relative;
+  padding: 4px;
+  min-width: 100px;
+  min-height: 100px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.wponion-image-preview .wponion-preview .wponion-remove, .wponion-image-preview .wponion-preview-add .wponion-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 22px;
+  height: 22px;
+  font-size: 11px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+  color: #fff;
+  background-color: #e14d43;
+  opacity: 0.8;
+  border-radius: 2px;
+  -webkit-transition: opacity 0.2s;
+  -o-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.wponion-image-preview .wponion-preview .wponion-remove:hover, .wponion-image-preview .wponion-preview-add .wponion-remove:hover {
+  background-color: #df4136;
+}
+
+.wponion-image-preview .wponion-preview img, .wponion-image-preview .wponion-preview-add img {
+  max-height: 90px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.wponion-image-preview .wponion-preview-add {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  color: green;
+  cursor: pointer;
+}
+
+.wponion-image-preview .wponion-preview-add i {
+  color: #87D148;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.wponion-image-preview .wponion-preview-add:hover {
+  background-color: #f6f6f6;
+}
+
+.wponion-element.wponion-element-gallery .wponion-gallery-actions {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.wponion-element.wponion-element-gallery .wponion-gallery-actions button {
+  margin-right: 15px;
+}
+
+/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|| Checkbox,Radio,Image Select,Switcher Element Styles ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+.wponion-element.wponion-element-image_select .form-group {
+  padding: 0;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.wponion-element.wponion-element-image_select .form-group label {
+  margin-bottom: 0;
+}
+
+.wponion-element.wponion-element-image_select .form-group label input {
+  visibility: hidden;
+}
+
+.wponion-element.wponion-element-image_select .form-group label input:checked + img {
+  border-color: #444;
+}
+
+.wponion-element.wponion-element-image_select .form-group label img {
+  border: 2px solid #fff;
+}
+
+.wponion-element.wponion-element-image_select .form-group label img:hover {
+  border-color: #444;
+}
+
+.wponion-element.wponion-element-image_select .wponion-checkbox-radio-group {
+  display: block;
+  margin-bottom: 25px;
+}
+
+.wponion-element.wponion-element-image_select .wponion-checkbox-radio-group ul.wponion-checkbox-group-lists li {
+  display: inline-block;
+}
+
+.wponion-element.wponion-element-jambo_content {
+  padding: 0 !important;
+}
+
+.wponion-element.wponion-element-jambo_content div.jumbotron {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/**
+ * KeyValue Pair Style
+ */
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap {
+  margin-bottom: 15px;
+}
+
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field {
+  margin-bottom: 15px;
+}
+
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field .wponion-input-group {
+  display: inline-block;
+  min-width: 200px;
+  margin-right: 15px;
+  width: auto;
+  vertical-align: middle;
+}
+
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field button {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field:last-child {
+  margin-bottom: 0;
+}
+
+/**
+ * Notice Element Styles
+ */
+.wponion-element.wponion-element-notice {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.wponion-element.wponion-element-notice + .wponion-element {
+  border-top: 0;
+}
+
+/**
+ * Subheading Style.
+ */
+.wponion-element.wponion-element-subheading {
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  color: #23282d;
+  background-color: #f7f7f7 !important;
+}
+
+/**
+ * Textarea Style
+ */
+.wponion-element.wponion-element-textarea textarea {
+  min-width: 500px;
+  resize: both;
+  max-width: 100%;
+  min-height: 125px;
+}
+
+/**
+ * Styles Based on Modules.
+ */
+.wponion-framework {
+  /**
+   * WPOnion Settings Module.
+   */
+  /**
+   * WPOnion Metabox Module.
+   */
+  /**
+   * WPOnion Customizer Module.
+   */
+}
+
+.wponion-framework.wponion-module-customizer .wponion-element.wponion-element-subheading {
+  margin-top: -15px !important;
+  margin-bottom: -15px;
+  padding: 17px 15px !important;
+  margin-left: -12px;
+  margin-right: -12px !important;
+}
+
+/**
+ * Core Fields Styles
+ */
 .wponion-framework-bootstrap-grid :root, .wponion-framework-bootstrap :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -7232,193 +7304,6 @@ input.wponion-form-control {
   color: #040505;
 }
 
-/******************************
- * Bootstrap Custom buttons ***
- *****************************/
-.wponion-button-primary {
-  color: #fff !important;
-  border-color: #006fe6 #0062cc #0062cc !important;
-  background: #007bff !important;
-  -webkit-box-shadow: 0 1px 0 #0062cc !important;
-  box-shadow: 0 1px 0 #0062cc !important;
-  text-shadow: 0 -1px 1px #0062cc, 1px 0 1px #0062cc, 0 1px 1px #0062cc, -1px 0 1px #0062cc !important;
-}
-
-.wponion-button-primary:hover, .wponion-button-primary:focus {
-  border-color: #0062cc !important;
-  background: #0f83ff !important;
-  -webkit-box-shadow: 0 1px 0 #0062cc !important;
-  box-shadow: 0 1px 0 #0062cc !important;
-}
-
-.wponion-button-primary:active {
-  border-color: #0062cc !important;
-  background: #006fe6 !important;
-  -webkit-box-shadow: inset 0 2px 0 #0062cc !important;
-  box-shadow: inset 0 2px 0 #0062cc !important;
-}
-
-.wponion-button-secondary {
-  color: #fff !important;
-  border-color: #60686f #545b62 #545b62 !important;
-  background: #6c757d !important;
-  -webkit-box-shadow: 0 1px 0 #545b62 !important;
-  box-shadow: 0 1px 0 #545b62 !important;
-  text-shadow: 0 -1px 1px #545b62, 1px 0 1px #545b62, 0 1px 1px #545b62, -1px 0 1px #545b62 !important;
-}
-
-.wponion-button-secondary:hover, .wponion-button-secondary:focus {
-  border-color: #545b62 !important;
-  background: #737d85 !important;
-  -webkit-box-shadow: 0 1px 0 #545b62 !important;
-  box-shadow: 0 1px 0 #545b62 !important;
-}
-
-.wponion-button-secondary:active {
-  border-color: #545b62 !important;
-  background: #60686f !important;
-  -webkit-box-shadow: inset 0 2px 0 #545b62 !important;
-  box-shadow: inset 0 2px 0 #545b62 !important;
-}
-
-.wponion-button-success {
-  color: #fff !important;
-  border-color: #23923d #1e7e34 #1e7e34 !important;
-  background: #28a745 !important;
-  -webkit-box-shadow: 0 1px 0 #1e7e34 !important;
-  box-shadow: 0 1px 0 #1e7e34 !important;
-  text-shadow: 0 -1px 1px #1e7e34, 1px 0 1px #1e7e34, 0 1px 1px #1e7e34, -1px 0 1px #1e7e34 !important;
-}
-
-.wponion-button-success:hover, .wponion-button-success:focus {
-  border-color: #1e7e34 !important;
-  background: #2bb34a !important;
-  -webkit-box-shadow: 0 1px 0 #1e7e34 !important;
-  box-shadow: 0 1px 0 #1e7e34 !important;
-}
-
-.wponion-button-success:active {
-  border-color: #1e7e34 !important;
-  background: #23923d !important;
-  -webkit-box-shadow: inset 0 2px 0 #1e7e34 !important;
-  box-shadow: inset 0 2px 0 #1e7e34 !important;
-}
-
-.wponion-button-info {
-  color: #fff !important;
-  border-color: #148ea1 #117a8b #117a8b !important;
-  background: #17a2b8 !important;
-  -webkit-box-shadow: 0 1px 0 #117a8b !important;
-  box-shadow: 0 1px 0 #117a8b !important;
-  text-shadow: 0 -1px 1px #117a8b, 1px 0 1px #117a8b, 0 1px 1px #117a8b, -1px 0 1px #117a8b !important;
-}
-
-.wponion-button-info:hover, .wponion-button-info:focus {
-  border-color: #117a8b !important;
-  background: #19aec6 !important;
-  -webkit-box-shadow: 0 1px 0 #117a8b !important;
-  box-shadow: 0 1px 0 #117a8b !important;
-}
-
-.wponion-button-info:active {
-  border-color: #117a8b !important;
-  background: #148ea1 !important;
-  -webkit-box-shadow: inset 0 2px 0 #117a8b !important;
-  box-shadow: inset 0 2px 0 #117a8b !important;
-}
-
-.wponion-button-warning {
-  color: #fff !important;
-  border-color: #edb100 #d39e00 #d39e00 !important;
-  background: #ffc107 !important;
-  -webkit-box-shadow: 0 1px 0 #d39e00 !important;
-  box-shadow: 0 1px 0 #d39e00 !important;
-  text-shadow: 0 -1px 1px #d39e00, 1px 0 1px #d39e00, 0 1px 1px #d39e00, -1px 0 1px #d39e00 !important;
-}
-
-.wponion-button-warning:hover, .wponion-button-warning:focus {
-  border-color: #d39e00 !important;
-  background: #ffc516 !important;
-  -webkit-box-shadow: 0 1px 0 #d39e00 !important;
-  box-shadow: 0 1px 0 #d39e00 !important;
-}
-
-.wponion-button-warning:active {
-  border-color: #d39e00 !important;
-  background: #edb100 !important;
-  -webkit-box-shadow: inset 0 2px 0 #d39e00 !important;
-  box-shadow: inset 0 2px 0 #d39e00 !important;
-}
-
-.wponion-button-danger {
-  color: #fff !important;
-  border-color: #d32535 #bd2130 #bd2130 !important;
-  background: #dc3545 !important;
-  -webkit-box-shadow: 0 1px 0 #bd2130 !important;
-  box-shadow: 0 1px 0 #bd2130 !important;
-  text-shadow: 0 -1px 1px #bd2130, 1px 0 1px #bd2130, 0 1px 1px #bd2130, -1px 0 1px #bd2130 !important;
-}
-
-.wponion-button-danger:hover, .wponion-button-danger:focus {
-  border-color: #bd2130 !important;
-  background: #de4251 !important;
-  -webkit-box-shadow: 0 1px 0 #bd2130 !important;
-  box-shadow: 0 1px 0 #bd2130 !important;
-}
-
-.wponion-button-danger:active {
-  border-color: #bd2130 !important;
-  background: #d32535 !important;
-  -webkit-box-shadow: inset 0 2px 0 #bd2130 !important;
-  box-shadow: inset 0 2px 0 #bd2130 !important;
-}
-
-.wponion-button-light {
-  color: #fff !important;
-  border-color: #e9ecef #dae0e5 #dae0e5 !important;
-  background: #f8f9fa !important;
-  -webkit-box-shadow: 0 1px 0 #dae0e5 !important;
-  box-shadow: 0 1px 0 #dae0e5 !important;
-  text-shadow: 0 -1px 1px #dae0e5, 1px 0 1px #dae0e5, 0 1px 1px #dae0e5, -1px 0 1px #dae0e5 !important;
-}
-
-.wponion-button-light:hover, .wponion-button-light:focus {
-  border-color: #dae0e5 !important;
-  background: white !important;
-  -webkit-box-shadow: 0 1px 0 #dae0e5 !important;
-  box-shadow: 0 1px 0 #dae0e5 !important;
-}
-
-.wponion-button-light:active {
-  border-color: #dae0e5 !important;
-  background: #e9ecef !important;
-  -webkit-box-shadow: inset 0 2px 0 #dae0e5 !important;
-  box-shadow: inset 0 2px 0 #dae0e5 !important;
-}
-
-.wponion-button-dark {
-  color: #fff !important;
-  border-color: #292d32 #1d2124 #1d2124 !important;
-  background: #343a40 !important;
-  -webkit-box-shadow: 0 1px 0 #1d2124 !important;
-  box-shadow: 0 1px 0 #1d2124 !important;
-  text-shadow: 0 -1px 1px #1d2124, 1px 0 1px #1d2124, 0 1px 1px #1d2124, -1px 0 1px #1d2124 !important;
-}
-
-.wponion-button-dark:hover, .wponion-button-dark:focus {
-  border-color: #1d2124 !important;
-  background: #3b4248 !important;
-  -webkit-box-shadow: 0 1px 0 #1d2124 !important;
-  box-shadow: 0 1px 0 #1d2124 !important;
-}
-
-.wponion-button-dark:active {
-  border-color: #1d2124 !important;
-  background: #292d32 !important;
-  -webkit-box-shadow: inset 0 2px 0 #1d2124 !important;
-  box-shadow: inset 0 2px 0 #1d2124 !important;
-}
-
 body.wp-customizer .wponion-framework.wponion-module-customizer .wponion-element {
   padding: 0;
   /**
@@ -7627,24 +7512,29 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
   border-top: 1px solid #eee;
 }
 
-.blockUI.blockOverlay::before {
-  height: 1em;
-  width: 1em;
+.postbox.wponion-metabox.wponion-metabox-side .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap, .postbox.wponion-metabox.wponion-metabox-side .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-bg-wrap {
+  display: none;
+  visibility: hidden;
+}
+
+.postbox.wponion-metabox.wponion-metabox-side .inside .wponion-metabox-inside-wrap .wponion-metabox-content-wrap {
+  width: 100% !important;
+}
+
+.postbox.wponion-metabox.wponion-metabox-side .inside .wponion-metabox-inside-wrap .wponion-metabox-content-wrap .wponion-element {
+  padding: 15px;
+}
+
+.postbox.wponion-metabox.wponion-metabox-side .inside .wponion-metabox-inside-wrap .wponion-metabox-content-wrap .wponion-element > .wponion-field-title {
+  width: 100%;
+  float: none;
   display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -0.5em;
-  margin-top: -0.5em;
-  content: '';
-  -webkit-animation: spin 1s ease-in-out infinite;
-  animation: spin 1s ease-in-out infinite;
-  background: url("../img/loader.svg") center center;
-  background-size: cover;
-  line-height: 1;
-  text-align: center;
-  font-size: 2em;
-  color: rgba(0, 0, 0, 0.75);
+  margin-bottom: 10px;
+}
+
+.postbox.wponion-metabox.wponion-metabox-side .inside .wponion-metabox-inside-wrap .wponion-metabox-content-wrap .wponion-element > .wponion-fieldset {
+  margin-left: 0;
+  float: none;
 }
 
 /*# sourceMappingURL=wponion-base.css.map */
