@@ -140,6 +140,10 @@ $wponion_field.fn = $wponion_field.prototype = {
 		return this.field;
 	},
 
+	/**
+	 * Returns Elements ID.
+	 * @returns {*}
+	 */
 	id: function () {
 		return $wponion.field_js_id( this.elem );
 	},
