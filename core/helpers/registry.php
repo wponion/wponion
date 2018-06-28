@@ -50,6 +50,7 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	function wponion_registry( $type = '', $class = null ) {
 		switch ( $type ) {
 			case 'settings':
+			case 'theme':
 				$class = '\WPOnion\Registry\Modules';
 				break;
 			case 'core':
@@ -148,6 +149,19 @@ if ( ! function_exists( 'wponion_core_registry' ) ) {
 	 */
 	function wponion_core_registry( &$instance ) {
 		return wponion_get_registry_instance( 'core', $instance );
+	}
+}
+
+if ( ! function_exists( 'wponion_theme_registry' ) ) {
+	/**
+	 * Creates An static instance for themes class.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_theme_registry( &$instance ) {
+		return wponion_get_registry_instance( 'theme', $instance, 'theme' );
 	}
 }
 
