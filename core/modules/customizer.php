@@ -74,6 +74,11 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 			) );
 		}
 
+		/**
+		 * @param array $field
+		 * @param bool  $page
+		 * @param bool  $section
+		 */
 		protected function handle_single_field( $field = array(), $page = false, $section = false ) {
 			$this->handle_field_script( $field );
 			$this->register_partials( $field );
@@ -269,8 +274,18 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 			}
 		}
 
+		/**
+		 * @param string $extra_class
+		 */
 		public function wrap_class( $extra_class = '' ) {
 			// TODO: Implement wrap_class() method.
+		}
+
+		/**
+		 * @return mixed
+		 */
+		public function on_init() {
+			// TODO: Implement on_init() method.
 		}
 	}
 }
