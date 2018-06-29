@@ -78,12 +78,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		/**
 		 * Inits The Class.
 		 */
-		public function init() {
-			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax() ) {
-				$this->add_action( 'admin_init', 'wp_admin_init' );
-				$this->add_action( 'admin_menu', 'register_admin_menu' );
-				wponion_settings_registry( $this );
-			}
+		public function on_init() {
+			$this->add_action( 'admin_init', 'wp_admin_init' );
+			$this->add_action( 'admin_menu', 'register_admin_menu' );
 		}
 
 		/**
@@ -238,7 +235,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				$user_menu = $this->option( 'menu' );
 				$menu      = $this->parse_args( $user_menu, $this->defaults( 'menu' ) );
 				$page_hook = '';
-				$callback  = array( &$this, 'render_page' );
+				$callback  = array( &$this, 'render' );
 				switch ( $menu['type'] ) {
 					case 'submenu':
 						$page_hook = add_submenu_page( $menu['parent'], $menu['title'], $menu['title'], $menu['capability'], $menu['slug'], $callback );
@@ -292,7 +289,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		/**
 		 * Renders Settings Page HTML.
 		 */
-		public function render_page() {
+		public function render() {
 			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
 			echo '<div class="hidden" style="display:none;" id="wponion-hidden-fields">';
 			settings_fields( $this->unique );
