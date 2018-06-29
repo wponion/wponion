@@ -63,11 +63,18 @@ $ins->page( 'Advanced Fields', 'advanced_fields' )
 	->section( 'Icon Picker', 'icon_picker' )
 	->merge_fields( $wpof['icon_picker'] )
 	->section( 'Image Select', 'image_select' )
-	->merge_fields( $wpof['image_select'] );
+	->merge_fields( $wpof['image_select'] )
+	->section( 'Fieldset', 'fieldset' )
+	->merge_fields( $wpof['fieldset'] )
+	->section( 'Accordion', 'accordion' )
+	->merge_fields( $wpof['accordion'] )
+	->section( 'Group', 'group' )
+	->merge_fields( $wpof['group'] );
 
 $ins->page( 'WP Fields', 'wp_fields' )
 	->section( 'WP Images', 'wp_image_picker' )
-	->merge_fields( $wpof['images'] )->section( 'WP Links', 'wp_links_picker' )
+	->merge_fields( $wpof['images'] )
+	->section( 'WP Links', 'wp_links_picker' )
 	->merge_fields( $wpof['wp_links'] );
 
 $ins->page( 'UI Fields', 'ui_fields' )
@@ -78,3 +85,4 @@ $ins->init();
 
 require_once 'customizer.php';
 require_once 'metabox.php';
+require_once 'taxonomy.php';
