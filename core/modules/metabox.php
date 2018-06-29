@@ -71,12 +71,9 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		/**
 		 * Inits The Class.
 		 */
-		public function init() {
-			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax() ) {
-				$this->add_action( 'load-post.php', 'on_page_load' );
-				$this->add_action( 'load-post-new.php', 'on_page_load' );
-				wponion_metabox_registry( $this );
-			}
+		public function on_init() {
+			$this->add_action( 'load-post.php', 'on_page_load' );
+			$this->add_action( 'load-post-new.php', 'on_page_load' );
 		}
 
 		/**
