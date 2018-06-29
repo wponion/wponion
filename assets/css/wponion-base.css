@@ -575,7 +575,9 @@ input.wponion-form-control {
   display: inline-block;
   min-width: 200px;
   margin-right: 25px;
+  margin-bottom: 15px;
   border: 1px solid #dadada;
+  background: #fff;
 }
 
 .wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group .wponion-group-header, .wponion-element.wponion-element-radio .wponion-checkbox-radio-group .wponion-group-header, .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group .wponion-group-header {
@@ -750,6 +752,7 @@ input.wponion-form-control {
   display: inline-block;
   margin-right: 10px;
   min-width: 200px;
+  margin-bottom: 10px;
 }
 
 .wponion-element.wponion-element-font_picker select {
@@ -985,9 +988,9 @@ input.wponion-form-control {
   margin-right: 15px;
 }
 
-/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|| Checkbox,Radio,Image Select,Switcher Element Styles ||
-|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+/**
+ * Image Select Style
+ */
 .wponion-element.wponion-element-image_select .form-group {
   padding: 0;
   display: inline-block;
@@ -1000,6 +1003,7 @@ input.wponion-form-control {
 
 .wponion-element.wponion-element-image_select .form-group label input {
   visibility: hidden;
+  display: none;
 }
 
 .wponion-element.wponion-element-image_select .form-group label input:checked + img {
@@ -1040,6 +1044,9 @@ input.wponion-form-control {
 }
 
 .wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field {
+  display: inline-block;
+  width: 100%;
+  position: relative;
   margin-bottom: 15px;
 }
 
@@ -1107,6 +1114,77 @@ input.wponion-form-control {
   /**
    * WPOnion Customizer Module.
    */
+  /**
+   * WPOnion Taxonomy Module.
+   */
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side {
+  /*|||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|| Checkbox,Radio,Image Select,Switcher Element Styles ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+  /*|||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|| Checkbox,Radio,Image Select,Switcher Element Styles ||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-textarea textarea {
+  width: 100%;
+  min-width: auto;
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-checkbox .wponion-checkbox-radio-group, .wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-radio .wponion-checkbox-radio-group, .wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-image_select .wponion-checkbox-radio-group {
+  width: 100%;
+  min-width: auto;
+  margin-right: 0;
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-color_picker .wp-picker-container.wp-picker-active {
+  padding: 0;
+  border: none;
+  background: none;
+  margin: 0;
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-image_select .form-group {
+  padding: 0;
+  display: inline-block;
+  margin-right: 0px;
+  margin-bottom: 10px;
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-font_picker .wponion-font-select-container {
+  margin-right: 0;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field .wponion-input-group {
+  display: inline-block;
+  min-width: auto;
+  width: 100%;
+  margin-right: 0;
+  vertical-align: middle;
+  margin-bottom: 10px;
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field button {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  visibility: hidden;
+  display: none;
+}
+
+.wponion-framework.wponion-module-metabox.wponion-module-metabox-side .wponion-element.wponion-element-key_value .wponion-keyvalue_wrap .wponion-keyvalue-field:hover button {
+  display: block;
+  visibility: visible;
 }
 
 .wponion-framework.wponion-module-customizer .wponion-element.wponion-element-subheading {
@@ -1115,6 +1193,49 @@ input.wponion-form-control {
   padding: 17px 15px !important;
   margin-left: -12px;
   margin-right: -12px !important;
+}
+
+.wponion-framework.wponion-module-taxonomy .wponion-element.wponion-element-accordion .wponion-element > .wponion-field-title {
+  width: 100%;
+  float: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.wponion-framework.wponion-module-taxonomy .wponion-element.wponion-element-accordion .wponion-element > .wponion-fieldset {
+  margin-left: 0;
+  float: none;
+}
+
+.wponion-framework.wponion-module-taxonomy .wponion-element.wponion-element-fieldset .wponion-fieldset-wrap {
+  width: 100%;
+  background: #fff;
+}
+
+.wponion-framework.wponion-module-taxonomy .wponion-element.wponion-element-fieldset .wponion-fieldset-wrap .wponion-element > .wponion-field-title {
+  width: 100%;
+  float: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.wponion-framework.wponion-module-taxonomy .wponion-element.wponion-element-fieldset .wponion-fieldset-wrap .wponion-element > .wponion-fieldset {
+  margin-left: 0;
+  float: none;
+}
+
+.wponion-framework.wponion-module-taxonomy > .wponion-element.wponion-element-notice {
+  padding: 15px;
+}
+
+.wponion-framework.wponion-module-taxonomy > .wponion-element.wponion-element-subheading {
+  padding: 15px;
+  border: 1px solid #dadada;
+}
+
+.wponion-framework.wponion-module-taxonomy .wponion-element.wponion-element-textarea textarea {
+  width: 100%;
+  min-width: auto;
 }
 
 /**
@@ -7383,6 +7504,13 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
   display: inline-block;
 }
 
+.postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap + .wponion-metabox-content-wrap {
+  /***
+		 * @todo please change 200px here also when updating the width above.
+		 */
+  width: calc(100% - 200px) !important;
+}
+
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-menu-wrap {
   float: left;
   width: 200px;
@@ -7497,10 +7625,7 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
 
 .postbox.wponion-metabox .inside .wponion-metabox-inside-wrap .wponion-metabox-content-wrap {
   float: left;
-  /***
-		 * @todo please change 200px here also when updating the width above.
-		 */
-  width: calc(100% - 200px);
+  width: 100%;
   background: #fff;
 }
 
@@ -7537,4 +7662,46 @@ body.wp-customizer .swal2-container, body.wp-customizer .tippy-popper {
   float: none;
 }
 
-/*# sourceMappingURL=wponion-base.css.map */
+.wponion-framework.wponion-module-taxonomy > .wponion-element {
+  padding: 0;
+  border: none;
+}
+
+.wponion-framework.wponion-module-taxonomy.wponion-taxonomy-new-form > .wponion-element {
+  margin: 10px 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.wponion-framework.wponion-module-taxonomy.wponion-taxonomy-new-form > .wponion-element > .wponion-field-title {
+  width: 100%;
+  float: none;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.wponion-framework.wponion-module-taxonomy.wponion-taxonomy-new-form > .wponion-element > .wponion-fieldset {
+  margin-left: 0;
+  float: none;
+}
+
+.wponion-framework.wponion-module-taxonomy.wponion-taxonomy-edit-form > .wponion-element {
+  margin: 15px 0;
+  float: left;
+  width: 100%;
+}
+
+.wponion-framework.wponion-module-taxonomy.wponion-taxonomy-edit-form > .wponion-element .wponion-field-title {
+  width: 220px;
+}
+
+.wponion-framework.wponion-module-taxonomy.wponion-taxonomy-edit-form > .wponion-element .wponion-fieldset {
+  float: left;
+  width: 70%;
+  margin-left: 0;
+  position: relative;
+}
+
+.wponion-framework.wponion-module-taxonomy.wponion-taxonomy-edit-form > .wponion-element .wponion-fieldset.wponion-fieldset-notitle {
+  width: 100%;
+}
