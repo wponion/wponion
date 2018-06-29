@@ -18,10 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $wponion_js, $wponion_css;
 
 $wponion_js = array(
-	'wponion-plugins'           => array(
-		wponion_debug_assets( 'assets/js/wponion-plugins', 'js' ),
-		array( 'jquery' ),
-	),
+	'wponion-plugins'           => array( 'assets/js/wponion-plugins.js', array( 'jquery' ) ),
 	'wponion-fields'            => array(
 		wponion_debug_assets( 'assets/js/wponion-fields', 'js' ),
 		array( 'wponion-plugins' ),

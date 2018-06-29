@@ -20,10 +20,20 @@ var $wponion_theme = function ( selector, contxt ) {
 	return this.init( selector, contxt );
 };
 
+/**
+ *
+ * @param selector
+ * @param contxt
+ */
 function wponion_theme ( selector, contxt ) {
 	return new $wponion_theme( selector, contxt );
 }
 
+/**
+ *
+ * @param selector
+ * @param contxt
+ */
 function wponion_field ( selector, contxt ) {
 	return new $wponion_field( selector, contxt );
 }
@@ -15403,5 +15413,3 @@ return tippy;
   });
 }(jQuery));
 
-
-//# sourceMappingURL=wponion-plugins.js.map
