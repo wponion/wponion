@@ -385,14 +385,16 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 		if (this.arg($fid + 'tooltip')) {
 			var $arg = this.arg($fid + 'tooltip');
+
 			$arg['performance'] = false;
 			if ($arg['image'] !== false) {
 				$arg.html = '#wponiontooltipimagetippy';
 				$arg.updateDuration = 2000;
 				$arg.followCursor = false;
-				$arg.onShow = function () {
-					var _this = this;
+				$arg.livePlacement = true;
+				$arg.inertia = true;
 
+				$arg.onShow = function () {
 					var content = this.querySelector('.tippy-content');
 					if ($tip.loading) return;
 
@@ -404,7 +406,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 						var url = URL.createObjectURL(blob);
 						content.innerHTML = '<img src="' + url + '">';
 						$tip.loading = false;
-						_this.on('mousemove');
 					}).catch(function (e) {
 						content.innerHTML = 'Loading failed';
 						$tip.loading = false;
