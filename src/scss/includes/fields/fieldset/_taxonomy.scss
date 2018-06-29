@@ -1,0 +1,15 @@
+.wponion-element.wponion-element-fieldset {
+  .wponion-fieldset-wrap {
+	width:      100%;
+	background: #fff;
+	.wponion-element {
+	  @include wponion_field_hirozantal();
+	}
+  }
+}
+
+&.wponion-taxonomy-new-form {
+}
+
+&.wponion-taxonomy-edit-form {
+}

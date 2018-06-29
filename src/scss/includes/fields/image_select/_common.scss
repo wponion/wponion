@@ -1,6 +1,6 @@
-/*|||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|| Checkbox,Radio,Image Select,Switcher Element Styles ||
-|||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
+/**
+ * Image Select Style
+ */
 .wponion-element.wponion-element-image_select {
   .form-group {
 	padding:      0;
@@ -9,6 +9,7 @@
 	  margin-bottom: 0;
 	  input {
 		visibility: hidden;
+		display:    none;
 
 		&:checked + img {
 		  border-color: #444;

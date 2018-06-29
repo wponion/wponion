@@ -191,6 +191,7 @@
 @import "tab";
 @import "text";
 @import "textarea";*/
+
 /**
  * Common Field Includes
  */
@@ -281,6 +282,15 @@
 	@import "tab/metabox";
 	@import "text/metabox";
 	@import "textarea/metabox";
+
+	&.wponion-module-metabox-side {
+	  @import "textarea/metabox-side";
+	  @import "checkbox_radio_image_select/metabox-side";
+	  @import "color_picker/metabox-side";
+	  @import "image_select/metabox-side";
+	  @import "font_picker/metabox-side";
+	  @import "key_value/metabox-side";
+	}
   }
 
   /**
@@ -311,5 +321,35 @@
 	@import "tab/customizer";
 	@import "text/customizer";
 	@import "textarea/customizer";
+  }
+
+  /**
+   * WPOnion Taxonomy Module.
+   */
+  &.wponion-module-taxonomy {
+	@import "accordion_group/taxonomy";
+	@import "base/taxonomy";
+	@import "cards/taxonomy";
+	@import "checkbox/taxonomy";
+	@import "checkbox_radio_image_select/taxonomy";
+	@import "clone_field/taxonomy";
+	@import "color_palette/taxonomy";
+	@import "color_picker/taxonomy";
+	@import "content/taxonomy";
+	@import "fieldset/taxonomy";
+	@import "font_picker/taxonomy";
+	@import "heading/taxonomy";
+	@import "icon_picker/taxonomy";
+	@import "image_gallery/taxonomy";
+	@import "image_select/taxonomy";
+	@import "jambo_content/taxonomy";
+	@import "key_value/taxonomy";
+	@import "notice/taxonomy";
+	@import "radio/taxonomy";
+	@import "subheading/taxonomy";
+	@import "switcher/taxonomy";
+	@import "tab/taxonomy";
+	@import "text/taxonomy";
+	@import "textarea/taxonomy";
   }
 }

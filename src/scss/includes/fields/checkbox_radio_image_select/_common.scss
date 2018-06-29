@@ -4,10 +4,12 @@
 .wponion-element {
   &.wponion-element-checkbox, &.wponion-element-radio, &.wponion-element-image_select {
 	.wponion-checkbox-radio-group {
-	  display:      inline-block;
-	  min-width:    200px;
-	  margin-right: 25px;
-	  border:       1px solid #dadada;
+	  display:       inline-block;
+	  min-width:     200px;
+	  margin-right:  25px;
+	  margin-bottom: 15px;
+	  border:        1px solid #dadada;
+	  background:    #fff;
 	  .wponion-group-header {
 		padding:       10px 15px;
 		margin-bottom: 15px;
