@@ -386,30 +386,30 @@
 		let $tip = {};
 
 		if ( this.arg( $fid + 'tooltip' ) ) {
-			let $arg              = this.arg( $fid + 'tooltip' );
+			let $arg = this.arg( $fid + 'tooltip' );
+
 			$arg[ 'performance' ] = false;
 			if ( $arg[ 'image' ] !== false ) {
-				$arg.html               = '#wponiontooltipimagetippy';
-				$arg.updateDuration     = 2000;
-				$arg.followCursor       = false;
+				$arg.html           = '#wponiontooltipimagetippy';
+				$arg.updateDuration = 2000;
+				$arg.followCursor   = false;
+				$arg.livePlacement  = true;
+				$arg.inertia        = true;
+
 				$arg.onShow             = function () {
 					const content = this.querySelector( '.tippy-content' );
 					if ( $tip.loading ) return;
 
 					$tip.loading = true;
 
-					fetch( $arg[ 'image' ] )
-						.then( resp => resp.blob() )
-						.then( blob => {
-							const url         = URL.createObjectURL( blob );
-							content.innerHTML = `<img src="${url}">`;
-							$tip.loading      = false;
-							this.on( 'mousemove' );
-						} )
-						.catch( e => {
-							content.innerHTML = 'Loading failed';
-							$tip.loading      = false
-						} )
+					fetch( $arg[ 'image' ] ).then( resp => resp.blob() ).then( blob => {
+						const url         = URL.createObjectURL( blob );
+						content.innerHTML = `<img src="${url}">`;
+						$tip.loading      = false;
+					} ).catch( e => {
+						content.innerHTML = 'Loading failed';
+						$tip.loading      = false;
+					} );
 				};
 				$arg.onHidden           = function () {
 					const content     = this.querySelector( ".tippy-content" );
