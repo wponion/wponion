@@ -224,6 +224,20 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 			return $default;
 		}
 
+
+		/**
+		 * Updates $this->settings array.
+		 *
+		 * @param $key
+		 * @param $value
+		 *
+		 * @return $this
+		 */
+		public function set_option( $key, $value ) {
+			$this->settings[ $key ] = $value;
+			return $this;
+		}
+
 		/**
 		 * Returns current plugin_id
 		 *
