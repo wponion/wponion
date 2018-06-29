@@ -141,6 +141,15 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		}
 
 		/**
+		 * Returns Taxonomy Instance.
+		 *
+		 * @return mixed
+		 */
+		public function taxonomy() {
+			return wponion_taxonomy_registry( $this->plugin_id );
+		}
+
+		/**
 		 * Returns Dashboard Instance.
 		 *
 		 * @return \WPOnion\Modules\Dashboard_Widgets
@@ -225,6 +234,13 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		 */
 		public function render_settings_html() {
 			include $this->find_html_file( 'settings-html.php' );
+		}
+
+		/**
+		 * Generates Taxonomy Page HTML.
+		 */
+		public function render_taxonomy_html() {
+			include $this->find_html_file( 'taxonomy-html.php' );
 		}
 	}
 }
