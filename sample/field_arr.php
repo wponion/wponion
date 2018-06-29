@@ -87,6 +87,27 @@ function wponion__image_select_options( $prefix = '', $image_size = '75', $type 
 	);
 }
 
+$wpof['all_field'] = wponion_builder()
+	->text( 'all_textfield', 'Text Field' )
+	->text( 'all_textfield_prefix', 'Text Field Prefix', array( 'prefix' => ' USD', 'surfix' => '$' ) )
+	->textarea( 'all_textarea', 'Textarea' )
+	->checkbox( 'all_checkbox_simple', 'Checkbox Simple', 'Are you sure ?' )
+	->checkbox( 'all_checkbox_list', 'Checkbox list', wponion__options( false, 3 ) )
+	->radio( 'all_radio_list', 'Radio list', wponion__options( false, 3 ) )
+	->select( 'all_select_list', 'Select List', wponion__options( false, 5 ) )
+	->select( 'all_select_list_multiple', 'Select List Multiple', wponion__options( false, 5 ) )
+	->multipe()
+	->color_palette( 'all_checkbox_palette_1', 'Checkbox Palette', \WPOnion\Helper::get_material_design_colors() )
+	->color_palette( 'all_radio_palette_1', 'Radio Palette', \WPOnion\Helper::get_material_design_colors(), '30', 'radio' )
+	->color_picker( 'all_color_picker', 'Color Picker', false )
+	->font_picker( 'all_font_picker', 'Font Picker' )
+	->key_value( 'all_key_value', 'Key Value' )
+	->icon_picker( 'all_icon_picker', 'Icon Picker', true )
+	->image( 'all_image_picker', 'Image Picker' )
+	->gallery( 'all_image_gallery', 'Gallery' )
+	->wp_link( 'all_wp_link', 'WP Links' );
+
+
 $wpof['text'] = wponion_builder()
 	->text( 'textfield1', 'Text Field', array(
 		'transport' => 'postMessage',
@@ -277,18 +298,8 @@ $wpof['userinterface'] = wponion_builder()
 			'body'  => '<h5 class="card-title">Card title</h5>
     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
 		),
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
 	) )
 	->card( false, array(
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
 		array(
 			'image' => wponion_card_img(),
 			'body'  => '<h5 class="card-title">Card title</h5>
@@ -313,8 +324,21 @@ $wpof['userinterface'] = wponion_builder()
 
 $wpof['wp_links'] = wponion_builder()->wp_link( 'wp_link', 'WP Links' );
 
+$wpof['fieldset'] = wponion_builder()
+	->fieldset( 'fieldset_1', 'FieldSet', wponion_builder()
+		->merge_fields( $wpof['textarea'] )
+		->merge_fields( $wpof['text'] ) )
+	->fieldset( 'all_fields_set', 'All Fields', $wpof['all_field']->get() );
+
 $wpof['accordion'] = wponion_builder()
 	->accordion( 'simple_accordion', 'Simple Accordion', wponion_builder()
 		->merge_fields( $wpof['textarea'] )
 		->merge_fields( $wpof['text'] ) )
-	->accordion_title( 'Simple Accordion' );
+	->accordion_title( 'Simple Accordion' )
+	->accordion( 'accordion_all_fields', 'Accordion With ALL Fields', $wpof['all_field'] );
+
+$wpof['group'] = wponion_builder()
+	->group( 'simple_group', 'Simple Group', wponion_builder()
+		->text( 'text_field', 'Text Field' )
+		->textarea( 'textarea', 'Textarea' ) )
+	->group( 'advanced_group', 'All Fields', $wpof['all_field']->get() );
