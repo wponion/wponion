@@ -395,6 +395,63 @@ if ( ! function_exists( 'wponion_builder' ) ) {
 	}
 }
 
+
+if ( ! function_exists( 'wponion_get_term_meta' ) ) {
+	/**
+	 * Returns Terms Meta Info.
+	 *
+	 * @param string $term_id
+	 * @param string $unique
+	 *
+	 * @return mixed|void
+	 */
+	function wponion_get_term_meta( $term_id = '', $unique = '' ) {
+		if ( function_exists( 'get_term_meta' ) ) {
+			return get_term_meta( $term_id, $unique, true );
+		}
+		$key = 'wponion_' . wponion_hash_string( $term_id . '_' . $unique );
+		return get_option( $key, true );
+	}
+}
+
+if ( ! function_exists( 'wponion_update_term_meta' ) ) {
+	/**
+	 * Updates Term Meta.
+	 *
+	 * @param string $term_id
+	 * @param string $unique
+	 * @param array  $values
+	 *
+	 * @return bool|int|\WP_Error
+	 */
+	function wponion_update_term_meta( $term_id = '', $unique = '', $values = array() ) {
+		if ( function_exists( 'update_term_meta' ) ) {
+			return update_term_meta( $term_id, $unique, $values );
+		}
+
+		$key = 'wponion_' . wponion_hash_string( $term_id . '_' . $unique );
+		return update_option( $key, $values );
+	}
+}
+
+if ( ! function_exists( 'wponion_delete_term_meta' ) ) {
+	/**
+	 * Deletes a Term Meta.
+	 *
+	 * @param string $term_id
+	 * @param string $unique
+	 *
+	 * @return bool
+	 */
+	function wponion_delete_term_meta( $term_id = '', $unique = '' ) {
+		if ( function_exists( 'delete_term_meta' ) ) {
+			return delete_term_meta( $term_id, $unique );
+		}
+		return delete_option( 'wponion_' . wponion_hash_string( $term_id . '_' . $unique ) );
+	}
+}
+
+
 /**
  * WPOnion Assets Related Functions.
  */
