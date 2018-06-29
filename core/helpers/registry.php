@@ -112,6 +112,19 @@ if ( ! function_exists( 'wponion_metabox_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_taxonomy_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for metabox module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_taxonomy_registry( &$instance ) {
+		return wponion_get_registry_instance( 'taxonomy', $instance, 'settings' );
+	}
+}
+
 if ( ! function_exists( 'wponion_value_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for module's value API.
