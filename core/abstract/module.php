@@ -116,6 +116,20 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Inits The Class.
+		 */
+		public function init() {
+			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax() ) {
+				$this->on_init();
+				$callback = 'wponion_' . $this->module . '_registry';
+
+				if ( function_exists( $callback ) ) {
+					$callback( $this );
+				}
+			}
+		}
+
+		/**
 		 * Generated A Unique ID For each Options Array And stores it.
 		 *
 		 * @param array $fields
@@ -494,11 +508,19 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			) );
 		}
 
+
 		/**
 		 * Returns all common HTML wrap class.
 		 *
 		 * @param string $extra_class
 		 */
 		abstract public function wrap_class( $extra_class = '' );
+
+		/**
+		 * Required Callback On Instance Init.
+		 *
+		 * @return mixed
+		 */
+		abstract public function on_init();
 	}
 }
