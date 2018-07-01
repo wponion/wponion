@@ -74,7 +74,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 		 * Calls After Basesetup is done.
 		 */
 		protected function init_class() {
-
 		}
 
 		/**

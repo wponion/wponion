@@ -13,6 +13,7 @@
  */
 
 namespace WPOnion;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -99,9 +100,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			$this->orginal_field = $field;
 			$this->orginal_value = $value;
-
-			$this->field = $this->_handle_field_args( $this->set_args( $field ) );
-			$this->value = $value;
+			$this->field         = $this->_handle_field_args( $this->set_args( $field ) );
+			$this->value         = $value;
 
 			if ( is_string( $unique ) ) {
 				$this->unique    = $unique;
@@ -135,7 +135,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Fired after __constructor fired for the current plugin to handle subplugins.
 		 */
 		protected function init_subfields() {
-
 		}
 
 		/**
@@ -150,7 +149,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data['attributes']          = ( isset( $data['attributes'] ) ) ? $data['attributes'] : array();
 				$data['attributes']['class'] = isset( $data['attributes']['class'] ) ? $data['attributes']['class'] : array();
 				$data['attributes']['class'] = wponion_html_class( $data['attributes']['class'], $data['class'], false );
-
 			}
 			return $this->handle_field_args( $data );
 		}
@@ -292,7 +290,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
 
 			if ( $this->has( 'dependency' ) ) {
-				//$is_sub     = ( $this->has( 'sub' ) && true === $this->data( 'sub' ) ) ? 'sub-' : '';
 				$has_dep    = 'wponion-has-dependency';
 				$dependency = $this->data( 'dependency' );
 				wponion_localize()->add( $this->js_field_id(), array(
@@ -388,6 +385,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 		/**
 		 * Adds A Simple Debug Notice.
+		 *
+		 * @return string
 		 */
 		protected function debug_notice() {
 			if ( $this->has( 'debug' ) ) {
@@ -398,6 +397,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 		/**
 		 * Renders HTML for ToolTip.
+		 *
+		 * @return string
 		 */
 		protected function field_help() {
 			$html = '';
@@ -468,11 +469,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function title_desc() {
-			$html = '';
-			if ( $this->has( 'desc' ) ) {
-				$html .= '<p class="wponion-desc wponion-title-desc">' . $this->data( 'desc' ) . '</p>';
-			}
-			return $html;
+			return ( $this->has( 'desc' ) ) ? '<p class="wponion-desc wponion-title-desc">' . $this->data( 'desc' ) . '</p>' : '';
 		}
 
 		/**
@@ -481,11 +478,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function field_desc() {
-			$html = '';
-			if ( $this->has( 'desc_field' ) ) {
-				$html .= '<p class="wponion-desc wponion-field-desc">' . $this->data( 'desc_field' ) . '</p>';
-			}
-			return $html;
+			return ( $this->has( 'desc_field' ) ) ? '<p class="wponion-desc wponion-field-desc">' . $this->data( 'desc_field' ) . '</p>' : '';
 		}
 
 		/**
@@ -494,10 +487,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return bool|mixed|string
 		 */
 		protected function before() {
-			if ( false !== $this->has( 'before' ) && false === $this->has( 'only_field' ) ) {
-				return $this->data( 'before' );
-			}
-			return '';
+			return ( false !== $this->has( 'before' ) && false === $this->has( 'only_field' ) ) ? $this->data( 'before' ) : '';
 		}
 
 		/**
@@ -619,6 +609,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function attributes( $field_attributes = array(), $dep_key = array() ) {
 			$user_attrs = ( false !== $this->has( 'attributes' ) ) ? $this->data( 'attributes' ) : array();
+			$is_sub_dep = ( $this->has( 'sub' ) ) ? 'sub-' : '';
 
 			if ( false !== $this->has( 'style' ) ) {
 				$user_attrs['style'] = $this->data( 'style' );
@@ -627,9 +618,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			if ( false !== $this->has( 'placeholder' ) ) {
 				$user_attrs['placeholder'] = $this->data( 'placeholder' );
 			}
-
-
-			$is_sub_dep = ( $this->has( 'sub' ) ) ? 'sub-' : '';
 
 			if ( is_string( $dep_key ) || is_numeric( $dep_key ) ) {
 				$user_attrs[ 'data-' . $is_sub_dep . 'depend-id' ] = $this->field_id() . '_' . $dep_key;
@@ -667,10 +655,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function value( $key = '' ) {
 			if ( ! empty( $key ) ) {
-				if ( isset( $this->value[ $key ] ) ) {
-					return $this->value[ $key ];
-				}
-				return false;
+				return ( isset( $this->value[ $key ] ) ) ? $this->value[ $key ] : false;
 			}
 			return $this->value;
 		}
@@ -683,10 +668,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return bool|mixed
 		 */
 		protected function get_value( $key = '' ) {
-			if ( isset( $this->value[ $key ] ) ) {
-				return $this->value[ $key ];
-			}
-			return false;
+			return ( isset( $this->value[ $key ] ) ) ? $this->value[ $key ] : false;
 		}
 
 		/**
@@ -713,12 +695,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function unique( $extra = '', $unique = false ) {
-			if ( false === $unique ) {
-				$unique = $this->unique;
-			}
-			if ( ! empty( $extra ) ) {
-				$unique = $unique . '[' . $extra . ']';
-			}
+			$unique = ( false === $unique ) ? $this->unique : $unique;
+			$unique = ( ! empty( $extra ) ) ? $unique . '[' . $extra . ']' : $unique;
 			return $unique;
 		}
 
@@ -745,8 +723,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data = $this->js_field_args();
 				if ( ! empty( $data ) ) {
 					wponion_localize()->add( $this->js_field_id(), $data );
-
 				}
+
 				if ( $this->has( 'debug' ) ) {
 					wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ) );
 				}

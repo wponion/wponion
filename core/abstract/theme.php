@@ -158,59 +158,6 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 			return wponion_dashboard_registry( $this->plugin_id );
 		}
 
-		/**************************************************************************************************************
-		 * Below Functions Are Related To Settings Module
-		 *************************************************************************************************************/
-
-		/**
-		 * This function called twice inside a loop
-		 * 1. For starting
-		 * 2. For Ending.
-		 *
-		 * @param string $return
-		 * @param string $place
-		 * @param array  $options
-		 * @param bool   $is_parent_active
-		 *
-		 * @return string
-		 */
-		public function settings_tab_level1_wrap( $return = '', $place = 'start', $options = array(), $is_parent_active = false ) {
-			if ( 'start' === $place ) {
-				return $return;
-			} else {
-				return $return;
-			}
-		}
-
-		/**
-		 * This function called twice inside a loop
-		 * 1. For starting
-		 * 2. For Ending.
-		 *
-		 * @param string $return
-		 * @param string $place
-		 * @param array  $options
-		 * @param bool   $is_parent_active
-		 *
-		 * @return string
-		 */
-		public function settings_tab_wrap_after( $return = '', $place = 'start', $options = array(), $is_parent_active = false ) {
-			if ( 'start' === $place ) {
-				return $return;
-			} else {
-				return $return;
-			}
-		}
-
-		/**************************************************************************************************************
-		 * Above Functions Are Related To Settings Module
-		 *************************************************************************************************************/
-
-
-		/**
-		 * Below Functions are related to render HTML for the current module.
-		 */
-
 		/**
 		 * Searches And returns files path
 		 *

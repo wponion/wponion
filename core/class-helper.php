@@ -31,7 +31,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @return array
 		 */
 		public static function get_material_design_colors( $context = 'primary' ) {
-
 			$colors = array(
 				'primary'     => array(
 					'#FFFFFF',
@@ -353,7 +352,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 			);
 
 			switch ( $context ) {
-
 				case '50':
 				case '100':
 				case '200':

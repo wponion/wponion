@@ -29,7 +29,7 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 		/**
 		 * WPOnion_wp_Theme constructor.
 		 *
-		 * @param $plugin_id
+		 * @param $data
 		 */
 		public function __construct( $data ) {
 			parent::__construct( $data, __FILE__, 'wp' );
@@ -120,58 +120,6 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 			} else {
 				return '';
 			}
-		}
-
-		public function settings_tab_level1_wrap( $return = '', $place = 'start', $options = array(), $is_parent_active = false ) {
-			if ( 'start' === $place ) {
-				return $return . '<div class="postbox">' . $this->submenu_html( $options['name'] );
-			} else {
-				return '</div>' . $return;
-			}
-		}
-
-		/**
-		 * @param $tab_wrap
-		 * @param $options
-		 * @param $is_parent_hidden
-		 *
-		 * @return string
-		 */
-		public function settings_tab_wrap_start( $tab_wrap, $options = array(), $is_parent_active ) {
-			return $tab_wrap . '<div class="postbox">' . $this->submenu_html( $options['name'] );
-		}
-
-		/**
-		 * @param $tab_wrap
-		 * @param $options
-		 * @param $is_parent_hidden
-		 *
-		 * @return string
-		 */
-		public function settings_tab_wrap_end( $tab_wrap, $options = array(), $is_parent_active ) {
-			return $tab_wrap . '</div>';
-		}
-
-		/**
-		 * @param $content
-		 * @param $options
-		 * @param $is_parent_active
-		 *
-		 * @return mixed|string
-		 */
-		public function settings_section_start( $content, $options, $is_parent_active ) {
-			return '<div class="inside">' . $content;
-		}
-
-		/**
-		 * @param $content
-		 * @param $options
-		 * @param $is_parent_active
-		 *
-		 * @return mixed|string
-		 */
-		public function settings_section_end( $content, $options, $is_parent_active ) {
-			return '</div>';
 		}
 	}
 }

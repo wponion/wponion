@@ -103,16 +103,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $settings array of WPOnion Settings Configuration.
 		 */
 		public function __construct( $fields = array(), $settings = array() ) {
-			$this->fields   = $fields;
-			$this->settings = $this->set_args( $settings );
-
-			if ( false === $this->settings['plugin_id'] ) {
-				$this->plugin_id = $this->settings['option_name'];
-			} else {
-				$this->plugin_id = $this->settings['plugin_id'];
-			}
-
-			$this->unique = $this->settings['option_name'];
+			$this->fields    = $fields;
+			$this->settings  = $this->set_args( $settings );
+			$this->plugin_id = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
+			$this->unique    = $this->settings['option_name'];
 		}
 
 		/**
@@ -152,12 +146,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array|string
 		 */
 		protected function default_wrap_class( $bootstrap = false ) {
-			$class   = array( 'wponion-framework' );
-			$class[] = 'wponion-module-' . $this->module() . '-framework';
-			$class[] = 'wponion-module-' . $this->module();
-			$class[] = 'wponion-' . $this->plugin_id() . '-' . $this->module();
-			$class[] = 'wponion-' . $this->module();
-
+			$class = array(
+				'wponion-framework',
+				'wponion-module-' . $this->module() . '-framework',
+				'wponion-module-' . $this->module(),
+				'wponion-' . $this->plugin_id() . '-' . $this->module(),
+				'wponion-' . $this->module(),
+			);
 
 			if ( 'grid' === $bootstrap || 'all' === $bootstrap || true === $bootstrap ) {
 				$class[] = 'wponion-framework-bootstrap-grid';
@@ -459,11 +454,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * Checks if Option Loop Is Valid
+		 * Check if option loop is valid.
 		 *
 		 * @param array $option
-		 * @param bool  $section
-		 * @param bool  $check_current_page
 		 *
 		 * @return bool
 		 */
@@ -507,7 +500,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'hash'      => $hash,
 			) );
 		}
-
 
 		/**
 		 * Returns all common HTML wrap class.

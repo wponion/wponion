@@ -46,9 +46,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 */
 		protected function clone_btn( $type = 'add' ) {
 			if ( 'add' === $type ) {
-				$add_attrs = $this->data( 'clone' )['add_button'];
-
-				return $this->sub_field( $this->handle_args( 'label', $add_attrs, array(
+				return $this->sub_field( $this->handle_args( 'label', $this->data( 'clone' )['add_button'], array(
 					'class'       => array( 'btn', 'btn-sm' ),
 					'type'        => 'button',
 					'attributes'  => array(
@@ -62,8 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 
 			}
 
-			$add_attrs = $this->data( 'clone' )['remove_button'];
-			return $this->sub_field( $this->handle_args( 'label', $add_attrs, array(
+			return $this->sub_field( $this->handle_args( 'label', $this->data( 'clone' )['remove_button'], array(
 				'class'       => array( 'btn', 'btn-sm' ),
 				'type'        => 'button',
 				'attributes'  => array(
@@ -112,8 +109,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 
 			$this->catch_output( 'start' );
 			echo $this->clone_single_element( null, '[{wponionCloneID}]' );
-			$data = $this->catch_output( 'stop' );
-			$this->localize_field( array( 'clone_template' => $data ) );
+			$this->localize_field( array( 'clone_template' => $this->catch_output( 'stop' ) ) );
 			echo '</div>';
 			echo '<div class="wponion-clone-actions">' . $this->clone_btn() . '</div> ';
 		}
@@ -135,9 +131,9 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 * @return array
 		 */
 		public function get_clone_attrs() {
-			$field = $this->orginal_field;
-
-			$remove = array(
+			$field             = $this->orginal_field;
+			$field['in_clone'] = true;
+			$remove            = array(
 				'title',
 				'help',
 				'desc',
@@ -157,8 +153,6 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 				unset( $field[ $k ] );
 			}
 
-			$field['in_clone'] = true;
-
 			return $field;
 		}
 
@@ -167,7 +161,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 *
 		 * @param array $data
 		 *
-		 * @return array|void
+		 * @return array
 		 */
 		public function handle_field_args( $data = array() ) {
 			$defaults = array(
@@ -192,7 +186,6 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			if ( true === $data['clone']['sort'] ) {
 				$data['clone']['sort'] = 'dashicons dashicons-menu';
 			}
-
 
 			return $data;
 		}

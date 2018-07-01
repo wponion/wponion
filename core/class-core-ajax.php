@@ -104,6 +104,9 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			wp_die();
 		}
 
+		/**
+		 * Handles Ajax Metabox Save.
+		 */
 		public function save_metabox() {
 			if ( isset( $_REQUEST['metabox_id'] ) && isset( $_REQUEST['plugin_id'] ) ) {
 				wponion_localize();

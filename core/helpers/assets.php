@@ -67,12 +67,12 @@ $wponion_css = array(
 	'chosen'              => array( 'assets/plugins/chosen/chosen.min.css' ),
 	'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
 	'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
-	'wponion-plugins'     => array( wponion_debug_assets( 'assets/css/wponion-plugins', 'css' ) ),
-	'fontawesome'         => array( 'assets/plugins/fontawesome/fontawesome.min.css', array(), '5.0.13', ),
+	'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
+	'fontawesome'         => array( 'assets/plugins/fontawesome/css/all.min.css', array(), '5.0.13', ),
 	'boxicons'            => array( 'assets/plugins/boxicons/css/boxicons.min.css', array(), '1.0.7', ),
 	'typicons'            => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
 	'wponion-core'        => array(
-		wponion_debug_assets( 'assets/css/wponion-base', 'css' ),
+		'assets/css/wponion-base.css',
 		array( 'wponion-plugins', 'fontawesome', 'typicons', 'boxicons' ),
 	),
 	'wponion-colorpicker' => array(
@@ -97,7 +97,6 @@ if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 		} else {
 			wponion_load_asset( $extra );
 		}
-
 	}
 }
 
@@ -128,10 +127,7 @@ if ( ! function_exists( 'wponion_icon' ) ) {
 	 * @return string
 	 */
 	function wponion_icon( $icon ) {
-		if ( $icon ) {
-			return '<i class="' . $icon . ' wponion-icon"></i>';
-		}
-		return '';
+		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon"></i>' : '';
 	}
 }
 

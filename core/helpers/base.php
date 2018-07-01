@@ -56,7 +56,7 @@ if ( ! function_exists( 'wponion_get_template' ) ) {
 		// Allow 3rd party plugin filter template file from their plugin.
 		$located = apply_filters( 'wponion_template', $located, $template_name, $args, $template_path );
 		do_action( 'wponion_before_template_part', $template_name, $template_path, $located, $args );
-		include $located;
+		include $located; // @codingStandardsIgnoreLine
 		do_action( 'wponion_after_template_part', $template_name, $template_path, $located, $args );
 	}
 }
@@ -80,19 +80,10 @@ if ( ! function_exists( 'wponion_locate_template' ) ) {
 	 * @return string
 	 */
 	function wponion_locate_template( $template_name, $template_path = '' ) {
-		if ( ! $template_path ) {
-			$template_path = 'wponion/';
-		}
+		$template_path = ( ! $template_path ) ? $template_path = 'wponion/' : $template_path;
+		$default_path  = WPONION_PATH . 'templates/';
+		$template      = locate_template( array( trailingslashit( $template_path ) . $template_name, $template_name ) );
 
-		$default_path = WPONION_PATH . 'templates/';
-
-		// Look within passed path within the theme - this is priority.
-		$template = locate_template( array(
-			trailingslashit( $template_path ) . $template_name,
-			$template_name,
-		) );
-
-		// Get default template/.
 		if ( ! $template ) {
 			if ( file_exists( trailingslashit( $template_path ) . $template_name ) ) {
 				$template = trailingslashit( $template_path ) . $template_name;
@@ -103,7 +94,6 @@ if ( ! function_exists( 'wponion_locate_template' ) ) {
 			$template = $default_path . $template_name;
 		}
 
-		// Return what we found.
 		return apply_filters( 'wponion_locate_template', $template, $template_name, $template_path );
 	}
 }
@@ -206,10 +196,7 @@ if ( ! function_exists( 'wponion_plugin_localize' ) ) {
 	 */
 	function wponion_plugin_localize( $object = '', $data = array() ) {
 		$add = wp_localize_script( 'wponion-plugins', $object, $data );
-		if ( false === $add ) {
-			return wp_localize_script( 'wponion-core', $object, $data );
-		}
-		return wponion_js_vars( $object, $data, true );
+		return ( false === $add ) ? wp_localize_script( 'wponion-core', $object, $data ) : wponion_js_vars( $object, $data, true );
 	}
 }
 
@@ -395,7 +382,6 @@ if ( ! function_exists( 'wponion_builder' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_get_term_meta' ) ) {
 	/**
 	 * Returns Terms Meta Info.
@@ -450,7 +436,6 @@ if ( ! function_exists( 'wponion_delete_term_meta' ) ) {
 		return delete_option( 'wponion_' . wponion_hash_string( $term_id . '_' . $unique ) );
 	}
 }
-
 
 /**
  * WPOnion Assets Related Functions.

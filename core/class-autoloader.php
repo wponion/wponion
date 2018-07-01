@@ -34,7 +34,6 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 		 */
 		public static function init() {
 			spl_autoload_register( '\WPOnion\Autoloader::load' );
-			return true;
 		}
 
 		/**
@@ -146,4 +145,4 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 		}
 	}
 }
-return Autoloader::init();
+Autoloader::init();

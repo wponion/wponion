@@ -36,7 +36,6 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 				if ( ! class_exists( '\WPOnion\Field\Cloner', false ) ) {
 					require_once WPONION_PATH . 'core/class-field-cloner.php';
 				}
-
 				return '\WPOnion\Field\Cloner';
 			} else {
 				$class = 'WPOnion\\Field\\' . $field_type;
@@ -81,7 +80,6 @@ if ( ! function_exists( 'wponion_field' ) ) {
 				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $field['id'] . '_' . $unique . '_' . $hash );
 			}
 
-
 			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, '\WPOnion\Registry\Fields' );
 
 			if ( false !== $registry->get( $uid ) ) {
@@ -125,8 +123,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			$element->final_output();
 			$output .= ob_get_clean();
 		} else {
-			$field_type = isset( $field['type'] ) ? $field['type'] : false;
-			$output     .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . print_r( $field, true ) . '</strong>' ) . ' </p> ';
+			$output .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . print_r( $field, true ) . '</strong>' ) . ' </p> ';
 		}
 		return $output;
 	}
@@ -211,7 +208,7 @@ if ( ! function_exists( '_wponion_get_field_value' ) ) {
 	 *
 	 * @access private
 	 *
-	 * @return bool
+	 * @return bool|mixed
 	 */
 	function _wponion_get_field_value( $field = array(), $value = array() ) {
 		if ( false === _wponion_valid_field( $field ) ) {
@@ -452,7 +449,6 @@ if ( ! function_exists( 'wponion_extract_font_variant' ) ) {
 		if ( isset( $matches[2] ) ) {
 			$return['style'] = $matches[2];
 		}
-
 		return $return;
 	}
 }

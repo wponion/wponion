@@ -299,15 +299,18 @@ $wponion = {
 };
 
 /**
+ *
+ * // @ codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
+ *
+ * // @ codekit-append ../../node_modules/jquery.actual/jquery.actual.js
  * Simple JS Addons.
  */
+
 //@codekit-append ../vendors/inputToArray.js
-//@codekit-append ../../node_modules/sweetalert2/dist/sweetalert2.all.js
 //@codekit-append ../vendors/json-view/json-view.js
 //@codekit-append ../vendors/wp-js-hooks.js
 //@codekit-append ../vendors/blockUI/blockUI.js
-//@codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
-//@codekit-append ../../node_modules/jquery.actual/jquery.actual.js
-//@codekit-append ../../node_modules/tippy.js/dist/tippy.all.js
-//@codekit-append ../../node_modules/overlayscrollbars/js/jquery.overlayScrollbars.js
-//@codekit-append ../../node_modules/bootstrap-maxlength/src/bootstrap-maxlength.js
+//@codekit-append ../../node_modules/tippy.js/dist/tippy.all.min.js
+//@codekit-append ../../node_modules/overlayscrollbars/js/jquery.overlayScrollbars.min.js
+//@codekit-append ../../node_modules/bootstrap-maxlength/bootstrap-maxlength.min.js
+//@codekit-append ../../node_modules/sweetalert2/dist/sweetalert2.all.min.js
