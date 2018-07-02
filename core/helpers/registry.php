@@ -138,7 +138,6 @@ if ( ! function_exists( 'wponion_value_registry' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_dashboard_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for dashboard widgets module.
@@ -191,5 +190,22 @@ if ( ! function_exists( 'wponion_async' ) ) {
 			$instance = new WPOnion\Async_Request();
 		}
 		return $instance;
+	}
+}
+
+if ( ! function_exists( 'wponion_query' ) ) {
+	/**
+	 * Returns a static instance of \WPOnion\DB\Query
+	 *
+	 * @return \WPOnion\DB\Query|mixed
+	 */
+	function wponion_query() {
+		$class     = 'WPOnion\DB\Query';
+		$_instance = wponion_core_registry( $class );
+		if ( false === $_instance ) {
+			$_instance = new $class();
+			wponion_core_registry( $_instance );
+		}
+		return $_instance;
 	}
 }
