@@ -809,6 +809,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			if ( '' === $value['key'] ) {
 				$value['key'] = $key;
 			}
+
 			return $value;
 		}
 
@@ -861,6 +862,23 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			return $result;
 		}
 
+		/**
+		 * @param string $type
+		 *
+		 * @return array
+		 */
+		public function element_data( $type = '' ) {
+			$is_ajax = ( isset( $this->field['settings'] ) && isset( $this->field['settings']['is_ajax'] ) && true === $this->field['settings']['is_ajax'] );
+			if ( $is_ajax && empty( $this->value ) ) {
+				return array();
+			}
+			$query_args = ( is_array( $this->field['query_args'] ) && ! empty( $this->field['query_args'] ) ) ? $this->field ['query_args'] : array();
+			if ( $is_ajax ) {
+				$query_args['post__in'] = ( ! is_array( $this->value ) ) ? explode( ',', $this->value ) : $this->value;
+			}
+			$data = wponion_query()->query( $type, $query_args, '' );
+			return $data;
+		}
 		/***************************************************************************************************************
 		 *  Elements Few Abstract Functions.
 		 **************************************************************************************************************/
