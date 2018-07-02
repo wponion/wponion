@@ -23,25 +23,13 @@ $wponion_js = array(
 		wponion_debug_assets( 'assets/js/wponion-fields', 'js' ),
 		array( 'wponion-plugins' ),
 	),
-	'wponion-core'              => array(
-		wponion_debug_assets( 'assets/js/wponion-core', 'js' ),
-		array( 'wponion-fields' ),
-	),
-	'wponion-customizer'        => array(
-		wponion_debug_assets( 'assets/js/wponion-customizer', 'js' ),
-		array( 'wponion-core' ),
-	),
-	'wponion-metabox'           => array(
-		wponion_debug_assets( 'assets/js/wponion-metabox', 'js' ),
-		array( 'wponion-core' ),
-	),
-	'wponion-taxonomy'          => array(
-		wponion_debug_assets( 'assets/js/wponion-taxonomy', 'js' ),
-		array( 'wponion-core' ),
-	),
+	'wponion-core'              => array( 'assets/js/wponion-core.js', array( 'wponion-fields' ) ),
+	'wponion-customizer'        => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
+	'wponion-metabox'           => array( 'assets/js/wponion-metabox.js', array( 'wponion-core' ) ),
+	'wponion-taxonomy'          => array( 'assets/js/wponion-taxonomy.js', array( 'wponion-core' ) ),
 	'wponion-postmessags'       => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
-	'wponion-cloner'            => array( wponion_debug_assets( 'assets/js/wponion-cloner', 'js' ), ),
+	'wponion-cloner'            => array( 'assets/js/wponion-cloner.js', ),
 	// WPOnion Related Plugins.
 	'wponion-inputmask'         => array(
 		'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
@@ -68,7 +56,7 @@ $wponion_css = array(
 	'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
 	'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
 	'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
-	'fontawesome'         => array( 'assets/plugins/fontawesome/css/all.min.css', array(), '5.0.13', ),
+	'fontawesome'         => array( 'assets/plugins/fontawesome/css/all.css', array(), '5.0.13', ),
 	'boxicons'            => array( 'assets/plugins/boxicons/css/boxicons.min.css', array(), '1.0.7', ),
 	'typicons'            => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
 	'wponion-core'        => array(
