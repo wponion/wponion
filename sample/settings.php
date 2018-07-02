@@ -69,7 +69,9 @@ $ins->page( 'Advanced Fields', 'advanced_fields' )
 	->section( 'Accordion', 'accordion' )
 	->merge_fields( $wpof['accordion'] )
 	->section( 'Group', 'group' )
-	->merge_fields( $wpof['group'] );
+	->merge_fields( $wpof['group'] )
+	->section( 'Cloneable', 'clone' )
+	->merge_fields( $wpof['cloneable'] );
 
 $ins->page( 'WP Fields', 'wp_fields' )
 	->section( 'WP Images', 'wp_image_picker' )
