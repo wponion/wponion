@@ -59,9 +59,9 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	 * @return bool
 	 */
 	function wponion_field( $field = array(), $value = '', $unique = array() ) {
-		$class = wponion_get_field_class( $field );
-
+		$class       = wponion_get_field_class( $field );
 		$base_unique = $unique;
+
 		if ( false !== $class ) {
 			$plugin_id = '';
 			$module    = 'core';
@@ -77,7 +77,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			if ( is_string( $base_unique ) || ! isset( $field['id'] ) ) {
 				$uid = wponion_hash_array( $field );
 			} else {
-				$uid = wponion_hash_array( $module . '_' . $plugin_id . '_' . $field['id'] . '_' . $unique . '_' . $hash );
+				$uid = $field['id'] . '_' . $unique . '_' . $hash;//wponion_hash_string( $module . '_' . $plugin_id . '_' . $field['id'] . '_' . $unique . '_' . $hash );
 			}
 
 			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, '\WPOnion\Registry\Fields' );
