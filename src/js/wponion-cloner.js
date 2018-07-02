@@ -1,5 +1,4 @@
 ( ( $ ) => {
-
 	$.fn.WPOnionCloner = function ( options ) {
 		let $options = $.extend( {
 			limit: false,
@@ -84,5 +83,4 @@
 			}, $options[ 'sortable' ] ) )
 		}
 	}
-
 } )( jQuery );
