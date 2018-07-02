@@ -299,10 +299,9 @@ $wponion = {
 };
 
 /**
- *
  * // @ codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
- *
  * // @ codekit-append ../../node_modules/jquery.actual/jquery.actual.js
+ * // @ codekit-append ../../node_modules/bootstrap-maxlength/bootstrap-maxlength.min.js
  * Simple JS Addons.
  */
 
@@ -312,5 +311,4 @@ $wponion = {
 //@codekit-append ../vendors/blockUI/blockUI.js
 //@codekit-append ../../node_modules/tippy.js/dist/tippy.all.min.js
 //@codekit-append ../../node_modules/overlayscrollbars/js/jquery.overlayScrollbars.min.js
-//@codekit-append ../../node_modules/bootstrap-maxlength/bootstrap-maxlength.min.js
 //@codekit-append ../../node_modules/sweetalert2/dist/sweetalert2.all.min.js
