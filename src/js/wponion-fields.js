@@ -382,21 +382,25 @@
 	 * Handles Fields ToolTip Along With A Image Option.
 	 */
 	$wpf.fn.field_tooltip = function () {
-		let $fid = this.elem.attr( 'data-field-jsid' );
-		let $tip = {};
+		let $fid   = this.elem.attr( 'data-field-jsid' );
+		let $tip   = {},
+			wpoimg = ( img, callback ) => {
+				const testDimensions = setInterval( () => {
+					if ( img.naturalWidth ) {
+						clearInterval( testDimensions );
+						callback();
+					}
+				}, 5 )
+			};
 
 		if ( this.arg( $fid + 'tooltip' ) ) {
-			let $arg = this.arg( $fid + 'tooltip' );
-
+			let $arg              = this.arg( $fid + 'tooltip' );
 			$arg[ 'performance' ] = false;
-			if ( $arg[ 'image' ] !== false ) {
-				$arg.html           = '#wponiontooltipimagetippy';
-				$arg.updateDuration = 2000;
-				$arg.followCursor   = false;
-				$arg.livePlacement  = true;
-				$arg.inertia        = true;
 
-				$arg.onShow             = function () {
+			if ( $arg[ 'image' ] !== false ) {
+				$arg.html               = '#wponiontooltipimagetippy';
+				$arg.updateDuration     = 2000;
+				$arg.onShow             = function ( instance ) {
 					const content = this.querySelector( '.tippy-content' );
 					if ( $tip.loading ) return;
 
@@ -405,7 +409,11 @@
 					fetch( $arg[ 'image' ] ).then( resp => resp.blob() ).then( blob => {
 						const url         = URL.createObjectURL( blob );
 						content.innerHTML = `<img src="${url}">`;
-						$tip.loading      = false;
+						wpoimg(
+							content.querySelector( "img" ),
+							instance.popperInstance.update
+						);
+						$tip.loading = false;
 					} ).catch( e => {
 						content.innerHTML = 'Loading failed';
 						$tip.loading      = false;
@@ -426,6 +434,7 @@
 					}
 				};
 			}
+
 			$tip = tippy( this.elem[ 0 ], $arg );
 			this.save( $tip );
 		}
