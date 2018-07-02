@@ -151,6 +151,12 @@ $wpof['checkbox'] = wponion_builder()
 	->checkbox( 'checkbox_simple', 'Checkbox Simple', 'Are you sure ?' )
 	->checkbox( 'checkbox_list', 'Checkbox list', wponion__options( false, 3 ) )
 	->desc( 'Simple Description in Title' )
+	->checkbox( 'checkbox_with_pages', 'Checkbox With Pages', 'pages', array(
+		'query_args' => array(
+			'sort_order'  => 'desc',
+			'sort_column' => 'post_title',
+		),
+	) )
 	->checkbox( 'checkbox_long_list', 'Checkbox Long list', wponion__options( false, 15 ) )
 	->desc( ' A Very long description about this field and its options in the fields side.', true )
 	->checkbox( 'checkbox_more_features', 'Checkbox More Features', wponion__options( false, 2, true ) )
@@ -175,6 +181,12 @@ $wpof['radio'] = wponion_builder()
 $wpof['select'] = wponion_builder()
 	->select( 'select_list', 'Select List', wponion__options( false, 5 ) )
 	->select( 'select_list_multiple', 'Select List Multiple', wponion__options( false, 5 ) )
+	->select( 'select_with_pages', 'select With Pages', 'pages', array(
+		'query_args' => array(
+			'sort_order'  => 'desc',
+			'sort_column' => 'post_title',
+		),
+	) )
 	->multipe()
 	->select( 'select_list_group', 'Select List Group', array(
 		'Group 1' => wponion__options( 'group1', 5 ),
@@ -342,3 +354,8 @@ $wpof['group'] = wponion_builder()
 		->text( 'text_field', 'Text Field' )
 		->textarea( 'textarea', 'Textarea' ) )
 	->group( 'advanced_group', 'All Fields', $wpof['all_field']->get() );
+
+
+$wpof['cloneable'] = wponion_builder()->text( 'simple_clone_text', 'Simple Clone Text', array(
+	'clone' => true,
+) );
