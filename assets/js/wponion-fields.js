@@ -381,20 +381,24 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   */
 	$wpf.fn.field_tooltip = function () {
 		var $fid = this.elem.attr('data-field-jsid');
-		var $tip = {};
+		var $tip = {},
+		    wpoimg = function wpoimg(img, callback) {
+			var testDimensions = setInterval(function () {
+				if (img.naturalWidth) {
+					clearInterval(testDimensions);
+					callback();
+				}
+			}, 5);
+		};
 
 		if (this.arg($fid + 'tooltip')) {
 			var $arg = this.arg($fid + 'tooltip');
-
 			$arg['performance'] = false;
+
 			if ($arg['image'] !== false) {
 				$arg.html = '#wponiontooltipimagetippy';
 				$arg.updateDuration = 2000;
-				$arg.followCursor = false;
-				$arg.livePlacement = true;
-				$arg.inertia = true;
-
-				$arg.onShow = function () {
+				$arg.onShow = function (instance) {
 					var content = this.querySelector('.tippy-content');
 					if ($tip.loading) return;
 
@@ -405,6 +409,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					}).then(function (blob) {
 						var url = URL.createObjectURL(blob);
 						content.innerHTML = '<img src="' + url + '">';
+						wpoimg(content.querySelector("img"), instance.popperInstance.update);
 						$tip.loading = false;
 					}).catch(function (e) {
 						content.innerHTML = 'Loading failed';
@@ -426,6 +431,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					}
 				};
 			}
+
 			$tip = tippy(this.elem[0], $arg);
 			this.save($tip);
 		}
@@ -955,4 +961,3 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		//$wpf.fn.dependency( $( '.wponion-framework' ) );
 	});
 })(window, document, jQuery, $wponion, $wponion_field, wp);
-//# sourceMappingURL=wponion-fields.js.map
