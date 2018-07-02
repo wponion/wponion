@@ -85,7 +85,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 */
 		protected $has_section = false;
 
-
 		/**
 		 * @return bool
 		 */
@@ -99,7 +98,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		public function has_section() {
 			return $this->has_section;
 		}
-
 
 		/**
 		 * @param      $value
@@ -518,7 +516,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 		 * @return \WPOnion\Bridge\Field_Builder
 		 */
 		protected function checkbox_radio( $type = 'checkbox', $id = false, $title = false, $options = false, $args = array() ) {
-			if ( ( 'checkbox' === $type || 'switcher' === $type ) && ! is_array( $options ) ) {
+			if ( ( 'checkbox' === $type || 'switcher' === $type ) && ! is_array( $options ) && ! isset( $args['query_args'] ) ) {
 				$args['label'] = $options;
 			} else {
 				$args['options'] = $options;
