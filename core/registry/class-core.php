@@ -36,7 +36,7 @@ if ( ! class_exists( '\WPOnion\Registry\Core' ) ) {
 		/**
 		 * Adds An Instance To Array.
 		 *
-		 * @param string            $type
+		 * @param string          $type
 		 * @param \WPOnion\Bridge $instance
 		 *
 		 * @return mixed|void
@@ -63,10 +63,7 @@ if ( ! class_exists( '\WPOnion\Registry\Core' ) ) {
 		 * @static
 		 */
 		public function get( $type = 'settings', $key ) {
-			if ( isset( $this->registry[ $type ][ $key ] ) ) {
-				return $this->registry[ $type ][ $key ];
-			}
-			return false;
+			return ( isset( $this->registry[ $type ][ $key ] ) ) ? $this->registry[ $type ][ $key ] : false;
 		}
 	}
 }
