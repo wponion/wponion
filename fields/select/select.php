@@ -38,6 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 		protected function output() {
 			$this->before();
 			$options = $this->data( 'options' );
+			$options = ( is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$attr    = $this->attributes( array(
 				'name'  => ( true === $this->has( 'multiple' ) ) ? $this->name( '[]' ) : $this->name(),
 				'class' => array( 'form-control' ),

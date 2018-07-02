@@ -57,9 +57,9 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 			echo $this->before();
 
 			$options = $this->data( 'options' );
+			$options = ( is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 
 			$this->catch_output( 'start' );
-
 			if ( is_array( $options ) && ! empty( $options ) ) {
 				foreach ( $options as $option_key => $option ) {
 					if ( ! is_array( $option ) || is_array( $option ) && isset( $option['label'] ) ) {
