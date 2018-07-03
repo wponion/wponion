@@ -1,4 +1,6 @@
-# dev
+# WPOnion Development Source Code
+#### ~ Lightweight, Flexible WP Settings Framework ~ 
+
 Development Repo Of wponion Framework
 
 # Options
