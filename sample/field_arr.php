@@ -148,7 +148,7 @@ $wpof['textarea'] = wponion_builder()
 	->style( 'border:1px solid red;' );
 
 $wpof['checkbox'] = wponion_builder()
-	->checkbox( 'checkbox_simple', 'Checkbox Simple', 'Are you sure ?' )
+	->checkbox( 'checkbox_simple', 'Checkbox Simple', 'Are you sure ?', array( 'hide' => 'downloadable' ) )
 	->checkbox( 'checkbox_list', 'Checkbox list', wponion__options( false, 3 ) )
 	->desc( 'Simple Description in Title' )
 	->checkbox( 'checkbox_with_pages', 'Checkbox With Pages', 'pages', array(
