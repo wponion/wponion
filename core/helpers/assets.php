@@ -26,6 +26,7 @@ $wponion_js = array(
 	'wponion-core'              => array( 'assets/js/wponion-core.js', array( 'wponion-fields' ) ),
 	'wponion-customizer'        => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
 	'wponion-metabox'           => array( 'assets/js/wponion-metabox.js', array( 'wponion-core' ) ),
+	'wponion-woocommerce'       => array( 'assets/js/wponion-woocommerce.js', array( 'wponion-core' ) ),
 	'wponion-taxonomy'          => array( 'assets/js/wponion-taxonomy.js', array( 'wponion-core' ) ),
 	'wponion-postmessags'       => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
