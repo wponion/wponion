@@ -63,11 +63,18 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 		 */
 		public function run( $is_variation = false ) {
 			$this->is_variation = $is_variation;
-			foreach ( $this->fields as $page ) {
-				if ( 'only' === $this->args['settings']->is_variation( $page ) && false === $this->is_variation ) {
-					continue;
+
+			if ( false === $is_variation ) {
+				foreach ( $this->fields as $page ) {
+					if ( 'only' === $this->args['settings']->is_variation( $page ) && false === $this->is_variation ) {
+						continue;
+					}
+					$this->field_loop( $page, $is_variation );
 				}
-				$this->field_loop( $page, $is_variation );
+			} else {
+				foreach ( $this->fields as $field ) {
+					$this->field_loop( array( 'fields' => $field ) );
+				}
 			}
 		}
 	}
