@@ -71,7 +71,28 @@ $ins->page( 'Advanced Fields', 'advanced_fields' )
 	->section( 'Group', 'group' )
 	->merge_fields( $wpof['group'] )
 	->section( 'Cloneable', 'clone' )
-	->merge_fields( $wpof['cloneable'] );
+	->merge_fields( $wpof['cloneable'] )
+	->section( 'Tabs', 'tab' )
+	->merge_fields( array(
+		array(
+			'type'     => 'tab',
+			'title'    => 'Tabs',
+			'sections' => array(
+				array(
+					'name'   => 'section1',
+					'title'  => 'Section 1',
+					'fields' => $wpof['text']->get(),
+				),
+				array(
+					'name'   => 'section2',
+					'title'  => 'Section 2',
+					'fields' => $wpof['select']->get(),
+				),
+			),
+		),
+	) )
+	->section( 'WP Editor', 'wp_editor' )
+	->merge_fields( $wpof['wp_editor'] );
 
 $ins->page( 'WP Fields', 'wp_fields' )
 	->section( 'WP Images', 'wp_image_picker' )

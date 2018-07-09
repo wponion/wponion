@@ -4,20 +4,9 @@ $instance = new \WPOnion\Modules\woocommerce( array(
 	'option_name' => 'wcrbp_data_sample',
 ) );
 
-$instance->page( false, 'general', false )
-	->merge_fields( array(
-		array(
-			'type'     => 'text',
-			'id'       => 'general_text',
-			'title'    => 'General Text Field',
-			'validate' => 'wponion_required_value',
+foreach ( $wpof as $key => $fields ) {
+	$instance->page( $key, $key )
+		->merge_fields( $fields );
+}
 
-		),
-	) )
-	->page( 'Page 1', 'page1', false, array(
-		'hide'           => 'grouped',
-		'is_variation'   => true,
-		'only_variation' => true,
-	) )
-	->merge_fields( $wpof['color_picker'] );
 $instance->init();

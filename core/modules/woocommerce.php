@@ -107,7 +107,7 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 		 *
 		 * @return array|string
 		 */
-		public function wrap_class( $extra_class = '', $bootstrap = false ) {
+		public function wrap_class( $extra_class = '', $bootstrap = true ) {
 			return wponion_html_class( $extra_class, $this->default_wrap_class( $bootstrap ) );
 		}
 

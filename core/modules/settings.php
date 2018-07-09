@@ -143,6 +143,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					$this->set_defaults();
 				}
 			}
+
 		}
 
 		/**

@@ -359,3 +359,15 @@ $wpof['group'] = wponion_builder()
 $wpof['cloneable'] = wponion_builder()->text( 'simple_clone_text', 'Simple Clone Text', array(
 	'clone' => true,
 ) );
+
+$wpof['wp_editor'] = wponion_builder()
+	->wp_editor( 'editor1', 'Editor 1' )
+	->wp_editor( 'editor2', 'Editor 2', array(
+		'media_buttons' => false,
+	) )
+	->merge_fields( array(
+		array(
+			'type'  => 'upload',
+			'title' => 'Upload',
+		),
+	) );
