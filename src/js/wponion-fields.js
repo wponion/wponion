@@ -26,33 +26,6 @@
 	};
 
 	/**
-	 * Handles Maxlength Field.
-	 */
-	$wpf.fn.maxlength = function () {
-		if ( this.elem.length > 0 ) {
-			let $settings = this.arg( 'max_length' );
-			if ( $settings ) {
-				$settings[ 'appendToParent' ] = true;
-
-				if ( $settings[ 'threshold' ] !== undefined ) {
-					$settings[ 'threshold' ] = parseInt( $settings[ 'threshold' ] );
-				}
-
-				if ( $settings[ 'warningClass' ] === undefined ) {
-					$settings[ 'warningClass' ] = 'badge badge-success';
-				}
-
-				if ( $settings[ 'limitReachedClass' ] === undefined ) {
-					$settings[ 'limitReachedClass' ] = 'badge badge-danger';
-				}
-
-				this.save( this.elem.maxlength( $settings ) );
-			}
-		}
-		return this;
-	};
-
-	/**
 	 * Renders Fields Debug Popup.
 	 */
 	$wpf.fn.field_debug = function () {
@@ -103,17 +76,14 @@
 			$preview    = $elem.find( 'span.wponion-icon-preview' );
 
 		let $manager = {
-
 			/**
 			 * Stores POPUP Information.
 			 */
 			elems: null,
-
 			/**
 			 * Stores POPUP Information.
 			 */
 			popup: null,
-
 			/**
 			 * Stores POPUP Information.
 			 */
@@ -131,7 +101,6 @@
 					}
 				}
 			},
-
 			/**
 			 * Inits For each and every POPUP.
 			 * @param $popupel
@@ -152,7 +121,6 @@
 				} );
 				$manager.init_tooltip();
 			},
-
 			/**
 			 * Works with POPUP Input Search.
 			 */
@@ -169,7 +137,6 @@
 							} );
 						} );
 			},
-
 			/**
 			 * Handles Selectbox in popup.
 			 */
@@ -210,7 +177,6 @@
 			$remove_btn.hide();
 			$preview.hide();
 		}
-
 
 		/**
 		 * Handles Blur Even / change even in inputfield.
@@ -356,7 +322,6 @@
 
 			},
 			onLimitReached: function () {
-
 				if ( $is_toast === true ) {
 					wpo.tost( {
 						type: "error",
@@ -398,7 +363,7 @@
 			$arg[ 'performance' ] = false;
 
 			if ( $arg[ 'image' ] !== false ) {
-				$arg.html               = '#wponiontooltipimagetippy';
+				$arg.html               = '#wpotpimg';
 				$arg.updateDuration     = 2000;
 				$arg.onShow             = function ( instance ) {
 					const content = this.querySelector( '.tippy-content' );
@@ -623,7 +588,6 @@
 		let $this = this,
 			$elem = $this.elem;
 
-
 		$elem.find( 'ul.wponion-tab-menus li a' ).on( "click", function ( e ) {
 			e.preventDefault();
 			$( this ).parent().parent().find( '.wponion-tab-current' ).removeClass( 'wponion-tab-current' );
@@ -639,8 +603,6 @@
 		} else {
 			$elem.find( 'ul.wponion-tab-menus li:first-child a' ).trigger( 'click' );
 		}
-
-
 	};
 
 	/**
@@ -835,99 +797,43 @@
 	};
 
 	/**
-	 * Handles Field Dependency.
-	 * @type {function()}
+	 * Handles WP Uploader.
 	 */
-	$wpf.fn.dependency = ( ( $elem, $is_sub ) => {
-		if ( $elem.find( '.wponion-has-dependency' ).length > 0 ) {
-			let $app = {
-
-				/**
-				 * Inits dependency framework.
-				 * @type {function()}
-				 */
-				init: ( () => {
-					$app.ruleset = $.deps.createRuleset();
-
-					let $config = {
-						show: function ( $el ) {
-							$el.show();
-						},
-						hide: function ( $el ) {
-							$el.hide();
-						},
-						log: false,//wpo.settings( 'debug' ),
-						checkTargets: false,
-					};
-
-					if ( $is_sub !== undefined ) {
-						$app.dep_sub();
-					} else {
-						$app.dep_root();
-					}
-
-					$.deps.enable( $elem, $app.ruleset, $config );
-				} ),
-
-				dep_root: ( () => {
-					$elem.find( '.wponion-has-dependency' ).each( function () {
-						let $elem     = $( this ),
-							$dep_data = wpo.field_args( $elem, {} ),
-							$_rules   = $app.ruleset;
-
-						if ( $dep_data[ 'dependency' ] !== undefined ) {
-							let $controller = $dep_data[ 'dependency' ][ 'controller' ],
-								$condition  = $dep_data[ 'dependency' ][ 'condition' ],
-								$value      = $dep_data[ 'dependency' ][ 'value' ];
-
-							$.each( $controller, ( ( $i, $el ) => {
-								let $_value     = $value[ $i ] || '',
-									$_condition = $condition[ $i ] || $condition[ 0 ],
-									$_ruless    = $_rules.createRule( '[data-depend-id="' + $el + '"]', $_condition, $_value );
-								$_ruless.include( $elem );
-							} ) );
-						}
-					} );
-				} )
-			};
-
-			$app.init();
-		}
-	} );
-
-	$wpf.fn.__dependency = function () {
+	$wpf.fn.upload = function () {
 		let $this     = this,
-			$el       = $( '.wponion-framework' ),
-			$base     = $this,
-			$dep_data = $this.arg( 'dependency' );
+			$elem     = $this.elem,
+			$add      = $elem.find( 'button' ),
+			$input    = $elem.find( 'input[type=text]' ),
+			$settings = $this.args(), wp_media_frame;
 
-		$base.init = function () {
-			$base.ruleset = $.deps.createRuleset();
-			let $cgf      = {
-				log: true, //wpo.is_debug(),
-				checkTargets: false,
-			};
+		$add.on( 'click', function ( e ) {
+			e.preventDefault();
 
-			$base.dep_root();
-			$.deps.enable( $el, $base.ruleset, $cgf );
-		};
+			if ( typeof wp === 'undefined' || !wp.media || !wp.media.gallery ) {
+				return;
+			}
 
+			if ( wp_media_frame ) {
+				wp_media_frame.open();
+				return;
+			}
 
-		$base.dep_root = function () {
-			let $controller = $dep_data[ 'controller' ],
-				$condition  = $dep_data[ 'condition' ],
-				$value      = $dep_data[ 'value' ],
-				$_rules     = $base.ruleset;
+			wp_media_frame = wp.media( {
+				title: $settings[ 'frame_title' ],
+				library: {
+					type: $settings[ 'upload_type' ]
+				},
+				button: {
+					text: $settings[ 'insert_title' ],
+				}
+			} );
 
-			$.each( $controller, ( ( $i, $_el ) => {
-				let $_value     = $value[ $i ] || '',
-					$_condition = $condition[ $i ] || $condition[ 0 ],
-					$_ruless    = $_rules.createRule( '[data-depend-id="' + $_el + '"]', $_condition, $_value );
-				$_ruless.include( $el );
-			} ) );
-		};
-
-		$base.init();
+			wp_media_frame.on( 'select', function () {
+				let attachment = wp_media_frame.state().get( 'selection' ).first();
+				$input.val( attachment.attributes.url ).trigger( 'change' );
+			} );
+			wp_media_frame.open();
+		} );
 	};
 
 	/**
@@ -936,7 +842,6 @@
 	$wpf.fn.reload = function () {
 		wphooks.addAction( 'wponion_before_fields_reload' );
 		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
-		this.init_field( '[data-wponion-maxlength]', 'maxlength' );
 		this.init_field( '.wponion-element-icon_picker', 'icon_picker' );
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
@@ -952,6 +857,7 @@
 		this.init_field( '.wponion-element-image', 'image_upload' );
 		this.init_field( '.wponion-element-gallery', 'gallery' );
 		this.init_field( '.wponion-element-color_picker', 'color_picker' );
+		this.init_field( '.wponion-element-upload', 'upload' );
 		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
@@ -960,19 +866,14 @@
 	 * Hooks With before init to base init / reload fileds.
 	 */
 	wphooks.addAction( 'wponion_before_init', ( () => {
-		if ( $( '#wponiontooltipimagetippy' ).length === 0 ) {
+		if ( $( '#wpotpimg' ).length === 0 ) {
 			$( 'body' )
-				.append( $( '<div id="wponiontooltipimagetippy" style="display: none;min-width:300px;min-height:400px;">Loading.</div>' ) );
-		}
-
-		if ( $( '.wp-customizer' ).length > 0 ) {
-			//wponion_field( '.wp-customizer' ).reload();
+				.append( $( '<div id="wpotpimg" style="display: none;min-width:300px;min-height:400px;">..</div>' ) );
 		}
 
 		if ( $( '.wponion-framework' ).length > 0 ) {
 			wponion_field( '.wponion-framework' ).reload();
 		}
-		//$wpf.fn.dependency( $( '.wponion-framework' ) );
 	} ) );
 
 } )( window, document, jQuery, $wponion, $wponion_field, wp );
