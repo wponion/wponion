@@ -45,17 +45,21 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 			) );
 
 			echo '<select ' . $attr . '>';
-			foreach ( $options as $key => $option ) {
-				if ( is_array( $option ) && isset( $option['label'] ) ) {
-					echo $this->sel_option( $this->handle_options( $key, $option ) );
-				} elseif ( is_array( $option ) && ! isset( $option['label'] ) ) {
-					echo '<optgroup label="' . $key . '">';
-					foreach ( $option as $k => $v ) {
-						echo $this->sel_option( $this->handle_options( $k, $v ) );
+			if ( $this->has( 'options_html' ) && ! empty( $this->data( 'options_html' ) ) ) {
+				echo $this->data( 'options_html' );
+			} else {
+				foreach ( $options as $key => $option ) {
+					if ( is_array( $option ) && isset( $option['label'] ) ) {
+						echo $this->sel_option( $this->handle_options( $key, $option ) );
+					} elseif ( is_array( $option ) && ! isset( $option['label'] ) ) {
+						echo '<optgroup label="' . $key . '">';
+						foreach ( $option as $k => $v ) {
+							echo $this->sel_option( $this->handle_options( $k, $v ) );
+						}
+						echo '</optgroup>';
+					} else {
+						echo $this->sel_option( $this->handle_options( $key, $option ) );
 					}
-					echo '</optgroup>';
-				} else {
-					echo $this->sel_option( $this->handle_options( $key, $option ) );
 				}
 			}
 			echo '</select>';

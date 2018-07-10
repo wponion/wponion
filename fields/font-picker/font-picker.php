@@ -48,16 +48,14 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 		 */
 		protected function output() {
 			$this->before();
-
-			$websafe                = wponion_websafe_fonts();
 			$this->select_framework = wponion_validate_select_framework( $this->field );
 
 			echo '<div class="wponion-font-select-container">';
-			echo wponion_add_element( $this->font_select( $websafe ), $this->value( 'font' ), $this->unique( $this->field_id() ) );
+			echo wponion_add_element( $this->font_select(), $this->value( 'font' ), $this->unique( $this->field_id() ) );
 			echo '</div>';
 
 			echo '<div class="wponion-font-select-container">';
-			echo wponion_add_element( $this->variant_select( $websafe ), $this->value( 'variant' ), $this->unique( $this->field_id() ) );
+			echo wponion_add_element( $this->variant_select(), $this->value( 'variant' ), $this->unique( $this->field_id() ) );
 			echo '</div>';
 
 			$this->after();
@@ -66,21 +64,16 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 		/**
 		 * Returns Font Select Args.
 		 *
-		 * @param $websafe
-		 *
 		 * @return array
 		 */
-		protected function font_select( $websafe ) {
-			$fonts = array_keys( wponion_google_fonts_data() );
-			$data  = array_filter( array(
+		protected function font_select() {
+			$data = array_filter( array(
 				'type'                  => 'select',
 				'id'                    => 'font',
 				'only_field'            => true,
 				'class'                 => 'wponion-font-selector',
-				'options'               => array(
-					__( 'Websafe Fonts' ) => array_combine( $websafe['fonts'], $websafe['fonts'] ),
-					__( 'Google Fonts' )  => array_combine( $fonts, $fonts ),
-				),
+				'options'               => wponion_get_fonts_array( $this->data( 'google_fonts' ), $this->data( 'websafe_fonts' ), $this->data( 'group' ) ),
+				'options_html'          => wponion_fonts_options_html( $this->data( 'google_fonts' ), $this->data( 'websafe_fonts' ), $this->data( 'group' ), $this->value( 'font' ) ),
 				$this->select_framework => $this->data( $this->select_framework ),
 			) );
 			$this->debug( 'Font Select', $data );
@@ -90,12 +83,11 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 		/**
 		 * Returns Font Variant
 		 *
-		 * @param $websafe
-		 *
 		 * @return array
 		 */
-		protected function variant_select( $websafe ) {
-			$data = array_filter( array(
+		protected function variant_select() {
+			$websafe = wponion_websafe_fonts();
+			$data    = array_filter( array(
 				'type'                  => 'select',
 				'id'                    => 'variant',
 				'only_field'            => true,
@@ -113,7 +105,11 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 		 * @return array|mixed
 		 */
 		protected function field_default() {
-			// TODO: Implement field_default() method.
+			return array(
+				'google_fonts'  => true,
+				'websafe_fonts' => false,
+				'group'         => true,
+			);
 		}
 
 		/**

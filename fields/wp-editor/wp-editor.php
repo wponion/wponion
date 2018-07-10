@@ -33,6 +33,10 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 		protected function output() {
 			echo $this->before();
 			$settings = ( $this->has( 'settings' ) ) ? $this->data( 'settings' ) : array();
+			$settings = $this->parse_args( $settings, array(
+				'textarea_rows' => 10,
+				'textarea_name' => $this->name(),
+			) );
 			wp_editor( $this->value(), $this->field_id(), $settings );
 			echo $this->after();
 		}
