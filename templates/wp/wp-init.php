@@ -35,9 +35,12 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 			parent::__construct( $data, __FILE__, 'wp' );
 		}
 
+		/**
+		 * @return mixed|void
+		 */
 		public function register_assets() {
-			wp_enqueue_style( 'wponion-wp-theme', $this->asset( 'assets/wponion-wp-theme' ), array( 'wponion-core' ) );
-			wp_enqueue_script( 'wponion-wp-theme', $this->asset( 'assets/wponion-wp-theme', 'js' ), array( 'wponion-plugins' ) );
+			wp_enqueue_style( 'wponion-wp-theme', $this->url( 'assets/wponion-wp-theme.css' ), array( 'wponion-core' ) );
+			wp_enqueue_script( 'wponion-wp-theme', $this->url( 'assets/wponion-wp-theme.js' ), array( 'wponion-plugins' ) );
 		}
 
 		/**
