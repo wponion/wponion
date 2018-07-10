@@ -77,7 +77,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			if ( is_string( $base_unique ) || ! isset( $field['id'] ) ) {
 				$uid = wponion_hash_array( $field );
 			} else {
-				$uid = $field['id'] . '_' . $unique . '_' . $hash;//wponion_hash_string( $module . '_' . $plugin_id . '_' . $field['id'] . '_' . $unique . '_' . $hash );
+				$uid = $field['id'] . '_' . $unique . '_' . $hash;
 			}
 
 			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, '\WPOnion\Registry\Fields' );
@@ -123,7 +123,9 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			$element->final_output();
 			$output .= ob_get_clean();
 		} else {
-			$output .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . print_r( $field, true ) . '</strong>' ) . ' </p> ';
+			$output = $output . '<p>';
+			$output = $output . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . print_r( $field, true ) . '</strong>' );
+			$output = $output . ' </p> ';
 		}
 		return $output;
 	}
@@ -450,5 +452,96 @@ if ( ! function_exists( 'wponion_extract_font_variant' ) ) {
 			$return['style'] = $matches[2];
 		}
 		return $return;
+	}
+}
+
+if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
+	/**
+	 * Returns Premade Fonts Array.
+	 *
+	 * @param bool $google_fonts
+	 * @param bool $websafe_fonts
+	 * @param bool $group
+	 *
+	 * @return mixed
+	 */
+	function wponion_get_fonts_array( $google_fonts = true, $websafe_fonts = true, $group = true ) {
+		static $fonts_array = array();
+		$key = ( true === $google_fonts ) ? 'yes' : 'no';
+		$key = $key . ( true === $websafe_fonts ) ? 'yes' : 'no';
+		$key = $key . ( true === $group ) ? 'yes' : 'no';
+
+		if ( ! isset( $fonts_array[ $key ] ) ) {
+			$fonts_array[ $key ] = array();
+			if ( true === $websafe_fonts ) {
+				$fonts = wponion_websafe_fonts();
+				if ( true === $group ) {
+					$fonts_array[ $key ][ __( 'Websafe Fonts' ) ] = $fonts['fonts'];
+				} else {
+					$fonts_array[ $key ] = array_merge( $fonts_array[ $key ], $fonts['fonts'] );
+				}
+			}
+
+			if ( true === $google_fonts ) {
+				$fonts = array_keys( wponion_google_fonts_data() );
+				$fonts = array_combine( $fonts, $fonts );
+				if ( true === $group ) {
+					$fonts_array[ $key ][ __( 'Google Fonts' ) ] = $fonts;
+				} else {
+					$fonts_array[ $key ] = array_merge( $fonts, $fonts );
+				}
+			}
+		}
+
+		return $fonts_array[ $key ];
+	}
+}
+
+
+if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
+	/**
+	 * Returns PreMade Fonts Options HTML.
+	 *
+	 * @param bool  $google_fonts
+	 * @param bool  $websafe_fonts
+	 * @param bool  $group
+	 * @param array $selected
+	 *
+	 * @return mixed|string
+	 */
+	function wponion_fonts_options_html( $google_fonts = true, $websafe_fonts = true, $group = true, $selected = array() ) {
+		static $fonts_html = array();
+		$key = ( true === $google_fonts ) ? 'yes' : 'no';
+		$key = $key . ( true === $websafe_fonts ) ? 'yes' : 'no';
+		$key = $key . ( true === $group ) ? 'yes' : 'no';
+
+		if ( ! is_array( $selected ) ) {
+			$selected = array( $selected );
+		}
+
+		if ( ! isset( $fonts_html[ $key ] ) ) {
+			$fonts = wponion_get_fonts_array( $google_fonts, $websafe_fonts, $group );
+			$html  = '';
+			foreach ( $fonts as $id => $value ) {
+				if ( is_array( $value ) ) {
+					$html .= '<optgroup label="' . $id . '">';
+					foreach ( $value as $i => $v ) {
+						$html .= '<option value="' . $i . '">' . $v . '</option>';
+					}
+					$html .= '</optgroup>';
+				} else {
+					$html .= '<option value="' . $id . '">' . $value . '</option>';
+				}
+			}
+			$fonts_html[ $key ] = $html;
+		}
+
+		$html = $fonts_html[ $key ];
+
+		foreach ( $selected as $key ) {
+			$html = str_replace( '<option value="' . $key . '">', '<option value="' . $key . '" selected>', $html );
+		}
+
+		return $html;
 	}
 }
