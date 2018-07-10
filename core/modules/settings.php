@@ -670,7 +670,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Inits All Base Fields.
 		 */
 		public function init_fields() {
-			$i = '__instance';
 			foreach ( $this->fields as $o => $options ) {
 				if ( false === $this->valid_option( $options ) ) {
 					continue;
@@ -691,12 +690,12 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 						}
 
 						foreach ( $section['fields'] as $f => $field ) {
-							$this->fields[ $o ]['sections'][ $s ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], $section['name'], true );
+							$this->render_field( $field, $options['name'], $section['name'], true );
 						}
 					}
 				} elseif ( isset( $options['fields'] ) ) {
 					foreach ( $options['fields'] as $f => $field ) {
-						$this->fields[ $o ]['fields'][ $f ][ $i ] = $this->render_field( $field, $options['name'], false, true );
+						$this->render_field( $field, $options['name'], false, true );
 					}
 				}
 			}
