@@ -368,6 +368,7 @@ $wpof['wp_editor'] = wponion_builder()
 	->merge_fields( array(
 		array(
 			'type'  => 'upload',
+			'id'    => 'field_upload',
 			'title' => 'Upload',
 		),
 	) );
