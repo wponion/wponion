@@ -956,5 +956,18 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 			$args['settings'] = $settings;
 			return $this->add_field( 'wp_editor', $id, $title, $args );
 		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $js_settings
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
+		public function date_picker( $id = false, $title = false, $js_settings = array(), $args = array() ) {
+			$args['settings'] = $js_settings;
+			return $this->add_field( 'date_picker', $id, $title, $args );
+		}
 	}
 }
