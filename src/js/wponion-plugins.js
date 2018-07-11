@@ -104,6 +104,14 @@ $wponion_field.fn = $wponion_field.prototype = {
 	},
 
 	/**
+	 * Returns Fields JS ID.
+	 * @returns {*}
+	 */
+	js_id: function () {
+		return $wponion.field_js_id( this.elem );
+	},
+
+	/**
 	 * Checks and returns a array key.
 	 * @param $key
 	 * @param $default
@@ -232,6 +240,15 @@ $wponion_field.fn = $wponion_field.prototype = {
 	 */
 	save: function ( $instance ) {
 		return $wponion.save_instance( this.id(), $instance );
+	},
+
+	/**
+	 * Saves Args For debug.
+	 * @param $name
+	 * @param $args
+	 */
+	save_arg: function ( $name, $args ) {
+		return $wponion.__plugin_debug_info( this.elem, $name, $args );
 	}
 };
 
