@@ -42,7 +42,6 @@
 	+ .wponion-element {
 	  border-top: 1px solid #dadada;
 	}
-
 	&.wponion- {
 	  &element- {
 		&no-title {
@@ -77,8 +76,8 @@
 		}
 	  }
 	}
-	&.hirozantal {
-	  @include wponion_field_hirozantal();
+	&.horizontal {
+	  @include wponion_field_horizontal();
 	}
 	.wponion-input-group {
 	  display: inline-block;

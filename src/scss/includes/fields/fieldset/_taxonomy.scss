@@ -3,7 +3,7 @@
 	width:      100%;
 	background: #fff;
 	.wponion-element {
-	  @include wponion_field_hirozantal();
+	  @include wponion_field_horizontal();
 	}
   }
 }
