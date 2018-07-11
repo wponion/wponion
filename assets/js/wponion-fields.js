@@ -23,7 +23,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				$settings = wpo.validate_js_function($settings);
 				this.elem.inputmask($settings);
 				this.save($settings);
-				wpo.__plugin_debug_info(this.elem, 'inputmask', $settings);
+				this.save_arg('inputmask', $settings);
 			}
 		}
 		return this;
@@ -829,6 +829,38 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		});
 	};
 
+	$wpf.fn.date_picker = function () {
+		var $this = this,
+		    $elem = $this.elem,
+		    $settings = this.arg('settings'),
+		    $js_id = this.js_id(),
+		    $theme = 'default';
+
+		if ($settings['theme'] !== undefined) {
+			$theme = $settings['theme'];
+			delete $settings['theme'];
+		}
+
+		if ($('div#' + $js_id).length === 0) {
+			var $html = '<div class="wponion-datepicker-' + $theme + '" id="' + $js_id + '"></div>';
+			$('body').append($($html));
+		}
+
+		if ($elem.hasClass('wponion-datepicker-range')) {
+			$settings['appendTo'] = $('div#' + $js_id)[0];
+			if ($settings['plugins'] === undefined) {
+				$settings['plugins'] = new Array();
+			}
+
+			$settings['plugins'].push(new rangePlugin({ input: $elem.find("input[data-wponion-datepicker-to-date]")[0] }));
+			$elem.find('input[data-wponion-datepicker-from-date]').flatpickr($settings);
+		} else {
+			$settings['appendTo'] = $('div#' + $js_id)[0];
+			$elem.find('input').flatpickr($settings);
+		}
+		this.save_arg('datepicker', $settings);
+	};
+
 	/**
   * Reloads All Fields Instance. For the given key.
   */
@@ -851,6 +883,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		this.init_field('.wponion-element-gallery', 'gallery');
 		this.init_field('.wponion-element-color_picker', 'color_picker');
 		this.init_field('.wponion-element-upload', 'upload');
+		this.init_field('.wponion-element-date_picker', 'date_picker');
 		this.field_debug();
 		wphooks.addAction('wponion_after_fields_reload');
 	};
