@@ -171,6 +171,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function defaults() {
 			$defaults = array(
+				'horizontal'      => false,
 				'id'              => false, # Unique Database ID For Each And Every Field
 				'type'            => false, # Type of the field,
 				'title'           => false, # Title For Each Field,
@@ -316,7 +317,14 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$col_class,
 				$is_debug,
 			) ) );
-			$_wrap_attr          = wponion_array_to_html_attributes( $_wrap_attr );
+
+			$_wrap_attr['class'] .= $this->field_wrap_class();
+
+			if ( $this->has( 'horizontal' ) && true === $this->data( 'horizontal' ) ) {
+				$_wrap_attr['class'] .= ' horizontal ';
+			}
+
+			$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
 
 			echo '<div ' . $_wrap_attr . '>';
 			echo $this->title();
@@ -363,6 +371,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				return '<div class="' . $wrap_class . '">';
 			}
 			return '</div>';
+		}
+
+		/**
+		 * Custom Hookable Function to provide custom wrap class.
+		 */
+		protected function field_wrap_class() {
+			return '';
 		}
 
 		/**
