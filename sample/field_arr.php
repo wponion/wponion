@@ -288,51 +288,7 @@ $wpof['userinterface'] = wponion_builder()
 	->notice_light( 'Light Notice' )
 	->notice_secondary( 'Secondary Notice' )
 	->notice_warning( 'Warning Notice' )
-	->notice_primary( 'Primary Notice' )
-	->jambo_content( ' <h1 class="display-4">Boostrap Jumbotron</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>' )
-	->card( 'Cards', array(
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
-	) )
-	->card( false, array(
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
-		array(
-			'image' => wponion_card_img(),
-			'body'  => '<h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card\'s content.</p>',
-		),
-	) );
+	->notice_primary( 'Primary Notice' );
 
 $wpof['wp_links'] = wponion_builder()->wp_link( 'wp_link', 'WP Links' );
 
@@ -371,4 +327,13 @@ $wpof['wp_editor'] = wponion_builder()
 			'id'    => 'field_upload',
 			'title' => 'Upload',
 		),
+	) );
+
+$wpof['date_picker'] = wponion_builder()
+	->date_picker( 'date_picker1', 'Date Picker1' )
+	->date_picker( 'date_picker2', 'Date Picker 2', array(), array(
+		'range' => true,
+	) )
+	->date_picker( 'date_picker3', 'Date Picker 3', array(), array(
+		'range' => true,
 	) );
