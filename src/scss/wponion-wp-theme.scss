@@ -79,6 +79,15 @@
 	  content: " ";
 	  display: table;
 	}
+
+	.wponion-element {
+	  &.horizontal {
+		width:   auto;
+		display: inline-block;
+		border:  none;
+	  }
+	}
+
   }
 
   /* Handle Hiding Main Nav / Subnav.*/
