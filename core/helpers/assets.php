@@ -49,6 +49,7 @@ $wponion_js = array(
 		'assets/plugins/wp-color-picker-alpha/wp-color-picker-alpha.min.js',
 		array( 'wp-color-picker' ),
 	),
+	'wponion-datepicker'        => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
 );
 
 $wponion_css = array(
@@ -68,6 +69,7 @@ $wponion_css = array(
 		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.min.css',
 		array( 'wp-color-picker' ),
 	),
+	'wponion-datepicker'  => array( 'assets/plugins/flatpickr/style.css' ),
 );
 
 if ( ! function_exists( 'wponion_load_core_assets' ) ) {
