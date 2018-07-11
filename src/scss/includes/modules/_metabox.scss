@@ -159,7 +159,7 @@
 		  width: 100% !important;
 		  .wponion-element {
 			padding: 15px;
-			@include wponion_field_hirozantal();
+			@include wponion_field_horizontal();
 		  }
 		}
 	  }
