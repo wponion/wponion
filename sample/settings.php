@@ -49,7 +49,9 @@ $ins->page( 'Simple Fields', 'core_fields' )
 	->section( 'Select', 'select' )
 	->merge_fields( $wpof['select'] )
 	->heading( 'Advanced Select Configs' )
-	->merge_fields( $wpof['select_advanced'] );
+	->merge_fields( $wpof['select_advanced'] )
+	->section( 'DatePicker', 'date_picker' )
+	->merge_fields( $wpof['date_picker'] );
 
 $ins->page( 'Advanced Fields', 'advanced_fields' )
 	->section( 'Color Palette', 'color-palette' )
@@ -90,15 +92,15 @@ $ins->page( 'Advanced Fields', 'advanced_fields' )
 				),
 			),
 		),
-	) )
-	->section( 'WP Editor', 'wp_editor' )
-	->merge_fields( $wpof['wp_editor'] );
+	) );
 
 $ins->page( 'WP Fields', 'wp_fields' )
 	->section( 'WP Images', 'wp_image_picker' )
 	->merge_fields( $wpof['images'] )
 	->section( 'WP Links', 'wp_links_picker' )
-	->merge_fields( $wpof['wp_links'] );
+	->merge_fields( $wpof['wp_links'] )
+	->section( 'WP Editor', 'wp_editor' )
+	->merge_fields( $wpof['wp_editor'] );
 
 $ins->page( 'UI Fields', 'ui_fields' )
 	->merge_fields( $wpof['userinterface'] );
