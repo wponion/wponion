@@ -92,6 +92,11 @@ $ins->page( 'Advanced Fields', 'advanced_fields' )
 				),
 			),
 		),
+		array(
+			'type'     => 'content',
+			'include'  => WPONION_PATH . 'readme.md',
+			'markdown' => true,
+		),
 	) );
 
 $ins->page( 'WP Fields', 'wp_fields' )
