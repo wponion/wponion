@@ -39,7 +39,7 @@ if ( ! class_exists( '\WPOnion\Core\Async_Request' ) ) {
 		 */
 		protected function handle() {
 			if ( isset( $_POST['type'] ) ) {
-				if ( 'settings_default_save' === $_POST['type'] ) {
+				if ( 'settings_default_save' === sanitize_text_field( $_POST['type'] ) ) {
 					$this->handle_default_settings_save();
 				}
 			}

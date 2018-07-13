@@ -116,8 +116,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			) )
 				->run();
 
-			$this->options_cache['parent_id']    = isset( $_POST['wponion-parent-id'] ) ? $_POST['wponion-parent-id'] : null;
-			$this->options_cache['section_id']   = isset( $_POST['wponion-section-id'] ) ? $_POST['wponion-section-id'] : null;
+			$this->options_cache['parent_id']    = isset( $_POST['wponion-parent-id'] ) ? sanitize_text_field( $_POST['wponion-parent-id'] ) : null;
+			$this->options_cache['section_id']   = isset( $_POST['wponion-section-id'] ) ? sanitize_text_field( $_POST['wponion-section-id'] ) : null;
 			$this->options_cache['field_errors'] = $instance->get_errors();
 			$this->set_cache( $this->options_cache );
 			return $instance->get_values();

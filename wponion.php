@@ -43,7 +43,8 @@ if ( ! function_exists( 'wponion_init' ) ) {
 		do_action( 'wponion_loaded' );
 	}
 
-	add_action( 'init', 'wponion_init' );
+	#add_action( 'init', 'wponion_init' );
+	add_action( 'after_setup_theme', 'wponion_init' );
 }
 
 
