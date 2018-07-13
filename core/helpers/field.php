@@ -497,7 +497,6 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 	/**
 	 * Returns PreMade Fonts Options HTML.
