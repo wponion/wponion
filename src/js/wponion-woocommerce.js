@@ -12,7 +12,6 @@
 	 * Inits Customizer Instance.
 	 */
 	wphooks.addAction( 'wponion_init', ( () => {
-
 	} ) );
 
 	$( document ).on( 'ready', function () {
