@@ -158,6 +158,16 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 			return wponion_dashboard_registry( $this->plugin_id );
 		}
 
+
+		/**
+		 * Returns User Profile Instance.
+		 *
+		 * @return mixed
+		 */
+		public function user_profile() {
+			return wponion_user_profile_registry( $this->plugin_id );
+		}
+
 		/**
 		 * Searches And returns files path
 		 *
@@ -188,6 +198,13 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		 */
 		public function render_taxonomy_html() {
 			include $this->find_html_file( 'taxonomy-html.php' );
+		}
+
+		/**
+		 * Generates User Profile HTML.
+		 */
+		public function render_userprofile_html() {
+			include $this->find_html_file( 'userprofile-html.php' );
 		}
 	}
 }
