@@ -114,6 +114,7 @@ $ins->page( 'UI Fields', 'ui_fields' )
 $ins->init();
 
 require_once 'customizer.php';
+require_once 'userprofile.php';
 require_once 'metabox.php';
 require_once 'taxonomy.php';
 require_once 'woocommerce.php';
