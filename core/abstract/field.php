@@ -836,6 +836,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @param      $unqiue
 		 * @param bool $is_init
 		 *
+		 * @uses wponion_add_element|wponion_field
+		 *
 		 * @return mixed
 		 */
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
