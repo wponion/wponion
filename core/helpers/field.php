@@ -77,7 +77,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			if ( is_string( $base_unique ) || ! isset( $field['id'] ) ) {
 				$uid = wponion_hash_array( $field );
 			} else {
-				$uid = $field['id'] . '_' . $unique . '_' . $hash;
+				$uid = $field['id'] . '_' . $field['type'] . '_' . $unique . '_' . $hash;
 			}
 
 			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, '\WPOnion\Registry\Fields' );
