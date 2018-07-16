@@ -138,7 +138,7 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 			global $typenow;
 			if ( 'product' === $typenow ) {
 				$this->handle_fields_data();
-				$this->add_action( 'admin_enqueue_scripts', 'load_style_script' );
+				$this->add_action( 'admin_enqueue_scripts', 'load_style_script', 40 );
 				$this->add_action( 'woocommerce_product_data_tabs', 'add_wc_tabs' );
 				$this->add_action( 'woocommerce_product_data_panels', 'add_wc_fields', 99 );
 				$this->add_action( 'woocommerce_product_options_advanced', 'advanced_page' );
