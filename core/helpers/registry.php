@@ -125,6 +125,20 @@ if ( ! function_exists( 'wponion_taxonomy_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_user_profile_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for User Profile. module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_user_profile_registry( &$instance ) {
+		return wponion_get_registry_instance( 'user_profile', $instance, 'settings' );
+	}
+}
+
+
 if ( ! function_exists( 'wponion_value_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for module's value API.
