@@ -37,8 +37,8 @@ foreach ( $wpof as $key => $fields ) {
 		'metabox_id'    => false,
 		'context'       => 'side',
 	) );
-	$instance_mbf->merge_fields( $fields );
-		#->init();
+	$instance_mbf->merge_fields( $fields )
+	->init();
 
 	$instance_mbf = new \WPOnion\Modules\metabox( array(
 		'option_name'   => '_wponion_metabox_' . $key,
@@ -47,8 +47,7 @@ foreach ( $wpof as $key => $fields ) {
 		'metabox_id'    => false,
 		'context'       => 'normal',
 	) );
-	$instance_mbf->merge_fields( $fields );
-		#->init();
+	$instance_mbf->merge_fields( $fields )
+	->init();
 }
-
-#$ins->init();
+$ins->init();
