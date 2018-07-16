@@ -90,7 +90,7 @@ if ( ! class_exists( '\WPOnion\Field\date_picker' ) ) {
 				'range'    => false,
 				'settings' => array(),
 				'theme'    => 'default',
-				'date'     => false,
+				'date'     => __( 'Date' ),
 				'to_date'  => __( 'Till Date' ),
 			);
 		}
