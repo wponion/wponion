@@ -147,6 +147,8 @@
 					wpo.ajax( 'icon_picker', {
 						data: {
 							"wponion-icon-lib": $val,
+							enabled: $args[ 'enabled' ],
+							disabled: $args[ 'disabled' ],
 						}
 					}, ( $res ) => {
 						if ( $res.success ) {
@@ -230,6 +232,10 @@
 						onAlways: () => {
 							$popup.disableLoading();
 						},
+						data: {
+							enabled: $args[ 'enabled' ],
+							disabled: $args[ 'disabled' ],
+						}
 					} );
 				}
 			} );
@@ -787,6 +793,20 @@
 		} );
 
 		$input.trigger( 'change' );
+
+		$preview.sortable( {
+			items: "> div",
+			cursor: 'move',
+			scrollSensitivity: 40,
+			forcePlaceholderSize: true,
+			placeholder: 'sortable-placeholder',
+			helper: 'clone',
+			opacity: 0.65,
+			start: function ( event, ui ) {
+				let $item = ui.item;
+				$preview.find( '.sortable-placeholder' ).css( 'width', $item.width() );
+			}
+		} );
 	};
 
 	/**
@@ -910,4 +930,5 @@
 		}
 	} ) );
 
-} )( window, document, jQuery, $wponion, $wponion_field, wp );
+} )
+( window, document, jQuery, $wponion, $wponion_field, wp );
