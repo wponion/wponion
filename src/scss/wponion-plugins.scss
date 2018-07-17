@@ -1,23 +1,13 @@
-/**
- * JSON View Styles
- */
+// JSON View Styles
 @import "../vendors/json-view/json-view";
-/**
- * OverlayScrollbarCSS
- */
+// OverlayScrollbarCSS
 @import "../../node_modules/overlayscrollbars/css/OverlayScrollbars";
-/**
- * Input Mask Styles.
- */
+// Input Mask Styles.
 @import "../../node_modules/inputmask/css/inputmask";
-/**
- * TippyJS
- */
+// TippyJS
 @import "../../node_modules/tippy.js/dist/themes/translucent";
 @import "../../node_modules/tippy.js/dist/themes/light";
-/**
- * Pure CSS Loader
- */
+// Pure CSS Loader
 @import '../../node_modules/pure-css-loader/src/config';
 @import '../../node_modules/pure-css-loader/src/general/base';
 @import '../../node_modules/pure-css-loader/src/general/animations';
@@ -34,27 +24,19 @@
 @import '../../node_modules/pure-css-loader/src/loaders/loader-music';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-pokeball';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-bouncing';
-/**
- * JS Select Framework.
- */
+// JS Select Framework.
 @import "../../node_modules/select2/src/scss/core";
 @import "../../node_modules/chosen-js/chosen";
 @import "../../node_modules/selectize.js/dist/css/selectize.css";
 
-.selectize-control.plugin-condensed_dropdown .option {
-  display: inline-block;
+.selectize {
+  &-control.plugin-condensed_dropdown .option {
+	display: inline-block;
+  }
+  &-legacy {@import "../../node_modules/selectize.js/dist/css/selectize.legacy";}
+  &-bs2 {@import "../../node_modules/selectize.js/dist/css/selectize.bootstrap2";}
+  &-bs3 {@import "../../node_modules/selectize.js/dist/css/selectize.bootstrap3";}
+  &-default {@import "../../node_modules/selectize.js/dist/css/selectize.default";}
+  &-bs4 {@import "../vendors/selectize-themes/selectize-bs4";}
+  &-dark {@import "../vendors/selectize-themes/dark";}
 }
-
-.selectize-legacy {@import "../../node_modules/selectize.js/dist/css/selectize.legacy";}
-
-.selectize-bs2 {@import "../../node_modules/selectize.js/dist/css/selectize.bootstrap2";}
-
-.selectize-bs3 {@import "../../node_modules/selectize.js/dist/css/selectize.bootstrap3";}
-
-.selectize-default {@import "../../node_modules/selectize.js/dist/css/selectize.default";}
-
-.selectize-bs4 {@import "../vendors/selectize-themes/selectize-bs4";}
-
-.selectize-dark {@import "../vendors/selectize-themes/dark";}
-
-@import "includes/wponion_fonts";
