@@ -9,47 +9,24 @@ html {
   -ms-text-size-adjust:     100%; // 4
   -ms-overflow-style:       scrollbar; // 5
 }
-
-// IE10+ doesn't honor `<meta name="viewport">` in some cases.
 @at-root {
   @-ms-viewport {
 	width: device-width;
   }
 }
 
-// stylelint-disable selector-list-comma-newline-after
-// Shim for "new" HTML5 structural elements to display correctly (IE10, older browsers)
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
-
-// stylelint-enable selector-list-comma-newline-after
-
-// Body
-//
-// 1. Remove the margin in all browsers.
-// 2. As a best practice, apply a default `background-color`.
-// 3. Set an explicit initial text-align value so that we can later use the
-//    the `inherit` value on things like `<th>` elements.
 
 body {
   margin:     0; // 1
   text-align: left; // 3
 }
 
-// Suppress the focus outline on elements that cannot be accessed via keyboard.
-// This prevents an unwanted focus outline from appearing around elements that
-// might still respond to pointer events.
-//
-// Credit: https://github.com/suitcss/base
 [tabindex="-1"]:focus {
   outline: 0 !important;
 }
-
-// Content grouping
-//
-// 1. Add the correct box sizing in Firefox.
-// 2. Show the overflow in Edge and IE.
 
 hr {
   box-sizing: content-box; // 1
@@ -57,37 +34,15 @@ hr {
   overflow:   visible; // 2
 }
 
-//
-// Typography
-//
-
-// Remove top margins from headings
-//
-// By default, `<h1>`-`<h6>` all receive top and bottom margins. We nuke the top
-// margin for easier control within type scales as it avoids margin collapsing.
-// stylelint-disable selector-list-comma-newline-after
 h1, h2, h3, h4, h5, h6 {
   margin-top:    0;
   margin-bottom: $headings-margin-bottom;
 }
 
-// stylelint-enable selector-list-comma-newline-after
-
-// Reset margins on paragraphs
-//
-// Similarly, the top margin on `<p>`s get reset. However, we also reset the
-// bottom margin to use `rem` units instead of `em`.
 p {
   margin-top:    0;
   margin-bottom: $paragraph-margin-bottom;
 }
-
-// Abbreviations
-//
-// 1. Remove the bottom border in Firefox 39-.
-// 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
-// 3. Add explicit cursor to indicate changed behavior.
-// 4. Duplicate behavior to the data-* attribute for our tooltip plugin
 
 abbr[title],
 abbr[data-original-title] { // 4
@@ -134,22 +89,14 @@ dfn {
   font-style: italic; // Add the correct font style in Android 4.3-
 }
 
-// stylelint-disable font-weight-notation
 b,
 strong {
   font-weight: bolder; // Add the correct font weight in Chrome, Edge, and Safari
 }
 
-// stylelint-enable font-weight-notation
-
 small {
   font-size: 80%; // Add the correct font size in all browsers
 }
-
-//
-// Prevent `sub` and `sup` elements from affecting the line height in
-// all browsers.
-//
 
 sub,
 sup {
@@ -158,16 +105,8 @@ sup {
   line-height:    0;
   vertical-align: baseline;
 }
-
 sub { bottom: -.25em; }
-
 sup { top: -.5em; }
-
-// And undo these styles for placeholder links/named anchors (without href)
-// which have not been made explicitly keyboard-focusable (without tabindex).
-// It would be more straightforward to just use a[href] in previous block, but that
-// causes specificity issues in many other styles that are too complex to fix.
-// See https://github.com/twbs/bootstrap/issues/19402
 
 a:not([href]):not([tabindex]) {
   color:           inherit;
@@ -183,10 +122,6 @@ a:not([href]):not([tabindex]) {
   }
 }
 
-//
-// Code
-//
-
 pre,
 code,
 kbd,
@@ -194,7 +129,6 @@ samp {
   font-family: $font-family-monospace;
   font-size:   1em; // Correct the odd `em` font sizing in all browsers.
 }
-
 pre {
   // Remove browser default top margin
   margin-top:         0;
@@ -207,18 +141,10 @@ pre {
   -ms-overflow-style: scrollbar;
 }
 
-//
-// Figures
-//
-
 figure {
   // Apply a consistent margin strategy (matches our type styles).
   margin: 0 0 1rem;
 }
-
-//
-// Images and content
-//
 
 img {
   vertical-align: middle;
@@ -228,10 +154,6 @@ img {
 svg:not(:root) {
   overflow: hidden; // Hide the overflow in IE
 }
-
-//
-// Tables
-//
 
 table {
   border-collapse: collapse; // Prevent double borders
@@ -251,27 +173,16 @@ th {
   text-align: inherit;
 }
 
-//
-// Forms
-//
-
 label {
   // Allow labels to use `margin` for spacing.
   display:       inline-block;
   margin-bottom: $label-margin-bottom;
 }
 
-// Remove the default `border-radius` that macOS Chrome adds.
-//
-// Details at https://github.com/twbs/bootstrap/issues/24093
 button {
   border-radius: 0;
 }
 
-// Work around a Firefox/IE bug where the transparent `button` background
-// results in a loss of the default `button` focus styles.
-//
-// Credit: https://github.com/suitcss/base/
 button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
@@ -298,9 +209,6 @@ select {
   text-transform: none; // Remove the inheritance of text transform in Firefox
 }
 
-// 1. Prevent a WebKit bug where (2) destroys native `audio` and `video`
-//    controls in Android 4.
-// 2. Correct the inability to style clickable types in iOS and Safari.
 button,
 html [type="button"], // 1
 [type="reset"],
@@ -308,7 +216,6 @@ html [type="button"], // 1
   -webkit-appearance: button; // 2
 }
 
-// Remove inner border and padding from Firefox, but don't restore the outline like Normalize.
 button::-moz-focus-inner,
 [type="button"]::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
@@ -354,8 +261,6 @@ fieldset {
   border:    0;
 }
 
-// 1. Correct the text wrapping in Edge and IE.
-// 2. Correct the color inheritance from `fieldset` elements in IE.
 legend {
   display:       block;
   width:         100%;
@@ -371,8 +276,6 @@ legend {
 progress {
   vertical-align: baseline; // Add the correct vertical alignment in Chrome, Firefox, and Opera.
 }
-
-// Correct the cursor style of increment and decrement buttons in Chrome.
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
   height: auto;
