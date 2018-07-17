@@ -74,6 +74,8 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 
 			return array(
 				'popup_tooltip' => $tooltip,
+				'enabled'       => $this->data( 'enabled' ),
+				'disabled'      => $this->data( 'disabled' ),
 			);
 		}
 
@@ -124,6 +126,8 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 					'placement' => 'bottom',
 					'arrow'     => true,
 				),
+				'enabled'       => 'DashIcons',
+				'disabled'      => false,
 			);
 		}
 

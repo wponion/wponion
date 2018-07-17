@@ -114,6 +114,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			return array(
 				'add_button'    => __( 'Create Gallery' ),
 				'edit_button'   => __( 'Edit Gallery' ),
+				'sort'          => true,
 				'remove_button' => __( 'Clear Gallery' ),
 			);
 		}
@@ -139,6 +140,9 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 */
 		public function field_assets() {
 			wp_enqueue_media();
+			if ( $this->has( 'sort' ) && true == $this->data( 'sort' ) ) {
+				wp_enqueue_script( 'jquery-ui-sortable' );
+			}
 		}
 	}
 }
