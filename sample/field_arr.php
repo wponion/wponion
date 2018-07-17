@@ -87,6 +87,12 @@ function wponion__image_select_options( $prefix = '', $image_size = '75', $type 
 	);
 }
 
+$a = array( 'type'          => 'icon_picker',
+			'id'            => '',
+			'title'         => '',
+			'allowed_icons' => array( '', 'dashicons', 'typicons' ),
+);
+
 $wpof['all_field'] = wponion_builder()
 	->text( 'all_textfield', 'Text Field' )
 	->text( 'all_textfield_prefix', 'Text Field Prefix', array( 'prefix' => ' USD', 'surfix' => '$' ) )
