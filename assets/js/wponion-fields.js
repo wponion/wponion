@@ -149,7 +149,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					var $val = $(this).val();
 					wpo.ajax('icon_picker', {
 						data: {
-							"wponion-icon-lib": $val
+							"wponion-icon-lib": $val,
+							enabled: $args['enabled'],
+							disabled: $args['disabled']
 						}
 					}, function ($res) {
 						if ($res.success) {
@@ -228,6 +230,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 						},
 						onAlways: function onAlways() {
 							$popup.disableLoading();
+						},
+						data: {
+							enabled: $args['enabled'],
+							disabled: $args['disabled']
 						}
 					});
 				}
@@ -779,6 +785,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		});
 
 		$input.trigger('change');
+
+		$preview.sortable({
+			items: "> div",
+			cursor: 'move',
+			scrollSensitivity: 40,
+			forcePlaceholderSize: true,
+			placeholder: 'sortable-placeholder',
+			helper: 'clone',
+			opacity: 0.65,
+			start: function start(event, ui) {
+				var $item = ui.item;
+				$preview.find('.sortable-placeholder').css('width', $item.width());
+			}
+		});
 	};
 
 	/**
