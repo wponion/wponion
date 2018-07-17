@@ -4,14 +4,6 @@
 @import "../../../node_modules/flatpickr/dist/plugins/monthSelect/monthSelect";
 
 .wponion-datepicker {
-  &-airbnb {
-	@import "../../../node_modules/flatpickr/dist/themes/airbnb";
-  }
-
-  &-confetti {
-	@import "../../../node_modules/flatpickr/dist/themes/confetti";
-  }
-
   &-dark {
 	@import "../../../node_modules/flatpickr/dist/themes/dark";
   }
@@ -20,22 +12,22 @@
 	@import "../../../node_modules/flatpickr/dist/themes/light";
   }
 
+  &-airbnb {
+	//@import "../../../node_modules/flatpickr/dist/themes/airbnb";
+  }
+  &-confetti {
+	//@import "../../../node_modules/flatpickr/dist/themes/confetti";
+  }
   &-material_red {
-	@import "../../../node_modules/flatpickr/dist/themes/material_red";
+	//@import "../../../node_modules/flatpickr/dist/themes/material_red";
   }
-
   &-material_green {
-	@import "../../../node_modules/flatpickr/dist/themes/material_green";
+	//@import "../../../node_modules/flatpickr/dist/themes/material_green";
   }
-
   &-material_blue {
-	@import "../../../node_modules/flatpickr/dist/themes/material_blue";
+	//@import "../../../node_modules/flatpickr/dist/themes/material_blue";
   }
-
   &-material_orange {
-	@import "../../../node_modules/flatpickr/dist/themes/material_orange";
+	//@import "../../../node_modules/flatpickr/dist/themes/material_orange";
   }
-
 }
-
-
