@@ -2,10 +2,16 @@
  * Image Gallery
  */
 .wponion-image-preview {
+  position: relative;
+  display:  inline-block;
+  width:    100%;
+  .sortable-placeholder {
+	display: inline-block;
+  }
   .wponion-preview {
 	margin-right: 10px;
   }
-  .wponion-preview, .wponion-preview-add {
+  .wponion-preview, .wponion-preview-add, .sortable-placeholder {
 	display:          inline-block;
 	position:         relative;
 	padding:          4px;
