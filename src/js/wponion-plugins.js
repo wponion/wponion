@@ -180,9 +180,12 @@ $wponion_field.fn = $wponion_field.prototype = {
 		};
 		$default[ $ajaxKEY ] = $action;
 
-		var $data = $wponion.array_merge( {
-			data: $default
-		}, $data );
+		if ( $data[ 'data' ] !== undefined ) {
+			$data[ 'data' ] = $wponion.array_merge( $default, $data[ 'data' ] );
+		} else {
+			$data[ 'data' ] = $default;
+		}
+
 		return $wponion.ajax( $data );
 	},
 
@@ -319,10 +322,10 @@ $wponion = {
  * // @ codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
  * // @ codekit-append ../../node_modules/jquery.actual/jquery.actual.js
  * // @ codekit-append ../../node_modules/bootstrap-maxlength/bootstrap-maxlength.min.js
+ * // @ codekit-append ../vendors/inputToArray.js
  * Simple JS Addons.
  */
 
-//@codekit-append ../vendors/inputToArray.js
 //@codekit-append ../vendors/json-view/json-view.js
 //@codekit-append ../vendors/wp-js-hooks.js
 //@codekit-append ../vendors/blockUI/blockUI.js
