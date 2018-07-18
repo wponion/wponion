@@ -180,7 +180,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function debug_bar() {
 			if ( wponion_is_debug() ) {
 				return '<div id="wponiondebuginfopopup" style="display:none;"> <div id="wponion-global-debug-content"></div></div>
-<a  title="' . __( 'WPOnion Debug POPUP' ) . '" href="?loaddebug=true" class="wponion-global-debug-handle thickbox">' . wponion_icon( 'fas fa-info-circle' ) . '</a>	';
+<a  title="' . __( 'WPOnion Debug POPUP' ) . '" href="?loaddebug=true" class="wponion-global-debug-handle thickbox">' . wponion_icon( 'dashicons dashicons-info' ) . '</a>	';
 			}
 			return '';
 		}

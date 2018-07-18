@@ -69,7 +69,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 				),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => '<i class="far fa-trash-alt"></i>',
+				'label'       => '<i class="dashicons dashicons-trash"></i>',
 			) ), null, null );
 		}
 
@@ -170,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 				'error_msg'     => null,
 				'limit'         => null,
 				'add_button'    => __( 'Add +' ),
-				'remove_button' => wponion_icon( 'far fa-trash-alt' ),
+				'remove_button' => wponion_icon( 'dashicons dashicons-trash' ),
 			);
 
 			if ( ! is_array( $data['clone'] ) ) {
@@ -221,7 +221,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			return array(
 				'clone' => array(
 					'add_button'    => __( 'Add +' ),
-					'remove_button' => '<i class="far fa-trash-alt"></i>',
+					'remove_button' => '<i class="dashicons dashicons-trash"></i>',
 					'limit'         => $this->data( 'clone' )['limit'],
 					'error_msg'     => $this->data( 'clone' )['error_msg'],
 					'toast_error'   => $this->data( 'clone' )['toast_error'],
