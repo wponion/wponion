@@ -3,9 +3,9 @@
 @import "../../../node_modules/bootstrap/scss/mixins";
 
 .wponion-framework-bootstrap-grid, .wponion-framework-bootstrap {
-  @import "../../../node_modules/bootstrap/scss/root";
+  //@import "../../../node_modules/bootstrap/scss/root";
   @import "bootstrap-reboot";
-  @import "../../../node_modules/bootstrap/scss/utilities";
+  //@import "../../../node_modules/bootstrap/scss/utilities";
 }
 
 .wponion-framework-bootstrap-grid {
@@ -14,10 +14,10 @@
 
 .wponion-framework-bootstrap {
   @import "../../../node_modules/bootstrap/scss/type";
-  @import "../../../node_modules/bootstrap/scss/images";
+  //@import "../../../node_modules/bootstrap/scss/images";
   @import "../../../node_modules/bootstrap/scss/buttons";
   @import "../../../node_modules/bootstrap/scss/transitions";
-  @import "../../../node_modules/bootstrap/scss/card";
+  //@import "../../../node_modules/bootstrap/scss/card";
   @import "../../../node_modules/bootstrap/scss/badge";
   @import "../../../node_modules/bootstrap/scss/jumbotron";
   @import "../../../node_modules/bootstrap/scss/alert";
