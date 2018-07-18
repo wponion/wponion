@@ -1,4 +1,9 @@
 ( ( $ ) => {
+	/**
+	 *
+	 * @param options
+	 * @constructor
+	 */
 	$.fn.WPOnionCloner = function ( options ) {
 		let $options = $.extend( {
 			limit: false,
