@@ -13,6 +13,7 @@
   "author": "varunsridharan",
   "license": "GPLV3",
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.1.1",
     "animate.css": "^3.6.1",
     "bootstrap": "^4.1.1",
     "bootstrap-maxlength": "^1.6.0",
