@@ -19,10 +19,7 @@ global $wponion_js, $wponion_css;
 
 $wponion_js = array(
 	'wponion-plugins'           => array( 'assets/js/wponion-plugins.js', array( 'jquery' ) ),
-	'wponion-fields'            => array(
-		wponion_debug_assets( 'assets/js/wponion-fields', 'js' ),
-		array( 'wponion-plugins' ),
-	),
+	'wponion-fields'            => array( 'assets/js/wponion-fields.js', array( 'wponion-plugins' ) ),
 	'wponion-core'              => array( 'assets/js/wponion-core.js', array( 'wponion-fields' ) ),
 	'wponion-customizer'        => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
 	'wponion-metabox'           => array( 'assets/js/wponion-metabox.js', array( 'wponion-core' ) ),
@@ -30,20 +27,14 @@ $wponion_js = array(
 	'wponion-taxonomy'          => array( 'assets/js/wponion-taxonomy.js', array( 'wponion-core' ) ),
 	'wponion-postmessags'       => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
-	'wponion-cloner'            => array( 'assets/js/wponion-cloner.js', ),
+	'wponion-cloner'            => array( 'assets/js/wponion-cloner.js' ),
 	// WPOnion Related Plugins.
 	'wponion-inputmask'         => array(
 		'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
 		array( 'jquery' ),
 	),
-	'select2'                   => array(
-		'assets/plugins/select2/select2.full.min.js',
-		array( 'jquery' ),
-	),
-	'selectize'                 => array(
-		'assets/plugins/selectize/selectize.min.js',
-		array( 'jquery' ),
-	),
+	'select2'                   => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
+	'selectize'                 => array( 'assets/plugins/selectize/selectize.min.js', array( 'jquery' ) ),
 	'chosen'                    => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
 	'wponion-colorpicker'       => array(
 		'assets/plugins/wp-color-picker-alpha/wp-color-picker-alpha.min.js',
