@@ -39,8 +39,8 @@ function wponion_field ( selector, contxt ) {
 }
 
 /**
- * WPOnion Field Functions
- * @type {{constructor: $wponion_field, init: $wponion_field.init}}
+ * WPOnion Field Functions.
+ * @type {{constructor: (function(*=, *=): (*|$wponion_field)), init: (function(*=, *): $wponion_field), init_field: $wponion_field.init_field, handle_callback: $wponion_field.handle_callback, args: (function(): (boolean|*)), js_id: (function(): *), arg: $wponion_field.arg, module: $wponion_field.module, plugin_id: $wponion_field.plugin_id, field: (function(): ($wponion_field.field|(function()))), id: (function(): *), ajax: (function(*, *=): *), _action_filter: (function(*, *=): *), filter: (function(*=): *), action: (function(*=): *), save: (function(*=): void), save_arg: (function(*=, *=))}}
  */
 $wponion_field.fn = $wponion_field.prototype = {
 	/**
@@ -257,10 +257,20 @@ $wponion_field.fn = $wponion_field.prototype = {
 
 /**
  * WPOnion Theme Handler & Functions.
- * @type {{constructor: $wponion_theme, init: $wponion_theme.init}}
+ * @type {{constructor: (function(*=, *=): (*|$wponion_theme)), init: (function(*=, *): $wponion_theme), args: (function(): *)}}
  */
 $wponion_theme.fn = $wponion_theme.prototype = {
+	/**
+	 * Constructor
+	 */
 	constructor: $wponion_theme,
+
+	/**
+	 *
+	 * @param selector
+	 * @param context
+	 * @returns {$wponion_theme}
+	 */
 	init: function ( selector, context ) {
 		if ( !selector.jQuery ) {
 			selector = jQuery( selector );
@@ -269,6 +279,11 @@ $wponion_theme.fn = $wponion_theme.prototype = {
 		this.contxt = context;
 		return this;
 	},
+
+	/**
+	 *
+	 * @returns {*}
+	 */
 	args: function () {
 		return $wponion.field_args( this.elem, {} );
 	}
