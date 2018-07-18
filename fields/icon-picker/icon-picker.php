@@ -33,11 +33,9 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-
 			echo $this->render_input();
 			echo $this->render_value();
 			echo $this->render_buttons();
-
 			echo $this->after();
 		}
 
@@ -69,9 +67,7 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 		 * @return array
 		 */
 		protected function js_field_args() {
-			$tooltip = $this->data( 'icon_tooltip' );
-			$tooltip = ( false === $tooltip ) ? 'false' : $tooltip;
-
+			$tooltip = ( false === $this->data( 'icon_tooltip' ) ) ? 'false' : $this->data( 'icon_tooltip' );
 			return array(
 				'popup_tooltip' => $tooltip,
 				'enabled'       => $this->data( 'enabled' ),

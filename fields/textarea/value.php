@@ -27,6 +27,5 @@ if ( ! class_exists( '\WPOnion\Value\textarea' ) ) {
 	 * @since 1.0
 	 */
 	class textarea extends \WPOnion\Bridge\Value {
-
 	}
 }

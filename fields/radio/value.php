@@ -16,6 +16,5 @@ namespace WPOnion\Value;
 
 if ( ! class_exists( '\WPOnion\Value\radio' ) ) {
 	class radio extends \WPOnion\Bridge\Value {
-
 	}
 }

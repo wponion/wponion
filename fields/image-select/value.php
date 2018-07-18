@@ -27,6 +27,5 @@ if ( ! class_exists( '\WPOnion\Value\image_select' ) ) {
 	 * @since 1.0
 	 */
 	class image_select extends \WPOnion\Bridge\Value {
-
 	}
 }
