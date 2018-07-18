@@ -470,8 +470,7 @@ $wponion.validate_js_function = function ( $data ) {
  * @param document = Document Object
  * @param $ = jQuery Object
  * @param wpo = $wponion object
- * @param wpf = $wonion.field object
- * @param wpt = $wponion.theme object.
+ * @param wp = WordPress object
  */
 ( ( window, document, $, wpo, wp ) => {
 	let $wph = wp.hooks;
@@ -480,18 +479,14 @@ $wponion.validate_js_function = function ( $data ) {
 		/**
 		 * Retrives Basic Varaibles.
 		 */
-		// Stores Basic Settings.
-		wpo.settings_args = wpo.js_args( 'wponion_core', {} );
-		// Stores Translation Strings.
-		wpo.text = wpo.js_args( 'wponion_i18n', {} );
-
+		wpo.settings_args = wpo.js_args( 'wponion_core', {} ); // Stores Basic Settings.
+		wpo.text = wpo.js_args( 'wponion_i18n', {} ); // Stores Translation Strings.
 		wpo.__field_debug_info();
 
 		/**
 		 * Triggers Before any of the core js functions called.
 		 */
 		$wph.doAction( 'wponion_before_init' );
-
 		wpo.global_debug_view();
 		wpo.loading_screen( $( '.wponion-framework' ) );
 
@@ -499,8 +494,6 @@ $wponion.validate_js_function = function ( $data ) {
 		 * Triggered after all fields are set.
 		 */
 		$wph.doAction( 'wponion_init' );
-
-
 	} ) );
 
 	$wph.doAction( 'wponion_loaded' );
