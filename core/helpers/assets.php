@@ -123,20 +123,3 @@ if ( ! function_exists( 'wponion_localize' ) ) {
 		return wponion_registry( 'wponion-global-localize-api', '\WPOnion\JS\Localize_API' );
 	}
 }
-
-if ( ! function_exists( 'wponion_icon_libraries' ) ) {
-	/**
-	 * Returns a list of Icon Libs.
-	 *
-	 * @return mixed
-	 */
-	function wponion_icon_libraries() {
-		return apply_filters( 'wponion_icon_libraries', array(
-			__( 'DashIcons' )     => WPONION_PATH . 'assets/json/dashicons.json',
-			__( 'FontAwesome 5' ) => WPONION_PATH . 'assets/json/fontawesome5_icons.json',
-			__( 'FontAwesome 4' ) => WPONION_PATH . 'assets/json/fontawesome4_icons.json',
-			__( 'TypIcons' )      => WPONION_PATH . 'assets/json/typ_icons.json',
-			__( 'BoxIcons' )      => WPONION_PATH . 'assets/json/box_icons.json',
-		) );
-	}
-}
