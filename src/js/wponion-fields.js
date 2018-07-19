@@ -856,6 +856,9 @@
 		} );
 	};
 
+	/**
+	 * Handles DateTime Picker.
+	 */
 	$wpf.fn.date_picker = function () {
 		let $this     = this,
 			$elem     = $this.elem,
@@ -888,7 +891,6 @@
 		this.save_arg( 'datepicker', $settings );
 	};
 
-
 	/**
 	 * Reloads All Fields Instance. For the given key.
 	 */
@@ -917,6 +919,61 @@
 	};
 
 	/**
+	 *
+	 * @param $dep_instance
+	 */
+	$wpf.fn.dependency = function ( $dep_instance ) {
+		let $dependency = this.arg( 'dependency' );
+
+		for ( let $_controller in $dependency[ 'controller' ] ) {
+			let $controller = $dependency[ 'controller' ][ $_controller ],
+				$condition  = $dependency[ 'condition' ][ $_controller ],
+				$value      = $dependency[ 'value' ][ $_controller ];
+			$dep_instance   = $dep_instance.createRule( '[data-depend-id="' + $controller + '"]', $condition, $value );
+			$dep_instance.include( $( this.elem ) );
+		}
+	};
+
+	/**
+	 * Handles Field Dependency
+	 * @param el
+	 * @param param
+	 */
+	$.fn.wponion_dependency = function ( el, param ) {
+		let $base     = {};
+		$base.$el     = ( undefined === el ) ? $( this ) : el;
+		$base.init    = function () {
+			$base.ruleset = $.deps.createRuleset();
+			let cfg       = {
+				show: function ( el ) {
+					el.removeClass( 'hidden' );
+				},
+				hide: function ( el ) {
+					el.addClass( 'hidden' );
+				},
+				log: true,
+				checkTargets: false
+			};
+
+			if ( param !== undefined ) {
+				//$base.depSub();
+			} else {
+				$base.depRoot();
+			}
+
+			$.deps.enable( $base.$el, $base.ruleset, cfg );
+		};
+		$base.depRoot = function () {
+			$base.$el.each( function () {
+				$( this ).find( '.wponion-has-dependency' ).each( function () {
+					wponion_field( $( this ) ).dependency( $base.ruleset );
+				} );
+			} );
+		};
+		$base.init();
+	};
+
+	/**
 	 * Hooks With before init to base init / reload fileds.
 	 */
 	wphooks.addAction( 'wponion_before_init', ( () => {
@@ -925,7 +982,10 @@
 				.append( $( '<div id="wpotpimg" style="display: none;min-width:300px;min-height:400px;">..</div>' ) );
 		}
 
-		if ( $( '.wponion-framework' ).length > 0 ) {
+		let $wpof_div = $( '.wponion-framework' );
+
+		if ( $wpof_div.length > 0 ) {
+			$wpof_div.wponion_dependency();
 			wponion_field( '.wponion-framework' ).reload();
 		}
 	} ) );
