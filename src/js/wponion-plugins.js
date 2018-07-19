@@ -341,6 +341,7 @@ $wponion = {
  * Simple JS Addons.
  */
 
+//@codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
 //@codekit-append ../vendors/json-view/json-view.js
 //@codekit-append ../vendors/wp-js-hooks.js
 //@codekit-append ../vendors/blockUI/blockUI.js
