@@ -289,7 +289,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$has_dep                         = false;
 			$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
 			$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
-
+			#$_wrap_attr['data-depend-id']    = $this->field_id();
 			if ( $this->has( 'dependency' ) ) {
 				$has_dep    = 'wponion-has-dependency';
 				$dependency = $this->data( 'dependency' );
@@ -645,6 +645,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 			if ( ! isset( $user_attrs['data-wponion-jsid'] ) ) {
 				$user_attrs['data-wponion-jsid'] = $this->js_field_id();
+			}
+
+			if ( ! isset( $user_attrs['data-depend-id'] ) ) {
+				$user_attrs['data-depend-id'] = $this->field_id();
 			}
 
 			return wponion_array_to_html_attributes( $user_attrs );
