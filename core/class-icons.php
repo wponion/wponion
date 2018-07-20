@@ -79,7 +79,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function setup() {
-			self::$icons[ __( 'DashIcons' ) ]               = array(
+			self::$icons[ __( 'DashIcons' ) ]     = array(
 				'dashicons dashicons-menu',
 				'dashicons dashicons-admin-site',
 				'dashicons dashicons-dashboard',
@@ -314,7 +314,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 				'dashicons dashicons-layout',
 				'dashicons dashicons-paperclip',
 			);
-			self::$icons[ __( 'FontAwesome 4' ) ]           = array(
+			self::$icons[ __( 'FontAwesome 4' ) ] = array(
 				__( 'Web Application' ) => array(
 					'fa fa-address-book',
 					'fa fa-address-book-o',
@@ -1269,7 +1269,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fa fa-wheelchair-alt',
 				),
 			);
-			self::$icons[ __( 'FontAwesome 5' ) ]           = array(
+			self::$icons[ __( 'FontAwesome 5' ) ] = array(
 				__( 'Brand Icons' )   => array(
 					'fab fa-500px',
 					'fab fa-accessible-icon',
@@ -2386,7 +2386,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fas fa-yen-sign',
 				),
 			);
-			self::$icons[ __( 'BoxIcons' ) ]                = array(
+			self::$icons[ __( 'BoxIcons' ) ]      = array(
 				'bx bx-adjust',
 				'bx bx-alarm',
 				'bx bx-alarm-off',
@@ -2818,7 +2818,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 				'bx bx-zoom-in',
 				'bx bx-zoom-out',
 			);
-			self::$icons[ __( 'TypIcons' ) ]                = array(
+			self::$icons[ __( 'TypIcons' ) ]      = array(
 				'typcn typcn-adjust-brightness',
 				'typcn typcn-adjust-contrast',
 				'typcn typcn-anchor-outline',
@@ -3156,7 +3156,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 				'typcn typcn-zoom-outline',
 				'typcn typcn-zoom',
 			);
-			self::$icons[ __( 'Simple Line Icons' ) ]       = array(
+			self::$icons[ __( 'SimpleLine' ) ]    = array(
 				'icon-user icons',
 				'icon-people icons',
 				'icon-user-female icons',
@@ -3347,7 +3347,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 				'icon-social-vkontakte icons',
 				'icon-social-steam icons',
 			);
-			self::$icons[ __( 'Line Awesome' ) ]            = array(
+			self::$icons[ __( 'Line Awesome' ) ]  = array(
 				__( 'Web Application' ) => array(
 					'la la-adjust',
 					'la la-anchor',
@@ -4163,8 +4163,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'la la-user-md',
 				),
 			);
-			self::$icons[ __( 'Themify Icons' ) ]           = array(
-				'Arrows & Direction Icons' => array(
+			self::$icons[ __( 'Themify' ) ]       = array(
+				__( 'Arrows & Direction Icons' ) => array(
 					'ti-arrow-up',
 					'ti-arrow-right',
 					'ti-arrow-left',
@@ -4199,7 +4199,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'ti-back-left',
 					'ti-exchange-vertical',
 				),
-				'Web App Icons'            => array(
+				__( 'Web App Icons' )            => array(
 					'ti-wand',
 					'ti-save',
 					'ti-save-alt',
@@ -4391,7 +4391,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'ti-rss',
 					'ti-rss-alt',
 				),
-				'Control Icons'            => array(
+				__( 'Control Icons' )            => array(
 					'ti-control-stop',
 					'ti-control-shuffle',
 					'ti-control-play',
@@ -4404,7 +4404,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'ti-control-record',
 					'ti-control-eject',
 				),
-				'Text Editor'              => array(
+				__( 'Text Editor' )              => array(
 					'ti-paragraph',
 					'ti-uppercase',
 					'ti-underline',
@@ -4420,7 +4420,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'ti-quote-right',
 					'ti-quote-left',
 				),
-				'Layout Icons'             => array(
+				__( 'Layout Icons' )             => array(
 					'ti-layout-width-full',
 					'ti-layout-width-default',
 					'ti-layout-width-default-alt',
@@ -4484,7 +4484,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'ti-layout-column3-alt',
 					'ti-layout-column2-alt',
 				),
-				'Brand Icons'              => array(
+				__( 'Brand Icons' )              => array(
 					'ti-flickr',
 					'ti-flickr-alt',
 					'ti-instagram',
@@ -4528,8 +4528,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'ti-themify-favicon-alt',
 				),
 			);
-			self::$icons[ __( 'Foundation Icon Fonts 3' ) ] = array(
-				'General Icons'        => array(
+			self::$icons[ __( 'Foundation' ) ]    = array(
+				__( 'General Icons' )        => array(
 					'fi-heart small',
 					'fi-star small',
 					'fi-plus small',
@@ -4604,7 +4604,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-web small',
 					'fi-foundation small',
 				),
-				'Page Icons'           => array(
+				__( 'Page Icons' )           => array(
 					'fi-page small',
 					'fi-page-csv small',
 					'fi-page-doc small',
@@ -4622,7 +4622,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-page-filled small',
 					'fi-page-multiple small',
 				),
-				'Arrow Icons'          => array(
+				__( 'Arrow Icons' )          => array(
 					'fi-arrow-up small',
 					'fi-arrow-right small',
 					'fi-arrow-down small',
@@ -4632,7 +4632,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-arrows-expand small',
 					'fi-arrows-compress small',
 				),
-				'People Icons'         => array(
+				__( 'People Icons' )         => array(
 					'fi-torso small',
 					'fi-torso-female small',
 					'fi-torsos small',
@@ -4642,7 +4642,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-torsos-all-female small',
 					'fi-torso-business small',
 				),
-				'Device Icons'         => array(
+				__( 'Device Icons' )         => array(
 					'fi-monitor small',
 					'fi-laptop small',
 					'fi-tablet-portrait small',
@@ -4651,7 +4651,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-mobile-signal small',
 					'fi-usb small',
 				),
-				'Text Editor Icons'    => array(
+				__( 'Text Editor Icons' )    => array(
 					'fi-bold small',
 					'fi-italic small',
 					'fi-underline small',
@@ -4677,7 +4677,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-unlink small',
 					'fi-quote small',
 				),
-				'Media Control Icons'  => array(
+				__( 'Media Control Icons' )  => array(
 					'fi-play small',
 					'fi-stop small',
 					'fi-pause small',
@@ -4695,7 +4695,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-eject small',
 					'fi-rewind-ten small',
 				),
-				'Ecommerce Icons'      => array(
+				__( 'Ecommerce Icons' )      => array(
 					'fi-dollar small',
 					'fi-euro small',
 					'fi-pound small',
@@ -4713,7 +4713,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-shopping-bag small',
 					'fi-dollar-bill small',
 				),
-				'Accessibility Icons'  => array(
+				__( 'Accessibility Icons' )  => array(
 					'fi-wheelchair small',
 					'fi-braille small',
 					'fi-closed-caption small',
@@ -4730,7 +4730,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-male-symbol small',
 					'fi-female-symbol small',
 				),
-				'Social & Brand Icons' => array(
+				__( 'Social & Brand Icons' ) => array(
 					'fi-social-500px small',
 					'fi-social-adobe small',
 					'fi-social-amazon small',
@@ -4789,7 +4789,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 					'fi-social-zerply small',
 					'fi-social-zurb small',
 				),
-				'Miscellaneous Icons'  => array(
+				__( 'Miscellaneous Icons' )  => array(
 					'fi-compass small',
 					'fi-music small',
 					'fi-lightbulb small',
