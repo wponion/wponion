@@ -91,6 +91,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected $debug_data = array();
 
 		/**
+		 * select_framework
+		 *
+		 * @var bool
+		 */
+		protected $select_framework = false;
+
+		/**
 		 * WPOnion_Field constructor.
 		 *
 		 * @param array        $field
