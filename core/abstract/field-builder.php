@@ -969,5 +969,16 @@ if ( ! class_exists( '\WPOnion\Bridge\Field_Builder' ) ) {
 			$args['settings'] = $js_settings;
 			return $this->add_field( 'date_picker', $id, $title, $args );
 		}
+
+		/**
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Bridge\Field_Builder
+		 */
+		public function background( $id = false, $title = false, $args = array() ) {
+			return $this->add_field( 'background', $id, $title, $args );
+		}
 	}
 }
