@@ -259,7 +259,9 @@ if ( ! function_exists( 'wponion_validate_select_framework' ) ) {
 		$frameworks = wponion_select_frameworks();
 
 		foreach ( $frameworks as $f ) {
-			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || true === is_array( $fld[ 'is_' . $f ] ) ) || isset( $fld[ $f ] ) && ( true === $fld[ $f ] || true === is_array( $fld[ $f ] ) ) ) {
+			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || $f === $fld[ 'is_' . $f ] || true === is_array( $fld[ 'is_' . $f ] ) ) ) {
+				return $f;
+			} elseif ( isset( $fld[ $f ] ) && ( true === $fld[ $f ] || $f === $fld[ $f ] || true === is_array( $fld[ $f ] ) ) ) {
 				return $f;
 			}
 		}
@@ -342,10 +344,11 @@ if ( ! function_exists( 'wponion_google_fonts' ) ) {
 	/**
 	 * Reads Google Fonts. Data.
 	 *
+	 * @todo Remove if not required.
 	 * @return mixed
 	 */
 	function wponion_google_fonts() {
-		return apply_filters( 'wponion_google_fonts', wponion_read_json_files( WPONION_PATH . 'assets/json/google_fonts.json' ) );
+		return apply_filters( 'wponion_google_fonts', \WPOnion\Helper::google_fonts() );
 	}
 }
 
@@ -353,6 +356,7 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 	/**
 	 * Converts GoogleFonts Array into usable fontarray
 	 *
+	 * @todo Remove if not required.
 	 * @return array
 	 */
 	function wponion_google_fonts_data() {
@@ -363,8 +367,8 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 			foreach ( $data as $d => $v ) {
 				$vars = array();
 				if ( isset( $v['variants'] ) ) {
-					foreach ( $v['variants'] as $_d ) {
-						$vars[ $_d['id'] ] = $_d['name'];
+					foreach ( $v['variants'] as $id => $name ) {
+						$vars[ $id ] = $name;
 					}
 					$return[ $d ] = $vars;
 				} else {
