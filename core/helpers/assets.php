@@ -54,7 +54,7 @@ $wponion_css = array(
 	'typicons'            => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
 	'wponion-core'        => array(
 		'assets/css/wponion-base.css',
-		array( 'wponion-plugins', 'fontawesome', 'typicons', 'boxicons' ),
+		array( 'wponion-plugins' ),
 	),
 	'wponion-colorpicker' => array(
 		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.min.css',
