@@ -62,6 +62,7 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 				'insert_title' => __( 'Use' ),
 			) );
 			$this->localize_field( array( 'settings' => $settings ) );
+			wp_enqueue_media();
 		}
 	}
 }
