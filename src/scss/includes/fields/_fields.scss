@@ -166,31 +166,6 @@
   }
 }
 
-/*@import "accordion_group";
-@import "base";
-@import "cards";
-@import "checkbox";
-@import "checkbox_radio_image_select";
-@import "clone_field";
-@import "color_palette";
-@import "color_picker";
-@import "content";
-@import "fieldset";
-@import "font_picker";
-@import "heading";
-@import "icon_picker";
-@import "image_gallery";
-@import "image_select";
-@import "jambo_content";
-@import "key_value";
-@import "notice";
-@import "radio";
-@import "subheading";
-@import "switcher";
-@import "tab";
-@import "text";
-@import "textarea";*/
-
 /**
  * Common Field Includes
  */
@@ -218,6 +193,7 @@
 @import "tab/common";
 @import "text/common";
 @import "textarea/common";
+@import "background/common";
 
 /**
  * Styles Based on Modules.
@@ -251,12 +227,14 @@
 	@import "tab/settings";
 	@import "text/settings";
 	@import "textarea/settings";
+	@import "background/settings";
   }
 
   /**
    * WPOnion Metabox Module.
    */
   &.wponion-module-metabox {
+	@import "background/metabox";
 	@import "accordion_group/metabox";
 	@import "base/metabox";
 	@import "cards/metabox";
@@ -289,6 +267,7 @@
 	  @import "image_select/metabox-side";
 	  @import "font_picker/metabox-side";
 	  @import "key_value/metabox-side";
+	  @import "background/metabox-side";
 	}
   }
 
@@ -320,6 +299,7 @@
 	@import "tab/customizer";
 	@import "text/customizer";
 	@import "textarea/customizer";
+	@import "background/customizer";
   }
 
   /**
@@ -350,5 +330,6 @@
 	@import "tab/taxonomy";
 	@import "text/taxonomy";
 	@import "textarea/taxonomy";
+	@import "background/taxonomy";
   }
 }

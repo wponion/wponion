@@ -1,0 +1,19 @@
+.wponion-element.wponion-element-background {
+  .wponion-element {
+	@include wponion_field_horizontal();
+	padding:       0;
+	width:         10%;
+	border:        none;
+	margin-right:  15px;
+	display:       inline-block;
+	margin-bottom: 15px;
+
+	&.wponion-element-color_picker {
+	  width: 100% !important;
+	}
+
+	&.wponion-field-upload {
+	  width: 100% !important;
+	}
+  }
+}
