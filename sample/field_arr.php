@@ -87,10 +87,11 @@ function wponion__image_select_options( $prefix = '', $image_size = '75', $type 
 	);
 }
 
-$a = array( 'type'          => 'icon_picker',
-			'id'            => '',
-			'title'         => '',
-			'allowed_icons' => array( '', 'dashicons', 'typicons' ),
+$a = array(
+	'type'          => 'icon_picker',
+	'id'            => '',
+	'title'         => '',
+	'allowed_icons' => array( '', 'dashicons', 'typicons' ),
 );
 
 $wpof['all_field'] = wponion_builder()
@@ -129,7 +130,9 @@ $wpof['text'] = wponion_builder()
 		),
 		'validate'  => 'wponion_required_value',
 	) )
-	->text( 'textfield_description', 'Text Field With Desc' )
+	->text( 'textfield_description', 'Text Field With Desc', array(
+		'dependency' => array( 'textfield1', '!=', 'Hello' ),
+	) )
 	->desc( 'Description With Title Side' )
 	->text( 'textfield_description_field', 'Text Field With Desc 2' )
 	->desc( 'Description With Field Side', true )
@@ -343,3 +346,7 @@ $wpof['date_picker'] = wponion_builder()
 	->date_picker( 'date_picker3', 'Date Picker 3', array(), array(
 		'range' => true,
 	) );
+
+//$wpof['background'] = array();
+$wpof['background'] = wponion_builder()->background( 'background1', 'Background HELP' );
+

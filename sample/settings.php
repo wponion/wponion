@@ -51,7 +51,9 @@ $ins->page( 'Simple Fields', 'core_fields' )
 	->heading( 'Advanced Select Configs' )
 	->merge_fields( $wpof['select_advanced'] )
 	->section( 'DatePicker', 'date_picker' )
-	->merge_fields( $wpof['date_picker'] );
+	->merge_fields( $wpof['date_picker'] )
+	->section( 'Background', 'background' )
+	->merge_fields( $wpof['background'] );
 
 $ins->page( 'Advanced Fields', 'advanced_fields' )
 	->section( 'Color Palette', 'color-palette' )
