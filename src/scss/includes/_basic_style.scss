@@ -6,9 +6,9 @@
 }
 
 @each $color, $value in $wponionThemes {
-  .wponion-button-#{$color} {
-	@include bootstrabtns(darken($value, 5%), darken($value, 10%), $value, lighten($value, 3%));
-  }
+  /** .wponion-button-#{$color} {
+	 @include bootstrabtns(darken($value, 5%), darken($value, 10%), $value, lighten($value, 3%));
+   }*/
 }
 
 /**
@@ -40,4 +40,10 @@ input.wponion-form-control {
 .chosen-container.chosen-container-single, .chosen-container.chosen-container-multi {
   width:     auto !important; /* or any value that fits your needs */
   min-width: 200px !important;
+}
+
+#swal2-content {
+  .json-view {
+	overflow: scroll;
+  }
 }

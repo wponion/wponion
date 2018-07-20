@@ -170,7 +170,6 @@
  * Common Field Includes
  */
 @import "accordion_group/common";
-@import "base/common";
 @import "cards/common";
 @import "checkbox/common";
 @import "checkbox_radio_image_select/common";
@@ -204,7 +203,6 @@
    */
   &.wponion-module-settings {
 	@import "accordion_group/settings";
-	@import "base/settings";
 	@import "cards/settings";
 	@import "checkbox/settings";
 	@import "checkbox_radio_image_select/settings";
@@ -236,7 +234,6 @@
   &.wponion-module-metabox {
 	@import "background/metabox";
 	@import "accordion_group/metabox";
-	@import "base/metabox";
 	@import "cards/metabox";
 	@import "checkbox/metabox";
 	@import "checkbox_radio_image_select/metabox";
@@ -276,7 +273,6 @@
    */
   &.wponion-module-customizer {
 	@import "accordion_group/customizer";
-	@import "base/customizer";
 	@import "cards/customizer";
 	@import "checkbox/customizer";
 	@import "checkbox_radio_image_select/customizer";
@@ -307,7 +303,6 @@
    */
   &.wponion-module-taxonomy {
 	@import "accordion_group/taxonomy";
-	@import "base/taxonomy";
 	@import "cards/taxonomy";
 	@import "checkbox/taxonomy";
 	@import "checkbox_radio_image_select/taxonomy";
