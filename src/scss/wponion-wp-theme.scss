@@ -88,6 +88,14 @@
 	  }
 	}
 
+	&.wponion-element-background {
+	  .wponion-element {
+		width:   10%;
+		padding: 0 !important;
+		display: inline-block;
+	  }
+	}
+
   }
 
   /* Handle Hiding Main Nav / Subnav.*/
