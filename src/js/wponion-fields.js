@@ -45,10 +45,7 @@
 					showCloseButton: false,
 					width: '800px',
 					onOpen: ( () => {
-						$( '#swal2-content > div > #' + $divID ).jsonView( $data ).overlayScrollbars( {
-							className: "os-theme-dark",
-							resize: "vertical",
-						} );
+						$( '#swal2-content > div > #' + $divID ).jsonView( $data );
 					} )
 				} ).then( ( result ) => {
 					if ( result.value ) {
@@ -155,11 +152,7 @@
 							swal.resetValidationError();
 							$( $manager.popupel ).find( "#swal2-content" ).html( $res.data ).show();
 							$( $manager.popupel )
-								.find( '#swal2-content .wponion-icon-picker-container-scroll' )
-								.overlayScrollbars( {
-									className: "os-theme-dark",
-									resize: "vertical",
-								} );
+								.find( '#swal2-content .wponion-icon-picker-container-scroll' );
 							$manager.init( $manager.popupel, $manager.popup );
 
 						} else {
@@ -215,8 +208,7 @@
 								swal.resetValidationError();
 								let $popup_elem = $( $elem );
 								$popup_elem.find( "#swal2-content" ).html( $res.data ).show();
-								$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' )
-										   .overlayScrollbars( { className: "os-theme-dark", resize: "vertical", } );
+								$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' );
 								$manager.init( $popup_elem, $popup );
 							} else {
 								wpo.tost( {
