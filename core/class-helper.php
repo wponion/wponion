@@ -27,6 +27,8 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 	 * @since 1.0
 	 */
 	class Helper {
+		protected static $gfonts = array();
+
 		/**
 		 * Gets And Returns File information.
 		 *
@@ -105,6 +107,19 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 					}
 					return $colors['primary'];
 			}
+		}
+
+		/**
+		 * Fetch And Returns Google Fonts.
+		 *
+		 * @return array|mixed
+		 * @static
+		 */
+		public static function google_fonts() {
+			if ( empty( self::$gfonts ) ) {
+				self::$gfonts = self::get_data( 'google_fonts' );
+			}
+			return self::$gfonts;
 		}
 	}
 }
