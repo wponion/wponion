@@ -240,13 +240,10 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 */
 		protected function db_options( $field = '', $value_arr = false, $default = false ) {
 			$value_arr = ( false === $value_arr ) ? $this->db_values : $value_arr;
-
-			$_value = _wponion_get_field_value( $field, $value_arr );
-
+			$_value    = _wponion_get_field_value( $field, $value_arr );
 			if ( $_value ) {
 				return $_value;
 			}
-
 			return $default;
 		}
 
@@ -261,13 +258,10 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 */
 		protected function user_options( $field = '', $value_arr = false, $default = false ) {
 			$value_arr = ( false === $value_arr ) ? $this->user_options : $value_arr;
-
-			$_value = _wponion_get_field_value( $field, $value_arr );
-
+			$_value    = _wponion_get_field_value( $field, $value_arr );
 			if ( $_value ) {
 				return $_value;
 			}
-
 			return $default;
 		}
 
@@ -277,7 +271,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @param $value
 		 * @param $field
 		 *
-		 * @return bool|void
+		 * @return bool
 		 */
 		protected function save_value( $value, $field ) {
 			if ( ! isset( $field['id'] ) ) {
