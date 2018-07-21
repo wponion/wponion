@@ -36,13 +36,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		/**
 		 * Stores WP Admin Menu Page Slug / Hook which returns from any of these functions
 		 *
-		 * @uses \add_submenu_page()
-		 * @uses \add_menu_page()
-		 * @uses \add_management_page()
-		 * @uses \add_dashboard_page()
-		 * @uses \add_options_page()
-		 * @uses \add_plugins_page()
-		 * @uses \add_theme_page()
 		 * page_hook
 		 *
 		 * @var null
@@ -324,10 +317,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$this->init_fields();
 		}
 
-		/**************************************************************************************************************
-		 * Below Functions Are Related Only To find the current active menu and submenu in settings.
-		 *************************************************************************************************************/
-
 		/**
 		 * Returns Default Active Menu of current settings Page.
 		 *
@@ -475,10 +464,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			return isset( $this->active_menu['section_id'] ) ? $this->active_menu['section_id'] : false;
 		}
 
-		/**************************************************************************************************************
-		 * Above Functions Are Related Only To find the current active menu and submenu in settings.
-		 *************************************************************************************************************/
-
 		/**
 		 * Loads Required Style for the current settings page.
 		 */
@@ -564,10 +549,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			return false;
 		}
 
-		/**************************************************************************************************************
-		 * Below Functions are Related To Settings Page Themes.
-		 *************************************************************************************************************/
-
 		/**
 		 * Returns all common HTML wrap class.
 		 *
@@ -647,10 +628,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$first_sec = current( $options['sections'] );
 			return ( is_array( $first_sec ) && isset( $first_sec['name'] ) ) ? $first_sec : false;
 		}
-
-		/**************************************************************************************************************
-		 * Above Functions are Related To Settings Page Themes.
-		 *************************************************************************************************************/
 
 		/**
 		 * Renders / Creates An First Instance based on the $is_init_field variable value.

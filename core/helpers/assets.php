@@ -49,13 +49,7 @@ $wponion_css = array(
 	'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
 	'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
 	'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
-	'fontawesome'         => array( 'assets/plugins/fontawesome/css/all.css', array(), '5.0.13', ),
-	'boxicons'            => array( 'assets/plugins/boxicons/css/boxicons.min.css', array(), '1.0.7', ),
-	'typicons'            => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
-	'wponion-core'        => array(
-		'assets/css/wponion-base.css',
-		array( 'wponion-plugins' ),
-	),
+	'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
 	'wponion-colorpicker' => array(
 		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.min.css',
 		array( 'wp-color-picker' ),
@@ -109,7 +103,7 @@ if ( ! function_exists( 'wponion_icon' ) ) {
 	 * @return string
 	 */
 	function wponion_icon( $icon ) {
-		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon"></i>' : '';
+		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon"> </i>' : '';
 	}
 }
 

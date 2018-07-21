@@ -19,7 +19,7 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	/**
 	 * Checks And Returns Fields Class.
 	 *
-	 * @param string $field
+	 * @param string|array $field
 	 *
 	 * @return bool|string
 	 */
@@ -52,9 +52,9 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	/**
 	 * Creates A New instance for a field or returns an existing field instance.
 	 *
-	 * @param array  $field
-	 * @param string $value
-	 * @param array  $unique
+	 * @param array        $field
+	 * @param string|array $value
+	 * @param array|string $unique
 	 *
 	 * @return bool
 	 */
@@ -293,10 +293,10 @@ if ( ! function_exists( 'wponion_select_classes' ) ) {
 				case 'select2':
 					$return = ( is_rtl() ) ? 'select2 select2-rtl' : 'select2';
 					break;
-				case 'chosen' :
+				case 'chosen':
 					$return = ( is_rtl() ) ? 'chosen chosen-rtl' : 'chosen';
 					break;
-				case'selectize':
+				case 'selectize':
 					$return = 'selectize';
 					break;
 			}
