@@ -65,7 +65,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 						unset( $libs[ $name ] );
 					}
 				}
-			} elseif ( is_string( $enabled ) ) {
+			} elseif ( is_string( $enabled ) && ( true !== $enabled || false !== $enabled ) ) {
 				if ( isset( $libs[ $enabled ] ) ) {
 					$libs = $libs[ $enabled ];
 				}
@@ -79,18 +79,18 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 			}
 
-			$default_lib  = is_array( $libs ) ? current( $libs ) : $libs;
+			$default_lib  = is_array( $libs ) ? current( array_keys( $libs ) ) : $libs;
 			$selected_lib = ( isset( $_REQUEST['wponion-icon-lib'] ) ) ? $_REQUEST['wponion-icon-lib'] : $default_lib;
 			$selected_lib = ( ! isset( $libs[ $selected_lib ] ) ) ? $default_lib : $selected_lib;
 			$json         = \WPOnion\Icons::get( $selected_lib );
 			$html         = '<div class="wponion-icon-picker-model-header">';
 			$html         = $html . '<input type="text" placeholder="' . __( 'Search Icon' ) . '"/>';
 
-			if ( is_array( $libs ) && 1 > count( $libs ) ) {
+			if ( is_array( $libs ) && count( $libs ) > 1 ) {
 				$html = $html . '<select>';
 				foreach ( $libs as $lib => $ejson ) {
 					$is_selected = ( $lib === $selected_lib ) ? ' selected="selected" ' : '';
-					$html        = $html . '<option value="' . $lib . '" ' . $is_selected . '>' . $lib . '</option>';
+					$html        = $html . '<option value="' . $lib . '" ' . $is_selected . '>' . $ejson . '</option>';
 				}
 
 				$html .= '</select>';
@@ -111,9 +111,9 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 					} else {
 						$_icon = ( is_numeric( $json_title ) ) ? $icons : $json_title;
 						$title = ( is_numeric( $json_title ) ) ? $icons : $icons;
-						$html  .= '<div class="wponion-icon-preview-wrap">';
-						$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
-						$html  .= '</div>';
+						$html  = $html . '<div class="wponion-icon-preview-wrap">';
+						$html  = $html . '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
+						$html  = $html . '</div>';
 					}
 				}
 				$html .= '</div>';
