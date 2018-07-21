@@ -122,7 +122,7 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 					'placement' => 'bottom',
 					'arrow'     => true,
 				),
-				'enabled'       => 'DashIcons',
+				'enabled'       => true,
 				'disabled'      => false,
 			);
 		}
