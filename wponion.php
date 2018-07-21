@@ -23,6 +23,9 @@ defined( 'WPONION_URL' ) or define( 'WPONION_URL', plugin_dir_url( __FILE__ ) );
 defined( 'WPONION_DB_VERSION' ) or define( 'WPONION_DB_VERSION', '000520180648' );
 
 if ( ! function_exists( 'wponion_init' ) ) {
+	/**
+	 * Setup's Basic WPOnion.
+	 */
 	function wponion_init() {
 		/**
 		 * Include All Functions Files.
@@ -35,16 +38,14 @@ if ( ! function_exists( 'wponion_init' ) ) {
 		require_once WPONION_PATH . 'core/registry/class-fields.php';
 		require_once WPONION_PATH . 'core/registry/class-field-error.php';
 
-		require_once WPONION_PATH . 'core/class-icons.php';
 		require_once WPONION_PATH . 'core/class-autoloader.php';
 		require_once WPONION_PATH . 'core/class-core-ajax.php';
 		require_once WPONION_PATH . 'core/class-async-request.php';
 		require_once WPONION_PATH . 'core/class-assets.php';
-
+		require_once WPONION_PATH . 'core/class-icons.php';
 		do_action( 'wponion_loaded' );
 	}
 
-	#add_action( 'init', 'wponion_init' );
 	add_action( 'after_setup_theme', 'wponion_init' );
 }
 
