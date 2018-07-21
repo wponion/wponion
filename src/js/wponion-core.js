@@ -38,7 +38,7 @@ $wponion.tost = swal.mixin( {
 	showConfirmButton: false,
 	customClass: 'wpsweatalert2',
 	onOpen: ( () => {
-		let $height = parseInt( jQuery( "#wpadminbar" ).actual( 'height' ) ) + 3;
+		let $height = parseInt( jQuery( "#wpadminbar" ).height() ) + 3;
 		jQuery( "div.wpsweatalert2" ).parent().css( 'top', $height + 'px' );
 	} ),
 	timer: 4000
