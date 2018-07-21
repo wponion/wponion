@@ -1,11 +1,9 @@
 <?php
 /**
- *
- * Initial version created 18-07-2018 / 07:33 AM
+ * Initial version created 21-07-2018 / 03:15 PM
  *
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  * @version 1.0
- * @since 1.0
  * @package
  * @link
  * @copyright 2018 Varun Sridharan

@@ -70,7 +70,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * ---------------
  * Based on English names published at https://en.wikipedia.org/wiki/ISO_3166-2:TZ
  */
-$states = array(
+return array(
 	'AO' => array(
 		'BGO' => __( 'Bengo' ),
 		'BLU' => __( 'Benguela' ),
