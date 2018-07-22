@@ -30,6 +30,14 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 				) ), $this->value( 'color' ), $this->name() );
 			}
 
+			if ( false !== $this->data( 'background-image' ) ) {
+				$title = ( true === $this->data( 'background-image' ) ) ? __( 'Background Image' ) : $this->data( 'background-image' );
+				echo $this->sub_field( $this->handle_args( 'title', $title, array(
+					'type' => 'upload',
+					'id'   => 'image',
+				) ), $this->value( 'image' ), $this->name() );
+			}
+
 			if ( false !== $this->data( 'background-repeat' ) ) {
 				$title = ( true === $this->data( 'background-repeat' ) ) ? __( 'Repeat' ) : $this->data( 'background-repeat' );
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
@@ -94,15 +102,6 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 					'style'                 => 'width:100%;',
 					$this->select_framework => true,
 				) ), $this->value( 'size' ), $this->name() );
-			}
-
-
-			if ( false !== $this->data( 'background-image' ) ) {
-				$title = ( true === $this->data( 'background-image' ) ) ? __( 'Background Image' ) : $this->data( 'background-image' );
-				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type' => 'upload',
-					'id'   => 'image',
-				) ), $this->value( 'image' ), $this->name() );
 			}
 
 			echo $this->after();
