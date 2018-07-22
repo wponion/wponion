@@ -2,18 +2,20 @@
   .wponion-element {
 	@include wponion_field_horizontal();
 	padding:       0;
-	width:         10%;
+	width:         15%;
 	border:        none;
 	margin-right:  15px;
 	display:       inline-block;
-	margin-bottom: 15px;
+	margin-bottom: 25px;
 
 	&.wponion-element-color_picker {
-	  width: 100% !important;
+	  width:         40% !important;
+	  margin-bottom: 25px;
 	}
 
 	&.wponion-field-upload {
-	  width: 100% !important;
+	  width:         50% !important;
+	  margin-bottom: 25px;
 	}
   }
 }

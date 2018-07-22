@@ -1,0 +1,16 @@
+.wponion-element {
+  &.wponion-element-group, &.wponion-element-accordion {
+	.wponion-element {
+	  padding: 15px;
+	}
+  }
+  &.wponion-element-group {
+	.wponion-group-wrap {
+	  .wponion-accordion-wrap {
+		.wponion-group-action {
+		  padding: 15px;
+		}
+	  }
+	}
+  }
+}

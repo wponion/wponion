@@ -1,5 +1,7 @@
 .wponion-element.wponion-element-textarea {
   textarea {
-	min-width:  500px;
+	display:   inline-block;
+	width:     100%;
+	min-width: auto;
   }
 }
