@@ -77,15 +77,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		}
 
 		/**
-		 * Returns A Unique Instance ID.
-		 *
-		 * @return string
-		 */
-		public function uid() {
-			return $this->plugin_id() . '_' . $this->metabox_id();
-		}
-
-		/**
 		 * Generates Custom Wrap Class.
 		 *
 		 * @param string $extra_class
@@ -217,7 +208,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		protected function theme_callback_args() {
 			return array(
 				'data' => array(
-					'plugin_id' => $this->uid(),
+					'plugin_id' => $this->plugin_id() . '_' . $this->metabox_id(),
 					'unique'    => $this->unique(),
 				),
 			);
