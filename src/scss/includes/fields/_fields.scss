@@ -1,6 +1,4 @@
-/**
- * Base Elements Style.
- */
+// Base Elements Style.
 .wponion {
   &-element {
 	padding: 30px;
@@ -107,7 +105,6 @@
 		list-style: inside;
 	  }
 	}
-
 	.wponion-framework-header {
 	  h1 {
 		padding: 0;
@@ -120,7 +117,6 @@
 		margin-top:    10px;
 	  }
 	}
-
 	.wponion-row {
 	  margin:        0;
 	  border-bottom: 1px solid #dadada;
@@ -141,7 +137,6 @@
 	  font-size:        11px;
 	}
   }
-
   &-global-debug-handle {
 	position:         fixed;
 	width:            60px;
@@ -166,9 +161,7 @@
   }
 }
 
-/**
- * Common Field Includes
- */
+// Common Field Includes
 @import "accordion_group/common";
 @import "cards/common";
 @import "checkbox/common";
@@ -195,13 +188,9 @@
 @import "background/common";
 @import "date_picker/common";
 
-/**
- * Styles Based on Modules.
- */
+// Styles Based on Modules.
 .wponion-framework {
-  /**
-   * WPOnion Settings Module.
-   */
+  // WPOnion Settings Module
   &.wponion-module-settings {
 	@import "accordion_group/settings";
 	@import "cards/settings";
@@ -229,9 +218,7 @@
 	@import "background/settings";
   }
 
-  /**
-   * WPOnion Metabox Module.
-   */
+  // WPOnion Metabox Module.
   &.wponion-module-metabox {
 	@import "background/metabox";
 	@import "accordion_group/metabox";
@@ -258,6 +245,7 @@
 	@import "text/metabox";
 	@import "textarea/metabox";
 
+	// Metabox Side View
 	&.wponion-module-metabox-side {
 	  @import "textarea/metabox-side";
 	  @import "checkbox_radio_image_select/metabox-side";
@@ -269,9 +257,7 @@
 	}
   }
 
-  /**
-   * WPOnion Customizer Module.
-   */
+  // WPOnion Customizer Module.
   &.wponion-module-customizer {
 	@import "accordion_group/customizer";
 	@import "cards/customizer";
@@ -299,9 +285,7 @@
 	@import "background/customizer";
   }
 
-  /**
-   * WPOnion Taxonomy Module.
-   */
+  // WPOnion Taxonomy Module.
   &.wponion-module-taxonomy {
 	@import "accordion_group/taxonomy";
 	@import "cards/taxonomy";
@@ -329,6 +313,7 @@
 	@import "background/taxonomy";
   }
 
+  // WPOnion WC Metabox
   &.wponion-module-woocommerce {
 	@import "accordion_group/woocommerce";
 	//@import "cards/woocommerce";
@@ -355,4 +340,6 @@
 	@import "textarea/woocommerce";
 	@import "background/woocommerce";
   }
+
+  &.wponion-module-user_profile {}
 }
