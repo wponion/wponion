@@ -69,22 +69,23 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	/**
 	 * Adds An Instance To / Retrives An Instance.
 	 *
-	 * @param string $type
+	 * @param string $module
 	 * @param        $instance
 	 * @param string $registry_type
 	 *
 	 * @return bool
 	 */
-	function wponion_get_registry_instance( $type = 'settings', &$instance, $registry_type = 'core' ) {
+	function wponion_get_registry_instance( $module = 'settings', &$instance, $registry_type = 'core' ) {
 		if ( $instance instanceof \WPOnion\Bridge ) {
 			$_registry = wponion_registry( $registry_type );
-			$_registry->add( $type, $instance );
+			$_registry->add( $module, $instance );
 		} elseif ( is_string( $instance ) ) {
-			return wponion_registry( $registry_type )->get( $type, $instance );
+			return wponion_registry( $registry_type )->get( $module, $instance );
 		}
 		return true;
 	}
 }
+
 
 if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	/**
@@ -92,7 +93,7 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool
+	 * @return bool|mixed
 	 */
 	function wponion_settings_registry( &$instance ) {
 		return wponion_get_registry_instance( 'settings', $instance, 'settings' );
@@ -135,6 +136,19 @@ if ( ! function_exists( 'wponion_user_profile_registry' ) ) {
 	 */
 	function wponion_user_profile_registry( &$instance ) {
 		return wponion_get_registry_instance( 'user_profile', $instance, 'settings' );
+	}
+}
+
+if ( ! function_exists( 'wponion_woocommerce_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for User Profile. module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_woocommerce_registry( &$instance ) {
+		return wponion_get_registry_instance( 'woocommerce', $instance, 'settings' );
 	}
 }
 
