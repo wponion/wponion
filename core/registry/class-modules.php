@@ -48,6 +48,8 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 
 			if ( method_exists( $instance, 'uid' ) ) {
 				$key = $instance->uid();
+			} elseif ( method_exists( $instance, 'unique' ) ) {
+				$key = $instance->unique();
 			} else {
 				$key = $instance->plugin_id();
 			}
