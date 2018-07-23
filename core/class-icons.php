@@ -30,6 +30,11 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 */
 		protected static $icons = array();
 
+		/**
+		 * icon_names
+		 *
+		 * @var array
+		 */
 		protected static $icon_names = array();
 
 		/**
