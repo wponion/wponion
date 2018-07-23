@@ -66,8 +66,8 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @return mixed|void
 		 */
 		public function on_init() {
-			add_action( 'load-profile.php', array( &$this, 'on_userprofile_load' ) );
-			add_action( 'load-user-edit.php', array( &$this, 'on_userprofile_load' ) );
+			add_action( 'load-profile.php', array( &$this, 'on_user_profile_load' ) );
+			add_action( 'load-user-edit.php', array( &$this, 'on_user_profile_load' ) );
 			add_action( 'show_user_profile', array( &$this, 'render' ), 10, 1 );
 			add_action( 'edit_user_profile', array( &$this, 'render' ), 10, 1 );
 			add_action( 'personal_options_update', array( $this, 'save' ), 10, 2 );
@@ -89,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		/**
 		 * Triggers On User Profile Page Load.
 		 */
-		public function on_userprofile_load() {
+		public function on_user_profile_load() {
 			$this->init_theme();
 			$this->add_action( 'admin_enqueue_scripts', 'load_style_script' );
 		}
@@ -109,7 +109,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		public function render( $user ) {
 			$this->user_id = ( is_object( $user ) ) ? $user->ID : $user;
 			$instance      = $this->init_theme();
-			$instance->render_userprofile_html();
+			$instance->render_user_profile_html();
 		}
 
 		/**
