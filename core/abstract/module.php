@@ -229,8 +229,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function theme_callback_args() {
 			return array(
 				'data' => array(
-					'plugin_id' => $this->plugin_id(),
-					'unique'    => $this->unique(),
+					'plugin_id'   => $this->plugin_id(),
+					'unique'      => $this->unique(),
+					'instance_id' => $this->unique(),
 				),
 			);
 		}
