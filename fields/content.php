@@ -22,7 +22,7 @@ if ( ! class_exists( '\WPOnion\Field\content' ) ) {
 	class content extends \WPOnion\Field {
 
 		protected function output() {
-			$this->before();
+			echo $this->before();
 			$content = false;
 			if ( $this->has( 'include' ) && false !== $this->data( 'include' ) ) {
 				$this->catch_output( 'start' );
@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Field\content' ) ) {
 			} else {
 				echo $content;
 			}
-			$this->after();
+			echo $this->after();
 		}
 
 		protected function field_default() {

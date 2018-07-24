@@ -28,11 +28,18 @@ foreach ( $this->settings()->fields() as $option ) {
 						$child_slug        = $section['name'];
 						$is_section_active = $this->settings()->is_tab_active( $option['name'], $section['name'] );
 						$section_active    = ( true === $is_section_active ) ? ' wponion-section-wraps ' : 'wponion-section-wraps hidden';
+
 						echo '<div id="wponion-tab-' . $slug . '-' . $child_slug . '" class="' . $section_active . '" data-section-id="' . $child_slug . '">';
-						foreach ( $section['fields'] as $field ) {
-							echo $this->settings()->render_field( $field, $option['name'], $section['name'] );
+						if(isset($section['callback'])){
+							echo wponion_callback($section['callback'],array($this->settings()));
+						} elseif(isset($section['fields'])){
+
+							foreach ( $section['fields'] as $field ) {
+								echo $this->settings()->render_field( $field, $option['name'], $section['name'] );
+							}
 						}
 						echo '</div>';
+
 					}
 					?>
 				</div>
