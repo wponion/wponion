@@ -434,6 +434,27 @@ if ( ! function_exists( 'wponion_delete_term_meta' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_callback' ) ) {
+	/**
+	 * @param $callback
+	 * @param $args
+	 *
+	 * @return bool|string
+	 */
+	function wponion_callback( $callback, $args ) {
+		$data = false;
+		if ( is_callable( $callback ) ) {
+			$data = call_user_func_array( $callback, $args );
+		} else {
+			ob_start();
+			echo call_user_func_array( 'do_action', array_merge( array( $callback ), $args ) );
+			$data = ob_get_clean();
+			ob_flush();
+		}
+		return $data;
+	}
+}
+
 /**
  * WPOnion Assets Related Functions.
  */
