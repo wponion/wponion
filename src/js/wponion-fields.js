@@ -583,10 +583,11 @@
 	 * Handles jQuery Tab.
 	 */
 	$wpf.fn.jquery_tab = function () {
-		let $this = this,
-			$elem = $this.elem;
+		let $this      = this,
+			$elem      = $this.elem,
+			$this_elem = $elem.find( '> .wponion-fieldset > .wponion-tab-wrap ' );
 
-		$elem.find( 'ul.wponion-tab-menus li a' ).on( "click", function ( e ) {
+		$this_elem.find( '> ul.wponion-tab-menus li a' ).on( "click", function ( e ) {
 			e.preventDefault();
 			$( this ).parent().parent().find( '.wponion-tab-current' ).removeClass( 'wponion-tab-current' );
 			$( this ).parent().addClass( 'wponion-tab-current' );
@@ -596,10 +597,10 @@
 			$elem.find( 'div#wponion-tab-' + $tab ).addClass( 'wponion-tab-current' ).show();
 		} );
 
-		if ( $elem.find( 'ul.wponion-tab-menus li.current' ).length > 0 ) {
-			$elem.find( 'ul.wponion-tab-menus li.current a' ).trigger( 'click' );
+		if ( $this_elem.find( '> ul.wponion-tab-menus li.current' ).length > 0 ) {
+			$this_elem.find( '> ul.wponion-tab-menus li.current a' ).trigger( 'click' );
 		} else {
-			$elem.find( 'ul.wponion-tab-menus li:first-child a' ).trigger( 'click' );
+			$this_elem.find( '> ul.wponion-tab-menus li:first-child a' ).trigger( 'click' );
 		}
 	};
 
