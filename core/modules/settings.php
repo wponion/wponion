@@ -470,6 +470,18 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function load_admin_styles() {
 			wponion_load_core_assets();
 			$this->_action( 'page_assets' );
+
+			if ( is_array( $this->option( 'extra_js' ) ) ) {
+				foreach ( $this->option( 'extra_js' ) as $data ) {
+					wp_enqueue_script( $data );
+				}
+			}
+
+			if ( is_array( $this->option( 'extra_css' ) ) ) {
+				foreach ( $this->option( 'extra_css' ) as $data ) {
+					wp_enqueue_style( $data );
+				}
+			}
 		}
 
 		/**
