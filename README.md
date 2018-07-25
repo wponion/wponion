@@ -1,50 +1,30 @@
-New Libs
-* Flatpickr
-* jquery-interdependencies
+# WPOnion Development Source Code
+#### ~ Lightweight, Flexible WP Settings Framework ~ 
 
-Fixed
-* Fixed Spelling mistake with horizontal 
-* WC Metabox Field Style Updated.
+---
 
-Added
-* 2 New functions in Javascript Fields API (`js_id`,`save_arg`)
-* Markdown Parser
-* continents php array
-* countries php array
-* currency & its symbol php array
-* meterial_colors list php array
-* states php array
-* Google Fonts PHP Array
-* Animate CSS PHP Array
-* wponion_settings function
-* wponion_woocommerce function 
-* wponion_user_profile function
-* wponion_metabox function
-* wponion_taxonomy function
+## So what is WPOnion , exactly?
+
+WPOnion is a simple yet powerful framework that helps developers build custom meta boxes and custom fields in WordPress fast and easily.
+
+The framework lets you define custom meta boxes and custom fields via arrays and handles everything behind the scene automatically. It has a wide range of field types, field settings and supports not only post meta but also term meta, user meta, comment meta, settings pages and custom tables.
 
 
-New Field Types
-* DatePicker
-* Content
-* Background
-* Upload
-* WP List Table
+## Contribution
 
-New Modules
-* User Profile
+Like WPOnion Framework, this documentation is open sourced on Github & GitBooks. The website's content is written in Markdown.
 
+If you find anything incorrect in the documentation or out-dated, please help us fix it.
 
-Tweaks
-* WPOnion Now works on `after_setup_theme` instead of `init` hook
-* Migrated All JSON Files into PHP Array and saved them in `data/` folder to make it bit faster
-* Icon Field Now has option to enable / disable ceratin icon libs
+In case you come across anything along the way that we haven’t covered, or if you know of a tip you think others would find handy, please file an issue and we’ll see about including it in this guide.
 
+## Documentation
 
-Removed
-* CSS : FontAwesome
-* CSS : TypIcons
-* CSS : BoxIcons
-* JS : OverLayScrollBars
-* JS : InputToArray
-* JS : Bootstrap-MaxLenght
-* JS : jQuery.Actual
+https://wponion.gitbook.io/docs/
+
+# Options
+
+#### `WPONION_FRONTEND` To Load WPOnion Assets in frontend
+ ```php
+ define('WPONION_FRONTEND',true);
+ ```
