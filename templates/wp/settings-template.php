@@ -11,7 +11,7 @@ foreach ( $this->settings()->fields() as $option ) {
 	$parent_active    = ( true === $is_parent_active ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden';
 	?>
 	<div id="wponion-tab-<?php echo $slug; ?>" class="<?php echo $parent_active; ?>">
-		<div class="postbox">
+
 			<?php
 			echo $this->submenu_html( $slug );
 
@@ -19,7 +19,7 @@ foreach ( $this->settings()->fields() as $option ) {
 				$first_section = $this->settings()->get_first_section( $option );
 
 				?>
-				<div class="inside">
+		<div class="postbox"><div class="inside">
 					<?php
 					foreach ( $option['sections'] as $section ) {
 						if ( false === $this->settings()->valid_option( $section, true ) ) {
@@ -42,29 +42,28 @@ foreach ( $this->settings()->fields() as $option ) {
 
 					}
 					?>
-				</div>
+			</div></div>
 				<?php
 
 			} elseif ( isset( $option['fields'] ) ) {
-				echo '<div class="inside">';
+				echo '<div class="postbox"><div class="inside">';
 				foreach ( $option['fields'] as $field ) {
 					echo $this->settings()->render_field( $field, $option['name'] );
 				}
-				echo '</div>';
+				echo '</div></div>';
 
 			} elseif ( isset( $option['callback'] ) && false !== $option['callback'] ) {
 				$with_wrap = ( isset( $option['with_wrap'] ) && true === $option['with_wrap'] || ! isset( $option['with_wrap'] ) ) ? true : false;
 				if ( $with_wrap ) {
-					echo '<div class="inside">';
+					echo '<div class="postbox"><div class="inside">';
 				}
-
+				echo wponion_callback($option['callback'],array($this->settings()));
 				if ( $with_wrap ) {
-					echo '</div>';
+					echo '</div></div>';
 				}
 			}
 
 			?>
-		</div>
 	</div>
 	<?php
 }
