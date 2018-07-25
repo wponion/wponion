@@ -15,12 +15,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.1' );
+defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.2' );
 defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', __( 'WPOnion' ) );
 defined( 'WPONION_FILE' ) or define( 'WPONION_FILE', __FILE__ );
 defined( 'WPONION_PATH' ) or define( 'WPONION_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'WPONION_URL' ) or define( 'WPONION_URL', plugin_dir_url( __FILE__ ) );
-defined( 'WPONION_DB_VERSION' ) or define( 'WPONION_DB_VERSION', '000520180648' );
+defined( 'WPONION_DB_VERSION' ) or define( 'WPONION_DB_VERSION', '250720180935' );
 
 if ( ! function_exists( 'wponion_init' ) ) {
 	/**
