@@ -31,7 +31,6 @@ if ( ! class_exists( '\WPOnion\Field\tab' ) ) {
 			echo $this->after();
 		}
 
-
 		protected function tab_output() {
 			echo '<div class="wponion-tab-wrap wponion-tab-' . $this->data( 'tab_style' ) . '">';
 			$nav     = '<ul class="wponion-tab-menus">';

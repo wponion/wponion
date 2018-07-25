@@ -20,11 +20,9 @@ if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	/**
 	 * Checks if current request is ajax.
 	 *
-	 * @param bool $is_wponion_ajax if set to true then it checks if ajax request from wponion
-	 *
 	 * @return bool
 	 */
-	function wponion_is_ajax( $is_wponion_ajax = false ) {
+	function wponion_is_ajax() {
 		if ( isset( $_POST ) && isset( $_POST['action'] ) && 'heartbeat' === $_POST['action'] ) {
 			return true;
 		}
@@ -75,7 +73,6 @@ if ( ! function_exists( 'wponion_locate_template' ) ) {
 	 *
 	 * @param string $template_name Template name.
 	 * @param string $template_path Template path. (default: '').
-	 * @param string $default_path Default path. (default: '').
 	 *
 	 * @return string
 	 */
@@ -226,7 +223,7 @@ if ( ! function_exists( 'wponion_js_vars' ) ) {
 	 *
 	 * @return string
 	 */
-	function wponion_js_vars( $object_name = '', $l10n, $with_script_tag = true ) {
+	function wponion_js_vars( $object_name, $l10n, $with_script_tag = true ) {
 		foreach ( (array) $l10n as $key => $value ) {
 			if ( ! is_scalar( $value ) ) {
 				continue;
@@ -244,10 +241,10 @@ if ( ! function_exists( 'wponion_js_vars' ) ) {
 		}
 		if ( $with_script_tag ) {
 			$h = "<script type='text/javascript'>\n"; // CDATA and type='text/javascript' is not needed for HTML 5
-			$h .= "/* <![CDATA[ */\n";
-			$h .= "$script\n";
-			$h .= "/* ]]> */\n";
-			$h .= "</script>\n";
+			$h = $h . " /* <![CDATA[ */\n";
+			$h = $h . " $script\n";
+			$h = $h . " /* ]]> */\n";
+			$h = $h . " </script>\n";
 			return $h;
 		}
 		return $script;
@@ -281,9 +278,9 @@ if ( ! function_exists( 'wponion_html_class' ) ) {
 	/**
 	 * Handles HTML Class and returns only unique and usable html clss.
 	 *
-	 * @param array $user_class
-	 * @param array $default_class
-	 * @param bool  $return_string
+	 * @param array|string $user_class
+	 * @param array|string $default_class
+	 * @param bool         $return_string
 	 *
 	 * @return string|array
 	 */
@@ -389,7 +386,7 @@ if ( ! function_exists( 'wponion_get_term_meta' ) ) {
 	 * @param string $term_id
 	 * @param string $unique
 	 *
-	 * @return mixed|void
+	 * @return mixed
 	 */
 	function wponion_get_term_meta( $term_id = '', $unique = '' ) {
 		if ( function_exists( 'get_term_meta' ) ) {
@@ -434,6 +431,27 @@ if ( ! function_exists( 'wponion_delete_term_meta' ) ) {
 			return delete_term_meta( $term_id, $unique );
 		}
 		return delete_option( 'wponion_' . wponion_hash_string( $term_id . '_' . $unique ) );
+	}
+}
+
+if ( ! function_exists( 'wponion_callback' ) ) {
+	/**
+	 * @param $callback
+	 * @param $args
+	 *
+	 * @return bool|string
+	 */
+	function wponion_callback( $callback, $args ) {
+		$data = false;
+		if ( is_callable( $callback ) ) {
+			$data = call_user_func_array( $callback, $args );
+		} else {
+			ob_start();
+			echo call_user_func_array( 'do_action', array_merge( array( $callback ), $args ) );
+			$data = ob_get_clean();
+			ob_flush();
+		}
+		return $data;
 	}
 }
 

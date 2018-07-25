@@ -26,6 +26,5 @@ if ( ! class_exists( '\WPOnion\Field\radio' ) ) {
 	 * @since 1.0
 	 */
 	class radio extends \WPOnion\Field\checkbox_radio {
-
 	}
 }

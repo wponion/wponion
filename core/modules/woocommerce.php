@@ -138,7 +138,7 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 			global $typenow;
 			if ( 'product' === $typenow ) {
 				$this->handle_fields_data();
-				$this->add_action( 'admin_enqueue_scripts', 'load_style_script' );
+				$this->add_action( 'admin_enqueue_scripts', 'load_style_script', 40 );
 				$this->add_action( 'woocommerce_product_data_tabs', 'add_wc_tabs' );
 				$this->add_action( 'woocommerce_product_data_panels', 'add_wc_fields', 99 );
 				$this->add_action( 'woocommerce_product_options_advanced', 'advanced_page' );
@@ -307,7 +307,7 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 		 * @param array $extra_wrap_class
 		 */
 		protected function render_tab_fields( $group, $extra_wrap_class = array() ) {
-			$wrap_class = $this->wrap_class( $this->parse_args( $extra_wrap_class, array( 'wponion-wc-metabox-fields' ) ) );
+			$wrap_class = $this->wrap_class( wponion_html_class( $extra_wrap_class, array( 'wponion-wc-metabox-fields' ) ) );
 			echo '<div class="' . $wrap_class . '">';
 			foreach ( $group['fields'] as $field ) {
 				$field = $this->parse_args( $field, array( 'wrap_class' => array() ) );

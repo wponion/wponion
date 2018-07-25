@@ -27,7 +27,5 @@ if ( ! class_exists( '\WPOnion\Value\switcher' ) ) {
 	 * @since 1.0
 	 */
 	class switcher extends \WPOnion\Bridge\Value {
-
-
 	}
 }

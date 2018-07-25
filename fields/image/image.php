@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPOnion\Field\image' ) ) {
 			echo '<div class="wponion-image-preview">';
 
 			echo '<div class="wponion-preview-add" ' . $add_show . '>';
-			echo wponion_icon( 'fas fa-plus wponion-add' );
+			echo wponion_icon( 'dashicons dashicons-plus wponion-add' );
 			echo '</div>';
 
 			$this->show_image( $this->value(), $preview_show );
@@ -56,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Field\image' ) ) {
 		 */
 		protected function show_image( $value = '', $preview_show = '' ) {
 			echo '<div class="wponion-preview" ' . $preview_show . '>';
-			echo wponion_icon( 'fas fa-times wponion-remove' );
+			echo wponion_icon( 'dashicons dashicons-no-alt wponion-remove' );
 			$thumbnail = wp_get_attachment_image_src( $value, 'thumbnail' );
 			$fullsize  = wp_get_attachment_image_src( $value, 'full' );
 			$thumbnail = isset( $thumbnail[0] ) ? $thumbnail[0] : false;

@@ -56,19 +56,31 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		protected $unique = null;
 
 		/**
+		 * module_instance
+		 *
+		 * @var null
+		 */
+		protected $module_instance = null;
+
+		/**
 		 * WPOnion_Theme_Abstract constructor.
 		 *
 		 * @param array  $data
 		 * @param string $theme_file
 		 */
 		public function __construct( $data, $theme_file = __FILE__, $theme_name = false ) {
-			$data = $this->parse_args( $data, array( 'plugin_id' => false, 'unique' => false ) );
+			$data = $this->parse_args( $data, array(
+				'plugin_id'   => false,
+				'unique'      => false,
+				'instance_id' => false,
+			) );
 			add_action( 'admin_enqueue_scripts', array( &$this, 'register_assets' ), 1 );
-			$this->dir       = plugin_dir_path( $theme_file );
-			$this->url       = plugin_dir_url( $theme_file );
-			$this->theme     = $theme_name;
-			$this->plugin_id = $data['plugin_id'];
-			$this->unique    = $data['unique'];
+			$this->dir             = plugin_dir_path( $theme_file );
+			$this->url             = plugin_dir_url( $theme_file );
+			$this->theme           = $theme_name;
+			$this->plugin_id       = $data['plugin_id'];
+			$this->unique          = $data['unique'];
+			$this->module_instance = $data['instance_id'];
 			wponion_theme_registry( $this );
 		}
 
@@ -128,7 +140,7 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		 * @return \WPOnion\Modules\Settings
 		 */
 		public function settings() {
-			return wponion_settings_registry( $this->plugin_id );
+			return wponion_settings_registry( $this->module_instance );
 		}
 
 		/**
@@ -137,7 +149,7 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		 * @return \WPOnion\Modules\metabox
 		 */
 		public function metabox() {
-			return wponion_metabox_registry( $this->plugin_id );
+			return wponion_metabox_registry( $this->module_instance );
 		}
 
 		/**
@@ -146,7 +158,7 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		 * @return mixed
 		 */
 		public function taxonomy() {
-			return wponion_taxonomy_registry( $this->plugin_id );
+			return wponion_taxonomy_registry( $this->module_instance );
 		}
 
 		/**
@@ -155,7 +167,17 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		 * @return \WPOnion\Modules\Dashboard_Widgets
 		 */
 		public function dashboard_widgets() {
-			return wponion_dashboard_registry( $this->plugin_id );
+			return wponion_dashboard_registry( $this->module_instance );
+		}
+
+
+		/**
+		 * Returns User Profile Instance.
+		 *
+		 * @return mixed
+		 */
+		public function user_profile() {
+			return wponion_user_profile_registry( $this->module_instance );
 		}
 
 		/**
@@ -188,6 +210,13 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 		 */
 		public function render_taxonomy_html() {
 			include $this->find_html_file( 'taxonomy-html.php' );
+		}
+
+		/**
+		 * Generates User Profile HTML.
+		 */
+		public function render_user_profile_html() {
+			include $this->find_html_file( 'user-profile-html.php' );
 		}
 	}
 }

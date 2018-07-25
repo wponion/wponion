@@ -19,10 +19,7 @@ global $wponion_js, $wponion_css;
 
 $wponion_js = array(
 	'wponion-plugins'           => array( 'assets/js/wponion-plugins.js', array( 'jquery' ) ),
-	'wponion-fields'            => array(
-		wponion_debug_assets( 'assets/js/wponion-fields', 'js' ),
-		array( 'wponion-plugins' ),
-	),
+	'wponion-fields'            => array( 'assets/js/wponion-fields.js', array( 'wponion-plugins' ) ),
 	'wponion-core'              => array( 'assets/js/wponion-core.js', array( 'wponion-fields' ) ),
 	'wponion-customizer'        => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
 	'wponion-metabox'           => array( 'assets/js/wponion-metabox.js', array( 'wponion-core' ) ),
@@ -30,25 +27,20 @@ $wponion_js = array(
 	'wponion-taxonomy'          => array( 'assets/js/wponion-taxonomy.js', array( 'wponion-core' ) ),
 	'wponion-postmessags'       => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
-	'wponion-cloner'            => array( 'assets/js/wponion-cloner.js', ),
+	'wponion-cloner'            => array( 'assets/js/wponion-cloner.js' ),
 	// WPOnion Related Plugins.
 	'wponion-inputmask'         => array(
 		'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
 		array( 'jquery' ),
 	),
-	'select2'                   => array(
-		'assets/plugins/select2/select2.full.min.js',
-		array( 'jquery' ),
-	),
-	'selectize'                 => array(
-		'assets/plugins/selectize/selectize.min.js',
-		array( 'jquery' ),
-	),
+	'select2'                   => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
+	'selectize'                 => array( 'assets/plugins/selectize/selectize.min.js', array( 'jquery' ) ),
 	'chosen'                    => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
 	'wponion-colorpicker'       => array(
 		'assets/plugins/wp-color-picker-alpha/wp-color-picker-alpha.min.js',
 		array( 'wp-color-picker' ),
 	),
+	'wponion-datepicker'        => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
 );
 
 $wponion_css = array(
@@ -57,17 +49,12 @@ $wponion_css = array(
 	'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
 	'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
 	'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
-	'fontawesome'         => array( 'assets/plugins/fontawesome/css/all.css', array(), '5.0.13', ),
-	'boxicons'            => array( 'assets/plugins/boxicons/css/boxicons.min.css', array(), '1.0.7', ),
-	'typicons'            => array( 'assets/plugins/typicons/typicons.css', array( 'fontawesome' ) ),
-	'wponion-core'        => array(
-		'assets/css/wponion-base.css',
-		array( 'wponion-plugins', 'fontawesome', 'typicons', 'boxicons' ),
-	),
+	'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
 	'wponion-colorpicker' => array(
 		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.min.css',
 		array( 'wp-color-picker' ),
 	),
+	'wponion-datepicker'  => array( 'assets/plugins/flatpickr/style.css' ),
 );
 
 if ( ! function_exists( 'wponion_load_core_assets' ) ) {
@@ -116,7 +103,7 @@ if ( ! function_exists( 'wponion_icon' ) ) {
 	 * @return string
 	 */
 	function wponion_icon( $icon ) {
-		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon"></i>' : '';
+		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon"> </i>' : '';
 	}
 }
 
@@ -128,21 +115,5 @@ if ( ! function_exists( 'wponion_localize' ) ) {
 	 */
 	function wponion_localize() {
 		return wponion_registry( 'wponion-global-localize-api', '\WPOnion\JS\Localize_API' );
-	}
-}
-
-if ( ! function_exists( 'wponion_icon_libraries' ) ) {
-	/**
-	 * Returns a list of Icon Libs.
-	 *
-	 * @return mixed
-	 */
-	function wponion_icon_libraries() {
-		return apply_filters( 'wponion_icon_libraries', array(
-			__( 'DashIcons' )   => WPONION_PATH . 'assets/json/dashicons.json',
-			__( 'FontAwesome' ) => WPONION_PATH . 'assets/json/fontawesome_icons.json',
-			__( 'TypIcons' )    => WPONION_PATH . 'assets/json/typ_icons.json',
-			__( 'BoxIcons' )    => WPONION_PATH . 'assets/json/box_icons.json',
-		) );
 	}
 }

@@ -19,7 +19,7 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	/**
 	 * Checks And Returns Fields Class.
 	 *
-	 * @param string $field
+	 * @param string|array $field
 	 *
 	 * @return bool|string
 	 */
@@ -52,9 +52,9 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	/**
 	 * Creates A New instance for a field or returns an existing field instance.
 	 *
-	 * @param array  $field
-	 * @param string $value
-	 * @param array  $unique
+	 * @param array        $field
+	 * @param string|array $value
+	 * @param array|string $unique
 	 *
 	 * @return bool
 	 */
@@ -77,7 +77,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			if ( is_string( $base_unique ) || ! isset( $field['id'] ) ) {
 				$uid = wponion_hash_array( $field );
 			} else {
-				$uid = $field['id'] . '_' . $unique . '_' . $hash;
+				$uid = $field['id'] . '_' . $field['type'] . '_' . $unique . '_' . $hash;
 			}
 
 			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, '\WPOnion\Registry\Fields' );
@@ -259,7 +259,9 @@ if ( ! function_exists( 'wponion_validate_select_framework' ) ) {
 		$frameworks = wponion_select_frameworks();
 
 		foreach ( $frameworks as $f ) {
-			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || true === is_array( $fld[ 'is_' . $f ] ) ) || isset( $fld[ $f ] ) && ( true === $fld[ $f ] || true === is_array( $fld[ $f ] ) ) ) {
+			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || $f === $fld[ 'is_' . $f ] || true === is_array( $fld[ 'is_' . $f ] ) ) ) {
+				return $f;
+			} elseif ( isset( $fld[ $f ] ) && ( true === $fld[ $f ] || $f === $fld[ $f ] || true === is_array( $fld[ $f ] ) ) ) {
 				return $f;
 			}
 		}
@@ -291,10 +293,10 @@ if ( ! function_exists( 'wponion_select_classes' ) ) {
 				case 'select2':
 					$return = ( is_rtl() ) ? 'select2 select2-rtl' : 'select2';
 					break;
-				case 'chosen' :
+				case 'chosen':
 					$return = ( is_rtl() ) ? 'chosen chosen-rtl' : 'chosen';
 					break;
-				case'selectize':
+				case 'selectize':
 					$return = 'selectize';
 					break;
 			}
@@ -342,10 +344,11 @@ if ( ! function_exists( 'wponion_google_fonts' ) ) {
 	/**
 	 * Reads Google Fonts. Data.
 	 *
+	 * @todo Remove if not required.
 	 * @return mixed
 	 */
 	function wponion_google_fonts() {
-		return apply_filters( 'wponion_google_fonts', wponion_read_json_files( WPONION_PATH . 'assets/json/google_fonts.json' ) );
+		return apply_filters( 'wponion_google_fonts', \WPOnion\Helper::google_fonts() );
 	}
 }
 
@@ -353,6 +356,7 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 	/**
 	 * Converts GoogleFonts Array into usable fontarray
 	 *
+	 * @todo Remove if not required.
 	 * @return array
 	 */
 	function wponion_google_fonts_data() {
@@ -363,8 +367,8 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 			foreach ( $data as $d => $v ) {
 				$vars = array();
 				if ( isset( $v['variants'] ) ) {
-					foreach ( $v['variants'] as $_d ) {
-						$vars[ $_d['id'] ] = $_d['name'];
+					foreach ( $v['variants'] as $id => $name ) {
+						$vars[ $id ] = $name;
 					}
 					$return[ $d ] = $vars;
 				} else {
@@ -496,7 +500,6 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 		return $fonts_array[ $key ];
 	}
 }
-
 
 if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 	/**
