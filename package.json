@@ -13,25 +13,17 @@
   "author": "varunsridharan",
   "license": "GPLV3",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.1.1",
     "animate.css": "^3.6.1",
     "bootstrap": "^4.1.1",
-    "bootstrap-maxlength": "^1.6.0",
-    "boxicons": "^1.0.7",
     "chosen-js": "^1.8.5",
-    "flag-icon-css": "^3.0.0",
     "flatpickr": "^4.5.1",
     "gulp": "^3.9.1",
     "inputmask": "^3.3.11",
     "jquery": "^3.3.1",
-    "jquery.actual": "^1.0.19",
-    "overlayscrollbars": "^1.4.4",
     "pure-css-loader": "^3.1.2",
     "select2": "^4.0.6-rc.1",
     "selectize.js": "^0.12.12",
-    "sweetalert": "^2.1.0",
     "sweetalert2": "^7.20.4",
-    "tippy.js": "^2.5.2",
-    "typicons.font": "^2.0.9"
+    "tippy.js": "^2.5.2"
   }
 }

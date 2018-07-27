@@ -208,8 +208,9 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		protected function theme_callback_args() {
 			return array(
 				'data' => array(
-					'plugin_id' => $this->plugin_id() . '_' . $this->metabox_id(),
-					'unique'    => $this->unique(),
+					'plugin_id'   => $this->plugin_id() . '_' . $this->metabox_id(),
+					'unique'      => $this->unique(),
+					'instance_id' => $this->unique(),
 				),
 			);
 		}

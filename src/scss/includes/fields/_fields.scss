@@ -37,7 +37,7 @@
 		}
 	  }
 	}
-	+ .wponion-element {
+	+ .wponion-element, + .wponion-row {
 	  border-top: 1px solid #dadada;
 	}
 	&.wponion- {
@@ -117,6 +117,7 @@
 		margin-top:    10px;
 	  }
 	}
+
 	.wponion-row {
 	  margin:        0;
 	  border-bottom: 1px solid #dadada;
@@ -125,6 +126,7 @@
 		border-top:  none;
 	  }
 	}
+
   }
 
   /* Global / Field Debug POPUP Style Codes. */

@@ -286,6 +286,22 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Returns Field Cols
+		 *
+		 * @return bool|mixed
+		 */
+		protected function get_cols() {
+			if ( false !== $this->data( 'columns' ) ) {
+				return $this->data( 'columns' );
+			} elseif ( false !== $this->data( 'column' ) ) {
+				return $this->data( 'column' );
+			} elseif ( false !== $this->data( 'col' ) ) {
+				return $this->data( 'col' );
+			}
+			return false;
+		}
+
+		/**
 		 * Generates Elements Wrapper.
 		 */
 		protected function wrapper() {
@@ -310,10 +326,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 			if ( 12 === self::$columns ) {
 				self::$columns = 0;
-			} elseif ( false !== $this->data( 'columns' ) ) {
+			} elseif ( false !== $this->get_cols() ) {
 				echo ( 0 === self::$columns ) ? '<div class="row wponion-row">' : '';
 				$col_class     = 'col';
-				self::$columns = ( 0 === self::$columns ) ? $this->data( 'columns' ) : $this->data( 'columns' ) + self::$columns;
+				self::$columns = ( 0 === self::$columns ) ? $this->get_cols() : $this->get_cols() + self::$columns;
 			}
 
 			$_wrap_attr['class'] = wponion_html_class( $this->data( 'wrap_class' ), $this->default_wrap_class( array(

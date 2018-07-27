@@ -27,6 +27,22 @@
 		background: #fff;
 		padding:    0;
 		border-top: 0;
+
+		.wponion-element {
+		  .wponion-field-title {
+			h4 {
+			  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+			}
+		  }
+		}
+
+		.wponion-row {
+		  margin: 0;
+		  .col {
+			padding-left:  30px;
+			padding-right: 30px;
+		  }
+		}
 	  }
 	}
 
