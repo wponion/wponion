@@ -23,7 +23,7 @@ $ins = wponion_settings( array(
 	'extra_js'        => array( 'plugin-js-1' ),
 	'option_name'     => '_wpboilerplate_settings',
 	'template_path'   => false,
-	'is_single_page'  => 'submenu',
+	'is_single_page'  => false,
 	'menu'            => array(
 		'type'       => 'parent',
 		'title'      => 'WP Onion',
@@ -112,11 +112,123 @@ $ins->page( 'WP Fields', 'wp_fields' )
 $ins->page( 'UI Fields', 'ui_fields' )
 	->merge_fields( $wpof['userinterface'] );
 
+$ins->page( 'WP List Table', 'wp_list_table' )
+	->merge_fields( array(
+		array(
+			'type'     => 'wp_list_table',
+			'title'    => 'List Table',
+			'id'       => 'WPListTable',
+			'settings' => array(
+				'columns'          => array(
+					'cb'       => '<input type="checkbox" />', //Render a checkbox instead of text
+					'title'    => 'Title',
+					'rating'   => 'Rating',
+					'director' => 'Director',
+				),
+				'render'           => array(
+					'title'    => function ( $item, $instance ) {
+						$actions = array(
+							'edit'   => sprintf( '<a href="?page=%s&action=%s&movie=%s">Edit</a>', $_REQUEST['page'], 'edit', $item['ID'] ),
+							'delete' => sprintf( '<a href="?page=%s&action=%s&movie=%s">Delete</a>', $_REQUEST['page'], 'delete', $item['ID'] ),
+						);
+						return sprintf( '%1$s <span style="color:silver">(id:%2$s)</span>%3$s', /*$1%s*/
+							$item['title'], /*$2%s*/
+							$item['ID'], /*$3%s*/
+							$instance->row_actions( $actions ) );
+					},
+					'rating'   => function ( $item ) {
+						return $item['rating'];
+					},
+					'director' => function ( $item ) {
+						return $item['director'];
+					},
+					'cb'       => function ( $item, $instance ) {
+						return sprintf( '<input type="checkbox" name="%1$s[]" value="%2$s" />', $instance->_args['singular'], $item['ID'] );
+					},
+				),
+				'sortable_columns' => array(
+					'title'    => array( 'title', false ),     //true means it's already sorted
+					'rating'   => array( 'rating', false ),
+					'director' => array( 'director', false ),
+				),
+				'sort_callback'    => function ( $data, $instance ) {
+					function usort_reorder( $a, $b ) {
+						$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'title';
+						$order   = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc';
+						$result  = strcmp( $a[ $orderby ], $b[ $orderby ] );
+						return ( $order === 'asc' ) ? $result : -$result;
+					}
 
+					usort( $data, 'usort_reorder' );
+					return $data;
+				},
+				'bulk_actions'     => array(
+					'edit'   => __( 'Edit' ),
+					'delete' => array(
+						'title'    => __( 'Delete' ),
+						'callback' => function () {
+							var_dump( "Delete Called" );
+						},
+					),
+				),
+			),
+			'data'     => array(
+				array(
+					'ID'       => 1,
+					'title'    => '300',
+					'rating'   => 'R',
+					'director' => 'Zach Snyder',
+				),
+				array(
+					'ID'       => 2,
+					'title'    => 'Eyes Wide Shut',
+					'rating'   => 'R',
+					'director' => 'Stanley Kubrick',
+				),
+				array(
+					'ID'       => 3,
+					'title'    => 'Moulin Rouge!',
+					'rating'   => 'PG-13',
+					'director' => 'Baz Luhrman',
+				),
+				array(
+					'ID'       => 4,
+					'title'    => 'Snow White',
+					'rating'   => 'G',
+					'director' => 'Walt Disney',
+				),
+				array(
+					'ID'       => 5,
+					'title'    => 'Super 8',
+					'rating'   => 'PG-13',
+					'director' => 'JJ Abrams',
+				),
+				array(
+					'ID'       => 6,
+					'title'    => 'The Fountain',
+					'rating'   => 'PG-13',
+					'director' => 'Darren Aronofsky',
+				),
+				array(
+					'ID'       => 7,
+					'title'    => 'Watchmen',
+					'rating'   => 'R',
+					'director' => 'Zach Snyder',
+				),
+				array(
+					'ID'       => 8,
+					'title'    => '2001',
+					'rating'   => 'G',
+					'director' => 'Stanley Kubrick',
+				),
+			),
+		),
+	) );
 $ins->init();
 
-#require_once 'customizer.php';
-#require_once 'userprofile.php';
-#require_once 'metabox.php';
-#require_once 'taxonomy.php';
-#require_once 'woocommerce.php';
+
+//require_once 'customizer.php';
+//require_once 'userprofile.php';
+require_once 'metabox.php';
+//require_once 'taxonomy.php';
+//require_once 'woocommerce.php';

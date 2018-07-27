@@ -279,6 +279,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( false === $this->options_cache ) {
 				$values              = $this->get_db_cache();
 				$this->options_cache = ( is_array( $values ) ) ? $values : array();
+
 				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
 					$this->options_cache = array();
 				} else {

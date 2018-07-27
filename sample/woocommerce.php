@@ -5,7 +5,9 @@ $instance = new \WPOnion\Modules\woocommerce( array(
 ) );
 
 foreach ( $wpof as $key => $fields ) {
-	$instance->page( $key, $key )
+	$instance->page( $key, $key, false, array(
+		'is_variation' => true,
+	) )
 		->merge_fields( $fields );
 }
 

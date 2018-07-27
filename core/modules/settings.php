@@ -128,8 +128,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					wponion_async()
 						->data( array(
 							'type'        => 'settings_default_save',
-							'plugin_id'   => $this->plugin_id(),
-							'option_name' => $this->unique,
+							'plugin_id'   => $this->unique(),
+							'option_name' => $this->unique(),
 						) )
 						->dispatch();
 				} elseif ( true === $force ) {

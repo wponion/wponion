@@ -1,55 +1,123 @@
 <?php
 /**
  *
+ * Project : wponion
+ * Date : 26-07-2018
+ * Time : 03:38 PM
+ * File : wponion.php
  *
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * Initial version created 05-05-2018 / 03:38 PM
  * @version 1.0
- * @since 1.0
- * @package wponion
- * @link http://github.com/wponion
+ * @package bullet-wp
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	die;
 }
-defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.2' );
-defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', __( 'WPOnion' ) );
-defined( 'WPONION_FILE' ) or define( 'WPONION_FILE', __FILE__ );
-defined( 'WPONION_PATH' ) or define( 'WPONION_PATH', plugin_dir_path( __FILE__ ) );
-defined( 'WPONION_URL' ) or define( 'WPONION_URL', plugin_dir_url( __FILE__ ) );
-defined( 'WPONION_DB_VERSION' ) or define( 'WPONION_DB_VERSION', '250720180935' );
 
-if ( ! function_exists( 'wponion_init' ) ) {
+if ( ! class_exists( 'WPOnion_Loader' ) ) {
 	/**
-	 * Setup's Basic WPOnion.
+	 * Class WPOnion_Loader
+	 *
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
 	 */
-	function wponion_init() {
+	final class WPOnion_Loader {
 		/**
-		 * Include All Functions Files.
+		 * Variable to store VSP_Framework_Loader Class instance
+		 *
+		 * @var \WPOnion_Loader
 		 */
-		require_once WPONION_PATH . 'core/helpers/base.php';
+		public static $_instance = null;
 
-		require_once WPONION_PATH . 'core/registry/class-common.php';
-		require_once WPONION_PATH . 'core/registry/class-core.php';
-		require_once WPONION_PATH . 'core/registry/class-modules.php';
-		require_once WPONION_PATH . 'core/registry/class-fields.php';
-		require_once WPONION_PATH . 'core/registry/class-field-error.php';
+		/**
+		 * Stores the loaded vsp framework information
+		 *
+		 * @var array
+		 */
+		public static $_loaded = array();
 
-		require_once WPONION_PATH . 'core/class-autoloader.php';
-		require_once WPONION_PATH . 'core/class-core-ajax.php';
-		require_once WPONION_PATH . 'core/class-async-request.php';
-		require_once WPONION_PATH . 'core/class-assets.php';
-		require_once WPONION_PATH . 'core/class-icons.php';
-		do_action( 'wponion_loaded' );
+		/**
+		 * data
+		 *
+		 * @var array
+		 */
+		public static $data = array();
+
+		/**
+		 * VSP_Framework_Loader constructor.
+		 */
+		public function __construct() {
+			add_action( 'plugins_loaded', [ &$this, 'load_framework' ], 0 );
+		}
+
+		/**
+		 * Loads Framework From A Plugin which has the latest version
+		 */
+		public function load_framework() {
+			$latest_version = max( array_keys( self::$data ) );
+			$info           = ( isset( self::$data[ $latest_version ] ) ) ? self::$data[ $latest_version ] : [];
+
+			if ( empty( $info ) ) {
+				$msg = base64_encode( wp_json_encode( self::$data ) );
+				$ms  = __( 'Unable To Load WPOnion Framework. Please Contact The Author' );
+				$ms  = $ms . '<p style="word-break: break-all;"> <strong>' . __( 'ERROR ID : ' ) . '</strong>' . $msg . '</p>';
+				wp_die( $ms );
+			}
+			self::$_loaded = array(
+				'path'    => $info,
+				'version' => $latest_version,
+			);
+			require $info . 'wponion-init.php';
+		}
+
+		/**
+		 * Creates A Static Instances
+		 *
+		 * @return \WPOnion_Loader
+		 */
+		public static function instance() {
+			if ( null === self::$_instance ) {
+				self::$_instance = new self();
+			}
+			return self::$_instance;
+		}
+
+		/**
+		 * Stores Framework Version & its details
+		 *
+		 * @param string      $data other information.
+		 * @param string|bool $version framework version.
+		 *
+		 * @return $this
+		 */
+		public function add( $data = '', $version = false ) {
+			if ( false === $version ) {
+				$args    = get_file_data( trailingslashit( $data ) . 'wponion-init.php', array( 'version' => '@version' ) );
+				$version = ( isset( $args['version'] ) && ! empty( $args['version'] ) ) ? $args['version'] : $version;
+			}
+			self::$data[ $version ] = trailingslashit( $data );
+			return $this;
+		}
 	}
-
-	add_action( 'after_setup_theme', 'wponion_init' );
 }
 
+if ( ! function_exists( 'wponion_load' ) ) {
+	/**
+	 * Adds Passed Plugin path to the list array which later used to compare and
+	 * load the framework from a plugin which has the latest version of framework
+	 *
+	 * @param bool   $version
+	 * @param string $framework_path
+	 */
+	function wponion_load( $framework_path = __DIR__, $version = false ) {
+		WPOnion_Loader::instance()
+			->add( $framework_path, $version );
+	}
+}
 
-if ( file_exists( WPONION_PATH . '/i18n/' . get_locale() . '.mo' ) ) {
-	load_textdomain( 'wponion', WPONION_PATH . '/i18n/' . get_locale() . '.mo' );
+if ( function_exists( 'wponion_load' ) ) {
+	wponion_load( __DIR__ );
 }

@@ -13,10 +13,10 @@
  */
 $instance = new \WPOnion\Modules\User_Profile( array(
 	'option_name' => '_wponion_user_profile',
-), array(
-	array(
-		'type'  => 'text',
-		'id'    => 'hello',
-		'title' => 'Sample Text',
-	),
 ) );
+
+
+foreach ( $wpof as $key => $fields ) {
+	$instance->merge_fields( $fields );
+}
+$instance->init();
