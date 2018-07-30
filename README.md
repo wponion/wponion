@@ -28,3 +28,7 @@ https://wponion.gitbook.io/docs/
  ```php
  define('WPONION_FRONTEND',true);
  ```
+
+## Contributors
+Thanks to all the Contributors who worked on this project to get it done asap
+1. [pixelnx](https://profiles.wordpress.org/pixelnx) -- Created WPOnion Logo
