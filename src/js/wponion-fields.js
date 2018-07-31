@@ -3,8 +3,8 @@
  * @param document = Document Object
  * @param $ = jQuery Object
  * @param wpo = $wponion object
- * @param wpf = $wonion.field object
- * @param wpt = $wponion.theme object.
+ * @param $wpf = $wonion.field object
+ * @param $wp = $wponion.theme object.
  */
 ( ( window, document, $, wpo, $wpf, wp ) => {
 	let wphooks = wp.hooks;
@@ -718,8 +718,12 @@
 
 				wp_media_frame.on( 'update', function ( selection ) {
 					let selectedIds = selection.models.map( function ( attachment ) {
-						let item      = attachment.toJSON(),
-							thumb     = ( typeof item.sizes.thumbnail !== 'undefined' ) ? item.sizes.thumbnail.url : item.url,
+						let item = attachment.toJSON();
+						if ( item.sizes === undefined ) {
+							return false;
+						}
+
+						let thumb     = ( typeof item.sizes.thumbnail !== 'undefined' ) ? item.sizes.thumbnail.url : item.url,
 							$template = $( $html_temp );
 						$template.attr( 'data-wponion-image_id', item.id );
 						$template.find( "img" )
@@ -729,6 +733,13 @@
 						$preview.append( $template );
 						return item.id;
 					} );
+					let $e;
+					for ( $e in selectedIds ) {
+						if ( selectedIds[ $e ] === false || selectedIds[ $e ] === '' ) {
+							delete selectedIds[ $e ];
+						}
+					}
+
 					$input.val( selectedIds.join( ',' ) ).trigger( 'change' );
 
 				} );
@@ -787,7 +798,7 @@
 
 		$input.trigger( 'change' );
 
-		$preview.sortable( {
+		/*$preview.sortable( {
 			items: "> div",
 			cursor: 'move',
 			scrollSensitivity: 40,
@@ -799,7 +810,7 @@
 				let $item = ui.item;
 				$preview.find( '.sortable-placeholder' ).css( 'width', $item.width() );
 			}
-		} );
+		} );*/
 	};
 
 	/**
@@ -832,12 +843,12 @@
 			}
 
 			wp_media_frame = wp.media( {
-				title: $settings[ 'frame_title' ],
+				title: $settings[ 'settings' ][ 'frame_title' ],
 				library: {
-					type: $settings[ 'upload_type' ]
+					type: $settings[ 'settings' ][ 'upload_type' ]
 				},
 				button: {
-					text: $settings[ 'insert_title' ],
+					text: $settings[ 'settings' ][ 'insert_title' ],
 				}
 			} );
 
