@@ -7,27 +7,27 @@
   &-dark {
 	@import "../../../node_modules/flatpickr/dist/themes/dark";
   }
-
   &-light {
 	@import "../../../node_modules/flatpickr/dist/themes/light";
   }
-
   &-airbnb {
-	//@import "../../../node_modules/flatpickr/dist/themes/airbnb";
+	@import "../../../node_modules/flatpickr/dist/themes/airbnb";
   }
   &-confetti {
-	//@import "../../../node_modules/flatpickr/dist/themes/confetti";
+	@import "../../../node_modules/flatpickr/dist/themes/confetti";
   }
-  &-material_red {
-	//@import "../../../node_modules/flatpickr/dist/themes/material_red";
-  }
-  &-material_green {
-	//@import "../../../node_modules/flatpickr/dist/themes/material_green";
-  }
-  &-material_blue {
-	//@import "../../../node_modules/flatpickr/dist/themes/material_blue";
-  }
-  &-material_orange {
-	//@import "../../../node_modules/flatpickr/dist/themes/material_orange";
+  &-meterial_ {
+	&red {
+	  @import "../../../node_modules/flatpickr/dist/themes/material_red";
+	}
+	&green {
+	  @import "../../../node_modules/flatpickr/dist/themes/material_green";
+	}
+	&blue {
+	  @import "../../../node_modules/flatpickr/dist/themes/material_blue";
+	}
+	&orange {
+	  @import "../../../node_modules/flatpickr/dist/themes/material_orange";
+	}
   }
 }
