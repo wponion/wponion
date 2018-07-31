@@ -316,7 +316,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 					continue;
 				}
 
-				$field['error_id'] = sanitize_key( $this->unique . $field['id'] );
+				$field['error_id'] = sanitize_key( $this->unique . _wponion_field_id( $field ) );
 				$this->save_value( $this->handle_field( $field, $this->user_options( $field ), $this->db_options( $field ) ), $field );
 				if ( isset( $field['fields'] ) ) {
 					$this->nested_field_loop( $field );
