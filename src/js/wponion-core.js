@@ -141,11 +141,7 @@ $wponion.global_debug_view = ( () => {
 
 			onOpen: ( () => {
 				jQuery( '#swal2-content #wponion-global-debug-content' )
-					.jsonView( $wponion.debug_info )
-					.overlayScrollbars( {
-						className: "os-theme-dark",
-						resize: "vertical",
-					} );
+					.jsonView( $wponion.debug_info );
 				swal.disableLoading();
 			} )
 		} ).then( ( result ) => {
