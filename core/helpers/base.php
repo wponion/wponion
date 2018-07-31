@@ -126,10 +126,18 @@ if ( ! function_exists( 'wponion_get_var' ) ) {
 	 */
 	function wponion_get_var( $var, $default = '' ) {
 		if ( isset( $_POST[ $var ] ) ) {
-			return $_POST[ $var ];
+			if ( is_array( $_POST[ $var ] ) ) {
+				return $_POST[ $var ];
+			} else {
+				return sanitize_text_field( $_POST[ $var ] );
+			}
 		}
 		if ( isset( $_GET[ $var ] ) ) {
-			return $_GET[ $var ];
+			if ( is_array( $_GET[ $var ] ) ) {
+				return $_GET[ $var ];
+			} else {
+				return sanitize_text_field( $_GET[ $var ] );
+			}
 		}
 		return $default;
 	}
@@ -479,4 +487,9 @@ require_once WPONION_PATH . 'core/helpers/sanitize.php';
  * WPOnion Module Related Functions
  */
 require_once WPONION_PATH . 'core/helpers/module.php';
+
+/**
+ * WPOnion Module Related Functions
+ */
+require_once WPONION_PATH . 'core/helpers/validator.php';
 
