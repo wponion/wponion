@@ -16,3 +16,115 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'wponion_field_text_sanitize' ) ) {
+	/**
+	 * Text sanitize
+	 *
+	 * @param $value
+	 * @param $field
+	 *
+	 * @return string
+	 */
+	function wponion_field_text_sanitize( $value, $field ) {
+		return sanitize_text_field( $value );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_textarea_sanitize' ) ) {
+	/**
+	 * Textarea sanitize
+	 *
+	 * @param $value
+	 *
+	 * @return string
+	 */
+	function wponion_field_textarea_sanitize( $value ) {
+		///global $allowedposttags;
+		//return wp_kses( $value, $allowedposttags );
+		return sanitize_textarea_field( $value );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_checkbox_sanitize' ) ) {
+	/**
+	 * Checkbox sanitize
+	 * Do not touch, or think twice.
+	 *
+	 * @param $value
+	 *
+	 * @return bool
+	 */
+	function wponion_field_checkbox_sanitize( $value ) {
+		if ( ! empty( $value ) && 1 === $value ) {
+			$value = true;
+		}
+
+		if ( empty( $value ) ) {
+			$value = false;
+		}
+		return $value;
+	}
+}
+
+if ( ! function_exists( 'wponion_field_image_select_sanitize' ) ) {
+	/**
+	 * Image select sanitize
+	 * Do not touch, or think twice.
+	 *
+	 * @param $value
+	 *
+	 * @return array|mixed|string
+	 */
+	function wponion_field_image_select_sanitize( $value ) {
+		if ( isset( $value ) && is_array( $value ) ) {
+			if ( count( $value ) ) {
+				$value = $value;
+			} else {
+				$value = $value[0];
+			}
+		} elseif ( empty( $value ) ) {
+			$value = '';
+		}
+		return $value;
+	}
+}
+
+if ( ! function_exists( 'wponion_field_group_sanitize' ) ) {
+	/**
+	 * Group sanitize
+	 * Do not touch, or think twice.
+	 *
+	 * @param $value
+	 *
+	 * @return string
+	 */
+	function wponion_field_group_sanitize( $value ) {
+		return ( empty( $value ) ) ? '' : $value;
+	}
+}
+
+if ( ! function_exists( 'wponion_field_title' ) ) {
+	/**
+	 * Title Sanitize
+	 *
+	 * @param $value
+	 *
+	 * @return string
+	 */
+	function wponion_field_title( $value ) {
+		return sanitize_title( $value );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_clean' ) ) {
+	/**
+	 * Text Clean
+	 *
+	 * @param $value
+	 *
+	 * @return mixed
+	 */
+	function wponion_field_clean( $value ) {
+		return $value;
+	}
+}
