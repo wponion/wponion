@@ -471,9 +471,11 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 	 */
 	function wponion_get_fonts_array( $google_fonts = true, $websafe_fonts = true, $group = true ) {
 		static $fonts_array = array();
-		$key = ( true === $google_fonts ) ? 'yes' : 'no';
-		$key = $key . ( true === $websafe_fonts ) ? 'yes' : 'no';
-		$key = $key . ( true === $group ) ? 'yes' : 'no';
+
+		$gfonts   = ( true === $google_fonts ) ? 'yes' : 'no';
+		$webfonts = ( true === $websafe_fonts ) ? 'yes' : 'no';
+		$_group   = ( true === $group ) ? 'yes' : 'no';
+		$key      = $gfonts . $webfonts . $_group;
 
 		if ( ! isset( $fonts_array[ $key ] ) ) {
 			$fonts_array[ $key ] = array();
@@ -514,9 +516,11 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 	 */
 	function wponion_fonts_options_html( $google_fonts = true, $websafe_fonts = true, $group = true, $selected = array() ) {
 		static $fonts_html = array();
-		$key = ( true === $google_fonts ) ? 'yes' : 'no';
-		$key = $key . ( true === $websafe_fonts ) ? 'yes' : 'no';
-		$key = $key . ( true === $group ) ? 'yes' : 'no';
+
+		$gfonts   = ( true === $google_fonts ) ? 'yes' : 'no';
+		$webfonts = ( true === $websafe_fonts ) ? 'yes' : 'no';
+		$_group   = ( true === $group ) ? 'yes' : 'no';
+		$key      = $gfonts . $webfonts . $_group;
 
 		if ( ! is_array( $selected ) ) {
 			$selected = array( $selected );
