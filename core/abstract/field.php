@@ -295,8 +295,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				return $this->data( 'columns' );
 			} elseif ( false !== $this->data( 'column' ) ) {
 				return $this->data( 'column' );
-			} elseif ( false !== $this->data( 'col' ) ) {
-				return $this->data( 'col' );
 			}
 			return false;
 		}
@@ -461,6 +459,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'arrow'     => true,
 				'arrowType' => 'round',
 			) ), 'content' );
+
+			if ( false === $data['image'] && true === wponion_is_url( $data['content'] ) ) {
+				$data['image']   = $data['content'];
+				$data['content'] = false;
+			}
+
 			$attr = array(
 				'title' => $data['content'],
 				'class' => 'wponion-help',
