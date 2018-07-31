@@ -107,6 +107,16 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			$this->settings  = $this->set_args( $settings );
 			$this->plugin_id = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
 			$this->unique    = $this->settings['option_name'];
+			$this->save_instance();
+		}
+
+		/**
+		 * Saves Current Instance in registry.
+		 */
+		protected function save_instance() {
+			if ( function_exists( 'wponion_' . $this->module . '_registry' ) ) {
+				call_user_func_array( 'wponion_' . $this->module . '_registry', array( &$this ) );
+			}
 		}
 
 		/**
@@ -115,11 +125,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		public function init() {
 			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax() ) {
 				$this->on_init();
-				$callback = 'wponion_' . $this->module . '_registry';
-
-				if ( function_exists( $callback ) ) {
-					$callback( $this );
-				}
 			}
 		}
 
@@ -180,7 +185,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function debug_bar() {
 			if ( wponion_is_debug() ) {
 				return '<div id="wponiondebuginfopopup" style="display:none;"> <div id="wponion-global-debug-content"></div></div>
-<a  title="' . __( 'WPOnion Debug POPUP' ) . '" href="?loaddebug=true" class="wponion-global-debug-handle thickbox">' . wponion_icon( 'dashicons dashicons-info' ) . '</a>	';
+<a  title="' . __( 'WPOnion Debug POPUP' ) . '" href="javascript:void(0);" class="wponion-global-debug-handle">' . wponion_icon( 'dashicons dashicons-info' ) . '</a>	';
 			}
 			return '';
 		}
