@@ -125,13 +125,14 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$cache = $this->get_cache();
 			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
 				if ( false === $force ) {
-					wponion_async()
+					/*wponion_async()
 						->data( array(
 							'type'        => 'settings_default_save',
 							'plugin_id'   => $this->unique(),
 							'option_name' => $this->unique(),
 						) )
-						->dispatch();
+						->dispatch();*/
+					$this->set_defaults();
 				} elseif ( true === $force ) {
 					$this->set_defaults();
 				}
