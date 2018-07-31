@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPOnion\Field\tab' ) ) {
 		}
 
 		protected function tab_output() {
-			echo '<div class="wponion-tab-wrap wponion-tab-' . $this->data( 'tab_style' ) . '">';
+			echo '<div class="wponion-tab-wrap wponion-tabs-' . $this->data( 'tab_style' ) . '">';
 			$nav     = '<ul class="wponion-tab-menus">';
 			$content = '';
 
@@ -73,7 +73,7 @@ if ( ! class_exists( '\WPOnion\Field\tab' ) ) {
 		protected function field_default() {
 			return array(
 				'sections'  => array(),
-				'tab_style' => 'style1',
+				'tab_style' => 'box', #box,left
 			);
 		}
 	}

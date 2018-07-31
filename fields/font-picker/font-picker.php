@@ -107,7 +107,7 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 		protected function field_default() {
 			return array(
 				'google_fonts'  => true,
-				'websafe_fonts' => false,
+				'websafe_fonts' => true,
 				'group'         => true,
 			);
 		}

@@ -65,7 +65,7 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 		/**
 		 * checks and updated fields args based on field config.
 		 *
-		 * @param array $data
+		 * @param array $field_data
 		 *
 		 * @return array
 		 */
@@ -74,21 +74,6 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 				$field_data['wrap_class']                           = ( false !== $field_data['wrap_class'] ) ? '' : $field_data['wrap_class'];
 				$field_data['wrap_class']                           = $field_data['wrap_class'] . ' ' . ' wponion-inputmask ';
 				$field_data['attributes']['data-wponion-inputmask'] = 'yes';
-			}
-
-			if ( false !== $field_data['maxlength'] || is_array( $field_data['max_length'] ) ) {
-				if ( is_array( $field_data['maxlength'] ) ) {
-					$field_data['max_length'] = $field_data['maxlength'];
-					$field_data['maxlength']  = isset( $field_data['max_length']['limit'] ) ? $field_data['max_length']['limit'] : false;
-				} elseif ( is_array( $field_data['max_length'] ) ) {
-					$field_data['maxlength'] = isset( $field_data['max_length']['limit'] ) ? $field_data['max_length']['limit'] : $field_data['maxlength'];
-				}
-
-				$data              = $field_data['attributes'];
-				$data['maxlength'] = ( ! isset( $data['maxlength'] ) ) ? $field_data['maxlength'] : $data['maxlength'];
-				unset( $field_data['maxlength'] );
-				$field_data['attributes']                           = $data;
-				$field_data['attributes']['data-wponion-maxlength'] = 'yes';
 			}
 
 			if ( false !== $field_data['placeholder'] ) {
@@ -117,8 +102,6 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 		protected function field_default() {
 			return array(
 				'inputmask'   => false,
-				'max_length'  => false,
-				'maxlength'   => false,
 				'placeholder' => false,
 				'prefix'      => false,
 				'surfix'      => false,
@@ -134,10 +117,6 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 			$args = array();
 			if ( false !== $this->has( 'inputmask' ) ) {
 				$args['inputmask'] = $this->data( 'inputmask' );
-			}
-
-			if ( false !== $this->has( 'max_length' ) ) {
-				$args['max_length'] = $this->data( 'max_length' );
 			}
 			return $args;
 		}

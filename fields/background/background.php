@@ -45,7 +45,7 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 					'options'               => $this->get_options( 'repeat' ),
 					'id'                    => 'repeat',
 					'style'                 => 'width:100%;',
-					$this->select_framework => true,
+					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'repeat' ), $this->name() );
 			}
 
@@ -56,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 					'options'               => $this->get_options( 'attachment' ),
 					'id'                    => 'attachment',
 					'style'                 => 'width:100%;',
-					$this->select_framework => true,
+					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'attachment' ), $this->name() );
 			}
 
@@ -67,7 +67,7 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 					'options'               => $this->get_options( 'position' ),
 					'id'                    => 'position',
 					'style'                 => 'width:100%;',
-					$this->select_framework => true,
+					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'position' ), $this->name() );
 			}
 
@@ -78,7 +78,7 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 					'options'               => $this->get_options( 'clip' ),
 					'id'                    => 'clip',
 					'style'                 => 'width:100%;',
-					$this->select_framework => true,
+					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'clip' ), $this->name() );
 			}
 
@@ -89,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 					'options'               => $this->get_options( 'origin' ),
 					'id'                    => 'origin',
 					'style'                 => 'width:100%;',
-					$this->select_framework => true,
+					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'origin' ), $this->name() );
 			}
 
@@ -100,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 					'options'               => $this->get_options( 'size' ),
 					'id'                    => 'size',
 					'style'                 => 'width:100%;',
-					$this->select_framework => true,
+					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'size' ), $this->name() );
 			}
 
@@ -121,8 +121,6 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 				'preview_media'         => false,
 				'preview'               => true,
 				'preview_height'        => '200px',
-				'transparent'           => true,
-				'select2'               => true,
 			);
 		}
 
