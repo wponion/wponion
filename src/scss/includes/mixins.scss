@@ -48,15 +48,15 @@
   }
 }
 
-@mixin wponion_field_horizontal(){
+@mixin wponion_field_horizontal() {
   > .wponion-field-title {
 	width:         100%;
-	float:         none;
 	display:       block;
 	margin-bottom: 10px;
+	margin-right:  0px;
   }
   > .wponion-fieldset {
-	margin-left: 0;
-	float:       none;
+	width: 100%;
+	float: none;
   }
 }
