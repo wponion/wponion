@@ -98,13 +98,20 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 				'args'        => array(),
 			) );
 
-			$this->module       = $args['module'];
-			$this->plugin_id    = $args['plugin_id'];
-			$this->unique       = $args['unique'];
-			$this->fields       = $args['fields'];
-			$this->db_values    = $args['db_values'];
-			$this->user_options = $args['user_values'];
-			$this->args         = $args['args'];
+			$this->module    = $args['module'];
+			$this->plugin_id = $args['plugin_id'];
+			$this->unique    = $args['unique'];
+			$this->fields    = $args['fields'];
+			$this->db_values = $args['db_values'];
+			$this->args      = $args['args'];
+
+			if ( false === $args['user_values'] ) {
+				$this->user_options = ( isset( $_POST[ $this->unique ] ) ) ? $_POST[ $this->unique ] : array();
+			} else {
+				$this->user_options = $args['user_values'];
+			}
+
+
 			return $this;
 		}
 
@@ -240,7 +247,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 */
 		protected function db_options( $field = '', $value_arr = false, $default = false ) {
 			$value_arr = ( false === $value_arr ) ? $this->db_values : $value_arr;
-			$_value    = _wponion_get_field_value( $field, $value_arr );
+			$_value    = wponion_get_field_value( $field, $value_arr );
 			if ( $_value ) {
 				return $_value;
 			}
@@ -258,7 +265,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 */
 		protected function user_options( $field = '', $value_arr = false, $default = false ) {
 			$value_arr = ( false === $value_arr ) ? $this->user_options : $value_arr;
-			$_value    = _wponion_get_field_value( $field, $value_arr );
+			$_value    = wponion_get_field_value( $field, $value_arr );
 			if ( $_value ) {
 				return $_value;
 			}
@@ -312,11 +319,11 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 */
 		protected function field_loop( $section ) {
 			foreach ( $section['fields'] as $field ) {
-				if ( _wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
+				if ( wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 					continue;
 				}
 
-				$field['error_id'] = sanitize_key( $this->unique . _wponion_field_id( $field ) );
+				$field['error_id'] = sanitize_key( $this->unique . wponion_field_id( $field ) );
 				$this->save_value( $this->handle_field( $field, $this->user_options( $field ), $this->db_options( $field ) ), $field );
 				if ( isset( $field['fields'] ) ) {
 					$this->nested_field_loop( $field );
@@ -334,7 +341,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 
 			if ( is_array( $field['fields'] ) ) {
 				foreach ( $field['fields'] as $_field ) {
-					if ( _wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
+					if ( wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 						continue;
 					}
 
