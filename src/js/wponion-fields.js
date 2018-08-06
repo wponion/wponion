@@ -564,7 +564,7 @@
 			$elem          = $this.elem,
 			$keyvalue_wrap = $elem.find( '.wponion-keyvalue_wrap' );
 		$keyvalue_wrap.WPOnionCloner( {
-			add_btn: $elem.find( '.wponion-fieldset > button[data-wponion-keyvalue-add]' ),
+			add_btn: $elem.find( '.wponion-fieldset > .wponion-keyvalue-action-container  > button[data-wponion-keyvalue-add]' ),
 			limit: false,
 			clone_elem: '> .wponion-fieldset > .wponion-keyvalue-field',
 			remove_btn: ".wponion-keyvalue-field > button[data-wponion-keyvalue-remove]",
@@ -798,7 +798,7 @@
 
 		$input.trigger( 'change' );
 
-		/*$preview.sortable( {
+		$preview.sortable( {
 			items: "> div",
 			cursor: 'move',
 			scrollSensitivity: 40,
@@ -809,8 +809,16 @@
 			start: function ( event, ui ) {
 				let $item = ui.item;
 				$preview.find( '.sortable-placeholder' ).css( 'width', $item.width() );
+				$preview.find( '.sortable-placeholder' ).css( 'height', $item.height() );
+				//				console.log( $preview.html() );
 			}
-		} );*/
+		} );
+
+		$preview.on( 'change', function () {
+			console.log( $( this ).html() );
+		} )
+
+
 	};
 
 	/**
