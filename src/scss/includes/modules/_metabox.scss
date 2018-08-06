@@ -5,14 +5,16 @@
 	margin:  0 !important;
 
 	.wponion-metabox-inside-wrap {
-	  width:   100%;
-	  display: inline-block;
+	  width:     100%;
+	  max-width: 100%;
+	  display:   inline-block;
 
 	  .wponion-metabox-menu-wrap + .wponion-metabox-content-wrap {
 		/***
 		 * @todo please change 200px here also when updating the width above.
 		 */
-		width: calc(100% - 200px) !important;
+		padding: 15px 0;
+		width:   calc(100% - 200px) !important;
 	  }
 
 	  .wponion-metabox-menu-wrap {
@@ -133,21 +135,55 @@
 	  }
 
 	  .wponion-metabox-content-wrap {
-		float:      left;
-		width:      100%;
-		background: #fff;
+		float:          left;
+		width:          100%;
+		max-width:      100%;
+		padding-top:    $element_gurtter;
+		padding-bottom: $element_gurtter;
+		background:     #fff;
+
+		> .wponion-element {
+		  width:     auto;
+		  max-width: 100%;
+		}
+
+		> .wponion-row, .wponion-element {
+		  padding-left:  $element_gurtter;
+		  padding-right: $element_gurtter;
+		}
+		> .wponion-row {
+		  margin: 0;
+		  > div {
+			padding: 0;
+		  }
+		}
+
+		.wponion-parent-wraps, .wponion-section-wraps {
+		  > .wponion-element {
+			width:     auto;
+			max-width: 100%;
+		  }
+		  > .wponion-row, .wponion-element {
+			padding-left:  $element_gurtter;
+			padding-right: $element_gurtter;
+		  }
+		  > .wponion-row {
+			margin: 0;
+			> div {
+			  padding: 0;
+			}
+		  }
+		}
 	  }
 	}
-
 	.ajax-container {
-	  display:    inline-block;
-	  width:      100%;
-	  background: #Fff;
+	  display:    block;
+	  max-width:  100%;
+	  background: #fff;
 	  text-align: right;
 	  border-top: 1px solid #eee;
 	}
   }
-
   &.wponion-metabox-side {
 	.inside {
 	  .wponion-metabox-inside-wrap {
@@ -156,8 +192,10 @@
 		  visibility: hidden;
 		}
 		.wponion-metabox-content-wrap {
-		  width: 100% !important;
-		  .wponion-element {
+		  width:       100% !important;
+		  max-width:   100%;
+		  padding-top: 0;
+		  > .wponion-element {
 			padding: 15px;
 			@include wponion_field_horizontal();
 		  }

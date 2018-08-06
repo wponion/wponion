@@ -1,5 +1,7 @@
 .wponion-framework.wponion-module-user_profile {
-  > .wponion-element {
-	padding: 15px 0;
+  margin: 15px 0;
+
+  > .wponion-element, .wponion-row {
+	border: 0;
   }
 }
