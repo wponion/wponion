@@ -92,12 +92,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 			$fields = ( ! empty( $fields ) ) ? $fields : isset( $this->field['fields'] ) ? $this->field : array();
 			if ( isset( $fields['fields'] ) ) {
 				foreach ( $fields['fields'] as $field ) {
-					if ( _wponion_valid_field( $field ) && wponion_valid_user_input_field( $field ) ) {
+					if ( wponion_valid_field( $field ) && wponion_valid_user_input_field( $field ) ) {
 						if ( false === wponion_is_unarrayed( $field ) ) {
 							$this->init_subfield( $field );
 						} elseif ( true === wponion_is_unarrayed( $field ) && isset( $field['fields'] ) ) {
 							foreach ( $field['fields'] as $_field ) {
-								if ( _wponion_valid_field( $_field ) && wponion_valid_user_input_field( $fields ) ) {
+								if ( wponion_valid_field( $_field ) && wponion_valid_user_input_field( $fields ) ) {
 									if ( false === wponion_is_unarrayed( $_field ) ) {
 										$this->init_subfield( $_field );
 									} elseif ( true === wponion_is_unarrayed( $_field ) && isset( $_field['fields'] ) ) {
@@ -119,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 		 * @return bool
 		 */
 		protected function init_subfield( $field ) {
-			$value = _wponion_get_field_value( $field, $this->value );
+			$value = wponion_get_field_value( $field, $this->value );
 			$class = wponion_field_value_class( $field );
 			if ( class_exists( $class ) ) {
 				$value = new $class( $field, $value, array(
