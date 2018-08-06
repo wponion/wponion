@@ -1,0 +1,67 @@
+
+.wponion-framework.wponion-wp-theme {
+  /* Handles Page Load Scss. */
+  .page-loader {
+	position:         absolute;
+	top:              0;
+	z-index:          500;
+	background-color: rgba(255, 255, 255, 0.95);
+	left:             -10px;
+	&:before, &:after {
+	  color:             black;
+	  border-color:      rgba(0, 0, 0, 0.57);
+	  border-left-color: transparent;
+	}
+  }
+
+  /* Handles Page Header*/
+  .wponion-framework-header {
+	p {
+	  margin-top: 5px;
+	}
+  }
+
+  /* Handles WP Styles */
+  .wponion-content {
+	h2.wponion-subnav-container {
+	  margin-top:    10px;
+	  margin-bottom: 5px;
+	  ul {
+		margin:  0;
+		display: inline-block;
+		float:   none;
+		li {
+		  a {
+			font-size: 13px;
+			margin:    0 3px;
+		  }
+		  &:first-child {
+			a {
+			  margin-left: 0;
+			}
+		  }
+		  &:last-child {
+			a {
+			  margin-right: 0;
+			}
+		  }
+		}
+
+	  }
+	}
+  }
+
+  .wponion-sections {
+	.wponion-parent-wraps > .wponion-element:first-child, .wponion-section-wraps > .wponion-element:first-child {
+	  padding-top: 25px;
+	}
+  }
+
+  .wponion-form-actions {
+	display:    inline-block;
+	width:      100%;
+	max-width:100%;
+	margin-top: 50px;
+  }
+
+}
