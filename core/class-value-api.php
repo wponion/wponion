@@ -140,7 +140,7 @@ if ( ! class_exists( 'WPOnion\Value_API' ) ) {
 		}
 
 		protected function init_field( $field ) {
-			$value = _wponion_get_field_value( $field, $this->db_values );
+			$value = wponion_get_field_value( $field, $this->db_values );
 			$class = wponion_field_value_class( $field );
 			if ( class_exists( $class ) ) {
 				$value = new $class( $field, $value, array(
@@ -158,7 +158,7 @@ if ( ! class_exists( 'WPOnion\Value_API' ) ) {
 
 			if ( isset( $array['fields'] ) ) {
 				foreach ( $array['fields'] as $field ) {
-					if ( true === _wponion_valid_field( $field ) && true === wponion_valid_user_input_field( $field ) ) {
+					if ( true === wponion_valid_field( $field ) && true === wponion_valid_user_input_field( $field ) ) {
 						if ( wponion_is_unarrayed( $field ) && isset( $field['fields'] ) ) {
 							$this->init( $field, $this->path_string( $parent_id, $field['id'] ) );
 						} else {
