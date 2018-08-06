@@ -67,12 +67,15 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
+			$values = ( is_array( $this->value() ) ) ? $this->value() : array();
 
-			echo '<div class="wponion-keyvalue_wrap" data-wponion-clone-count="' . count( $this->value() ) . '">';
+			echo '<div class="wponion-keyvalue_wrap" data-wponion-clone-count="' . count( $values ) . '">';
 			if ( is_array( $this->value() ) ) {
-				foreach ( $this->value() as $i => $value ) {
+				foreach ( $values as $i => $value ) {
 					echo $this->key_value( $this->name( '[' . $i . ']' ), $value['key'], $value['value'] );
 				}
+			} else {
+				echo $this->key_value( $this->name( '[0]' ), '', '' );
 			}
 			echo '</div>';
 
@@ -81,6 +84,7 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 			$template = $this->catch_output( 'stop' );
 			$this->localize_field( array( 'html_template' => $template ) );
 
+			echo '<div class="wponion-keyvalue-action-container">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
 				'type'       => 'button',
 				'label'      => __( 'Add +' ),
@@ -89,6 +93,7 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 				'class'      => 'button button-primary',
 			) ), null, null );
 
+			echo '</div>';
 			echo $this->after();
 		}
 

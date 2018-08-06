@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Field\tab' ) ) {
 				$content .= '<div id="wponion-tab-' . $slug . '" class="wponion-tab-page">';
 
 				foreach ( $section['fields'] as $field ) {
-					$content .= $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $unique );
+					$content .= $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $unique );
 				}
 
 				$content .= '</div>';

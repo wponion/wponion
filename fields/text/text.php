@@ -50,16 +50,41 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			echo '<div class="wponion-input-group">';
+
+			if ( false !== $this->has_prefix_surfix() ) {
+				echo '<div class="wponion-input-group">';
+			}
+
 			if ( false !== $this->has( 'prefix' ) ) {
-				echo '<span class="input-group input-group-before">' . $this->data( 'prefix' ) . '</span>';
+				echo '<div class="input-group-icon input-group-icon-before">' . $this->data( 'prefix' ) . '</div>';
 			}
+
+			if ( false !== $this->has_prefix_surfix() ) {
+				echo '<div  class="input-group-area">';
+			}
+
 			echo '<input ' . $this->_input_attributes() . '/>';
-			if ( false !== $this->has( 'surfix' ) ) {
-				echo '<span class="input-group input-group-after">' . $this->data( 'surfix' ) . '</span>';
+
+			if ( false !== $this->has_prefix_surfix() ) {
+				echo '</div>';
 			}
-			echo '</div>';
+
+			if ( false !== $this->has( 'surfix' ) ) {
+				echo '<div class="input-group-icon input-group-icon-after">' . $this->data( 'surfix' ) . '</div>';
+			}
+
+			if ( false !== $this->has_prefix_surfix() ) {
+				echo '</div>';
+			}
+
 			echo $this->after();
+		}
+
+		/**
+		 * @return bool
+		 */
+		protected function has_prefix_surfix() {
+			return ( false !== $this->has( 'prefix' ) || false !== $this->has( 'surfix' ) );
 		}
 
 		/**

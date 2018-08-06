@@ -32,27 +32,24 @@ if ( ! class_exists( '\WPOnion\Field\notice' ) ) {
 		 *
 		 * @return mixed;
 		 */
+		public function output() {
+			echo $this->before();
+			echo '<div class="alert alert-' . $this->data( 'notice_type' ) . '">';
+			echo $this->data( 'content' );
+			echo '</div>';
+			echo $this->after();
+		}
+
+		/**
+		 * Final HTML Output;
+		 *
+		 * @return mixed;
+		 */
 		protected function field_default() {
 			return array(
 				'content'     => false,
 				'notice_type' => 'success',
 			);
-		}
-
-		/**
-		 * checks and updated fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
-		 */
-		public function handle_field_args( $data = array() ) {
-			if ( false === $data['wrap_class'] ) {
-				$data['wrap_class'] = ' alert alert-' . $data['notice_type'];
-			} else {
-				$data['wrap_class'] .= ' alert alert-' . $data['notice_type'];
-			}
-			return $data;
 		}
 	}
 }

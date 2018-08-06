@@ -60,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 		 * @param $field
 		 */
 		protected function render_single_field( $field ) {
-			$value = ( false === $this->is_js_sample ) ? _wponion_get_field_value( $field, $this->loop_value ) : null;
+			$value = ( false === $this->is_js_sample ) ? wponion_get_field_value( $field, $this->loop_value ) : null;
 			echo $this->sub_field( $field, $value, $this->name( '[' . $this->loop_count . ']' ), false );
 		}
 

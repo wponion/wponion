@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
 		protected function init_subfields() {
 			if ( $this->has( 'fields' ) ) {
 				foreach ( $this->data( 'fields' ) as $field_id => $field ) {
-					$this->field['fields'][ $field_id ] = $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), true );
+					$this->field['fields'][ $field_id ] = $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), true );
 				}
 			}
 		}
@@ -54,7 +54,7 @@ if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
 				}
 
 				foreach ( $this->data( 'fields' ) as $field ) {
-					echo $this->sub_field( $field, _wponion_get_field_value( $field, $this->value() ), $this->name(), false );
+					echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), false );
 				}
 			}
 
