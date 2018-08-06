@@ -174,7 +174,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 * @return array
 		 */
 		public function metabox_menus() {
-			if ( empty( $this->menus )) {
+			if ( empty( $this->menus ) ) {
 				$this->menus = $this->extract_fields_menus( $this->fields );
 			}
 			return $this->menus;
