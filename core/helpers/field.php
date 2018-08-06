@@ -131,7 +131,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 	}
 }
 
-if ( ! function_exists( '_wponion_valid_field' ) ) {
+if ( ! function_exists( 'wponion_valid_field' ) ) {
 	/**
 	 * Checks if field is db saveable.
 	 *
@@ -139,8 +139,8 @@ if ( ! function_exists( '_wponion_valid_field' ) ) {
 	 *
 	 * @return bool
 	 */
-	function _wponion_valid_field( $field ) {
-		return ( _wponion_field_id( $field ) || is_string( $field ) ) ? true : false;
+	function wponion_valid_field( $field ) {
+		return ( wponion_field_id( $field ) || is_string( $field ) ) ? true : false;
 	}
 }
 
@@ -188,7 +188,7 @@ if ( ! function_exists( 'wponion_is_unarrayed' ) ) {
 	}
 }
 
-if ( ! function_exists( '_wponion_field_id' ) ) {
+if ( ! function_exists( 'wponion_field_id' ) ) {
 	/**
 	 * Checks And Returns Field ID.
 	 *
@@ -196,12 +196,12 @@ if ( ! function_exists( '_wponion_field_id' ) ) {
 	 *
 	 * @return bool
 	 */
-	function _wponion_field_id( $field ) {
+	function wponion_field_id( $field ) {
 		return ( isset( $field['id'] ) ) ? $field['id'] : false;
 	}
 }
 
-if ( ! function_exists( '_wponion_get_field_value' ) ) {
+if ( ! function_exists( 'wponion_get_field_value' ) ) {
 	/**
 	 * Checks and returns the fields values based on the field config.
 	 *
@@ -212,18 +212,18 @@ if ( ! function_exists( '_wponion_get_field_value' ) ) {
 	 *
 	 * @return bool|mixed
 	 */
-	function _wponion_get_field_value( $field = array(), $value = array() ) {
-		if ( false === _wponion_valid_field( $field ) ) {
+	function wponion_get_field_value( $field = array(), $value = array() ) {
+		if ( false === wponion_valid_field( $field ) ) {
 			return false;
 		}
 
-		$field_id = _wponion_field_id( $field );
+		$field_id = wponion_field_id( $field );
 
 		if ( wponion_is_unarrayed( $field ) && isset( $field['fields'] ) && is_array( $field['fields'] ) ) {
 			$return_values = array();
 			foreach ( $field['fields'] as $_field ) {
-				if ( false !== _wponion_valid_field( $_field ) ) {
-					$return_values[ _wponion_field_id( $_field ) ] = _wponion_get_field_value( $_field, $value );
+				if ( false !== wponion_valid_field( $_field ) ) {
+					$return_values[ wponion_field_id( $_field ) ] = wponion_get_field_value( $_field, $value );
 				}
 			}
 			return $return_values;
@@ -412,7 +412,7 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 					$id            = isset( $page['name'] ) ? $page['name'] : '';
 					$return[ $id ] = wponion_get_all_fields_ids_and_defaults( $page );
 				} else {
-					$return[ _wponion_field_id( $page ) ] = _wponion_field_id( $page );
+					$return[ wponion_field_id( $page ) ] = wponion_field_id( $page );
 				}
 			}
 		}
