@@ -42,7 +42,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				if ( ! defined( 'WPONION_DOING_AJAX' ) ) {
 					define( 'WPONION_DOING_AJAX', true );
 				}
-				$function = $_REQUEST['wponion-ajax'];
+				$function = sanitize_text_field( $_REQUEST['wponion-ajax'] );
 				$function = str_replace( '-', '_', sanitize_title( $function ) );
 				if ( method_exists( $this, $function ) ) {
 					$this->$function();
@@ -131,13 +131,13 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		public function save_metabox() {
 			if ( isset( $_REQUEST['metabox_id'] ) && isset( $_REQUEST['plugin_id'] ) ) {
 				wponion_localize();
-				$metabox_id      = $_REQUEST['metabox_id'];
-				$plugin_id       = $_REQUEST['plugin_id'];
+				$metabox_id      = sanitize_text_field( $_REQUEST['metabox_id'] );
+				$plugin_id       = sanitize_text_field( $_REQUEST['plugin_id'] );
 				$this->plugin_id = $plugin_id;
 				$this->module    = 'metabox';
 				$instance        = $plugin_id . '_' . $metabox_id;
 				$instance        = wponion_metabox_registry( $instance );
-				$post_id         = $_REQUEST['wponion_postid'];
+				$post_id         = sanitize_text_field( $_REQUEST['wponion_postid'] );
 				$instance->set_post_id( $post_id );
 				$instance->save_metabox( $post_id );
 				$this->_action( 'ajax_before_render' );
