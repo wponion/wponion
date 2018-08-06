@@ -103,7 +103,7 @@ $wponion.txt = ( ( $key, $default ) => {
  * @type {function(*)}
  */
 $wponion.loading_screen = ( ( $elem ) => {
-	$elem.find( '.wponion-page-loader' ).fadeOut( 'slow' );
+	$elem.find( '.page-loader' ).fadeOut( 'slow' );
 	return $wponion;
 } );
 
