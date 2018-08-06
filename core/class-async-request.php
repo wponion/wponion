@@ -49,7 +49,7 @@ if ( ! class_exists( '\WPOnion\Core\Async_Request' ) ) {
 		 * Handles Saving Settings Default Values.
 		 */
 		protected function handle_default_settings_save() {
-			$plugin_id = ( isset( $_REQUEST['plugin_id'] ) ) ? $_REQUEST['plugin_id'] : false;
+			$plugin_id = ( isset( $_REQUEST['plugin_id'] ) ) ? sanitize_text_field( $_REQUEST['plugin_id'] ) : false;
 			if ( false !== $plugin_id ) {
 				$instance = wponion_settings( $plugin_id );
 				if ( false !== $instance ) {
