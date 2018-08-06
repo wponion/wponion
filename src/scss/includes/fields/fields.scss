@@ -1,0 +1,94 @@
+$element_gurtter: 15px;
+$element_border: 1px solid #ddd;
+$element_title_width: 275px;
+$element_title_right_margin: 25px;
+$element_fieldset_width: calc(100% - 300px); // $element_title_right_margin: 20px;
+
+.wponion-element + .wponion-element, .wponion-element + .wponion-row, .wponion-row + .wponion-element {
+  // border-top:  $element_border;
+  //padding-top: $element_gurtter;
+  //margin-top:  $element_gurtter;
+}
+
+.wponion-row {
+  border-bottom:  $element_border;
+  padding-bottom: $element_gurtter;
+  margin-bottom:  $element_gurtter;
+  > .wponion-element {
+	border:         none;
+	padding-top:    0;
+	margin-top:     0;
+	margin-bottom:  0;
+	padding-bottom: 0;
+
+  }
+}
+
+.wponion-element {
+  width:          100%;
+  max-width:      100%;
+  border-bottom:  $element_border;
+  padding-bottom: $element_gurtter;
+  margin-bottom:  $element_gurtter;
+  &:last-child {
+	border-bottom: 0;
+  }
+
+  .wponion-field-debug-handle {
+	display: none;
+  }
+  .wponion-desc {
+	margin-bottom: 8px;
+	font-size:     13px;
+	font-style:    italic;
+	color:         #666;
+	margin-top:    8px;
+  }
+  > .wponion-element-title {
+	width:          $element_title_width;
+	float:          left;
+	vertical-align: top;
+	margin-right:   $element_title_right_margin;
+	h4 {
+	  margin:       0;
+	  font-size:    14px;
+	  display:      inline-block;
+	  margin-right: 5px;
+	}
+  }
+  > .wponion-fieldset {
+	float:          left;
+	display:        inline-block;
+	vertical-align: middle;
+	width:          $element_fieldset_width;
+  }
+  &.wponion-field-no-title {
+	> .wponion-fieldset {
+	  width: 100%;
+	}
+  }
+
+  &.horizontal {
+	@include wponion_field_horizontal();
+  }
+}
+
+@import "text/core";
+@import "textarea/core";
+@import "checkbox_radio/core";
+@import "image_select/core";
+@import "background/core";
+@import "upload/core";
+@import "icon_picker/core";
+@import "font_picker/core";
+@import "key_value/core";
+@import 'color_picker/core';
+@import "color_palette/core";
+@import "image/core";
+@import "gallery/core";
+@import "fieldset/core";
+@import "accordion/core";
+@import "tabs/core";
+@import "group/core";
+@import "notice/core";
+@import "heading/core";

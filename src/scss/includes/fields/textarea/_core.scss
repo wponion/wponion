@@ -1,0 +1,18 @@
+.wponion-element.wponion-element-textarea {
+  textarea {
+	min-width:  300px;
+	min-height: 130px;
+  }
+}
+
+.wponion-metabox {
+  &.wponion-metabox-side {
+	.wponion-element.wponion-element-textarea {
+	  textarea {
+		min-width:  250px;
+		min-height: 100px;
+	  }
+	}
+  }
+}
+

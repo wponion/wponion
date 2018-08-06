@@ -1,0 +1,38 @@
+.wponion-element.wponion-element-font_picker {
+  .wponion-font-select-container {
+	display:      inline-block;
+	margin-right: 15px;
+	&:last-child {
+	  margin-right: 0;
+	}
+	select {
+	  &.wponion-variant-selector {
+		min-width: 150px;
+	  }
+	  &.wponion-font-selector {
+		min-width: 300px;
+	  }
+	}
+  }
+
+}
+
+.wponion-metabox {
+  &.wponion-metabox-side {
+	.wponion-element.wponion-element-font_picker {
+	  .wponion-font-select-container {
+		display:       block;
+		margin-right:  0;
+		margin-bottom: 15px;
+		select {
+		  min-width: auto;
+		  width:     100%;
+		  max-width: 100%;
+		}
+		&:last-child {margin-bottom: 0;}
+	  }
+	}
+
+  }
+}
+

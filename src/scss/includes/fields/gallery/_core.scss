@@ -1,0 +1,15 @@
+.wponion-element.wponion-element-gallery {
+  .wponion-gallery-actions {
+	display:    inline-block;
+	margin-top: 10px;
+	button {
+	  margin-right: 10px;
+	  &:last-child {
+		margin-right: 0;
+	  }
+	  &[data-wponion-gallery-clear] {
+		color: red;
+	  }
+	}
+  }
+}

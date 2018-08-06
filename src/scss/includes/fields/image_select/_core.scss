@@ -1,0 +1,37 @@
+.wponion-element.wponion-element-image_select {
+  input[type="checkbox"], input[type="radio"] {
+	display:    none;
+	visibility: hidden;
+  }
+
+  .form-check {
+	display:      inline-block;
+	margin-right: 15px;
+	label {
+	  display: inline-block;
+	}
+	input {
+	  &:checked + img {
+		border-color: #444;
+	  }
+	}
+	img {
+	  border: 3px solid transparent;
+	}
+  }
+
+  .wponion-fieldset {
+	.wponion-checkbox-radio-group {
+	  display:      block;
+	  margin-right: 0;
+	}
+
+	.wponion-checkbox-group-lists {
+	  li {
+		display:      inline-block;
+		margin-right: 0;
+	  }
+	}
+  }
+
+}

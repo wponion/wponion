@@ -1,0 +1,22 @@
+.wponion-element.wponion-element-key_value {
+  .wponion-keyvalue_wrap {
+	padding:       10px;
+	background:    white;
+	border:        1px solid #ddd;
+	display:       inline-block;
+	.wponion-keyvalue-field {
+	  margin-bottom: 10px;
+	  &:last-child {
+		margin-bottom: 0;
+	  }
+	  .wponion-input-group {
+		display:      inline-block;
+		margin-right: 15px;
+	  }
+	}
+	margin-bottom: 15px;
+  }
+  .wponion-keyvalue-action-container {
+	padding: 10px;
+  }
+}
