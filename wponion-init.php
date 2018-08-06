@@ -37,7 +37,7 @@ if ( ! function_exists( 'wponion_init' ) ) {
 
 		require_once WPONION_PATH . 'core/class-autoloader.php';
 		require_once WPONION_PATH . 'core/class-core-ajax.php';
-		require_once WPONION_PATH . 'core/class-async-request.php';
+		//require_once WPONION_PATH . 'core/class-async-request.php';
 		require_once WPONION_PATH . 'core/class-assets.php';
 		require_once WPONION_PATH . 'core/class-icons.php';
 		do_action( 'wponion_loaded' );
