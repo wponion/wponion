@@ -174,7 +174,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 * @return array
 		 */
 		public function metabox_menus() {
-			if ( empty( $this->menus ) && true === $this->has_page ) {
+			if ( empty( $this->menus )) {
 				$this->menus = $this->extract_fields_menus( $this->fields );
 			}
 			return $this->menus;
@@ -387,13 +387,12 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 				$this->set_post_id( $post_id );
 				$instance = new \WPOnion\DB\Metabox_Save_Handler();
 				$instance->init_class( array(
-					'module'      => 'metabox',
-					'plugin_id'   => $this->plugin_id(),
-					'unique'      => $this->unique,
-					'fields'      => $this->fields,
-					'user_values' => $_POST[ $this->unique ],
-					'db_values'   => $this->get_db_values(),
-					'args'        => array( 'settings' => &$this ),
+					'module'    => 'metabox',
+					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->unique,
+					'fields'    => $this->fields,
+					'db_values' => $this->get_db_values(),
+					'args'      => array( 'settings' => &$this ),
 				) )
 					->run();
 
