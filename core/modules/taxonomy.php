@@ -56,6 +56,7 @@ if ( ! class_exists( '\WPOnion\Modules\taxonomy' ) ) {
 		 */
 		public function __construct( array $settings = array(), $fields = array() ) {
 			parent::__construct( $fields, $settings );
+			$this->init();
 		}
 
 		/**
@@ -65,7 +66,7 @@ if ( ! class_exists( '\WPOnion\Modules\taxonomy' ) ) {
 			$taxes = $this->option( 'taxonomy' );
 			if ( ! is_array( $taxes ) ) {
 				$taxes = array( $taxes );
-				$this->set_option( 'taxonomy', array( $taxes ) );
+				$this->set_option( 'taxonomy', $taxes );
 			}
 
 			if ( is_array( $taxes ) ) {
@@ -85,7 +86,6 @@ if ( ! class_exists( '\WPOnion\Modules\taxonomy' ) ) {
 		 */
 		public function on_page_load() {
 			global $taxnow;
-
 			if ( in_array( $taxnow, $this->option( 'taxonomy' ) ) ) {
 				$this->add_action( 'admin_enqueue_scripts', 'load_style_script' );
 				$this->init_theme();
@@ -209,13 +209,12 @@ if ( ! class_exists( '\WPOnion\Modules\taxonomy' ) ) {
 				$this->set_taxonomy_id( $term_id );
 				$instance = new \WPOnion\DB\Metabox_Save_Handler();
 				$instance->init_class( array(
-					'module'      => 'metabox',
-					'plugin_id'   => $this->plugin_id(),
-					'unique'      => $this->unique,
-					'fields'      => $this->fields,
-					'user_values' => $_POST[ $this->unique ],
-					'db_values'   => $this->get_db_values(),
-					'args'        => array( 'settings' => &$this ),
+					'module'    => 'metabox',
+					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->unique,
+					'fields'    => $this->fields,
+					'db_values' => $this->get_db_values(),
+					'args'      => array( 'settings' => &$this ),
 				) )
 					->run();
 
