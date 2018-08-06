@@ -1,71 +1,47 @@
 <?php
-if ( ! is_array( $this->settings()->fields() ) ) {
+if ( ! is_array( $ins->fields() ) ) {
 	return;
 }
-foreach ( $this->settings()->fields() as $option ) {
-	if ( false === $this->settings()->valid_option( $option ) ) {
+foreach ( $ins->fields() as $option ) {
+	if ( false === $ins->valid_option( $option ) ) {
 		continue;
 	}
-	$slug             = $option['name'];
-	$is_parent_active = $this->settings()->is_tab_active( $option['name'], false );
-	$parent_active    = ( true === $is_parent_active ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden';
+
+	$parent_active = ( true === $ins->is_tab_active( $option['name'], false ) ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden';
 	?>
-	<div id="wponion-tab-<?php echo $slug; ?>" class="<?php echo $parent_active; ?>">
+	<div id="wponion-tab-<?php echo $option['name']; ?>" class="<?php echo $parent_active; ?>">
+		<?php
+		echo $this->submenu_html( $option['name'] );
 
-			<?php
-			echo $this->submenu_html( $slug );
+		if ( isset( $option['sections'] ) ) {
+			$first_section = $ins->get_first_section( $option );
 
-			if ( isset( $option['sections'] ) ) {
-				$first_section = $this->settings()->get_first_section( $option );
+			foreach ( $option['sections'] as $section ) {
+				if ( false === $ins->valid_option( $section, true ) ) {
+					continue;
+				}
 
-				?>
-		<div class="postbox"><div class="inside">
-					<?php
-					foreach ( $option['sections'] as $section ) {
-						if ( false === $this->settings()->valid_option( $section, true ) ) {
-							continue;
-						}
-						$child_slug        = $section['name'];
-						$is_section_active = $this->settings()->is_tab_active( $option['name'], $section['name'] );
-						$section_active    = ( true === $is_section_active ) ? ' wponion-section-wraps ' : 'wponion-section-wraps hidden';
+				$section_active    = ( true === $ins->is_tab_active( $option['name'], $section['name'] ) ) ? ' wponion-section-wraps ' : 'wponion-section-wraps hidden';
 
-						echo '<div id="wponion-tab-' . $slug . '-' . $child_slug . '" class="' . $section_active . '" data-section-id="' . $child_slug . '">';
-						if(isset($section['callback'])){
-							echo wponion_callback($section['callback'],array($this->settings()));
-						} elseif(isset($section['fields'])){
-
-							foreach ( $section['fields'] as $field ) {
-								echo $this->settings()->render_field( $field, $option['name'], $section['name'] );
-							}
-						}
-						echo '</div>';
-
+				echo '<div id="wponion-tab-' . $option['name'] . '-' . $section['name'] . '" class="' . $section_active . '" data-section-id="' . $section['name'] . '">';
+				if ( isset( $section['callback'] ) ) {
+					echo wponion_callback( $section['callback'], array( $ins ) );
+				} elseif ( isset( $section['fields'] ) ) {
+					foreach ( $section['fields'] as $field ) {
+						echo $ins->render_field( $field, $option['name'], $section['name'] );
 					}
-					?>
-			</div></div>
-				<?php
-
-			} elseif ( isset( $option['fields'] ) ) {
-				echo '<div class="postbox"><div class="inside">';
-				foreach ( $option['fields'] as $field ) {
-					echo $this->settings()->render_field( $field, $option['name'] );
 				}
-				echo '</div></div>';
-
-			} elseif ( isset( $option['callback'] ) && false !== $option['callback'] ) {
-				$with_wrap = ( isset( $option['with_wrap'] ) && true === $option['with_wrap'] || ! isset( $option['with_wrap'] ) ) ? true : false;
-				if ( $with_wrap ) {
-					echo '<div class="postbox"><div class="inside">';
-				}
-				echo wponion_callback($option['callback'],array($this->settings()));
-				if ( $with_wrap ) {
-					echo '</div></div>';
-				}
+				echo '</div>';
 			}
-
-			?>
+		} elseif ( isset( $option['fields'] ) ) {
+			foreach ( $option['fields'] as $field ) {
+				echo $ins->render_field( $field, $option['name'] );
+			}
+		} elseif ( isset( $option['callback'] ) && false !== $option['callback'] ) {
+			$with_wrap = ( isset( $option['with_wrap'] ) && true === $option['with_wrap'] || ! isset( $option['with_wrap'] ) ) ? true : false;
+			echo wponion_callback( $option['callback'], array( $ins ) );
+		}
+		?>
 	</div>
 	<?php
 }
-?>
-

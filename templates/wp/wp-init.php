@@ -115,7 +115,7 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 
 
 					$attr     = wponion_array_to_html_attributes( $attr );
-					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a> | ';
 				}
 				$return = implode( '  </li>', $return );
 				$return = '<ul class="wponion-submenus subsubsub"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';
