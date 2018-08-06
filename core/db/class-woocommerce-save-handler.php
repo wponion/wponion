@@ -44,7 +44,7 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 				if ( 'only' === $this->args['settings']->is_variation( $field ) && false === $this->is_variation ) {
 					continue;
 				}
-				if ( _wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
+				if ( wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 					continue;
 				}
 
