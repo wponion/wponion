@@ -211,7 +211,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 						'html_file' => $theme . '_' . $theme_args['data']['unique'] . '_' . $theme_args['data']['plugin_id'],
 					);
 					wponion_get_template( $theme . '/' . $theme . $theme_init, $theme_args );
-					$return = true;
+					$return = wponion_theme_registry( $this->current_theme['html_file'] );
 				} else {
 					$this->current_theme = array(
 						'success' => false,
@@ -384,9 +384,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 						$menu                    = $this->handle_single_menu( $field, $is_child, $parent );
 						$return[ $menu['name'] ] = $menu;
 					} else {
-						$menu                                    = $this->handle_single_menu( $field, $is_child, $parent );
-						$return[ $menu['name'] ]                 = $menu;
-						$return[ $menu['name'] ]['is_seperator'] = true;
+						if ( 'metabox' !== $this->module() ) {
+							$menu                                    = $this->handle_single_menu( $field, $is_child, $parent );
+							$return[ $menu['name'] ]                 = $menu;
+							$return[ $menu['name'] ]['is_seperator'] = true;
+						}
 					}
 				}
 			}
@@ -500,7 +502,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 */
 		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
 			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
-			return $callback( $field, _wponion_get_field_value( $field, $this->get_db_values() ), array(
+			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
 				'plugin_id' => $this->plugin_id(),
 				'module'    => $this->module(),
 				'unique'    => $this->unique(),
