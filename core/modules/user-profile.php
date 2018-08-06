@@ -173,7 +173,6 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 					'plugin_id'   => $this->plugin_id(),
 					'unique'      => $this->unique,
 					'fields'      => $this->fields,
-					'user_values' => $_POST[ $this->unique ],
 					'db_values'   => $this->get_db_values(),
 					'args'        => array( 'settings' => &$this ),
 				) )
