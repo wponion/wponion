@@ -13,8 +13,8 @@ $dark: #343a40;
 
 $wponionThemes: () !default;
 $wponionThemes: map-merge((
-		"primary": $primary,
-		"secondary": $secondary,
+		"blue": $primary,
+		"grey": $secondary,
 		"success": $success,
 		"info": $info,
 		"warning": $warning,
@@ -28,3 +28,8 @@ $wponion_metabox_a_color: #fff;
 $wponion_metabox_a_bg: #26292c;
 $wponion_metabox_menu_bg_color: #32373C;
 $wponion_metabox_menu_width: 200px;
+$element_gurtter: 15px;
+$element_border: 1px solid #ddd;
+$element_title_width: 275px;
+$element_title_right_margin: 25px;
+$element_fieldset_width: calc(100% - 300px); // $element_title_right_margin: 20px;
