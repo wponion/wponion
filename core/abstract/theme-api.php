@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Theme' ) ) {
+if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 	/**
 	 * Class Theme
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Theme' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Theme extends \WPOnion\Bridge {
+	abstract class Theme_API extends \WPOnion\Bridge {
 		/**
 		 * dir
 		 *
