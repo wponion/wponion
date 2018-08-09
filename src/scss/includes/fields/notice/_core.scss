@@ -1,6 +1,11 @@
-.wponion-element.wponion-element-notice {;
+.wponion-element.wponion-element-notice {
+  padding:    0;
+  border-top: 0;
   .alert {
 	margin-bottom: 0;
 	border-radius: 0;
+  }
+  + .wponion-element {
+	border-top: 0;
   }
 }

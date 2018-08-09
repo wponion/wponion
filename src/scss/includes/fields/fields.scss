@@ -1,38 +1,26 @@
-$element_gurtter: 15px;
-$element_border: 1px solid #ddd;
-$element_title_width: 275px;
-$element_title_right_margin: 25px;
-$element_fieldset_width: calc(100% - 300px); // $element_title_right_margin: 20px;
-
 .wponion-element + .wponion-element, .wponion-element + .wponion-row, .wponion-row + .wponion-element {
-  // border-top:  $element_border;
-  //padding-top: $element_gurtter;
+  border-top: $element_border;
   //margin-top:  $element_gurtter;
 }
 
-.wponion-row {
-  border-bottom:  $element_border;
+.wponion-row, .wponion-element {
+  padding-top:    $element_gurtter;
   padding-bottom: $element_gurtter;
-  margin-bottom:  $element_gurtter;
-  > .wponion-element {
-	border:         none;
-	padding-top:    0;
-	margin-top:     0;
-	margin-bottom:  0;
-	padding-bottom: 0;
+  padding-left:   $element_gurtter;
+  padding-right:  $element_gurtter;
+}
 
+.wponion-row.row {
+  margin: 0;
+  > div {
+	padding:    0;
+	border-top: none;
   }
 }
 
 .wponion-element {
-  width:          100%;
-  max-width:      100%;
-  border-bottom:  $element_border;
-  padding-bottom: $element_gurtter;
-  margin-bottom:  $element_gurtter;
-  &:last-child {
-	border-bottom: 0;
-  }
+  display:   block;
+  max-width: 100%;
 
   .wponion-field-debug-handle {
 	display: none;

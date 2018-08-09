@@ -1,11 +1,9 @@
 .wponion-element {
   &.wponion-element-accordion, &.wponion-element-group {
 	.wponion-accordion-wrap {
-	  position:      relative;
-	  margin-bottom: 5px;
-	  display:       inline-block;
-	  min-width:     810px;
-	  width:         auto;
+	  position:  relative;
+	  max-width: 100%;
+	  width:     auto;
 
 	  .wponion-accordion-title {
 		border:     1px solid #e5e5e5;
@@ -28,7 +26,6 @@
 	  .wponion-accordion-content {
 		border:     1px solid #e5e5e5;
 		background: #fff;
-		padding:    $element_gurtter 0;
 		border-top: 0;
 
 		> .wponion-element {
@@ -84,4 +81,9 @@
 
   }
 
+  &.wponion-element-group {
+	.wponion-accordion-wrap {
+	  margin-bottom: 15px;
+	}
+  }
 }
