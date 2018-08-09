@@ -80,6 +80,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'unmodified_debug', __( 'PHP Args' ) );
 				$this->text( 'modified_debug', __( 'JS Args' ) );
 				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.' ) );
+				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info' ) );
 				self::$core_data = true;
 			}
 
