@@ -452,6 +452,7 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 	function wponion_callback( $callback, $args ) {
 		$data = false;
 		if ( is_callable( $callback ) ) {
+			$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
 			$data = call_user_func_array( $callback, $args );
 		} else {
 			ob_start();
@@ -493,3 +494,7 @@ require_once WPONION_PATH . 'core/helpers/module.php';
  */
 require_once WPONION_PATH . 'core/helpers/validator.php';
 
+/**
+ * WPOnion Theme Related Functions
+ */
+require_once WPONION_PATH . 'core/helpers/theme.php';
