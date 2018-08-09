@@ -31,6 +31,7 @@ if ( ! function_exists( 'wponion_init' ) ) {
 
 		require_once WPONION_PATH . 'core/registry/class-common.php';
 		require_once WPONION_PATH . 'core/registry/class-core.php';
+		require_once WPONION_PATH . 'core/class-themes.php';
 		require_once WPONION_PATH . 'core/registry/class-modules.php';
 		require_once WPONION_PATH . 'core/registry/class-fields.php';
 		require_once WPONION_PATH . 'core/registry/class-field-error.php';
