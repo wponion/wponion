@@ -32,9 +32,24 @@
 		if ( this.elem.find( '.wponion-field-debug' ).length > 0 ) {
 			let $elem = this.elem;
 
-			$elem.find( '.wponion-field-debug a.wponion-field-debug-handle' ).on( 'click', function () {
-				let $data       = wpo._get_debug_info( $( this ), {} );
-				let $divID      = wpo.field_js_id( $( this ) ) + 'debugINFO',
+			$elem.find( '.wponion-element.wponion-field-debug' ).each( function () {
+				$( this ).find( '.wponion-field-title h4' ).each( function () {
+					$( this ).attr( 'title', wpo.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ) );
+					tippy( $( this )[ 0 ], {
+						arrow: true,
+						arrowType: 'round',
+						placement: 'bottom',
+						theme: 'light',
+						animation: 'scale'
+					} );
+
+
+				} )
+			} );
+
+			$elem.find( '.wponion-field-debug .wponion-field-title h4' ).on( 'click', function () {
+				let $data       = wpo._get_debug_info( $( this ).parent().parent(), {} );
+				let $divID      = wpo.field_js_id( $( this ).parent().parent() ) + 'debugINFO',
 					$notice_txt = "<p class='wponion-field-debug-notice'>" + wpo.settings( 'debug_notice' ) + "</p>",
 					$elem       = $( "<div id='" + $divID + "' class='wponion-field-debug-popup' ><div id='" + $divID + "' ></div> " + $notice_txt + "</div>" );
 
