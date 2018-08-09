@@ -4,11 +4,11 @@
 @import "includes/mixins";
 @import "includes/variables";
 @import "includes/basic_style";
+@import "includes/wponion-bootstrap";
 @import "includes/fields/fields";
 /**
  * Core Fields Styles
  */
-@import "includes/wponion-bootstrap";
 @import "includes/modules/taxonomy";
 @import "includes/modules/user_profile";
 @import "includes/modules/metabox";
