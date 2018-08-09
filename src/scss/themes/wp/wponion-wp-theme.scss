@@ -1,4 +1,3 @@
-
 .wponion-framework.wponion-wp-theme {
   /* Handles Page Load Scss. */
   .page-loader {
@@ -52,16 +51,69 @@
   }
 
   .wponion-sections {
+	.wponion-parent-wraps {
+	  margin-top:   10px;
+	  margin-left:  -10px;
+	  margin-right: -10px;
+	  &.wponion-has-sections {
+		margin: 0;
+		.wponion-section-wraps {
+		  margin-top:   10px;
+		  margin-left:  -10px;
+		  margin-right: -10px;
+		}
+	  }
+	}
+
 	.wponion-parent-wraps > .wponion-element:first-child, .wponion-section-wraps > .wponion-element:first-child {
-	  padding-top: 25px;
+	  //padding-top: 25px;
 	}
   }
 
   .wponion-form-actions {
-	display:    inline-block;
-	width:      100%;
-	max-width:100%;
-	margin-top: 50px;
+	display:    block;
+	margin-top: 20px;
+	//text-align: right;
+	//background: white;
+	///border:     1px solid #ddd;
+	> button {
+	  margin-right: 15px;
+	  &:last-child {
+		margin-right: 0;
+	  }
+	}
   }
 
+  /* Taxonomy Styles */
+  &.wponion-module-taxonomy {
+	margin-top: 0;
+	> .wponion-element,
+	> .wponion-row {
+	  padding-left:   0;
+	  padding-right:  0;
+	  padding-top:    1em;
+	  padding-bottom: 1em;
+	}
+
+	.wponion-element.wponion-element-textarea {
+	  textarea {
+		min-width: auto;
+	  }
+	}
+
+	> .wponion-element {
+	  &.wponion-element-heading,
+	  &.wponion-element-subheading {
+		padding-left:  15px;
+		padding-right: 15px;
+	  }
+
+	  &.wponion-element-accordion, &.wponion-element-group {
+		.wponion-accordion-content {
+		  padding-left:  0;
+		  padding-right: 0;
+		}
+	  }
+	}
+  }
 }
