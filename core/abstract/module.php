@@ -157,6 +157,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'wponion-module-' . $this->module(),
 				'wponion-' . $this->plugin_id() . '-' . $this->module(),
 				'wponion-' . $this->module(),
+				'wponion-' . $this->option( 'theme' ) . '-theme',
 			);
 
 			if ( 'grid' === $bootstrap || 'all' === $bootstrap || true === $bootstrap ) {
@@ -193,36 +194,29 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * @param string $theme_init
 		 *
-		 * @return \WPOnion\Theme
+		 * @return \WPOnion\Theme_API
 		 */
 		protected function init_theme( $theme_init = '-init.php' ) {
 			$return = false;
+
 			if ( false === $this->current_theme ) {
-				$theme          = $this->option( 'theme' );
-				$template_path  = $this->option( 'template_path' );
-				$file           = wponion_locate_template( $theme . '/' . $theme . $theme_init, $template_path );
-				$callback_class = 'WPOnion_' . strtolower( $theme ) . '_Theme';
-				if ( file_exists( $file ) ) {
-					$theme_args          = $this->theme_callback_args();
-					$this->current_theme = array(
-						'class'     => $callback_class,
-						'success'   => true,
-						'file'      => $file,
-						'html_file' => $theme . '_' . $theme_args['data']['unique'] . '_' . $theme_args['data']['plugin_id'],
-					);
-					wponion_get_template( $theme . '/' . $theme . $theme_init, $theme_args );
-					$return = wponion_theme_registry( $this->current_theme['html_file'] );
+				$theme      = $this->option( 'theme' );
+				$theme_args = $this->theme_callback_args();
+				if ( \WPOnion\Themes::is_support( $theme, $this->module() ) ) {
+					$return = \WPOnion\Themes::callback( $theme, $theme_args );
+					if ( $return ) {
+						$this->current_theme = $return->uid();
+					}
 				} else {
-					$this->current_theme = array(
-						'success' => false,
-						'html'    => '<h3>' . __( 'Theme Not Found :-( ' ) . '</h3>',
-					);
+					$return = \WPOnion\Themes::callback( wponion_default_theme(), $theme_args );
+					if ( $return ) {
+						$this->current_theme = $return->uid();
+					}
 				}
 			} else {
-				if ( true === $this->current_theme['success'] ) {
-					$return = wponion_theme_registry( $this->current_theme['html_file'] );
-				}
+				$return = wponion_theme_registry( $this->current_theme );
 			}
+
 			return $return;
 		}
 
@@ -247,7 +241,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return bool
 		 */
 		protected function theme_instance() {
-			return wponion_core_registry( $this->current_theme['class'] );
+			return wponion_core_registry( $this->current_theme );
 		}
 
 		/**
