@@ -26,3 +26,9 @@
 	overflow: scroll;
   }
 }
+
+@each $color, $value in $wponionThemes {
+  .button.button-#{$color} {
+	@include wponion_button($value);
+  }
+}
