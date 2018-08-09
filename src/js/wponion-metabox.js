@@ -47,7 +47,7 @@ $wponion_metabox.fn = $wponion_metabox.prototype = $wponion_theme.prototype;
 
 				let $parent         = 'wponion-tab-' + $href[ 'parent-id' ],
 					$section        = ( $href[ 'section-id' ] !== undefined ) ? $parent + '-' + $href[ 'section-id' ] : false,
-					$parent_actives = $elem.find( 'div.wponion-parent-wrap' ),
+					$parent_actives = $elem.find( 'div.wponion-parent-wraps' ),
 					$current        = $elem.find( 'div#' + $parent );
 
 				$elem.find( 'div.wponion-section-wraps' ).hide();
