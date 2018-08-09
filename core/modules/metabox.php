@@ -369,7 +369,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		public function save_button() {
 			$user         = $this->option( 'save_button' );
 			$default_attr = array(
-				'class' => 'btn btn-success btn-sm wponion-save',
+				'class' => 'button button-success wponion-save',
 				'type'  => 'button',
 			);
 			$label        = __( 'Save Settings' );
