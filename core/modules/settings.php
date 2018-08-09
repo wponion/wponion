@@ -530,8 +530,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'template_path' => false,
 				'buttons'       => array(
 					'save'    => __( 'Save Settings' ),
-					'restore' => __( 'Restore' ),
-					'reset'   => __( 'Reset All Options' ),
+					'restore' => false,#__( 'Restore' ),
+					'reset'   => false,#__( 'Reset All Options' ),
 				),
 			);
 		}
@@ -573,9 +573,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function wrap_class( $extra_class = '', $bootstrap = false ) {
 			$default_class = $this->default_wrap_class( $bootstrap );
 			$class         = array();
-			$class[]       = ' wponion-' . $this->option( 'theme' ) . '-theme ';
-			$class[]       = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
-			$class[]       = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
+			//$class[]       = ' wponion-' . $this->option( 'theme' ) . '-theme ';
+			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
+			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
 
 			if ( 1 === count( $this->fields ) ) {
 				$class[] = 'wponion-hide-nav';
@@ -716,25 +716,27 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$options = $this->option( 'buttons' );
 			$html    = '';
 			if ( false !== $options ) {
-				if ( false !== $options['save'] ) {
-					$html .= $this->_button( $options['save'], array(
-						'class' => 'btn btn-success btn-sm wponion-save',
+
+				if ( false !== $options['reset'] ) {
+					$html .= $this->_button( $options['reset'], array(
+						'class' => 'button button-danger wponion-reset',
 						'type'  => 'submit',
-					), __( 'Save Settings' ) );
+					), __( 'Reset All' ) );
 				}
 
 				if ( false !== $options['restore'] ) {
 					$html .= $this->_button( $options['restore'], array(
-						'class' => 'btn btn-secondary btn-sm wponion-restore',
+						'class' => 'button button-secondary wponion-restore',
 						'type'  => 'submit',
 					), __( 'Restore' ) );
 				}
 
-				if ( false !== $options['reset'] ) {
-					$html .= $this->_button( $options['reset'], array(
-						'class' => 'btn btn-danger btn-sm wponion-reset',
+
+				if ( false !== $options['save'] ) {
+					$html .= $this->_button( $options['save'], array(
+						'class' => 'button button-primary wponion-save',
 						'type'  => 'submit',
-					), __( 'Reset All' ) );
+					), __( 'Save Settings' ) );
 				}
 			}
 			return $html;
