@@ -11,21 +11,19 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
-global $wponion_wp_theme;
-$wponion_wp_theme = null;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
+if ( ! class_exists( 'WPOnion_Wp_Theme' ) ) {
 	/**
 	 * Class WPOnion_Theme_WP
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WPOnion_wp_Theme extends \WPOnion\Theme {
+	class WPOnion_Wp_Theme extends \WPOnion\Theme_API {
 		/**
 		 * WPOnion_wp_Theme constructor.
 		 *
@@ -126,5 +124,3 @@ if ( ! class_exists( 'WPOnion_wp_Theme' ) ) {
 		}
 	}
 }
-
-new WPOnion_wp_Theme( $data );

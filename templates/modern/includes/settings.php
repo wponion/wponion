@@ -24,7 +24,18 @@ foreach ( $ins->fields() as $option ) {
 					continue;
 				}
 
-				$section_active = ( true === $ins->is_tab_active( $option['name'], $section['name'] ) ) ? ' wponion-section-wraps ' : 'wponion-section-wraps hidden';
+				$section_active = ' wponion-section-wraps ';
+
+				if ( true === $ins->is_tab_active( $option['name'], $section['name'] ) ) {
+					$section_active .= '';
+				} elseif ( $section['name'] === $first_section['name'] ) {
+					$section_active .= '';
+				} else {
+					$section_active .= ' hidden ';
+				}
+
+
+				//$section_active = ( true === $ins->is_tab_active( $option['name'], $section['name'] ) ) ? ' wponion-section-wraps ' : 'wponion-section-wraps hidden';
 
 				echo '<div id="wponion-tab-' . $option['name'] . '-' . $section['name'] . '" class="' . $section_active . '" data-section-id="' . $section['name'] . '">';
 				if ( isset( $section['callback'] ) ) {
