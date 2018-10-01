@@ -88,6 +88,7 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 				'woocommerce',
 				'taxonomy',
 			), 'wponion_modern_theme_init' );
+			self::register( 'fresh', array( 'settings', 'metabox' ), 'wponion_fresh_theme_init' );
 		}
 
 		/**
