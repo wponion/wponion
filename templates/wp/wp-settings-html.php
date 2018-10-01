@@ -21,7 +21,7 @@ $loading = __( 'Loading Please Wait...' );
 
 		<div class="wponion-content">
 			<div class="loader loader-default page-loader is-active" data-text="<?php echo $loading; ?>"></div>
-			<div class="wponion-sections"> <?php include_once 'settings-template.php'; ?> </div>
+			<div class="wponion-sections"> <?php include_once 'includes/settings-template.php'; ?> </div>
 			<div class="wponion-sections wponion-form-actions"> <?php echo $ins->settings_button(); ?> </div>
 		</div>
 	</div>

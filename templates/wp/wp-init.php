@@ -42,6 +42,32 @@ if ( ! class_exists( 'WPOnion_Wp_Theme' ) ) {
 		}
 
 		/**
+		 * Renders Metabox MENU HTML.
+		 *
+		 * @param        $menu
+		 * @param string $parent_name
+		 *
+		 * @return string
+		 */
+		public function metabox_menu_html( $menu, $parent_name = '' ) {
+			$attr                    = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
+			$attr['title']           = isset( $attr['title'] ) ? $attr['title'] : $menu['title'];
+			$page_title              = $menu['title'];
+			$attr['data-href']       = $menu['href'];
+			$attr['href']            = 'javascript:void(0);';
+			$attr['class']           = isset( $attr['class'] ) ? $attr['class'] : array();
+			$attr['class']           = wponion_html_class( $attr['class'], array(
+				wponion_html_class( $menu['class'] ),
+				( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
+				( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
+				( isset( $menu['is_active'] ) && true === $menu['is_active'] ) ? 'active' : '',
+			) );
+			$attr['data-wponion-id'] = ( ! empty( $parent_name ) ) ? 'wponion_menu_' . $parent_name . '_' . $menu['name'] : 'wponion_menu_' . $menu['name'];
+			$attr                    = wponion_array_to_html_attributes( $attr );
+			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+		}
+
+		/**
 		 * Generates Main Menu HTML.
 		 *
 		 * @return bool|string
