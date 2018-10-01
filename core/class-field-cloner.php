@@ -47,7 +47,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		protected function clone_btn( $type = 'add' ) {
 			if ( 'add' === $type ) {
 				return $this->sub_field( $this->handle_args( 'label', $this->data( 'clone' )['add_button'], array(
-					'class'       => array( 'btn', 'btn-sm' ),
+					'class'       => array( 'button', 'button-primary' ),
 					'type'        => 'button',
 					'attributes'  => array(
 						'data-wponion-jsid'      => $this->js_field_id(),
@@ -61,7 +61,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			}
 
 			return $this->sub_field( $this->handle_args( 'label', $this->data( 'clone' )['remove_button'], array(
-				'class'       => array( 'btn', 'btn-sm' ),
+				'class'       => array( 'button', 'button-secondary' ),
 				'type'        => 'button',
 				'attributes'  => array(
 					'data-wponion-jsid'         => $this->js_field_id(),
