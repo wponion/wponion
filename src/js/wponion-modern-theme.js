@@ -1,3 +1,11 @@
+/**
+ * @param window = Window Object
+ * @param document = Document Object
+ * @param $ = jQuery Object
+ * @param wpo = $wponion object
+ * @param wpf = $wonion.field object
+ * @param wpt = $wponion.theme object.
+ */
 ( ( window, document, $, wpo, wpt, wp ) => {
 	let wphooks = wp.hooks;
 
