@@ -18,11 +18,30 @@ if ( ! function_exists( 'wponion_wp_theme_init' ) ) {
 
 
 if ( ! function_exists( 'wponion_modern_theme_init' ) ) {
+	/**
+	 * @param $data
+	 *
+	 * @return \WPOnion_Modern_Theme
+	 */
 	function wponion_modern_theme_init( $data ) {
 		if ( ! class_exists( '\WPOnion_Modern_Theme' ) ) {
 			require_once WPONION_PATH . 'templates/modern/modern-init.php';
 		}
 		return new WPOnion_Modern_Theme( $data );
+	}
+}
+
+if ( ! function_exists( 'wponion_fresh_theme_init' ) ) {
+	/**
+	 * @param $data
+	 *
+	 * @return \WPOnion_Fresh_Theme
+	 */
+	function wponion_fresh_theme_init( $data ) {
+		if ( ! class_exists( '\WPOnion_Fresh_Theme' ) ) {
+			require_once WPONION_PATH . 'templates/fresh/fresh-init.php';
+		}
+		return new WPOnion_Fresh_Theme( $data );
 	}
 }
 
