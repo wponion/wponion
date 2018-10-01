@@ -1,0 +1,31 @@
+.wponion-fresh-theme-wrap {
+  margin-top: 20px;
+  float:      left;
+  width:      100%;
+  max-width:  100%;
+}
+
+.wponion-fresh-theme {
+  &.wponion-module-settings {
+	float:     left;
+	width:     100%;
+	max-width: 100%;
+
+	.wpo-ftleftside {
+	  width:        260px;
+	  display:      inline-block;
+	  margin-right: 10px;
+
+	  .title {
+		h1 {
+		  margin: 0;
+		}
+	  }
+	}
+
+	.wpo-ftrightside {
+	  width:   calc(100% - 275px);
+	  display: inline-block;
+	}
+  }
+}
