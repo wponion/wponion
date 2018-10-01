@@ -22,6 +22,9 @@
   display:   block;
   max-width: 100%;
 
+  &.hidden {
+	display: none;
+  }
   .wponion-field-debug-handle {
 	display: none;
   }
