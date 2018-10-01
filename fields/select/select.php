@@ -36,7 +36,7 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 		 * Final HTML Output
 		 */
 		protected function output() {
-			$this->before();
+			echo $this->before();
 			$options = $this->data( 'options' );
 			$options = ( is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$attr    = $this->attributes( array(
@@ -64,7 +64,7 @@ if ( ! class_exists( '\WPOnion\Field\select' ) ) {
 			}
 			echo '</select>';
 
-			$this->after();
+			echo $this->after();
 		}
 
 		/**
