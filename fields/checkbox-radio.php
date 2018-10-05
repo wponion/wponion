@@ -124,7 +124,8 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 
 			if ( true === $in_group || 'group' === $in_group ) {
 				$gptitle      = sanitize_key( $group_title );
-				$attr['name'] = $this->name( '[' . $gptitle . '][]' );
+				$is_checkbox  = ( 'radio' !== $this->element_type() ) ? '[]' : '';
+				$attr['name'] = $this->name( '[' . $gptitle . ']' . $is_checkbox );
 				$value        = $this->get_value( $gptitle );
 				$dep_id       = $gptitle . '_' . $options['key'];
 			} elseif ( 'single' === $in_group ) {
@@ -132,7 +133,8 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 				$attr['value'] = $options['key'];
 				$dep_id        = $options['key'];
 			} else {
-				$attr['name'] = $this->name( '[]' );
+				$is_checkbox  = ( 'radio' !== $this->element_type() ) ? '[]' : '';
+				$attr['name'] = $this->name( $is_checkbox );
 				$dep_id       = $options['key'];
 			}
 
