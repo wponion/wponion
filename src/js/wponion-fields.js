@@ -307,7 +307,18 @@
 			$arg        = $this.arg( 'clone' ),
 			$limit      = ( $arg[ 'limit' ] !== undefined ) ? $arg[ 'limit' ] : false,
 			$is_toast   = ( $arg[ 'toast_error' ] !== undefined ) ? $arg[ 'toast_error' ] : true,
-			$eror_msg   = $arg[ 'error_msg' ];
+			$eror_msg   = $arg[ 'error_msg' ],
+			$sort       = ( $arg[ 'sort' ] !== false ) ? {
+				items: '.wponion-field-clone',
+				handle: '.wponion-field-clone-sorter',
+				placeholder: 'wponion-cloner-placeholder',
+				start: function ( event, ui ) {
+					ui.item.css( 'background-color', '#eeee' );
+				},
+				stop: function ( event, ui ) {
+					ui.item.removeAttr( 'style' );
+				}
+			} : false;
 
 		$clone_wrap.WPOnionCloner( {
 			add_btn: $add_btn,
@@ -322,18 +333,7 @@
 				let $data = $_wrap.find( "> div.wponion-field-clone:last-child" );
 				wponion_field( $data ).reload();
 			},
-			sortable: {
-				items: '.wponion-field-clone',
-				handle: '.wponion-field-clone-sorter',
-				placeholder: 'wponion-cloner-placeholder',
-				start: function ( event, ui ) {
-					ui.item.css( 'background-color', '#eeee' );
-				},
-				stop: function ( event, ui ) {
-					ui.item.removeAttr( 'style' );
-				}
-
-			},
+			sortable: $sort,
 			onLimitReached: function () {
 				if ( $is_toast === true ) {
 					wpo.tost( {

@@ -221,6 +221,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			return array(
 				'clone' => array(
 					'add_button'    => __( 'Add +' ),
+					'sort'          => $this->data( 'clone' )['sort'],
 					'remove_button' => '<i class="dashicons dashicons-trash"></i>',
 					'limit'         => $this->data( 'clone' )['limit'],
 					'error_msg'     => $this->data( 'clone' )['error_msg'],
