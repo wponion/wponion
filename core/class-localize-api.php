@@ -114,7 +114,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				if ( is_array( $ar ) ) {
 					$args[ $i ] = $this->handle_js_function( $ar );
 				} elseif ( is_string( $ar ) ) {
-					$re = '/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';
+					$re = '/\bfunction[ ]{0,1}(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';
+					/*'/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';*/
 					preg_match_all( $re, $ar, $matches, PREG_SET_ORDER, 0 );
 
 					if ( is_array( $matches ) && ! empty( array_filter( $matches ) ) ) {
@@ -197,6 +198,14 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		public function clear() {
 			$this->js_args = array();
 			return $this;
+		}
+
+
+		/**
+		 * @return array
+		 */
+		public function get_js_args() {
+			return $this->js_args;
 		}
 
 		/**
