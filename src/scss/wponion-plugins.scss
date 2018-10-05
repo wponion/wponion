@@ -12,7 +12,9 @@
 @import '../../node_modules/pure-css-loader/src/general/utils';
 @import '../../node_modules/pure-css-loader/src/loaders/loader';
 // CSS3 Checkbox Libs.
-@import "../../node_modules/css-checkbox-library/dist/css/checkboxes.min";
+div.wponion-element-switcher {
+  @import "../../node_modules/css-checkbox-library/dist/css/checkboxes.min";
+}
 
 /*
 @import '../../node_modules/pure-css-loader/src/loaders/loader-double';
