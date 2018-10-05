@@ -1,18 +1,19 @@
 // JSON View Styles
 @import "../vendors/json-view/json-view";
-
 // Input Mask Styles.
 @import "../../node_modules/inputmask/css/inputmask";
 // TippyJS
 @import "../../node_modules/tippy.js/dist/themes/translucent";
 @import "../../node_modules/tippy.js/dist/themes/light";
-
 // Pure CSS Loader
 @import '../../node_modules/pure-css-loader/src/config';
 @import '../../node_modules/pure-css-loader/src/general/base';
 @import '../../node_modules/pure-css-loader/src/general/animations';
 @import '../../node_modules/pure-css-loader/src/general/utils';
 @import '../../node_modules/pure-css-loader/src/loaders/loader';
+// CSS3 Checkbox Libs.
+@import "../../node_modules/css-checkbox-library/dist/css/checkboxes.min";
+
 /*
 @import '../../node_modules/pure-css-loader/src/loaders/loader-double';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-bar';
@@ -25,7 +26,7 @@
 @import '../../node_modules/pure-css-loader/src/loaders/loader-music';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-pokeball';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-bouncing';
-*/
+
 
 
 .selectize {
@@ -39,3 +40,4 @@
   &-bs4 {@import "../vendors/selectize-themes/selectize-bs4";}
   &-dark {@import "../vendors/selectize-themes/dark";}
 }
+*/

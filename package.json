@@ -25,5 +25,8 @@
     "selectize.js": "^0.12.12",
     "sweetalert2": "^7.20.4",
     "tippy.js": "^2.5.2"
+  },
+  "dependencies": {
+    "css-checkbox-library": "^1.4.0"
   }
 }

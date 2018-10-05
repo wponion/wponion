@@ -27,6 +27,20 @@ if ( ! class_exists( '\WPOnion\Field\switcher' ) ) {
 	 */
 	class switcher extends \WPOnion\Field\checkbox_radio {
 		/**
+		 * Returns all fields default.
+		 *
+		 * @return array|mixed
+		 */
+		protected function field_default() {
+			return array(
+				'switch_style' => 'style-8',
+				'switch_size'  => '',
+				'options'      => array(),
+				'label'        => false,
+			);
+		}
+
+		/**
 		 * Renders Elements HTML.
 		 *
 		 * @param $label_attr
@@ -38,7 +52,12 @@ if ( ! class_exists( '\WPOnion\Field\switcher' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			return '<label><input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  /><span class="switch"></span></label>';
+			$size = ( ! empty( $this->data( 'switch_size' ) ) ) ? 'ckbx-' . $this->data( 'switch_size' ) : '';
+			return '<div class="ckbx-' . $this->data( 'switch_style' ) . ' ' . $size . '" style="display:inline-block;">
+				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
+				<label for="' . $attr['id'] . '"></label>
+			</div>
+			';
 		}
 	}
 }
