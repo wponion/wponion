@@ -32,13 +32,13 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 		 */
 		public function run() {
 			foreach ( $this->fields as $option ) {
-				if ( ! $this->args['settings']->valid_option( $option, false, false ) ) {
+				if ( ! $this->args['settings']->valid_option( $option, false, true ) ) {
 					continue;
 				}
 
 				if ( isset( $option['sections'] ) ) {
 					foreach ( $option['sections'] as $section ) {
-						if ( ! $this->args['settings']->valid_option( $section, false, false ) ) {
+						if ( ! $this->args['settings']->valid_option( $section, true, true ) ) {
 							continue;
 						}
 
@@ -51,6 +51,10 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 				} elseif ( isset( $option['fields'] ) ) {
 					$this->field_loop( $option );
 				}
+			}
+
+			if ( false === $this->args['settings']->is_single_page() || 'only_submenu' === $this->args['settings']->is_single_page() ) {
+				$this->return_values = $this->array_merge( $this->return_values, $this->db_values );
 			}
 		}
 	}
