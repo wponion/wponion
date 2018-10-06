@@ -116,4 +116,28 @@
 	  }
 	}
   }
+
+  &.wponion-module-settings {
+	.nav-tab-wrapper {
+	  a {
+		i {
+		  display:        inline-block;
+		  vertical-align: text-bottom;
+		  margin-right:   3px;
+		}
+	  }
+	}
+
+	.wponion-submenus {
+	  li {
+		a {
+		  i {
+			display:        inline-block;
+			vertical-align: text-bottom;
+			margin-right:   3px;
+		  }
+		}
+	  }
+	}
+  }
 }

@@ -1,5 +1,15 @@
 .wponion-framework.wponion-modern-theme {
   &.wponion-module-settings {
+	.nav-tab-wrapper {
+	  a {
+		i {
+		  display:        inline-block;
+		  vertical-align: text-bottom;
+		  margin-right:   3px;
+		}
+	  }
+	}
+
 	.wponion-sections {
 	  background: white;
 	  border:     1px solid #dadada;
@@ -39,6 +49,11 @@
 			border-bottom: 1px solid transparent;
 			margin-bottom: -1px;
 
+			i {
+			  display:        inline-block;
+			  vertical-align: text-bottom;
+			  margin-right:   3px;
+			}
 			&:focus {
 			  box-shadow: none;
 			}
