@@ -374,5 +374,20 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 				'type'    => $type,
 			);
 		}
+
+		/**
+		 * @param array $new_values
+		 * @param array $old_values
+		 *
+		 * @return array
+		 */
+		public function array_merge( $new_values = array(), $old_values = array() ) {
+			foreach ( $old_values as $key => $value ) {
+				if ( ! isset( $new_values[ $key ] ) ) {
+					$new_values[ $key ] = $old_values[ $key ];
+				}
+			}
+			return $new_values;
+		}
 	}
 }
