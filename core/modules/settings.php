@@ -96,6 +96,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function save_validate( $request ) {
 			$this->get_cache();
+			$this->find_active_menu();
 			$instance = new \WPOnion\DB\Settings_Save_Handler();
 
 			$instance->init_class( array(
