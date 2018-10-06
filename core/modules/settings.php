@@ -109,8 +109,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			) )
 				->run();
 
-			$this->options_cache['parent_id']    = isset( $_POST['wponion-parent-id'] ) ? sanitize_text_field( $_POST['wponion-parent-id'] ) : null;
-			$this->options_cache['section_id']   = isset( $_POST['wponion-section-id'] ) ? sanitize_text_field( $_POST['wponion-section-id'] ) : null;
+			$this->options_cache['parent_id']    = isset( $_POST['parent-id'] ) ? sanitize_text_field( $_POST['parent-id'] ) : null;
+			$this->options_cache['section_id']   = isset( $_POST['section-id'] ) ? sanitize_text_field( $_POST['section-id'] ) : null;
 			$this->options_cache['field_errors'] = $instance->get_errors();
 			$this->set_cache( $this->options_cache );
 			return $instance->get_values();
@@ -288,8 +288,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
 			echo '<div class="hidden" style="display:none;" id="wponion-hidden-fields">';
 			settings_fields( $this->unique );
-			echo '<input type="hidden" name="wponion-parent-id" value="' . $this->active( true ) . '"/>';
-			echo '<input type="hidden" name="wponion-section-id" value="' . $this->active( false ) . '"/>';
+			echo '<input type="hidden" name="parent-id" value="' . $this->active( true ) . '"/>';
+			echo '<input type="hidden" name="section-id" value="' . $this->active( false ) . '"/>';
 			echo '</div>';
 			$instance = $this->init_theme();
 			$instance->render_settings_html();
@@ -350,11 +350,12 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( ! empty( $this->active_menu ) ) {
 				return $this->active_menu;
 			}
-			$cache    = $this->get_cache();
-			$_cache   = array(
+			$cache  = $this->get_cache();
+			$_cache = array(
 				'parent_id'  => ( ! empty( $cache['parent_id'] ) ) ? $cache['parent_id'] : false,
 				'section_id' => ( ! empty( $cache['section_id'] ) ) ? $cache['section_id'] : false,
 			);
+
 			$_url     = array(
 				'parent_id'  => wponion_get_var( 'parent-id', false ),
 				'section_id' => wponion_get_var( 'section-id', false ),
