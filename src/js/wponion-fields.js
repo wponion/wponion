@@ -501,6 +501,7 @@
 				let $data = $group_wrap.find( "> .wponion-accordion-wrap:last-child" );
 				wponion_field( $group_wrap ).accordion();
 				wponion_field( $data ).reload();
+				wponion_field( $data.find( '.wponion-element-wp_editor' ) ).reload_wp_editor();
 			},
 			sortable: {
 				items: '.wponion-accordion-wrap',
@@ -916,6 +917,38 @@
 			$elem.find( 'input' ).flatpickr( $settings );
 		}
 		this.save_arg( 'datepicker', $settings );
+	};
+
+	/**
+	 * Reloads WPEditor In Group Field.
+	 */
+	$wpf.fn.reload_wp_editor = function () {
+		if ( this.elem.length > 0 ) {
+			let $mce_editor  = tinyMCEPreInit.mceInit[ this.arg( 'wpeditor_id' ) ],
+				$quick_tags  = tinyMCEPreInit.qtInit[ this.arg( 'wpeditor_id' ) ],
+				$NEW_ID      = 'WPOGP' + new Date().valueOf(),
+				$textArea    = this.elem.find( 'textarea' ).clone(),
+				$actual_ID   = $textArea.attr( 'id' ),
+				$actual_html = this.elem.find( '.wponion-fieldset' ).html(),
+				$regex       = new RegExp( $actual_ID, "g" );
+			$actual_html     = $actual_html.replace( $regex, $NEW_ID );
+
+			this.elem.find( '.wponion-fieldset' ).html( $actual_html );
+			this.elem.find( 'textarea' ).parent().append( $textArea );
+			this.elem.find( 'textarea:not(#' + $actual_ID + ')' ).remove();
+			this.elem.find( 'textarea' ).attr( 'id', $NEW_ID );
+
+			if ( $mce_editor !== undefined ) {
+				$mce_editor.selector = '#' + $NEW_ID;
+				tinymce.init( $mce_editor );
+				tinyMCE.execCommand( 'mceAddEditor', false, '#' + $NEW_ID );
+			}
+
+			if ( $quick_tags !== undefined ) {
+				$quick_tags[ 'id' ] = $NEW_ID;
+				quicktags( $quick_tags );
+			}
+		}
 	};
 
 	/**

@@ -37,7 +37,13 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 				'textarea_rows' => 10,
 				'textarea_name' => $this->name(),
 			) );
-			wp_editor( $this->value(), $this->field_id(), $settings );
+			$elem_id  = ( true === $this->data( 'in_group' ) ) ? $this->field_id() . $this->data( 'group_count' ) : $this->field_id();
+
+			wp_editor( $this->value(), $elem_id, $settings );
+			wponion_localize()->add( $this->js_field_id(), array(
+				'wpeditor_id' => $elem_id,
+			) );
+
 			echo $this->after();
 		}
 
@@ -49,10 +55,14 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 		}
 
 		/**
-		 * @return mixed|void
+		 * @return mixed
 		 */
 		protected function field_default() {
-			return array( 'settings' => array() );
+			return array(
+				'settings'    => array(),
+				'in_group'    => false,
+				'group_count' => false,
+			);
 		}
 	}
 }

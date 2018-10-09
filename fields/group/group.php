@@ -61,24 +61,24 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 		 */
 		protected function render_single_field( $field ) {
 			$value = ( false === $this->is_js_sample ) ? wponion_get_field_value( $field, $this->loop_value ) : null;
+
+			if ( 'wp_editor' === $field['type'] ) {
+				$field['render_js_template'] = true;
+				$field['in_group']           = true;
+				$field['group_count']        = is_numeric( $this->loop_count ) ? $this->loop_count : '';
+			}
+
 			echo $this->sub_field( $field, $value, $this->name( '[' . $this->loop_count . ']' ), false );
 		}
 
 		/**
-		 * Final HTML Output;
-		 *
-		 * @return mixed;
+		 * Final HTML Output
 		 */
 		protected function output() {
 			echo $this->before();
 
-			$this->is_js_sample = true;
-			$this->catch_output( 'start' );
-			$this->render_fields();
-			$template           = $this->catch_output( 'stop' );
-			$this->is_js_sample = false;
-			$this->loop_count   = 0;
-			$default_title      = $this->data( 'accordion_title' );
+			$this->loop_count = 0;
+			$default_title    = $this->data( 'accordion_title' );
 			echo '<div class="wponion-group-wrap" data-wponion-clone-count="0">';
 			if ( is_array( $this->value ) ) {
 				foreach ( $this->value as $i => $value ) {
@@ -101,7 +101,17 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 				'button_type' => 'button',
 				'label'       => __( 'Add New' ),
 			) ), null, null );
+
+			$this->is_js_sample             = true;
+			$this->loop_value               = array();
+			$this->loop_count               = '{wponionCloneID}';
+			$this->field['accordion_title'] = $default_title;
+			$this->catch_output( 'start' );
+			$this->render_fields();
+			$template           = $this->catch_output( 'stop' );
+			$this->is_js_sample = false;
 			echo $this->after();
+
 			$this->localize_field( array( 'group_template' => $template ) );
 		}
 
