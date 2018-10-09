@@ -188,6 +188,19 @@ if ( ! function_exists( 'wponion_is_unarrayed' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_is_cloneable' ) ) {
+	/**
+	 * Checks if field type is cloneable.
+	 *
+	 * @param array $field
+	 *
+	 * @return bool
+	 */
+	function wponion_is_cloneable( $field = array() ) {
+		return ( isset( $field['clone'] ) && false !== $field['clone'] );
+	}
+}
+
 if ( ! function_exists( 'wponion_field_id' ) ) {
 	/**
 	 * Checks And Returns Field ID.
