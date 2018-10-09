@@ -67,6 +67,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 
 
 			if ( false === self::$core_data ) {
+				global $wp_scripts;
 				$this->js_args['wponion_core'] = array(
 					'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 					'ajax_action'     => 'wponion-ajax',
@@ -92,6 +93,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @param string $object_id
 		 * @param array  $args
 		 * @param bool   $merge
+		 *
+		 * @return self
 		 */
 		public function add( $object_id = '', $args = array(), $merge = true ) {
 			$args = $this->handle_js_function( $args );
@@ -100,6 +103,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			} else {
 				$this->js_args[ $object_id ] = $args;
 			}
+			return $this;
 		}
 
 		/**

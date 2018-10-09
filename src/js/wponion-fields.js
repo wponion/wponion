@@ -496,6 +496,10 @@
 			template: $this.arg( 'group_template' ),
 			onRemove: function ( $elem ) {
 				$elem.parent().parent().parent().remove();
+				if ( $( 'body' ).find( 'link#editor-buttons-css' ).length === 0 ) {
+					$( 'body' )
+						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + wpo.settings( 'wpeditor_buttons_css' ) + '" type="text/css" media="all">' );
+				}
 			},
 			templateAfterRender: function ( $_wrap ) {
 				let $data = $group_wrap.find( "> .wponion-accordion-wrap:last-child" );
@@ -924,6 +928,7 @@
 	 */
 	$wpf.fn.reload_wp_editor = function () {
 		if ( this.elem.length > 0 ) {
+			//editor-buttons-css
 			let $mce_editor  = tinyMCEPreInit.mceInit[ this.arg( 'wpeditor_id' ) ],
 				$quick_tags  = tinyMCEPreInit.qtInit[ this.arg( 'wpeditor_id' ) ],
 				$NEW_ID      = 'WPOGP' + new Date().valueOf(),
@@ -937,6 +942,7 @@
 			this.elem.find( 'textarea' ).parent().append( $textArea );
 			this.elem.find( 'textarea:not(#' + $actual_ID + ')' ).remove();
 			this.elem.find( 'textarea' ).attr( 'id', $NEW_ID );
+
 
 			if ( $mce_editor !== undefined ) {
 				$mce_editor.selector = '#' + $NEW_ID;

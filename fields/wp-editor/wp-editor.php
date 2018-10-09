@@ -31,6 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 		 * @return mixed|void
 		 */
 		protected function output() {
+			global $wp_version;
 			echo $this->before();
 			$settings = ( $this->has( 'settings' ) ) ? $this->data( 'settings' ) : array();
 			$settings = $this->parse_args( $settings, array(
@@ -40,9 +41,14 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 			$elem_id  = ( true === $this->data( 'in_group' ) ) ? $this->field_id() . $this->data( 'group_count' ) : $this->field_id();
 
 			wp_editor( $this->value(), $elem_id, $settings );
-			wponion_localize()->add( $this->js_field_id(), array(
-				'wpeditor_id' => $elem_id,
-			) );
+
+			wponion_localize()
+				->add( $this->js_field_id(), array(
+					'wpeditor_id' => $elem_id,
+				) )
+				->add( 'wponion_core', array(
+					'wpeditor_buttons_css' => includes_url( 'css/editor.css?ver=' . $wp_version ),
+				) );
 
 			echo $this->after();
 		}
