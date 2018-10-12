@@ -832,6 +832,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'attributes' => array(),
 				'disabled'   => false,
 				'tooltip'    => false,
+				'pretty'     => false,
 			) );
 
 			if ( ! is_array( $value ) ) {
@@ -845,6 +846,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			if ( false !== $value['tooltip'] ) {
 				$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
 				$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'position' => 'right' ), false );
+			}
+
+			if ( false !== $value['pretty'] ) {
+				$value['pretty'] = $this->handle_args( 'class', $value['pretty'], array(
+					'class' => '',
+					'state' => '',
+				) );
 			}
 
 			if ( true === $value['disabled'] ) {
