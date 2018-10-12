@@ -17,9 +17,10 @@
 // CSS3 Checkbox Libs.
 div.wponion-element-switcher {
   @import "../../node_modules/css-checkbox-library/dist/css/checkboxes";
-
+  display: inline-block;
   .ckbx-style-14 {
 	label {
+	  text-align: justify !important;
 	  &:before { content: attr(data-off);}
 	  &::after { content: attr(data-on);}
 	}
@@ -29,6 +30,7 @@ div.wponion-element-switcher {
   .ckbx-style-9 {
 	&:before { content: attr(data-on);}
 	&::after { content: attr(data-off);}
+	text-align: justify !important;
   }
 }
 
