@@ -11,6 +11,9 @@
 @import '../../node_modules/pure-css-loader/src/general/animations';
 @import '../../node_modules/pure-css-loader/src/general/utils';
 @import '../../node_modules/pure-css-loader/src/loaders/loader';
+// Pretty Checkbox.
+@import "plugins/prettycheckbox";
+
 // CSS3 Checkbox Libs.
 div.wponion-element-switcher {
   @import "../../node_modules/css-checkbox-library/dist/css/checkboxes.min";
