@@ -37,8 +37,8 @@ if ( ! class_exists( '\WPOnion\Field\switcher' ) ) {
 				'switch_size'  => '',
 				'options'      => array(),
 				'label'        => false,
-				'on'           => __( 'GET' ),
-				'off'          => __( 'POST' ),
+				'on'           => __( 'ON' ),
+				'off'          => __( 'OFF' ),
 			);
 		}
 

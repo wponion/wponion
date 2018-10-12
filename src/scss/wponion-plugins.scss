@@ -23,6 +23,21 @@ div.wponion-element-switcher {
 	}
   }
 
+  .ckbx-fat {
+	width: 155px !important;
+	&.ckbx-style-14 {
+	  label {
+		&:before {
+		  left:  80%;
+		  width: 80%;
+		}
+		&:after {
+		  width: 80%;
+		}
+	  }
+	}
+  }
+
   .ckbx-style-14 {
 	label {
 	  text-align: justify !important;
