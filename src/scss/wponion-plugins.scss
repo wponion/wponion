@@ -17,7 +17,11 @@
 // CSS3 Checkbox Libs.
 div.wponion-element-switcher {
   @import "../../node_modules/css-checkbox-library/dist/css/checkboxes";
-  display: inline-block;
+  .wponion-fieldset {
+	> div {
+	  display: inline-block;
+	}
+  }
   .ckbx-style-14 {
 	label {
 	  text-align: justify !important;
