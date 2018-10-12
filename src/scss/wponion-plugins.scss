@@ -16,7 +16,20 @@
 
 // CSS3 Checkbox Libs.
 div.wponion-element-switcher {
-  @import "../../node_modules/css-checkbox-library/dist/css/checkboxes.min";
+  @import "../../node_modules/css-checkbox-library/dist/css/checkboxes";
+
+  .ckbx-style-14 {
+	label {
+	  &:before { content: attr(data-off);}
+	  &::after { content: attr(data-on);}
+	}
+
+  }
+
+  .ckbx-style-9 {
+	&:before { content: attr(data-on);}
+	&::after { content: attr(data-off);}
+  }
 }
 
 /*
