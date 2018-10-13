@@ -565,3 +565,39 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 		return $html;
 	}
 }
+
+if ( ! function_exists( 'wponion_key_value_to_array' ) ) {
+	/**
+	 * Converts Key Value Field Values Into key value array
+	 *
+	 * From
+	 * array(
+	 *    array(
+	 *        'key' => 'Some Key',
+	 *        'value' => 'Some Value',
+	 *    )
+	 * )
+	 *
+	 * To
+	 *
+	 * array(
+	 * 'Some Key' => 'Some Value',
+	 * )
+	 *
+	 *
+	 * @param array $data
+	 *
+	 * @return array
+	 */
+	function wponion_key_value_to_array( $data = array() ) {
+		$return = array();
+		if ( is_array( $data ) ) {
+			foreach ( $data as $key => $value ) {
+				if ( true === isset( $value['key'] ) && true === isset( $value['value'] ) ) {
+					$return[ $value['key'] ] = $value['value'];
+				}
+			}
+		}
+		return $return;
+	}
+}
