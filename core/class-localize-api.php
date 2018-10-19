@@ -65,9 +65,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			$js_notice = $js_notice . __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it' );
 			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<strong>', '</strong>', '<br/>' );
 
-
 			if ( false === self::$core_data ) {
-				global $wp_scripts;
 				$this->js_args['wponion_core'] = array(
 					'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 					'ajax_action'     => 'wponion-ajax',
@@ -82,6 +80,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'modified_debug', __( 'JS Args' ) );
 				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.' ) );
 				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info' ) );
+				$this->modal_template();
 				self::$core_data = true;
 			}
 
@@ -227,6 +226,25 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			$h .= "</script>\n";
 			echo $h;
 			return true;
+		}
+
+		/**
+		 * Handles Modal Template.
+		 */
+		private function modal_template() {
+			$this->catch_output( 'start' );
+			include WPONION_PATH . 'core/views/modal-html.php';
+			$html                          = $this->catch_output( 'stop' );
+			$extra                         = array(
+				'modal' => array(
+					'html'             => $html,
+					'frame-menu-item'  => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
+					'router-menu-item' => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
+					'page_content'     => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content"><div class="media-frame-title"><h1>{{data.title}}</h1></div><div class="media-frame-router"> <div class="media-router"></div> </div> <div class="media-frame-content">{{data.html}}<div class="media-sidebar"></div></div></div>',
+					'section_content'  => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content wponion-section-modal-content">{{data.html}}<div class="media-sidebar"></div></div>',
+				),
+			);
+			$this->js_args['wponion_core'] = array_merge( $this->js_args['wponion_core'], $extra );
 		}
 	}
 }
