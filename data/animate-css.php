@@ -23,11 +23,11 @@ return array(
 		'jello'      => __( 'jello' ),
 	),
 	__( 'Bouncing Entrances' ) => array(
-		"bounceIn"      => __( "bounceIn" ),
-		"bounceInDown"  => __( "bounceInDown" ),
-		"bounceInLeft"  => __( "bounceInLeft" ),
-		"bounceInRight" => __( "bounceInRight" ),
-		"bounceInUp"    => __( "bounceInUp" ),
+		'bounceIn'      => __( 'bounceIn' ),
+		'bounceInDown'  => __( 'bounceInDown' ),
+		'bounceInLeft'  => __( 'bounceInLeft' ),
+		'bounceInRight' => __( 'bounceInRight' ),
+		'bounceInUp'    => __( 'bounceInUp' ),
 	),
 	__( 'Bouncing Exits' )     => array(
 		'bounceOut'      => __( 'bounceOut' ),
@@ -115,5 +115,4 @@ return array(
 		'rollIn'       => __( 'rollIn' ),
 		'rollOut'      => __( 'rollOut' ),
 	),
-
 );
