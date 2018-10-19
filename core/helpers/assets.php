@@ -18,9 +18,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $wponion_js, $wponion_css;
 
 $wponion_js = array(
-	'wponion-plugins'           => array( 'assets/js/wponion-plugins.js', array( 'jquery' ) ),
+	'wponion-plugins'           => array(
+		'assets/js/wponion-plugins.js',
+		array(
+			'jquery',
+			'backbone',
+			'underscore',
+			'wp-util',
+		),
+	),
 	'wponion-fields'            => array( 'assets/js/wponion-fields.js', array( 'wponion-plugins' ) ),
-	'wponion-core'              => array( 'assets/js/wponion-core.js', array( 'wponion-fields' ) ),
+	'wponion-core'              => array(
+		'assets/js/wponion-core.js',
+		array(
+			'wponion-fields',
+		),
+	),
 	'wponion-customizer'        => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
 	'wponion-metabox'           => array( 'assets/js/wponion-metabox.js', array( 'wponion-core' ) ),
 	'wponion-woocommerce'       => array( 'assets/js/wponion-woocommerce.js', array( 'wponion-core' ) ),
@@ -102,8 +115,8 @@ if ( ! function_exists( 'wponion_icon' ) ) {
 	 *
 	 * @return string
 	 */
-	function wponion_icon( $icon ) {
-		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon"> </i>' : '';
+	function wponion_icon( $icon, $xtra_attrs = '' ) {
+		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon" ' . $xtra_attrs . '> </i>' : '';
 	}
 }
 
