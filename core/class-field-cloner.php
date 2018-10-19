@@ -60,17 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 
 			}
 
-			return $this->sub_field( $this->handle_args( 'label', $this->data( 'clone' )['remove_button'], array(
-				'class'       => array( 'button', 'button-secondary' ),
-				'type'        => 'button',
-				'attributes'  => array(
-					'data-wponion-jsid'         => $this->js_field_id(),
-					'data-wponion-clone-remove' => 'yes',
-				),
-				'only_field'  => true,
-				'button_type' => 'button',
-				'label'       => '<i class="dashicons dashicons-trash"></i>',
-			) ), null, null );
+			return '<a href="#" onclick="return false;" class="dashicons wponion-remove "></a>';
 		}
 
 		/**
@@ -165,6 +155,10 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 */
 		public function handle_field_args( $data = array() ) {
 			$defaults = array(
+				'animations'    => array(
+					'show' => false,
+					'hide' => false,
+				),
 				'sort'          => true,
 				'toast_error'   => false,
 				'error_msg'     => null,
@@ -220,12 +214,16 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		protected function js_field_args() {
 			return array(
 				'clone' => array(
-					'add_button'    => __( 'Add +' ),
-					'sort'          => $this->data( 'clone' )['sort'],
-					'remove_button' => '<i class="dashicons dashicons-trash"></i>',
-					'limit'         => $this->data( 'clone' )['limit'],
-					'error_msg'     => $this->data( 'clone' )['error_msg'],
-					'toast_error'   => $this->data( 'clone' )['toast_error'],
+					'animations'  => array(
+						'show' => 'zoomIn animated faster',
+						'hide' => 'zoomOut animated faster',
+					),
+					'add_button'  => __( 'Add +' ),
+					'sort'        => $this->data( 'clone' )['sort'],
+					//'remove_button' => '<i class="dashicons dashicons-trash"></i>',
+					'limit'       => $this->data( 'clone' )['limit'],
+					'error_msg'   => $this->data( 'clone' )['error_msg'],
+					'toast_error' => $this->data( 'clone' )['toast_error'],
 				),
 			);
 		}
