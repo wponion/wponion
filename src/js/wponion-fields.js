@@ -30,21 +30,16 @@
 	 */
 	$wpf.fn.field_debug = function () {
 		if ( this.elem.find( '.wponion-field-debug' ).length > 0 ) {
-			let $elem = this.elem;
-
-			$elem.find( '.wponion-element.wponion-field-debug' ).each( function () {
-				$( this ).find( '.wponion-field-title h4' ).each( function () {
-					$( this ).attr( 'title', wpo.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ) );
-					tippy( $( this )[ 0 ], {
-						arrow: true,
-						arrowType: 'round',
-						placement: 'bottom',
-						theme: 'light',
-						animation: 'scale'
-					} );
-
-
-				} )
+			let $elem        = this.elem,
+				$base        = $elem.find( '.wponion-element.wponion-field-debug' ),
+				$field_title = $base.find( '.wponion-field-title h4' );
+			$field_title.attr( 'title', wpo.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ) );
+			$field_title.tippy( {
+				arrow: true,
+				arrowType: 'round',
+				placement: 'bottom',
+				theme: 'light',
+				animation: 'scale'
 			} );
 
 			$elem.find( '.wponion-field-debug .wponion-field-title h4' ).on( 'click', function () {
@@ -107,9 +102,7 @@
 				if ( $args[ 'popup_tooltip' ] !== 'false' ) {
 					let $tp = ( typeof $args[ 'popup_tooltip' ] === 'object' ) ? $args[ 'popup_tooltip' ] : {};
 					if ( $manager.elems.length > 0 ) {
-						$manager.elems.each( function () {
-							tippy( $( this )[ 0 ], $tp );
-						} );
+						$manager.elems.tippy( $tp );
 					}
 				}
 			},
@@ -324,11 +317,8 @@
 			add_btn: $add_btn,
 			limit: $limit,
 			clone_elem: '.wponion-field-clone',
-			remove_btn: "button[data-wponion-clone-remove]",
+			remove_btn: "a.wponion-remove",
 			template: $this.arg( 'clone_template' ),
-			onRemove: function ( $elem ) {
-				$elem.parent().parent().remove();
-			},
 			templateAfterRender: function ( $_wrap ) {
 				let $data = $_wrap.find( "> div.wponion-field-clone:last-child" );
 				wponion_field( $data ).reload();
@@ -352,7 +342,9 @@
 						}, 1000 )
 					} )
 				}
-			}
+			},
+			show_animation: $arg[ 'animations' ][ 'show' ],
+			hide_animation: $arg[ 'animations' ][ 'hide' ],
 		} );
 	};
 
@@ -360,9 +352,9 @@
 	 * Handles Fields ToolTip Along With A Image Option.
 	 */
 	$wpf.fn.field_tooltip = function () {
-		let $fid   = this.elem.attr( 'data-field-jsid' );
-		let $tip   = {},
-			wpoimg = ( img, callback ) => {
+		let $fid        = this.elem.attr( 'data-field-jsid' ),
+			$is_loading = null,
+			wpoimg      = ( img, callback ) => {
 				const testDimensions = setInterval( () => {
 					if ( img.naturalWidth ) {
 						clearInterval( testDimensions );
@@ -371,30 +363,38 @@
 				}, 5 )
 			};
 
-		if ( this.arg( $fid + 'tooltip' ) ) {
-			let $arg              = this.arg( $fid + 'tooltip' );
-			$arg[ 'performance' ] = false;
 
-			if ( $arg[ 'image' ] !== false ) {
+		let $tooltip_key = ( true === this.elem.hasClass( 'wponion-help' ) ) ? 'field_help' : $fid + 'tooltip';
+		let $arg         = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.arg( $tooltip_key, false );
+
+		if ( false === $arg ) {
+			if ( $wponion.valid_json( this.elem.attr( 'data-tippy' ) ) ) {
+				$arg = JSON.parse( this.elem.attr( 'data-tippy' ) );
+			} else if ( $wponion.valid_json( this.elem.attr( 'data-tippy-args' ) ) ) {
+				$arg = JSON.parse( this.elem.attr( 'data-tippy-args' ) );
+			} else if ( $wponion.valid_json( this.elem.attr( 'tippy-args' ) ) ) {
+				$arg = JSON.parse( this.elem.attr( 'tippy-args' ) );
+			}
+		}
+
+		if ( $arg ) {
+			$arg[ 'performance' ] = false;
+			if ( $arg[ 'image' ] !== undefined && $arg[ 'image' ] !== false ) {
 				$arg.html               = '#wpotpimg';
 				$arg.updateDuration     = 2000;
 				$arg.onShow             = function ( instance ) {
 					const content = this.querySelector( '.tippy-content' );
-					if ( $tip.loading ) return;
-
-					$tip.loading = true;
+					if ( $is_loading ) return;
+					$is_loading = true;
 
 					fetch( $arg[ 'image' ] ).then( resp => resp.blob() ).then( blob => {
 						const url         = URL.createObjectURL( blob );
 						content.innerHTML = `<img src="${url}">`;
-						wpoimg(
-							content.querySelector( "img" ),
-							instance.popperInstance.update
-						);
-						$tip.loading = false;
+						wpoimg( content.querySelector( "img" ), instance.popperInstance.update );
+						$is_loading = false;
 					} ).catch( e => {
 						content.innerHTML = 'Loading failed';
-						$tip.loading      = false;
+						$is_loading       = false;
 					} );
 				};
 				$arg.onHidden           = function () {
@@ -412,10 +412,12 @@
 					}
 				};
 			}
-
-			$tip = tippy( this.elem[ 0 ], $arg );
-			this.save( $tip );
+		} else {
+			$arg = {};
 		}
+
+		this.elem.tippy( $arg );
+		this.save( this.elem.tippy_get() );
 		return this;
 	};
 
@@ -488,6 +490,12 @@
 			$error_msg  = $this.arg( 'error_msg' );
 		wponion_field( $elem ).accordion();
 
+		$elem.find( '.wponion-group-remove' ).tippy();
+
+		$elem.on( 'click', '.wponion-group-remove', function () {
+			$( this ).parent().parent().find( '> .wponion-accordion-content > .wponion-group-action > button' ).click();
+		} );
+
 		$group_wrap.WPOnionCloner( {
 			add_btn: $add,
 			limit: parseInt( $limit ),
@@ -504,6 +512,7 @@
 			templateAfterRender: function ( $_wrap ) {
 				let $data = $group_wrap.find( "> .wponion-accordion-wrap:last-child" );
 				wponion_field( $group_wrap ).accordion();
+				$data.find( '.wponion-group-remove' ).tippy();
 				wponion_field( $data ).reload();
 				wponion_field( $data.find( '.wponion-element-wp_editor' ) ).reload_wp_editor();
 			},
@@ -684,7 +693,7 @@
 			wp_media_frame.open();
 		} );
 
-		$preview.find( ".wponion-remove" ).on( 'click', function () {
+		$preview.find( ".wponion-image-remove" ).on( 'click', function () {
 			$input.val( '' ).trigger( 'change' );
 		} );
 
@@ -751,6 +760,8 @@
 								 .attr( 'src', thumb )
 								 .removeClass( 'hidde' );
 						$preview.append( $template );
+						$preview.find( '.wponion-help' ).tippy();
+
 						return item.id;
 					} );
 					let $e;
@@ -799,7 +810,7 @@
 			$this.image_popup( $image );
 		} );
 
-		$preview.on( 'click', 'i.wponion-remove', function () {
+		$preview.on( 'click', 'i.wponion-image-remove', function () {
 			let $parent   = $( this ).parent(),
 				$image_id = $parent.attr( 'data-wponion-image_id' ),
 				$value    = $input.val().split( ',' );
@@ -958,6 +969,27 @@
 	};
 
 	/**
+	 * Handles Checkbox / Radio Custom Field.
+	 */
+	$wpf.fn.checkbox_radio = function () {
+		if ( this.elem.find( 'input.wponion-custom-value-input' ).length > 0 ) {
+			let $inputs = this.elem.find( 'input.wponion-custom-value-input' );
+			this.elem.find( 'input[type=radio]' ).on( 'click', function () {
+				$inputs.removeAttr( 'name' );
+			} );
+
+			$inputs.on( 'click', function () {
+				$( this ).parent().find( 'input[type=radio],input[type=checkbox]' ).prop( "checked", true );
+				$( this ).attr( 'name', $( this ).attr( 'data-name' ) );
+			} );
+
+
+			$inputs.on( 'change', function () {
+			} )
+		}
+	};
+
+	/**
 	 * Reloads All Fields Instance. For the given key.
 	 */
 	$wpf.fn.reload = function () {
@@ -980,6 +1012,9 @@
 		this.init_field( '.wponion-element-color_picker', 'color_picker' );
 		this.init_field( '.wponion-element-upload', 'upload' );
 		this.init_field( '.wponion-element-date_picker', 'date_picker' );
+		this.init_field( '.wponion-element-radio', 'checkbox_radio' );
+		this.init_field( '.wponion-element-checkbox', 'checkbox_radio' );
+		this.init_field( '.wponion-help', 'field_tooltip' );
 		this.field_debug();
 		wphooks.addAction( 'wponion_after_fields_reload' );
 	};
