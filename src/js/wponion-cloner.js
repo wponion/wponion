@@ -16,6 +16,8 @@
 			templateBeforeRender: false,
 			templateAfterRender: false,
 			onRemove: false,
+			show_animation: false,
+			hide_animation: false,
 		}, options );
 
 		if ( typeof $options[ 'add_btn' ] === 'string' ) {
@@ -36,11 +38,20 @@
 
 				$( this ).addClass( 'removing' );
 
-				let $count = parseInt( $_wrap.attr( 'data-wponion-clone-count' ) ) - 1;
+				let $count = parseInt( $_wrap.attr( 'data-wponion-clone-count' ) ) - 1, $this = $( this );
 				$_wrap.attr( 'data-wponion-clone-count', $count );
+
 
 				if ( false !== $options[ 'onRemove' ] ) {
 					$options[ 'onRemove' ]( $( this ) );
+				} else {
+					if ( false !== $options[ 'hide_animation' ] ) {
+						$( this ).parent().parent().animateCss( $options[ 'hide_animation' ], function ( $elem ) {
+							$elem.remove();
+						} );
+					} else {
+						$( this ).parent().parent().remove();
+					}
 				}
 			};
 
@@ -67,7 +78,14 @@
 				$template = $options[ 'templateBeforeRender' ]( $template, $limit, this );
 			}
 
-			$_wrap.append( $( $template ) );
+			$template = $( $template );
+
+			if ( false !== $options[ 'show_animation' ] ) {
+				$template.animateCss( $options[ 'show_animation' ] );
+			}
+
+			$_wrap.append( $template );
+
 
 			if ( false !== $options[ 'templateAfterRender' ] ) {
 				$template = $options[ 'templateAfterRender' ]( $_wrap );
