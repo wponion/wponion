@@ -196,11 +196,12 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 					) );
 				}
 
-				$wrap_class = wponion_html_class( $pretty['class'], array( 'pretty' ) );
-				$checkbox   = '<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . ' >';
-				$label      = $options['label'];
+				$wrap_class  = wponion_html_class( $pretty['class'], array( 'pretty' ) );
+				$state_class = wponion_html_class( $pretty['state'], array( 'state' ) );
+				$checkbox    = '<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . ' >';
+				$label       = $options['label'];
 				return <<<HTML
-<div class="{$wrap_class}"> {$checkbox} <div class="state"> <label>{$label}</label> </div> </div>
+<div class="{$wrap_class}"> {$checkbox} <div class="{$state_class}"> <label>{$label}</label> </div> </div>
 HTML;
 
 			}
