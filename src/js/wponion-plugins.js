@@ -118,7 +118,7 @@ $wponion_field.fn = $wponion_field.prototype = {
 	 * @returns {*}
 	 */
 	arg: function ( $key, $default ) {
-		$default  = $default || {};
+		$default  = ( typeof $default === "undefined" ) ? {} : $default;
 		var $args = this.args();
 		if ( $args[ $key ] !== undefined ) {
 			return $args[ $key ];
@@ -332,6 +332,36 @@ $wponion = {
 		return $wponion_field( selector, context );
 	},
 };
+
+/**
+ * Animate CSS Related Functions.
+ */
+jQuery.fn.extend( {
+	animateCss: function ( animationName, callback ) {
+		var animationEnd = ( function ( el ) {
+			var animations = {
+				animation: 'animationend',
+				OAnimation: 'oAnimationEnd',
+				MozAnimation: 'mozAnimationEnd',
+				WebkitAnimation: 'webkitAnimationEnd',
+			};
+
+			for ( var t in animations ) {
+				if ( el.style[ t ] !== undefined ) {
+					return animations[ t ];
+				}
+			}
+		} )( document.createElement( 'div' ) );
+
+		this.addClass( 'animated ' + animationName ).one( animationEnd, function () {
+			jQuery( this ).removeClass( 'animated ' + animationName );
+			console.log( jQuery( this ) );
+			if ( typeof callback === 'function' ) callback( jQuery( this ) );
+		} );
+
+		return this;
+	},
+} );
 
 /**
  * // @ codekit-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
