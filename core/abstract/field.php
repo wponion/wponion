@@ -438,9 +438,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function field_help() {
 			$html = '';
 			if ( $this->has( 'help' ) ) {
-				$data      = $this->tooltip_data( $this->data( 'help' ), array( 'icon' => 'dashicons dashicons-editor-help' ) );
-				$span_attr = wponion_array_to_html_attributes( $data['attr'] );
-				$html      = '<span ' . $span_attr . '><span class="' . $data['data']['icon'] . '"></span></span>';
+				$data                              = $this->tooltip_data( $this->data( 'help' ), array( 'icon' => 'dashicons dashicons-editor-help' ) );
+				$data['attr']['data-wponion-jsid'] = $this->js_field_id();
+				$span_attr                         = wponion_array_to_html_attributes( $data['attr'] );
+				$html                              = '<span ' . $span_attr . '><span class="' . $data['data']['icon'] . '"></span></span>';
 			}
 			return $html;
 		}
@@ -827,40 +828,47 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function handle_options( $key, $value, $more_defaults = array() ) {
 			$defaults = $this->set_args( $more_defaults, array(
-				'label'      => '',
-				'key'        => '',
-				'attributes' => array(),
-				'disabled'   => false,
-				'tooltip'    => false,
-				'pretty'     => false,
+				'label'        => '',
+				'key'          => '',
+				'attributes'   => array(),
+				'disabled'     => false,
+				'tooltip'      => false,
+				'pretty'       => false,
+				'custom_input' => false,
 			) );
+
 
 			if ( ! is_array( $value ) ) {
 				$defaults['key']   = $key;
 				$defaults['label'] = $value;
-				return $defaults;
+				$value             = $defaults;
+			} else {
+				$value = $this->parse_args( $value, $defaults );
+				if ( false !== $value['tooltip'] ) {
+					$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
+					$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'position' => 'right' ), false );
+				}
+
+				if ( false !== $value['pretty'] ) {
+					$value['pretty'] = $this->handle_args( 'class', $value['pretty'], array(
+						'class' => '',
+						'state' => '',
+					) );
+				}
+
+				if ( true === $value['disabled'] ) {
+					$value['attributes']['disabled'] = 'disabled';
+				}
+
+				if ( '' === $value['key'] ) {
+					$value['key'] = $key;
+				}
 			}
 
-			$value = $this->parse_args( $value, $defaults );
-
-			if ( false !== $value['tooltip'] ) {
-				$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
-				$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'position' => 'right' ), false );
-			}
-
-			if ( false !== $value['pretty'] ) {
-				$value['pretty'] = $this->handle_args( 'class', $value['pretty'], array(
-					'class' => '',
-					'state' => '',
-				) );
-			}
-
-			if ( true === $value['disabled'] ) {
-				$value['attributes']['disabled'] = 'disabled';
-			}
-
-			if ( '' === $value['key'] ) {
-				$value['key'] = $key;
+			if ( true === $value['label'] ) {
+				if ( false === $value['custom_input'] ) {
+					$value['custom_input'] = true;
+				}
 			}
 
 			return $value;
