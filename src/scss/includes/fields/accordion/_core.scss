@@ -1,4 +1,8 @@
 .wponion-element {
+  &.wponion-element-accordion {
+	.wponion-group-remove {display: none; visibility: hidden;}
+  }
+
   &.wponion-element-accordion, &.wponion-element-group {
 	.wponion-accordion-wrap {
 	  position:  relative;

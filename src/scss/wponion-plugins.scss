@@ -16,7 +16,7 @@
 
 // CSS3 Checkbox Libs.
 div.wponion-element-switcher {
-  @import "../../node_modules/css-checkbox-library/dist/css/checkboxes";
+  @import "../../node_modules/css-checkbox-library/dist/css/checkboxes.min";
   .wponion-fieldset {
 	> div {
 	  display: inline-block;
@@ -53,6 +53,10 @@ div.wponion-element-switcher {
 	text-align: justify !important;
   }
 }
+
+//Animate CSS
+@import "../../node_modules/animate.css/animate.min";
+
 
 /*
 @import '../../node_modules/pure-css-loader/src/loaders/loader-double';

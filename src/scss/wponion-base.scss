@@ -18,3 +18,273 @@
 @import "includes/modules/taxonomy";
 @import "includes/modules/woocommerce";
 @import "includes/modules/user_profile";*/
+
+/* modal */
+
+.fw-modal-footer:before,
+.fw-modal-footer:after {
+  display: table;
+  content: " ";
+}
+
+.fw-modal-footer:after {
+  clear: both;
+}
+
+body > .fw-modal > .media-modal {
+  z-index: 100001;
+}
+
+body > .fw-modal > .media-modal-backdrop {
+  z-index: 100000; /* bigger than #wpadminbar */
+}
+
+body.wp-customizer > div.fw-modal > .media-modal {
+  z-index: 500002;
+}
+
+body.wp-customizer > div.fw-modal > .media-modal-backdrop {
+  z-index: 500001; /* bigger than .wp-full-overlay */
+}
+
+body.wp-customizer > div:not(.fw-modal) > .media-modal { /* media upload modal */
+  z-index: 561001;
+}
+
+body.wp-customizer > div:not(.fw-modal) > .media-modal-backdrop {
+  z-index: 561000; /* bigger than .wp-customizer .media-modal */
+}
+
+.fw-modal .media-modal-close:focus {
+  -webkit-box-shadow: none;
+  box-shadow:         none;
+}
+
+/* open animation */
+
+.fw-modal > .media-modal-backdrop {
+  opacity:            0;
+  -webkit-transition: opacity .3s ease-in-out; /* For Safari 3.1 to 6.0 */
+  transition:         opacity .3s ease-in-out;
+}
+
+.fw-modal.fw-modal-backdrop-light > .media-modal-backdrop {
+  background-color: #fff;
+}
+
+.fw-modal.fw-modal-backdrop-dark > .media-modal-backdrop {
+  background-color: #000;
+}
+
+.fw-modal.fw-modal-open > .media-modal-backdrop {
+  opacity:            .7; /* must be the same as in .media-modal-backdrop {} wp style */
+
+  -webkit-transition: opacity .3s ease-in-out; /* For Safari 3.1 to 6.0 */
+  transition:         opacity .3s ease-in-out;
+}
+
+/**
+ * Specificity score: 5
+ */
+.fw-modal.fw-sole-modal.fw-modal-opening > .media-modal > .media-modal-content {
+  -webkit-animation: fwGrowIn .3s ease-in-out;
+  -moz-animation:    fwGrowIn .3s ease-in-out;
+  -ms-animation:     fwGrowIn .3s ease-in-out;
+  -o-animation:      fwGrowIn .3s ease-in-out;
+  animation:         fwGrowIn .3s ease-in-out;
+}
+
+/**
+ * Specificity score: 5
+ */
+.fw-modal:not(.fw-sole-modal).fw-modal-open > .media-modal > .media-modal-content {
+  -webkit-animation: fwGrowIn .3s ease-in-out;
+  -moz-animation:    fwGrowIn .3s ease-in-out;
+  -ms-animation:     fwGrowIn .3s ease-in-out;
+  -o-animation:      fwGrowIn .3s ease-in-out;
+  animation:         fwGrowIn .3s ease-in-out;
+}
+
+/**
+ * Dirty hack to keep specificity intact
+ * Specificity score: 5.1
+ */
+body.wp-core-ui .fw-modal.fw-modal-closing > .media-modal > .media-modal-content {
+  -webkit-animation:           fwGrowOut .3s ease-in-out;
+  -moz-animation:              fwGrowOut .3s ease-in-out;
+  -ms-animation:               fwGrowOut .3s ease-in-out;
+  -o-animation:                fwGrowOut .3s ease-in-out;
+  animation:                   fwGrowOut .3s ease-in-out;
+  -webkit-animation-fill-mode: forwards; /* Chrome, Safari, Opera */
+  animation-fill-mode:         forwards;
+}
+
+.fw-modal > .media-modal > .media-modal-close {
+  opacity:            0;
+  -webkit-transition: opacity .3s ease-in; /* For Safari 3.1 to 6.0 */
+  transition:         opacity .3s ease-in;
+}
+
+.fw-modal.fw-modal-open > .media-modal > .media-modal-close {
+  opacity:                     1;
+  -webkit-transition-duration: .6s;
+  transition-duration:         .6s;
+}
+
+.fw-modal.fw-modal-open > .media-modal > .media-modal-close:focus {
+  outline: 0;
+}
+
+/* end: open animation */
+
+/* close animation */
+
+.fw-modal.fw-modal-closing > .media-modal-backdrop {
+  opacity: .0;
+}
+
+.fw-modal.fw-modal-closing > .media-modal > .media-modal-close {
+  opacity:                     0;
+  -webkit-transition-duration: .1s;
+  transition-duration:         .1s;
+}
+
+/* end: close animation */
+
+/* end: modal */
+
+/* Modal */
+
+/* sizes */
+
+.fw-modal.fw-modal-small > .media-modal,
+.fw-modal.fw-modal-medium > .media-modal,
+.fw-modal.fw-modal-large > .media-modal {
+  margin:             auto;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing:    border-box;
+  box-sizing:         border-box;
+}
+
+.fw-modal.fw-modal-small > .media-modal {
+  max-width:  750px;
+  max-height: 500px;
+}
+
+.fw-modal.fw-modal-medium > .media-modal {
+  max-width:  840px;
+  max-height: 660px;
+}
+
+.fw-modal.fw-modal-large > .media-modal {
+  max-width:  1200px;
+  max-height: 800px;
+}
+
+.fw-sole-modal.fw-sole-confirm-modal {
+  text-align: center;
+}
+
+.fw-sole-modal.fw-sole-confirm-modal .fw-sole-confirm-button:not(:last-child) {
+  margin-right: 10px;
+}
+
+.fw-sole-modal.fw-sole-confirm-modal .fw-sole-confirm-button {
+  min-width: 65px;
+}
+
+.fw-sole-modal.fw-sole-confirm-modal span.dashicons {
+  font-size:  60px;
+  width:      60px;
+  height:     60px;
+  margin-top: 10px;
+}
+
+.fw-sole-modal.fw-sole-confirm-modal.fw-sole-confirm-warning span.dashicons {
+  color: #e04139;
+}
+
+.fw-sole-modal.fw-sole-confirm-modal.fw-sole-confirm-info span.dashicons {
+  color: #5dab20;
+}
+
+/* end: sizes */
+
+/* tabs fixes */
+
+.fw-modal .fw-options-tabs-first-level > .fw-options-tabs-list {
+  padding: 20px 10px 0 10px;
+}
+
+.fw-modal .fw-options-tabs-wrapper > .fw-options-tabs-contents > .fw-inner > .fw-options-tab > .fw-options-tabs-wrapper > .fw-options-tabs-list {
+  padding-left: 25px;
+}
+
+body.rtl .fw-modal .fw-options-tabs-wrapper > .fw-options-tabs-contents > .fw-inner > .fw-options-tab > .fw-options-tabs-wrapper > .fw-options-tabs-list {
+  padding-right: 25px;
+}
+
+.fw-modal .fw-options-tabs-first-level > .fw-options-tabs-list ul li a.nav-tab {
+  background-color: #f1f1f1;
+}
+
+.fw-modal .fw-options-tabs-first-level > .fw-options-tabs-list ul li a.nav-tab:hover {
+  background-color: #f8f8f8;
+}
+
+.fw-modal .fw-options-tabs-first-level > .fw-options-tabs-list ul li.ui-state-active a.nav-tab {
+  position: relative;
+}
+
+.fw-modal .fw-options-tabs-first-level > .fw-options-tabs-list ul li.ui-state-active a.nav-tab:after {
+  position:     absolute;
+  left:         0;
+  bottom:       -1px;
+  display:      block;
+  content:      '';
+  width:        100%;
+  height:       1px;
+  background:   #fff;
+  border-right: 1px solid #ccc;
+}
+
+/* end: tabs fixes */
+
+/* Hide last border */
+
+.fw-modal .media-frame-content > form {
+  position: relative;
+}
+
+.fw-modal .media-frame-content > form > .fw-backend-options-last-border-hider,
+.fw-modal .media-frame-content > form .fw-options-tabs-contents > .fw-inner > .fw-options-tab > .fw-backend-options-last-border-hider {
+  position:      absolute;
+  bottom:        0;
+  left:          0;
+  width:         100%;
+  border-bottom: 1px solid #FFFFFF;
+  z-index:       1;
+}
+
+body.rtl .fw-modal .media-frame-content > form > .fw-backend-options-last-border-hider,
+body.rtl .fw-modal .media-frame-content > form .fw-options-tabs-contents > .fw-inner > .fw-options-tab > .fw-backend-options-last-border-hider {
+  left:  auto;
+  right: 0;
+}
+
+.fw-modal .media-frame-content > form > .fw-backend-option:last-child {
+  border-bottom: none;
+}
+
+.fw-modal .media-frame-content > form .fw-options-tabs-contents .fw-options-tabs-list {
+  padding: 0 0 0 25px;
+}
+
+.fw-modal .media-frame-content > form .fw-options-tabs-list > .ui-widget-header {
+  border:     0 !important;
+  background: transparent !important;
+}
+
+body.rtl .fw-modal .media-frame-content > form .fw-options-tabs-contents .fw-options-tabs-list {
+  padding: 0 25px 0 0;
+}

@@ -11,12 +11,30 @@
 	  display: inline-block;
 	}
 	input {
-	  &:checked + img {
-		border-color: #444;
+	  &:checked + .wponion-image-select-thumbnail {
+		border-color: #64bd1f;
+		&:after {
+		  content:                "\f147";
+		  font-family:            dashicons;
+		  background-color:       #64bd1f;
+		  position:               absolute;
+		  right:                  0px;
+		  bottom:                 0px;
+		  border-top-left-radius: 2px;
+		  color:                  #fff;
+		  line-height:            normal;
+		  font-size:              20px;
+		  padding:                1px 0 0 1px;
+		}
 	  }
 	}
-	img {
-	  border: 3px solid transparent;
+	.wponion-image-select-thumbnail {
+	  border:        3px solid transparent;
+	  padding:       2px;
+	  border-radius: 2px;
+	  position:      relative;
+	  line-height:   0;
+	  overflow:      hidden;
 	}
   }
 

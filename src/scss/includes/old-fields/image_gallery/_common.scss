@@ -20,7 +20,7 @@
 	border-radius:    2px;
 	box-shadow:       0 1px 0 rgba(0, 0, 0, .08);
 
-	.wponion-remove {
+	.wponion-image-remove {
 	  position:         absolute;
 	  top:              4px;
 	  right:            4px;
@@ -35,6 +35,7 @@
 	  opacity:          0.8;
 	  border-radius:    2px;
 	  transition:       opacity 0.2s;
+	  visibility:       hidden !important;
 	  &:hover {
 		background-color: darken(#e14d43, 3%);
 	  }
@@ -43,6 +44,11 @@
 	  max-height:     90px;
 	  display:        inline-block;
 	  vertical-align: middle;
+	}
+	&:hover {
+	  .wponion-image-remove {
+		visibility: visible !important;
+	  }
 	}
   }
 
