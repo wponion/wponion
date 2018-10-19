@@ -50,7 +50,7 @@ if ( ! class_exists( '\WPOnion\Field\image_select' ) ) {
 			return '<div class=" form-group form-check ">
 				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
 					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
-					<img src="' . $options['label'] . '" />
+					<div class="wponion-image-select-thumbnail"><img src="' . $options['label'] . '" /></div>
 				</label>
 			</div>';
 		}

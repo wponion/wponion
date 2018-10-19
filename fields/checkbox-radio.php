@@ -56,10 +56,8 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-
 			$options = $this->data( 'options' );
 			$options = ( is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
-
 			$this->catch_output( 'start' );
 			if ( is_array( $options ) && ! empty( $options ) ) {
 				foreach ( $options as $option_key => $option ) {
@@ -78,16 +76,30 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 						echo '</div>';
 					}
 				}
-			} elseif ( in_array( $this->element_type(), array(
-				'switcher',
-				'checkbox',
-			) ) ) {
+			} elseif ( in_array( $this->element_type(), array( 'switcher', 'checkbox' ) ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			}
 
 
 			echo $this->catch_output( 'stop' );
 			echo $this->after();
+		}
+
+		/**
+		 * @param $id
+		 * @param $value
+		 * @param $unique
+		 * @param $field_args
+		 *
+		 * @return mixed
+		 */
+		protected function get_custom_input( $id, $value, $field_args ) {
+			$field_args = ( true === $field_args ) ? 'text' : $field_args;
+			return $this->sub_field( $this->handle_args( 'type', $field_args, array(
+				'id'    => $id,
+				'type'  => 'text',
+				'class' => array( 'wponion-custom-value-input' ),
+			), array( 'only_field' => true ) ), $value, $this->name() );
 		}
 
 		/**
@@ -153,6 +165,12 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 			$wrap_attr['class'] = wponion_html_class( array( 'form-group', 'form-check' ) );
 			$field_attr         = $this->attributes( $attr, $dep_id );
 
+			if ( true === $options['custom_input'] || true === is_array( $options['custom_input'] ) ) {
+				$name             = $options['key'];
+				$value            = ( false !== $this->value( $name ) ) ? $name : $value;
+				$options['label'] = $this->get_custom_input( $name, $this->value( $name ), $options['custom_input'] );
+			}
+
 			return $this->_element_html( $label_attr, $field_attr, $value, $attr, $options );
 		}
 
@@ -182,14 +200,8 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 				$checkbox   = '<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . ' >';
 				$label      = $options['label'];
 				return <<<HTML
-<div class="{$wrap_class}">
-{$checkbox}
-	<div class="state">
-		<label>{$label}</label>
-	</div>
-</div>
+<div class="{$wrap_class}"> {$checkbox} <div class="state"> <label>{$label}</label> </div> </div>
 HTML;
-
 
 			}
 
