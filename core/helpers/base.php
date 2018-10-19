@@ -271,6 +271,7 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 		$atts = '';
 		if ( ! empty( $attributes ) ) {
 			foreach ( $attributes as $key => $value ) {
+				$value = ( is_array( $value ) ) ? wp_json_encode( $value ) : $value;
 				if ( 'only-key' === $value ) {
 					$atts .= ' ' . esc_attr( $key );
 				} else {
