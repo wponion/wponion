@@ -20,4 +20,3 @@ wp-content/plugins/hello.php
 LICENSE
 src/vendors/node_modules/
 node_modules/
-package-lock.json
