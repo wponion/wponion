@@ -1,33 +1,33 @@
-@import "../../../node_modules/flatpickr/dist/flatpickr.min";
-@import "../../../node_modules/flatpickr/dist/ie";
-@import "../../../node_modules/flatpickr/dist/plugins/confirmDate/confirmDate";
-@import "../../../node_modules/flatpickr/dist/plugins/monthSelect/monthSelect";
+//@wponion-inline ../../../node_modules/flatpickr/dist/flatpickr.min.css
+//@wponion-inline ../../../node_modules/flatpickr/dist/ie.css
+//@wponion-inline ../../../node_modules/flatpickr/dist/plugins/confirmDate/confirmDate.css
+//@wponion-inline ../../../node_modules/flatpickr/dist/plugins/monthSelect/monthSelect.css
 
 .wponion-datepicker {
-  &-dark {
-	@import "../../../node_modules/flatpickr/dist/themes/dark";
-  }
-  &-light {
-	@import "../../../node_modules/flatpickr/dist/themes/light";
-  }
-  &-airbnb {
-	@import "../../../node_modules/flatpickr/dist/themes/airbnb";
-  }
-  &-confetti {
-	@import "../../../node_modules/flatpickr/dist/themes/confetti";
-  }
-  &-meterial_ {
-	&red {
-	  @import "../../../node_modules/flatpickr/dist/themes/material_red";
+	&-dark {
+		//@wponion-inline ../../../node_modules/flatpickr/dist/themes/dark.css
 	}
-	&green {
-	  @import "../../../node_modules/flatpickr/dist/themes/material_green";
+	&-light {
+		//@wponion-inline ../../../node_modules/flatpickr/dist/themes/light.css
 	}
-	&blue {
-	  @import "../../../node_modules/flatpickr/dist/themes/material_blue";
+	&-airbnb {
+		//@wponion-inline ../../../node_modules/flatpickr/dist/themes/airbnb.css
 	}
-	&orange {
-	  @import "../../../node_modules/flatpickr/dist/themes/material_orange";
+	&-confetti {
+		//@wponion-inline ../../../node_modules/flatpickr/dist/themes/confetti.css
 	}
-  }
+	&-meterial_ {
+		&red {
+			//@wponion-inline ../../../node_modules/flatpickr/dist/themes/material_red.css
+		}
+		&green {
+			//@wponion-inline ../../../node_modules/flatpickr/dist/themes/material_green.css
+		}
+		&blue {
+			//@wponion-inline ../../../node_modules/flatpickr/dist/themes/material_blue.css
+		}
+		&orange {
+			//@wponion-inline ../../../node_modules/flatpickr/dist/themes/material_orange.css
+		}
+	}
 }
