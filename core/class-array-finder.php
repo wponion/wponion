@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Initial version created 25-05-2018 / 06:07 AM
  *
  * @author Varun Sridharan <varunsridharan23@gmail.com>
@@ -272,9 +271,7 @@ if ( ! class_exists( '\WPOnion\Core\Array_Finder' ) ) {
 
 		/**
 		 * Insert a value to the array at the specified path.
-		 *
-		 * ex:
-		 * $this->set('a.b', 'yeah); // ['a' => ['b' => 'yeah']]
+		 * ex: $this->set('a.b', 'yeah); // ['a' => ['b' => 'yeah']]
 		 *
 		 * @param string $path Path where the values will be insered.
 		 * @param mixed  $value Value ti insert.
