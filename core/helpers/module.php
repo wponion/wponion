@@ -96,3 +96,9 @@ if ( ! function_exists( 'wponion_user_profile' ) ) {
 		return new \WPOnion\Modules\User_Profile( $instance_id_or_args, $fields );
 	}
 }
+
+if ( ! function_exists( 'wponion_customizer' ) ) {
+	function wponion_customizer( $settings, $fields ) {
+		return new \WPOnion\Modules\customizer( $settings, $fields );
+	}
+}

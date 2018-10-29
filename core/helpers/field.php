@@ -123,9 +123,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			$element->final_output();
 			$output .= ob_get_clean();
 		} else {
-			$output = $output . '<p>';
-			$output = $output . sprintf( esc_html__( 'This field class is not available! %s' ), '<strong>' . print_r( $field, true ) . '</strong>' );
-			$output = $output . ' </p> ';
+			$output .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<br/> <strong>' . print_r( $field, true ) . '</strong>' ) . ' </p> ';
 		}
 		return $output;
 	}
@@ -444,10 +442,7 @@ if ( ! function_exists( 'wponion_field_value_class' ) ) {
 	function wponion_field_value_class( $field_type ) {
 		$field_type = ( is_array( $field_type ) ) ? $field_type['type'] : $field_type;
 		$class      = '\WPOnion\Value\\' . $field_type;
-		if ( class_exists( $class ) ) {
-			return $class;
-		}
-		return false;
+		return ( class_exists( $class ) ) ? $class : false;
 	}
 }
 
@@ -569,21 +564,8 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 if ( ! function_exists( 'wponion_key_value_to_array' ) ) {
 	/**
 	 * Converts Key Value Field Values Into key value array
-	 *
-	 * From
-	 * array(
-	 *    array(
-	 *        'key' => 'Some Key',
-	 *        'value' => 'Some Value',
-	 *    )
-	 * )
-	 *
-	 * To
-	 *
-	 * array(
-	 * 'Some Key' => 'Some Value',
-	 * )
-	 *
+	 * From : array(array('key' => 'Some Key', 'value' => 'Some Value'))
+	 * To : array( 'Some Key' => 'Some Value')
 	 *
 	 * @param array $data
 	 *
