@@ -161,7 +161,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 				'screens'       => false,
 				'context'       => 'normal',
 				'priority'      => null,
-				'theme'         => 'modern',
+				'theme'         => 'wp',
 				'template_path' => false,
 				'theme_color'   => 'false',
 				'ajax'          => true,
