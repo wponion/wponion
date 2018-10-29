@@ -1,64 +1,67 @@
-// JSON View Styles
+//@wponion-inline ../../node_modules/inputmask/css/inputmask.css
+//@wponion-inline ../../node_modules/tippy.js/dist/themes/translucent.css
+//@wponion-inline ../../node_modules/tippy.js/dist/themes/light.css
+//@wponion-inline ../../node_modules/animate.css/animate.min.css
+
 @import "../vendors/json-view/json-view";
-// Input Mask Styles.
-@import "../../node_modules/inputmask/css/inputmask";
-// TippyJS
-@import "../../node_modules/tippy.js/dist/themes/translucent";
-@import "../../node_modules/tippy.js/dist/themes/light";
-// Pure CSS Loader
 @import '../../node_modules/pure-css-loader/src/config';
 @import '../../node_modules/pure-css-loader/src/general/base';
 @import '../../node_modules/pure-css-loader/src/general/animations';
 @import '../../node_modules/pure-css-loader/src/general/utils';
 @import '../../node_modules/pure-css-loader/src/loaders/loader';
-// Pretty Checkbox.
 @import "plugins/prettycheckbox";
 
 // CSS3 Checkbox Libs.
 div.wponion-element-switcher {
-  @import "../../node_modules/css-checkbox-library/dist/css/checkboxes.min";
-  .wponion-fieldset {
-	> div {
-	  display: inline-block;
+	//@wponion-inline ../../node_modules/css-checkbox-library/dist/css/checkboxes.min.css
+	.wponion-fieldset {
+		> div {
+			display: inline-block;
+		}
 	}
-  }
 
-  .ckbx-fat {
-	width: 155px !important;
-	&.ckbx-style-14 {
-	  label {
+	.ckbx-fat {
+		width: 155px !important;
+		&.ckbx-style-14 {
+			label {
+				&:before {
+					left:  80%;
+					width: 80%;
+				}
+				&:after {
+					width: 80%;
+				}
+			}
+		}
+	}
+
+	.ckbx-style-14 {
+		label {
+			text-align: justify !important;
+			&:before {
+				content: attr(data-off);
+			}
+			&::after {
+				content: attr(data-on);
+			}
+		}
+
+	}
+
+	.ckbx-style-9 {
 		&:before {
-		  left:  80%;
-		  width: 80%;
+			content: attr(data-on);
 		}
-		&:after {
-		  width: 80%;
+		&::after {
+			content: attr(data-off);
 		}
-	  }
+		text-align: justify !important;
 	}
-  }
-
-  .ckbx-style-14 {
-	label {
-	  text-align: justify !important;
-	  &:before { content: attr(data-off);}
-	  &::after { content: attr(data-on);}
-	}
-
-  }
-
-  .ckbx-style-9 {
-	&:before { content: attr(data-on);}
-	&::after { content: attr(data-off);}
-	text-align: justify !important;
-  }
 }
-
-//Animate CSS
-@import "../../node_modules/animate.css/animate.min";
 
 
 /*
+@import '../vendors/colorpicker/cs-colorpicker.css';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-double';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-bar';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-bar-ping-pong';
@@ -70,18 +73,4 @@ div.wponion-element-switcher {
 @import '../../node_modules/pure-css-loader/src/loaders/loader-music';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-pokeball';
 @import '../../node_modules/pure-css-loader/src/loaders/loader-bouncing';
-
-
-
-.selectize {
-  &-control.plugin-condensed_dropdown .option {
-	display: inline-block;
-  }
-  &-legacy {@import "../../node_modules/selectize.js/dist/css/selectize.legacy";}
-  &-bs2 {@import "../../node_modules/selectize.js/dist/css/selectize.bootstrap2";}
-  &-bs3 {@import "../../node_modules/selectize.js/dist/css/selectize.bootstrap3";}
-  &-default {@import "../../node_modules/selectize.js/dist/css/selectize.default";}
-  &-bs4 {@import "../vendors/selectize-themes/selectize-bs4";}
-  &-dark {@import "../vendors/selectize-themes/dark";}
-}
 */
