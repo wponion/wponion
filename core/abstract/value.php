@@ -138,11 +138,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return array(
-				'plugin_id' => false,
-				'module'    => false,
-				'unique'    => false,
-			);
+			return array( 'plugin_id' => false, 'module' => false, 'unique' => false );
 		}
 
 		/**

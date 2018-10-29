@@ -73,9 +73,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 * @return array
 		 */
 		protected function parse_args( $new = array(), $defaults = array() ) {
-			if ( ! is_array( $new ) ) {
-				$new = array();
-			}
+			$new = ( ! is_array( $new ) ) ? array() : $new;
 			return wp_parse_args( $new, $defaults );
 		}
 
@@ -169,16 +167,9 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 */
 		protected function get_action_filter_slugs( $plugin_id = false ) {
 			if ( false === $plugin_id ) {
-				return $this->generate_filter_slug( array(
-					'wponion',
-					$this->module(),
-				) );
+				return $this->generate_filter_slug( array( 'wponion', $this->module() ) );
 			}
-			return $this->generate_filter_slug( array(
-				'wponion',
-				$this->module(),
-				$this->plugin_id(),
-			) );
+			return $this->generate_filter_slug( array( 'wponion', $this->module(), $this->plugin_id() ) );
 		}
 
 		/**
@@ -218,10 +209,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 * @return bool|mixed
 		 */
 		public function option( $key = '', $default = false ) {
-			if ( isset( $this->settings[ $key ] ) ) {
-				return $this->settings[ $key ];
-			}
-			return $default;
+			return ( isset( $this->settings[ $key ] ) ) ? $this->settings[ $key ] : $default;
 		}
 
 

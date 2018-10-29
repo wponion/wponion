@@ -229,9 +229,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Sets A Given Args To Field Array.
 		 *
 		 * @param string $key
-		 * @param        $value
+		 * @param mixed  $value
 		 */
-		public function set_field( $key = '', $value ) {
+		public function set_field( $key, $value ) {
 			$this->field[ $key ] = $value;
 		}
 

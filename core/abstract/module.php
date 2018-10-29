@@ -90,10 +90,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return bool
 		 */
 		public function __call( $name, $arguments ) {
-			if ( isset( $this->{$name} ) ) {
-				return $this->{$name};
-			}
-			return false;
+			return ( isset( $this->{$name} ) ) ? $this->{$name} : false;
 		}
 
 		/**
@@ -344,10 +341,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return array(
-				'option_name' => false,
-				'plugin_id'   => false,
-			);
+			return array( 'option_name' => false, 'plugin_id' => false );
 		}
 
 		/**
@@ -479,10 +473,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return bool
 		 */
 		public function valid_field( $option = array() ) {
-			if ( isset( $option['type'] ) ) {
-				return true;
-			}
-			return false;
+			return ( isset( $option['type'] ) ) ? true : false;
 		}
 
 		/**
