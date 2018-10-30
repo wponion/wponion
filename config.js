@@ -39,6 +39,7 @@ $_json[ 'js' ]           = {
 	"src/js/wponion-plugins.js": {
 		dist: "assets/js",
 		webpack: false,
+		watch: [ './src/vendors/*/*.js' ],
 		webpack_dev: false,
 		babel: false,
 		babel_dev: false,
@@ -48,7 +49,7 @@ $_json[ 'js' ]           = {
 	},
 	"src/js/wponion-core.js": {
 		dist: "assets/js",
-		watch: [ 'src/js/core/*', 'src/js/fields/*', 'src/js/helpers/*', 'src/js/modules/*' ],
+		watch: [ 'src/js/core/*', 'src/js/fields/*', 'src/js/helpers/*', 'src/js/modules/*', 'src/vendors/backbone-modal.js' ],
 		webpack: true,
 		babel: false,
 		babel_dev: false,

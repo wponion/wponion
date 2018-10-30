@@ -9,7 +9,7 @@ export default class {
 		if( $wpoh.is_undefined( this.debug_info[ $key ] ) ) {
 			this.debug_info[ $key ] = $value;
 		} else {
-			this.debug_info[ $key ] = $wpoh.array_merge( $wpoh[ $key ], $value );
+			this.debug_info[ $key ] = $wpoh.array_merge( $value, this.debug_info[ $key ] );
 		}
 	}
 

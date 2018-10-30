@@ -3,25 +3,12 @@ import $wponion from './core';
 import WPOnion_Module from './module';
 
 export default class extends WPOnion_Module {
-	constructor( $selector, $context ) {
+	constructor( $selector, $context, $config = null ) {
 		super( $selector, $context );
 
 		this.set_args( false );
-		let $info = this.option( 'debug_info' ),
-			$arr  = {};
-
-		if( false === $wpo_helper.is_undefined( $info ) ) {
-			if( false === $wpo_helper.empty( $info ) ) {
-				$arr[ 'Field' ]        = $info[ 'Field Args' ];
-				$arr[ 'Field Errors' ] = $info[ 'Field Errors' ];
-				$arr[ 'Field Value' ]  = $info[ 'Field Value' ];
-				$arr[ 'Plugin ID' ]    = $info[ 'Plugin ID' ];
-				$arr[ 'Module' ]       = $info[ 'Module' ];
-				$arr[ 'Unique' ]       = $info[ 'Unique' ];
-				$wponion_debug.add( this.id(), { "PHP Args": $arr, "JS Args": {} } );
-			}
-		}
 		this.field_debug();
+		this.config = $config;
 		this.init();
 	}
 
@@ -45,6 +32,21 @@ export default class extends WPOnion_Module {
 	}
 
 	field_debug() {
+		let $info = this.option( 'debug_info' ),
+			$arr  = {};
+
+		if( false === $wpo_helper.is_undefined( $info ) ) {
+			if( false === $wpo_helper.empty( $info ) ) {
+				$arr[ 'Field' ]        = $info[ 'Field Args' ];
+				$arr[ 'Field Errors' ] = $info[ 'Field Errors' ];
+				$arr[ 'Field Value' ]  = $info[ 'Field Value' ];
+				$arr[ 'Plugin ID' ]    = $info[ 'Plugin ID' ];
+				$arr[ 'Module' ]       = $info[ 'Module' ];
+				$arr[ 'Unique' ]       = $info[ 'Unique' ];
+				$wponion_debug.add( this.id(), { "PHP Args": $arr, "JS Args": {} } );
+			}
+		}
+
 		let $found = false;
 		if( !this.element.hasClass( 'wponion-field-debug' ) ) {
 			let $ID   = this.id(),
@@ -61,7 +63,13 @@ export default class extends WPOnion_Module {
 
 			$found.find( '> .wponion-field-title > h4' )
 				  .attr( 'title', $wponion.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ) )
-				  .tippy( { arrow: true, arrowType: 'round', placement: 'bottom', theme: 'light', animation: 'scale' } );
+				  .tippy( {
+					  arrow: true,
+					  arrowType: 'round',
+					  placement: 'bottom',
+					  theme: 'light',
+					  animation: 'scale'
+				  } );
 
 			$found.find( '> .wponion-field-title > h4' ).on( 'click', () => {
 				let $d          = $this.id() + 'debugINFO',
@@ -185,5 +193,10 @@ export default class extends WPOnion_Module {
 	set_args( $args ) {
 		this._args = $args;
 		return this;
+	}
+
+	get_field_parent_by_id( $elem ) {
+		let $ID = $wponion.fieldID( $elem );
+		return jQuery( 'div.wponion-element[data-wponion-jsid="' + $ID + '"]' );
 	}
 };

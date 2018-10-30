@@ -9,6 +9,7 @@ window.$wponion_debug         = require( './core/debug' ).default;
 window.$wponion_helper        = $wpoh;
 window.wponion_new_field      = ( $class ) => ( $wpoh.is_window_arg( $class ) ) ? window[ $class ] : false;
 window.wponion_field          = ( $elem, $contxt = {} ) => new WPOnion_Field( $elem, $contxt );
+window.wponion_modal          = require( '../vendors/backbone-modal' ).default;
 
 module.exports = ( ( window, document, wp, $ ) => {
 	let $wp_hook = wp.hooks;

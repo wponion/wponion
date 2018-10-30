@@ -13,6 +13,7 @@
   "author"          : "varunsridharan",
   "license"         : "GPLV3",
   "devDependencies" : {
+    "@babel/core"          : "^7.1.2",
     "@babel/preset-env"    : "^7.1.0",
     "animate.css"          : "^3.6.1",
     "babel-core"           : "^6.26.3",

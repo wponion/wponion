@@ -275,7 +275,6 @@ VS_Gulp.prototype.autoprefixer  = function() {
 VS_Gulp.prototype.concat        = function() {
 	let $options = this.option( 'concat', 'concat' );
 	if( this.is_active( $config.status.concat, $options.options ) ) {
-		console.log( $options );
 		if( isObject( $options.options ) && true !== isUndefined( $options.options.filename ) ) {
 			if( $options.src ) {
 				this.instance = this.instance.pipe( $gulp.src( $options.src ) )
