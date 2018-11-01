@@ -1,4 +1,6 @@
 ( function( $ ) {
+	var $WPONION = [ 'input[name=post_format]', 'select#page_template', 'input#menu_order', 'select#parent_id', 'select#post_status', 'input[name=visibility]' ];
+
 	function Rule( controller, condition, value ) {
 		this.init( controller, condition, value );
 	}
@@ -31,6 +33,21 @@
 				return Number( val2 ) < Number( val1 );
 			} else if( "()" === condition ) {
 				return window[ val1 ]( context, control, val2 ); // FIXED: function method
+			} else if( "in" === condition ) {
+				if( '' === val2 || null === val2 ) {
+					return false;
+				}
+				if( typeof val2 === 'object' ) {
+					for( var i = 0; i <= val2.length; i++ ) {
+						if( val2[ i ] !== undefined ) {
+							if( val2[ i ] === val1 ) {
+								return true;
+							}
+						}
+					}
+
+				}
+				return false;
 			} else if( "any" === condition ) {
 				return $.inArray( val2, val1.split( ',' ) ) > -1;
 			} else if( "not-any" === condition ) {
@@ -58,14 +75,20 @@
 			return value;
 		},
 
-		checkCondition: function( context ) {
+		checkCondition: function( context, cfg ) {
 			if( !this.condition ) {
 				return true;
 			}
 
 			var control = context.find( this.controller );
-			var val     = this.getControlValue( context, control );
+			if( control.size() === 0 && cfg.log ) {
+				console.log( "Evaling condition: Could not find controller input " + this.controller );
+			}
 
+			var val = this.getControlValue( context, control );
+			if( cfg.log && val === undefined ) {
+				console.log( "Evaling condition: Could not exctract value from input " + this.controller );
+			}
 			if( val === undefined ) {
 				return false;
 			}
@@ -110,9 +133,17 @@
 			var result;
 
 			if( enforced === undefined ) {
-				result = this.checkCondition( context );
+				result = this.checkCondition( context, cfg );
 			} else {
 				result = enforced;
+			}
+
+			if( cfg.log ) {
+				console.log( "Applying rule on " + this.controller + "==" + this.value + " enforced:" + enforced + " result:" + result );
+			}
+
+			if( cfg.log && !this.controls.length ) {
+				console.log( "Zero length controls slipped through" );
 			}
 
 			var show = cfg.show || function( control ) {
@@ -124,12 +155,21 @@
 			};
 
 
-			var controls = $.map( this.controls, function( elem ) {
-				return ( typeof elem === "object" ) ? elem : context.find( elem );
+			var controls = $.map( this.controls, function( elem, idx ) {
+				var control = ( typeof elem === "object" ) ? elem : context.find( elem );
+				if( cfg.log && control.size() === 0 ) {
+					console.log( "Could not find element:" + elem );
+				}
+				return control;
 			} );
 
 			if( result ) {
 				$( controls ).each( function() {
+					// Some friendly debug info
+					if( cfg.log && $( this ).size() === 0 ) {
+						console.log( "Control selection is empty when showing" );
+						console.log( this );
+					}
 					show( this );
 				} );
 
@@ -140,6 +180,10 @@
 				} );
 			} else {
 				$( controls ).each( function() {
+					if( cfg.log && $( this ).size() === 0 ) {
+						console.log( "Control selection is empty when hiding:" );
+						console.log( this );
+					}
 					hide( this );
 				} );
 
@@ -164,6 +208,11 @@
 		applyRules: function( context, cfg ) {
 			var i;
 			cfg = cfg || {};
+
+			if( cfg.log ) {
+				console.log( "Starting evaluation ruleset of " + this.rules.length + " rules" );
+			}
+
 			for( i = 0; i < this.rules.length; i++ ) {
 				this.rules[ i ].applyRule( context, cfg );
 			}
@@ -228,6 +277,10 @@
 				ruleset.checkTargets( selection, cfg );
 			}
 
+			if( cfg.log ) {
+				console.log( "Enabling dependency change monitoring on " + selection.get( 0 ) );
+			}
+
 			var handler = function() {
 				ruleset.applyRules( selection, cfg );
 			};
@@ -237,5 +290,74 @@
 			return val;
 		}
 	};
+
+	$.extend( $.deps, {
+		enable: function( selection, ruleset, cfg ) {
+			cfg = cfg || {};
+			if( cfg.checkTargets || cfg.checkTargets === undefined ) {
+				ruleset.checkTargets( selection, cfg );
+			}
+
+			if( cfg.log ) {
+				log( "Enabling dependency change monitoring on " + selection.get( 0 ) );
+			}
+
+			var handler = function() {
+				ruleset.applyRules( selection, cfg );
+			};
+
+			$.each( $WPONION, function( i, e ) {
+				$( 'body' ).find( e ).on( 'change', function() {
+					handler();
+				} )
+			} );
+			var val     = selection.on( "change.deps", null, null, handler );
+			ruleset.applyRules( selection, cfg );
+			return val;
+		}
+	} );
+
+	$.extend( Rule.prototype, {
+		FieldVal: function( content, control ) {
+			var val = this.getControlValue( content, control );
+			if( val === undefined ) {
+				return false;
+			}
+			val = this.normalizeValue( this.control, this.value, val );
+			return val;
+		},
+
+		checkCondition: function( context, cfg ) {
+			if( !this.condition ) {
+				return true;
+			}
+
+			if( $.inArray( this.controller, $WPONION ) !== -1 ) {
+				var control = $( "body" ).find( this.controller );
+
+			} else {
+				var control = context.find( this.controller );
+			}
+
+
+			if( control.length === 0 && cfg.log ) {
+				log( "Evaling condition: Could not find controller input " + this.controller );
+			}
+
+			var val = this.FieldVal( context, control );
+
+			if( cfg.log && val === undefined ) {
+				log( "Evaling condition: Could not extract value from input " + this.controller );
+			}
+
+			if( val === false ) {
+				return false;
+			}
+
+			return this.evalCondition( context, control, this.condition, this.value, val );
+		},
+
+	} );
+
 
 } )( jQuery );
