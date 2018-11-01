@@ -232,12 +232,9 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * Handles Modal Template.
 		 */
 		private function modal_template() {
-			$this->catch_output( 'start' );
-			include WPONION_PATH . 'core/views/modal-html.php';
-			$html                          = $this->catch_output( 'stop' );
 			$extra                         = array(
 				'modal' => array(
-					'html'             => $html,
+					'html'             => include WPONION_PATH . 'core/views/modal-html.php',
 					'frame-menu-item'  => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
 					'router-menu-item' => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
 					'page_content'     => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content"><div class="media-frame-title"><h1>{{data.title}}</h1></div><div class="media-frame-router"> <div class="media-router"></div> </div> <div class="media-frame-content">{{data.html}}<div class="media-sidebar"></div></div></div>',
