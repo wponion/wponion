@@ -1,0 +1,39 @@
+.wponion-element.wponion-element-google_maps {
+
+	.map_container {
+		display:  inline-block;
+		width:    100%;
+		position: relative;
+		&.with-map {
+			display:  inline-block;
+			position: relative;
+			width:    100%;
+			height:   400px;
+			margin:   0 auto;
+			float:    none;
+			.searchbox {
+				position:      absolute;
+				z-index:       1;
+				//padding:    5px 0px 5px 0px;
+				border-radius: 3px;
+				box-shadow:    0 2px 6px rgba(0, 0, 0, 0.3);
+				width:         100%;
+				background:    #4d90fe;
+				input {
+					border:        none;
+					border-radius: 3px;
+					margin-left:   1px;
+					margin-top:    1px;
+					margin-bottom: 1px;
+					padding:       7px 15px;
+					min-width:     25%;
+				}
+			}
+
+			.map_canvas {
+				min-height: 400px;
+				min-width:  400px;
+			}
+		}
+	}
+}

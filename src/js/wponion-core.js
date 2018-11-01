@@ -48,6 +48,7 @@ module.exports = ( ( window, document, wp, $ ) => {
 			jquery_tab: require( './fields/jquery_tab' ).default,
 			field_tooltip: require( './helpers/field_tooltip' ).default,
 			clone_element: require( './fields/clone_element' ).default,
+			google_maps: require( './fields/google_maps' ).default,
 		} );
 		$wponion.settings_args    = $wponion.windowArgs( 'wponion_core', {} );
 		$wponion.text             = $wponion.windowArgs( 'wponion_il8n', {} );

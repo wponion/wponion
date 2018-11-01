@@ -97,4 +97,5 @@ jQuery.fn.extend( {
 //@wponion-inline ../vendors/blockUI/blockUI.js
 //@wponion-inline ../../node_modules/tippy.js/dist/tippy.all.min.js
 //@wponion-inline ../../node_modules/sweetalert2/dist/sweetalert2.all.min.js
+//@wponion-inline ../../node_modules/geocomplete/jquery.geocomplete.min.js
 } )( window, document, wp, jQuery );

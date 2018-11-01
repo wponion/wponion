@@ -1,67 +1,70 @@
-.wponion-element + .wponion-element, .wponion-element + .wponion-row, .wponion-row + .wponion-element {
-  border-top: $element_border;
-  //margin-top:  $element_gurtter;
+.wponion-element + .wponion-element,
+.wponion-element + .wponion-row,
+.wponion-row + .wponion-element,
+.wponion-row + .wponion-row {
+	border-top: $element_border;
+	//margin-top:  $element_gurtter;
 }
 
 .wponion-row, .wponion-element {
-  padding-top:    $element_gurtter;
-  padding-bottom: $element_gurtter;
-  padding-left:   $element_gurtter;
-  padding-right:  $element_gurtter;
+	padding-top:    $element_gurtter;
+	padding-bottom: $element_gurtter;
+	padding-left:   $element_gurtter;
+	padding-right:  $element_gurtter;
 }
 
 .wponion-row.row {
-  margin: 0;
-  > div {
-	padding:    0;
-	border-top: none;
-  }
+	margin: 0;
+	> div {
+		padding:    0;
+		border-top: none;
+	}
 }
 
 .wponion-element {
-  display:   block;
-  max-width: 100%;
+	display:   block;
+	max-width: 100%;
 
-  &.hidden {
-	display: none;
-  }
-  .wponion-field-debug-handle {
-	display: none;
-  }
-  .wponion-desc {
-	margin-bottom: 8px;
-	font-size:     13px;
-	font-style:    italic;
-	color:         #666;
-	margin-top:    8px;
-  }
-  > .wponion-element-title {
-	width:          $element_title_width;
-	float:          left;
-	vertical-align: top;
-	margin-right:   $element_title_right_margin;
-	h4 {
-	  margin:       0;
-	  font-size:    14px;
-	  display:      inline-block;
-	  margin-right: 5px;
+	&.hidden {
+		display: none;
 	}
-  }
-  > .wponion-fieldset {
-	float:          left;
-	display:        inline-block;
-	vertical-align: middle;
-	width:          $element_fieldset_width;
-  }
-  &.wponion-field-no-title {
+	.wponion-field-debug-handle {
+		display: none;
+	}
+	.wponion-desc {
+		margin-bottom: 8px;
+		font-size:     13px;
+		font-style:    italic;
+		color:         #666;
+		margin-top:    8px;
+	}
+	> .wponion-element-title {
+		width:          $element_title_width;
+		float:          left;
+		vertical-align: top;
+		margin-right:   $element_title_right_margin;
+		h4 {
+			margin:       0;
+			font-size:    14px;
+			display:      inline-block;
+			margin-right: 5px;
+		}
+	}
 	> .wponion-fieldset {
-	  width: 100%;
+		float:          left;
+		display:        inline-block;
+		vertical-align: middle;
+		width:          $element_fieldset_width;
 	}
-  }
+	&.wponion-field-no-title {
+		> .wponion-fieldset {
+			width: 100%;
+		}
+	}
 
-  &.horizontal {
-	@include wponion_field_horizontal();
-  }
+	&.horizontal {
+		@include wponion_field_horizontal();
+	}
 }
 
 @import "text/core";
@@ -84,64 +87,65 @@
 @import "notice/core";
 @import "heading/core";
 @import "switcher/core";
+@import "google_maps/core";
 
 .wponion-element.wponion-element-clone {
-  .wponion-clone-wrap {
-	padding:    5px;
-	background: #f8f8f8;
-	border:     1px solid #ccc;
-	display:    inline-block;
-	min-width:  200px;
-	.wponion-field-clone {
-	  .wponion-element {
-		padding:        5px 5px !important;
-		display:        inline-block;
-		vertical-align: middle;
-	  }
+	.wponion-clone-wrap {
+		padding:    5px;
+		background: #f8f8f8;
+		border:     1px solid #ccc;
+		display:    inline-block;
+		min-width:  200px;
+		.wponion-field-clone {
+			.wponion-element {
+				padding:        5px 5px !important;
+				display:        inline-block;
+				vertical-align: middle;
+			}
 
-	  .wponion-clone-action {
-		display:        inline-block;
-		vertical-align: middle;
-		margin-left:    5px;
-		padding-top:    5px;
-		padding-bottom: 5px;
-	  }
+			.wponion-clone-action {
+				display:        inline-block;
+				vertical-align: middle;
+				margin-left:    5px;
+				padding-top:    5px;
+				padding-bottom: 5px;
+			}
 
-	  &:first-child {
-		.wponion-element {
-		  padding-top: 5px !important;
+			&:first-child {
+				.wponion-element {
+					padding-top: 5px !important;
+				}
+			}
+
+			&:last-child {
+				.wponion-element {
+					padding-bottom: 5px !important;
+				}
+				.wponion-clone-action {
+					padding-top: 5px !important;
+				}
+			}
 		}
-	  }
 
-	  &:last-child {
-		.wponion-element {
-		  padding-bottom: 5px !important;
+		.wponion-field-clone + .wponion-field-clone {
+			//border-top: 1px solid #dadada;
+			//padding: 10px 0;
+			margin: 5px 0;
 		}
-		.wponion-clone-action {
-		  padding-top: 5px !important;
+
+		.wponion-field-clone-sorter {
+			display:        inline-block;
+			vertical-align: middle;
+			margin-right:   10px;
+			cursor:         move;
+			margin-top:     0px;
 		}
-	  }
-	}
 
-	.wponion-field-clone + .wponion-field-clone {
-	  //border-top: 1px solid #dadada;
-	  //padding: 10px 0;
-	  margin: 5px 0;
+		//padding: 10px;
+		//border:  1px solid #dadada;
 	}
-
-	.wponion-field-clone-sorter {
-	  display:        inline-block;
-	  vertical-align: middle;
-	  margin-right:   10px;
-	  cursor:         move;
-	  margin-top:     0px;
+	.wponion-clone-actions {
+		padding-top: 5px;
+		margin-top:  5px;
 	}
-
-	//padding: 10px;
-	//border:  1px solid #dadada;
-  }
-  .wponion-clone-actions {
-	padding-top: 5px;
-	margin-top:  5px;
-  }
 }
