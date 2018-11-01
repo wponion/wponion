@@ -23,6 +23,7 @@
     "chosen-js"            : "^1.8.5",
     "css-checkbox-library" : "^1.4.0",
     "flatpickr"            : "^4.5.1",
+    "geocomplete"          : "^1.7.0",
     "gulp"                 : "^3.9.1",
     "gulp-autoprefixer"    : "^6.0.0",
     "gulp-babel"           : "^8.0.0",
