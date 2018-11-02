@@ -20,25 +20,22 @@ export default class extends WPOnion_Field {
 	}
 
 	init() {
-		let $this = this;
-		this.element.find( 'select.wponion-font-selector' ).on( 'change', function() {
-			let $val  = jQuery( this ).val(),
+		this.element.find( 'select.wponion-font-selector' ).on( 'change', ( e ) => {
+			let $val  = jQuery( e.currentTarget ).val(),
 				$html = null;
 
-			if( false === $wpoh.is_undefined( $this.websafe[ 'fonts' ][ $val ] ) ) {
-				$html = $this.build_options( $this.websafe[ 'variants' ] );
-			} else if( false === $wpoh.is_undefined( $this.google_fonts[ $val ] ) ) {
-				$html = $this.build_options( $this.google_fonts[ $val ] );
+			if( false === $wpoh.is_undefined( this.websafe[ 'fonts' ][ $val ] ) ) {
+				$html = this.build_options( this.websafe[ 'variants' ] );
+			} else if( false === $wpoh.is_undefined( this.google_fonts[ $val ] ) ) {
+				$html = this.build_options( this.google_fonts[ $val ] );
 			}
-			let $variant = $this.element.find( 'select.wponion-variant-selector' ).html( $html );
+			let $variant = this.element.find( 'select.wponion-variant-selector' ).html( $html );
 
 			if( $variant.hasClass( 'chosen' ) ) {
 				$variant.trigger( 'chosen:updated' );
 			} else if( $variant.hasClass( 'select2' ) ) {
 				$variant.trigger( 'change' );
-			} else if( $variant.hasClass( 'selectize' ) ) {
 			}
-
 		} );
 	}
 }

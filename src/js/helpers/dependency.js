@@ -1,4 +1,6 @@
 import WPOnion_Field from '../core/field';
+import $wponion from '../core/core';
+import $wponion_debug from '../core/debug';
 
 export default class extends WPOnion_Field {
 	constructor( $selector, $contxt, $config ) {

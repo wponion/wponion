@@ -5,9 +5,11 @@ $_json[ 'project_name' ] = 'WPOnion';
 $_json[ 'scss' ]         = {
 	"src/scss/wponion-base.scss": {
 		sourcemap: false,
+		watch: [ 'src/scss/includes/*', 'src/scss/includes/fields/*', 'src/scss/includes/fields/*/*', 'src/scss/includes/modules/*' ],
 		concat: 'wponion-base.css',
 		dist: 'assets/css/'
 	},
+
 	"src/scss/wponion-plugins.scss": {
 		sourcemap: false,
 		concat: 'wponion-plugins.css',

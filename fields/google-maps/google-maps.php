@@ -30,6 +30,19 @@ if ( ! class_exists( '\WPOnion\Field\google_maps' ) ) {
 				'only_field' => true,
 				'type'       => 'text',
 			) ), null, false );
+
+			/*echo $this->sub_field( $this->handle_args( 'class', $this->data( 'place_types' ), array(
+				'id'   => null,
+				'type' => 'select',
+			), array(
+				'only_field' => true,
+				'options'    => array(
+					''              => __( 'ALL' ),
+					'establishment' => __( 'Place' ),
+					'address'       => __( 'Address' ),
+					'geo'           => __( 'GEO' ),
+				),
+			) ), array(), $this->name() );*/
 			echo '</div>';
 
 			if ( $this->data( 'show_map' ) ) {
@@ -111,29 +124,29 @@ if ( ! class_exists( '\WPOnion\Field\google_maps' ) ) {
 		protected function field_default() {
 			return array(
 				'show_map'                    => true,
-				'api_key'                     => 'AIzaSyALwD4rXMxz3k5BQK5WuJyJ6ialz4eXM8Q',
+				'api_key'                     => 'AIzaSyDnL2VWF_uAlxQTnFrIA3y4C_6EZkM2KCg',
+				#'AIzaSyALwD4rXMxz3k5BQK5WuJyJ6ialz4eXM8Q',
 				'map'                         => array(
 					'types' => array(),
 				),
 				'search_box'                  => '',
-				'item_name'                   => false,//__( 'Name' ),
-				'poi'                         => false,//__( 'Point of Interest' ),
+				'item_name'                   => false,
+				'poi'                         => false,
 				'latitude'                    => __( 'Latitude' ),
 				'longitude'                   => __( 'Longitude' ),
-				'location'                    => false,//__( 'Location' ),
-				'location_type'               => false,//__( 'Location Type' ),
-				'formatted_address'           => false,// __( 'Formatted Address' ),
-				'bounds'                      => false,//__( 'Bounds' ),
+				'location'                    => false,
+				'location_type'               => false,
+				'formatted_address'           => false,
+				'bounds'                      => false,
 				'route'                       => __( 'Route' ),
 				'street_number'               => __( 'Street Number' ),
-				'viewport'                    => false,//__( 'Viewport' ),
+				'viewport'                    => false,
 				'postal_code'                 => __( 'Postal Code' ),
 				'locality'                    => __( 'Locality' ),
-				'sublocality'                 => false,//__( 'Sub Locality' ),
+				'sublocality'                 => false,
 				'country'                     => __( 'Country' ),
-				'country_short'               => false,//__( 'Country Short' ),
+				'country_short'               => false,
 				'administrative_area_level_1' => __( 'State' ),
-				//'place_id'                    => __( 'Place id' ),
 				'url'                         => __( 'Url' ),
 				'website'                     => __( 'Website' ),
 			);

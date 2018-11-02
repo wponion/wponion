@@ -1,5 +1,6 @@
 import $wpo_helper from 'vsp-js-helper/index';
 import $wponion from './core';
+import $wponion_debug from './debug';
 import WPOnion_Module from './module';
 
 export default class extends WPOnion_Module {
@@ -76,7 +77,7 @@ export default class extends WPOnion_Module {
 					$notice_txt = "<p class='wponion-field-debug-notice'>" + $wponion.option( 'debug_notice' ) + "</p>",
 					$elem       = jQuery( "<div id='" + $d + "' class='wponion-field-debug-popup' ><div id='" + $d + "' ></div> " + $notice_txt + "</div>" );
 
-				let $ops = swal( {
+				swal( {
 					html: $elem,
 					showConfirmButton: true,
 					confirmButtonText: $wponion.txt( 'get_json_output', 'As JSON' ),
@@ -97,7 +98,7 @@ export default class extends WPOnion_Module {
 
 	options() {
 		if( this._args === false ) {
-			this._args = $wponion.windowArgs( this.id() ); //@todo handle get args.
+			this._args = $wponion.windowArgs( this.id() );
 		}
 		return this._args;
 	}
@@ -120,7 +121,7 @@ export default class extends WPOnion_Module {
 	}
 
 	ajax( $action = '', $data = {} ) {
-		let $ajax_key         = $wponion.option( 'ajax_action_key' ); //@todo get Ajax Key,
+		let $ajax_key         = $wponion.option( 'ajax_action_key' );
 		let $default          = {
 			plugin_id: this.plugin_id(),
 			module: this.module(),

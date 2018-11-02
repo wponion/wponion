@@ -1,4 +1,5 @@
 import WPOnion_Field from '../core/field';
+import $wponion from '../core/core';
 
 export default class extends WPOnion_Field {
 	init() {
@@ -40,7 +41,7 @@ export default class extends WPOnion_Field {
 						content.innerHTML = `<img src="${url}">`;
 						wpoimg( content.querySelector( "img" ), instance.popperInstance.update );
 						$is_loading = false;
-					} ).catch( e => {
+					} ).catch( () => {
 						content.innerHTML = 'Loading failed';
 						$is_loading       = false;
 					} );

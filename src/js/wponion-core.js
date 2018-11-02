@@ -11,13 +11,13 @@ window.wponion_new_field      = ( $class ) => ( $wpoh.is_window_arg( $class ) ) 
 window.wponion_field          = ( $elem, $contxt = {} ) => new WPOnion_Field( $elem, $contxt );
 window.wponion_modal          = require( '../vendors/backbone-modal' ).default;
 
-module.exports = ( ( window, document, wp, $ ) => {
+module.exports = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;
 
 	$( window ).on( 'load', ( () => {
 		$wp_hook.doAction( 'wponion_before_init' );
 
-		window.wponion_fields     = $wp_hook.applyFilters( 'wponion_fields_functions', {
+		window.wponion_fields = $wp_hook.applyFilters( 'wponion_fields_functions', {
 			text: require( './fields/text' ).default,
 			textarea: require( './fields/textarea' ).default,
 			background: require( './fields/background' ).default,
@@ -50,10 +50,10 @@ module.exports = ( ( window, document, wp, $ ) => {
 			clone_element: require( './fields/clone_element' ).default,
 			google_maps: require( './fields/google_maps' ).default,
 		} );
-		$wponion.settings_args    = $wponion.windowArgs( 'wponion_core', {} );
-		$wponion.text             = $wponion.windowArgs( 'wponion_il8n', {} );
-		$wponion.debug_info       = null;
-		$wponion.field_debug_info = null;
+		$wpo.settings_args    = $wpo.windowArgs( 'wponion_core', {} );
+		$wpo.text             = $wpo.windowArgs( 'wponion_il8n', {} );
+		$wpo.debug_info       = null;
+		$wpo.field_debug_info = null;
 
 		if( $( '#wpotpimg' ).length === 0 ) {
 			$( 'body' ).append( '<div id="wpotpimg" style="display: none;min-width:300px;min-height:400px;">..</div>' );
@@ -79,10 +79,10 @@ module.exports = ( ( window, document, wp, $ ) => {
 			$wp_hook.doAction( 'wponion_after_fields_init', $wpof_div );
 		}
 
-		$wponion.loading_screen( $wpof_div, false );
+		$wpo.loading_screen( $wpof_div, false );
 		$wp_hook.doAction( 'wponion_init' );
 	} ) );
 
 	$wp_hook.doAction( 'wponion_loaded' );
 
-} )( window, document, wp, jQuery );
+} )( window, document, wp, jQuery, $wponion );

@@ -1,10 +1,10 @@
 import WPOnion_Field from '../core/field';
 import WPOnion_Dependency from "../core/dependency";
+import $wponion from '../core/core';
 
 export default class extends WPOnion_Field {
 	init() {
 		let $this       = this,
-			$elem       = $this.elem,
 			$add        = this.element.find( '> .wponion-fieldset > button[data-wponion-group-add]' ),
 			$group_wrap = this.element.find( '> .wponion-fieldset > .wponion-group-wrap' ),
 			$limit      = $this.option( 'limit' ),
@@ -37,13 +37,13 @@ export default class extends WPOnion_Field {
 						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + $wponion.settings( 'wpeditor_buttons_css' ) + '" type="text/css" media="all">' );
 				}
 			},
-			templateAfterRender: function( $_wrap ) {
+			templateAfterRender: () => {
 				let $data = $group_wrap.find( "> .wponion-accordion-wrap:last-child" );
-				$this.init_field( $group_wrap, 'accordion' );
+				this.init_field( $group_wrap, 'accordion' );
 				$data.find( '.wponion-group-remove' ).tippy();
 				new WPOnion_Dependency( $group_wrap.find( "> .wponion-accordion-wrap:last-child" ), { nestable: true } );
 				wponion_field( $data ).reload();
-				$this.init_field( $data.find( '.wponion-element-wp_editor' ), 'reload_wp_editor' );
+				this.init_field( $data.find( '.wponion-element-wp_editor' ), 'reload_wp_editor' );
 			},
 			sortable: {
 				items: '.wponion-accordion-wrap',
