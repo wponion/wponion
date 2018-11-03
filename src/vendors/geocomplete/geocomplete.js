@@ -120,10 +120,16 @@
 				return;
 			}
 
-			this.map = new google.maps.Map(
-				$( this.options.map )[ 0 ],
-				this.options.mapOptions
-			);
+			if( typeof this.options.mapOptions.center !== 'undefined' ) {
+				this.options.mapOptions.center = this.handle_lat_lng( this.options.mapOptions.center );
+			}
+
+			this.map = new google.maps.Map( $( this.options.map )[ 0 ], this.options.mapOptions );
+
+			if( typeof this.options.mapOptions.center !== 'undefined' ) {
+				this.map.setCenter( new google.maps.LatLng( this.options.mapOptions.center.lat, this.options.mapOptions.center.lng, this.options.mapOptions.center.zoom ) );
+				//this.center( this.options.mapOptions.center );
+			}
 
 			// add click event listener on the map
 			google.maps.event.addListener(
@@ -161,7 +167,9 @@
 				return;
 			}
 
+
 			if( this.options.markerOptions.constructor === Array ) {
+				var bounds      = new google.maps.LatLngBounds();
 				var iWargs      = {};
 				var infoWindows = {};
 				for( var key in this.options.markerOptions ) {
@@ -181,8 +189,12 @@
 						delete options[ 'InfoWindow' ];
 					}
 
-					var $_marker = new google.maps.Marker( options );
+					if( typeof options.position !== 'undefined' ) {
+						options.position = this.handle_lat_lng( options.position );
+					}
 
+					var $_marker = new google.maps.Marker( options );
+					bounds.extend( $_marker.position );
 					if( false !== hasInfoWindow ) {
 						var $_POS     = $_marker.getPosition();
 						hasInfoWindow = $.extend( hasInfoWindow, { ___marker: $_marker } );
@@ -207,22 +219,7 @@
 						}
 					} )( $_marker ) );
 				}
-				/*for( var K in iWargs ) {
-					google.maps.event.addListener( iWargs[ K ].___marker, 'click', function( marker ) {
-						var $_M = iWargs[ K ].___marker;
-						delete  iWargs[ K ][ '__marker' ];
-						var $key = marker.latLng.lat() + "_" + marker.latLng.lng();
-						if( typeof iWargs[ K ] !== 'undefined' ) {
-							if( typeof infoWindows[ $key ] === 'undefined' ) {
-								infoWindows[ $key ] = new google.maps.InfoWindow( iWargs[ K ] );
-								infoWindows[ $key ].open( $MAP, $_M );
-								google.maps.event.addListener( infoWindows[ $key ], 'closeclick', function() {
-									delete infoWindows[ $key ];
-								} )
-							}
-						}
-					} );
-				}*/
+				this.map.fitBounds( bounds );
 
 			} else {
 
@@ -240,6 +237,28 @@
 					$.proxy( this.markerDragged, this )
 				);
 			}
+		},
+
+		handle_lat_lng: function( $data ) {
+			var $return = {};
+			if( $data.constructor === Array && typeof $data[ 0 ] !== "undefined" && typeof $data[ 1 ] !== "undefined" ) {
+				var $lat  = $data[ 0 ];
+				var $lng  = $data[ 1 ];
+				var $zoom = ( typeof $data[ 2 ] !== 'undefined' ) ? $data[ 2 ] : null;
+				$return   = { lat: parseFloat( $lat ), lng: parseFloat( $lng ), zoom: $zoom };
+			} else if( $data.constructor === Object && typeof $data[ 'lat' ] !== "undefined" && typeof $data[ 'lng' ] !== "undefined" ) {
+				var $zoom = ( typeof $data[ 'zoom' ] !== 'undefined' ) ? $data[ 'zoom' ] : null;
+				$return   = {
+					lat: parseFloat( $data.lat ),
+					lng: parseFloat( $data.lng ),
+					zoom: $zoom,
+				};
+			} else if( $data.constructor === String ) {
+				var $a    = $data.split( ',' );
+				var $zoom = ( typeof $a[ 2 ] !== 'undefined' ) ? $a[ 2 ] : null;
+				$return   = { lat: parseFloat( $a[ 0 ] ), lng: parseFloat( $a[ 1 ] ), zoom: $a[ 2 ] };
+			}
+			return $return;
 		},
 
 		// Associate the input with the autocompleter and create a geocoder
@@ -368,7 +387,7 @@
 				return;
 			}
 
-			if( typeof location == 'string' ) {
+			if( typeof location === 'string' ) {
 				this.find( location );
 				return;
 			}
@@ -408,9 +427,7 @@
 		// Look up a given address. If no `address` was specified it uses
 		// the current value of the input.
 		find: function( address ) {
-			this.geocode( {
-				address: address || this.$input.val()
-			} );
+			this.geocode( { address: address || this.$input.val() } );
 		},
 
 		// Requests details about a given location.
