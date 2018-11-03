@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( '\WPOnion\Field\google_maps' ) ) {
 	class google_maps extends \WPOnion\Field {
+		private $hidden_fields = '';
 
 		public function output() {
 			echo $this->before();
@@ -80,6 +81,7 @@ if ( ! class_exists( '\WPOnion\Field\google_maps' ) ) {
 			echo $this->_sub_field( 'sublocality', 'sublocality', __( 'Sub Locality' ) );
 			echo $this->_sub_field( 'country_short', 'country_short', __( 'Country Short' ) );
 
+			echo $this->hidden_fields;
 
 			echo '</div>';
 			echo $this->after();
@@ -98,7 +100,12 @@ if ( ! class_exists( '\WPOnion\Field\google_maps' ) ) {
 					'data-map-value' => $name,
 				),
 			) );
-			echo $this->sub_field( $field, $this->value( $name ), $this->name() );
+			$html  = $this->sub_field( $field, $this->value( $name ), $this->name() );
+			if ( ( false !== $this->data( $args_key ) ) ) {
+				echo $html;
+			} else {
+				$this->hidden_fields = $this->hidden_fields . ' ' . $html;
+			}
 		}
 
 		protected function js_field_args() {
