@@ -124,7 +124,8 @@ if ( ! class_exists( '\WPOnion\Field\google_maps' ) ) {
 		protected function field_default() {
 			return array(
 				'show_map'                    => true,
-				'api_key'                     => 'AIzaSyDnL2VWF_uAlxQTnFrIA3y4C_6EZkM2KCg',
+				'api_key'                     => '',
+				//AIzaSyDnL2VWF_uAlxQTnFrIA3y4C_6EZkM2KCg
 				#'AIzaSyALwD4rXMxz3k5BQK5WuJyJ6ialz4eXM8Q',
 				'map'                         => array(
 					'types' => array(),
