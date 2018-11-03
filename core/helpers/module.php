@@ -102,3 +102,14 @@ if ( ! function_exists( 'wponion_customizer' ) ) {
 		return new \WPOnion\Modules\customizer( $settings, $fields );
 	}
 }
+
+if ( ! function_exists( 'wponion_admin_page' ) ) {
+	/**
+	 * @param array $arguments
+	 *
+	 * @return \WPOnion\Modules\Admin_Page
+	 */
+	function wponion_admin_page( $arguments = array() ) {
+		return new \WPOnion\Modules\Admin_Page( $arguments );
+	}
+}

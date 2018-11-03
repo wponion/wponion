@@ -431,14 +431,19 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 	 */
 	function wponion_callback( $callback, $args ) {
 		$data = false;
-		if ( is_callable( $callback ) ) {
-			$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
-			$data = call_user_func_array( $callback, $args );
-		} else {
-			ob_start();
-			echo call_user_func_array( 'do_action', array_merge( array( $callback ), $args ) );
-			$data = ob_get_clean();
-			ob_flush();
+		try {
+			if ( is_callable( $callback ) ) {
+				$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
+				$data = call_user_func_array( $callback, $args );
+			} else {
+				ob_start();
+				$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
+				echo call_user_func_array( 'do_action', array_merge( array( $callback ), $args ) );
+				$data = ob_get_clean();
+				ob_flush();
+			}
+		} catch ( Exception $exception ) {
+			$data = false;
 		}
 		return $data;
 	}
