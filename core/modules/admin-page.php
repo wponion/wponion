@@ -272,7 +272,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				} else {
 					echo $is_called;
 				}
-			} else {
+			} elseif ( false !== $this->on_load() ) {
 				wponion_callback( $this->on_load(), $this );
 			}
 		}
@@ -294,7 +294,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 						echo wponion_callback( $call, $this );
 					}
 				}
-			} else {
+			} elseif ( false !== $this->assets() ) {
 				$status = wponion_callback( $this->assets(), $this );
 				if ( false === $status ) {
 					if ( wp_script_is( $this->assets(), 'registered' ) || wp_style_is( $this->assets(), 'registered' ) ) {
