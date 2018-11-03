@@ -47,8 +47,8 @@
     "selectize.js"         : "^0.12.12",
     "sweetalert2"          : "^7.28.10",
     "tippy.js"             : "^2.5.2",
-    "vsp-js-helper"        : "^1.0.14",
-    "webpack"              : "^4.23.1",
+    "vsp-js-helper"        : "^1.0.15",
+    "webpack"              : "^4.24.0",
     "webpack-stream"       : "^5.1.1"
   },
   "dependencies"    : { }

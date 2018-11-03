@@ -1,4 +1,12 @@
-import $wpo_helper from 'vsp-js-helper/index';
+//import { array_merge, empty, is_callable, is_jquery, is_undefined } from 'vsp-js-helper/index';
+
+
+const array_merge  = require( 'vsp-js-helper/index' ).array_merge;
+const empty        = require( 'vsp-js-helper/index' ).empty;
+const is_callable  = require( 'vsp-js-helper/index' ).is_callable;
+const is_jquery    = require( 'vsp-js-helper/index' ).is_jquery;
+const is_undefined = require( 'vsp-js-helper/index' ).is_undefined;
+
 import $wponion from './core';
 import $wponion_debug from './debug';
 import WPOnion_Module from './module';
@@ -36,8 +44,8 @@ export default class extends WPOnion_Module {
 		let $info = this.option( 'debug_info' ),
 			$arr  = {};
 
-		if( false === $wpo_helper.is_undefined( $info ) ) {
-			if( false === $wpo_helper.empty( $info ) ) {
+		if( false === is_undefined( $info ) ) {
+			if( false === empty( $info ) ) {
 				$arr[ 'Field' ]        = $info[ 'Field Args' ];
 				$arr[ 'Field Errors' ] = $info[ 'Field Errors' ];
 				$arr[ 'Field Value' ]  = $info[ 'Field Value' ];
@@ -105,7 +113,7 @@ export default class extends WPOnion_Module {
 
 	option( $key = '', $default = {} ) {
 		let $args = this.options();
-		return ( false === $wpo_helper.is_undefined( $args[ $key ] ) ) ? $args[ $key ] : $default;
+		return ( false === is_undefined( $args[ $key ] ) ) ? $args[ $key ] : $default;
 	}
 
 	id() {
@@ -128,13 +136,13 @@ export default class extends WPOnion_Module {
 		};
 		$default[ $ajax_key ] = $action;
 
-		$data[ 'data' ] = ( false === $wpo_helper.is_undefined( $data[ 'data' ] ) ) ? $wpo_helper.array_merge( $default, $data[ 'data' ] ) : $default;
+		$data[ 'data' ] = ( false === is_undefined( $data[ 'data' ] ) ) ? array_merge( $default, $data[ 'data' ] ) : $default;
 
 		return $wponion.ajax( $data );
 	}
 
 	init_field( $elem, $type ) {
-		if( !$wpo_helper.is_jquery( $elem ) ) {
+		if( !is_jquery( $elem ) ) {
 			$elem = this.element.find( $elem );
 		}
 
@@ -142,7 +150,7 @@ export default class extends WPOnion_Module {
 			let $class = $wponion.get_field_class( $type );
 			if( false !== $class ) {
 				try {
-					if( $wpo_helper.is_callable( $class ) ) {
+					if( is_callable( $class ) ) {
 						new $class( jQuery( this ) );
 					}
 				} catch( e ) {

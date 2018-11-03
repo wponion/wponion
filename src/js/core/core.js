@@ -1,13 +1,28 @@
-import $wpo_helper from 'vsp-js-helper/index';
+import {
+	array_merge,
+	call_user_func,
+	clone_object,
+	is_jquery,
+	is_null,
+	is_object_like,
+	is_undefined,
+	is_window_arg,
+	md5,
+	microtime,
+	rand_md5,
+	strtolower,
+	to_jquery,
+	to_js_func,
+} from 'vsp-js-helper/index';
 
 
 export default class WPOnion {
 	static js_func( $data ) {
-		return $wpo_helper.to_js_func( $data, 'wponion_js_args', 'wponion_js_contents' );
+		return to_js_func( $data, 'wponion_js_args', 'wponion_js_contents' );
 	}
 
 	static rand_id() {
-		return $wpo_helper.md5( 'wponion_rand_' + $wpo_helper.microtime() + $wpo_helper.rand_md5() );
+		return md5( 'wponion_rand_' + microtime() + rand_md5() );
 	}
 
 	static valid_json( obj ) {
@@ -25,13 +40,13 @@ export default class WPOnion {
 	 * @returns {boolean}
 	 */
 	static get_field_class( $type ) {
-		$type = $wpo_helper.strtolower( $type );
+		$type = strtolower( $type );
 
-		if( false === $wpo_helper.is_undefined( window.wponion_fields[ $type ] ) ) {
+		if( false === is_undefined( window.wponion_fields[ $type ] ) ) {
 			return window.wponion_fields[ $type ];
-		} else if( false === $wpo_helper.is_undefined( window[ 'wponion_' + $type + '_field' ] ) ) {
+		} else if( false === is_undefined( window[ 'wponion_' + $type + '_field' ] ) ) {
 			return window[ 'wponion_' + $type + '_field' ];
-		} else if( false === $wpo_helper.is_undefined( window[ $type ] ) ) {
+		} else if( false === is_undefined( window[ $type ] ) ) {
 			return window[ $type ];
 		}
 		return false;
@@ -43,7 +58,7 @@ export default class WPOnion {
 	 * @returns {*}
 	 */
 	static fieldID( $elem ) {
-		return $wpo_helper.to_jquery( $elem ).attr( 'data-wponion-jsid' );
+		return to_jquery( $elem ).attr( 'data-wponion-jsid' );
 	}
 
 	/**
@@ -52,7 +67,7 @@ export default class WPOnion {
 	 * @returns {*}
 	 */
 	static isField( $elem ) {
-		return ( $wpo_helper.is_jquery( $elem ) ) ? ( this.fieldID( $elem ) ) : false;
+		return ( is_jquery( $elem ) ) ? ( this.fieldID( $elem ) ) : false;
 	}
 
 	/**
@@ -62,7 +77,7 @@ export default class WPOnion {
 	 * @returns {*}
 	 */
 	static windowArgs( $var_id, $default = {} ) {
-		return ( $wpo_helper.is_window_arg( $var_id ) ) ? window[ $var_id ] : $default;
+		return ( is_window_arg( $var_id ) ) ? window[ $var_id ] : $default;
 	}
 
 	/**
@@ -73,7 +88,7 @@ export default class WPOnion {
 	 */
 	static fieldArgs( $var_id, $default = {} ) {
 		$var_id = ( this.isField( $var_id ) ) ? this.fieldID( $var_id ) : $var_id;
-		return ( $var_id ) ? $wpo_helper.clone_object( this.windowArgs( $var_id, $default ) ) : $default;
+		return ( $var_id ) ? clone_object( this.windowArgs( $var_id, $default ) ) : $default;
 	}
 
 	/**
@@ -83,7 +98,7 @@ export default class WPOnion {
 	 * @returns {string}
 	 */
 	static txt( $key, $default = 'string_default_not_found' ) {
-		return ( false === $wpo_helper.is_undefined( WPOnion.text[ $key ] ) ) ? WPOnion.text[ $key ] : $default;
+		return ( false === is_undefined( WPOnion.text[ $key ] ) ) ? WPOnion.text[ $key ] : $default;
 	}
 
 	/**
@@ -93,7 +108,7 @@ export default class WPOnion {
 	 * @returns {*}
 	 */
 	static loading_screen( $elem, $is_show = true ) {
-		$elem = $wpo_helper.to_jquery( $elem ).find( '.page-loader' );
+		$elem = to_jquery( $elem ).find( '.page-loader' );
 		if( true === $is_show ) {
 			return $elem.fadeIn( 'slow' );
 		}
@@ -148,7 +163,7 @@ export default class WPOnion {
 	 */
 	static option( $key, $default = {} ) {
 		let $args = WPOnion.settings_args;
-		if( false === $wpo_helper.is_undefined( $args[ $key ] ) ) {
+		if( false === is_undefined( $args[ $key ] ) ) {
 			return $args[ $key ];
 		}
 		return $default;
@@ -166,7 +181,7 @@ export default class WPOnion {
 	 * Gather All Field JS Codes.
 	 */
 	static field_debug() {
-		if( WPOnion.is_debug() && $wpo_helper.is_null( WPOnion.field_debug_info ) ) {
+		if( WPOnion.is_debug() && is_null( WPOnion.field_debug_info ) ) {
 			let $vars = WPOnion.windowArgs( 'wponion_defined_vars' ),
 				$json = {},
 				$utxt = WPOnion.txt( 'unmodified_debug' ),
@@ -203,21 +218,21 @@ export default class WPOnion {
 			},
 			$ajax     = false;
 
-		if( $wpo_helper.is_object_like( $action ) ) {
+		if( is_object_like( $action ) ) {
 			$data = $action;
 		} else {
 			$defaults[ 'url' ] += '&' + WPOnion.option( 'ajax_action_key' ) + '=' + $action;
 		}
 
-		$defaults  = $wpo_helper.array_merge( $defaults, $data );
-		$onSuccess = ( $wpo_helper.is_undefined( $onSuccess ) ) ? $defaults.onSuccess : $onSuccess;
-		$onAlways  = ( $wpo_helper.is_undefined( $onError ) ) ? $defaults.onAlways : $onAlways;
-		$onError   = ( $wpo_helper.is_undefined( $onAlways ) ) ? $defaults.onError : $onError;
+		$defaults  = array_merge( $defaults, $data );
+		$onSuccess = ( is_undefined( $onSuccess ) ) ? $defaults.onSuccess : $onSuccess;
+		$onAlways  = ( is_undefined( $onError ) ) ? $defaults.onAlways : $onAlways;
+		$onError   = ( is_undefined( $onAlways ) ) ? $defaults.onError : $onError;
 		$ajax      = jQuery.ajax( $defaults );
 
-		$ajax.done( ( res ) => $wpo_helper.call_user_func( $onSuccess, res ) );
-		$ajax.fail( ( res ) => $wpo_helper.call_user_func( $onError, res ) );
-		$ajax.always( ( res ) => $wpo_helper.call_user_func( $onAlways, res ) );
+		$ajax.done( ( res ) => call_user_func( $onSuccess, res ) );
+		$ajax.fail( ( res ) => call_user_func( $onError, res ) );
+		$ajax.always( ( res ) => call_user_func( $onAlways, res ) );
 		return $ajax;
 	}
 

@@ -1,15 +1,16 @@
 import WPOnion_Field from './core/field';
-import $wpoh from 'vsp-js-helper/index'
+import { is_window_arg } from 'vsp-js-helper/index'
 import WPOnion_Dependency from './core/dependency';
 
 window.wponion_metabox_module = require( './modules/metabox' ).default;
 //window.wponion_customizer_module = require( './modules/customizer' ).default;
 window.$wponion               = require( './core/core' ).default;
 window.$wponion_debug         = require( './core/debug' ).default;
-window.$wponion_helper        = $wpoh;
-window.wponion_new_field      = ( $class ) => ( $wpoh.is_window_arg( $class ) ) ? window[ $class ] : false;
+window.$wponion_helper        = require( 'vsp-js-helper/index' );
+window.wponion_new_field      = ( $class ) => ( is_window_arg( $class ) ) ? window[ $class ] : false;
 window.wponion_field          = ( $elem, $contxt = {} ) => new WPOnion_Field( $elem, $contxt );
 window.wponion_modal          = require( '../vendors/backbone-modal' ).default;
+
 
 module.exports = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;

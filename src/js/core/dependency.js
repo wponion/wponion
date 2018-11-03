@@ -1,12 +1,9 @@
 import WPOnion_Dependency from '../helpers/dependency';
-import $wpo_helper from 'vsp-js-helper/index';
+import { array_merge } from 'vsp-js-helper/index';
 
 export default class {
 	constructor( $element = undefined, param = {} ) {
-		this.param        = $wpo_helper.array_merge( {
-			nestable: false,
-			parent: false,
-		}, param );
+		this.param        = array_merge( { nestable: false, parent: false }, param );
 		let $this         = this;
 		this.base         = {};
 		this.base.$el     = $element;
