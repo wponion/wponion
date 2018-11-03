@@ -87,3 +87,4 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 	$wp_hook.doAction( 'wponion_loaded' );
 
 } )( window, document, wp, jQuery, $wponion );
+

@@ -22,7 +22,7 @@ $wponion_js = array(
 		'assets/js/wponion-plugins.js',
 		array( 'jquery', 'backbone', 'underscore', 'wp-util', ),
 	),
-	'wponion-core'              => array( 'assets/js/wponion-core.js', array( 'wponion-plugins', 'wp-color-picker' ) ),
+	'wponion-core'              => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
 	'wponion-customizer'        => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
 	//'wponion-metabox'           => array( 'assets/js/wponion-metabox.js', array( 'wponion-core' ) ),
 	'wponion-woocommerce'       => array( 'assets/js/wponion-woocommerce.js', array( 'wponion-core' ) ),

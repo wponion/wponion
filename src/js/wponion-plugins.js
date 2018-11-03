@@ -100,5 +100,3 @@ jQuery.fn.extend( {
 // @ wponion-inline ../../node_modules/geocomplete/jquery.geocomplete.min.js
 //@wponion-inline ../vendors/geocomplete/geocomplete.js
 } )( window, document, wp, jQuery );
-
-
