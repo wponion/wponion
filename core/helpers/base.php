@@ -6,7 +6,6 @@
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  * @version 1.0
  * @since 1.0
- * @package
  * @link
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
@@ -152,11 +151,20 @@ if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
 		if ( empty( array_filter( $ids ) ) ) {
 			return false;
 		} elseif ( empty( $ids['section_id'] ) && ! empty( $ids['parent_id'] ) ) {
-			return array( 'section_id' => false, 'parent_id' => $ids['parent_id'] );
+			return array(
+				'section_id' => false,
+				'parent_id'  => $ids['parent_id'],
+			);
 		} elseif ( ! empty( $ids['section_id'] ) && empty( $ids['parent_id'] ) ) {
-			return array( 'section_id' => false, 'parent_id' => $ids['section_id'] );
+			return array(
+				'section_id' => false,
+				'parent_id'  => $ids['section_id'],
+			);
 		} else {
-			return array( 'section_id' => $ids['section_id'], 'parent_id' => $ids['parent_id'] );
+			return array(
+				'section_id' => $ids['section_id'],
+				'parent_id'  => $ids['parent_id'],
+			);
 		}
 	}
 }

@@ -25,7 +25,7 @@ export default class extends WPOnion_Field {
 			}
 
 			if( false === is_undefined( $quick_tags ) ) {
-				$quick_tags[ 'id' ] = $NEW_ID;
+				$quick_tags.id = $NEW_ID;
 				quicktags( $quick_tags );
 			}
 		}

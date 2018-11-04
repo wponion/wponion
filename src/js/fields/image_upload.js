@@ -40,7 +40,7 @@ export default class extends WPOnion_Field {
 			wp_media_frame.open();
 		} );
 
-		$preview.find( ".wponion-image-remove" ).on( 'click', () => $input.val( '' ).trigger( 'change' ) );
+		$preview.find( '.wponion-image-remove' ).on( 'click', () => $input.val( '' ).trigger( 'change' ) );
 		$preview.on( 'click', 'img', ( event ) => this.init_field( event.target, 'image_popup' ) );
 	}
 }

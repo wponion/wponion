@@ -1,5 +1,5 @@
 //import { array_merge, empty, is_callable, is_jquery, is_undefined } from 'vsp-js-helper/index';
-
+/* global swal:true */
 
 const array_merge  = require( 'vsp-js-helper/index' ).array_merge;
 const empty        = require( 'vsp-js-helper/index' ).empty;
@@ -26,10 +26,7 @@ export default class extends WPOnion_Module {
 
 	handle_args( $arg, $key = false ) {
 		let $args   = $wponion.js_func( $arg ),
-			$exists = $wponion_debug.get( this.id(), {
-				"PHP Args": {},
-				"JS Args": {}
-			} );
+			$exists = $wponion_debug.get( this.id(), { 'PHP Args': {}, 'JS Args': {} } );
 
 		if( false === $key ) {
 			$exists[ 'JS Args' ] = $args;
@@ -46,13 +43,13 @@ export default class extends WPOnion_Module {
 
 		if( false === is_undefined( $info ) ) {
 			if( false === empty( $info ) ) {
-				$arr[ 'Field' ]        = $info[ 'Field Args' ];
+				$arr.Field             = $info[ 'Field Args' ];
 				$arr[ 'Field Errors' ] = $info[ 'Field Errors' ];
 				$arr[ 'Field Value' ]  = $info[ 'Field Value' ];
 				$arr[ 'Plugin ID' ]    = $info[ 'Plugin ID' ];
-				$arr[ 'Module' ]       = $info[ 'Module' ];
-				$arr[ 'Unique' ]       = $info[ 'Unique' ];
-				$wponion_debug.add( this.id(), { "PHP Args": $arr, "JS Args": {} } );
+				$arr.Module            = $info.Module;
+				$arr.Unique            = $info.Unique;
+				$wponion_debug.add( this.id(), { 'PHP Args': $arr, 'JS Args': {} } );
 			}
 		}
 
@@ -82,8 +79,8 @@ export default class extends WPOnion_Module {
 
 			$found.find( '> .wponion-field-title > h4' ).on( 'click', () => {
 				let $d          = $this.id() + 'debugINFO',
-					$notice_txt = "<p class='wponion-field-debug-notice'>" + $wponion.option( 'debug_notice' ) + "</p>",
-					$elem       = jQuery( "<div id='" + $d + "' class='wponion-field-debug-popup' ><div id='" + $d + "' ></div> " + $notice_txt + "</div>" );
+					$notice_txt = '<p class=\'wponion-field-debug-notice\'>' + $wponion.option( 'debug_notice' ) + '</p>',
+					$elem       = jQuery( '<div id="' + $d + '" class="wponion-field-debug-popup" ><div id="\' + $d + \'" ></div>' + $notice_txt + '</div>' );
 
 				swal( {
 					html: $elem,
@@ -97,10 +94,10 @@ export default class extends WPOnion_Module {
 						swal( {
 							width: '600px',
 							html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( $wponion_debug.get( $this.id() ) ) + '</textarea>'
-						} )
+						} );
 					}
 				} );
-			} )
+			} );
 		}
 	}
 
@@ -135,13 +132,13 @@ export default class extends WPOnion_Module {
 			module: this.module(),
 		};
 		$default[ $ajax_key ] = $action;
-
-		$data[ 'data' ] = ( false === is_undefined( $data[ 'data' ] ) ) ? array_merge( $default, $data[ 'data' ] ) : $default;
+		$data.data            = ( false === is_undefined( $data.data ) ) ? array_merge( $default, $data.data ) : $default;
 
 		return $wponion.ajax( $data );
 	}
 
 	init_field( $elem, $type ) {
+		let $_instances = [];
 		if( !is_jquery( $elem ) ) {
 			$elem = this.element.find( $elem );
 		}
@@ -151,15 +148,14 @@ export default class extends WPOnion_Module {
 			if( false !== $class ) {
 				try {
 					if( is_callable( $class ) ) {
-						new $class( jQuery( this ) );
+						$_instances.push( new $class( jQuery( this ) ) );
 					}
 				} catch( e ) {
-					console.log( "Error: " + e + " | For : " + $type );
+					console.log( 'Error: ' + e + ' | For : ' + $type );
 					console.log( $class );
 				}
 			}
 		} );
-
 	}
 
 	reload() {
@@ -209,4 +205,4 @@ export default class extends WPOnion_Module {
 		let $ID = $wponion.fieldID( $elem );
 		return jQuery( 'div.wponion-element[data-wponion-jsid="' + $ID + '"]' );
 	}
-};
+}

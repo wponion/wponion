@@ -21,12 +21,12 @@ export default class extends WPOnion_Field {
 			}
 
 			wp_media_frame = wp.media( {
-				title: $settings[ 'settings' ][ 'frame_title' ],
+				title: $settings.settings.frame_title,
 				library: {
-					type: $settings[ 'settings' ][ 'upload_type' ]
+					type: $settings.settings.upload_type
 				},
 				button: {
-					text: $settings[ 'settings' ][ 'insert_title' ],
+					text: $settings.settings.insert_title,
 				}
 			} );
 

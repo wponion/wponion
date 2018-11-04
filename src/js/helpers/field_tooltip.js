@@ -11,7 +11,7 @@ export default class extends WPOnion_Field {
 						clearInterval( testDimensions );
 						callback();
 					}
-				}, 5 )
+				}, 5 );
 			},
 			$tooltip_key = ( true === this.element.hasClass( 'wponion-help' ) ) ? 'field_help' : $fid + 'tooltip',
 			$arg         = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.option( $tooltip_key, false );
@@ -27,19 +27,21 @@ export default class extends WPOnion_Field {
 		}
 
 		if( $arg ) {
-			$arg[ 'performance' ] = false;
-			if( $arg[ 'image' ] !== undefined && $arg[ 'image' ] !== false ) {
+			$arg.performance = false;
+			if( $arg.image !== undefined && $arg.image !== false ) {
 				$arg.html           = '#wpotpimg';
 				$arg.updateDuration = 2000;
 				$arg.onShow         = function( instance ) {
 					const content = this.querySelector( '.tippy-content' );
-					if( $is_loading ) return;
+					if( $is_loading ) {
+						return;
+					}
 					$is_loading = true;
 
-					fetch( $arg[ 'image' ] ).then( resp => resp.blob() ).then( blob => {
+					fetch( $arg.image ).then( resp => resp.blob() ).then( blob => {
 						const url         = URL.createObjectURL( blob );
 						content.innerHTML = `<img src="${url}">`;
-						wpoimg( content.querySelector( "img" ), instance.popperInstance.update );
+						wpoimg( content.querySelector( 'img' ), instance.popperInstance.update );
 						$is_loading = false;
 					} ).catch( () => {
 						content.innerHTML = 'Loading failed';
@@ -47,7 +49,7 @@ export default class extends WPOnion_Field {
 					} );
 				};
 				$arg.onHidden       = function() {
-					const content     = this.querySelector( ".tippy-content" );
+					const content     = this.querySelector( '.tippy-content' );
 					content.innerHTML = '';
 				};
 				$arg.popperOptions  = { modifiers: { preventOverflow: { enabled: false }, hide: { enabled: false } } };

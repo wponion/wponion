@@ -64,9 +64,11 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		}
 
 		/**
-		 * @param $data
-		 * @param $callback
-		 * @param $last_arg
+		 * Runs a loop with array of assets lists.
+		 *
+		 * @param array           $data Array Of Assets.
+		 * @param string|callable $callback fixed value (wp_register_script | wp_register_style).
+		 * @param mixed           $last_arg true / false.
 		 *
 		 * @static
 		 */

@@ -1,14 +1,15 @@
 import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
+/*global swal:true*/
 
 export default class  extends WPOnion_Field {
 	init() {
 		let $_this      = this,
 			$elem       = $_this.element,
 			$args       = $_this.options(),
-			$input      = $elem.find( ".wponion-icon-picker-input" ),
+			$input      = $elem.find( '.wponion-icon-picker-input' ),
 			$remove_btn = $elem.find( 'button[data-wponion-iconpicker-remove]' ),
-			$add_btn    = $elem.find( "button[data-wponion-iconpicker-add]" ),
+			$add_btn    = $elem.find( 'button[data-wponion-iconpicker-add]' ),
 			$preview    = $elem.find( 'span.wponion-icon-preview' );
 
 		let $work = {
@@ -28,8 +29,8 @@ export default class  extends WPOnion_Field {
 			 * Creates A New Instance for ToolTip.
 			 */
 			init_tooltip: () => {
-				if( $args[ 'popup_tooltip' ] !== 'false' ) {
-					let $tp = ( typeof $args[ 'popup_tooltip' ] === 'object' ) ? $args[ 'popup_tooltip' ] : {};
+				if( $args.popup_tooltip !== 'false' ) {
+					let $tp = ( typeof $args.popup_tooltip === 'object' ) ? $args.popup_tooltip : {};
 					if( $work.elems.length > 0 ) {
 						$work.elems.tippy( $tp );
 					}
@@ -43,13 +44,13 @@ export default class  extends WPOnion_Field {
 			init: function( $elm, $instance ) {
 				$work.elm   = $elm;
 				$work.popup = $instance;
-				$work.elems = $work.elm.find( "span.wponion-icon-preview" );
+				$work.elems = $work.elm.find( 'span.wponion-icon-preview' );
 				let $height = $work.elm.find( '.wponion-icon-picker-container-scroll' ).css( 'height' );
 				$work.elm.find( '.wponion-icon-picker-container-scroll' ).css( 'height', $height );
 				$work.select();
 				$work.input();
 				$work.elems.on( 'click', function() {
-					let $icon = $( this ).attr( 'data-icon' );
+					let $icon = jQuery( this ).attr( 'data-icon' );
 					$input.val( $icon ).trigger( 'change' );
 					swal.closeModal();
 				} );
@@ -60,12 +61,12 @@ export default class  extends WPOnion_Field {
 			 */
 			input: function() {
 				$work.elm.find( 'div.wponion-icon-picker-model-header input[type=text]' ).on( 'keyup', function() {
-					let $val = $( this ).val();
+					let $val = jQuery( this ).val();
 					$work.elems.each( function() {
-						if( $( this ).attr( 'data-icon' ).search( new RegExp( $val, 'i' ) ) < 0 ) {
-							$( this ).parent().hide();
+						if( jQuery( this ).attr( 'data-icon' ).search( new RegExp( $val, 'i' ) ) < 0 ) {
+							jQuery( this ).parent().hide();
 						} else {
-							$( this ).parent().show();
+							jQuery( this ).parent().show();
 						}
 					} );
 				} );
@@ -76,22 +77,22 @@ export default class  extends WPOnion_Field {
 			select: function() {
 				$work.elm.find( 'div.wponion-icon-picker-model-header select' ).on( 'change', function() {
 					swal.enableLoading();
-					let $val = $( this ).val();
+					let $val = jQuery( this ).val();
 					$wponion.ajax( 'icon_picker', {
 							data: {
-								"wponion-icon-lib": $val,
-								enabled: $args[ 'enabled' ],
-								disabled: $args[ 'disabled' ],
+								'wponion-icon-lib': $val,
+								enabled: $args.enabled,
+								disabled: $args.disabled,
 							}
 						},
 						( $res ) => {
 							if( $res.success ) {
 								swal.resetValidationMessage();
-								$( $work.elm ).find( "#swal2-content" ).html( $res.data ).show();
-								$( $work.elm ).find( '#swal2-content .wponion-icon-picker-container-scroll' );
+								jQuery( $work.elm ).find( '#swal2-content' ).html( $res.data ).show();
+								jQuery( $work.elm ).find( '#swal2-content .wponion-icon-picker-container-scroll' );
 								$work.init( $work.elm, $work.popup );
 							} else {
-								$( $work.elm ).find( ".wponion-icon-picker-container-scroll" ).remove();
+								jQuery( $work.elm ).find( '.wponion-icon-picker-container-scroll' ).remove();
 								$work.popup.showValidationError( $res.data );
 							}
 						},
@@ -111,7 +112,7 @@ export default class  extends WPOnion_Field {
 		 * Handles Blur Even / change even in inputfield.
 		 */
 		$input.on( 'keyup blur change keypress', function() {
-			let $val = $( this ).val();
+			let $val = jQuery( this ).val();
 
 			if( $val !== '' ) {
 				$preview.html( '<i class="' + $val + '"></i>' ).show();
@@ -127,25 +128,25 @@ export default class  extends WPOnion_Field {
 		 */
 		$add_btn.on( 'click', function() {
 			let $popup = swal( {
-				title: $elem.find( ".wponion-field-title h4" ).html(),
+				title: $elem.find( '.wponion-field-title h4' ).html(),
 				animation: false,
 				allowOutsideClick: false,
 				showConfirmButton: false,
 				showCloseButton: true,
 				width: '700px',
-				customClass: "wponion-icon-picker-model",
+				customClass: 'wponion-icon-picker-model',
 				onBeforeOpen: ( $elem ) => {
 					swal.enableLoading();
 					$_this.ajax( 'icon_picker', {
 						data: {
-							enabled: $args[ 'enabled' ],
-							disabled: $args[ 'disabled' ],
+							enabled: $args.enabled,
+							disabled: $args.disabled,
 						},
 						onSuccess: ( $res ) => {
 							if( $res.success ) {
 								swal.resetValidationMessage();
-								let $popup_elem = $( $elem );
-								$popup_elem.find( "#swal2-content" ).html( $res.data ).show();
+								let $popup_elem = jQuery( $elem );
+								$popup_elem.find( '#swal2-content' ).html( $res.data ).show();
 								$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' );
 								$work.init( $popup_elem, $popup );
 							} else {

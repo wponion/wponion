@@ -7,8 +7,8 @@ export default class extends WPOnion_Field {
 			this.element.find( 'input[type=radio]' ).on( 'click', () => $inputs.removeAttr( 'name' ) );
 
 			$inputs.on( 'click', function() {
-				$( this ).parent().find( 'input[type=radio],input[type=checkbox]' ).prop( "checked", true );
-				$( this ).attr( 'name', $( this ).attr( 'data-name' ) );
+				jQuery( this ).parent().find( 'input[type=radio],input[type=checkbox]' ).prop( 'checked', true );
+				jQuery( this ).attr( 'name', jQuery( this ).attr( 'data-name' ) );
 			} );
 		}
 	}

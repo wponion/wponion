@@ -1,5 +1,5 @@
 import WPOnion_Field from '../core/field';
-
+/* global wpLinkL10n:true */
 export default class extends WPOnion_Field {
 	init() {
 		let $this     = this,
@@ -7,17 +7,17 @@ export default class extends WPOnion_Field {
 			$textarea = $elem.find( 'textarea' );
 		$elem.find( '#wponion-wp-link-picker > button' ).on( 'click', function() {
 			$textarea.val( '' );
-			let $dialog = !window.wpLink && $.fn.wpdialog && $( "#wp-link" ).length ? {
+			let $dialog = !window.wpLink && jQuery.fn.wpdialog && jQuery( '#wp-link' ).length ? {
 				$link: !1,
 				open: function() {
-					this.$link = $( '#wp-link' ).wpdialog( {
+					this.$link = jQuery( '#wp-link' ).wpdialog( {
 						title: wpLinkL10n.title,
 						width: 480,
-						height: "auto",
+						height: 'auto',
 						modal: !0,
-						dialogClass: "wp-dialog",
+						dialogClass: 'wp-dialog',
 						zIndex: 3e5
-					} )
+					} );
 				},
 				close: function() {
 					this.$link.wpdialog( 'close' );
@@ -28,14 +28,14 @@ export default class extends WPOnion_Field {
 
 
 		$textarea.on( 'change', function() {
-			let $data = $( $( this ).val() );
-			$elem.find( 'span.example_output span.value' ).html( $( this ).val() );
-			$elem.find( "input#url" ).val( $data.attr( 'href' ) );
-			$elem.find( "input#title" ).val( $data.text() );
-			$elem.find( "input#target" ).val( $data.attr( 'target' ) );
-			$elem.find( "span.url span.value" ).html( $data.attr( 'href' ) );
-			$elem.find( "span.title span.value" ).html( $data.text() );
-			$elem.find( "span.target span.value" ).html( $data.attr( 'target' ) );
+			let $data = jQuery( jQuery( this ).val() );
+			$elem.find( 'span.example_output span.value' ).html( jQuery( this ).val() );
+			$elem.find( 'input#url' ).val( $data.attr( 'href' ) );
+			$elem.find( 'input#title' ).val( $data.text() );
+			$elem.find( 'input#target' ).val( $data.attr( 'target' ) );
+			$elem.find( 'span.url span.value' ).html( $data.attr( 'href' ) );
+			$elem.find( 'span.title span.value' ).html( $data.text() );
+			$elem.find( 'span.target span.value' ).html( $data.attr( 'target' ) );
 		} );
 	}
 }

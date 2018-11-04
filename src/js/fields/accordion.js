@@ -14,6 +14,6 @@ export default class extends WPOnion_Field {
 					'activeHeader': 'dashicons dashicons-arrow-down'
 				}
 			} );
-		} )
+		} );
 	}
 }

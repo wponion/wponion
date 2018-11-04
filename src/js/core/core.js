@@ -1,3 +1,4 @@
+/* global swal:true */
 import {
 	array_merge,
 	call_user_func,
@@ -32,7 +33,7 @@ export default class WPOnion {
 		} catch( e ) {
 			return false;
 		}
-	};
+	}
 
 	/**
 	 * Returns A Single Class For the Given Element.
@@ -123,15 +124,19 @@ export default class WPOnion {
 			$json   = {};
 		if( WPOnion.debug_info === null && $handle.length > 0 ) {
 			let $defined_vars = WPOnion.windowArgs( 'wponion_defined_vars' );
-			for( let $key in $defined_vars ) {
-				$json[ $defined_vars[ $key ] ] = WPOnion.windowArgs( $defined_vars[ $key ] );
+			if( is_object_like( $defined_vars ) ) {
+				for( let $key in $defined_vars ) {
+					if( false === is_undefined( $defined_vars[ $key ] ) ) {
+						$json[ $defined_vars[ $key ] ] = WPOnion.windowArgs( $defined_vars[ $key ] );
+					}
+				}
+				WPOnion.debug_info = $json;
 			}
-			WPOnion.debug_info = $json;
 		}
 
 		$handle.on( 'click', ( ( e ) => {
 			e.preventDefault();
-			let $pop = swal( {
+			swal( {
 				title: WPOnion.txt( 'global_json_output', 'Global WPOnion Debug Data' ),
 				html: jQuery( '#wponiondebuginfopopup > div' ),
 				showConfirmButton: true,
@@ -149,7 +154,7 @@ export default class WPOnion {
 					return swal( {
 						width: '600px',
 						html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( WPOnion.debug_info ) + '</textarea>',
-					} )
+					} );
 				}
 			} );
 		} ) );
@@ -188,10 +193,12 @@ export default class WPOnion {
 				$mtxt = WPOnion.txt( 'modified_debug' );
 
 			for( let $key in $vars ) {
-				let $data                       = WPOnion.windowArgs( $vars[ $key ] );
-				$json[ $vars[ $key ] ]          = {};
-				$json[ $vars[ $key ] ][ $utxt ] = $data[ 'debug_info' ] || $data;
-				$json[ $vars[ $key ] ][ $mtxt ] = {};
+				if( false === is_undefined( $vars[ $key ] ) ) {
+					let $data                       = WPOnion.windowArgs( $vars[ $key ] );
+					$json[ $vars[ $key ] ]          = {};
+					$json[ $vars[ $key ] ][ $utxt ] = $data.debug_info || $data;
+					$json[ $vars[ $key ] ][ $mtxt ] = {};
+				}
 			}
 			WPOnion.field_debug_info = $json;
 		}
@@ -205,29 +212,26 @@ export default class WPOnion {
 	 * @param $onError
 	 * @param $onAlways
 	 */
-	static ajax( $action = '', $data = {}, $onSuccess, $onError, $onAlways ) {
+	static ajax( $action = '', $data = {}, $onSuccess = false, $onError = false, $onAlways = false ) {
 		let $defaults = {
-				method: "post",
+				method: 'post',
 				url: WPOnion.option( 'ajax_url' ),
-				onSuccess: ( res ) => {
-				},
-				onAlways: ( res ) => {
-				},
-				onError: ( res ) => {
-				},
+				onSuccess: false,
+				onAlways: false,
+				onError: false,
 			},
 			$ajax     = false;
 
 		if( is_object_like( $action ) ) {
 			$data = $action;
 		} else {
-			$defaults[ 'url' ] += '&' + WPOnion.option( 'ajax_action_key' ) + '=' + $action;
+			$defaults.url += '&' + WPOnion.option( 'ajax_action_key' ) + '=' + $action;
 		}
 
 		$defaults  = array_merge( $defaults, $data );
-		$onSuccess = ( is_undefined( $onSuccess ) ) ? $defaults.onSuccess : $onSuccess;
-		$onAlways  = ( is_undefined( $onError ) ) ? $defaults.onAlways : $onAlways;
-		$onError   = ( is_undefined( $onAlways ) ) ? $defaults.onError : $onError;
+		$onSuccess = ( is_undefined( $onSuccess ) || false === $onSuccess ) ? $defaults.onSuccess : $onSuccess;
+		$onAlways  = ( is_undefined( $onError ) || false === $onError ) ? $defaults.onAlways : $onAlways;
+		$onError   = ( is_undefined( $onAlways ) || false === $onAlways ) ? $defaults.onError : $onError;
 		$ajax      = jQuery.ajax( $defaults );
 
 		$ajax.done( ( res ) => call_user_func( $onSuccess, res ) );
@@ -253,7 +257,7 @@ export default class WPOnion {
 		return function( data ) {
 			compiled = compiled || _.template( $id, options );
 			return compiled( data );
-		}
+		};
 	}
 
 	//@todo Migrate Plugin Debug Info.

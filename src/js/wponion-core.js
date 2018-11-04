@@ -1,5 +1,5 @@
 import WPOnion_Field from './core/field';
-import { is_window_arg } from 'vsp-js-helper/index'
+import { is_window_arg } from 'vsp-js-helper/index';
 import WPOnion_Dependency from './core/dependency';
 
 window.wponion_metabox_module = require( './modules/metabox' ).default;

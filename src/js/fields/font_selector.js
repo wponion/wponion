@@ -14,7 +14,9 @@ export default class extends WPOnion_Field {
 	build_options( data ) {
 		let $return = '';
 		for( let $_d in data ) {
-			$return += `<option value="${$_d}">${data[ $_d ]}</option>`;
+			if( false === is_undefined( data[ $_d ] ) ) {
+				$return += `<option value="${$_d}">${data[ $_d ]}</option>`;
+			}
 		}
 		return $return;
 	}
@@ -24,8 +26,8 @@ export default class extends WPOnion_Field {
 			let $val  = jQuery( e.currentTarget ).val(),
 				$html = null;
 
-			if( false === is_undefined( this.websafe[ 'fonts' ][ $val ] ) ) {
-				$html = this.build_options( this.websafe[ 'variants' ] );
+			if( false === is_undefined( this.websafe.fonts [ $val ] ) ) {
+				$html = this.build_options( this.websafe.variants );
 			} else if( false === is_undefined( this.google_fonts[ $val ] ) ) {
 				$html = this.build_options( this.google_fonts[ $val ] );
 			}

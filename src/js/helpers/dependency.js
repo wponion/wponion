@@ -9,10 +9,10 @@ export default class extends WPOnion_Field {
 
 	init() {
 		let $dep = this.option( 'dependency' );
-		for( let $key in $dep[ 'controller' ] ) {
-			let $controller = $dep[ 'controller' ][ $key ],
-				$condition  = $dep[ 'condition' ][ $key ],
-				$value      = $dep[ 'value' ][ $key ],
+		for( let $key in $dep.controller ) {
+			let $controller = $dep.controller [ $key ],
+				$condition  = $dep.condition [ $key ],
+				$value      = $dep.value [ $key ],
 				$field      = '[data-depend-id="' + $controller + '"]';
 			if( false !== this.config.nestable ) {
 				let $INPUT = this.config.parent.find( '[data-depend-id=' + $controller + ']' );
@@ -23,10 +23,7 @@ export default class extends WPOnion_Field {
 			this.set_contxt( this.contxt.createRule( $field, $condition, $value ) );
 			this.set_contxt( this.contxt.include( this.element ) );
 		}
-		$wponion_debug.add( this.id(), {
-			"Dependency": $dep,
-			"Nestable Dependency": this.config.nestable,
-		} );
+		$wponion_debug.add( this.id(), { 'Dependency': $dep, 'Nestable Dependency': this.config.nestable } );
 	}
 
 	field_debug() {

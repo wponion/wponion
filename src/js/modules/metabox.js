@@ -71,6 +71,6 @@ export default ( ( window, document, $, wp ) => {
 		$( 'div.postbox.wponion-metabox' ).each( function() {
 			new WPOnion_Metabox_Module( $( this ), false );
 		} );
-	} )
+	} );
 } )( window, document, jQuery, wp );
 

@@ -47,7 +47,7 @@ export default class extends WPOnion_Field {
 						let thumb = ( typeof item.sizes.thumbnail !== 'undefined' ) ? item.sizes.thumbnail.url : item.url,
 							$tmp  = jQuery( $html_temp );
 						$tmp.attr( 'data-wponion-image_id', item.id );
-						$tmp.find( "img" ).attr( 'data-fullsize', item.url ).attr( 'src', thumb ).removeClass( 'hide' );
+						$tmp.find( 'img' ).attr( 'data-fullsize', item.url ).attr( 'src', thumb ).removeClass( 'hide' );
 						$preview.append( $tmp );
 						$preview.find( '.wponion-help' ).tippy();
 						return item.id;
@@ -106,7 +106,7 @@ export default class extends WPOnion_Field {
 		$input.trigger( 'change' );
 
 		$preview.sortable( {
-			items: "> div",
+			items: '> div',
 			cursor: 'move',
 			scrollSensitivity: 40,
 			forcePlaceholderSize: true,

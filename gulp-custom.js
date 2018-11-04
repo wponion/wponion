@@ -1,7 +1,7 @@
-let $gulp           = require( 'gulp' );
+let $gulp        = require( 'gulp' );
 //let rename       = require( 'gulp-rename' );
-let $node_path      = "./node_modules/";
-let $assets_path    = "./assets/";
+let $node_path   = "./node_modules/";
+let $assets_path = "./assets/";
 
 /**
  * {ActualPATH:DISTPATH}

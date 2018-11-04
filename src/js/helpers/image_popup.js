@@ -10,6 +10,6 @@ export default class extends WPOnion_Field {
 			background: 'transparent',
 			showConfirmButton: false,
 			backdrop: `rgba(0,0,0,0.44)`
-		} )
+		} );
 	}
 }

@@ -51,7 +51,6 @@ if ( ! class_exists( '\WPOnion\Field\google_maps' ) ) {
 			}
 			echo '</div>';
 
-
 			echo '<div  class="map_fields" id="gmap_fields_' . $this->js_field_id() . '">';
 			echo $this->_sub_field( 'street_number', 'street_number', __( 'Street Number' ) );
 			echo $this->_sub_field( 'route', 'route', __( 'Route' ) );
@@ -66,15 +65,12 @@ if ( ! class_exists( '\WPOnion\Field\google_maps' ) ) {
 			echo $this->_sub_field( 'url', 'url', __( 'URL' ) );
 			echo $this->_sub_field( 'website', 'website', __( 'Website' ) );
 
-
 			echo $this->_sub_field( 'latitude', 'lat', __( 'Latitude' ) );
 			echo $this->_sub_field( 'longitude', 'lng', __( 'Longitude' ) );
-
 
 			echo $this->_sub_field( 'location', 'location', __( 'Location' ) );
 			echo $this->_sub_field( 'location_type', 'location_type', __( 'location_type' ) );
 			echo $this->_sub_field( 'poi', 'point_of_interest', __( 'Point Of Interest' ) );
-
 
 			echo $this->_sub_field( 'bounds', 'bounds', __( 'Bounds' ) );
 			echo $this->_sub_field( 'viewport', 'viewport', __( 'Viewport' ) );

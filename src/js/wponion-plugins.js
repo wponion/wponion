@@ -20,7 +20,9 @@ jQuery.fn.extend( {
 
 		this.addClass( 'animated ' + animationName ).one( animationEnd, function() {
 			jQuery( this ).removeClass( 'animated ' + animationName );
-			if( typeof callback === 'function' ) callback( jQuery( this ) );
+			if( typeof callback === 'function' ) {
+				callback( jQuery( this ) );
+			}
 		} );
 
 		return this;

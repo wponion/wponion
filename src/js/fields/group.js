@@ -1,7 +1,7 @@
 import WPOnion_Field from '../core/field';
-import WPOnion_Dependency from "../core/dependency";
+import WPOnion_Dependency from '../core/dependency';
 import $wponion from '../core/core';
-
+/* global setTimeout:true */
 export default class extends WPOnion_Field {
 	init() {
 		let $this       = this,
@@ -12,36 +12,34 @@ export default class extends WPOnion_Field {
 
 		this.init_field( this.element.find( '.wponion-group-wrap' ), 'accordion' );
 
-		$group_wrap.find( "> .wponion-accordion-wrap" ).each( function() {
+		$group_wrap.find( '> .wponion-accordion-wrap' ).each( function() {
 			new WPOnion_Dependency( jQuery( this ), { nestable: true } );
 		} );
+
 		this.element.find( '.wponion-group-remove' ).tippy();
 		this.element.on( 'click', '.wponion-group-remove', function() {
-			$( this )
-				.parent()
-				.parent()
-				.find( '> .wponion-accordion-content > .wponion-group-action > button' )
-				.click();
+			jQuery( this ).parent().parent().find( '> .wponion-accordion-content > .wponion-group-action > button' )
+						  .click();
 		} );
 
 		$group_wrap.WPOnionCloner( {
 			add_btn: $add,
 			limit: parseInt( $limit ),
 			clone_elem: '> .wponion-fieldset > .wponion-accordion-wrap',
-			remove_btn: ".wponion-group-action > button",
+			remove_btn: '.wponion-group-action > button',
 			template: this.option( 'group_template' ),
 			onRemove: function( $elem ) {
 				$elem.parent().parent().parent().remove();
 				if( jQuery( 'body' ).find( 'link#editor-buttons-css' ).length === 0 ) {
-					$( 'body' )
+					jQuery( 'body' )
 						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + $wponion.settings( 'wpeditor_buttons_css' ) + '" type="text/css" media="all">' );
 				}
 			},
 			templateAfterRender: () => {
-				let $data = $group_wrap.find( "> .wponion-accordion-wrap:last-child" );
+				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
 				this.init_field( $group_wrap, 'accordion' );
 				$data.find( '.wponion-group-remove' ).tippy();
-				new WPOnion_Dependency( $group_wrap.find( "> .wponion-accordion-wrap:last-child" ), { nestable: true } );
+				new WPOnion_Dependency( $group_wrap.find( '> .wponion-accordion-wrap:last-child' ), { nestable: true } );
 				wponion_field( $data ).reload();
 				this.init_field( $data.find( '.wponion-element-wp_editor' ), 'reload_wp_editor' );
 			},
@@ -58,16 +56,16 @@ export default class extends WPOnion_Field {
 
 			},
 			onLimitReached: function() {
-				let $html = $( '<div class="alert alert-warning" role="alert">' + $error_msg + '</div>' ).hide();
+				let $html = jQuery( '<div class="alert alert-warning" role="alert">' + $error_msg + '</div>' ).hide();
 				$add.before( $html );
-				$add.parent().find( "div.alert" ).fadeIn( function() {
-					let $__E = $( this );
+				$add.parent().find( 'div.alert' ).fadeIn( function() {
+					let $__E = jQuery( this );
 					setTimeout( function() {
 						$__E.fadeOut( 'slow', function() {
 							$__E.remove();
 						} );
-					}, 1000 )
-				} )
+					}, 1000 );
+				} );
 			}
 		} );
 	}
