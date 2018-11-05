@@ -59,8 +59,10 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function register_assets() {
+			do_action( 'wponion_register_assets_before' );
 			self::loop_assets( self::$style, 'wp_register_style', 'all' );
 			self::loop_assets( self::$scripts, 'wp_register_script', 'all' );
+			do_action( 'wponion_register_assets_after' );
 		}
 
 		/**

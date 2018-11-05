@@ -253,7 +253,7 @@ if ( ! function_exists( 'wponion_select_frameworks' ) ) {
 	 * @return mixed
 	 */
 	function wponion_select_frameworks() {
-		return apply_filters( 'wponion_select_input_frameworks', array( 'select2', 'chosen', 'selectize' ) );
+		return apply_filters( 'wponion_select_input_frameworks', array( 'select2', 'chosen' ) );
 	}
 }
 
@@ -307,9 +307,6 @@ if ( ! function_exists( 'wponion_select_classes' ) ) {
 				case 'chosen':
 					$return = ( is_rtl() ) ? 'chosen chosen-rtl' : 'chosen';
 					break;
-				case 'selectize':
-					$return = 'selectize';
-					break;
 			}
 		}
 		return apply_filters( 'wponion_select_input_frameworks_html_class', explode( ' ', $return ), $framework );
@@ -355,7 +352,6 @@ if ( ! function_exists( 'wponion_google_fonts' ) ) {
 	/**
 	 * Reads Google Fonts. Data.
 	 *
-	 * @todo Remove if not required.
 	 * @return mixed
 	 */
 	function wponion_google_fonts() {
@@ -367,7 +363,6 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 	/**
 	 * Converts GoogleFonts Array into usable fontarray
 	 *
-	 * @todo Remove if not required.
 	 * @return array
 	 */
 	function wponion_google_fonts_data() {
@@ -377,8 +372,8 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 		if ( is_array( $data ) ) {
 			foreach ( $data as $d => $v ) {
 				$vars = array();
-				if ( isset( $v['variants'] ) ) {
-					foreach ( $v['variants'] as $id => $name ) {
+				if ( is_array( $v ) && ! empty( $v ) ) {
+					foreach ( $v as $id => $name ) {
 						$vars[ $id ] = $name;
 					}
 					$return[ $d ] = $vars;

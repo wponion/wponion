@@ -1,7 +1,4 @@
-.wponion-element + .wponion-element,
-.wponion-element + .wponion-row,
-.wponion-row + .wponion-element,
-.wponion-row + .wponion-row {
+.wponion-element + .wponion-element, .wponion-element + .wponion-row, .wponion-row + .wponion-element, .wponion-row + .wponion-row {
 	border-top: $element_border;
 	//margin-top:  $element_gurtter;
 }

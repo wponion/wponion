@@ -9,10 +9,3 @@
 //@wponion-append ../../../node_modules/flatpickr/dist/plugins/monthSelect/monthSelect.js
 //@wponion-append ../../../node_modules/flatpickr/dist/plugins/labelPlugin/labelPlugin.js
 //@wponion-append ../../../node_modules/flatpickr/dist/plugins/weekSelect/weekSelect.js
-
-
-
-
-
-
-

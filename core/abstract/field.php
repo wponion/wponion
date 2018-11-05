@@ -328,6 +328,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				echo ( 0 === self::$columns ) ? '<div class="row wponion-row">' : '';
 				$col_class     = 'col';
 				self::$columns = ( 0 === self::$columns ) ? $this->get_cols() : $this->get_cols() + self::$columns;
+			} elseif ( false === $this->get_cols() && self::$columns > 0 ) {
+				$col_class = 'col';
 			}
 
 			$_wrap_attr['class'] = wponion_html_class( $this->data( 'wrap_class' ), $this->default_wrap_class( array(
@@ -353,6 +355,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			echo $this->field_wrapper( false ) . '<div class="clear"></div>';
 			echo '</div>';
 			if ( 12 === self::$columns ) {
+				echo '</div>';
+				self::$columns = 0;
+			} elseif ( false === $this->get_cols() && self::$columns > 0 ) {
 				echo '</div>';
 				self::$columns = 0;
 			}

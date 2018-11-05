@@ -82,15 +82,6 @@ jQuery.fn.extend( {
 	},
 } );
 
-/**
- * // @ wponion-append ../vendors/jquery-interdependencies/jquery-interdependencies.js
- * // @ wponion-append ../../node_modules/jquery.actual/jquery.actual.js
- * // @ wponion-append ../../node_modules/bootstrap-maxlength/bootstrap-maxlength.min.js
- * // @ wponion-append ../vendors/inputToArray.js
- * // @ wponion-append ../../node_modules/overlayscrollbars/js/jquery.overlayScrollbars.min.js
- * Simple JS Addons.
- */
-
 ( function( window, document, wp, $ ) {
 
 //@wponion-inline ../vendors/jquery-interdependencies/jquery-interdependencies.js
@@ -99,6 +90,5 @@ jQuery.fn.extend( {
 //@wponion-inline ../vendors/blockUI/blockUI.js
 //@wponion-inline ../../node_modules/tippy.js/dist/tippy.all.min.js
 //@wponion-inline ../../node_modules/sweetalert2/dist/sweetalert2.all.min.js
-// @ wponion-inline ../../node_modules/geocomplete/jquery.geocomplete.min.js
 //@wponion-inline ../vendors/geocomplete/geocomplete.js
 } )( window, document, wp, jQuery );

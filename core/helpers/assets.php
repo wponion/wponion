@@ -18,35 +18,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $wponion_js, $wponion_css;
 
 $wponion_js = array(
-	'wponion-plugins'           => array(
+	'wponion-plugins'     => array(
 		'assets/js/wponion-plugins.js',
-		array(
-			'jquery',
-			'backbone',
-			'underscore',
-			'wp-util',
-		),
+		array( 'jquery', 'backbone', 'underscore', 'wp-util' ),
 	),
-	'wponion-core'              => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
-	'wponion-customizer'        => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
-	//'wponion-metabox'           => array( 'assets/js/wponion-metabox.js', array( 'wponion-core' ) ),
-	'wponion-woocommerce'       => array( 'assets/js/wponion-woocommerce.js', array( 'wponion-core' ) ),
-	'wponion-taxonomy'          => array( 'assets/js/wponion-taxonomy.js', array( 'wponion-core' ) ),
-	'wponion-postmessags'       => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
-	'wponion-selectize-plugins' => array( 'assets/js/wponion-selectize-plugins.js' ),
-	'wponion-cloner'            => array( 'assets/js/wponion-cloner.js' ),
-	'wponion-inputmask'         => array(
-		'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
-		array( 'jquery' ),
-	),
-	'select2'                   => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
-	'selectize'                 => array( 'assets/plugins/selectize/selectize.min.js', array( 'jquery' ) ),
-	'chosen'                    => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
-	'wponion-colorpicker'       => array(
+	'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
+	'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
+	'wponion-woocommerce' => array( 'assets/js/wponion-woocommerce.js', array( 'wponion-core' ) ),
+	'wponion-taxonomy'    => array( 'assets/js/wponion-taxonomy.js', array( 'wponion-core' ) ),
+	'wponion-postmessags' => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
+	'wponion-cloner'      => array( 'assets/js/wponion-cloner.js' ),
+	'wponion-inputmask'   => array( 'assets/plugins/inputmask/jquery.inputmask.bundle.min.js', array( 'jquery' ) ),
+	'select2'             => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
+	'chosen'              => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
+	'wponion-colorpicker' => array(
 		'assets/plugins/wp-color-picker-alpha/wp-color-picker-alpha.min.js',
 		array( 'wp-color-picker' ),
 	),
-	'wponion-datepicker'        => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
+	'wponion-datepicker'  => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
 );
 
 $wponion_css = array(
@@ -88,12 +77,11 @@ if ( ! function_exists( 'wponion_load_asset' ) ) {
 	 * @param string $key
 	 */
 	function wponion_load_asset( $key = '' ) {
-		global $wponion_css, $wponion_js;
-		if ( isset( $wponion_css[ $key ] ) ) {
+		if ( wp_style_is( $key, 'registered' ) && false === wp_style_is( $key ) ) {
 			wp_enqueue_style( $key );
 		}
 
-		if ( isset( $wponion_js[ $key ] ) ) {
+		if ( wp_script_is( $key, 'registered' ) && false === wp_script_is( $key ) ) {
 			wp_enqueue_script( $key );
 		}
 	}
