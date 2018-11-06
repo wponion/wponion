@@ -209,6 +209,9 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 * @return bool|mixed
 		 */
 		public function option( $key = '', $default = false ) {
+			if ( true === $key ) {
+				return $this->settings;
+			}
 			return ( isset( $this->settings[ $key ] ) ) ? $this->settings[ $key ] : $default;
 		}
 

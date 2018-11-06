@@ -35,6 +35,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @var array
 		 */
 		protected $option = array();
+		protected $module = 'admin_page';
+
+		protected $page_slug = null;
 
 		/**
 		 * Admin_Page constructor.
@@ -42,8 +45,30 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @param array $options
 		 */
 		public function __construct( $options = array() ) {
-			$this->settings = $this->parse_args( $options, $this->defaults() );
-			$this->init();
+			if ( false === $this->is_multiple( $options ) ) {
+				foreach ( $options as $option ) {
+					new \WPOnion\Modules\Admin_Page( $option );
+				}
+			} else {
+				$this->settings = $this->parse_args( $options, $this->defaults() );
+				$this->init();
+			}
+		}
+
+		/**
+		 * Checks if given menu args is multiple or not.
+		 *
+		 * @param $args
+		 *
+		 * @return bool
+		 */
+		protected function is_multiple( $args ) {
+			foreach ( $this->defaults() as $key => $val ) {
+				if ( isset( $args[ $key ] ) ) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/**
@@ -57,7 +82,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				'capability'    => 'manage_options',
 				'menu_slug'     => false,
 				'icon'          => false,
-				'position'      => false,
+				'position'      => null,
 				'on_load'       => false,
 				'assets'        => false,
 				'hook_priority' => 10,
@@ -72,7 +97,18 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
 		 */
 		public function submenu( $submenu = null ) {
-			return ( ! is_null( $submenu ) ) ? $this->set_option( 'submenu', $submenu ) : $this->option( 'submenu', false );
+			if ( ! is_null( $submenu ) ) {
+				return $this->set_option( 'submenu', $submenu );
+			}
+
+			if ( is_object( $this->option( 'submenu', false ) ) ) {
+				if ( $this->option( 'submenu', false ) instanceof Admin_Page ) {
+					return $this->option( 'submenu', false )
+						->menu_slug();
+				}
+			}
+
+			return $this->option( 'submenu' );
 		}
 
 		/**
@@ -126,7 +162,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
 		 */
 		public function position( $position = null ) {
-			return ( ! is_null( $position ) ) ? $this->set_option( 'position', $position ) : $this->option( 'position', false );
+			return ( ! is_null( $position ) ) ? $this->set_option( 'position', $position ) : $this->option( 'position', null );
 		}
 
 		/**
@@ -225,37 +261,84 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			return $this->menu_slug();
 		}
 
+		public function get_page_slug() {
+			return $this->page_slug;
+		}
 
 		/**
 		 * Registers Menu With WP.
 		 */
 		public function add_menu() {
-			$_slug      = $this->get_slug();
+			$_slug = $this->get_slug();
+			$this->menu_slug( $_slug );
 			$menu_title = $this->get_menu_title();
 			$page_title = $this->get_page_title();
-			if ( false === $this->submenu() ) {
-				$slug = add_menu_page( $page_title, $menu_title, $this->capability(), $_slug, array(
+
+			if ( false === $this->submenu() || is_array( $this->submenu() ) ) {
+				$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $_slug, array(
 					&$this,
 					'render',
 				), $this->icon(), $this->position() );
 			} else {
-				$slug = add_submenu_page( $this->submenu(), $page_title, $menu_title, $this->capability(), $_slug, array(
-					&$this,
-					'render',
-				) );
+				switch ( $this->submenu() ) {
+					case 'management':
+					case 'dashboard':
+					case 'options':
+					case 'plugins':
+					case 'theme':
+						if ( function_exists( 'add_' . $this->submenu() . '_page' ) ) {
+							$this->page_slug = wponion_callback( 'add_' . $this->submenu() . '_page', array(
+								$page_title,
+								$menu_title,
+								$this->capability(),
+								$_slug,
+								array(
+									&$this,
+									'render',
+								),
+							) );
+						}
+						break;
+					default:
+						$this->page_slug = add_submenu_page( $this->submenu(), $page_title, $menu_title, $this->capability(), $_slug, array(
+							&$this,
+							'render',
+						) );
+						break;
+				}
 			}
-			$this->add_action( 'load-' . $slug, 'on_page_load', 1 );
+			$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
+
+			if ( is_array( $this->submenu() ) ) {
+				$subemnus = array();
+				if ( true === $this->is_multiple( $this->submenu() ) ) {
+					$subemnus[] = $this->submenu();
+				} else {
+					$subemnus = $this->submenu();
+				}
+
+				foreach ( $subemnus as $sub_menu ) {
+					if ( ! isset( $sub_menu['submenu'] ) ) {
+						$sub_menu['submenu'] = $this;
+					}
+					new self( $sub_menu );
+				}
+			}
+
 		}
 
 		/**
 		 * Renders.
 		 */
 		public function render() {
+			echo '<div class="wrap">';
+			echo '<h1>' . get_admin_page_title() . '</h1>';
 			if ( false !== $this->option( 'callback' ) ) {
 				echo wponion_callback( $this->option( 'callback' ), $this );
 			} elseif ( false !== $this->option( 'render' ) ) {
 				echo wponion_callback( $this->option( 'render' ), $this );
 			}
+			echo '</div>';
 		}
 
 		/**
