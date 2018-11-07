@@ -50,6 +50,7 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	function wponion_registry( $type = '', $class = null ) {
 		switch ( $type ) {
 			case 'settings':
+			case 'modules':
 			case 'theme':
 				$class = '\WPOnion\Registry\Modules';
 				break;
@@ -152,6 +153,45 @@ if ( ! function_exists( 'wponion_woocommerce_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_help_tabs_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for User Profile. module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_help_tabs_registry( &$instance ) {
+		return wponion_get_registry_instance( 'help_tabs', $instance, 'settings' );
+	}
+}
+
+
+if ( ! function_exists( 'wponion_admin_page_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for User Profile. module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_admin_page_registry( &$instance ) {
+		return wponion_get_registry_instance( 'admin_page', $instance, 'settings' );
+	}
+}
+
+if ( ! function_exists( 'wponion_help_tabs_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for User Profile. module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_help_tabs_registry( &$instance ) {
+		return wponion_get_registry_instance( 'help_tabs', $instance, 'settings' );
+	}
+}
 
 if ( ! function_exists( 'wponion_value_registry' ) ) {
 	/**

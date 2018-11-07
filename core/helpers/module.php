@@ -98,6 +98,12 @@ if ( ! function_exists( 'wponion_user_profile' ) ) {
 }
 
 if ( ! function_exists( 'wponion_customizer' ) ) {
+	/**
+	 * @param $settings
+	 * @param $fields
+	 *
+	 * @return \WPOnion\Modules\customizer
+	 */
 	function wponion_customizer( $settings, $fields ) {
 		return new \WPOnion\Modules\customizer( $settings, $fields );
 	}
@@ -111,5 +117,21 @@ if ( ! function_exists( 'wponion_admin_page' ) ) {
 	 */
 	function wponion_admin_page( $arguments = array() ) {
 		return new \WPOnion\Modules\Admin_Page( $arguments );
+	}
+}
+
+
+if ( ! function_exists( 'wponion_help_tabs' ) ) {
+	/**
+	 * Returns a new instance of Help Tabs.
+	 *
+	 * @param        $page
+	 * @param array  $help_tabs
+	 * @param string $help_sidebar
+	 *
+	 * @return \WPOnion\Modules\Help_Tabs
+	 */
+	function wponion_help_tabs( $page, $help_tabs = array(), $help_sidebar = '' ) {
+		return new \WPOnion\Modules\Help_Tabs( $page, $help_tabs, $help_sidebar );
 	}
 }
