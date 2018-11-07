@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Admin Page Class to handle custom admin page creation in wp-admin.
  * Project : wponion
  * Date : 03-11-2018
  * Time : 09:10 AM
@@ -22,21 +22,32 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 	/**
-	 * Class metabox
+	 * Admin Page Class to handle custom admin page creation in wp-admin.
 	 *
 	 * @package WPOnion\Modules
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Admin_Page extends \WPOnion\Bridge {
+	class Admin_Page extends \WPOnion\Bridge\Module {
 		/**
 		 * option
 		 *
 		 * @var array
 		 */
 		protected $option = array();
+
+		/**
+		 * module
+		 *
+		 * @var string
+		 */
 		protected $module = 'admin_page';
 
+		/**
+		 * page_slug
+		 *
+		 * @var null
+		 */
 		protected $page_slug = null;
 
 		/**
@@ -53,6 +64,8 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				$this->settings = $this->parse_args( $options, $this->defaults() );
 				$this->init();
 			}
+
+			$this->save_instance();
 		}
 
 		/**
@@ -386,6 +399,24 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 					}
 				}
 			}
+		}
+
+		public function wrap_class( $extra_class = '' ) {
+		}
+
+		public function on_init() {
+		}
+
+		/**
+		 * Returns A Unique Name.
+		 *
+		 * @return string
+		 */
+		public function unique() {
+			if ( empty( $this->unique ) ) {
+				$this->unique = md5( wp_json_encode( $this->settings ) );
+			}
+			return $this->unique;
 		}
 	}
 }
