@@ -430,20 +430,54 @@ if ( ! function_exists( 'wponion_delete_term_meta' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_is_callable' ) ) {
+	/**
+	 * Checks if given value is a callback.
+	 *
+	 * @param $callback
+	 *
+	 * @return bool
+	 */
+	function wponion_is_callable( $callback ) {
+		if ( is_callable( $callback ) ) {
+			return true;
+		}
+
+		if ( is_string( $callback ) && has_action( $callback ) ) {
+			return true;
+		}
+
+		if ( is_string( $callback ) && has_filter( $callback ) ) {
+			return true;
+		}
+		return false;
+	}
+}
+
 if ( ! function_exists( 'wponion_callback' ) ) {
 	/**
-	 * @param $callback
-	 * @param $args
+	 * Custom function to handle multiple callback options
+	 * 1. Function
+	 * 2. Inline Function
+	 * 3. Class instance
+	 * 4. Class Static Method
+	 * 5. do_action
+	 * 6. apply_filters.
 	 *
-	 * @return bool|string
+	 * @param       $callback
+	 * @param array $args
+	 *
+	 * @return bool|false|mixed|string
 	 */
-	function wponion_callback( $callback, $args ) {
+	function wponion_callback( $callback, $args = array() ) {
 		$data = false;
 		try {
 			if ( is_callable( $callback ) ) {
 				$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
 				$data = call_user_func_array( $callback, $args );
-			} else {
+			} elseif ( is_string( $callback ) && has_filter( $callback ) ) {
+				$data = call_user_func_array( 'apply_filters', array_merge( array( $callback ), $args ) );
+			} elseif ( is_string( $callback ) && has_action( $callback ) ) {
 				ob_start();
 				$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
 				echo call_user_func_array( 'do_action', array_merge( array( $callback ), $args ) );

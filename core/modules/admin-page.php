@@ -96,6 +96,8 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				'menu_slug'     => false,
 				'icon'          => false,
 				'position'      => null,
+				'help_tab'      => array(),
+				'help_sidebar'  => '',
 				'on_load'       => false,
 				'assets'        => false,
 				'hook_priority' => 10,
@@ -122,6 +124,24 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			}
 
 			return $this->option( 'submenu' );
+		}
+
+		/**
+		 * @param array $help_tab
+		 *
+		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 */
+		public function help_tab( $help_tab = null ) {
+			return ( ! is_null( $help_tab ) ) ? $this->set_option( 'help_tab', $help_tab ) : $this->option( 'help_tab', $help_tab );
+		}
+
+		/**
+		 * @param array $help_sidebar
+		 *
+		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 */
+		public function help_sidebar( $help_sidebar = null ) {
+			return ( ! is_null( $help_sidebar ) ) ? $this->set_option( 'help_sidebar', $help_sidebar ) : $this->option( 'help_sidebar', $help_sidebar );
 		}
 
 		/**
@@ -338,6 +358,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				}
 			}
 
+			if ( ! empty( $this->help_tab() ) || ! empty( $this->help_sidebar() ) ) {
+				wponion_help_tabs( $this, $this->help_tab(), $this->help_sidebar() );
+			}
 		}
 
 		/**

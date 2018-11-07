@@ -168,6 +168,14 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 						$help_tabs = ( is_array( $field ) ) ? $field : array();
 					}
 
+					if ( wponion_is_callable( $help_sidebar ) ) {
+						$help_sidebar = wponion_callback( $help_sidebar );
+					}
+
+					if ( wponion_is_callable( $help_tabs ) ) {
+						$help_tabs = wponion_callback( $help_tabs );
+					}
+
 					foreach ( $help_tabs as $_tab_id => $tab ) {
 						$screen->add_help_tab( $this->render_help_tab_contents( $_tab_id, $tab ) );
 					}
