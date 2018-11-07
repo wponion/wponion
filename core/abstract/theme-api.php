@@ -170,6 +170,15 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 			return wponion_dashboard_registry( $this->module_instance );
 		}
 
+		/**
+		 * Returns Help Tab Instance.
+		 *
+		 * @return \WPOnion\Modules\Help_Tabs
+		 */
+		public function help_tabs() {
+			return wponion_help_tabs_registry( $this->module_instance );
+		}
+
 
 		/**
 		 * Returns User Profile Instance.
@@ -217,6 +226,13 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 */
 		public function render_user_profile_html() {
 			include $this->find_html_file( 'user-profile-html.php' );
+		}
+
+		/**
+		 * Generates Taxonomy Page HTML.
+		 */
+		public function render_help_tabs() {
+			include $this->find_html_file( 'help-tabs.php' );
 		}
 	}
 }
