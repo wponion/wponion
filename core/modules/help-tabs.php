@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 		public function __construct( $page = '', $help_tabs = array(), $help_sidebar = '' ) {
 			if ( is_array( $page ) ) {
 				$settings = $this->get_settings( $page );
-				unset( $page['unique'] );
+				unset( $page['option_name'] );
 				unset( $page['plugin_id'] );
 				parent::__construct( $page, $settings );
 			} elseif ( is_array( $help_tabs ) && false !== $page ) {
@@ -80,7 +80,7 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 				$this->fields = array( $this->fields );
 			}
 
-			$this->add_action( 'current_screen', 'hook_pages' );
+			$this->add_action( 'current_screen', 'render_help_tabs' );
 			//	parent::__construct( $fields, $settings );
 		}
 
@@ -91,12 +91,12 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 		 */
 		public function get_settings( $help_tabs ) {
 			$settings = array(
-				'unique'    => false,
-				'plugin_id' => false,
+				'option_name' => false,
+				'plugin_id'   => false,
 			);
 			if ( is_array( $help_tabs ) ) {
-				if ( isset( $help_tabs['unique'] ) ) {
-					$settings['unique'] = $help_tabs['unique'];
+				if ( isset( $help_tabs['option_name'] ) ) {
+					$settings['option_name'] = $help_tabs['option_name'];
 				}
 
 				if ( isset( $help_tabs['plugin_id'] ) ) {

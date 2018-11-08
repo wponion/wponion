@@ -87,7 +87,6 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for settings module.
@@ -140,6 +139,19 @@ if ( ! function_exists( 'wponion_user_profile_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_screen_options_registry' ) ) {
+	/**
+	 * Creates & Returns an static Instance for screen options module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_screen_options_registry( &$instance ) {
+		return wponion_get_registry_instance( 'screen_options', $instance, 'settings' );
+	}
+}
+
 if ( ! function_exists( 'wponion_woocommerce_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for User Profile. module.
@@ -165,7 +177,6 @@ if ( ! function_exists( 'wponion_help_tabs_registry' ) ) {
 		return wponion_get_registry_instance( 'help_tabs', $instance, 'settings' );
 	}
 }
-
 
 if ( ! function_exists( 'wponion_admin_page_registry' ) ) {
 	/**

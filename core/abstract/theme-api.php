@@ -189,6 +189,10 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 			return wponion_user_profile_registry( $this->module_instance );
 		}
 
+		public function screen_options() {
+			return wponion_screen_options_registry( $this->module_instance );
+		}
+
 		/**
 		 * Searches And returns files path
 		 *
@@ -233,6 +237,10 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 */
 		public function render_help_tabs() {
 			include $this->find_html_file( 'help-tabs.php' );
+		}
+
+		public function render_screen_options() {
+			include $this->find_html_file( 'screen-options.php' );
 		}
 	}
 }
