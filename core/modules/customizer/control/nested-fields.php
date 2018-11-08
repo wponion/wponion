@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\nested_fields' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Nested_Fields' ) ) {
 	/**
 	 * Class nested_fields
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\nested_fields' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class nested_fields extends \WPOnion\Modules\Customize\control {
+	class Nested_Fields extends \WPOnion\Modules\Customize\Control {
 		/**
 		 * @return array
 		 */

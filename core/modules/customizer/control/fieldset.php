@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\fieldset' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Fieldset' ) ) {
 	/**
 	 * Class fieldset
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\fieldset' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class fieldset extends \WPOnion\Modules\Customize\Control\cloneable {
+	class Fieldset extends \WPOnion\Modules\Customize\Control\Cloneable {
 		/**
 		 * type
 		 *

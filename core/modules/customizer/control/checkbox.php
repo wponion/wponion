@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\checkbox' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Checkbox' ) ) {
 	/**
 	 * Class checkbox
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\checkbox' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class checkbox extends \WPOnion\Modules\Customize\control {
+	class Checkbox extends \WPOnion\Modules\Customize\Control {
 		/**
 		 * type
 		 *

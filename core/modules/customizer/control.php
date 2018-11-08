@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\control' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control' ) ) {
 	/**
 	 * Class customize_control
 	 *
@@ -26,8 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\control' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class control extends \WP_Customize_Control {
-
+	class Control extends \WP_Customize_Control {
 		/**
 		 * unique
 		 *

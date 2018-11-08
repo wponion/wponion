@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\key_value' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Key_Value' ) ) {
 	/**
 	 * Class key_value
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\key_value' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0.
 	 */
-	class key_value extends \WPOnion\Modules\Customize\control {
+	class Key_Value extends \WPOnion\Modules\Customize\Control {
 		/**
 		 * type
 		 *

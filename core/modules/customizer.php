@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 	/**
 	 * Class customizer
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class customizer extends \WPOnion\Modules\Customize\Postmessage {
+	class Customizer extends \WPOnion\Bridge\Module {
 		/**
 		 * module
 		 *
@@ -72,17 +72,6 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 				'unique'    => $this->unique,
 				'hash'      => sanitize_title( $parent_section . '-' . $section ),
 			) );
-		}
-
-		/**
-		 * @param array $field
-		 * @param bool  $page
-		 * @param bool  $section
-		 */
-		protected function handle_single_field( $field = array(), $page = false, $section = false ) {
-			$this->handle_field_script( $field );
-			$this->register_partials( $field );
-			$this->render_field( $field, $page, $section );
 		}
 
 		/**
@@ -142,7 +131,6 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 		 */
 		public function load_styles() {
 			wponion_load_core_assets( array( 'wponion-customizer', 'wponion-postmessags' ) );
-			$this->postmessage();
 		}
 
 		/**
@@ -265,9 +253,7 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 			if ( isset( $field['partial_refresh'] ) && ! empty( $field['partial_refresh'] ) ) {
 				foreach ( $field['partial_refresh'] as $partial_refresh => $partial_refresh_args ) {
 					if ( isset( $partial_refresh_args['render_callback'] ) && isset( $partial_refresh_args['selector'] ) ) {
-						$partial_refresh_args = wp_parse_args( $partial_refresh_args, array(
-							'settings' => $field['settings'],
-						) );
+						$partial_refresh_args = wp_parse_args( $partial_refresh_args, array( 'settings' => $field['settings'] ) );
 						$this->wp->selective_refresh->add_partial( $partial_refresh, $partial_refresh_args );
 					}
 				}
@@ -278,14 +264,12 @@ if ( ! class_exists( '\WPOnion\Modules\customizer' ) ) {
 		 * @param string $extra_class
 		 */
 		public function wrap_class( $extra_class = '' ) {
-			// TODO: Implement wrap_class() method.
 		}
 
 		/**
 		 * @return mixed
 		 */
 		public function on_init() {
-			// TODO: Implement on_init() method.
 		}
 	}
 }

@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\cloneable' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Cloneable' ) ) {
 	/**
 	 * Class cloneable
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\cloneable' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class cloneable extends \WPOnion\Modules\Customize\control {
+	class Cloneable extends \WPOnion\Modules\Customize\Control {
 		/**
 		 * type
 		 *

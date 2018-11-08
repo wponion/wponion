@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\image' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Image' ) ) {
 	/**
 	 * Class image_select
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\image' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class image extends \WPOnion\Modules\Customize\Control\cloneable {
+	class Image extends \WPOnion\Modules\Customize\Control\Cloneable {
 		/**
 		 * type
 		 *
