@@ -64,7 +64,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 
 		if ( false !== $class ) {
 			$plugin_id = '';
-			$module    = 'core';
+			$module    = 'user_fields';
 			$hash      = null;
 
 			if ( is_array( $unique ) ) {
@@ -79,15 +79,18 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			} else {
 				$uid = $field['id'] . '_' . $field['type'] . '_' . $unique . '_' . $hash;
 			}
-
-			$registry = wponion_registry( $module . '_' . $plugin_id . '_' . $unique, '\WPOnion\Registry\Fields' );
+			$registry_key = implode( '_', array_filter( array( $module, $plugin_id, $unique ) ) );
+			$registry     = wponion_registry( $registry_key, '\WPOnion\Registry\Fields' );
 
 			if ( false !== $registry->get( $uid ) ) {
 				return $registry->get( $uid );
 			}
 
 			$instance = new $class( $field, $value, $base_unique );
-			$registry->add( $uid, $instance );
+			if ( method_exists( $registry, 'add' ) ) {
+				$registry->add( $uid, $instance );
+			}
+
 			return $instance;
 		}
 		return false;
