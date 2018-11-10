@@ -36,7 +36,8 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			$add_show = ( ! empty( $this->value() ) ) ? 'style="display:none;"' : false;
 
 			echo '<input type="hidden" id="image_id" value="' . $this->value() . '" name="' . $this->name() . '"/>';
-			echo '<div class="wponion-image-preview">';
+			$ex_class = ( true === $this->data( 'sort' ) ) ? 'gallery-sortable' : 'gallery-non-sortable';
+			echo '<div class="wponion-image-preview ' . $ex_class . '" id="wponion-image-preview' . $this->js_field_id() . '">';
 			if ( ! empty( $this->value() ) ) {
 				$ids = explode( ',', $this->value() );
 				if ( ! empty( $ids ) ) {
@@ -52,6 +53,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			echo $this->button( 'edit' );
 			echo $this->button( 'clear' );
 			echo '</div>';
+			$this->style();
 			echo $this->after();
 		}
 
@@ -102,7 +104,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 				) );
 			}
 
-			return $this->sub_field( $button, null, null, false );
+			return $this->sub_field( $button, false, $this->unique(), false );
 		}
 
 		/**
@@ -114,6 +116,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			return array(
 				'add_button'    => __( 'Create Gallery' ),
 				'edit_button'   => __( 'Edit Gallery' ),
+				'size'          => 100,
 				'sort'          => true,
 				'remove_button' => __( 'Clear Gallery' ),
 			);
