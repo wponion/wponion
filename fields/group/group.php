@@ -100,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 				'only_field'  => true,
 				'button_type' => 'button',
 				'label'       => __( 'Add New' ),
-			) ), null, null );
+			) ), false, $this->unique() );
 
 			$this->is_js_sample             = true;
 			$this->loop_value               = array();
@@ -129,7 +129,7 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 				'only_field'  => true,
 				'button_type' => 'button',
 				'label'       => __( 'Remove ' ),
-			) ), null, null );
+			) ), false, $this->unique() );
 			echo '</div>';
 		}
 
@@ -155,7 +155,7 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 			return $this->parse_args( array(
 				'add_button'    => __( 'Add New' ),
 				'remove_button' => __( 'Remove' ),
-				'limit'         => 4,
+				'limit'         => false,
 				'error_msg'     => __( 'You Can\'t Add More..' ),
 			), parent::field_default() );
 		}
