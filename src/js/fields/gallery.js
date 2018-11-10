@@ -105,19 +105,21 @@ export default class extends WPOnion_Field {
 
 		$input.trigger( 'change' );
 
-		$preview.sortable( {
-			items: '> div',
-			cursor: 'move',
-			scrollSensitivity: 40,
-			forcePlaceholderSize: true,
-			placeholder: 'sortable-placeholder',
-			helper: 'clone',
-			opacity: 0.65,
-			start: function( event, ui ) {
-				let $item = ui.item;
-				$preview.find( '.sortable-placeholder' ).css( 'width', $item.width() );
-				$preview.find( '.sortable-placeholder' ).css( 'height', $item.height() );
-			}
-		} );
+		if( $preview.hasClass( 'gallery-sortable' ) ) {
+			$preview.sortable( {
+				items: '> div',
+				cursor: 'move',
+				scrollSensitivity: 40,
+				forcePlaceholderSize: true,
+				placeholder: 'sortable-placeholder',
+				helper: 'clone',
+				opacity: 0.65,
+				start: function( event, ui ) {
+					let $item = ui.item;
+					$preview.find( '.sortable-placeholder' ).css( 'width', $item.width() );
+					$preview.find( '.sortable-placeholder' ).css( 'height', $item.height() );
+				}
+			} );
+		}
 	}
 }
