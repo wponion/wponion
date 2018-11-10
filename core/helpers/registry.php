@@ -28,11 +28,25 @@ if ( ! function_exists( 'wponion_get_registry' ) ) {
 	 */
 	function wponion_get_registry( $type = '', $class = '' ) {
 		static $data = array();
-
+		if ( true === $type ) {
+			return $data;
+		}
 		if ( ! isset( $data[ $type ] ) ) {
 			$data[ $type ] = new $class;
 		}
 		return $data[ $type ];
+	}
+}
+
+if ( ! function_exists( 'wponion_get_registry_stats' ) ) {
+	/**
+	 * @todo remove
+	 */
+	function wponion_get_registry_stats() {
+		//$_d = wponion_get_registry( true );
+		//var_dump( \WPOnion\Field::$total_fields );
+		//var_dump( array_keys( $_d ) );
+		//var_dump( $_d['core__'] );
 	}
 }
 
