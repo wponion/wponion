@@ -32,7 +32,7 @@ $wponion_js = array(
 	'select2'             => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
 	'chosen'              => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
 	'wponion-colorpicker' => array(
-		'assets/plugins/wp-color-picker-alpha/wp-color-picker-alpha.min.js',
+		'assets/plugins/colorpicker/wp-color-picker-alpha.js',
 		array( 'wp-color-picker' ),
 	),
 	'wponion-datepicker'  => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
@@ -45,7 +45,7 @@ $wponion_css = array(
 	'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
 	'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
 	'wponion-colorpicker' => array(
-		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.min.css',
+		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.css',
 		array( 'wp-color-picker' ),
 	),
 	'wponion-datepicker'  => array( 'assets/plugins/flatpickr/style.css' ),
