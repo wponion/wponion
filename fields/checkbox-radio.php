@@ -80,7 +80,6 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			}
 
-
 			echo $this->catch_output( 'stop' );
 			echo $this->after();
 		}
@@ -187,7 +186,15 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
 			if ( false !== $this->data( 'pretty' ) || false !== $options['pretty'] ) {
-				if ( is_array( $options['pretty'] ) ) {
+				if ( false !== $this->data( 'pretty' ) && is_array( $options['pretty'] ) ) {
+					$pretty = $this->handle_args( 'class', $this->data( 'pretty' ), array(
+						'state' => '',
+						'class' => '',
+					) );
+
+					$pretty['state'] = $pretty['state'] . ' ' . $options['pretty']['state'];
+					$pretty['class'] = $pretty['class'] . ' ' . $options['pretty']['class'];
+				} elseif ( is_array( $options['pretty'] ) ) {
 					$pretty = $options['pretty'];
 				} else {
 					$pretty = $this->handle_args( 'class', $this->data( 'pretty' ), array(
