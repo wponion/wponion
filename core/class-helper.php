@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @return array
 		 */
 		public static function get_material_design_colors( $context = 'primary' ) {
-			$colors = self::get_data( 'meterial_colors' );
+			$colors = self::get_data( 'material_colors' );
 			switch ( $context ) {
 				case '50':
 				case '100':
