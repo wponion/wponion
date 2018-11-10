@@ -139,7 +139,6 @@ if ( ! class_exists( 'WPOnion_Modern_Theme' ) ) {
 						( true === $menu['is_active'] ) ? 'current' : '',
 					) );
 
-
 					$attr     = wponion_array_to_html_attributes( $attr );
 					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a> ';
 				}

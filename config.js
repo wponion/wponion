@@ -20,6 +20,11 @@ $_json[ 'scss' ]         = {
 		concat: 'selectize.css',
 		dist: 'assets/plugins/selectize/'
 	},
+	"src/scss/themes/fresh/wponion-fresh-theme.scss": {
+		sourcemap: false,
+		concat: 'wponion-fresh-theme.css',
+		dist: 'templates/fresh/assets/'
+	},
 
 	/**
 	 * Plugins
@@ -67,6 +72,17 @@ $_json[ 'js' ]           = {
 	"src/js/themes/modern-theme.js": {
 		dist: "templates/modern/assets/",
 		babel: false, babel_dev: false, uglify: true, combine_files: true, concat: 'wponion-modern-theme.js'
+	},
+	"src/js/themes/fresh-theme.js": {
+		dist: "templates/fresh/assets/",
+		babel: false, babel_dev: false, uglify: true, combine_files: true, concat: 'wponion-fresh-theme.js'
+	},
+	"src/js/wponion-cloner.js": {
+		dist: "assets/js",
+		concat: "wponion-cloner.js",
+		webpack: false,
+		webpack_dev: false,
+		babel: true,
 	},
 
 	/**

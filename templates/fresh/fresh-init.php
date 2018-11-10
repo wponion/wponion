@@ -76,7 +76,7 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 		 * @return bool|string
 		 */
 		public function get_main_menu_html() {
-			$return = '<nav class="wpo-ftnav">';
+			$return = '<ul class="wpo-ftnav">';
 			$menus  = $this->settings()
 				->settings_menus();
 
@@ -85,27 +85,29 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 					if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
 						continue;
 					}
+					$sub_menu      = $this->submenu_html( $slug );
 					$attr          = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
 					$attr['title'] = isset( $attr['title'] ) ? $attr['title'] : $menu['title'];
 					$page_title    = $menu['title'];
 					$attr['href']  = $menu['href'];
 					$attr['class'] = isset( $attr['class'] ) ? $attr['class'] : array();
 					$attr['class'] = wponion_html_class( $attr['class'], array(
+						( empty( $sub_menu ) ) ? '' : 'dropdown',
 						wponion_html_class( $menu['class'] ),
 						'wpo-ftnav-tab',
 						( ! empty( $men['icon'] ) ) ? 'wpo-ftnav-with-icon' : '',
 						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
-						( true === $menu['is_active'] ) ? 'wpo-ftnav-tab-active' : '',
+						( true === $menu['is_active'] ) ? 'active child-show' : '',
 					) );
 					$attr          = wponion_array_to_html_attributes( $attr );
 
-					$return .= '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+					$return .= '<li><a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>' . $sub_menu . '</li>';
 				}
 			} else {
 				return false;
 			}
 
-			$return .= '</nav>';
+			$return .= '</ul>';
 			return $return;
 		}
 
@@ -137,16 +139,15 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 						wponion_html_class( $menu['class'] ),
 						( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
 						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
-						( true === $menu['is_active'] ) ? 'current' : '',
+						( true === $menu['is_active'] ) ? 'active' : '',
 					) );
-
 
 					$attr     = wponion_array_to_html_attributes( $attr );
 					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a> ';
 				}
 				$return = implode( '  </li>', $return );
-				$return = '<ul class="wponion-submenus subsubsub"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';
-				return '<h2 class="wponion-subnav-container hndle">' . $return . '</h2>';
+				$return = '<ul class="meta-submenu"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';
+				return $return;# '<h2 class="wponion-subnav-container hndle">' . $return . '</h2>';
 			} else {
 				return '';
 			}
