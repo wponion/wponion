@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 				'only_field' => true,
 				'attributes' => array( 'data-wponion-keyvalue-remove' => 'yes' ),
 				'class'      => 'button button-secondary',
-			) ), null, null );
+			) ), false, $this->unique() );
 
 			echo '</div>';
 		}
@@ -68,8 +68,8 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 		protected function output() {
 			echo $this->before();
 			$values = ( is_array( $this->value() ) ) ? $this->value() : array();
-
-			echo '<div class="wponion-keyvalue_wrap" data-wponion-clone-count="' . count( $values ) . '">';
+			$_count = ( count( $values ) === 0 ) ? 1 : count( $values );
+			echo '<div class="wponion-keyvalue_wrap" data-wponion-clone-count="' . $_count . '">';
 			if ( is_array( $this->value() ) ) {
 				foreach ( $values as $i => $value ) {
 					echo $this->key_value( $this->name( '[' . $i . ']' ), $value['key'], $value['value'] );
@@ -82,7 +82,11 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 			$this->catch_output( 'start' );
 			echo $this->key_value( $this->name( '[{wponionCloneID}]' ) );
 			$template = $this->catch_output( 'stop' );
-			$this->localize_field( array( 'html_template' => $template ) );
+			$this->localize_field( array(
+				'html_template' => $template,
+				'limit'         => $this->data( 'limit' ),
+				'error_msg'     => $this->data( 'error_msg' ),
+			) );
 
 			echo '<div class="wponion-keyvalue-action-container">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
@@ -91,7 +95,7 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 				'attributes' => array( 'data-wponion-keyvalue-add' => 'yes' ),
 				'only_field' => true,
 				'class'      => 'button button-primary',
-			) ), null, null );
+			) ), false, $this->unique() );
 
 			echo '</div>';
 			echo $this->after();
@@ -108,6 +112,8 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 				'remove_button' => __( '-' ),
 				'key_input'     => array(),
 				'value_input'   => array(),
+				'limit'         => false,
+				'error_msg'     => __( 'You Can\'t Add More..' ),
 			);
 		}
 
