@@ -65,7 +65,7 @@ if ( ! class_exists( '\WPOnion\Field\wp_link' ) ) {
 				'attributes'  => array(
 					'data-wponion-jsid' => $this->js_field_id(),
 				),
-			) ), null, null, false );
+			) ), false, $this->unique(), false );
 			echo '</div>';
 			echo '</div>';
 
