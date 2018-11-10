@@ -105,6 +105,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			$this->plugin_id = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
 			$this->unique    = $this->settings['option_name'];
 			$this->save_instance();
+			$this->validate_args();
 		}
 
 		/**
@@ -113,6 +114,27 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function save_instance() {
 			if ( function_exists( 'wponion_' . $this->module . '_registry' ) ) {
 				call_user_func_array( 'wponion_' . $this->module . '_registry', array( &$this ) );
+			}
+		}
+
+		/**
+		 * Validates Arguments.
+		 */
+		protected function validate_args() {
+			if ( ! empty( $this->fields ) ) {
+				foreach ( $this->fields as $id => $field ) {
+					if ( ! isset( $field['name'] ) && isset( $field['title'] ) ) {
+						$this->fields[ $id ]['name'] = sanitize_title( $field['title'] );
+					}
+
+					if ( isset( $field['sections'] ) ) {
+						foreach ( $field['sections'] as $section_id => $section ) {
+							if ( ! isset( $section['name'] ) && isset( $field['title'] ) ) {
+								$this->fields[ $id ]['sections'][ $section_id ]['name'] = sanitize_title( $section['title'] );
+							}
+						}
+					}
+				}
 			}
 		}
 
@@ -341,7 +363,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return array( 'option_name' => false, 'plugin_id' => false );
+			return array(
+				'option_name' => false,
+				'plugin_id'   => false,
+			);
 		}
 
 		/**
@@ -375,7 +400,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 						if ( 'metabox' !== $this->module() ) {
 							$menu                                    = $this->handle_single_menu( $field, $is_child, $parent );
 							$return[ $menu['name'] ]                 = $menu;
-							$return[ $menu['name'] ]['is_seperator'] = true;
+							$return[ $menu['name'] ]['is_seperator'] = isset( $menu['seperator'] ) ? $menu['seperator'] : false;
 						}
 					}
 				}
