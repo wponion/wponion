@@ -1,5 +1,6 @@
 import WPOnion_Field from '../core/field';
-/* global wpLinkL10n:true */
+import $wponion from '../core/core';
+/* global swal:true */
 export default class extends WPOnion_Field {
 	init() {
 		let $this     = this,
@@ -7,23 +8,14 @@ export default class extends WPOnion_Field {
 			$textarea = $elem.find( 'textarea' );
 		$elem.find( '#wponion-wp-link-picker > button' ).on( 'click', function() {
 			$textarea.val( '' );
-			let $dialog = !window.wpLink && jQuery.fn.wpdialog && jQuery( '#wp-link' ).length ? {
-				$link: !1,
-				open: function() {
-					this.$link = jQuery( '#wp-link' ).wpdialog( {
-						title: wpLinkL10n.title,
-						width: 480,
-						height: 'auto',
-						modal: !0,
-						dialogClass: 'wp-dialog',
-						zIndex: 3e5
-					} );
-				},
-				close: function() {
-					this.$link.wpdialog( 'close' );
-				}
-			} : window.wpLink;
-			$dialog.open( $textarea.attr( 'id' ) );
+			if( !window.wpLink ) {
+				swal( {
+					type: 'error',
+					title: $wponion.text( 'wp_link_error_title', 'WP Link JS Lib Not Found' ),
+				} );
+			}
+
+			window.wpLink.open( $textarea.attr( 'id' ) );
 		} );
 
 
