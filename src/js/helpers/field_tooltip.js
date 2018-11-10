@@ -57,7 +57,7 @@ export default class extends WPOnion_Field {
 		} else {
 			$arg = {};
 		}
-
-		this.element.tippy( $arg );
+		this.element.tippy( this.handle_args( $arg, 'ToolTip' ) );
 	}
 }
+
