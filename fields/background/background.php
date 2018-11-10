@@ -96,7 +96,6 @@ if ( ! class_exists( '\WPOnion\Field\background' ) ) {
 				) ), $this->value( 'size' ), $this->name() );
 			}
 
-
 			if ( false !== $this->data( 'background-image' ) ) {
 				$title = ( true === $this->data( 'background-image' ) ) ? __( 'Background Image' ) : $this->data( 'background-image' );
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
