@@ -61,8 +61,8 @@
 			let $limit    = parseInt( $_wrap.attr( 'data-wponion-clone-count' ) ),
 				$template = JSON.parse( JSON.stringify( $options.template ) );
 
-			if( false !== $options.limit ) {
-				if( $limit === $options.limit ) {
+			if( $options.limit > 0 ) {
+				if( $limit === $options.limit || $limit >= $options.limit ) {
 					if( false !== $options.onLimitReached ) {
 						$options.onLimitReached();
 					}
@@ -107,3 +107,4 @@
 		}
 	};
 } )( jQuery );
+
