@@ -49,8 +49,8 @@ if ( ! class_exists( '\WPOnion\Field\textarea' ) ) {
 			if ( isset( $field_data['rows'] ) ) {
 				$field_data['attributes']['rows'] = $field_data['rows'];
 			}
-			if ( isset( $field_data['col'] ) ) {
-				$field_data['attributes']['col'] = $field_data['col'];
+			if ( isset( $field_data['cols'] ) ) {
+				$field_data['attributes']['cols'] = $field_data['cols'];
 			}
 
 			return $field_data;
@@ -64,7 +64,7 @@ if ( ! class_exists( '\WPOnion\Field\textarea' ) ) {
 		protected function field_default() {
 			return array_merge( parent::field_default(), array(
 				'rows' => 5,
-				'col'  => 5,
+				'cols' => 5,
 			) );
 		}
 	}
