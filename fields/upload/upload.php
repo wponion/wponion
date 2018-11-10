@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 				'label'      => __( 'Upload' ),
 				'only_field' => true,
 				'class'      => 'button button-secondary',
-			) ), null, null );
+			) ), false, $this->unique() );
 			echo $this->after();
 		}
 
