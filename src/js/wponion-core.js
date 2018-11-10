@@ -49,6 +49,7 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			jquery_tab: require( './fields/jquery_tab' ).default,
 			field_tooltip: require( './helpers/field_tooltip' ).default,
 			clone_element: require( './fields/clone_element' ).default,
+			sorter: require( './fields/sorter' ).default,
 			google_maps: require( './fields/google_maps' ).default,
 		} );
 		$wpo.settings_args    = $wpo.windowArgs( 'wponion_core', {} );
@@ -65,7 +66,9 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 
 		if( $wpof_div.length > 0 ) {
 			$wp_hook.doAction( 'wponion_before_theme_init', $wpof_div );
-			$wpof_div.each( ( e ) => $wp_hook.doAction( 'wponion_theme_init', $( e.target ) ) );
+			$wpof_div.each( function() {
+				$wp_hook.doAction( 'wponion_theme_init', $( this ) );
+			} );
 			$wp_hook.doAction( 'wponion_after_theme_init', $wpof_div );
 
 
