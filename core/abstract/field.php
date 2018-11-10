@@ -33,6 +33,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @var int
 		 */
 		protected static $columns = 0;
+		/**
+		 * columns
+		 *
+		 * @var int
+		 */
+		public static $total_fields = 0;
 
 		/**
 		 * orginal_field
@@ -105,6 +111,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @param string|array $unique
 		 */
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
+			self::$total_fields++;
 			$this->orginal_field = $field;
 			$this->orginal_value = $value;
 			$this->field         = $this->_handle_field_args( $this->set_args( $field ) );
@@ -202,6 +209,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'clone'           => false,
 				'clone_settings'  => array(),
 				'debug'           => wponion_field_debug(),
+				'disabled'        => false,
+				'query_args'      => array(),
 			);
 			return $this->parse_args( $this->field_default(), $defaults );
 		}
@@ -245,6 +254,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$this->wrapper();
 			}
 
+			$this->debug( __( 'Raw Field Args' ), $this->orginal_field );
 			$this->debug( __( 'Field Args' ), $this->field );
 			$this->debug( __( 'Field Value' ), $this->value );
 			$this->debug( __( 'Unique' ), $this->unique );
@@ -662,6 +672,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$user_attrs['style'] = $this->data( 'style' );
 			}
 
+			if ( true === $this->has( 'disabled' ) ) {
+				$user_attrs['disabled'] = 'disabled';
+			}
+
 			if ( false !== $this->has( 'placeholder' ) ) {
 				$user_attrs['placeholder'] = $this->data( 'placeholder' );
 			}
@@ -845,7 +859,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'custom_input' => false,
 			) );
 
-
 			if ( ! is_array( $value ) ) {
 				$defaults['key']   = $key;
 				$defaults['label'] = $value;
@@ -939,11 +952,17 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		public function element_data( $type = '' ) {
-			$is_ajax = ( isset( $this->field['settings'] ) && isset( $this->field['settings']['is_ajax'] ) && true === $this->field['settings']['is_ajax'] );
+			$is_ajax    = ( isset( $this->field['settings'] ) && isset( $this->field['settings']['is_ajax'] ) && true === $this->field['settings']['is_ajax'] );
+			$query_args = array();
+
 			if ( $is_ajax && empty( $this->value ) ) {
 				return array();
 			}
-			$query_args = ( is_array( $this->field['query_args'] ) && ! empty( $this->field['query_args'] ) ) ? $this->field ['query_args'] : array();
+
+			if ( isset( $this->field['query_args'] ) && is_array( $this->field['query_args'] ) && ! empty( $this->field['query_args'] ) ) {
+				$query_args = $this->field['query_args'];
+			}
+
 			if ( $is_ajax ) {
 				$query_args['post__in'] = ( ! is_array( $this->value ) ) ? explode( ',', $this->value ) : $this->value;
 			}
