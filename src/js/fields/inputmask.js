@@ -1,12 +1,11 @@
 import WPOnion_Field from '../core/field';
-import $wponion from '../core/core';
 
 export default class extends WPOnion_Field {
 	init() {
 		if( this.element.length > 0 ) {
 			let $settings = this.option( 'inputmask' );
 			if( $settings ) {
-				$settings = $wponion.js_func( $settings );
+				$settings = this.handle_args( $settings, 'InputMask' );
 				this.element.inputmask( $settings );
 			}
 		}
