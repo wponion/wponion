@@ -35,7 +35,6 @@ if ( ! class_exists( '\WPOnion\Field\color_picker' ) ) {
 				'value'      => $this->value(),
 			);
 
-
 			echo '<input ' . $this->attributes( $attributes ) . '/>';
 			echo $this->after();
 		}
