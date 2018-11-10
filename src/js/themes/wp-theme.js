@@ -49,7 +49,7 @@ class WPOnion_WP_Theme {
 			} else {
 				window.location.href = $( this ).attr( 'href' );
 			}
-		} )
+		} );
 	}
 }
 
