@@ -38,17 +38,22 @@ export default class extends WPOnion_Module {
 	}
 
 	field_debug() {
+		if( false !== $wponion_debug.get( this.id() ) ) {
+			return;
+		}
+
 		let $info = this.option( 'debug_info' ),
 			$arr  = {};
 
 		if( false === is_undefined( $info ) ) {
 			if( false === empty( $info ) ) {
-				$arr.Field             = $info[ 'Field Args' ];
-				$arr[ 'Field Errors' ] = $info[ 'Field Errors' ];
-				$arr[ 'Field Value' ]  = $info[ 'Field Value' ];
-				$arr[ 'Plugin ID' ]    = $info[ 'Plugin ID' ];
-				$arr.Module            = $info.Module;
-				$arr.Unique            = $info.Unique;
+				$arr[ 'Raw Field Args' ] = $info[ 'Raw Field Args' ];
+				$arr.Field               = $info[ 'Field Args' ];
+				$arr[ 'Field Errors' ]   = $info[ 'Field Errors' ];
+				$arr[ 'Field Value' ]    = $info[ 'Field Value' ];
+				$arr[ 'Plugin ID' ]      = $info[ 'Plugin ID' ];
+				$arr.Module              = $info.Module;
+				$arr.Unique              = $info.Unique;
 				$wponion_debug.add( this.id(), { 'PHP Args': $arr, 'JS Args': {} } );
 			}
 		}
@@ -80,15 +85,15 @@ export default class extends WPOnion_Module {
 			$found.find( '> .wponion-field-title > h4' ).on( 'click', () => {
 				let $d          = $this.id() + 'debugINFO',
 					$notice_txt = '<p class=\'wponion-field-debug-notice\'>' + $wponion.option( 'debug_notice' ) + '</p>',
-					$elem       = jQuery( '<div id="' + $d + '" class="wponion-field-debug-popup" ><div id="\' + $d + \'" ></div>' + $notice_txt + '</div>' );
-
+					$elem       = jQuery( '<div id="' + $d + '" class="wponion-field-debug-popup" ><div id="' + $d + '" ></div>' + $notice_txt + '</div>' );
+				let $data       = $wponion_debug.get( $this.id() );
 				swal( {
 					html: $elem,
 					showConfirmButton: true,
 					confirmButtonText: $wponion.txt( 'get_json_output', 'As JSON' ),
 					showCloseButton: false,
 					width: '800px',
-					onOpen: () => jQuery( '#swal2-content > div > #' + $d ).jsonView( $wponion_debug.get( $this.id() ) )
+					onOpen: () => jQuery( '#swal2-content > div > #' + $d ).jsonView( $data )
 				} ).then( ( result ) => {
 					if( result.value ) {
 						swal( {
@@ -191,6 +196,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
+		this.init_field( '.wponion-element-sorter', 'sorter' );
 
 		wp.hooks.addAction( 'wponion_after_fields_reload' );
 		return this;
