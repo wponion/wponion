@@ -1,27 +1,29 @@
 const $vs_boilerplate_v = "1.2.0";
-
-const $gulp            = require( 'gulp' ),
-	  $util            = require( 'gulp-util' ),
-	  $scss            = require( 'gulp-sass' ),
-	  $notify          = require( 'gulp-notify' ),
-	  $runSequence     = require( 'run-sequence' ),
-	  $minify_css      = require( 'gulp-clean-css' ),
-	  $babel           = require( 'gulp-babel' ),
-	  $concat          = require( 'gulp-concat' ),
-	  $uglify          = require( 'gulp-uglify' ),
-	  $autoprefixer    = require( 'gulp-autoprefixer' ),
-	  $sourcemaps      = require( 'gulp-sourcemaps' ),
-	  $webpack         = require( 'webpack-stream' ),
-	  $parcel          = require( 'gulp-parcel' ),
-	  $combine_files   = require( 'gulp-combine-files' ),
-	  $path            = require( 'path' ),
-	  $revert_path     = require( 'gulp-revert-path' ),
-	  spawn            = require( 'child_process' ).spawn;
-let $config            = require( './config.js' );
-let $is_config_watched = false;
-let $current_task      = false;
+const $rollup           = require( 'gulp-better-rollup' );
+const $rollup_babel     = require( 'rollup-plugin-babel' );
+const $rollup_resolver  = require( 'rollup-plugin-node-resolve' );
+const $gulp             = require( 'gulp' ),
+	  $util             = require( 'gulp-util' ),
+	  $scss             = require( 'gulp-sass' ),
+	  $notify           = require( 'gulp-notify' ),
+	  $runSequence      = require( 'run-sequence' ),
+	  $minify_css       = require( 'gulp-clean-css' ),
+	  $babel            = require( 'gulp-babel' ),
+	  $concat           = require( 'gulp-concat' ),
+	  $uglify           = require( 'gulp-uglify' ),
+	  $autoprefixer     = require( 'gulp-autoprefixer' ),
+	  $sourcemaps       = require( 'gulp-sourcemaps' ),
+	  $webpack          = require( 'webpack-stream' ),
+	  $parcel           = require( 'gulp-parcel' ),
+	  $combine_files    = require( 'gulp-combine-files' ),
+	  $path             = require( 'path' ),
+	  $revert_path      = require( 'gulp-revert-path' ),
+	  spawn             = require( 'child_process' ).spawn;
+let $config             = require( './config.js' );
+let $is_config_watched  = false;
+let $current_task       = false;
 let $gulpfile_reload;
-let $watch_lists       = {};
+let $watch_lists        = {};
 
 try {
 	const $custom_gulp = require( './gulp-custom.js' );
@@ -177,6 +179,7 @@ const vs_watch_js         = ( $is_js_dev = false ) => {
 			  $instance.combine_files();
 			  $instance.parcel();
 			  $instance.webpack();
+			  $instance.rollup();
 			  $instance.babel();
 			  $instance.uglify();
 			  $instance.concat();
@@ -325,7 +328,23 @@ VS_Gulp.prototype.parcel        = function() {
 	let $options = this.option( 'parcel', 'parcel' );
 	if( this.is_active( $config.status.parcel, $options.options ) ) {
 		this.instance = this.instance.pipe( $gulp.src( this.src, { read: false } ) );
-		this.instance = this.instance.pipe( $parcel( $options.options ) );
+		this.instance = this.instance.pipe( $parcel( $options.options ), { source: 'build' } );
+		this.notice( 'Parcel' );
+	}
+	return this;
+};
+VS_Gulp.prototype.rollup        = function() {
+	let $options = this.option( 'rollup', 'rollup' );
+	if( this.is_active( $config.status.rollup, $options.options ) ) {
+		this.instance = this.instance.pipe( $rollup( {
+			// There is no `input` option as rollup integrates into the gulp pipeline
+			plugins: [ $rollup_resolver(), $rollup_babel( {
+				presets: [ '@babel/env' ],
+			} ) ]
+		}, {
+			// Rollups `sourcemap` option is unsupported. Use `gulp-sourcemaps` plugin instead
+			format: 'iife',
+		} ) );
 		this.notice( 'Parcel' );
 	}
 	return this;
