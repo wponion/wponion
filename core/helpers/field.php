@@ -316,6 +316,34 @@ if ( ! function_exists( 'wponion_select_classes' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_backup_fonts' ) ) {
+	/**
+	 * Returns A List of backup fonts.
+	 * @return mixed|void
+	 */
+	function wponion_backup_fonts() {
+		return apply_filters( 'wponion_backup_fonts', array(
+			'Arial, Helvetica, sans-serif'                         => 'Arial, Helvetica, sans-serif',
+			'"Arial Black", Gadget, sans-serif'                    => '"Arial Black", Gadget, sans-serif',
+			'"Bookman Old Style", serif'                           => '"Bookman Old Style", serif',
+			'"Comic Sans MS", cursive'                             => '"Comic Sans MS", cursive',
+			'Courier, monospace'                                   => 'Courier, monospace',
+			'Garamond, serif'                                      => 'Garamond, serif',
+			'Georgia, serif'                                       => 'Georgia, serif',
+			'Impact, Charcoal, sans-serif'                         => 'Impact, Charcoal, sans-serif',
+			'"Lucida Console", Monaco, monospace'                  => '"Lucida Console", Monaco, monospace',
+			'"Lucida Sans Unicode", "Lucida Grande", sans-serif'   => '"Lucida Sans Unicode", "Lucida Grande", sans-serif',
+			'"MS Sans Serif", Geneva, sans-serif'                  => '"MS Sans Serif", Geneva, sans-serif',
+			'"MS Serif", "New York", sans-serif'                   => '"MS Serif", "New York", sans-serif',
+			'"Palatino Linotype", "Book Antiqua", Palatino, serif' => '"Palatino Linotype", "Book Antiqua", Palatino, serif',
+			'Tahoma,Geneva, sans-serif'                            => 'Tahoma, Geneva, sans-serif',
+			'"Times New Roman", Times,serif'                       => '"Times New Roman", Times, serif',
+			'"Trebuchet MS", Helvetica, sans-serif'                => '"Trebuchet MS", Helvetica, sans-serif',
+			'Verdana, Geneva, sans-serif'                          => 'Verdana, Geneva, sans-serif',
+		) );
+	}
+}
+
 if ( ! function_exists( 'wponion_websafe_fonts' ) ) {
 	/**
 	 * Returns Websafe Fonts.
