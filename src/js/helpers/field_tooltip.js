@@ -12,9 +12,19 @@ export default class extends WPOnion_Field {
 						callback();
 					}
 				}, 5 );
-			},
-			$tooltip_key = ( true === this.element.hasClass( 'wponion-help' ) ) ? 'field_help' : $fid + 'tooltip',
-			$arg         = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.option( $tooltip_key, false );
+			};
+		let $tooltip_key = false;
+		if( true === this.element.hasClass( 'wponion-help' ) ) {
+			$tooltip_key = 'wponion-help';
+		} else if( true === this.element.hasClass( 'wponion-wrap-tooltip' ) ) {
+			$tooltip_key = 'wrap_tooltip';
+		} else {
+			$tooltip_key = $fid + 'tooltip';
+		}
+
+		//let $tooltip_key = ( true === this.element.hasClass( 'wponion-help' ) ) ? 'field_help' : $fid + 'tooltip',
+		let $arg = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.option( $tooltip_key, false );
+
 
 		if( false === $arg ) {
 			if( $wponion.valid_json( this.element.attr( 'data-tippy' ) ) ) {
@@ -57,7 +67,7 @@ export default class extends WPOnion_Field {
 		} else {
 			$arg = {};
 		}
-		this.element.tippy( this.handle_args( $arg, 'ToolTip' ) );
+		this.element.tippy( this.handle_args( $arg, $tooltip_key ) );
 	}
 }
 
