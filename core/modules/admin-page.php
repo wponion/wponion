@@ -37,6 +37,13 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		protected $option = array();
 
 		/**
+		 * active_tab
+		 *
+		 * @var bool
+		 */
+		protected $active_tab = false;
+
+		/**
 		 * module
 		 *
 		 * @var string
@@ -101,7 +108,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				'on_load'       => false,
 				'assets'        => false,
 				'hook_priority' => 10,
-				'callback'      => false,
+				'tabs'          => false,
 				'render'        => false,
 			);
 		}
@@ -369,12 +376,47 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		public function render() {
 			echo '<div class="wrap">';
 			echo '<h1>' . get_admin_page_title() . '</h1>';
-			if ( false !== $this->option( 'callback' ) ) {
-				echo wponion_callback( $this->option( 'callback' ), $this );
-			} elseif ( false !== $this->option( 'render' ) ) {
-				echo wponion_callback( $this->option( 'render' ), $this );
+
+			$_callback = $this->option( 'render' );
+
+			if ( false !== $this->option( 'tabs' ) ) {
+				echo '<nav class="nav-tab-wrapper">';
+				foreach ( $this->option( 'tabs' ) as $slug => $tab ) {
+					$icon      = ( false !== $tab['icon'] ) ? '<i class="' . $tab['icon'] . '"></i>' : '';
+					$is_active = ( $this->active_tab === $slug ) ? ' nav-tab-active ' : '';
+					$url       = add_query_arg( 'tab', $slug );
+					echo '<a href="' . $url . '" class="nav-tab ' . $is_active . '">' . $icon . ' ' . $tab['title'] . '</a>';
+					if ( $is_active && ! empty( $tab['render'] ) ) {
+						$_callback = $tab['render'];
+					}
+				}
+				echo '</nav>';
+			}
+
+			if ( false !== $_callback ) {
+				echo wponion_callback( $_callback, $this );
 			}
 			echo '</div>';
+		}
+
+		/**
+		 * Triggers Given Callbacks.
+		 *
+		 * @param $callback
+		 */
+		protected function handle_on_load_callbacks( $callback ) {
+			if ( is_array( $callback ) ) {
+				$is_called = wponion_callback( $callback, $this );
+				if ( false === $is_called ) {
+					foreach ( $callback as $call ) {
+						echo wponion_callback( $call, $this );
+					}
+				} else {
+					echo $is_called;
+				}
+			} elseif ( false !== $callback ) {
+				wponion_callback( $callback, $this );
+			}
 		}
 
 		/**
@@ -382,26 +424,46 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		public function on_page_load() {
 			$this->add_action( 'admin_enqueue_scripts', 'handle_assets' );
-			if ( is_array( $this->on_load() ) ) {
-				$is_called = wponion_callback( $this->on_load(), $this );
-				if ( false === $is_called ) {
-					foreach ( $this->on_load() as $call ) {
-						echo wponion_callback( $call, $this );
+
+			if ( is_array( $this->option( 'tabs' ) ) ) {
+				$tabs     = $this->option( 'tabs' );
+				$new_tabs = array();
+				foreach ( $this->option( 'tabs' ) as $id => $_tab ) {
+					$_tab = $this->parse_args( $_tab, array(
+						'title'   => false,
+						'name'    => false,
+						'icon'    => false,
+						'on_load' => false,
+						'render'  => false,
+					) );
+
+					if ( false === $_tab['name'] ) {
+						$_tab['name'] = sanitize_title( $_tab['title'] );
 					}
-				} else {
-					echo $is_called;
+					$new_tabs[ $_tab['name'] ] = $_tab;
 				}
-			} elseif ( false !== $this->on_load() ) {
-				wponion_callback( $this->on_load(), $this );
+				$this->set_option( 'tabs', $new_tabs );
+			}
+			if ( isset( $_GET['tab'] ) ) {
+				$this->active_tab = sanitize_title( $_GET['tab'] );
+			} elseif ( false !== $this->option( 'tabs' ) ) {
+				$this->active_tab = $this->option( 'tabs' );
+				$this->active_tab = array_keys( $this->active_tab );
+				$this->active_tab = $this->active_tab[0];
+			}
+
+			$this->handle_on_load_callbacks( $this->on_load() );
+			if ( false !== $this->active_tab && isset( $this->settings['tabs'][ $this->active_tab ] ) && isset( $this->settings['tabs'][ $this->active_tab ]['on_load'] ) ) {
+				$this->handle_on_load_callbacks( $this->settings['tabs'][ $this->active_tab ]['on_load'] );
 			}
 		}
 
 		/**
 		 * Handles Page Assets.
 		 */
-		public function handle_assets() {
-			if ( is_array( $this->assets() ) ) {
-				foreach ( $this->assets() as $call ) {
+		public function handle_assets_callback( $callback ) {
+			if ( is_array( $callback ) ) {
+				foreach ( $callback as $call ) {
 					if ( is_string( $call ) ) {
 						if ( wp_script_is( $call, 'registered' ) || wp_style_is( $call, 'registered' ) ) {
 							wp_enqueue_script( $call );
@@ -413,14 +475,24 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 						echo wponion_callback( $call, $this );
 					}
 				}
-			} elseif ( false !== $this->assets() ) {
-				$status = wponion_callback( $this->assets(), $this );
+			} elseif ( false !== $callback ) {
+				$status = wponion_callback( $callback, $this );
 				if ( false === $status ) {
-					if ( wp_script_is( $this->assets(), 'registered' ) || wp_style_is( $this->assets(), 'registered' ) ) {
-						wp_enqueue_script( $this->assets() );
-						wp_enqueue_style( $this->assets() );
+					if ( wp_script_is( $callback, 'registered' ) || wp_style_is( $callback, 'registered' ) ) {
+						wp_enqueue_script( $callback );
+						wp_enqueue_style( $callback );
 					}
 				}
+			}
+		}
+
+		/**
+		 * Handles Page Assets Callback.
+		 */
+		public function handle_assets() {
+			$this->handle_assets_callback( $this->assets() );
+			if ( false !== $this->active_tab && isset( $this->settings['tabs'][ $this->active_tab ] ) && isset( $this->settings['tabs'][ $this->active_tab ]['assets'] ) ) {
+				$this->handle_assets_callback( $this->settings['tabs'][ $this->active_tab ]['assets'] );
 			}
 		}
 
@@ -440,6 +512,20 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				$this->unique = md5( wp_json_encode( $this->settings ) );
 			}
 			return $this->unique;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function active_tab() {
+			return $this->active_tab;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function has_tab() {
+			return ( false !== $this->data( 'tabs' ) );
 		}
 	}
 }
