@@ -1,5 +1,4 @@
-let path = require( 'path' );
-
+let path                 = require( 'path' );
 let $_json               = {};
 $_json[ 'project_name' ] = 'WPOnion';
 $_json[ 'scss' ]         = {
@@ -61,7 +60,7 @@ $_json[ 'js' ]           = {
 		babel: false,
 		babel_dev: false,
 		uglify_dev: false,
-		uglify: true,
+		uglify: false,
 		combine_files: true,
 		concat: "wponion-core.js",
 	},
@@ -200,6 +199,7 @@ $_json[ 'default_config' ] = {
 			]
 		},
 	},
+	rollup: false,
 	uglify_dev: false,
 };
 module.exports             = $_json;
