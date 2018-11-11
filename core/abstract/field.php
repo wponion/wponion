@@ -184,7 +184,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			$defaults = array(
+			return $this->parse_args( $this->field_default(), array(
 				'horizontal'      => false,
 				'id'              => false, # Unique Database ID For Each And Every Field
 				'type'            => false, # Type of the field,
@@ -210,9 +210,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'clone_settings'  => array(),
 				'debug'           => wponion_field_debug(),
 				'disabled'        => false,
+				'wrap_tooltip'    => false,
 				'query_args'      => array(),
-			);
-			return $this->parse_args( $this->field_default(), $defaults );
+			) );
 		}
 
 		/**
@@ -356,6 +356,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$_wrap_attr['class'] .= ' horizontal ';
 			}
 
+			if ( false !== $this->data( 'wrap_tooltip' ) ) {
+				$_wrap_attr['class'] .= 'wponion-has-wrap-tooltip wponion-wrap-tooltip';
+				$_data               = $this->tooltip_data( $this->data( 'wrap_tooltip' ), array(), 'wrap_tooltip' );
+				$_wrap_attr['title'] = $_data['attr']['title'];
+			}
+
 			$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
 
 			echo '<div ' . $_wrap_attr . '>';
@@ -427,22 +433,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$html .= $this->title_before_after( false ) . '<h4>' . $this->data( 'title' ) . '</h4>' . $this->title_before_after( true );
 				$html .= $this->field_help();
 				$html .= $this->title_desc();
-				$html .= $this->debug_notice();
 				$html .= '</div>';
 			}
 			return $html;
-		}
-
-		/**
-		 * Adds A Simple Debug Notice.
-		 *
-		 * @return string
-		 */
-		protected function debug_notice() {
-			if ( $this->has( 'debug' ) ) {
-				return '<a class="wponion-field-debug-handle" data-wponion-jsid="' . $this->js_field_id() . '"><span class="badge badge-primary">' . __( 'Debug Field' ) . '</span></a>';
-			}
-			return '';
 		}
 
 		/**
@@ -486,8 +479,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'class' => 'wponion-help',
 			);
 
-			if ( true === $localize ) {
-				wponion_localize()->add( $this->js_field_id(), array( 'field_help' => $data ) );
+			if ( false !== $localize ) {
+				$localize = ( true === $localize ) ? 'field_help' : $localize;
+				wponion_localize()->add( $this->js_field_id(), array( $localize => $data ) );
 			}
 			return array(
 				'attr' => $attr,
@@ -555,8 +549,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function after() {
 			if ( false === $this->has( 'only_field' ) ) {
 				$data = ( false !== $this->has( 'after' ) ) ? $this->data( 'after' ) : '';
-				$data .= $this->field_desc();
-				$data .= $this->field_error();
+				$data = $data . $this->field_desc();
+				$data = $data . $this->field_error();
 				return $data;
 			}
 			return '';
@@ -770,8 +764,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function js_field_id() {
 			if ( ! isset( $this->js_field_id ) ) {
-				$key               = $this->unid() . '_' . $this->unique() . '_' . uniqid( time() );
-				$key               = wponion_localize_object_name( 'wponion', 'field', $key );
+				$key               = wponion_localize_object_name( 'wponion', 'field', $this->unid() . '_' . $this->unique() . '_' . uniqid( time() ) );
 				$key               = str_replace( array( '-', '_' ), '', $key );
 				$this->js_field_id = sanitize_key( $key );
 			}
