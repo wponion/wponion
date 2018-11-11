@@ -192,12 +192,13 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-field-tooltip', 'field_tooltip' );
 		this.init_field( '.wponion-element-google_maps', 'google_maps' );
 		this.init_field( '.wponion-help', 'field_tooltip' );
+		this.init_field( '.wponion-wrap-tooltip', 'field_tooltip' );
 		this.init_field( '.wponion-element-clone', 'clone_element' );
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
 		this.init_field( '.wponion-element-sorter', 'sorter' );
-
+		this.init_field( '.wponion-element-typography', 'typography' );
 		wp.hooks.addAction( 'wponion_after_fields_reload' );
 		return this;
 	}

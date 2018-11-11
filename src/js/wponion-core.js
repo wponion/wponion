@@ -51,6 +51,7 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			clone_element: require( './fields/clone_element' ).default,
 			sorter: require( './fields/sorter' ).default,
 			google_maps: require( './fields/google_maps' ).default,
+			typography: require( './fields/typography' ).default,
 		} );
 		$wpo.settings_args    = $wpo.windowArgs( 'wponion_core', {} );
 		$wpo.text             = $wpo.windowArgs( 'wponion_il8n', {} );
