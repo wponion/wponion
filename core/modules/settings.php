@@ -169,6 +169,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 						}
 					} elseif ( isset( $options['sections'] ) ) {
 						foreach ( $options['sections'] as $section ) {
+							if ( ! isset( $section['fields'] ) ) {
+								continue;
+							}
 							if ( false !== $this->valid_option( $section, true, false ) ) {
 								foreach ( $section['fields'] as $field ) {
 									if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
@@ -296,6 +299,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$instance->render_settings_html();
 			echo '</form>';
 			echo $this->debug_bar();
+			wponion_get_registry_stats();
 		}
 
 		/**
@@ -414,7 +418,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					return $page_id;
 				} elseif ( $option['name'] === $page_id && isset( $option['sections'] ) ) {
 					foreach ( $option['sections'] as $section ) {
-						if ( $section['name'] === $section_id ) {
+						if ( isset( $section['name'] ) && $section['name'] === $section_id ) {
 							return $section_id;
 						}
 					}
@@ -532,8 +536,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'template_path' => false,
 				'buttons'       => array(
 					'save'    => __( 'Save Settings' ),
-					'restore' => false,#__( 'Restore' ),
-					'reset'   => false,#__( 'Reset All Options' ),
+					'restore' => false, #__( 'Restore' )
+					'reset'   => false, #__( 'Reset All Options' )
 				),
 			);
 		}
@@ -732,7 +736,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 						'type'  => 'submit',
 					), __( 'Restore' ) );
 				}
-
 
 				if ( false !== $options['save'] ) {
 					$html .= $this->_button( $options['save'], array(
