@@ -40,7 +40,8 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 		 * @param $section
 		 */
 		protected function field_loop( $section ) {
-			foreach ( $section['fields'] as $field ) {
+			$fields = ( $section instanceof \WPOnion\Module_Fields ) ? $section->fields() : $section['fields'];
+			foreach ( $fields as $field ) {
 				if ( 'only' === $this->args['settings']->is_variation( $field ) && false === $this->is_variation ) {
 					continue;
 				}
