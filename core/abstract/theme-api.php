@@ -167,7 +167,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 * @return \WPOnion\Modules\Dashboard_Widgets
 		 */
 		public function dashboard_widgets() {
-			return wponion_dashboard_registry( $this->module_instance );
+			return wponion_dashboard_widgets_registry( $this->module_instance );
 		}
 
 		/**
@@ -189,6 +189,11 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 			return wponion_user_profile_registry( $this->module_instance );
 		}
 
+		/**
+		 * Returns Screen Options Instance.
+		 *
+		 * @return bool
+		 */
 		public function screen_options() {
 			return wponion_screen_options_registry( $this->module_instance );
 		}
@@ -235,10 +240,13 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Generates Taxonomy Page HTML.
 		 */
-		public function render_help_tabs() {
-			include $this->find_html_file( 'help-tabs.php' );
+		public function render_dashboard_widgets() {
+			include $this->find_html_file( 'dashboard-widgets.php' );
 		}
 
+		/**
+		 * Generates Screen Options HTML.
+		 */
 		public function render_screen_options() {
 			include $this->find_html_file( 'screen-options.php' );
 		}
