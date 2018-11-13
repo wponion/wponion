@@ -203,16 +203,16 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 			if ( is_array( $functions ) ) {
 				foreach ( $functions as $function ) {
 					if ( is_callable( $function ) ) {
-						$value = $this->_validate( $functions, $field, $value );
-						if ( ! empty( $value ) ) {
-							$errors[] = $value;
+						$_is_valid = $this->_validate( $functions, $field, $value );
+						if ( ! empty( $_is_valid ) && true !== $_is_valid ) {
+							$errors[] = $_is_valid;
 						}
 					}
 				}
 			} elseif ( is_callable( $functions ) ) {
-				$value = $this->_validate( $functions, $field, $value );
-				if ( ! empty( $value ) ) {
-					$errors[] = $value;
+				$_is_valid = $this->_validate( $functions, $field, $value );
+				if ( ! empty( $_is_valid ) && true !== $_is_valid ) {
+					$errors[] = $_is_valid;
 				}
 			}
 
@@ -368,7 +368,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 */
 		public function error( $message, $type = 'error', $id = 'global' ) {
 			$this->errors[ $id ] = array(
-				'setting' => 'wponion - errors',
+				'setting' => 'wponion-errors',
 				'code'    => $id,
 				'message' => $message,
 				'type'    => $type,
