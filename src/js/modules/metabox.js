@@ -6,6 +6,7 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 		this.element.on( 'click', 'h2.ajax-container button', this.save_handler );
 	}
 
+
 	menu() {
 		let $elem = this.element;
 		$elem.on( 'click', 'ul.wponion-metabox-parent-menu li a', function( e ) {
@@ -43,17 +44,20 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 		} );
 	}
 
-	save_handler() {
+
+	save_handler( e ) {
 		e.preventDefault();
 		let $this   = this,
 			$parent = jQuery( this ).parent(),
 			$base   = $parent.parent().parent(),
-			$fields = $parent.parent().find( ':input' ),
 			$hidden = $parent.find( 'div.wponion-metabox-secure-data' );
 
 		$base.block( { message: null, overlayCSS: { background: '#000', opacity: 0.7 } } );
 
-		$hidden.find( 'input' ).each( ( e ) => jQuery( e.target ).attr( 'name', jQuery( e.target ).attr( 'id' ) ) );
+		$hidden.find( 'input' ).each( function() {
+			jQuery( this ).attr( 'name', jQuery( this ).attr( 'id' ) );
+		} );
+		let $fields = $parent.parent().find( ':input' );
 		let $values = $fields.serialize();
 		$hidden.find( 'input' ).removeAttr( 'name' );
 
