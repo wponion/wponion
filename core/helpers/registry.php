@@ -231,7 +231,7 @@ if ( ! function_exists( 'wponion_value_registry' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_dashboard_registry' ) ) {
+if ( ! function_exists( 'wponion_dashboard_widgets_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for dashboard widgets module.
 	 *
@@ -239,7 +239,7 @@ if ( ! function_exists( 'wponion_dashboard_registry' ) ) {
 	 *
 	 * @return bool
 	 */
-	function wponion_dashboard_registry( &$instance ) {
+	function wponion_dashboard_widgets_registry( &$instance ) {
 		return wponion_get_registry_instance( 'dashboard_widgets', $instance, 'settings' );
 	}
 }
