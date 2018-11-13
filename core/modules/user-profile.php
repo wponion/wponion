@@ -80,10 +80,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( parent::defaults(), array(
-				'theme'         => 'wp',
-				'template_path' => false,
-			) );
+			return $this->parse_args( parent::defaults(), array( 'theme' => 'wp' ) );
 		}
 
 		/**
@@ -169,12 +166,12 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$this->get_cache();
 				$instance = new \WPOnion\DB\User_Profile_Save_Handler();
 				$instance->init_class( array(
-					'module'      => 'user_profile',
-					'plugin_id'   => $this->plugin_id(),
-					'unique'      => $this->unique,
-					'fields'      => $this->fields,
-					'db_values'   => $this->get_db_values(),
-					'args'        => array( 'settings' => &$this ),
+					'module'    => 'user_profile',
+					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->unique,
+					'fields'    => $this->fields,
+					'db_values' => $this->get_db_values(),
+					'args'      => array( 'settings' => &$this ),
 				) )
 					->run();
 

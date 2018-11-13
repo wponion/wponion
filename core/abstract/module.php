@@ -100,12 +100,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $settings array of WPOnion Settings Configuration.
 		 */
 		public function __construct( $fields = array(), $settings = array() ) {
-			$this->fields    = $fields;
+			$this->fields    = new \WPOnion\Module_Fields( $fields );
 			$this->settings  = $this->set_args( $settings );
 			$this->plugin_id = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
 			$this->unique    = $this->settings['option_name'];
 			$this->save_instance();
-			$this->validate_args();
 		}
 
 		/**
@@ -114,27 +113,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function save_instance() {
 			if ( function_exists( 'wponion_' . $this->module . '_registry' ) ) {
 				call_user_func_array( 'wponion_' . $this->module . '_registry', array( &$this ) );
-			}
-		}
-
-		/**
-		 * Validates Arguments.
-		 */
-		protected function validate_args() {
-			if ( ! empty( $this->fields ) ) {
-				foreach ( $this->fields as $id => $field ) {
-					if ( ! isset( $field['name'] ) && isset( $field['title'] ) ) {
-						$this->fields[ $id ]['name'] = sanitize_title( $field['title'] );
-					}
-
-					if ( isset( $field['sections'] ) ) {
-						foreach ( $field['sections'] as $section_id => $section ) {
-							if ( ! isset( $section['name'] ) && isset( $field['title'] ) ) {
-								$this->fields[ $id ]['sections'][ $section_id ]['name'] = sanitize_title( $section['title'] );
-							}
-						}
-					}
-				}
 			}
 		}
 
@@ -387,20 +365,27 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				$fields = $this->fields;
 			}
 
-			if ( is_array( $fields ) ) {
+			if ( ! empty( $fields ) ) {
 				foreach ( $fields as $field ) {
-					if ( isset( $field['sections'] ) && false === empty( $field['sections'] ) ) {
-						$menu                               = $this->handle_single_menu( $field, $is_child, $parent );
-						$return[ $menu['name'] ]            = $menu;
-						$return[ $menu['name'] ]['submenu'] = $this->extract_fields_menus( $field['sections'], true, $menu['name'] );
-					} elseif ( ( isset( $field['fields'] ) && false === empty( $field['fields'] ) ) || isset( $field['callback'] ) || isset( $field['href'] ) ) {
-						$menu                    = $this->handle_single_menu( $field, $is_child, $parent );
-						$return[ $menu['name'] ] = $menu;
+					if ( $field->has_sections() && ! empty( $field->sections() ) ) {
+						$menu = $this->handle_single_menu( $field, $is_child, $parent );
+						if ( false !== $menu ) {
+							$_name                       = $menu['name'];
+							$return[ $_name ]            = $menu;
+							$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->sections(), true, $_name );
+						}
+					} elseif ( ( $field->has_fields() && ! empty( $field->fields() ) ) || $field->has_callback() || $field->has_href() ) {
+						$menu = $this->handle_single_menu( $field, $is_child, $parent );
+						if ( false !== $menu ) {
+							$return[ $menu['name'] ] = $menu;
+						}
 					} else {
 						if ( 'metabox' !== $this->module() ) {
-							$menu                                    = $this->handle_single_menu( $field, $is_child, $parent );
-							$return[ $menu['name'] ]                 = $menu;
-							$return[ $menu['name'] ]['is_seperator'] = isset( $menu['seperator'] ) ? $menu['seperator'] : false;
+							$menu = $this->handle_single_menu( $field, $is_child, $parent );
+							if ( false !== $menu ) {
+								$return[ $menu['name'] ]                 = $menu;
+								$return[ $menu['name'] ]['is_seperator'] = isset( $menu['seperator'] ) ? $menu['seperator'] : false;
+							}
 						}
 					}
 				}
@@ -418,19 +403,22 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array
 		 */
 		protected function handle_single_menu( $menu, $is_child = false, $parent = false ) {
-			$title         = isset( $menu['title'] ) ? $menu['title'] : false;
-			$name          = isset( $menu['name'] ) ? $menu['name'] : sanitize_title( $title );
-			$icon          = isset( $menu['icon'] ) ? $menu['icon'] : false;
-			$attributes    = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
-			$internal_href = isset( $menu['href'] ) ? false : true;
+			if ( null === $menu->name() && null === $menu->title() ) {
+				return false;
+			}
+
+			$name          = $menu->name();
+			$internal_href = ( $menu->has_href() ) ? false : true;
+			$href          = $menu->href();
+			$part_href     = false;
 			$is_active     = false;
 
 			if ( false === $parent ) {
 				if ( true === $internal_href ) {
-					$menu['href']      = add_query_arg( array( 'parent-id' => $name ), $this->page_url() );
-					$menu['part_href'] = add_query_arg( array( 'parent-id' => $name ), $this->page_url( true ) );
+					$href      = add_query_arg( array( 'parent-id' => $name ), $this->page_url() );
+					$part_href = add_query_arg( array( 'parent-id' => $name ), $this->page_url( true ) );
 				} else {
-					$menu['part_href'] = $menu['href'];
+					$part_href = $menu->href();
 				}
 
 				if ( $name === $this->active( true ) ) {
@@ -438,17 +426,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				}
 			} elseif ( true === $is_child && false !== $parent ) {
 				if ( true === $internal_href ) {
-					$menu['href'] = add_query_arg( array(
+					$query_args = array(
 						'parent-id'  => $parent,
 						'section-id' => $name,
-					), $this->page_url() );
-
-					$menu['part_href'] = add_query_arg( array(
-						'parent-id'  => $parent,
-						'section-id' => $name,
-					), $this->page_url( true ) );
+					);
+					$href       = add_query_arg( $query_args, $this->page_url() );
+					$part_href  = add_query_arg( $query_args, $this->page_url( true ) );
 				} else {
-					$menu['part_href'] = $menu['href'];
+					$part_href = $menu->href();
 				}
 
 				if ( $name === $this->active( false ) ) {
@@ -456,38 +441,34 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				}
 			}
 
-			if ( isset( $menu['query_args'] ) && ! empty( $menu['query_args'] ) ) {
-				$menu['href']      = add_query_arg( $menu['query_args'], $menu['href'] );
-				$menu['part_href'] = add_query_arg( $menu['query_args'], $menu['part_href'] );
+			if ( ! empty( $menu->get( 'query_args' ) ) ) {
+				$href      = add_query_arg( $menu->get( 'query_args' ), $href );
+				$part_href = add_query_arg( $menu->get( 'query_args' ), $part_href );
 			}
 
 			return array(
-				'attributes'       => $attributes,
-				'title'            => $title,
+				'attributes'       => $menu->get( 'attributes', array() ),
+				'title'            => $menu->title(),
 				'name'             => $name,
-				'icon'             => $icon,
+				'icon'             => $menu->icon(),
 				'is_active'        => $is_active,
 				'is_internal_href' => $internal_href,
-				'href'             => ( isset( $menu['href'] ) ) ? $menu['href'] : false,
-				'part_href'        => ( isset( $menu['part_href'] ) ) ? $menu['part_href'] : false,
-				'query_args'       => ( isset( $menu['query_args'] ) ) ? $menu['query_args'] : false,
-				'class'            => ( isset( $menu['class'] ) ) ? $menu['class'] : false,
+				'href'             => $href,
+				'part_href'        => $part_href,
+				'query_args'       => $menu->get( 'query_args', false ),
+				'class'            => $menu->get( 'class', false ),
 			);
 		}
 
 		/**
 		 * Check if option loop is valid.
 		 *
-		 * @param array $option
+		 * @param array|\WPOnion\Module_Fields $option
 		 *
 		 * @return bool
 		 */
 		public function valid_option( $option = array() ) {
-			if ( ! isset( $option['fields'] ) && ! isset( $option['callback'] ) && ! isset( $option['sections'] ) ) {
-				return false;
-			}
-
-			return true;
+			return ( $option->has_callback() || $option->has_fields() || $option->has_sections() ) ? true : false;
 		}
 
 		/**

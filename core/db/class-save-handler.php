@@ -318,7 +318,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @param $section
 		 */
 		protected function field_loop( $section ) {
-			foreach ( $section['fields'] as $field ) {
+			foreach ( $section->fields() as $field ) {
 				if ( wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 					continue;
 				}
@@ -368,7 +368,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 */
 		public function error( $message, $type = 'error', $id = 'global' ) {
 			$this->errors[ $id ] = array(
-				'setting' => 'wponion-errors',
+				'setting' => 'wponion - errors',
 				'code'    => $id,
 				'message' => $message,
 				'type'    => $type,

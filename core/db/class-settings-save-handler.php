@@ -36,19 +36,19 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 					continue;
 				}
 
-				if ( isset( $option['sections'] ) ) {
-					foreach ( $option['sections'] as $section ) {
+				if ( $option->has_sections() ) {
+					foreach ( $option->sections() as $section ) {
 						if ( ! $this->args['settings']->valid_option( $section, true, true ) ) {
 							continue;
 						}
 
-						if ( ! isset( $section['fields'] ) ) {
+						if ( ! $section->has_fields() ) {
 							continue;
 						}
 
 						$this->field_loop( $section );
 					}
-				} elseif ( isset( $option['fields'] ) ) {
+				} elseif ( $option->has_fields() ) {
 					$this->field_loop( $option );
 				}
 			}

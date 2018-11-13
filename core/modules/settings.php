@@ -27,6 +27,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 	 */
 	class Settings extends \WPOnion\Bridge\Module {
 		/**
+		 * menu_instance
+		 *
+		 * @var string
+		 */
+		protected $menu_instance = '';
+
+		/**
 		 * Module Type.
 		 *
 		 * @var string
@@ -73,7 +80,66 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function on_init() {
 			$this->add_action( 'admin_init', 'wp_admin_init' );
-			$this->add_action( 'admin_menu', 'register_admin_menu' );
+			$menu              = $this->parse_args( $this->option( 'menu' ), $this->defaults( 'menu' ) );
+			$menu['on_load']   = ( ! is_array( $menu['on_load'] ) ) ? array() : $menu['on_load'];
+			$menu['assets']    = ( ! is_array( $menu['assets'] ) ) ? array() : $menu['assets'];
+			$menu['on_load'][] = array( &$this, 'on_settings_page_load' );
+			$menu['render']    = array( &$this, 'render' );
+			$menu['assets'][]  = 'wponion_load_core_assets';
+			$menu['assets'][]  = $this->option( 'extra_js' );
+			$menu['assets'][]  = $this->option( 'extra_css' );
+			$menu['assets'][]  = array( $this, 'load_admin_styles' );
+
+			if ( false !== $menu['submenu'] ) {
+				if ( is_array( $menu['submenu'] ) && ! isset( $menu['submenu'][0] ) || ! is_array( $menu['submenu'] ) ) {
+					$menu['submenu'] = array( $menu['submenu'] );
+				}
+				$menu['submenu'] = array_merge( array( array( &$this, 'register_admin_menu' ) ), $menu['submenu'] );
+			}
+			$this->set_option( 'menu', $menu );
+			$this->menu_instance = wponion_admin_page( $menu );
+		}
+
+		/**
+		 * Loads Required Style for the current settings page.
+		 */
+		public function load_admin_styles() {
+			$this->_action( 'page_assets' );
+		}
+
+		/**
+		 * @param $ins \WPOnion\Modules\Admin_Page
+		 */
+		public function register_admin_menu( $ins ) {
+			if ( isset( $this->settings['menu'] ) ) {
+				$menu     = $this->option( 'menu' );
+				$callback = array( &$this, 'render' );
+				$this->set_page_url( menu_page_url( $menu['menu_slug'], false ) );
+
+				if ( isset( $menu['submenu'] ) && ( true === $menu['submenu'] || is_array( $menu['submenu'] ) ) ) {
+					$this->find_active_menu();
+					$menus = $this->settings_menus();
+					foreach ( $menus as $id => $_menu ) {
+						if ( isset( $_menu['is_seperator'] ) && true == $_menu['is_seperator'] ) {
+							continue;
+						}
+						add_submenu_page( $menu['menu_slug'], $_menu['title'], $_menu['title'], $menu['capability'], $id, $callback );
+					}
+
+					global $submenu;
+					if ( isset( $submenu[ $menu['menu_slug'] ] ) && ! empty( $submenu[ $menu['menu_slug'] ] ) ) {
+						foreach ( $submenu[ $menu['menu_slug'] ] as $id => $smenu ) {
+							if ( $menu['menu_slug'] !== $submenu[ $menu['menu_slug'] ][ $id ][2] ) {
+								$submenu[ $menu['menu_slug'] ][ $id ][2] = isset( $menus[ $smenu[2] ]['part_href'] ) ? $menus[ $smenu[2] ]['part_href'] : false;
+							} elseif ( $menu['menu_slug'] === $submenu[ $menu['menu_slug'] ][ $id ][2] ) {
+								unset( $submenu[ $menu['menu_slug'] ][ $id ] );
+							}
+						}
+					}
+
+					$this->_action( 'register_submenu', $menu['menu_slug'], $this );
+				}
+			}
 		}
 
 		/**
@@ -126,13 +192,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$cache = $this->get_cache();
 			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
 				if ( false === $force ) {
-					/*wponion_async()
-						->data( array(
-							'type'        => 'settings_default_save',
-							'plugin_id'   => $this->unique(),
-							'option_name' => $this->unique(),
-						) )
-						->dispatch();*/
 					$this->set_defaults();
 				} elseif ( true === $force ) {
 					$this->set_defaults();
@@ -152,8 +211,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			foreach ( $this->fields as $options ) {
 				if ( false !== $this->valid_option( $options, false, false ) ) {
-					if ( isset( $options['fields'] ) ) {
-						foreach ( $options['fields'] as $field ) {
+					if ( $options->has_fields() ) {
+						foreach ( $options->fields() as $field ) {
 							if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 								continue;
 							}
@@ -167,13 +226,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 								}
 							}
 						}
-					} elseif ( isset( $options['sections'] ) ) {
-						foreach ( $options['sections'] as $section ) {
-							if ( ! isset( $section['fields'] ) ) {
+					} elseif ( $options->has_sections() ) {
+						foreach ( $options->sections() as $section ) {
+							if ( ! $section->has_fields() ) {
 								continue;
 							}
 							if ( false !== $this->valid_option( $section, true, false ) ) {
-								foreach ( $section['fields'] as $field ) {
+								foreach ( $section->fields() as $field ) {
 									if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 										continue;
 									}
@@ -192,7 +251,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					}
 				}
 			}
-
 			if ( ! empty( $default ) ) {
 				update_option( $this->unique, $this->db_values );
 			}
@@ -220,69 +278,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return mixed
 		 */
 		public function page_url( $part_url = false ) {
-			if ( false === $part_url ) {
-				return $this->page_url['full_url'];
-			}
-			return $this->page_url['part'];
-		}
-
-		/**
-		 * Adds Admin Menu.
-		 */
-		public function register_admin_menu() {
-			if ( isset( $this->settings['menu'] ) ) {
-				$user_menu = $this->option( 'menu' );
-				$menu      = $this->parse_args( $user_menu, $this->defaults( 'menu' ) );
-				$page_hook = '';
-				$callback  = array( &$this, 'render' );
-				switch ( $menu['type'] ) {
-					case 'submenu':
-						$page_hook = add_submenu_page( $menu['parent'], $menu['title'], $menu['title'], $menu['capability'], $menu['slug'], $callback );
-						break;
-					case 'management':
-					case 'dashboard':
-					case 'options':
-					case 'plugins':
-					case 'theme':
-						$function = 'add_' . $menu['type'] . '_page';
-						if ( function_exists( $function ) ) {
-							$page_hook = $function( $menu['title'], $menu['title'], $menu['capability'], $menu['slug'], $callback );
-						}
-						break;
-					default:
-						$page_hook = add_menu_page( $menu['title'], $menu['title'], $menu['capability'], $menu['slug'], $callback, $menu['icon'], $menu['position'] );
-						break;
-				}
-
-				$this->page_hook = $page_hook;
-				$this->set_page_url( menu_page_url( $menu['slug'], false ) );
-
-				if ( isset( $user_menu['submenus'] ) && true === $user_menu['submenus'] ) {
-					$this->find_active_menu();
-					$menus = $this->settings_menus();
-					foreach ( $menus as $id => $_menu ) {
-						if ( isset( $_menu['is_seperator'] ) && true == $_menu['is_seperator'] ) {
-							continue;
-						}
-						add_submenu_page( $menu['slug'], $_menu['title'], $_menu['title'], $menu['capability'], $id, $callback );
-					}
-
-					global $submenu;
-					if ( isset( $submenu[ $menu['slug'] ] ) && ! empty( $submenu[ $menu['slug'] ] ) ) {
-						foreach ( $submenu[ $menu['slug'] ] as $id => $smenu ) {
-							if ( $menu['slug'] !== $submenu[ $menu['slug'] ][ $id ][2] ) {
-								$submenu[ $menu['slug'] ][ $id ][2] = isset( $menus[ $smenu[2] ]['part_href'] ) ? $menus[ $smenu[2] ]['part_href'] : false;
-							} elseif ( $menu['slug'] === $submenu[ $menu['slug'] ][ $id ][2] ) {
-								unset( $submenu[ $menu['slug'] ][ $id ] );
-							}
-						}
-					}
-
-					$this->_action( 'register_submenu', $menu['slug'], $this );
-				}
-
-				$this->add_action( 'load-' . $this->page_hook, 'on_settings_page_load' );
-			}
+			return ( false === $part_url ) ? $this->page_url['full_url'] : $this->page_url['part'];
 		}
 
 		/**
@@ -299,7 +295,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$instance->render_settings_html();
 			echo '</form>';
 			echo $this->debug_bar();
-			wponion_get_registry_stats();
 		}
 
 		/**
@@ -310,7 +305,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$this->settings_menus();
 			$this->add_action( 'admin_enqueue_scripts', 'load_admin_styles' );
 			$user_menu = $this->option( 'menu' );
-			if ( isset( $user_menu['submenus'] ) && true === $user_menu['submenus'] ) {
+			if ( isset( $user_menu['submenu'] ) && ( true === $user_menu['submenu'] || is_array( $user_menu['submenu'] ) ) ) {
 				global $submenu_file;
 				$menus        = $this->settings_menus();
 				$submenu_file = isset( $menus[ $this->active( true ) ] ) ? $menus[ $this->active( true ) ]['part_href'] : add_query_arg( array(
@@ -413,15 +408,11 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return bool|string
 		 */
 		public function is_page_section_exists( $page_id = '', $section_id = '', $is_section = false ) {
-			foreach ( $this->fields as $option ) {
-				if ( $option['name'] === $page_id && false === $is_section ) {
-					return $page_id;
-				} elseif ( $option['name'] === $page_id && isset( $option['sections'] ) ) {
-					foreach ( $option['sections'] as $section ) {
-						if ( isset( $section['name'] ) && $section['name'] === $section_id ) {
-							return $section_id;
-						}
-					}
+			if ( false === $is_section && is_string( $page_id ) && true === $this->fields->offsetExists( $page_id ) ) {
+				return $page_id;
+			} elseif ( true === $is_section && is_string( $page_id ) && is_string( $section_id ) ) {
+				if ( true === $this->fields->offsetExists( $page_id . '/sections/' . $section_id ) ) {
+					return $section_id;
 				}
 			}
 			$page_id = ( true === $is_section ) ? $page_id : null;
@@ -438,21 +429,27 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		private function get_page_section_id( $is_section = true, $page = null ) {
 			if ( null !== $page ) {
-				foreach ( $this->fields as $option ) {
-					if ( $option['name'] === $page && false === $is_section ) {
-						return $option['name'];
-					} elseif ( $option['name'] === $page && true === $is_section && isset( $option['sections'] ) ) {
-						$cs = current( $option['sections'] );
-						return $cs['name'];
-					}
+				if ( $this->fields->offsetExists( $page ) && true === $is_section && $this->fields->offsetExists( $page . '/sections' ) ) {
+					return $this->fields->get( $page . '/sections' )
+						->current()
+						->name();
+				} elseif ( $this->fields->offsetExists( $page ) && false === $is_section ) {
+					return $this->fields->get( $page )
+						->name();
 				}
 			} else {
-				$cs = current( $this->fields );
-				if ( true === $is_section && isset( $cs['sections'] ) ) {
-					$cs = current( $cs['sections'] );
-					return $cs['name'];
+				$page = $this->fields->current();
+				if ( $page ) {
+					if ( true === $is_section ) {
+						if ( $page->offsetExists( 'sections' ) ) {
+							return $page->get( 'sections' )
+								->current()
+								->name();
+						}
+					} else {
+						return $page->name();
+					}
 				}
-				return isset( $cs['name'] ) ? $cs['name'] : false;
 			}
 			return false;
 		}
@@ -469,26 +466,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				return isset( $this->active_menu['parent_id'] ) ? $this->active_menu['parent_id'] : false;
 			}
 			return isset( $this->active_menu['section_id'] ) ? $this->active_menu['section_id'] : false;
-		}
-
-		/**
-		 * Loads Required Style for the current settings page.
-		 */
-		public function load_admin_styles() {
-			wponion_load_core_assets();
-			$this->_action( 'page_assets' );
-
-			if ( is_array( $this->option( 'extra_js' ) ) ) {
-				foreach ( $this->option( 'extra_js' ) as $data ) {
-					wp_enqueue_script( $data );
-				}
-			}
-
-			if ( is_array( $this->option( 'extra_css' ) ) ) {
-				foreach ( $this->option( 'extra_css' ) as $data ) {
-					wp_enqueue_style( $data );
-				}
-			}
 		}
 
 		/**
@@ -513,13 +490,20 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		protected function defaults( $type = true ) {
 			$menu = array(
-				'type'       => 'themes.php', # submenu | management | dashboard | options | plugins | theme
-				'parent'     => '',
-				'title'      => WPONION_NAME,
-				'slug'       => 'wponion',
-				'capability' => 'manage_options',
-				'icon'       => null,
-				'position'   => null,
+				'submenu'       => 'themes.php',
+				'menu_title'    => WPONION_NAME,
+				'page_title'    => WPONION_NAME,
+				'capability'    => 'manage_options',
+				'menu_slug'     => 'wponion',
+				'icon'          => false,
+				'position'      => null,
+				'help_tab'      => array(),
+				'help_sidebar'  => '',
+				'on_load'       => array(),
+				'assets'        => array(),
+				'hook_priority' => 10,
+				'tabs'          => false,
+				'render'        => false,
 			);
 
 			if ( 'menu' === $type ) {
@@ -543,17 +527,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
-		 * @param string $template_name
-		 * @param array  $args
-		 *
-		 * @return string
-		 */
-		public function load_template( $template_name = '', $args = array() ) {
-			$template_path = $this->option( 'template_path' );
-			return wponion_get_template_html( $template_name, $args, $template_path );
-		}
-
-		/**
 		 * Checks if current settings instance page load type.
 		 *
 		 * @return bool|string
@@ -564,7 +537,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			} elseif ( true === $this->option( 'is_single_page' ) ) {
 				return true;
 			}
-
 			return false;
 		}
 
@@ -579,41 +551,39 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function wrap_class( $extra_class = '', $bootstrap = false ) {
 			$default_class = $this->default_wrap_class( $bootstrap );
 			$class         = array();
-			//$class[]       = ' wponion-' . $this->option( 'theme' ) . '-theme ';
-			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
-			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
+			$class[]       = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
+			$class[]       = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
 
 			if ( 1 === count( $this->fields ) ) {
 				$class[] = 'wponion-hide-nav';
-				$current = current( $this->fields );
-				if ( isset( $current['fields'] ) || ( isset( $current['sections'] ) && 1 === count( $current['sections'] ) ) ) {
+				$c       = $this->fields->current();
+				if ( $c->has_fields() || ( $c->has_sections() && 1 === count( $c->sections() ) ) ) {
 					$class[] = 'wponion-no-subnav';
 				}
 			}
-
 			return esc_attr( wponion_html_class( $extra_class, wponion_html_class( array_filter( $class ), $default_class ) ) );
 		}
 
 		/**
 		 * Checks if Option Loop Is Valid
 		 *
-		 * @param array $option
-		 * @param bool  $section
-		 * @param bool  $check_current_page
+		 * @param array|\WPonion\Module_Fields $option
+		 * @param bool                         $section
+		 * @param bool                         $check_current_page
 		 *
 		 * @return bool
 		 */
 		public function valid_option( $option = array(), $section = false, $check_current_page = true ) {
-			if ( ! isset( $option['fields'] ) && ! isset( $option['callback'] ) && ! isset( $option['sections'] ) ) {
+			if ( ! $option->has_fields() && ! $option->has_sections() && ! $option->has_callback() ) {
 				return false;
 			}
 
 			if ( true === $check_current_page ) {
-				if ( false === $section && ( false === $this->is_single_page() || 'only_submenu' === $this->is_single_page() ) && $option['name'] !== $this->active( true ) ) {
+				if ( false === $section && ( false === $this->is_single_page() || 'only_submenu' === $this->is_single_page() ) && $option->name() !== $this->active( true ) ) {
 					return false;
 				}
 
-				if ( true === $section && false === $this->is_single_page() && $option['name'] !== $this->active( false ) ) {
+				if ( true === $section && false === $this->is_single_page() && $option->name() !== $this->active( false ) ) {
 					return false;
 				}
 			}
@@ -644,8 +614,11 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return array|bool|mixed
 		 */
 		public function get_first_section( $options ) {
-			$first_sec = current( $options['sections'] );
-			return ( is_array( $first_sec ) && isset( $first_sec['name'] ) ) ? $first_sec : false;
+			if ( $options->has_sections() ) {
+				$first_sec = $options->sections();
+				return $first_sec->name();
+			}
+			return false;
 		}
 
 		/**
@@ -666,32 +639,31 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Inits All Base Fields.
 		 */
 		public function init_fields() {
-			foreach ( $this->fields as $o => $options ) {
+			foreach ( $this->fields as $options ) {
 				if ( false === $this->valid_option( $options ) ) {
 					continue;
 				}
-
-				if ( isset( $options['callback'] ) && false !== $options['callback'] ) {
+				if ( $options->has_callback() ) {
 					continue;
 				}
 
-				if ( isset( $options['sections'] ) ) {
-					foreach ( $options['sections'] as $s => $section ) {
-						if ( false === $this->valid_option( $options, true ) ) {
+				if ( $options->has_sections() ) {
+					foreach ( $options->sections() as $section ) {
+						if ( false === $this->valid_option( $section, true ) ) {
 							continue;
 						}
 
-						if ( isset( $section['callback'] ) && false !== $section['callback'] || false === isset( $section['fields'] ) ) {
+						if ( $options->has_callback() || ! $section->has_fields() ) {
 							continue;
 						}
 
-						foreach ( $section['fields'] as $f => $field ) {
-							$this->render_field( $field, $options['name'], $section['name'], true );
+						foreach ( $section->fields() as $field ) {
+							$this->render_field( $field, $options->name(), $section->name(), true );
 						}
 					}
-				} elseif ( isset( $options['fields'] ) ) {
-					foreach ( $options['fields'] as $f => $field ) {
-						$this->render_field( $field, $options['name'], false, true );
+				} elseif ( $options->has_fields() ) {
+					foreach ( $options->fields() as $field ) {
+						$this->render_field( $field, $options->name(), false, true );
 					}
 				}
 			}

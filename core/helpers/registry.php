@@ -107,7 +107,7 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|mixed
+	 * @return bool|mixed|\WPOnion\Modules\Settings
 	 */
 	function wponion_settings_registry( &$instance ) {
 		return wponion_get_registry_instance( 'settings', $instance, 'settings' );

@@ -349,7 +349,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			}
 			$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
 
-			if ( is_array( $this->submenu() ) ) {
+			if ( is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
+				wponion_callback( $this->submenu(), $this );
+			} elseif ( is_array( $this->submenu() ) ) {
 				$subemnus = array();
 				if ( true === $this->is_multiple( $this->submenu() ) ) {
 					$subemnus[] = $this->submenu();
@@ -358,10 +360,14 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				}
 
 				foreach ( $subemnus as $sub_menu ) {
-					if ( ! isset( $sub_menu['submenu'] ) ) {
-						$sub_menu['submenu'] = $this;
+					if ( wponion_is_callable( $sub_menu ) ) {
+						wponion_callback( $sub_menu, $this );
+					} else {
+						if ( ! isset( $sub_menu['submenu'] ) ) {
+							$sub_menu['submenu'] = $this;
+						}
+						new self( $sub_menu );
 					}
-					new self( $sub_menu );
 				}
 			}
 

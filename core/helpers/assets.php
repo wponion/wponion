@@ -64,7 +64,7 @@ if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 			foreach ( $extra as $slug ) {
 				wponion_load_asset( $slug );
 			}
-		} else {
+		} elseif ( is_string( $extra ) ) {
 			wponion_load_asset( $extra );
 		}
 	}
@@ -77,12 +77,14 @@ if ( ! function_exists( 'wponion_load_asset' ) ) {
 	 * @param string $key
 	 */
 	function wponion_load_asset( $key = '' ) {
-		if ( wp_style_is( $key, 'registered' ) && false === wp_style_is( $key ) ) {
-			wp_enqueue_style( $key );
-		}
+		if ( is_string( $key ) ) {
+			if ( wp_style_is( $key, 'registered' ) && false === wp_style_is( $key ) ) {
+				wp_enqueue_style( $key );
+			}
 
-		if ( wp_script_is( $key, 'registered' ) && false === wp_script_is( $key ) ) {
-			wp_enqueue_script( $key );
+			if ( wp_script_is( $key, 'registered' ) && false === wp_script_is( $key ) ) {
+				wp_enqueue_script( $key );
+			}
 		}
 	}
 }

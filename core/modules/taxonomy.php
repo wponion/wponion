@@ -106,19 +106,20 @@ if ( ! class_exists( '\WPOnion\Modules\taxonomy' ) ) {
 		 */
 		protected function defaults() {
 			return $this->parse_args( parent::defaults(), array(
-				'taxonomy'      => false,
-				'theme'         => 'modern',
-				'template_path' => false,
+				'taxonomy' => false,
+				'theme'    => 'modern',
 			) );
 		}
 
 		/**
-		 * Renders HTML Output.
+		 * Renders HTML output.
+		 *
+		 * @param $term
 		 */
 		public function render( $term ) {
 			$this->is_new = ( is_object( $term ) ) ? false : true;
-			$term_ID      = ( is_object( $term ) ) ? $term->term_id : false;
-			$this->set_taxonomy_id( $term_ID );
+			$term_id      = ( is_object( $term ) ) ? $term->term_id : false;
+			$this->set_taxonomy_id( $term_id );
 			$this->get_cache();
 			$this->get_db_values();
 			$theme_instance = $this->init_theme();
@@ -207,7 +208,7 @@ if ( ! class_exists( '\WPOnion\Modules\taxonomy' ) ) {
 		public function save_taxonomy( $term_id ) {
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->set_taxonomy_id( $term_id );
-				$instance = new \WPOnion\DB\Metabox_Save_Handler();
+				$instance = new \WPOnion\DB\Taxonomy_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'metabox',
 					'plugin_id' => $this->plugin_id(),
