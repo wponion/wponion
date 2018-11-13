@@ -449,9 +449,13 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 				foreach ( $fields->sections() as $section ) {
 					$return[ $section->name() ] = wponion_get_all_fields_ids_and_defaults( $section );
 				}
-			} elseif ( ! $fields->has_callback() && ! $fields->has_href() ) {
+			} elseif ( ! $fields->has_callback() && ! $fields->has_href() && ( $fields->has_fields() || $fields->has_sections() ) ) {
 				foreach ( $fields as $field ) {
 					$return[ $field->name() ] = wponion_get_all_fields_ids_and_defaults( $field );
+				}
+			} else {
+				foreach ( $fields as $field ) {
+					$return[] = wponion_get_all_fields_ids_and_defaults( $field );
 				}
 			}
 		} elseif ( is_array( $fields ) ) {
