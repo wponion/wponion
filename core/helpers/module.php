@@ -120,6 +120,22 @@ if ( ! function_exists( 'wponion_admin_page' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_dashboard_widgets' ) ) {
+	/**
+	 * Returns a new instance for Dashboard_Widgets page.
+	 *
+	 * @param array|string $instance_id_or_args
+	 * @param array        $fields
+	 *
+	 * @return bool|\WPOnion\Modules\Dashboard_Widgets
+	 */
+	function wponion_dashboard_widgets( $instance_id_or_args = array(), $fields = array() ) {
+		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
+			return wponion_dashboard_widgets_registry( $instance_id_or_args );
+		}
+		return new \WPOnion\Modules\Dashboard_Widgets( $instance_id_or_args, $fields );
+	}
+}
 
 if ( ! function_exists( 'wponion_help_tabs' ) ) {
 	/**
