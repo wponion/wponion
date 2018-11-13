@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPOnion\DB\Metabox_Save_Handler' ) ) {
 							if ( ! $this->args['settings']->valid_option( $section, false, false ) ) {
 								continue;
 							}
-							if ( ! $this->has_fields() ) {
+							if ( ! $section->has_fields() ) {
 								continue;
 							}
 
