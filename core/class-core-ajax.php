@@ -148,6 +148,24 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 			}
 		}
+
+		public function oembed_preview() {
+			$args  = array( 'width' => 360 );
+			$embed = wp_oembed_get( $_REQUEST['value'], $args );
+
+			if ( ! $embed ) {
+				global $wp_embed;
+				$temp                           = $wp_embed->return_false_on_fail;
+				$wp_embed->return_false_on_fail = true; // Do not fallback to make a link.
+				$embed                          = $wp_embed->shortcode( $args, $_REQUEST['value'] );
+				$wp_embed->return_false_on_fail = $temp;
+			}
+
+			if ( $embed ) {
+				wp_send_json_success( $embed );
+			}
+			wp_send_json_error();
+		}
 	}
 }
 return new Core_Ajax;
