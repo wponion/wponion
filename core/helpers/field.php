@@ -129,6 +129,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			$args = '';
 			if ( wponion_is_debug() ) {
 				ob_start();
+				echo '<pre>' . print_r( debug_backtrace(), true ) . '</pre>';
 				var_dump( $field );
 				$args .= ob_get_clean();
 			} else {
