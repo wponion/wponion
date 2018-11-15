@@ -171,6 +171,15 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		}
 
 		/**
+		 * Returns Dashboard Instance.
+		 *
+		 * @return \WPOnion\Modules\Dashboard_Widgets
+		 */
+		public function widgets() {
+			return wponion_widget_registry( $this->module_instance );
+		}
+
+		/**
 		 * Returns Help Tab Instance.
 		 *
 		 * @return \WPOnion\Modules\Help_Tabs
@@ -242,6 +251,13 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 */
 		public function render_dashboard_widgets() {
 			include $this->find_html_file( 'dashboard-widgets.php' );
+		}
+
+		/**
+		 * Generates Taxonomy Page HTML.
+		 */
+		public function render_widgets_html() {
+			include $this->find_html_file( 'widgets.php' );
 		}
 
 		/**
