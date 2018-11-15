@@ -244,6 +244,19 @@ if ( ! function_exists( 'wponion_dashboard_widgets_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_widget_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for widgets module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_widget_registry( &$instance ) {
+		return wponion_get_registry_instance( 'widget', $instance, 'settings' );
+	}
+}
+
 if ( ! function_exists( 'wponion_core_registry' ) ) {
 	/**
 	 * Creates an static instance for core classes.
