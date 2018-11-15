@@ -129,26 +129,6 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		}
 
 		/**
-		 * Returns The Correct Widget Based On Widget ID.
-		 *
-		 * @param string $widget_id
-		 *
-		 * @return array|bool
-		 */
-		protected function get_widget_data( $widget_id = '' ) {
-			if ( isset( $this->fields['name'] ) && $widget_id === $this->fields['name'] ) {
-				return $this->fields;
-			} else {
-				foreach ( $this->fields as $widget ) {
-					if ( isset( $widget['name'] ) && $widget_id === $widget['name'] ) {
-						return $widget;
-					}
-				}
-			}
-			return false;
-		}
-
-		/**
 		 * Loads The Selected Theme.
 		 *
 		 * @param $content
@@ -158,7 +138,6 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 */
 		public function render_widget() {
 			$this->get_db_values();
-			//var_dump( $this->get_db_values() );
 			if ( wponion_is_callable( $this->option( 'callback' ) ) ) {
 				echo wponion_callback( $this->option( 'callback' ), array( $this->get_db_values(), $this ) );
 			}
