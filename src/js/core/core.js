@@ -234,9 +234,18 @@ export default class WPOnion {
 		$onError   = ( is_undefined( $onAlways ) || false === $onAlways ) ? $defaults.onError : $onError;
 		$ajax      = jQuery.ajax( $defaults );
 
-		$ajax.done( ( res ) => call_user_func( $onSuccess, res ) );
-		$ajax.fail( ( res ) => call_user_func( $onError, res ) );
-		$ajax.always( ( res ) => call_user_func( $onAlways, res ) );
+
+		if( $onSuccess ) {
+			$ajax.done( ( res ) => call_user_func( $onSuccess, res ) );
+		}
+
+		if( $onError ) {
+			$ajax.fail( ( res ) => call_user_func( $onError, res ) );
+		}
+
+		if( $onAlways ) {
+			$ajax.always( ( res ) => call_user_func( $onAlways, res ) );
+		}
 		return $ajax;
 	}
 

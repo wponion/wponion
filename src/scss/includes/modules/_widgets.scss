@@ -1,0 +1,10 @@
+.wponion-framework.wponion-widget {
+	> .wponion-element {
+		padding-left:  0;
+		padding-right: 0;
+		@include wponion_field_horizontal();
+		&:last-child {
+			margin-bottom: 15px;
+		}
+	}
+}

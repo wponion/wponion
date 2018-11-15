@@ -1,6 +1,7 @@
 import WPOnion_Field from './core/field';
 import { is_window_arg } from 'vsp-js-helper/index';
 import WPOnion_Dependency from './core/dependency';
+//import WPOnion_Validator from './core/validation';
 
 window.wponion_metabox_module = require( './modules/metabox' ).default;
 //window.wponion_customizer_module = require( './modules/customizer' ).default;
@@ -10,7 +11,6 @@ window.$wponion_helper        = require( 'vsp-js-helper/index' );
 window.wponion_new_field      = ( $class ) => ( is_window_arg( $class ) ) ? window[ $class ] : false;
 window.wponion_field          = ( $elem, $contxt = {} ) => new WPOnion_Field( $elem, $contxt );
 window.wponion_modal          = require( '../vendors/backbone-modal' ).default;
-
 
 module.exports = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;
@@ -52,6 +52,7 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			sorter: require( './fields/sorter' ).default,
 			google_maps: require( './fields/google_maps' ).default,
 			typography: require( './fields/typography' ).default,
+			oembed: require( './fields/oembed' ).default,
 		} );
 		$wpo.settings_args    = $wpo.windowArgs( 'wponion_core', {} );
 		$wpo.text             = $wpo.windowArgs( 'wponion_il8n', {} );
@@ -73,14 +74,21 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			$wp_hook.doAction( 'wponion_after_theme_init', $wpof_div );
 
 
+			$( document ).on( 'widget-added widget-updated', function( event, $widget ) {
+				new WPOnion_Dependency( $widget );
+				wponion_field( $widget ).reload();
+			} );
+
 			/**
 			 * Handles Fields init.
 			 */
 			$wp_hook.doAction( 'wponion_before_fields_init', $wpof_div );
 			$wpof_div.each( function() {
 				new WPOnion_Dependency( $( this ) );
+				//new WPOnion_Validator( $( this ) );
 				wponion_field( $( this ) ).reload();
 			} );
+
 			$wp_hook.doAction( 'wponion_after_fields_init', $wpof_div );
 		}
 

@@ -64,6 +64,16 @@
 	}
 }
 
+p.wponion-error {
+	color:  #dc3232;
+	margin: 2px 0 5px;
+}
+
+input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error {
+	border-color: #dc3232;
+	background:   #ffebe8;
+}
+
 @import "text/core";
 @import "textarea/core";
 @import "checkbox_radio/core";
@@ -88,6 +98,7 @@
 @import "jambo_content/core";
 @import "sorter/core";
 @import "typography/core";
+@import "oembed/core";
 
 .wponion-element.wponion-element-clone {
 	.wponion-clone-wrap {

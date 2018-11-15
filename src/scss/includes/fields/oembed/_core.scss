@@ -1,0 +1,24 @@
+.wponion-element.wponion-element-oembed {
+	.spinner {
+		float:          none;
+		vertical-align: sub;
+		margin:         0;
+		margin-left:    10px;
+		display:        inline-block;
+	}
+	.wponion-input-group {
+		display: inline-block;
+	}
+
+	img.wponion-no-preview {
+		max-width: 200px;
+		border:    $element_border;
+	}
+
+	.wponion-oembed-preview {
+		margin-top: 1em;
+	}
+	.wponion-oembed-preview iframe {
+		max-width: 100%;
+	}
+}
