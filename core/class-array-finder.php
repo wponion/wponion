@@ -79,14 +79,13 @@ if ( ! class_exists( '\WPOnion\Core\Array_Finder' ) ) {
 				$explode_path  = $this->explode( $offset );
 				$last_offset   = array_pop( $explode_path );
 				$offset_exists = false;
-
 				$this->call_at_path( $this->implode( $explode_path ), function ( $container ) use ( $last_offset, &$offset_exists ) {
 					$offset_exists = isset( $container[ $last_offset ] );
 				} );
 				return $offset_exists;
 			}
 
-			return isset( $this->content[ $offset ] );
+			return isset( $this->{$this->variable}[ $offset ] );
 		}
 
 		/**
@@ -163,7 +162,7 @@ if ( ! class_exists( '\WPOnion\Core\Array_Finder' ) ) {
 		 * @param string|int|null $path Path to the value. If null, return all the content.
 		 * @param mixed           $default Default value to return when path is not contained in the array.
 		 *
-		 * @return mixed|null Value on the array corresponding to the path, null if the key does not exist.
+		 * @return mixed|null|$this Value on the array corresponding to the path, null if the key does not exist.
 		 */
 		public function get( $path = null, $default = null ) {
 			if ( null === $path ) {

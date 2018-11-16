@@ -1,5 +1,9 @@
 <?php $settings = $this->dashboard_widgets(); ?>
 
 <div class="<?php echo $settings->wrap_class( '', true ); ?>">
-	<?php echo $settings->render(); ?>
+	<?php
+	foreach ( $settings->fields() as $field ) {
+		echo $settings->render_field( $field );
+	}
+	?>
 </div>

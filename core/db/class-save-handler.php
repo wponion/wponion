@@ -156,24 +156,26 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 
 			if ( is_array( $functions ) ) {
 				foreach ( $functions as $function ) {
-					if ( is_callable( $function ) ) {
-						$value = call_user_func_array( $function, array(
+					if ( wponion_is_callable( $function ) ) {
+						$value = wponion_callback( $function, array(
 							'value'     => $value,
-							'plugin_id' => $this->plugin_id(),
 							'field'     => $field,
+							'plugin_id' => $this->plugin_id(),
+							'module'    => $this->module(),
 						) );
 					} elseif ( is_string( $value ) && has_filter( $functions ) ) {
-						$value = apply_filters( $functions, $value, $this->plugin_id(), $this->module(), $field );
+						$value = apply_filters( $functions, $value, $field, $this->plugin_id(), $this->module() );
 					}
 				}
-			} elseif ( is_callable( $functions ) ) {
-				$value = call_user_func_array( $functions, array(
+			} elseif ( wponion_is_callable( $functions ) ) {
+				$value = wponion_callback( $functions, array(
 					'value'     => $value,
-					'plugin_id' => $this->plugin_id(),
 					'field'     => $field,
+					'plugin_id' => $this->plugin_id(),
+					'module'    => $this->module(),
 				) );
 			} elseif ( has_filter( $functions ) ) {
-				$value = apply_filters( $functions, $value, $this->plugin_id(), $this->module(), $field );
+				$value = apply_filters( $functions, $value, $field, $this->plugin_id(), $this->module() );
 			}
 
 			return $value;
@@ -201,18 +203,20 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 
 			$errors = array();
 			if ( is_array( $functions ) ) {
-				foreach ( $functions as $function ) {
-					if ( is_callable( $function ) ) {
-						$value = $this->_validate( $functions, $field, $value );
-						if ( ! empty( $value ) ) {
-							$errors[] = $value;
+				foreach ( $functions as $key => $function ) {
+					$custom_message = ( ! is_numeric( $key ) ) ? $function : false;
+					$function       = ( ! is_numeric( $key ) ) ? $key : $function;
+					if ( wponion_is_callable( $function ) ) {
+						$_is_valid = $this->_validate( $function, $field, $value );
+						if ( ! empty( $_is_valid ) && true !== $_is_valid ) {
+							$errors[] = ( ! empty( $custom_message ) ) ? $custom_message : $_is_valid;
 						}
 					}
 				}
-			} elseif ( is_callable( $functions ) ) {
-				$value = $this->_validate( $functions, $field, $value );
-				if ( ! empty( $value ) ) {
-					$errors[] = $value;
+			} elseif ( wponion_is_callable( $functions ) ) {
+				$_is_valid = $this->_validate( $functions, $field, $value );
+				if ( ! empty( $_is_valid ) && true !== $_is_valid ) {
+					$errors[] = $_is_valid;
 				}
 			}
 
@@ -233,7 +237,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @return mixed
 		 */
 		protected function _validate( $function, $field, $value ) {
-			return call_user_func_array( $function, array( $value, $this->plugin_id(), $field ) );
+			return wponion_callback( $function, array( $value, $field, $this->plugin_id(), $this->module() ) );
 		}
 
 		/**
@@ -318,7 +322,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @param $section
 		 */
 		protected function field_loop( $section ) {
-			foreach ( $section['fields'] as $field ) {
+			foreach ( $section->fields() as $field ) {
 				if ( wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 					continue;
 				}

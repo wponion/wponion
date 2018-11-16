@@ -80,10 +80,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( parent::defaults(), array(
-				'theme'         => 'wp',
-				'template_path' => false,
-			) );
+			return $this->parse_args( parent::defaults(), array( 'theme' => 'wp' ) );
 		}
 
 		/**
@@ -92,6 +89,35 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		public function on_user_profile_load() {
 			$this->init_theme();
 			$this->add_action( 'admin_enqueue_scripts', 'load_style_script' );
+		}
+
+		/**
+		 * Sets Default Values.
+		 */
+		public function set_defaults() {
+			$this->get_db_values();
+			$this->options_cache['fuid']            = $this->fields_md5();
+			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
+			$default                                = array();
+
+			foreach ( $this->fields as $field ) {
+				if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
+					continue;
+				}
+
+				if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
+					$default[ $field['id'] ] = $field['default'];
+					if ( wponion_is_unarrayed( $field ) ) {
+						$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
+					} else {
+						$this->db_values[ $field['id'] ] = $field['default'];
+					}
+				}
+			}
+			if ( ! empty( $default ) ) {
+				$this->set_db_values( $this->db_values );
+			}
+			$this->set_cache( $this->options_cache );
 		}
 
 		/**
@@ -108,7 +134,11 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function render( $user ) {
 			$this->user_id = ( is_object( $user ) ) ? $user->ID : $user;
-			$instance      = $this->init_theme();
+			$cache         = $this->get_cache();
+			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
+				$this->set_defaults();
+			}
+			$instance = $this->init_theme();
 			$instance->render_user_profile_html();
 		}
 
@@ -133,7 +163,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @return mixed
 		 */
 		protected function get_db_cache() {
-			return get_user_meta( $this->user_id, $this->get_cache_id() );
+			return get_user_meta( $this->user_id, $this->get_cache_id(), true );
 		}
 
 		/**
@@ -169,12 +199,12 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$this->get_cache();
 				$instance = new \WPOnion\DB\User_Profile_Save_Handler();
 				$instance->init_class( array(
-					'module'      => 'user_profile',
-					'plugin_id'   => $this->plugin_id(),
-					'unique'      => $this->unique,
-					'fields'      => $this->fields,
-					'db_values'   => $this->get_db_values(),
-					'args'        => array( 'settings' => &$this ),
+					'module'    => 'user_profile',
+					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->unique,
+					'fields'    => $this->fields,
+					'db_values' => $this->get_db_values(),
+					'args'      => array( 'settings' => &$this ),
 				) )
 					->run();
 

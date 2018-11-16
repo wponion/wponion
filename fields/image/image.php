@@ -37,15 +37,24 @@ if ( ! class_exists( '\WPOnion\Field\image' ) ) {
 			$preview_show = ( empty( $this->value() ) ) ? 'style="display:none;"' : false;
 
 			echo '<input type="hidden" id="image_id" value="' . $this->value() . '" name="' . $this->name() . '"/>';
-			echo '<div class="wponion-image-preview">';
+			echo '<div class="wponion-image-preview" id="wponion-image-preview' . $this->js_field_id() . '">';
 
 			echo '<div class="wponion-preview-add" ' . $add_show . '>';
 			echo wponion_icon( 'dashicons dashicons-plus wponion-add' );
 			echo '</div>';
 
 			$this->show_image( $this->value(), $preview_show );
+
 			echo '</div>';
+			$this->style();
 			echo $this->after();
+		}
+
+		protected function style() {
+			echo '<style>
+#wponion-image-preview' . $this->js_field_id() . ' .wponion-preview,
+#wponion-image-preview' . $this->js_field_id() . ' .wponion-preview img {width:' . $this->data( 'size' ) . 'px;}
+</style>';
 		}
 
 		/**
@@ -70,13 +79,23 @@ if ( ! class_exists( '\WPOnion\Field\image' ) ) {
 			echo '</div>';
 		}
 
+		protected function js_field_args() {
+			return array(
+				'frame_title' => $this->data( 'frame_title' ),
+			);
+		}
+
 		/**
 		 * Returns all fields default.
 		 *
 		 * @return array|mixed
 		 */
 		protected function field_default() {
-			return array();
+			return array(
+				'frame_title' => __( 'Select A Image' ),
+				'remove'      => __( 'Remove' ),
+				'size'        => 100,
+			);
 		}
 
 		/**

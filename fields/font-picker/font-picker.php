@@ -51,11 +51,13 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 			$this->select_framework = wponion_validate_select_framework( $this->field );
 
 			echo '<div class="wponion-font-select-container">';
-			echo wponion_add_element( $this->font_select(), $this->value( 'font' ), $this->unique( $this->field_id() ) );
+			echo $this->sub_field( $this->font_select(), $this->value( 'font' ), $this->unique( $this->field_id() ) );
+			//echo wponion_add_element( $this->font_select(), $this->value( 'font' ), $this->unique( $this->field_id() ) );
 			echo '</div>';
 
 			echo '<div class="wponion-font-select-container">';
-			echo wponion_add_element( $this->variant_select(), $this->value( 'variant' ), $this->unique( $this->field_id() ) );
+			echo $this->sub_field( $this->variant_select(), $this->value( 'variant' ), $this->unique( $this->field_id() ) );
+			//echo wponion_add_element( $this->variant_select(), $this->value( 'variant' ), $this->unique( $this->field_id() ) );
 			echo '</div>';
 
 			$this->after();

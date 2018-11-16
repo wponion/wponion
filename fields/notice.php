@@ -19,14 +19,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if ( ! class_exists( '\WPOnion\Field\notice' ) ) {
+if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 	/**
 	 * Class WPOnion_Field_Notice
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class notice extends \WPOnion\Field\heading {
+	class Notice extends \WPOnion\Field\heading {
+
+		protected $notice_type = 'success';
+
+		public function handle_field_args( $data = array() ) {
+			$data['type'] = 'notice';
+			return $data;
+		}
+
 		/**
 		 * Final HTML Output;
 		 *
@@ -46,10 +54,7 @@ if ( ! class_exists( '\WPOnion\Field\notice' ) ) {
 		 * @return mixed;
 		 */
 		protected function field_default() {
-			return array(
-				'content'     => false,
-				'notice_type' => 'success',
-			);
+			return $this->parse_args( array( 'notice_type' => $this->notice_type ), parent::field_default() );
 		}
 	}
 }

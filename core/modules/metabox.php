@@ -324,15 +324,16 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 				}
 
 				if ( false === $parent_id ) {
-					$page = current( $this->fields );
-					if ( is_array( $page ) && isset( $page['name'] ) ) {
-						$parent_id = $page['name'];
-						if ( isset( $page['sections'] ) ) {
-							$section = current( $page['sections'] );
-							if ( is_array( $section ) && isset( $section['name'] ) ) {
-								$section_id = $section['name'];
-							}
-						}
+					$page = $this->fields->current();
+					$this->fields->rewind();
+					if ( $page->has_sections() ) {
+						$parent_id  = $page->name();
+						$sections   = $page->sections();
+						$section    = $sections->current();
+						$section_id = $section->name();
+						$sections->rewind();
+					} else {
+						$parent_id = $page->name();
 					}
 				}
 				$this->active_data = array(

@@ -43,7 +43,7 @@ if ( ! class_exists( '\WPOnion\Field\accordion' ) ) {
 		 */
 		protected function render_fields() {
 			echo '<div class="wponion-accordion-wrap">';
-			echo '<h4 class="wponion-accordion-title">' . $this->data( 'accordion_title' ) . '<a title="' . __( 'Delete' ) . '"class="wponion-remove wponion-group-remove dashicons"></a></h4>';
+			echo '<h4 class="wponion-accordion-title">' . $this->data( 'heading' ) . '<a title="' . __( 'Delete' ) . '"class="wponion-remove wponion-group-remove dashicons"></a></h4>';
 			echo '<div class="wponion-accordion-content">';
 			foreach ( $this->data( 'fields' ) as $field_id => $field ) {
 				$this->render_single_field( $field );
@@ -86,10 +86,10 @@ if ( ! class_exists( '\WPOnion\Field\accordion' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'fields'          => array(),
-				'accordion_title' => __( 'Accordion' ),
-				'un_array'        => false,
-				'is_open'         => false,
+				'fields'   => array(),
+				'heading'  => __( 'Accordion' ),
+				'un_array' => false,
+				'is_open'  => false,
 			);
 		}
 

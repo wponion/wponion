@@ -47,10 +47,10 @@ if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
 
 			if ( $this->has( 'fields' ) ) {
 				if ( $this->has( 'heading' ) ) {
-					echo wponion_add_element( array(
+					echo $this->sub_field( array(
 						'type'    => 'subheading',
 						'content' => $this->data( 'heading' ),
-					) );
+					), $this->data( 'heading' ), $this->unique() );
 				}
 
 				foreach ( $this->data( 'fields' ) as $field ) {

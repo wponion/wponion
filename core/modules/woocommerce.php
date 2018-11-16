@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\WooCommerce' ) ) {
 	/**
 	 * Class woocommerce
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class woocommerce extends \WPOnion\Bridge\Module {
+	class WooCommerce extends \WPOnion\Bridge\Module {
 		/**
 		 * module
 		 *
@@ -97,8 +97,9 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 		 * @param array $settings
 		 * @param array $fields
 		 */
-		public function __construct( array $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), $fields = array() ) {
 			parent::__construct( $fields, $settings );
+			$this->init();
 		}
 
 		/**
@@ -159,31 +160,35 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 		/**
 		 * Checks if given data is also for variation or only for variation.
 		 *
-		 * @param      $data
+		 * @param \WPOnion\Module_Fields|array $data
 		 *
 		 * @return bool|mixed
 		 */
 		public function is_variation( $data ) {
-			if ( isset( $data['is_variation'] ) && isset( $data['only_variation'] ) ) {
+			$is_var   = false;
+			$only_var = false;
+			if ( $data instanceof \WPOnion\Module_Fields ) {
+				$is_var   = $data->get( 'is_variation' );
+				$only_var = $data->get( 'only_variation' );
+			} elseif ( is_array( $data ) ) {
+				$is_var   = ( isset( $data['is_variation'] ) && true == $data['is_variation'] );
+				$only_var = ( isset( $data['only_variation'] ) && true === $data['only_variation'] );
+			}
+
+			if ( true === $is_var && true === $only_var ) {
 				return 'only';
 			}
-			return ( isset( $data['is_variation'] ) && ! isset( $data['only_variation'] ) ) ? true : false;
+
+			return ( true === $is_var ) ? true : false;
 		}
 
 		/**
-		 * @param $data
+		 * @param \WPOnion\Module_Fields $data
 		 *
 		 * @return bool|string
 		 */
 		protected function get_group_data( $data ) {
-			if ( isset( $data['group'] ) ) {
-				return $data['group'];
-			} elseif ( isset( $data['title'] ) && isset( $data['name'] ) && false === $data['title'] ) {
-				return $data['name'];
-			} elseif ( isset( $data['title'] ) && isset( $data['name'] ) && false === $data['name'] ) {
-				return strtolower( sanitize_title( $data['title'] ) );
-			}
-			return false;
+			return ( ! empty( $data->get( 'group' ) ) ) ? $data->get( 'group' ) : false;
 		}
 
 		/**
@@ -192,13 +197,12 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 		public function handle_fields_data() {
 			foreach ( $this->fields as $page_id => $page ) {
 				$is_variation = $this->is_variation( $page );
-
 				if ( 'only' === $is_variation ) {
 					$this->handle_variation_fields( $page, $is_variation );
 				} else {
 					$group_slug   = $this->get_group_data( $page );
 					$is_new_group = ( false === $group_slug ) ? true : false;
-					$group_slug   = ( false === $group_slug ) ? $page['name'] : $group_slug;
+					$group_slug   = ( false === $group_slug ) ? $page->name() : $group_slug;
 
 					if ( false !== $group_slug ) {
 						if ( ! isset( $this->group_fields[ $group_slug ] ) ) {
@@ -208,7 +212,7 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 					}
 
 					if ( true === $is_new_group ) {
-						$this->groups_to_add[ $page['name'] ] = $page;
+						$this->groups_to_add[ $page->name() ] = $page;
 					}
 					$this->handle_variation_fields( $page, $is_variation );
 				}
@@ -218,18 +222,18 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 		/**
 		 * Handles Variation Fields.
 		 *
-		 * @param $data
-		 * @param $variation_type
+		 * @param \WPOnion\Module_Fields $data
+		 * @param                        $variation_type
 		 */
 		protected function handle_variation_fields( $data, $variation_type ) {
 			if ( false !== $variation_type ) {
-				$vgroup                            = ( true === $data['is_variation'] ) ? 'default' : $data['is_variation'];
-				$this->variation_fields[ $vgroup ] = $this->parse_args( $this->variation_fields[ $vgroup ], $data['fields'] );
-				foreach ( $data['fields'] as $field ) {
+				$vgroup                            = ( true === $data->get( 'is_variation' ) ) ? 'default' : $data->get( 'is_variation' );
+				$this->variation_fields[ $vgroup ] = $this->parse_args( $this->variation_fields[ $vgroup ], $data->fields() );
+				foreach ( $data->fields() as $field ) {
 					$this->render_field( $field, false, true );
 				}
 			} else {
-				foreach ( $data['fields'] as $fid => $field ) {
+				foreach ( $data->fields() as $fid => $field ) {
 					if ( false !== $this->is_variation( $field ) ) {
 						$this->render_field( $field, false, true );
 						$vg                                    = ( true === $this->is_variation( $field ) ) ? 'default' : $field['is_variation'];
@@ -250,10 +254,10 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 			if ( is_array( $this->groups_to_add ) ) {
 				foreach ( $this->groups_to_add as $key => $data ) {
 					$tabs[ $key ]          = array(
-						'label'    => isset( $data['title'] ) ? $data['title'] : false,
-						'target'   => isset( $data['name'] ) ? sanitize_title( 'wponion_' . $this->plugin_id() . '_' . $data['name'] ) : false,
-						'class'    => isset( $data['class'] ) ? $data['class'] : false,
-						'priority' => isset( $data['priority'] ) ? $data['priority'] : null,
+						'label'    => $data->title(),
+						'target'   => ! empty( $data->name() ) ? sanitize_title( 'wponion_' . $this->plugin_id() . '_' . $data->name() ) : false,
+						'class'    => ! empty( $data->get( 'class' ) ) ? $data['class'] : false,
+						'priority' => ! empty( $data->get( 'priority' ) ) ? $data['priority'] : null,
 					);
 					$tabs[ $key ]['class'] = wponion_html_class( $tabs[ $key ]['class'], $this->show_hide_class( $data ), false );
 				}
@@ -309,7 +313,8 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 		protected function render_tab_fields( $group, $extra_wrap_class = array() ) {
 			$wrap_class = $this->wrap_class( wponion_html_class( $extra_wrap_class, array( 'wponion-wc-metabox-fields' ) ) );
 			echo '<div class="' . $wrap_class . '">';
-			foreach ( $group['fields'] as $field ) {
+			$fields = ( $group instanceof \WPOnion\Module_Fields ) ? $group->fields() : $group['fields'];
+			foreach ( $fields as $field ) {
 				$field = $this->parse_args( $field, array( 'wrap_class' => array() ) );
 
 				if ( ! is_array( $field['wrap_class'] ) ) {
@@ -317,7 +322,6 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 				}
 
 				$field['wrap_class'] = wponion_html_class( $field['wrap_class'], $this->show_hide_class( $field ) );
-
 				echo $this->render_field( $field, false, false );
 			}
 			echo '</div>';
@@ -328,9 +332,7 @@ if ( ! class_exists( '\WPOnion\Modules\woocommerce' ) ) {
 		 */
 		public function add_wc_fields() {
 			foreach ( $this->groups_to_add as $group ) {
-				$default = array( 'fields' => '', 'name' => '', 'title' => '' );
-				$group   = wp_parse_args( $group, $default );
-				$id      = sanitize_title( 'wponion_' . $this->plugin_id() . '_' . $group['name'] );
+				$id = sanitize_title( 'wponion_' . $this->plugin_id() . '_' . $group->name() );
 				echo '<div id="' . $id . '" class="panel woocommerce_options_panel hidden">';
 				$this->render_tab_fields( $group );
 				echo '</div>';

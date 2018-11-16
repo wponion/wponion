@@ -1,6 +1,7 @@
 <?php
 $settings = $this->metabox();
 $menus    = $settings->metabox_menus();
+$active   = $settings->active_page();
 $return   = '';
 ?>
 <style>
@@ -13,8 +14,7 @@ $return   = '';
 <div class="<?php echo $settings->wrap_class( '', true ); ?>">
 	<div class="wponion-metabox-inside-wrap">
 		<?php
-		if ( is_array( $menus ) && ! empty( $menus ) ) {
-			$active = $settings->active_page();
+		if ( is_array( $menus ) && ! empty( $menus ) && count( $menus ) > 1 ) {
 			$return = '<div class="wponion-metabox-menu-wrap"><ul class="meta-menu wponion-metabox-parent-menu">';
 			foreach ( $menus as $slug => $menu ) {
 				if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
@@ -40,36 +40,38 @@ $return   = '';
 		}
 		echo $return;
 		?>
-
-
 		<div class="wponion-metabox-content-wrap">
 			<?php
 			foreach ( $settings->fields() as $option ) {
 				if ( false === $settings->valid_field( $option ) && true === $settings->valid_option( $option ) ) {
-					$slug       = $option['name'];
-					$page_class = ( $slug === $active['parent_id'] ) ? '' : 'hidden';
+					$class = ( $option->name() === $active['parent_id'] ) ? '' : 'hidden';
+					$slug  = $option->name();
 					?>
-					<div id="wponion-tab-<?php echo $slug; ?>" class="wponion-parent-wraps <?php echo $page_class; ?>">
+					<div id="wponion-tab-<?php echo $slug; ?>" class="wponion-parent-wraps <?php echo $class; ?>">
 						<?php
-						if ( isset( $option['sections'] ) ) {
-							foreach ( $option['sections'] as $section ) {
+						if ( $option->has_sections() ) {
+							foreach ( $option->sections() as $section ) {
 								if ( false === $settings->valid_option( $section ) ) {
 									continue;
 								}
-								$child_slug  = $section['name'];
-								$child_class = ( $child_slug === $active['section_id'] ) ? '' : 'hidden';
-								echo '<div id="wponion-tab-' . $slug . '-' . $child_slug . '" class="wponion-section-wraps ' . $child_class . '" data-section-id="' . $child_slug . '">';
-								foreach ( $section['fields'] as $field ) {
-									echo $settings->render_field( $field, $option['name'], $section['name'] );
+
+								$child_class = ( $section->name() === $active['section_id'] ) ? '' : 'hidden';
+								echo '<div id="wponion-tab-' . $slug . '-' . $section->name() . '" class="wponion-section-wraps ' . $child_class . '" data-section-id="' . $section->name() . '">';
+								if ( $section->has_fields() ) {
+									foreach ( $section->fields() as $field ) {
+										echo $settings->render_field( $field, $option['name'], $section['name'] );
+									}
+								} elseif ( $section->has_callback() ) {
+									echo wponion_callback( $section->callback() );
 								}
 								echo '</div>';
 							}
-						} elseif ( isset( $option['fields'] ) ) {
-							foreach ( $option['fields'] as $field ) {
+						} elseif ( $option->has_fields() ) {
+							foreach ( $option->fields() as $field ) {
 								echo $settings->render_field( $field, $option['name'] );
 							}
-						} elseif ( isset( $option['callback'] ) && false !== $option['callback'] ) {
-							$with_wrap = ( isset( $option['with_wrap'] ) && true === $option['with_wrap'] || ! isset( $option['with_wrap'] ) ) ? true : false;
+						} elseif ( $option->has_callback() ) {
+							echo wponion_callback( $option->callback() );
 						}
 						?>
 					</div>
@@ -80,18 +82,13 @@ $return   = '';
 			}
 			?>
 		</div>
-
 	</div>
-	<?php
-	if ( false !== $settings->option( 'ajax' ) ) {
-		?>
+	<?php if ( false !== $settings->option( 'ajax' ) ) { ?>
 		<h2 class="ajax-container">
-
 			<?php
 			echo $settings->hidden_secure_data();
 			echo $settings->save_button();
 			?>
 		</h2>
-		<?php
-	} ?>
+	<?php } ?>
 </div>

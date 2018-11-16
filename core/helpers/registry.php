@@ -28,11 +28,25 @@ if ( ! function_exists( 'wponion_get_registry' ) ) {
 	 */
 	function wponion_get_registry( $type = '', $class = '' ) {
 		static $data = array();
-
+		if ( true === $type ) {
+			return $data;
+		}
 		if ( ! isset( $data[ $type ] ) ) {
 			$data[ $type ] = new $class;
 		}
 		return $data[ $type ];
+	}
+}
+
+if ( ! function_exists( 'wponion_get_registry_stats' ) ) {
+	/**
+	 * @todo remove
+	 */
+	function wponion_get_registry_stats() {
+		//$_d = wponion_get_registry( true );
+		//var_dump( \WPOnion\Field::$total_fields );
+		//var_dump( array_keys( $_d ) );
+		//var_dump( $_d['core__'] );
 	}
 }
 
@@ -93,7 +107,7 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|mixed
+	 * @return bool|mixed|\WPOnion\Modules\Settings
 	 */
 	function wponion_settings_registry( &$instance ) {
 		return wponion_get_registry_instance( 'settings', $instance, 'settings' );
@@ -217,7 +231,7 @@ if ( ! function_exists( 'wponion_value_registry' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_dashboard_registry' ) ) {
+if ( ! function_exists( 'wponion_dashboard_widgets_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for dashboard widgets module.
 	 *
@@ -225,8 +239,21 @@ if ( ! function_exists( 'wponion_dashboard_registry' ) ) {
 	 *
 	 * @return bool
 	 */
-	function wponion_dashboard_registry( &$instance ) {
+	function wponion_dashboard_widgets_registry( &$instance ) {
 		return wponion_get_registry_instance( 'dashboard_widgets', $instance, 'settings' );
+	}
+}
+
+if ( ! function_exists( 'wponion_widget_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for widgets module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_widget_registry( &$instance ) {
+		return wponion_get_registry_instance( 'widget', $instance, 'settings' );
 	}
 }
 

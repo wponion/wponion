@@ -133,18 +133,38 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				wponion_localize();
 				$metabox_id      = sanitize_text_field( $_REQUEST['metabox_id'] );
 				$plugin_id       = sanitize_text_field( $_REQUEST['plugin_id'] );
+				$unique          = sanitize_text_field( $_REQUEST['unique'] );
 				$this->plugin_id = $plugin_id;
 				$this->module    = 'metabox';
-				$instance        = $plugin_id . '_' . $metabox_id;
-				$instance        = wponion_metabox_registry( $instance );
+				$instance        = wponion_metabox_registry( $unique );
 				$post_id         = sanitize_text_field( $_REQUEST['wponion_postid'] );
-				$instance->set_post_id( $post_id );
-				$instance->save_metabox( $post_id );
-				$this->_action( 'ajax_before_render' );
-				$instance->on_page_load();
-				$instance->render( $post_id );
-				$this->_action( 'ajax_render' );
+				if ( $instance ) {
+					$instance->set_post_id( $post_id );
+					$instance->save_metabox( $post_id );
+					$this->_action( 'ajax_before_render' );
+					$instance->on_page_load();
+					$instance->render( $post_id );
+					$this->_action( 'ajax_render' );
+				}
 			}
+		}
+
+		public function oembed_preview() {
+			$args  = array( 'width' => 360 );
+			$embed = wp_oembed_get( $_REQUEST['value'], $args );
+
+			if ( ! $embed ) {
+				global $wp_embed;
+				$temp                           = $wp_embed->return_false_on_fail;
+				$wp_embed->return_false_on_fail = true; // Do not fallback to make a link.
+				$embed                          = $wp_embed->shortcode( $args, $_REQUEST['value'] );
+				$wp_embed->return_false_on_fail = $temp;
+			}
+
+			if ( $embed ) {
+				wp_send_json_success( $embed );
+			}
+			wp_send_json_error();
 		}
 	}
 }

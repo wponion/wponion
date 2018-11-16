@@ -80,10 +80,10 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'modified_debug', __( 'JS Args' ) );
 				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.' ) );
 				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info' ) );
+				$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.' ) );
 				$this->modal_template();
 				self::$core_data = true;
 			}
-
 		}
 
 		/**
@@ -149,11 +149,11 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return $this
 		 */
 		public function text( $key = '', $value = '' ) {
-			if ( ! isset( $this->js_args['wponion_i18n'] ) ) {
-				$this->js_args['wponion_i18n'] = array();
+			if ( ! isset( $this->js_args['wponion_il8n'] ) ) {
+				$this->js_args['wponion_il8n'] = array();
 			}
 
-			$this->js_args['wponion_i18n'][ $key ] = $value;
+			$this->js_args['wponion_il8n'][ $key ] = $value;
 			return $this;
 		}
 

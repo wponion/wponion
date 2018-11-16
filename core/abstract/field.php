@@ -33,6 +33,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @var int
 		 */
 		protected static $columns = 0;
+		/**
+		 * columns
+		 *
+		 * @var int
+		 */
+		public static $total_fields = 0;
 
 		/**
 		 * orginal_field
@@ -105,6 +111,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @param string|array $unique
 		 */
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
+			self::$total_fields++;
 			$this->orginal_field = $field;
 			$this->orginal_value = $value;
 			$this->field         = $this->_handle_field_args( $this->set_args( $field ) );
@@ -177,7 +184,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			$defaults = array(
+			return $this->parse_args( $this->field_default(), array(
 				'horizontal'      => false,
 				'id'              => false, # Unique Database ID For Each And Every Field
 				'type'            => false, # Type of the field,
@@ -195,6 +202,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'attributes'      => array(), # attributes of field. supporting only html standard attributes
 				'sanitize'        => null,    #sanitize of field. can be enabled or disabled
 				'validate'        => null,    #validate of field. can be enabled or disabled
+				'js_validate'     => null,    #JS validate of field. can be enabled or disabled
 				'before'          => null,
 				'after'           => null,
 				'only_field'      => false,
@@ -202,8 +210,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'clone'           => false,
 				'clone_settings'  => array(),
 				'debug'           => wponion_field_debug(),
-			);
-			return $this->parse_args( $this->field_default(), $defaults );
+				'disabled'        => false,
+				'wrap_tooltip'    => false,
+				'query_args'      => array(),
+			) );
 		}
 
 		/**
@@ -245,6 +255,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$this->wrapper();
 			}
 
+			$this->debug( __( 'Raw Field Args' ), $this->orginal_field );
 			$this->debug( __( 'Field Args' ), $this->field );
 			$this->debug( __( 'Field Value' ), $this->value );
 			$this->debug( __( 'Unique' ), $this->unique );
@@ -309,6 +320,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$col_class                       = false;
 			$has_dep                         = false;
 			$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
+			$is_js_validate                  = ( $this->has( 'js_validate' ) ) ? 'wponion-js-validate' : '';
 			$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
 			if ( $this->has( 'dependency' ) ) {
 				$has_dep    = 'wponion-has-dependency';
@@ -338,12 +350,19 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$has_dep,
 				$col_class,
 				$is_debug,
+				$is_js_validate,
 			) ) );
 
 			$_wrap_attr['class'] .= $this->field_wrap_class();
 
 			if ( $this->has( 'horizontal' ) && true === $this->data( 'horizontal' ) ) {
 				$_wrap_attr['class'] .= ' horizontal ';
+			}
+
+			if ( false !== $this->data( 'wrap_tooltip' ) ) {
+				$_wrap_attr['class'] = $_wrap_attr['class'] . ' wponion-has-wrap-tooltip wponion-wrap-tooltip';
+				$_data               = $this->tooltip_data( $this->data( 'wrap_tooltip' ), array(), 'wrap_tooltip' );
+				$_wrap_attr['title'] = $_data['attr']['title'];
 			}
 
 			$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
@@ -417,22 +436,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$html .= $this->title_before_after( false ) . '<h4>' . $this->data( 'title' ) . '</h4>' . $this->title_before_after( true );
 				$html .= $this->field_help();
 				$html .= $this->title_desc();
-				$html .= $this->debug_notice();
 				$html .= '</div>';
 			}
 			return $html;
-		}
-
-		/**
-		 * Adds A Simple Debug Notice.
-		 *
-		 * @return string
-		 */
-		protected function debug_notice() {
-			if ( $this->has( 'debug' ) ) {
-				return '<a class="wponion-field-debug-handle" data-wponion-jsid="' . $this->js_field_id() . '"><span class="badge badge-primary">' . __( 'Debug Field' ) . '</span></a>';
-			}
-			return '';
 		}
 
 		/**
@@ -476,8 +482,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'class' => 'wponion-help',
 			);
 
-			if ( true === $localize ) {
-				wponion_localize()->add( $this->js_field_id(), array( 'field_help' => $data ) );
+			if ( false !== $localize ) {
+				$localize = ( true === $localize ) ? 'field_help' : $localize;
+				wponion_localize()->add( $this->js_field_id(), array( $localize => $data ) );
 			}
 			return array(
 				'attr' => $attr,
@@ -545,8 +552,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function after() {
 			if ( false === $this->has( 'only_field' ) ) {
 				$data = ( false !== $this->has( 'after' ) ) ? $this->data( 'after' ) : '';
-				$data .= $this->field_desc();
-				$data .= $this->field_error();
+				$data = $data . $this->field_desc();
+				$data = $data . $this->field_error();
 				return $data;
 			}
 			return '';
@@ -560,6 +567,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function get_errors() {
 			if ( null === $this->errors ) {
 				$error_instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), '\WPOnion\Registry\Field_Error' );
+
 				if ( $error_instance ) {
 					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
 					$this->errors = $error_instance->get( $field_id );
@@ -662,6 +670,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$user_attrs['style'] = $this->data( 'style' );
 			}
 
+			if ( true === $this->has( 'disabled' ) ) {
+				$user_attrs['disabled'] = 'disabled';
+			}
+
 			if ( false !== $this->has( 'placeholder' ) ) {
 				$user_attrs['placeholder'] = $this->data( 'placeholder' );
 			}
@@ -756,8 +768,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function js_field_id() {
 			if ( ! isset( $this->js_field_id ) ) {
-				$key               = $this->unid() . '_' . $this->unique() . '_' . uniqid( time() );
-				$key               = wponion_localize_object_name( 'wponion', 'field', $key );
+				$key               = wponion_localize_object_name( 'wponion', 'field', $this->unid() . '_' . $this->unique() . '_' . uniqid( time() ) );
 				$key               = str_replace( array( '-', '_' ), '', $key );
 				$this->js_field_id = sanitize_key( $key );
 			}
@@ -778,6 +789,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 				if ( $this->has( 'debug' ) ) {
 					wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ) );
+				}
+
+				if ( $this->has( 'js_validate' ) ) {
+					wponion_localize()->add( $this->js_field_id(), array( 'js_validate' => $this->data( 'js_validate' ) ) );
 				}
 
 				wponion_localize()->add( $this->js_field_id(), array(
@@ -844,7 +859,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'pretty'       => false,
 				'custom_input' => false,
 			) );
-
 
 			if ( ! is_array( $value ) ) {
 				$defaults['key']   = $key;
@@ -939,11 +953,17 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		public function element_data( $type = '' ) {
-			$is_ajax = ( isset( $this->field['settings'] ) && isset( $this->field['settings']['is_ajax'] ) && true === $this->field['settings']['is_ajax'] );
+			$is_ajax    = ( isset( $this->field['settings'] ) && isset( $this->field['settings']['is_ajax'] ) && true === $this->field['settings']['is_ajax'] );
+			$query_args = array();
+
 			if ( $is_ajax && empty( $this->value ) ) {
 				return array();
 			}
-			$query_args = ( is_array( $this->field['query_args'] ) && ! empty( $this->field['query_args'] ) ) ? $this->field ['query_args'] : array();
+
+			if ( isset( $this->field['query_args'] ) && is_array( $this->field['query_args'] ) && ! empty( $this->field['query_args'] ) ) {
+				$query_args = $this->field['query_args'];
+			}
+
 			if ( $is_ajax ) {
 				$query_args['post__in'] = ( ! is_array( $this->value ) ) ? explode( ',', $this->value ) : $this->value;
 			}

@@ -32,7 +32,9 @@ if ( ! class_exists( '\WPOnion\DB\User_Profile_Save_Handler' ) ) {
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
-			$this->field_loop( array( 'fields' => $this->fields ) );
+			$fields = $this->fields->get();
+			$this->fields->set( 'fields', $fields );
+			$this->field_loop( $this->fields );
 		}
 	}
 }

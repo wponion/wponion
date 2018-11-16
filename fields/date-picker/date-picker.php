@@ -40,14 +40,18 @@ if ( ! class_exists( '\WPOnion\Field\date_picker' ) ) {
 					'type'       => 'text',
 					'title'      => __( 'From Date' ),
 					'horizontal' => true,
-					'attributes' => array( 'data-wponion-datepicker-from-date' => true, ),
+					'attributes' => array(
+						'data-wponion-datepicker-from-date' => true,
+					),
 				) ), $this->value( 'from' ), $this->name() );
 				echo $this->sub_field( $this->handle_args( 'title', $this->data( 'to_date' ), array(
 					'id'         => 'to',
 					'type'       => 'text',
 					'title'      => __( 'To Date' ),
 					'horizontal' => true,
-					'attributes' => array( 'data-wponion-datepicker-to-date' => true, ),
+					'attributes' => array(
+						'data-wponion-datepicker-to-date' => true,
+					),
 				) ), $this->value( 'to' ), $this->name() );
 			} else {
 				echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'date' ), array(

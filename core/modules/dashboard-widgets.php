@@ -24,7 +24,6 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 	 * @package WPOnion\Modules
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 * @todo work on save handler.
 	 */
 	class Dashboard_Widgets extends \WPOnion\Bridge\Module {
 		/**
@@ -48,7 +47,6 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 */
 		protected $current_widget = false;
 
-
 		/**
 		 * WPOnion_Dashboard_Widgets constructor.
 		 *
@@ -57,12 +55,16 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 */
 		public function __construct( $settings = array(), $fields = array() ) {
 			parent::__construct( $fields, $settings );
-			$this->add_action( 'wp_dashboard_setup', 'register_dashboard_widgets' );
-			$this->add_action( 'load-index.php', '_init_theme' );
-			$this->add_action( 'admin_print_scripts-index.php', 'load_assets' );
+			$this->init();
+		}
 
-			$this->plugin_id = $this->settings['plugin_id'];
-			wponion_dashboard_registry( $this );
+		/**
+		 * @return mixed
+		 */
+		public function on_init() {
+			$this->add_action( 'wp_dashboard_setup', 'register_dashboard_widgets' );
+			$this->add_action( 'load-index.php', 'on_page_load' );
+			$this->add_action( 'admin_print_scripts-index.php', 'load_assets' );
 		}
 
 		/**
@@ -75,8 +77,42 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		/**
 		 * Loads Required Assets.
 		 */
-		public function _init_theme() {
-			$this->init_theme( '-init.php', '-dashboard-html.php' );
+		public function on_page_load() {
+			$this->init_theme();
+			$cache = $this->get_cache();
+
+			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
+				$this->set_defaults();
+			}
+		}
+
+		/**
+		 * Sets Default Values.
+		 */
+		public function set_defaults() {
+			$this->get_db_values();
+			$this->options_cache['fuid']            = $this->fields_md5();
+			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
+			$default                                = array();
+
+			foreach ( $this->fields as $field ) {
+				if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
+					continue;
+				}
+
+				if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
+					$default[ $field['id'] ] = $field['default'];
+					if ( wponion_is_unarrayed( $field ) ) {
+						$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
+					} else {
+						$this->db_values[ $field['id'] ] = $field['default'];
+					}
+				}
+			}
+			if ( ! empty( $default ) ) {
+				$this->set_db_values( $this->db_values );
+			}
+			$this->set_cache( $this->options_cache );
 		}
 
 		/**
@@ -84,37 +120,12 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 */
 		public function register_dashboard_widgets() {
 			$widget_render = array( &$this, 'render_widget' );
-			if ( isset( $this->fields['name'] ) ) {
-				$control_callback = isset( $this->fields['form_fields'] ) ? array( &$this, 'save_widget' ) : null;
-				wp_add_dashboard_widget( $this->fields['name'], $this->fields['title'], $widget_render, $control_callback );
-			} else {
-				foreach ( $this->fields as $widget ) {
-					if ( isset( $widget['name'] ) ) {
-						$control_callback = isset( $widget['form_fields'] ) ? array( &$this, 'save_widget' ) : null;
-						wp_add_dashboard_widget( $widget['name'], $widget['title'], $widget_render, $control_callback );
-					}
-				}
-			}
-		}
 
-		/**
-		 * Returns The Correct Widget Based On Widget ID.
-		 *
-		 * @param string $widget_id
-		 *
-		 * @return array|bool
-		 */
-		protected function get_widget_data( $widget_id = '' ) {
-			if ( isset( $this->fields['name'] ) && $widget_id === $this->fields['name'] ) {
-				return $this->fields;
-			} else {
-				foreach ( $this->fields as $widget ) {
-					if ( isset( $widget['name'] ) && $widget_id === $widget['name'] ) {
-						return $widget;
-					}
-				}
+			if ( false !== $this->option( 'widget_id' ) && false !== $this->option( 'widget_name' ) ) {
+				$wid   = $this->option( 'widget_id' );
+				$wname = $this->option( 'widget_name' );
+				wp_add_dashboard_widget( $wid, $wname, $widget_render, array( &$this, 'save_widget' ) );
 			}
-			return false;
 		}
 
 		/**
@@ -125,12 +136,11 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function render_widget( $content, $widget_data ) {
-			if ( ! isset( $widget_data['id'] ) ) {
-				return $content;
+		public function render_widget() {
+			$this->get_db_values();
+			if ( wponion_is_callable( $this->option( 'callback' ) ) ) {
+				echo wponion_callback( $this->option( 'callback' ), array( $this->get_db_values(), $this ) );
 			}
-			$this->current_widget = $this->get_widget_data( $widget_data['id'] );
-			echo $this->init_theme( '-init.php', '-dashboard-html.php' );
 		}
 
 		/**
@@ -140,51 +150,79 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 * @return string
 		 */
 		public function wrap_class( $extra_class = '', $bootstrap = false ) {
-			$default_class = $this->default_wrap_class( $bootstrap );
-
-			$class = array( ' wponion-' . $this->option( 'theme' ) . '-theme ' );
-			$class = wponion_html_class( $class, $default_class );
-			$class = wponion_html_class( $extra_class, $class );
-			return esc_attr( $class );
+			return wponion_html_class( $extra_class, $this->default_wrap_class( $bootstrap ) );
 		}
 
 		/**
-		 * Renders Widgets Save Able Data.
+		 * Renders Dashboard Edit View.
 		 */
-		public function save_widget( $content, $widget_data ) {
-			$this->is_widget_edit = true;
-			if ( ! isset( $widget_data['id'] ) ) {
-				return $content;
-			}
-			$this->current_widget = $this->get_widget_data( $widget_data['id'] );
-			echo $this->init_theme( '-init.php', '-dashboard-html.php' );
-		}
+		public function save_widget() {
+			$this->get_cache();
+			$this->get_db_values();
+			if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST[ $this->unique() ] ) ) {
+				$this->get_db_values();
+				$this->get_cache();
+				$instance = new \WPOnion\DB\Dashboard_Widgets_Save_Handler();
+				$instance->init_class( array(
+					'module'    => 'dashboard_widgets',
+					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->unique(),
+					'fields'    => $this->fields,
+					'db_values' => $this->get_db_values(),
+					'args'      => array( 'settings' => &$this ),
+				) )
+					->run();
 
-		protected function get_unique( $data ) {
-			return ( isset( $data['option_name'] ) ) ? $data['option_name'] : $data['name'];
-		}
-
-		public function render() {
-			if ( $this->is_widget_edit ) {
-				foreach ( $this->current_widget['form_fields'] as $fields ) {
-					echo wponion_add_element( $fields, null, $this->get_unique( $this->current_widget ) );
+				$this->options_cache['field_errors'] = $instance->get_errors();
+				$this->set_cache( $this->options_cache );
+				$this->set_db_values( $instance->get_values() );
+				if ( ! empty( $instance->get_errors() ) ) {
+					wp_redirect( add_query_arg( 'wponion-save', 'error' ) );
+					exit;
 				}
 			} else {
-				foreach ( $this->current_widget['fields'] as $fields ) {
-					echo wponion_add_element( $fields, null, $this->get_unique( $this->current_widget ) );
+				$instance = $this->init_theme();
+				echo $instance->render_dashboard_widgets();
+			}
+		}
+
+		/**
+		 * Updates User Meta.
+		 *
+		 * @param $values
+		 *
+		 * @return $this
+		 */
+		public function set_db_values( $values ) {
+			$this->db_values = $values;
+			update_option( $this->unique(), $values );
+			return $this;
+		}
+
+		/**
+		 * Returns DB Values.
+		 *
+		 * @return array|mixed
+		 */
+		protected function get_db_values() {
+			if ( empty( $this->db_values ) ) {
+				$this->db_values = get_option( $this->unique(), true );
+				if ( ! is_array( $this->db_values ) ) {
+					$this->db_values = array();
 				}
 			}
+			return $this->db_values;
 		}
 
 		/**
 		 * @return array
 		 */
 		protected function defaults() {
-			return array(
-				'plugin_id'     => '',
-				'theme'         => 'wp',
-				'template_path' => false,
-			);
+			return $this->parse_args( parent::defaults(), array(
+				'widget_id'   => false,
+				'widget_name' => false,
+				'callback'    => false,
+			) );
 		}
 	}
 }

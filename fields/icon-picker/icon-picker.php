@@ -91,7 +91,7 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 				'only_field'  => true,
 				'button_type' => 'button',
 				'label'       => __( 'Add Icon' ),
-			) ), null, null );
+			) ), false, $this->unique() );
 
 			$html .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
 				'class'       => array( 'button button-secondary' ),
@@ -103,7 +103,7 @@ if ( ! class_exists( '\WPOnion\Field\icon_picker' ) ) {
 				'only_field'  => true,
 				'button_type' => 'button',
 				'label'       => __( 'Remove Icon' ),
-			) ), null, null );
+			) ), false, $this->unique() );
 
 			return $html;
 		}

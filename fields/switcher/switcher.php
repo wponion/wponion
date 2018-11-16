@@ -35,7 +35,6 @@ if ( ! class_exists( '\WPOnion\Field\switcher' ) ) {
 			return array(
 				'switch_style' => 'style-8',
 				'switch_size'  => '',
-				'options'      => array(),
 				'label'        => false,
 				'on'           => __( 'ON' ),
 				'off'          => __( 'OFF' ),

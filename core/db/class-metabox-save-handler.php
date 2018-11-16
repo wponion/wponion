@@ -31,25 +31,21 @@ if ( ! class_exists( '\WPOnion\DB\Metabox_Save_Handler' ) ) {
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
-			if ( false === $this->args['settings']->has_page() ) {
-				$this->field_loop( array( 'fields' => $this->fields ) );
-			} else {
-				foreach ( $this->fields as $option ) {
-					if ( $this->args['settings']->valid_option( $option ) ) {
-						if ( isset( $option['sections'] ) ) {
-							foreach ( $option['sections'] as $section ) {
-								if ( ! $this->args['settings']->valid_option( $section, false, false ) ) {
-									continue;
-								}
 
-								if ( ! isset( $section['fields'] ) ) {
-									continue;
-								}
-
-								$this->field_loop( $section );
+			foreach ( $this->fields as $option ) {
+				if ( $this->args['settings']->valid_option( $option ) ) {
+					if ( $option->has_fields() ) {
+						$this->field_loop( $option );
+					} elseif ( $option->has_sections() ) {
+						foreach ( $option->sections() as $section ) {
+							if ( ! $this->args['settings']->valid_option( $section, false, false ) ) {
+								continue;
 							}
-						} elseif ( isset( $option['fields'] ) ) {
-							$this->field_loop( $option );
+							if ( ! $section->has_fields() ) {
+								continue;
+							}
+
+							$this->field_loop( $section );
 						}
 					}
 				}
