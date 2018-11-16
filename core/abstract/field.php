@@ -202,6 +202,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'attributes'      => array(), # attributes of field. supporting only html standard attributes
 				'sanitize'        => null,    #sanitize of field. can be enabled or disabled
 				'validate'        => null,    #validate of field. can be enabled or disabled
+				'js_validate'     => null,    #JS validate of field. can be enabled or disabled
 				'before'          => null,
 				'after'           => null,
 				'only_field'      => false,
@@ -319,6 +320,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$col_class                       = false;
 			$has_dep                         = false;
 			$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
+			$is_js_validate                  = ( $this->has( 'js_validate' ) ) ? 'wponion-js-validate' : '';
 			$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
 			if ( $this->has( 'dependency' ) ) {
 				$has_dep    = 'wponion-has-dependency';
@@ -348,6 +350,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$has_dep,
 				$col_class,
 				$is_debug,
+				$is_js_validate,
 			) ) );
 
 			$_wrap_attr['class'] .= $this->field_wrap_class();
@@ -357,7 +360,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			}
 
 			if ( false !== $this->data( 'wrap_tooltip' ) ) {
-				$_wrap_attr['class'] .= 'wponion-has-wrap-tooltip wponion-wrap-tooltip';
+				$_wrap_attr['class'] = $_wrap_attr['class'] . ' wponion-has-wrap-tooltip wponion-wrap-tooltip';
 				$_data               = $this->tooltip_data( $this->data( 'wrap_tooltip' ), array(), 'wrap_tooltip' );
 				$_wrap_attr['title'] = $_data['attr']['title'];
 			}
@@ -564,6 +567,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function get_errors() {
 			if ( null === $this->errors ) {
 				$error_instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), '\WPOnion\Registry\Field_Error' );
+
 				if ( $error_instance ) {
 					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
 					$this->errors = $error_instance->get( $field_id );
@@ -785,6 +789,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 				if ( $this->has( 'debug' ) ) {
 					wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ) );
+				}
+
+				if ( $this->has( 'js_validate' ) ) {
+					wponion_localize()->add( $this->js_field_id(), array( 'js_validate' => $this->data( 'js_validate' ) ) );
 				}
 
 				wponion_localize()->add( $this->js_field_id(), array(
