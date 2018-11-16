@@ -568,30 +568,40 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		protected function field_debug_code() {
-			$r            = '';
-			$is_all_debug = ( defined( 'WPONION_ALL_FIELDS_DEBUG' ) && true === WPONION_ALL_FIELDS_DEBUG );
+			$r = '';
 
-			if ( false === $is_all_debug && wponion_is_debug() && false === $this->data( 'debug' ) ) {
-				return '';
+			if ( false === $this->data( 'debug' ) ) {
+				return $r;
 			}
 
-			if ( true === $is_all_debug && false === $this->data( 'debug' ) ) {
-				return '';
-			}
+			if ( $this->data( 'debug' ) || wponion_field_debug() ) {
+				$r       = '<div class="wponion-field-debug-code">';
+				$search  = array( '&lt;?php<br />', '&lt;?php', '<span style="color: #0000BB">?&gt;</span>', '?&gt' );
+				$replace = '';
+				$field   = var_export( $this->orginal_field, true );
+				$value   = var_export( $this->orginal_value, true );
+				$unique  = var_export( $this->orginal_unique, true );
+				$code    = <<<PHP
+<?php
+\$field = $field;
 
-			if ( true === $this->data( 'debug' ) || true === $is_all_debug ) {
-				$r = '<div class="wponion-field-debug-code">';
-				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ' ) . '</strong>';
-				$r .= '<div>';
-				$r .= '<pre>$field = ' . var_export( $this->orginal_field, true ) . ';</pre>';
-				$r .= '<pre>$value = ' . var_export( $this->orginal_value, true ) . ';</pre>';
-				$r .= '<pre>$unique = ' . var_export( $this->orginal_unique, true ) . ';</pre>';
-				$r .= '</div>';
+\$value = $value;
 
-				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'USAGE : ' ) . '</strong>';
-				$r .= '<div>';
-				$r .= '<pre>echo wponion_add_element( $field, $value, $unique );</pre>';
-				$r .= '</div>';
+\$unique = $unique; ?>
+PHP;
+				$code    = str_replace( $search, $replace, highlight_string( $code, true ) );
+				$usage   = <<<PHP
+<?php
+echo wponion_add_element( \$field, \$value, \$unique);
+?>
+PHP;
+				$usage   = str_replace( $search, $replace, highlight_string( $usage, true ) );
+
+				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'CONFIG : ' ) . '</strong>';
+				$r .= '<div style="display: none;">' . $code . '</div>';
+
+				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ' ) . '</strong>';
+				$r .= '<div style="display: none;">' . $usage . '</div>';
 
 				$base   = $this->base_unique();
 				$unique = str_replace( array( $base, '][', ']', '[' ), array(
@@ -602,16 +612,24 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				), $this->unique() );
 
 				if ( ! empty( $unique ) || ! empty( $this->data( 'id' ) ) ) {
-					$unique     = ( ! empty( $unique ) ) ? $unique . '/' : '';
-					$unique     = $unique . $this->data( 'id' );
+					$unique     = ( ! empty( $unique ) ) ? $unique . '/' . $this->data( 'id' ) : $this->data( 'id' );
 					$value_func = 'wponion_' . $this->module() . '_option';
+					$instance   = '$instance';
+					$value      = '$value';
+					$_code      = <<<PHP
+<?php
+$instance = $value_func("$base");
+ $value = \$instance->get("$unique");
+?>
+PHP;
 
-					$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'VALUE : ' ) . '</strong>';
-					$r .= '<div>';
-					$r .= '<pre>$instance = ' . $value_func . '("' . $base . '");</pre>';
-					$r .= '<pre>$value = $instance->get("' . $unique . '")</pre>';
-					$r .= '</div>';
+					$usage = str_replace( $search, $replace, highlight_string( $_code, true ) );
+
+					$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'VALUE : ' ) . '</strong>';
+					$r .= '<div style="display: none;">' . $usage . '</div>';
 				}
+
+				$r .= '<span class="alert alert-warning">' . __( 'Debug Information shown only if field has debug attribute enabled or define( <code>WPONION_FIELD_DEBUG</code> ) is set to true' ) . '</span>';
 
 				$r .= '</div>';
 			}

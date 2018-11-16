@@ -55,8 +55,9 @@
 
 		.wponion-field-debug-code {
 			> strong {
-				color:         #ffbc00;
+				color:         #333; // #ffbc00;
 				margin-bottom: 10px;
+				cursor:        pointer;
 				display:       block;
 			}
 			div {
@@ -67,19 +68,28 @@
 				pre {
 					margin: 0;
 				}
+				pre, code {
+					background: transparent;
+				}
 				&:last-child {
 					margin-bottom: 0;
 				}
 			}
-			padding:       5px;
-			background:    #232323e6;
-			border-radius: 5px;
+			padding:       15px;
+			background:    #fefefe;
 			color:         #eaeaea;
 			display:       block;
 			min-width:     50%;
 			clear:         both;
 			margin-top:    15px;
 			margin-bottom: 15px;
+			border:        1px solid #d4d4d4;
+			.alert {
+				display:       block;
+				font-size:     12px;
+				padding:       5px 10px;
+				margin-bottom: 0;
+			}
 		}
 	}
 	&.wponion-field-no-title {
