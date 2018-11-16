@@ -325,12 +325,13 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 
 				if ( false === $parent_id ) {
 					$page = $this->fields->current();
-
+					$this->fields->rewind();
 					if ( $page->has_sections() ) {
 						$parent_id  = $page->name();
-						$section    = $page->sections()
-							->current();
+						$sections   = $page->sections();
+						$section    = $sections->current();
 						$section_id = $section->name();
+						$sections->rewind();
 					} else {
 						$parent_id = $page->name();
 					}
