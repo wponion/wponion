@@ -430,21 +430,26 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		private function get_page_section_id( $is_section = true, $page = null ) {
 			if ( null !== $page ) {
 				if ( $this->fields->offsetExists( $page ) && true === $is_section && $this->fields->offsetExists( $page . '/sections' ) ) {
-					return $this->fields->get( $page . '/sections' )
-						->current()
-						->name();
+					$sections = $this->fields->get( $page . '/sections' );
+					$return   = $sections->current();
+					$return   = $return->name();
+					$sections->rewind();
+					return $return;
 				} elseif ( $this->fields->offsetExists( $page ) && false === $is_section ) {
 					return $this->fields->get( $page )
 						->name();
 				}
 			} else {
 				$page = $this->fields->current();
+				$this->fields->rewind();
 				if ( $page ) {
 					if ( true === $is_section ) {
 						if ( $page->offsetExists( 'sections' ) ) {
-							return $page->get( 'sections' )
-								->current()
-								->name();
+							$sections = $page->get( 'sections' );
+							$return   = $sections->current();
+							$return   = $return->name();
+							$sections->rewind();
+							return $return;
 						}
 					} else {
 						return $page->name();
@@ -556,7 +561,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			if ( 1 === count( $this->fields ) ) {
 				$class[] = 'wponion-hide-nav';
-				$c       = $this->fields->current();
+				$c       = $this->fields;
 				if ( $c->has_fields() || ( $c->has_sections() && 1 === count( $c->sections() ) ) ) {
 					$class[] = 'wponion-no-subnav';
 				}
@@ -615,7 +620,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function get_first_section( $options ) {
 			if ( $options->has_sections() ) {
-				$first_sec = $options->sections();
+				$first_sec = $options->first_section();
 				return $first_sec->name();
 			}
 			return false;
