@@ -92,3 +92,5 @@ jQuery.fn.extend( {
 //@wponion-inline ../../node_modules/sweetalert2/dist/sweetalert2.all.min.js
 //@wponion-inline ../vendors/geocomplete/geocomplete.js
 } )( window, document, wp, jQuery );
+//@wponion-inline ../../node_modules/jquery-validation/dist/jquery.validate.js
+//@wponion-prepend ../../node_modules/jquery-validation/dist/additional-methods.js
