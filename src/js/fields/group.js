@@ -38,6 +38,7 @@ export default class extends WPOnion_Field {
 			templateAfterRender: () => {
 				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
 				this.init_field( $group_wrap, 'accordion' );
+				this.js_validate_elem( this.option( 'js_validate', false ), $data );
 				$data.find( '.wponion-group-remove' ).tippy();
 				new WPOnion_Dependency( $group_wrap.find( '> .wponion-accordion-wrap:last-child' ), { nestable: true } );
 				wponion_field( $data ).reload();
@@ -68,5 +69,12 @@ export default class extends WPOnion_Field {
 				} );
 			}
 		} );
+	}
+
+	js_error( err ) {
+		let $elem = $wponion.IDtoElement( err.element, this.element );
+		if( $elem ) {
+			err.error.appendTo( $elem.find( '> .wponion-fieldset' ) );
+		}
 	}
 }

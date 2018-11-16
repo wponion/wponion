@@ -63,6 +63,21 @@ export default class WPOnion {
 	}
 
 	/**
+	 * Gets Field HTML Object Using Field ID.
+	 * @param $elem
+	 * @param $where_to_find
+	 * @returns {*}
+	 * @constructor
+	 */
+	static IDtoElement( $elem, $where_to_find = false ) {
+		let $id = WPOnion.fieldID( $elem );
+		if( false !== $where_to_find && is_jquery( $where_to_find ) ) {
+			return $where_to_find.find( '.wponion-element[data-wponion-jsid="' + $id + '"' );
+		}
+		return jQuery( '.wponion-element[data-wponion-jsid="' + $id + '"]' );
+	}
+
+	/**
 	 * Checks if given value is an jQuery instance.
 	 * @param $elem
 	 * @returns {*}
