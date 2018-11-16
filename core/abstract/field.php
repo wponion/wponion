@@ -46,6 +46,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @var array
 		 */
 		protected $orginal_field = array();
+		/**
+		 * orginal_unique
+		 *
+		 * @var array
+		 */
+		protected $orginal_unique = array();
 
 		/**
 		 * orginal_value
@@ -112,10 +118,11 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			self::$total_fields++;
-			$this->orginal_field = $field;
-			$this->orginal_value = $value;
-			$this->field         = $this->_handle_field_args( $this->set_args( $field ) );
-			$this->value         = $value;
+			$this->orginal_field  = $field;
+			$this->orginal_unique = $unique;
+			$this->orginal_value  = $value;
+			$this->field          = $this->_handle_field_args( $this->set_args( $field ) );
+			$this->value          = $value;
 
 			if ( is_string( $unique ) ) {
 				$this->unique    = $unique;
@@ -554,9 +561,61 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data = ( false !== $this->has( 'after' ) ) ? $this->data( 'after' ) : '';
 				$data = $data . $this->field_desc();
 				$data = $data . $this->field_error();
+				$data = $data . $this->field_debug_code();
 				return $data;
 			}
 			return '';
+		}
+
+		protected function field_debug_code() {
+			$r            = '';
+			$is_all_debug = ( defined( 'WPONION_ALL_FIELDS_DEBUG' ) && true === WPONION_ALL_FIELDS_DEBUG );
+
+			if ( false === $is_all_debug && wponion_is_debug() && false === $this->data( 'debug' ) ) {
+				return '';
+			}
+
+			if ( true === $is_all_debug && false === $this->data( 'debug' ) ) {
+				return '';
+			}
+
+			if ( true === $this->data( 'debug' ) || true === $is_all_debug ) {
+				$r = '<div class="wponion-field-debug-code">';
+				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ' ) . '</strong>';
+				$r .= '<div>';
+				$r .= '<pre>$field = ' . var_export( $this->orginal_field, true ) . ';</pre>';
+				$r .= '<pre>$value = ' . var_export( $this->orginal_value, true ) . ';</pre>';
+				$r .= '<pre>$unique = ' . var_export( $this->orginal_unique, true ) . ';</pre>';
+				$r .= '</div>';
+
+				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'USAGE : ' ) . '</strong>';
+				$r .= '<div>';
+				$r .= '<pre>echo wponion_add_element( $field, $value, $unique );</pre>';
+				$r .= '</div>';
+
+				$base   = $this->base_unique();
+				$unique = str_replace( array( $base, '][', ']', '[' ), array(
+					null,
+					'/',
+					null,
+					null,
+				), $this->unique() );
+
+				if ( ! empty( $unique ) || ! empty( $this->data( 'id' ) ) ) {
+					$unique     = ( ! empty( $unique ) ) ? $unique . '/' : '';
+					$unique     = $unique . $this->data( 'id' );
+					$value_func = 'wponion_' . $this->module() . '_option';
+
+					$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'VALUE : ' ) . '</strong>';
+					$r .= '<div>';
+					$r .= '<pre>$instance = ' . $value_func . '("' . $base . '");</pre>';
+					$r .= '<pre>$value = $instance->get("' . $unique . '")</pre>';
+					$r .= '</div>';
+				}
+
+				$r .= '</div>';
+			}
+			return $r;
 		}
 
 		/**
@@ -761,6 +820,22 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$unique = ( false === $unique ) ? $this->unique : $unique;
 			$unique = ( ! empty( $extra ) ) ? $unique . '[' . $extra . ']' : $unique;
 			return $unique;
+		}
+
+		/**
+		 * Returns Base Unqiue Matchs.
+		 *
+		 * @return mixed
+		 */
+		protected function base_unique() {
+			$re  = '/\w+/';
+			$str = $this->unique();
+			preg_match( $re, $str, $matches, PREG_OFFSET_CAPTURE, 0 );
+			$current = current( $matches );
+			if ( is_array( $current ) && isset( $current[0] ) ) {
+				return $current[0];
+			}
+			return $matches;
 		}
 
 		/**

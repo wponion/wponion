@@ -74,6 +74,13 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			$wp_hook.doAction( 'wponion_after_theme_init', $wpof_div );
 
 
+			$( document ).on( 'click', '.wponion-field-debug-code > strong', function() {
+				jQuery( this ).next().slideToggle();
+				jQuery( this )
+					.toggleClass( 'dashicons-arrow-down' )
+					.toggleClass( 'dashicons-arrow-right' );
+			} );
+
 			$( document ).on( 'widget-added widget-updated', function( event, $widget ) {
 				new WPOnion_Dependency( $widget );
 				wponion_field( $widget ).reload();
