@@ -1,7 +1,7 @@
 import WPOnion_Field from './core/field';
 import { is_window_arg } from 'vsp-js-helper/index';
 import WPOnion_Dependency from './core/dependency';
-//import WPOnion_Validator from './core/validation';
+import WPOnion_Validator from './core/validation';
 
 window.wponion_metabox_module = require( './modules/metabox' ).default;
 //window.wponion_customizer_module = require( './modules/customizer' ).default;
@@ -85,7 +85,7 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			$wp_hook.doAction( 'wponion_before_fields_init', $wpof_div );
 			$wpof_div.each( function() {
 				new WPOnion_Dependency( $( this ) );
-				//new WPOnion_Validator( $( this ) );
+				new WPOnion_Validator( $( this ) );
 				wponion_field( $( this ) ).reload();
 			} );
 
