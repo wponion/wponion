@@ -1,5 +1,7 @@
 //import { array_merge, empty, is_callable, is_jquery, is_undefined } from 'vsp-js-helper/index';
+//const to_jquery    = require( 'vsp-js-helper/index' ).to_jquery;
 /* global swal:true */
+/* global console:true */
 
 const array_merge  = require( 'vsp-js-helper/index' ).array_merge;
 const empty        = require( 'vsp-js-helper/index' ).empty;
@@ -11,17 +13,43 @@ import $wponion from './core';
 import $wponion_debug from './debug';
 import WPOnion_Module from './module';
 
+/**
+ * WPOnion Field Abstract Class.
+ */
 export default class extends WPOnion_Module {
 	constructor( $selector, $context, $config = null ) {
 		super( $selector, $context );
-
 		this.set_args( false );
 		this.field_debug();
 		this.config = $config;
 		this.init();
+		this.js_error_handler();
+		this.js_validator();
 	}
 
 	init() {
+	}
+
+	js_error( err ) {
+		err.error.appendTo( this.element.find( '.wponion-fieldset' ) );
+	}
+
+	js_error_handler( element = this.element ) {
+		element.on( 'wponion_js_validation_message', '> .wponion-fieldset :input', ( e, data ) => this.js_error( data ) );
+	}
+
+	js_validator() {
+		if( false === is_undefined( this.option( 'js_validate', false ) ) ) {
+			if( false !== this.option( 'js_validate', false ) ) {
+				this.js_validate_elem( this.option( 'js_validate', false ), this.element );
+			}
+		}
+	}
+
+	js_validate_elem( $args, $elem ) {
+		$elem.find( ':input' ).each( function() {
+			jQuery( this ).rules( 'add', $args );
+		} );
 	}
 
 	handle_args( $arg, $key = false ) {
@@ -199,6 +227,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.selectize', 'selectize' );
 		this.init_field( '.wponion-element-sorter', 'sorter' );
 		this.init_field( '.wponion-element-typography', 'typography' );
+		this.init_field( '.wponion-element-oembed', 'oembed' );
 		wp.hooks.addAction( 'wponion_after_fields_reload' );
 		return this;
 	}
