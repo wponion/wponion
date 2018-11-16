@@ -24,7 +24,7 @@ foreach ( $ins->fields() as $option ) {
 
 				if ( true === $ins->is_tab_active( $option->name(), $section->name() ) ) {
 					$section_active .= '';
-				} elseif ( $section->name() === $first_section->name() ) {
+				} elseif ( $section->name() === $first_section ) {
 					$section_active .= '';
 				} else {
 					$section_active .= ' hidden ';
