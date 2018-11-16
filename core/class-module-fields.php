@@ -213,6 +213,19 @@ if ( ! class_exists( '\WPOnion\Module_Fields' ) ) {
 		}
 
 		/**
+		 * Returns First Section Data.
+		 *
+		 * @return bool|mixed
+		 */
+		public function first_section() {
+			$data = $this->get( 'sections' );
+			$data->rewind();
+			$return = $data->current();
+			$data->rewind();
+			return $return;
+		}
+
+		/**
 		 * Returns Name Field.
 		 *
 		 * @return mixed|null
