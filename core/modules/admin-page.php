@@ -318,6 +318,11 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			return $this->menu_slug();
 		}
 
+		/**
+		 * Retuns Proper Page Slug.
+		 *
+		 * @return null
+		 */
 		public function get_page_slug() {
 			return $this->page_slug;
 		}
@@ -365,7 +370,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				}
 			}
 			$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
-
+			$this->menu_url = menu_page_url( $_slug, false );
 			if ( is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
 				wponion_callback( $this->submenu(), $this );
 			} elseif ( is_array( $this->submenu() ) ) {
@@ -391,8 +396,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			if ( ! empty( $this->help_tab() ) || ! empty( $this->help_sidebar() ) ) {
 				wponion_help_tabs( $this, $this->help_tab(), $this->help_sidebar() );
 			}
-
-			$this->menu_url = menu_page_url( $_slug, false );
 		}
 
 		/**
