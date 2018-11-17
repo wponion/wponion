@@ -2,8 +2,7 @@ import $wponion from './core';
 
 
 export default class WPOnion_Validator {
-	constructor( elem ) {
-		this.elem  = elem;
+	constructor() {
 		this.form  = WPOnion_Validator.get_form();
 		this.rules = {
 			invalidHandler: () => {
@@ -19,11 +18,17 @@ export default class WPOnion_Validator {
 			errorClass: 'wponion-error',
 			errorElement: 'p'
 		};
-
 		this.form.validate( this.rules );
 	}
 
 	static get_form() {
+		if( jQuery( 'form.wponion-form' ).length > 0 ) {
+			return jQuery( 'form.wponion-form' );
+		}
+
+		if( jQuery( 'form#your-profile' ).length > 0 ) {
+			return jQuery( 'form#your-profile' );
+		}
 		return jQuery( 'form.wponion-form' );
 	}
 }

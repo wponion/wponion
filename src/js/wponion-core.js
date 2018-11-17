@@ -86,15 +86,18 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 				wponion_field( $widget ).reload();
 			} );
 
+
+			new WPOnion_Validator();
+
 			/**
 			 * Handles Fields init.
 			 */
 			$wp_hook.doAction( 'wponion_before_fields_init', $wpof_div );
 			$wpof_div.each( function() {
 				new WPOnion_Dependency( $( this ) );
-				new WPOnion_Validator( $( this ) );
 				wponion_field( $( this ) ).reload();
 			} );
+
 
 			$wp_hook.doAction( 'wponion_after_fields_init', $wpof_div );
 		}

@@ -175,7 +175,7 @@ export default class extends WPOnion_Module {
 		if( !is_jquery( $elem ) ) {
 			$elem = this.element.find( $elem );
 		}
-
+		let $this = this;
 		$elem.each( function() {
 			let $class = $wponion.get_field_class( $type );
 			if( false !== $class ) {
@@ -184,8 +184,9 @@ export default class extends WPOnion_Module {
 						$_instances.push( new $class( jQuery( this ) ) );
 					}
 				} catch( e ) {
+					console.log( jQuery( this ) );
 					console.log( 'Error: ' + e + ' | For : ' + $type );
-					console.log( $class );
+					console.log( '--------------------------------------------------------' );
 				}
 			}
 		} );

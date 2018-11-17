@@ -1,5 +1,5 @@
 import WPOnion_Field from '../core/field';
-import $wponion from "../core/core";
+import $wponion from '../core/core';
 
 export default class extends WPOnion_Field {
 	init() {
