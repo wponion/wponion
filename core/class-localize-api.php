@@ -113,6 +113,9 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return mixed
 		 */
 		protected function handle_js_function( $args ) {
+			if ( empty( $args ) ) {
+				return $args;
+			}
 			foreach ( $args as $i => $ar ) {
 				if ( is_array( $ar ) ) {
 					$args[ $i ] = $this->handle_js_function( $ar );
