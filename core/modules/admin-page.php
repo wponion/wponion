@@ -96,20 +96,22 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'submenu'       => false,
-				'menu_title'    => false,
-				'page_title'    => false,
-				'capability'    => 'manage_options',
-				'menu_slug'     => false,
-				'icon'          => false,
-				'position'      => null,
-				'help_tab'      => array(),
-				'help_sidebar'  => '',
-				'on_load'       => false,
-				'assets'        => false,
-				'hook_priority' => 10,
-				'tabs'          => false,
-				'render'        => false,
+				'submenu'           => false,
+				'menu_title'        => false,
+				'page_title'        => false,
+				'capability'        => 'manage_options',
+				'menu_slug'         => false,
+				'icon'              => false,
+				'position'          => null,
+				'help_tab'          => array(),
+				'help_sidebar'      => '',
+				'on_load'           => false,
+				'footer_text'       => '',
+				'footer_right_text' => '',
+				'assets'            => false,
+				'hook_priority'     => 10,
+				'tabs'              => false,
+				'render'            => false,
 			);
 		}
 
@@ -430,7 +432,13 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		public function on_page_load() {
 			$this->add_action( 'admin_enqueue_scripts', 'handle_assets' );
+			if ( false !== $this->option( 'footer_text' ) ) {
+				$this->add_filter( 'admin_footer_text', 'admin_footer_text', 10 );
+			}
 
+			if ( false !== $this->option( 'footer_right_text' ) ) {
+				$this->add_filter( 'update_footer', 'admin_footer_right_text', 11 );
+			}
 			if ( is_array( $this->option( 'tabs' ) ) ) {
 				$tabs     = $this->option( 'tabs' );
 				$new_tabs = array();
@@ -462,6 +470,36 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			if ( false !== $this->active_tab && isset( $this->settings['tabs'][ $this->active_tab ] ) && isset( $this->settings['tabs'][ $this->active_tab ]['on_load'] ) ) {
 				$this->handle_on_load_callbacks( $this->settings['tabs'][ $this->active_tab ]['on_load'] );
 			}
+		}
+
+		/**
+		 * Adds Footer Text.
+		 *
+		 * @param $text
+		 *
+		 * @return string
+		 */
+		public function admin_footer_text( $text ) {
+			if ( empty( $this->option( 'footer_text' ) ) ) {
+				/* translators: Added WPOnion */
+				return sprintf( __( 'Proudly Powerd By %1$s %2$s %3$s ' ), '<a href="http://wponion.com"><strong>', __( 'WPOnion' ), '</strong></a>' );
+			}
+			return ( wponion_is_callable( $this->option( 'footer_text' ) ) ) ? wponion_callback( $this->option( 'footer_text' ) ) : $this->option( 'footer_text' );
+		}
+
+		/**
+		 * Adds Footer Text.
+		 *
+		 * @param $text
+		 *
+		 * @return string
+		 */
+		public function admin_footer_right_text( $text ) {
+			if ( empty( $this->option( 'footer_right_text' ) ) ) {
+				/* translators: Added WPOnionVersion  */
+				return sprintf( __( 'WPOnion Version : %s' ), WPONION_VERSION ) . ' | ' . core_update_footer();
+			}
+			return ( wponion_is_callable( $this->option( 'footer_right_text' ) ) ) ? wponion_callback( $this->option( 'footer_right_text' ) ) : $this->option( 'footer_right_text' );
 		}
 
 		/**
