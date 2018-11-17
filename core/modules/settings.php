@@ -29,7 +29,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		/**
 		 * menu_instance
 		 *
-		 * @var string
+		 * @var \WPOnion\Modules\Admin_Page
 		 */
 		protected $menu_instance = '';
 
@@ -91,10 +91,17 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$menu['assets'][]  = array( $this, 'load_admin_styles' );
 
 			if ( false !== $menu['submenu'] ) {
-				if ( is_array( $menu['submenu'] ) && ! isset( $menu['submenu'][0] ) || ! is_array( $menu['submenu'] ) ) {
-					$menu['submenu'] = array( $menu['submenu'] );
+				if ( ! is_string( $menu['submenu'] ) ) {
+					if ( is_array( $menu['submenu'] ) && ! isset( $menu['submenu'][0] ) || ! is_array( $menu['submenu'] ) ) {
+						$menu['submenu'] = array( $menu['submenu'] );
+					}
+					$menu['submenu'] = array_merge( array(
+						array(
+							&$this,
+							'register_admin_menu',
+						),
+					), $menu['submenu'] );
 				}
-				$menu['submenu'] = array_merge( array( array( &$this, 'register_admin_menu' ) ), $menu['submenu'] );
 			}
 			$this->set_option( 'menu', $menu );
 			$this->menu_instance = wponion_admin_page( $menu );
@@ -430,10 +437,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		private function get_page_section_id( $is_section = true, $page = null ) {
 			if ( null !== $page ) {
 				if ( $this->fields->offsetExists( $page ) && true === $is_section && $this->fields->offsetExists( $page . '/sections' ) ) {
-					$sections = $this->fields->get( $page . '/sections' );
-					$return   = $sections->current();
+					$sections = $this->fields->get( $page );
+					$return   = $sections->first_section();
 					$return   = $return->name();
-					$sections->rewind();
 					return $return;
 				} elseif ( $this->fields->offsetExists( $page ) && false === $is_section ) {
 					return $this->fields->get( $page )
