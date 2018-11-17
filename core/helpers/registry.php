@@ -257,6 +257,32 @@ if ( ! function_exists( 'wponion_widget_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_quick_edit_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for widgets module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_quick_edit_registry( &$instance ) {
+		return wponion_get_registry_instance( 'quick_edit', $instance, 'settings' );
+	}
+}
+
+if ( ! function_exists( 'wponion_admin_columns_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for widgets module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_admin_columns_registry( &$instance ) {
+		return wponion_get_registry_instance( 'admin_columns', $instance, 'settings' );
+	}
+}
+
 if ( ! function_exists( 'wponion_core_registry' ) ) {
 	/**
 	 * Creates an static instance for core classes.
