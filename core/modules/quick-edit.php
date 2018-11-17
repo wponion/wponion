@@ -84,6 +84,36 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 			}
 
 			$this->add_action( 'quick_edit_custom_box', 'render_quick_edit', 10, 2 );
+
+			$this->add_action( 'save_post', 'save_data', 10, 2 );
+		}
+
+		public function save_data( $post_id, $post ) {
+			if ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] ) {
+				if ( isset( $_POST[ $this->unique ] ) ) {
+					$this->db_values = $this->get_values( $post_id );
+					$instance        = new \WPOnion\DB\Quick_Edit_Save_Handler();
+					$instance->init_class( array(
+						'module'       => 'quick_edit',
+						'plugin_id'    => $this->plugin_id(),
+						'unique'       => $this->unique(),
+						'fields'       => $this->fields,
+						'user_values'  => $_POST[ $this->unique ],
+						'retain_value' => true,
+						'db_values'    => $this->db_values,
+						'args'         => array( 'settings' => &$this ),
+					) )
+						->run();
+
+					$this->db_values = $instance->get_values();
+
+					if ( false === $this->option( 'save' ) ) {
+						update_post_meta( $post_id, $this->unique(), $this->db_values );
+					} elseif ( wponion_is_callable( $this->option( 'save' ) ) ) {
+						wponion_callback( $this->option( 'save' ), array( $this->db_values, $post_id ) );
+					}
+				}
+			}
 		}
 
 		/**
@@ -92,7 +122,7 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		 * @return array|mixed
 		 */
 		protected function get_db_values() {
-			return array();
+			return $this->db_values;
 		}
 
 		/**
@@ -102,16 +132,45 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		 * @param $post_type
 		 */
 		public function render_quick_edit( $column, $post_type ) {
+			$this->db_values = array();
 			if ( $column === $this->option( 'column' ) ) {
 				wponion_load_core_assets();
-				echo '<fieldset class="inline-edit-col-left">';
-				echo '<div data-wponion-jsid="' . $this->unique . '" class="' . $this->wrap_class() . '">';
-				foreach ( $this->fields as $field ) {
-					echo $this->render_field( $field );
-				}
-				echo '</div>';
-				echo '</fieldset>';
+				$this->render_quick_edit_html();
 			}
+		}
+
+		/**
+		 * Renders Quick Edit HTML for each row.
+		 */
+		public function render_quick_edit_html() {
+			echo '<fieldset class="wponion-quick-edit-fieldset ' . $this->option( 'wrap_class' ) . '">';
+			echo '<div data-wponion-jsid="' . $this->unique . '" class="' . $this->wrap_class() . '">';
+			foreach ( $this->fields as $field ) {
+				$field['__no_instance'] = true;
+				echo $this->render_field( $field );
+			}
+			echo '</div>';
+			echo '</fieldset>';
+		}
+
+		/**
+		 * Retrives Values And Return's It.
+		 *
+		 * @param $post_id
+		 *
+		 * @return array
+		 */
+		public function get_values( $post_id ) {
+			$_values = $this->option( 'values' );
+			if ( false === $_values ) {
+				$values = get_post_meta( $post_id, $this->unique, true );
+			} elseif ( wponion_is_callable( $_values ) ) {
+				$values = wponion_callback( $_values, array( $post_id, get_post_type( $post_id ) ) );
+			} else {
+				$values = $_values;
+			}
+			$values = ( empty( $values ) ) ? array() : $values;
+			return $values;
 		}
 
 		/**
@@ -120,18 +179,24 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		 * @param $column
 		 * @param $post_id
 		 */
-		public function render_hidden_data( $column, $post_id ) {
-			$_values = $this->option( 'values' );
+		public function render_hidden_data( $column, $id ) {
 			if ( $column === $this->option( 'column' ) ) {
-				if ( false === $_values ) {
-					$values = get_post_meta( $post_id, $this->unique, true );
-				} elseif ( wponion_is_callable( $_values ) ) {
-					$values = wponion_callback( $_values, array( $post_id, get_post_type( $post_id ) ) );
-				} else {
-					$values = $_values;
+				$this->db_values = $this->get_values( $id );
+
+				$this->catch_output( 'start' );
+				echo $this->render_quick_edit_html();
+				$html = $this->catch_output( 'stop' );
+
+				wponion_localize()->add( $this->unique . '_' . $id, array(
+					'html'   => $html,
+					'values' => $this->db_values,
+				) );
+
+				$this->db_values = array();
+
+				if ( is_ajax() ) {
+					wponion_localize()->render_js_args();
 				}
-				$values = ( empty( $values ) ) ? array() : $values;
-				wponion_localize()->add( $this->unique . '_' . $post_id, $values );
 			}
 		}
 
@@ -152,10 +217,11 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		 */
 		protected function defaults() {
 			return $this->parse_args( parent::defaults(), array(
-				'post_type' => false,
-				'column'    => false,
-				'values'    => false,
-				'save'      => false,
+				'post_type'  => false,
+				'column'     => false,
+				'values'     => false,
+				'save'       => false,
+				'wrap_class' => '',
 			) );
 		}
 	}

@@ -47,6 +47,12 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @var string
 		 */
 		protected $unique = '';
+		/**
+		 * retain_value
+		 *
+		 * @var string
+		 */
+		protected $retain_value = false;
 
 		/**
 		 * fields
@@ -89,29 +95,29 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 */
 		public function init_class( $args = array() ) {
 			$args = $this->parse_args( $args, array(
-				'module'      => false,
-				'plugin_id'   => false,
-				'unique'      => false,
-				'fields'      => false,
-				'db_values'   => false,
-				'user_values' => false,
-				'args'        => array(),
+				'module'       => false,
+				'plugin_id'    => false,
+				'unique'       => false,
+				'fields'       => false,
+				'db_values'    => false,
+				'retain_value' => false,
+				'user_values'  => false,
+				'args'         => array(),
 			) );
 
-			$this->module    = $args['module'];
-			$this->plugin_id = $args['plugin_id'];
-			$this->unique    = $args['unique'];
-			$this->fields    = $args['fields'];
-			$this->db_values = $args['db_values'];
-			$this->args      = $args['args'];
+			$this->module       = $args['module'];
+			$this->plugin_id    = $args['plugin_id'];
+			$this->unique       = $args['unique'];
+			$this->fields       = $args['fields'];
+			$this->db_values    = $args['db_values'];
+			$this->args         = $args['args'];
+			$this->retain_value = $args['retain_value'];
 
 			if ( false === $args['user_values'] ) {
 				$this->user_options = ( isset( $_POST[ $this->unique ] ) ) ? $_POST[ $this->unique ] : array();
 			} else {
 				$this->user_options = $args['user_values'];
 			}
-
-
 			return $this;
 		}
 
@@ -304,7 +310,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @return array
 		 */
 		public function get_values() {
-			return $this->return_values;
+			return ( true === $this->retain_value ) ? $this->parse_args( $this->return_values, $this->db_values ) : $this->return_values;
 		}
 
 		/**
@@ -328,7 +334,11 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 				}
 
 				$field['error_id'] = sanitize_key( $this->unique . wponion_field_id( $field ) );
-				$this->save_value( $this->handle_field( $field, $this->user_options( $field ), $this->db_options( $field ) ), $field );
+				$db_val            = $this->db_options( $field );
+				//$user_val          = ( true === $this->retain_value ) ? $this->user_options( $field, false, $db_val ) : $this->user_options( $field );
+				$user_val = $this->user_options( $field );
+
+				$this->save_value( $this->handle_field( $field, $user_val, $db_val ), $field );
 				if ( isset( $field['fields'] ) ) {
 					$this->nested_field_loop( $field );
 				}
@@ -354,7 +364,11 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 					}
 
 					$_field['error_id'] = sanitize_key( $this->unique . $field['id'] . '' . $_field['id'] );
-					$this->save_value( $this->handle_field( $_field, $this->user_options( $parent_field ), $this->db_options( $parent_field ) ), $parent_field );
+					$db_val             = $this->db_options( $parent_field );
+					//$user_val           = ( true === $this->retain_value ) ? $this->user_options( $parent_field, false, $db_val ) : $this->user_options( $parent_field );
+					$user_val = $this->user_options( $parent_field );
+
+					$this->save_value( $this->handle_field( $_field, $user_val, $db_val ), $parent_field );
 
 					if ( isset( $_field['fields'] ) ) {
 						$this->nested_field_loop( $_field );

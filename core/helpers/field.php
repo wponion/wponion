@@ -62,6 +62,10 @@ if ( ! function_exists( 'wponion_field' ) ) {
 		$class       = wponion_get_field_class( $field );
 		$base_unique = $unique;
 
+		if ( isset( $field['__no_instance'] ) && true === $field['__no_instance'] ) {
+			return new $class( $field, $value, $base_unique );
+		}
+
 		if ( false !== $class ) {
 			$plugin_id = '';
 			$module    = 'user_fields';

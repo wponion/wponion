@@ -1,0 +1,15 @@
+
+.wponion-quick-edit-fieldset {
+	display:    inline-block;
+	width:      50% !important;
+	float:      left;
+	clear:      both;
+	margin-top: 15px !important;
+}
+
+.wponion-quick_edit {
+	> .wponion-element, > .wponion-row > .wponion-element {
+		padding-left:  0;
+		padding-right: 0;
+	}
+}
