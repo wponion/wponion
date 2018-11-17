@@ -114,7 +114,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( isset( $this->settings['menu'] ) ) {
 				$menu     = $this->option( 'menu' );
 				$callback = array( &$this, 'render' );
-				$this->set_page_url( menu_page_url( $menu['menu_slug'], false ) );
 
 				if ( isset( $menu['submenu'] ) && ( true === $menu['submenu'] || is_array( $menu['submenu'] ) ) ) {
 					$this->find_active_menu();
@@ -259,15 +258,15 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 		/**
 		 * Set Admin Page Url.
-		 *
-		 * @param string $page_url
-		 *
 		 */
-		protected function set_page_url( $page_url = '' ) {
-			$this->page_url = array(
-				'full_url' => $page_url,
-				'part'     => str_replace( admin_url(), '', $page_url ),
-			);
+		protected function set_page_url() {
+			if ( empty( $this->page_url ) ) {
+				$page_url       = $this->menu_instance->menu_url();
+				$this->page_url = array(
+					'full_url' => $page_url,
+					'part'     => str_replace( admin_url(), '', $page_url ),
+				);
+			}
 		}
 
 		/**
@@ -278,6 +277,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return mixed
 		 */
 		public function page_url( $part_url = false ) {
+			$this->set_page_url();
 			return ( false === $part_url ) ? $this->page_url['full_url'] : $this->page_url['part'];
 		}
 
@@ -440,6 +440,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 						->name();
 				}
 			} else {
+				$this->fields->rewind();
 				$page = $this->fields->current();
 				$this->fields->rewind();
 				if ( $page ) {
