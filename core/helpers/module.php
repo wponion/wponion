@@ -166,3 +166,27 @@ if ( ! function_exists( 'wponion_admin_columns' ) ) {
 		return new \WPOnion\Modules\Admin_Columns( $post_types, $title_or_arguments, $render_callback );
 	}
 }
+
+if ( ! function_exists( 'wponion_quick_edit' ) ) {
+	/**
+	 * @param array $settings
+	 * @param array $fields
+	 *
+	 * @return \WPOnion\Modules\Quick_Edit
+	 */
+	function wponion_quick_edit( $settings = array(), $fields = array() ) {
+		return new \WPOnion\Modules\Quick_Edit( $settings, $fields );
+	}
+}
+
+if ( ! function_exists( 'wponion_bulk_edit' ) ) {
+	/**
+	 * @param array $settings
+	 * @param array $fields
+	 *
+	 * @return \WPOnion\Modules\Quick_Edit
+	 */
+	function wponion_bulk_edit( $settings = array(), $fields = array() ) {
+		return new \WPOnion\Modules\Bulk_Edit( $settings, $fields );
+	}
+}
