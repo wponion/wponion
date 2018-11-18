@@ -21,9 +21,12 @@
 	min-width: 200px !important;
 }
 
-#swal2-content {
-	.json-view {
-		overflow: scroll;
+.swal2-container {
+	z-index: 99999 !important;
+	#swal2-content {
+		.json-view {
+			overflow: scroll;
+		}
 	}
 }
 
@@ -75,20 +78,17 @@
 			margin-bottom: 0;
 		}
 	}
+	text-align:    left;
 	padding:       15px;
-	background:    #fefefe;
 	color:         #eaeaea;
-	display:       block;
-	min-width:     50%;
 	font-size:     13px;
-	clear:         both;
 	margin-top:    15px;
-	margin-bottom: 15px;
 	border:        1px solid #d4d4d4;
+	border-radius: 5px;
 	.alert {
 		display:       block;
 		font-size:     12px;
 		padding:       5px 10px;
-		margin-bottom: 0;
+		margin-bottom: 0 !important;
 	}
 }
