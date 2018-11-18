@@ -12,6 +12,7 @@ const is_undefined = require( 'vsp-js-helper/index' ).is_undefined;
 import $wponion from './core';
 import $wponion_debug from './debug';
 import WPOnion_Module from './module';
+import WPOnion_Validation from '../core/validation';
 
 /**
  * WPOnion Field Abstract Class.
@@ -41,16 +42,24 @@ export default class extends WPOnion_Module {
 	js_validator() {
 		if( false === is_undefined( this.option( 'js_validate', false ) ) ) {
 			if( false !== this.option( 'js_validate', false ) ) {
-				this.js_validate_elem( this.option( 'js_validate', false ), this.element );
+				this.maybe_js_validate_elem( this.option( 'js_validate', false ), this.element );
 			}
 		}
 	}
+
+	maybe_js_validate_elem( $args, $elem ) {
+		if( WPOnion_Validation.get_form() ) {
+			this.js_validate_elem( $args, $elem );
+		}
+	}
+
 
 	js_validate_elem( $args, $elem ) {
 		$elem.find( ':input' ).each( function() {
 			jQuery( this ).rules( 'add', $args );
 		} );
 	}
+
 
 	handle_args( $arg, $key = false ) {
 		let $args   = $wponion.js_func( $arg ),

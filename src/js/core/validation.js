@@ -18,7 +18,9 @@ export default class WPOnion_Validator {
 			errorClass: 'wponion-error',
 			errorElement: 'p'
 		};
-		this.form.validate( this.rules );
+		if( this.form ) {
+			this.form.validate( this.rules );
+		}
 	}
 
 	static get_form() {
@@ -29,7 +31,10 @@ export default class WPOnion_Validator {
 		if( jQuery( 'form#your-profile' ).length > 0 ) {
 			return jQuery( 'form#your-profile' );
 		}
-		return jQuery( 'form.wponion-form' );
+
+		if( jQuery( 'form#post' ).length > 0 && jQuery( 'input#post_ID' ).length > 0 && jQuery( 'input#original_publish' ).length > 0 ) {
+			//return jQuery( 'form#post' );
+		}
+		return ( jQuery( 'form.wponion-form' ).length > 0 ) ? jQuery( 'form.wponion-form' ) : false;
 	}
 }
-
