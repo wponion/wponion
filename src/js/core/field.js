@@ -64,6 +64,7 @@ export default class extends WPOnion_Module {
 	handle_args( $arg, $key = false ) {
 		let $args   = $wponion.js_func( $arg ),
 			$exists = $wponion_debug.get( this.id(), { 'PHP Args': {}, 'JS Args': {} } );
+		$exists     = array_merge( $exists, { 'PHP Args': {}, 'JS Args': {} } );
 
 		if( false === $key ) {
 			$exists[ 'JS Args' ] = $args;
