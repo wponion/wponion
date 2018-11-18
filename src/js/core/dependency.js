@@ -11,8 +11,14 @@ export default class {
 			this.base.ruleset = jQuery.deps.createRuleset();
 			this.base.depRoot();
 			jQuery.deps.enable( this.base.$el, this.base.ruleset, {
-				show: ( el ) => el.removeClass( 'hidden' ),
-				hide: ( el ) => el.addClass( 'hidden' ),
+				show: ( el ) => {
+					el.removeClass( 'hidden' );
+					el.find( ':input' ).removeClass( 'wponion-dependent' );
+				},
+				hide: ( el ) => {
+					el.addClass( 'hidden' );
+					el.find( ':input' ).addClass( 'wponion-dependent' );
+				},
 				log: false,
 				checkTargets: false,
 			} );
