@@ -173,11 +173,13 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
 			}
 
-			if ( ! is_ajax() ) {
-				foreach ( $this->scripts_check as $script ) {
-					if ( true === wp_script_is( $script ) && false === wp_script_is( $script, 'done' ) ) {
-						return $this->localize_script( $script );
-					}
+			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
+				return $this->print_js_data();
+			}
+
+			foreach ( $this->scripts_check as $script ) {
+				if ( true === wp_script_is( $script ) && false === wp_script_is( $script, 'done' ) ) {
+					return $this->localize_script( $script );
 				}
 			}
 			return $this->print_js_data();
