@@ -55,6 +55,11 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			google_maps: require( './fields/google_maps' ).default,
 			typography: require( './fields/typography' ).default,
 			oembed: require( './fields/oembed' ).default,
+			heading: require( './fields/heading' ).default,
+			subheading: require( './fields/subheading' ).default,
+			jambo_content: require( './fields/jambo_content' ).default,
+			notice: require( './fields/notice' ).default,
+			content: require( './fields/content' ).default,
 		} );
 		$wpo.settings_args    = $wpo.windowArgs( 'wponion_core', {} );
 		$wpo.text             = $wpo.windowArgs( 'wponion_il8n', {} );
