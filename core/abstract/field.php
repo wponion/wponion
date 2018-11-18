@@ -33,6 +33,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @var int
 		 */
 		protected static $columns = 0;
+
 		/**
 		 * columns
 		 *
@@ -46,6 +47,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @var array
 		 */
 		protected $orginal_field = array();
+
 		/**
 		 * orginal_unique
 		 *
@@ -567,6 +569,11 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			return '';
 		}
 
+		/**
+		 * Renders Field Debug Code.
+		 *
+		 * @return string
+		 */
 		protected function field_debug_code() {
 			$r = '';
 
@@ -575,7 +582,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			}
 
 			if ( $this->data( 'debug' ) || wponion_field_debug() ) {
-				$r       = '<div class="wponion-field-debug-code">';
+				$r       = '<div class="wponion-field-debug-code wponion-framework-bootstrap">';
 				$search  = array( '&lt;?php<br />', '&lt;?php', '<span style="color: #0000BB">?&gt;</span>', '?&gt' );
 				$replace = '';
 				$field   = var_export( $this->orginal_field, true );
@@ -597,8 +604,8 @@ echo wponion_add_element( \$field, \$value, \$unique);
 PHP;
 				$usage   = str_replace( $search, $replace, highlight_string( $usage, true ) );
 
-				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'CONFIG : ' ) . '</strong>';
-				$r .= '<div style="display: none;">' . $code . '</div>';
+				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ' ) . '</strong>';
+				$r .= '<div >' . $code . '</div>';
 
 				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ' ) . '</strong>';
 				$r .= '<div style="display: none;">' . $usage . '</div>';
@@ -633,7 +640,9 @@ PHP;
 
 				$r .= '</div>';
 			}
-			return $r;
+
+			$this->localize_field( array( 'debug_field_code' => $r ) );
+			return ' <span data-wponion-jsid="' . $this->js_field_id() . '" class="wponion-field-debug-code-gen badge badge-sm badge-primary">' . __( 'Get PHP Code' ) . '</span>';
 		}
 
 		/**

@@ -53,13 +53,11 @@ export default class extends WPOnion_Module {
 		}
 	}
 
-
 	js_validate_elem( $args, $elem ) {
 		$elem.find( ':input' ).each( function() {
 			jQuery( this ).rules( 'add', $args );
 		} );
 	}
-
 
 	handle_args( $arg, $key = false ) {
 		let $args   = $wponion.js_func( $arg ),
@@ -139,6 +137,13 @@ export default class extends WPOnion_Module {
 							html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( $wponion_debug.get( $this.id() ) ) + '</textarea>'
 						} );
 					}
+				} );
+			} );
+
+			$found.find( '> .wponion-fieldset .wponion-field-debug-code-gen' ).on( 'click', () => {
+				swal( {
+					html: this.option( 'debug_field_code' ),
+					width: '800px',
 				} );
 			} );
 		}

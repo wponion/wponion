@@ -2,45 +2,93 @@
  * Accordion PlaceHolder
  */
 .wponion-accordion-placeholder {
-  border:        1px dashed #bdbdbd;
-  margin-bottom: 10px;
+	border:        1px dashed #bdbdbd;
+	margin-bottom: 10px;
 }
 
 /**
  * BlockUI Overlay Style.
  */
 .blockUI.blockOverlay {
-  @include loader();
+	@include loader();
 }
 
 /**
  * Custom Chosen Hack.
  */
 .chosen-container.chosen-container-single, .chosen-container.chosen-container-multi {
-  width:     auto !important; /* or any value that fits your needs */
-  min-width: 200px !important;
+	width:     auto !important; /* or any value that fits your needs */
+	min-width: 200px !important;
 }
 
 #swal2-content {
-  .json-view {
-	overflow: scroll;
-  }
+	.json-view {
+		overflow: scroll;
+	}
 }
 
 @each $color, $value in $wponionThemes {
-  .button.button-#{$color} {
-	@include wponion_button($value);
-  }
+	.button.button-#{$color} {
+		@include wponion_button($value);
+	}
 }
 
 .wponion-remove {
-  font-size:   16px;
-  color:       #AAAAAA;
-  cursor:      pointer;
-  &:before {
-	content: "\f153";
-  }
-  &:hover {
-	color: #CC0000;
-  }
+	font-size: 16px;
+	color:     #AAAAAA;
+	cursor:    pointer;
+	&:before {
+		content: "\f153";
+	}
+	&:hover {
+		color: #CC0000;
+	}
+}
+
+.wponion-field-debug-code-gen {
+	font-size:     11px !important;
+	padding:       6px 10px !important;
+	border-radius: 5px !important;
+	cursor:        pointer !important;
+}
+
+.wponion-field-debug-code {
+	text-align:    left;
+	> strong {
+		color:         #333; // #ffbc00;
+		margin-bottom: 10px;
+		cursor:        pointer;
+		display:       block;
+	}
+	div {
+		margin-bottom:  15px;
+		padding-left:   25px;
+		display:        block;
+		padding-bottom: 10px;
+		pre {
+			margin: 0;
+		}
+		pre, code {
+			background: transparent;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	padding:       15px;
+	background:    #fefefe;
+	color:         #eaeaea;
+	display:       block;
+	min-width:     50%;
+	font-size:     13px;
+	clear:         both;
+	margin-top:    15px;
+	margin-bottom: 15px;
+	border:        1px solid #d4d4d4;
+	.alert {
+		display:       block;
+		font-size:     12px;
+		padding:       5px 10px;
+		margin-bottom: 0;
+	}
 }

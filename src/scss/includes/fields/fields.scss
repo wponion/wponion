@@ -53,45 +53,6 @@
 		vertical-align: middle;
 		width:          $element_fieldset_width;
 
-		.wponion-field-debug-code {
-			> strong {
-				color:         #333; // #ffbc00;
-				margin-bottom: 10px;
-				cursor:        pointer;
-				display:       block;
-			}
-			div {
-				margin-bottom:  15px;
-				padding-left:   25px;
-				display:        block;
-				padding-bottom: 10px;
-				pre {
-					margin: 0;
-				}
-				pre, code {
-					background: transparent;
-				}
-				&:last-child {
-					margin-bottom: 0;
-				}
-			}
-			padding:       15px;
-			background:    #fefefe;
-			color:         #eaeaea;
-			display:       block;
-			min-width:     50%;
-			font-size:     13px;
-			clear:         both;
-			margin-top:    15px;
-			margin-bottom: 15px;
-			border:        1px solid #d4d4d4;
-			.alert {
-				display:       block;
-				font-size:     12px;
-				padding:       5px 10px;
-				margin-bottom: 0;
-			}
-		}
 	}
 	&.wponion-field-no-title {
 		> .wponion-fieldset {
