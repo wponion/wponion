@@ -144,6 +144,10 @@ export default class extends WPOnion_Module {
 				swal( {
 					html: this.option( 'debug_field_code' ),
 					width: '800px',
+					showCloseButton: true,
+					heightAuto: false,
+					showConfirmButton: false,
+					animation: false,
 				} );
 			} );
 		}
@@ -244,6 +248,12 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-sorter', 'sorter' );
 		this.init_field( '.wponion-element-typography', 'typography' );
 		this.init_field( '.wponion-element-oembed', 'oembed' );
+		this.init_field( '.wponion-element-heading', 'heading' );
+		this.init_field( '.wponion-element-subheading', 'subheading' );
+		this.init_field( '.wponion-element-content', 'content' );
+		this.init_field( '.wponion-element-jambo_content', 'jambo_content' );
+		this.init_field( '.wponion-element-notice', 'notice' );
+
 		wp.hooks.addAction( 'wponion_after_fields_reload' );
 		return this;
 	}
