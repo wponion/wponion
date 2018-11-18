@@ -43,6 +43,7 @@ if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
 		 * @return mixed;
 		 */
 		protected function output() {
+			echo $this->before();
 			echo '<div class="wponion-fieldset-wrap">';
 
 			if ( $this->has( 'fields' ) ) {
@@ -59,6 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\fieldset' ) ) {
 			}
 
 			echo '</div>';
+			echo $this->after();
 		}
 
 		/**

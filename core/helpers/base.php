@@ -338,7 +338,7 @@ if ( ! function_exists( 'wponion_is_debug' ) ) {
 	 * @return bool
 	 */
 	function wponion_is_debug() {
-		return ( defined( 'WP_DEBUG' ) && true === WP_DEBUG || defined( 'WPONION_DEV_MODE' ) && true === WPONION_DEV_MODE );
+		return ( defined( 'WPONION_DEV_MODE' ) && true === WPONION_DEV_MODE || defined( 'WP_DEBUG' ) && true === WP_DEBUG );
 	}
 }
 
@@ -349,7 +349,7 @@ if ( ! function_exists( 'wponion_field_debug' ) ) {
 	 * @return bool
 	 */
 	function wponion_field_debug() {
-		return ( wponion_is_debug() || defined( 'WPONION_FIELD_DEBUG' ) && true === WPONION_FIELD_DEBUG );
+		return ( defined( 'WPONION_FIELD_DEBUG' ) && true === WPONION_FIELD_DEBUG || wponion_is_debug() );
 	}
 }
 

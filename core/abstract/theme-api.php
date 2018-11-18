@@ -266,5 +266,12 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		public function render_screen_options() {
 			include $this->find_html_file( 'screen-options.php' );
 		}
+
+		/**
+		 * Generates Help Tabs HTML.
+		 */
+		public function render_help_tabs() {
+			include $this->find_html_file( 'help-tabs.php' );
+		}
 	}
 }

@@ -33,6 +33,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @var int
 		 */
 		protected static $columns = 0;
+
 		/**
 		 * columns
 		 *
@@ -46,6 +47,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @var array
 		 */
 		protected $orginal_field = array();
+
+		/**
+		 * orginal_unique
+		 *
+		 * @var array
+		 */
+		protected $orginal_unique = array();
 
 		/**
 		 * orginal_value
@@ -112,10 +120,11 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			self::$total_fields++;
-			$this->orginal_field = $field;
-			$this->orginal_value = $value;
-			$this->field         = $this->_handle_field_args( $this->set_args( $field ) );
-			$this->value         = $value;
+			$this->orginal_field  = $field;
+			$this->orginal_unique = $unique;
+			$this->orginal_value  = $value;
+			$this->field          = $this->_handle_field_args( $this->set_args( $field ) );
+			$this->value          = $value;
 
 			if ( is_string( $unique ) ) {
 				$this->unique    = $unique;
@@ -554,9 +563,86 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data = ( false !== $this->has( 'after' ) ) ? $this->data( 'after' ) : '';
 				$data = $data . $this->field_desc();
 				$data = $data . $this->field_error();
+				$data = $data . $this->field_debug_code();
 				return $data;
 			}
 			return '';
+		}
+
+		/**
+		 * Renders Field Debug Code.
+		 *
+		 * @return string
+		 */
+		protected function field_debug_code() {
+			$r = '';
+
+			if ( false === $this->data( 'debug' ) ) {
+				return $r;
+			}
+
+			if ( $this->data( 'debug' ) || wponion_field_debug() ) {
+				$r       = '<div class="wponion-field-debug-code wponion-framework-bootstrap">';
+				$search  = array( '&lt;?php<br />', '&lt;?php', '<span style="color: #0000BB">?&gt;</span>', '?&gt' );
+				$replace = '';
+				$field   = var_export( $this->orginal_field, true );
+				$value   = var_export( $this->orginal_value, true );
+				$unique  = var_export( $this->orginal_unique, true );
+				$code    = <<<PHP
+<?php
+\$field = $field;
+
+\$value = $value;
+
+\$unique = $unique; ?>
+PHP;
+				$code    = str_replace( $search, $replace, highlight_string( $code, true ) );
+				$usage   = <<<PHP
+<?php
+echo wponion_add_element( \$field, \$value, \$unique);
+?>
+PHP;
+				$usage   = str_replace( $search, $replace, highlight_string( $usage, true ) );
+
+				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ' ) . '</strong>';
+				$r .= '<div >' . $code . '</div>';
+
+				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ' ) . '</strong>';
+				$r .= '<div style="display: none;">' . $usage . '</div>';
+
+				$base   = $this->base_unique();
+				$unique = str_replace( array( $base, '][', ']', '[' ), array(
+					null,
+					'/',
+					null,
+					null,
+				), $this->unique() );
+
+				if ( ! empty( $unique ) || ! empty( $this->data( 'id' ) ) ) {
+					$unique     = ( ! empty( $unique ) ) ? $unique . '/' . $this->data( 'id' ) : $this->data( 'id' );
+					$value_func = 'wponion_' . $this->module() . '_option';
+					$instance   = '$instance';
+					$value      = '$value';
+					$_code      = <<<PHP
+<?php
+$instance = $value_func("$base");
+ $value = \$instance->get("$unique");
+?>
+PHP;
+
+					$usage = str_replace( $search, $replace, highlight_string( $_code, true ) );
+
+					$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'VALUE : ' ) . '</strong>';
+					$r .= '<div style="display: none;">' . $usage . '</div>';
+				}
+
+				$r .= '<span class="alert alert-warning">' . __( 'Debug Information shown only if field has debug attribute enabled or define( <code>WPONION_FIELD_DEBUG</code> ) is set to true' ) . '</span>';
+
+				$r .= '</div>';
+			}
+
+			$this->localize_field( array( 'debug_field_code' => $r ) );
+			return ' <span data-wponion-jsid="' . $this->js_field_id() . '" class="wponion-field-debug-code-gen badge badge-sm badge-primary">' . __( 'Get PHP Code' ) . '</span>';
 		}
 
 		/**
@@ -761,6 +847,22 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$unique = ( false === $unique ) ? $this->unique : $unique;
 			$unique = ( ! empty( $extra ) ) ? $unique . '[' . $extra . ']' : $unique;
 			return $unique;
+		}
+
+		/**
+		 * Returns Base Unqiue Matchs.
+		 *
+		 * @return mixed
+		 */
+		protected function base_unique() {
+			$re  = '/\w+/';
+			$str = $this->unique();
+			preg_match( $re, $str, $matches, PREG_OFFSET_CAPTURE, 0 );
+			$current = current( $matches );
+			if ( is_array( $current ) && isset( $current[0] ) ) {
+				return $current[0];
+			}
+			return $matches;
 		}
 
 		/**

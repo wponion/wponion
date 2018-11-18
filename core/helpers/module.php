@@ -151,3 +151,42 @@ if ( ! function_exists( 'wponion_help_tabs' ) ) {
 		return new \WPOnion\Modules\Help_Tabs( $page, $help_tabs, $help_sidebar );
 	}
 }
+
+if ( ! function_exists( 'wponion_admin_columns' ) ) {
+	/**
+	 * Returns a new instance of Admin Columns.
+	 *
+	 * @param array $post_types
+	 * @param array $title_or_arguments
+	 * @param array $render_callback
+	 *
+	 * @return \WPOnion\Modules\Admin_Columns
+	 */
+	function wponion_admin_columns( $post_types = array(), $title_or_arguments = array(), $render_callback = array() ) {
+		return new \WPOnion\Modules\Admin_Columns( $post_types, $title_or_arguments, $render_callback );
+	}
+}
+
+if ( ! function_exists( 'wponion_quick_edit' ) ) {
+	/**
+	 * @param array $settings
+	 * @param array $fields
+	 *
+	 * @return \WPOnion\Modules\Quick_Edit
+	 */
+	function wponion_quick_edit( $settings = array(), $fields = array() ) {
+		return new \WPOnion\Modules\Quick_Edit( $settings, $fields );
+	}
+}
+
+if ( ! function_exists( 'wponion_bulk_edit' ) ) {
+	/**
+	 * @param array $settings
+	 * @param array $fields
+	 *
+	 * @return \WPOnion\Modules\Quick_Edit
+	 */
+	function wponion_bulk_edit( $settings = array(), $fields = array() ) {
+		return new \WPOnion\Modules\Bulk_Edit( $settings, $fields );
+	}
+}

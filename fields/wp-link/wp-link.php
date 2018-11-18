@@ -45,15 +45,39 @@ if ( ! class_exists( '\WPOnion\Field\wp_link' ) ) {
 			echo $this->before();
 
 			echo '<div class="wponion-wp-links-wrap">';
-			echo '<input type="hidden" name="' . $this->name( '[url]' ) . '" value="' . $this->get_value( 'url' ) . '" id="url"/>';
-			echo '<input type="hidden" name="' . $this->name( '[title]' ) . '" value="' . $this->get_value( 'title' ) . '" id="title"/>';
-			echo '<input type="hidden" name="' . $this->name( '[target]' ) . '" value="' . $this->get_value( 'target' ) . '" id="target"/>';
+			$settings   = $this->parse_args( $this->data( 'settings' ), array(
+				'url'        => true,
+				'title'      => true,
+				'target'     => true,
+				'show_input' => false,
+				'example'    => true,
+			) );
+			$show_input = ( true === $settings['show_input'] ) ? 'text' : 'hidden';
+			$show_value = ( 'text' === $show_input ) ? false : true;
 
-			echo '<span class="url"><strong>' . __( 'URL : ' ) . '</strong><span class="value"></span></span><br/>';
-			echo '<span class="title"><strong>' . __( 'Title : ' ) . '</strong><span class="value"></span></span><br/>';
-			echo '<span class="target"><strong>' . __( 'Target : ' ) . '</strong><span class="value"></span></span><br/><br/>';
-			echo '<span class="example_output"><strong>' . __( 'Example : ' ) . '</strong><span class="value"></span></span><br/><br/>';
-			echo '<textarea id="' . $this->js_field_id() . '" class="hidden"></textarea>';
+			if ( true === $settings['url'] ) {
+				$_value = ( true === $show_value ) ? '<span class="value">' . $this->get_value( 'url' ) . '</span>' : '';
+				echo '<span class="url"><strong>' . __( 'URL : ' ) . '</strong> ' . $_value;
+				echo '<input style="width:350px" type="' . $show_input . '" name="' . $this->name( '[url]' ) . '" value="' . $this->get_value( 'url' ) . '" id="url"/>';
+				echo '</span><br/><br/>';
+			}
+
+			if ( true === $settings['title'] ) {
+				$_value = ( true === $show_value ) ? '<span class="value">' . $this->get_value( 'title' ) . '</span>' : '';
+				echo '<span class="url"><strong>' . __( 'Title : ' ) . '</strong> ' . $_value;
+				echo '<input  style="width:350px" type="' . $show_input . '" name="' . $this->name( '[title]' ) . '" value="' . $this->get_value( 'title' ) . '" id="title"/>';
+				echo '</span><br/><br/>';
+
+			}
+
+			if ( true === $settings['target'] ) {
+				echo '<input type="hidden" name="' . $this->name( '[target]' ) . '" value="' . $this->get_value( 'target' ) . '" id="target"/>';
+			}
+
+			if ( true === $settings['example'] ) {
+				echo '<span class="example_output"><strong>' . __( 'Example : ' ) . '</strong><span class="value"></span></span><br/><br/>';
+			}
+			echo '<textarea id="' . $this->js_field_id() . '" class="hidden wponion-validation-ignore"></textarea>';
 
 			echo '<div id="wponion-wp-link-picker">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'button' ), array(
@@ -79,7 +103,14 @@ if ( ! class_exists( '\WPOnion\Field\wp_link' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'button' => __( 'Select URL' ),
+				'button'   => __( 'Select URL' ),
+				'settings' => array(
+					'url'        => true,
+					'title'      => true,
+					'target'     => true,
+					'example'    => true,
+					'show_input' => false,
+				),
 			);
 		}
 
