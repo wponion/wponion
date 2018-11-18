@@ -2,9 +2,10 @@ import WPOnion_Field from './core/field';
 import { is_window_arg } from 'vsp-js-helper/index';
 import WPOnion_Dependency from './core/dependency';
 import WPOnion_Validator from './core/validation';
-import WPOnion_Quick_Edit from './modules/quick-edit';
 
 window.wponion_metabox_module = require( './modules/metabox' ).default;
+window.wponion_bulk_edit      = require( './modules/bulk-edit' ).default;
+window.wponion_quick_edit     = require( './modules/quick-edit' ).default;
 //window.wponion_customizer_module = require( './modules/customizer' ).default;
 window.$wponion               = require( './core/core' ).default;
 window.$wponion_debug         = require( './core/debug' ).default;
@@ -66,9 +67,7 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 
 		$( document ).on( 'click', '.wponion-field-debug-code > strong', function() {
 			jQuery( this ).next().slideToggle();
-			jQuery( this )
-				.toggleClass( 'dashicons-arrow-down' )
-				.toggleClass( 'dashicons-arrow-right' );
+			jQuery( this ).toggleClass( 'dashicons-arrow-down' ).toggleClass( 'dashicons-arrow-right' );
 		} );
 
 		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
@@ -104,21 +103,8 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			$wp_hook.doAction( 'wponion_after_fields_init', $wpof_div );
 		}
 
-		if( jQuery( '#the-list' ).length > 0 ) {
-			jQuery( '#the-list' ).on( 'click', '.editinline', function() {
-				let post_id = jQuery( this ).closest( 'tr' ).attr( 'id' );
-				post_id     = post_id.replace( 'post-', '' );
-				$( 'tr#edit-' + post_id ).find( '.wponion-framework' ).each( function() {
-					new WPOnion_Quick_Edit( jQuery( this ), post_id );
-				} );
-			} );
-		}
-
 		$wpo.loading_screen( $wpof_div, false );
 		$wp_hook.doAction( 'wponion_init' );
 	} ) );
-
 	$wp_hook.doAction( 'wponion_loaded' );
-
 } )( window, document, wp, jQuery, $wponion );
-
