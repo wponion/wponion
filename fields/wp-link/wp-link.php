@@ -106,10 +106,10 @@ if ( ! class_exists( '\WPOnion\Field\wp_link' ) ) {
 				'button'   => __( 'Select URL' ),
 				'settings' => array(
 					'url'        => true,
-					'title'      => false,
-					'target'     => false,
-					'example'    => false,
-					'show_input' => true,
+					'title'      => true,
+					'target'     => true,
+					'example'    => true,
+					'show_input' => false,
 				),
 			);
 		}
