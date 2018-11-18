@@ -11,7 +11,7 @@ export default class WPOnion_Validator {
 				this.form.siblings( '#message' ).remove();
 				this.form.before( '<div id="message" class="error"><p>' + $wponion.txt( 'validation_summary' ) + '</p></div>' );
 			},
-			ignore: ':hidden',
+			ignore: '.wponion-dependent',
 			errorPlacement: function( error, element ) {
 				element.trigger( 'wponion_js_validation_message', { error, element } );
 			},
