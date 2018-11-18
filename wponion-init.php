@@ -12,6 +12,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
 defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.6' );
 defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', __( 'WPOnion' ) );
 defined( 'WPONION_FILE' ) or define( 'WPONION_FILE', __FILE__ );
