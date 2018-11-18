@@ -21,13 +21,35 @@ export default class extends WPOnion_Field {
 
 		$textarea.on( 'change', function() {
 			let $data = jQuery( jQuery( this ).val() );
-			$elem.find( 'span.example_output span.value' ).html( jQuery( this ).val() );
-			$elem.find( 'input#url' ).val( $data.attr( 'href' ) );
-			$elem.find( 'input#title' ).val( $data.text() );
-			$elem.find( 'input#target' ).val( $data.attr( 'target' ) );
-			$elem.find( 'span.url span.value' ).html( $data.attr( 'href' ) );
-			$elem.find( 'span.title span.value' ).html( $data.text() );
-			$elem.find( 'span.target span.value' ).html( $data.attr( 'target' ) );
+
+			if( $elem.find( 'span.example_output span.value' ) ) {
+				$elem.find( 'span.example_output span.value' ).html( jQuery( this ).val() );
+			}
+
+			if( $elem.find( 'input#url' ) ) {
+				$elem.find( 'input#url' ).val( $data.attr( 'href' ) );
+
+			}
+
+			if( $elem.find( 'input#title' ) ) {
+				$elem.find( 'input#title' ).val( $data.text() );
+			}
+
+			if( $elem.find( 'input#target' ) ) {
+				$elem.find( 'input#target' ).val( $data.attr( 'target' ) );
+			}
+
+			if( $elem.find( 'span.url span.value' ) ) {
+				$elem.find( 'span.url span.value' ).html( $data.attr( 'href' ) );
+			}
+
+			if( $elem.find( 'span.title span.value' ) ) {
+				$elem.find( 'span.title span.value' ).html( $data.text() );
+			}
+
+			if( $elem.find( 'span.target span.value' ) ) {
+				$elem.find( 'span.target span.value' ).html( $data.attr( 'target' ) );
+			}
 		} );
 	}
 }
