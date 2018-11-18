@@ -101,6 +101,9 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	}
 }
 
+/**
+ * Modules Registry
+ */
 if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for settings module.
@@ -218,19 +221,6 @@ if ( ! function_exists( 'wponion_help_tabs_registry' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_value_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for module's value API.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_value_registry( &$instance ) {
-		return wponion_get_registry_instance( 'module_values', $instance, 'settings' );
-	}
-}
-
 if ( ! function_exists( 'wponion_dashboard_widgets_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for dashboard widgets module.
@@ -283,6 +273,23 @@ if ( ! function_exists( 'wponion_admin_columns_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_bulk_edit_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for widgets module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_bulk_edit_registry( &$instance ) {
+		return wponion_get_registry_instance( 'admin_columns', $instance, 'settings' );
+	}
+}
+
+
+/**
+ * Core / Theme Registry
+ */
 if ( ! function_exists( 'wponion_core_registry' ) ) {
 	/**
 	 * Creates an static instance for core classes.
@@ -339,5 +346,18 @@ if ( ! function_exists( 'wponion_query' ) ) {
 			wponion_core_registry( $_instance );
 		}
 		return $_instance;
+	}
+}
+
+if ( ! function_exists( 'wponion_value_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for module's value API.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_value_registry( &$instance ) {
+		return wponion_get_registry_instance( 'module_values', $instance, 'settings' );
 	}
 }
