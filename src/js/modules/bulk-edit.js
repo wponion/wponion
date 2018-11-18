@@ -1,6 +1,5 @@
-import $wponion from '../core/core';
 import { array_merge } from 'vsp-js-helper/index';
-
+import $wponion from '../core/core';
 
 export default ( ( window, document, $ ) => {
 	$( window ).on( 'load', () => {
@@ -16,10 +15,13 @@ export default ( ( window, document, $ ) => {
 				$final_args = array_merge( $( this ).serializeObject(), $final_args );
 			} );
 
-			$wponion.ajax( 'save-bulk-edit', {
+			return $wponion.ajax( 'save-bulk-edit', {
 				method: 'POST',
+				async: false,
+				cache: false,
 				data: $final_args,
 			} );
 		} );
+
 	} );
 } )( window, document, jQuery );
