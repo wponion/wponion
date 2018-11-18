@@ -83,18 +83,22 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 				}
 			}
 
-			$this->add_action( 'quick_edit_custom_box', 'render_quick_edit', 10, 2 );
-
-			$this->add_action( 'save_post', 'save_data', 10, 2 );
+			$this->add_action( 'quick_edit_custom_box', 'render_quick_edit' );
+			$this->add_action( 'save_post', 'save_data' );
 		}
 
-		public function save_data( $post_id, $post ) {
-			if ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] ) {
+		/**
+		 * Saves Data in DB.
+		 *
+		 * @param $post_id
+		 */
+		public function save_data( $post_id ) {
+			if ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] || 'bulk_edit' === $this->module() ) {
 				if ( isset( $_POST[ $this->unique ] ) ) {
 					$this->db_values = $this->get_values( $post_id );
 					$instance        = new \WPOnion\DB\Quick_Edit_Save_Handler();
 					$instance->init_class( array(
-						'module'       => 'quick_edit',
+						'module'       => $this->module(),
 						'plugin_id'    => $this->plugin_id(),
 						'unique'       => $this->unique(),
 						'fields'       => $this->fields,
@@ -106,7 +110,6 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 						->run();
 
 					$this->db_values = $instance->get_values();
-
 					if ( false === $this->option( 'save' ) ) {
 						update_post_meta( $post_id, $this->unique(), $this->db_values );
 					} elseif ( wponion_is_callable( $this->option( 'save' ) ) ) {
@@ -129,9 +132,8 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		 * Renders Quick Edit.
 		 *
 		 * @param $column
-		 * @param $post_type
 		 */
-		public function render_quick_edit( $column, $post_type ) {
+		public function render_quick_edit( $column ) {
 			$this->db_values = array();
 			if ( $column === $this->option( 'column' ) ) {
 				wponion_load_core_assets();
@@ -194,7 +196,7 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 
 				$this->db_values = array();
 
-				if ( is_ajax() ) {
+				if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 					wponion_localize()->render_js_args();
 				}
 			}
