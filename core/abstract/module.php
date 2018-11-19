@@ -334,8 +334,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 */
 		public function values() {
 			$plugin_id = $this->plugin_id();
-			if ( wponion_value_registry( $plugin_id ) ) {
-				return wponion_value_registry( $plugin_id );
+			if ( wponion_value_registry( $this->unique() ) ) {
+				return wponion_value_registry( $this->unique() );
 			}
 			$instance = new \WPOnion\Value_API( $this->get_db_values(), $this->fields(), array(
 				'module'    => $this->module(),

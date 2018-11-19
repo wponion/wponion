@@ -617,7 +617,7 @@ PHP;
 					null,
 					null,
 				), $this->unique() );
-
+				$base   = empty( $base ) ? '' : $base;
 				if ( ! empty( $unique ) || ! empty( $this->data( 'id' ) ) ) {
 					$unique     = ( ! empty( $unique ) ) ? $unique . '/' . $this->data( 'id' ) : $this->data( 'id' );
 					$value_func = 'wponion_' . $this->module() . '_option';

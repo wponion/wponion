@@ -68,6 +68,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 			$this->field     = $field;
 			$this->init_subfields();
 			$this->init_class();
+			$this->path_separator = '/';
 		}
 
 		/**
@@ -87,6 +88,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 
 		/**
 		 * Simple Hook To Init Its SubFields.
+		 *
+		 * @param array $fields
 		 */
 		protected function init_subfields( $fields = array() ) {
 			$fields = ( ! empty( $fields ) ) ? $fields : isset( $this->field['fields'] ) ? $this->field : array();
@@ -154,7 +157,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 			if ( is_array( $this->value ) ) {
 				return wp_json_encode( $this->value );
 			}
-			return $this->value;
+			return ( is_string( $this->value ) ) ? $this->value : '';
 		}
 
 		/**
@@ -167,51 +170,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 			if ( ! isset( $this->subfields[ $field_id ] ) ) {
 				$this->subfields[ $field_id ] = $instance;
 			}
-		}
-
-		/**
-		 * Returns Sub Fields Instance if exists.
-		 *
-		 * @param $field_id
-		 *
-		 * @return bool|mixed
-		 */
-		public function sub( $field_id ) {
-			if ( isset( $this->subfields[ $field_id ] ) ) {
-				return $this->subfields[ $field_id ];
-			}
-			return false;
-		}
-
-		/**
-		 * Returns Raw Value Output.
-		 *
-		 * @return array|null
-		 */
-		public function raw() {
-			return $this->value;
-		}
-
-		/**
-		 * Returns Value into a html tag.
-		 *
-		 * @param string $tag
-		 * @param string $attributes
-		 *
-		 * @return string
-		 */
-		public function html( $tag = 'p', $attributes = '' ) {
-			return '<' . $tag . ' ' . $attributes . '>' . $this->value . '</' . $tag . '>';
-		}
-
-		/**
-		 * echo value into a html tag.
-		 *
-		 * @param string $tag
-		 * @param string $attributes
-		 */
-		public function _html( $tag = 'p', $attributes = '' ) {
-			echo $this->html( $tag, $attributes );
 		}
 
 		/**
@@ -291,6 +249,51 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 		}
 
 		/**
+		 * Returns Sub Fields Instance if exists.
+		 *
+		 * @param $field_id
+		 *
+		 * @return bool|mixed
+		 */
+		public function sub( $field_id ) {
+			if ( isset( $this->subfields[ $field_id ] ) ) {
+				return $this->subfields[ $field_id ];
+			}
+			return false;
+		}
+
+		/**
+		 * Returns Raw Value Output.
+		 *
+		 * @return array|null
+		 */
+		public function raw() {
+			return $this->value;
+		}
+
+		/**
+		 * Returns Value into a html tag.
+		 *
+		 * @param string $tag
+		 * @param string $attributes
+		 *
+		 * @return string
+		 */
+		public function html( $tag = 'p', $attributes = '' ) {
+			return '<' . $tag . ' ' . $attributes . '>' . $this->value . '</' . $tag . '>';
+		}
+
+		/**
+		 * echo value into a html tag.
+		 *
+		 * @param string $tag
+		 * @param string $attributes
+		 */
+		public function _html( $tag = 'p', $attributes = '' ) {
+			echo $this->html( $tag, $attributes );
+		}
+
+		/**
 		 * Checks if field is checked or not.
 		 *
 		 * @param string $key
@@ -298,15 +301,43 @@ if ( ! class_exists( '\WPOnion\Bridge\Value' ) ) {
 		 * @return bool
 		 */
 		public function active( $key = '' ) {
+			$is_arr = $this->explode( $key );
+			$value  = $this->value;
+
+			if ( is_array( $is_arr ) && count( $is_arr ) > 1 ) {
+				$value = $this->get( current( $is_arr ) );
+				$key   = next( $is_arr );
+			}
+
 			if ( ! empty( $key ) ) {
-				if ( is_array( $this->value ) ) {
-					return in_array( $key, $this->value );
-				} elseif ( $key === $this->value ) {
-					return true;
+				if ( $value instanceof static ) {
+					return $value->active( $key );
+				} else {
+					if ( is_array( $value ) && isset( $value[ $key ] ) ) {
+						return true;
+					} elseif ( is_array( $value ) ) {
+						return in_array( $key, $value );
+					} elseif ( $key === $value ) {
+						return true;
+					}
 				}
 				return false;
 			}
-			return ( false !== $this->value ) ? true : false;
+
+			return ( false !== $value ) ? true : false;
+		}
+
+		/**
+		 * A Simple Alise Function for $this->active()
+		 *
+		 * @uses $this->active()
+		 *
+		 * @param string $key
+		 *
+		 * @return bool
+		 */
+		public function is_checked( $key = '' ) {
+			return $this->active( $key );
 		}
 	}
 }

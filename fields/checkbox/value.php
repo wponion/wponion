@@ -14,8 +14,21 @@
 
 namespace WPOnion\Value;
 
-if ( ! class_exists( '\WPOnion\Value\checkbox' ) ) {
-	class checkbox extends \WPOnion\Bridge\Value {
-
+if ( ! class_exists( '\WPOnion\Value\Checkbox' ) ) {
+	class Checkbox extends \WPOnion\Bridge\Value {
+		/**
+		 * Calls After Basesetup is done.
+		 */
+		protected function init_class() {
+			if ( is_array( $this->value ) ) {
+				foreach ( $this->value as $key => $val ) {
+					$this->value[ $key ] = new static( $this->field, $val, array(
+						'unique'    => $this->unique,
+						'plugin_id' => $this->plugin_id(),
+						'module'    => $this->module(),
+					) );
+				}
+			}
+		}
 	}
 }

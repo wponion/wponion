@@ -47,7 +47,7 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 		 * @return mixed;
 		 */
 		protected function output() {
-			$this->before();
+			echo $this->before();
 			$this->select_framework = wponion_validate_select_framework( $this->field );
 
 			echo '<div class="wponion-font-select-container">';
@@ -60,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\font_picker' ) ) {
 			//echo wponion_add_element( $this->variant_select(), $this->value( 'variant' ), $this->unique( $this->field_id() ) );
 			echo '</div>';
 
-			$this->after();
+			echo $this->after();
 		}
 
 		/**
