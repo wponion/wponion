@@ -33,7 +33,6 @@
       "role"     : "Developer"
     }
   ],
-  "minimum-stability" : "stable",
   "require"           : { },
   "homepage"          : "https://wponion.com"
 }
