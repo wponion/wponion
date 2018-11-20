@@ -1,0 +1,39 @@
+{
+  "name"              : "wponion/dev",
+  "description"       : "~ Lightweight & Flexible WP Rapid Development Framework ~  | Development Version of WPOnion Framework",
+  "type"              : "library",
+  "license"           : "MIT",
+  "keywords"          : [
+    "wponion-framework",
+    "wponion",
+    "wordpress",
+    "wordpress-plugin",
+    "wordpress-theme",
+    "wordpress-options-framework",
+    "wordpress-options-plugin",
+    "wordpress-options",
+    "wordpress-options-builder",
+    "wordpress-taxonomies",
+    "wordpress-metaboxes",
+    "wordpress-metabox-options",
+    "wordpress-settings",
+    "wordpress-settings-api",
+    "wordpress-php-library",
+    "wordpress-widget",
+    "wp-plugin-settings",
+    "wordpress-gutenberg",
+    "gutenberg",
+    "settings-api"
+  ],
+  "authors"           : [
+    {
+      "name"     : "Varun Sridharan",
+      "email"    : "varunsridharan23@gmail.com",
+      "homepage" : "https://varunsridharan.in",
+      "role"     : "Developer"
+    }
+  ],
+  "minimum-stability" : "stable",
+  "require"           : { },
+  "homepage"          : "https://wponion.com"
+}
