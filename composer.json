@@ -1,9 +1,17 @@
 {
-  "name"              : "wponion/dev",
-  "description"       : "~ Lightweight & Flexible WP Rapid Development Framework ~  | Development Version of WPOnion Framework",
-  "type"              : "library",
-  "license"           : "MIT",
-  "keywords"          : [
+  "name"        : "wponion/dev",
+  "description" : "~ Lightweight & Flexible WP Rapid Development Framework ~  | Development Version of WPOnion Framework",
+  "license"     : "MIT",
+  "homepage"    : "https://wponion.com",
+  "authors"     : [
+    {
+      "name"     : "Varun Sridharan",
+      "email"    : "varunsridharan23@gmail.com",
+      "homepage" : "https://varunsridharan.in",
+      "role"     : "Developer"
+    }
+  ],
+  "keywords"    : [
     "wponion-framework",
     "wponion",
     "wordpress",
@@ -25,14 +33,5 @@
     "gutenberg",
     "settings-api"
   ],
-  "authors"           : [
-    {
-      "name"     : "Varun Sridharan",
-      "email"    : "varunsridharan23@gmail.com",
-      "homepage" : "https://varunsridharan.in",
-      "role"     : "Developer"
-    }
-  ],
-  "require"           : { },
-  "homepage"          : "https://wponion.com"
+  "require"     : { }
 }
