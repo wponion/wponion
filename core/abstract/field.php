@@ -42,6 +42,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		public static $total_fields = 0;
 
 		/**
+		 * columns
+		 *
+		 * @var int
+		 */
+		protected $render_time = 0;
+
+		/**
 		 * orginal_field
 		 *
 		 * @var array
@@ -258,11 +265,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
+			$this->debug_time();
 			if ( $this->has( 'only_field' ) ) {
 				$this->output();
 			} else {
 				$this->wrapper();
 			}
+			$this->debug( __( 'Render Time' ), $this->debug_time( true ) );
 
 			$this->debug( __( 'Raw Field Args' ), $this->orginal_field );
 			$this->debug( __( 'Field Args' ), $this->field );
@@ -271,6 +280,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->debug( __( 'Plugin ID' ), $this->plugin_id() );
 			$this->debug( __( 'Module' ), $this->module() );
 			$this->localize_field();
+		}
+
+		protected function debug_time( $is_end = false ) {
+			if ( $is_end ) {
+				return intval( microtime( true ) - $this->render_time );
+			}
+			$this->render_time = microtime( true );
 		}
 
 		/**
