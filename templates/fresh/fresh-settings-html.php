@@ -43,7 +43,7 @@ $loading = __( 'Loading Please Wait...' );
 
 			<div class="wponion-fresh-theme-content-wrap">
 				<div class="wponion-content">
-					<div class="loader loader-default page-loader is-active" data-text="<?php echo $loading; ?>"></div>
+
 					<div class="wponion-sections"><?php include __DIR__ . '/settings-html.php'; ?></div>
 				</div>
 			</div>
