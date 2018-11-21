@@ -78,19 +78,11 @@ export default class extends WPOnion_Module {
 			return;
 		}
 
-		let $info = this.option( 'debug_info' ),
-			$arr  = {};
+		let $info = this.option( 'debug_info' );
 
 		if( false === is_undefined( $info ) ) {
 			if( false === empty( $info ) ) {
-				$arr[ 'Raw Field Args' ] = $info[ 'Raw Field Args' ];
-				$arr.Field               = $info[ 'Field Args' ];
-				$arr[ 'Field Errors' ]   = $info[ 'Field Errors' ];
-				$arr[ 'Field Value' ]    = $info[ 'Field Value' ];
-				$arr[ 'Plugin ID' ]      = $info[ 'Plugin ID' ];
-				$arr.Module              = $info.Module;
-				$arr.Unique              = $info.Unique;
-				$wponion_debug.add( this.id(), { 'PHP Args': $arr, 'JS Args': {} } );
+				$wponion_debug.add( this.id(), { 'PHP Args': $info, 'JS Args': {} } );
 			}
 		}
 
@@ -109,8 +101,8 @@ export default class extends WPOnion_Module {
 			let $this = this;
 
 			$found.find( '> .wponion-field-title > h4' )
-				  .attr( 'title', $wponion.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ) )
 				  .tippy( {
+					  content: $wponion.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ),
 					  arrow: true,
 					  arrowType: 'round',
 					  placement: 'bottom',

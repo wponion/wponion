@@ -284,7 +284,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 		protected function debug_time( $is_end = false ) {
 			if ( $is_end ) {
-				return intval( microtime( true ) - $this->render_time );
+				return microtime( true ) - $this->render_time;
 			}
 			$this->render_time = microtime( true );
 		}
