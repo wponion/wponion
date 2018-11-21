@@ -44,7 +44,7 @@ jQuery.fn.extend( {
 				if( $elem.attr( 'data-tippy-instance-id' ) === undefined ) {
 					var $_instance_id = 'Tippy' + $wponion.rand_id();
 					$elem.attr( 'data-tippy-instance-id', $_instance_id );
-					window[ $_instance_id ] = new tippy( $elem[ 0 ], $arguments );
+					window[ $_instance_id ] = tippy( $elem[ 0 ], $arguments );
 					return true;
 				}
 				return false;
@@ -94,3 +94,4 @@ jQuery.fn.extend( {
 } )( window, document, wp, jQuery );
 //@wponion-inline ../../node_modules/jquery-validation/dist/jquery.validate.js
 //@wponion-prepend ../../node_modules/jquery-validation/dist/additional-methods.js
+
