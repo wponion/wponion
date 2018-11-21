@@ -54,6 +54,7 @@ export default class extends WPOnion_Module {
 	}
 
 	js_validate_elem( $args, $elem ) {
+		console.log( WPOnion_Validation.get_form() );
 		if( WPOnion_Validation.get_form() ) {
 			$elem.find( ':input' ).each( function() {
 				jQuery( this ).rules( 'add', $args );
