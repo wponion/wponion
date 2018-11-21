@@ -17,6 +17,17 @@ window.wponion_modal          = require( '../vendors/backbone-modal' ).default;
 module.exports = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;
 
+	$( document ).on( 'ready', () => {
+		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
+		if( $wpof_div.length > 0 ) {
+			$wp_hook.doAction( 'wponion_before_theme_init', $wpof_div );
+			$wpof_div.each( function() {
+				$wp_hook.doAction( 'wponion_theme_init', $( this ) );
+			} );
+			$wp_hook.doAction( 'wponion_after_theme_init', $wpof_div );
+		}
+	} );
+
 	$( window ).on( 'load', ( () => {
 		$wp_hook.doAction( 'wponion_before_init' );
 
@@ -83,12 +94,6 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 		} );
 
 		if( $wpof_div.length > 0 ) {
-			$wp_hook.doAction( 'wponion_before_theme_init', $wpof_div );
-			$wpof_div.each( function() {
-				$wp_hook.doAction( 'wponion_theme_init', $( this ) );
-			} );
-			$wp_hook.doAction( 'wponion_after_theme_init', $wpof_div );
-
 			/**
 			 * Renders Validation.
 			 */
