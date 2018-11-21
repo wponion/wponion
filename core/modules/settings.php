@@ -530,11 +530,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'plugin_id'     => false,
 				'theme'         => 'wp',
 				'template_path' => false,
-				'buttons'       => array(
+
+				'save_button' => __( 'Save Settings' ),/*
+				'buttons'     => array(
 					'save'    => __( 'Save Settings' ),
 					'restore' => false, #__( 'Restore' )
 					'reset'   => false, #__( 'Reset All Options' )
-				),
+				),*/
 			);
 		}
 
@@ -607,21 +609,27 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 *
 		 * @param bool $parent
 		 * @param bool $child
+		 * @param bool $first_section
 		 *
 		 * @return bool
 		 */
-		public function is_tab_active( $parent = false, $child = false ) {
+		public function is_tab_active( $parent = false, $child = false, $first_section = false ) {
 			if ( false !== $parent && false === $child ) {
 				return ( $parent === $this->active( true ) ) ? true : false;
 			} else {
-				return ( $parent === $this->active( true ) && $child === $this->active( false ) ) ? true : false;
+				if ( $parent === $this->active( true ) && $child === $this->active( false ) ) {
+					return true;
+				} elseif ( $parent !== $this->active( true ) && $first_section === $child ) {
+					return true;
+				}
+				return false;
 			}
 		}
 
 		/**
 		 * This function should be used in each loop when parent loop is runnig.
 		 *
-		 * @param $options
+		 * @param $options \WPOnion\Module_Fields
 		 *
 		 * @return array|bool|mixed
 		 */
@@ -703,30 +711,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return string
 		 */
 		public function settings_button() {
-			$options = $this->option( 'buttons' );
+			$options = $this->option( 'save_button' );
 			$html    = '';
 			if ( false !== $options ) {
-
-				if ( false !== $options['reset'] ) {
-					$html .= $this->_button( $options['reset'], array(
-						'class' => 'button button-danger wponion-reset',
-						'type'  => 'submit',
-					), __( 'Reset All' ) );
-				}
-
-				if ( false !== $options['restore'] ) {
-					$html .= $this->_button( $options['restore'], array(
-						'class' => 'button button-secondary wponion-restore',
-						'type'  => 'submit',
-					), __( 'Restore' ) );
-				}
-
-				if ( false !== $options['save'] ) {
-					$html .= $this->_button( $options['save'], array(
-						'class' => 'button button-primary wponion-save',
-						'type'  => 'submit',
-					), __( 'Save Settings' ) );
-				}
+				$html .= $this->_button( $options, array(
+					'class' => 'button button-primary wponion-save',
+					'type'  => 'submit',
+				), __( 'Save Settings' ) );
 			}
 			return $html;
 		}

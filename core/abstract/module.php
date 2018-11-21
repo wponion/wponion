@@ -361,16 +361,17 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Extracts Settings Sections and its subsections from the $this->fields array.
 		 *
-		 * @param array $fields
-		 * @param bool  $is_child
-		 * @param bool  $parent
+		 * @param \WPOnion\Module_Fields $fields
+		 * @param bool                   $is_child
+		 * @param bool                   $parent
+		 * @param bool                   $first_section
 		 *
 		 * @uses \WPOnion\Modules\Metabox
 		 * @uses \WPOnion\Modules\Settings
 		 *
 		 * @return array
 		 */
-		protected function extract_fields_menus( $fields = array(), $is_child = false, $parent = false ) {
+		protected function extract_fields_menus( $fields = array(), $is_child = false, $parent = false, $first_section = false ) {
 			$return = array();
 			if ( empty( $fields ) ) {
 				$fields = $this->fields;
@@ -379,20 +380,21 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( ! empty( $fields ) ) {
 				foreach ( $fields as $field ) {
 					if ( $field->has_sections() && ! empty( $field->sections() ) ) {
-						$menu = $this->handle_single_menu( $field, $is_child, $parent );
+						$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
 						if ( false !== $menu ) {
 							$_name                       = $menu['name'];
 							$return[ $_name ]            = $menu;
-							$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->sections(), true, $_name );
+							$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->sections(), true, $_name, $field->first_section()
+								->name() );
 						}
 					} elseif ( ( $field->has_fields() && ! empty( $field->fields() ) ) || $field->has_callback() || $field->has_href() ) {
-						$menu = $this->handle_single_menu( $field, $is_child, $parent );
+						$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
 						if ( false !== $menu ) {
 							$return[ $menu['name'] ] = $menu;
 						}
 					} else {
 						if ( 'metabox' !== $this->module() ) {
-							$menu = $this->handle_single_menu( $field, $is_child, $parent );
+							$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
 							if ( false !== $menu ) {
 								$return[ $menu['name'] ]                 = $menu;
 								$return[ $menu['name'] ]['is_seperator'] = isset( $menu['seperator'] ) ? $menu['seperator'] : false;
@@ -410,10 +412,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param      $menu
 		 * @param bool $is_child
 		 * @param bool $parent
+		 * @param bool $first_section
 		 *
-		 * @return array
+		 * @return array|bool
 		 */
-		protected function handle_single_menu( $menu, $is_child = false, $parent = false ) {
+		protected function handle_single_menu( $menu, $is_child = false, $parent = false, $first_section = false ) {
 			if ( null === $menu->name() && null === $menu->title() ) {
 				return false;
 			}
@@ -447,7 +450,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$part_href = $menu->href();
 				}
 
-				if ( $name === $this->active( false ) ) {
+				if ( $name === $this->active( false ) && $parent === $this->active( true ) ) {
+					$is_active = true;
+				} elseif ( $parent !== $this->active( true ) && $name === $first_section ) {
 					$is_active = true;
 				}
 			}
