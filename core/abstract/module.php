@@ -522,7 +522,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @param string $extra_class
 		 */
-		abstract public function wrap_class( $extra_class = '' );
+		public function wrap_class( $extra_class = '' ) {
+		}
 
 		/**
 		 * Required Callback On Instance Init.
