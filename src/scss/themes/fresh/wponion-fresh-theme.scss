@@ -10,7 +10,7 @@ $wponion_metabox_menu_width: 200px;
 			float:      left;
 			width:      $wponion_metabox_menu_width;
 			background: $wponion_metabox_a_bg;
-
+			position:   relative;
 			ul {
 				padding-left: 0px;
 				margin-top:   0;
@@ -28,11 +28,9 @@ $wponion_metabox_menu_width: 200px;
 						&.active {
 							background:  $wponion_metabox_menu_color;
 							font-weight: bold;
-							&.child-show {
-								& + ul {
-									display: inline-block;
-									width:   100%;
-								}
+							& + ul {
+								display: inline-block;
+								width:   100%;
 							}
 						}
 
@@ -133,7 +131,7 @@ $wponion_metabox_menu_width: 200px;
 			float:          left;
 			width:          100%;
 			max-width:      100%;
-			padding-top:    15px;
+			padding-top:    0px;
 			padding-bottom: 15px;
 			background:     #fff;
 		}
@@ -142,8 +140,9 @@ $wponion_metabox_menu_width: 200px;
 			/***
 			 * @todo please change 200px here also when updating the width above.
 			 */
-			padding: 15px 0;
-			width:   calc(100% - 200px) !important;
+			padding:     15px 0;
+			padding-top: 0px;
+			width:       calc(100% - 200px) !important;
 		}
 
 		.wponion-fresh-theme-inside-wrap {
@@ -152,6 +151,46 @@ $wponion_metabox_menu_width: 200px;
 			position:   relative;
 			background: white;
 			z-index:    1;
+		}
+
+		.wponion-settings-header {
+			float:                   left;
+			width:                   100%;
+			background:              #26292c;
+			color:                   white;
+			border-top-right-radius: 5px;
+			border-top-left-radius:  5px;
+			.wponion-settings-heading {
+				width:          49%;
+				display:        inline-block;
+				padding:        10px;
+				vertical-align: middle;
+				padding-right:  0;
+				h1 {
+					color:   white;
+					margin:  0;
+					padding: 0;
+				}
+			}
+			.action-holder {
+				width:          49%;
+				vertical-align: middle;
+				display:        inline-block;
+				text-align:     right;
+				padding:        10px;
+				padding-left:   0;
+			}
+		}
+		.wponion-form-actions {
+			background:                 #26292c;
+			width:                      100%;
+			float:                      left;
+			border-bottom-right-radius: 5px;
+			border-bottom-left-radius:  5px;
+			> div {
+				padding:    10px 15px;
+				text-align: right;
+			}
 		}
 	}
 

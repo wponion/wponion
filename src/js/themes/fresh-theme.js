@@ -10,6 +10,13 @@ class WPOnion_Fresh_Theme {
 			this.init_submenu();
 			this.init_main_menu();
 		}
+
+		this.update_height();
+	}
+
+	update_height() {
+		let $height = this.element.find( '.wponion-fresh-theme-content-wrap' ).outerHeight();
+		this.element.find( '.wponion-fresh-theme-menu-wrap' ).css( 'height', $height + 'px' );
 	}
 
 	init_submenu() {
@@ -25,6 +32,7 @@ class WPOnion_Fresh_Theme {
 					$current     = $this.element.find( 'div#' + $parent + ' div#' + $section );
 				$all_actives.hide();
 				$current.show();
+				$this.update_height();
 				jQuery( this ).parent().parent().find( 'a.active' ).removeClass( 'active' );
 				jQuery( this ).addClass( 'active' );
 			} else {
@@ -35,24 +43,24 @@ class WPOnion_Fresh_Theme {
 	}
 
 	init_main_menu() {
-		let $this = this;
-		this.element.find( 'ul.wpo-ftnav > li >  a' ).on( 'click', function( e ) {
+		this.element.find( 'ul.wpo-ftnav > li > a' ).on( 'click', ( e ) => {
 			e.preventDefault();
-			let $href = $wponion_helper.url_params( jQuery( this ).attr( 'href' ) );
-
+			let $elem = jQuery( e.currentTarget );
+			let $href = $wponion_helper.url_params( $elem.attr( 'href' ) );
 			if( false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
 				let $parent      = 'wponion-tab-' + $href[ 'parent-id' ];
-				let $all_actives = $this.element.find( 'div.wponion-parent-wraps' );
-				let $current     = $this.element.find( 'div#' + $parent );
+				let $all_actives = this.element.find( 'div.wponion-parent-wraps' );
+				let $current     = this.element.find( 'div#' + $parent );
 				$all_actives.hide();
 				$current.show();
-				jQuery( this ).parent().parent().find( 'a.active:not(ul.meta-submenu li a)' ).removeClass( 'active ' );
-				jQuery( this ).addClass( 'active ' );
+				$elem.parent().parent().find( 'a.active:not(ul.meta-submenu li a)' ).removeClass( 'active' );
+				$elem.addClass( 'active' );
+				this.update_height();
 			} else {
-				jQuery( '.wponion-framework.wponion-module-settings .page-loader' ).show();
 				window.location.href = jQuery( this ).attr( 'href' );
 			}
 		} );
+
 	}
 }
 

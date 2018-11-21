@@ -67,7 +67,7 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 			) );
 			$attr['data-wponion-id'] = ( ! empty( $parent_name ) ) ? 'wponion_menu_' . $parent_name . '_' . $menu['name'] : 'wponion_menu_' . $menu['name'];
 			$attr                    = wponion_array_to_html_attributes( $attr );
-			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . ' ' . $page_title . '</a>';
 		}
 
 		/**
@@ -101,7 +101,7 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 					) );
 					$attr          = wponion_array_to_html_attributes( $attr );
 
-					$return .= '<li><a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>' . $sub_menu . '</li>';
+					$return .= '<li><a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . ' ' . $page_title . '</a>' . $sub_menu . '</li>';
 				}
 			} else {
 				return false;
@@ -143,7 +143,7 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 					) );
 
 					$attr     = wponion_array_to_html_attributes( $attr );
-					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a> ';
+					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . ' ' . $page_title . '</a> ';
 				}
 				$return = implode( '  </li>', $return );
 				$return = '<ul class="meta-submenu"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';
