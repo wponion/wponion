@@ -60,15 +60,12 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			jambo_content: require( './fields/jambo_content' ).default,
 			notice: require( './fields/notice' ).default,
 			content: require( './fields/content' ).default,
+			backup: require( './fields/backup' ).default,
 		} );
 		$wpo.settings_args    = $wpo.windowArgs( 'wponion_core', {} );
 		$wpo.text             = $wpo.windowArgs( 'wponion_il8n', {} );
 		$wpo.debug_info       = null;
 		$wpo.field_debug_info = null;
-
-		if( $( '#wpotpimg' ).length === 0 ) {
-			$( 'body' ).append( '<div id="wpotpimg" style="display: none;min-width:300px;min-height:400px;">..</div>' );
-		}
 
 		$( document ).on( 'click', '.wponion-field-debug-code > strong', function() {
 			jQuery( this ).next().slideToggle();

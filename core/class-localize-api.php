@@ -60,8 +60,13 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->add_action( 'wp_footer', 'render_js_args' );
 			}
 
+			/* translators: */
 			$js_notice = __( ' %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s ' );
+
+			/* translators: */
 			$js_notice = $js_notice . __( ' %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php ' );
+
+			/* translators: */
 			$js_notice = $js_notice . __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it' );
 			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<strong>', '</strong>', '<br/>' );
 
@@ -81,6 +86,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.' ) );
 				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info' ) );
 				$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.' ) );
+				$this->text( 'delete', __( 'Delete' ) );
+				$this->text( 'restore', __( 'Restore' ) );
 				$this->modal_template();
 				self::$core_data = true;
 			}

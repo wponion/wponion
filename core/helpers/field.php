@@ -166,7 +166,13 @@ if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	 * @return array
 	 */
 	function wponion_noninput_fields() {
-		return apply_filters( 'wponion_non_input_fields', array( 'notice', 'subheading', 'heading', 'jambo_content' ) );
+		return apply_filters( 'wponion_non_input_fields', array(
+			'backup',
+			'notice',
+			'subheading',
+			'heading',
+			'jambo_content',
+		) );
 	}
 }
 
