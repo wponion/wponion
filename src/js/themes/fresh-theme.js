@@ -15,8 +15,18 @@ class WPOnion_Fresh_Theme {
 	}
 
 	update_height() {
-		let $height = this.element.find( '.wponion-fresh-theme-content-wrap' ).outerHeight();
-		this.element.find( '.wponion-fresh-theme-menu-wrap' ).css( 'height', $height + 'px' );
+		this.element.find( '.wponion-fresh-theme-menu-wrap' ).css( 'height', '' );
+		this.element.find( '.wponion-fresh-theme-content-wrap' ).css( 'height', '' );
+		let $content_height = this.element.find( '.wponion-fresh-theme-content-wrap' ).outerHeight();
+		let $menu_height    = this.element.find( '.wponion-fresh-theme-menu-wrap' ).outerHeight();
+
+		if( $content_height >= $menu_height ) {
+			this.element.find( '.wponion-fresh-theme-menu-wrap' ).css( 'height', $content_height + 'px' );
+		} else if( $menu_height > $content_height ) {
+			let $padding = parseInt( this.element.find( '.wponion-fresh-theme-content-wrap' ).css( 'padding-bottom' ) );
+			$menu_height = $menu_height - $padding;
+			this.element.find( '.wponion-fresh-theme-content-wrap' ).css( 'height', $menu_height + 'px' );
+		}
 	}
 
 	init_submenu() {

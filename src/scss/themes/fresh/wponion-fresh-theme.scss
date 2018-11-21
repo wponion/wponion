@@ -134,6 +134,10 @@ $wponion_metabox_menu_width: 200px;
 			padding-top:    0px;
 			padding-bottom: 15px;
 			background:     #fff;
+
+			.wponion-element:not(.wponion-element) {
+				padding: 30px;
+			}
 		}
 
 		.wponion-fresh-theme-menu-wrap + .wponion-fresh-theme-content-wrap {
@@ -181,6 +185,7 @@ $wponion_metabox_menu_width: 200px;
 				padding-left:   0;
 			}
 		}
+
 		.wponion-form-actions {
 			background:                 #26292c;
 			width:                      100%;
