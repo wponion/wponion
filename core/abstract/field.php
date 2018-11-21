@@ -485,10 +485,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data['image']   = $data['content'];
 				$data['content'] = false;
 			}
-
 			$attr = array(
-				'title' => $data['content'],
-				'class' => 'wponion-help',
+				'data-tippy' => $data['content'],
+				'class'      => 'wponion-help',
 			);
 
 			if ( false !== $localize ) {
@@ -626,7 +625,7 @@ PHP;
 					$_code      = <<<PHP
 <?php
 $instance = $value_func("$base");
- $value = \$instance->get("$unique");
+\$value = \$instance->get("$unique");
 ?>
 PHP;
 
@@ -970,7 +969,7 @@ PHP;
 				$value = $this->parse_args( $value, $defaults );
 				if ( false !== $value['tooltip'] ) {
 					$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
-					$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'position' => 'right' ), false );
+					$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'placement' => 'right' ), false );
 				}
 
 				if ( false !== $value['pretty'] ) {

@@ -3,16 +3,7 @@ import $wponion from '../core/core';
 
 export default class extends WPOnion_Field {
 	init() {
-		let $fid         = this.element.attr( 'data-field-jsid' ),
-			$is_loading  = null,
-			wpoimg       = ( img, callback ) => {
-				const testDimensions = setInterval( () => {
-					if( img.naturalWidth ) {
-						clearInterval( testDimensions );
-						callback();
-					}
-				}, 5 );
-			};
+		let $fid         = this.element.attr( 'data-field-jsid' );
 		let $tooltip_key = false;
 		if( true === this.element.hasClass( 'wponion-help' ) ) {
 			$tooltip_key = 'wponion-help';
@@ -22,9 +13,12 @@ export default class extends WPOnion_Field {
 			$tooltip_key = $fid + 'tooltip';
 		}
 
-		//let $tooltip_key = ( true === this.element.hasClass( 'wponion-help' ) ) ? 'field_help' : $fid + 'tooltip',
 		let $arg = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.option( $tooltip_key, false );
 
+		const state = {
+			isFetching: false,
+			canFetch: true
+		};
 
 		if( false === $arg ) {
 			if( $wponion.valid_json( this.element.attr( 'data-tippy' ) ) ) {
@@ -39,34 +33,52 @@ export default class extends WPOnion_Field {
 		if( $arg ) {
 			$arg.performance = false;
 			if( $arg.image !== undefined && $arg.image !== false ) {
-				$arg.html           = '#wpotpimg';
+				let $image          = $arg.image;
+				$arg.interactive    = true;
+				$arg.content        = 'Loading...';
+				//$arg.html           = '#wpotpimg';
 				$arg.updateDuration = 2000;
-				$arg.onShow         = function( instance ) {
-					const content = this.querySelector( '.tippy-content' );
-					if( $is_loading ) {
+				$arg.onShow         = async function( tip ) {
+					if( state.isFetching || !state.canFetch ) {
 						return;
 					}
-					$is_loading = true;
+					state.isFetching = true;
+					state.canFetch   = false;
 
-					fetch( $arg.image ).then( resp => resp.blob() ).then( blob => {
-						const url         = URL.createObjectURL( blob );
-						content.innerHTML = `<img src="${url}">`;
-						wpoimg( content.querySelector( 'img' ), instance.popperInstance.update );
-						$is_loading = false;
-					} ).catch( () => {
-						content.innerHTML = 'Loading failed';
-						$is_loading       = false;
-					} );
+					try {
+						const response = await fetch( $image );
+						const blob     = await response.blob();
+						const url      = URL.createObjectURL( blob );
+						if( tip.state.isVisible ) {
+							tip.setContent( '<div style="min-width:25px;min-height:25px;"><img style="display: inline-block; width:100%; height:100%;" src="' + url + '"/></div>' );
+						}
+					} catch( e ) {
+						tip.setContent( `Fetch failed. ${e}` );
+					} finally {
+						state.isFetching = false;
+					}
 				};
-				$arg.onHidden       = function() {
-					const content     = this.querySelector( '.tippy-content' );
-					content.innerHTML = '';
+				$arg.onHidden       = ( tip ) => {
+					state.canFetch = true;
+					tip.setContent( 'Loading...' );
 				};
-				$arg.popperOptions  = { modifiers: { preventOverflow: { enabled: false }, hide: { enabled: false } } };
+				$arg.popperOptions  = {
+					modifiers: {
+						preventOverflow: {
+							enabled: false
+						},
+						hide: {
+							enabled: false
+						}
+					}
+				};
+
 			}
 		} else {
 			$arg = {};
 		}
+
+		delete $arg.image;
 		this.element.tippy( this.handle_args( $arg, $tooltip_key ) );
 	}
 }
