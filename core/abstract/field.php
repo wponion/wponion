@@ -873,11 +873,14 @@ PHP;
 			$re  = '/\w+/';
 			$str = $this->unique();
 			preg_match( $re, $str, $matches, PREG_OFFSET_CAPTURE, 0 );
-			$current = current( $matches );
-			if ( is_array( $current ) && isset( $current[0] ) ) {
-				return $current[0];
+			if ( ! empty( $matches ) ) {
+				$current = current( $matches );
+				if ( is_array( $current ) && isset( $current[0] ) ) {
+					return $current[0];
+				}
+				return $matches;
 			}
-			return $matches;
+			return false;
 		}
 
 		/**
