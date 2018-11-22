@@ -182,8 +182,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 */
 		protected function debug_bar() {
 			if ( wponion_is_debug() ) {
-				return '<div id="wponiondebuginfopopup" style="display:none;"> <div id="wponion-global-debug-content"></div></div>
-<a  title="' . __( 'WPOnion Debug POPUP' ) . '" href="javascript:void(0);" class="wponion-global-debug-handle">' . wponion_icon( 'dashicons dashicons-info' ) . '</a>	';
+				/*return '<div id="wponiondebuginfopopup" style="display:none;"> <div id="wponion-global-debug-content"></div></div>
+<a  title="' . __( 'WPOnion Debug POPUP' ) . '" href="javascript:void(0);" class="wponion-global-debug-handle">' . wponion_icon( 'dashicons dashicons-info' ) . '</a>	';*/
 			}
 			return '';
 		}
