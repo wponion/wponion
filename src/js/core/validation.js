@@ -33,7 +33,7 @@ export default class WPOnion_Validator {
 		}
 
 		if( jQuery( 'form#post' ).length > 0 && jQuery( 'input#post_ID' ).length > 0 && jQuery( 'input#original_publish' ).length > 0 ) {
-			//return jQuery( 'form#post' );
+			return jQuery( 'form#post' );
 		}
 		return ( jQuery( 'form.wponion-form' ).length > 0 ) ? jQuery( 'form.wponion-form' ) : false;
 	}
