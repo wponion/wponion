@@ -41,9 +41,26 @@ jQuery.fn.extend( {
 	tippy: function( $arguments ) {
 		var tippy_helper = {
 			create_instance: function( $elem, $arguments ) {
+				$arguments = ( typeof $arguments === 'undefined' ) ? {} : $arguments;
 				if( $elem.attr( 'data-tippy-instance-id' ) === undefined ) {
 					var $_instance_id = 'Tippy' + $wponion.rand_id();
 					$elem.attr( 'data-tippy-instance-id', $_instance_id );
+
+					var $title      = $elem.attr( 'title' );
+					var $data_tippy = $elem.attr( 'data-tippy' );
+
+					if( $title && $title !== '' ) {
+						if( typeof $arguments.content === 'undefined' ) {
+							$arguments.content = $title;
+						}
+					}
+
+					if( $data_tippy && $data_tippy !== '' ) {
+						if( typeof $arguments.content === 'undefined' ) {
+							$arguments.content = $data_tippy;
+						}
+					}
+
 					window[ $_instance_id ] = tippy( $elem[ 0 ], $arguments );
 					return true;
 				}
