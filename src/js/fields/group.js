@@ -32,7 +32,7 @@ export default class extends WPOnion_Field {
 				$elem.parent().parent().parent().remove();
 				if( jQuery( 'body' ).find( 'link#editor-buttons-css' ).length === 0 ) {
 					jQuery( 'body' )
-						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + $wponion.option( 'wpeditor_buttons_css' ) + '" type="text/css" media="all">' );
+						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + $wponion.option( 'wpeditor_buttons_css', false ) + '" type="text/css" media="all">' );
 				}
 			},
 			templateAfterRender: () => {
