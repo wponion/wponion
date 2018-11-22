@@ -76,15 +76,15 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-
+			$this->get_first_field();
 			$this->loop_count = 0;
-			$default_title    = $this->data( 'accordion_title' );
-			echo '<div class="wponion-group-wrap" data-wponion-clone-count="0">';
+			$default_title    = $this->data( 'heading' );
+			echo '<div class="wponion-group-wrap" data-wponion-clone-count="' . count( $this->value ) . '">';
 			if ( is_array( $this->value ) ) {
 				foreach ( $this->value as $i => $value ) {
-					$this->loop_count               = $this->loop_count + 1;
-					$this->loop_value               = $value;
-					$this->field['accordion_title'] = ( ! empty( current( $value ) ) ) ? current( $value ) : $default_title;
+					$this->loop_count       = $this->loop_count + 1;
+					$this->loop_value       = $value;
+					$this->field['heading'] = $this->get_accordion_title( $value, $default_title );
 					$this->render_fields();
 				}
 			}
@@ -102,10 +102,10 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 				'label'       => __( 'Add New' ),
 			) ), false, $this->unique() );
 
-			$this->is_js_sample             = true;
-			$this->loop_value               = array();
-			$this->loop_count               = '{wponionCloneID}';
-			$this->field['accordion_title'] = $default_title;
+			$this->is_js_sample     = true;
+			$this->loop_value       = array();
+			$this->loop_count       = '{wponionCloneID}';
+			$this->field['heading'] = $default_title;
 			$this->catch_output( 'start' );
 			$this->render_fields();
 			$template           = $this->catch_output( 'stop' );
@@ -140,10 +140,54 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 		 */
 		protected function js_field_args() {
 			return array(
+				'heading_counter'     => strpos( $this->data( 'heading' ), '[count]' ),
+				'heading'             => $this->data( 'heading' ),
 				'limit'               => $this->data( 'limit' ),
 				'error_msg'           => $this->data( 'error_msg' ),
 				'remove_button_title' => $this->data( 'remove_button_title' ),
 			);
+		}
+
+		/**
+		 * Validates And Returns A Accordion Title.
+		 *
+		 * @param $value
+		 * @param $default
+		 *
+		 * @return mixed
+		 */
+		protected function get_accordion_title( $value, $default ) {
+			$accordion_title = $default;
+			$fields_ids      = $this->get_first_field();
+
+			foreach ( $fields_ids as $id => $val ) {
+				if ( isset( $value[ $id ] ) && is_string( $value[ $id ] ) ) {
+					$word       = '~\b' . $id . '\b';
+					$is_matched = preg_match( '/\b(' . $id . ')\b/', $accordion_title );
+					if ( $is_matched ) {
+						$accordion_title = str_replace( $id, $value[ $id ], $accordion_title );
+					}
+				}
+			}
+
+			if ( false !== strpos( $accordion_title, '[count]' ) ) {
+				$accordion_title = str_replace( '[count]', $this->loop_count, $accordion_title );
+			}
+
+			return $accordion_title;
+		}
+
+		/**
+		 * Gets All First Level Field IDS.
+		 *
+		 * @return array|bool
+		 */
+		protected function get_first_field() {
+			static $fields_ids = false;
+			if ( false === $fields_ids ) {
+				$fields_ids = wponion_get_all_fields_ids_and_defaults( $this->data( 'fields' ), false );
+			}
+			return $fields_ids;
 		}
 
 		/**
@@ -156,6 +200,7 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 				'add_button'    => __( 'Add New' ),
 				'remove_button' => __( 'Remove' ),
 				'limit'         => false,
+				'heading'       => false,
 				'error_msg'     => __( 'You Can\'t Add More..' ),
 			), parent::field_default() );
 		}
