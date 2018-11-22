@@ -28,15 +28,17 @@ export default class extends WPOnion_Field {
 			clone_elem: '> .wponion-fieldset > .wponion-accordion-wrap',
 			remove_btn: '.wponion-group-action > button',
 			template: this.option( 'group_template' ),
-			onRemove: function( $elem ) {
+			onRemove: ( $elem ) => {
 				$elem.parent().parent().parent().remove();
 				if( jQuery( 'body' ).find( 'link#editor-buttons-css' ).length === 0 ) {
 					jQuery( 'body' )
 						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + $wponion.option( 'wpeditor_buttons_css', false ) + '" type="text/css" media="all">' );
 				}
+				this.update_group_title();
 			},
-			templateAfterRender: () => {
+			templateAfterRender: ( $wrap, $limit ) => {
 				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
+				this.update_group_title();
 				this.init_field( $group_wrap, 'accordion' );
 				this.js_validate_elem( this.option( 'js_validate', false ), $data );
 				$data.find( '.wponion-group-remove' ).tippy();
@@ -51,8 +53,9 @@ export default class extends WPOnion_Field {
 				start: function( event, ui ) {
 					ui.item.css( 'background-color', '#eeee' );
 				},
-				stop: function( event, ui ) {
+				stop: ( event, ui ) => {
 					ui.item.removeAttr( 'style' );
+					this.update_group_title();
 				}
 
 			},
@@ -69,6 +72,24 @@ export default class extends WPOnion_Field {
 				} );
 			}
 		} );
+	}
+
+	update_group_title( $elem = false ) {
+		let $limit = 1;
+		$elem      = ( false === $elem ) ? this.element.find( '> .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
+
+		$elem.each( ( i, e ) => {
+			let $data = jQuery( e );
+
+			let $heading = this.option( 'heading' );
+			if( false !== this.option( 'heading_counter' ) ) {
+				$heading = $wponion_helper.str_replace( '[count]', $limit, $heading );
+			}
+
+			$data.find( '> .wponion-accordion-title span.heading' ).html( $heading );
+			$limit++;
+		} );
+
 	}
 
 	js_error( err ) {

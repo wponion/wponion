@@ -88,7 +88,7 @@
 
 
 			if( false !== $options.templateAfterRender ) {
-				$options.templateAfterRender( $_wrap );
+				$options.templateAfterRender( $_wrap, $limit, this );
 			}
 
 			let $_remove = $_wrap.find( $options.remove_btn );
