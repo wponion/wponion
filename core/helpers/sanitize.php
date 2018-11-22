@@ -44,10 +44,11 @@ if ( ! function_exists( 'wponion_field_text_sanitize' ) ) {
 	 *
 	 * @return string|array
 	 */
-	function wponion_field_text_sanitize( $value, $plugin_id, $field ) {
+	function wponion_field_text_sanitize( $value, $field, $plugin_id ) {
 		if ( wponion_is_cloneable( $field ) ) {
 			return wponion_field_cloneable_sanitize( $value, 'sanitize_text_field', array( $value ) );
 		}
+
 		return sanitize_text_field( $value );
 	}
 }
@@ -60,7 +61,7 @@ if ( ! function_exists( 'wponion_field_textarea_sanitize' ) ) {
 	 *
 	 * @return string
 	 */
-	function wponion_field_textarea_sanitize( $value, $plugin_id, $field ) {
+	function wponion_field_textarea_sanitize( $value, $field, $plugin_id ) {
 		///global $allowedposttags;
 		//return wp_kses( $value, $allowedposttags );
 		if ( wponion_is_cloneable( $field ) ) {
