@@ -440,14 +440,18 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 	 *
 	 * @return array
 	 */
-	function wponion_get_all_fields_ids_and_defaults( $fields = array() ) {
+	function wponion_get_all_fields_ids_and_defaults( $fields = array(), $nested = true ) {
 		$return = array();
 
 		if ( $fields instanceof \WPOnion\Module_Fields ) {
 			if ( $fields->has_fields() ) {
 				foreach ( $fields->fields() as $f ) {
 					if ( isset( $f['id'] ) && true === wponion_valid_user_input_field( $f ) ) {
-						$_fields            = isset( $f['fields'] ) ? wponion_get_all_fields_ids_and_defaults( $f['fields'] ) : array();
+						$_fields = array();
+						if ( true === $nested ) {
+							$_fields = isset( $f['fields'] ) ? wponion_get_all_fields_ids_and_defaults( $f['fields'] ) : array();
+						}
+
 						$default            = isset( $f['default'] ) ? $f['default'] : false;
 						$return[ $f['id'] ] = array(
 							'default' => $default,
@@ -472,7 +476,10 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 		} elseif ( is_array( $fields ) ) {
 			foreach ( $fields as $f ) {
 				if ( isset( $f['id'] ) && true === wponion_valid_user_input_field( $f ) ) {
-					$_fields            = isset( $f['fields'] ) ? wponion_get_all_fields_ids_and_defaults( $f['fields'] ) : array();
+					$_fields = array();
+					if ( true === $nested ) {
+						$_fields = isset( $f['fields'] ) ? wponion_get_all_fields_ids_and_defaults( $f['fields'] ) : array();
+					}
 					$default            = isset( $f['default'] ) ? $f['default'] : false;
 					$return[ $f['id'] ] = array(
 						'default' => $default,
