@@ -35,6 +35,19 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Bar' ) ) {
 		 */
 		protected $hook_priority = null;
 
+		/**
+		 * admin_bar_instance
+		 *
+		 * @var \WP_Admin_Bar
+		 */
+		protected $admin_bar_instance = false;
+
+		/**
+		 * Admin_Bar constructor.
+		 *
+		 * @param array $settings
+		 * @param array $fields
+		 */
 		public function __construct( $settings = array(), $fields = array() ) {
 			if ( ! empty( $settings ) && empty( $fields ) ) {
 				$fields   = $settings;
@@ -53,48 +66,49 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Bar' ) ) {
 			), parent::defaults() );
 		}
 
+		/**
+		 * @return mixed|void
+		 */
 		public function on_init() {
 			$this->add_action( 'admin_bar_menu', 'add_menu', $this->option( 'hook_priority' ) );
 		}
 
 		/**
-		 * @param \WP_Admin_Bar $admin_bar
+		 * @param \WP_Admin_Bar $wp_admin_bar
+		 *
+		 * @return mixed
 		 */
 		public function add_menu( $wp_admin_bar ) {
-			$wp_admin_bar->add_node( array(
-				'id'    => 'parent_node',
-				'title' => 'parent node',
-			) );
+			$this->admin_bar_instance = $wp_admin_bar;
+			$this->add_menus( $this->fields );
+		}
 
-			$wp_admin_bar->add_node( array(
-				'id'     => 'child_node',
-				'title'  => 'child node',
-				'parent' => 'parent_node',
-			) );
+		/**
+		 * @param      $menus
+		 * @param bool $parent_id
+		 */
+		protected function add_menus( $menus, $parent_id = false ) {
+			foreach ( $menus as $menu ) {
+				$submenus = array();
+				if ( ! isset( $menu['id'] ) ) {
+					$menu['id'] = sanitize_title( $menu['title'] );
+				}
 
-			// add a group node with a class "first-toolbar-group"
-			$wp_admin_bar->add_group( array(
-				'id'     => 'first_group',
-				'title'  => 'okok',
-				'parent' => 'parent_node',
-				'meta'   => array( 'class' => 'first-toolbar-group' ),
-			) );
+				if ( isset( $menu['submenus'] ) ) {
+					$submenus = $menu['submenus'];
+					unset( $menu['submenus'] );
+				}
 
-			// add an item to our group item
-			$args = array(
-				'id'     => 'first_grouped_node',
-				'title'  => 'first group node',
-				'parent' => 'first_group',
-			);
-			$wp_admin_bar->add_node( $args );
+				if ( false !== $parent_id ) {
+					$menu['parent'] = $parent_id;
+				}
 
-			// add another child item to first group
-			$args = array(
-				'id'     => 'another_group_child_node2',
-				'title'  => 'another group child node2',
-				'parent' => 'first_grouped_node',
-			);
-			$wp_admin_bar->add_node( $args );
+				$this->admin_bar_instance->add_menu( $menu );
+
+				if ( ! empty( $submenus ) ) {
+					$this->add_menus( $submenus, $menu['id'] );
+				}
+			}
 		}
 	}
 }
