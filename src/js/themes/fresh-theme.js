@@ -10,67 +10,58 @@ class WPOnion_Fresh_Theme {
 			this.init_submenu();
 			this.init_main_menu();
 		}
-
-		this.update_height();
-	}
-
-	update_height() {
-		this.element.find( '.wponion-fresh-theme-menu-wrap' ).css( 'height', '' );
-		this.element.find( '.wponion-fresh-theme-content-wrap' ).css( 'height', '' );
-		let $content_height = this.element.find( '.wponion-fresh-theme-content-wrap' ).outerHeight();
-		let $menu_height    = this.element.find( '.wponion-fresh-theme-menu-wrap' ).outerHeight();
-
-		if( $content_height >= $menu_height ) {
-			this.element.find( '.wponion-fresh-theme-menu-wrap' ).css( 'height', $content_height + 'px' );
-		} else if( $menu_height > $content_height ) {
-			let $padding = parseInt( this.element.find( '.wponion-fresh-theme-content-wrap' ).css( 'padding-bottom' ) );
-			$menu_height = $menu_height - $padding;
-			this.element.find( '.wponion-fresh-theme-content-wrap' ).css( 'height', $menu_height + 'px' );
-		}
-	}
-
-	init_submenu() {
-		let $this = this;
-		$this.element.find( '.wpo-ftnav .meta-submenu a' ).on( 'click', function( e ) {
-			e.preventDefault();
-			let $href = $wponion_helper.url_params( jQuery( this ).attr( 'href' ) );
-
-			if( false === $wponion_helper.is_undefined( $href[ 'section-id' ] ) && false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
-				let $parent      = 'wponion-tab-' + $href[ 'parent-id' ],
-					$section     = $parent + '-' + $href[ 'section-id' ],
-					$all_actives = $this.element.find( 'div#' + $parent + ' div.wponion-section-wraps' ),
-					$current     = $this.element.find( 'div#' + $parent + ' div#' + $section );
-				$all_actives.hide();
-				$current.show();
-				$this.update_height();
-				jQuery( this ).parent().parent().find( 'a.active' ).removeClass( 'active' );
-				jQuery( this ).addClass( 'active' );
-			} else {
-				jQuery( '.wponion-framework.wponion-module-settings .page-loader' ).show();
-				window.location.href = jQuery( this ).attr( 'href' );
-			}
-		} );
 	}
 
 	init_main_menu() {
 		this.element.find( 'ul.wpo-ftnav > li > a' ).on( 'click', ( e ) => {
 			e.preventDefault();
-			let $elem = jQuery( e.currentTarget );
-			let $href = $wponion_helper.url_params( $elem.attr( 'href' ) );
-			if( false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
-				let $parent      = 'wponion-tab-' + $href[ 'parent-id' ];
-				let $all_actives = this.element.find( 'div.wponion-parent-wraps' );
-				let $current     = this.element.find( 'div#' + $parent );
-				$all_actives.hide();
-				$current.show();
-				$elem.parent().parent().find( 'a.active:not(ul.meta-submenu li a)' ).removeClass( 'active' );
-				$elem.addClass( 'active' );
-				this.update_height();
+
+			let $elem = jQuery( e.currentTarget ),
+				$href = $wponion_helper.url_params( $elem.attr( 'href' ) );
+
+			if( $elem.hasClass( 'dropdown' ) ) {
+				$elem.parent().find( '> ul' ).slideToggle();
 			} else {
-				window.location.href = jQuery( this ).attr( 'href' );
+				if( false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
+					let $parent      = 'wponion-tab-' + $href[ 'parent-id' ];
+					let $all_actives = this.element.find( 'div.wponion-parent-wraps' );
+					let $current     = this.element.find( 'div#' + $parent );
+					$all_actives.hide();
+					$current.show();
+					$elem.parent().parent().find( 'a.active:not(ul.meta-submenu li a)' ).removeClass( 'active' );
+					$elem.addClass( 'active' );
+				} else {
+					window.location.href = $elem.attr( 'href' );
+				}
 			}
 		} );
+	}
 
+	init_submenu() {
+		this.element.find( '.wpo-ftnav .meta-submenu a' ).on( 'click', ( e ) => {
+			e.preventDefault();
+			let $elem = jQuery( e.currentTarget );
+			let $href = $wponion_helper.url_params( $elem.attr( 'href' ) );
+
+			if( false === $wponion_helper.is_undefined( $href[ 'section-id' ] ) && false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
+				let $parent      = 'wponion-tab-' + $href[ 'parent-id' ],
+					$section     = $parent + '-' + $href[ 'section-id' ],
+					$all_actives = this.element.find( 'div#' + $parent + ' div.wponion-section-wraps' ),
+					$current     = this.element.find( 'div#' + $parent + ' div#' + $section );
+				$all_actives.hide();
+
+				jQuery( 'div.wponion-parent-wraps' ).hide();
+				jQuery( 'div#' + $parent ).show();
+
+				$current.show();
+				this.element.find( '.wpo-ftnav  a' ).removeClass( 'active' );
+				$elem.parent().parent().parent().find( '> a' ).addClass( 'active' );
+				$elem.addClass( 'active' );
+			} else {
+				window.location.href = $elem.attr( 'href' );
+			}
+
+		} );
 	}
 }
 

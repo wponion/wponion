@@ -18,40 +18,39 @@ $loading = __( 'Loading Please Wait...' );
 
 <div class="wrap">
 	<div class="<?php echo $ins->wrap_class( '', true ); ?>">
-		<div class="wponion-fresh-theme-inside-wrap">
-			<div class="wponion-settings-header">
-				<div class="wponion-settings-heading">
-					<?php
-					if ( ! empty( $ins->option( 'framework_title' ) ) ) {
-						echo '<h1>' . $ins->option( 'framework_title' ) . '</h1>';
-					}
 
-					if ( ! empty( $ins->option( 'framework_desc' ) ) ) {
-						echo '<p>' . $ins->option( 'framework_desc' ) . '</p>';
-					}
-					?>
+		<div class="wponion-settings-header">
+			<div class="wponion-settings-heading">
+				<?php
+				if ( ! empty( $ins->option( 'framework_title' ) ) ) {
+					echo '<h1>' . $ins->option( 'framework_title' ) . '</h1>';
+				}
 
-				</div>
-				<div class="action-holder">
-					<?php echo $ins->settings_button(); ?>
-				</div>
+				if ( ! empty( $ins->option( 'framework_desc' ) ) ) {
+					echo '<p>' . $ins->option( 'framework_desc' ) . '</p>';
+				}
+				?>
+
 			</div>
+			<div class="action-holder">
+				<?php echo $ins->settings_button(); ?>
+			</div>
+		</div>
+		<div class="wponion-fresh-theme-inside-wrap">
 			<div class="wponion-fresh-theme-menu-wrap">
 				<?php echo $this->get_main_menu_html(); ?>
-				<div class="wponion-fresh-theme-menu-bg-wrap"></div>
 			</div>
 
 			<div class="wponion-fresh-theme-content-wrap">
 				<div class="wponion-content">
-
 					<div class="wponion-sections"><?php include __DIR__ . '/settings-html.php'; ?></div>
 				</div>
 			</div>
-			<div class="wponion-form-actions">
-				<div class="action-holder">
-					<?php echo $ins->settings_button(); ?>
-				</div>
-			</div>
+			<div class="wponion-fresh-theme-menu-bg-wrap"></div>
+		</div>
+
+		<div class="wponion-form-actions">
+			<div class="action-holder"> <?php echo $ins->settings_button(); ?></div>
 		</div>
 	</div>
 </div>
