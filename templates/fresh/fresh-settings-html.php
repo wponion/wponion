@@ -17,7 +17,7 @@ $loading = __( 'Loading Please Wait...' );
 ?>
 
 <div class="wrap">
-	<div class="<?php echo $ins->wrap_class( '', true ); ?>">
+	<div class="<?php echo $ins->wrap_class( ' wponion-fresh-theme-layouts ', true ); ?>">
 
 		<div class="wponion-settings-header">
 			<div class="wponion-settings-heading">
@@ -37,16 +37,16 @@ $loading = __( 'Loading Please Wait...' );
 			</div>
 		</div>
 		<div class="wponion-fresh-theme-inside-wrap">
-			<div class="wponion-fresh-theme-menu-wrap">
+			<div class="menu-wrap">
 				<?php echo $this->get_main_menu_html(); ?>
 			</div>
 
-			<div class="wponion-fresh-theme-content-wrap">
+			<div class="content-wrap">
 				<div class="wponion-content">
 					<div class="wponion-sections"><?php include __DIR__ . '/settings-html.php'; ?></div>
 				</div>
 			</div>
-			<div class="wponion-fresh-theme-menu-bg-wrap"></div>
+			<div class="menu-bg-wrap"></div>
 		</div>
 
 		<div class="wponion-form-actions">
