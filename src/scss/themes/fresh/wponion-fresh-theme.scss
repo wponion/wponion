@@ -4,149 +4,126 @@ $wponion_metabox_a_bg: #26292c;
 $wponion_metabox_menu_bg_color: #32373C;
 $wponion_metabox_menu_width: 200px;
 
+.wponion-fresh-theme-layouts {
+	.menu-wrap + .content-wrap {
+		/*
+		* @todo please change 200px here also when updating the width above.
+		*/
+		padding: 15px 0;
+		width:   calc(100% - 200px) !important;
+	}
+	.menu-wrap {
+		float:      left;
+		width:      $wponion_metabox_menu_width;
+		background: $wponion_metabox_a_bg;
+		ul {
+			padding-left: 0px;
+			margin-top:   0;
+			li {
+				list-style: none;
+				a {
+					position:        relative;
+					text-decoration: none;
+					color:           $wponion_metabox_a_color;
+					box-shadow:      none;
+					outline:         none;
+					display:         block;
+					transition:      all .25s ease;
+					padding:         10px !important;
+					i {
+						width:      20px;
+						height:     20px;
+						text-align: center;
+					}
+				}
+				&:hover {
+					transition: all .25s ease;
+					> a {
+						background: $wponion_metabox_menu_color;
+					}
+				}
+			}
+		}
+		> ul {
+			background: $wponion_metabox_a_bg;
+			max-width:  $wponion_metabox_menu_width;
+			> li {
+				> a {
+					&.active {
+						background:  $wponion_metabox_menu_color;
+						font-weight: bold;
+						& + ul {
+							display: inline-block;
+							width:   100%;
+							> li > a {
+								&.active {
+									font-weight: bold;
+									background:  #3D434A;
+									color:       white;
+
+									&::after {
+										border-right-color: #fff;
+										border-width:       10px;
+									}
+								}
+							}
+						}
+					}
+				}
+				> ul {
+					display:          none;
+					background-color: $wponion_metabox_menu_bg_color;
+					padding:          7px 0;
+					> li {
+						> a {
+							padding-left: 20px;
+							&::after {
+								left:           180px;
+								border:         solid transparent;
+								content:        " ";
+								height:         0;
+								width:          0;
+								position:       absolute;
+								pointer-events: none;
+							}
+						}
+					}
+				}
+				&:hover {
+					> ul {
+						> li {
+							&:hover {
+								a {
+									background: #3D434A;
+								}
+							}
+						}
+					}
+
+				}
+			}
+		}
+	}
+	.menu-bg-wrap {
+		position:   absolute;
+		top:        0;
+		background: $wponion_metabox_a_bg;
+		bottom:     0;
+		width:      $wponion_metabox_menu_width;
+		z-index:    -1;
+	}
+	.content-wrap {
+		float:          left;
+		width:          100%;
+		max-width:      100%;
+		padding-top:    0px;
+		padding-bottom: 15px;
+		background:     #fff;
+	}
+}
+
 .wponion-fresh-theme {
 	&.wponion-module-settings-framework {
-		.wponion-fresh-theme-menu-wrap {
-			float:      left;
-			width:      $wponion_metabox_menu_width;
-			background: $wponion_metabox_a_bg;
-			position:   relative;
-			ul {
-				padding-left: 0px;
-				margin-top:   0;
-				li {
-					list-style: none;
-					a {
-						text-decoration: none;
-						color:           $wponion_metabox_a_color;
-						box-shadow:      none;
-						outline:         none;
-						display:         block;
-						transition:      all .25s ease;
-						padding:         10px !important;
-						i {
-							width:      20px;
-							height:     20px;
-							text-align: center;
-						}
-					}
-
-					&:hover {
-						transition: all .25s ease;
-						> a {
-							background: $wponion_metabox_menu_color;
-						}
-					}
-				}
-			}
-
-			> ul {
-				background: $wponion_metabox_a_bg;
-				max-width:  $wponion_metabox_menu_width;
-				> li {
-					> a {
-						&.dropdown {
-							&::after {
-								content:        '';
-								display:        inline-block;
-								width:          0;
-								height:         0;
-								margin-left:    2px;
-								vertical-align: middle;
-								border-top:     4px dashed;
-								border-right:   4px solid transparent;
-								border-left:    4px solid transparent;
-								float:          right;
-								margin-top:     9px;
-							}
-						}
-						&.active {
-							background:  $wponion_metabox_menu_color;
-							font-weight: bold;
-							& + ul {
-								display: inline-block;
-								width:   100%;
-							}
-							& + ul {
-								> li > a {
-									&.active {
-										font-weight: bold;
-										background:  #3D434A;
-										color:       white;
-
-										&::after {
-											border-right-color: #fff;
-											border-width:       10px;
-										}
-									}
-								}
-							}
-						}
-					}
-					> ul {
-						display:          none;
-						background-color: $wponion_metabox_menu_bg_color;
-						padding:          7px 0;
-						> li {
-							> a {
-								padding-left: 20px;
-
-								&::after {
-									left:           180px;
-									border:         solid transparent;
-									content:        " ";
-									height:         0;
-									width:          0;
-									position:       absolute;
-									pointer-events: none;
-								}
-							}
-						}
-					}
-
-					&:hover {
-						> ul {
-							> li {
-								&:hover {
-									a {
-										background: #3D434A;
-									}
-								}
-							}
-						}
-
-					}
-				}
-			}
-		}
-
-		.wponion-fresh-theme-menu-bg-wrap {
-			position:   absolute;
-			top:        0;
-			background: $wponion_metabox_a_bg;
-			bottom:     0;
-			width:      $wponion_metabox_menu_width;
-			z-index:    -1;
-		}
-
-		.wponion-fresh-theme-content-wrap {
-			float:          left;
-			width:          100%;
-			max-width:      100%;
-			padding-top:    0px;
-			padding-bottom: 15px;
-			background:     #fff;
-		}
-
-		.wponion-fresh-theme-menu-wrap + .wponion-fresh-theme-content-wrap {
-			/***
-			 * @todo please change 200px here also when updating the width above.
-			 */
-			padding:     15px 0;
-			padding-top: 0px;
-			width:       calc(100% - 200px) !important;
-		}
-
 		.wponion-fresh-theme-inside-wrap {
 			display:    inline-block;
 			width:      100%;
@@ -197,6 +174,12 @@ $wponion_metabox_menu_width: 200px;
 			}
 		}
 	}
-
+	&.wponion-module-metabox-framework {
+		.wponion-metabox-inside-wrap {
+			width:     100%;
+			max-width: 100%;
+			display:   inline-block;
+		}
+	}
 }
 
