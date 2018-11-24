@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPOnion_Modern_Theme' ) ) {
 			) );
 			$attr['data-wponion-id'] = ( ! empty( $parent_name ) ) ? 'wponion_menu_' . $parent_name . '_' . $menu['name'] : 'wponion_menu_' . $menu['name'];
 			$attr                    = wponion_array_to_html_attributes( $attr );
-			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . '<span>' . $page_title . '</span>' . '</a>';
 		}
 
 		/**
