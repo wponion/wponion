@@ -1,18 +1,25 @@
 .wponion-framework.wponion-module-taxonomy {
-  margin:    1em 0;
-  display:   inline-block;
-  width:     100%;
-  max-width: 100%;
+	margin:    1em 0;
+	display:   inline-block;
+	width:     100%;
+	max-width: 100%;
 
-  > .wponion-element, > .wponion-row {
-	border: 0;
-  }
-  &.wponion-taxonomy-new-form {
-	> .wponion-element {
-	  @include wponion_field_horizontal();
+	> .wponion-element, > .wponion-row {
+		border: 0;
 	}
-  }
+	&.wponion-taxonomy-new-form {
+		> .wponion-element {
+			@include wponion_field_horizontal();
+		}
+	}
 
-  &.wponion-taxonomy-edit-form {
-  }
+	&.wponion-taxonomy-edit-form {
+	}
+
+}
+
+.form-field.wponion-taxonomy {
+	.wponion-element {
+		@include wponion_field_horizontal();
+	}
 }
