@@ -84,12 +84,12 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 *
 		 * @return string
 		 */
-		public function wrap_class( $extra_class = '', $bootstrap = true ) {
-			$html_class = wponion_html_class( array(
+		public function wrap_class( $extra_class = '', $is_bootstrap = true ) {
+			$custom_class = array(
 				'wponion-module-metabox-' . $this->option( 'context' ),
 				'wponion-module-metabox-' . $this->option( 'context' ) . '-framework',
-			), $this->default_wrap_class( $bootstrap ) );
-			return esc_attr( wponion_html_class( $extra_class, wponion_html_class( $html_class ) ) );
+			);
+			return parent::wrap_class( wponion_html_class( $extra_class, $custom_class ), $is_bootstrap );
 		}
 
 		/**

@@ -60,16 +60,6 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		}
 
 		/**
-		 * @param string $extra_class
-		 * @param bool   $bootstrap
-		 *
-		 * @return array|string
-		 */
-		public function wrap_class( $extra_class = '', $bootstrap = true ) {
-			return wponion_html_class( $extra_class, $this->default_wrap_class( $bootstrap ) );
-		}
-
-		/**
 		 * Creates Metabox Instance.
 		 */
 		public function init_metabox() {

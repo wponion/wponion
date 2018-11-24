@@ -64,16 +64,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 		}
 
 		/**
-		 * @param string $extra_class
-		 * @param bool   $bootstrap
-		 *
-		 * @return string
-		 */
-		public function wrap_class( $extra_class = '', $bootstrap = false ) {
-			return wponion_html_class( $extra_class, $this->default_wrap_class( $bootstrap ) );
-		}
-
-		/**
 		 * Save Handler.
 		 *
 		 * @param $old_values

@@ -560,9 +560,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			}
 		}
 
-		public function wrap_class( $extra_class = '' ) {
-		}
-
 		public function on_init() {
 		}
 

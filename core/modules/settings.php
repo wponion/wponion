@@ -558,15 +558,14 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Returns all common HTML wrap class.
 		 *
 		 * @param string $extra_class
-		 * @param bool   $bootstrap
+		 * @param bool   $is_bootstrap
 		 *
 		 * @return string
 		 */
-		public function wrap_class( $extra_class = '', $bootstrap = false ) {
-			$default_class = $this->default_wrap_class( $bootstrap );
-			$class         = array();
-			$class[]       = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
-			$class[]       = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
+		public function wrap_class( $extra_class = '', $is_bootstrap = false ) {
+			$class   = array();
+			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
+			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
 
 			if ( 1 === count( $this->fields ) ) {
 				$class[] = 'wponion-hide-nav';
@@ -575,7 +574,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					$class[] = 'wponion-no-subnav';
 				}
 			}
-			return esc_attr( wponion_html_class( $extra_class, wponion_html_class( array_filter( $class ), $default_class ) ) );
+
+			return parent::wrap_class( wponion_html_class( $extra_class, array_filter( $class ) ), $is_bootstrap );
 		}
 
 		/**

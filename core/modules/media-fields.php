@@ -71,9 +71,5 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 
 			return $form;
 		}
-
-		public function wrap_class( $extra_class = '' ) {
-			// TODO: Implement wrap_class() method.
-		}
 	}
 }

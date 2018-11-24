@@ -146,15 +146,5 @@ if ( ! class_exists( '\WPOnion\Modules\Screen_Options' ) ) {
 			// TODO: Implement on_init() method.
 		}
 
-		/**
-		 * @param string $extra_class
-		 * @param bool   $boostrap
-		 *
-		 * @return string|void
-		 */
-		public function wrap_class( $extra_class = '', $boostrap = true ) {
-			return esc_attr( wponion_html_class( $extra_class, $this->default_wrap_class( $boostrap ) ) );
-		}
-
 	}
 }
