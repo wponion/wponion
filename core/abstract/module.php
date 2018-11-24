@@ -63,6 +63,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected $raw_options = array();
 
 		/**
+		 * Raw options
+		 *
+		 * @var array
+		 */
+		protected $raw_fields = array();
+
+		/**
 		 * unique for database.
 		 *
 		 * @var string
@@ -100,10 +107,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $settings array of WPOnion Settings Configuration.
 		 */
 		public function __construct( $fields = array(), $settings = array() ) {
-			$this->fields    = new \WPOnion\Module_Fields( $fields );
-			$this->settings  = $this->set_args( $settings );
-			$this->plugin_id = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
-			$this->unique    = $this->settings['option_name'];
+			$this->fields     = new \WPOnion\Module_Fields( $fields );
+			$this->raw_fields = $fields;
+			$this->settings   = $this->set_args( $settings );
+			$this->plugin_id  = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
+			$this->unique     = $this->settings['option_name'];
 			$this->save_instance();
 		}
 
