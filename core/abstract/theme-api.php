@@ -85,6 +85,24 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		}
 
 		/**
+		 * @param bool $is_active
+		 *
+		 * @return string
+		 */
+		public function get_submenu_indicator( $is_active = false ) {
+			$class = array(
+				'active'   => 'dashicons-arrow-down-alt2',
+				'inactive' => 'dashicons-arrow-right-alt2',
+			);
+
+			if ( $is_active ) {
+				return '<i class="wponion-submenu-i dashicons ' . $class['active'] . '" data-toggle-class="wponion-submenu-i dashicons ' . $class['inactive'] . '"></i>';
+			}
+			return '<i class="wponion-submenu-i dashicons ' . $class['inactive'] . '" data-toggle-class="wponion-submenu-i dashicons ' . $class['active'] . '"></i>';
+
+		}
+
+		/**
 		 * Creates Custom Unique Code.
 		 *
 		 * @return string
