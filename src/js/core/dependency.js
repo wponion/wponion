@@ -12,11 +12,13 @@ export default class {
 			this.base.depRoot();
 			jQuery.deps.enable( this.base.$el, this.base.ruleset, {
 				show: ( el ) => {
-					el.removeClass( 'hidden' );
+					//el.removeClass( 'hidden' );
+					el.slideDown();
 					el.find( ':input' ).removeClass( 'wponion-dependent' );
 				},
 				hide: ( el ) => {
-					el.addClass( 'hidden' );
+					//el.addClass( 'hidden' );
+					el.slideUp();
 					el.find( ':input' ).addClass( 'wponion-dependent' );
 				},
 				log: false,
