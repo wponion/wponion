@@ -140,11 +140,12 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 		 */
 		protected function js_field_args() {
 			return array(
-				'heading_counter'     => strpos( $this->data( 'heading' ), '[count]' ),
-				'heading'             => $this->data( 'heading' ),
-				'limit'               => $this->data( 'limit' ),
-				'error_msg'           => $this->data( 'error_msg' ),
-				'remove_button_title' => $this->data( 'remove_button_title' ),
+				'heading_counter'        => strpos( $this->data( 'heading' ), '[count]' ),
+				'heading'                => $this->data( 'heading' ),
+				'limit'                  => $this->data( 'limit' ),
+				'error_msg'              => $this->data( 'error_msg' ),
+				'remove_button_title'    => $this->data( 'remove_button_title' ),
+				'matched_heading_fields' => $this->get_accordion_title( array(), $this->data( 'heading' ), true ),
 			);
 		}
 
@@ -156,22 +157,30 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 		 *
 		 * @return mixed
 		 */
-		protected function get_accordion_title( $value, $default ) {
-			$accordion_title = $default;
+		protected function get_accordion_title( $value, $default, $is_fields = false ) {
+			$accordion_title = ( true === $is_fields ) ? array() : $default;
 			$fields_ids      = $this->get_first_field();
 
 			foreach ( $fields_ids as $id => $val ) {
-				if ( isset( $value[ $id ] ) && is_string( $value[ $id ] ) ) {
-					$word       = '~\b' . $id . '\b';
-					$is_matched = preg_match( '/\b(' . $id . ')\b/', $accordion_title );
+				if ( $is_fields ) {
+					$is_matched = preg_match( '/\b(' . $id . ')\b/', $default );
 					if ( $is_matched ) {
-						$accordion_title = str_replace( $id, $value[ $id ], $accordion_title );
+						$accordion_title[] = $id;
+					}
+				} else {
+					if ( isset( $value[ $id ] ) && is_string( $value[ $id ] ) ) {
+						$is_matched = preg_match( '/\b(' . $id . ')\b/', $accordion_title );
+						if ( $is_matched ) {
+							$accordion_title = str_replace( $id, $value[ $id ], $accordion_title );
+						}
 					}
 				}
 			}
 
-			if ( false !== strpos( $accordion_title, '[count]' ) ) {
-				$accordion_title = str_replace( '[count]', $this->loop_count, $accordion_title );
+			if ( ! is_array( $accordion_title ) ) {
+				if ( false !== strpos( $accordion_title, '[count]' ) ) {
+					$accordion_title = str_replace( '[count]', $this->loop_count, $accordion_title );
+				}
 			}
 
 			return $accordion_title;

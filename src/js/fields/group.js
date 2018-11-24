@@ -15,7 +15,7 @@ export default class extends WPOnion_Field {
 		$group_wrap.find( '> .wponion-accordion-wrap' ).each( function() {
 			new WPOnion_Dependency( jQuery( this ), { nestable: true } );
 		} );
-
+		this.bind_events_for_title();
 		this.element.find( '.wponion-group-remove' ).tippy();
 		this.element.on( 'click', '.wponion-group-remove', function() {
 			jQuery( this ).parent().parent().find( '> .wponion-accordion-content > .wponion-group-action > button' )
@@ -34,11 +34,12 @@ export default class extends WPOnion_Field {
 					jQuery( 'body' )
 						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + $wponion.option( 'wpeditor_buttons_css', false ) + '" type="text/css" media="all">' );
 				}
-				this.update_group_title();
+				this.update_groups_title();
 			},
 			templateAfterRender: ( $wrap, $limit ) => {
 				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
-				this.update_group_title();
+				this.update_groups_title();
+				this.bind_events_for_title();
 				this.init_field( $group_wrap, 'accordion' );
 				//this.js_validate_elem( this.option( 'js_validate', false ), $data );
 				$data.find( '.wponion-group-remove' ).tippy();
@@ -55,7 +56,7 @@ export default class extends WPOnion_Field {
 				},
 				stop: ( event, ui ) => {
 					ui.item.removeAttr( 'style' );
-					this.update_group_title();
+					this.update_groups_title();
 				}
 
 			},
@@ -74,16 +75,38 @@ export default class extends WPOnion_Field {
 		} );
 	}
 
-	update_group_title( $elem = false ) {
+	bind_events_for_title( $elem = false ) {
+		$elem = ( false === $elem ) ? this.element.find( '> .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
+		$elem.each( ( i, e ) => {
+			let $data = jQuery( e );
+
+			let $mached = this.option( 'matched_heading_fields' );
+			for( let $key in $mached ) {
+				let $elem = $data.find( ':input[data-depend-id="' + $mached[ $key ] + '"]' );
+				if( $elem.length > 0 ) {
+					$elem.on( 'change, blur', () => this.update_groups_title() );
+				}
+			}
+		} );
+	}
+
+	update_groups_title( $elem = false ) {
 		let $limit = 1;
 		$elem      = ( false === $elem ) ? this.element.find( '> .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
 
 		$elem.each( ( i, e ) => {
-			let $data = jQuery( e );
-
+			let $data    = jQuery( e );
 			let $heading = this.option( 'heading' );
 			if( false !== this.option( 'heading_counter' ) ) {
 				$heading = $wponion_helper.str_replace( '[count]', $limit, $heading );
+			}
+
+			let $mached = this.option( 'matched_heading_fields' );
+			for( let $key in $mached ) {
+				let $elem = $data.find( ':input[data-depend-id="' + $mached[ $key ] + '"]' );
+				if( $elem.length > 0 ) {
+					$heading = $wponion_helper.str_replace( $mached[ $key ], $elem.val(), $heading );
+				}
 			}
 
 			$data.find( '> .wponion-accordion-title span.heading' ).html( $heading );
