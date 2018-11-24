@@ -36,7 +36,7 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 				$current.show();
 
 				$elem.find( 'ul.wponion-metabox-parent-menu a.active ' ).removeClass( 'active ' );
-				$( this ).addClass( 'active' );
+				jQuery( this ).addClass( 'active' );
 				$elem.find( 'ul.wponion-metabox-parent-menu > li > a' ).removeClass( 'active' );
 				$elem.find( 'ul.wponion-metabox-parent-menu a[data-wponion-id="wponion_menu_' + $href[ 'parent-id' ] + '"]' )
 					 .addClass( 'active' );
