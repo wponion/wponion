@@ -5,6 +5,7 @@ import WPOnion_Validator from './core/validation';
 
 window.wponion_metabox_module = require( './modules/metabox' ).default;
 window.wponion_bulk_edit      = require( './modules/bulk-edit' ).default;
+window.wponion_guttenberg     = require( './modules/guttenberg' ).default;
 window.wponion_quick_edit     = require( './modules/quick-edit' ).default;
 window.$wponion               = require( './core/core' ).default;
 window.$wponion_debug         = require( './core/debug' ).default;
@@ -80,6 +81,7 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 
 		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
 
+		window.$wponion.submenu_indicator( $( document ).find( '.wponion-submenu-i' ) );
 
 		$( document ).on( 'click', '.wponion-field-debug-code > strong', function() {
 			jQuery( this ).next().slideToggle();
@@ -92,8 +94,8 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 		 * Triggers Hook With Widgets.
 		 */
 		$( document ).on( 'widget-added widget-updated', function( event, $widget ) {
-			new WPOnion_Dependency( $widget );
 			wponion_field( $widget ).reload();
+			new WPOnion_Dependency( $widget );
 		} );
 
 		if( $wpof_div.length > 0 ) {
@@ -107,8 +109,8 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			 */
 			$wp_hook.doAction( 'wponion_before_fields_init', $wpof_div );
 			$wpof_div.each( function() {
-				new WPOnion_Dependency( $( this ) );
 				wponion_field( $( this ) ).reload();
+				new WPOnion_Dependency( $( this ) );
 			} );
 			$wp_hook.doAction( 'wponion_after_fields_init', $wpof_div );
 		}
