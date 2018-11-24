@@ -187,11 +187,10 @@ if ( ! class_exists( '\WPOnion\Modules\taxonomy' ) ) {
 
 		/**
 		 * @param string $extra_class
-		 * @param bool   $is_bootstrap
 		 *
 		 * @return array|string
 		 */
-		public function wrap_class( $extra_class = '', $is_bootstrap = true ) {
+		public function wrap_class( $extra_class = '' ) {
 			global $taxnow;
 			$is_edit = ( true === $this->is_new ) ? 'wponion-taxonomy-new-form' : 'wponion-taxonomy-edit-form';
 
@@ -200,7 +199,7 @@ if ( ! class_exists( '\WPOnion\Modules\taxonomy' ) ) {
 				'wponion-taxonomy-' . $taxnow . '-' . $this->term_id,
 				$is_edit,
 			);
-			return parent::wrap_class( wponion_html_class( $extra_class, $custom_class ), $is_bootstrap );
+			return parent::wrap_class( wponion_html_class( $extra_class, $custom_class ) );
 		}
 
 		/**

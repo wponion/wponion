@@ -4,7 +4,7 @@ $menus    = $settings->metabox_menus();
 $active   = $settings->active_page();
 $return   = '';
 ?>
-<div class="<?php echo $settings->wrap_class( ' wponion-modern-theme-layouts ', true ); ?>">
+<div class="<?php echo $settings->wrap_class( ' wponion-modern-theme-layouts ' ); ?>">
 	<div class="wponion-metabox-inside-wrap">
 		<?php
 		if ( is_array( $menus ) && ! empty( $menus ) && count( $menus ) > 1 ) {

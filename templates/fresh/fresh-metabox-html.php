@@ -15,7 +15,7 @@ if ( ! empty( $settings->option( 'theme_color' ) ) && 'false' !== $settings->opt
 	echo '</style>';
 }
 ?>
-<div class="<?php echo $settings->wrap_class( ' wponion-fresh-theme-layouts ', true ); ?>">
+<div class="<?php echo $settings->wrap_class( ' wponion-fresh-theme-layouts ' ); ?>">
 	<div class="wponion-metabox-inside-wrap">
 		<?php
 		if ( is_array( $menus ) && ! empty( $menus ) && count( $menus ) > 1 ) {

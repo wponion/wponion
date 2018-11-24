@@ -17,7 +17,7 @@ $loading = __( 'Loading Please Wait...' );
 ?>
 
 <div class="wrap">
-	<div class="<?php echo $ins->wrap_class( ' wponion-fresh-theme-layouts ', true ); ?>">
+	<div class="<?php echo $ins->wrap_class( ' wponion-fresh-theme-layouts ' ); ?>">
 
 		<div class="wponion-settings-header">
 			<div class="wponion-settings-heading">

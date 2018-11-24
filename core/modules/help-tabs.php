@@ -228,13 +228,12 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 		 * Returns a wrap class.
 		 *
 		 * @param string $extra_class
-		 * @param bool   $is_bootstrap
 		 *
 		 * @return array|string
 		 */
-		public function wrap_class( $extra_class = '', $is_bootstrap = true ) {
+		public function wrap_class( $extra_class = '' ) {
 			$screen = get_current_screen();
-			return wponion_html_class( array( 'wponion-help-tabs-' . $screen->id ), $this->default_wrap_class( $is_bootstrap ) );
+			return wponion_html_class( array( 'wponion-help-tabs-' . $screen->id ), $this->default_wrap_class() );
 		}
 
 		/**

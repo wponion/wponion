@@ -155,25 +155,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return array|string
 		 */
-		protected function default_wrap_class( $bootstrap = false ) {
-			$class = array(
+		protected function default_wrap_class() {
+			return wponion_html_class( array(
 				'wponion-framework',
 				'wponion-module-' . $this->module() . '-framework',
 				'wponion-module-' . $this->module(),
 				'wponion-' . $this->plugin_id() . '-' . $this->module(),
 				'wponion-' . $this->module(),
 				'wponion-' . $this->option( 'theme' ) . '-theme',
-			);
-
-			if ( 'grid' === $bootstrap || 'all' === $bootstrap || true === $bootstrap ) {
-				$class[] = 'wponion-framework-bootstrap-grid';
-			}
-
-			if ( 'base' === $bootstrap || 'all' === $bootstrap || true === $bootstrap ) {
-				$class[] = 'wponion-framework-bootstrap';
-			}
-
-			return wponion_html_class( $class );
+			) );
 		}
 
 		/**
@@ -529,12 +519,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * Returns All Common Wrap Class.
 		 *
 		 * @param string $extra_class
-		 * @param bool   $is_bootstrap
 		 *
 		 * @return string
 		 */
-		public function wrap_class( $extra_class = '', $is_bootstrap = false ) {
-			return esc_attr( wponion_html_class( $extra_class, $this->default_wrap_class( $is_bootstrap ) ) );
+		public function wrap_class( $extra_class = '' ) {
+			return esc_attr( wponion_html_class( $extra_class, $this->default_wrap_class() ) );
 		}
 
 		/**

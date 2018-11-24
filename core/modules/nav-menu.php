@@ -118,7 +118,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public function render( $item_id, $post, $depth, $args, $id ) {
 			$this->post_id = $item_id;
-			echo '<div class="' . $this->wrap_class( '', true ) . '">';
+			echo '<div class="' . $this->wrap_class( '' ) . '">';
 			foreach ( $this->fields as $field ) {
 				echo $this->render_field( $field );
 			}

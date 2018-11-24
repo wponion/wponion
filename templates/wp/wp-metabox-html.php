@@ -11,7 +11,7 @@ $return   = '';
 		}';
 	?>
 </style>
-<div class="<?php echo $settings->wrap_class( '', true ); ?>">
+<div class="<?php echo $settings->wrap_class( ); ?>">
 	<div class="wponion-metabox-inside-wrap">
 		<?php
 		if ( is_array( $menus ) && ! empty( $menus ) && count( $menus ) > 1 ) {
