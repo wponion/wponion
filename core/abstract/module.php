@@ -273,7 +273,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return mixed
 		 */
 		protected function get_db_cache() {
-			return get_option( $this->get_cache_id(), array() );
+			return wponion_get_option( $this->get_cache_id(), array() );
 		}
 
 		/**
@@ -318,7 +318,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $data .
 		 */
 		protected function set_cache( $data = array() ) {
-			update_option( $this->get_cache_id(), $data );
+			wponion_update_option( $this->get_cache_id(), $data );
 			$this->options_cache = $data;
 		}
 
