@@ -284,5 +284,16 @@ export default class WPOnion {
 		};
 	}
 
+	static submenu_indicator( $elems ) {
+		$elems.each( function() {
+			jQuery( this ).parent().on( 'click', function() {
+				let $toggle   = jQuery( this ).find( '> .wponion-submenu-i' ).attr( 'data-toggle-class' );
+				let $ex_class = jQuery( this ).find( '> .wponion-submenu-i' ).attr( 'class' );
+				jQuery( this ).find( '> .wponion-submenu-i' ).attr( 'class', $toggle );
+				jQuery( this ).find( '> .wponion-submenu-i' ).attr( 'data-toggle-class', $ex_class );
+			} );
+		} );
+	}
+
 	//@todo Migrate Plugin Debug Info.
 }
