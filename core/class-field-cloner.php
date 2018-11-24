@@ -156,8 +156,8 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		public function handle_field_args( $data = array() ) {
 			$defaults = array(
 				'animations'    => array(
-					'show' => 'zoomIn animated faster',
-					'hide' => 'zoomOut animated faster',
+					'show' => false,
+					'hide' => false,
 				),
 				'sort'          => true,
 				'toast_error'   => false,

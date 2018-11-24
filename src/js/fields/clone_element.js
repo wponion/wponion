@@ -24,7 +24,7 @@ export default class extends WPOnion_Field {
 			add_btn: $add_btn,
 			limit: $limit,
 			clone_elem: '.wponion-field-clone',
-			remove_btn: 'a.wponion-remove',
+			remove_btn: '.wponion-clone-action > .wponion-remove',
 			template: $this.option( 'clone_template' ),
 			templateAfterRender: ( $e ) => wponion_field( $e.find( '> div.wponion-field-clone:last-child' ) ).reload(),
 			sortable: $sort,
