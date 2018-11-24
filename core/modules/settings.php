@@ -258,9 +258,16 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				}
 			}
 			if ( ! empty( $default ) ) {
-				update_option( $this->unique, $this->db_values );
+				$this->set_db_values();
 			}
 			$this->set_cache( $this->options_cache );
+		}
+
+		/**
+		 * Saves Options.
+		 */
+		public function set_db_values() {
+			update_option( $this->unique, $this->db_values );
 		}
 
 		/**
@@ -289,10 +296,17 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
+		 * @return string
+		 */
+		public function form_post_page() {
+			return 'options.php';
+		}
+
+		/**
 		 * Renders Settings Page HTML.
 		 */
 		public function render() {
-			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
+			echo '<form method="post" action="' . $this->form_post_page() . '" enctype="multipart/form-data" class="wponion-form">';
 			echo '<div class="hidden" style="display:none;" id="wponion-hidden-fields">';
 			settings_fields( $this->unique );
 			echo '<input type="hidden" name="parent-id" value="' . $this->active( true ) . '"/>';

@@ -28,6 +28,22 @@ if ( ! function_exists( 'wponion_settings' ) ) {
 		return new \WPOnion\Modules\Settings( $instance_id_or_args, $fields );
 	}
 }
+if ( ! function_exists( 'wponion_network_settings' ) ) {
+	/**
+	 * Returns a new instance for network settings page.
+	 *
+	 * @param array|string $instance_id_or_args
+	 * @param array        $fields
+	 *
+	 * @return bool|\WPOnion\Modules\Network_Settings
+	 */
+	function wponion_network_settings( $instance_id_or_args = array(), $fields = array() ) {
+		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
+			return wponion_settings_registry( $instance_id_or_args );
+		}
+		return new \WPOnion\Modules\Network_Settings( $instance_id_or_args, $fields );
+	}
+}
 
 if ( ! function_exists( 'wponion_metabox' ) ) {
 	/**
