@@ -120,6 +120,8 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		public function custom_metabox_class( $class ) {
 			$class[] = 'wponion-metabox';
 			$class[] = 'wponion-metabox-' . $this->option( 'context' );
+			$class[] = 'wponion-metabox-' . $this->module();
+			$class[] = 'wponion-metabox-' . $this->option( 'context' ) . '-' . $this->module();
 			return $class;
 		}
 
@@ -381,7 +383,9 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		}
 
 		/**
-		 * Saves Given User Data to db.
+		 * Saves Given User Data to db
+		 *
+		 * @param $post_id
 		 */
 		public function save_metabox( $post_id ) {
 			if ( isset( $_POST[ $this->unique ] ) ) {
