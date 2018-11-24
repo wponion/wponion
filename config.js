@@ -24,6 +24,11 @@ $_json[ 'scss' ]         = {
 		concat: 'wponion-fresh-theme.css',
 		dist: 'templates/fresh/assets/'
 	},
+	"src/scss/themes/modern/wponion-modern-theme.scss": {
+		sourcemap: false,
+		concat: "wponion-modern-theme.css",
+		dist: 'templates/modern/assets/',
+	},
 
 	/**
 	 * Plugins
