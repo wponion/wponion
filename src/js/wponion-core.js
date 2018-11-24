@@ -55,7 +55,26 @@ window.wponion_fields         = {
 	content: require( './fields/content' ).default,
 	backup: require( './fields/backup' ).default,
 };
+window.wponion_notice         = ( $elem ) => {
+	if( $elem.find( '.wponion-remove' ).length > 0 ) {
+		$elem.find( '.wponion-remove' ).on( 'click', function() {
+			$elem.slideUp( 'slow', function() {
+				$elem.remove();
+			} );
+		} );
+		return $elem;
+	}
 
+	let $auto = $elem.attr( 'data-autoclose' );
+	if( $auto ) {
+		$auto = parseInt( $auto );
+		setTimeout( () => {
+			$elem.slideUp( 'slow', () => {
+				$elem.remove();
+			} );
+		}, $auto );
+	}
+};
 
 module.exports = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;

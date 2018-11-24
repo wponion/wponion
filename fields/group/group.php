@@ -140,12 +140,16 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 		 * @return array
 		 */
 		protected function js_field_args() {
+			$error_notice = $this->handle_args( 'content', $this->data( 'error_msg' ), array(
+				'type' => 'notice_danger',
+			), array( 'only_field' => true ) );
+
 			return array(
 				'default_heading'        => __( 'Group #[count]' ),
 				'heading_counter'        => strpos( $this->data( 'heading' ), '[count]' ),
 				'heading'                => $this->data( 'heading' ),
 				'limit'                  => $this->data( 'limit' ),
-				'error_msg'              => $this->data( 'error_msg' ),
+				'error_msg'              => wponion_add_element( $error_notice, false, false ),
 				'remove_button_title'    => $this->data( 'remove_button_title' ),
 				'matched_heading_fields' => $this->get_accordion_title( array(), $this->data( 'heading' ), true ),
 			);

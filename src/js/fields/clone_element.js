@@ -29,22 +29,13 @@ export default class extends WPOnion_Field {
 			templateAfterRender: ( $e ) => wponion_field( $e.find( '> div.wponion-field-clone:last-child' ) ).reload(),
 			sortable: $sort,
 			onLimitReached: function() {
-				/*if( $is_toast === true ) {
-					// @todo Add Toast Option.
-					/!*wpo.tost( {
-						type: "error",
-						title: $eror_msg,
-					} );*!/
-				} else {*/
-				let $html = jQuery( '<div class="alert alert-warning" role="alert">' + $eror_msg + '</div>' )
-					.hide();
-				$add_btn.parent().find( 'div.alert' ).remove();
-				$add_btn.parent().prepend( $html );
-				$add_btn.parent().find( 'div.alert' ).fadeIn( function() {
-					let $__E = jQuery( this );
-					setTimeout( () => $__E.fadeOut( 'slow', () => $__E.remove() ), 1000 );
-				} );
-				//}
+				if( $add_btn.parent().find( 'div.alert' ).length > 0 ) {
+
+				} else {
+					$add_btn.parent().prepend( jQuery( $eror_msg ).hide() );
+					$add_btn.parent().find( 'div.alert' ).slideDown();
+					wponion_notice( $add_btn.parent().find( 'div.alert' ) );
+				}
 			},
 			show_animation: $arg.animations.show,
 			hide_animation: $arg.animations.hide,

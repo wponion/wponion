@@ -29,7 +29,9 @@ export default class extends WPOnion_Field {
 			remove_btn: '.wponion-group-action > button',
 			template: this.option( 'group_template' ),
 			onRemove: ( $elem ) => {
-				$elem.parent().parent().parent().remove();
+				$elem.parent().parent().parent().slideUp( function() {
+					jQuery( this ).remove();
+				} );
 				if( jQuery( 'body' ).find( 'link#editor-buttons-css' ).length === 0 ) {
 					jQuery( 'body' )
 						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + $wponion.option( 'wpeditor_buttons_css', false ) + '" type="text/css" media="all">' );
@@ -38,6 +40,7 @@ export default class extends WPOnion_Field {
 			},
 			templateAfterRender: ( $wrap, $limit ) => {
 				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
+				$data.hide();
 				this.update_groups_title();
 				this.bind_events_for_title();
 				this.init_field( $group_wrap, 'accordion' );
@@ -46,6 +49,7 @@ export default class extends WPOnion_Field {
 				wponion_field( $data ).reload();
 				new WPOnion_Dependency( $group_wrap.find( '> .wponion-accordion-wrap:last-child' ), { nestable: true } );
 				this.init_field( $data.find( '.wponion-element-wp_editor' ), 'reload_wp_editor' );
+				$data.slideDown();
 			},
 			sortable: {
 				items: '.wponion-accordion-wrap',
@@ -61,17 +65,13 @@ export default class extends WPOnion_Field {
 
 			},
 			onLimitReached: function() {
-				let $html = jQuery( '<div class="alert alert-warning" role="alert">' + $error_msg + '</div>' ).hide();
-				$add.parent().find( 'div.alert' ).remove();
-				$add.before( $html );
-				$add.parent().find( 'div.alert' ).fadeIn( function() {
-					let $__E = jQuery( this );
-					setTimeout( function() {
-						$__E.fadeOut( 'slow', function() {
-							$__E.remove();
-						} );
-					}, 1000 );
-				} );
+				if( $add.parent().find( 'div.alert' ).length > 0 ) {
+
+				} else {
+					$add.before( jQuery( $error_msg ).hide() );
+					$add.parent().find( 'div.alert' ).slideDown();
+					wponion_notice( $add.parent().find( 'div.alert' ) );
+				}
 			}
 		} );
 	}

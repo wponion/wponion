@@ -176,6 +176,11 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s' ), $data['clone']['limit'] );
 			}
 
+			$data['clone']['error_msg'] = $this->handle_args( 'content', $data['clone']['error_msg'], array(
+				'type' => 'notice_danger',
+			), array( 'only_field' => true ) );
+			$data['clone']['error_msg'] = wponion_add_element( $data['clone']['error_msg'], false, false );
+
 			if ( true === $data['clone']['sort'] ) {
 				$data['clone']['sort'] = 'dashicons dashicons-menu';
 			}

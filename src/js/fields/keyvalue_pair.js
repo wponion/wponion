@@ -19,18 +19,13 @@ export default class extends WPOnion_Field {
 				this.hook.doAction( 'wponion_key_value_updated', $elem );
 			},
 			onLimitReached: () => {
-				let $html = jQuery( '<div class="alert alert-warning" role="alert">' + this.option( 'error_msg' ) + '</div>' )
-					.hide();
-				this.element.find( '.wponion-keyvalue_wrap' ).find( 'div.alert' ).remove();
-				this.element.find( '.wponion-keyvalue_wrap' ).after( $html );
-				this.element.find( 'div.alert' ).fadeIn( function() {
-					let $__E = jQuery( this );
-					setTimeout( function() {
-						$__E.fadeOut( 'slow', function() {
-							$__E.remove();
-						} );
-					}, 1000 );
-				} );
+				if( this.element.find( 'div.alert' ).length > 0 ) {
+
+				} else {
+					this.element.find( '.wponion-keyvalue_wrap' ).after( jQuery( this.option( 'error_msg' ) ).hide() );
+					this.element.find( 'div.alert' ).slideDown();
+					wponion_notice( this.element.find( 'div.alert' ) );
+				}
 			}
 		} );
 	}

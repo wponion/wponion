@@ -42,8 +42,12 @@ if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 		 */
 		public function output() {
 			echo $this->before();
-			echo '<div class="alert alert-' . $this->data( 'notice_type' ) . '">';
+			$auto_close = ( false === $this->data( 'autoclose' ) ) ? '' : ' data-autoclose="' . intval( $this->data( 'autoclose' ) ) . '" ';
+			echo '<div class="alert alert-' . $this->data( 'notice_type' ) . '" ' . $auto_close . '>';
 			echo $this->data( 'content' );
+			if ( true === $this->data( 'close' ) && false === $this->data( 'autoclose' ) ) {
+				echo '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide' ) . '"></a>';
+			}
 			echo '</div>';
 			echo $this->after();
 		}
@@ -54,7 +58,11 @@ if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 		 * @return mixed;
 		 */
 		protected function field_default() {
-			return $this->parse_args( array( 'notice_type' => $this->notice_type ), parent::field_default() );
+			return $this->parse_args( array(
+				'notice_type' => $this->notice_type,
+				'autoclose'   => false,
+				'close'       => true,
+			), parent::field_default() );
 		}
 	}
 }

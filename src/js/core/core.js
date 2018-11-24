@@ -294,6 +294,5 @@ export default class WPOnion {
 			} );
 		} );
 	}
-
 	//@todo Migrate Plugin Debug Info.
 }
