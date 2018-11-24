@@ -102,6 +102,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		protected function defaults() {
 			return array(
+				'network'           => false,
 				'submenu'           => false,
 				'menu_title'        => false,
 				'page_title'        => false,
@@ -276,10 +277,21 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		public function init() {
 			if ( ! empty( $this->option( 'menu_title' ) ) ) {
-				if ( ! did_action( 'admin_menu' ) ) {
-					$this->add_action( 'admin_menu', 'add_menu', $this->hook_priority() );
-				} else {
-					$this->add_menu();
+
+				if ( false !== $this->option( 'network' ) ) {
+					if ( ! did_action( 'network_admin_menu' ) ) {
+						$this->add_action( 'network_admin_menu', 'add_menu', $this->hook_priority() );
+					} else {
+						$this->add_menu();
+					}
+				}
+
+				if ( 'only' !== $this->option( 'network' ) ) {
+					if ( ! did_action( 'admin_menu' ) ) {
+						$this->add_action( 'admin_menu', 'add_menu', $this->hook_priority() );
+					} else {
+						$this->add_menu();
+					}
 				}
 			}
 		}

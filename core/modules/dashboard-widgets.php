@@ -62,7 +62,14 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 * @return mixed
 		 */
 		public function on_init() {
-			$this->add_action( 'wp_dashboard_setup', 'register_dashboard_widgets' );
+			if ( 'only' === $this->option( 'network' ) || true === $this->option( 'network' ) ) {
+				$this->add_action( 'wp_network_dashboard_setup', 'register_dashboard_widgets' );
+			}
+
+			if ( false === $this->option( 'network' ) || true === $this->option( 'network' ) ) {
+				$this->add_action( 'wp_dashboard_setup', 'register_dashboard_widgets' );
+			}
+
 			$this->add_action( 'load-index.php', 'on_page_load' );
 			$this->add_action( 'admin_print_scripts-index.php', 'load_assets' );
 		}
@@ -185,7 +192,7 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 */
 		public function set_db_values( $values ) {
 			$this->db_values = $values;
-			update_option( $this->unique(), $values );
+			wponion_update_option( $this->unique(), $values );
 			return $this;
 		}
 
@@ -196,7 +203,7 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		 */
 		protected function get_db_values() {
 			if ( empty( $this->db_values ) ) {
-				$this->db_values = get_option( $this->unique(), true );
+				$this->db_values = wponion_get_option( $this->unique(), true );
 				if ( ! is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
@@ -212,6 +219,7 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 				'widget_id'   => false,
 				'widget_name' => false,
 				'callback'    => false,
+				'network'     => false,
 			) );
 		}
 	}
