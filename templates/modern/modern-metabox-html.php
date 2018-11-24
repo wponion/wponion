@@ -4,35 +4,36 @@ $menus    = $settings->metabox_menus();
 $active   = $settings->active_page();
 $return   = '';
 ?>
-<div class="<?php echo $settings->wrap_class( '', true ); ?>">
-	<div class="wponion-modern-metabox-container">
-		<div class="wponion-modern-metabox-tabs">
-			<ul>
-				<?php
-				foreach ( $menus as $slug => $menu ) {
-					if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
-						continue;
-					}
-
-
-					if ( isset( $menu['submenu'] ) && false !== $menu['submenu'] ) {
-						echo '<li>' . $this->metabox_menu_html( $menu ) . '<ul>';
-
-						foreach ( $menu['submenu'] as $submenu ) {
-							echo '<li>';
-							echo $this->metabox_menu_html( $submenu, $menu['name'] );
-							echo '</li>';
-						}
-						echo '</ul></li>';
-					} else {
-						echo '<li>' . $this->metabox_menu_html( $menu ) . '</li>';
-					}
+<div class="<?php echo $settings->wrap_class( ' wponion-modern-theme-layouts ', true ); ?>">
+	<div class="wponion-metabox-inside-wrap">
+		<?php
+		if ( is_array( $menus ) && ! empty( $menus ) && count( $menus ) > 1 ) {
+			$return = '<div class="menu-wrap"><ul class="meta-menu wponion-metabox-parent-menu">';
+			foreach ( $menus as $slug => $menu ) {
+				if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
+					continue;
 				}
+				$return .= '<li>';
 
-				?>
-			</ul>
-		</div>
-		<div class="wponion-metabox-content-wrap">
+				if ( isset( $menu['submenu'] ) && false !== $menu['submenu'] ) {
+					$ex_class                    = ( isset( $menu['attributes']['class'] ) ) ? $menu['attributes']['class'] : '';
+					$menu['attributes']['class'] = $ex_class . ' ' . 'dropdown';
+					$is_active                   = ( $active['parent_id'] === $menu['name'] ) ? 'style="display:block;"' : '';
+					$return                      = $return . ' ' . $this->metabox_menu_html( $menu ) . '<ul class="meta-submenu" ' . $is_active . '>';
+					foreach ( $menu['submenu'] as $_m ) {
+						$return .= '<li>' . $this->metabox_menu_html( $_m, $menu['name'] ) . '</li>';
+					}
+					$return .= '</ul>';
+				} else {
+					$return .= $this->metabox_menu_html( $menu );
+				}
+				$return .= '</li>';
+			}
+			$return .= '</ul> <div class="menu-bg-wrap"></div> </div>';
+		}
+		echo $return;
+		?>
+		<div class="wponion-metabox-content-wrap content-wrap">
 			<?php
 			foreach ( $settings->fields() as $option ) {
 				if ( false === $settings->valid_field( $option ) && true === $settings->valid_option( $option ) ) {

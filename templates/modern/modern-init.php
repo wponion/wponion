@@ -66,7 +66,11 @@ if ( ! class_exists( 'WPOnion_Modern_Theme' ) ) {
 			) );
 			$attr['data-wponion-id'] = ( ! empty( $parent_name ) ) ? 'wponion_menu_' . $parent_name . '_' . $menu['name'] : 'wponion_menu_' . $menu['name'];
 			$attr                    = wponion_array_to_html_attributes( $attr );
-			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . '<span>' . $page_title . '</span>' . '</a>';
+			$dropdown                = '';
+			if ( isset( $menu['submenu'] ) && ! empty( $menu['submenu'] ) ) {
+				$dropdown = $this->get_submenu_indicator( ( isset( $menu['is_active'] ) && true === $menu['is_active'] ) );
+			}
+			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . '<span>' . $page_title . '</span> ' . $dropdown . '</a>';
 		}
 
 		/**
