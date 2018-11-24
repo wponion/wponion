@@ -526,11 +526,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * Returns all common HTML wrap class.
+		 * Returns All Common Wrap Class.
 		 *
 		 * @param string $extra_class
+		 * @param bool   $is_bootstrap
+		 *
+		 * @return string
 		 */
-		public function wrap_class( $extra_class = '' ) {
+		public function wrap_class( $extra_class = '', $is_bootstrap = false ) {
+			return esc_attr( wponion_html_class( $extra_class, $this->default_wrap_class( $is_bootstrap ) ) );
 		}
 
 		/**
