@@ -201,3 +201,15 @@ if ( ! function_exists( 'wponion_admin_bar' ) ) {
 		return new \WPOnion\Modules\Admin_Bar( $admin_bar_menus );
 	}
 }
+
+if ( ! function_exists( 'wponion_nav_menu' ) ) {
+	/**
+	 * @param array $settings
+	 * @param array $fields
+	 *
+	 * @return \WPOnion\Modules\Nav_Menu
+	 */
+	function wponion_nav_menu( $settings = array(), $fields = array() ) {
+		return new \WPOnion\Modules\Nav_Menu( $settings, $fields );
+	}
+}
