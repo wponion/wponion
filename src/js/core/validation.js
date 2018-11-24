@@ -32,9 +32,15 @@ export default class WPOnion_Validator {
 			return jQuery( 'form#your-profile' );
 		}
 
+		if( jQuery( 'form#update-nav-menu' ).length > 0 ) {
+			return jQuery( 'form#update-nav-menu' );
+		}
+
 		if( jQuery( 'form#post' ).length > 0 && jQuery( 'input#post_ID' ).length > 0 && jQuery( 'input#original_publish' ).length > 0 ) {
 			return jQuery( 'form#post' );
 		}
+
+
 		return ( jQuery( 'form.wponion-form' ).length > 0 ) ? jQuery( 'form.wponion-form' ) : false;
 	}
 }

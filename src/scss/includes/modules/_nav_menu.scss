@@ -1,0 +1,10 @@
+.wponion-framework.wponion-module-nav_menu-framework {
+	display:     inline-block;
+	width:       100%;
+	margin-left: -10px;
+	> .wponion-element {
+		padding-left:  10px;
+		padding-right: 0;
+		@include wponion_field_horizontal();
+	}
+}

@@ -98,6 +98,11 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			new WPOnion_Dependency( $widget );
 		} );
 
+		$( document ).on( 'menu-item-added', function( event, $menu ) {
+			wponion_field( $menu ).reload();
+			new WPOnion_Dependency( $menu );
+		} );
+
 		if( $wpof_div.length > 0 ) {
 			/**
 			 * Renders Validation.
