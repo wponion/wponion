@@ -2,14 +2,8 @@ class WPOnion_Fresh_Theme {
 	constructor( $elem ) {
 		this.element = $elem;
 
-		if( this.element.hasClass( 'wponion-submenu-single-page' ) ) {
-			this.init_submenu();
-		}
-
-		if( this.element.hasClass( 'wponion-single-page' ) ) {
-			this.init_submenu();
-			this.init_main_menu();
-		}
+		this.init_submenu();
+		this.init_main_menu();
 	}
 
 	init_main_menu() {
@@ -26,10 +20,14 @@ class WPOnion_Fresh_Theme {
 					let $parent      = 'wponion-tab-' + $href[ 'parent-id' ];
 					let $all_actives = this.element.find( 'div.wponion-parent-wraps' );
 					let $current     = this.element.find( 'div#' + $parent );
-					$all_actives.hide();
-					$current.show();
-					$elem.parent().parent().find( 'a.active:not(ul.meta-submenu li a)' ).removeClass( 'active' );
-					$elem.addClass( 'active' );
+					if( $current.length > 0 ) {
+						$all_actives.hide();
+						$current.show();
+						$elem.parent().parent().find( 'a.active:not(ul.meta-submenu li a)' ).removeClass( 'active' );
+						$elem.addClass( 'active' );
+					} else {
+						window.location.href = $elem.attr( 'href' );
+					}
 				} else {
 					window.location.href = $elem.attr( 'href' );
 				}
@@ -48,15 +46,20 @@ class WPOnion_Fresh_Theme {
 					$section     = $parent + '-' + $href[ 'section-id' ],
 					$all_actives = this.element.find( 'div#' + $parent + ' div.wponion-section-wraps' ),
 					$current     = this.element.find( 'div#' + $parent + ' div#' + $section );
-				$all_actives.hide();
 
-				jQuery( 'div.wponion-parent-wraps' ).hide();
-				jQuery( 'div#' + $parent ).show();
+				if( $current.length > 0 ) {
+					$all_actives.hide();
 
-				$current.show();
-				this.element.find( '.wpo-ftnav  a' ).removeClass( 'active' );
-				$elem.parent().parent().parent().find( '> a' ).addClass( 'active' );
-				$elem.addClass( 'active' );
+					jQuery( 'div.wponion-parent-wraps' ).hide();
+					jQuery( 'div#' + $parent ).show();
+
+					$current.show();
+					this.element.find( '.wpo-ftnav  a' ).removeClass( 'active' );
+					$elem.parent().parent().parent().find( '> a' ).addClass( 'active' );
+					$elem.addClass( 'active' );
+				} else {
+					window.location.href = $elem.attr( 'href' );
+				}
 			} else {
 				window.location.href = $elem.attr( 'href' );
 			}
