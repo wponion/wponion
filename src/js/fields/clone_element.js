@@ -38,6 +38,7 @@ export default class extends WPOnion_Field {
 				} else {*/
 				let $html = jQuery( '<div class="alert alert-warning" role="alert">' + $eror_msg + '</div>' )
 					.hide();
+				$add_btn.parent().find( 'div.alert' ).remove();
 				$add_btn.parent().prepend( $html );
 				$add_btn.parent().find( 'div.alert' ).fadeIn( function() {
 					let $__E = jQuery( this );

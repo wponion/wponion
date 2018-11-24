@@ -79,7 +79,8 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 			$this->get_first_field();
 			$this->loop_count = 0;
 			$default_title    = $this->data( 'heading' );
-			echo '<div class="wponion-group-wrap" data-wponion-clone-count="' . count( $this->value ) . '">';
+			$count            = ( empty( $this->value ) ) ? 0 : count( $this->value );
+			echo '<div class="wponion-group-wrap" data-wponion-clone-count="' . $count . '">';
 			if ( is_array( $this->value ) ) {
 				foreach ( $this->value as $i => $value ) {
 					$this->loop_count       = $this->loop_count + 1;
@@ -140,6 +141,7 @@ if ( ! class_exists( '\WPOnion\Field\group' ) ) {
 		 */
 		protected function js_field_args() {
 			return array(
+				'default_heading'        => __( 'Group #[count]' ),
 				'heading_counter'        => strpos( $this->data( 'heading' ), '[count]' ),
 				'heading'                => $this->data( 'heading' ),
 				'limit'                  => $this->data( 'limit' ),

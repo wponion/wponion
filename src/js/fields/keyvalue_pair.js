@@ -21,6 +21,7 @@ export default class extends WPOnion_Field {
 			onLimitReached: () => {
 				let $html = jQuery( '<div class="alert alert-warning" role="alert">' + this.option( 'error_msg' ) + '</div>' )
 					.hide();
+				this.element.find( '.wponion-keyvalue_wrap' ).find( 'div.alert' ).remove();
 				this.element.find( '.wponion-keyvalue_wrap' ).after( $html );
 				this.element.find( 'div.alert' ).fadeIn( function() {
 					let $__E = jQuery( this );

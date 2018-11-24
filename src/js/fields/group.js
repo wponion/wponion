@@ -62,6 +62,7 @@ export default class extends WPOnion_Field {
 			},
 			onLimitReached: function() {
 				let $html = jQuery( '<div class="alert alert-warning" role="alert">' + $error_msg + '</div>' ).hide();
+				$add.parent().find( 'div.alert' ).remove();
 				$add.before( $html );
 				$add.parent().find( 'div.alert' ).fadeIn( function() {
 					let $__E = jQuery( this );
@@ -107,6 +108,10 @@ export default class extends WPOnion_Field {
 				if( $elem.length > 0 ) {
 					$heading = $wponion_helper.str_replace( $mached[ $key ], $elem.val(), $heading );
 				}
+			}
+
+			if( $heading === '' ) {
+				$heading = $wponion_helper.str_replace( '[count]', $limit, this.option( 'default_heading' ) );
 			}
 
 			$data.find( '> .wponion-accordion-title span.heading' ).html( $heading );
