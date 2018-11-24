@@ -141,9 +141,17 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 				$value        = $this->get_value( $gptitle );
 				$dep_id       = $gptitle . '_' . $options['key'];
 			} elseif ( 'single' === $in_group ) {
-				$attr['name']  = $this->name();
-				$attr['value'] = $options['key'];
-				$dep_id        = $options['key'];
+				$attr['name'] = $this->name();
+				$dep_id       = false;
+				if ( 'switcher' === $this->element_type() ) {
+					$attr['value'] = true;
+				} elseif ( 'checkbox' === $this->element_type() && empty( $this->data( 'options' ) ) ) {
+					$attr['value'] = ( $this->data( 'id' ) !== $options['key'] ) ? $options['key'] : true;
+				} else {
+					$dep_id        = $options['key'];
+					$attr['value'] = $options['key'];
+				}
+
 			} else {
 				$is_checkbox  = ( 'radio' !== $this->element_type() ) ? '[]' : '';
 				$attr['name'] = $this->name( $is_checkbox );
