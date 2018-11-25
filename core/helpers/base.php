@@ -542,9 +542,6 @@ require_once WPONION_PATH . 'core/helpers/sanitize.php';
 // WPOnion Module Related Functions
 require_once WPONION_PATH . 'core/helpers/module.php';
 
-// WPOnion Module Values Related Functions
-require_once WPONION_PATH . 'core/helpers/values.php';
-
 // WPOnion Module Related Functions
 require_once WPONION_PATH . 'core/helpers/validator.php';
 
