@@ -336,7 +336,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			$this->init_theme();
 			$this->_action( 'page_onload' );
-			$this->init_fields();
+			//$this->init_fields();
 		}
 
 		/**
@@ -544,8 +544,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'plugin_id'     => false,
 				'theme'         => 'wp',
 				'template_path' => false,
-
-				'save_button' => __( 'Save Settings' ),/*
+				'save_button'   => __( 'Save Settings' ),
+				/*
 				'buttons'     => array(
 					'save'    => __( 'Save Settings' ),
 					'restore' => false, #__( 'Restore' )
@@ -575,7 +575,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		public function wrap_class( $extra_class = '') {
+		public function wrap_class( $extra_class = '' ) {
 			$class   = array();
 			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
 			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
@@ -588,7 +588,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				}
 			}
 
-			return parent::wrap_class( wponion_html_class( $extra_class, array_filter( $class ) ));
+			return parent::wrap_class( wponion_html_class( $extra_class, array_filter( $class ) ) );
 		}
 
 		/**
