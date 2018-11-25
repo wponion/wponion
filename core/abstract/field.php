@@ -133,7 +133,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->field          = $this->_handle_field_args( $this->set_args( $field ) );
 			$this->value          = $value;
 
-			if ( is_string( $unique ) ) {
+			if ( ! is_array( $unique ) ) {
 				$this->unique    = $unique;
 				$this->plugin_id = false;
 				$this->module    = false;
