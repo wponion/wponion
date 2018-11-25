@@ -223,7 +223,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 */
 		public static function get_currency_symbol() {
 			if ( false === self::has_cache( 'currency_symbol' ) ) {
-				$data = self::get_data( 'currency_symbol' );
+				$data = self::get_data( 'currency' );
 				if ( isset( $data['symbol'] ) ) {
 					self::set_cache( 'currency_symbol', $data['symbol'] );
 				}
