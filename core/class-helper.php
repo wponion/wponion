@@ -27,7 +27,19 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 	 * @since 1.0
 	 */
 	class Helper {
+		/**
+		 * gfonts
+		 *
+		 * @var array
+		 */
 		protected static $gfonts = array();
+
+		/**
+		 * Stores Cache.
+		 *
+		 * @var array
+		 */
+		protected static $cache = array();
 
 		/**
 		 * Gets And Returns File information.
@@ -120,6 +132,103 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 				self::$gfonts = self::get_data( 'google_fonts' );
 			}
 			return self::$gfonts;
+		}
+
+		/**
+		 * Retrives Cache Data.
+		 *
+		 * @param bool $key
+		 * @param bool $default
+		 *
+		 * @return bool|mixed
+		 * @static
+		 */
+		public static function get_cache( $key = false, $default = false ) {
+			if ( isset( self::$cache[ $key ] ) ) {
+				return self::$cache[ $key ];
+			}
+			return $default;
+		}
+
+		/**
+		 * Stores Cache.
+		 *
+		 * @param bool $key
+		 * @param bool $data
+		 *
+		 * @static
+		 */
+		public static function set_cache( $key = false, $data = false ) {
+			self::$cache[ $key ] = $data;
+		}
+
+		/**
+		 * Checks If Cache Exists.
+		 *
+		 * @param $key
+		 *
+		 * @return bool
+		 * @static
+		 */
+		public static function has_cache( $key ) {
+			return ( isset( self::$cache[ $key ] ) );
+		}
+
+		/**
+		 * Returns A List Of Post Types.
+		 *
+		 * @return array
+		 * @static
+		 */
+		public static function get_post_types() {
+			if ( false === self::has_cache( 'post_types' ) ) {
+				$options    = array();
+				$post_types = get_post_types( array( 'show_in_nav_menus' => true ) );
+				if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
+					foreach ( $post_types as $post_type ) {
+						$options [ $post_type ] = ucfirst( $post_type );
+					}
+				}
+				self::set_cache( 'post_types', $options );
+			}
+			return self::get_cache( 'post_types', array() );
+		}
+
+		/**
+		 * Returns Full Currency List.
+		 *
+		 * @return array
+		 * @static
+		 */
+		public static function get_currency() {
+			if ( false === self::has_cache( 'currency' ) ) {
+				$data = self::get_data( 'currency' );
+				if ( isset( $data['currency'] ) && ! empty( $data['currency'] ) ) {
+					foreach ( $data['currency'] as $key => $val ) {
+						if ( isset( $data['symbol'][ $key ] ) ) {
+							$data['currency'][ $key ] = $data['currency'][ $key ] . ' ( ' . $data['symbol'][ $key ] . ' ) ';
+						}
+					}
+					self::set_cache( 'currency', $data['currency'] );
+				}
+			}
+			return self::get_cache( 'currency', array() );
+		}
+
+		/**
+		 * Returns Currency Symbol.
+		 *
+		 * @return array
+		 * @static
+		 */
+		public static function get_currency_symbol() {
+			if ( false === self::has_cache( 'currency_symbol' ) ) {
+				$data = self::get_data( 'currency_symbol' );
+				if ( isset( $data['symbol'] ) ) {
+					self::set_cache( 'currency_symbol', $data['symbol'] );
+				}
+			}
+			return self::get_cache( 'currency_symbol', array() );
 		}
 	}
 }
