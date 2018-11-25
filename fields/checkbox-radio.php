@@ -45,7 +45,6 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 			return array(
 				'options' => array(),
 				'label'   => false,
-				'pretty'  => false,
 			);
 		}
 
@@ -193,35 +192,6 @@ if ( ! class_exists( '\WPOnion\Field\checkbox_radio' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			if ( false !== $this->data( 'pretty' ) || false !== $options['pretty'] ) {
-				if ( false !== $this->data( 'pretty' ) && is_array( $options['pretty'] ) ) {
-					$pretty = $this->handle_args( 'class', $this->data( 'pretty' ), array(
-						'state' => '',
-						'class' => '',
-					) );
-
-					$pretty['state'] = $pretty['state'] . ' ' . $options['pretty']['state'];
-					$pretty['class'] = $pretty['class'] . ' ' . $options['pretty']['class'];
-				} elseif ( is_array( $options['pretty'] ) ) {
-					$pretty = $options['pretty'];
-				} else {
-					$pretty = $this->handle_args( 'class', $this->data( 'pretty' ), array(
-						'state' => '',
-						'class' => '',
-					) );
-				}
-
-				$wrap_class  = wponion_html_class( $pretty['class'], array( 'pretty' ) );
-				$state_class = wponion_html_class( $pretty['state'], array( 'state' ) );
-				$checkbox    = '<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . ' >';
-				$label       = $options['label'];
-				return <<<HTML
-<div class="{$wrap_class}"> {$checkbox} <div class="{$state_class}"> <label>{$label}</label> </div> </div>
-HTML;
-
-			}
-
-
 			return '<div class=" form-group form-check ">
 				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
 					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />' . $options['label'] . '

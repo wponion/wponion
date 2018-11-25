@@ -976,7 +976,6 @@ PHP;
 				'attributes'   => array(),
 				'disabled'     => false,
 				'tooltip'      => false,
-				'pretty'       => false,
 				'custom_input' => false,
 			) );
 
@@ -989,13 +988,6 @@ PHP;
 				if ( false !== $value['tooltip'] ) {
 					$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
 					$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'placement' => 'right' ), false );
-				}
-
-				if ( false !== $value['pretty'] ) {
-					$value['pretty'] = $this->handle_args( 'class', $value['pretty'], array(
-						'class' => '',
-						'state' => '',
-					) );
 				}
 
 				if ( true === $value['disabled'] ) {
