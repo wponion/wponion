@@ -116,6 +116,21 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 		return wponion_get_registry_instance( 'settings', $instance, 'settings' );
 	}
 }
+/**
+ * Modules Registry
+ */
+if ( ! function_exists( 'wponion_network_settings_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for settings module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool|mixed|\WPOnion\Modules\Settings
+	 */
+	function wponion_network_settings_registry( &$instance ) {
+		return wponion_get_registry_instance( 'network_settings', $instance, 'settings' );
+	}
+}
 
 if ( ! function_exists( 'wponion_metabox_registry' ) ) {
 	/**
@@ -286,6 +301,16 @@ if ( ! function_exists( 'wponion_bulk_edit_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_nav_menu_registry' ) ) {
+	/**
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_nav_menu_registry( &$instance ) {
+		return wponion_get_registry_instance( 'nav_menu', $instance, 'settings' );
+	}
+}
 
 /**
  * Core / Theme Registry

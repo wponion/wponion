@@ -339,8 +339,10 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 				$user_val = $this->user_options( $field );
 
 				$this->save_value( $this->handle_field( $field, $user_val, $db_val ), $field );
-				if ( isset( $field['fields'] ) ) {
-					$this->nested_field_loop( $field );
+				if ( ! in_array( $field['type'], array( 'group' ) ) ) {
+					if ( isset( $field['fields'] ) ) {
+						$this->nested_field_loop( $field );
+					}
 				}
 			}
 		}
@@ -365,13 +367,19 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 
 					$_field['error_id'] = sanitize_key( $this->unique . $field['id'] . '' . $_field['id'] );
 					$db_val             = $this->db_options( $parent_field );
-					//$user_val           = ( true === $this->retain_value ) ? $this->user_options( $parent_field, false, $db_val ) : $this->user_options( $parent_field );
-					$user_val = $this->user_options( $parent_field );
+					$user_val           = $this->user_options( $parent_field );
+					$_user_val          = ( isset( $user_val[ $_field['id'] ] ) ) ? $user_val[ $_field['id'] ] : $user_val;
+					$_db_val            = ( isset( $db_val[ $_field['id'] ] ) ) ? $db_val[ $_field['id'] ] : $db_val;
+					$value              = $this->handle_field( $_field, $_user_val, $_db_val );
 
-					$this->save_value( $this->handle_field( $_field, $user_val, $db_val ), $parent_field );
+					$user_val[ $_field['id'] ] = $value;
 
-					if ( isset( $_field['fields'] ) ) {
-						$this->nested_field_loop( $_field );
+					$this->save_value( $user_val, $parent_field );
+
+					if ( ! in_array( $_field['type'], array( 'group' ) ) ) {
+						if ( isset( $_field['fields'] ) ) {
+							$this->nested_field_loop( $_field );
+						}
 					}
 				}
 			}

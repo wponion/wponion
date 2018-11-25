@@ -156,8 +156,8 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		public function handle_field_args( $data = array() ) {
 			$defaults = array(
 				'animations'    => array(
-					'show' => 'zoomIn animated faster',
-					'hide' => 'zoomOut animated faster',
+					'show' => false,
+					'hide' => false,
 				),
 				'sort'          => true,
 				'toast_error'   => false,
@@ -175,6 +175,11 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			if ( null === $data['clone']['error_msg'] ) {
 				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s' ), $data['clone']['limit'] );
 			}
+
+			$data['clone']['error_msg'] = $this->handle_args( 'content', $data['clone']['error_msg'], array(
+				'type' => 'notice_danger',
+			), array( 'only_field' => true ) );
+			$data['clone']['error_msg'] = wponion_add_element( $data['clone']['error_msg'], false, false );
 
 			if ( true === $data['clone']['sort'] ) {
 				$data['clone']['sort'] = 'dashicons dashicons-menu';

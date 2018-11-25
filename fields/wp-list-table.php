@@ -22,7 +22,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 	class WP_List_Table extends \WPOnion\Field {
 
 		protected function output() {
-			$this->before();
+			echo $this->before();
 			echo '<div class="wponion-inner-wp-list-table">';
 			$instance = new \WPOnion\WP_List_Table( $this->data( 'settings' ), $this->data( 'data' ) );
 			$instance->prepare_items();
@@ -30,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 			$instance->search_box( __( 'Search' ), 'search' );
 			$instance->display();
 			echo '</div>';
-			$this->after();
+			echo $this->after();
 		}
 
 		protected function field_default() {

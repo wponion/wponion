@@ -3,19 +3,23 @@ $settings = $this->metabox();
 $menus    = $settings->metabox_menus();
 $active   = $settings->active_page();
 $return   = '';
+
+if ( ! empty( $settings->option( 'theme_color' ) ) && 'false' !== $settings->option( 'theme_color' ) ) {
+	echo '<style>';
+	echo '#' . $settings->metabox_id() . ' ';
+	echo ' ul.wponion-metabox-parent-menu > li > a.active ';
+	echo ' , ';
+	echo '#' . $settings->metabox_id() . ' ';
+	echo ' ul.wponion-metabox-parent-menu > li:hover > a ';
+	echo '{background:' . $settings->option( 'theme_color' ) . '}';
+	echo '</style>';
+}
 ?>
-<style>
-	<?php
-	echo '#' . $settings->metabox_id() . ' ul.wponion-metabox-parent-menu > li > a.active, #'. $settings->metabox_id() .' ul.wponion-metabox-parent-menu > li:hover > a{
-			background: '.$settings->option('theme_color').';
-		}';
-	?>
-</style>
-<div class="<?php echo $settings->wrap_class( ); ?>">
+<div class="<?php echo $settings->wrap_class( ' wponion-fresh-theme-layouts ' ); ?>">
 	<div class="wponion-metabox-inside-wrap">
 		<?php
 		if ( is_array( $menus ) && ! empty( $menus ) && count( $menus ) > 1 ) {
-			$return = '<div class="wponion-metabox-menu-wrap"><ul class="meta-menu wponion-metabox-parent-menu">';
+			$return = '<div class="menu-wrap"><ul class="meta-menu wponion-metabox-parent-menu">';
 			foreach ( $menus as $slug => $menu ) {
 				if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
 					continue;
@@ -36,11 +40,11 @@ $return   = '';
 				}
 				$return .= '</li>';
 			}
-			$return .= '</ul> <div class="wponion-metabox-menu-bg-wrap"></div> </div>';
+			$return .= '</ul> <div class="menu-bg-wrap"></div> </div>';
 		}
 		echo $return;
 		?>
-		<div class="wponion-metabox-content-wrap">
+		<div class="wponion-metabox-content-wrap content-wrap">
 			<?php
 			foreach ( $settings->fields() as $option ) {
 				if ( false === $settings->valid_field( $option ) && true === $settings->valid_option( $option ) ) {

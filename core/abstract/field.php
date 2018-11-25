@@ -42,6 +42,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		public static $total_fields = 0;
 
 		/**
+		 * columns
+		 *
+		 * @var int
+		 */
+		protected $render_time = 0;
+
+		/**
 		 * orginal_field
 		 *
 		 * @var array
@@ -126,7 +133,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->field          = $this->_handle_field_args( $this->set_args( $field ) );
 			$this->value          = $value;
 
-			if ( is_string( $unique ) ) {
+			if ( ! is_array( $unique ) ) {
 				$this->unique    = $unique;
 				$this->plugin_id = false;
 				$this->module    = false;
@@ -258,11 +265,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
+			$this->debug_time();
 			if ( $this->has( 'only_field' ) ) {
 				$this->output();
 			} else {
 				$this->wrapper();
 			}
+			$this->debug( __( 'Render Time' ), $this->debug_time( true ) );
 
 			$this->debug( __( 'Raw Field Args' ), $this->orginal_field );
 			$this->debug( __( 'Field Args' ), $this->field );
@@ -271,6 +280,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->debug( __( 'Plugin ID' ), $this->plugin_id() );
 			$this->debug( __( 'Module' ), $this->module() );
 			$this->localize_field();
+		}
+
+		protected function debug_time( $is_end = false ) {
+			if ( $is_end ) {
+				return microtime( true ) - $this->render_time;
+			}
+			$this->render_time = microtime( true );
 		}
 
 		/**
@@ -485,10 +501,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data['image']   = $data['content'];
 				$data['content'] = false;
 			}
-
 			$attr = array(
-				'title' => $data['content'],
-				'class' => 'wponion-help',
+				'data-tippy' => $data['content'],
+				'class'      => 'wponion-help',
 			);
 
 			if ( false !== $localize ) {
@@ -617,7 +632,7 @@ PHP;
 					null,
 					null,
 				), $this->unique() );
-
+				$base   = empty( $base ) ? '' : $base;
 				if ( ! empty( $unique ) || ! empty( $this->data( 'id' ) ) ) {
 					$unique     = ( ! empty( $unique ) ) ? $unique . '/' . $this->data( 'id' ) : $this->data( 'id' );
 					$value_func = 'wponion_' . $this->module() . '_option';
@@ -626,7 +641,7 @@ PHP;
 					$_code      = <<<PHP
 <?php
 $instance = $value_func("$base");
- $value = \$instance->get("$unique");
+\$value = \$instance->get("$unique");
 ?>
 PHP;
 
@@ -858,11 +873,14 @@ PHP;
 			$re  = '/\w+/';
 			$str = $this->unique();
 			preg_match( $re, $str, $matches, PREG_OFFSET_CAPTURE, 0 );
-			$current = current( $matches );
-			if ( is_array( $current ) && isset( $current[0] ) ) {
-				return $current[0];
+			if ( ! empty( $matches ) ) {
+				$current = current( $matches );
+				if ( is_array( $current ) && isset( $current[0] ) ) {
+					return $current[0];
+				}
+				return $matches;
 			}
-			return $matches;
+			return false;
 		}
 
 		/**
@@ -958,7 +976,6 @@ PHP;
 				'attributes'   => array(),
 				'disabled'     => false,
 				'tooltip'      => false,
-				'pretty'       => false,
 				'custom_input' => false,
 			) );
 
@@ -970,14 +987,7 @@ PHP;
 				$value = $this->parse_args( $value, $defaults );
 				if ( false !== $value['tooltip'] ) {
 					$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
-					$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'position' => 'right' ), false );
-				}
-
-				if ( false !== $value['pretty'] ) {
-					$value['pretty'] = $this->handle_args( 'class', $value['pretty'], array(
-						'class' => '',
-						'state' => '',
-					) );
+					$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'placement' => 'right' ), false );
 				}
 
 				if ( true === $value['disabled'] ) {

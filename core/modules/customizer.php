@@ -261,12 +261,6 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		}
 
 		/**
-		 * @param string $extra_class
-		 */
-		public function wrap_class( $extra_class = '' ) {
-		}
-
-		/**
 		 * @return mixed
 		 */
 		public function on_init() {

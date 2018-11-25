@@ -28,6 +28,22 @@ if ( ! function_exists( 'wponion_settings' ) ) {
 		return new \WPOnion\Modules\Settings( $instance_id_or_args, $fields );
 	}
 }
+if ( ! function_exists( 'wponion_network_settings' ) ) {
+	/**
+	 * Returns a new instance for network settings page.
+	 *
+	 * @param array|string $instance_id_or_args
+	 * @param array        $fields
+	 *
+	 * @return bool|\WPOnion\Modules\Network_Settings
+	 */
+	function wponion_network_settings( $instance_id_or_args = array(), $fields = array() ) {
+		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
+			return wponion_settings_registry( $instance_id_or_args );
+		}
+		return new \WPOnion\Modules\Network_Settings( $instance_id_or_args, $fields );
+	}
+}
 
 if ( ! function_exists( 'wponion_metabox' ) ) {
 	/**
@@ -188,5 +204,28 @@ if ( ! function_exists( 'wponion_bulk_edit' ) ) {
 	 */
 	function wponion_bulk_edit( $settings = array(), $fields = array() ) {
 		return new \WPOnion\Modules\Bulk_Edit( $settings, $fields );
+	}
+}
+
+if ( ! function_exists( 'wponion_admin_bar' ) ) {
+	/**
+	 * @param $admin_bar_menus
+	 *
+	 * @return \WPOnion\Modules\Admin_Bar
+	 */
+	function wponion_admin_bar( $admin_bar_menus ) {
+		return new \WPOnion\Modules\Admin_Bar( $admin_bar_menus );
+	}
+}
+
+if ( ! function_exists( 'wponion_nav_menu' ) ) {
+	/**
+	 * @param array $settings
+	 * @param array $fields
+	 *
+	 * @return \WPOnion\Modules\Nav_Menu
+	 */
+	function wponion_nav_menu( $settings = array(), $fields = array() ) {
+		return new \WPOnion\Modules\Nav_Menu( $settings, $fields );
 	}
 }

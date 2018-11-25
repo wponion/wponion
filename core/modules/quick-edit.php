@@ -203,18 +203,6 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		}
 
 		/**
-		 * Returns A Proper Wrap Class.
-		 *
-		 * @param string $extra_class
-		 * @param bool   $bootstrap
-		 *
-		 * @return array|string
-		 */
-		public function wrap_class( $extra_class = '', $bootstrap = true ) {
-			return $this->default_wrap_class( $bootstrap );
-		}
-
-		/**
 		 * @return array
 		 */
 		protected function defaults() {

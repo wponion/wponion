@@ -82,10 +82,15 @@ if ( ! class_exists( '\WPOnion\Field\key_value' ) ) {
 			$this->catch_output( 'start' );
 			echo $this->key_value( $this->name( '[{wponionCloneID}]' ) );
 			$template = $this->catch_output( 'stop' );
+
+			$error_notice = $this->handle_args( 'content', $this->data( 'error_msg' ), array(
+				'type' => 'notice_danger',
+			), array( 'only_field' => true ) );
+
 			$this->localize_field( array(
 				'html_template' => $template,
 				'limit'         => $this->data( 'limit' ),
-				'error_msg'     => $this->data( 'error_msg' ),
+				'error_msg'     => wponion_add_element( $error_notice, false, false ),
 			) );
 
 			echo '<div class="wponion-keyvalue-action-container">';

@@ -42,6 +42,13 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		protected $user_id = false;
 
 		/**
+		 * metabox_instance
+		 *
+		 * @var \WPOnion\Modules\Metabox_Core
+		 */
+		protected $metabox_instance = false;
+
+		/**
 		 * User_Profile constructor.
 		 *
 		 * @param array $fields
@@ -53,13 +60,30 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		}
 
 		/**
-		 * @param string $extra_class
-		 * @param bool   $bootstrap
-		 *
-		 * @return array|string
+		 * Creates Metabox Instance.
 		 */
-		public function wrap_class( $extra_class = '', $bootstrap = true ) {
-			return wponion_html_class( $extra_class, $this->default_wrap_class( $bootstrap ) );
+		public function init_metabox() {
+			if ( false !== $this->option( 'metabox' ) ) {
+				if ( is_array( $this->option( 'metabox' ) ) ) {
+					$metabox = $this->parse_args( $this->option( 'metabox' ), array() );
+				} else {
+					$metabox = array(
+						'metabox_title' => $this->option( 'metabox' ),
+						'metabox_id'    => sanitize_title( $this->option( 'metabox' ) ),
+					);
+				}
+
+				$metabox['context']       = 'normal';
+				$metabox['option_name']   = $this->unique();
+				$metabox['theme']         = $this->option( 'theme' );
+				$metabox['screens']       = array( 'profile', 'user-edit', 'user-edit-network' );
+				$metabox['plugin_id']     = $this->plugin_id();
+				$metabox['set_cache']     = array( $this, 'set_cache' );
+				$metabox['get_cache']     = array( $this, 'get_db_cache' );
+				$metabox['get_db_values'] = array( $this, 'get_db_values' );
+				$metabox['set_db_values'] = array( $this, 'set_db_values' );
+				$this->metabox_instance   = new \WPOnion\Modules\Metabox_Core( $metabox, $this->raw_fields );
+			}
 		}
 
 		/**
@@ -72,6 +96,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 			add_action( 'edit_user_profile', array( &$this, 'render' ), 10, 1 );
 			add_action( 'personal_options_update', array( $this, 'save' ), 10, 2 );
 			add_action( 'edit_user_profile_update', array( $this, 'save' ), 10, 2 );
+			$this->init_metabox();
 		}
 
 		/**
@@ -80,13 +105,22 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( parent::defaults(), array( 'theme' => 'wp' ) );
+			return $this->parse_args( parent::defaults(), array(
+				'theme'   => 'wp',
+				'heading' => false,
+				'metabox' => false,
+			) );
 		}
 
 		/**
 		 * Triggers On User Profile Page Load.
 		 */
 		public function on_user_profile_load() {
+			if ( false === $this->option( 'metabox' ) ) {
+				$this->init_theme();
+			} else {
+				$this->metabox_instance->register_metabox();
+			}
 			$this->init_theme();
 			$this->add_action( 'admin_enqueue_scripts', 'load_style_script' );
 		}
@@ -124,6 +158,10 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * Loads Required Style & Scripts.
 		 */
 		public function load_style_script() {
+			if ( false !== $this->option( 'metabox' ) ) {
+				wp_enqueue_script( 'post' );
+				wp_enqueue_style( 'post' );
+			}
 			wponion_load_core_assets( 'wponion-userprofile' );
 		}
 
@@ -138,8 +176,17 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
 				$this->set_defaults();
 			}
-			$instance = $this->init_theme();
-			$instance->render_user_profile_html();
+
+			if ( false !== $this->option( 'metabox' ) ) {
+				$screen = get_current_screen();
+				if ( ! empty( $this->option( 'heading' ) ) ) {
+					echo '<h2>' . $this->option( 'heading' ) . '</h2>';
+				}
+				do_meta_boxes( $screen->id, 'normal', $this->user_id );
+			} else {
+				$instance = $this->init_theme();
+				$instance->render_user_profile_html();
+			}
 		}
 
 		/**
@@ -147,7 +194,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function get_db_values() {
+		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = get_user_meta( $this->user_id, $this->unique(), true );
 				if ( ! is_array( $this->db_values ) ) {
@@ -162,7 +209,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 *
 		 * @return mixed
 		 */
-		protected function get_db_cache() {
+		public function get_db_cache() {
 			return get_user_meta( $this->user_id, $this->get_cache_id(), true );
 		}
 
@@ -171,7 +218,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 *
 		 * @param array $data
 		 */
-		protected function set_cache( $data = array() ) {
+		public function set_cache( $data = array() ) {
 			update_user_meta( $this->user_id, $this->get_cache_id(), $data );
 			$this->options_cache = $data;
 		}
@@ -193,24 +240,28 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @param $user_id
 		 */
 		public function save( $user_id ) {
-			if ( isset( $_POST[ $this->unique ] ) ) {
-				$this->user_id = $user_id;
-				$this->get_db_values();
-				$this->get_cache();
-				$instance = new \WPOnion\DB\User_Profile_Save_Handler();
-				$instance->init_class( array(
-					'module'    => 'user_profile',
-					'plugin_id' => $this->plugin_id(),
-					'unique'    => $this->unique,
-					'fields'    => $this->fields,
-					'db_values' => $this->get_db_values(),
-					'args'      => array( 'settings' => &$this ),
-				) )
-					->run();
+			$this->user_id = $user_id;
+			if ( false !== $this->option( 'metabox' ) ) {
+				$this->metabox_instance->save_metabox( $user_id );
+			} else {
+				if ( isset( $_POST[ $this->unique ] ) ) {
+					$this->get_db_values();
+					$this->get_cache();
+					$instance = new \WPOnion\DB\User_Profile_Save_Handler();
+					$instance->init_class( array(
+						'module'    => 'user_profile',
+						'plugin_id' => $this->plugin_id(),
+						'unique'    => $this->unique,
+						'fields'    => $this->fields,
+						'db_values' => $this->get_db_values(),
+						'args'      => array( 'settings' => &$this ),
+					) )
+						->run();
 
-				$this->options_cache['field_errors'] = $instance->get_errors();
-				$this->set_cache( $this->options_cache );
-				$this->set_db_values( $instance->get_values() );
+					$this->options_cache['field_errors'] = $instance->get_errors();
+					$this->set_cache( $this->options_cache );
+					$this->set_db_values( $instance->get_values() );
+				}
 			}
 		}
 	}

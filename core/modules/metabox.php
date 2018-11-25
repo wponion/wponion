@@ -84,12 +84,12 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 *
 		 * @return string
 		 */
-		public function wrap_class( $extra_class = '', $bootstrap = true ) {
-			$html_class = wponion_html_class( array(
+		public function wrap_class( $extra_class = '' ) {
+			$custom_class = array(
 				'wponion-module-metabox-' . $this->option( 'context' ),
 				'wponion-module-metabox-' . $this->option( 'context' ) . '-framework',
-			), $this->default_wrap_class( $bootstrap ) );
-			return esc_attr( wponion_html_class( $extra_class, wponion_html_class( $html_class ) ) );
+			);
+			return parent::wrap_class( wponion_html_class( $extra_class, $custom_class ) );
 		}
 
 		/**
@@ -120,6 +120,8 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		public function custom_metabox_class( $class ) {
 			$class[] = 'wponion-metabox';
 			$class[] = 'wponion-metabox-' . $this->option( 'context' );
+			$class[] = 'wponion-metabox-' . $this->module();
+			$class[] = 'wponion-metabox-' . $this->option( 'context' ) . '-' . $this->module();
 			return $class;
 		}
 
@@ -381,7 +383,9 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		}
 
 		/**
-		 * Saves Given User Data to db.
+		 * Saves Given User Data to db
+		 *
+		 * @param $post_id
 		 */
 		public function save_metabox( $post_id ) {
 			if ( isset( $_POST[ $this->unique ] ) ) {

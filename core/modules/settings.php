@@ -258,9 +258,16 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				}
 			}
 			if ( ! empty( $default ) ) {
-				update_option( $this->unique, $this->db_values );
+				$this->set_db_values();
 			}
 			$this->set_cache( $this->options_cache );
+		}
+
+		/**
+		 * Saves Options.
+		 */
+		public function set_db_values() {
+			update_option( $this->unique, $this->db_values );
 		}
 
 		/**
@@ -289,10 +296,17 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
+		 * @return string
+		 */
+		public function form_post_page() {
+			return 'options.php';
+		}
+
+		/**
 		 * Renders Settings Page HTML.
 		 */
 		public function render() {
-			echo '<form method="post" action="options.php" enctype="multipart/form-data" class="wponion-form">';
+			echo '<form method="post" action="' . $this->form_post_page() . '" enctype="multipart/form-data" class="wponion-form">';
 			echo '<div class="hidden" style="display:none;" id="wponion-hidden-fields">';
 			settings_fields( $this->unique );
 			echo '<input type="hidden" name="parent-id" value="' . $this->active( true ) . '"/>';
@@ -322,7 +336,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			$this->init_theme();
 			$this->_action( 'page_onload' );
-			$this->init_fields();
+			//$this->init_fields();
 		}
 
 		/**
@@ -530,11 +544,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'plugin_id'     => false,
 				'theme'         => 'wp',
 				'template_path' => false,
-				'buttons'       => array(
+				'save_button'   => __( 'Save Settings' ),
+				/*
+				'buttons'     => array(
 					'save'    => __( 'Save Settings' ),
 					'restore' => false, #__( 'Restore' )
 					'reset'   => false, #__( 'Reset All Options' )
-				),
+				),*/
 			);
 		}
 
@@ -556,15 +572,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Returns all common HTML wrap class.
 		 *
 		 * @param string $extra_class
-		 * @param bool   $bootstrap
 		 *
 		 * @return string
 		 */
-		public function wrap_class( $extra_class = '', $bootstrap = false ) {
-			$default_class = $this->default_wrap_class( $bootstrap );
-			$class         = array();
-			$class[]       = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
-			$class[]       = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
+		public function wrap_class( $extra_class = '' ) {
+			$class   = array();
+			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
+			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
 
 			if ( 1 === count( $this->fields ) ) {
 				$class[] = 'wponion-hide-nav';
@@ -573,7 +587,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					$class[] = 'wponion-no-subnav';
 				}
 			}
-			return esc_attr( wponion_html_class( $extra_class, wponion_html_class( array_filter( $class ), $default_class ) ) );
+
+			return parent::wrap_class( wponion_html_class( $extra_class, array_filter( $class ) ) );
 		}
 
 		/**
@@ -607,21 +622,27 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 *
 		 * @param bool $parent
 		 * @param bool $child
+		 * @param bool $first_section
 		 *
 		 * @return bool
 		 */
-		public function is_tab_active( $parent = false, $child = false ) {
+		public function is_tab_active( $parent = false, $child = false, $first_section = false ) {
 			if ( false !== $parent && false === $child ) {
 				return ( $parent === $this->active( true ) ) ? true : false;
 			} else {
-				return ( $parent === $this->active( true ) && $child === $this->active( false ) ) ? true : false;
+				if ( $parent === $this->active( true ) && $child === $this->active( false ) ) {
+					return true;
+				} elseif ( $parent !== $this->active( true ) && $first_section === $child ) {
+					return true;
+				}
+				return false;
 			}
 		}
 
 		/**
 		 * This function should be used in each loop when parent loop is runnig.
 		 *
-		 * @param $options
+		 * @param $options \WPOnion\Module_Fields
 		 *
 		 * @return array|bool|mixed
 		 */
@@ -703,30 +724,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return string
 		 */
 		public function settings_button() {
-			$options = $this->option( 'buttons' );
+			$options = $this->option( 'save_button' );
 			$html    = '';
 			if ( false !== $options ) {
-
-				if ( false !== $options['reset'] ) {
-					$html .= $this->_button( $options['reset'], array(
-						'class' => 'button button-danger wponion-reset',
-						'type'  => 'submit',
-					), __( 'Reset All' ) );
-				}
-
-				if ( false !== $options['restore'] ) {
-					$html .= $this->_button( $options['restore'], array(
-						'class' => 'button button-secondary wponion-restore',
-						'type'  => 'submit',
-					), __( 'Restore' ) );
-				}
-
-				if ( false !== $options['save'] ) {
-					$html .= $this->_button( $options['save'], array(
-						'class' => 'button button-primary wponion-save',
-						'type'  => 'submit',
-					), __( 'Save Settings' ) );
-				}
+				$html .= $this->_button( $options, array(
+					'class' => 'button button-primary wponion-save',
+					'type'  => 'submit',
+				), __( 'Save Settings' ) );
 			}
 			return $html;
 		}

@@ -491,6 +491,42 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_update_option' ) ) {
+	/**
+	 * Custom Wrapper For update_option & update_site_option.
+	 *
+	 * @param string $option
+	 * @param mixed  $value
+	 * @param bool   $autoload
+	 * @param bool   $force_local
+	 */
+	function wponion_update_option( $option, $value, $autoload = false, $force_local = false ) {
+		if ( is_network_admin() && is_multisite() && false === $force_local ) {
+			update_site_option( $option, $value );
+		} else {
+			update_option( $option, $value, $autoload );
+		}
+	}
+}
+
+if ( ! function_exists( 'wponion_get_option' ) ) {
+	/**
+	 * Custom Wrapper For get_option / get_site_option.
+	 *
+	 * @param $option_name
+	 * @param $default
+	 *
+	 * @return mixed
+	 */
+	function wponion_get_option( $option_name, $default, $force_local = false ) {
+		if ( is_multisite() && is_network_admin() && false === $force_local ) {
+			return get_site_option( $option_name, $default );
+		}
+		return get_option( $option_name, $default );
+	}
+}
+
+
 // WPOnion Assets Related Functions.
 require_once WPONION_PATH . 'core/helpers/assets.php';
 

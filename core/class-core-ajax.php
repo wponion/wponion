@@ -182,6 +182,83 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 			}
 		}
+
+		/**
+		 * Creates A New backup of a module.
+		 */
+		public function new_module_data_backup() {
+			$module = ( isset( $_POST['module'] ) ) ? $_POST['module'] : false;
+			$unique = ( isset( $_POST['unique'] ) ) ? $_POST['unique'] : false;
+			$extra  = ( isset( $_POST['extra'] ) ) ? $_POST['extra'] : false;
+			if ( false === $module ) {
+				wp_send_json_error( __( 'Error Code : #BKP189' ) );
+			}
+
+			$status = \WPOnion\Backup_Handler::new_backup( $unique, $module, $extra );
+			if ( $status ) {
+				wp_send_json_success( \WPOnion\Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
+			}
+			wp_send_json_error( __( 'Error Code : #BKP201' ) );
+		}
+
+		/**
+		 * Deletes A Module Backup.
+		 */
+		public function delete_module_data_backup() {
+			$module    = ( isset( $_POST['module'] ) ) ? $_POST['module'] : false;
+			$unique    = ( isset( $_POST['unique'] ) ) ? $_POST['unique'] : false;
+			$extra     = ( isset( $_POST['extra'] ) ) ? $_POST['extra'] : false;
+			$backup_id = ( isset( $_POST['backup_id'] ) ) ? $_POST['backup_id'] : false;
+
+			if ( false === $module ) {
+				wp_send_json_error( __( 'Error Code : #BKP210' ) );
+			}
+
+			$status = \WPOnion\Backup_Handler::delete_backup( $backup_id, $unique, $module, $extra );
+			if ( $status ) {
+				wp_send_json_success( \WPOnion\Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
+			}
+			wp_send_json_error( __( 'Error Code : #BKP217' ) );
+		}
+
+		/**
+		 * Force Downloads A Backup.
+		 */
+		public function download_backup() {
+			$module    = ( isset( $_REQUEST['module'] ) ) ? $_REQUEST['module'] : false;
+			$unique    = ( isset( $_REQUEST['unique'] ) ) ? $_REQUEST['unique'] : false;
+			$extra     = ( isset( $_REQUEST['extra'] ) ) ? $_REQUEST['extra'] : false;
+			$backup_id = ( isset( $_REQUEST['backupid'] ) ) ? $_REQUEST['backupid'] : false;
+			$file_name = $unique . '_' . $module . '_' . date( 'Y-m-d-hi-s', $backup_id );
+			$backup    = \WPOnion\Backup_Handler::get_backup( $backup_id, $unique, $module, $extra );
+
+			$now = gmdate( 'D, d M Y H:i:s' );
+			header( 'Expires: Tue, 03 Jul 2001 06:00:00 GMT' );
+			header( 'Cache-Control: max-age=0, no-cache, must-revalidate, proxy-revalidate' );
+			header( 'Last-Modified: ' . $now . ' GMT' );
+			header( 'Content-Type: application/force-download' );
+			header( 'Content-Type: application/octet-stream' );
+			header( 'Content-Type: application/download' );
+			header( 'Content-Disposition: attachment;filename=' . $file_name . '.json' );
+			header( 'Content-Transfer-Encoding: binary' );
+			echo json_encode( $backup );
+
+		}
+
+		public function restore_module_data_backup() {
+			$module    = ( isset( $_POST['module'] ) ) ? $_POST['module'] : false;
+			$unique    = ( isset( $_POST['unique'] ) ) ? $_POST['unique'] : false;
+			$extra     = ( isset( $_POST['extra'] ) ) ? $_POST['extra'] : false;
+			$backup_id = ( isset( $_POST['backup_id'] ) ) ? $_POST['backup_id'] : false;
+
+			if ( $backup_id && $unique && $module ) {
+				\WPOnion\Backup_Handler::restore_backup( $backup_id, $unique, $module, $extra );
+				wp_send_json_success( __( 'Backup Successfully Restored' ) );
+			}
+
+			wp_send_json_error( __( 'Error Code: #BKP259' ) );
+
+		}
 	}
 }
 return new Core_Ajax;

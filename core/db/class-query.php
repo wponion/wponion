@@ -68,11 +68,11 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 
 			if ( ! empty( $args ) ) {
 				$op_key   = isset( $args['option_key'] ) ? $args['option_key'] : 'ID';
-				$op_value = isset( $args['option_value'] ) ? $args['option_value'] : 'name';
+				$op_value = isset( $args['option_label'] ) ? $args['option_label'] : 'name';
 				$is_all   = ( false === $op_key && false === $op_value ) ? true : false;
 
 				unset( $args['option_key'] );
-				unset( $args['option_value'] );
+				unset( $args['option_label'] );
 				$this->query_args = $this->parse_args( $args, $this->query_args );
 			}
 
@@ -115,22 +115,37 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 					}
 					break;
 
+				case 'users':
+					$def_key   = 'ID';
+					$def_value = 'user_login';
+					$_q_type   = 'users';
+					break;
+
 				case 'menus':
-				case 'menu':
 					$def_key   = 'term_id';
 					$def_value = 'name';
+					$_q_type   = 'menu';
 					break;
 
 				case 'post_types':
-				case 'post_type':
-					$options    = array();
-					$post_types = get_post_types( array( 'show_in_nav_menus' => true ) );
-					if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
-						foreach ( $post_types as $post_type ) {
-							$options [ $post_type ] = ucfirst( $post_type );
-						}
-					}
-					return $options;
+					return \WPOnion\Helper::get_post_types();
+					break;
+
+				case 'sidebars':
+					global $wp_registered_sidebars;
+					$def_key   = 'id';
+					$def_value = 'name';
+					$_q_type   = false;
+					$result    = $wp_registered_sidebars;
+					break;
+
+				case 'menu_location':
+					return get_registered_nav_menus();
+					break;
+
+				case 'currency':
+				case 'currency_symbol':
+					return ( 'currency_symbol' === $type ) ? \WPOnion\Helper::get_currency_symbol() : \WPOnion\Helper::get_currency();
 					break;
 			}
 
@@ -147,6 +162,9 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 				case 'menu':
 					$result = wp_get_nav_menus( $this->query_args );
 					break;
+				case 'users':
+					$result = get_users( $this->query_args );
+					break;
 			}
 
 			if ( is_wp_error( $result ) || is_null( $result ) || empty( $result ) ) {
@@ -156,7 +174,6 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			if ( false === $is_all ) {
 				$result = $this->query_data( $result, array( $op_key, $op_value ), array( $def_key, $def_value ) );
 			}
-
 			return $result;
 		}
 
@@ -204,7 +221,47 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @return mixed
 		 */
 		private function option_data( $key, $default, $data ) {
-			return ( isset( $data->{$key} ) && ! empty( $data->{$key} ) ) ? $data->{$key} : $data->{$default};
+			preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)]@', $key, $matches, PREG_SET_ORDER, 0 );
+
+			if ( ! empty( $matches ) ) {
+				foreach ( $matches as $match ) {
+					if ( isset( $match[1] ) && ! empty( $match[1] ) ) {
+						$_data = $this->_single_option_data( $data, $match[1], $default );
+						$key   = str_replace( $match[0], $_data, $key );
+					}
+				}
+				return $key;
+			} else {
+				return $this->_single_option_data( $data, $key, $default );
+			}
+
+			return false;
+		}
+
+		/**
+		 * Returns Single data.
+		 *
+		 * @param $data
+		 * @param $key
+		 * @param $default
+		 *
+		 * @return bool|mixed
+		 */
+		private function _single_option_data( $data, $key, $default ) {
+			if ( is_array( $data ) ) {
+				if ( isset( $data[ $key ] ) ) {
+					return $data[ $key ];
+				} elseif ( isset( $data[ $default ] ) ) {
+					return $data[ $default ];
+				}
+			} elseif ( is_object( $data ) ) {
+				if ( isset( $data->{$key} ) ) {
+					return $data->{$key};
+				} elseif ( isset( $data->{$default} ) ) {
+					return $data->{$default};
+				}
+			}
+			return false;
 		}
 	}
 }

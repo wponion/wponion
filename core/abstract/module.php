@@ -25,7 +25,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Module extends \WPOnion\Bridge\Field_Builder {
+	abstract class Module extends \WPOnion\Bridge {
 		/**
 		 * Stores Current template information.
 		 * current_theme
@@ -61,6 +61,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @var array
 		 */
 		protected $raw_options = array();
+
+		/**
+		 * Raw options
+		 *
+		 * @var array
+		 */
+		protected $raw_fields = array();
 
 		/**
 		 * unique for database.
@@ -100,10 +107,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $settings array of WPOnion Settings Configuration.
 		 */
 		public function __construct( $fields = array(), $settings = array() ) {
-			$this->fields    = new \WPOnion\Module_Fields( $fields );
-			$this->settings  = $this->set_args( $settings );
-			$this->plugin_id = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
-			$this->unique    = $this->settings['option_name'];
+			$this->fields     = new \WPOnion\Module_Fields( $fields );
+			$this->raw_fields = $fields;
+			$this->settings   = $this->set_args( $settings );
+			$this->plugin_id  = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
+			$this->unique     = $this->settings['option_name'];
 			$this->save_instance();
 		}
 
@@ -147,25 +155,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return array|string
 		 */
-		protected function default_wrap_class( $bootstrap = false ) {
-			$class = array(
+		protected function default_wrap_class() {
+			return wponion_html_class( array(
 				'wponion-framework',
 				'wponion-module-' . $this->module() . '-framework',
 				'wponion-module-' . $this->module(),
 				'wponion-' . $this->plugin_id() . '-' . $this->module(),
 				'wponion-' . $this->module(),
 				'wponion-' . $this->option( 'theme' ) . '-theme',
-			);
-
-			if ( 'grid' === $bootstrap || 'all' === $bootstrap || true === $bootstrap ) {
-				$class[] = 'wponion-framework-bootstrap-grid';
-			}
-
-			if ( 'base' === $bootstrap || 'all' === $bootstrap || true === $bootstrap ) {
-				$class[] = 'wponion-framework-bootstrap';
-			}
-
-			return wponion_html_class( $class );
+			) );
 		}
 
 		/**
@@ -182,8 +180,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 */
 		protected function debug_bar() {
 			if ( wponion_is_debug() ) {
-				return '<div id="wponiondebuginfopopup" style="display:none;"> <div id="wponion-global-debug-content"></div></div>
-<a  title="' . __( 'WPOnion Debug POPUP' ) . '" href="javascript:void(0);" class="wponion-global-debug-handle">' . wponion_icon( 'dashicons dashicons-info' ) . '</a>	';
+				/*return '<div id="wponiondebuginfopopup" style="display:none;"> <div id="wponion-global-debug-content"></div></div>
+<a  title="' . __( 'WPOnion Debug POPUP' ) . '" href="javascript:void(0);" class="wponion-global-debug-handle">' . wponion_icon( 'dashicons dashicons-info' ) . '</a>	';*/
 			}
 			return '';
 		}
@@ -265,7 +263,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return mixed
 		 */
 		protected function get_db_cache() {
-			return get_option( $this->get_cache_id(), array() );
+			return wponion_get_option( $this->get_cache_id(), array() );
 		}
 
 		/**
@@ -310,7 +308,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $data .
 		 */
 		protected function set_cache( $data = array() ) {
-			update_option( $this->get_cache_id(), $data );
+			wponion_update_option( $this->get_cache_id(), $data );
 			$this->options_cache = $data;
 		}
 
@@ -330,23 +328,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * @return bool|\WPOnion\Value_API
-		 */
-		public function values() {
-			$plugin_id = $this->plugin_id();
-			if ( wponion_value_registry( $plugin_id ) ) {
-				return wponion_value_registry( $plugin_id );
-			}
-			$instance = new \WPOnion\Value_API( $this->get_db_values(), $this->fields(), array(
-				'module'    => $this->module(),
-				'plugin_id' => $plugin_id,
-				'unique'    => $this->unique(),
-			) );
-			wponion_value_registry( $instance );
-			return $instance;
-		}
-
-		/**
 		 * Returns a default array.
 		 *
 		 * @return array
@@ -361,16 +342,17 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Extracts Settings Sections and its subsections from the $this->fields array.
 		 *
-		 * @param array $fields
-		 * @param bool  $is_child
-		 * @param bool  $parent
+		 * @param \WPOnion\Module_Fields $fields
+		 * @param bool                   $is_child
+		 * @param bool                   $parent
+		 * @param bool                   $first_section
 		 *
 		 * @uses \WPOnion\Modules\Metabox
 		 * @uses \WPOnion\Modules\Settings
 		 *
 		 * @return array
 		 */
-		protected function extract_fields_menus( $fields = array(), $is_child = false, $parent = false ) {
+		protected function extract_fields_menus( $fields = array(), $is_child = false, $parent = false, $first_section = false ) {
 			$return = array();
 			if ( empty( $fields ) ) {
 				$fields = $this->fields;
@@ -379,20 +361,21 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( ! empty( $fields ) ) {
 				foreach ( $fields as $field ) {
 					if ( $field->has_sections() && ! empty( $field->sections() ) ) {
-						$menu = $this->handle_single_menu( $field, $is_child, $parent );
+						$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
 						if ( false !== $menu ) {
 							$_name                       = $menu['name'];
 							$return[ $_name ]            = $menu;
-							$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->sections(), true, $_name );
+							$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->sections(), true, $_name, $field->first_section()
+								->name() );
 						}
 					} elseif ( ( $field->has_fields() && ! empty( $field->fields() ) ) || $field->has_callback() || $field->has_href() ) {
-						$menu = $this->handle_single_menu( $field, $is_child, $parent );
+						$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
 						if ( false !== $menu ) {
 							$return[ $menu['name'] ] = $menu;
 						}
 					} else {
 						if ( 'metabox' !== $this->module() ) {
-							$menu = $this->handle_single_menu( $field, $is_child, $parent );
+							$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
 							if ( false !== $menu ) {
 								$return[ $menu['name'] ]                 = $menu;
 								$return[ $menu['name'] ]['is_seperator'] = isset( $menu['seperator'] ) ? $menu['seperator'] : false;
@@ -410,10 +393,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param      $menu
 		 * @param bool $is_child
 		 * @param bool $parent
+		 * @param bool $first_section
 		 *
-		 * @return array
+		 * @return array|bool
 		 */
-		protected function handle_single_menu( $menu, $is_child = false, $parent = false ) {
+		protected function handle_single_menu( $menu, $is_child = false, $parent = false, $first_section = false ) {
 			if ( null === $menu->name() && null === $menu->title() ) {
 				return false;
 			}
@@ -447,7 +431,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$part_href = $menu->href();
 				}
 
-				if ( $name === $this->active( false ) ) {
+				if ( $name === $this->active( false ) && $parent === $this->active( true ) ) {
+					$is_active = true;
+				} elseif ( $parent !== $this->active( true ) && $name === $first_section ) {
 					$is_active = true;
 				}
 			}
@@ -513,11 +499,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * Returns all common HTML wrap class.
+		 * Returns All Common Wrap Class.
 		 *
 		 * @param string $extra_class
+		 *
+		 * @return string
 		 */
-		abstract public function wrap_class( $extra_class = '' );
+		public function wrap_class( $extra_class = '' ) {
+			return esc_attr( wponion_html_class( $extra_class, $this->default_wrap_class() ) );
+		}
 
 		/**
 		 * Required Callback On Instance Init.

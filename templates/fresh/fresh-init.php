@@ -48,7 +48,8 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 		/**
 		 * Renders Metabox MENU HTML.
 		 *
-		 * @param $menu
+		 * @param        $menu
+		 * @param string $parent_name
 		 *
 		 * @return string
 		 */
@@ -66,8 +67,13 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 				( isset( $menu['is_active'] ) && true === $menu['is_active'] ) ? 'active' : '',
 			) );
 			$attr['data-wponion-id'] = ( ! empty( $parent_name ) ) ? 'wponion_menu_' . $parent_name . '_' . $menu['name'] : 'wponion_menu_' . $menu['name'];
-			$attr                    = wponion_array_to_html_attributes( $attr );
-			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+			$dropdown                = '';
+			if ( isset( $menu['submenu'] ) && ! empty( $menu['submenu'] ) ) {
+				$dropdown = $this->get_submenu_indicator( ( isset( $menu['is_active'] ) && true === $menu['is_active'] ) );
+			}
+
+			$attr = wponion_array_to_html_attributes( $attr );
+			return '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . ' ' . $page_title . ' ' . $dropdown . '</a>';
 		}
 
 		/**
@@ -101,7 +107,12 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 					) );
 					$attr          = wponion_array_to_html_attributes( $attr );
 
-					$return .= '<li><a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>' . $sub_menu . '</li>';
+					$dropdown = '';
+					if ( ! empty( $sub_menu ) ) {
+						$dropdown = $this->get_submenu_indicator( ( isset( $menu['is_active'] ) && true === $menu['is_active'] ) );
+					}
+
+					$return .= '<li><a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . ' ' . $page_title . ' ' . $dropdown . '</a>' . $sub_menu . '</li>';
 				}
 			} else {
 				return false;
@@ -143,7 +154,7 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 					) );
 
 					$attr     = wponion_array_to_html_attributes( $attr );
-					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a> ';
+					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . ' ' . $page_title . '</a> ';
 				}
 				$return = implode( '  </li>', $return );
 				$return = '<ul class="meta-submenu"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';

@@ -218,7 +218,7 @@ if ( ! class_exists( '\WPOnion\Module_Fields' ) ) {
 		 * @return bool|mixed
 		 */
 		public function first_section() {
-			$data = $this->get( 'sections' );
+			$data = $this->sections();
 			$data->rewind();
 			$return = $data->current();
 			$data->rewind();

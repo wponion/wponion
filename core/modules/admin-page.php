@@ -102,6 +102,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		protected function defaults() {
 			return array(
+				'network'           => false,
 				'submenu'           => false,
 				'menu_title'        => false,
 				'page_title'        => false,
@@ -276,10 +277,21 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		public function init() {
 			if ( ! empty( $this->option( 'menu_title' ) ) ) {
-				if ( ! did_action( 'admin_menu' ) ) {
-					$this->add_action( 'admin_menu', 'add_menu', $this->hook_priority() );
-				} else {
-					$this->add_menu();
+
+				if ( false !== $this->option( 'network' ) ) {
+					if ( ! did_action( 'network_admin_menu' ) ) {
+						$this->add_action( 'network_admin_menu', 'add_menu', $this->hook_priority() );
+					} else {
+						$this->add_menu();
+					}
+				}
+
+				if ( 'only' !== $this->option( 'network' ) ) {
+					if ( ! did_action( 'admin_menu' ) ) {
+						$this->add_action( 'admin_menu', 'add_menu', $this->hook_priority() );
+					} else {
+						$this->add_menu();
+					}
 				}
 			}
 		}
@@ -502,7 +514,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		public function admin_footer_text( $text ) {
 			if ( empty( $this->option( 'footer_text' ) ) ) {
 				/* translators: Added WPOnion */
-				return sprintf( __( 'Proudly Powerd By %1$s %2$s %3$s ' ), '<a href="http://wponion.com"><strong>', __( 'WPOnion' ), '</strong></a>' );
+				return sprintf( __( 'Proudly Powered By %1$s %2$s %3$s ' ), '<a href="http://wponion.com"><strong>', __( 'WPOnion' ), '</strong></a>' );
 			}
 			return ( wponion_is_callable( $this->option( 'footer_text' ) ) ) ? wponion_callback( $this->option( 'footer_text' ) ) : $this->option( 'footer_text' );
 		}
@@ -558,9 +570,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			if ( false !== $this->active_tab && isset( $this->settings['tabs'][ $this->active_tab ] ) && isset( $this->settings['tabs'][ $this->active_tab ]['assets'] ) ) {
 				$this->handle_assets_callback( $this->settings['tabs'][ $this->active_tab ]['assets'] );
 			}
-		}
-
-		public function wrap_class( $extra_class = '' ) {
 		}
 
 		public function on_init() {

@@ -1,7 +1,5 @@
 <?php
-if ( ! is_array( $ins->fields() ) ) {
-	return;
-}
+
 foreach ( $ins->fields() as $option ) {
 	if ( false === $ins->valid_option( $option ) ) {
 		continue;

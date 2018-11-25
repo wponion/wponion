@@ -212,7 +212,5 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 			) );
 		}
 
-		public function wrap_class( $extra_class = '' ) {
-		}
 	}
 }
