@@ -25,7 +25,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Module extends \WPOnion\Bridge\Field_Builder {
+	abstract class Module extends \WPOnion\Bridge {
 		/**
 		 * Stores Current template information.
 		 * current_theme
@@ -325,23 +325,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				}
 			}
 			return $this->db_values;
-		}
-
-		/**
-		 * @return bool|\WPOnion\Value_API
-		 */
-		public function values() {
-			$plugin_id = $this->plugin_id();
-			if ( wponion_value_registry( $this->unique() ) ) {
-				return wponion_value_registry( $this->unique() );
-			}
-			$instance = new \WPOnion\Value_API( $this->get_db_values(), $this->fields(), array(
-				'module'    => $this->module(),
-				'plugin_id' => $plugin_id,
-				'unique'    => $this->unique(),
-			) );
-			wponion_value_registry( $instance );
-			return $instance;
 		}
 
 		/**
