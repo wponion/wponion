@@ -630,3 +630,12 @@ if ( ! function_exists( 'wponion_key_value_to_array' ) ) {
 		return $return;
 	}
 }
+
+if ( ! function_exists( 'wponion_sysinfo' ) ) {
+	/**
+	 * Generates HTML Output for loading SysInfo.
+	 */
+	function wponion_sysinfo( $args ) {
+		\WPOnion\Sysinfo::get( $args );
+	}
+}
