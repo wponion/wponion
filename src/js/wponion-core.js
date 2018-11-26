@@ -57,11 +57,15 @@ window.wponion_fields         = {
 };
 window.wponion_notice         = ( $elem ) => {
 	if( $elem.find( '.wponion-remove' ).length > 0 ) {
-		$elem.find( '.wponion-remove' ).on( 'click', function() {
-			$elem.slideUp( 'slow', function() {
-				$elem.remove();
+		$elem.each( function() {
+			let $_el = jQuery( this );
+			jQuery( this ).find( '.wponion-remove' ).on( 'click', function() {
+				$_el.slideUp( 'slow', function() {
+					$_el.remove();
+				} );
 			} );
-		} );
+		} )
+
 		return $elem;
 	}
 
@@ -100,6 +104,8 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 
 		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
 
+		wponion_notice( $wpof_div.find( '.wponion-element-wp_notice, .wponion-element-notice' ) );
+
 		window.$wponion.submenu_indicator( $( document ).find( '.wponion-submenu-i' ) );
 
 		$( document ).on( 'click', '.wponion-field-debug-code > strong', function() {
@@ -121,6 +127,7 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			wponion_field( $menu ).reload();
 			new WPOnion_Dependency( $menu );
 		} );
+
 
 		if( $wpof_div.length > 0 ) {
 			/**

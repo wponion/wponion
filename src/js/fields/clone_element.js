@@ -34,7 +34,7 @@ export default class extends WPOnion_Field {
 				} else {
 					$add_btn.parent().prepend( jQuery( $eror_msg ).hide() );
 					$add_btn.parent().find( 'div.alert' ).slideDown();
-					wponion_notice( $add_btn.parent().find( 'div.alert' ) );
+					wponion_notice( $add_btn.parent().find( 'div.alert, div.notice' ) );
 				}
 			},
 			show_animation: $arg.animations.show,

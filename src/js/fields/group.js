@@ -70,7 +70,7 @@ export default class extends WPOnion_Field {
 				} else {
 					$add.before( jQuery( $error_msg ).hide() );
 					$add.parent().find( 'div.alert' ).slideDown();
-					wponion_notice( $add.parent().find( 'div.alert' ) );
+					wponion_notice( $add.parent().find( 'div.alert, div.notice' ) );
 				}
 			}
 		} );
