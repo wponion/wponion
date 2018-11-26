@@ -55,7 +55,7 @@ $return   = '';
 										echo $settings->render_field( $field, $option['name'], $section['name'] );
 									}
 								} elseif ( $section->has_callback() ) {
-									echo wponion_callback( $section->callback() );
+									echo wponion_callback( $section->callback(), array( $section ) );
 								}
 								echo '</div>';
 							}
@@ -64,7 +64,7 @@ $return   = '';
 								echo $settings->render_field( $field, $option['name'] );
 							}
 						} elseif ( $option->has_callback() ) {
-							echo wponion_callback( $option->callback() );
+							echo wponion_callback( $option->callback(), array( $option ) );
 						}
 						?>
 					</div>
