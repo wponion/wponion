@@ -9,12 +9,15 @@ export default class extends WPOnion_Field {
 				collapsible: true,
 				animate: 150,
 				heightStyle: 'content',
-				active: jQuery( this ).hasClass( 'is_open' ),
 				icons: {
 					'header': 'dashicons dashicons-arrow-right',
 					'activeHeader': 'dashicons dashicons-arrow-down'
 				}
 			} );
+
+			if( !jQuery( this ).hasClass( 'is_open' ) ) {
+				jQuery( this ).accordion( 'option', 'active', false );
+			}
 		} );
 	}
 
