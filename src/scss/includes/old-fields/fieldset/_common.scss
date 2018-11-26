@@ -1,17 +1,19 @@
 .wponion-element.wponion-element-fieldset {
-  .wponion-fieldset-wrap {
-	display:   block;
-	border:    1px solid #dadada;
-	min-width: 50%;
-	width:     auto;
-	max-width: 75%;
-	.wponion-element {
-	  .wponion-element-title {
-		width: 40%;
-		+ .wponion-fieldset {
-		  margin-left: 40%;
+	.wponion-fieldset-wrap {
+		display:   block;
+		border:    1px solid #dadada;
+		min-width: 50%;
+		width:     auto;
+		max-width: 75%;
+
+		.wponion-element {
+			.wponion-element-title {
+				width: 40%;
+
+				+ .wponion-fieldset {
+					margin-left: 40%;
+				}
+			}
 		}
-	  }
 	}
-  }
 }

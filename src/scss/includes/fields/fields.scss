@@ -12,6 +12,7 @@
 
 .wponion-row.row {
 	margin: 0;
+
 	> div {
 		padding:    0;
 		border-top: none;
@@ -25,9 +26,11 @@
 	&.hidden {
 		display: none;
 	}
+
 	.wponion-field-debug-handle {
 		display: none;
 	}
+
 	.wponion-desc {
 		margin-bottom: 8px;
 		font-size:     13px;
@@ -35,11 +38,13 @@
 		color:         #666;
 		margin-top:    8px;
 	}
+
 	> .wponion-element-title {
 		width:          $element_title_width;
 		float:          left;
 		vertical-align: top;
 		margin-right:   $element_title_right_margin;
+
 		h4 {
 			margin:       0;
 			font-size:    14px;
@@ -47,6 +52,7 @@
 			margin-right: 5px;
 		}
 	}
+
 	> .wponion-fieldset {
 		float:          left;
 		display:        inline-block;
@@ -54,6 +60,7 @@
 		width:          $element_fieldset_width;
 
 	}
+
 	&.wponion-field-no-title {
 		> .wponion-fieldset {
 			width: 100%;
@@ -109,6 +116,7 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 		border:     1px solid #ccc;
 		display:    inline-block;
 		min-width:  200px;
+
 		.wponion-field-clone {
 			.wponion-element {
 				padding:        5px 5px !important;
@@ -134,6 +142,7 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 				.wponion-element {
 					padding-bottom: 5px !important;
 				}
+
 				.wponion-clone-action {
 					padding-top: 5px !important;
 				}
@@ -157,6 +166,7 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 		//padding: 10px;
 		//border:  1px solid #dadada;
 	}
+
 	.wponion-clone-actions {
 		padding-top: 5px;
 		margin-top:  5px;

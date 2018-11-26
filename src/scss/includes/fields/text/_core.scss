@@ -1,23 +1,23 @@
 
 .wponion-input-group {
-  > div {
-	display:        table-cell;
-	border:         1px solid #ddd;
-	vertical-align: middle;
-  }
+	> div {
+		display:        table-cell;
+		border:         1px solid #ddd;
+		vertical-align: middle;
+	}
 
-  .input-group-icon {
-	background: #eee;
-	color:      #777;
-	padding:    0 10px
-  }
+	.input-group-icon {
+		background: #eee;
+		color:      #777;
+		padding:    0 10px
+	}
 
-  input {
-	border:        0;
-	display:       block;
-	width:         100%;
-	margin:        0;
-	padding:       5px;
-	border-radius: 0 !important;
-  }
+	input {
+		border:        0;
+		display:       block;
+		width:         100%;
+		margin:        0;
+		padding:       5px;
+		border-radius: 0 !important;
+	}
 }

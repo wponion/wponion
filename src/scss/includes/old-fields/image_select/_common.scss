@@ -1,35 +1,41 @@
 .wponion-element.wponion-element-image_select {
-  .form-group {
-	padding:      0;
-	display:      inline-block;
-	label {
-	  margin-bottom: 0;
-	  input {
-		visibility: hidden;
-		display:    none;
+	.form-group {
+		padding:      0;
+		display:      inline-block;
 
-		&:checked + img {
-		  border-color: #444;
+		label {
+			margin-bottom: 0;
+
+			input {
+				visibility: hidden;
+				display:    none;
+
+				&:checked + img {
+					border-color: #444;
+				}
+			}
+
+			img {
+				border: 2px solid #fff;
+
+				&:hover {
+					border-color: #444;
+				}
+			}
 		}
-	  }
 
-	  img {
-		border: 2px solid #fff;
-		&:hover {
-		  border-color: #444;
+		margin-right: 10px;
+	}
+
+	.wponion-checkbox-radio-group {
+		display:       block;
+		margin-bottom: 25px;
+
+		ul.wponion-checkbox-group-lists {
+
+			li {
+				display: inline-block;
+			}
 		}
-	  }
 	}
-	margin-right: 10px;
-  }
-  .wponion-checkbox-radio-group {
-	display:       block;
-	margin-bottom: 25px;
-	ul.wponion-checkbox-group-lists {
-
-	  li {
-		display: inline-block;
-	  }
-	}
-  }
 }

@@ -2,10 +2,12 @@
 	position: relative;
 	display:  inline-block;
 	width:    100%;
+
 	.sortable-placeholder {
 		display:      inline-block;
 		margin-right: 10px;
 	}
+
 	.wponion-preview {
 		margin-right:   10px;
 		vertical-align: top;
@@ -40,10 +42,12 @@
 			border-radius:    2px;
 			transition:       opacity 0.2s;
 			visibility:       hidden !important;
+
 			&:hover {
 				background-color: darken(#e14d43, 3%);
 			}
 		}
+
 		img {
 			display:        inline-block;
 			vertical-align: middle;
@@ -51,6 +55,7 @@
 			height:         auto;
 			min-height:     30px;
 		}
+
 		&:hover {
 			.wponion-image-remove {
 				visibility: visible !important;
@@ -65,6 +70,7 @@
 		color:          green;
 		cursor:         pointer;
 		vertical-align: top;
+
 		i {
 			color:     #87D148;
 			position:  absolute;
@@ -72,6 +78,7 @@
 			left:      50%;
 			transform: translate(-50%, -50%);
 		}
+
 		&:hover {
 			background-color: darken(#f9f9f9, 1%);
 		}

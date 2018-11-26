@@ -1,30 +1,33 @@
 .wponion-element.wponion-element-key_value {
-  .wponion-keyvalue_wrap {
-	.wponion-keyvalue-field {
-	  margin-bottom:  15px;
-	  padding-bottom: 5px;
-	  border-bottom:  1px solid #ddd;
-	  .wponion-input-group {
-		display:        inline-block;
-		min-width:      auto;
-		width:          100%;
-		margin-right:   0;
-		vertical-align: middle;
-		margin-bottom:  10px;
-	  }
-	  button {
-		position:   absolute;
-		right:      0px;
-		top:        0px;
-		visibility: hidden;
-		display:    none;
-	  }
-	  &:hover {
-		button {
-		  display:    block;
-		  visibility: visible;
+	.wponion-keyvalue_wrap {
+		.wponion-keyvalue-field {
+			margin-bottom:  15px;
+			padding-bottom: 5px;
+			border-bottom:  1px solid #ddd;
+
+			.wponion-input-group {
+				display:        inline-block;
+				min-width:      auto;
+				width:          100%;
+				margin-right:   0;
+				vertical-align: middle;
+				margin-bottom:  10px;
+			}
+
+			button {
+				position:   absolute;
+				right:      0px;
+				top:        0px;
+				visibility: hidden;
+				display:    none;
+			}
+
+			&:hover {
+				button {
+					display:    block;
+					visibility: visible;
+				}
+			}
 		}
-	  }
 	}
-  }
 }

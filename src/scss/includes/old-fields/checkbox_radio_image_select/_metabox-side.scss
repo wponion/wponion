@@ -2,12 +2,12 @@
 || Checkbox,Radio,Image Select,Switcher Element Styles ||
 |||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 .wponion-element {
-  &.wponion-element-checkbox, &.wponion-element-radio, &.wponion-element-image_select {
-	.wponion-checkbox-radio-group {
-	  width:        100%;
-	  min-width:    auto;
-	  margin-right: 0;
+	&.wponion-element-checkbox, &.wponion-element-radio, &.wponion-element-image_select {
+		.wponion-checkbox-radio-group {
+			width:        100%;
+			min-width:    auto;
+			margin-right: 0;
+		}
 	}
-  }
 }
 

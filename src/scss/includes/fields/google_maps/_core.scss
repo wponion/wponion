@@ -4,6 +4,7 @@
 		display:  inline-block;
 		width:    100%;
 		position: relative;
+
 		&.with-map {
 			display:       inline-block;
 			position:      relative;
@@ -13,6 +14,7 @@
 			float:         none;
 			border:        $element_border;
 			border-bottom: none;
+
 			.searchbox {
 				display:                 block;
 				z-index:                 1;
@@ -22,6 +24,7 @@
 				padding-top:             5px;
 				padding-bottom:          5px;
 				padding-left:            5px;
+
 				input {
 					border:         none;
 					border-radius:  3px;
@@ -32,6 +35,7 @@
 					min-width:      50%;
 					vertical-align: middle;
 				}
+
 				select {
 					width:          10%;
 					margin:         0;
@@ -52,6 +56,7 @@
 			}
 		}
 	}
+
 	.map_fields {
 		margin-top:                 -5px;
 		border:                     $element_border;

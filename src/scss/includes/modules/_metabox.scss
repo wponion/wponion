@@ -1,8 +1,10 @@
 .postbox.wponion-metabox {
 	z-index: 0;
+
 	.inside {
 		padding: 0;
 		margin:  0 !important;
+
 		.wponion-metabox-inside-wrap {
 			.wponion-metabox-content-wrap {
 				float:          left;
@@ -21,8 +23,10 @@
 					padding-left:  $element_gurtter;
 					padding-right: $element_gurtter;
 				}
+
 				> .wponion-row {
 					margin: 0;
+
 					> div {
 						padding: 0;
 					}
@@ -33,12 +37,15 @@
 						width:     auto;
 						max-width: 100%;
 					}
+
 					> .wponion-row, .wponion-element {
 						padding-left:  $element_gurtter;
 						padding-right: $element_gurtter;
 					}
+
 					> .wponion-row {
 						margin: 0;
+
 						> div {
 							padding: 0;
 						}
@@ -46,6 +53,7 @@
 				}
 			}
 		}
+
 		.ajax-container {
 			display:    block;
 			max-width:  100%;
@@ -62,10 +70,12 @@
 					display:    none;
 					visibility: hidden;
 				}
+
 				.wponion-metabox-content-wrap {
 					width:       100% !important;
 					max-width:   100%;
 					padding-top: 0;
+
 					.wponion-parent-wraps {
 						> .wponion-element {
 							padding: 15px;

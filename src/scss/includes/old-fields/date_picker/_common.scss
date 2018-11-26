@@ -1,11 +1,11 @@
 .wponion-element.wponion-element-date_picker {
-  &.wponion-datepicker-range {
-	.wponion-element {
-	  @include wponion_field_horizontal();
-	  display:      inline-block;
-	  border:       none;
-	  padding:      0;
-	  margin-right: 20px;
+	&.wponion-datepicker-range {
+		.wponion-element {
+			@include wponion_field_horizontal();
+			display:      inline-block;
+			border:       none;
+			padding:      0;
+			margin-right: 20px;
+		}
 	}
-  }
 }

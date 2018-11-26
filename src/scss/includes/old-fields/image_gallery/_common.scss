@@ -1,82 +1,91 @@
 .wponion-image-preview {
-  position: relative;
-  display:  inline-block;
-  width:    100%;
-  .sortable-placeholder {
-	display: inline-block;
-  }
-  .wponion-preview {
-	margin-right: 10px;
-  }
-  .wponion-preview, .wponion-preview-add, .sortable-placeholder {
-	display:          inline-block;
-	position:         relative;
-	padding:          4px;
-	min-width:        100px;
-	min-height:       100px;
-	margin-bottom:    10px;
-	border:           1px solid #ccc;
-	background-color: #f9f9f9;
-	border-radius:    2px;
-	box-shadow:       0 1px 0 rgba(0, 0, 0, .08);
+	position: relative;
+	display:  inline-block;
+	width:    100%;
 
-	.wponion-image-remove {
-	  position:         absolute;
-	  top:              4px;
-	  right:            4px;
-	  width:            22px;
-	  height:           22px;
-	  font-size:        11px;
-	  line-height:      22px;
-	  text-align:       center;
-	  cursor:           pointer;
-	  color:            #fff;
-	  background-color: #e14d43;
-	  opacity:          0.8;
-	  border-radius:    2px;
-	  transition:       opacity 0.2s;
-	  visibility:       hidden !important;
-	  &:hover {
-		background-color: darken(#e14d43, 3%);
-	  }
+	.sortable-placeholder {
+		display: inline-block;
 	}
-	img {
-	  max-height:     90px;
-	  display:        inline-block;
-	  vertical-align: middle;
-	}
-	&:hover {
-	  .wponion-image-remove {
-		visibility: visible !important;
-	  }
-	}
-  }
 
-  .wponion-preview-add {
-	width:      100px;
-	height:     100px;
-	text-align: center;
-	color:      green;
-	cursor:     pointer;
-	i {
-	  color:     #87D148;
-	  position:  absolute;
-	  top:       50%;
-	  left:      50%;
-	  transform: translate(-50%, -50%);
+	.wponion-preview {
+		margin-right: 10px;
 	}
-	&:hover {
-	  background-color: darken(#f9f9f9, 1%);
+
+	.wponion-preview, .wponion-preview-add, .sortable-placeholder {
+		display:          inline-block;
+		position:         relative;
+		padding:          4px;
+		min-width:        100px;
+		min-height:       100px;
+		margin-bottom:    10px;
+		border:           1px solid #ccc;
+		background-color: #f9f9f9;
+		border-radius:    2px;
+		box-shadow:       0 1px 0 rgba(0, 0, 0, .08);
+
+		.wponion-image-remove {
+			position:         absolute;
+			top:              4px;
+			right:            4px;
+			width:            22px;
+			height:           22px;
+			font-size:        11px;
+			line-height:      22px;
+			text-align:       center;
+			cursor:           pointer;
+			color:            #fff;
+			background-color: #e14d43;
+			opacity:          0.8;
+			border-radius:    2px;
+			transition:       opacity 0.2s;
+			visibility:       hidden !important;
+
+			&:hover {
+				background-color: darken(#e14d43, 3%);
+			}
+		}
+
+		img {
+			max-height:     90px;
+			display:        inline-block;
+			vertical-align: middle;
+		}
+
+		&:hover {
+			.wponion-image-remove {
+				visibility: visible !important;
+			}
+		}
 	}
-  }
+
+	.wponion-preview-add {
+		width:      100px;
+		height:     100px;
+		text-align: center;
+		color:      green;
+		cursor:     pointer;
+
+		i {
+			color:     #87D148;
+			position:  absolute;
+			top:       50%;
+			left:      50%;
+			transform: translate(-50%, -50%);
+		}
+
+		&:hover {
+			background-color: darken(#f9f9f9, 1%);
+		}
+	}
 }
 
 .wponion-element.wponion-element-gallery {
-  .wponion-gallery-actions {
-	text-align: center;
-	margin-top: 15px;
-	button {
-	  margin-right: 15px;
+	.wponion-gallery-actions {
+		text-align: center;
+		margin-top: 15px;
+
+		button {
+			margin-right: 15px;
+		}
 	}
-  }
 }

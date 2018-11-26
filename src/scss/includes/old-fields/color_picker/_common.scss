@@ -1,22 +1,26 @@
 .wponion-element.wponion-element-color_picker {
-  button.wp-color-result {
-	.color-alpha {
-	  height: 23px !important;
+	button.wp-color-result {
+		.color-alpha {
+			height: 23px !important;
+		}
 	}
-  }
-  input.wp-color-picker {
-	width: 175px !important;
-  }
-  .wp-picker-holder {
-	display: inline;
-  }
-  .wp-picker-container {
-	padding: 10px;
-	margin:  -10px;
-	&.wp-picker-active {
-	  display:    inline-block;
-	  border:     1px solid #e1e1e1;
-	  background: #fcfcfcb3;
+
+	input.wp-color-picker {
+		width: 175px !important;
 	}
-  }
+
+	.wp-picker-holder {
+		display: inline;
+	}
+
+	.wp-picker-container {
+		padding: 10px;
+		margin:  -10px;
+
+		&.wp-picker-active {
+			display:    inline-block;
+			border:     1px solid #e1e1e1;
+			background: #fcfcfcb3;
+		}
+	}
 }

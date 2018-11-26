@@ -1,7 +1,7 @@
 .wponion-element.wponion-element-accordion {
-  .wponion-element {
-	@include wponion_field_horizontal();
-  }
+	.wponion-element {
+		@include wponion_field_horizontal();
+	}
 }
 
 &.wponion-taxonomy-new-form {

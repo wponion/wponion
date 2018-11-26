@@ -1,11 +1,12 @@
 .wponion-element.wponion-element-font_picker {
-  .wponion-font-select-container {
-	display:       inline-block;
-	margin-right:  10px;
-	min-width:     200px;
-	margin-bottom: 10px;
-  }
-  select {
-	min-width: 200px;
-  }
+	.wponion-font-select-container {
+		display:       inline-block;
+		margin-right:  10px;
+		min-width:     200px;
+		margin-bottom: 10px;
+	}
+
+	select {
+		min-width: 200px;
+	}
 }

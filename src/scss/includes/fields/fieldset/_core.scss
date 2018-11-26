@@ -1,23 +1,25 @@
 .wponion-element.wponion-element-fieldset {
-  .wponion-fieldset-wrap {
-	display: inline-block;
-	border:  1px solid #ddd;
+	.wponion-fieldset-wrap {
+		display: inline-block;
+		border:  1px solid #ddd;
 
-	> .wponion-element {
-	  width:         auto;
-	  display:       block;
-	  padding-left:  $element_gurtter;
-	  padding-right: $element_gurtter;
+		> .wponion-element {
+			width:         auto;
+			display:       block;
+			padding-left:  $element_gurtter;
+			padding-right: $element_gurtter;
+		}
+
+		> .wponion-row {
+			margin-left:   0;
+			margin-right:  0;
+			padding-left:  $element_gurtter;
+			padding-right: $element_gurtter;
+
+			> div {
+				padding-left:  0;
+				padding-right: 0;
+			}
+		}
 	}
-	> .wponion-row {
-	  margin-left:   0;
-	  margin-right:  0;
-	  padding-left:  $element_gurtter;
-	  padding-right: $element_gurtter;
-	  > div {
-		padding-left:  0;
-		padding-right: 0;
-	  }
-	}
-  }
 }

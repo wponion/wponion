@@ -13,14 +13,14 @@ $dark: #343a40;
 
 $wponionThemes: () !default;
 $wponionThemes: map-merge((
-		"blue": $primary,
-		"grey": $secondary,
-		"success": $success,
-		"info": $info,
-		"warning": $warning,
-		"danger": $danger,
-		"light": $light,
-		"dark": $dark
+	"blue": $primary,
+	"grey": $secondary,
+	"success": $success,
+	"info": $info,
+	"warning": $warning,
+	"danger": $danger,
+	"light": $light,
+	"dark": $dark
 ), $wponionThemes);
 
 $wponion_metabox_menu_color: #e14d43;

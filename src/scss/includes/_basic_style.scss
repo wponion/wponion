@@ -23,6 +23,7 @@
 
 .swal2-container {
 	z-index: 99999 !important;
+
 	#swal2-content {
 		.json-view {
 			overflow: scroll;
@@ -40,9 +41,11 @@
 	font-size: 16px;
 	color:     #AAAAAA;
 	cursor:    pointer;
+
 	&:before {
 		content: "\f153";
 	}
+
 	&:hover {
 		color: #CC0000;
 	}
@@ -74,27 +77,33 @@
 
 .wponion-field-debug-code {
 	text-align:    left;
+
 	> strong {
 		color:         #333; // #ffbc00;
 		margin-bottom: 10px;
 		cursor:        pointer;
 		display:       block;
 	}
+
 	div {
 		margin-bottom:  15px;
 		padding-left:   25px;
 		display:        block;
 		padding-bottom: 10px;
+
 		pre {
 			margin: 0;
 		}
+
 		pre, code {
 			background: transparent;
 		}
+
 		&:last-child {
 			margin-bottom: 0;
 		}
 	}
+
 	text-align:    left;
 	padding:       15px;
 	color:         #eaeaea;
@@ -102,6 +111,7 @@
 	margin-top:    15px;
 	border:        1px solid #d4d4d4;
 	border-radius: 5px;
+
 	.alert {
 		display:       block;
 		font-size:     12px;

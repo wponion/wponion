@@ -7,13 +7,16 @@
 	.form-check {
 		display:      inline-block;
 		margin-right: 15px;
+
 		label {
 			display: inline-block;
 		}
+
 		input {
 			&:disabled + .wponion-image-select-thumbnail {
 				cursor: not-allowed;
 			}
+
 			&:disabled + .wponion-image-select-thumbnail:before {
 				content:    " ";
 				background: #f3f3f399;
@@ -23,8 +26,10 @@
 				z-index:    1;
 				height:     99%;
 			}
+
 			&:checked + .wponion-image-select-thumbnail {
 				border-color: #64bd1f;
+
 				&:after {
 					content:                "\f147";
 					font-family:            dashicons;
@@ -40,6 +45,7 @@
 				}
 			}
 		}
+
 		.wponion-image-select-thumbnail {
 			border:        3px solid transparent;
 			padding:       2px;

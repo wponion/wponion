@@ -7,6 +7,7 @@
 	> .wponion-element, > .wponion-row {
 		border: 0;
 	}
+
 	&.wponion-taxonomy-new-form {
 		> .wponion-element {
 			@include wponion_field_horizontal();

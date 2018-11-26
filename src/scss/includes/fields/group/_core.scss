@@ -1,18 +1,19 @@
 .wponion-element.wponion-element-group {
-  .wponion-group-wrap {
-	margin-bottom: $element_gurtter;
-  }
-  .wponion-group-action {
-	padding:        $element_gurtter;
-	text-align:     right;
-	border-top:     1px solid #ddd;
-	margin-top:     $element_gurtter;
-  }
+	.wponion-group-wrap {
+		margin-bottom: $element_gurtter;
+	}
 
-  .wponion-group-remove{
-	float: right;
-	vertical-align: middle;
-	margin-top: 2px;
-  }
+	.wponion-group-action {
+		padding:    $element_gurtter;
+		text-align: right;
+		border-top: 1px solid #ddd;
+		margin-top: $element_gurtter;
+	}
+
+	.wponion-group-remove {
+		float:          right;
+		vertical-align: middle;
+		margin-top:     2px;
+	}
 }
 

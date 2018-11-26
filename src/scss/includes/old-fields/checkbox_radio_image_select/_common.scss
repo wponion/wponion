@@ -1,43 +1,47 @@
 .wponion-element {
-  &.wponion-element-checkbox, &.wponion-element-radio, &.wponion-element-image_select {
-	.wponion-checkbox-radio-group {
-	  display:       inline-block;
-	  min-width:     200px;
-	  margin-right:  25px;
-	  margin-bottom: 15px;
-	  border:        1px solid #dadada;
-	  background:    #fff;
-	  .wponion-group-header {
-		padding:       10px 15px;
-		margin-bottom: 15px;
-		background:    #f8f8f8;
-		border-bottom: 1px solid #dadada;
-		h4 {
-		  margin-bottom: 0;
-		  font-size:     1.0rem;
-		}
-	  }
+	&.wponion-element-checkbox, &.wponion-element-radio, &.wponion-element-image_select {
+		.wponion-checkbox-radio-group {
+			display:       inline-block;
+			min-width:     200px;
+			margin-right:  25px;
+			margin-bottom: 15px;
+			border:        1px solid #dadada;
+			background:    #fff;
 
-	  ul.wponion-checkbox-group-lists {
-		padding: 0 15px;
-		li {
-		  div {
-			margin-bottom: 0;
-		  }
-		}
-	  }
+			.wponion-group-header {
+				padding:       10px 15px;
+				margin-bottom: 15px;
+				background:    #f8f8f8;
+				border-bottom: 1px solid #dadada;
 
-	  &:last-child {
-		margin-right: 0;
-	  }
-	}
-	.form-check {
-	  label {
-		input {
-		  margin-right: 5px;
+				h4 {
+					margin-bottom: 0;
+					font-size:     1.0rem;
+				}
+			}
+
+			ul.wponion-checkbox-group-lists {
+				padding: 0 15px;
+
+				li {
+					div {
+						margin-bottom: 0;
+					}
+				}
+			}
+
+			&:last-child {
+				margin-right: 0;
+			}
 		}
-	  }
+
+		.form-check {
+			label {
+				input {
+					margin-right: 5px;
+				}
+			}
+		}
 	}
-  }
 }
 

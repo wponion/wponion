@@ -4,10 +4,12 @@
 			padding-left:  0;
 			padding-right: 0;
 		}
+
 		.wponion-typography-config-panel {
 			display: block;
 			border:  $element_border;
 			padding: 15px;
+
 			.wponion-typography-font_picker, .wponion-typography-font_alignments, .wponion-typography-font_sizes {
 				> div {
 					display:       inline-block;
@@ -22,6 +24,7 @@
 			.wponion-typography-font_alignments, .wponion-typography-font_sizes {
 				display:     inline-block;
 				padding-top: 15px;
+
 				> div {
 					padding-top:    0;
 					padding-bottom: 0;
@@ -34,6 +37,7 @@
 				padding: 0;
 			}
 		}
+
 		.wponion-font-preview {
 			padding:          10px;
 			border:           1px solid #e6e6e6;
