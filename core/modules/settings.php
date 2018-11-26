@@ -86,9 +86,20 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$menu['on_load'][] = array( &$this, 'on_settings_page_load' );
 			$menu['render']    = array( &$this, 'render' );
 			$menu['assets'][]  = 'wponion_load_core_assets';
-			$menu['assets'][]  = $this->option( 'extra_js' );
-			$menu['assets'][]  = $this->option( 'extra_css' );
-			$menu['assets'][]  = array( $this, 'load_admin_styles' );
+
+			if ( is_array( $this->option( 'extra_js' ) ) ) {
+				$menu['assets'] = $this->parse_args( $menu['assets'], $this->option( 'extra_js' ) );
+			} else {
+				$menu['assets'][] = $this->option( 'extra_js' );
+			}
+
+			if ( is_array( $this->option( 'extra_css' ) ) ) {
+				$menu['assets'] = $this->parse_args( $menu['assets'], $this->option( 'extra_css' ) );
+			} else {
+				$menu['assets'][] = $this->option( 'extra_css' );
+			}
+
+			$menu['assets'][] = array( $this, 'load_admin_styles' );
 
 			if ( false !== $menu['submenu'] ) {
 				if ( ! is_string( $menu['submenu'] ) ) {
