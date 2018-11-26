@@ -12,15 +12,19 @@ $wponion_metabox_menu_width: 200px;
 		padding: 15px 0;
 		width:   calc(100% - 200px) !important;
 	}
+
 	.menu-wrap {
 		float:      left;
 		width:      $wponion_metabox_menu_width;
 		background: $wponion_metabox_a_bg;
+
 		ul {
 			padding-left: 0px;
 			margin-top:   0;
+
 			li {
 				list-style: none;
+
 				a {
 					position:        relative;
 					text-decoration: none;
@@ -30,31 +34,38 @@ $wponion_metabox_menu_width: 200px;
 					display:         block;
 					transition:      all .25s ease;
 					padding:         10px !important;
+
 					i {
 						width:      20px;
 						height:     20px;
 						text-align: center;
 					}
 				}
+
 				&:hover {
 					transition: all .25s ease;
+
 					> a {
 						background: $wponion_metabox_menu_color;
 					}
 				}
 			}
 		}
+
 		> ul {
 			background: $wponion_metabox_a_bg;
 			max-width:  $wponion_metabox_menu_width;
+
 			> li {
 				> a {
 					&.active {
 						background:  $wponion_metabox_menu_color;
 						font-weight: bold;
+
 						& + ul {
 							display: inline-block;
 							width:   100%;
+
 							> li > a {
 								&.active {
 									font-weight: bold;
@@ -70,13 +81,16 @@ $wponion_metabox_menu_width: 200px;
 						}
 					}
 				}
+
 				> ul {
 					display:          none;
 					background-color: $wponion_metabox_menu_bg_color;
 					padding:          7px 0;
+
 					> li {
 						> a {
 							padding-left: 20px;
+
 							&::after {
 								left:           180px;
 								border:         solid transparent;
@@ -89,6 +103,7 @@ $wponion_metabox_menu_width: 200px;
 						}
 					}
 				}
+
 				&:hover {
 					> ul {
 						> li {
@@ -104,6 +119,7 @@ $wponion_metabox_menu_width: 200px;
 			}
 		}
 	}
+
 	.menu-bg-wrap {
 		position:   absolute;
 		top:        0;
@@ -112,6 +128,7 @@ $wponion_metabox_menu_width: 200px;
 		width:      $wponion_metabox_menu_width;
 		z-index:    -1;
 	}
+
 	.content-wrap {
 		float:          left;
 		width:          100%;
@@ -128,6 +145,7 @@ $wponion_metabox_menu_width: 200px;
 			padding-top:    0;
 			padding-bottom: 0;
 		}
+
 		.wponion-fresh-theme-inside-wrap {
 			display:    inline-block;
 			width:      100%;
@@ -144,18 +162,21 @@ $wponion_metabox_menu_width: 200px;
 			color:                   white;
 			border-top-right-radius: 5px;
 			border-top-left-radius:  5px;
+
 			.wponion-settings-heading {
 				width:          49%;
 				display:        inline-block;
 				padding:        10px;
 				vertical-align: middle;
 				padding-right:  0;
+
 				h1 {
 					color:   white;
 					margin:  0;
 					padding: 0;
 				}
 			}
+
 			.action-holder {
 				width:          49%;
 				vertical-align: middle;
@@ -172,12 +193,14 @@ $wponion_metabox_menu_width: 200px;
 			float:                      left;
 			border-bottom-right-radius: 5px;
 			border-bottom-left-radius:  5px;
+
 			> div {
 				padding:    10px 15px;
 				text-align: right;
 			}
 		}
 	}
+
 	&.wponion-module-metabox-framework {
 		.wponion-metabox-inside-wrap {
 			width:     100%;

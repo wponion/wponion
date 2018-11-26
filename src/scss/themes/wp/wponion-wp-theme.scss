@@ -1,143 +1,152 @@
 .wponion-framework.wponion-wp-theme {
-  /* Handles Page Load Scss. */
-  .page-loader {
-	position:         absolute;
-	top:              0;
-	z-index:          500;
-	background-color: rgba(255, 255, 255, 0.95);
-	left:             -10px;
-	&:before, &:after {
-	  color:             black;
-	  border-color:      rgba(0, 0, 0, 0.57);
-	  border-left-color: transparent;
-	}
-  }
+	/* Handles Page Load Scss. */
+	.page-loader {
+		position:         absolute;
+		top:              0;
+		z-index:          500;
+		background-color: rgba(255, 255, 255, 0.95);
+		left:             -10px;
 
-  /* Handles Page Header*/
-  .wponion-framework-header {
-	p {
-	  margin-top: 5px;
+		&:before, &:after {
+			color:             black;
+			border-color:      rgba(0, 0, 0, 0.57);
+			border-left-color: transparent;
+		}
 	}
-  }
 
-  /* Handles WP Styles */
-  .wponion-content {
-	h2.wponion-subnav-container {
-	  margin-top:    10px;
-	  margin-bottom: 5px;
-	  ul {
-		margin:  0;
-		display: inline-block;
-		float:   none;
-		li {
-		  a {
-			font-size: 13px;
-			margin:    0 3px;
-		  }
-		  &:first-child {
-			a {
-			  margin-left: 0;
+	/* Handles Page Header*/
+	.wponion-framework-header {
+		p {
+			margin-top: 5px;
+		}
+	}
+
+	/* Handles WP Styles */
+	.wponion-content {
+		h2.wponion-subnav-container {
+			margin-top:    10px;
+			margin-bottom: 5px;
+
+			ul {
+				margin:  0;
+				display: inline-block;
+				float:   none;
+
+				li {
+					a {
+						font-size: 13px;
+						margin:    0 3px;
+					}
+
+					&:first-child {
+						a {
+							margin-left: 0;
+						}
+					}
+
+					&:last-child {
+						a {
+							margin-right: 0;
+						}
+					}
+				}
+
 			}
-		  }
-		  &:last-child {
-			a {
-			  margin-right: 0;
+		}
+	}
+
+	.wponion-sections {
+		.wponion-parent-wraps {
+			margin-top:   10px;
+			margin-left:  -10px;
+			margin-right: -10px;
+
+			&.wponion-has-sections {
+				margin: 0;
+
+				.wponion-section-wraps {
+					margin-top:   10px;
+					margin-left:  -10px;
+					margin-right: -10px;
+				}
 			}
-		  }
 		}
 
-	  }
-	}
-  }
-
-  .wponion-sections {
-	.wponion-parent-wraps {
-	  margin-top:   10px;
-	  margin-left:  -10px;
-	  margin-right: -10px;
-	  &.wponion-has-sections {
-		margin: 0;
-		.wponion-section-wraps {
-		  margin-top:   10px;
-		  margin-left:  -10px;
-		  margin-right: -10px;
+		.wponion-parent-wraps > .wponion-element:first-child, .wponion-section-wraps > .wponion-element:first-child {
+			//padding-top: 25px;
 		}
-	  }
 	}
 
-	.wponion-parent-wraps > .wponion-element:first-child, .wponion-section-wraps > .wponion-element:first-child {
-	  //padding-top: 25px;
-	}
-  }
+	.wponion-form-actions {
+		display:    block;
+		margin-top: 20px;
+		//text-align: right;
+		//background: white;
+		///border:     1px solid #ddd;
+		> button {
+			margin-right: 15px;
 
-  .wponion-form-actions {
-	display:    block;
-	margin-top: 20px;
-	//text-align: right;
-	//background: white;
-	///border:     1px solid #ddd;
-	> button {
-	  margin-right: 15px;
-	  &:last-child {
-		margin-right: 0;
-	  }
-	}
-  }
-
-  /* Taxonomy Styles */
-  &.wponion-module-taxonomy {
-	margin-top: 0;
-	> .wponion-element,
-	> .wponion-row {
-	  padding-left:   0;
-	  padding-right:  0;
-	  padding-top:    1em;
-	  padding-bottom: 1em;
-	}
-
-	.wponion-element.wponion-element-textarea {
-	  textarea {
-		min-width: auto;
-	  }
-	}
-
-	> .wponion-element {
-	  &.wponion-element-heading,
-	  &.wponion-element-subheading {
-		padding-left:  15px;
-		padding-right: 15px;
-	  }
-
-	  &.wponion-element-accordion, &.wponion-element-group {
-		.wponion-accordion-content {
-		  padding-left:  0;
-		  padding-right: 0;
+			&:last-child {
+				margin-right: 0;
+			}
 		}
-	  }
-	}
-  }
-
-  &.wponion-module-settings {
-	.nav-tab-wrapper {
-	  a {
-		i {
-		  display:        inline-block;
-		  vertical-align: text-bottom;
-		  margin-right:   3px;
-		}
-	  }
 	}
 
-	.wponion-submenus {
-	  li {
-		a {
-		  i {
-			display:        inline-block;
-			vertical-align: text-bottom;
-			margin-right:   3px;
-		  }
+	/* Taxonomy Styles */
+	&.wponion-module-taxonomy {
+		margin-top: 0;
+
+		> .wponion-element,
+		> .wponion-row {
+			padding-left:   0;
+			padding-right:  0;
+			padding-top:    1em;
+			padding-bottom: 1em;
 		}
-	  }
+
+		.wponion-element.wponion-element-textarea {
+			textarea {
+				min-width: auto;
+			}
+		}
+
+		> .wponion-element {
+			&.wponion-element-heading,
+			&.wponion-element-subheading {
+				padding-left:  15px;
+				padding-right: 15px;
+			}
+
+			&.wponion-element-accordion, &.wponion-element-group {
+				.wponion-accordion-content {
+					padding-left:  0;
+					padding-right: 0;
+				}
+			}
+		}
 	}
-  }
+
+	&.wponion-module-settings {
+		.nav-tab-wrapper {
+			a {
+				i {
+					display:        inline-block;
+					vertical-align: text-bottom;
+					margin-right:   3px;
+				}
+			}
+		}
+
+		.wponion-submenus {
+			li {
+				a {
+					i {
+						display:        inline-block;
+						vertical-align: text-bottom;
+						margin-right:   3px;
+					}
+				}
+			}
+		}
+	}
 }
