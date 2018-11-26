@@ -142,7 +142,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 */
 		protected function fields_md5( $fields = array() ) {
 			if ( false === $this->fields_md5 ) {
-				$fields           = empty( $fields ) ? $this->fields : $fields;
+				$fields           = empty( $fields ) ? $this->raw_fields : $fields;
 				$this->fields_md5 = wponion_hash_array( wponion_get_all_fields_ids_and_defaults( $fields ) );
 			}
 			return $this->fields_md5;
