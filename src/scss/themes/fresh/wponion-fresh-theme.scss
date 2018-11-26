@@ -124,6 +124,10 @@ $wponion_metabox_menu_width: 200px;
 
 .wponion-fresh-theme {
 	&.wponion-module-settings-framework {
+		.content-wrap {
+			padding-top:    0;
+			padding-bottom: 0;
+		}
 		.wponion-fresh-theme-inside-wrap {
 			display:    inline-block;
 			width:      100%;
