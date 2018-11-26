@@ -4,7 +4,6 @@
 //@wponion-inline ../../node_modules/tippy.js/dist/themes/light-border.css
 //@wponion-inline ../../node_modules/tippy.js/dist/themes/google.css
 // @ wponion-inline ../../node_modules/animate.css/animate.min.css
-
 @import "../vendors/json-view/json-view";
 //@import "plugins/prettycheckbox";
 
@@ -19,12 +18,14 @@ div.wponion-element-switcher {
 
 	.ckbx-fat {
 		width: 155px !important;
+
 		&.ckbx-style-14 {
 			label {
 				&:before {
 					left:  80%;
 					width: 80%;
 				}
+
 				&:after {
 					width: 80%;
 				}
@@ -35,9 +36,11 @@ div.wponion-element-switcher {
 	.ckbx-style-14 {
 		label {
 			text-align: justify !important;
+
 			&:before {
 				content: attr(data-off);
 			}
+
 			&::after {
 				content: attr(data-on);
 			}
@@ -49,9 +52,11 @@ div.wponion-element-switcher {
 		&:before {
 			content: attr(data-on);
 		}
+
 		&::after {
 			content: attr(data-off);
 		}
+
 		text-align: justify !important;
 	}
 }
