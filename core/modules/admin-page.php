@@ -396,7 +396,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				foreach ( $subemnus as $sub_menu ) {
 					if ( wponion_is_callable( $sub_menu ) ) {
 						wponion_callback( $sub_menu, $this );
-					} else {
+					} elseif ( ! is_scalar( $sub_menu ) ) {
 						if ( ! isset( $sub_menu['submenu'] ) ) {
 							$sub_menu['submenu'] = $this;
 						}

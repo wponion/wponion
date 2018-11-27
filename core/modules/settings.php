@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 *
 		 * @var \WPOnion\Modules\Admin_Page
 		 */
-		protected $menu_instance = '';
+		public $menu_instance = '';
 
 		/**
 		 * Module Type.
@@ -102,6 +102,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$menu['assets'][] = array( $this, 'load_admin_styles' );
 
 			if ( false !== $menu['submenu'] ) {
+				if ( true === $menu['submenu'] ) {
+					$menu['submenu'] = array();
+				}
 				if ( ! is_string( $menu['submenu'] ) ) {
 					if ( is_array( $menu['submenu'] ) && ! isset( $menu['submenu'][0] ) || ! is_array( $menu['submenu'] ) ) {
 						$menu['submenu'] = array( $menu['submenu'] );
