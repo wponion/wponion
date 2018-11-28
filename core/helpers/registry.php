@@ -101,9 +101,6 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	}
 }
 
-/**
- * Modules Registry
- */
 if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for settings module.
@@ -116,9 +113,7 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 		return wponion_get_registry_instance( 'settings', $instance, 'settings' );
 	}
 }
-/**
- * Modules Registry
- */
+
 if ( ! function_exists( 'wponion_network_settings_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for settings module.
@@ -309,6 +304,17 @@ if ( ! function_exists( 'wponion_nav_menu_registry' ) ) {
 	 */
 	function wponion_nav_menu_registry( &$instance ) {
 		return wponion_get_registry_instance( 'nav_menu', $instance, 'settings' );
+	}
+}
+
+if ( ! function_exists( 'wponion_admin_notices_registry' ) ) {
+	/**
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_admin_notices_registry( &$instance ) {
+		return wponion_get_registry_instance( 'admin_notices', $instance, 'settings' );
 	}
 }
 
