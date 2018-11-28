@@ -245,6 +245,9 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 		}
 
+		/**
+		 * Restores Database in model.
+		 */
 		public function restore_module_data_backup() {
 			$module    = ( isset( $_POST['module'] ) ) ? $_POST['module'] : false;
 			$unique    = ( isset( $_POST['unique'] ) ) ? $_POST['unique'] : false;
@@ -259,6 +262,27 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			wp_send_json_error( __( 'Error Code: #BKP259' ) );
 
 		}
+
+		/**
+		 * Removes Stick notice if user click remove notice button.
+		 */
+		public function remove_admin_notice() {
+			if ( isset( $_REQUEST['notice_hander'] ) && isset( $_REQUEST['notice_id'] ) && isset( $_REQUEST['wp_nounce'] ) ) {
+				$wp_nounce = $_REQUEST['wp_nounce'];
+				if ( wp_verify_nonce( $wp_nounce, 'wpo-admin-notice-sticky-remove' ) ) {
+					$notice    = $_REQUEST['notice_hander'];
+					$notice_id = $_REQUEST['notice_id'];
+					$_ins      = wponion_admin_notices( $notice );
+					if ( false !== $_ins ) {
+						$_ins->remove( $notice_id );
+						wp_send_json_success();
+					}
+				}
+			}
+			wp_send_json_error();
+
+		}
+
 	}
 }
 return new Core_Ajax;
