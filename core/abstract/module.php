@@ -107,11 +107,18 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $settings array of WPOnion Settings Configuration.
 		 */
 		public function __construct( $fields = array(), $settings = array() ) {
-			$this->fields     = new \WPOnion\Module_Fields( $fields );
+			if ( is_array( $fields ) ) {
+				$this->fields = new \WPOnion\Module_Fields( $fields );
+			}
 			$this->raw_fields = $fields;
 			$this->settings   = $this->set_args( $settings );
-			$this->plugin_id  = ( false === $this->settings['plugin_id'] ) ? $this->settings['option_name'] : $this->settings['plugin_id'];
-			$this->unique     = $this->settings['option_name'];
+			$this->unique     = ( isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
+			$this->plugin_id  = $this->unique;
+
+			if ( isset( $this->settings['plugin_id'] ) && false !== $this->settings['plugin_id'] ) {
+				$this->plugin_id = $this->settings['plugin_id'];
+			}
+
 			$this->save_instance();
 		}
 
