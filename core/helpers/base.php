@@ -517,10 +517,11 @@ if ( ! function_exists( 'wponion_update_option' ) ) {
 
 if ( ! function_exists( 'wponion_get_option' ) ) {
 	/**
-	 * Custom Wrapper For get_option / get_site_option.
+	 * Custom Wrapper for get_option / get_site_option.
 	 *
-	 * @param $option_name
-	 * @param $default
+	 * @param      $option_name
+	 * @param      $default
+	 * @param bool $force_local
 	 *
 	 * @return mixed
 	 */
@@ -553,3 +554,6 @@ require_once WPONION_PATH . 'core/helpers/validator.php';
 
 // WPOnion Theme Related Functions
 require_once WPONION_PATH . 'core/helpers/theme.php';
+
+// WPOnion Theme Related Functions
+require_once WPONION_PATH . 'core/helpers/admin-notice.php';
