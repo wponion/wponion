@@ -28,6 +28,7 @@ if ( ! function_exists( 'wponion_settings' ) ) {
 		return new \WPOnion\Modules\Settings( $instance_id_or_args, $fields );
 	}
 }
+
 if ( ! function_exists( 'wponion_network_settings' ) ) {
 	/**
 	 * Returns a new instance for network settings page.
@@ -227,5 +228,25 @@ if ( ! function_exists( 'wponion_nav_menu' ) ) {
 	 */
 	function wponion_nav_menu( $settings = array(), $fields = array() ) {
 		return new \WPOnion\Modules\Nav_Menu( $settings, $fields );
+	}
+}
+
+if ( ! function_exists( 'wponion_admin_notices' ) ) {
+	/**
+	 * @param array $instance_id_or_args
+	 *
+	 * @return bool|\WPOnion\Modules\Admin_Notices
+	 */
+	function wponion_admin_notices( $instance_id_or_args = array() ) {
+		if ( is_scalar( $instance_id_or_args ) ) {
+			return wponion_admin_notices_registry( $instance_id_or_args );
+		} elseif ( empty( $instance_id_or_args ) ) {
+			$instance_id_or_args = '_wponion_admin_notices';
+			$instance            = wponion_admin_notices_registry( $instance_id_or_args );
+			if ( $instance ) {
+				return $instance;
+			}
+		}
+		return new \WPOnion\Modules\Admin_Notices( $instance_id_or_args );
 	}
 }
