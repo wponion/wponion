@@ -104,7 +104,6 @@
 		}
 	}
 
-	text-align:    left;
 	padding:       15px;
 	color:         #eaeaea;
 	font-size:     13px;
@@ -122,4 +121,11 @@
 
 .wponion-submenu-i {
 	float: right;
+}
+
+.wponion-inline-ajax {
+	+ .spinner {
+		float:          none;
+		vertical-align: middle;
+	}
 }
