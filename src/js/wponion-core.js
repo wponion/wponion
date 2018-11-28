@@ -8,6 +8,8 @@ window.wponion_bulk_edit      = require( './modules/bulk-edit' ).default;
 window.wponion_guttenberg     = require( './modules/guttenberg' ).default;
 window.wponion_quick_edit     = require( './modules/quick-edit' ).default;
 window.$wponion               = require( './core/core' ).default;
+window.$wponion_ajaxer        = require( './core/ajaxer' ).WPOnion_Ajaxer;
+window.$wponion_ajax          = require( './core/ajaxer' ).default;
 window.$wponion_debug         = require( './core/debug' ).default;
 window.$wponion_helper        = require( 'vsp-js-helper/index' );
 window.wponion_modal          = require( '../vendors/backbone-modal' ).default;
@@ -83,7 +85,7 @@ window.wponion_notice         = ( $elem ) => {
 module.exports = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;
 
-	$( document ).on( 'ready', () => {
+	$( () => {
 		$wpo.settings_args    = $wpo.windowArgs( 'wponion_core', {} );
 		$wpo.text             = $wpo.windowArgs( 'wponion_il8n', {} );
 		$wpo.debug_info       = null;

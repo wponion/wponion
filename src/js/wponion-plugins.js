@@ -102,6 +102,7 @@ jQuery.fn.extend( {
 //@wponion-inline ../../node_modules/form-serializer/dist/jquery.serialize-object.min.js
 ( function( window, document, wp, $ ) {
 //@wponion-inline ../vendors/jquery-interdependencies/jquery-interdependencies.js
+//@wponion-inline ../vendors/bootstrap/button.js
 //@wponion-inline ../vendors/json-view/json-view.js
 //@wponion-inline ../vendors/wp-js-hooks.js
 //@wponion-inline ../vendors/blockUI/blockUI.js
