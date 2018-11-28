@@ -135,7 +135,8 @@ JAVASCRIPT;
 		 * @return $this
 		 */
 		public function add( Admin_Notice &$notice ) {
-			$this->db_values[ $notice->id() ] = $notice;
+			$id                     = md5( $notice->id() );
+			$this->db_values[ $id ] = $notice;
 			$this->set_db_option();
 			return $this;
 		}
