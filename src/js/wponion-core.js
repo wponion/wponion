@@ -66,8 +66,7 @@ window.wponion_notice         = ( $elem ) => {
 					$_el.remove();
 				} );
 			} );
-		} )
-
+		} );
 		return $elem;
 	}
 
@@ -81,8 +80,7 @@ window.wponion_notice         = ( $elem ) => {
 		}, $auto );
 	}
 };
-
-module.exports = ( ( window, document, wp, $, $wpo ) => {
+module.exports                = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;
 
 	$( () => {
