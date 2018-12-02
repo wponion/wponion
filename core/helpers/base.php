@@ -533,6 +533,40 @@ if ( ! function_exists( 'wponion_get_option' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_inline_ajax' ) ) {
+	/**
+	 * @param string $action
+	 * @param array  $args
+	 * @param string $button_html
+	 *
+	 * @return string
+	 */
+	function wponion_inline_ajax( $action = '', $args = array(), $button_html = '' ) {
+		if ( is_scalar( $args ) && empty( $button_html ) ) {
+			$button_html = $args;
+			$args        = array();
+		}
+		$args      = wp_parse_args( $args, array(
+			'method'   => 'post',
+			'url'      => admin_url( 'admin-ajax.php' ),
+			'part_url' => false,
+			'data'     => array(),
+			'success'  => false,
+			'error'    => false,
+			'always'   => false,
+			'action'   => $action,
+
+		) );
+		$unique_id = wponion_hash_array( $args );
+		wponion_localize()->add( $unique_id, array( 'inline_ajax' => $args ) );
+		if ( ! empty( $button_html ) ) {
+			$button_html = preg_replace( '/<a (.+?)>/i', "<a $1 data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );
+			return preg_replace( '/<button (.+?)>/i', "<button $1  data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );
+		}
+		return $unique_id;
+	}
+}
+
 
 // WPOnion Assets Related Functions.
 require_once WPONION_PATH . 'core/helpers/assets.php';
