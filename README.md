@@ -8,7 +8,7 @@ Add The below to your **composer.json**
 ```json
 {
     "require": {
-        "devster/ubench": "~2.0.0"
+        "wponion/wponion-dev": "~1.0.0"
     }
 }
 ```
@@ -29,6 +29,8 @@ function your-prefix_after_wponion_loaded(){
     //do your stuff here.
 }
 ```
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/settings-modern-theme.jpg)](https://s3.wponion.com/preview/settings-modern-theme.jpg)
+
 
 ## So what is WPOnion , exactly?
 
@@ -49,13 +51,44 @@ In case you come across anything along the way that we haven’t covered, or if 
 
 https://wponion.gitbook.io/docs/
 
-# Options
-
-#### `WPONION_FRONTEND` To Load WPOnion Assets in frontend
- ```php
- define('WPONION_FRONTEND',true);
- ```
-
 ## Contributors
 Thanks to all the Contributors who worked on this project to get it done asap
 1. [pixelnx](https://profiles.wordpress.org/pixelnx) -- Created WPOnion Logo
+
+---
+
+# Screenshots
+
+## Settings Page
+
+#### WP Theme 
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/settings-wp-theme.jpg)](https://s3.wponion.com/preview/settings-wp-theme.jpg)
+
+## Metabox's
+#### Theme 1
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/metabox-1.jpg)](https://s3.wponion.com/preview/metabox-1.jpg)
+#### Theme 2
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/metabox-2.jpg)](https://s3.wponion.com/preview/metabox-2.jpg)
+### Side
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/metabox-side.jpg)](https://s3.wponion.com/preview/metabox-side.jpg)
+
+## Taxonomy
+#### With & Without Metabox Feature
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/taxonomy.jpg)](https://s3.wponion.com/preview/taxonomy.jpg)
+
+## User Profile Fields
+#### With & Without Metabox Feature
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/user-profile-fields.jpg)](https://s3.wponion.com/preview/user-profile-fields.jpg)
+
+## Bulk & Quick Edit
+### Quick Edit
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/quick-edit.jpg)](https://s3.wponion.com/preview/quick-edit.jpg)
+### Bulk Edit 
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/bulk-edit.jpg)](https://s3.wponion.com/preview/bulk-edit.jpg)
+
+## Help Tabs
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/help-tabs.gif)](https://s3.wponion.com/preview/help-tabs.gif)
+
+## Admin Columns & Custom Pages
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/admin-columns.jpg)](https://s3.wponion.com/preview/admin-columns.jpg)
+[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/admin-page-with-tabs.jpg)](https://s3.wponion.com/preview/admin-page-with-tabs.jpg)
