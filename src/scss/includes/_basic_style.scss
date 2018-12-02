@@ -123,7 +123,12 @@
 	float: right;
 }
 
-.wponion-inline-ajax {
+.wponion-ajax,
+.wponion-ajax-post,
+.wponion-ajax-get,
+.wponion-inline-ajax,
+.wponion-inline-ajax-get,
+.wponion-inline-ajax-post {
 	+ .spinner {
 		float:          none;
 		vertical-align: middle;
