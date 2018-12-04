@@ -4,6 +4,7 @@ import WPOnion_Dependency from './core/dependency';
 import WPOnion_Validator from './core/validation';
 
 window.wponion_metabox_module = require( './modules/metabox' ).default;
+window.wponion_media_fields   = require( './modules/media-fields' ).default;
 window.wponion_bulk_edit      = require( './modules/bulk-edit' ).default;
 window.wponion_guttenberg     = require( './modules/guttenberg' ).default;
 window.wponion_quick_edit     = require( './modules/quick-edit' ).default;
@@ -80,14 +81,17 @@ window.wponion_notice         = ( $elem ) => {
 		}, $auto );
 	}
 };
+window.wponion_setup          = () => {
+	window.$wponion.settings_args    = window.$wponion.windowArgs( 'wponion_core', {} );
+	window.$wponion.text             = window.$wponion.windowArgs( 'wponion_il8n', {} );
+	window.$wponion.debug_info       = null;
+	window.$wponion.field_debug_info = null;
+};
 module.exports                = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;
 
 	$( () => {
-		$wpo.settings_args    = $wpo.windowArgs( 'wponion_core', {} );
-		$wpo.text             = $wpo.windowArgs( 'wponion_il8n', {} );
-		$wpo.debug_info       = null;
-		$wpo.field_debug_info = null;
+		wponion_setup();
 
 		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
 		if( $wpof_div.length > 0 ) {
