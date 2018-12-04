@@ -14,6 +14,8 @@
 
 namespace WPOnion\DB;
 
+use WPOnion\Bridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +28,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Save_Handler extends \WPOnion\Bridge {
+	class Save_Handler extends Bridge {
 		/**
 		 * Stores User Posted Options
 		 *
