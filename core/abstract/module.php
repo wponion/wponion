@@ -119,16 +119,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				$this->plugin_id = $this->settings['plugin_id'];
 			}
 
-			$this->save_instance();
-		}
-
-		/**
-		 * Saves Current Instance in registry.
-		 */
-		protected function save_instance() {
-			if ( function_exists( 'wponion_' . $this->module . '_registry' ) ) {
-				call_user_func_array( 'wponion_' . $this->module . '_registry', array( &$this ) );
-			}
+			wponion_callback( 'wponion_' . $this->module . '_registry', array( &$this ) );
 		}
 
 		/**

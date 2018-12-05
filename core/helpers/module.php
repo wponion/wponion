@@ -231,6 +231,18 @@ if ( ! function_exists( 'wponion_nav_menu' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_media_fields' ) ) {
+	/**
+	 * @param array $instance_id_or_args
+	 * @param array $fields
+	 *
+	 * @return \WPOnion\Modules\Media_Fields
+	 */
+	function wponion_media_fields( $instance_id_or_args = array(), $fields = array() ) {
+		return new \WPOnion\Modules\Media_Fields( $instance_id_or_args, $fields );
+	}
+}
+
 if ( ! function_exists( 'wponion_admin_notices' ) ) {
 	/**
 	 * @param array $instance_id_or_args
