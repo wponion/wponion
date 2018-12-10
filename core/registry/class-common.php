@@ -35,7 +35,7 @@ if ( ! interface_exists( '\WPOnion\Registry\Common' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function add( $feature_type = 'settings', \WPOnion\Bridge &$instance );
+		public function add( $feature_type, \WPOnion\Bridge &$instance );
 
 		/**
 		 * Get And Returns An Instance of a give key.
@@ -45,6 +45,6 @@ if ( ! interface_exists( '\WPOnion\Registry\Common' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function get( $feature_type = 'settings', $plugin_id );
+		public function get( $feature_type, $plugin_id );
 	}
 }

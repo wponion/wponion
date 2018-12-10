@@ -372,15 +372,6 @@ if ( ! function_exists( 'wponion_read_json_files' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_builder' ) ) {
-	/**
-	 * @return \WPOnion\Bridge\Field_Builder
-	 */
-	function wponion_builder() {
-		return new \WPOnion\Bridge\Field_Builder();
-	}
-}
-
 if ( ! function_exists( 'wponion_get_term_meta' ) ) {
 	/**
 	 * Returns Terms Meta Info.
@@ -555,7 +546,6 @@ if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 			'error'    => false,
 			'always'   => false,
 			'action'   => $action,
-
 		) );
 		$unique_id = wponion_hash_array( $args );
 		wponion_localize()->add( $unique_id, array( 'inline_ajax' => $args ) );

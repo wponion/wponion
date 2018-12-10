@@ -37,16 +37,17 @@ if ( ! function_exists( 'wponion_field_cloneable_sanitize' ) ) {
 
 if ( ! function_exists( 'wponion_field_text_sanitize' ) ) {
 	/**
-	 * Text sanitize
+	 * Text Sanatize.
 	 *
 	 * @param $value
 	 * @param $field
+	 * @param $plugin_id
 	 *
-	 * @return string|array
+	 * @return array|string
 	 */
 	function wponion_field_text_sanitize( $value, $field, $plugin_id ) {
 		if ( wponion_is_cloneable( $field ) ) {
-			return wponion_field_cloneable_sanitize( $value, 'sanitize_text_field', array( $value ) );
+			return wponion_field_cloneable_sanitize( $value, 'sanitize_text_field' );
 		}
 
 		return sanitize_text_field( $value );
@@ -58,12 +59,12 @@ if ( ! function_exists( 'wponion_field_textarea_sanitize' ) ) {
 	 * Textarea sanitize
 	 *
 	 * @param $value
+	 * @param $field
+	 * @param $plugin_id
 	 *
-	 * @return string
+	 * @return array|string
 	 */
 	function wponion_field_textarea_sanitize( $value, $field, $plugin_id ) {
-		///global $allowedposttags;
-		//return wp_kses( $value, $allowedposttags );
 		if ( wponion_is_cloneable( $field ) ) {
 			return wponion_field_cloneable_sanitize( $value, 'sanitize_textarea_field' );
 		}

@@ -437,6 +437,7 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 	 * Extracts all fileds ids and returns it.
 	 *
 	 * @param array $fields
+	 * @param bool  $parent_id
 	 *
 	 * @return array
 	 */
@@ -634,6 +635,8 @@ if ( ! function_exists( 'wponion_key_value_to_array' ) ) {
 if ( ! function_exists( 'wponion_sysinfo' ) ) {
 	/**
 	 * Generates HTML Output for loading SysInfo.
+	 *
+	 * @param $args
 	 */
 	function wponion_sysinfo( $args ) {
 		\WPOnion\Sysinfo::get( $args );

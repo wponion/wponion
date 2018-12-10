@@ -92,7 +92,8 @@ if ( ! function_exists( 'wponion_icon' ) ) {
 	/**
 	 * Checks and returns icon html + load the required icon font.
 	 *
-	 * @param $icon
+	 * @param        $icon
+	 * @param string $xtra_attrs
 	 *
 	 * @return string
 	 */
@@ -105,9 +106,9 @@ if ( ! function_exists( 'wponion_localize' ) ) {
 	/**
 	 * Returns an active instance of WPOnion_Localize_API.
 	 *
-	 * @return \WPOnion\JS\Localize_API
+	 * @return mixed|\WPOnion\Localize_API
 	 */
 	function wponion_localize() {
-		return wponion_registry( 'wponion-global-localize-api', '\WPOnion\JS\Localize_API' );
+		return wponion_registry( 'wponion-global-localize-api', '\WPOnion\Localize_API' );
 	}
 }

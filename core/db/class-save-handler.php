@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * fields
 		 *
-		 * @var array
+		 * @var array|\WPOnion\Module_Fields
 		 */
 		protected $fields = array();
 
@@ -290,11 +290,11 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @param $value
 		 * @param $field
 		 *
-		 * @return bool
+		 * @return bool|null|mixed
 		 */
 		protected function save_value( $value, $field ) {
 			if ( ! isset( $field['id'] ) ) {
-				return;
+				return null;
 			}
 
 			if ( wponion_is_unarrayed( $field ) ) {
@@ -327,7 +327,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * Runs A Field.Inner Loop.
 		 *
-		 * @param $section
+		 * @param array|\WPOnion\Module_Fields $section
 		 */
 		protected function field_loop( $section ) {
 			foreach ( $section->fields() as $field ) {

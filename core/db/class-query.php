@@ -218,7 +218,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @param $default
 		 * @param $data
 		 *
-		 * @return mixed
+		 * @return mixed|bool
 		 */
 		private function option_data( $key, $default, $data ) {
 			preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)]@', $key, $matches, PREG_SET_ORDER, 0 );
@@ -234,8 +234,6 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			} else {
 				return $this->_single_option_data( $data, $key, $default );
 			}
-
-			return false;
 		}
 
 		/**

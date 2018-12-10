@@ -38,18 +38,6 @@ if ( ! function_exists( 'wponion_get_registry' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_get_registry_stats' ) ) {
-	/**
-	 * @todo remove
-	 */
-	function wponion_get_registry_stats() {
-		//$_d = wponion_get_registry( true );
-		//var_dump( \WPOnion\Field::$total_fields );
-		//var_dump( array_keys( $_d ) );
-		//var_dump( $_d['core__'] );
-	}
-}
-
 if ( ! function_exists( 'wponion_registry' ) ) {
 	/**
 	 * Get the registry by type.
@@ -58,9 +46,8 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	 * @param string $type
 	 * @param null   $class
 	 *
-	 * @return $class
+	 * @return mixed
 	 */
-
 	function wponion_registry( $type = '', $class = null ) {
 		switch ( $type ) {
 			case 'settings':
@@ -90,7 +77,7 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	 *
 	 * @return bool
 	 */
-	function wponion_get_registry_instance( $module = 'settings', &$instance, $registry_type = 'core' ) {
+	function wponion_get_registry_instance( $module, &$instance, $registry_type = 'core' ) {
 		if ( $instance instanceof \WPOnion\Bridge ) {
 			$_registry = wponion_registry( $registry_type );
 			$_registry->add( $module, $instance );
@@ -129,11 +116,11 @@ if ( ! function_exists( 'wponion_network_settings_registry' ) ) {
 
 if ( ! function_exists( 'wponion_metabox_registry' ) ) {
 	/**
-	 * Creates & Returns an static instance for metabox module.
+	 * Returns Active Metabox instance.
 	 *
 	 * @param $instance
 	 *
-	 * @return bool
+	 * @return bool|\WPOnion\Modules\Metabox
 	 */
 	function wponion_metabox_registry( &$instance ) {
 		return wponion_get_registry_instance( 'metabox', $instance, 'settings' );

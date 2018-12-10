@@ -189,6 +189,7 @@ if ( ! class_exists( '\WPOnion\Backup_Handler' ) ) {
 					update_post_meta( $extra, $unique, $backup );
 					break;
 			}
+			return true;
 		}
 	}
 }

@@ -95,7 +95,6 @@ if ( ! class_exists( '\WPOnion\Module_Fields' ) ) {
 		 * Module_Fields constructor.
 		 *
 		 * @param array $module_fields
-		 * @param int   $nested
 		 */
 		public function __construct( $module_fields = array() ) {
 			parent::__construct( $module_fields, '/' );

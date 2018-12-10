@@ -27,7 +27,7 @@ if ( ! class_exists( '\WPOnion\DB\Widgets_Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Widgets_Save_Handler extends \WPOnion\DB\Save_Handler {
+	class Widgets_Save_Handler extends Save_Handler {
 		/**
 		 * Runs custom loop to work with Settings fields array.
 		 */

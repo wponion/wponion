@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPOnion\Registry\Fields' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function add( $instance_id = 'settings', \WPOnion\Bridge &$instance ) {
+		public function add( $instance_id, \WPOnion\Bridge &$instance ) {
 			if ( ! isset( $this->registry[ $instance_id ] ) ) {
 				$this->registry[ $instance_id ] = $instance;
 				return true;

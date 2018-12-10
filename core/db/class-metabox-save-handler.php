@@ -33,12 +33,14 @@ if ( ! class_exists( '\WPOnion\DB\Metabox_Save_Handler' ) ) {
 		public function run() {
 
 			foreach ( $this->fields as $option ) {
-				if ( $this->args['settings']->valid_option( $option ) ) {
+				/* @var \WPOnion\Modules\Metabox $settings */
+				$settings = $this->args['settings'];
+				if ( $settings->valid_option( $option ) ) {
 					if ( $option->has_fields() ) {
 						$this->field_loop( $option );
 					} elseif ( $option->has_sections() ) {
 						foreach ( $option->sections() as $section ) {
-							if ( ! $this->args['settings']->valid_option( $section, false, false ) ) {
+							if ( ! $settings->valid_option( $section ) ) {
 								continue;
 							}
 							if ( ! $section->has_fields() ) {

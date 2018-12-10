@@ -25,7 +25,7 @@ if ( ! class_exists( '\WPOnion\Registry\Core' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Core implements \WPOnion\Registry\Common {
+	class Core implements Common {
 		/**
 		 * Stores All Instances
 		 *
@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPOnion\Registry\Core' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function add( $type = 'settings', \WPOnion\Bridge &$instance ) {
+		public function add( $type, \WPOnion\Bridge &$instance ) {
 			if ( ! isset( $this->registry[ $type ] ) ) {
 				$this->registry[ $type ] = array();
 			}
@@ -59,10 +59,10 @@ if ( ! class_exists( '\WPOnion\Registry\Core' ) ) {
 		 * @param string $type
 		 * @param        $key
 		 *
-		 * @return bool
+		 * @return object|bool|\WPOnion
 		 * @static
 		 */
-		public function get( $type = 'settings', $key ) {
+		public function get( $type, $key ) {
 			return ( isset( $this->registry[ $type ][ $key ] ) ) ? $this->registry[ $type ][ $key ] : false;
 		}
 	}

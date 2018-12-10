@@ -81,7 +81,7 @@ if ( ! class_exists( '\WPOnion\WP_Sysinfo' ) ) {
 		 * @return bool|string
 		 */
 		private static function get_host() {
-			$host = false;
+			$host = null;
 			if ( defined( 'WPE_APIKEY' ) ) {
 				$host = __( 'WP Engine' );
 			} elseif ( defined( 'PAGELYBIN' ) ) {

@@ -27,7 +27,7 @@ if ( ! class_exists( '\WPOnion\Sysinfo' ) ) {
 
 		public static function get( $args ) {
 			$reports = ( isset( $args['reports'] ) ) ? $args['reports'] : array();
-			$data    = \WPOnion\WP_Sysinfo::get();
+			$data    = WP_Sysinfo::get();
 			if ( isset( $args['custom_reports'] ) ) {
 				if ( wponion_is_callable( $args['custom_reports'] ) ) {
 					$_d = wponion_callback( $args['custom_reports'] );
@@ -58,7 +58,10 @@ JAVASCRIPT;
 		}
 
 		public static function render_html( $data, $args ) {
-			$_content = '<p>' . __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ' ) . '</p>';
+			$_content = '<p>';
+
+			$_content .= __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ' );
+			$_content .= '</p>';
 			$_content .= '<div id="sysreport" style="display:none;" ><textarea style="width:100%;min-height:250px;"  >';
 			$_content .= self::render_text_data( $data, $args );
 			$_content .= '</textarea></div>';
@@ -93,14 +96,14 @@ JAVASCRIPT;
 		}
 
 		/**
-		 * @param $data
+		 * @param $_data
 		 *
 		 * @return string
 		 * @static
 		 */
-		protected static function render_html_table( $data ) {
+		protected static function render_html_table( $_data ) {
 			$return = '<table class="widefat striped">';
-			foreach ( $data as $title => $data ) {
+			foreach ( $_data as $title => $data ) {
 				$data = self::render_html_ulli( $data );
 
 				$return .= '<tr>';
@@ -117,7 +120,7 @@ JAVASCRIPT;
 		/**
 		 * @param $data
 		 *
-		 * @return string
+		 * @return string|array
 		 * @static
 		 */
 		protected static function render_html_ulli( $data ) {
@@ -201,7 +204,8 @@ JAVASCRIPT;
 					} else {
 						$return .= '#### ' . $key . ': ####' . PHP_EOL;
 						foreach ( $val as $k => $v ) {
-							$v      = ( is_array( $v ) ) ? wp_json_encode( $v ) : $v;
+							$v = ( is_array( $v ) ) ? wp_json_encode( $v ) : $v;
+
 							$return .= $k . ' : ' . self::render_text_bool( $v ) . PHP_EOL;
 						}
 					}

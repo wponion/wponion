@@ -27,13 +27,15 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 	 * @since 1.0
 	 */
 	final class Autoloader {
+
 		/**
 		 * Inits WPOnion_Autoloader.
 		 *
 		 * @static
+		 * @throws \Exception
 		 */
 		public static function init() {
-			spl_autoload_register( '\WPOnion\Autoloader::load' );
+			\spl_autoload_register( '\WPOnion\Autoloader::load' );
 		}
 
 		/**
@@ -91,18 +93,24 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 			$file_name = explode( '\\', $class_name );
 			$file_name = end( $file_name );
 			$file_name = self::get_filename( $file_name );
-			if ( file_exists( self::path( 'core/' . 'class-' . $file_name ) ) ) {
-				include_once self::path( 'core/' . 'class-' . $file_name );
-			} elseif ( file_exists( self::path( 'core/abstract/' . $file_name ) ) ) {
-				include_once self::path( 'core/abstract/' . $file_name );
-			} elseif ( file_exists( self::path( 'core/db/' . 'class-' . $file_name ) ) ) {
-				include_once self::path( 'core/db/' . 'class-' . $file_name );
-			} elseif ( file_exists( self::path( 'core/modules/' . $file_name ) ) ) {
-				include_once self::path( 'core/modules/' . $file_name );
-			} elseif ( file_exists( self::path( 'core/modules/customizer/' . $file_name ) ) ) {
-				include_once self::path( 'core/modules/customizer/' . $file_name );
-			} elseif ( file_exists( self::path( 'core/modules/customizer/control/' . $file_name ) ) ) {
-				include_once self::path( 'core/modules/customizer/control/' . $file_name );
+
+			$file_paths = array(
+				self::path( 'core/' . 'class-' . $file_name ),
+				self::path( 'core/db/class-' . $file_name ),
+				self::path( 'core/abstract/class-' . $file_name ),
+				self::path( 'core/modules/class-' . $file_name ),
+				self::path( 'core/modules/customizer/class-' . $file_name ),
+				self::path( 'core/modules/customizer/control/class-' . $file_name ),
+				self::path( 'core/abstract/' . $file_name ),
+				self::path( 'core/modules/' . $file_name ),
+				self::path( 'core/modules/customizer/' . $file_name ),
+				self::path( 'core/modules/customizer/control/' . $file_name ),
+			);
+
+			foreach ( $file_paths as $path ) {
+				if ( file_exists( $path ) ) {
+					include $path;
+				}
 			}
 		}
 
@@ -118,10 +126,18 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 			$file_name = end( $file_name );
 			$file_name = self::get_filename( $file_name, 'WPOnion\\Field\\' );
 			$folder    = str_replace( '.php', '', $file_name );
-			if ( file_exists( self::path( 'fields/' . $file_name ) ) ) {
-				include_once self::path( 'fields/' . $file_name );
-			} elseif ( file_exists( self::path( 'fields/' . $folder . '/' . $file_name ) ) ) {
-				include_once self::path( 'fields/' . $folder . '/' . $file_name );
+
+			$file_paths = array(
+				self::path( 'fields/' . $file_name ),
+				self::path( 'fields/' . $folder . '/' . $file_name ),
+				self::path( 'fields/class-' . $file_name ),
+				self::path( 'fields/' . $folder . '/class-' . $file_name ),
+			);
+
+			foreach ( $file_paths as $path ) {
+				if ( file_exists( $path ) ) {
+					include $path;
+				}
 			}
 		}
 
