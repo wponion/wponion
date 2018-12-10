@@ -40,6 +40,7 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 				'value'             => $this->value(),
 				'name'              => $this->name(),
 				'data-wponion-jsid' => $this->js_field_id(),
+				'list'             => $this->js_field_id() . 'inputLists',
 			) );
 		}
 
@@ -77,7 +78,53 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 				echo '</div>';
 			}
 
+			echo $this->datalist();
 			echo $this->after();
+		}
+
+		public function datalist() {
+			if ( false !== $this->data( 'options' ) ) {
+				echo '<datalist id="' . $this->js_field_id() . 'inputLists">';
+				$options = ( ! is_array( $this->data( 'options' ) ) ) ? $this->element_data( $this->data( 'options' ) ) : $this->data( 'options' );
+
+
+				foreach ( $options as $key => $option ) {
+					if ( is_array( $option ) && isset( $option['label'] ) ) {
+						echo $this->sel_option( $this->handle_options( $key, $option ) );
+					} elseif ( is_array( $option ) && ! isset( $option['label'] ) ) {
+						echo '<optgroup label="' . $key . '">';
+						foreach ( $option as $k => $v ) {
+							echo $this->sel_option( $this->handle_options( $k, $v ) );
+						}
+						echo '</optgroup>';
+					} else {
+						echo $this->sel_option( $this->handle_options( $key, $option ) );
+					}
+				}
+				echo '</datalist>';
+			}
+		}
+
+
+		/**
+		 * Handles Option array.
+		 *
+		 * @param $data
+		 *
+		 * @return string
+		 */
+		protected function sel_option( $data ) {
+			$elem_id = sanitize_title( $this->name() . '_' . $data['key'] );
+			if ( isset( $data['tooltip'] ) && is_array( $data['tooltip'] ) ) {
+				$data['attributes']['title']             = $data['tooltip']['attr']['title'];
+				$data['attributes']['data-wponion-jsid'] = $this->js_field_id();
+				$data['attributes']['data-field-jsid']   = $elem_id;
+				$data['attributes']['class']             = ' wponion-field-tooltip ';
+				wponion_localize()->add( $this->js_field_id(), array( $elem_id . 'tooltip' => $data['tooltip']['data'] ) );
+			}
+
+			$data['attributes']['value'] = $data['key'];
+			return '<option ' . wponion_array_to_html_attributes( $data['attributes'] ) . $this->checked( $this->value(), $data['key'], 'selected' ) . ' > ' . $data['label'] . ' </option > ';
 		}
 
 		/**
@@ -129,6 +176,7 @@ if ( ! class_exists( '\WPOnion\Field\text' ) ) {
 				'inputmask'   => false,
 				'placeholder' => false,
 				'prefix'      => false,
+				'options'     => false,
 				'surfix'      => false,
 			);
 		}
