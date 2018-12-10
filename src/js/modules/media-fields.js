@@ -14,7 +14,7 @@ export default ( ( window, document, $, wp ) => {
 		if( $( '.compat-attachment-fields' ).length > 0 && $( 'body' ).hasClass( 'post-type-attachment' ) ) {
 			fix_media_ui();
 		} else {
-			if( typeof wp.media !== 'undefined' ) {
+			if( typeof wp.media !== 'undefined' && typeof wp.media.frames.browse !== 'undefined' ) {
 				wp.media.frames.browse.on( 'edit:attachment', () => {
 					fix_media_ui();
 					wp.media.frames.edit.on( 'attachment:compat:ready', () => fix_media_ui() );
