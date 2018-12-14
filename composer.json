@@ -1,7 +1,7 @@
 {
   "name"        : "wponion/wponion",
   "description" : "~ Lightweight & Flexible WP Rapid Development Framework ~",
-  "license"     : "GPL",
+  "license"     : "GPL-3.0-or-later",
   "homepage"    : "https://wponion.com",
   "authors"     : [
     {
