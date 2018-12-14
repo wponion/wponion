@@ -1,0 +1,37 @@
+{
+  "name"        : "wponion/wponion",
+  "description" : "~ Lightweight & Flexible WP Rapid Development Framework ~",
+  "license"     : "GPL",
+  "homepage"    : "https://wponion.com",
+  "authors"     : [
+    {
+      "name"     : "Varun Sridharan",
+      "email"    : "varunsridharan23@gmail.com",
+      "homepage" : "https://varunsridharan.in",
+      "role"     : "Developer"
+    }
+  ],
+  "keywords"    : [
+    "wponion-framework",
+    "wponion",
+    "wordpress",
+    "wordpress-plugin",
+    "wordpress-theme",
+    "wordpress-options-framework",
+    "wordpress-options-plugin",
+    "wordpress-options",
+    "wordpress-options-builder",
+    "wordpress-taxonomies",
+    "wordpress-metaboxes",
+    "wordpress-metabox-options",
+    "wordpress-settings",
+    "wordpress-settings-api",
+    "wordpress-php-library",
+    "wordpress-widget",
+    "wp-plugin-settings",
+    "wordpress-gutenberg",
+    "gutenberg",
+    "settings-api"
+  ],
+  "require"     : { }
+}
