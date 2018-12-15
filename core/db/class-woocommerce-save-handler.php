@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WooCommerce_Save_Handler extends \WPOnion\DB\Save_Handler {
+	class WooCommerce_Save_Handler extends Save_Handler {
 		/**
 		 * is_variation
 		 *

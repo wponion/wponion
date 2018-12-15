@@ -14,6 +14,8 @@
 
 namespace WPOnion\DB;
 
+use WPOnion\Bridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +28,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Save_Handler extends \WPOnion\Bridge {
+	class Save_Handler extends Bridge {
 		/**
 		 * Stores User Posted Options
 		 *
@@ -57,7 +59,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * fields
 		 *
-		 * @var array
+		 * @var array|\WPOnion\Module_Fields
 		 */
 		protected $fields = array();
 
@@ -288,11 +290,11 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @param $value
 		 * @param $field
 		 *
-		 * @return bool
+		 * @return bool|null|mixed
 		 */
 		protected function save_value( $value, $field ) {
 			if ( ! isset( $field['id'] ) ) {
-				return;
+				return null;
 			}
 
 			if ( wponion_is_unarrayed( $field ) ) {
@@ -325,7 +327,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * Runs A Field.Inner Loop.
 		 *
-		 * @param $section
+		 * @param array|\WPOnion\Module_Fields $section
 		 */
 		protected function field_loop( $section ) {
 			foreach ( $section->fields() as $field ) {

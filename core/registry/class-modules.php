@@ -25,7 +25,7 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Modules implements \WPOnion\Registry\Common {
+	class Modules implements Common {
 		/**
 		 * Stores All Instances
 		 *
@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function add( $type = 'settings', \WPOnion\Bridge &$instance ) {
+		public function add( $type, \WPOnion\Bridge &$instance ) {
 			if ( ! isset( $this->registry[ $type ] ) ) {
 				$this->registry[ $type ] = array();
 			}
@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 		 * @return bool
 		 * @static
 		 */
-		public function get( $type = 'settings', $key ) {
+		public function get( $type, $key ) {
 			if ( isset( $this->registry[ $type ][ $key ] ) ) {
 				return $this->registry[ $type ][ $key ];
 			}

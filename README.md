@@ -1,6 +1,4 @@
-# WPOnion
-#### ~ Lightweight, Flexible WP Settings Framework ~ 
-
+[![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v2/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v2/banner-1544x500.jpg)
 ---
 ## Installation
 ### Composer
@@ -8,7 +6,7 @@ Add The below to your **composer.json**
 ```json
 {
     "require": {
-        "wponion/wponion": "~1.0.0"
+        "wponion/wponion-wponion": "~1.0.0"
     }
 }
 ```

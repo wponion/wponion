@@ -12,7 +12,7 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\JS;
+namespace WPOnion;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Localize_API extends \WPOnion\Bridge {
+	class Localize_API extends Bridge {
 		/**
 		 * js_args
 		 *

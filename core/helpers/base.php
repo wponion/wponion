@@ -338,6 +338,9 @@ if ( ! function_exists( 'wponion_is_debug' ) ) {
 	 * @return bool
 	 */
 	function wponion_is_debug() {
+		if ( defined( 'WPONION_DEV_MODE' ) && false === WPONION_DEV_MODE ) {
+			return false;
+		}
 		return ( defined( 'WPONION_DEV_MODE' ) && true === WPONION_DEV_MODE || defined( 'WP_DEBUG' ) && true === WP_DEBUG );
 	}
 }
@@ -349,6 +352,9 @@ if ( ! function_exists( 'wponion_field_debug' ) ) {
 	 * @return bool
 	 */
 	function wponion_field_debug() {
+		if ( defined( 'WPONION_FIELD_DEBUG' ) && false === WPONION_FIELD_DEBUG ) {
+			return false;
+		}
 		return ( defined( 'WPONION_FIELD_DEBUG' ) && true === WPONION_FIELD_DEBUG || wponion_is_debug() );
 	}
 }
@@ -363,15 +369,6 @@ if ( ! function_exists( 'wponion_read_json_files' ) ) {
 	 */
 	function wponion_read_json_files( $file_path ) {
 		return ( file_exists( $file_path ) ) ? json_decode( file_get_contents( $file_path ), true ) : array();
-	}
-}
-
-if ( ! function_exists( 'wponion_builder' ) ) {
-	/**
-	 * @return \WPOnion\Bridge\Field_Builder
-	 */
-	function wponion_builder() {
-		return new \WPOnion\Bridge\Field_Builder();
 	}
 }
 
@@ -511,10 +508,11 @@ if ( ! function_exists( 'wponion_update_option' ) ) {
 
 if ( ! function_exists( 'wponion_get_option' ) ) {
 	/**
-	 * Custom Wrapper For get_option / get_site_option.
+	 * Custom Wrapper for get_option / get_site_option.
 	 *
-	 * @param $option_name
-	 * @param $default
+	 * @param      $option_name
+	 * @param      $default
+	 * @param bool $force_local
 	 *
 	 * @return mixed
 	 */
@@ -523,6 +521,39 @@ if ( ! function_exists( 'wponion_get_option' ) ) {
 			return get_site_option( $option_name, $default );
 		}
 		return get_option( $option_name, $default );
+	}
+}
+
+if ( ! function_exists( 'wponion_inline_ajax' ) ) {
+	/**
+	 * @param string $action
+	 * @param array  $args
+	 * @param string $button_html
+	 *
+	 * @return string
+	 */
+	function wponion_inline_ajax( $action = '', $args = array(), $button_html = '' ) {
+		if ( is_scalar( $args ) && empty( $button_html ) ) {
+			$button_html = $args;
+			$args        = array();
+		}
+		$args      = wp_parse_args( $args, array(
+			'method'   => 'post',
+			'url'      => admin_url( 'admin-ajax.php' ),
+			'part_url' => false,
+			'data'     => array(),
+			'success'  => false,
+			'error'    => false,
+			'always'   => false,
+			'action'   => $action,
+		) );
+		$unique_id = wponion_hash_array( $args );
+		wponion_localize()->add( $unique_id, array( 'inline_ajax' => $args ) );
+		if ( ! empty( $button_html ) ) {
+			$button_html = preg_replace( '/<a (.+?)>/i', "<a $1 data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );
+			return preg_replace( '/<button (.+?)>/i', "<button $1  data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );
+		}
+		return $unique_id;
 	}
 }
 
@@ -547,3 +578,6 @@ require_once WPONION_PATH . 'core/helpers/validator.php';
 
 // WPOnion Theme Related Functions
 require_once WPONION_PATH . 'core/helpers/theme.php';
+
+// WPOnion Theme Related Functions
+require_once WPONION_PATH . 'core/helpers/admin-notice.php';

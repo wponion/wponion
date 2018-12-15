@@ -437,55 +437,40 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 	 * Extracts all fileds ids and returns it.
 	 *
 	 * @param array $fields
+	 * @param bool  $parent_id
 	 *
 	 * @return array
 	 */
-	function wponion_get_all_fields_ids_and_defaults( $fields = array(), $nested = true ) {
+	function wponion_get_all_fields_ids_and_defaults( $fields = array(), $parent_id = true ) {
 		$return = array();
 
-		if ( $fields instanceof \WPOnion\Module_Fields ) {
-			if ( $fields->has_fields() ) {
-				foreach ( $fields->fields() as $f ) {
-					if ( isset( $f['id'] ) && true === wponion_valid_user_input_field( $f ) ) {
-						$_fields = array();
-						if ( true === $nested ) {
-							$_fields = isset( $f['fields'] ) ? wponion_get_all_fields_ids_and_defaults( $f['fields'] ) : array();
-						}
-
-						$default            = isset( $f['default'] ) ? $f['default'] : false;
-						$return[ $f['id'] ] = array(
-							'default' => $default,
-							'fields'  => $_fields,
-							'id'      => $f['id'],
-						);
+		if ( isset( $fields['sections'] ) && ! isset( $section['callback'] ) ) {
+			foreach ( $fields['sections'] as $sections ) {
+				if ( isset( $sections['fields'] ) && ! isset( $sections['callback'] ) ) {
+					$name   = ( isset( $sections['name'] ) ) ? $sections['name'] : ( isset( $sections['title'] ) ) ? $sections['title'] : false;
+					$return = array_merge( $return, wponion_get_all_fields_ids_and_defaults( $sections, $parent_id . '_' . $name ) );
+				}
+			}
+		} elseif ( isset( $fields['fields'] ) && ! isset( $section['callback'] ) ) {
+			foreach ( $fields['fields'] as $field ) {
+				if ( isset( $field['id'] ) ) {
+					$nested = array();
+					if ( isset( $field['fields'] ) ) {
+						$nested = wponion_get_all_fields_ids_and_defaults( $field, $parent_id . '_' . $field['id'] );
 					}
-				}
-			} elseif ( $fields->has_sections() ) {
-				foreach ( $fields->sections() as $section ) {
-					$return[ $section->name() ] = wponion_get_all_fields_ids_and_defaults( $section );
-				}
-			} elseif ( ! $fields->has_callback() && ! $fields->has_href() && ( $fields->has_fields() || $fields->has_sections() ) ) {
-				foreach ( $fields as $field ) {
-					$return[ $field->name() ] = wponion_get_all_fields_ids_and_defaults( $field );
-				}
-			} else {
-				foreach ( $fields as $field ) {
-					$return[] = wponion_get_all_fields_ids_and_defaults( $field );
+
+					$return[ $parent_id . '_' . $field['id'] ] = isset( $field['default'] ) ? $field['default'] : false;
+
+					if ( ! empty( $nested ) ) {
+						$return = array_merge( $return, $nested );
+					}
 				}
 			}
 		} elseif ( is_array( $fields ) ) {
-			foreach ( $fields as $f ) {
-				if ( isset( $f['id'] ) && true === wponion_valid_user_input_field( $f ) ) {
-					$_fields = array();
-					if ( true === $nested ) {
-						$_fields = isset( $f['fields'] ) ? wponion_get_all_fields_ids_and_defaults( $f['fields'] ) : array();
-					}
-					$default            = isset( $f['default'] ) ? $f['default'] : false;
-					$return[ $f['id'] ] = array(
-						'default' => $default,
-						'fields'  => $_fields,
-						'id'      => $f['id'],
-					);
+			foreach ( $fields as $data ) {
+				if ( isset( $data['sections'] ) || isset( $data['fields'] ) ) {
+					$name   = ( isset( $data['name'] ) ) ? $data['name'] : ( isset( $data['title'] ) ) ? $data['title'] : false;
+					$return = array_merge( $return, wponion_get_all_fields_ids_and_defaults( $data, $parent_id . '_' . $name ) );
 				}
 			}
 		}
@@ -644,5 +629,16 @@ if ( ! function_exists( 'wponion_key_value_to_array' ) ) {
 			}
 		}
 		return $return;
+	}
+}
+
+if ( ! function_exists( 'wponion_sysinfo' ) ) {
+	/**
+	 * Generates HTML Output for loading SysInfo.
+	 *
+	 * @param $args
+	 */
+	function wponion_sysinfo( $args ) {
+		\WPOnion\Sysinfo::get( $args );
 	}
 }

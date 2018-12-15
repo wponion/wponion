@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Core_Ajax extends \WPOnion\Bridge {
+	class Core_Ajax extends Bridge {
 		/**
 		 * Core_Ajax constructor.
 		 */
@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		 * Handles Icon Picker Ajax Request.
 		 */
 		public function icon_picker() {
-			$libs     = \WPOnion\Icons::icon_list();
+			$libs     = Icons::icon_list();
 			$enabled  = ( isset( $_REQUEST['enabled'] ) ) ? $_REQUEST['enabled'] : true;
 			$disabled = ( isset( $_REQUEST['disabled'] ) ) ? $_REQUEST['disabled'] : false;
 
@@ -131,7 +131,6 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		public function save_metabox() {
 			if ( isset( $_REQUEST['metabox_id'] ) && isset( $_REQUEST['plugin_id'] ) ) {
 				wponion_localize();
-				$metabox_id      = sanitize_text_field( $_REQUEST['metabox_id'] );
 				$plugin_id       = sanitize_text_field( $_REQUEST['plugin_id'] );
 				$unique          = sanitize_text_field( $_REQUEST['unique'] );
 				$this->plugin_id = $plugin_id;
@@ -194,9 +193,9 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				wp_send_json_error( __( 'Error Code : #BKP189' ) );
 			}
 
-			$status = \WPOnion\Backup_Handler::new_backup( $unique, $module, $extra );
+			$status = Backup_Handler::new_backup( $unique, $module, $extra );
 			if ( $status ) {
-				wp_send_json_success( \WPOnion\Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
+				wp_send_json_success( Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
 			}
 			wp_send_json_error( __( 'Error Code : #BKP201' ) );
 		}
@@ -214,9 +213,9 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				wp_send_json_error( __( 'Error Code : #BKP210' ) );
 			}
 
-			$status = \WPOnion\Backup_Handler::delete_backup( $backup_id, $unique, $module, $extra );
+			$status = Backup_Handler::delete_backup( $backup_id, $unique, $module, $extra );
 			if ( $status ) {
-				wp_send_json_success( \WPOnion\Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
+				wp_send_json_success( Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
 			}
 			wp_send_json_error( __( 'Error Code : #BKP217' ) );
 		}
@@ -230,7 +229,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$extra     = ( isset( $_REQUEST['extra'] ) ) ? $_REQUEST['extra'] : false;
 			$backup_id = ( isset( $_REQUEST['backupid'] ) ) ? $_REQUEST['backupid'] : false;
 			$file_name = $unique . '_' . $module . '_' . date( 'Y-m-d-hi-s', $backup_id );
-			$backup    = \WPOnion\Backup_Handler::get_backup( $backup_id, $unique, $module, $extra );
+			$backup    = Backup_Handler::get_backup( $backup_id, $unique, $module, $extra );
 
 			$now = gmdate( 'D, d M Y H:i:s' );
 			header( 'Expires: Tue, 03 Jul 2001 06:00:00 GMT' );
@@ -245,6 +244,9 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 		}
 
+		/**
+		 * Restores Database in model.
+		 */
 		public function restore_module_data_backup() {
 			$module    = ( isset( $_POST['module'] ) ) ? $_POST['module'] : false;
 			$unique    = ( isset( $_POST['unique'] ) ) ? $_POST['unique'] : false;
@@ -252,13 +254,34 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$backup_id = ( isset( $_POST['backup_id'] ) ) ? $_POST['backup_id'] : false;
 
 			if ( $backup_id && $unique && $module ) {
-				\WPOnion\Backup_Handler::restore_backup( $backup_id, $unique, $module, $extra );
+				Backup_Handler::restore_backup( $backup_id, $unique, $module, $extra );
 				wp_send_json_success( __( 'Backup Successfully Restored' ) );
 			}
 
 			wp_send_json_error( __( 'Error Code: #BKP259' ) );
 
 		}
+
+		/**
+		 * Removes Stick notice if user click remove notice button.
+		 */
+		public function remove_admin_notice() {
+			if ( isset( $_REQUEST['notice_hander'] ) && isset( $_REQUEST['notice_id'] ) && isset( $_REQUEST['wp_nounce'] ) ) {
+				$wp_nounce = $_REQUEST['wp_nounce'];
+				if ( wp_verify_nonce( $wp_nounce, 'wpo-admin-notice-sticky-remove' ) ) {
+					$notice    = $_REQUEST['notice_hander'];
+					$notice_id = $_REQUEST['notice_id'];
+					$_ins      = wponion_admin_notices( $notice );
+					if ( false !== $_ins ) {
+						$_ins->remove( $notice_id );
+						wp_send_json_success();
+					}
+				}
+			}
+			wp_send_json_error();
+
+		}
+
 	}
 }
 return new Core_Ajax;

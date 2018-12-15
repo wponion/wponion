@@ -22,7 +22,7 @@ foreach ( $ins->fields() as $option ) {
 				$section_active = ( true === $ins->is_tab_active( $option->name(), $section->name(), $first_section ) ) ? ' wponion-section-wraps ' : 'wponion-section-wraps hidden';
 				echo '<div id="wponion-tab-' . $option->name() . '-' . $section->name() . '" class="' . $section_active . '" data-section-id="' . $section->name() . '">';
 				if ( $section->has_callback() ) {
-					echo wponion_callback( $section->callback(), array( $ins ) );
+					echo wponion_callback( $section->callback(), array( $section ) );
 				} elseif ( $section->has_fields() ) {
 					foreach ( $section->fields() as $field ) {
 						echo $ins->render_field( $field, $option->name(), $section->name() );
@@ -35,7 +35,7 @@ foreach ( $ins->fields() as $option ) {
 				echo $ins->render_field( $field, $option->name() );
 			}
 		} elseif ( $option->has_callback() ) {
-			echo wponion_callback( $option->callback(), array( $ins ) );
+			echo wponion_callback( $option->callback(), array( $option ) );
 		}
 		?>
 	</div>

@@ -10,7 +10,7 @@ if ( ! function_exists( 'wponion_wp_theme_init' ) ) {
 	 */
 	function wponion_wp_theme_init( $data ) {
 		if ( ! class_exists( '\WPOnion_Wp_Theme' ) ) {
-			require_once WPONION_PATH . 'templates/wp/wp-init.php';
+			require_once WPONION_PATH . 'templates/wp/class-wp-init.php';
 		}
 		return new WPOnion_Wp_Theme( $data );
 	}
@@ -25,7 +25,7 @@ if ( ! function_exists( 'wponion_modern_theme_init' ) ) {
 	 */
 	function wponion_modern_theme_init( $data ) {
 		if ( ! class_exists( '\WPOnion_Modern_Theme' ) ) {
-			require_once WPONION_PATH . 'templates/modern/modern-init.php';
+			require_once WPONION_PATH . 'templates/modern/class-modern-init.php';
 		}
 		return new WPOnion_Modern_Theme( $data );
 	}
@@ -39,7 +39,7 @@ if ( ! function_exists( 'wponion_fresh_theme_init' ) ) {
 	 */
 	function wponion_fresh_theme_init( $data ) {
 		if ( ! class_exists( '\WPOnion_Fresh_Theme' ) ) {
-			require_once WPONION_PATH . 'templates/fresh/fresh-init.php';
+			require_once WPONION_PATH . 'templates/fresh/class-fresh-init.php';
 		}
 		return new WPOnion_Fresh_Theme( $data );
 	}

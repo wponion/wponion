@@ -26,19 +26,21 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Settings_Save_Handler extends \WPOnion\DB\Save_Handler {
+	class Settings_Save_Handler extends Save_Handler {
 		/**
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
 			foreach ( $this->fields as $option ) {
-				if ( ! $this->args['settings']->valid_option( $option, false, true ) ) {
+				/* @var \WPOnion\Modules\Settings $settings */
+				$settings = $this->args['settings'];
+				if ( ! $settings->valid_option( $option, false, true ) ) {
 					continue;
 				}
 
 				if ( $option->has_sections() ) {
 					foreach ( $option->sections() as $section ) {
-						if ( ! $this->args['settings']->valid_option( $section, true, true ) ) {
+						if ( ! $settings->valid_option( $section, true, true ) ) {
 							continue;
 						}
 
@@ -53,7 +55,7 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 				}
 			}
 
-			if ( false === $this->args['settings']->is_single_page() || 'only_submenu' === $this->args['settings']->is_single_page() ) {
+			if ( false === $settings->is_single_page() || 'only_submenu' === $settings->is_single_page() ) {
 				$this->return_values = $this->array_merge( $this->return_values, $this->db_values );
 			}
 		}

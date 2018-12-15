@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\WP_Widget' ) ) {
 
 		public function __construct( $id_base, $name, $widget_options = array(), $control_options = array() ) {
 			parent::__construct( $id_base, $name, $widget_options, $control_options );
-			$this->widget_instance = new \WPOnion\Modules\Widget( $this->widget_settings_config(), $this->fields() );
+			$this->widget_instance = new Modules\Widget( $this->widget_settings_config(), $this->fields() );
 		}
 
 		/**

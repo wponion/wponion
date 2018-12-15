@@ -1,44 +1,299 @@
 === WPOnion ===
-Contributors: varunms
-Tags: admin,plugin options,theme options
-Donate link: http://paypal.me/varunsridharan23
-Requires at least: 3.0
-Tested up to: 5
+Contributors: varunms,vaahosttech
+Donate link: https://paypal.me/varunsridharan23
+Tags: settings,taxonomy,metabox,user profile,custom fields,guttenberg,network-settings,meta,wplisttable
+Requires at least: 4.0
+Tested up to: 4.8
+Stable tag: trunk
 Requires PHP: 5.5
-Stable tag: 0.1
-License: GPL
-License URI: 3.0
+License: GPLv3 or later
+License URI: https://github.com/wponion/wponion/blob/master/LICENSE
 
-~ Lightweight, Flexible WP Settings Framework ~
+~ Lightweight, Flexible & Rapid WP Development Framework ~
 
 == Description ==
+
 WPOnion is a simple yet powerful framework that helps developers build custom meta boxes and custom fields in WordPress fast and easily.
 
 The framework lets you define custom meta boxes and custom fields via arrays and handles everything behind the scene automatically. It has a wide range of field types, field settings and supports not only post meta but also term meta, user meta, comment meta, settings pages and custom tables.
 
+## Features
+1. Admin Bar
+2. Admin Columns
+3. Admin Notice
+4. Custom Admin Page
+5. Customizer
+6. Dashboard Widgets
+7. Widgets
+8. Gutenberg
+9. Help Tabs
+10. Custom Media Fields
+11. Custom CPT Metabox
+12. Custom NAV Menu Fields
+13. Network Settings Page
+14. Settings Page
+15. Quick & Bulk Edit
+16. Custom Taxonomy Fields
+17. Custom User Profile Fields
+18. WooCommerce Metabox Fields
+
+## Plugin Demo
+https://wponion.com/demo/
+
+## Github URL 
+https://github.com/wponion/
+
+## WPONion DOCS
+https://docs.wponion.com
+
+## Demo Plugin Source
+https://github.com/wponion/demo/
+
+
 == Installation ==
-= Minimum Requirements =
 
-* WordPress 3.8 or greater
-* PHP version 5.2.4 or greater
-* MySQL version 5.0 or greater
+## Include In Theme
 
-= Automatic installation =
+* Extract download zip on `your-theme-name/wponion` folder under your theme directory 
+* Add framework include code on your theme `your-theme-name/functions.php` file
+* Yay! Right now you are ready to use the framework
+* Read for about configuration
 
-Automatic installation is the easiest option as WordPress handles the file transfers itself and you don\'t need to leave your web browser. To do an automatic install of WPOnion, log in to your WordPress dashboard, navigate to the Plugins menu and click Add New.
+### Folder Structure
 
-In the search field type \"WPOnion\"  and click Search Plugins. Once you\'ve found our plugin you can view details about it such as the the point release, rating and description. Most importantly of course, you can install it by simply clicking \"Install Now\"
+```
+├── wp-content
+|   ├── themes
+|   |   ├── themename
+|   |   ├── functions.php
+|   |   ├── ...
+|   |   ├── ...
+```
 
-= Manual installation =
+> This is not meant replace your main functions.php, only put this code below your codes
 
-The manual installation method involves downloading our plugin and uploading it to your Web Server via your favorite FTP application. The WordPress codex contains [instructions on how to do this here](http://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+```php
+/**
+ * WPOnion Framework
+ * A Lightweight and easy-to-use WordPress Options Framework
+ */
+require_once get_template_directory_uri() .'/wponion/wponion.php';
+​
+// -( or )-
+// require_once get_template_directory_uri() .'/subfolder/wponion/wponion.php';
+```
 
-1. Installing alternatives:
- * via Admin Dashboard:
- * Go to \'Plugins > Add New\', search for \"WPOnion\", click \"install\"
- * OR via direct ZIP upload:
- * Upload the ZIP package via \'Plugins > Add New > Upload\' in your WP Admin
- * OR via FTP upload:
- * Upload `wponion` folder to the `/wp-content/plugins/` directory
+---
 
-2. Activate the plugin through the \'Plugins\' menu in WordPress
+## Include In plugin
+
+* Extract download zip on `your-plugin/wponion` folder under your theme directory
+* Add framework include code on your theme `your-plugin/functions.php` file
+* Yay! Right now you are ready to use the framework
+* Read for about configuration
+
+> ### Folder Structure
+
+```
+├── wp-content
+|   ├── plugins
+|   |   ├── your-plugin
+|   |   |   ├── your-plugin.php
+|   |   |   ├── functions.php
+```
+
+> Add the below code in plugin's main file `your-plugin.php`
+
+```
+/**
+ * WPOnion
+ * A Lightweight and easy-to-use WordPress Options Framework
+ */
+require_once plugin_dir_path(__FILE__) .'/wponion/wponion.php';
+```
+---
+
+## Usage as Standalone Plugin
+
+* Way 1 Extract download zip on `wp-content/plugins/wponion` folder under your plugin directory
+* Way 2  Upload zip file from wordpess plugins panel -&gt; add new -&gt; upload plugin
+* Active wponion plugin from wordpress plugins panel
+* Yay! Right now you are ready to use the framework
+* Read for about configuration
+
+```text
+├── wp-content
+|   ├── plugins
+|   |   ├── akismet
+|   |   ├── wponion
+|   |   ├── ...
+|   |   ├── ...
+```
+
+== Frequently Asked Questions ==
+
+
+== Screenshots ==
+
+1. Settings Page : Core Theme
+2. Settings Page : Modern Theme
+3. Metabox : Core Theme
+4. Metabox : Modern Theme
+5. Metabox : Side
+6. Taxonomy : With & Without Custom Metabox
+7. User Profile Fields : With & Without Custom Metabox
+8. Quick Edit 
+9. Bulk Edit
+10. Help Tabs
+11. Custom Admin Columns
+12. Custom Admin Page With Tab Support.
+
+== Changelog ==
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Beta : 0.0.8] - 11/12/2018
+### Fixed
+1. Core : `wponion_get_all_fields_ids_and_defaults` Function Fully Redeveloped
+2. Core : Managed To Check if debug enabled properly and provided WPOnion's Debug Const Priority
+ 
+### Added
+1. WP Module  - WP Notice (Clone of https://github.com/panvagenas/wp-admin-notices)
+2. Field Type - Core WP Notice As Field
+3. Field Type - Sysinfo
+
+### Changed
+Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
+
+## [Beta : 0.0.7] - 25/11/2018
+### Added
+1. WP Module  - AdminBar
+2. WP Module  - Custom Meta box Support
+3. WP Module  - WP Nav Menu
+4. WP Module  - Dashboard , Admin Page & Settings Modules now supports WP Network (#6)
+5. Core       - Composer Support
+6. Field API  - Field Compile Time Recorder
+7. Field Type - Added Option To Set Dynamic Heading in Group Field (#10)
+
+### Changed
+1. WP Module - Updated Taxonomy & User Profile Fields To Work with Custom Meta boxes
+2. Themes - Updated Fresh Theme To Work With WPOnion Modules API
+3. Field Type - Accordion / Group / Field set Not saving properly
+4. Field Type - Customize able Group / KeyValue / Cloner error Msg (#11)
+5. option_value to option_label in query_args
+
+### Removed 
+1. JS Lib : Pretty Checkbox
+2. JS Lib : AnimateCSS
+3. Value API : ValueAPI & Its Functions
+
+---
+
+## [Beta : 0.0.6] - 18/11/2018
+### Added
+1. Field API - Auto Generate Sample PHP Code For Field If debug enabled
+2. WP Module - Option To Set Custom Footer Left & Right Text in Admin Page 
+3. WP Module - Added `menu_url` function to retrive admin page's menu url
+4. WP Module - Custom Admin Columns
+5. WP Module - Quick Edit
+6. WP Module - Bulk Edit
+
+### Fixed
+1. Field API - PHP : wp_link saved value not showing (#4)
+2. Field JS API - Validation  Works With Accordion
+3. Field JS API - Validation  Works With Group
+4. Field JS API - Validation  Works With Fieldset
+5. Field JS API - Validation  Works With Cloneable
+6. Field JS API - Validation issue with `wp_link` field fixed (#1)
+7. Field JS API - Error when Inputmask & Dependency (#2)
+8. Field JS API - Validation Issue with Dependency (#3)
+
+---
+
+## [Beta : 0.0.5] - 16/11/2018
+### Added
+1.  Field Type - notice_success
+2.  Field Type - notice_danger
+3.  Field Type - notice_warning
+4.  Field Type - notice_primary
+5.  Field Type - notice_secondary
+6.  Field Type - notice_info
+7.  Field Type - notice_dark
+8.  Field Type - notice_light
+9.  Field Type - Sorter
+10. Field Type - Typography
+11. Field Type - Oembed
+12. Field Type - WP List Table
+13. WP Module - Tab Option In Admin Page
+14. WP Module - Widgets
+15. WP Module - Dashboard Widgets
+16. JS Module - JS Field Validation
+
+### Fixed
+1. Field Type  - ColorPicker
+2. Field Type  - PrettyCheckbox CSS Issue
+3. Core/Field - POPUP CSS Issue
+4. Core       - Random key was added each time for each instance. so its fixed with a static key per instance.
+ 
+### Changed
+1. Field API - Updated all fields to use `$this->sub_field` function if it uses `wponion_add_element`
+2. Core      - changed meterial => material
+
+---
+
+## [Beta : 0.0.4] - 08/11/2018
+### Major Redevelopment Done
+
+---
+
+## [Beta : 0.0.3] - 07/11/2018
+### Major Redevelopment Work Going On
+
+---
+
+## [Beta : 0.0.2] - 25/7/2018
+### Added
+1. Field Type - Datepicker
+2. Field Type - Content
+3. Field Type - Background
+4. Field Type - Upload
+5. Field Type - WPListTable
+6. WP Module - User Profile
+7. Core Lib  - Markdown Parser
+
+### Changed
+1. Core         - WPOnion Now Works on `after_setup_theme` instead of `init` hook
+2. Core Helper  - Migrated All JSON Files into PHP Array and saved them in `data/` folder to make it bit faster
+3. Field Type    - Icon Field has option to **enable** / **disable** certain icon framework
+
+### Fixed
+1. Spelling mistake - ( horizontal )
+2. WP Module        - WC Metabox Style Updated
+
+### Removed
+1. CSS - FontAwesome
+2. CSS - TypeIcons
+3. CSS - BoxIcons
+4. JS  - OverlayScrollBars
+5. JS  - InputToArray
+6. JS  - Bootstrap Maxlength
+7. JS  - jQuery.Actual
+
+---
+
+## [Beta : 0.0.1] - 10/7/2018
+### Added
+1. Core Module -  Field Registry
+2. Core Module -  Core Registry
+3. Core Module -  Theme API
+4. Core Module -  Field API
+5. Core Module -  Clone API
+6. WP Module   -  Taxonomy
+7. WP Module   -  Metabox
+8. WP Module   -  Settings Page
+
+---
+
+== Upgrade Notice ==

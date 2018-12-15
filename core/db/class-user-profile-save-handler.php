@@ -27,7 +27,7 @@ if ( ! class_exists( '\WPOnion\DB\User_Profile_Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class User_Profile_Save_Handler extends \WPOnion\DB\Save_Handler {
+	class User_Profile_Save_Handler extends Save_Handler {
 		/**
 		 * Runs custom loop to work with Settings fields array.
 		 */
