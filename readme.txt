@@ -132,14 +132,6 @@ require_once plugin_dir_path(__FILE__) .'/wponion/wponion.php';
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
-
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
-
 
 == Screenshots ==
 
@@ -304,12 +296,4 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
-[Beta : 0.0.7]: https://github.com/wponion/wponion/releases/tag/0.0.7
-[Beta : 0.0.6]: https://github.com/wponion/wponion/releases/tag/0.0.6
-[Beta : 0.0.5]: https://github.com/wponion/wponion/releases/tag/0.0.5
-[Beta : 0.0.2]: https://github.com/wponion/wponion/releases/tag/Beta2
-[Beta : 0.0.1]: https://github.com/wponion/wponion/releases/tag/121010072018
-
-
 == Upgrade Notice ==
-

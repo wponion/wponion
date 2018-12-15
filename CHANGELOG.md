@@ -146,6 +146,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.7]: https://github.com/wponion/wponion/releases/tag/0.0.8
 [Beta : 0.0.7]: https://github.com/wponion/wponion/releases/tag/0.0.7
 [Beta : 0.0.6]: https://github.com/wponion/wponion/releases/tag/0.0.6
 [Beta : 0.0.5]: https://github.com/wponion/wponion/releases/tag/0.0.5
