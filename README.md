@@ -1,12 +1,27 @@
-[![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v2/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v2/banner-1544x500.jpg)
+[![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)
 ---
 ## Installation
 ### Composer
 Add The below to your **composer.json**
+
+#### Stable
 ```json
 {
     "require": {
-        "wponion/wponion-dev": "~1.0.0"
+        "wponion/wponion": "~1.0.0"
+    }
+}
+```
+-----
+```
+composer require wponion/wponion
+```
+
+#### Development
+```json
+{
+    "require": {
+        "wponion/dev": "dev-master"
     }
 }
 ```
@@ -14,6 +29,8 @@ Add The below to your **composer.json**
 ```
 composer require wponion/dev
 ```
+
+---
 
 ### Old School
 Add the below code your plugin / theme file 
