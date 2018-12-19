@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Admin_Notice' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 	/**
 	 * Class Admin_Notice
 	 *
