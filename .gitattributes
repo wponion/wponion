@@ -1,0 +1,8 @@
+.travis.yml export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+config.js export-ignore
+gulpfile.js export-ignore
+package.json export-ignore
+package-lock.json export-ignore
+src/ export-ignore
