@@ -36,5 +36,8 @@
   "require"     : { },
   "autoload"    : {
     "files" : [ "wponion.php" ]
+  },
+  "conflict"          : {
+	  "wponion/dev" : "dev-master"
   }
 }
