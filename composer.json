@@ -1,7 +1,7 @@
 {
-  "name"        : "wponion/wponion",
-  "description" : "~ Lightweight & Flexible WP Rapid Development Framework ~",
-  "license"     : "GPL-3.0-or-later",
+  "name"        : "wponion/dev",
+  "description" : "~ Lightweight, Flexible & Rapid WP Development Framework ~  | Development Version of WPOnion Framework",
+  "license"     : "GPL-3.0+",
   "homepage"    : "https://wponion.com",
   "authors"     : [
     {
@@ -33,5 +33,8 @@
     "gutenberg",
     "settings-api"
   ],
-  "require"     : { }
+  "require"     : { },
+  "autoload"    : {
+    "files" : [ "wponion.php" ]
+  }
 }
