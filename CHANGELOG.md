@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Beta : 0.0.8.1] - 19/12/2018
+### Changed
+1. `class-admin-notice.php` code bug fixed
+2. Updated `composer.json`
+3. Updated Readme.md to handle both **dev* & **stable** version details
+4. Updated `.gitignore` file
+5. Updated Version To `0.0.8.1`
+6. Updated Change Log
+
 ## [Beta : 0.0.8] - 11/12/2018
 ### Fixed
 1. Core : `wponion_get_all_fields_ids_and_defaults` Function Fully Redeveloped
@@ -146,7 +155,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
-[Beta : 0.0.7]: https://github.com/wponion/wponion/releases/tag/0.0.8
+[Beta : 0.0.8.1]: https://github.com/wponion/wponion/releases/tag/0.0.8.1
+[Beta : 0.0.8]: https://github.com/wponion/wponion/releases/tag/0.0.8
 [Beta : 0.0.7]: https://github.com/wponion/wponion/releases/tag/0.0.7
 [Beta : 0.0.6]: https://github.com/wponion/wponion/releases/tag/0.0.6
 [Beta : 0.0.5]: https://github.com/wponion/wponion/releases/tag/0.0.5
