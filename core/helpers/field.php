@@ -471,6 +471,8 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 				if ( isset( $data['sections'] ) || isset( $data['fields'] ) ) {
 					$name   = ( isset( $data['name'] ) ) ? $data['name'] : ( isset( $data['title'] ) ) ? $data['title'] : false;
 					$return = array_merge( $return, wponion_get_all_fields_ids_and_defaults( $data, $parent_id . '_' . $name ) );
+				} elseif ( wponion_valid_field( $data ) ) {
+					$return[ $data['id'] ] = ( isset( $data['default'] ) ) ? $data['default'] : false;
 				}
 			}
 		}
