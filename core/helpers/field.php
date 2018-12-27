@@ -337,25 +337,27 @@ if ( ! function_exists( 'wponion_backup_fonts' ) ) {
 	 * @return array
 	 */
 	function wponion_backup_fonts() {
-		return apply_filters( 'wponion_backup_fonts', array(
-			'Arial, Helvetica, sans-serif'                         => 'Arial, Helvetica, sans-serif',
-			'"Arial Black", Gadget, sans-serif'                    => '"Arial Black", Gadget, sans-serif',
-			'"Bookman Old Style", serif'                           => '"Bookman Old Style", serif',
-			'"Comic Sans MS", cursive'                             => '"Comic Sans MS", cursive',
-			'Courier, monospace'                                   => 'Courier, monospace',
-			'Garamond, serif'                                      => 'Garamond, serif',
-			'Georgia, serif'                                       => 'Georgia, serif',
-			'Impact, Charcoal, sans-serif'                         => 'Impact, Charcoal, sans-serif',
-			'"Lucida Console", Monaco, monospace'                  => '"Lucida Console", Monaco, monospace',
-			'"Lucida Sans Unicode", "Lucida Grande", sans-serif'   => '"Lucida Sans Unicode", "Lucida Grande", sans-serif',
-			'"MS Sans Serif", Geneva, sans-serif'                  => '"MS Sans Serif", Geneva, sans-serif',
-			'"MS Serif", "New York", sans-serif'                   => '"MS Serif", "New York", sans-serif',
-			'"Palatino Linotype", "Book Antiqua", Palatino, serif' => '"Palatino Linotype", "Book Antiqua", Palatino, serif',
-			'Tahoma,Geneva, sans-serif'                            => 'Tahoma, Geneva, sans-serif',
-			'"Times New Roman", Times,serif'                       => '"Times New Roman", Times, serif',
-			'"Trebuchet MS", Helvetica, sans-serif'                => '"Trebuchet MS", Helvetica, sans-serif',
-			'Verdana, Geneva, sans-serif'                          => 'Verdana, Geneva, sans-serif',
-		) );
+		$fonts                                        = array();
+		$fonts['Arial, Helvetica, sans-serif']        = 'Arial, Helvetica, sans-serif';
+		$fonts['"Arial Black", Gadget, sans-serif']   = '"Arial Black", Gadget, sans-serif';
+		$fonts['"Bookman Old Style", serif']          = '"Bookman Old Style", serif';
+		$fonts['"Comic Sans MS", cursive']            = '"Comic Sans MS", cursive';
+		$fonts['Courier, monospace']                  = 'Courier, monospace';
+		$fonts['Garamond, serif']                     = 'Garamond, serif';
+		$fonts['Georgia, serif']                      = 'Georgia, serif';
+		$fonts['Impact, Charcoal, sans-serif']        = 'Impact, Charcoal, sans-serif';
+		$fonts['"MS Serif", "New York", sans-serif']  = '"MS Serif", "New York", sans-serif';
+		$fonts['Tahoma,Geneva, sans-serif']           = 'Tahoma, Geneva, sans-serif';
+		$fonts['"Times New Roman", Times,serif']      = '"Times New Roman", Times, serif';
+		$fonts['"Lucida Console", Monaco, monospace'] = '"Lucida Console", Monaco, monospace';
+		$fonts['"MS Sans Serif", Geneva, sans-serif'] = '"MS Sans Serif", Geneva, sans-serif';
+		$fonts['Verdana, Geneva, sans-serif']         = 'Verdana, Geneva, sans-serif';
+
+		$fonts['"Trebuchet MS", Helvetica, sans-serif']                = '"Trebuchet MS", Helvetica, sans-serif';
+		$fonts['"Lucida Sans Unicode", "Lucida Grande", sans-serif']   = '"Lucida Sans Unicode", "Lucida Grande", sans-serif';
+		$fonts['"Palatino Linotype", "Book Antiqua", Palatino, serif'] = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
+
+		return apply_filters( 'wponion_backup_fonts', $fonts );
 	}
 }
 
@@ -642,5 +644,38 @@ if ( ! function_exists( 'wponion_sysinfo' ) ) {
 	 */
 	function wponion_sysinfo( $args ) {
 		\WPOnion\Sysinfo::get( $args );
+	}
+}
+
+if ( ! function_exists( 'wponion_register_field' ) ) {
+	/**
+	 * Registers a field with field type Registry Class.
+	 *
+	 * @param string $field_type
+	 * @param string $callback
+	 * @param array  $supports
+	 * @param array  $args
+	 *
+	 * @uses \WPOnion\Registry\Field_Types
+	 */
+	function wponion_register_field( $field_type = '', $callback = '', $supports = array(), $args = array() ) {
+		wponion_field_types()::add( $field_type, $callback, $supports, $args );
+	}
+}
+
+if ( ! function_exists( 'wponion_register_ui_field' ) ) {
+	/**
+	 * Registers A Field With Field Type Registry Class.
+	 *
+	 * @param string $field_type
+	 * @param string $callback
+	 * @param array  $supports
+	 * @param array  $args
+	 *
+	 * @uses \wponion_register_field()
+	 */
+	function wponion_register_ui_field( $field_type = '', $callback = '', $supports = array(), $args = array() ) {
+		$args = wp_parse_args( $args, array( 'ui' => true ) );
+		wponion_register_field( $field_type, $callback, $supports, $args );
 	}
 }
