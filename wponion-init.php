@@ -19,35 +19,13 @@ defined( 'WPONION_PATH' ) or define( 'WPONION_PATH', plugin_dir_path( __FILE__ )
 defined( 'WPONION_URL' ) or define( 'WPONION_URL', plugin_dir_url( __FILE__ ) );
 defined( 'WPONION_DB_VERSION' ) or define( 'WPONION_DB_VERSION', '08112018.1128' );
 
-if ( ! function_exists( 'wponion_init' ) ) {
+if ( ! function_exists( 'wponion_setup' ) ) {
 	/**
 	 * Setup's Basic WPOnion.
 	 */
-	function wponion_init() {
-		/**
-		 * Include All Functions Files.
-		 */
-		require_once WPONION_PATH . 'core/helpers/base.php';
-		require_once WPONION_PATH . 'core/registry/class-common.php';
-		require_once WPONION_PATH . 'core/registry/class-core.php';
-		require_once WPONION_PATH . 'core/class-themes.php';
-		require_once WPONION_PATH . 'core/registry/class-modules.php';
-		require_once WPONION_PATH . 'core/registry/class-fields.php';
-		require_once WPONION_PATH . 'core/registry/class-field-error.php';
-		require_once WPONION_PATH . 'core/class-autoloader.php';
-		require_once WPONION_PATH . 'core/class-core-ajax.php';
-		require_once WPONION_PATH . 'core/class-assets.php';
-		require_once WPONION_PATH . 'core/class-icons.php';
-
-		wponion_admin_notices();
-
-		do_action( 'wponion_loaded' );
+	function wponion_setup() {
+		require_once WPONION_PATH . 'core/class-setup.php';
 	}
 
-	add_action( 'after_setup_theme', 'wponion_init' );
-}
-
-
-if ( file_exists( WPONION_PATH . '/i18n/' . get_locale() . '.mo' ) ) {
-	load_textdomain( 'wponion', WPONION_PATH . '/i18n/' . get_locale() . '.mo' );
+	add_action( 'after_setup_theme', 'wponion_setup' );
 }
