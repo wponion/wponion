@@ -379,3 +379,12 @@ if ( ! function_exists( 'wponion_value_registry' ) ) {
 		return wponion_get_registry_instance( 'module_values', $instance, 'settings' );
 	}
 }
+
+if ( ! function_exists( 'wponion_field_types' ) ) {
+	/**
+	 * @return string|\WPOnion\Registry\Field_Types
+	 */
+	function wponion_field_types() {
+		return '\WPOnion\Registry\Field_Types';
+	}
+}
