@@ -23,29 +23,11 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 	 */
 	final class Assets {
 		/**
-		 * Scripts
-		 *
-		 * @var array
-		 */
-		public static $scripts = array();
-
-		/**
-		 * Style
-		 *
-		 * @var array
-		 */
-		public static $style = array();
-
-		/**
 		 * Inits WPOnion_Assets Class.
 		 *
 		 * @static
 		 */
 		public static function init() {
-			global $wponion_js, $wponion_css;
-			self::$scripts = $wponion_js;
-			self::$style   = $wponion_css;
-
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
@@ -60,27 +42,59 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 */
 		public static function register_assets() {
 			do_action( 'wponion_register_assets_before' );
-			self::loop_assets( self::$style, 'wp_register_style', 'all' );
-			self::loop_assets( self::$scripts, 'wp_register_script', 'all' );
+			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
+			$url     = WPONION_URL;
+			self::register_styles( $version, $url );
+			self::register_scripts( $version, $url );
 			do_action( 'wponion_register_assets_after' );
 		}
 
 		/**
-		 * Runs a loop with array of assets lists.
+		 * Registers WPOnion Assets.
 		 *
-		 * @param array           $data Array Of Assets.
-		 * @param string|callable $callback fixed value (wp_register_script | wp_register_style).
-		 * @param mixed           $last_arg true / false.
+		 * @param $version
+		 * @param $url
 		 *
 		 * @static
 		 */
-		protected static function loop_assets( $data, $callback, $last_arg ) {
-			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
-			foreach ( $data as $id => $file ) {
-				$file[2] = ( isset( $file[2] ) ) ? $file[2] : $version;
-				$file[1] = ( isset( $file[1] ) ) ? $file[1] : array();
-				$callback( $id, WPONION_URL . $file[0], $file[1], $file[2], $last_arg );
+		public static function register_styles( $version, $url ) {
+			wp_register_style( 'chosen', $url . 'assets/plugins/chosen/chosen.min.css', array(), $version );
+			wp_register_style( 'select2', $url . 'assets/plugins/select2/select2.min.css', array(), $version );
+			wp_register_style( 'wponion-plugins', $url . 'assets/css/wponion-plugins.css', array(), $version );
+			wp_register_style( 'wponion-core', $url . 'assets/css/wponion-base.css', array(), $version );
+			wp_register_style( 'wponion-colorpicker', $url . 'assets/plugins/wp-color-picker-alpha/cs-colorpicker.css', array( 'wp-color-picker' ), $version );
+			wp_register_style( 'wponion-datepicker', $url . 'assets/plugins/flatpickr/style.css', array(), $version );
+
+		}
+
+		/**
+		 * Registers WPOnion Assets.
+		 *
+		 * @param $version
+		 * @param $url
+		 *
+		 * @static
+		 */
+		public static function register_scripts( $version, $url ) {
+			if ( is_version_lte( 'wordpress', '5.0' ) ) {
+				wp_register_script( 'lodash', 'https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js', array(), '4.17.11', true );
 			}
+
+			wp_register_script( 'wponion-plugins', $url . 'assets/js/wponion-plugins.js', array(
+				'wp-util',
+				'lodash',
+				'backbone',
+			), $version, true );
+			wp_register_script( 'wponion-core', $url . 'assets/js/wponion-core.js', array( 'wponion-plugins' ), $version, true );
+			wp_register_script( 'wponion-cloner', $url . 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ), $version, true );
+			wp_register_script( 'wponion-customizer', $url . 'assets/js/wponion-customizer.js', array( 'wponion-core' ), $version, true );
+			wp_register_script( 'wponion-postmessags', $url . 'assets/js/wponion-postmessags.js', array( 'wponion-customizer' ), $version, true );
+			wp_register_script( 'wponion-woocommerce', $url . 'assets/js/wponion-woocommerce.js', array( 'wponion-core' ), $version, true );
+			wp_register_script( 'wponion-colorpicker', $url . 'assets/plugins/colorpicker/wp-color-picker-alpha.js', array( 'wp-color-picker' ), $version, true );
+			wp_register_script( 'wponion-datepicker', $url . 'assets/plugins/flatpickr/script.js', array( 'jquery' ), $version, true );
+			wp_register_script( 'wponion-inputmask', $url . 'assets/plugins/inputmask/jquery.inputmask.bundle.min.js', array( 'jquery' ), $version, true );
+			wp_register_script( 'select2', $url . 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ), $version, true );
+			wp_register_script( 'chosen', $url . 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ), $version, true );
 		}
 	}
 }
