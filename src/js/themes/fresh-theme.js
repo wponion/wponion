@@ -1,7 +1,6 @@
 class WPOnion_Fresh_Theme {
 	constructor( $elem ) {
 		this.element = $elem;
-
 		this.init_submenu();
 		this.init_main_menu();
 	}
@@ -11,12 +10,12 @@ class WPOnion_Fresh_Theme {
 			e.preventDefault();
 
 			let $elem = jQuery( e.currentTarget ),
-				$href = $wponion_helper.url_params( $elem.attr( 'href' ) );
+				$href = window.wponion.helper.url_params( $elem.attr( 'href' ) );
 
 			if( $elem.hasClass( 'dropdown' ) ) {
 				$elem.parent().find( '> ul' ).slideToggle();
 			} else {
-				if( false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
+				if( false === window.wponion._.isUndefined( $href[ 'parent-id' ] ) ) {
 					let $parent      = 'wponion-tab-' + $href[ 'parent-id' ];
 					let $all_actives = this.element.find( 'div.wponion-parent-wraps' );
 					let $current     = this.element.find( 'div#' + $parent );
@@ -39,9 +38,9 @@ class WPOnion_Fresh_Theme {
 		this.element.find( '.wpo-ftnav .meta-submenu a' ).on( 'click', ( e ) => {
 			e.preventDefault();
 			let $elem = jQuery( e.currentTarget );
-			let $href = $wponion_helper.url_params( $elem.attr( 'href' ) );
+			let $href = window.wponion.helper.url_params( $elem.attr( 'href' ) );
 
-			if( false === $wponion_helper.is_undefined( $href[ 'section-id' ] ) && false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
+			if( false === window.wponion._.isUndefined( $href[ 'section-id' ] ) && false === window.wponion._.isUndefined( $href[ 'parent-id' ] ) ) {
 				let $parent      = 'wponion-tab-' + $href[ 'parent-id' ],
 					$section     = $parent + '-' + $href[ 'section-id' ],
 					$all_actives = this.element.find( 'div#' + $parent + ' div.wponion-section-wraps' ),

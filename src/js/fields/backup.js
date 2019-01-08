@@ -1,7 +1,7 @@
 import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		this.tooltip();
 
@@ -193,3 +193,5 @@ export default class extends WPOnion_Field {
 		return false;
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'backup', ( $elem ) => new field( $elem ) ) )( window );

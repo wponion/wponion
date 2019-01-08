@@ -1,7 +1,7 @@
 import WPOnion_Field from '../core/field';
-/* global setTimeout:true */
+
 /* global wponion_field:true */
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		let $arg        = this.handle_args( this.option( 'clone', {} ) );
 		let $this       = this,
@@ -29,12 +29,10 @@ export default class extends WPOnion_Field {
 			templateAfterRender: ( $e ) => wponion_field( $e.find( '> div.wponion-field-clone:last-child' ) ).reload(),
 			sortable: $sort,
 			onLimitReached: function() {
-				if( $add_btn.parent().find( 'div.alert' ).length > 0 ) {
-
-				} else {
+				if( $add_btn.parent().find( 'div.alert' ).length === 0 ) {
 					$add_btn.parent().prepend( jQuery( $eror_msg ).hide() );
 					$add_btn.parent().find( 'div.alert' ).slideDown();
-					wponion_notice( $add_btn.parent().find( 'div.alert, div.notice' ) );
+					window.wponion_notice( $add_btn.parent().find( 'div.alert, div.notice' ) );
 				}
 			},
 			show_animation: $arg.animations.show,
@@ -43,3 +41,4 @@ export default class extends WPOnion_Field {
 	}
 }
 
+export default ( ( w ) => w.wponion_render_field( 'clone_element', ( $elem ) => new field( $elem ) ) )( window );

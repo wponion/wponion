@@ -1,13 +1,13 @@
 import WPOnion_Field from '../core/field';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		let $this     = this,
 			$elem     = $this.element,
 			$settings = this.handle_args( this.option( 'settings' ) ),
 			$view;
 
-		if( false === window.wpo._.isUndefined( $settings.theme ) ) {
+		if( false === window.wponion._.isUndefined( $settings.theme ) ) {
 			$view = $settings.theme;
 			delete $settings.theme;
 		} else {
@@ -33,3 +33,5 @@ export default class extends WPOnion_Field {
 		}
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'date_picker', ( $elem ) => new field( $elem ) ) )( window );

@@ -34,7 +34,7 @@ export default class extends WPOnion_Module {
 	}
 
 	js_validator() {
-		if( false === window.wpo._.isUndefined( this.option( 'js_validate', false ) ) ) {
+		if( false === window.wponion._.isUndefined( this.option( 'js_validate', false ) ) ) {
 			if( false !== this.option( 'js_validate', false ) ) {
 				this.maybe_js_validate_elem( this.option( 'js_validate', false ), this.element );
 			}
@@ -58,7 +58,7 @@ export default class extends WPOnion_Module {
 	handle_args( $arg, $key = false ) {
 		let $args   = $wponion.js_func( $arg ),
 			$exists = $wponion_debug.get( this.id(), { 'PHP Args': {}, 'JS Args': {} } );
-		$exists     = window.wpo._.merge( { 'PHP Args': {}, 'JS Args': {} }, $exists );
+		$exists     = window.wponion._.merge( { 'PHP Args': {}, 'JS Args': {} }, $exists );
 
 		if( false === $key ) {
 			$exists[ 'JS Args' ] = $args;
@@ -76,8 +76,8 @@ export default class extends WPOnion_Module {
 
 		let $info = this.option( 'debug_info' );
 
-		if( false === window.wpo._.isUndefined( $info ) ) {
-			if( false === window.wpo._.isEmpty( $info ) ) {
+		if( false === window.wponion._.isUndefined( $info ) ) {
+			if( false === window.wponion._.isEmpty( $info ) ) {
 				$wponion_debug.add( this.id(), { 'PHP Args': $info, 'JS Args': {} } );
 			}
 		}
@@ -150,7 +150,7 @@ export default class extends WPOnion_Module {
 
 	option( $key = '', $default = {} ) {
 		let $args = this.options();
-		return ( false === window.wpo._.isUndefined( $args[ $key ] ) ) ? $args[ $key ] : $default;
+		return ( false === window.wponion._.isUndefined( $args[ $key ] ) ) ? $args[ $key ] : $default;
 	}
 
 	id() {
@@ -172,17 +172,17 @@ export default class extends WPOnion_Module {
 			module: this.module(),
 		};
 		$default[ $ajax_key ] = $action;
-		$data.data            = ( false === window.wpo._.isUndefined( $data.data ) ) ? window.wpo._.merge( $default, $data.data ) : $default;
+		$data.data            = ( false === window.wponion._.isUndefined( $data.data ) ) ? window.wponion._.merge( $default, $data.data ) : $default;
 
 		return $wponion.ajax( $data );
 	}
 
-	init_field( $elem, $type ) {
+	init_field_old( $elem, $type ) {
 		let $_instances = [];
 		if( !is_jquery( $elem ) ) {
 			$elem = this.element.find( $elem );
 		}
-		let $this = this;
+
 		$elem.each( function() {
 			let $class = $wponion.get_field_class( $type );
 			if( false !== $class ) {
@@ -199,27 +199,44 @@ export default class extends WPOnion_Module {
 		} );
 	}
 
+	init_field( $elem, $type ) {
+		if( !is_jquery( $elem ) ) {
+			$elem = this.element.find( $elem );
+		}
+
+		$elem.each( function() {
+			if( window.wp.hooks.hasAction( 'wponion_init_field_' + $type ) ) {
+				window.wp.hooks.doAction( 'wponion_init_field_' + $type, jQuery( this ) );
+			} else {
+				console.error( 'WPOnion Field Type : ' + $type + ' Init Function Not Found', '\nAction Used : wponion_init_field_' + $type );
+			}
+		} );
+	}
+
 	reload() {
 		wp.hooks.doAction( 'wponion_before_fields_reload' );
+
+		this.init_field( '.wponion-element-accordion', 'accordion' );
+		this.init_field( '.wponion-element-background', 'background' );
+		this.init_field( '.wponion-element-backup', 'backup' );
+		this.init_field( '.wponion-element-checkbox', 'checkbox_radio' );
+		this.init_field( '.wponion-element-radio', 'checkbox_radio' );
+		this.init_field( '.wponion-element-clone', 'clone_element' );
+		this.init_field( '.wponion-element-color_palette', 'color_palette' );
+		this.init_field( '.wponion-element-color_picker', 'color_picker' );
+		this.init_field( '.wponion-element-select', 'select' );
 		this.init_field( '.wponion-element-icon_picker', 'icon_picker' );
 		this.init_field( '.wponion-element-font_picker', 'font_selector' );
-		this.init_field( '.wponion-element-accordion', 'accordion' );
 		this.init_field( '.wponion-element-group', 'group' );
 		this.init_field( '.wponion-element-text:not(.wponion-inputmask)', 'text' );
 		this.init_field( '.wponion-element-textarea', 'textarea' );
-		this.init_field( '.wponion-element-background', 'background' );
 		this.init_field( '.wponion-element-image_select', 'image_select' );
-		this.init_field( '.wponion-element-select', 'select' );
 		this.init_field( '.wponion-element-switcher', 'switcher' );
-		this.init_field( '.wponion-element-color_palette', 'color_palette' );
 		this.init_field( '.wponion-element-wp_editor', 'wp_editor' );
 		this.init_field( '.wponion-element-fieldset', 'fieldset' );
 		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
 		this.init_field( '.wponion-element-wp_link', 'wp_links' );
-		this.init_field( '.wponion-element-checkbox', 'checkbox_radio' );
-		this.init_field( '.wponion-element-radio', 'checkbox_radio' );
 		this.init_field( '.wponion-element-key_value', 'keyvalue_pair' );
-		this.init_field( '.wponion-element-color_picker', 'color_picker' );
 		this.init_field( '.wponion-element-date_picker', 'date_picker' );
 		this.init_field( '.wponion-element-gallery', 'gallery' );
 		this.init_field( '.wponion-element-upload', 'upload' );
@@ -229,7 +246,6 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-google_maps', 'google_maps' );
 		this.init_field( '.wponion-help', 'field_tooltip' );
 		this.init_field( '.wponion-wrap-tooltip', 'field_tooltip' );
-		this.init_field( '.wponion-element-clone', 'clone_element' );
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
@@ -240,7 +256,6 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-subheading', 'subheading' );
 		this.init_field( '.wponion-element-content', 'content' );
 		this.init_field( '.wponion-element-jambo_content', 'jambo_content' );
-		this.init_field( '.wponion-element-backup', 'backup' );
 		this.init_field( '.wponion-element-notice', 'notice' );
 
 		wp.hooks.doAction( 'wponion_after_fields_reload' );

@@ -41,39 +41,44 @@ export class WPOnion_Ajaxer {
 		/**
 		 * @type {WPOnion_Ajaxer.defaults}
 		 */
-		this.ajax_args = window.wpo._.merge( this.defaults, $ajax_args );
-		this.ajax_config = window.wpo._.merge( this.default_configs, $ajax_config );
+		this.ajax_args = window.wponion._.merge( this.defaults, $ajax_args );
+		this.ajax_config = window.wponion._.merge( this.default_configs, $ajax_config );
 		this.ajax();
 	}
+
 
 	create_function( $code = false, $args = '' ) {
 		return this.single_callback( create_function( $args, $code ) );
 	}
 
 	single_callback( $callback ) {
-		if( window.wpo._.isFunction( $callback ) ) {
+		if( window.wponion._.isFunction( $callback ) ) {
 			call_user_func( $callback );
-		} else if( window.wpo._.isString( $callback ) && false !== function_exists( $callback ) ) {
+		} else if( window.wponion._.isString( $callback ) && false !== function_exists( $callback ) ) {
 			call_user_func( $callback );
-		} else if( window.wpo._.isString( $callback ) ) {
+		} else if( window.wponion._.isString( $callback ) ) {
 			this.create_function( $callback );
-		} else if( window.wpo._.isObject( $callback ) ) {
+		} else if( window.wponion._.isObject( $callback ) ) {
 			for( let $key in $callback ) {
-				this.single_callback( $callback[ $key ] );
+				if( $callback.hasOwnProperty( $key ) ) {
+					this.single_callback( $callback[ $key ] );
+				}
 			}
 		}
 	}
 
 	handle_callbacks( data ) {
-		if( window.wpo._.isObject( data ) ) {
-			if( false === window.wpo._.isUndefined( data.callback ) ) {
+		if( window.wponion._.isObject( data ) ) {
+			if( false === window.wponion._.isUndefined( data.callback ) ) {
 				let $callbacks = data.callback;
 
-				if( false !== window.wpo._.isString( $callbacks ) ) {
+				if( false !== window.wponion._.isString( $callbacks ) ) {
 					this.single_callback( $callbacks );
-				} else if( false !== window.wpo._.isObject( $callbacks ) ) {
+				} else if( false !== window.wponion._.isObject( $callbacks ) ) {
 					for( let $key in $callbacks ) {
-						this.single_callback( $callbacks[ $key ] );
+						if( $callbacks.hasOwnProperty( $key ) ) {
+							this.single_callback( $callbacks[ $key ] );
+						}
 					}
 				}
 				delete data.callback;
@@ -112,22 +117,24 @@ export class WPOnion_Ajaxer {
 
 	ajax() {
 		this.button_lock();
-		let $config = window.wpo._.clone( this.ajax_args );
+		let $config = window.wponion._.clone( this.ajax_args );
 		if( false !== $config.url ) {
 			if( false !== is_url( $config.url ) ) {
 				let $url_params = url_params( $config.url );
 				for( let $key in $url_params ) {
-					$config.url = remove_query_arg( $key, $config.url );
+					if( $url_params.hasOwnProperty( $key ) ) {
+						$config.url = remove_query_arg( $key, $config.url );
+					}
 				}
-				$config.data = window.wpo._.merge( $config.data, $url_params );
+				$config.data = window.wponion._.merge( $config.data, $url_params );
 			} else {
 				let $url_params = {};
 				parse_str( $config.url, $url_params );
-				$config.url  = ajaxurl;
-				$config.data = window.wpo._.merge( $config.data, $url_params );
+				$config.url  = window.ajaxurl;
+				$config.data = window.wponion._.merge( $config.data, $url_params );
 			}
 		} else {
-			$config.url = ajaxurl;
+			$config.url = window.ajaxurl;
 		}
 
 		if( false !== $config.action ) {
@@ -198,9 +205,10 @@ export default ( ( $, document ) => {
 		let $class = '[data-wponion-inline-ajax], .wponion-ajax, .wponion-ajax-get, .wponion-ajax-post, .wponion-inline-ajax, .wponion-inline-ajax-get, .wponion-inline-ajax-post';
 		$( document ).on( 'click', $class, ( e ) => {
 
-			let $elem  = $( e.currentTarget ),
-				$_data = $elem.data(),
-				$args  = {
+			let $elem            = $( e.currentTarget ),
+				$_data           = $elem.data(),
+				$_class_instance = null,
+				$args            = {
 					url: false,
 				};
 
@@ -211,17 +219,17 @@ export default ( ( $, document ) => {
 				let $args  = {};
 				if( $js_id ) {
 					let $_args = $wponion.fieldArgs( $js_id, false );
-					if( false !== window.wpo._.isUndefined( $_args.inline_ajax ) ) {
+					if( false !== window.wponion._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				} else if( false !== $wponion.fieldArgs( $fid1, false ) ) {
 					let $_args = $wponion.fieldArgs( $fid1, false );
-					if( false === window.wpo._.isUndefined( $_args.inline_ajax ) ) {
+					if( false === window.wponion._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				} else if( false !== $wponion.fieldArgs( $fid2, false ) ) {
 					let $_args = $wponion.fieldArgs( $fid2, false );
-					if( false === window.wpo._.isUndefined( $_args.inline_ajax ) ) {
+					if( false === window.wponion._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				}
@@ -252,7 +260,7 @@ export default ( ( $, document ) => {
 			}
 
 
-			new WPOnion_Ajaxer( $args, {
+			$_class_instance = new WPOnion_Ajaxer( $args, {
 				button: $elem,
 			} );
 

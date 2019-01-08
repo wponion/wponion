@@ -1,6 +1,6 @@
 import WPOnion_Field from '../core/field';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		if( this.element.find( 'input.wponion-custom-value-input' ).length > 0 ) {
 			let $inputs = this.element.find( 'input.wponion-custom-value-input' );
@@ -14,4 +14,5 @@ export default class extends WPOnion_Field {
 	}
 }
 
+export default ( ( w ) => w.wponion_render_field( 'checkbox_radio', ( $elem ) => new field( $elem ) ) )( window );
 

@@ -16,9 +16,9 @@ class WPOnion_Modern_Theme {
 		let $this = this;
 		$this.element.find( '.wponion-submenus.subsubsub a' ).on( 'click', function( e ) {
 			e.preventDefault();
-			let $href = $wponion_helper.url_params( jQuery( this ).attr( 'href' ) );
+			let $href = window.wponion.helper.url_params( jQuery( this ).attr( 'href' ) );
 
-			if( false === $wponion_helper.is_undefined( $href[ 'section-id' ] ) && false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
+			if( false === window.wponion._.isUndefined( $href[ 'section-id' ] ) && false === window.wponion._.isUndefined( $href[ 'parent-id' ] ) ) {
 				let $parent      = 'wponion-tab-' + $href[ 'parent-id' ],
 					$section     = $parent + '-' + $href[ 'section-id' ],
 					$all_actives = $this.element.find( 'div#' + $parent + ' div.wponion-section-wraps' ),
@@ -38,9 +38,9 @@ class WPOnion_Modern_Theme {
 		let $this = this;
 		$this.element.find( 'nav.nav-tab-wrapper a' ).on( 'click', function( e ) {
 			e.preventDefault();
-			let $href = $wponion_helper.url_params( jQuery( this ).attr( 'href' ) );
+			let $href = window.wponion.helper.url_params( jQuery( this ).attr( 'href' ) );
 
-			if( false === $wponion_helper.is_undefined( $href[ 'parent-id' ] ) ) {
+			if( false === window.wponion._.isUndefined( $href[ 'parent-id' ] ) ) {
 				let $parent      = 'wponion-tab-' + $href[ 'parent-id' ];
 				let $all_actives = $this.element.find( ' div.wponion-parent-wraps' );
 				let $current     = $this.element.find( 'div#' + $parent );

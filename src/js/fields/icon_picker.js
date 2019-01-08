@@ -1,8 +1,9 @@
 import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
+
 /*global swal:true*/
 
-export default class  extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		let $_this      = this,
 			$elem       = $_this.element,
@@ -172,3 +173,5 @@ export default class  extends WPOnion_Field {
 		return this;
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'icon_picker', ( $elem ) => new field( $elem ) ) )( window );

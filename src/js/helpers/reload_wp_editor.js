@@ -18,13 +18,13 @@ export default class extends WPOnion_Field {
 			this.element.find( 'textarea:not(#' + $actual_ID + ')' ).remove();
 			this.element.find( 'textarea' ).attr( 'id', $NEW_ID );
 
-			if( false === window.wpo._.isUndefined( $mce_editor ) ) {
+			if( false === window.wponion._.isUndefined( $mce_editor ) ) {
 				$mce_editor.selector = '#' + $NEW_ID;
 				tinymce.init( $mce_editor );
 				tinyMCE.execCommand( 'mceAddEditor', false, '#' + $NEW_ID );
 			}
 
-			if( false === window.wpo._.isUndefined( $quick_tags ) ) {
+			if( false === window.wponion._.isUndefined( $quick_tags ) ) {
 				$quick_tags.id = $NEW_ID;
 				quicktags( $quick_tags );
 			}

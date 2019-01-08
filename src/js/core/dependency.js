@@ -2,7 +2,7 @@ import WPOnion_Dependency from '../helpers/dependency';
 
 export default class {
 	constructor( $element = undefined, param = {} ) {
-		this.param         = window.window.wpo._.merge( { nestable: false, parent: false }, param );
+		this.param         = window.window.wponion._.merge( { nestable: false, parent: false }, param );
 
 		let $this          = this;
 		this.base          = {};

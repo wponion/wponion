@@ -1,7 +1,7 @@
 import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		this.element.find( '.wponion-accordion-wrap' ).each( function() {
 			jQuery( this ).accordion( {
@@ -28,3 +28,5 @@ export default class extends WPOnion_Field {
 		}
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'accordion', ( $elem ) => new field( $elem ) ) )( window );

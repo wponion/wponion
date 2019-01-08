@@ -1,7 +1,7 @@
 /* global google:true */
 import WPOnion_Field from '../core/field';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		let $map              = this.option( 'map', {} );
 		$map.details          = '#gmap_fields_' + this.id();
@@ -26,3 +26,5 @@ export default class extends WPOnion_Field {
 		} );
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'google_maps', ( $elem ) => new field( $elem ) ) )( window );

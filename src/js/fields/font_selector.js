@@ -1,7 +1,7 @@
 import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	get websafe() {
 		return $wponion.windowArgs( 'wponion_websafe_fonts' );
 	}
@@ -13,7 +13,7 @@ export default class extends WPOnion_Field {
 	build_options( data ) {
 		let $return = '';
 		for( let $_d in data ) {
-			if( false === window.wpo._.isUndefined( data[ $_d ] ) ) {
+			if( false === window.wponion._.isUndefined( data[ $_d ] ) ) {
 				$return += `<option value="${$_d}">${data[ $_d ]}</option>`;
 			}
 		}
@@ -25,9 +25,9 @@ export default class extends WPOnion_Field {
 			let $val  = jQuery( e.currentTarget ).val(),
 				$html = null;
 
-			if( false === window.wpo._.isUndefined( this.websafe.fonts [ $val ] ) ) {
+			if( false === window.wponion._.isUndefined( this.websafe.fonts [ $val ] ) ) {
 				$html = this.build_options( this.websafe.variants );
-			} else if( false === window.wpo._.isUndefined( this.google_fonts[ $val ] ) ) {
+			} else if( false === window.wponion._.isUndefined( this.google_fonts[ $val ] ) ) {
 				$html = this.build_options( this.google_fonts[ $val ] );
 			}
 			let $variant = this.element.find( 'select.wponion-variant-selector' ).html( $html );
@@ -40,3 +40,5 @@ export default class extends WPOnion_Field {
 		} );
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'font_selector', ( $elem ) => new field( $elem ) ) )( window );

@@ -1,4 +1,1 @@
-import WPOnion_Field from '../core/field';
-
-export default class extends WPOnion_Field {
-}
+export default ( ( w ) => w.wponion_render_field( 'subheading', ( $elem ) => new window.wponion.field_abstract( $elem ) ) )( window );

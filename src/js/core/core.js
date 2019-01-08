@@ -37,11 +37,11 @@ export default class WPOnion {
 	static get_field_class( $type ) {
 		$type = $type.toLowerCase();
 
-		if( false === window.wpo._.isUndefined( window.wponion_fields[ $type ] ) ) {
-			return window.wponion_fields[ $type ];
-		} else if( false === window.wpo._.isUndefined( window[ 'wponion_' + $type + '_field' ] ) ) {
+		if( false === window.wponion._.isUndefined( window.wponion.fields[ $type ] ) ) {
+			return window.wponion.fields[ $type ];
+		} else if( false === window.wponion._.isUndefined( window[ 'wponion_' + $type + '_field' ] ) ) {
 			return window[ 'wponion_' + $type + '_field' ];
-		} else if( false === window.wpo._.isUndefined( window[ $type ] ) ) {
+		} else if( false === window.wponion._.isUndefined( window[ $type ] ) ) {
 			return window[ $type ];
 		}
 		return false;
@@ -99,7 +99,7 @@ export default class WPOnion {
 	 */
 	static fieldArgs( $var_id, $default = {} ) {
 		$var_id = ( this.isField( $var_id ) ) ? this.fieldID( $var_id ) : $var_id;
-		return ( $var_id ) ? window.wpo._.clone( this.windowArgs( $var_id, $default ) ) : $default;
+		return ( $var_id ) ? window.wponion._.clone( this.windowArgs( $var_id, $default ) ) : $default;
 	}
 
 	/**
@@ -109,7 +109,7 @@ export default class WPOnion {
 	 * @returns {string}
 	 */
 	static txt( $key, $default = 'string_default_not_found' ) {
-		return ( false === window.wpo._.isUndefined( WPOnion.text[ $key ] ) ) ? WPOnion.text[ $key ] : $default;
+		return ( false === window.wponion._.isUndefined( WPOnion.text[ $key ] ) ) ? WPOnion.text[ $key ] : $default;
 	}
 
 	/**
@@ -134,9 +134,9 @@ export default class WPOnion {
 			$json   = {};
 		if( WPOnion.debug_info === null && $handle.length > 0 ) {
 			let $defined_vars = WPOnion.windowArgs( 'wponion_defined_vars' );
-			if( window.wpo._.isObject( $defined_vars ) ) {
+			if( window.wponion._.isObject( $defined_vars ) ) {
 				for( let $key in $defined_vars ) {
-					if( false === window.wpo._.isUndefined( $defined_vars[ $key ] ) ) {
+					if( false === window.wponion._.isUndefined( $defined_vars[ $key ] ) ) {
 						$json[ $defined_vars[ $key ] ] = WPOnion.windowArgs( $defined_vars[ $key ] );
 					}
 				}
@@ -178,7 +178,7 @@ export default class WPOnion {
 	 */
 	static option( $key, $default = {} ) {
 		let $args = WPOnion.settings_args;
-		if( false === window.wpo._.isUndefined( $args[ $key ] ) ) {
+		if( false === window.wponion._.isUndefined( $args[ $key ] ) ) {
 			return $args[ $key ];
 		}
 		return $default;
@@ -196,14 +196,14 @@ export default class WPOnion {
 	 * Gather All Field JS Codes.
 	 */
 	static field_debug() {
-		if( WPOnion.is_debug() && window.wpo._.isNull( WPOnion.field_debug_info ) ) {
+		if( WPOnion.is_debug() && window.wponion._.isNull( WPOnion.field_debug_info ) ) {
 			let $vars = WPOnion.windowArgs( 'wponion_defined_vars' ),
 				$json = {},
 				$utxt = WPOnion.txt( 'unmodified_debug' ),
 				$mtxt = WPOnion.txt( 'modified_debug' );
 
 			for( let $key in $vars ) {
-				if( false === window.wpo._.isUndefined( $vars[ $key ] ) ) {
+				if( false === window.wponion._.isUndefined( $vars[ $key ] ) ) {
 					let $data                       = WPOnion.windowArgs( $vars[ $key ] );
 					$json[ $vars[ $key ] ]          = {};
 					$json[ $vars[ $key ] ][ $utxt ] = $data.debug_info || $data;
@@ -232,16 +232,16 @@ export default class WPOnion {
 			},
 			$ajax     = false;
 
-		if( window.wpo._.isObject( $action ) ) {
+		if( window.wponion._.isObject( $action ) ) {
 			$data = $action;
 		} else {
 			$defaults.url += '&' + WPOnion.option( 'ajax_action_key' ) + '=' + $action;
 		}
 
-		$defaults  = window.wpo._.merge( $defaults, $data );
-		$onSuccess = ( window.wpo._.isUndefined( $onSuccess ) || false === $onSuccess ) ? $defaults.onSuccess : $onSuccess;
-		$onAlways  = ( window.wpo._.isUndefined( $onError ) || false === $onError ) ? $defaults.onAlways : $onAlways;
-		$onError   = ( window.wpo._.isUndefined( $onAlways ) || false === $onAlways ) ? $defaults.onError : $onError;
+		$defaults  = window.wponion._.merge( $defaults, $data );
+		$onSuccess = ( window.wponion._.isUndefined( $onSuccess ) || false === $onSuccess ) ? $defaults.onSuccess : $onSuccess;
+		$onAlways  = ( window.wponion._.isUndefined( $onError ) || false === $onError ) ? $defaults.onAlways : $onAlways;
+		$onError   = ( window.wponion._.isUndefined( $onAlways ) || false === $onAlways ) ? $defaults.onError : $onError;
 		$ajax      = jQuery.ajax( $defaults );
 
 
@@ -274,7 +274,7 @@ export default class WPOnion {
 			};
 
 		return function( data ) {
-			compiled = compiled || window.wpo._.template( $id, options );
+			compiled = compiled || window.wponion._.template( $id, options );
 			return compiled( data );
 		};
 	}

@@ -1,6 +1,6 @@
 import WPOnion_Field from '../core/field';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		this.global_validate = false;
 		this.element.find( '.wponion-keyvalue_wrap' ).WPOnionCloner( {
@@ -39,18 +39,18 @@ export default class extends WPOnion_Field {
 	 * @param $elem
 	 */
 	js_validate_elem( $args, $elem ) {
-		if( true !== is_undefined( $args.key ) ) {
+		if( true !== window.wponion._.isUndefined( $args.key ) ) {
 			$elem.find( '.wponion-keyvalue-field' ).each( function() {
 				jQuery( this ).find( '> div' ).eq( 0 ).find( ':input' ).rules( 'add', $args.key );
 			} );
 		}
-		if( true !== is_undefined( $args.value ) ) {
+		if( true !== window.wponion._.isUndefined( $args.value ) ) {
 			$elem.find( '.wponion-keyvalue-field' ).each( function() {
 				jQuery( this ).find( '> div' ).eq( 1 ).find( ':input' ).rules( 'add', $args.value );
 			} );
 		}
 
-		if( true === is_undefined( $args.key ) && true === is_undefined( $args.value ) ) {
+		if( true === window.wponion._.isUndefined( $args.key ) && true === window.wponion._.isUndefined( $args.value ) ) {
 			$elem.find( ':input' ).each( function() {
 				jQuery( this ).rules( 'add', $args );
 			} );
@@ -58,4 +58,4 @@ export default class extends WPOnion_Field {
 	}
 }
 
-
+export default ( ( w ) => w.wponion_render_field( 'keyvalue_pair', ( $elem ) => new field( $elem ) ) )( window );

@@ -1,4 +1,5 @@
 import WPOnion_Module from '../core/module';
+import $wponion from '../core/core';
 
 class WPOnion_Metabox_Module extends WPOnion_Module {
 	module_init() {
@@ -19,7 +20,7 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 					jQuery( this ).next( 'ul' ).slideToggle( 'fast' );
 				}
 			} else {
-				let $href           = $wponion_helper.url_params( jQuery( this ).attr( 'data-href' ) ),
+				let $href           = window.wponion.helper.url_params( jQuery( this ).attr( 'data-href' ) ),
 					$parent         = 'wponion-tab-' + $href[ 'parent-id' ],
 					$section        = ( $href[ 'section-id' ] !== undefined ) ? $parent + '-' + $href[ 'section-id' ] : false,
 					$parent_actives = $elem.find( 'div.wponion-parent-wraps' ),
@@ -47,8 +48,7 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 
 	save_handler( e ) {
 		e.preventDefault();
-		let $this   = this,
-			$parent = jQuery( this ).parent(),
+		let $parent = jQuery( this ).parent(),
 			$base   = $parent.parent().parent(),
 			$hidden = $parent.find( 'div.wponion-metabox-secure-data' );
 
@@ -64,17 +64,17 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 		$wponion.ajax( 'save_metabox', { data: $values }, function( res ) {
 			$base.html( res );
 			$base.unblock();
-			wponion_field( $base.find( '.wponion-framework' ) ).reload();
+			window.wponion_field( $base.find( '.wponion-framework' ) ).reload();
 		} );
 
 	}
 }
 
-export default ( ( window, document, $, wp ) => {
+export default ( ( window, document, $ ) => {
 	$( function() {
 		$( 'div.postbox.wponion-metabox' ).each( function() {
 			new WPOnion_Metabox_Module( $( this ), false );
 		} );
 	} );
-} )( window, document, jQuery, wp );
+} )( window, document, jQuery );
 

@@ -1,11 +1,4 @@
-/**
- * @param window = Window Object
- * @param document = Document Object
- * @param $ = jQuery Object
- * @param wpo = $wponion object
- * @param wp = $wponion.theme object.
- */
-( ( window, document, $, wpo, wp ) => {
+( ( window, document, $, wp ) => {
 	let wphooks = wp.hooks;
 
 	/**
@@ -18,8 +11,8 @@
 		 */
 		link_customize_settings: ( ( $elem ) => {
 			$elem.find( 'input , textarea' ).each( function() {
-				$( this ).attr( "data-customize-setting-link", true );
-			} )
+				$( this ).attr( 'data-customize-setting-link', true );
+			} );
 		} ),
 
 		/**
@@ -63,7 +56,7 @@
 				if( !$( this ).hasClass( 'wponion_cloneable_value' ) ) {
 					$wponion_customizer.cloneable_update( $control );
 				}
-			} )
+			} );
 		} ),
 	};
 
@@ -75,7 +68,7 @@
 	$wpc.wponion_field_key_value = wp.customize.Control.extend( {
 		ready: function() {
 			let control = this;
-			wphooks.addAction( 'wponion_key_value_updated', 'wponion_core', ( ( $elem ) => {
+			wphooks.addAction( 'wponion_key_value_updated', 'wponion_core', ( () => {
 				let $val = $wponion_customizer.get_keyval_data( control );
 				control.setting.set( $val );
 			} ), 11 );
@@ -87,6 +80,9 @@
 		}
 	} );
 
+	/**
+	 * Handles Checkbox Field in Customizer.
+	 */
 	$wpc.wponion_field_checkbox = wp.customize.Control.extend( {
 		ready: function() {
 			let control = this;
@@ -96,7 +92,6 @@
 			} );
 		}
 	} );
-
 
 	/**
 	 * Handles Fieldset And Checkbox Field.
@@ -120,14 +115,14 @@
 		},
 	} );
 
-
 	/**
 	 * Inits Customizer Instance.
 	 */
-	wphooks.addAction( 'wponion_init','wponion_core', ( () => {
-		$( ".wponion-module-customizer-framework.wponion-framework" ).each( function() {
+	wphooks.addAction( 'wponion_init', 'wponion_core', ( () => {
+		$( '.wponion-module-customizer-framework.wponion-framework' ).each( function() {
 			$wponion_customizer.link_customize_settings( $( this ) );
 		} );
 	} ) );
 
-} )( window, document, jQuery, $wponion, wp );
+} )( window, document, jQuery, wp );
+

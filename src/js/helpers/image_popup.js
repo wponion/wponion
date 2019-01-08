@@ -1,8 +1,8 @@
 import WPOnion_Field from '../core/field';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
-		let $image = ( window.wpo._.isUndefined( this.element.attr( 'data-fullsize' ) ) ) ? this.element.attr( 'src' ) : this.element.attr( 'data-fullsize' );
+		let $image = ( window.wponion._.isUndefined( this.element.attr( 'data-fullsize' ) ) ) ? this.element.attr( 'src' ) : this.element.attr( 'data-fullsize' );
 		swal( {
 			imageUrl: $image,
 			animation: false,
@@ -12,3 +12,5 @@ export default class extends WPOnion_Field {
 		} );
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'image_popup', ( $elem ) => new field( $elem ) ) )( window );

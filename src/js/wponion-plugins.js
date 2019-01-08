@@ -43,7 +43,7 @@ jQuery.fn.extend( {
 			create_instance: function( $elem, $arguments ) {
 				$arguments = ( typeof $arguments === 'undefined' ) ? {} : $arguments;
 				if( $elem.attr( 'data-tippy-instance-id' ) === undefined ) {
-					var $_instance_id = 'Tippy' + $wponion.rand_id();
+					var $_instance_id = 'Tippy' + window.wponion.core.rand_id();
 					$elem.attr( 'data-tippy-instance-id', $_instance_id );
 
 					var $title      = $elem.attr( 'title' );

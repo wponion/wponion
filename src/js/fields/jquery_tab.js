@@ -1,6 +1,6 @@
 import WPOnion_Field from '../core/field';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		let $this      = this,
 			$elem      = $this.element,
@@ -24,3 +24,5 @@ export default class extends WPOnion_Field {
 		}
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'jquery_tab', ( $elem ) => new field( $elem ) ) )( window );

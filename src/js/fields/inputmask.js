@@ -1,6 +1,6 @@
 import WPOnion_Field from '../core/field';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		if( this.element.length > 0 ) {
 			let $settings = this.option( 'inputmask' );
@@ -11,3 +11,5 @@ export default class extends WPOnion_Field {
 		}
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'inputmask', ( $elem ) => new field( $elem ) ) )( window );

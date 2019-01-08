@@ -29,7 +29,7 @@ class WPOnion_Guttenberg {
 		let $_postids            = JSON.stringify( parseInt( jQuery( 'input#post_ID' ).val() ) );
 		block.attributes.post_id = $_postids;
 		let block_id             = block.attributes.block_id = block.attributes.block_id || block.clientId;
-		let $remote = el( 'form', {
+		let $remote              = el( 'form', {
 			className: 'wponion-block-group-content',
 			'data-block-id': block_id,
 		}, [
@@ -62,7 +62,6 @@ class WPOnion_Guttenberg {
 		let selector = 'form[data-block-id="' + block_id + '"]';
 
 		if( jQuery( selector ).length < 1 ) {
-
 		}
 
 
@@ -95,20 +94,22 @@ class WPOnion_Guttenberg {
 }
 
 
-export default ( ( window, document, $, wp ) => {
+export default ( ( window, document, $ ) => {
 	$( function() {
 		if( !window.wp || !window.wp.blocks || !window.wp.editor ) {
 			return;
 		}
 
 		$( window ).on( 'load', () => {
-			let $blocks     = window.wp.blocks;
+			//let $blocks     = window.wp.blocks;
 			let $wpo_blocks = $wponion.windowArgs( 'wponion_guttenberg_blocks' );
-			if( false === $wponion_helper.is_undefined( $wpo_blocks ) && $wponion_helper.is_array( $wpo_blocks ) ) {
+			if( false === window.wponion._.isUndefined( $wpo_blocks ) && window.wponion._.isArray( $wpo_blocks ) ) {
 				for( let $key in $wpo_blocks ) {
-					new WPOnion_Guttenberg( $key, $wpo_blocks[ $key ] );
+					if( $wpo_blocks.hasOwnProperty( $key ) ) {
+						new WPOnion_Guttenberg( $key, $wpo_blocks[ $key ] );
+					}
 				}
 			}
 		} );
 	} );
-} )( window, document, jQuery, wp );
+} )( window, document, jQuery );

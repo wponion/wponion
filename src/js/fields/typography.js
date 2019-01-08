@@ -1,7 +1,7 @@
 import WPOnion_Field from '../core/field';
 import css_units from 'vsp-js-helper/parts/css_units';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		this.font_weight_style = false;
 		let $el                = this.element;
@@ -108,3 +108,5 @@ export default class extends WPOnion_Field {
 	}
 }
 
+
+export default ( ( w ) => w.wponion_render_field( 'typography', ( $elem ) => new field( $elem ) ) )( window );

@@ -1,8 +1,8 @@
 import WPOnion_Field from '../core/field';
 import WPOnion_Dependency from '../core/dependency';
 import $wponion from '../core/core';
-/* global setTimeout:true */
-export default class extends WPOnion_Field {
+
+class field extends WPOnion_Field {
 	init() {
 		let $this       = this,
 			$add        = this.element.find( '> .wponion-fieldset > button[data-wponion-group-add]' ),
@@ -38,7 +38,7 @@ export default class extends WPOnion_Field {
 				}
 				this.update_groups_title();
 			},
-			templateAfterRender: ( $wrap, $limit ) => {
+			templateAfterRender: () => {
 				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
 				$data.hide();
 				this.update_groups_title();
@@ -46,7 +46,7 @@ export default class extends WPOnion_Field {
 				this.init_field( $group_wrap, 'accordion' );
 				//this.js_validate_elem( this.option( 'js_validate', false ), $data );
 				$data.find( '.wponion-group-remove' ).tippy();
-				wponion_field( $data ).reload();
+				window.wponion_field( $data ).reload();
 				new WPOnion_Dependency( $group_wrap.find( '> .wponion-accordion-wrap:last-child' ), { nestable: true } );
 				this.init_field( $data.find( '.wponion-element-wp_editor' ), 'reload_wp_editor' );
 				$data.slideDown();
@@ -65,12 +65,10 @@ export default class extends WPOnion_Field {
 
 			},
 			onLimitReached: function() {
-				if( $add.parent().find( 'div.alert' ).length > 0 ) {
-
-				} else {
+				if( $add.parent().find( 'div.alert' ).length === 0 ) {
 					$add.before( jQuery( $error_msg ).hide() );
 					$add.parent().find( 'div.alert' ).slideDown();
-					wponion_notice( $add.parent().find( 'div.alert, div.notice' ) );
+					window.wponion_notice( $add.parent().find( 'div.alert, div.notice' ) );
 				}
 			}
 		} );
@@ -83,9 +81,11 @@ export default class extends WPOnion_Field {
 
 			let $mached = this.option( 'matched_heading_fields' );
 			for( let $key in $mached ) {
-				let $elem = $data.find( ':input[data-depend-id="' + $mached[ $key ] + '"]' );
-				if( $elem.length > 0 ) {
-					$elem.on( 'change, blur', () => this.update_groups_title() );
+				if( $mached.hasOwnProperty( $key ) ) {
+					let $elem = $data.find( ':input[data-depend-id="' + $mached[ $key ] + '"]' );
+					if( $elem.length > 0 ) {
+						$elem.on( 'change, blur', () => this.update_groups_title() );
+					}
 				}
 			}
 		} );
@@ -99,19 +99,21 @@ export default class extends WPOnion_Field {
 			let $data    = jQuery( e );
 			let $heading = this.option( 'heading' );
 			if( false !== this.option( 'heading_counter' ) ) {
-				$heading = $wponion_helper.str_replace( '[count]', $limit, $heading );
+				$heading = window.wponion._.replace( $heading, '[count]', $limit );
 			}
 
 			let $mached = this.option( 'matched_heading_fields' );
 			for( let $key in $mached ) {
-				let $elem = $data.find( ':input[data-depend-id="' + $mached[ $key ] + '"]' );
-				if( $elem.length > 0 ) {
-					$heading = $wponion_helper.str_replace( $mached[ $key ], $elem.val(), $heading );
+				if( $mached.hasOwnProperty( $key ) ) {
+					let $elem = $data.find( ':input[data-depend-id="' + $mached[ $key ] + '"]' );
+					if( $elem.length > 0 ) {
+						$heading = window.wponion._.replace( $heading, $mached[ $key ], $elem.val() );
+					}
 				}
 			}
 
 			if( $heading === '' ) {
-				$heading = $wponion_helper.str_replace( '[count]', $limit, this.option( 'default_heading' ) );
+				$heading = window.wponion._.replace( this.option( 'default_heading' ), '[count]', $limit );
 			}
 
 			$data.find( '> .wponion-accordion-title span.heading' ).html( $heading );
@@ -122,8 +124,8 @@ export default class extends WPOnion_Field {
 
 	js_error( err ) {
 		let $elem = $wponion.IDtoElement( err.element, this.element );
-		if( $elem ) {
-			//err.error.appendTo( $elem.find( '> .wponion-fieldset' ) );
-		}
+		/* if( $elem ) { //err.error.appendTo( $elem.find( '> .wponion-fieldset' ) ); } */
 	}
 }
+
+export default ( ( w ) => w.wponion_render_field( 'group', ( $elem ) => new field( $elem ) ) )( window );

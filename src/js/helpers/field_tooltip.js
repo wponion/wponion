@@ -1,7 +1,7 @@
 import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 
-export default class extends WPOnion_Field {
+class field extends WPOnion_Field {
 	init() {
 		let $fid         = this.element.attr( 'data-field-jsid' );
 		let $tooltip_key = false;
@@ -83,3 +83,4 @@ export default class extends WPOnion_Field {
 	}
 }
 
+export default ( ( w ) => w.wponion_render_field( 'field_tooltip', ( $elem ) => new field( $elem ) ) )( window );
