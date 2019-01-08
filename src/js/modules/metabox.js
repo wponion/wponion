@@ -7,7 +7,6 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 		this.element.on( 'click', 'h2.ajax-container button', this.save_handler );
 	}
 
-
 	menu() {
 		let $elem = this.element;
 		$elem.on( 'click', 'ul.wponion-metabox-parent-menu li a', function( e ) {
@@ -45,7 +44,6 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 		} );
 	}
 
-
 	save_handler( e ) {
 		e.preventDefault();
 		let $parent = jQuery( this ).parent(),
@@ -66,7 +64,6 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 			$base.unblock();
 			window.wponion_field( $base.find( '.wponion-framework' ) ).reload();
 		} );
-
 	}
 }
 
