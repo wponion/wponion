@@ -57,7 +57,7 @@ class field extends WPOnion_Field {
 					} finally {
 						state.isFetching = false;
 					}
-				};
+				}
 				$arg.onHidden       = ( tip ) => {
 					state.canFetch = true;
 					tip.setContent( 'Loading...' );

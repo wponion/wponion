@@ -219,17 +219,17 @@ export default ( ( $, document ) => {
 				let $args  = {};
 				if( $js_id ) {
 					let $_args = $wponion.fieldArgs( $js_id, false );
-					if( false !== window.wponion._.isUndefined( $_args.inline_ajax ) ) {
+					if( $_args.hasOwnProperty( 'inline_ajax' ) && false !== window.wponion._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				} else if( false !== $wponion.fieldArgs( $fid1, false ) ) {
 					let $_args = $wponion.fieldArgs( $fid1, false );
-					if( false === window.wponion._.isUndefined( $_args.inline_ajax ) ) {
+					if( $_args.hasOwnProperty( 'inline_ajax' ) && false === window.wponion._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				} else if( false !== $wponion.fieldArgs( $fid2, false ) ) {
 					let $_args = $wponion.fieldArgs( $fid2, false );
-					if( false === window.wponion._.isUndefined( $_args.inline_ajax ) ) {
+					if( $_args.hasOwnProperty( 'inline_ajax' ) && false === window.wponion._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				}

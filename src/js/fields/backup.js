@@ -9,7 +9,7 @@ class field extends WPOnion_Field {
 			this.handle_backup_import( e.currentTarget );
 		} );
 
-		this.element.find( 'a.download_backup' ).on( 'click', ( e ) => {
+		this.element.find( 'a.download_backup' ).on( 'click', () => {
 			let $file = this.option( 'base_unique' );
 			$file     = $file + '-' + this.module();
 			let date  = new Date();
@@ -18,7 +18,7 @@ class field extends WPOnion_Field {
 			this.force_download( JSON.parse( this.element.find( '.backup_textarea textarea' ).html() ), $file );
 		} );
 
-		this.element.find( 'a.new_backup ' ).on( 'click', ( e ) => {
+		this.element.find( 'a.new_backup ' ).on( 'click', () => {
 			this.block_form();
 			this.ajax( 'new-module-data-backup', {
 				data: {
@@ -34,7 +34,7 @@ class field extends WPOnion_Field {
 						this.swal_error( e.data );
 					}
 				},
-				onAlways: ( e ) => this.unblock_form(),
+				onAlways: () => this.unblock_form(),
 			} );
 		} );
 
@@ -71,7 +71,7 @@ class field extends WPOnion_Field {
 			try {
 				this.restore_backup( JSON.parse( jQuery( e.currentTarget ).val() ) );
 				jQuery( e.currentTarget ).val( '' ).html( '' );
-			} catch( e ) {
+			} catch( error ) {
 				this.swal_error( this.option( 'invalid_format' ) );
 			}
 		} );
@@ -107,7 +107,7 @@ class field extends WPOnion_Field {
 	}
 
 	force_download( exportObj, exportName ) {
-		var dataStr            = "data:text/json;charset=utf-8," + encodeURIComponent( JSON.stringify( exportObj ) );
+		var dataStr            = 'data:text/json;charset=utf-8,' + encodeURIComponent( JSON.stringify( exportObj ) );
 		var downloadAnchorNode = document.createElement( 'a' );
 		downloadAnchorNode.setAttribute( 'href', dataStr );
 		downloadAnchorNode.setAttribute( 'download', exportName + '.json' );

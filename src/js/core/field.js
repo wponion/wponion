@@ -1,6 +1,6 @@
 /* global swal:true */
 /* global console:true */
-const is_jquery   = require( 'vsp-js-helper/index' ).is_jquery;
+const is_jquery = require( 'vsp-js-helper/index' ).is_jquery;
 
 import $wponion from './core';
 import $wponion_debug from './debug';

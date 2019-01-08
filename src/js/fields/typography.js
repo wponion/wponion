@@ -55,7 +55,7 @@ class field extends WPOnion_Field {
 			let $text = $preview.text();
 			$preview.html( '' );
 			$preview.append( jQuery( '<' + $tag + '>' + $text + '</' + $tag + ' >' ) );
-			$preview.find( $tag ).attr( "style", $_attrs );
+			$preview.find( $tag ).attr( 'style', $_attrs );
 
 		} );
 	}

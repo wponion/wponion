@@ -7,8 +7,8 @@ export default ( ( window, document, $, wp ) => {
 			$table.before( jQuery( this ).parent().html() );
 		} );
 
-		wponion_setup();
-		wponion_field( $table.parent().find( '.wponion-framework' ) ).reload();
+		window.wponion_setup();
+		window.wponion_field( $table.parent().find( '.wponion-framework' ) ).reload();
 	};
 	$( window ).on( 'load', () => {
 		if( $( '.compat-attachment-fields' ).length > 0 && $( 'body' ).hasClass( 'post-type-attachment' ) ) {

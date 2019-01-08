@@ -2,7 +2,7 @@ import WPOnion_Dependency from '../helpers/dependency';
 
 export default class {
 	constructor( $element = undefined, param = {} ) {
-		this.param         = window.window.wponion._.merge( { nestable: false, parent: false }, param );
+		this.param = window.window.wponion._.merge( { nestable: false, parent: false }, param );
 
 		let $this          = this;
 		this.base          = {};
@@ -12,12 +12,10 @@ export default class {
 			this.base.depRoot();
 			jQuery.deps.enable( this.base.$el, this.base.ruleset, {
 				show: ( el ) => {
-					//el.removeClass( 'hidden' );
 					el.slideDown();
 					el.find( ':input' ).removeClass( 'wponion-dependent' );
 				},
 				hide: ( el ) => {
-					//el.addClass( 'hidden' );
 					el.slideUp();
 					el.find( ':input' ).addClass( 'wponion-dependent' );
 				},

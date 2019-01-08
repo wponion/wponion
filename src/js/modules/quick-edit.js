@@ -12,7 +12,7 @@ class WPOnion_Quick_Edit extends WPOnion_Module {
 			this.element.parent().html( this.values.html.find( '> div' ) );
 		}
 
-		wponion_field( this.element ).reload();
+		window.wponion_field( this.element ).reload();
 	}
 }
 

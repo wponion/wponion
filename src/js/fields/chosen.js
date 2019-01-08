@@ -7,7 +7,6 @@ class field extends WPOnion_Field {
 	}
 
 	field_debug() {
-
 	}
 }
 

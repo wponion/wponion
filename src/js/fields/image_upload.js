@@ -33,7 +33,7 @@ class field extends WPOnion_Field {
 
 			$this.media_instance = wp.media( {
 				library: { type: 'image' },
-				title: $this.option( 'frame_title', "Select Image" ),
+				title: $this.option( 'frame_title', 'Select Image' ),
 			} );
 			$this.media_instance.on( 'select', function() {
 				let attachment = $this.media_instance.state().get( 'selection' ).first().attributes;

@@ -117,7 +117,7 @@ export default class WPOnion {
 			let $defined_vars = WPOnion.windowArgs( 'wponion_defined_vars' );
 			if( window.wponion._.isObject( $defined_vars ) ) {
 				for( let $key in $defined_vars ) {
-					if( false === window.wponion._.isUndefined( $defined_vars[ $key ] ) ) {
+					if( $defined_vars.hasOwnProperty( $key ) && false === window.wponion._.isUndefined( $defined_vars[ $key ] ) ) {
 						$json[ $defined_vars[ $key ] ] = WPOnion.windowArgs( $defined_vars[ $key ] );
 					}
 				}
@@ -184,7 +184,7 @@ export default class WPOnion {
 				$mtxt = WPOnion.txt( 'modified_debug' );
 
 			for( let $key in $vars ) {
-				if( false === window.wponion._.isUndefined( $vars[ $key ] ) ) {
+				if( $vars.hasOwnProperty( $key ) && false === window.wponion._.isUndefined( $vars[ $key ] ) ) {
 					let $data                       = WPOnion.windowArgs( $vars[ $key ] );
 					$json[ $vars[ $key ] ]          = {};
 					$json[ $vars[ $key ] ][ $utxt ] = $data.debug_info || $data;
@@ -205,13 +205,12 @@ export default class WPOnion {
 	 */
 	static ajax( $action = '', $data = {}, $onSuccess = false, $onError = false, $onAlways = false ) {
 		let $defaults = {
-				method: 'post',
-				url: WPOnion.option( 'ajax_url' ),
-				onSuccess: false,
-				onAlways: false,
-				onError: false,
-			},
-			$ajax     = false;
+			method: 'post',
+			url: WPOnion.option( 'ajax_url' ),
+			onSuccess: false,
+			onAlways: false,
+			onError: false,
+		};
 
 		if( window.wponion._.isObject( $action ) ) {
 			$data = $action;
@@ -223,7 +222,7 @@ export default class WPOnion {
 		$onSuccess = ( window.wponion._.isUndefined( $onSuccess ) || false === $onSuccess ) ? $defaults.onSuccess : $onSuccess;
 		$onAlways  = ( window.wponion._.isUndefined( $onError ) || false === $onError ) ? $defaults.onAlways : $onAlways;
 		$onError   = ( window.wponion._.isUndefined( $onAlways ) || false === $onAlways ) ? $defaults.onError : $onError;
-		$ajax      = jQuery.ajax( $defaults );
+		let $ajax  = jQuery.ajax( $defaults );
 
 
 		if( $onSuccess ) {
