@@ -18,6 +18,7 @@ window.wponion.metabox        = require( './modules/metabox' ).default;
 window.wponion.media_fields   = require( './modules/media-fields' ).default;
 window.wponion.bulk_edit      = require( './modules/bulk-edit' ).default;
 window.wponion.guttenberg     = require( './modules/guttenberg' ).default;
+window.wponion.woocommerce    = require( './modules/woocommerce' ).default;
 window.wponion.quick_edit     = require( './modules/quick-edit' ).default;
 window.wponion.modal          = require( '../vendors/backbone-modal' ).default;
 window.wponion.ajaxer         = require( './core/ajaxer' ).WPOnion_Ajaxer;
@@ -25,7 +26,6 @@ window.wponion.ajax           = require( './core/ajaxer' ).default;
 window.wponion.debug          = require( './core/debug' ).default;
 window.wponion.core           = require( './core/core' ).default;
 window.wponion.field_abstract = require( './core/field' ).default;
-
 
 /*
  * Global Functions.
@@ -139,8 +139,6 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 	$( window ).on( 'load', ( () => {
 		$wp_hook.doAction( 'wponion_before_init' );
 
-		window.wponion.fields = wp.hooks.applyFilters( 'wponion_fields_functions', window.wponion.fields );
-
 		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
 
 		window.wponion_notice( $wpof_div.find( '.wponion-element-wp_notice, .wponion-element-notice' ) );
@@ -195,3 +193,4 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 
 	$wp_hook.doAction( 'wponion_loaded' );
 } )( window, document, wp, jQuery, window.wponion );
+
