@@ -21,6 +21,5 @@ export default ( ( window, document, $ ) => {
 				data: $final_args,
 			} );
 		} );
-
 	} );
 } )( window, document, jQuery );
