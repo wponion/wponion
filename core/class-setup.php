@@ -41,6 +41,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function load_required_files() {
+			if ( file_exists( WPONION_PATH . 'vendor/autoload.php' ) ) {
+				require_once WPONION_PATH . 'vendor/autoload.php';
+			}
+
 			require_once WPONION_PATH . 'core/class-autoloader.php';
 			require_once WPONION_PATH . 'core/helpers/base.php';
 
@@ -56,6 +60,17 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			require_once WPONION_PATH . 'core/class-icons.php';
 			require_once WPONION_PATH . 'core/class-core-ajax.php';
 
+			/**
+			 * This Hook Fires Before Integrations Files Loads.
+			 */
+			do_action( 'wponion_core_loaded' );
+
+			if ( wp_is_plugin_active( 'js_composer/js_composer.php' ) ) {
+				require_once WPONION_PATH . 'core/integrations/page-builders/class-visual-composer.php';
+			}
+
+			do_action( 'wponion_integrations_loaded' );
+
 			do_action( 'wponion_loaded' );
 		}
 
@@ -66,6 +81,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		public static function on_wponion_loaded() {
 			\wponion_admin_notices();
 			self::register_core_fields();
+
+			if ( wp_is_plugin_active( 'js_composer/js_composer.php' ) ) {
+				Integrations\Page_Builders\Visual_Composer::init();
+			}
+
 			do_action( 'wponion_init' );
 		}
 
@@ -134,4 +154,4 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	}
 }
 
-\WPOnion\Setup::init();
+Setup::init();
