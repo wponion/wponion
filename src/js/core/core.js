@@ -30,25 +30,6 @@ export default class WPOnion {
 	}
 
 	/**
-	 * Returns A Single Class For the Given Element.
-	 * @param $type
-	 * @returns {boolean}
-	 */
-	static get_field_class( $type ) {
-		$type = $type.toLowerCase();
-
-		if( false === window.wponion._.isUndefined( window.wponion.fields[ $type ] ) ) {
-			return window.wponion.fields[ $type ];
-		} else if( false === window.wponion._.isUndefined( window[ 'wponion_' + $type + '_field' ] ) ) {
-			return window[ 'wponion_' + $type + '_field' ];
-		} else if( false === window.wponion._.isUndefined( window[ $type ] ) ) {
-			return window[ $type ];
-		}
-		return false;
-	}
-
-
-	/**
 	 * Returns Field ID.
 	 * @param $elem
 	 * @returns {*}

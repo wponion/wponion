@@ -1,6 +1,5 @@
 /* global swal:true */
 /* global console:true */
-const is_callable = require( 'vsp-js-helper/index' ).is_callable;
 const is_jquery   = require( 'vsp-js-helper/index' ).is_jquery;
 
 import $wponion from './core';
@@ -175,28 +174,6 @@ export default class extends WPOnion_Module {
 		$data.data            = ( false === window.wponion._.isUndefined( $data.data ) ) ? window.wponion._.merge( $default, $data.data ) : $default;
 
 		return $wponion.ajax( $data );
-	}
-
-	init_field_old( $elem, $type ) {
-		let $_instances = [];
-		if( !is_jquery( $elem ) ) {
-			$elem = this.element.find( $elem );
-		}
-
-		$elem.each( function() {
-			let $class = $wponion.get_field_class( $type );
-			if( false !== $class ) {
-				try {
-					if( is_callable( $class ) ) {
-						$_instances.push( new $class( jQuery( this ) ) );
-					}
-				} catch( e ) {
-					console.log( jQuery( this ) );
-					console.log( 'Error: ' + e + ' | For : ' + $type );
-					console.log( '--------------------------------------------------------' );
-				}
-			}
-		} );
 	}
 
 	init_field( $elem, $type ) {
