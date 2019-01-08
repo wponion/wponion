@@ -1,4 +1,4 @@
-( ( window, document, $ ) => {
+export default ( ( window, document, $ ) => {
 
 	$( document ).on( 'ready', function() {
 		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
