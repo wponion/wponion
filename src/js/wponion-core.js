@@ -2,6 +2,7 @@ import WPOnion_Field from './core/field';
 import { is_window_arg } from 'vsp-js-helper/index';
 import WPOnion_Dependency from './core/dependency';
 import WPOnion_Validator from './core/validation';
+import { createHooks } from '@wordpress/hooks';
 
 window.wponion_metabox_module = require( './modules/metabox' ).default;
 window.wponion_media_fields   = require( './modules/media-fields' ).default;
@@ -90,6 +91,8 @@ window.wponion_setup          = () => {
 module.exports                = ( ( window, document, wp, $, $wpo ) => {
 	let $wp_hook = wp.hooks;
 
+	let hooks = createHooks();
+
 	$( () => {
 		wponion_setup();
 
@@ -106,6 +109,10 @@ module.exports                = ( ( window, document, wp, $, $wpo ) => {
 	$( window ).on( 'load', ( () => {
 		$wp_hook.doAction( 'wponion_before_init' );
 
+
+
+		window.wponion_fields = wp.hooks.applyFilters( 'wponion_fields_functions', window.wponion_fields );
+
 		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
 
 		wponion_notice( $wpof_div.find( '.wponion-element-wp_notice, .wponion-element-notice' ) );
@@ -117,7 +124,6 @@ module.exports                = ( ( window, document, wp, $, $wpo ) => {
 			jQuery( this ).toggleClass( 'dashicons-arrow-down' ).toggleClass( 'dashicons-arrow-right' );
 		} );
 
-		window.wponion_fields = $wp_hook.applyFilters( 'wponion_fields_functions', window.wponion_fields );
 
 		/**
 		 * Triggers Hook With Widgets.

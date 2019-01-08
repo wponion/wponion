@@ -1,4 +1,3 @@
-import { array_merge } from 'vsp-js-helper/index';
 import $wponion from '../core/core';
 
 export default ( ( window, document, $ ) => {
@@ -12,7 +11,7 @@ export default ( ( window, document, $ ) => {
 			} );
 
 			$bulk_edit.find( '.wponion-quick-edit-fieldset' ).each( function() {
-				$final_args = array_merge( $( this ).serializeObject(), $final_args );
+				$final_args = window.wpo._.merge( $( this ).serializeObject(), $final_args );
 			} );
 
 			return $wponion.ajax( 'save-bulk-edit', {

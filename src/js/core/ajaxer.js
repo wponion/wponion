@@ -1,20 +1,13 @@
 import {
-	array_merge,
 	to_jquery,
-	is_undefined,
-	is_object_like,
-	is_string,
 	call_user_func,
 	parse_str,
 	is_url,
 	url_params,
 	is_callable,
 	call_user_func_array,
-	clone_object,
-	parse_url,
 	function_exists,
 	create_function,
-	gettype
 } from 'vsp-js-helper/index';
 import $wponion from './core';
 import { remove_query_arg } from 'wordpress-js-ports';
@@ -48,8 +41,8 @@ export class WPOnion_Ajaxer {
 		/**
 		 * @type {WPOnion_Ajaxer.defaults}
 		 */
-		this.ajax_args = array_merge( this.defaults, $ajax_args );
-		this.ajax_config = array_merge( this.default_configs, $ajax_config );
+		this.ajax_args = window.wpo._.merge( this.defaults, $ajax_args );
+		this.ajax_config = window.wpo._.merge( this.default_configs, $ajax_config );
 		this.ajax();
 	}
 
@@ -58,13 +51,13 @@ export class WPOnion_Ajaxer {
 	}
 
 	single_callback( $callback ) {
-		if( 'function' === gettype( $callback ) ) {
+		if( window.wpo._.isFunction( $callback ) ) {
 			call_user_func( $callback );
-		} else if( is_string( $callback ) && false !== function_exists( $callback ) ) {
+		} else if( window.wpo._.isString( $callback ) && false !== function_exists( $callback ) ) {
 			call_user_func( $callback );
-		} else if( is_string( $callback ) ) {
+		} else if( window.wpo._.isString( $callback ) ) {
 			this.create_function( $callback );
-		} else if( is_object_like( $callback ) ) {
+		} else if( window.wpo._.isObject( $callback ) ) {
 			for( let $key in $callback ) {
 				this.single_callback( $callback[ $key ] );
 			}
@@ -72,13 +65,13 @@ export class WPOnion_Ajaxer {
 	}
 
 	handle_callbacks( data ) {
-		if( is_object_like( data ) ) {
-			if( false === is_undefined( data.callback ) ) {
+		if( window.wpo._.isObject( data ) ) {
+			if( false === window.wpo._.isUndefined( data.callback ) ) {
 				let $callbacks = data.callback;
 
-				if( false !== is_string( $callbacks ) ) {
+				if( false !== window.wpo._.isString( $callbacks ) ) {
 					this.single_callback( $callbacks );
-				} else if( false !== is_object_like( $callbacks ) ) {
+				} else if( false !== window.wpo._.isObject( $callbacks ) ) {
 					for( let $key in $callbacks ) {
 						this.single_callback( $callbacks[ $key ] );
 					}
@@ -119,19 +112,19 @@ export class WPOnion_Ajaxer {
 
 	ajax() {
 		this.button_lock();
-		let $config = clone_object( this.ajax_args );
+		let $config = window.wpo._.clone( this.ajax_args );
 		if( false !== $config.url ) {
 			if( false !== is_url( $config.url ) ) {
 				let $url_params = url_params( $config.url );
 				for( let $key in $url_params ) {
 					$config.url = remove_query_arg( $key, $config.url );
 				}
-				$config.data = array_merge( $config.data, $url_params );
+				$config.data = window.wpo._.merge( $config.data, $url_params );
 			} else {
 				let $url_params = {};
 				parse_str( $config.url, $url_params );
 				$config.url  = ajaxurl;
-				$config.data = array_merge( $config.data, $url_params );
+				$config.data = window.wpo._.merge( $config.data, $url_params );
 			}
 		} else {
 			$config.url = ajaxurl;
@@ -218,17 +211,17 @@ export default ( ( $, document ) => {
 				let $args  = {};
 				if( $js_id ) {
 					let $_args = $wponion.fieldArgs( $js_id, false );
-					if( false !== is_undefined( $_args.inline_ajax ) ) {
+					if( false !== window.wpo._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				} else if( false !== $wponion.fieldArgs( $fid1, false ) ) {
 					let $_args = $wponion.fieldArgs( $fid1, false );
-					if( false === is_undefined( $_args.inline_ajax ) ) {
+					if( false === window.wpo._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				} else if( false !== $wponion.fieldArgs( $fid2, false ) ) {
 					let $_args = $wponion.fieldArgs( $fid2, false );
-					if( false === is_undefined( $_args.inline_ajax ) ) {
+					if( false === window.wpo._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
 					}
 				}

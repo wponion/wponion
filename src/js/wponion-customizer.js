@@ -75,7 +75,7 @@
 	$wpc.wponion_field_key_value = wp.customize.Control.extend( {
 		ready: function() {
 			let control = this;
-			wphooks.addAction( 'wponion_key_value_updated', ( ( $elem ) => {
+			wphooks.addAction( 'wponion_key_value_updated', 'wponion_core', ( ( $elem ) => {
 				let $val = $wponion_customizer.get_keyval_data( control );
 				control.setting.set( $val );
 			} ), 11 );
@@ -124,7 +124,7 @@
 	/**
 	 * Inits Customizer Instance.
 	 */
-	wphooks.addAction( 'wponion_init', ( () => {
+	wphooks.addAction( 'wponion_init','wponion_core', ( () => {
 		$( ".wponion-module-customizer-framework.wponion-framework" ).each( function() {
 			$wponion_customizer.link_customize_settings( $( this ) );
 		} );

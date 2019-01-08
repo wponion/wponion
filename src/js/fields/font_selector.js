@@ -1,5 +1,4 @@
 import WPOnion_Field from '../core/field';
-import { is_undefined } from 'vsp-js-helper/index';
 import $wponion from '../core/core';
 
 export default class extends WPOnion_Field {
@@ -14,7 +13,7 @@ export default class extends WPOnion_Field {
 	build_options( data ) {
 		let $return = '';
 		for( let $_d in data ) {
-			if( false === is_undefined( data[ $_d ] ) ) {
+			if( false === window.wpo._.isUndefined( data[ $_d ] ) ) {
 				$return += `<option value="${$_d}">${data[ $_d ]}</option>`;
 			}
 		}
@@ -26,9 +25,9 @@ export default class extends WPOnion_Field {
 			let $val  = jQuery( e.currentTarget ).val(),
 				$html = null;
 
-			if( false === is_undefined( this.websafe.fonts [ $val ] ) ) {
+			if( false === window.wpo._.isUndefined( this.websafe.fonts [ $val ] ) ) {
 				$html = this.build_options( this.websafe.variants );
-			} else if( false === is_undefined( this.google_fonts[ $val ] ) ) {
+			} else if( false === window.wpo._.isUndefined( this.google_fonts[ $val ] ) ) {
 				$html = this.build_options( this.google_fonts[ $val ] );
 			}
 			let $variant = this.element.find( 'select.wponion-variant-selector' ).html( $html );

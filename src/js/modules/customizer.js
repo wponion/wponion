@@ -42,7 +42,7 @@ class WPOnion_Customizer_Module {
 }
 
 export default ( ( window, document, $, wp ) => {
-	wp.hooks.addAction( 'wponion_init', () => {
+	wp.hooks.addAction( 'wponion_init', 'wponion_core', () => {
 		let $elem = $( '.wponion-module-customizer-framework.wponion-framework' );
 		if( $elem.length > 0 ) {
 			let $wpoc                     = wp.customize.controlConstructor;

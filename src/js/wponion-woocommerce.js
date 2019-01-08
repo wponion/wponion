@@ -11,15 +11,15 @@
 	/**
 	 * Inits Customizer Instance.
 	 */
-	wphooks.addAction( 'wponion_init', ( () => {
+	wphooks.addAction( 'wponion_init', 'wponion_core', ( () => {
 	} ) );
 
-	$( document ).on( 'ready', function () {
-		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function () {
+	$( document ).on( 'ready', function() {
+		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
 			wponion_field( '.wponion-framework.wponion-woocommerce-variation' ).reload();
 		} );
 
-		$( '#variable_product_options' ).on( 'woocommerce_variations_added', function () {
+		$( '#variable_product_options' ).on( 'woocommerce_variations_added', function() {
 			wponion_field( '.wponion-framework.wponion-woocommerce-variation' ).reload();
 		} )
 	} )

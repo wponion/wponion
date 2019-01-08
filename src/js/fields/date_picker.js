@@ -1,5 +1,4 @@
 import WPOnion_Field from '../core/field';
-import { is_undefined } from 'vsp-js-helper/index';
 
 export default class extends WPOnion_Field {
 	init() {
@@ -8,7 +7,7 @@ export default class extends WPOnion_Field {
 			$settings = this.handle_args( this.option( 'settings' ) ),
 			$view;
 
-		if( false === is_undefined( $settings.theme ) ) {
+		if( false === window.wpo._.isUndefined( $settings.theme ) ) {
 			$view = $settings.theme;
 			delete $settings.theme;
 		} else {

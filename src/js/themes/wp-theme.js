@@ -54,7 +54,7 @@ class WPOnion_WP_Theme {
 }
 
 ( ( window, document, wp ) => {
-	wp.hooks.addAction( 'wponion_theme_init', ( $elem ) => {
+	wp.hooks.addAction( 'wponion_theme_init', 'wponion_core', ( $elem ) => {
 		if( $elem.hasClass( 'wponion-wp-theme' ) ) {
 			new WPOnion_WP_Theme( $elem );
 		}

@@ -1,13 +1,7 @@
-//import { array_merge, empty, is_callable, is_jquery, is_undefined } from 'vsp-js-helper/index';
-//const to_jquery    = require( 'vsp-js-helper/index' ).to_jquery;
 /* global swal:true */
 /* global console:true */
-
-const array_merge  = require( 'vsp-js-helper/index' ).array_merge;
-const empty        = require( 'vsp-js-helper/index' ).empty;
-const is_callable  = require( 'vsp-js-helper/index' ).is_callable;
-const is_jquery    = require( 'vsp-js-helper/index' ).is_jquery;
-const is_undefined = require( 'vsp-js-helper/index' ).is_undefined;
+const is_callable = require( 'vsp-js-helper/index' ).is_callable;
+const is_jquery   = require( 'vsp-js-helper/index' ).is_jquery;
 
 import $wponion from './core';
 import $wponion_debug from './debug';
@@ -40,7 +34,7 @@ export default class extends WPOnion_Module {
 	}
 
 	js_validator() {
-		if( false === is_undefined( this.option( 'js_validate', false ) ) ) {
+		if( false === window.wpo._.isUndefined( this.option( 'js_validate', false ) ) ) {
 			if( false !== this.option( 'js_validate', false ) ) {
 				this.maybe_js_validate_elem( this.option( 'js_validate', false ), this.element );
 			}
@@ -64,7 +58,7 @@ export default class extends WPOnion_Module {
 	handle_args( $arg, $key = false ) {
 		let $args   = $wponion.js_func( $arg ),
 			$exists = $wponion_debug.get( this.id(), { 'PHP Args': {}, 'JS Args': {} } );
-		$exists     = array_merge( { 'PHP Args': {}, 'JS Args': {} }, $exists );
+		$exists     = window.wpo._.merge( { 'PHP Args': {}, 'JS Args': {} }, $exists );
 
 		if( false === $key ) {
 			$exists[ 'JS Args' ] = $args;
@@ -82,8 +76,8 @@ export default class extends WPOnion_Module {
 
 		let $info = this.option( 'debug_info' );
 
-		if( false === is_undefined( $info ) ) {
-			if( false === empty( $info ) ) {
+		if( false === window.wpo._.isUndefined( $info ) ) {
+			if( false === window.wpo._.isEmpty( $info ) ) {
 				$wponion_debug.add( this.id(), { 'PHP Args': $info, 'JS Args': {} } );
 			}
 		}
@@ -156,7 +150,7 @@ export default class extends WPOnion_Module {
 
 	option( $key = '', $default = {} ) {
 		let $args = this.options();
-		return ( false === is_undefined( $args[ $key ] ) ) ? $args[ $key ] : $default;
+		return ( false === window.wpo._.isUndefined( $args[ $key ] ) ) ? $args[ $key ] : $default;
 	}
 
 	id() {
@@ -178,7 +172,7 @@ export default class extends WPOnion_Module {
 			module: this.module(),
 		};
 		$default[ $ajax_key ] = $action;
-		$data.data            = ( false === is_undefined( $data.data ) ) ? array_merge( $default, $data.data ) : $default;
+		$data.data            = ( false === window.wpo._.isUndefined( $data.data ) ) ? window.wpo._.merge( $default, $data.data ) : $default;
 
 		return $wponion.ajax( $data );
 	}
@@ -206,7 +200,7 @@ export default class extends WPOnion_Module {
 	}
 
 	reload() {
-		wp.hooks.addAction( 'wponion_before_fields_reload' );
+		wp.hooks.doAction( 'wponion_before_fields_reload' );
 		this.init_field( '.wponion-element-icon_picker', 'icon_picker' );
 		this.init_field( '.wponion-element-font_picker', 'font_selector' );
 		this.init_field( '.wponion-element-accordion', 'accordion' );
@@ -249,7 +243,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-backup', 'backup' );
 		this.init_field( '.wponion-element-notice', 'notice' );
 
-		wp.hooks.addAction( 'wponion_after_fields_reload' );
+		wp.hooks.doAction( 'wponion_after_fields_reload' );
 		return this;
 	}
 

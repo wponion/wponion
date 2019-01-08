@@ -1,5 +1,4 @@
 import WPOnion_Field from '../core/field';
-import is_undefined from 'vsp-js-helper/parts/is_undefined';
 
 export default class extends WPOnion_Field {
 	init() {
