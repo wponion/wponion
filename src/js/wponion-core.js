@@ -2,31 +2,6 @@ import { is_window_arg, plain_object } from 'vsp-js-helper/index';
 import WPOnion_Dependency from './core/dependency';
 import WPOnion_Validator from './core/validation';
 
-
-/*
- * Global Variables.
- */
-window.wponion        = window.wponion || plain_object();
-window.$wponion       = window.$wponion || plain_object();
-window.vsp_js_helper  = require( 'vsp-js-helper/index' );
-window.wponion.helper = require( 'vsp-js-helper/index' );
-
-/*
- * WPonion Modules.
- */
-window.wponion.metabox        = require( './modules/metabox' ).default;
-window.wponion.media_fields   = require( './modules/media-fields' ).default;
-window.wponion.bulk_edit      = require( './modules/bulk-edit' ).default;
-window.wponion.guttenberg     = require( './modules/guttenberg' ).default;
-window.wponion.woocommerce    = require( './modules/woocommerce' ).default;
-window.wponion.quick_edit     = require( './modules/quick-edit' ).default;
-window.wponion.modal          = require( '../vendors/backbone-modal' ).default;
-window.wponion.ajaxer         = require( './core/ajaxer' ).WPOnion_Ajaxer;
-window.wponion.ajax           = require( './core/ajaxer' ).default;
-window.wponion.debug          = require( './core/debug' ).default;
-window.wponion.core           = require( './core/core' ).default;
-window.wponion.field_abstract = require( './core/field' ).default;
-
 /*
  * Global Functions.
  */
@@ -70,6 +45,30 @@ window.wponion_render_field = ( $type, $callback ) => {
 		}
 	} );
 };
+
+/*
+ * Global Variables.
+ */
+window.wponion        = window.wponion || plain_object();
+window.$wponion       = window.$wponion || plain_object();
+window.vsp_js_helper  = require( 'vsp-js-helper/index' );
+window.wponion.helper = require( 'vsp-js-helper/index' );
+
+/*
+ * WPonion Modules.
+ */
+window.wponion.metabox        = require( './modules/metabox' ).default;
+window.wponion.media_fields   = require( './modules/media-fields' ).default;
+window.wponion.bulk_edit      = require( './modules/bulk-edit' ).default;
+window.wponion.guttenberg     = require( './modules/guttenberg' ).default;
+window.wponion.woocommerce    = require( './modules/woocommerce' ).default;
+window.wponion.quick_edit     = require( './modules/quick-edit' ).default;
+window.wponion.modal          = require( '../vendors/backbone-modal' ).default;
+window.wponion.ajaxer         = require( './core/ajaxer' ).WPOnion_Ajaxer;
+window.wponion.ajax           = require( './core/ajaxer' ).default;
+window.wponion.debug          = require( './core/debug' ).default;
+window.wponion.core           = require( './core/core' ).default;
+window.wponion.field_abstract = require( './core/field' ).default;
 
 window.wponion.fields = {
 	text: require( './fields/text' ).default,
