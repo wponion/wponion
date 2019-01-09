@@ -160,6 +160,9 @@ $_json[ 'default_config' ] = {
 	},
 	webpack: {
 		mode: "production",
+		externals: {
+			jquery: 'jQuery'
+		},
 		output: {
 			filename: '[name].js',
 		},
@@ -189,6 +192,9 @@ $_json[ 'default_config' ] = {
 		devtool: "inline-source-map",
 		mode: "development",
 		target: "node",
+		externals: {
+			jquery: 'jQuery'
+		},
 		output: {
 			filename: '[name].js',
 		},
