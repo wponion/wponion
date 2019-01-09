@@ -25,246 +25,191 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 	 */
 	class Field_Types {
 		/**
+		 * Stores All Field Types.
+		 *
 		 * @var array
 		 * @access
 		 * @static
 		 */
-		protected static $types = array();
+		public static $all_fields = array();
 
 		/**
+		 * Stores All Module Supported Fields. as
+		 * array('all' => array('text','textarea'));
+		 *
 		 * @var array
 		 * @access
 		 * @static
 		 */
-		protected static $ui_fields = array();
+		public static $module_fields = array();
 
 		/**
+		 * Stores Field Types That Are Used To Just For UI Related.
+		 *
 		 * @var array
 		 * @access
 		 * @static
 		 */
-		protected static $input_fields = array();
+		public static $design_fields = array();
 
 		/**
 		 * Adds A Field To Registry.
 		 *
-		 * @param string $type
-		 * @param string $callback
-		 * @param array  $supports
-		 * @param array  $args
+		 * @param        $type
+		 * @param string $supports
+		 * @param array  $extra_args
 		 *
 		 * @static
 		 */
-		public static function add( $type = '', $callback = '', $supports = array(), $args = array() ) {
-			if ( isset( $args['ui'] ) && true === $args['ui'] ) {
-				self::$ui_fields[ $type ] = true;
-			} else {
-				self::$input_fields[ $type ] = true;
-			}
+		public static function add( $type, $supports = 'all', $extra_args = array() ) {
+			self::$all_fields[ $type ] = ( self::exists( $type ) ) ? wp_parse_args( self::$all_fields[ $type ], $extra_args ) : $extra_args;
+			self::add_support( $type, $supports );
+			self::remove_design_field( $type );
 
-			if ( ! self::exists( $type, null ) ) {
-				self::$types[ $type ] = wp_parse_args( $args, array(
-					'callback' => $callback,
-					'supports' => ( false !== $supports && empty( $supports ) ) ? true : $supports,
-				) );
+			if ( isset( self::$all_fields[ $type ]['design'] ) && true === self::$all_fields[ $type ]['design'] ) {
+				if ( ! self::design_exists( $type ) ) {
+					self::$design_fields[ $type ] = $type;
+				}
 			}
 		}
 
 		/**
-		 * Checks if field already exists.
-		 *
-		 * @param      $type
-		 * @param bool $is_ui_field
-		 *
-		 * @static
-		 * @return bool
-		 */
-		public static function exists( $type, $is_ui_field = false ) {
-			if ( false === $is_ui_field ) {
-				return ( isset( self::$types[ $type ] ) && isset( self::$input_fields[ $type ] ) );
-			} elseif ( true === $is_ui_field ) {
-				return ( isset( self::$types[ $type ] ) && isset( self::$ui_fields[ $type ] ) );
-			}
-			return ( isset( self::$types[ $type ] ) );
-		}
-
-		/**
-		 * Returns Only UI Fields.
-		 *
-		 * @static
-		 * @return array
-		 */
-		public static function ui_fields() {
-			return self::$ui_fields;
-		}
-
-		/**
-		 * Returns Only Input Fields.
-		 *
-		 * @static
-		 * @return array
-		 */
-		public static function input_fields() {
-			return self::$input_fields;
-		}
-
-		/**
-		 * Returns All Fields.
-		 *
-		 * @static
-		 * @return array
-		 */
-		public static function fields() {
-			return self::$types;
-		}
-
-		/**
-		 * Checks And Returns A Field Type Data.
+		 * Removes A Field.
 		 *
 		 * @param $type
 		 *
 		 * @static
-		 * @return bool|mixed
 		 */
-		public static function get( $type ) {
-			return ( isset( self::$types[ $type ] ) ) ? self::$types[ $type ] : false;
+		public static function remove( $type ) {
+			if ( self::exists( $type ) ) {
+				self::remove_design_field( $type );
+				self::remove_support( $type, array_keys( self::$module_fields ) );
+				unset( self::$all_fields[ $type ] );
+			}
 		}
 
 		/**
-		 * Checks if Field Type Is UI.
+		 * Removes a Field From Design.
 		 *
 		 * @param $type
 		 *
 		 * @static
-		 * @return bool
 		 */
-		public static function is_ui( $type ) {
-			return ( isset( self::$ui_fields[ $type ] ) && true === self::$ui_fields[ $type ] );
+		public static function remove_design_field( $type ) {
+			if ( self::design_exists( $type ) ) {
+				foreach ( self::$design_fields as $key => $val ) {
+					if ( $val === $type ) {
+						unset( self::$design_fields[ $key ] );
+					}
+				}
+			}
 		}
 
 		/**
-		 * Checks if Field Type Is User Editable.
+		 * Returns Modules Fields.
+		 *
+		 * @param string $module
+		 * @param bool   $global
+		 *
+		 * @static
+		 * @return array
+		 */
+		public static function get( $module = '', $global = true ) {
+			if ( isset( self::$module_fields[ $module ] ) ) {
+				$fields = self::$module_fields[ $module ];
+				if ( true === $global ) {
+					$fields = wp_parse_args( $fields, self::$module_fields['all'] );
+				}
+				return $fields;
+			}
+			return array();
+		}
+
+		/**
+		 * Returns A Fields Data.
+		 *
+		 * @param $type
+		 *
+		 * @static
+		 * @return bool|array
+		 */
+		public static function get_field( $type ) {
+			return ( self::exists( $type ) ) ? self::$all_fields[ $type ] : false;
+		}
+
+		/**
+		 * Checks if Field Exists.
 		 *
 		 * @param $type
 		 *
 		 * @static
 		 * @return bool
 		 */
-		public static function is_input( $type ) {
-			return ( isset( self::$input_fields[ $type ] ) && true === self::$input_fields[ $type ] );
+		public static function exists( $type ) {
+			return ( isset( self::$all_fields[ $type ] ) );
 		}
 
 		/**
-		 * Check if given module is supported.
+		 * Checks If Field Eixsts in Design Fields Array.
 		 *
-		 * @param $field_type
+		 * @param $type
+		 *
+		 * @static
+		 * @return bool
+		 */
+		public static function design_exists( $type ) {
+			return ( self::exists( $type ) && in_array( $type, self::$design_fields ) );
+		}
+
+		/**
+		 * Checks And Adds Support For A Field.
+		 *
+		 * @param $type
+		 * @param $supports
+		 *
+		 * @static
+		 */
+		public static function add_support( $type, $supports ) {
+			$supports = ( ! is_array( $supports ) ) ? array( $supports ) : $supports;
+
+			foreach ( $supports as $support ) {
+				if ( ! isset( self::$module_fields[ $support ] ) ) {
+					self::$module_fields[ $support ] = array();
+				}
+				if ( ! self::is_supported( $type, $support ) ) {
+					self::$module_fields[ $support ][ $type ] = $type;
+				}
+			}
+		}
+
+		/**
+		 * Checks if a field is supported in a module.
+		 *
+		 * @param $type
 		 * @param $module
 		 *
 		 * @static
 		 * @return bool
 		 */
-		public static function is_support( $field_type, $module ) {
-			if ( self::exists( $field_type, null ) ) {
-				$data = self::get( $field_type );
-				if ( isset( $data['support'] ) ) {
-					if ( true === $data['support'] ) {
-						return true;
-					} elseif ( is_array( $data['support'] ) ) {
-						$is_all    = ( isset( $data['support']['all'] ) );
-						$is_core   = ( isset( $data['support']['core'] ) );
-						$is_module = ( isset( $data['support'][ $module ] ) );
-
-						return ( true === $is_all || true === $is_core || $is_module );
-					}
-				}
-			}
-			return false;
+		public static function is_supported( $type, $module ) {
+			return ( isset( self::$module_fields[ $module ] ) && in_array( $type, self::$module_fields[ $module ] ) );
 		}
 
 		/**
-		 * Returns A Module Support.
-		 *
-		 * @param $field_type
-		 * @param $module
-		 *
-		 * @static
-		 * @return bool|mixed
-		 */
-		public static function get_support( $field_type, $module ) {
-			if ( self::exists( $field_type, null ) ) {
-				$data = self::get( $field_type );
-				if ( isset( $data['support'] ) ) {
-					if ( true === $data['support'] ) {
-						return true;
-					} elseif ( is_array( $data['support'] ) ) {
-						$is_all    = ( isset( $data['support']['all'] ) );
-						$is_core   = ( isset( $data['support']['core'] ) );
-						$is_module = ( isset( $data['support'][ $module ] ) );
-
-						if ( true === $is_all || true === $is_core ) {
-							return true;
-						} elseif ( true === $is_module ) {
-							return $data['support'][ $module ];
-						}
-					}
-				}
-			}
-			return false;
-		}
-
-		/**
-		 * @param      $field_type
-		 * @param      $module
-		 * @param bool $callback
-		 *
-		 * @static
-		 */
-		public static function add_support( $field_type, $module, $callback = false ) {
-			if ( self::exists( $field_type, null ) ) {
-				$data = self::get( $field_type );
-				if ( isset( $data['support'] ) ) {
-					if ( true === $data || 'core' === $data || 'all' === $data ) {
-						$data['support'] = array( 'all' => null );
-					}
-				} else {
-					$data['support'] = array();
-				}
-				if ( ! isset( $data['support'][ $module ] ) ) {
-					$data['support'][ $module ] = ( false === $callback ) ? null : $callback;
-				}
-			}
-		}
-
-		/**
-		 * Returns Field Type Callback.
+		 * Removes A Field Support.
 		 *
 		 * @param $type
+		 * @param $supports
 		 *
 		 * @static
-		 * @return bool
 		 */
-		public static function callback( $type ) {
-			return ( isset( self::$types[ $type ] ) && isset( self::$types[ $type ]['calllback'] ) ) ? self::$types[ $type ]['calllback'] : false;
-		}
-
-		/**
-		 * Checks And Returns A Valid Callback.
-		 *
-		 * @param      $field_type
-		 * @param null $support
-		 * @param bool $default
-		 *
-		 * @static
-		 * @return bool|mixed
-		 */
-		public static function support_callback( $field_type, $support = null, $default = false ) {
-			if ( self::exists( $field_type ) ) {
-				if ( self::is_support( $field_type, $support ) ) {
-					$callback = self::get_support( $field_type, $support );
-					return ( true === $callback || false === $callback ) ? $default : $callback;
+		public static function remove_support( $type, $supports ) {
+			$supports = ( ! is_array( $supports ) ) ? array( $supports ) : $supports;
+			foreach ( $supports as $support ) {
+				if ( self::is_supported( $type, $support ) ) {
+					unset( self::$module_fields[ $support ][ $type ] );
 				}
 			}
-			return $default;
 		}
 	}
 }
