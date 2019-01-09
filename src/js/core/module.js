@@ -25,7 +25,7 @@ export default class {
 	}
 
 	get hook() {
-		return window.wp.hooks;
+		return window.wponion.hooks;
 	}
 
 	get element() {
