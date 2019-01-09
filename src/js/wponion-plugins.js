@@ -104,7 +104,6 @@ jQuery.fn.extend( {
 //@wponion-inline ../vendors/jquery-interdependencies/jquery-interdependencies.js
 //@wponion-inline ../vendors/bootstrap/button.js
 //@wponion-inline ../vendors/json-view/json-view.js
-//@wponion-inline ../vendors/wp-js-hooks.js
 //@wponion-inline ../vendors/blockUI/blockUI.js
 //@wponion-inline ../../node_modules/tippy.js/dist/tippy.all.min.js
 //@wponion-inline ../../node_modules/sweetalert2/dist/sweetalert2.all.min.js
