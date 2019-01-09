@@ -33,7 +33,9 @@
     "gutenberg",
     "settings-api"
   ],
-  "require"     : { },
+  "require"     : {
+    "varunsridharan/wp-dependencies" : "1.1"
+  },
   "autoload"    : {
     "files" : [ "wponion.php" ]
   }
