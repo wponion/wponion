@@ -68,7 +68,7 @@ class WPOnion_Fresh_Theme {
 }
 
 ( ( window, document, wp ) => {
-	wp.hooks.addAction( 'wponion_theme_init', 'wponion_core', function( $elem ) {
+	window.wponion.hooks.addAction( 'wponion_theme_init', 'wponion_core', function( $elem ) {
 		if( $elem.hasClass( 'wponion-fresh-theme' ) ) {
 			new WPOnion_Fresh_Theme( $elem );
 		}

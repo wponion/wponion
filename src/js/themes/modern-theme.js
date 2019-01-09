@@ -57,7 +57,7 @@ class WPOnion_Modern_Theme {
 }
 
 ( ( window, document, wp ) => {
-	wp.hooks.addAction( 'wponion_theme_init', 'wponion_core', ( $elem ) => {
+	window.wponion.hooks.addAction( 'wponion_theme_init', 'wponion_core', ( $elem ) => {
 		if( $elem.hasClass( 'wponion-modern-theme' ) ) {
 			new WPOnion_Modern_Theme( $elem );
 		}
