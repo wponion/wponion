@@ -647,19 +647,33 @@ if ( ! function_exists( 'wponion_sysinfo' ) ) {
 	}
 }
 
+/**
+ * Field Registry Related Functions.
+ */
+
 if ( ! function_exists( 'wponion_register_field' ) ) {
 	/**
 	 * Registers a field with field type Registry Class.
 	 *
 	 * @param string $field_type
-	 * @param string $callback
 	 * @param array  $supports
 	 * @param array  $args
 	 *
 	 * @uses \WPOnion\Registry\Field_Types
 	 */
-	function wponion_register_field( $field_type = '', $callback = '', $supports = array(), $args = array() ) {
-		wponion_field_types()::add( $field_type, $callback, $supports, $args );
+	function wponion_register_field( $field_type = '', $supports = array(), $args = array() ) {
+		wponion_field_types()::add( $field_type, $supports, $args );
+	}
+}
+
+if ( ! function_exists( 'wponion_deregister_field' ) ) {
+	/**
+	 * Removes A Registered Field.
+	 *
+	 * @param string $field_type
+	 */
+	function wponion_deregister_field( $field_type = '' ) {
+		wponion_field_types()::remove( $field_type );
 	}
 }
 
@@ -674,8 +688,32 @@ if ( ! function_exists( 'wponion_register_ui_field' ) ) {
 	 *
 	 * @uses \wponion_register_field()
 	 */
-	function wponion_register_ui_field( $field_type = '', $callback = '', $supports = array(), $args = array() ) {
-		$args = wp_parse_args( $args, array( 'ui' => true ) );
-		wponion_register_field( $field_type, $callback, $supports, $args );
+	function wponion_register_ui_field( $field_type = '', $supports = array(), $args = array() ) {
+		$args = wp_parse_args( $args, array( 'design' => true ) );
+		wponion_register_field( $field_type, $supports, $args );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_add_support' ) ) {
+	/**
+	 * Adds A Field Support.
+	 *
+	 * @param $type
+	 * @param $support
+	 */
+	function wponion_field_add_support( $type, $support ) {
+		wponion_field_types()::add_support( $type, $support );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_remove_support' ) ) {
+	/**
+	 * Adds A Field Support.
+	 *
+	 * @param $type
+	 * @param $support
+	 */
+	function wponion_field_remove_support( $type, $support ) {
+		wponion_field_types()::remove_support( $type, $support );
 	}
 }
