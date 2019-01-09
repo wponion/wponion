@@ -1,5 +1,5 @@
 ( ( window, document, $, wp ) => {
-	let wphooks = wp.hooks;
+	let wphooks = window.wponion.hooks;
 
 	/**
 	 * Customizer Functions.
