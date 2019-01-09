@@ -144,7 +144,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce' ) ) {
 		 * Loads Required Assets.
 		 */
 		public function load_style_script() {
-			wponion_load_core_assets( array( 'wponion-woocommerce' ) );
+			wponion_load_core_assets();
 		}
 
 		/**
