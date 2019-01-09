@@ -182,8 +182,8 @@ export default class extends WPOnion_Module {
 		}
 
 		$elem.each( function() {
-			if( window.wp.hooks.hasAction( 'wponion_init_field_' + $type ) ) {
-				window.wp.hooks.doAction( 'wponion_init_field_' + $type, jQuery( this ) );
+			if( window.wponion.hooks.hasAction( 'wponion_init_field_' + $type ) ) {
+				window.wponion.hooks.doAction( 'wponion_init_field_' + $type, jQuery( this ) );
 			} else {
 				console.error( 'WPOnion Field Type : ' + $type + ' Init Function Not Found', '\nAction Used : wponion_init_field_' + $type );
 			}
@@ -191,7 +191,7 @@ export default class extends WPOnion_Module {
 	}
 
 	reload() {
-		wp.hooks.doAction( 'wponion_before_fields_reload' );
+		window.wponion.hooks.doAction( 'wponion_before_fields_reload' );
 
 		this.init_field( '.wponion-element-accordion', 'accordion' );
 		this.init_field( '.wponion-element-background', 'background' );
@@ -235,7 +235,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-jambo_content', 'jambo_content' );
 		this.init_field( '.wponion-element-notice', 'notice' );
 
-		wp.hooks.doAction( 'wponion_after_fields_reload' );
+		window.wponion.hooks.doAction( 'wponion_after_fields_reload' );
 		return this;
 	}
 
