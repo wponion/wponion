@@ -61,7 +61,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			wp_register_style( 'chosen', $url . 'assets/plugins/chosen/chosen.min.css', array(), $version );
 			wp_register_style( 'select2', $url . 'assets/plugins/select2/select2.min.css', array(), $version );
 			wp_register_style( 'wponion-plugins', $url . 'assets/css/wponion-plugins.css', array(), $version );
-			wp_register_style( 'wponion-core', $url . 'assets/css/wponion-base.css', array(), $version );
+			wp_register_style( 'wponion-core', $url . 'assets/css/wponion-base.css', array( 'wponion-plugins' ), $version );
 			wp_register_style( 'wponion-colorpicker', $url . 'assets/plugins/wp-color-picker-alpha/cs-colorpicker.css', array( 'wp-color-picker' ), $version );
 			wp_register_style( 'wponion-datepicker', $url . 'assets/plugins/flatpickr/style.css', array(), $version );
 
@@ -81,15 +81,14 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			}
 
 			wp_register_script( 'wponion-plugins', $url . 'assets/js/wponion-plugins.js', array(
-				'wp-util',
 				'lodash',
+				'wp-util',
 				'backbone',
 			), $version, true );
 			wp_register_script( 'wponion-core', $url . 'assets/js/wponion-core.js', array( 'wponion-plugins' ), $version, true );
 			wp_register_script( 'wponion-cloner', $url . 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ), $version, true );
 			wp_register_script( 'wponion-customizer', $url . 'assets/js/wponion-customizer.js', array( 'wponion-core' ), $version, true );
 			wp_register_script( 'wponion-postmessags', $url . 'assets/js/wponion-postmessags.js', array( 'wponion-customizer' ), $version, true );
-			wp_register_script( 'wponion-woocommerce', $url . 'assets/js/wponion-woocommerce.js', array( 'wponion-core' ), $version, true );
 			wp_register_script( 'wponion-colorpicker', $url . 'assets/plugins/colorpicker/wp-color-picker-alpha.js', array( 'wp-color-picker' ), $version, true );
 			wp_register_script( 'wponion-datepicker', $url . 'assets/plugins/flatpickr/script.js', array( 'jquery' ), $version, true );
 			wp_register_script( 'wponion-inputmask', $url . 'assets/plugins/inputmask/jquery.inputmask.bundle.min.js', array( 'jquery' ), $version, true );
