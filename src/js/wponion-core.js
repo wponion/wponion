@@ -2,93 +2,10 @@ import WPOnion_Dependency from './core/dependency';
 import WPOnion_Validator from './core/validation';
 import { createHooks } from '@wordpress/hooks';
 
-/**
- * Returns A Abstract Class Instance.
- * @param $elem
- * @param $contxt
- * @returns {{ajax(*=, *=): *, js_error(*): void, init_field(*=, *): void, set_args(*): *, js_validate_elem(*=, *): void, js_error_handler(*=): void, id(): *, plugin_id(): *, field_debug(): (undefined), handle_args(*=, *=): *, maybe_js_validate_elem(*=, *=): void, get_field_parent_by_id(*=): *, option(*=, *=): *, options(): *, js_validator(): void, init(), reload(): *, module(): *, set_contxt(*): *, contxt: *, element: *, hook: *, module_init(), set_element(*=): *}|*|window.wponion.field_abstract}
- */
-window.wponion_field = ( $elem, $contxt = {} ) => new window.wponion.field_abstract( $elem, $contxt );
-
-/**
- * Handles WPOnion Notices.
- * @param $elem
- * @returns {*}
- */
-window.wponion_notice = ( $elem ) => {
-	if( $elem.find( '.wponion-remove' ).length > 0 ) {
-		$elem.each( function() {
-			let $_el = jQuery( this );
-			jQuery( this ).find( '.wponion-remove' ).on( 'click', function() {
-				$_el.slideUp( 'slow', function() {
-					$_el.remove();
-				} );
-			} );
-		} );
-		return $elem;
-	}
-
-	let $auto = $elem.attr( 'data-autoclose' );
-	if( $auto ) {
-		$auto = parseInt( $auto );
-		setTimeout( () => {
-			$elem.slideUp( 'slow', () => {
-				$elem.remove();
-			} );
-		}, $auto );
-	}
-};
-
-/**
- * Basic WPOnion JS Setup.
- */
-window.wponion_setup = () => {
-	window.wponion.core.settings_args    = window.wponion.core.windowArgs( 'wponion_core', {} );
-	window.wponion.core.text             = window.wponion.core.windowArgs( 'wponion_il8n', {} );
-	window.wponion.core.debug_info       = null;
-	window.wponion.core.field_debug_info = null;
-};
-
-/**
- * Renders A Field.
- * @param $type
- * @param $callback
- */
-window.wponion_render_field = ( $type, $callback ) => {
-	window.wponion.hooks.addAction( 'wponion_init_field_' + $type, 'wponion_core', ( $elem ) => {
-		try {
-			$callback( $elem );
-		} catch( e ) {
-			console.log( arguments, ' \n' + e + '  \nFor : wponion_init_field_' + $type );
-		}
-	} );
-};
-
-/**
- * Function Used outside of WPOnion To Create
- * @param $init_method
- * @param $methods
- * @returns {{init: *, new(): $class, prototype: $class}}
- */
-window.wponion_create_field = ( $init_method, $methods = false ) => {
-	let $org_class = require( './core/field' ).default;
-	let $class     = class extends $org_class {
-	};
-
-	$class.prototype.init = $init_method;
-
-	if( window.wponion._.isObject( $methods ) ) {
-		for( let $key in $methods ) {
-			if( $methods.hasOwnProperty( $key ) ) {
-				$class.prototype[ $key ] = $methods[ $key ];
-			}
-		}
-	}
-	return $class;
-};
-
 // VSP JS Helper Global.
 window.vsp_js_helper = require( 'vsp-js-helper/index' );
+
+require( './helpers/functions' );
 
 // WPOnion Core Source.
 window.wponion = window.wponion || Object.create( {
