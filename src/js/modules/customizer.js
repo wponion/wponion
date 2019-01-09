@@ -50,12 +50,12 @@ class WPOnion_Customizer_Module {
 }
 
 export default ( ( window, document, $, wp ) => {
-	wp.hooks.addAction( 'wponion_init', 'wponion_core', () => {
+	window.wponion.hooks.addAction( 'wponion_init', 'wponion_core', () => {
 		let $elem = $( '.wponion-module-customizer-framework.wponion-framework' );
 		if( $elem.length > 0 ) {
 			let $wpoc                     = wp.customize.controlConstructor;
 			$wpoc.wponion_field_key_value = require( '../fields/customizer/key_value' ).default;
-			$wpoc                         = wp.hooks.applyFilters( 'wponion_customizer_fields', $wpoc );
+			$wpoc                         = window.wponion.hooks.applyFilters( 'wponion_customizer_fields', $wpoc );
 
 			$elem.each( () => {
 				WPOnion_Customizer_Module.link_settings( jQuery( this ) );

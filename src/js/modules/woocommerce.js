@@ -1,6 +1,5 @@
 export default ( ( window, document, $ ) => {
-
-	$( document ).on( 'ready', function() {
+	$( () => {
 		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
 			window.wponion_field( '.wponion-framework.wponion-woocommerce-variation' ).reload();
 		} );
@@ -9,5 +8,4 @@ export default ( ( window, document, $ ) => {
 			window.wponion_field( '.wponion-framework.wponion-woocommerce-variation' ).reload();
 		} );
 	} );
-
 } )( window, document, jQuery );
