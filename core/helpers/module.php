@@ -12,6 +12,33 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
+if ( ! function_exists( 'wponion_module_html_class' ) ) {
+	/**
+	 * @param string $module
+	 * @param string $plugin_id
+	 * @param string $theme
+	 *
+	 * @return array|string
+	 */
+	function wponion_module_html_class( $module = '', $plugin_id = '', $theme = '' ) {
+		$html_class = array( 'wponion-framework' );
+		if ( ! empty( $module ) ) {
+			$html_class[] = 'wponion-' . $module;
+			$html_class[] = 'wponion-module-' . $module;
+			$html_class[] = 'wponion-module-' . $module . '-framework';
+			if ( ! empty( $plugin_id ) ) {
+				$html_class[] = 'wponion-' . $plugin_id . '-' . $module;
+			}
+		}
+
+		if ( ! empty( $theme ) ) {
+			$html_class[] = 'wponion-' . $theme . '-theme';
+		}
+
+		return wponion_html_class( $html_class );
+	}
+}
+
 if ( ! function_exists( 'wponion_settings' ) ) {
 	/**
 	 * Returns a new instance for settings page.

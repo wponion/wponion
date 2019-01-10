@@ -159,14 +159,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array|string
 		 */
 		protected function default_wrap_class() {
-			return wponion_html_class( array(
-				'wponion-framework',
-				'wponion-module-' . $this->module() . '-framework',
-				'wponion-module-' . $this->module(),
-				'wponion-' . $this->plugin_id() . '-' . $this->module(),
-				'wponion-' . $this->module(),
-				'wponion-' . $this->option( 'theme' ) . '-theme',
-			) );
+			return wponion_module_html_class( $this->module(), $this->plugin_id(), $this->option( 'theme' ) );
 		}
 
 		/**
