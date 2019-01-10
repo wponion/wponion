@@ -513,7 +513,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			);
 
 			if ( false !== $localize ) {
-				$localize = ( true === $localize ) ? 'field_help' : $localize;
+				$localize = ( true === $localize ) ? 'wponion-help' : $localize;
 				wponion_localize()->add( $this->js_field_id(), array( $localize => $data ) );
 			}
 			return array(
