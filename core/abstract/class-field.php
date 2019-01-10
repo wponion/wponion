@@ -660,7 +660,7 @@ PHP;
 				$r .= '</div>';
 			}
 
-			$this->localize_field( array( 'debug_field_code' => $r ) );
+			$this->localize_field( array( 'debug_field_code' => $r ), false );
 			return ' <span data-wponion-jsid="' . $this->js_field_id() . '" class="wponion-field-debug-code-gen badge badge-sm badge-primary">' . __( 'Get PHP Code' ) . '</span>';
 		}
 
@@ -903,8 +903,9 @@ PHP;
 		 * Handles JS Values For A Element.
 		 *
 		 * @param null $data
+		 * @param bool $js_convert
 		 */
-		public function localize_field( $data = null ) {
+		public function localize_field( $data = null, $js_convert = true ) {
 			if ( null === $data ) {
 				$data = $this->js_field_args();
 				if ( ! empty( $data ) ) {
@@ -924,7 +925,7 @@ PHP;
 					'plugin_id' => $this->plugin_id(),
 				) );
 			} else {
-				wponion_localize()->add( $this->js_field_id(), $data );
+				wponion_localize()->add( $this->js_field_id(), $data, true, $js_convert );
 			}
 		}
 

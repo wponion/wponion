@@ -99,11 +99,14 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @param string $object_id
 		 * @param array  $args
 		 * @param bool   $merge
+		 * @param bool   $convert_js_funcion
 		 *
 		 * @return self
 		 */
-		public function add( $object_id = '', $args = array(), $merge = true ) {
-			$args = $this->handle_js_function( $args );
+		public function add( $object_id = '', $args = array(), $merge = true, $convert_js_funcion = true ) {
+			if ( true === $convert_js_funcion ) {
+				$args = $this->handle_js_function( $args );
+			}
 			if ( true === $merge && isset( $this->js_args[ $object_id ] ) ) {
 				$this->js_args[ $object_id ] = $this->parse_args( $args, $this->js_args[ $object_id ] );
 			} else {
