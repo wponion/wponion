@@ -20,31 +20,40 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	 * Checks And Returns Fields Class.
 	 *
 	 * @param string|array $field
+	 * @param string       $module
 	 *
 	 * @return bool|string
 	 */
-	function wponion_get_field_class( $field = '' ) {
-		$field_type = null;
+	function wponion_get_field_class( $field = '', $module = 'core' ) {
+		$return = false;
 		if ( is_array( $field ) ) {
-			$field_type = isset( $field['type'] ) ? $field['type'] : false;
+			$field_type = ( isset( $field['type'] ) ) ? $field['type'] : false;
+			$is_clone   = ( isset( $field['clone'] ) && ( true === $field['clone'] || true === is_array( $field['clone'] ) ) ) ? true : false;
+		} else {
+			$field_type = $field;
+			$is_clone   = false;
 		}
 
-		if ( ! empty( $field_type ) || ! empty( $field ) ) {
-			$is_in_clone = ( isset( $field['in_clone'] ) && true === $field['in_clone'] ) ? true : false;
-
-			if ( false === $is_in_clone && isset( $field['clone'] ) && ( true === $field['clone'] || true === is_array( $field['clone'] ) ) ) {
-				if ( ! class_exists( '\WPOnion\Field\Cloner', false ) ) {
+		if ( false !== $field_type ) {
+			if ( true === $is_clone ) {
+				if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					require_once WPONION_PATH . 'core/class-field-cloner.php';
 				}
-				return '\WPOnion\Field\Cloner';
+				$return = '\WPOnion\Field\Cloner';
 			} else {
-				$class = 'WPOnion\\Field\\' . $field_type;
+				$module_name = '';
+
+				if ( 'core' !== $module ) {
+					$module_name = str_replace( '-', '_', $module ) . '\\';
+				}
+
+				$class = '\WPOnion\Field\\' . $module_name . $field_type;
 				if ( class_exists( $class ) ) {
-					return $class;
+					$return = $class;
 				}
 			}
 		}
-		return false;
+		return $return;
 	}
 }
 
