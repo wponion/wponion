@@ -25,9 +25,26 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	 */
 	final class Setup {
 		/**
+		 * Stores Autoloader Instance.
+		 *
+		 * @var bool
+		 * @access
+		 */
+		private static $core_autoloader = false;
+
+		/**
+		 * Stores Autoloader Instance.
+		 *
+		 * @var bool
+		 * @access
+		 */
+		private static $field_autoloader = false;
+
+		/**
 		 * Fires Basic Setup Hook.
 		 *
 		 * @static
+		 * @throws \Exception
 		 */
 		public static function init() {
 			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), 1 );
@@ -39,13 +56,15 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 *
 		 * @hook wponion_loaded
 		 * @static
+		 * @throws \Exception
 		 */
 		public static function load_required_files() {
 			if ( file_exists( WPONION_PATH . 'vendor/autoload.php' ) ) {
 				require_once WPONION_PATH . 'vendor/autoload.php';
 			}
 
-			require_once WPONION_PATH . 'core/class-autoloader.php';
+			self::init_autoloader();
+
 			require_once WPONION_PATH . 'core/helpers/base.php';
 
 			require_once WPONION_PATH . 'core/registry/class-common.php';
@@ -90,6 +109,23 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		}
 
 		/**
+		 * Inits Autoloader.
+		 *
+		 * @static
+		 * @throws \Exception
+		 */
+		public static function init_autoloader() {
+			self::$field_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/' );
+			self::$core_autoloader  = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . '/core/' );
+
+			self::$core_autoloader->add( 'WPOnion\Field\Cloner', WPONION_PATH . '/core/class-field-cloner.php' );
+			self::$core_autoloader->add( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
+			self::$core_autoloader->add( 'WPOnion\Field', WPONION_PATH . '/core/abstract/class-field.php' );
+			self::$core_autoloader->add( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
+			self::$core_autoloader->add( 'WPOnion\Theme_API', WPONION_PATH . '/core/abstract/class-theme-api.php' );
+		}
+
+		/**
 		 * Registers Field.
 		 *
 		 * @static
@@ -99,19 +135,19 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'background', 'all' );
 			\wponion_register_field( 'button', 'all' );
 			\wponion_register_field( 'checkbox', 'all' );
-			\wponion_register_field( 'color-palette', 'all' );
-			\wponion_register_field( 'color-picker', 'all' );
-			\wponion_register_field( 'date-picker', 'all' );
+			\wponion_register_field( 'color_palette', 'all' );
+			\wponion_register_field( 'color_picker', 'all' );
+			\wponion_register_field( 'date_picker', 'all' );
 			\wponion_register_field( 'fieldset', 'all' );
-			\wponion_register_field( 'font-picker', 'all' );
+			\wponion_register_field( 'font_picker', 'all' );
 			\wponion_register_field( 'gallery', 'all' );
-			\wponion_register_field( 'google-maps', 'all' );
+			\wponion_register_field( 'google_maps', 'all' );
 			\wponion_register_field( 'group', 'all' );
 			\wponion_register_field( 'hidden', 'all' );
-			\wponion_register_field( 'icon-picker', 'all' );
+			\wponion_register_field( 'icon_picker', 'all' );
 			\wponion_register_field( 'image', 'all' );
-			\wponion_register_field( 'image-select', 'all' );
-			\wponion_register_field( 'key-value', 'all' );
+			\wponion_register_field( 'image_select', 'all' );
+			\wponion_register_field( 'key_value', 'all' );
 			\wponion_register_field( 'oembed', 'all' );
 			\wponion_register_field( 'radio', 'all' );
 			\wponion_register_field( 'select', 'all' );
@@ -122,8 +158,8 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'textarea', 'all' );
 			\wponion_register_field( 'typography', 'all' );
 			\wponion_register_field( 'upload', 'all' );
-			\wponion_register_field( 'wp-editor', 'all' );
-			\wponion_register_field( 'wp-link', 'all' );
+			\wponion_register_field( 'wp_editor', 'all' );
+			\wponion_register_field( 'wp_link', 'all' );
 
 			/**
 			 * Registers UI Field.
@@ -131,23 +167,23 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'content', 'all' );
 			\wponion_register_ui_field( 'heading', 'all' );
 			\wponion_register_ui_field( 'iframe', 'all' );
-			\wponion_register_ui_field( 'jambo-content', 'all' );
+			\wponion_register_ui_field( 'jambo_content', 'all' );
 			\wponion_register_ui_field( 'notice', 'all' );
-			\wponion_register_ui_field( 'notice-danger', 'all' );
-			\wponion_register_ui_field( 'notice-dark', 'all' );
-			\wponion_register_ui_field( 'notice-info', 'all' );
-			\wponion_register_ui_field( 'notice-light', 'all' );
-			\wponion_register_ui_field( 'notice-primary', 'all' );
-			\wponion_register_ui_field( 'notice-secondary', 'all' );
-			\wponion_register_ui_field( 'notice-success', 'all' );
-			\wponion_register_ui_field( 'notice-warning', 'all' );
+			\wponion_register_ui_field( 'notice_danger', 'all' );
+			\wponion_register_ui_field( 'notice_dark', 'all' );
+			\wponion_register_ui_field( 'notice_info', 'all' );
+			\wponion_register_ui_field( 'notice_light', 'all' );
+			\wponion_register_ui_field( 'notice_primary', 'all' );
+			\wponion_register_ui_field( 'notice_secondary', 'all' );
+			\wponion_register_ui_field( 'notice_success', 'all' );
+			\wponion_register_ui_field( 'notice_warning', 'all' );
 			\wponion_register_ui_field( 'subheading', 'all' );
-			\wponion_register_ui_field( 'wp-error-notice', 'all' );
-			\wponion_register_ui_field( 'wp-info-notice', 'all' );
-			\wponion_register_ui_field( 'wp-list-table', 'all' );
-			\wponion_register_ui_field( 'wp-notice', 'all' );
-			\wponion_register_ui_field( 'wp-success-notice', 'all' );
-			\wponion_register_ui_field( 'wp-warning-notice', 'all' );
+			\wponion_register_ui_field( 'wp_error_notice', 'all' );
+			\wponion_register_ui_field( 'wp_info_notice', 'all' );
+			\wponion_register_ui_field( 'wp_list_table', 'all' );
+			\wponion_register_ui_field( 'wp_notice', 'all' );
+			\wponion_register_ui_field( 'wp_success_notice', 'all' );
+			\wponion_register_ui_field( 'wp_warning_notice', 'all' );
 
 			do_action( 'wponion_core_fields_registered' );
 		}
