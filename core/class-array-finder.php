@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Core\Array_Finder' ) ) {
+if ( ! class_exists( '\WPOnion\Array_Finder' ) ) {
 	/**
 	 * Class Array_Finder
 	 *
