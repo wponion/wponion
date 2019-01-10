@@ -49,9 +49,9 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 			if ( false !== strpos( $class_name, 'WPOnion\\Field\\' ) ) {
 				self::load_field( $class_name );
 			} elseif ( false !== strpos( $class_name, 'WPOnion\\Value\\' ) ) {
-				self::load_field_value( $class_name );
+				//self::load_field_value( $class_name );
 			} elseif ( false !== strpos( $class_name, 'WPOnion\\' ) ) {
-				self::load_core( $class_name );
+				//self::load_core( $class_name );
 			}
 		}
 
@@ -105,6 +105,9 @@ if ( ! class_exists( '\WPOnion\Autoloader' ) ) {
 				self::path( 'core/modules/' . $file_name ),
 				self::path( 'core/modules/customizer/' . $file_name ),
 				self::path( 'core/modules/customizer/control/' . $file_name ),
+				self::path( 'core/integrations/' . $file_name ),
+				self::path( 'core/integrations/page-builders/' . $file_name ),
+				self::path( 'core/integrations/page-builders/visual-composer/' . $file_name ),
 			);
 
 			foreach ( $file_paths as $path ) {
