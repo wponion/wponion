@@ -122,7 +122,7 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 				}
 				return $fields;
 			}
-			return array();
+			return self::$module_fields['all'];
 		}
 
 		/**
