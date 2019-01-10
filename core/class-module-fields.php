@@ -15,7 +15,6 @@
 
 namespace WPOnion;
 
-use WPOnion\Core\Array_Finder;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
