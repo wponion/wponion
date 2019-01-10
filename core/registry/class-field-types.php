@@ -126,6 +126,15 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 		}
 
 		/**
+		 * Returns Only Design Fields
+		 * @static
+		 * @return array
+		 */
+		public static function get_design() {
+			return self::$design_fields;
+		}
+
+		/**
 		 * Returns A Fields Data.
 		 *
 		 * @param $type
