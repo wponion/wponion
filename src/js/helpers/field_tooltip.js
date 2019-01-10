@@ -21,12 +21,21 @@ class field extends WPOnion_Field {
 		};
 
 		if( false === $arg ) {
-			if( $wponion.valid_json( this.element.attr( 'data-tippy' ) ) ) {
-				$arg = JSON.parse( this.element.attr( 'data-tippy' ) );
-			} else if( $wponion.valid_json( this.element.attr( 'data-tippy-args' ) ) ) {
-				$arg = JSON.parse( this.element.attr( 'data-tippy-args' ) );
-			} else if( $wponion.valid_json( this.element.attr( 'tippy-args' ) ) ) {
-				$arg = JSON.parse( this.element.attr( 'tippy-args' ) );
+			let $classToCheck = [ 'data-tippy', 'data-tippy-args', 'tippy-args' ];
+			let $found        = false;
+			for( let $k in $classToCheck ) {
+				let $attr = this.element.attr( $classToCheck[ $k ] );
+				if( $attr ) {
+					if( $wponion.valid_json( $attr ) ) {
+						$arg   = JSON.parse( $attr );
+						$found = $classToCheck[ $k ];
+						break;
+					} else if( false !== this.option( $attr, false ) ) {
+						$arg   = this.option( $attr, false );
+						$found = $classToCheck[ $k ];
+						break;
+					}
+				}
 			}
 		}
 
@@ -78,8 +87,14 @@ class field extends WPOnion_Field {
 			$arg = {};
 		}
 
+		if( window.wponion._.isUndefined( $arg.appendTo ) ) {
+			$arg.appendTo = () => {
+				return jQuery( 'div.wponion-element[data-wponion-jsid=' + this.id() + ']' )[ 0 ];
+			};
+		}
 		delete $arg.image;
 		delete $arg.icon;
+		console.log( $arg );
 		this.element.tippy( this.handle_args( $arg, $tooltip_key ) );
 	}
 }
