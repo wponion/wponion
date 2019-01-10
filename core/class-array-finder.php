@@ -11,7 +11,7 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Core;
+namespace WPOnion;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
