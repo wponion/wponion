@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules\Customize;
+namespace WPOnion\Modules\Customizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
 	/**
 	 * Class customize_control
 	 *

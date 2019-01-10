@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules\Customize\Control;
+namespace WPOnion\Modules\Customizer\Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Image' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customizer\Control\Image' ) ) {
 	/**
 	 * Class image_select
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Image' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Image extends \WPOnion\Modules\Customize\Control\Cloneable {
+	class Image extends \WPOnion\Modules\Customizer\Control\Cloneable {
 		/**
 		 * type
 		 *

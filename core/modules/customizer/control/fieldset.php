@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules\Customize\Control;
+namespace WPOnion\Modules\Customizer\Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Fieldset' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customizer\Control\Fieldset' ) ) {
 	/**
 	 * Class fieldset
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Fieldset' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Fieldset extends \WPOnion\Modules\Customize\Control\Cloneable {
+	class Fieldset extends \WPOnion\Modules\Customizer\Control\Cloneable {
 		/**
 		 * type
 		 *

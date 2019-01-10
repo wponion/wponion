@@ -211,10 +211,10 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 						'options'  => $field,
 					);
 
-					if ( class_exists( '\WPOnion\Modules\Customize\Control\\' . $field['type'] ) ) {
-						$class = '\WPOnion\Modules\Customize\Control\\' . $field['type'];
+					if ( class_exists( '\WPOnion\Modules\Customizer\Control\\' . $field['type'] ) ) {
+						$class = '\WPOnion\Modules\Customizer\Control\\' . $field['type'];
 					} else {
-						$class = '\WPOnion\Modules\Customize\control';
+						$class = '\WPOnion\Modules\Customizer\control';
 					}
 
 					$this->wp->add_control( new $class( $this->wp, $field['id'], $control_args, $this->default_wrap_class() ) );
