@@ -35,6 +35,7 @@ window.wponion = window.wponion || Object.create( {
 	guttenberg: require( './modules/guttenberg' ).default,
 	woocommerce: require( './modules/woocommerce' ).default,
 	quick_edit: require( './modules/quick-edit' ).default,
+	visual_composer: require( './modules/visual-composer' ).default,
 	modal: require( '../vendors/backbone-modal' ).default,
 	ajaxer: require( './core/ajaxer' ).WPOnion_Ajaxer,
 	ajax: require( './core/ajaxer' ).default,
