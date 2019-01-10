@@ -64,11 +64,15 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		protected function show_image( $value = '', $preview_show = '' ) {
 			echo '<div class="wponion-preview" ' . $preview_show . '>';
 			echo wponion_icon( 'dashicons dashicons-no-alt wponion-image-remove wponion-help', wponion_array_to_html_attributes( array(
-				'data-tippy-args' => array(
+				'data-tippy-args'   => 'wpo-image-remove',
+				'data-wponion-jsid' => $this->js_field_id(),
+			) ) );
+			$this->localize_field( array(
+				'wpo-image-remove' => array(
 					'content' => __( 'Remove' ),
 					'arrow'   => true,
 				),
-			) ) );
+			) );
 			$thumbnail = wp_get_attachment_image_src( $value, 'thumbnail' );
 			$fullsize  = wp_get_attachment_image_src( $value, 'full' );
 			$thumbnail = isset( $thumbnail[0] ) ? $thumbnail[0] : false;
