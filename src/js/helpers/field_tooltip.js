@@ -94,7 +94,6 @@ class field extends WPOnion_Field {
 		}
 		delete $arg.image;
 		delete $arg.icon;
-		console.log( $arg );
 		this.element.tippy( this.handle_args( $arg, $tooltip_key ) );
 	}
 }
