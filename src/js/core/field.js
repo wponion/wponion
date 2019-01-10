@@ -102,7 +102,8 @@ export default class extends WPOnion_Module {
 					  arrowType: 'round',
 					  placement: 'bottom',
 					  theme: 'light',
-					  animation: 'scale'
+					  animation: 'scale',
+					  appendTo: this.get_field_parent_by_id( this.element )[ 0 ],
 				  } );
 
 			$found.find( '> .wponion-field-title > h4' ).on( 'click', () => {

@@ -31,7 +31,8 @@ class field extends WPOnion_Field {
 			 */
 			init_tooltip: () => {
 				if( $args.popup_tooltip !== 'false' ) {
-					let $tp = ( typeof $args.popup_tooltip === 'object' ) ? $args.popup_tooltip : {};
+					let $tp      = ( typeof $args.popup_tooltip === 'object' ) ? $args.popup_tooltip : {};
+					$tp.appendTo = $work.elm[ 0 ];
 					if( $work.elems.length > 0 ) {
 						$work.elems.tippy( $tp );
 					}

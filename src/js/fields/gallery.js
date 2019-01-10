@@ -49,7 +49,7 @@ class field extends WPOnion_Field {
 						$tmp.attr( 'data-wponion-image_id', item.id );
 						$tmp.find( 'img' ).attr( 'data-fullsize', item.url ).attr( 'src', thumb ).removeClass( 'hide' );
 						$preview.append( $tmp );
-						$preview.find( '.wponion-help' ).tippy();
+						$this.init_field( '.wponion-help', 'field_tooltip' );
 						return item.id;
 					} );
 					let $e;

@@ -16,7 +16,9 @@ class field extends WPOnion_Field {
 			new WPOnion_Dependency( jQuery( this ), { nestable: true } );
 		} );
 		this.bind_events_for_title();
-		this.element.find( '.wponion-group-remove' ).tippy();
+		this.element.find( '.wponion-group-remove' ).tippy( {
+			appendTo: () => this.get_field_parent_by_id( this.element )[ 0 ],
+		} );
 		this.element.on( 'click', '.wponion-group-remove', function() {
 			jQuery( this ).parent().parent().find( '> .wponion-accordion-content > .wponion-group-action > button' )
 						  .click();
@@ -45,7 +47,9 @@ class field extends WPOnion_Field {
 				this.bind_events_for_title();
 				this.init_field( $group_wrap, 'accordion' );
 				//this.js_validate_elem( this.option( 'js_validate', false ), $data );
-				$data.find( '.wponion-group-remove' ).tippy();
+				$data.find( '.wponion-group-remove' ).tippy( {
+					appendTo: () => this.get_field_parent_by_id( this.element )[ 0 ],
+				} );
 				window.wponion_field( $data ).reload();
 				new WPOnion_Dependency( $group_wrap.find( '> .wponion-accordion-wrap:last-child' ), { nestable: true } );
 				this.init_field( $data.find( '.wponion-element-wp_editor' ), 'reload_wp_editor' );

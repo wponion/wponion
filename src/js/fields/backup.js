@@ -157,9 +157,10 @@ class field extends WPOnion_Field {
 
 	show_tooltip( $elem ) {
 		let $backupid = $elem.attr( 'data-backupid' );
+		let $appendTO = this.element[ 0 ];
 		tippy( $elem[ 0 ], {
 			arrow: true,
-			appendTo: this.element[ 0 ],
+			appendTo: $appendTO,
 			arrowType: 'round',
 			content: '<button data-backupid="' + $backupid + '" type="button" class="restore_backup button button-secondary button-small"><i class="dashicons-image-rotate dashicons"></i> </button> | <button data-backupid="' + $backupid + '" type="button" class="delete_backup button button-secondary button-small"><i class="dashicons-trash dashicons"></i> </button>',
 			interactive: true,
@@ -168,6 +169,7 @@ class field extends WPOnion_Field {
 				jQuery( 'div.tippy-popper .tippy-content .delete_backup' ).tippy( {
 					arrow: true,
 					arrowType: 'skinny',
+					appendTo: $appendTO,
 					content: $wponion.txt( 'delete' ),
 					theme: 'light-border',
 					interactive: false,
@@ -177,6 +179,7 @@ class field extends WPOnion_Field {
 				jQuery( 'div.tippy-popper .tippy-content .restore_backup' ).tippy( {
 					arrow: true,
 					arrowType: 'skinny',
+					appendTo: $appendTO,
 					content: $wponion.txt( 'restore' ),
 					theme: 'light-border',
 					placement: 'bottom',
