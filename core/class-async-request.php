@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Core\Async_Request' ) ) {
+if ( ! class_exists( '\WPOnion\Async_Request' ) ) {
 
 	if ( ! class_exists( '\WP_Async_Request' ) ) {
 		include_once WPONION_PATH . 'core/vendors/A5hleyRich/wp-async-request.php';
