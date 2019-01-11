@@ -129,14 +129,17 @@ export default class extends WPOnion_Module {
 			} );
 
 			$found.find( '> .wponion-fieldset .wponion-field-debug-code-gen' ).on( 'click', () => {
-				swal( {
-					html: this.option( 'debug_field_code' ),
-					width: '800px',
-					showCloseButton: true,
-					heightAuto: false,
-					showConfirmButton: false,
-					animation: false,
-				} );
+				let $string = this.option( 'debug_field_code' );
+				if( window.wponion._.isString( $string ) ) {
+					swal( {
+						html: $string,
+						width: '800px',
+						showCloseButton: true,
+						heightAuto: false,
+						showConfirmButton: false,
+						animation: false,
+					} );
+				}
 			} );
 		}
 	}
