@@ -126,7 +126,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			//wp_enqueue_script( 'wponion-cloner' );
+			wp_enqueue_script( 'wponion-cloner' );
 		}
 	}
 }

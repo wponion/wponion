@@ -106,7 +106,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			//wp_enqueue_media();
+			wp_enqueue_media();
 		}
 	}
 }

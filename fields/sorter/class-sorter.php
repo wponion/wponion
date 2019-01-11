@@ -83,7 +83,7 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 		}
 
 		public function field_assets() {
-			//wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_enqueue_script( 'jquery-ui-sortable' );
 		}
 	}
 }

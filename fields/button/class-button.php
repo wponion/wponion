@@ -69,9 +69,9 @@ if ( ! class_exists( '\WPOnion\Field\Button' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			/*wp_enqueue_script( 'underscore' );
-			wp_enqueue_media();*/
-			//wp_enqueue_style( 'media-views' );
+			wp_enqueue_script( 'underscore' );
+			wp_enqueue_media();
+			wp_enqueue_style( 'media-views' );
 		}
 	}
 }

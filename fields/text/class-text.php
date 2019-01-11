@@ -162,9 +162,9 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			/*if ( false !== $this->has( 'inputmask' ) ) {
+			if ( false !== $this->has( 'inputmask' ) ) {
 				wponion_load_asset( 'wponion-inputmask' );
-			}*/
+			}
 		}
 
 		/**

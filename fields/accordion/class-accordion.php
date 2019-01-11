@@ -98,7 +98,7 @@ if ( ! class_exists( '\WPOnion\Field\Accordion' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			//wp_enqueue_script( 'jquery-ui-accordion' );
+			wp_enqueue_script( 'jquery-ui-accordion' );
 		}
 	}
 }
