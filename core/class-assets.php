@@ -78,9 +78,25 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
+
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			}
+		}
+
+		/**
+		 * Returns All Script / Styles Keys.
+		 *
+		 * @param string $type
+		 *
+		 * @static
+		 * @return array
+		 */
+		public static function get( $type = 'script' ) {
+			if ( 'script' === $type ) {
+				return array_keys( self::$scripts );
+			}
+			return array_keys( self::$style );
 		}
 
 		/**
@@ -97,24 +113,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			self::loop_assets( self::$style, 'wp_register_style', 'all' );
 			self::loop_assets( self::$scripts, 'wp_register_script', true );
 			do_action( 'wponion_register_assets_after' );
-
-			wponion_load_core_assets( array(
-				'wponion-inputmask',
-				'wponion-datepicker',
-				'wponion-colorpicker',
-				'jquery-ui-dialog',
-				'editor-buttons',
-				'wplink',
-				'wponion-cloner',
-				'jquery-ui-sortable',
-				'jquery-ui-accordion',
-				'select2',
-				'chosen',
-				'thickbox',
-			) );
-			wp_enqueue_media();
-			add_thickbox();
-
 		}
 
 		/**
@@ -159,12 +157,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			if ( is_version_lte( 'wordpress', '5.0' ) ) {
 				wp_register_script( 'lodash', 'https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js', array(), '4.17.11', true );
 			}
-
-			wp_register_script( 'wponion-plugins', $url . 'assets/js/wponion-plugins.js', array(
-				'lodash',
-				'wp-util',
-				'backbone',
-			), $version, true );
 		}
 	}
 }
