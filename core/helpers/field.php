@@ -35,7 +35,7 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 		}
 
 		if ( false !== $field_type ) {
-			if ( true === $is_clone ) {
+			if ( true === $is_clone && ( ! isset( $field['in_clone'] ) || isset( $field['in_clone'] ) && false === $field['in_clone'] ) ) {
 				if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					require_once WPONION_PATH . 'core/class-field-cloner.php';
 				}
