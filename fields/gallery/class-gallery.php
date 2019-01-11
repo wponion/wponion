@@ -140,10 +140,10 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			wp_enqueue_media();
+			/*wp_enqueue_media();
 			if ( $this->has( 'sort' ) && true == $this->data( 'sort' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
-			}
+			}*/
 		}
 	}
 }

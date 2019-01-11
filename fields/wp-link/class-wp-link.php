@@ -118,10 +118,10 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			wp_enqueue_script( 'jquery-ui-dialog' );
-			wp_enqueue_style( 'editor-buttons' );
+			//wp_enqueue_script( 'jquery-ui-dialog' );
+			//wp_enqueue_style( 'editor-buttons' );
 			add_thickbox();
-			wp_enqueue_script( 'wplink' );
+			//wp_enqueue_script( 'wplink' );
 		}
 	}
 }

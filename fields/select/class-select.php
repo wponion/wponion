@@ -131,7 +131,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			wponion_load_asset( $this->select_framework );
+			//wponion_load_asset( $this->select_framework );
 		}
 	}
 }

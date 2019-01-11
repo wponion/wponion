@@ -86,7 +86,7 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 			wponion_localize()->add( $this->js_field_id(), array(
 				'settings' => $settings,
 			) );
-			wponion_load_asset( 'wponion-datepicker' );
+			//wponion_load_asset( 'wponion-datepicker' );
 		}
 
 		/**

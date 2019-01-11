@@ -51,7 +51,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			wponion_load_asset( 'wponion-colorpicker' );
+			//wponion_load_asset( 'wponion-colorpicker' );
 		}
 
 		/**

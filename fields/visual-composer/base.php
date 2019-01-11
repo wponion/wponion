@@ -191,15 +191,19 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 					$return[ $replace ] = $this->orginal_field[ $base ];
 				}
 			}
-			$return                                       = array_merge( $return, $this->filter_vc_args() );
-			$return['type']                               = $this->orginal_field['type'];
-			$return['class']                              = isset( $return['class'] ) ? $return['class'] : '';
-			$return['class']                              = $return['class'] . ' ' . $this->extra_class( $return );
-			$return['wrap_attributes']                    = isset( $return['wrap_attributes'] ) ? $return['wrap_attributes'] : array();
-			$return['wrap_attributes']['data-param-name'] = $return['id'];
-			$return['wrap_attributes']                    = $this->extra_wrap_attributes( $return['wrap_attributes'], $return );
-			$return['id']                                 = strtolower( $return['id'] );
-			$return['name']                               = strtolower( $return['name'] );
+			$return                    = array_merge( $return, $this->filter_vc_args() );
+			$return['type']            = $this->orginal_field['type'];
+			$return['class']           = isset( $return['class'] ) ? $return['class'] : '';
+			$return['class']           = $return['class'] . ' ' . $this->extra_class( $return );
+			$return['wrap_attributes'] = isset( $return['wrap_attributes'] ) ? $return['wrap_attributes'] : array();
+			$return['wrap_attributes'] = $this->extra_wrap_attributes( $return['wrap_attributes'], $return );
+			$return['id']              = strtolower( $return['id'] );
+			$return['name']            = strtolower( $return['name'] );
+
+			if ( false === wponion_field_types()::design_exists( $return['type'] ) ) {
+				$return['wrap_attributes']['data-param-name'] = $return['id'];
+			}
+
 			return $return;
 		}
 
