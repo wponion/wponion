@@ -23,11 +23,59 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 	 */
 	final class Assets {
 		/**
+		 * Scripts
+		 *
+		 * @var array
+		 */
+		public static $scripts = array();
+
+		/**
+		 * Style
+		 *
+		 * @var array
+		 */
+		public static $style = array();
+
+		/**
 		 * Inits WPOnion_Assets Class.
 		 *
 		 * @static
 		 */
 		public static function init() {
+			self::$scripts = array(
+				'wponion-plugins'     => array(
+					'assets/js/wponion-plugins.js',
+					array( 'lodash', 'wp-util', 'backbone' ),
+				),
+				'wponion-cloner'      => array( 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ) ),
+				'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
+				'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
+				'wponion-postmessags' => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
+				'wponion-inputmask'   => array(
+					'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
+					array( 'jquery' ),
+				),
+				'wponion-colorpicker' => array(
+					'assets/plugins/colorpicker/wp-color-picker-alpha.js',
+					array( 'wp-color-picker' ),
+				),
+				'wponion-datepicker'  => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
+				'select2'             => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
+				'chosen'              => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
+			);
+			self::$style   = array(
+				'chosen'              => array( 'assets/plugins/chosen/chosen.min.css' ),
+				'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
+				'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
+				'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
+				'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
+				'wponion-colorpicker' => array(
+					'assets/plugins/wp-color-picker-alpha/cs-colorpicker.css',
+					array( 'wp-color-picker' ),
+				),
+				'wponion-datepicker'  => array( 'assets/plugins/flatpickr/style.css' ),
+			);
+
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
@@ -46,7 +94,28 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			$url     = WPONION_URL;
 			self::register_styles( $version, $url );
 			self::register_scripts( $version, $url );
+			self::loop_assets( self::$style, 'wp_register_style', 'all' );
+			self::loop_assets( self::$scripts, 'wp_register_script', true );
 			do_action( 'wponion_register_assets_after' );
+		}
+
+		/**
+		 * @param $data
+		 * @param $callback
+		 * @param $last_arg
+		 *
+		 * @uses \wp_register_style()
+		 * @uses \wp_register_script()
+		 *
+		 * @static
+		 */
+		protected static function loop_assets( $data, $callback, $last_arg ) {
+			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
+			foreach ( $data as $id => $file ) {
+				$file[2] = ( isset( $file[2] ) ) ? $file[2] : $version;
+				$file[1] = ( isset( $file[1] ) ) ? $file[1] : array();
+				$callback( $id, WPONION_URL . $file[0], $file[1], $file[2], $last_arg );
+			}
 		}
 
 		/**
@@ -58,13 +127,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function register_styles( $version, $url ) {
-			wp_register_style( 'chosen', $url . 'assets/plugins/chosen/chosen.min.css', array(), $version );
-			wp_register_style( 'select2', $url . 'assets/plugins/select2/select2.min.css', array(), $version );
-			wp_register_style( 'wponion-plugins', $url . 'assets/css/wponion-plugins.css', array(), $version );
-			wp_register_style( 'wponion-core', $url . 'assets/css/wponion-base.css', array( 'wponion-plugins' ), $version );
-			wp_register_style( 'wponion-colorpicker', $url . 'assets/plugins/wp-color-picker-alpha/cs-colorpicker.css', array( 'wp-color-picker' ), $version );
-			wp_register_style( 'wponion-datepicker', $url . 'assets/plugins/flatpickr/style.css', array(), $version );
-
 		}
 
 		/**
@@ -85,15 +147,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				'wp-util',
 				'backbone',
 			), $version, true );
-			wp_register_script( 'wponion-core', $url . 'assets/js/wponion-core.js', array( 'wponion-plugins' ), $version, true );
-			wp_register_script( 'wponion-cloner', $url . 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ), $version, true );
-			wp_register_script( 'wponion-customizer', $url . 'assets/js/wponion-customizer.js', array( 'wponion-core' ), $version, true );
-			wp_register_script( 'wponion-postmessags', $url . 'assets/js/wponion-postmessags.js', array( 'wponion-customizer' ), $version, true );
-			wp_register_script( 'wponion-colorpicker', $url . 'assets/plugins/colorpicker/wp-color-picker-alpha.js', array( 'wp-color-picker' ), $version, true );
-			wp_register_script( 'wponion-datepicker', $url . 'assets/plugins/flatpickr/script.js', array( 'jquery' ), $version, true );
-			wp_register_script( 'wponion-inputmask', $url . 'assets/plugins/inputmask/jquery.inputmask.bundle.min.js', array( 'jquery' ), $version, true );
-			wp_register_script( 'select2', $url . 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ), $version, true );
-			wp_register_script( 'chosen', $url . 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ), $version, true );
 		}
 	}
 }
