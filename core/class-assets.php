@@ -97,6 +97,24 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			self::loop_assets( self::$style, 'wp_register_style', 'all' );
 			self::loop_assets( self::$scripts, 'wp_register_script', true );
 			do_action( 'wponion_register_assets_after' );
+
+			wponion_load_core_assets( array(
+				'wponion-inputmask',
+				'wponion-datepicker',
+				'wponion-colorpicker',
+				'jquery-ui-dialog',
+				'editor-buttons',
+				'wplink',
+				'wponion-cloner',
+				'jquery-ui-sortable',
+				'jquery-ui-accordion',
+				'select2',
+				'chosen',
+				'thickbox',
+			) );
+			wp_enqueue_media();
+			add_thickbox();
+
 		}
 
 		/**
