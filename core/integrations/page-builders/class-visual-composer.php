@@ -58,6 +58,30 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 			self::$integrated_fields = wponion_field_types()::get( 'visual_composer' );
 			self::register_fields();
 			add_action( 'vc_edit_form_fields_after_render', array( __CLASS__, 'is_wponion_used' ) );
+			add_action( 'vc_backend_editor_enqueue_js_css', array( __CLASS__, 'load_assets' ), 1 );
+			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
+				add_action( 'vc_frontend_editor_enqueue_js_css', array( __CLASS__, 'load_assets' ), 1 );
+			}
+		}
+
+		/**
+		 * Loads All Required Assets.
+		 *
+		 * @static
+		 */
+		public static function load_assets() {
+			$scripts = \WPOnion\Assets::get( 'script' );
+			$styles  = \WPOnion\Assets::get( 'styles' );
+
+			foreach ( $scripts as $script ) {
+				wp_enqueue_script( $script );
+			}
+			foreach ( $styles as $style ) {
+				wp_enqueue_style( $style );
+			}
+			wp_enqueue_media();
+			add_thickbox();
+			do_action( 'wponion_visual_composer_load_assets' );
 		}
 
 		public static function register_fields() {
@@ -103,14 +127,16 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 
 			$field_args['type'] = self::field_type( $type );
 			$instance           = new $class( $field_args, $value );
-			return $instance->output();
+			ob_start();
+			echo $instance->output();
+			return ob_get_clean();
 		}
 
 		/**
 		 * @param $type
 		 *
 		 * @static
-		 * @return \WPOnion\Field
+		 * @return \WPOnion\Field|\WPOnion\Field\Visual_Composer\Base
 		 */
 		public static function get_class( $type ) {
 			$class = wponion_get_field_class( $type, 'Visual_Composer' );
@@ -144,8 +170,14 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 			return ( false !== strpos( $type, self::$param_prefix ) );
 		}
 
+		/**
+		 * Check if WPOnion Is Used and if so then renders few small JS to trigger init function.
+		 *
+		 * @static
+		 */
 		public static function is_wponion_used() {
 			if ( true === self::$is_wponion_used ) {
+				wponion_localize()->render_js_args();
 				echo '<script type="text/javascript">wponion_visual_composer_init()</script>';
 			}
 		}
