@@ -4,7 +4,7 @@ $_json[ 'project_name' ] = 'WPOnion';
 $_json[ 'scss' ]         = {
 	"src/scss/wponion-base.scss": {
 		sourcemap: false,
-		watch: [ 'src/scss/includes/*', 'src/scss/includes/fields/*', 'src/scss/includes/fields/*/*', 'src/scss/includes/modules/*' ],
+		watch: [ 'src/scss/includes/*', 'src/scss/includes/fields/*', 'src/scss/includes/fields/*/*', 'src/scss/includes/modules/*', 'src/scss/includes/modules/*/*' ],
 		concat: 'wponion-base.css',
 		dist: 'assets/css/'
 	},
@@ -60,7 +60,7 @@ $_json[ 'js' ]           = {
 	},
 	"src/js/wponion-core.js": {
 		dist: "assets/js",
-		watch: [ 'src/js/core/*', 'src/js/fields/*', 'src/js/helpers/*', 'src/js/modules/*', 'src/vendors/backbone-modal.js' ],
+		watch: [ 'src/js/core/*', 'src/js/fields/*', 'src/js/helpers/*', 'src/js/modules/*', 'src/js/modules/*/*', 'src/vendors/backbone-modal.js' ],
 		webpack: true,
 		babel: false,
 		babel_dev: false,
