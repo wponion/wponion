@@ -73,7 +73,7 @@ window.wponion.fields = Object.create( {
 	upload: require( './fields/upload' ).default,
 	image_upload: require( './fields/image_upload' ).default,
 	jquery_tab: require( './fields/jquery_tab' ).default,
-	field_tooltip: require( './helpers/field_tooltip' ).default,
+	tooltip: require( './helpers/tooltip' ).default,
 	clone_element: require( './fields/clone_element' ).default,
 	sorter: require( './fields/sorter' ).default,
 	google_maps: require( './fields/google_maps' ).default,

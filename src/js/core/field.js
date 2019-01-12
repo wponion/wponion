@@ -308,10 +308,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-upload', 'upload' );
 		this.init_field( '.wponion-element-image', 'image_upload' );
 		this.init_field( '.wponion-element-tab', 'jquery_tab' );
-		this.init_field( '.wponion-field-tooltip', 'field_tooltip' );
 		this.init_field( '.wponion-element-google_maps', 'google_maps' );
-		this.init_field( '.wponion-help', 'field_tooltip' );
-		this.init_field( '.wponion-wrap-tooltip', 'field_tooltip' );
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
@@ -323,6 +320,9 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-content', 'content' );
 		this.init_field( '.wponion-element-jambo_content', 'jambo_content' );
 		this.init_field( '.wponion-element-notice', 'notice' );
+		this.init_field( '.wponion-field-tooltip', 'tooltip' );
+		this.init_field( '.wponion-help', 'tooltip' );
+		this.init_field( '.wponion-wrap-tooltip', 'tooltip' );
 
 		window.wponion.hooks.doAction( 'wponion_after_fields_reload' );
 		return this;
