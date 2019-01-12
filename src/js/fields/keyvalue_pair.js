@@ -14,10 +14,12 @@ class field extends WPOnion_Field {
 			template: this.option( 'html_template' ),
 			templateAfterRender: ( $elem ) => {
 				this.hook.doAction( 'wponion_key_value_updated', $elem );
+				this.element.trigger( 'change' );
 				this.js_validate_elem( this.option( 'js_validate', false ), $elem.find( '> div:last-child' ) );
 			},
 			onRemove: ( $elem ) => {
 				$elem.parent().remove();
+				this.element.trigger( 'change' );
 				this.hook.doAction( 'wponion_key_value_updated', $elem );
 			},
 			onLimitReached: () => {
