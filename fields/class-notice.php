@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 			return $this->parse_args( array(
 				'notice_type' => $this->notice_type,
 				'autoclose'   => false,
-				'close'       => false,
+				'close'       => true,
 			), parent::field_default() );
 		}
 	}

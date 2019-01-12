@@ -50,13 +50,17 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 			);
 		}
 
+		protected function js_field_args() {
+			return array(
+				'settings' => $this->parse_args( $this->data( 'settings' ), array(
+					'upload_type'  => 'image',
+					'frame_title'  => __( 'Upload' ),
+					'insert_title' => __( 'Use' ),
+				) ),
+			);
+		}
+
 		public function field_assets() {
-			$settings = $this->parse_args( $this->data( 'settings' ), array(
-				'upload_type'  => 'image',
-				'frame_title'  => __( 'Upload' ),
-				'insert_title' => __( 'Use' ),
-			) );
-			$this->localize_field( array( 'settings' => $settings ) );
 			wp_enqueue_media();
 		}
 	}
