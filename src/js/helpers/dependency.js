@@ -2,11 +2,23 @@ import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 import $wponion_debug from '../core/debug';
 
+/**
+ * WPOnion Dependency Helper Class.
+ */
 export default class extends WPOnion_Field {
+	/**
+	 * WPOnion Dependency Helper Class.
+	 * @param $selector
+	 * @param $contxt
+	 * @param $config
+	 */
 	constructor( $selector, $contxt, $config ) {
 		super( $selector, $contxt, $config );
 	}
 
+	/**
+	 * Inits Dependency Worker.
+	 */
 	init() {
 		let $dep = this.option( 'dependency' );
 		for( let $key in $dep.controller ) {
