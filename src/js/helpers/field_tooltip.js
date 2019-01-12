@@ -1,7 +1,13 @@
 import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 
+/**
+ * WPOnion Field ToolTip
+ */
 class field extends WPOnion_Field {
+	/**
+	 * Handle Each And Every Single Field ToolTip.
+	 */
 	init() {
 		let $fid         = this.element.attr( 'data-field-jsid' );
 		let $tooltip_key = false;
