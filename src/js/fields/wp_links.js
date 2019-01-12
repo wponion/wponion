@@ -3,6 +3,9 @@ import $wponion from '../core/core';
 
 /* global swal:true */
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		let $this     = this,
 			$elem     = $this.element,

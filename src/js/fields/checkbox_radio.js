@@ -1,6 +1,9 @@
 import WPOnion_Field from '../core/field';
 
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		if( this.element.find( 'input.wponion-custom-value-input' ).length > 0 ) {
 			let $inputs = this.element.find( 'input.wponion-custom-value-input' );

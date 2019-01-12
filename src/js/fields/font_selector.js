@@ -2,14 +2,27 @@ import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 
 class field extends WPOnion_Field {
+	/**
+	 * Returns Websafe Font Data.
+	 * @returns {*}
+	 */
 	get websafe() {
 		return $wponion.windowArgs( 'wponion_websafe_fonts' );
 	}
 
+	/**
+	 * Returns Google Font Data.
+	 * @returns {*}
+	 */
 	get google_fonts() {
 		return $wponion.windowArgs( 'wponion_gfonts' );
 	}
 
+	/**
+	 * Creats HTML Option Tag Using Array.
+	 * @param data
+	 * @returns {string}
+	 */
 	build_options( data ) {
 		let $return = '';
 		for( let $_d in data ) {
@@ -20,6 +33,9 @@ class field extends WPOnion_Field {
 		return $return;
 	}
 
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		this.element.find( 'select.wponion-font-selector' ).on( 'change', ( e ) => {
 			let $val  = jQuery( e.currentTarget ).val(),

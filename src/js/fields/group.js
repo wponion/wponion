@@ -3,6 +3,9 @@ import WPOnion_Dependency from '../core/dependency';
 import $wponion from '../core/core';
 
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		let $this       = this,
 			$add        = this.element.find( '> .wponion-fieldset > button[data-wponion-group-add]' ),
@@ -78,6 +81,10 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Binds Dynamic Group Title Events.
+	 * @param $elem
+	 */
 	bind_events_for_title( $elem = false ) {
 		$elem = ( false === $elem ) ? this.element.find( '> .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
 		$elem.each( ( i, e ) => {
@@ -95,6 +102,10 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Updates Group Title
+	 * @param $elem
+	 */
 	update_groups_title( $elem = false ) {
 		let $limit = 1;
 		$elem      = ( false === $elem ) ? this.element.find( '> .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
@@ -126,6 +137,10 @@ class field extends WPOnion_Field {
 
 	}
 
+	/**
+	 * Handles Javascript Error Placement.
+	 * @param err
+	 */
 	js_error( err ) {
 		let $elem = $wponion.IDtoElement( err.element, this.element );
 		/* if( $elem ) { //err.error.appendTo( $elem.find( '> .wponion-fieldset' ) ); } */

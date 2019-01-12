@@ -2,6 +2,9 @@ import WPOnion_Field from '../core/field';
 import css_units from 'vsp-js-helper/parts/css_units';
 
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		this.font_weight_style = false;
 		let $el                = this.element;
@@ -17,8 +20,8 @@ class field extends WPOnion_Field {
 				$align             = $el.find( '.wponion-element-align select' ).val(),
 				$fontSize          = $el.find( '.wponion-element-size input' ).val(),
 				$lineHeight        = $el.find( '.wponion-element-line-height input' ).val(),
-				$backUPFont        = $el.find( '.wponion-element-backup-font select' ).val(),
-				$direction         = $el.find( '.wponion-element-direction select' ).val(),
+				//$backUPFont        = $el.find( '.wponion-element-backup-font select' ).val(),
+				//$direction         = $el.find( '.wponion-element-direction select' ).val(),
 				$letterSpacing     = $el.find( '.wponion-element-letter-spacing input' ).val(),
 				href               = 'https://fonts.googleapis.com/css?family=' + $font + ':' + $font_weight_style.weight,
 				html               = '<link href="' + href + '" class="wpsf-font-preview-' + $this.id() + '" rel="stylesheet" type="text/css" />';
@@ -60,6 +63,11 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Returns Proper Valid Font Styles.
+	 * @param $info
+	 * @returns {{weight: string, style: string}}
+	 */
 	font_style( $info ) {
 		let $weight_val = '400',
 			$style_val  = 'normal';
@@ -107,6 +115,5 @@ class field extends WPOnion_Field {
 		return { weight: $weight_val, style: $style_val };
 	}
 }
-
 
 export default ( ( w ) => w.wponion_register_field( 'typography', ( $elem ) => new field( $elem ) ) )( window );

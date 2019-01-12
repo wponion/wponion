@@ -2,6 +2,9 @@ import WPOnion_Field from '../core/field';
 
 /* global wponion_field:true */
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		let $arg        = this.handle_args( this.option( 'clone', {} ) );
 		let $this       = this,

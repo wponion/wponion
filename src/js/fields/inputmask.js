@@ -1,6 +1,9 @@
 import WPOnion_Field from '../core/field';
 
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		if( this.element.length > 0 ) {
 			let $settings = this.option( 'inputmask' );

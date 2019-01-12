@@ -1,6 +1,9 @@
 import WPOnion_Field from '../core/field';
 
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		this.global_validate = false;
 		this.element.find( '.wponion-keyvalue_wrap' ).WPOnionCloner( {
@@ -27,12 +30,16 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Handles Javascript Error Placement.
+	 * @param err
+	 */
 	js_error( err ) {
 		err.error.appendTo( err.element.parent().parent() );
 	}
 
 	/**
-	 *
+	 * Handles Javascript Validation Inputs
 	 * @param $args
 	 * @param $elem
 	 */

@@ -1,6 +1,9 @@
 import WPOnion_Field from '../core/field';
 
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		this.element.chosen( this.handle_args( this.option( 'chosen', {} ) ) );
 		return this;

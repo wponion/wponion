@@ -1,7 +1,14 @@
 import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 
+/* global swal:true */
+
+/* global tippy:true */
+
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		this.tooltip();
 
@@ -77,6 +84,10 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Generates Swal Error Msg.
+	 * @param msg
+	 */
 	swal_error( msg ) {
 		swal( {
 			type: 'error',
@@ -84,6 +95,10 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Handles ToolTip instance.
+	 * @param remove
+	 */
 	tooltip( remove = false ) {
 		let $this = this;
 		if( true === remove ) {
@@ -98,17 +113,28 @@ class field extends WPOnion_Field {
 		}
 	}
 
+	/**
+	 * Blocks A Form
+	 */
 	block_form() {
 		jQuery( document ).find( 'button' ).attr( 'disabled', 'disabled' );
 	}
 
+	/**
+	 * Unblocks a form
+	 */
 	unblock_form() {
 		jQuery( document ).find( 'button' ).removeAttr( 'disabled' );
 	}
 
+	/**
+	 * Forces Download Export Data.
+	 * @param exportObj
+	 * @param exportName
+	 */
 	force_download( exportObj, exportName ) {
-		var dataStr            = 'data:text/json;charset=utf-8,' + encodeURIComponent( JSON.stringify( exportObj ) );
-		var downloadAnchorNode = document.createElement( 'a' );
+		let dataStr            = 'data:text/json;charset=utf-8,' + encodeURIComponent( JSON.stringify( exportObj ) );
+		let downloadAnchorNode = document.createElement( 'a' );
 		downloadAnchorNode.setAttribute( 'href', dataStr );
 		downloadAnchorNode.setAttribute( 'download', exportName + '.json' );
 		document.body.appendChild( downloadAnchorNode ); // required for firefox
@@ -116,6 +142,10 @@ class field extends WPOnion_Field {
 		downloadAnchorNode.remove();
 	}
 
+	/**
+	 * Restores Backup Data.
+	 * @param backup_id
+	 */
 	restore_backup( backup_id ) {
 		this.block_form();
 		this.ajax( 'restore-module-data-backup', {
@@ -138,6 +168,10 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Handles Backup Import File and restores it.
+	 * @param $elem
+	 */
 	handle_backup_import( $elem ) {
 		if( $elem.files && $elem.files[ 0 ] ) {
 			let $file = $elem.files[ 0 ];
@@ -155,6 +189,10 @@ class field extends WPOnion_Field {
 		}
 	}
 
+	/**
+	 * Show's ToolTip
+	 * @param $elem
+	 */
 	show_tooltip( $elem ) {
 		let $backupid = $elem.attr( 'data-backupid' );
 		let $appendTO = this.element[ 0 ];
@@ -189,6 +227,10 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Returns Extra Value.
+	 * @returns {*}
+	 */
 	get_extra_value() {
 		if( jQuery( 'form#post input#post_ID' ).length === 1 ) {
 			return jQuery( 'form#post input#post_ID' ).val();

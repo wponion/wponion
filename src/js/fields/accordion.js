@@ -2,6 +2,9 @@ import WPOnion_Field from '../core/field';
 import $wponion from '../core/core';
 
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		this.element.find( '.wponion-accordion-wrap' ).each( function() {
 			jQuery( this ).accordion( {
@@ -21,6 +24,10 @@ class field extends WPOnion_Field {
 		} );
 	}
 
+	/**
+	 * Handles Javascript Error Placement.
+	 * @param err
+	 */
 	js_error( err ) {
 		let $elem = $wponion.IDtoElement( err.element, this.element );
 		if( $elem ) {

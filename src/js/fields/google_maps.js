@@ -2,6 +2,9 @@
 import WPOnion_Field from '../core/field';
 
 class field extends WPOnion_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		let $map              = this.option( 'map', {} );
 		$map.details          = '#gmap_fields_' + this.id();
