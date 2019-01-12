@@ -213,7 +213,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 		 * @return mixed|string
 		 */
 		public function output() {
-			return wponion_add_element( $this->field_array(), $this->value(), array(
+			$field_arr = $this->field_array();
+			return wponion_add_element( $field_arr, $this->value( $field_arr ), array(
 				'module'    => 'visual_composer',
 				'plugin_id' => false,
 				'unique'    => false,
