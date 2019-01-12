@@ -98,4 +98,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_render_field( 'field_tooltip', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'field_tooltip', ( $elem ) => new field( $elem ) ) )( window );
