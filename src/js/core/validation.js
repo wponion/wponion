@@ -1,7 +1,12 @@
 import $wponion from './core';
 
-
+/**
+ * WPOnion Field Validator Helper Class
+ */
 export default class WPOnion_Validator {
+	/**
+	 * Helper Class For WPOnion JS Field Validation.
+	 */
 	constructor() {
 		this.form  = WPOnion_Validator.get_form();
 		this.rules = {
@@ -23,6 +28,10 @@ export default class WPOnion_Validator {
 		}
 	}
 
+	/**
+	 * Finds & Returns form Data.
+	 * @returns {*}
+	 */
 	static get_form() {
 		if( jQuery( 'form.wponion-form' ).length > 0 ) {
 			return jQuery( 'form.wponion-form' );
@@ -39,7 +48,6 @@ export default class WPOnion_Validator {
 		if( jQuery( 'form#post' ).length > 0 && jQuery( 'input#post_ID' ).length > 0 && jQuery( 'input#original_publish' ).length > 0 ) {
 			return jQuery( 'form#post' );
 		}
-
 
 		return ( jQuery( 'form.wponion-form' ).length > 0 ) ? jQuery( 'form.wponion-form' ) : false;
 	}
