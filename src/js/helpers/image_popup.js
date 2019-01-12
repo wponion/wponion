@@ -1,6 +1,12 @@
 import WPOnion_Field from '../core/field';
 
+/**
+ * Image POPUP View Class.
+ */
 class field extends WPOnion_Field {
+	/**
+	 * Handles Image POPUP View.
+	 */
 	init() {
 		let $image = ( window.wponion._.isUndefined( this.element.attr( 'data-fullsize' ) ) ) ? this.element.attr( 'src' ) : this.element.attr( 'data-fullsize' );
 		swal( {
