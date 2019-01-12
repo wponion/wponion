@@ -13,4 +13,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_render_field( 'image_popup', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'image_popup', ( $elem ) => new field( $elem ) ) )( window );
