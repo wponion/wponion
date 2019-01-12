@@ -1,3 +1,7 @@
+/* global arguments:true */
+/* global console:true */
+/* global tippy:true */
+
 export default ( ( window, document, $, jQuery ) => {
 	/**
 	 * WPOnion Related Functions.
@@ -38,15 +42,15 @@ export default ( ( window, document, $, jQuery ) => {
 		 * @returns {*}
 		 */
 		tippy: function( $arguments ) {
-			var tippy_helper = {
+			let tippy_helper = {
 				create_instance: function( $elem, $arguments ) {
 					$arguments = ( typeof $arguments === 'undefined' ) ? {} : $arguments;
 					if( $elem.attr( 'data-tippy-instance-id' ) === undefined ) {
-						var $_instance_id = 'Tippy' + window.wponion.core.rand_id();
+						let $_instance_id = 'Tippy' + window.wponion.core.rand_id();
 						$elem.attr( 'data-tippy-instance-id', $_instance_id );
 
-						var $title      = $elem.attr( 'title' );
-						var $data_tippy = $elem.attr( 'data-tippy' );
+						let $title      = $elem.attr( 'title' );
+						let $data_tippy = $elem.attr( 'data-tippy' );
 
 						if( $title && $title !== '' ) {
 							if( typeof $arguments.content === 'undefined' ) {
@@ -69,7 +73,7 @@ export default ( ( window, document, $, jQuery ) => {
 					if( $elem.attr( 'data-tippy-instance-id' ) === undefined ) {
 						return false;
 					}
-					var $_instance_id = $elem.attr( 'data-tippy-instance-id' );
+					let $_instance_id = $elem.attr( 'data-tippy-instance-id' );
 					return ( undefined !== window[ $_instance_id ] ) ? window[ $_instance_id ] : false;
 				}
 			};
@@ -80,7 +84,7 @@ export default ( ( window, document, $, jQuery ) => {
 				} );
 				return true;
 			} else {
-				var $status = tippy_helper.create_instance( jQuery( this ), $arguments );
+				let $status = tippy_helper.create_instance( jQuery( this ), $arguments );
 				return ( true === $status ) ? tippy_helper.get_instance( jQuery( this ) ) : false;
 			}
 		},
@@ -93,11 +97,10 @@ export default ( ( window, document, $, jQuery ) => {
 			if( jQuery( this ).attr( 'data-tippy-instance-id' ) === undefined ) {
 				return false;
 			}
-			var $_instance_id = jQuery( this ).attr( 'data-tippy-instance-id' );
+			let $_instance_id = jQuery( this ).attr( 'data-tippy-instance-id' );
 			return ( undefined !== window[ $_instance_id ] ) ? window[ $_instance_id ] : false;
 		},
 	} );
-
 
 	/**
 	 * Returns A Abstract Class Instance.
@@ -147,16 +150,18 @@ export default ( ( window, document, $, jQuery ) => {
 	};
 
 	/**
-	 * Renders A Field.
+	 * Registers With A Field Callback Hook.
 	 * @param $type
 	 * @param $callback
+	 * @param $module
 	 */
-	window.wponion_render_field = ( $type, $callback ) => {
-		window.wponion.hooks.addAction( 'wponion_init_field_' + $type, 'wponion_core', ( $elem ) => {
+	window.wponion_register_field = ( $type, $callback, $module = '' ) => {
+		$module = ( '' === $module ) ? '' : $module + '_';
+		window.wponion.hooks.addAction( 'wponion_init_' + $module + 'field_' + $type, 'wponion_core', ( $elem ) => {
 			try {
 				$callback( $elem );
 			} catch( e ) {
-				console.log( arguments, ' \n' + e + '  \nFor : wponion_init_field_' + $type );
+				console.log( arguments, ' \n' + e + '  \nFor : wponion_init_' + $module + 'field_' + $type );
 			}
 		} );
 	};
@@ -182,6 +187,24 @@ export default ( ( window, document, $, jQuery ) => {
 			}
 		}
 		return $class;
+	};
+
+	/**
+	 * Triggers A Field JS Function To Render it Properly
+	 * @param $field_type
+	 * @param $argument
+	 * @param $module
+	 * @param $log_err
+	 */
+	window.wponion_init_field = ( $field_type, $argument, $module = '', $log_err = true ) => {
+		$module = ( '' === $module ) ? '' : $module + '_';
+		if( window.wponion.hooks.hasAction( 'wponion_init_' + $module + 'field_' + $field_type ) ) {
+			window.wponion.hooks.doAction( 'wponion_init_' + $module + 'field_' + $field_type, $argument );
+		} else {
+			if( true === $log_err ) {
+				console.error( 'WPOnion Field Type : ' + $field_type + ' Init Function Not Found', '\nAction Used : wponion_init_' + $module + 'field_' + $field_type );
+			}
+		}
 	};
 
 } )( window, document, jQuery, jQuery );
