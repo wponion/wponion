@@ -1,7 +1,13 @@
 import WPOnion_Module from '../core/module';
 import $wponion from '../core/core';
 
+/**
+ * WPOnion Quick Edit Module Handler.
+ */
 class WPOnion_Quick_Edit extends WPOnion_Module {
+	/**
+	 * Module Init.
+	 */
 	module_init() {
 		this.post_id = this.contxt;
 		let $id      = $wponion.fieldID( this.element ) + '_' + this.post_id;
