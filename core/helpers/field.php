@@ -15,6 +15,35 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! function_exists( 'wponion_validate_bool_val' ) ) {
+	/**
+	 * Checks And Converts Boolean Value Into Proper Bool.
+	 *
+	 * @param $value
+	 *
+	 * @return array|bool
+	 */
+	function wponion_validate_bool_val( $value ) {
+		if ( is_array( $value ) ) {
+			return array_map( 'wponion_validate_bool_val', $value );
+		}
+		switch ( strtolower( $value ) ) {
+			case 'true':
+			case 'TRUE':
+			case '1':
+				$value = true;
+				break;
+
+			case 'false':
+			case 'FALSE':
+			case '0':
+				$value = false;
+				break;
+		}
+		return $value;
+	}
+}
+
 if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	/**
 	 * Checks And Returns Fields Class.
