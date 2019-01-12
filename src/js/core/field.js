@@ -180,17 +180,17 @@ export default class extends WPOnion_Module {
 		return $wponion.ajax( $data );
 	}
 
+	init_single_field( $type, $elem ) {
+		wponion_init_field( $type, $elem );
+	}
+
 	init_field( $elem, $type ) {
 		if( !is_jquery( $elem ) ) {
 			$elem = this.element.find( $elem );
 		}
-
+		let $this = this;
 		$elem.each( function() {
-			if( window.wponion.hooks.hasAction( 'wponion_init_field_' + $type ) ) {
-				window.wponion.hooks.doAction( 'wponion_init_field_' + $type, jQuery( this ) );
-			} else {
-				console.error( 'WPOnion Field Type : ' + $type + ' Init Function Not Found', '\nAction Used : wponion_init_field_' + $type );
-			}
+			$this.init_single_field( $type, jQuery( this ) );
 		} );
 	}
 
