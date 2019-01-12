@@ -1,9 +1,16 @@
 import WPOnion_Dependency from '../helpers/dependency';
 
+/**
+ * WPOnion Dependency Class
+ */
 export default class {
+	/**
+	 *
+	 * @param $element
+	 * @param param
+	 */
 	constructor( $element = undefined, param = {} ) {
 		this.param = window.window.wponion._.merge( { nestable: false, parent: false }, param );
-
 		let $this          = this;
 		this.base          = {};
 		this.base.$el      = $element;
@@ -34,7 +41,6 @@ export default class {
 				} );
 			} );
 		};
-
 		this.base.init();
 	}
 }
