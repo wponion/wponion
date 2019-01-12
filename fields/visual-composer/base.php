@@ -249,5 +249,16 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 		 */
 		public function field_assets() {
 		}
+
+		/**
+		 * Retuns Value.
+		 *
+		 * @param array $field
+		 *
+		 * @return array|mixed|string
+		 */
+		public function value( $field = array() ) {
+			return $this->value;
+		}
 	}
 }
