@@ -1,4 +1,7 @@
 export default ( ( window, document, $, wp ) => {
+	/**
+	 * Fixes Media POPUP Modal To Work With WPonion.
+	 */
 	const fix_media_ui = () => {
 		let $table  = jQuery( '.compat-attachment-fields' ),
 			$fields = $table.find( '.wponion-framework' );
