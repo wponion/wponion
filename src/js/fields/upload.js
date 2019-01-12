@@ -9,7 +9,11 @@ class field extends WPOnion_Field {
 			$elem     = $this.element,
 			$add      = $elem.find( 'button' ),
 			$input    = $elem.find( 'input[type=text]' ),
-			$settings = $this.options(), wp_media_frame;
+			$settings = $this.option( 'settings', {
+				frame_title: 'Upload',
+				upload_type: 'image',
+				insert_title: 'Use',
+			} ), wp_media_frame;
 
 		$add.on( 'click', function( e ) {
 			e.preventDefault();
@@ -24,12 +28,12 @@ class field extends WPOnion_Field {
 			}
 
 			wp_media_frame = wp.media( {
-				title: $settings.settings.frame_title,
+				title: $settings.frame_title,
 				library: {
-					type: $settings.settings.upload_type
+					type: $settings.upload_type
 				},
 				button: {
-					text: $settings.settings.insert_title,
+					text: $settings.insert_title,
 				}
 			} );
 
