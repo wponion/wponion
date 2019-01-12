@@ -10,16 +10,31 @@ import {
 	to_js_func,
 } from 'vsp-js-helper/index';
 
-
+/**
+ * Base WPonion JS Class.
+ */
 export default class WPOnion {
+	/**
+	 * Validates & Converts into Callable JS Functions.
+	 * @param $data
+	 * @returns {*|$data}
+	 */
 	static js_func( $data ) {
 		return to_js_func( $data, 'wponion_js_args', 'wponion_js_contents' );
 	}
 
+	/**
+	 * Generates A Random ID.
+	 */
 	static rand_id() {
 		return md5( 'wponion_rand_' + microtime() + rand_md5() );
 	}
 
+	/**
+	 * Checks if given string is a valid JSON.
+	 * @param obj
+	 * @returns {boolean}
+	 */
 	static valid_json( obj ) {
 		try {
 			JSON.parse( obj );
@@ -259,6 +274,10 @@ export default class WPOnion {
 		};
 	}
 
+	/**
+	 * Handles WPonion Settings / Metabox Submenu Indicator.
+	 * @param $elems
+	 */
 	static submenu_indicator( $elems ) {
 		$elems.each( function() {
 			jQuery( this ).parent().on( 'click', function() {
@@ -269,6 +288,4 @@ export default class WPOnion {
 			} );
 		} );
 	}
-
-	//@todo Migrate Plugin Debug Info.
 }
