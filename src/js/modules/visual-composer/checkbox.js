@@ -71,4 +71,6 @@ class field extends WPOnion_VC_Field {
 export default ( ( w ) => {
 	w.wponion_register_field( 'checkbox_radio', ( $elem ) => new field( $elem ), 'vc' );
 	w.wponion_register_field( 'image_select', ( $elem ) => new field( $elem ), 'vc' );
+	w.wponion_register_field( 'color_palette', ( $elem ) => new field( $elem ), 'vc' );
+	w.wponion_register_field( 'switcher', ( $elem ) => new field( $elem ), 'vc' );
 } )( window );
