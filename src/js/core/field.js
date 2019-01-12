@@ -1,5 +1,5 @@
 /* global swal:true */
-/* global console:true */
+
 const is_jquery = require( 'vsp-js-helper/index' ).is_jquery;
 
 import $wponion from './core';
@@ -11,6 +11,12 @@ import WPOnion_Validation from '../core/validation';
  * WPOnion Field Abstract Class.
  */
 export default class extends WPOnion_Module {
+	/**
+	 * WPOnion Field Class Constructor.
+	 * @param $selector
+	 * @param $context
+	 * @param $config
+	 */
 	constructor( $selector, $context, $config = null ) {
 		super( $selector, $context );
 		this.set_args( false );
@@ -21,17 +27,33 @@ export default class extends WPOnion_Module {
 		this.js_validator();
 	}
 
+	/**
+	 * Function Used To Init Field.
+	 * This needs to be overriden extending class.
+	 */
 	init() {
 	}
 
+	/**
+	 * Handles javascript error placement.
+	 * @param err
+	 */
 	js_error( err ) {
 		err.error.appendTo( this.element.find( '.wponion-fieldset' ) );
 	}
 
+	/**
+	 * Creates An Trigger Hook To Handle JS Error Placement
+	 * @use constructor
+	 * @param element
+	 */
 	js_error_handler( element = this.element ) {
 		element.on( 'wponion_js_validation_message', '> .wponion-fieldset :input', ( e, data ) => this.js_error( data ) );
 	}
 
+	/**
+	 * Checks if validation is required for current field.
+	 */
 	js_validator() {
 		if( false === window.wponion._.isUndefined( this.option( 'js_validate', false ) ) ) {
 			if( false !== this.option( 'js_validate', false ) ) {
@@ -40,12 +62,22 @@ export default class extends WPOnion_Module {
 		}
 	}
 
+	/**
+	 * Checks if current page has form and enable validations.
+	 * @param $args
+	 * @param $elem
+	 */
 	maybe_js_validate_elem( $args, $elem ) {
 		if( WPOnion_Validation.get_form() ) {
 			this.js_validate_elem( $args, $elem );
 		}
 	}
 
+	/**
+	 * Adds Rule To Each and every input to validate JS Lib.
+	 * @param $args
+	 * @param $elem
+	 */
 	js_validate_elem( $args, $elem ) {
 		if( WPOnion_Validation.get_form() ) {
 			$elem.find( ':input' ).each( function() {
@@ -54,6 +86,14 @@ export default class extends WPOnion_Module {
 		}
 	}
 
+	/**
+	 * This function used by each and every field.
+	 * This function will also convert Simple JS function code into callable JS code & returns it
+	 * Plus it also store the value in debug array if debug enabled.
+	 * @param $arg
+	 * @param $key
+	 * @returns {*|$data}
+	 */
 	handle_args( $arg, $key = false ) {
 		let $args   = $wponion.js_func( $arg ),
 			$exists = $wponion_debug.get( this.id(), { 'PHP Args': {}, 'JS Args': {} } );
@@ -68,6 +108,9 @@ export default class extends WPOnion_Module {
 		return $args;
 	}
 
+	/**
+	 * Handles Field Debug POPUP.
+	 */
 	field_debug() {
 		if( false !== $wponion_debug.get( this.id() ) ) {
 			return;
@@ -144,6 +187,10 @@ export default class extends WPOnion_Module {
 		}
 	}
 
+	/**
+	 * Gathers Field Options Data from window.wponion array.
+	 * @returns {*}
+	 */
 	options() {
 		if( this._args === false ) {
 			this._args = $wponion.windowArgs( this.id() );
@@ -151,23 +198,47 @@ export default class extends WPOnion_Module {
 		return this._args;
 	}
 
+	/**
+	 * Checks if a given option key exists and if so then it returns it value
+	 * or it returns the default value.
+	 * @param $key
+	 * @param $default
+	 * @returns {*}
+	 */
 	option( $key = '', $default = {} ) {
 		let $args = this.options();
 		return ( false === window.wponion._.isUndefined( $args[ $key ] ) ) ? $args[ $key ] : $default;
 	}
 
+	/**
+	 * Returns WPOnion JS Field ID
+	 * @returns {*}
+	 */
 	id() {
 		return $wponion.fieldID( this.element );
 	}
 
+	/**
+	 * Returns Field's Module Slug.
+	 * @returns {*}
+	 */
 	module() {
 		return this.option( 'module', false );
 	}
 
+	/**
+	 * Returns Field's Plugin Slug.
+	 * @returns {*}
+	 */
 	plugin_id() {
 		return this.option( 'plugin_id', false );
 	}
 
+	/**
+	 * Triggers An Ajax Action.
+	 * @param $action
+	 * @param $data
+	 */
 	ajax( $action = '', $data = {} ) {
 		let $ajax_key         = $wponion.option( 'ajax_action_key' );
 		let $default          = {
@@ -180,10 +251,21 @@ export default class extends WPOnion_Module {
 		return $wponion.ajax( $data );
 	}
 
+	/**
+	 * Inits A Single Element.
+	 * @param $type
+	 * @param $elem
+	 */
 	init_single_field( $type, $elem ) {
 		wponion_init_field( $type, $elem );
 	}
 
+	/**
+	 * Inits A Single Field Type
+	 * @uses init_single_field.
+	 * @param $elem
+	 * @param $type
+	 */
 	init_field( $elem, $type ) {
 		if( !is_jquery( $elem ) ) {
 			$elem = this.element.find( $elem );
@@ -194,6 +276,9 @@ export default class extends WPOnion_Module {
 		} );
 	}
 
+	/**
+	 * Reloads All Field Type Inside This Field.
+	 */
 	reload() {
 		window.wponion.hooks.doAction( 'wponion_before_fields_reload' );
 
@@ -243,11 +328,20 @@ export default class extends WPOnion_Module {
 		return this;
 	}
 
+	/**
+	 * Sets Args Data.
+	 * @param $args
+	 */
 	set_args( $args ) {
 		this._args = $args;
 		return this;
 	}
 
+	/**
+	 * Returns Field Parent By data-wponion-jsid attribute.
+	 * @param $elem
+	 * @returns {*|jQuery|HTMLElement}
+	 */
 	get_field_parent_by_id( $elem ) {
 		let $ID = $wponion.fieldID( $elem );
 		return jQuery( 'div.wponion-element[data-wponion-jsid="' + $ID + '"]' );
