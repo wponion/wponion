@@ -1,12 +1,21 @@
 import WPOnion_Module from '../core/module';
 import $wponion from '../core/core';
 
+/**
+ * WPOnion Metabox Module Handler.
+ */
 class WPOnion_Metabox_Module extends WPOnion_Module {
+	/**
+	 * Inits Module.
+	 */
 	module_init() {
 		this.menu();
 		this.element.on( 'click', 'h2.ajax-container button', this.save_handler );
 	}
 
+	/**
+	 * Handles Metabox Menu's
+	 */
 	menu() {
 		let $elem = this.element;
 		$elem.on( 'click', 'ul.wponion-metabox-parent-menu li a', function( e ) {
@@ -44,6 +53,10 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 		} );
 	}
 
+	/**
+	 * Handles Ajax Save Handler.
+	 * @param e
+	 */
 	save_handler( e ) {
 		e.preventDefault();
 		let $parent = jQuery( this ).parent(),
