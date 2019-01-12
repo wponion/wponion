@@ -19,6 +19,14 @@ export default class extends WPOnion_Field {
 	}
 
 	/**
+	 * Returns Visual Composer Param name.
+	 * @returns {*}
+	 */
+	get param_name() {
+		return this.element.data( 'param-name' );
+	}
+
+	/**
 	 * Checks And Converts Value To Save into VC.
 	 * @param $save_data
 	 * @param $type
@@ -27,8 +35,8 @@ export default class extends WPOnion_Field {
 		if( $save_data === null ) {
 			return;
 		}
-		let $param_name = this.element.data( 'param-name' );
-		let $value      = '';
+
+		let $value = '';
 
 		if( $save_data !== '' ) {
 			if( typeof $save_data === 'object' && $type === 'array' ) {
@@ -41,7 +49,7 @@ export default class extends WPOnion_Field {
 				$value = this.sorter_values( $save_data );
 			}
 		}
-		this.vc_save( $param_name, $value );
+		this.vc_save( $value );
 	}
 
 	/**
@@ -50,7 +58,7 @@ export default class extends WPOnion_Field {
 	 * @param $value
 	 * @returns {boolean}
 	 */
-	vc_save( $param_name, $value ) {
+	vc_save( $value, $param_name = this.param_name ) {
 		let $key = 'div#wponion-vc-settings';
 		if( this.element.find( $key ).length === 0 ) {
 			this.element.append( '<div id="wponion-vc-settings" class="hidden" style="display: none;visibility: hidden;" ></div>' );
