@@ -12,7 +12,6 @@ import {
 import $wponion from './core';
 import { remove_query_arg } from 'wordpress-js-ports';
 
-
 /**
  * WPOnion Custom Ajax Handler.
  */
@@ -46,11 +45,20 @@ export class WPOnion_Ajaxer {
 		this.ajax();
 	}
 
-
+	/**
+	 * Creates A Callable Callback function based on the code data.
+	 *
+	 * @param $code
+	 * @param $args
+	 */
 	create_function( $code = false, $args = '' ) {
 		return this.single_callback( create_function( $args, $code ) );
 	}
 
+	/**
+	 * Validates & Triggers A Single Callback Function.
+	 * @param $callback
+	 */
 	single_callback( $callback ) {
 		if( window.wponion._.isFunction( $callback ) ) {
 			call_user_func( $callback );
@@ -67,6 +75,11 @@ export class WPOnion_Ajaxer {
 		}
 	}
 
+	/**
+	 * Handles An Array of Callable Ajax Functions.
+	 * @param data
+	 * @returns {*}
+	 */
 	handle_callbacks( data ) {
 		if( window.wponion._.isObject( data ) ) {
 			if( false === window.wponion._.isUndefined( data.callback ) ) {
@@ -87,6 +100,10 @@ export class WPOnion_Ajaxer {
 		return data;
 	}
 
+	/**
+	 * Triggered On Ajax onSuccess
+	 * @param data
+	 */
 	onSuccess( data ) {
 		this.handle_callbacks( data );
 
@@ -97,6 +114,10 @@ export class WPOnion_Ajaxer {
 		}
 	}
 
+	/**
+	 * Triggered On Ajax onError
+	 * @param data
+	 */
 	onError( data ) {
 		this.handle_callbacks( data );
 		if( false !== this.ajax_args.error ) {
@@ -106,6 +127,10 @@ export class WPOnion_Ajaxer {
 		}
 	}
 
+	/**
+	 * Triggered On Ajax onAlways
+	 * @param data
+	 */
 	onAlways( data ) {
 		this.button_unlock();
 		if( false !== this.ajax_args.always ) {
@@ -115,6 +140,9 @@ export class WPOnion_Ajaxer {
 		}
 	}
 
+	/**
+	 * Triggers An Ajax Request. Based On The Config.
+	 */
 	ajax() {
 		this.button_lock();
 		let $config = window.wponion._.clone( this.ajax_args );
@@ -158,14 +186,28 @@ export class WPOnion_Ajaxer {
 		this.instance.always( ( data ) => this.onAlways( data ) );
 	}
 
+	/**
+	 * Checks if A Config Data Exsits Based on The Given Key.
+	 * @param $key
+	 * @returns {boolean}
+	 */
 	has_config( $key = '' ) {
 		return ( typeof this.ajax_config[ $key ] !== 'undefined' );
 	}
 
+	/**
+	 * Returns The Config Data Based on The Config Key.
+	 * @param $key
+	 * @param $default
+	 * @returns {boolean}
+	 */
 	config( $key = '', $default = false ) {
 		return ( this.has_config( $key ) ) ? this.ajax_config[ $key ] : $default;
 	}
 
+	/**
+	 * Locks A Given Button Element.
+	 */
 	button_lock() {
 		if( false !== this.config( 'button' ) ) {
 			let $button = to_jquery( this.config( 'button' ) );
@@ -182,6 +224,9 @@ export class WPOnion_Ajaxer {
 		}
 	}
 
+	/**
+	 * Unlocks A Given Button Element.
+	 */
 	button_unlock() {
 		if( false !== this.config( 'button' ) ) {
 			let $button = to_jquery( this.config( 'button' ) );
@@ -198,7 +243,6 @@ export class WPOnion_Ajaxer {
 		}
 	}
 }
-
 
 export default ( ( $, document ) => {
 	$( () => {
