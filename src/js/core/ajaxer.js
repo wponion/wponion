@@ -303,11 +303,9 @@ export default ( ( $, document ) => {
 				}
 			}
 
-
 			$_class_instance = new WPOnion_Ajaxer( $args, {
 				button: $elem,
 			} );
-
 		} );
 	} );
 } )( jQuery, document );
