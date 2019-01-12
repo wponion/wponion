@@ -1,3 +1,4 @@
+/* global wponion_init_field:true */
 import WPOnion_Field from '../../core/field';
 
 const base64_encode = require( 'vsp-js-helper/index' ).base64_encode;
@@ -7,10 +8,15 @@ const rawurlencode  = require( 'vsp-js-helper/index' ).rawurlencode;
  * Custom VC Abstract Field Class.
  */
 export default class extends WPOnion_Field {
+	/**
+	 *
+	 * @param $selector
+	 * @param $context
+	 * @param $config
+	 */
 	constructor( $selector, $context, $config = {} ) {
 		super( $selector, $context, $config );
 	}
-
 
 	/**
 	 * Checks And Converts Value To Save into VC.
@@ -51,7 +57,7 @@ export default class extends WPOnion_Field {
 		}
 
 		if( this.element.find( $key ).length === 1 ) {
-			var $parent = this.element.find( $key );
+			let $parent = this.element.find( $key );
 			if( $parent.find( '> #' + $param_name + '.wpb_vc_param_value' ).length === 0 ) {
 				$parent.append( jQuery( '<input type="hidden" value="" id="' + $param_name + '" name="' + $param_name + '" class="wpb_vc_param_value" />' ) );
 			}
@@ -79,9 +85,9 @@ export default class extends WPOnion_Field {
 	 * @returns {string}
 	 */
 	key_value_array( $save_data ) {
-		var $r = [];
+		let $r = [];
 		jQuery.each( $save_data, function( $k, $v ) {
-			var $s = $k + ':' + $v;
+			let $s = $k + ':' + $v;
 			$r.push( $s );
 		} );
 		return $r.join( '|' );
@@ -95,12 +101,12 @@ export default class extends WPOnion_Field {
 	 * @returns {string}
 	 */
 	key_value_multi_array( $save_data ) {
-		var $r = [];
+		let $r = [];
 		jQuery.each( $save_data, function( $k, $v ) {
 			if( typeof $v === 'object' ) {
 				$v = $v.join( ',' );
 			}
-			var $s = $k + ':' + $v;
+			let $s = $k + ':' + $v;
 			$r.push( $s );
 		} );
 		return $r.join( '|' );
@@ -135,6 +141,11 @@ export default class extends WPOnion_Field {
 		return true;
 	}
 
+	/**
+	 * Inits Single Field.
+	 * @param $type
+	 * @param $elem
+	 */
 	init_single_field( $type, $elem ) {
 		wponion_init_field( $type, $elem, 'vc', true );
 	}

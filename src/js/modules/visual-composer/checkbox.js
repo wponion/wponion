@@ -1,6 +1,9 @@
 import WPOnion_VC_Field from './field';
 
 class field extends WPOnion_VC_Field {
+	/**
+	 * Inits Field.
+	 */
 	init() {
 		if( this.is_vc_param_elem() ) {
 			if( ( this.element.find( 'input' ).length > 1 || this.element.find( 'input' ).length > 0 ) && this.element.find( 'ul' ).length > 0 ) {
@@ -27,6 +30,10 @@ class field extends WPOnion_VC_Field {
 		}
 	}
 
+	/**
+	 * Handles Single Checkbox Change Events.
+	 * @param $elem
+	 */
 	handle_single_change( $elem ) {
 		if( $elem.is( ':checked' ) ) {
 			$elem.val( $elem.attr( 'data-orgval' ) );
@@ -35,17 +42,18 @@ class field extends WPOnion_VC_Field {
 		}
 	}
 
+	/**
+	 * Handles Multiple Checkboxes
+	 * @param $type
+	 */
 	handle( $type ) {
 		let $checked = this.element.find( 'input:checked' );
-		let $save    = [];
-		if( $type === 'key_value_multi_array' ) {
-			$save = {};
-		}
+		let $save    = ( $type === 'key_value_multi_array' ) ? {} : [];
 		jQuery.each( $checked, function() {
 			if( $type === 'array' ) {
 				$save.push( jQuery( this ).val() );
 			} else if( $type === 'key_value_multi_array' ) {
-				var $g = jQuery( this ).data( 'group' );
+				let $g = jQuery( this ).data( 'group' );
 				if( $save[ $g ] === undefined ) {
 					$save[ $g ] = [];
 				}
