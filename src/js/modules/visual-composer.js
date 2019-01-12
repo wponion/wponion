@@ -11,7 +11,11 @@ export default ( ( window ) => {
 		window.wponion.vc = {
 			fields: {
 				abstract: require( './visual-composer/field' ).default,
-				checkbox: require( './visual-composer/checkbox' ).default,
+				checkbox: require( './visual-composer/checkbox-radio' ).default,
+				select: require( './visual-composer/select' ).default,
+				background: require( './visual-composer/background' ).default,
+				key_value: require( './visual-composer/keyvalue_pair' ).default,
+				image: require( './visual-composer/image' ).default,
 			},
 		};
 
