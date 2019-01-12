@@ -9,9 +9,9 @@ class field extends WPOnion_VC_Field {
 			if( this.element.hasClass( 'wponion-element-radio' ) && 0 === this.element.find( '.wponion-checkbox-radio-group' ).length ) {
 				this.handle( 'array' );
 				this.element.find( 'input' ).on( 'change', () => this.handle( 'array' ) );
-			} else if( ( this.element.find( 'input' ).length > 1 || this.element.find( 'input' ).length > 0 ) && this.element.find( 'ul' ).length > 0 ) {
+			} else if( ( this.element.find( 'input' ).length > 1 ) ) {
 				let $type = 'array';
-				if( this.element.find( 'ul' ).length === 1 ) {
+				if( this.element.find( 'ul' ).length === 0 ) {
 					$type = 'array';
 				} else if( this.element.find( 'ul' ).length > 1 ) {
 					$type = 'key_value_multi_array';
@@ -70,4 +70,5 @@ class field extends WPOnion_VC_Field {
 
 export default ( ( w ) => {
 	w.wponion_register_field( 'checkbox_radio', ( $elem ) => new field( $elem ), 'vc' );
+	w.wponion_register_field( 'image_select', ( $elem ) => new field( $elem ), 'vc' );
 } )( window );
