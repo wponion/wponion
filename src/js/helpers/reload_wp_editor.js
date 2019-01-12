@@ -1,7 +1,13 @@
 import WPOnion_Field from '../core/field';
 import { rand_md5 } from 'vsp-js-helper/index';
 
+/**
+ * WP Editor Helper
+ */
 export default class extends WPOnion_Field {
+	/**
+	 * WP Editor Helper
+	 */
 	init() {
 		if( this.element.length > 0 ) {
 			let $mce_editor  = tinyMCEPreInit.mceInit[ this.option( 'wpeditor_id' ) ],
