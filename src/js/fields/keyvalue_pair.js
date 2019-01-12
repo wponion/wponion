@@ -56,4 +56,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_render_field( 'keyvalue_pair', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'keyvalue_pair', ( $elem ) => new field( $elem ) ) )( window );

@@ -41,4 +41,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_render_field( 'clone_element', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'clone_element', ( $elem ) => new field( $elem ) ) )( window );

@@ -6,4 +6,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_render_field( 'color_picker', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'color_picker', ( $elem ) => new field( $elem ) ) )( window );

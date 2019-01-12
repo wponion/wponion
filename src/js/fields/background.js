@@ -1,1 +1,1 @@
-export default ( ( w ) => w.wponion_render_field( 'background', ( $elem ) => new window.wponion.field_abstract( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'background', ( $elem ) => new window.wponion.field_abstract( $elem ) ) )( window );

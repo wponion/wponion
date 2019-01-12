@@ -27,4 +27,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_render_field( 'google_maps', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'google_maps', ( $elem ) => new field( $elem ) ) )( window );

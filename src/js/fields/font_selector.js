@@ -41,4 +41,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_render_field( 'font_selector', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'font_selector', ( $elem ) => new field( $elem ) ) )( window );
