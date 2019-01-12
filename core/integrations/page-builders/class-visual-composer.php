@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 		 * @static
 		 */
 		public static function init() {
-			self::$integrated_fields = wponion_field_types()::get( 'visual_composer' );
+			self::$integrated_fields = wponion_field_types()::get( 'vc' );
 			self::register_fields();
 			add_action( 'vc_edit_form_fields_after_render', array( __CLASS__, 'is_wponion_used' ) );
 			add_action( 'vc_backend_editor_enqueue_js_css', array( __CLASS__, 'load_assets' ), 1 );
@@ -100,9 +100,9 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 		 */
 		public static function render_field( $field_args, $value, $type ) {
 			self::$is_wponion_used = true;
-			$class                 = wponion_module_html_class( 'visual_composer' );
+			$class                 = wponion_module_html_class( 'vc' );
 			$field_type            = self::field_type( $field_args['type'] );
-			$output                = '<div class="' . $class . ' wponion-visual_composer-field-' . $field_type . '">';
+			$output                = '<div class="' . $class . ' wponion-vc-field-' . $field_type . '">';
 			$output                = $output . self::render( $field_args, $value, $field_args['type'] );
 			$output                = $output . '</div>';
 			return $output;
@@ -178,7 +178,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 		public static function is_wponion_used() {
 			if ( true === self::$is_wponion_used ) {
 				wponion_localize()->render_js_args();
-				echo '<script type="text/javascript">wponion_visual_composer_init()</script>';
+				echo '<script type="text/javascript">wponion_vc_init()</script>';
 			}
 		}
 	}
