@@ -7,8 +7,8 @@ export default class WPOnion_Validator {
 	/**
 	 * Helper Class For WPOnion JS Field Validation.
 	 */
-	constructor() {
-		this.form  = WPOnion_Validator.get_form();
+	constructor( form = false ) {
+		this.form  = ( false === form ) ? WPOnion_Validator.get_form() : form;
 		this.rules = {
 			invalidHandler: () => {
 				jQuery( '#publish' ).removeClass( 'button-primary-disabled' );
@@ -23,6 +23,8 @@ export default class WPOnion_Validator {
 			errorClass: 'wponion-error',
 			errorElement: 'p'
 		};
+
+		console.log( this.form );
 		if( this.form ) {
 			this.form.validate( this.rules );
 		}
