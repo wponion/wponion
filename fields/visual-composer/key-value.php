@@ -19,14 +19,6 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Key_Value' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Key_Value extends Base {
-		/**
-		 * @param array $return
-		 *
-		 * @return array|mixed|string
-		 */
-		public function value( $return = array() ) {
-			return ( $this->is_encoded( $this->value ) ) ? $this->decode( $this->value ) : false;
-		}
+	class Key_Value extends Encoded {
 	}
 }
