@@ -143,10 +143,17 @@ export default ( ( window, document, $, jQuery ) => {
 	 * Basic WPOnion JS Setup.
 	 */
 	window.wponion_setup = () => {
-		window.wponion.core.settings_args    = window.wponion.core.windowArgs( 'wponion_core', {} );
-		window.wponion.core.text             = window.wponion.core.windowArgs( 'wponion_il8n', {} );
-		window.wponion.core.debug_info       = null;
-		window.wponion.core.field_debug_info = null;
+		if( window.wponion._.isUndefined( window.wponion.core.settings_args ) ) {
+			let $core = window.wponion.core.windowArgs( 'wponion_core', false );
+			let $tans = window.wponion.core.windowArgs( 'wponion_il8n', false );
+			if( false === $core ) {
+				return;
+			}
+			window.wponion.core.settings_args    = $core;
+			window.wponion.core.text             = $tans;
+			window.wponion.core.debug_info       = null;
+			window.wponion.core.field_debug_info = null;
+		}
 	};
 
 	/**
