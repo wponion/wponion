@@ -186,6 +186,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'wp_notice', 'all' );
 			\wponion_register_ui_field( 'wp_success_notice', 'all' );
 			\wponion_register_ui_field( 'wp_warning_notice', 'all' );
+			\wponion_register_ui_field( 'change_log', 'all' );
 
 			do_action( 'wponion_core_fields_registered' );
 		}
