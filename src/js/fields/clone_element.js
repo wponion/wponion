@@ -20,7 +20,10 @@ class field extends WPOnion_Field {
 				handle: '.wponion-field-clone-sorter',
 				placeholder: 'wponion-cloner-placeholder',
 				start: ( event, ui ) => ui.item.css( 'background-color', '#eeee' ),
-				stop: ( event, ui ) => ui.item.removeAttr( 'style' ),
+				stop: ( event, ui ) => {
+					$elem.trigger( 'change' );
+					ui.item.removeAttr( 'style' );
+				},
 			} : false;
 
 		$clone_wrap.WPOnionCloner( {
@@ -29,7 +32,11 @@ class field extends WPOnion_Field {
 			clone_elem: '.wponion-field-clone',
 			remove_btn: '.wponion-clone-action > .wponion-remove',
 			template: $this.option( 'clone_template' ),
-			templateAfterRender: ( $e ) => wponion_field( $e.find( '> div.wponion-field-clone:last-child' ) ).reload(),
+			templateAfterRender: ( $e ) => {
+				$elem.trigger( 'change' );
+				wponion_field( $e.find( '> div.wponion-field-clone:last-child' ) ).reload();
+			},
+			onRemoveAfter: () => $elem.trigger( 'change' ),
 			sortable: $sort,
 			onLimitReached: function() {
 				if( $add_btn.parent().find( 'div.alert' ).length === 0 ) {

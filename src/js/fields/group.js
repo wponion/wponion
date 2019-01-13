@@ -42,6 +42,7 @@ class field extends WPOnion_Field {
 						.append( '<link rel="stylesheet" id="editor-buttons-css" href="' + $wponion.option( 'wpeditor_buttons_css', false ) + '" type="text/css" media="all">' );
 				}
 				this.update_groups_title();
+				this.element.trigger( 'change' );
 			},
 			templateAfterRender: () => {
 				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
@@ -57,6 +58,7 @@ class field extends WPOnion_Field {
 				new WPOnion_Dependency( $group_wrap.find( '> .wponion-accordion-wrap:last-child' ), { nestable: true } );
 				this.init_field( $data.find( '.wponion-element-wp_editor' ), 'reload_wp_editor' );
 				$data.slideDown();
+				this.element.trigger( 'change' );
 			},
 			sortable: {
 				items: '.wponion-accordion-wrap',
@@ -68,6 +70,7 @@ class field extends WPOnion_Field {
 				stop: ( event, ui ) => {
 					ui.item.removeAttr( 'style' );
 					this.update_groups_title();
+					this.element.trigger( 'change' );
 				}
 
 			},
