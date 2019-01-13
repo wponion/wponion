@@ -309,7 +309,7 @@
 			$.each( $WPONION, function( i, e ) {
 				$( 'body' ).find( e ).on( 'change', function() {
 					handler();
-				} )
+				} );
 			} );
 			var val     = selection.on( "change.deps", null, null, handler );
 			ruleset.applyRules( selection, cfg );
