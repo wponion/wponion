@@ -97,6 +97,9 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 		 * @return string
 		 */
 		public function extra_class( $return ) {
+			if ( isset( $return['clone'] ) && false !== $return['clone'] ) {
+				return '';
+			}
 			return $this->vc_extra_class;
 		}
 
