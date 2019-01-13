@@ -21,6 +21,8 @@ export default ( ( window ) => {
 			let $element = jQuery( '.wponion-framework.wponion-module-vc' );
 
 			if( $element.length > 0 ) {
+				wponion_setup();
+
 				$element.each( function() {
 					window.wponion_field( jQuery( this ) ).reload();
 					window.wponion_vc_field( jQuery( this ) ).reload();

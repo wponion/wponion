@@ -15,4 +15,5 @@ export default ( ( w ) => {
 	w.wponion_register_field( 'image_upload', ( $elem ) => new field( $elem ), 'vc' );
 	w.wponion_register_field( 'upload', ( $elem ) => new field( $elem ), 'vc' );
 	w.wponion_register_field( 'icon_picker', ( $elem ) => new field( $elem ), 'vc' );
+	w.wponion_register_field( 'gallery', ( $elem ) => new field( $elem ), 'vc' );
 } )( window );
