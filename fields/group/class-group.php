@@ -82,6 +82,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 			$count            = ( empty( $this->value ) ) ? 0 : count( $this->value );
 			echo '<div class="wponion-group-wrap" data-wponion-clone-count="' . $count . '">';
 			if ( is_array( $this->value ) ) {
+				$this->value = array_filter( $this->value );
 				foreach ( $this->value as $i => $value ) {
 					$this->loop_count       = $this->loop_count + 1;
 					$this->loop_value       = $value;
