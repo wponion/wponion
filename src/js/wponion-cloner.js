@@ -16,6 +16,8 @@
 			templateBeforeRender: false,
 			templateAfterRender: false,
 			onRemove: false,
+			onRemoveBefore: false,
+			onRemoveAfter: false,
 			show_animation: false,
 			hide_animation: false,
 		}, options );
@@ -41,6 +43,9 @@
 				let $count = parseInt( $_wrap.attr( 'data-wponion-clone-count' ) ) - 1;
 				$_wrap.attr( 'data-wponion-clone-count', $count );
 
+				if( false !== $options.onRemoveBefore ) {
+					$options.onRemoveBefore( $( this ) );
+				}
 
 				if( false !== $options.onRemove ) {
 					$options.onRemove( $( this ) );
@@ -52,6 +57,9 @@
 					} else {
 						$( this ).parent().parent().remove();
 					}
+				}
+				if( false !== $options.onRemoveAfter ) {
+					$options.onRemoveAfter( $( this ) );
 				}
 			};
 
