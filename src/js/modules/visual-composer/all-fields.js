@@ -43,8 +43,10 @@ export default ( ( w ) => {
 	w.wponion_register_field( 'fieldset', ( $elem ) => new field( $elem ), 'vc' );
 	w.wponion_register_field( 'accordion', ( $elem ) => new field( $elem ), 'vc' );
 	w.wponion_register_field( 'group', ( $elem ) => new field( $elem ), 'vc' );
-	w.wponion_register_field( 'tab', ( $elem ) => new field( $elem ), 'vc' );
+	w.wponion_register_field( 'jquery_tab', ( $elem ) => new field( $elem ), 'vc' );
 	w.wponion_register_field( 'sorter', ( $elem ) => new field( $elem ), 'vc' );
 	w.wponion_register_field( 'clone_element', ( $elem ) => new field( $elem ), 'vc' );
+	w.wponion_register_field( 'font_selector', ( $elem ) => new field( $elem ), 'vc' );
+	w.wponion_register_field( 'date_picker', ( $elem ) => new field( $elem ), 'vc' );
 } )( window );
 
