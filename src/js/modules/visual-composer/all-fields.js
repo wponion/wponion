@@ -21,19 +21,6 @@ class field extends WPOnion_VC_Field {
 			this.save( this.input_data(), 'sorter_values' );
 		} );
 	}
-
-	/**
-	 * Converts Input Values Into JS/PHP Object/Array and returns it.
-	 * @returns {*}
-	 */
-	input_data() {
-		let $data = this.element.find( ':input:not(.wpb_vc_param_value)' ).serializeObject();
-		if( false === window.wponion._.isUndefined( $data[ this.param_name ] ) ) {
-			return $data[ this.param_name ];
-		}
-		return $data;
-	}
-
 }
 
 export default ( ( w ) => {

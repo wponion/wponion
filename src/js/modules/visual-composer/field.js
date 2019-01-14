@@ -157,4 +157,16 @@ export default class extends WPOnion_Field {
 	init_single_field( $type, $elem ) {
 		wponion_init_field( $type, $elem, 'vc', false );
 	}
+
+	/**
+	 * Converts Input Values Into JS/PHP Object/Array and returns it.
+	 * @returns {*}
+	 */
+	input_data() {
+		let $data = this.element.find( ':input:not(.wpb_vc_param_value)' ).serializeObject();
+		if( false === window.wponion._.isUndefined( $data[ this.param_name ] ) ) {
+			return $data[ this.param_name ];
+		}
+		return $data;
+	}
 }

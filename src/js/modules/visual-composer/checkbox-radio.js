@@ -7,11 +7,11 @@ class field extends WPOnion_VC_Field {
 	init() {
 		if( this.is_vc_param_elem() ) {
 			if( this.element.hasClass( 'wponion-element-radio' ) && 0 === this.element.find( '.wponion-checkbox-radio-group' ).length ) {
-				this.handle( 'array' );
-				this.element.find( 'input' ).on( 'change', () => this.handle( 'array' ) );
+				this.handle();
+				this.element.find( ':input' ).on( 'change', () => this.handle() );
 			} else if( ( this.element.find( 'input' ).length > 1 ) ) {
-				this.handle( 'array' );
-				this.element.find( 'input' ).on( 'change', () => this.handle( 'array' ) );
+				this.handle();
+				this.element.find( ':input' ).on( 'change', () => this.handle() );
 			} else {
 				let $this = this;
 				let $val  = this.element.find( 'input' ).attr( 'value' );
@@ -40,17 +40,9 @@ class field extends WPOnion_VC_Field {
 
 	/**
 	 * Handles Multiple Checkboxes
-	 * @param $type
 	 */
-	handle( $type ) {
-		let $checked = this.element.find( 'input:checked' );
-		let $save    = [];
-		if( $checked.length > 0 ) {
-			jQuery.each( $checked, function() {
-				$save.push( jQuery( this ).val() );
-			} );
-		}
-		this.save( $save, $type );
+	handle() {
+		this.save( this.input_data(), 'sorter_values' );
 	}
 }
 
