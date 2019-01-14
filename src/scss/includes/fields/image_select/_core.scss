@@ -4,68 +4,29 @@
 		visibility: hidden;
 	}
 
-	.form-check {
-		display:      inline-block;
-		margin-right: 15px;
-
-		label {
-			display: inline-block;
-		}
-
-		input {
-			&:disabled + .wponion-image-select-thumbnail {
-				cursor: not-allowed;
-			}
-
-			&:disabled + .wponion-image-select-thumbnail:before {
-				content:    " ";
-				background: #f3f3f399;
-				display:    block;
-				position:   absolute;
-				width:      99%;
-				z-index:    1;
-				height:     99%;
-			}
-
-			&:checked + .wponion-image-select-thumbnail {
-				border-color: #64bd1f;
-
-				&:after {
-					content:                "\f147";
-					font-family:            dashicons;
-					background-color:       #64bd1f;
-					position:               absolute;
-					right:                  0px;
-					bottom:                 0px;
-					border-top-left-radius: 2px;
-					color:                  #fff;
-					line-height:            normal;
-					font-size:              20px;
-					padding:                1px 0 0 1px;
-				}
-			}
-		}
-
-		.wponion-image-select-thumbnail {
-			border:        3px solid transparent;
-			padding:       2px;
-			border-radius: 2px;
-			position:      relative;
-			line-height:   0;
-			overflow:      hidden;
-		}
-	}
-
 	.wponion-fieldset {
-		.wponion-checkbox-radio-group {
-			display:      block;
-			margin-right: 0;
-		}
+		> ul {
+			margin:     0;
+			max-height: none;
 
-		.wponion-checkbox-group-lists {
-			li {
+			> li {
 				display:      inline-block;
-				margin-right: 0;
+				border-right: none !important;
+
+				&.has-subgroup {
+					display:       block;
+					border-bottom: 1px dashed #ccc;
+
+					&:last-child {
+						border-bottom: none;
+					}
+
+					ul {
+						li {
+							display: inline-block;
+						}
+					}
+				}
 			}
 		}
 	}

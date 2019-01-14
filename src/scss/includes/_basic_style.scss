@@ -37,6 +37,58 @@
 	}
 }
 
+.wponion-checker {
+	display:      inline-block;
+	margin-right: 10px;
+
+	label {
+		display: inline-block;
+	}
+
+	input {
+		&:disabled + .wponion-checker-content {
+			cursor: not-allowed;
+		}
+
+		&:disabled + .wponion-checker-content:before {
+			content:    " ";
+			background: #f3f3f399;
+			display:    block;
+			position:   absolute;
+			width:      99%;
+			z-index:    1;
+			height:     99%;
+		}
+
+		&:checked + .wponion-checker-content {
+			border-color: #64bd1f;
+
+			&:after {
+				content:                "\f147";
+				font-family:            dashicons;
+				background-color:       #64bd1f;
+				position:               absolute;
+				right:                  0px;
+				bottom:                 0px;
+				border-top-left-radius: 2px;
+				color:                  #fff;
+				line-height:            normal;
+				font-size:              20px;
+				padding:                1px 0 0 1px;
+			}
+		}
+	}
+
+	.wponion-checker-content {
+		border:        3px solid transparent;
+		padding:       2px;
+		border-radius: 2px;
+		position:      relative;
+		line-height:   0;
+		overflow:      hidden;
+	}
+}
+
 .wponion-remove {
 	font-size: 16px;
 	color:     #AAAAAA;
