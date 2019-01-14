@@ -56,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			if ( is_array( $options ) && ! empty( $options ) ) {
 				echo '<ul>';
 				foreach ( $options as $option_key => $option ) {
-					if ( ! is_array( $option ) || is_array( $option ) && isset( $option['label'] ) ) {
+					if ( ! is_array( $option ) || is_array( $option ) && ( isset( $option['label'] ) || isset( $option['custom_input'] ) ) ) {
 						echo '<li>' . $this->render_element( $this->handle_options( $option_key, $option ) ) . '</li>';
 					} elseif ( is_array( $option ) && false === isset( $option['label'] ) ) {
 						echo '<li class="has-subgroup">';
