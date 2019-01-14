@@ -822,10 +822,7 @@ PHP;
 		 * @return array|string|mixed
 		 */
 		protected function value( $key = '' ) {
-			if ( ! empty( $key ) ) {
-				return ( isset( $this->value[ $key ] ) ) ? $this->value[ $key ] : false;
-			}
-			return $this->value;
+			return ( ! empty( $key ) ) ? $this->get_value( $key ) : $this->value;
 		}
 
 		/**
