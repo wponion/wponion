@@ -49,7 +49,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				),
 				'wponion-cloner'      => array( 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ) ),
 				'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
-				//'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
+				'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
 				'wponion-postmessags' => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 				'wponion-inputmask'   => array(
 					'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
