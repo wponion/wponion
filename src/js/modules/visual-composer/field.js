@@ -155,6 +155,6 @@ export default class extends WPOnion_Field {
 	 * @param $elem
 	 */
 	init_single_field( $type, $elem ) {
-		wponion_init_field( $type, $elem, 'vc', true );
+		wponion_init_field( $type, $elem, 'vc', false );
 	}
 }

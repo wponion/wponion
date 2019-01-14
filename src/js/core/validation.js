@@ -24,7 +24,6 @@ export default class WPOnion_Validator {
 			errorElement: 'p'
 		};
 
-		console.log( this.form );
 		if( this.form ) {
 			this.form.validate( this.rules );
 		}

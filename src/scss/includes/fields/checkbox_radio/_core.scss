@@ -1,27 +1,41 @@
 .wponion-element.wponion-element-checkbox, .wponion-element.wponion-element-radio, .wponion-element.wponion-field-image_select, .wponion-element.wponion-element-color_palette {
 	.wponion-fieldset {
-		.form-check {
+		.wponion-checker {
 			margin-bottom: 12px;
+
+			input {
+				margin-right: 10px;
+			}
 		}
 
-		.wponion-checkbox-radio-group {
-			display:      inline-block;
-			margin-right: 15px;
-			min-width:    15%;
+		> ul {
+			overflow-y: auto;
+			max-height: 305px;
 
-			.wponion-group-header {
-				h4 {
-					font-size: 14px;
-					margin:    0;
+			> li {
+				&.has-subgroup {
+					display:        inline-block;
+					width:          auto;
+					margin-right:   20px;
+					vertical-align: top;
+					border-right:   1px dashed #ddd;
+					padding-right:  20px;
+
+					&:last-child {
+						margin-right:  0;
+						padding-right: 0;
+						border-right:  0;
+					}
 				}
-			}
 
-			+ .wponion-checkbox-radio-group {
-				margin-bottom: 15px;
-			}
+				.wponion-checkbox-radio-header {
+					font-size:     14px;
+					margin:        0;
+					margin-bottom: 15px;
+				}
 
-			&:last-child {
-				margin-bottom: 0;
+				> ul {
+				}
 			}
 		}
 	}

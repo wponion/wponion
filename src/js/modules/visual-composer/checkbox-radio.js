@@ -10,14 +10,8 @@ class field extends WPOnion_VC_Field {
 				this.handle( 'array' );
 				this.element.find( 'input' ).on( 'change', () => this.handle( 'array' ) );
 			} else if( ( this.element.find( 'input' ).length > 1 ) ) {
-				let $type = 'array';
-				if( this.element.find( 'ul' ).length === 0 ) {
-					$type = 'array';
-				} else if( this.element.find( 'ul' ).length > 1 ) {
-					$type = 'key_value_multi_array';
-				}
-				this.handle( $type );
-				this.element.find( 'input' ).on( 'change', () => this.handle( $type ) );
+				this.handle( 'array' );
+				this.element.find( 'input' ).on( 'change', () => this.handle( 'array' ) );
 			} else {
 				let $this = this;
 				let $val  = this.element.find( 'input' ).attr( 'value' );
@@ -50,21 +44,13 @@ class field extends WPOnion_VC_Field {
 	 */
 	handle( $type ) {
 		let $checked = this.element.find( 'input:checked' );
-		let $save    = ( $type === 'key_value_multi_array' ) ? {} : [];
+		let $save    = [];
 		if( $checked.length > 0 ) {
 			jQuery.each( $checked, function() {
-				if( $type === 'array' ) {
-					$save.push( jQuery( this ).val() );
-				} else if( $type === 'key_value_multi_array' ) {
-					let $g = jQuery( this ).data( 'group' );
-					if( $save[ $g ] === undefined ) {
-						$save[ $g ] = [];
-					}
-					$save[ $g ].push( jQuery( this ).val() );
-				}
+				$save.push( jQuery( this ).val() );
 			} );
-			this.save( $save, $type );
 		}
+		this.save( $save, $type );
 	}
 }
 
