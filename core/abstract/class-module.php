@@ -270,7 +270,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					if ( isset( $this->options_cache['field_errors'] ) ) {
 						$this->init_error_registry( $this->options_cache['field_errors'] );
 						if ( wponion_is_debug() ) {
-							wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'] );
+							wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'], true, false );
 						}
 						unset( $this->options_cache['field_errors'] );
 						$this->set_cache( $this->options_cache );

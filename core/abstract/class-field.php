@@ -362,7 +362,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 						'condition'  => explode( '|', $dependency[1] ),
 						'value'      => explode( '|', $dependency[2] ),
 					),
-				) );
+				), true, false );
 			}
 
 			if ( 12 === self::$columns ) {
@@ -910,7 +910,7 @@ PHP;
 				}
 
 				if ( $this->has( 'debug' ) ) {
-					wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ) );
+					wponion_localize()->add( $this->js_field_id(), array( 'debug_info' => $this->debug( true ) ), true, false );
 				}
 
 				if ( $this->has( 'js_validate' ) ) {
@@ -920,7 +920,7 @@ PHP;
 				wponion_localize()->add( $this->js_field_id(), array(
 					'module'    => $this->module(),
 					'plugin_id' => $this->plugin_id(),
-				) );
+				), true, false );
 			} else {
 				wponion_localize()->add( $this->js_field_id(), $data, true, $js_convert );
 			}

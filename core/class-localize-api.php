@@ -175,12 +175,12 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 */
 		public function render_js_args() {
 			if ( defined( 'WPONION_ADD_FONT_DATA' ) && true === WPONION_ADD_FONT_DATA ) {
-				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts() );
-				$this->add( 'wponion_gfonts', wponion_google_fonts_data() );
+				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts(), true, false );
+				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
 			}
 
 			if ( wponion_is_debug() ) {
-				$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
+				//$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
 			}
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
