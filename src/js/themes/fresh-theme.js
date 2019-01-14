@@ -3,6 +3,53 @@ class WPOnion_Fresh_Theme {
 		this.element = $elem;
 		this.init_submenu();
 		this.init_main_menu();
+		this.init_sticky_header();
+	}
+
+	init_sticky_header() {
+		if( this.element.find( '.wponion-header-sticky' ).length === 1 ) {
+			let $this        = this.element.find( '.wponion-header-sticky' ),
+				$window      = jQuery( window ),
+				$inner       = $this.find( '.wponion-settings-header-inner' ),
+				padding      = parseInt( $inner.css( 'padding-left' ) ) + parseInt( $inner.css( 'padding-right' ) ),
+				offset       = 32,
+				scrollTop    = 0,
+				lastTop      = 0,
+				ticking      = false,
+				stickyUpdate = function() {
+					let offsetTop = $this.offset().top,
+						stickyTop = Math.max( offset, offsetTop - scrollTop ),
+						winWidth  = Math.max( document.documentElement.clientWidth, window.innerWidth || 0 );
+
+					if( stickyTop <= offset && winWidth > 782 ) {
+						$inner.css( { width: $this.outerWidth() - padding } );
+						$this.css( { height: $this.outerHeight() } ).addClass( 'wponion-settings-header-sticky' );
+					} else {
+						$inner.removeAttr( 'style' );
+						$this.removeAttr( 'style' ).removeClass( 'wponion-settings-header-sticky' );
+					}
+
+				},
+				requestTick  = function() {
+					if( !ticking ) {
+						requestAnimationFrame( function() {
+							stickyUpdate();
+							ticking = false;
+						} );
+					}
+					ticking = true;
+
+				},
+				onSticky     = function() {
+					scrollTop = $window.scrollTop();
+					requestTick();
+
+				};
+
+			$window.on( 'scroll resize', onSticky );
+
+			onSticky();
+		}
 	}
 
 	init_main_menu() {

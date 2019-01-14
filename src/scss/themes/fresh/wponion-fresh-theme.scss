@@ -158,10 +158,31 @@ $wponion_metabox_menu_width: 200px;
 		.wponion-settings-header {
 			float:                   left;
 			width:                   100%;
+			position:                relative;
 			background:              #26292c;
 			color:                   white;
 			border-top-right-radius: 5px;
 			border-top-left-radius:  5px;
+
+			&.wponion-settings-header-sticky {
+				.wponion-settings-header-inner {
+					position:   fixed;
+					z-index:    20;
+					top:        32px;
+					background: #26292c;
+
+					.wponion-settings-heading {
+						h1 {
+							margin-bottom: 10px;
+						}
+
+						p {
+							display: none;
+						}
+					}
+				}
+
+			}
 
 			.wponion-settings-heading {
 				width:          49%;
