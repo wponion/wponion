@@ -163,10 +163,13 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 
 			if ( true === $options['custom_input'] || true === is_array( $options['custom_input'] ) ) {
 				$name             = $options['key'];
-				$value            = ( false !== $this->value( $name ) ) ? $name : $value;
-				$options['label'] = $this->get_custom_input( $name, $this->value( $name ), $options['custom_input'] );
+				$input_value      = ( isset( $value[ $name ] ) ) ? $value[ $name ] : false;
+				$options['label'] = $this->get_custom_input( $name, $input_value, $options['custom_input'] );
 			}
 
+			if ( is_array( $value ) && true === $options['custom_input'] || true === is_array( $options['custom_input'] ) ) {
+				$value = isset( $options['key'], $value ) ? $options['key'] : false;
+			}
 			return $this->_element_html( $label_attr, $field_attr, $value, $attr, $options );
 		}
 

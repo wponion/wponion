@@ -5,13 +5,51 @@ class field extends WPOnion_Field {
 	 * Inits Field.
 	 */
 	init() {
-		if( this.element.find( 'input.wponion-custom-value-input' ).length > 0 ) {
-			let $inputs = this.element.find( 'input.wponion-custom-value-input' );
-			this.element.find( 'input[type=radio]' ).on( 'click', () => $inputs.removeAttr( 'name' ) );
+		if( this.element.find( '.wponion-custom-value-input' ).length > 0 ) {
+			let $custom_input = this.element.find( '.wponion-custom-value-input' );
+			let $radios       = this.element.find( 'input[type=radio]' );
+			let $checkbox     = this.element.find( 'input[type=checkbox]' );
 
-			$inputs.on( 'click', function() {
-				jQuery( this ).parent().find( 'input[type=radio],input[type=checkbox]' ).prop( 'checked', true );
-				jQuery( this ).attr( 'name', jQuery( this ).attr( 'data-name' ) );
+			$custom_input.each( function() {
+				jQuery( this ).attr( 'data-name', jQuery( this ).attr( 'name' ) );
+				jQuery( this ).removeAttr( 'name' );
+			} );
+
+
+			$radios.each( ( i, e ) => {
+				if( jQuery( e ).is( ':checked' ) ) {
+					if( jQuery( e ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
+						$custom_input.removeAttr( 'name' );
+						let $i = jQuery( e ).parent().find( '.wponion-custom-value-input' );
+						$i.attr( 'name', $i.attr( 'data-name' ) );
+					}
+				}
+			} );
+
+			$radios.on( 'click', ( e ) => {
+				if( jQuery( e.currentTarget ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
+					$custom_input.removeAttr( 'name' );
+					let $i = jQuery( e.currentTarget ).parent().find( '.wponion-custom-value-input' );
+					$i.attr( 'name', $i.attr( 'data-name' ) );
+				}
+			} );
+
+			$checkbox.each( ( i, e ) => {
+				if( jQuery( e ).is( ':checked' ) ) {
+					if( jQuery( e ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
+						jQuery( e ).removeAttr( 'name' );
+						let $i = jQuery( e ).parent().find( '.wponion-custom-value-input' );
+						$i.attr( 'name', $i.attr( 'data-name' ) );
+					}
+				}
+			} );
+
+			$checkbox.on( 'click', ( e ) => {
+				if( jQuery( e.currentTarget ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
+					jQuery( e.currentTarget ).removeAttr( 'name' );
+					let $i = jQuery( e.currentTarget ).parent().find( '.wponion-custom-value-input' );
+					$i.attr( 'name', $i.attr( 'data-name' ) );
+				}
 			} );
 		}
 	}
