@@ -54,12 +54,13 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			$options = ( is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$this->catch_output( 'start' );
 			if ( is_array( $options ) && ! empty( $options ) ) {
+				echo '<ul>';
 				foreach ( $options as $option_key => $option ) {
 					if ( ! is_array( $option ) || is_array( $option ) && isset( $option['label'] ) ) {
-						echo $this->render_element( $this->handle_options( $option_key, $option ) );
+						echo '<li>' . $this->render_element( $this->handle_options( $option_key, $option ) ) . '</li>';
 					} elseif ( is_array( $option ) && false === isset( $option['label'] ) ) {
-						echo '<div class="wponion-checkbox-radio-group">';
-						echo '<div class="wponion-group-header"><h4>' . $option_key . '</h4></div>';
+						echo '<li class="has-subgroup">';
+						echo '<h4 class="wponion-checkbox-radio-header">' . $option_key . '</h4>';
 						echo '<ul class="wponion-checkbox-group-lists">';
 						foreach ( $option as $key => $value ) {
 							echo '<li>';
@@ -67,9 +68,10 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 							echo '</li>';
 						}
 						echo '</ul>';
-						echo '</div>';
+						echo '</li>';
 					}
 				}
+				echo '</ul>';
 			} elseif ( in_array( $this->element_type(), array( 'switcher', 'checkbox' ) ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			}
@@ -128,14 +130,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			$wrap_attr     = array();
 			$label_attr    = array();
 
-			if ( true === $in_group || 'group' === $in_group ) {
-				$gptitle            = sanitize_key( $group_title );
-				$is_checkbox        = ( 'radio' !== $this->element_type() ) ? '[]' : '';
-				$attr['name']       = $this->name( '[' . $gptitle . ']' . $is_checkbox );
-				$attr['data-group'] = $gptitle;
-				$value              = $this->get_value( $gptitle );
-				$dep_id             = $gptitle . '_' . $options['key'];
-			} elseif ( 'single' === $in_group ) {
+			if ( 'single' === $in_group ) {
 				$attr['name'] = $this->name();
 				$dep_id       = false;
 				if ( 'switcher' === $this->element_type() ) {
@@ -187,11 +182,9 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			return '<div class=" form-group form-check ">
-				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
-					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />' . $options['label'] . '
-				</label>
-			</div>';
+			return '<div class="wponion-checker"><label ' . wponion_array_to_html_attributes( $label_attr ) . '>
+				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />' . $options['label'] . '
+			</label></div>';
 		}
 	}
 }
