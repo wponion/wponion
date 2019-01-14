@@ -1,4 +1,15 @@
 .wponion-element.wponion-element-color_palette {
+
+	.wponion-fieldset {
+		ul {
+			display: block;
+
+			li {
+				display: inline-block;
+			}
+		}
+	}
+
 	.colors-wrapper {
 		max-height: 300px;
 		overflow-y: auto;

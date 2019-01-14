@@ -5,7 +5,7 @@ class field extends WPOnion_Field {
 	 * Inits Field.
 	 */
 	init() {
-		this.element.find( 'input' ).wpColorPicker();
+		this.element.find( 'input.wponion-color-picker-element' ).wpColorPicker();
 	}
 }
 

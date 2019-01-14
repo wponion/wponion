@@ -32,10 +32,12 @@ if ( ! class_exists( '\WPOnion\Field\Color_Palette' ) ) {
 		 * Final HTML Output
 		 */
 		protected function output() {
+			echo $this->before();
 			echo '<div class=" colors-wrapper ' . $this->data( 'style' ) . ' ">';
 			$this->field['type'] = $this->field['palette_type'];
 			parent::output();
 			echo '</div>';
+			echo $this->after();
 		}
 
 		/**
