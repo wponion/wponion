@@ -130,6 +130,8 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		 * Loads Required Styles.
 		 */
 		public function load_styles() {
+			wp_register_script( 'wponion-customizer', WPONION_URL . 'assets/js/wponion-customizer.js', array( 'wponion-core' ), WPONION_VERSION, true );
+			wp_register_script( 'wponion-postmessags', WPONION_URL . 'assets/js/wponion-postmessags.js', array( 'wponion-customizer' ), WPONION_VERSION, true );
 			wponion_load_core_assets( array( 'wponion-customizer', 'wponion-postmessags' ) );
 		}
 
