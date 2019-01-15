@@ -1,5 +1,7 @@
 
 .wponion-input-group {
+	margin-right: 15px;
+
 	> div {
 		display:        table-cell;
 		border:         1px solid #ddd;
@@ -20,4 +22,5 @@
 		padding:       5px;
 		border-radius: 0 !important;
 	}
+
 }
