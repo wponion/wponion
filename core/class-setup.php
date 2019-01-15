@@ -163,6 +163,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'wp_editor', 'all' );
 			\wponion_register_field( 'wp_link', 'all' );
 			\wponion_register_field( 'color_group', 'all' );
+			\wponion_register_field( 'link_color', 'all' );
 
 			/**
 			 * Registers UI Field.
