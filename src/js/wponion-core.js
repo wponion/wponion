@@ -44,51 +44,10 @@ window.wponion = window.wponion || Object.create( {
 	field_abstract: require( './core/field' ).default,
 } );
 
-// Core Fields.
-window.wponion.fields = Object.create( {
-	text: require( './fields/text' ).default,
-	textarea: require( './fields/textarea' ).default,
-	button_set: require( './fields/button_set' ).default,
-	background: require( './fields/background' ).default,
-	image_select: require( './fields/image_select' ).default,
-	switcher: require( './fields/switcher' ).default,
-	color_palette: require( './fields/color_palette' ).default,
-	select: require( './fields/select' ).default,
-	select2: require( './fields/select2' ).default,
-	chosen: require( './fields/chosen' ).default,
-	icon_picker: require( './fields/icon_picker' ).default,
-	font_selector: require( './fields/font_selector' ).default,
-	accordion: require( './fields/accordion' ).default,
-	group: require( './fields/group' ).default,
-	wp_editor: require( './fields/wp_editor' ).default,
-	reload_wp_editor: require( './helpers/reload_wp_editor' ).default,
-	fieldset: require( './fields/fieldset' ).default,
-	inputmask: require( './fields/inputmask' ).default,
-	wp_links: require( './fields/wp_links' ).default,
-	checkbox_radio: require( './fields/checkbox_radio' ).default,
-	keyvalue_pair: require( './fields/keyvalue_pair' ).default,
-	color_picker: require( './fields/color_picker' ).default,
-	date_picker: require( './fields/date_picker' ).default,
-	gallery: require( './fields/gallery' ).default,
-	image_popup: require( './helpers/image_popup' ).default,
-	upload: require( './fields/upload' ).default,
-	image_upload: require( './fields/image_upload' ).default,
-	jquery_tab: require( './fields/jquery_tab' ).default,
-	tooltip: require( './helpers/tooltip' ).default,
-	clone_element: require( './fields/clone_element' ).default,
-	sorter: require( './fields/sorter' ).default,
-	google_maps: require( './fields/google_maps' ).default,
-	typography: require( './fields/typography' ).default,
-	oembed: require( './fields/oembed' ).default,
-	heading: require( './fields/heading' ).default,
-	subheading: require( './fields/subheading' ).default,
-	jambo_content: require( './fields/jambo_content' ).default,
-	notice: require( './fields/notice' ).default,
-	content: require( './fields/content' ).default,
-	backup: require( './fields/backup' ).default,
-} );
+require( './wponion-fields' );
 
-module.exports = ( ( window, document, wp, $, $wpo ) => {
+module.exports = ( ( window, document, wp, $
+) => {
 	// Document On Load.
 	$( () => {
 		window.wponion_setup();
@@ -131,7 +90,6 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			new WPOnion_Dependency( $menu );
 		} );
 
-
 		if( $wpof_div.length > 0 ) {
 			// Renders Validation.
 			new WPOnion_Validator();
@@ -145,13 +103,10 @@ module.exports = ( ( window, document, wp, $, $wpo ) => {
 			window.wponion.hooks.doAction( 'wponion_after_fields_init', $wpof_div );
 		}
 
-		$wpo.core.loading_screen( $wpof_div, false );
-
 		window.wponion.hooks.doAction( 'wponion_init' );
 
 	} ) );
 
 	window.wponion.hooks.doAction( 'wponion_loaded' );
 
-} )( window, document, wp, jQuery, window.wponion );
-
+} )( window, document, wp, jQuery );
