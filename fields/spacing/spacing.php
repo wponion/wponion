@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 			$titles = $this->default_title();
 
 			if ( false === $this->data( 'all' ) ) {
-				foreach ( array( 'top', 'bottom', 'left', 'right' ) as $slug ) {
+				foreach ( $this->field_slugs() as $slug ) {
 					if ( false !== $this->data( $slug ) ) {
 						$defaults = array(
 							'prefix'      => $icons[ $slug ],
@@ -79,6 +79,15 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 
 		public function field_assets() {
 			// TODO: Implement field_assets() method.
+		}
+
+		/**
+		 * Returns Proper Field Slugs.
+		 *
+		 * @return array
+		 */
+		protected function field_slugs() {
+			return array( 'top', 'bottom', 'left', 'right' );
 		}
 
 		/**
