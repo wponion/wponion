@@ -122,12 +122,15 @@ class WPOnion_Fresh_Theme {
 				$wrapper      = this.element.find( '.wponion-sections' ),
 				$parent_wraps = $wrapper.find( '.wponion-parent-wraps' );
 
-
 			if( value.length > 3 ) {
 				this.element.find( '.menu-wrap' ).addClass( 'wponion-search-unmatched' );
 				this.element.find( '.content-wrap' ).addClass( 'full-width' );
 				$parent_wraps.addClass( 'wponion-search-matched' );
 				$parent_wraps.find( '.wponion-section-wraps' ).addClass( 'wponion-search-matched' );
+
+				this.element.find( '.wponion-has-callback' )
+					.addClass( 'wponion-search-unmatched' )
+					.removeClass( 'wponion-search-matched' );
 				$parent_wraps.each( ( i, $parent ) => {
 					$parent = jQuery( $parent );
 					if( $parent.find( '.wponion-section-wraps' ).length > 0 ) {
