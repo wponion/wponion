@@ -150,6 +150,15 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 	 * @return string
 	 */
 	function wponion_add_element( $field = array(), $value = array(), $unique = '' ) {
+		if ( false === wponion_get_field_type( $field ) ) {
+			return wponion_add_element( array(
+				'type'    => 'wp_error_notice',
+				'alt'     => true,
+				'large'   => true,
+				'content' => sprintf( __( '<p>Requested Field Type <code>%s</code>  Is Not Registed With WPOnion</p>' ), wponion_get_field_type( $field, false ) ),
+			) );
+		}
+
 		$output = '';
 
 		if ( isset( $field['__instance'] ) ) {
@@ -165,22 +174,43 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 		if ( false !== $class ) {
 			ob_start();
 			$element = ( is_string( $class ) ) ? new $class( $field, $value, $unique ) : $class;
-			$element->final_output();
+			echo $element->final_output();
 			$output .= ob_get_clean();
 		} else {
 			$args = '';
-			if ( wponion_is_debug() ) {
-				ob_start();
-				echo '<pre>' . print_r( debug_backtrace(), true ) . '</pre>';
-				var_dump( $field );
-				$args .= ob_get_clean();
-			} else {
-				$args = '<pre>' . print_r( $field, true ) . '</pre>';
-			}
-			/* translators: Added Var Dump Data */
-			$output .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<br/>  ' . $args ) . ' </p> ';
+			ob_start();
+			echo '<h2>' . __( 'Callback Arguments' ) . '</h2>';
+			var_dump( func_get_args() );
+			$args   .= ob_get_clean();
+
+			$type   = ( isset( $field['type'] ) ) ? $field['type'] : false;
+			$output = wponion_add_element( array(
+				'type'        => 'notice',
+				'notice_type' => 'danger',
+				'content'     => sprintf( __( '<code>%s</code> Field Class Not Found.' ), $type ) . $args,
+			) );
 		}
 		return $output;
+	}
+}
+
+if ( ! function_exists( 'wponion_get_field_type' ) ) {
+	/**
+	 * Check If Field Type Attribute Exists And If so Then it checks if field exists. WPOnion.
+	 *
+	 * @param      $field
+	 * @param bool $check
+	 *
+	 * @return bool|string
+	 */
+	function wponion_get_field_type( $field, $check = true ) {
+		if ( is_string( $field ) && $check ) {
+			return ( \WPOnion\Registry\Field_Types::exists( $field ) ) ? $field : false;
+		} elseif ( is_array( $field ) ) {
+			$type = isset( $field['type'] ) ? $field['type'] : false;
+			return wponion_get_field_type( $type, $check );
+		}
+		return $field;
 	}
 }
 
