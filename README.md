@@ -1,10 +1,10 @@
+[![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)
+
 ## So what is WPOnion , exactly?
 
 WPOnion is a simple yet powerful framework that helps developers build custom meta boxes and custom fields in WordPress fast and easily.
 
 The framework lets you define custom meta boxes and custom fields via arrays and handles everything behind the scene automatically. It has a wide range of field types, field settings and supports not only post meta but also term meta, user meta, comment meta, settings pages and custom tables.
-
-[![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)
 
 ## Installation
 
@@ -55,6 +55,8 @@ The previous command will only install the necessary files, if you prefer to **d
 You can also **clone the complete repository** with Git:
 
     $ git clone https://github.com/wponion/dev.git
+
+---
 
 ## Usage {If Downloaded Manually}
 Add the below code your plugin / theme file 
