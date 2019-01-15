@@ -166,6 +166,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'link_color', 'all' );
 			\wponion_register_field( 'input_group', 'all' );
 			\wponion_register_field( 'spacing', 'all' );
+			\wponion_register_field( 'dimensions', 'all' );
 
 			/**
 			 * Registers UI Field.
