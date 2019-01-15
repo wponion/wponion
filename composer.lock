@@ -1,0 +1,111 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "7f5b34df89e1661b20b4d0d71f82d9e7",
+    "packages": [
+        {
+            "name": "varunsridharan/php-autoloader",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/varunsridharan/php-autoloader.git",
+                "reference": "e179408287a729d71b1a1aab664c9e24763366b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/varunsridharan/php-autoloader/zipball/e179408287a729d71b1a1aab664c9e24763366b5",
+                "reference": "e179408287a729d71b1a1aab664c9e24763366b5",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Varunsridharan\\PHP\\": "./src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Varun",
+                    "email": "varunsridharan23@gmail.com",
+                    "homepage": "https://varunsridharan.in",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lightweight PSR-4 PHP Autoloader Class.",
+            "time": "2019-01-11T07:09:17+00:00"
+        },
+        {
+            "name": "varunsridharan/wp-dependencies",
+            "version": "1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/varunsridharan/wp-dependencies.git",
+                "reference": "b7b3fd5b31850f6cecdc88070b975c6124c85443"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/varunsridharan/wp-dependencies/zipball/b7b3fd5b31850f6cecdc88070b975c6124c85443",
+                "reference": "b7b3fd5b31850f6cecdc88070b975c6124c85443",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "./src/dependencies.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Varun Sridharan",
+                    "email": "varunsridharan23@gmail.com",
+                    "homepage": "http://varunsridharan.in",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides Function To Check if a plugin is active/inactive & function to compare versions.",
+            "homepage": "https://github.com/varunsridharan/wp-dependencies/",
+            "keywords": [
+                "dependencies",
+                "vsp-libs",
+                "wordpress",
+                "wordpress-dependencies",
+                "wordpress-development",
+                "wordpress-library",
+                "wordpress-php-library",
+                "wordpress-plugin",
+                "wordpress-plugin-development",
+                "wordpress-plugin-library",
+                "wordpress-plugins",
+                "wordpress-theme",
+                "wordpress-theme-development",
+                "wordpress-theme-library",
+                "wp",
+                "wp-addon",
+                "wp-dependencies",
+                "wp-library",
+                "wp-plugin",
+                "wp-theme"
+            ],
+            "time": "2019-01-07T06:55:46+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
