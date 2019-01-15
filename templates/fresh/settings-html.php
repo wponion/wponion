@@ -5,12 +5,9 @@ foreach ( $ins->fields() as $option ) {
 		continue;
 	}
 
-	$has_submenu = ( $option->has_sections() ) ? ' wponion-has-sections ' : '';
-
-	$parent_active = ( true === $ins->is_tab_active( $option->name(), false ) ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden';
-	$parent_active = $parent_active . $has_submenu;
 	?>
-	<div id="wponion-tab-<?php echo $option->name(); ?>" class="<?php echo $parent_active; ?>">
+	<div id="<?php echo $ins->output_parent_wrap_id( $option ); ?>"
+		 class="<?php echo $ins->output_parent_wrap_class( $option ); ?>">
 		<?php
 		if ( $option->has_sections() ) {
 			$first_section = $ins->get_first_section( $option );
@@ -18,9 +15,9 @@ foreach ( $ins->fields() as $option ) {
 				if ( false === $ins->valid_option( $section, true ) ) {
 					continue;
 				}
-
-				$section_active = ( true === $ins->is_tab_active( $option->name(), $section->name(), $first_section ) ) ? ' wponion-section-wraps ' : 'wponion-section-wraps hidden';
-				echo '<div id="wponion-tab-' . $option->name() . '-' . $section->name() . '" class="' . $section_active . '" data-section-id="' . $section->name() . '">';
+				$sec_id    = $ins->output_section_wrap_id( $option, $section );
+				$sec_class = $ins->output_section_wrap_class( $option, $section, $first_section );
+				echo '<div id="' . $sec_id . '" class="' . $sec_class . '" data-section-id="' . $section->name() . '">';
 				if ( $section->has_callback() ) {
 					echo wponion_callback( $section->callback(), array( $section ) );
 				} elseif ( $section->has_fields() ) {
