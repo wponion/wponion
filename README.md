@@ -1,38 +1,64 @@
 [![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)
----
+
+## So what is WPOnion , exactly?
+
+WPOnion is a simple yet powerful framework that helps developers build custom meta boxes and custom fields in WordPress fast and easily.
+
+The framework lets you define custom meta boxes and custom fields via arrays and handles everything behind the scene automatically. It has a wide range of field types, field settings and supports not only post meta but also term meta, user meta, comment meta, settings pages and custom tables.
+
 ## Installation
-### Composer
-Add The below to your **composer.json**
 
-#### Stable
-```json
-{
-    "require": {
-        "wponion/wponion": "~1.0.0"
-    }
-}
-```
------
-```
-composer require wponion/wponion
-```
+### Stable 
+The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
-#### Development
-```json
-{
-    "require": {
-        "wponion/dev": "dev-master"
-    }
-}
-```
------
-```
-composer require wponion/dev
-```
+[![Latest Stable Version](https://poser.pugx.org/wponion/wponion/version)](https://packagist.org/packages/wponion/wponion)
+[![Latest Unstable Version](https://poser.pugx.org/wponion/wponion/v/unstable)](https://packagist.org/packages/wponion/wponion)
+[![Total Downloads](https://poser.pugx.org/wponion/wponion/downloads)](https://packagist.org/packages/wponion/wponion)
+[![Latest Unstable Version](https://poser.pugx.org/wponion/wponion/v/unstable)](//packagist.org/packages/wponion/wponion)
+[![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/)
+[![License](https://poser.pugx.org/wponion/wponion/license)](https://packagist.org/packages/wponion/wponion)
+[![composer.lock available](https://poser.pugx.org/wponion/wponion/composerlock)](https://packagist.org/packages/wponion/wponion)
+
+To install **WPOnion library**, simply:
+
+    $ composer require wponion/wponion
+
+The previous command will only install the necessary files, if you prefer to **download the entire source code** you can use:
+
+    $ composer require wponion/wponion --prefer-source
+
+You can also **clone the complete repository** with Git:
+
+    $ git clone https://github.com/wponion/wponion.git
 
 ---
 
-### Old School
+### Development 
+The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
+
+[![Latest Stable Version](https://poser.pugx.org/wponion/dev/version)](https://packagist.org/packages/wponion/dev)
+[![Latest Unstable Version](https://poser.pugx.org/wponion/dev/v/unstable)](https://packagist.org/packages/wponion/dev)
+[![Total Downloads](https://poser.pugx.org/wponion/dev/downloads)](https://packagist.org/packages/wponion/dev)
+[![Latest Unstable Version](https://poser.pugx.org/wponion/dev/v/unstable)](//packagist.org/packages/wponion/dev)
+[![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/)
+[![License](https://poser.pugx.org/wponion/dev/license)](https://packagist.org/packages/wponion/dev)
+[![composer.lock available](https://poser.pugx.org/wponion/dev/composerlock)](https://packagist.org/packages/wponion/dev)
+
+To install **WPOnion library**, simply:
+
+    $ composer require wponion/dev
+
+The previous command will only install the necessary files, if you prefer to **download the entire source code** you can use:
+
+    $ composer require wponion/dev --prefer-source
+
+You can also **clone the complete repository** with Git:
+
+    $ git clone https://github.com/wponion/dev.git
+
+---
+
+## Usage {If Downloaded Manually}
 Add the below code your plugin / theme file 
 
 ```php
@@ -45,13 +71,6 @@ function your-prefix_after_wponion_loaded(){
 }
 ```
 [![WPOnion Framework Screenshot](https://s3.wponion.com/preview/settings-modern-theme.jpg)](https://s3.wponion.com/preview/settings-modern-theme.jpg)
-
-
-## So what is WPOnion , exactly?
-
-WPOnion is a simple yet powerful framework that helps developers build custom meta boxes and custom fields in WordPress fast and easily.
-
-The framework lets you define custom meta boxes and custom fields via arrays and handles everything behind the scene automatically. It has a wide range of field types, field settings and supports not only post meta but also term meta, user meta, comment meta, settings pages and custom tables.
 
 
 ## Contribution
