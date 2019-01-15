@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7f5b34df89e1661b20b4d0d71f82d9e7",
+    "content-hash": "6e198c1d22afe3da7a4e6a726a3d2d97",
     "packages": [
         {
             "name": "varunsridharan/php-autoloader",
-            "version": "1.2",
+            "version": "1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/php-autoloader.git",
-                "reference": "e179408287a729d71b1a1aab664c9e24763366b5"
+                "reference": "6619fb73c382e67f15948fd3dc57b83bed907f37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/php-autoloader/zipball/e179408287a729d71b1a1aab664c9e24763366b5",
-                "reference": "e179408287a729d71b1a1aab664c9e24763366b5",
+                "url": "https://api.github.com/repos/varunsridharan/php-autoloader/zipball/6619fb73c382e67f15948fd3dc57b83bed907f37",
+                "reference": "6619fb73c382e67f15948fd3dc57b83bed907f37",
                 "shasum": ""
             },
             "type": "library",
@@ -39,20 +39,20 @@
                 }
             ],
             "description": "Lightweight PSR-4 PHP Autoloader Class.",
-            "time": "2019-01-11T07:09:17+00:00"
+            "time": "2019-01-14T07:49:29+00:00"
         },
         {
             "name": "varunsridharan/wp-dependencies",
-            "version": "1.1",
+            "version": "1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/wp-dependencies.git",
-                "reference": "b7b3fd5b31850f6cecdc88070b975c6124c85443"
+                "reference": "6ca97c0ca900864503fdad3b870a000e869cebbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/wp-dependencies/zipball/b7b3fd5b31850f6cecdc88070b975c6124c85443",
-                "reference": "b7b3fd5b31850f6cecdc88070b975c6124c85443",
+                "url": "https://api.github.com/repos/varunsridharan/wp-dependencies/zipball/6ca97c0ca900864503fdad3b870a000e869cebbe",
+                "reference": "6ca97c0ca900864503fdad3b870a000e869cebbe",
                 "shasum": ""
             },
             "type": "library",
@@ -97,7 +97,7 @@
                 "wp-plugin",
                 "wp-theme"
             ],
-            "time": "2019-01-07T06:55:46+00:00"
+            "time": "2019-01-15T09:35:11+00:00"
         }
     ],
     "packages-dev": [],
