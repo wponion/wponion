@@ -1,38 +1,38 @@
 [![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)
 ---
 ## Installation
-### Composer
-Add The below to your **composer.json**
 
-#### Stable
-```json
-{
-    "require": {
-        "wponion/wponion": "~1.0.0"
-    }
-}
-```
------
-```
-composer require wponion/wponion
-```
+## Stable 
+The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
-#### Development
-```json
-{
-    "require": {
-        "wponion/dev": "dev-master"
-    }
-}
-```
------
-```
-composer require wponion/dev
-```
+To install **WPOnion library**, simply:
 
----
+    $ composer require wponion/wponion
 
-### Old School
+The previous command will only install the necessary files, if you prefer to **download the entire source code** you can use:
+
+    $ composer require wponion/wponion --prefer-source
+
+You can also **clone the complete repository** with Git:
+
+    $ git clone https://github.com/wponion/wponion.git
+
+## Development 
+The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
+
+To install **WPOnion library**, simply:
+
+    $ composer require wponion/dev
+
+The previous command will only install the necessary files, if you prefer to **download the entire source code** you can use:
+
+    $ composer require wponion/dev --prefer-source
+
+You can also **clone the complete repository** with Git:
+
+    $ git clone https://github.com/wponion/dev.git
+
+## Usage {If Downloaded Manually}
 Add the below code your plugin / theme file 
 
 ```php
