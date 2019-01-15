@@ -167,6 +167,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'input_group', 'all' );
 			\wponion_register_field( 'spacing', 'all' );
 			\wponion_register_field( 'dimensions', 'all' );
+			\wponion_register_field( 'button_set', 'all' );
 
 			/**
 			 * Registers UI Field.
