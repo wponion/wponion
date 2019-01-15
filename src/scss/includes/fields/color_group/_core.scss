@@ -1,0 +1,12 @@
+.wponion-element.wponion-element-color_group {
+	.wponion-fieldset {
+		> .wponion-element {
+			@include wponion_field_horizontal();
+			padding:        0;
+			display:        inline-block;
+			border:         none;
+			vertical-align: top;
+			margin-bottom:  20px;
+		}
+	}
+}
