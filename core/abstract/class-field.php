@@ -382,9 +382,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$col_class,
 				$is_debug,
 				$is_js_validate,
+				wponion_html_class( $this->field_wrap_class() ),
 			) ) );
-
-			$_wrap_attr['class'] .= $this->field_wrap_class();
 
 			if ( $this->has( 'horizontal' ) && true === $this->data( 'horizontal' ) ) {
 				$_wrap_attr['class'] .= ' horizontal ';
