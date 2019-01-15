@@ -162,6 +162,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'upload', 'all' );
 			\wponion_register_field( 'wp_editor', 'all' );
 			\wponion_register_field( 'wp_link', 'all' );
+			\wponion_register_field( 'color_group', 'all' );
 
 			/**
 			 * Registers UI Field.
