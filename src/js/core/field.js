@@ -270,10 +270,10 @@ export default class extends WPOnion_Module {
 		if( !is_jquery( $elem ) ) {
 			$elem = this.element.find( $elem );
 		}
-		let $this = this;
-		$elem.each( function() {
-			$this.init_single_field( $type, jQuery( this ) );
-		} );
+
+		if( $elem.length > 0 ) {
+			$elem.each( ( i, e ) => this.init_single_field( $type, jQuery( e ) ) );
+		}
 	}
 
 	/**
@@ -281,6 +281,11 @@ export default class extends WPOnion_Module {
 	 */
 	reload() {
 		window.wponion.hooks.doAction( 'wponion_before_fields_reload' );
+
+		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
+		this.init_field( '.select2', 'select2' );
+		this.init_field( '.chosen', 'chosen' );
+		this.init_field( '.selectize', 'selectize' );
 
 		this.init_field( '.wponion-element-accordion', 'accordion' );
 		this.init_field( '.wponion-element-background', 'background' );
@@ -300,7 +305,6 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-switcher', 'switcher' );
 		this.init_field( '.wponion-element-wp_editor', 'wp_editor' );
 		this.init_field( '.wponion-element-fieldset', 'fieldset' );
-		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
 		this.init_field( '.wponion-element-wp_link', 'wp_links' );
 		this.init_field( '.wponion-element-key_value', 'keyvalue_pair' );
 		this.init_field( '.wponion-element-date_picker', 'date_picker' );
@@ -310,9 +314,6 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-button_set', 'button_set' );
 		this.init_field( '.wponion-element-tab', 'jquery_tab' );
 		this.init_field( '.wponion-element-google_maps', 'google_maps' );
-		this.init_field( '.select2', 'select2' );
-		this.init_field( '.chosen', 'chosen' );
-		this.init_field( '.selectize', 'selectize' );
 		this.init_field( '.wponion-element-sorter', 'sorter' );
 		this.init_field( '.wponion-element-typography', 'typography' );
 		this.init_field( '.wponion-element-oembed', 'oembed' );
@@ -321,6 +322,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-content', 'content' );
 		this.init_field( '.wponion-element-jambo_content', 'jambo_content' );
 		this.init_field( '.wponion-element-notice', 'notice' );
+
 		this.init_field( '.wponion-field-tooltip', 'tooltip' );
 		this.init_field( '.wponion-help', 'tooltip' );
 		this.init_field( '.wponion-wrap-tooltip', 'tooltip' );
