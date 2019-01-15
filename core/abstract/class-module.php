@@ -519,6 +519,55 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * @param $parent \WPOnion\Module_Fields
+		 *
+		 * @return array|string
+		 */
+		public function output_parent_wrap_class( $parent ) {
+			return wponion_html_class( array(
+				'wponion-tab-' . $parent->name(),
+				( $parent->has_sections() ) ? 'wponion-has-sections' : '',
+				( $parent->has_callback() ) ? 'wponion-has-callback' : '',
+				( $parent->has_fields() ) ? 'wponion-has-fields' : '',
+				( true === $this->is_tab_active( $parent->name(), false ) ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden',
+			) );
+		}
+
+		/**
+		 * @param $parent \WPOnion\Module_Fields
+		 *
+		 * @return string
+		 */
+		public function output_parent_wrap_id( $parent ) {
+			return 'wponion-tab-' . $parent->name();
+		}
+
+		/**
+		 * @param $parent \WPOnion\Module_Fields
+		 * @param $section \WPOnion\Module_Fields
+		 * @param $first_section
+		 *
+		 * @return array|string
+		 */
+		public function output_section_wrap_class( $parent, $section, $first_section ) {
+			return wponion_html_class( array(
+				'wponion-tab-' . $parent->name() . '-' . $section->name(),
+				( $section->has_callback() ) ? 'wponion-has-callback' : '',
+				( $section->has_fields() ) ? 'wponion-has-fields' : '',
+				( true === $this->is_tab_active( $parent->name(), $section->name(), $first_section ) ) ? 'wponion-section-wraps' : 'wponion-section-wraps hidden',
+			) );
+		}
+
+		/**
+		 * @param $parent \WPOnion\Module_Fields
+		 *
+		 * @return string
+		 */
+		public function output_section_wrap_id( $parent, $section ) {
+			return 'wponion-tab-' . $parent->name() . '-' . $section->name();
+		}
+
+		/**
 		 * Required Callback On Instance Init.
 		 *
 		 * @return mixed
