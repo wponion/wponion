@@ -107,7 +107,7 @@ if ( ! class_exists( '\WPOnion\Field\Change_Log' ) ) {
 				'removed'    => array(
 					'title' => __( 'Removed' ),
 					'bg'    => '#d1d1d166',
-					'color' => '##666',
+					'color' => '#666',
 				),
 				'security'   => array(
 					'title' => __( 'Security' ),
@@ -117,7 +117,7 @@ if ( ! class_exists( '\WPOnion\Field\Change_Log' ) ) {
 			);
 		}
 
-		protected function get_group( $slug, $key = false ) {
+		public function get_group( $slug, $key = false ) {
 			$groups = $this->data( 'groups' );
 
 			if ( $groups ) {
