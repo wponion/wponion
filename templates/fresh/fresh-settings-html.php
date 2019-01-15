@@ -38,7 +38,16 @@ $is_sticky = ( true === $is_sticky ) ? 'wponion-header-sticky' : '';
 
 				</div>
 				<div class="action-holder">
-					<?php echo $ins->settings_button(); ?>
+					<?php if ( false !== $ins->is_single_page() ): ?>
+						<div class="action-search">
+							<div class="wponion-settings-search">
+								<input type="text" placeholder="<?php echo __( 'Search Option(s)' ); ?>"/>
+							</div>
+						</div>
+					<?php endif; ?>
+					<div class="action-buttons">
+						<?php echo $ins->settings_button(); ?>
+					</div>
 				</div>
 			</div>
 		</div>

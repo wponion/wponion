@@ -4,6 +4,15 @@ $wponion_metabox_a_bg: #26292c;
 $wponion_metabox_menu_bg_color: #32373C;
 $wponion_metabox_menu_width: 200px;
 
+
+.wponion-search-unmatched {
+	display: none !important;
+}
+
+.wponion-search-matched {
+	display: block !important;
+}
+
 .wponion-fresh-theme-layouts {
 	.menu-wrap + .content-wrap {
 		/*
@@ -136,6 +145,10 @@ $wponion_metabox_menu_width: 200px;
 		padding-top:    0px;
 		padding-bottom: 15px;
 		background:     #fff;
+
+		&.full-width {
+			width: 100% !important;
+		}
 	}
 }
 
@@ -145,6 +158,7 @@ $wponion_metabox_menu_width: 200px;
 			padding-top:    0;
 			padding-bottom: 0;
 		}
+
 
 		.wponion-fresh-theme-inside-wrap {
 			display:    inline-block;
@@ -205,6 +219,40 @@ $wponion_metabox_menu_width: 200px;
 				text-align:     right;
 				padding:        10px;
 				padding-left:   0;
+
+				> div {
+					display:        inline-block;
+					vertical-align: middle;
+				}
+
+
+				.action-search {
+					margin-right: 5px;
+					text-align:   left;
+
+					input {
+						margin:           0 2px 0 0;
+						border:           none;
+						font-size:        12px;
+						line-height:      12px;
+						text-align:       inherit;
+						padding:          8px 10px;
+						color:            #fff;
+						background-color: #353535;
+						border-radius:    2px;
+						box-shadow:       none;
+						width:            200px;
+
+						&:focus {
+							background-color: #444;
+							box-shadow:       none;
+						}
+
+						&::-webkit-input-placeholder {
+							color: #666;
+						}
+					}
+				}
 			}
 		}
 

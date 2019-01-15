@@ -4,6 +4,7 @@ class WPOnion_Fresh_Theme {
 		this.init_submenu();
 		this.init_main_menu();
 		this.init_sticky_header();
+		this.init_search_input();
 	}
 
 	init_sticky_header() {
@@ -111,6 +112,70 @@ class WPOnion_Fresh_Theme {
 			}
 
 		} );
+	}
+
+	init_search_input() {
+		let $input = this.element.find( '.action-search' ).find( 'input' );
+
+		$input.on( 'change keyup', ( e ) => {
+			let value         = jQuery( e.currentTarget ).val(),
+				$wrapper      = this.element.find( '.wponion-sections' ),
+				$parent_wraps = $wrapper.find( '.wponion-parent-wraps' );
+
+
+			if( value.length > 3 ) {
+				this.element.find( '.menu-wrap' ).addClass( 'wponion-search-unmatched' );
+				this.element.find( '.content-wrap' ).addClass( 'full-width' );
+				$parent_wraps.addClass( 'wponion-search-matched' );
+				$parent_wraps.find( '.wponion-section-wraps' ).addClass( 'wponion-search-matched' );
+				$parent_wraps.each( ( i, $parent ) => {
+					$parent = jQuery( $parent );
+					if( $parent.find( '.wponion-section-wraps' ).length > 0 ) {
+						$parent.find( '.wponion-section-wraps' ).each( ( i, $section ) => {
+							$section = jQuery( $section );
+							$section.find( '> .wponion-element' ).addClass( 'wponion-search-unmatched' );
+							$section.find( '> .wponion-element' ).removeClass( 'wponion-search-matched' );
+							$section.find( '> .wponion-element' ).each( ( i, $element ) => {
+								$element = jQuery( $element );
+								$element.find( '.wponion-element-title > h4, .wponion-desc' ).each( ( i, e ) => {
+									if( this.is_search_matched( jQuery( e ), value ) ) {
+										$element.addClass( 'wponion-search-matched' );
+										$element.removeClass( 'wponion-search-unmatched' );
+									}
+								} );
+							} );
+						} );
+
+					} else {
+						$parent.find( '> .wponion-element' ).addClass( 'wponion-search-unmatched' );
+						$parent.find( '> .wponion-element' ).removeClass( 'wponion-search-matched' );
+						$parent.find( '> .wponion-element' ).each( ( i, $element ) => {
+							$element = jQuery( $element );
+							$element.find( '.wponion-element-title > h4, .wponion-desc' ).each( ( i, e ) => {
+								if( this.is_search_matched( jQuery( e ), value ) ) {
+									$element.addClass( 'wponion-search-matched' );
+									$element.removeClass( 'wponion-search-unmatched' );
+								}
+							} );
+						} );
+					}
+				} );
+			} else {
+				this.element.find( '.wponion-search-unmatched' ).removeClass( 'wponion-search-unmatched' );
+				this.element.find( '.wponion-search-matched' ).removeClass( 'wponion-search-matched' );
+				this.element.find( '.content-wrap' ).removeClass( 'full-width' );
+			}
+		} );
+	}
+
+	/**
+	 *
+	 * @param $title
+	 * @param $search
+	 * @returns {*}
+	 */
+	is_search_matched( $title, $search ) {
+		return $title.text().match( new RegExp( '.*?' + $search + '.*?', 'i' ) );
 	}
 }
 
