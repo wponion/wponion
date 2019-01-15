@@ -1,0 +1,61 @@
+.wponion-element.wponion-element-button_set {
+
+	input[type="radio"], input[type='checkbox'] {
+		display: none;
+	}
+
+	ul {
+		display: block;
+		margin:  0;
+
+		li {
+			margin:  0;
+			display: inline-block;
+
+			label {
+				vertical-align: unset !important;
+				padding:        7px 14px;
+			}
+
+			> div.large {
+				label {
+					padding: 10px 17px;
+				}
+			}
+
+			> div.small {
+				label {
+					padding: 4px 7px;
+				}
+			}
+
+			> div {
+				padding: 0;
+				height:  auto;
+			}
+
+			&:first-child > div {
+				border-top-right-radius:    0;
+				border-bottom-right-radius: 0;
+			}
+
+			+ li > div {
+				border-top-left-radius:     0;
+				border-bottom-left-radius:  0;
+				border-top-right-radius:    0;
+				border-bottom-right-radius: 0;
+			}
+
+			&:last-child > div {
+				border-top-right-radius:    3px;
+				border-bottom-right-radius: 3px;
+			}
+
+
+			+ li {
+				margin-left: -1px;
+			}
+		}
+
+	}
+}
