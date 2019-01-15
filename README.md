@@ -9,7 +9,15 @@ The framework lets you define custom meta boxes and custom fields via arrays and
 
 ## Installation
 
-## Stable 
+### Stable 
+[![Latest Stable Version](https://poser.pugx.org/wponion/wponion/version)](https://packagist.org/packages/wponion/wponion)
+[![Latest Unstable Version](https://poser.pugx.org/wponion/wponion/v/unstable)](https://packagist.org/packages/wponion/wponion)
+[![Total Downloads](https://poser.pugx.org/wponion/wponion/downloads)](https://packagist.org/packages/wponion/wponion)
+[![Latest Unstable Version](https://poser.pugx.org/wponion/wponion/v/unstable)](//packagist.org/packages/wponion/wponion)
+[![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/)
+[![License](https://poser.pugx.org/wponion/wponion/license)](https://packagist.org/packages/wponion/wponion)
+[![composer.lock available](https://poser.pugx.org/wponion/wponion/composerlock)](https://packagist.org/packages/wponion/wponion)
+
 The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
 To install **WPOnion library**, simply:
@@ -24,7 +32,14 @@ You can also **clone the complete repository** with Git:
 
     $ git clone https://github.com/wponion/wponion.git
 
-## Development 
+### Development 
+[![Latest Stable Version](https://poser.pugx.org/wponion/wponion/version)](https://packagist.org/packages/wponion/wponion)
+[![Latest Unstable Version](https://poser.pugx.org/wponion/wponion/v/unstable)](https://packagist.org/packages/wponion/wponion)
+[![Total Downloads](https://poser.pugx.org/wponion/wponion/downloads)](https://packagist.org/packages/wponion/wponion)
+[![Latest Unstable Version](https://poser.pugx.org/wponion/wponion/v/unstable)](//packagist.org/packages/wponion/wponion)
+[![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/)
+[![License](https://poser.pugx.org/wponion/wponion/license)](https://packagist.org/packages/wponion/wponion)
+[![composer.lock available](https://poser.pugx.org/wponion/wponion/composerlock)](https://packagist.org/packages/wponion/wponion)
 The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
 To install **WPOnion library**, simply:
