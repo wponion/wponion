@@ -48,6 +48,7 @@ window.wponion = window.wponion || Object.create( {
 window.wponion.fields = Object.create( {
 	text: require( './fields/text' ).default,
 	textarea: require( './fields/textarea' ).default,
+	button_set: require( './fields/button_set' ).default,
 	background: require( './fields/background' ).default,
 	image_select: require( './fields/image_select' ).default,
 	switcher: require( './fields/switcher' ).default,

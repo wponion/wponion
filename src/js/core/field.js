@@ -307,6 +307,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-gallery', 'gallery' );
 		this.init_field( '.wponion-element-upload', 'upload' );
 		this.init_field( '.wponion-element-image', 'image_upload' );
+		this.init_field( '.wponion-element-button_set', 'button_set' );
 		this.init_field( '.wponion-element-tab', 'jquery_tab' );
 		this.init_field( '.wponion-element-google_maps', 'google_maps' );
 		this.init_field( '.select2', 'select2' );
