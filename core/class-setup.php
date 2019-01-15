@@ -123,8 +123,28 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$core_autoloader->add( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
 			self::$core_autoloader->add( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
 			self::$core_autoloader->add( 'WPOnion\Theme_API', WPONION_PATH . '/core/abstract/class-theme-api.php' );
+
+			/**
+			 * Remap Field & Field Cloner.
+			 */
 			self::$field_autoloader->add( 'WPOnion\Field\Cloner', WPONION_PATH . '/core/class-field-cloner.php' );
 			self::$field_autoloader->add( 'WPOnion\Field', WPONION_PATH . '/core/abstract/class-field.php' );
+
+			/**
+			 * Remaps Notice Fields.
+			 */
+			self::$field_autoloader->add( 'WPOnion\Field\Notice_Danger', WPONION_PATH . '/fields/notice/class-notice-danger.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\Notice_Dark', WPONION_PATH . '/fields/notice/class-notice-dark.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\Notice_Info', WPONION_PATH . '/fields/notice/class-notice-info.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\Notice_Light', WPONION_PATH . '/fields/notice/class-notice-light.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\Notice_Primary', WPONION_PATH . '/fields/notice/class-notice-primary.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\Notice_Secondary', WPONION_PATH . '/fields/notice/class-notice-secondary.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\Notice_Success', WPONION_PATH . '/fields/notice/class-notice-success.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\Notice_Warning', WPONION_PATH . '/fields/notice/class-notice-warning.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\WP_Error_Notice', WPONION_PATH . '/fields/wp-notice/class-wp-error-notice.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\WP_Info_Notice', WPONION_PATH . '/fields/wp-notice/class-wp-info-notice.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\WP_Success_Notice', WPONION_PATH . '/fields/wp-notice/class-wp-success-notice.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\WP_Warning_Notice', WPONION_PATH . '/fields/wp-notice/class-wp-warning-notice.php' );
 		}
 
 		/**
