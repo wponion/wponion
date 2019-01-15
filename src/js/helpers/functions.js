@@ -119,6 +119,9 @@ export default ( ( window, document, $, jQuery ) => {
 		if( $elem.find( '.wponion-remove' ).length > 0 ) {
 			$elem.each( function() {
 				let $_el = jQuery( this );
+				jQuery( this ).find( '.wponion-remove' ).tippy( {
+					appendTo: () => jQuery( this )[ 0 ],
+				} );
 				jQuery( this ).find( '.wponion-remove' ).on( 'click', function() {
 					$_el.slideUp( 'slow', function() {
 						$_el.remove();
