@@ -19,12 +19,18 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Pointer extends \WPOnion\Bridge\Module {
+	class Pointer extends \WPOnion\Bridge\Module implements \JsonSerializable {
 		/**
 		 * @var null
 		 * @access
 		 */
 		private $pointer_instance = null;
+
+		/**
+		 * @var bool
+		 * @access
+		 */
+		private $pending_args = false;
 
 		/**
 		 * Pointer constructor.
@@ -36,6 +42,18 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		 * @param bool  $pointer_instance
 		 */
 		public function __construct( $selector = false, $title = false, $text = false, $args = array(), $pointer_instance = false ) {
+			unset( $this->current_theme );
+			unset( $this->fields_md5 );
+			unset( $this->menus );
+			unset( $this->fields );
+			unset( $this->raw_options );
+			unset( $this->raw_fields );
+			unset( $this->unique );
+			unset( $this->db_values );
+			unset( $this->options_cache );
+			unset( $this->plugin_id );
+			unset( $this->module );
+
 			$valid_selector         = ( ! is_array( $selector ) && false !== $selector );
 			$valid_title            = ( ! is_array( $title ) && false !== $title );
 			$valid_text             = ( ! is_array( $text ) && false !== $text );
@@ -59,6 +77,12 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 					'text'     => $text,
 				), $this->default_pointer_args() );
 				$args  = $this->parse_args( $args, $_args );
+			} else {
+				$args = $this->parse_args( array(
+					'title'    => $title,
+					'selector' => $selector,
+					'text'     => $text,
+				), $args );
 			}
 
 			foreach ( $args as $key => $val ) {
@@ -67,17 +91,6 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 				}
 			}
 
-			unset( $this->current_theme );
-			unset( $this->fields_md5 );
-			unset( $this->menus );
-			unset( $this->fields );
-			unset( $this->raw_options );
-			unset( $this->raw_fields );
-			unset( $this->unique );
-			unset( $this->db_values );
-			unset( $this->options_cache );
-			unset( $this->plugin_id );
-			unset( $this->module );
 		}
 
 		/**
@@ -87,11 +100,11 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		 */
 		public function uid() {
 			if ( false === $this->option( 'unique_id' ) ) {
-				$id = sanitize_title( $this->pointer_instance . '_' . $this->selector() );
+				$id = sanitize_title( $this->pointer_instance . '_' . $this->selector() . '_' . $this->parent() );
 				$id = str_replace( '-', '_', $id );
 				$id = str_replace( '#', '', $id );
 				$id = str_replace( '.', '', $id );
-				$this->set_option( 'unique_id', $id );
+				$this->set_option( 'unique_id', wponion_hash_string( $id ) );
 			}
 			return $this->option( 'unique_id' );
 		}
@@ -101,7 +114,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		 */
 		public function add() {
 			$instance = wponion_wp_pointers_registry( $this->pointer_instance );
-			return call_user_func_array( array( $instance, 'add' ), func_get_args() );
+			return call_user_func_array( array( $instance, 'nested_add' ), array( $this, func_get_args() ) );
 		}
 
 		public function on_init() {
@@ -127,6 +140,13 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		}
 
 		/**
+		 * @return array|mixed
+		 */
+		public function jsonSerialize() {
+			return $this->to_array();
+		}
+
+		/**
 		 * @param null $selector
 		 *
 		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
@@ -134,6 +154,11 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		public function selector( $selector = null ) {
 			if ( null !== $selector ) {
 				$this->set_option( 'selector', $selector );
+				$temp_next = $this->option( 'temp_next', false );
+				if ( false !== $temp_next ) {
+					$this->next( $temp_next );
+					$this->set_option( 'temp_next', false );
+				}
 				return $this;
 			}
 			return $this->option( 'selector', '' );
@@ -210,8 +235,15 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
 		 */
 		public function next( $next = null ) {
-			if ( null !== $next ) {
+			if ( empty( $this->selector() ) && null !== $next ) {
+				$this->set_option( 'temp_next', $next );
+			}
+			if ( null !== $next && ! empty( $this->selector() ) ) {
 				if ( ( is_string( $next ) || $next instanceof Pointer ) && 1 === count( func_get_args() ) ) {
+					if ( empty( $next->selector() ) ) {
+						$next->selector( $this->selector() );
+					}
+
 					if ( $next instanceof Pointer ) {
 						$next = $next->uid();
 					}
@@ -219,12 +251,31 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 					$this->set_option( 'next', $next );
 					return $this;
 				} else {
-					$instance = call_user_func_array( array( $this, 'add' ), func_get_args() );
+					$instance = call_user_func_array( array( &$this, 'add' ), func_get_args() );
 					$this->set_option( 'next', $instance->uid() );
 					return $this;
 				}
 			}
 			return $this->option( 'next' );
+		}
+
+		/**
+		 * @param null $parent
+		 *
+		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 */
+		public function parent( $parent = null ) {
+			if ( null !== $parent ) {
+				if ( ( is_string( $parent ) || $parent instanceof Pointer ) && 1 === count( func_get_args() ) ) {
+					if ( $parent instanceof Pointer ) {
+						$parent = $parent->uid();
+					}
+
+					$this->set_option( 'parent', $parent );
+					return $this;
+				}
+			}
+			return $this->option( 'parent' );
 		}
 
 		/**
@@ -263,7 +314,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 				$this->set_option( 'align', $align );
 				return $this;
 			}
-			return $this->option( 'align', null );
+			return $this->option( 'align', 'right' );
 		}
 
 		/**
@@ -276,7 +327,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 				$this->set_option( 'edge', $edge );
 				return $this;
 			}
-			return $this->option( 'edge', null );
+			return $this->option( 'edge', 'right' );
 		}
 
 		/**
@@ -333,7 +384,6 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 				'show'       => null,
 				'jsnext'     => null,
 				'phpcode'    => null,
-				'next'       => null,
 				'css_class'  => null,
 				'width'      => 300,
 				'align'      => 'middle',
@@ -341,6 +391,8 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 				'post_type'  => array(),
 				'pages'      => array(),
 				'icon_class' => '',
+				'parent'     => false,
+				'next'       => null,
 			);
 		}
 
