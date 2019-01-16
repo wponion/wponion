@@ -116,6 +116,21 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		}
 
 		/**
+		 * Returns An Existing Array.
+		 *
+		 * @param string $object_id
+		 * @param bool   $default
+		 *
+		 * @return bool|mixed
+		 */
+		public function get( $object_id = '', $default = false ) {
+			if ( isset( $this->js_args[ $object_id ] ) ) {
+				return $this->js_args[ $object_id ];
+			}
+			return $default;
+		}
+
+		/**
 		 * Converts Javascript Function into array.
 		 *
 		 * @param $args
