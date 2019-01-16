@@ -38,6 +38,27 @@ if ( ! class_exists( 'WP_Pointers' ) ) {
 		private static $load_script = false;
 
 		/**
+		 * @var bool|array
+		 * @access
+		 */
+		private static $reset = false;
+
+		/**
+		 * Stores Pointe Ids.
+		 *
+		 * @var array
+		 * @access
+		 * @static
+		 */
+		private static $pointers_ids = array();
+
+		/**
+		 * @var bool
+		 * @access
+		 */
+		protected $is_hooked = false;
+
+		/**
 		 * WP_Pointers constructor.
 		 *
 		 * @param string $pointer_id
@@ -45,18 +66,41 @@ if ( ! class_exists( 'WP_Pointers' ) ) {
 		public function __construct( $pointer_id = '' ) {
 			$this->module = 'wp_pointers';
 			if ( ! empty( $pointer_id ) ) {
-				$this->unique = $pointer_id;
+				$this->unique                          = $pointer_id;
+				$this->fields                          = array();
+				$this->is_hooked                       = false;
+				self::$pointers_ids[ $this->unique() ] = array();
 				$this->on_init();
-				$this->fields = array();
 				$this->save_instance();
 			}
 		}
 
 		/**
 		 * Registers Hook With WordPress.
+		 *
+		 * @param bool $single_pointer_id
+		 *
+		 * @return mixed|void
 		 */
-		public function on_init() {
-			add_action( 'current_screen', array( $this, 'maybe_add_pointers' ) );
+		public function on_init( $single_pointer_id = false ) {
+			if ( ! did_action( 'current_screen' ) && false === $this->is_hooked ) {
+				add_action( 'current_screen', array( $this, 'maybe_add_pointers' ) );
+				$this->is_hooked = true;
+			} elseif ( did_action( 'current_screen' ) ) {
+				$this->maybe_add_pointers( $single_pointer_id );
+			}
+		}
+
+		/**
+		 * @param bool  $selector
+		 * @param bool  $title
+		 * @param bool  $text
+		 * @param array $args
+		 *
+		 * @return \WPOnion\Modules\WP_Pointers\Pointer
+		 */
+		public function create( $selector = false, $title = false, $text = false, $args = array() ) {
+			return new WP_Pointers\Pointer( $selector, $title, $text, $args, $this->unique() );
 		}
 
 		/**
@@ -70,32 +114,79 @@ if ( ! class_exists( 'WP_Pointers' ) ) {
 		 * @return \WPOnion\Modules\WP_Pointers\Pointer
 		 */
 		public function add( $selector = false, $title = false, $text = false, $args = array() ) {
-			$instance                         = new WP_Pointers\Pointer( $selector, $title, $text, $args, $this->unique() );
-			$this->fields[ $instance->uid() ] = $instance;
+			if ( $selector instanceof \WPOnion\Modules\WP_Pointers\Pointer ) {
+				$instance = $selector;
+			} else {
+				$instance = $this->create( $selector, $title, $text, $args );
+			}
+
+			$this->fields[ $instance->uid() ]        = $instance;
+			self::$pointers_ids[ $this->unique() ][] = $instance->uid();
+			$this->on_init( $instance->uid() );
 			return $instance;
 		}
 
 		/**
-		 * Registers Pointer With WordPress.
+		 * @param \WPOnion\Modules\WP_Pointers\Pointer $pointer_instance
+		 * @param array                                $args
+		 *
+		 * @return mixed
 		 */
-		public function maybe_add_pointers() {
-			$pointers  = $this->pointers_data();
+		public function nested_add( $pointer_instance = null, $args = array() ) {
+			$instance = call_user_func_array( array( $this, 'create' ), $args );
+			if ( empty( $instance->selector() ) ) {
+				$instance->parent( $pointer_instance->uid() );
+				$instance->selector( $pointer_instance->selector() );
+			} elseif ( $pointer_instance->selector() === $instance->selector() ) {
+				$instance->parent( $pointer_instance->uid() );
+			}
+			return $this->add( $instance );
+		}
+
+		/**
+		 * Registers Pointer With WordPress.
+		 *
+		 * @param bool $single_pointer_id
+		 */
+		public function maybe_add_pointers( $single_pointer_id = false ) {
 			$dismissed = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
-			$diff      = array_diff_key( $pointers, array_combine( $dismissed, $dismissed ) );
+			if ( false === $single_pointer_id || $single_pointer_id instanceof \WP_Screen ) {
+				self::__reset();
+				$pointers = $this->pointers_data();
+				$diff     = array_diff_key( $pointers, array_combine( $dismissed, $dismissed ) );
 
-			if ( ! empty( $diff ) ) {
-				$this->print_pointers = $diff;
-				foreach ( $diff as $key => $pointer ) {
-					if ( ! empty( $pointer->phpcode() ) ) {
-						add_action( 'admin_notices', $pointer->phpcode() );
+				if ( ! empty( $diff ) ) {
+					$this->print_pointers = $diff;
+					foreach ( $diff as $key => $pointer ) {
+						if ( ! empty( $pointer->phpcode() ) ) {
+							add_action( 'admin_notices', $pointer->phpcode() );
+						}
 					}
-					$diff[ $key ] = $pointer->to_array();
+					wponion_localize()->add( 'wp_pointers', array(
+						$this->unique() => $diff,
+					) );
 				}
+			} else {
+				if ( ! in_array( $single_pointer_id, $dismissed ) ) {
+					$pointer = $this->fields[ $single_pointer_id ];
+					if ( ! empty( $pointer->phpcode() ) ) {
+						wponion_callback( $pointer->phpcode() );
+					}
 
-				wponion_localize()->add( 'wp_pointers', array(
-					$this->unique() => $diff,
-				) );
+					$wp_pointers = wponion_localize()->get( 'wp_pointers', array() );
+					if ( ! isset( $wp_pointers[ $this->unique() ] ) ) {
+						$wp_pointers[ $this->unique() ] = array();
+					}
+					$wp_pointers[ $this->unique() ] = $this->parse_args( array( $single_pointer_id => $pointer ), $wp_pointers[ $this->unique() ] );
+					wponion_localize()->add( 'wp_pointers', $wp_pointers );
+					$this->print_pointers = $pointer;
+				}
+			}
+
+			if ( ! did_action( 'admin_enqueue_scripts' ) ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_assets' ), 9999 );
+			} else {
+				$this->admin_enqueue_assets();
 			}
 		}
 
@@ -152,24 +243,59 @@ if ( ! class_exists( 'WP_Pointers' ) ) {
 		}
 
 		/**
-		 * Resets WP Pointer For Given User.
+		 * Resets Pointer Data.
 		 *
-		 * @param string $user_id
-		 *
-		 * @internal
+		 * @static
 		 */
-		function _reset( $user_id = 'me' ) {
-			if ( in_array( $user_id, array( 'me', 'current', false, null ) ) ) {
-				$id = get_current_user_id();
-			}
-			$pointers = explode( ',', get_user_meta( $id, 'dismissed_wp_pointers', true ) );
-			foreach ( $pointers as $key => $pointer ) {
-				if ( strpos( $pointer, $this->unique() ) === 0 ) {
-					unset( $pointers[ $key ] );
+		public static function __reset() {
+			if ( ! empty( self::$reset ) ) {
+				static $in_reset = false;
+				if ( true === $in_reset ) {
+					return true;
 				}
+
+				$in_reset = true;
+
+				foreach ( self::$reset as $unique => $user_id ) {
+					$pointers = explode( ',', get_user_meta( $user_id, 'dismissed_wp_pointers', true ) );
+
+					foreach ( $pointers as $key => $pointer ) {
+						if ( isset( self::$pointers_ids[ $unique ] ) ) {
+							if ( in_array( $pointer, self::$pointers_ids[ $unique ] ) ) {
+								unset( $pointers[ $key ] );
+							}
+						}
+					}
+					$meta = implode( ',', $pointers );
+					update_user_meta( get_current_user_id(), 'dismissed_wp_pointers', $meta );
+				}
+				self::$reset = array();
+				$in_reset    = false;
 			}
-			$meta = implode( ',', $pointers );
-			update_user_meta( get_current_user_id(), 'dismissed_wp_pointers', $meta );
+		}
+
+		/**
+		 * Adds A User To Reset.
+		 *
+		 * @param string $user
+		 *
+		 * @return $this
+		 */
+		public function reset( $user = 'me' ) {
+			if ( empty( self::$reset ) ) {
+				self::$reset = array();
+			}
+
+			if ( ! isset( self::$reset[ $this->unique() ] ) ) {
+				self::$reset[ $this->unique() ] = array();
+			}
+
+			if ( in_array( $user, array( 'me', 'current', false, null ) ) ) {
+				$user = get_current_user_id();
+			}
+
+			self::$reset[ $this->unique() ][] = $user;
+			return $this;
 		}
 	}
 }
