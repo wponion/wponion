@@ -64,6 +64,16 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 			}
 			echo '</select>';
 
+			if ( false === $this->select_framework && true === $this->data( 'ajax' ) ) {
+				echo wponion_add_element( array(
+					'type'    => 'wp_error_notice',
+					'before'  => '<br/>',
+					'large'   => true,
+					'alt'     => true,
+					'content' => __( 'Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>' ),
+				) );
+			}
+
 			echo $this->after();
 		}
 
@@ -122,6 +132,18 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 			return array(
 				'options'  => array(),
 				'multiple' => false,
+				'ajax'     => false,
+			);
+		}
+
+		/**
+		 * @return array
+		 */
+		protected function js_field_args() {
+			return array(
+				'ajax'          => $this->data( 'ajax' ),
+				'query_args'    => ( true === $this->data( 'ajax' ) ) ? $this->data( 'query_args' ) : array(),
+				'query_options' => ( true === $this->data( 'ajax' ) ) ? $this->data( 'options' ) : array(),
 			);
 		}
 
