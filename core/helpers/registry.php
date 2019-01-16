@@ -308,7 +308,7 @@ if ( ! function_exists( 'wponion_wp_pointers_registry' ) ) {
 	/**
 	 * @param $instance
 	 *
-	 * @return bool
+	 * @return bool|\WPOnion\Modules\WP_Pointers
 	 */
 	function wponion_wp_pointers_registry( &$instance ) {
 		return wponion_get_registry_instance( 'wp_pointers', $instance, 'settings' );

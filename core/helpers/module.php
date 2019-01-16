@@ -270,6 +270,35 @@ if ( ! function_exists( 'wponion_media_fields' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_wp_pointers' ) ) {
+	/**
+	 * @param $pointer_id_or_instance_id
+	 *
+	 * @return \WPOnion\Modules\WP_Pointers
+	 */
+	function wponion_wp_pointers( $pointer_id_or_instance_id ) {
+		if ( false !== wponion_wp_pointers_registry( $pointer_id_or_instance_id ) ) {
+			return wponion_wp_pointers_registry( $pointer_id_or_instance_id );
+		}
+		return new \WPOnion\Modules\WP_Pointers( $pointer_id_or_instance_id );
+	}
+}
+
+if ( ! function_exists( 'wponion_wp_pointer' ) ) {
+	/**
+	 * @param bool  $selector
+	 * @param bool  $title
+	 * @param bool  $text
+	 * @param array $args
+	 * @param bool  $pointer_instance
+	 *
+	 * @return \WPOnion\Modules\WP_Pointers\Pointer
+	 */
+	function wponion_wp_pointer( $selector = false, $title = false, $text = false, $args = array(), $pointer_instance = false ) {
+		return new \WPOnion\Modules\WP_Pointers\Pointer( $selector, $title, $text, $args, $pointer_instance );
+	}
+}
+
 if ( ! function_exists( 'wponion_admin_notices' ) ) {
 	/**
 	 * @param array $instance_id_or_args
