@@ -282,6 +282,19 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 		}
 
+		/**
+		 * Handles Ajax Data Query.
+		 */
+		public function ajax_wp_query_data() {
+			$query_args    = ( isset( $_REQUEST['query_args'] ) ) ? $_REQUEST['query_args'] : array();
+			$search        = ( isset( $_REQUEST['q'] ) ) ? $_REQUEST['q'] : '';
+			$search        = ( isset( $_REQUEST['s'] ) ) ? $_REQUEST['s'] : $search;
+			$query_options = ( isset( $_REQUEST['query_options'] ) ) ? $_REQUEST['query_options'] : false;
+			$data          = wponion_query()->query( $query_options, $query_args, $search );
+			wp_send_json( $data );
+			wp_die();
+		}
+
 	}
 }
 return new Core_Ajax;
