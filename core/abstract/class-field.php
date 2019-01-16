@@ -201,34 +201,64 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function defaults() {
 			return $this->parse_args( $this->field_default(), array(
-				'horizontal'      => false,
+				/**
+				 * Common Args.
+				 */
 				'id'              => false, # Unique Database ID For Each And Every Field
-				'type'            => false, # Type of the field,
 				'title'           => false, # Title For Each Field,
+				'help'            => false, # Used for field tooltip
+				'default'         => null, # Stores Default Value,
 				'desc'            => false, # Field Description to print after title,
 				'desc_field'      => false, # Field description to print after field output.
-				'help'            => false, # Used for field tooltip
-				'class'           => false, # Extra Element Class,
-				'style'           => false,
-				'wrap_class'      => null, # custom class for the field wrapper,
-				'wrap_attributes' => array(),
-				'placeholder'     => false,
-				'default'         => null, # Stores Default Value,
-				'dependency'      => array(), # dependency for showing and hiding fields
-				'attributes'      => array(), # attributes of field. supporting only html standard attributes
+				'name'            => false,
+
+				/**
+				 * DB Save Handler Related.
+				 */
 				'sanitize'        => null,    #sanitize of field. can be enabled or disabled
 				'validate'        => null,    #validate of field. can be enabled or disabled
 				'js_validate'     => null,    #JS validate of field. can be enabled or disabled
+
+				/**
+				 * Field Related.
+				 */
+				'type'            => false, # Type of the field,
+				'style'           => false,
+				'placeholder'     => false,
+				'disabled'        => false,
+				'attributes'      => array(), # attributes of field. supporting only html standard attributes
+				'class'           => false, # Extra Element Class,
+
+				/**
+				 * UI Related.
+				 */
 				'before'          => null,
 				'after'           => null,
+				'horizontal'      => false,
 				'only_field'      => false,
-				'name'            => false,
+				'dependency'      => array(), # dependency for showing and hiding fields
+
+				/**
+				 * Cloner Related.
+				 */
 				'clone'           => false,
 				'clone_settings'  => array(),
 				'debug'           => wponion_field_debug(),
-				'disabled'        => false,
-				'wrap_tooltip'    => false,
+
+				/**
+				 * WordPress Releated.
+				 */
 				'query_args'      => array(),
+				'wp_pointer'      => false,
+
+				/**
+				 * Wrap Releated
+				 */
+				'wrap_tooltip'    => false,
+				'wrap_class'      => null, # custom class for the field wrapper,
+				'wrap_id'         => null, # custom ID for the field wrapper,
+				'wrap_attributes' => array(),
+
 			) );
 		}
 
@@ -279,6 +309,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->debug( __( 'Unique' ), $this->unique );
 			$this->debug( __( 'Plugin ID' ), $this->plugin_id() );
 			$this->debug( __( 'Module' ), $this->module() );
+			$this->wp_pointer();
 			$this->localize_field();
 		}
 
@@ -395,7 +426,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$_wrap_attr['title'] = $_data['attr']['title'];
 			}
 
-			$_wrap_attr = wponion_array_to_html_attributes( $_wrap_attr );
+			$_wrap_attr['id'] = $this->wrap_id();
+			$_wrap_attr       = wponion_array_to_html_attributes( $_wrap_attr );
 
 			echo '<div ' . $_wrap_attr . '>';
 			echo $this->title();
@@ -410,6 +442,21 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				echo '</div>';
 				self::$columns = 0;
 			}
+		}
+
+		/**
+		 * Returns A Valid Wrap ID.
+		 *
+		 * @return string
+		 */
+		private function wrap_id() {
+			$attrs = $this->data( 'wrap_attributes' );
+			if ( isset( $attrs['id'] ) && ! empty( $attrs['id'] ) ) {
+				return $attrs['id'];
+			} elseif ( ! empty( $this->data( 'wrap_id' ) ) ) {
+				return $this->data( 'wrap_id' );
+			}
+			return $this->js_field_id();
 		}
 
 		/**
@@ -602,33 +649,27 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			}
 
 			if ( $this->data( 'debug' ) || wponion_field_debug() ) {
-				$r       = '<div class="wponion-field-debug-code wponion-framework-bootstrap">';
-				$search  = array( '&lt;?php<br />', '&lt;?php', '<span style="color: #0000BB">?&gt;</span>', '?&gt' );
-				$replace = '';
-				$field   = var_export( $this->orginal_field, true );
-				$value   = var_export( $this->orginal_value, true );
-				$unique  = var_export( $this->orginal_unique, true );
-				$code    = <<<PHP
-<?php
+				$r      = '<div class="wponion-field-debug-code wponion-framework-bootstrap">';
+				$field  = var_export( $this->orginal_field, true );
+				$value  = var_export( $this->orginal_value, true );
+				$unique = var_export( $this->orginal_unique, true );
+				$code   = <<<PHP
 \$field = $field;
 
 \$value = $value;
 
-\$unique = $unique; ?>
+\$unique = $unique;
 PHP;
-				$code    = str_replace( $search, $replace, highlight_string( $code, true ) );
-				$usage   = <<<PHP
-<?php
+				$usage  = <<<PHP
 echo wponion_add_element( \$field, \$value, \$unique);
-?>
 PHP;
-				$usage   = str_replace( $search, $replace, highlight_string( $usage, true ) );
+				$code   = wponion_highlight_string( $code );
+				$usage  = wponion_highlight_string( $usage );
 
 				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ' ) . '</strong>';
-				$r .= '<div >' . $code . '</div>';
-
+				$r .= '<div ><code>' . $code . '</code></div>';
 				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ' ) . '</strong>';
-				$r .= '<div style="display: none;">' . $usage . '</div>';
+				$r .= '<div style="display: none;"><code>' . $usage . '</code></div>';
 
 				$base   = $this->base_unique();
 				$unique = str_replace( array( $base, '][', ']', '[' ), array(
@@ -638,24 +679,21 @@ PHP;
 					null,
 				), $this->unique() );
 				$base   = empty( $base ) ? '' : $base;
+
 				if ( ! empty( $unique ) || ! empty( $this->data( 'id' ) ) ) {
 					$unique     = ( ! empty( $unique ) ) ? $unique . '/' . $this->data( 'id' ) : $this->data( 'id' );
 					$value_func = 'wponion_' . $this->module() . '_option';
 					$_code      = <<<PHP
-<?php
-\$instance = $value_func("$base");
-\$value = \$instance->get("$unique");
-?>
+\$value = $value_func("$base");
+print_r(\$value["$unique"]);
 PHP;
-
-					$usage = str_replace( $search, $replace, highlight_string( $_code, true ) );
+					$usage      = wponion_highlight_string( $_code );
 
 					$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'VALUE : ' ) . '</strong>';
-					$r .= '<div style="display: none;">' . $usage . '</div>';
+					$r .= '<div style="display: none;"><code>' . $usage . '</code></div>';
 				}
 
-				$r .= '<span class="alert alert-warning">' . __( 'Debug Information shown only if field has debug attribute enabled or define( <code>WPONION_FIELD_DEBUG</code> ) is set to true' ) . '</span>';
-
+				$r .= '<div class="alert alert-warning">' . __( 'Debug Information shown only if field has debug attribute enabled or define( <code>WPONION_FIELD_DEBUG</code> ) is set to true' ) . '</div>';
 				$r .= '</div>';
 			}
 
@@ -923,6 +961,75 @@ PHP;
 				), true, false );
 			} else {
 				wponion_localize()->add( $this->js_field_id(), $data, true, $js_convert );
+			}
+		}
+
+		/**
+		 * Returns A Valid WP Pointer Instance.
+		 *
+		 * @param bool $pointer_id
+		 *
+		 * @return \WPOnion\Modules\WP_Pointers
+		 */
+		private function wp_pointer_instance( $pointer_id = false ) {
+			if ( empty( $pointer_id ) ) {
+				$pointer_id = sanitize_title( $this->unique() );
+			}
+
+			$instance = wponion_wp_pointers( $pointer_id );
+			if ( false === $instance ) {
+				return $this->wp_pointer_instance( false );
+			}
+			return $instance;
+		}
+
+		/**
+		 * Handles WP Pointer.
+		 */
+		private function wp_pointer() {
+			$pointer = $this->data( 'wp_pointer' );
+
+			if ( is_string( $pointer ) ) {
+				$this->wp_pointer_instance()
+					->add( '#' . $this->wrap_id(), $pointer, array(
+						'align' => 'right',
+						'edge'  => 'right',
+					) );
+			} elseif ( is_array( $pointer ) ) {
+				if ( isset( $pointer[0] ) ) {
+					$title       = false;
+					$instance_id = false;
+					$text        = false;
+					if ( 1 === count( $pointer ) ) {
+						$title = $pointer;
+					} elseif ( 2 === count( $pointer ) ) {
+						$title = $pointer[0];
+						$text  = $pointer[1];
+					} elseif ( 3 === count( $pointer ) ) {
+						$instance_id = $pointer[0];
+						$title       = $pointer[1];
+						$text        = $pointer[2];
+					}
+
+					$this->wp_pointer_instance( $instance_id )
+						->add( '#' . $this->wrap_id(), $title, $text, array(
+							'align' => 'right',
+							'edge'  => 'right',
+						) );
+				} elseif ( isset( $pointer['title'] ) || isset( $pointer['pointer_id'] ) || isset( $pointer['id'] ) ) {
+					$pointer_id = false;
+
+					if ( isset( $pointer['pointer_id'] ) ) {
+						$pointer_id = $pointer['pointer_id'];
+					} elseif ( isset( $pointer['id'] ) ) {
+						$pointer_id = $pointer['id'];
+					}
+
+					unset( $pointer['id'] );
+					unset( $pointer['pointer_id'] );
+					$this->wp_pointer_instance( $pointer_id )
+						->add( '#' . $this->wrap_id() . ' > .wponion-field-title', $pointer );
+				}
 			}
 		}
 
