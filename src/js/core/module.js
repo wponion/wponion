@@ -7,7 +7,7 @@ export default class {
 	 * @param $selector
 	 * @param $context
 	 */
-	constructor( $selector, $context ) {
+	constructor( $selector, $context = null ) {
 		if( !$selector.jQuery ) {
 			$selector = jQuery( $selector );
 		}

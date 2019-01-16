@@ -17,7 +17,7 @@ export default class extends WPOnion_Module {
 	 * @param $context
 	 * @param $config
 	 */
-	constructor( $selector, $context, $config = null ) {
+	constructor( $selector, $context = null, $config = null ) {
 		super( $selector, $context );
 		this.set_args( false );
 		this.field_debug();
@@ -282,11 +282,6 @@ export default class extends WPOnion_Module {
 	reload() {
 		window.wponion.hooks.doAction( 'wponion_before_fields_reload' );
 
-		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
-		this.init_field( '.select2', 'select2' );
-		this.init_field( '.chosen', 'chosen' );
-		this.init_field( '.selectize', 'selectize' );
-
 		this.init_field( '.wponion-element-accordion', 'accordion' );
 		this.init_field( '.wponion-element-background', 'background' );
 		this.init_field( '.wponion-element-backup', 'backup' );
@@ -326,6 +321,12 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-field-tooltip', 'tooltip' );
 		this.init_field( '.wponion-help', 'tooltip' );
 		this.init_field( '.wponion-wrap-tooltip', 'tooltip' );
+
+		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
+		this.init_field( '.select2', 'select2' );
+		this.init_field( '.chosen', 'chosen' );
+		this.init_field( '.selectize', 'selectize' );
+
 
 		window.wponion.hooks.doAction( 'wponion_after_fields_reload' );
 		return this;
