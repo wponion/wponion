@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPOnion_Wp_Theme' ) ) {
 		 */
 		public function register_assets() {
 			wp_enqueue_style( 'wponion-wp-theme', $this->url( 'assets/wponion-wp-theme.css' ), array( 'wponion-core' ) );
-			wp_enqueue_script( 'wponion-wp-theme', $this->url( 'assets/wponion-wp-theme.js' ), array( 'wponion-plugins' ) );
+			wp_enqueue_script( 'wponion-wp-theme', $this->url( 'assets/wponion-wp-theme.js' ), array( 'wponion-core' ) );
 		}
 
 		/**
