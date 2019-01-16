@@ -304,6 +304,16 @@ if ( ! function_exists( 'wponion_admin_notices_registry' ) ) {
 		return wponion_get_registry_instance( 'admin_notices', $instance, 'settings' );
 	}
 }
+if ( ! function_exists( 'wponion_wp_pointers_registry' ) ) {
+	/**
+	 * @param $instance
+	 *
+	 * @return bool
+	 */
+	function wponion_wp_pointers_registry( &$instance ) {
+		return wponion_get_registry_instance( 'wp_pointers', $instance, 'settings' );
+	}
+}
 
 /**
  * Core / Theme Registry

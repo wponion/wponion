@@ -25,29 +25,29 @@ window.wponion = window.wponion || Object.create( {
 	 * @see https://www.npmjs.com/package/@wordpress/hooks
 	 */
 	hooks: createHooks(),
-
-	/**
-	 * WPonion Modules.
-	 */
-	metabox: require( './modules/metabox' ).default,
-	media_fields: require( './modules/media-fields' ).default,
-	bulk_edit: require( './modules/bulk-edit' ).default,
-	guttenberg: require( './modules/guttenberg' ).default,
-	woocommerce: require( './modules/woocommerce' ).default,
-	quick_edit: require( './modules/quick-edit' ).default,
-	visual_composer: require( './modules/visual-composer' ).default,
-	modal: require( '../vendors/backbone-modal' ).default,
-	ajaxer: require( './core/ajaxer' ).WPOnion_Ajaxer,
-	ajax: require( './core/ajaxer' ).default,
-	debug: require( './core/debug' ).default,
-	core: require( './core/core' ).default,
-	field_abstract: require( './core/field' ).default,
 } );
+
+/**
+ * WPonion Modules.
+ */
+window.wponion.metabox = require( './modules/metabox' ).default;
+window.wponion.wp_pointers     = require( './modules/wp-pointers' ).default;
+window.wponion.media_fields    = require( './modules/media-fields' ).default;
+window.wponion.bulk_edit       = require( './modules/bulk-edit' ).default;
+window.wponion.guttenberg      = require( './modules/guttenberg' ).default;
+window.wponion.woocommerce     = require( './modules/woocommerce' ).default;
+window.wponion.quick_edit      = require( './modules/quick-edit' ).default;
+window.wponion.visual_composer = require( './modules/visual-composer' ).default;
+window.wponion.modal           = require( '../vendors/backbone-modal' ).default;
+window.wponion.ajaxer          = require( './core/ajaxer' ).WPOnion_Ajaxer;
+window.wponion.ajax            = require( './core/ajaxer' ).default;
+window.wponion.debug           = require( './core/debug' ).default;
+window.wponion.core            = require( './core/core' ).default;
+window.wponion.field_abstract  = require( './core/field' ).default;
 
 require( './wponion-fields' );
 
-module.exports = ( ( window, document, wp, $
-) => {
+module.exports = ( ( window, document, wp, $ ) => {
 	// Document On Load.
 	$( () => {
 		window.wponion_setup();

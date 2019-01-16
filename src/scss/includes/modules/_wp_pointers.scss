@@ -1,0 +1,47 @@
+/* PointerPlus Based on QueryLoop Pointer */
+
+.pointerplus {
+	.pp-pointer-content {
+		padding:    0 0 10px;
+		position:   relative;
+		font-size:  13px;
+		background: none repeat scroll 0 0 #FFF;
+		border:     1px solid #DFDFDF;
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.075);
+
+		h3 {
+			position:                  relative;
+			margin:                    -1px -1px 5px;
+			padding:                   15px 18px 14px 60px;
+			border-width:              1px 1px medium;
+			border-style:              solid solid none;
+			border-color:              #3592B6 #3592B6;
+			-moz-border-top-colors:    none;
+			-moz-border-right-colors:  none;
+			-moz-border-bottom-colors: none;
+			-moz-border-left-colors:   none;
+			border-image:              none;
+			line-height:               1.4em;
+			font-size:                 14px;
+			color:                     #FFF;
+			background:                none repeat scroll 0 0 #2EA2CC;
+
+			&:before {
+				background:    none repeat scroll 0 0 #FFF;
+				border-radius: 50%;
+				color:         #2EA2CC;
+				font:          20px/1.6 "dashicons";
+				position:      absolute;
+				top:           8px;
+				left:          15px;
+				text-align:    center;
+				width:         32px;
+				height:        32px;
+			}
+		}
+
+		p {
+			padding: 0 15px;
+		}
+	}
+}
