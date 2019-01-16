@@ -557,6 +557,30 @@ if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_highlight_string' ) ) {
+	/**
+	 * Highlights A Code.
+	 *
+	 * @uses \highlight_string()
+	 *
+	 * @param $sting
+	 *
+	 * @return bool|string|string[]|null
+	 */
+	function wponion_highlight_string( $sting ) {
+		$text = trim( $sting );
+		$text = highlight_string( '<?php ' . $sting, true );  // highlight_string() requires opening PHP tag or otherwise it will not colorize the text
+		$text = trim( $text );
+		$text = preg_replace( '|^\\<code\\>\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>|', '', $text, 1 );  // remove prefix
+		$text = preg_replace( '|\\</code\\>$|', '', $text, 1 );  // remove suffix 1
+		$text = trim( $text );  // remove line breaks
+		$text = preg_replace( '|\\</span\\>$|', '', $text, 1 );  // remove suffix 2
+		$text = trim( $text );  // remove line breaks
+		$text = preg_replace( '|^(\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>)(&lt;\\?php&nbsp;)(.*?)(\\</span\\>)|', '$1$3$4', $text );  // remove custom added "<?php "
+		return $text;
+	}
+}
+
 
 // WPOnion Assets Related Functions.
 require_once WPONION_PATH . 'core/helpers/assets.php';
