@@ -919,6 +919,7 @@ PHP;
 				wponion_localize()->add( $this->js_field_id(), array(
 					'module'    => $this->module(),
 					'plugin_id' => $this->plugin_id(),
+					'unique'    => $this->base_unique(),
 				), true, false );
 			} else {
 				wponion_localize()->add( $this->js_field_id(), $data, true, $js_convert );
@@ -1066,7 +1067,7 @@ PHP;
 		 * @return array
 		 */
 		public function element_data( $type = '' ) {
-			$is_ajax    = ( isset( $this->field['settings'] ) && isset( $this->field['settings']['is_ajax'] ) && true === $this->field['settings']['is_ajax'] );
+			$is_ajax    = ( isset( $this->field['ajax'] ) && true === $this->field['ajax'] );
 			$query_args = array();
 
 			if ( $is_ajax && empty( $this->value ) ) {
@@ -1080,6 +1081,7 @@ PHP;
 			if ( $is_ajax ) {
 				$query_args['post__in'] = ( ! is_array( $this->value ) ) ? explode( ',', $this->value ) : $this->value;
 			}
+
 			$data = wponion_query()->query( $type, $query_args, '' );
 			return $data;
 		}
