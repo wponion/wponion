@@ -568,6 +568,23 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Unsets Global Args.
+		 */
+		private function __unset_globals() {
+			unset( $this->current_theme );
+			unset( $this->fields_md5 );
+			unset( $this->menus );
+			unset( $this->fields );
+			unset( $this->raw_options );
+			unset( $this->raw_fields );
+			unset( $this->unique );
+			unset( $this->db_values );
+			unset( $this->options_cache );
+			unset( $this->plugin_id );
+			unset( $this->module );
+		}
+
+		/**
 		 * Required Callback On Instance Init.
 		 *
 		 * @return mixed
