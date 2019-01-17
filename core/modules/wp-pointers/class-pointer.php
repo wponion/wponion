@@ -42,17 +42,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		 * @param bool  $pointer_instance
 		 */
 		public function __construct( $selector = false, $title = false, $text = false, $args = array(), $pointer_instance = false ) {
-			unset( $this->current_theme );
-			unset( $this->fields_md5 );
-			unset( $this->menus );
-			unset( $this->fields );
-			unset( $this->raw_options );
-			unset( $this->raw_fields );
-			unset( $this->unique );
-			unset( $this->db_values );
-			unset( $this->options_cache );
-			unset( $this->plugin_id );
-			unset( $this->module );
+			$this->_unset_globals();
 
 			$valid_selector         = ( ! is_array( $selector ) && false !== $selector );
 			$valid_title            = ( ! is_array( $title ) && false !== $title );

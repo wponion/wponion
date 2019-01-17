@@ -206,7 +206,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 				'post_type' => false,
 				'name'      => false,
 				'title'     => false,
-				'reoder'    => false,
+				'reorder'   => false,
 				'render'    => false,
 				'sortable'  => false,
 			) );
