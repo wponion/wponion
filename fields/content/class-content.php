@@ -36,7 +36,7 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 				$content = $this->catch_output( 'end' );
 			} elseif ( $this->has( 'content' ) && false !== $this->data( 'content' ) ) {
 				$content = $this->data( 'content' );
-				if ( is_array( $content ) && is_callable( $content ) ) {
+				if ( wponion_is_array( $content ) && is_callable( $content ) ) {
 					$content = call_user_func_array( $content, array( $this ) );
 				} elseif ( is_callable( $content ) ) {
 					$content = call_user_func( $content, $this );

@@ -35,7 +35,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			if ( is_array( $this->data( 'options' ) ) ) {
+			if ( wponion_is_array( $this->data( 'options' ) ) ) {
 				foreach ( $this->data( 'options' ) as $slug => $option ) {
 					$field_args = $this->handle_args( 'title', $option, array(
 						'rgba' => $this->data( 'rgba' ),

@@ -136,7 +136,7 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 						}
 						$_data[1] = ( isset( $_data[1] ) ) ? $_data[1] : '';
 						$is_array = explode( ',', $_data[1] );
-						if ( is_array( $is_array ) && count( $is_array ) > 1 ) {
+						if ( wponion_is_array( $is_array ) && count( $is_array ) > 1 ) {
 							$return[ $_data[0] ] = array_merge( $is_array, $return[ $_data[0] ] );
 						} else {
 							$return[ $_data[0] ] = $_data[1];

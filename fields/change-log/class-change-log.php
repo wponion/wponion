@@ -144,7 +144,7 @@ if ( ! class_exists( '\WPOnion\Field\Change_Log' ) ) {
 			$default_groups = $this->groups();
 			if ( isset( $data['groups'] ) ) {
 				foreach ( $data['groups'] as $i => $d ) {
-					if ( is_array( $d ) ) {
+					if ( wponion_is_array( $d ) ) {
 						$data['groups'][ $i ] = wp_parse_args( $d, array(
 							'title' => false,
 							'bg'    => false,

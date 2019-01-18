@@ -53,7 +53,7 @@ if ( ! function_exists( 'wponion_change_log_single_log' ) ) {
 			}
 
 			foreach ( $data as $group => $code ) {
-				if ( is_array( $code ) ) {
+				if ( wponion_is_array( $code ) ) {
 					foreach ( $code as $html ) {
 						echo wponion_change_log_single_log( $group, $html, $this );
 					}

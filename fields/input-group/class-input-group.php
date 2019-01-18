@@ -35,7 +35,7 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			if ( is_array( $this->data( 'fields' ) ) ) {
+			if ( wponion_is_array( $this->data( 'fields' ) ) ) {
 				foreach ( $this->data( 'fields' ) as $id => $data ) {
 					$field_args = $this->handle_args( 'title', $data, array( 'type' => 'text' ), array( 'id' => $id ) );
 					echo $this->sub_field( $field_args, $this->value( $id ), $this->name() );

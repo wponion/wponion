@@ -81,7 +81,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 			$default_title    = $this->data( 'heading' );
 			$count            = ( empty( $this->value ) ) ? 0 : count( $this->value );
 			echo '<div class="wponion-group-wrap" data-wponion-clone-count="' . $count . '">';
-			if ( is_array( $this->value ) ) {
+			if ( wponion_is_array( $this->value ) ) {
 				$this->value = array_filter( $this->value );
 				foreach ( $this->value as $i => $value ) {
 					$this->loop_count       = $this->loop_count + 1;
@@ -185,7 +185,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				}
 			}
 
-			if ( ! is_array( $accordion_title ) ) {
+			if ( ! wponion_is_array( $accordion_title ) ) {
 				if ( false !== strpos( $accordion_title, '[count]' ) ) {
 					$accordion_title = str_replace( '[count]', $this->loop_count, $accordion_title );
 				}

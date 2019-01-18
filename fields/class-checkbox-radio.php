@@ -51,14 +51,14 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 		protected function output() {
 			echo $this->before();
 			$options = $this->data( 'options' );
-			$options = ( is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
+			$options = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$this->catch_output( 'start' );
-			if ( is_array( $options ) && ! empty( $options ) ) {
+			if ( wponion_is_array( $options ) && ! empty( $options ) ) {
 				echo '<ul>';
 				foreach ( $options as $option_key => $option ) {
-					if ( ! is_array( $option ) || is_array( $option ) && ( isset( $option['label'] ) || isset( $option['custom_input'] ) ) ) {
+					if ( ! wponion_is_array( $option ) || wponion_is_array( $option ) && ( isset( $option['label'] ) || isset( $option['custom_input'] ) ) ) {
 						echo '<li>' . $this->render_element( $this->handle_options( $option_key, $option ) ) . '</li>';
-					} elseif ( is_array( $option ) && false === isset( $option['label'] ) ) {
+					} elseif ( wponion_is_array( $option ) && false === isset( $option['label'] ) ) {
 						echo '<li class="has-subgroup">';
 						echo '<h4 class="wponion-checkbox-radio-header">' . $option_key . '</h4>';
 						echo '<ul class="wponion-checkbox-group-lists">';
@@ -150,7 +150,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			$elem_id    = sanitize_title( $attr['name'] . '_' . $options['key'] );
 			$attr['id'] = $elem_id;
 
-			if ( isset( $options['tooltip'] ) && is_array( $options['tooltip'] ) ) {
+			if ( isset( $options['tooltip'] ) && wponion_is_array( $options['tooltip'] ) ) {
 				$label_attr                      = $options['tooltip']['attr'];
 				$label_attr['data-wponion-jsid'] = $this->js_field_id();
 				$label_attr['data-field-jsid']   = $elem_id;
@@ -161,13 +161,13 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			$wrap_attr['class'] = wponion_html_class( array( 'form-group', 'form-check' ) );
 			$field_attr         = $this->attributes( $attr, $dep_id );
 
-			if ( true === $options['custom_input'] || true === is_array( $options['custom_input'] ) ) {
+			if ( true === $options['custom_input'] || true === wponion_is_array( $options['custom_input'] ) ) {
 				$name             = $options['key'];
 				$input_value      = ( isset( $value[ $name ] ) ) ? $value[ $name ] : false;
 				$options['label'] = $this->get_custom_input( $name, $input_value, $options['custom_input'] );
 			}
 
-			if ( is_array( $value ) && true === $options['custom_input'] || true === is_array( $options['custom_input'] ) ) {
+			if ( wponion_is_array( $value ) && true === $options['custom_input'] || true === wponion_is_array( $options['custom_input'] ) ) {
 				$value = isset( $options['key'], $value ) ? $options['key'] : false;
 			}
 			return $this->_element_html( $label_attr, $field_attr, $value, $attr, $options );

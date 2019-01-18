@@ -39,7 +39,7 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Checkbox' ) ) {
 				return wponion_validate_bool_val( $this->value );
 			}
 			$m_data = ( $this->is_encoded( $this->value ) ) ? $this->decode( $this->value ) : false;
-			if ( is_array( $m_data ) ) {
+			if ( wponion_is_array( $m_data ) ) {
 				if ( ! empty( array_filter( $m_data ) ) ) {
 					$m_data = wponion_validate_bool_val( $m_data );
 				}

@@ -24,7 +24,7 @@ if ( ! function_exists( 'wponion_validate_bool_val' ) ) {
 	 * @return array|bool
 	 */
 	function wponion_validate_bool_val( $value ) {
-		if ( is_array( $value ) ) {
+		if ( wponion_is_array( $value ) ) {
 			return array_map( 'wponion_validate_bool_val', $value );
 		}
 		switch ( strtolower( $value ) ) {
@@ -55,9 +55,9 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	 */
 	function wponion_get_field_class( $field = '', $module = 'core' ) {
 		$return = false;
-		if ( is_array( $field ) ) {
+		if ( wponion_is_array( $field ) || $field instanceof \WPO\Field ) {
 			$field_type = ( isset( $field['type'] ) ) ? $field['type'] : false;
-			$is_clone   = ( isset( $field['clone'] ) && ( true === $field['clone'] || true === is_array( $field['clone'] ) ) ) ? true : false;
+			$is_clone   = ( isset( $field['clone'] ) && ( true === $field['clone'] || true === wponion_is_array( $field['clone'] ) ) ) ? true : false;
 		} else {
 			$field_type = $field;
 			$is_clone   = false;
@@ -109,7 +109,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			$module    = 'user_fields';
 			$hash      = null;
 
-			if ( is_array( $unique ) ) {
+			if ( wponion_is_array( $unique ) ) {
 				$plugin_id = isset( $unique['plugin_id'] ) ? $unique['plugin_id'] : '';
 				$module    = isset( $unique['module'] ) ? $unique['module'] : '';
 				$hash      = isset( $unique['hash'] ) ? $unique['hash'] : '';
@@ -181,7 +181,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			ob_start();
 			echo '<h2>' . __( 'Callback Arguments' ) . '</h2>';
 			var_dump( func_get_args() );
-			$args   .= ob_get_clean();
+			$args .= ob_get_clean();
 
 			$type   = ( isset( $field['type'] ) ) ? $field['type'] : false;
 			$output = wponion_add_element( array(
@@ -206,7 +206,7 @@ if ( ! function_exists( 'wponion_get_field_type' ) ) {
 	function wponion_get_field_type( $field, $check = true ) {
 		if ( is_string( $field ) && $check ) {
 			return ( \WPOnion\Registry\Field_Types::exists( $field ) ) ? $field : false;
-		} elseif ( is_array( $field ) ) {
+		} elseif ( wponion_is_array( $field ) ) {
 			$type = isset( $field['type'] ) ? $field['type'] : false;
 			return wponion_get_field_type( $type, $check );
 		}
@@ -253,7 +253,7 @@ if ( ! function_exists( 'wponion_valid_user_input_field' ) ) {
 	 * @return bool
 	 */
 	function wponion_valid_user_input_field( $field ) {
-		$field = ( is_array( $field ) ) ? ( isset( $field['type'] ) ) ? $field['type'] : false : $field;
+		$field = ( wponion_is_array( $field ) ) ? ( isset( $field['type'] ) ) ? $field['type'] : false : $field;
 		return ( ! in_array( $field, wponion_noninput_fields() ) );
 	}
 }
@@ -315,7 +315,7 @@ if ( ! function_exists( 'wponion_get_field_value' ) ) {
 
 		$field_id = wponion_field_id( $field );
 
-		if ( wponion_is_unarrayed( $field ) && isset( $field['fields'] ) && is_array( $field['fields'] ) ) {
+		if ( wponion_is_unarrayed( $field ) && isset( $field['fields'] ) && wponion_is_array( $field['fields'] ) ) {
 			$return_values = array();
 			foreach ( $field['fields'] as $_field ) {
 				if ( false !== wponion_valid_field( $_field ) ) {
@@ -355,9 +355,9 @@ if ( ! function_exists( 'wponion_validate_select_framework' ) ) {
 		$frameworks = wponion_select_frameworks();
 
 		foreach ( $frameworks as $f ) {
-			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || $f === $fld[ 'is_' . $f ] || true === is_array( $fld[ 'is_' . $f ] ) ) ) {
+			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || $f === $fld[ 'is_' . $f ] || true === wponion_is_array( $fld[ 'is_' . $f ] ) ) ) {
 				return $f;
-			} elseif ( isset( $fld[ $f ] ) && ( true === $fld[ $f ] || $f === $fld[ $f ] || true === is_array( $fld[ $f ] ) ) ) {
+			} elseif ( isset( $fld[ $f ] ) && ( true === $fld[ $f ] || $f === $fld[ $f ] || true === wponion_is_array( $fld[ $f ] ) ) ) {
 				return $f;
 			}
 		}
@@ -485,10 +485,10 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 		$data   = wponion_google_fonts();
 		$return = array();
 
-		if ( is_array( $data ) ) {
+		if ( wponion_is_array( $data ) ) {
 			foreach ( $data as $d => $v ) {
 				$vars = array();
-				if ( is_array( $v ) && ! empty( $v ) ) {
+				if ( wponion_is_array( $v ) && ! empty( $v ) ) {
 					foreach ( $v as $id => $name ) {
 						$vars[ $id ] = $name;
 					}
@@ -536,7 +536,7 @@ if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
 					}
 				}
 			}
-		} elseif ( is_array( $fields ) ) {
+		} elseif ( wponion_is_array( $fields ) ) {
 			foreach ( $fields as $data ) {
 				if ( isset( $data['sections'] ) || isset( $data['fields'] ) ) {
 					$name   = ( isset( $data['name'] ) ) ? $data['name'] : ( isset( $data['title'] ) ) ? $data['title'] : false;
@@ -560,7 +560,7 @@ if ( ! function_exists( 'wponion_field_value_class' ) ) {
 	 * @return bool|string
 	 */
 	function wponion_field_value_class( $field_type ) {
-		$field_type = ( is_array( $field_type ) ) ? $field_type['type'] : $field_type;
+		$field_type = ( wponion_is_array( $field_type ) ) ? $field_type['type'] : $field_type;
 		$class      = '\WPOnion\Value\\' . $field_type;
 		return ( class_exists( $class ) ) ? $class : false;
 	}
@@ -650,7 +650,7 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 		$_group   = ( true === $group ) ? 'yes' : 'no';
 		$key      = $gfonts . $webfonts . $_group;
 
-		if ( ! is_array( $selected ) ) {
+		if ( ! wponion_is_array( $selected ) ) {
 			$selected = array( $selected );
 		}
 
@@ -658,7 +658,7 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 			$fonts = wponion_get_fonts_array( $google_fonts, $websafe_fonts, $group );
 			$html  = '';
 			foreach ( $fonts as $id => $value ) {
-				if ( is_array( $value ) ) {
+				if ( wponion_is_array( $value ) ) {
 					$html .= '<optgroup label="' . $id . '">';
 					foreach ( $value as $i => $v ) {
 						$html .= '<option value="' . $i . '">' . $v . '</option>';
@@ -693,7 +693,7 @@ if ( ! function_exists( 'wponion_key_value_to_array' ) ) {
 	 */
 	function wponion_key_value_to_array( $data = array() ) {
 		$return = array();
-		if ( is_array( $data ) ) {
+		if ( wponion_is_array( $data ) ) {
 			foreach ( $data as $key => $value ) {
 				if ( true === isset( $value['key'] ) && true === isset( $value['value'] ) ) {
 					$return[ $value['key'] ] = $value['value'];

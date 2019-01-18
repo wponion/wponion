@@ -87,12 +87,12 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		public function datalist() {
 			if ( false !== $this->data( 'options' ) ) {
 				echo '<datalist id="' . $this->js_field_id() . 'inputLists">';
-				$options = ( ! is_array( $this->data( 'options' ) ) ) ? $this->element_data( $this->data( 'options' ) ) : $this->data( 'options' );
+				$options = ( ! wponion_is_array( $this->data( 'options' ) ) ) ? $this->element_data( $this->data( 'options' ) ) : $this->data( 'options' );
 
 				foreach ( $options as $key => $option ) {
-					if ( is_array( $option ) && isset( $option['label'] ) ) {
+					if ( wponion_is_array( $option ) && isset( $option['label'] ) ) {
 						echo $this->sel_option( $this->handle_options( $key, $option ) );
-					} elseif ( is_array( $option ) && ! isset( $option['label'] ) ) {
+					} elseif ( wponion_is_array( $option ) && ! isset( $option['label'] ) ) {
 						echo '<optgroup label="' . $key . '">';
 						foreach ( $option as $k => $v ) {
 							echo $this->sel_option( $this->handle_options( $k, $v ) );
@@ -116,7 +116,7 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 */
 		protected function sel_option( $data ) {
 			$elem_id = sanitize_title( $this->name() . '_' . $data['key'] );
-			if ( isset( $data['tooltip'] ) && is_array( $data['tooltip'] ) ) {
+			if ( isset( $data['tooltip'] ) && wponion_is_array( $data['tooltip'] ) ) {
 				$data['attributes']['title']             = $data['tooltip']['attr']['title'];
 				$data['attributes']['data-wponion-jsid'] = $this->js_field_id();
 				$data['attributes']['data-field-jsid']   = $elem_id;
