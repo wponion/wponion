@@ -570,7 +570,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Unsets Global Args.
 		 */
-		private function __unset_globals() {
+		protected function __unset_globals() {
 			unset( $this->current_theme );
 			unset( $this->fields_md5 );
 			unset( $this->menus );
