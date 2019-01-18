@@ -62,7 +62,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 			if ( ! isset( $this->db_values[ $this->post_id ] ) || empty( $this->db_values[ $this->post_id ] ) ) {
 				$this->db_values[ $this->post_id ] = get_post_meta( $this->post_id, $this->unique(), true );
 			}
-			return ( ! is_array( $this->db_values[ $this->post_id ] ) ) ? array() : $this->db_values[ $this->post_id ];
+			return ( ! wponion_is_array( $this->db_values[ $this->post_id ] ) ) ? array() : $this->db_values[ $this->post_id ];
 		}
 
 		/**

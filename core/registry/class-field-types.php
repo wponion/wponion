@@ -179,7 +179,7 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 		 * @static
 		 */
 		public static function add_support( $type, $supports ) {
-			$supports = ( ! is_array( $supports ) ) ? array( $supports ) : $supports;
+			$supports = ( ! wponion_is_array( $supports ) ) ? array( $supports ) : $supports;
 
 			foreach ( $supports as $support ) {
 				if ( ! isset( self::$module_fields[ $support ] ) ) {
@@ -213,7 +213,7 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 		 * @static
 		 */
 		public static function remove_support( $type, $supports ) {
-			$supports = ( ! is_array( $supports ) ) ? array( $supports ) : $supports;
+			$supports = ( ! wponion_is_array( $supports ) ) ? array( $supports ) : $supports;
 			foreach ( $supports as $support ) {
 				if ( self::is_supported( $type, $support ) ) {
 					unset( self::$module_fields[ $support ][ $type ] );

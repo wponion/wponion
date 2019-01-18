@@ -37,7 +37,7 @@ if ( ! function_exists( 'wponion_get_template' ) ) {
 	 * @param string $template_path Template path. (default: '').
 	 */
 	function wponion_get_template( $template_name, $args = array(), $template_path = '' ) {
-		if ( ! empty( $args ) && is_array( $args ) ) {
+		if ( ! empty( $args ) && wponion_is_array( $args ) ) {
 			extract( $args ); // @codingStandardsIgnoreLine
 		}
 
@@ -122,14 +122,14 @@ if ( ! function_exists( 'wponion_get_var' ) ) {
 	 */
 	function wponion_get_var( $var, $default = '' ) {
 		if ( isset( $_POST[ $var ] ) ) {
-			if ( is_array( $_POST[ $var ] ) ) {
+			if ( wponion_is_array( $_POST[ $var ] ) ) {
 				return $_POST[ $var ];
 			} else {
 				return sanitize_text_field( $_POST[ $var ] );
 			}
 		}
 		if ( isset( $_GET[ $var ] ) ) {
-			if ( is_array( $_GET[ $var ] ) ) {
+			if ( wponion_is_array( $_GET[ $var ] ) ) {
 				return $_GET[ $var ];
 			} else {
 				return sanitize_text_field( $_GET[ $var ] );
@@ -262,7 +262,7 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 		$atts = '';
 		if ( ! empty( $attributes ) ) {
 			foreach ( $attributes as $key => $value ) {
-				$value = ( is_array( $value ) ) ? wp_json_encode( $value ) : $value;
+				$value = ( wponion_is_array( $value ) ) ? wp_json_encode( $value ) : $value;
 				if ( 'only-key' === $value ) {
 					$atts .= ' ' . esc_attr( $key );
 				} else {
@@ -285,11 +285,11 @@ if ( ! function_exists( 'wponion_html_class' ) ) {
 	 * @return string|array
 	 */
 	function wponion_html_class( $user_class = array(), $default_class = array(), $return_string = true ) {
-		if ( ! is_array( $user_class ) ) {
+		if ( ! wponion_is_array( $user_class ) ) {
 			$user_class = explode( ' ', $user_class );
 		}
 
-		if ( ! is_array( $default_class ) ) {
+		if ( ! wponion_is_array( $default_class ) ) {
 			$default_class = explode( ' ', $default_class );
 		}
 
@@ -470,13 +470,13 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 		$data = false;
 		try {
 			if ( is_callable( $callback ) ) {
-				$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
+				$args = ( ! wponion_is_array( $args ) ) ? array( $args ) : $args;
 				$data = call_user_func_array( $callback, $args );
 			} elseif ( is_string( $callback ) && has_filter( $callback ) ) {
 				$data = call_user_func_array( 'apply_filters', array_merge( array( $callback ), $args ) );
 			} elseif ( is_string( $callback ) && has_action( $callback ) ) {
 				ob_start();
-				$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
+				$args = ( ! wponion_is_array( $args ) ) ? array( $args ) : $args;
 				echo call_user_func_array( 'do_action', array_merge( array( $callback ), $args ) );
 				$data = ob_get_clean();
 				ob_flush();
@@ -578,6 +578,17 @@ if ( ! function_exists( 'wponion_highlight_string' ) ) {
 		$text = trim( $text );  // remove line breaks
 		$text = preg_replace( '|^(\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>)(&lt;\\?php&nbsp;)(.*?)(\\</span\\>)|', '$1$3$4', $text );  // remove custom added "<?php "
 		return $text;
+	}
+}
+
+if ( ! function_exists( 'wponion_is_array' ) ) {
+	/**
+	 * @param $data
+	 *
+	 * @return bool
+	 */
+	function wponion_is_array( $data ) {
+		return ( is_array( $data ) );
 	}
 }
 

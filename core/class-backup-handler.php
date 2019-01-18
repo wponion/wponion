@@ -42,7 +42,7 @@ if ( ! class_exists( '\WPOnion\Backup_Handler' ) ) {
 					$return = get_post_meta( $extra, $unique, true );
 					break;
 			}
-			$return = ( ! is_array( $return ) ) ? array() : $return;
+			$return = ( ! wponion_is_array( $return ) ) ? array() : $return;
 			return $return;
 		}
 
@@ -174,7 +174,7 @@ if ( ! class_exists( '\WPOnion\Backup_Handler' ) ) {
 				return false;
 			}
 
-			if ( is_array( $backup_id ) ) {
+			if ( wponion_is_array( $backup_id ) ) {
 				$backup = $backup_id;
 			} else {
 				$backup = self::get_backup( $backup_id, $unique, $module, $extra );

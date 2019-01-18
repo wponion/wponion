@@ -42,7 +42,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control\Nested_Fields' ) ) {
 		protected function handle_subfields( $fields ) {
 			if ( isset( $fields['fields'] ) ) {
 
-			} elseif ( is_array( $fields ) ) {
+			} elseif ( wponion_is_array( $fields ) ) {
 				foreach ( $fields['fields'] as $id => $field ) {
 					if ( ! isset( $fields[ $id ]['attributes'] ) ) {
 						$fields['fields'][ $id ]['attributes'] = array();

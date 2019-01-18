@@ -31,10 +31,10 @@ if ( ! class_exists( '\WPOnion\Sysinfo' ) ) {
 			if ( isset( $args['custom_reports'] ) ) {
 				if ( wponion_is_callable( $args['custom_reports'] ) ) {
 					$_d = wponion_callback( $args['custom_reports'] );
-					if ( is_array( $_d ) ) {
+					if ( wponion_is_array( $_d ) ) {
 						$data = array_merge( $data, $_d );
 					}
-				} elseif ( is_array( $args['custom_reports'] ) ) {
+				} elseif ( wponion_is_array( $args['custom_reports'] ) ) {
 					$data = array_merge( $data, $args['custom_reports'] );
 				}
 			}
@@ -124,19 +124,19 @@ JAVASCRIPT;
 		 * @static
 		 */
 		protected static function render_html_ulli( $data ) {
-			if ( ! is_array( $data ) ) {
+			if ( ! wponion_is_array( $data ) ) {
 				return $data;
 			}
 
 			$return = '<ul style="list-style: inside;">';
 			if ( isset( $data[0] ) ) {
 				foreach ( $data as $id ) {
-					$id     = ( is_array( $id ) ) ? wp_json_encode( $id ) : self::render_html_bool( $id );
+					$id     = ( wponion_is_array( $id ) ) ? wp_json_encode( $id ) : self::render_html_bool( $id );
 					$return = $return . '<li>' . $id . '</li>';
 				}
 			} else {
 				foreach ( $data as $key => $id ) {
-					$id     = ( is_array( $id ) ) ? wp_json_encode( $id ) : self::render_html_bool( $id );
+					$id     = ( wponion_is_array( $id ) ) ? wp_json_encode( $id ) : self::render_html_bool( $id );
 					$return = $return . '<li>' . $key . ' : ' . $id . '</li>';
 				}
 			}
@@ -198,13 +198,13 @@ JAVASCRIPT;
 			$return = PHP_EOL;
 
 			foreach ( $data as $key => $val ) {
-				if ( is_array( $val ) ) {
+				if ( wponion_is_array( $val ) ) {
 					if ( isset( $val[0] ) ) {
 						$return .= $key . ' : ' . wp_json_encode( $val ) . PHP_EOL;
 					} else {
 						$return .= '#### ' . $key . ': ####' . PHP_EOL;
 						foreach ( $val as $k => $v ) {
-							$v = ( is_array( $v ) ) ? wp_json_encode( $v ) : $v;
+							$v = ( wponion_is_array( $v ) ) ? wp_json_encode( $v ) : $v;
 
 							$return .= $k . ' : ' . self::render_text_bool( $v ) . PHP_EOL;
 						}

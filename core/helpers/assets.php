@@ -24,7 +24,7 @@ if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 	function wponion_load_core_assets( $extra = array() ) {
 		wponion_load_asset( 'wponion-core' );
 
-		if ( is_array( $extra ) ) {
+		if ( wponion_is_array( $extra ) ) {
 			foreach ( $extra as $slug ) {
 				wponion_load_asset( $slug );
 			}

@@ -43,7 +43,7 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		public function __construct( $settings = array(), $fields = array() ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
-			if ( is_array( $this->option( 'column' ) ) ) {
+			if ( wponion_is_array( $this->option( 'column' ) ) ) {
 				$col = $this->option( 'column' );
 				if ( ! isset( $col['post_type'] ) ) {
 					$col['post_type'] = $this->option( 'post_type' );
@@ -73,11 +73,11 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		 * @return mixed|void
 		 */
 		public function on_init() {
-			if ( false !== $this->option( 'post_type' ) && ! is_array( $this->option( 'post_type' ) ) ) {
+			if ( false !== $this->option( 'post_type' ) && ! wponion_is_array( $this->option( 'post_type' ) ) ) {
 				$this->set_option( 'post_type', array( $this->option( 'post_type' ) ) );
 			}
 
-			if ( is_array( $this->option( 'post_type' ) ) ) {
+			if ( wponion_is_array( $this->option( 'post_type' ) ) ) {
 				foreach ( $this->option( 'post_type' ) as $post_type ) {
 					$this->add_filter( $this->get_hook_name( $post_type ), 'render_hidden_data', 31, 2 );
 				}

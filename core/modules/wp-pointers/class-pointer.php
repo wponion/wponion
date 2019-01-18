@@ -44,23 +44,23 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		public function __construct( $selector = false, $title = false, $text = false, $args = array(), $pointer_instance = false ) {
 			$this->_unset_globals();
 
-			$valid_selector         = ( ! is_array( $selector ) && false !== $selector );
-			$valid_title            = ( ! is_array( $title ) && false !== $title );
-			$valid_text             = ( ! is_array( $text ) && false !== $text );
+			$valid_selector         = ( ! wponion_is_array( $selector ) && false !== $selector );
+			$valid_title            = ( ! wponion_is_array( $title ) && false !== $title );
+			$valid_text             = ( ! wponion_is_array( $text ) && false !== $text );
 			$this->pointer_instance = $pointer_instance;
 
-			if ( is_array( $selector ) ) {
+			if ( wponion_is_array( $selector ) ) {
 				$args = $this->parse_args( $selector, $this->default_pointer_args() );
-			} elseif ( $valid_selector && is_array( $title ) ) {
+			} elseif ( $valid_selector && wponion_is_array( $title ) ) {
 				$args = $this->parse_args( array( 'selector' => $selector ), $this->default_pointer_args() );
 				$args = $this->parse_args( $title, $args );
-			} elseif ( $valid_selector && $valid_title && is_array( $text ) ) {
+			} elseif ( $valid_selector && $valid_title && wponion_is_array( $text ) ) {
 				$args = $this->parse_args( array(
 					'selector' => $selector,
 					'title'    => $title,
 				), $this->default_pointer_args() );
 				$args = $this->parse_args( $text, $args );
-			} elseif ( $valid_selector && $valid_title && $valid_text && is_array( $args ) ) {
+			} elseif ( $valid_selector && $valid_title && $valid_text && wponion_is_array( $args ) ) {
 				$_args = $this->parse_args( array(
 					'selector' => $selector,
 					'title'    => $title,
@@ -327,7 +327,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		 */
 		public function post_type( $post_type = null ) {
 			if ( null !== $post_type ) {
-				$post_type = ( ! is_array( $post_type ) ) ? array( $post_type ) : $post_type;
+				$post_type = ( ! wponion_is_array( $post_type ) ) ? array( $post_type ) : $post_type;
 				$this->set_option( 'post_type', array_filter( $post_type ) );
 				return $this;
 			}
@@ -341,7 +341,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		 */
 		public function pages( $pages = null ) {
 			if ( null !== $pages ) {
-				$pages = ( ! is_array( $pages ) ) ? array( $pages ) : $pages;
+				$pages = ( ! wponion_is_array( $pages ) ) ? array( $pages ) : $pages;
 				$this->set_option( 'pages', array_filter( $pages ) );
 				return $this;
 			}

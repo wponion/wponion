@@ -160,7 +160,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce' ) ) {
 			if ( $data instanceof \WPOnion\Module_Fields ) {
 				$is_var   = $data->get( 'is_variation' );
 				$only_var = $data->get( 'only_variation' );
-			} elseif ( is_array( $data ) ) {
+			} elseif ( wponion_is_array( $data ) ) {
 				$is_var   = ( isset( $data['is_variation'] ) && true == $data['is_variation'] );
 				$only_var = ( isset( $data['only_variation'] ) && true === $data['only_variation'] );
 			}
@@ -241,7 +241,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce' ) ) {
 		 * @return array
 		 */
 		public function add_wc_tabs( $tabs ) {
-			if ( is_array( $this->groups_to_add ) ) {
+			if ( wponion_is_array( $this->groups_to_add ) ) {
 				foreach ( $this->groups_to_add as $key => $data ) {
 					$tabs[ $key ]          = array(
 						'label'    => $data->title(),
@@ -264,8 +264,8 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce' ) ) {
 		 * @return array|mixed
 		 */
 		protected function _show_hide_html_class( $classes, $prefix ) {
-			$return = ( is_array( $classes ) ) ? array() : $prefix . $classes;
-			if ( is_array( $classes ) ) {
+			$return = ( wponion_is_array( $classes ) ) ? array() : $prefix . $classes;
+			if ( wponion_is_array( $classes ) ) {
 				foreach ( $classes as $k => $v ) {
 					$return[ $k ] = $prefix . $v;
 				}
@@ -307,7 +307,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce' ) ) {
 			foreach ( $fields as $field ) {
 				$field = $this->parse_args( $field, array( 'wrap_class' => array() ) );
 
-				if ( ! is_array( $field['wrap_class'] ) ) {
+				if ( ! wponion_is_array( $field['wrap_class'] ) ) {
 					$field['wrap_class'] = array( $field['wrap_class'] );
 				}
 
@@ -521,7 +521,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce' ) ) {
 		public function get_db_values() {
 			if ( ! isset( $this->db_values[ $this->post_id ] ) ) {
 				$this->db_values[ $this->post_id ] = get_post_meta( $this->post_id, $this->unique, true );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}

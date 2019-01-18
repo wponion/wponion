@@ -64,7 +64,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function init_metabox() {
 			if ( false !== $this->option( 'metabox' ) ) {
-				if ( is_array( $this->option( 'metabox' ) ) ) {
+				if ( wponion_is_array( $this->option( 'metabox' ) ) ) {
 					$metabox = $this->parse_args( $this->option( 'metabox' ), array() );
 				} else {
 					$metabox = array(
@@ -197,7 +197,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = get_user_meta( $this->user_id, $this->unique(), true );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}

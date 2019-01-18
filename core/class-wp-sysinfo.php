@@ -229,7 +229,7 @@ if ( ! class_exists( '\WPOnion\WP_Sysinfo' ) ) {
 		 */
 		public static function must_use_plugins() {
 			$muplugins = wp_get_mu_plugins();
-			if ( is_array( $muplugins ) && ! empty( $muplugins ) ) {
+			if ( wponion_is_array( $muplugins ) && ! empty( $muplugins ) ) {
 				$data = array();
 				foreach ( $muplugins as $file ) {
 					$plugin = get_plugin_data( $file );
@@ -249,7 +249,7 @@ if ( ! class_exists( '\WPOnion\WP_Sysinfo' ) ) {
 			$plugins        = get_plugins();
 			$active_plugins = get_option( 'active_plugins', array() );
 
-			if ( is_array( $plugins ) && ! empty( $plugins ) ) {
+			if ( wponion_is_array( $plugins ) && ! empty( $plugins ) ) {
 				$_plugins = array();
 				$_active  = array();
 				foreach ( $plugins as $plugin_path => $plugin ) {

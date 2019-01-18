@@ -100,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 			$this->add_action( 'save_post', 'save_metabox' );
 			$this->init_theme();
 
-			if ( is_array( $this->option( 'screens' ) ) ) {
+			if ( wponion_is_array( $this->option( 'screens' ) ) ) {
 				foreach ( $this->option( 'screens' ) as $ptype ) {
 					$this->add_action( 'postbox_classes_' . $ptype . '_' . $this->metabox_id(), 'custom_metabox_class' );
 				}
@@ -295,7 +295,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = get_post_meta( $this->post_id, $this->unique, true );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}
@@ -384,8 +384,8 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 				'type'  => 'button',
 			);
 			$label        = __( 'Save Settings' );
-			$user_attr    = ( is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
-			$text         = ( is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
+			$user_attr    = ( wponion_is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
+			$text         = ( wponion_is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
 			$text         = ( false === $text && is_string( $user ) ) ? $user : $label;
 			return '<button ' . wponion_array_to_html_attributes( $this->parse_args( $user_attr, $default_attr ) ) . ' >' . $text . '</button>';
 		}

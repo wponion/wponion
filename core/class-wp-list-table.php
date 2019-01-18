@@ -167,7 +167,7 @@ if ( ! class_exists( '\WPOnion\WP_List_Table' ) ) {
 					if ( wponion_is_callable( $value ) ) {
 						$title    = $key;
 						$callback = $value;
-					} elseif ( is_array( $value ) ) {
+					} elseif ( wponion_is_array( $value ) ) {
 						if ( isset( $value['callback'] ) ) {
 							$callback = $value['callback'];
 							$title    = ( isset( $value['title'] ) ) ? $value['title'] : null;
@@ -196,7 +196,7 @@ if ( ! class_exists( '\WPOnion\WP_List_Table' ) ) {
 				}
 			}
 
-			if ( ! empty( $this->option( 'sortable' ) ) && is_array( $this->option( 'sortable' ) ) ) {
+			if ( ! empty( $this->option( 'sortable' ) ) && wponion_is_array( $this->option( 'sortable' ) ) ) {
 				foreach ( $this->option( 'sortable' ) as $key => $value ) {
 					if ( isset( $this->columns_callback[ $key ] ) && isset( $this->registered_columns[ $key ] ) ) {
 						$this->sortable_columns[ $key ] = $value;

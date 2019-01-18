@@ -215,7 +215,7 @@ JAVASCRIPT;
 			$screens = $notice->getScreens();
 			if ( ! empty( $screens ) ) {
 				$curScreen = get_current_screen();
-				if ( ! is_array( $screens ) || ! in_array( $curScreen->id, $screens ) ) {
+				if ( ! wponion_is_array( $screens ) || ! in_array( $curScreen->id, $screens ) ) {
 					return false;
 				}
 			}

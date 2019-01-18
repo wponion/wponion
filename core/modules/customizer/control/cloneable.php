@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control\Cloneable' ) ) {
 		protected function el_value() {
 			$is_decode = json_decode( $this->value(), true );
 
-			if ( is_array( $is_decode ) ) {
+			if ( wponion_is_array( $is_decode ) ) {
 				return $is_decode;
 			}
 			return false;

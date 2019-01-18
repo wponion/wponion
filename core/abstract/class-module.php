@@ -107,7 +107,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $settings array of WPOnion Settings Configuration.
 		 */
 		public function __construct( $fields = array(), $settings = array() ) {
-			if ( is_array( $fields ) ) {
+			if ( wponion_is_array( $fields ) ) {
 				$this->fields = new \WPOnion\Module_Fields( $fields );
 			}
 			$this->raw_fields = $fields;
@@ -262,7 +262,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function get_cache() {
 			if ( false === $this->options_cache ) {
 				$values              = $this->get_db_cache();
-				$this->options_cache = ( is_array( $values ) ) ? $values : array();
+				$this->options_cache = ( wponion_is_array( $values ) ) ? $values : array();
 
 				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
 					$this->options_cache = array();
@@ -310,7 +310,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = get_option( $this->unique );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}

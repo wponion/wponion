@@ -199,7 +199,7 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		protected function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = wponion_get_option( $this->unique(), true );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}

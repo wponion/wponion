@@ -81,19 +81,19 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function on_init() {
 			$this->add_action( 'admin_init', 'wp_admin_init' );
 			$menu              = $this->parse_args( $this->option( 'menu' ), $this->defaults( 'menu' ) );
-			$menu['on_load']   = ( ! is_array( $menu['on_load'] ) ) ? array() : $menu['on_load'];
-			$menu['assets']    = ( ! is_array( $menu['assets'] ) ) ? array() : $menu['assets'];
+			$menu['on_load']   = ( ! wponion_is_array( $menu['on_load'] ) ) ? array() : $menu['on_load'];
+			$menu['assets']    = ( ! wponion_is_array( $menu['assets'] ) ) ? array() : $menu['assets'];
 			$menu['on_load'][] = array( &$this, 'on_settings_page_load' );
 			$menu['render']    = array( &$this, 'render' );
 			$menu['assets'][]  = 'wponion_load_core_assets';
 
-			if ( is_array( $this->option( 'extra_js' ) ) ) {
+			if ( wponion_is_array( $this->option( 'extra_js' ) ) ) {
 				$menu['assets'] = $this->parse_args( $menu['assets'], $this->option( 'extra_js' ) );
 			} else {
 				$menu['assets'][] = $this->option( 'extra_js' );
 			}
 
-			if ( is_array( $this->option( 'extra_css' ) ) ) {
+			if ( wponion_is_array( $this->option( 'extra_css' ) ) ) {
 				$menu['assets'] = $this->parse_args( $menu['assets'], $this->option( 'extra_css' ) );
 			} else {
 				$menu['assets'][] = $this->option( 'extra_css' );
@@ -106,7 +106,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					$menu['submenu'] = array();
 				}
 				if ( ! is_string( $menu['submenu'] ) ) {
-					if ( is_array( $menu['submenu'] ) && ! isset( $menu['submenu'][0] ) || ! is_array( $menu['submenu'] ) ) {
+					if ( wponion_is_array( $menu['submenu'] ) && ! isset( $menu['submenu'][0] ) || ! wponion_is_array( $menu['submenu'] ) ) {
 						$menu['submenu'] = array( $menu['submenu'] );
 					}
 					$menu['submenu'] = array_merge( array(
@@ -136,7 +136,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				$menu     = $this->option( 'menu' );
 				$callback = array( &$this, 'render' );
 
-				if ( isset( $menu['submenu'] ) && ( true === $menu['submenu'] || is_array( $menu['submenu'] ) ) ) {
+				if ( isset( $menu['submenu'] ) && ( true === $menu['submenu'] || wponion_is_array( $menu['submenu'] ) ) ) {
 					$this->find_active_menu();
 					$menus = $this->settings_menus();
 					foreach ( $menus as $id => $_menu ) {
@@ -341,7 +341,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$this->settings_menus();
 			$this->add_action( 'admin_enqueue_scripts', 'load_admin_styles' );
 			$user_menu = $this->option( 'menu' );
-			if ( isset( $user_menu['submenu'] ) && ( true === $user_menu['submenu'] || is_array( $user_menu['submenu'] ) ) ) {
+			if ( isset( $user_menu['submenu'] ) && ( true === $user_menu['submenu'] || wponion_is_array( $user_menu['submenu'] ) ) ) {
 				global $submenu_file;
 				$menus        = $this->settings_menus();
 				$submenu_file = isset( $menus[ $this->active( true ) ] ) ? $menus[ $this->active( true ) ]['part_href'] : add_query_arg( array(
@@ -729,8 +729,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return string
 		 */
 		public function _button( $user, $default_attr = array(), $label = '' ) {
-			$user_attr = ( is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
-			$text      = ( is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
+			$user_attr = ( wponion_is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
+			$text      = ( wponion_is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
 			$text      = ( false === $text && is_string( $user ) ) ? $user : $label;
 			return '<button ' . wponion_array_to_html_attributes( $this->parse_args( $user_attr, $default_attr ) ) . ' >' . $text . '</button>';
 		}

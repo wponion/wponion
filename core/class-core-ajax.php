@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$enabled  = ( isset( $_REQUEST['enabled'] ) ) ? $_REQUEST['enabled'] : true;
 			$disabled = ( isset( $_REQUEST['disabled'] ) ) ? $_REQUEST['disabled'] : false;
 
-			if ( is_array( $enabled ) ) {
+			if ( wponion_is_array( $enabled ) ) {
 				foreach ( $libs as $name => $_n ) {
 					if ( ! in_array( $name, $enabled ) ) {
 						unset( $libs[ $name ] );
@@ -71,7 +71,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 			}
 
-			if ( is_array( $disabled ) && is_array( $libs ) ) {
+			if ( wponion_is_array( $disabled ) && wponion_is_array( $libs ) ) {
 				foreach ( $libs as $name => $_n ) {
 					if ( in_array( $name, $disabled ) ) {
 						unset( $libs[ $name ] );
@@ -79,14 +79,14 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 			}
 
-			$default_lib  = is_array( $libs ) ? current( array_keys( $libs ) ) : $libs;
+			$default_lib  = wponion_is_array( $libs ) ? current( array_keys( $libs ) ) : $libs;
 			$selected_lib = ( isset( $_REQUEST['wponion-icon-lib'] ) ) ? $_REQUEST['wponion-icon-lib'] : $default_lib;
 			$selected_lib = ( ! isset( $libs[ $selected_lib ] ) ) ? $default_lib : $selected_lib;
 			$json         = \WPOnion\Icons::get( $selected_lib );
 			$html         = '<div class="wponion-icon-picker-model-header">';
 			$html         = $html . '<input type="text" placeholder="' . __( 'Search Icon' ) . '"/>';
 
-			if ( is_array( $libs ) && count( $libs ) > 1 ) {
+			if ( wponion_is_array( $libs ) && count( $libs ) > 1 ) {
 				$html = $html . '<select>';
 				foreach ( $libs as $lib => $ejson ) {
 					$is_selected = ( $lib === $selected_lib ) ? ' selected="selected" ' : '';
@@ -96,10 +96,10 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				$html .= '</select>';
 			}
 			$html .= '</div>';
-			if ( is_array( $json ) && ! empty( $json ) ) {
+			if ( wponion_is_array( $json ) && ! empty( $json ) ) {
 				$html .= '<div class="wponion-icon-picker-container-scroll"><div class="wponion-icon-picker-container">';
 				foreach ( $json as $json_title => $icons ) {
-					if ( is_array( $icons ) ) {
+					if ( wponion_is_array( $icons ) ) {
 						foreach ( $icons as $key => $icon ) {
 							$_icon = ( is_numeric( $key ) ) ? $icon : $key;
 							$title = ( is_numeric( $key ) ) ? $icon : $icon;
@@ -174,7 +174,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		 */
 		public function save_bulk_edit() {
 			if ( isset( $_POST['post_ids'] ) ) {
-				if ( is_array( $_POST['post_ids'] ) ) {
+				if ( wponion_is_array( $_POST['post_ids'] ) ) {
 					foreach ( $_POST['post_ids'] as $id ) {
 						do_action( 'wponion_save_bulk_edit', $id );
 					}

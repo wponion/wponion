@@ -56,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 						if ( ! empty( $render_callback ) && ! isset( $arg['render'] ) ) {
 							$arg['render'] = $render_callback;
 						}
-						if ( is_array( $post_type ) && isset( $post_type[0] ) ) {
+						if ( wponion_is_array( $post_type ) && isset( $post_type[0] ) ) {
 							$arg = $this->parse_args( array( 'post_type' => $post_type ), $arg );
 						} else {
 							$arg = $this->parse_args( $post_type, $arg );
@@ -67,7 +67,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 					if ( ! empty( $render_callback ) && ! isset( $arguments['render'] ) ) {
 						$arguments['render'] = $render_callback;
 					}
-					if ( is_array( $post_type ) && isset( $post_type[0] ) ) {
+					if ( wponion_is_array( $post_type ) && isset( $post_type[0] ) ) {
 						$arguments = $this->parse_args( array( 'post_type' => $post_type ), $arguments );
 					} else {
 						$arguments = $this->parse_args( $post_type, $arguments );
@@ -107,7 +107,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 		 */
 		public function on_init() {
 			$post_types = $this->option( 'post_type' );
-			$post_types = ( ! is_array( $post_types ) ) ? array( $post_types ) : $post_types;
+			$post_types = ( ! wponion_is_array( $post_types ) ) ? array( $post_types ) : $post_types;
 			foreach ( $post_types as $type ) {
 				$this->add_filter( $this->get_hook_name( $type, 'columns' ), 'add_custom_column' );
 				$this->add_filter( $this->get_hook_name( $type ), 'render_column', 30, 2 );

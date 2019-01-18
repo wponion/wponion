@@ -133,7 +133,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->field          = $this->_handle_field_args( $this->set_args( $field ) );
 			$this->value          = $value;
 
-			if ( ! is_array( $unique ) ) {
+			if ( ! wponion_is_array( $unique ) ) {
 				$this->unique    = $unique;
 				$this->plugin_id = false;
 				$this->module    = false;
@@ -387,7 +387,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			if ( $this->has( 'dependency' ) ) {
 				$has_dep    = 'wponion-has-dependency';
 				$dependency = $this->data( 'dependency' );
-				if ( is_array( $dependency ) && ! empty( $dependency[0] ) && ! empty( $dependency[1] ) && ! empty( $dependency[2] ) ) {
+				if ( wponion_is_array( $dependency ) && ! empty( $dependency[0] ) && ! empty( $dependency[1] ) && ! empty( $dependency[2] ) ) {
 					wponion_localize()->add( $this->js_field_id(), array(
 						'dependency' => array(
 							'controller' => explode( '|', $dependency[0] ),
@@ -729,7 +729,7 @@ PHP;
 		 * @return bool
 		 */
 		protected function has_errors() {
-			return ( is_array( $this->get_errors() ) );
+			return ( wponion_is_array( $this->get_errors() ) );
 		}
 
 		/**
@@ -915,7 +915,7 @@ PHP;
 			preg_match( $re, $str, $matches, PREG_OFFSET_CAPTURE, 0 );
 			if ( ! empty( $matches ) ) {
 				$current = current( $matches );
-				if ( is_array( $current ) && isset( $current[0] ) ) {
+				if ( wponion_is_array( $current ) && isset( $current[0] ) ) {
 					return $current[0];
 				}
 				return $matches;
@@ -997,7 +997,7 @@ PHP;
 						'align' => 'right',
 						'edge'  => 'right',
 					) );
-			} elseif ( is_array( $pointer ) ) {
+			} elseif ( wponion_is_array( $pointer ) ) {
 				if ( isset( $pointer[0] ) ) {
 					$title       = false;
 					$instance_id = false;
@@ -1053,9 +1053,9 @@ PHP;
 		 * @return array
 		 */
 		protected function handle_args( $key, $value, $defaults = array(), $force_defaults = array() ) {
-			if ( is_array( $value ) ) {
+			if ( wponion_is_array( $value ) ) {
 				$defaults = $this->parse_args( $value, $defaults );
-			} elseif ( is_array( $defaults ) ) {
+			} elseif ( wponion_is_array( $defaults ) ) {
 				$defaults[ $key ] = $value;
 			} else {
 				return $value;
@@ -1090,7 +1090,7 @@ PHP;
 				'custom_input' => false,
 			) );
 
-			if ( ! is_array( $value ) ) {
+			if ( ! wponion_is_array( $value ) ) {
 				$defaults['key']   = $key;
 				$defaults['label'] = $value;
 				$value             = $defaults;
@@ -1157,7 +1157,7 @@ PHP;
 		 * @return string
 		 */
 		public function checked( $helper = '', $current = '', $type = 'checked', $echo = false ) {
-			if ( is_array( $helper ) && in_array( $current, $helper ) ) {
+			if ( wponion_is_array( $helper ) && in_array( $current, $helper ) ) {
 				$result = ' ' . $type . '="' . $type . '"';
 			} elseif ( $helper == $current ) {
 				$result = ' ' . $type . '="' . $type . '"';
@@ -1183,12 +1183,12 @@ PHP;
 				return array();
 			}
 
-			if ( isset( $this->field['query_args'] ) && is_array( $this->field['query_args'] ) && ! empty( $this->field['query_args'] ) ) {
+			if ( isset( $this->field['query_args'] ) && wponion_is_array( $this->field['query_args'] ) && ! empty( $this->field['query_args'] ) ) {
 				$query_args = $this->field['query_args'];
 			}
 
 			if ( $is_ajax ) {
-				$query_args['post__in'] = ( ! is_array( $this->value ) ) ? explode( ',', $this->value ) : $this->value;
+				$query_args['post__in'] = ( ! wponion_is_array( $this->value ) ) ? explode( ',', $this->value ) : $this->value;
 			}
 
 			$data = wponion_query()->query( $type, $query_args, '' );

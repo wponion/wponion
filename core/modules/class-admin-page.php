@@ -239,9 +239,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		public function on_load( $on_load = null ) {
 			if ( ! is_null( $on_load ) ) {
-				if ( ! is_array( $this->option( 'on_load' ) ) && false !== $this->option( 'on_load' ) ) {
+				if ( ! wponion_is_array( $this->option( 'on_load' ) ) && false !== $this->option( 'on_load' ) ) {
 					$this->set_option( 'on_load', array( $this->option( 'on_load' ), $on_load ) );
-				} elseif ( is_array( $this->option( 'on_load' ) ) ) {
+				} elseif ( wponion_is_array( $this->option( 'on_load' ) ) ) {
 					$_on_load   = $this->option( 'on_load' );
 					$_on_load[] = $on_load;
 					$this->set_option( 'on_load', $_on_load );
@@ -259,9 +259,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		public function assets( $assets = null ) {
 			if ( ! is_null( $assets ) ) {
-				if ( ! is_array( $this->option( 'assets' ) ) && false !== $this->option( 'assets' ) ) {
+				if ( ! wponion_is_array( $this->option( 'assets' ) ) && false !== $this->option( 'assets' ) ) {
 					$this->set_option( 'assets', array( $this->option( 'assets' ), $assets ) );
-				} elseif ( is_array( $this->option( 'assets' ) ) ) {
+				} elseif ( wponion_is_array( $this->option( 'assets' ) ) ) {
 					$_assets   = $this->option( 'assets' );
 					$_assets[] = $assets;
 					$this->set_option( 'on_load', $_assets );
@@ -348,7 +348,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			$menu_title = $this->get_menu_title();
 			$page_title = $this->get_page_title();
 
-			if ( false === $this->submenu() || is_array( $this->submenu() ) ) {
+			if ( false === $this->submenu() || wponion_is_array( $this->submenu() ) ) {
 				$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $_slug, array(
 					&$this,
 					'render',
@@ -383,9 +383,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			}
 			$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
 			$this->menu_url = menu_page_url( $_slug, false );
-			if ( is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
+			if ( wponion_is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
 				wponion_callback( $this->submenu(), $this );
-			} elseif ( is_array( $this->submenu() ) ) {
+			} elseif ( wponion_is_array( $this->submenu() ) ) {
 				$subemnus = array();
 				if ( true === $this->is_multiple( $this->submenu() ) ) {
 					$subemnus[] = $this->submenu();
@@ -445,7 +445,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @param $callback
 		 */
 		protected function handle_on_load_callbacks( $callback ) {
-			if ( is_array( $callback ) ) {
+			if ( wponion_is_array( $callback ) ) {
 				$is_called = wponion_callback( $callback, $this );
 				if ( false === $is_called ) {
 					foreach ( $callback as $call ) {
@@ -471,7 +471,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			if ( false !== $this->option( 'footer_right_text' ) ) {
 				$this->add_filter( 'update_footer', 'admin_footer_right_text', 11 );
 			}
-			if ( is_array( $this->option( 'tabs' ) ) ) {
+			if ( wponion_is_array( $this->option( 'tabs' ) ) ) {
 				$new_tabs = array();
 				foreach ( $this->option( 'tabs' ) as $id => $_tab ) {
 					$_tab = $this->parse_args( $_tab, array(
@@ -535,7 +535,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @param $callback
 		 */
 		public function handle_assets_callback( $callback ) {
-			if ( is_array( $callback ) ) {
+			if ( wponion_is_array( $callback ) ) {
 				foreach ( $callback as $call ) {
 					if ( is_string( $call ) ) {
 						if ( wp_script_is( $call, 'registered' ) || wp_style_is( $call, 'registered' ) ) {

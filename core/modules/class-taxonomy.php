@@ -71,14 +71,14 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 */
 		public function on_init() {
 			$taxes = $this->option( 'taxonomy' );
-			if ( ! is_array( $taxes ) ) {
+			if ( ! wponion_is_array( $taxes ) ) {
 				$taxes = array( $taxes );
 				$this->set_option( 'taxonomy', $taxes );
 			}
 
 			$this->init_metabox();
 
-			if ( is_array( $taxes ) ) {
+			if ( wponion_is_array( $taxes ) ) {
 				foreach ( $taxes as $tax ) {
 					$this->add_action( 'load-edit-tags.php', 'on_page_load' );
 					$this->add_action( $tax . '_add_form_fields', 'render', 10, 20 );
@@ -100,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 			}, $taxs );
 
 			if ( false !== $this->option( 'metabox' ) ) {
-				if ( is_array( $this->option( 'metabox' ) ) ) {
+				if ( wponion_is_array( $this->option( 'metabox' ) ) ) {
 					$metabox = $this->parse_args( $this->option( 'metabox' ), array() );
 				} else {
 					$metabox = array(
@@ -211,7 +211,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 			$this->db_values = array();
 			if ( false !== $this->term_id ) {
 				$this->db_values = wponion_get_term_meta( $this->term_id, $this->unique );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}

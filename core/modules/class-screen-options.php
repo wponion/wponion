@@ -49,7 +49,7 @@ if ( ! class_exists( '\WPOnion\Modules\Screen_Options' ) ) {
 		 * @param array  $fields
 		 */
 		public function __construct( $page = null, $option_name = '', $fields = array() ) {
-			if ( is_array( $page ) ) {
+			if ( wponion_is_array( $page ) ) {
 				$settings = array( 'option_name' => $page['option_name'] );
 				unset( $page['option_name'] );
 				$fields = array();

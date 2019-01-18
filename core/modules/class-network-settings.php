@@ -62,7 +62,7 @@ if ( ! class_exists( '\WPOnion\Modules\Network_Settings' ) ) {
 		protected function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = get_site_option( $this->unique );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}

@@ -142,14 +142,14 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				return $args;
 			}
 			foreach ( $args as $i => $ar ) {
-				if ( is_array( $ar ) ) {
+				if ( wponion_is_array( $ar ) ) {
 					$args[ $i ] = $this->handle_js_function( $ar );
 				} elseif ( is_string( $ar ) ) {
 					$re = '/\bfunction[ ]{0,1}(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';
 					/*'/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';*/
 					preg_match_all( $re, $ar, $matches, PREG_SET_ORDER, 0 );
 
-					if ( is_array( $matches ) && ! empty( array_filter( $matches ) ) ) {
+					if ( wponion_is_array( $matches ) && ! empty( array_filter( $matches ) ) ) {
 						$args[ $i ] = array(
 							'wponion_js_args'     => false,
 							'wponion_js_contents' => false,

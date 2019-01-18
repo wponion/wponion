@@ -26,7 +26,7 @@ if ( ! function_exists( 'wponion_field_cloneable_sanitize' ) ) {
 	 * @return array|string
 	 */
 	function wponion_field_cloneable_sanitize( $value = '', $callback = '' ) {
-		if ( is_array( $value ) ) {
+		if ( wponion_is_array( $value ) ) {
 			foreach ( $value as $i => $v ) {
 				$value[ $i ] = wponion_callback( $callback, array( $v ) );
 			}
@@ -103,7 +103,7 @@ if ( ! function_exists( 'wponion_field_image_select_sanitize' ) ) {
 	 * @return array|mixed|string
 	 */
 	function wponion_field_image_select_sanitize( $value ) {
-		if ( isset( $value ) && is_array( $value ) ) {
+		if ( isset( $value ) && wponion_is_array( $value ) ) {
 			if ( count( $value ) ) {
 				$value = $value;
 			} else {
