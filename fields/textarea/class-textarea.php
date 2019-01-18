@@ -60,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 		 * @return array|mixed
 		 */
 		protected function field_default() {
-			return array_merge( parent::field_default(), array(
+			return $this->parse_args( parent::field_default(), array(
 				'rows' => 5,
 				'cols' => 5,
 			) );
