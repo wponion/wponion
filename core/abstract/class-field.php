@@ -387,13 +387,15 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			if ( $this->has( 'dependency' ) ) {
 				$has_dep    = 'wponion-has-dependency';
 				$dependency = $this->data( 'dependency' );
-				wponion_localize()->add( $this->js_field_id(), array(
-					'dependency' => array(
-						'controller' => explode( '|', $dependency[0] ),
-						'condition'  => explode( '|', $dependency[1] ),
-						'value'      => explode( '|', $dependency[2] ),
-					),
-				), true, false );
+				if ( is_array( $dependency ) && ! empty( $dependency[0] ) && ! empty( $dependency[1] ) && ! empty( $dependency[2] ) ) {
+					wponion_localize()->add( $this->js_field_id(), array(
+						'dependency' => array(
+							'controller' => explode( '|', $dependency[0] ),
+							'condition'  => explode( '|', $dependency[1] ),
+							'value'      => explode( '|', $dependency[2] ),
+						),
+					), true, false );
+				}
 			}
 
 			if ( 12 === self::$columns ) {
