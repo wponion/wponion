@@ -73,8 +73,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 * @return array
 		 */
 		protected function parse_args( $new = array(), $defaults = array() ) {
-			$new = ( ! is_array( $new ) ) ? array() : $new;
-			return wp_parse_args( $new, $defaults );
+			return wponion_parse_args( $new, $defaults );
 		}
 
 		/**
