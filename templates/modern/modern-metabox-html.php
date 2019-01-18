@@ -7,7 +7,7 @@ $return   = '';
 <div class="<?php echo $settings->wrap_class( ' wponion-modern-theme-layouts ' ); ?>">
 	<div class="wponion-metabox-inside-wrap">
 		<?php
-		if ( is_array( $menus ) && ! empty( $menus ) && count( $menus ) > 1 ) {
+		if ( wponion_is_array( $menus ) && ! empty( $menus ) && count( $menus ) > 1 ) {
 			$return = '<div class="menu-wrap"><ul class="meta-menu wponion-metabox-parent-menu">';
 			foreach ( $menus as $slug => $menu ) {
 				if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
