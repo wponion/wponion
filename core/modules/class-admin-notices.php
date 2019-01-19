@@ -35,7 +35,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 		 * @param array $settings
 		 */
 		public function __construct( $settings = array() ) {
-			parent::__construct( false, $settings );
+			parent::__construct( null, $settings );
 			$this->on_init();
 			$this->add_action( 'admin_notices', 'display_notices' );
 			$this->add_action( 'shutdown', 'save_notices' );

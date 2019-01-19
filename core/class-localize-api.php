@@ -273,7 +273,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					'section_content'  => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content wponion-section-modal-content">{{data.html}}<div class="media-sidebar"></div></div>',
 				),
 			);
-			$this->js_args['wponion_core'] = array_merge( $this->js_args['wponion_core'], $extra );
+			$this->js_args['wponion_core'] = wponion_parse_args( $this->js_args['wponion_core'], $extra );
 		}
 	}
 }

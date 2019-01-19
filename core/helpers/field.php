@@ -15,6 +15,70 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! function_exists( 'wponion_field_defaults' ) ) {
+	/**
+	 * Returns Global WPOnion Field Default Args.
+	 *
+	 * @return array
+	 */
+	function wponion_field_defaults() {
+		return array(
+			/**
+			 * Common Args.
+			 */
+			'id'              => false, # Unique Database ID For Each And Every Field
+			'title'           => false, # Title For Each Field,
+			'help'            => false, # Used for field tooltip
+			'default'         => null, # Stores Default Value,
+			'desc'            => false, # Field Description to print after title,
+			'desc_field'      => false, # Field description to print after field output.
+			'name'            => false,
+			/**
+			 * DB Save Handler Related.
+			 */
+			'sanitize'        => null,    #sanitize of field. can be enabled or disabled
+			'validate'        => null,    #validate of field. can be enabled or disabled
+			'js_validate'     => null,    #JS validate of field. can be enabled or disabled
+			/**
+			 * Field Related.
+			 */
+			'type'            => false, # Type of the field,
+			'style'           => false,
+			'placeholder'     => false,
+			'disabled'        => false,
+			'attributes'      => array(), # attributes of field. supporting only html standard attributes
+			'class'           => false, # Extra Element Class,
+			/**
+			 * UI Related.
+			 */
+			'before'          => null,
+			'after'           => null,
+			'horizontal'      => false,
+			'only_field'      => false,
+			'dependency'      => array(), # dependency for showing and hiding fields
+			/**
+			 * Cloner Related.
+			 */
+			'clone'           => false,
+			'clone_settings'  => array(),
+			'debug'           => wponion_field_debug(),
+			/**
+			 * WordPress Releated.
+			 */
+			'query_args'      => array(),
+			'wp_pointer'      => false,
+			/**
+			 * Wrap Releated
+			 */
+			'wrap_tooltip'    => false,
+			'wrap_class'      => null, # custom class for the field wrapper,
+			'wrap_id'         => null, # custom ID for the field wrapper,
+			'wrap_attributes' => array(),
+
+		);
+	}
+}
+
 if ( ! function_exists( 'wponion_validate_bool_val' ) ) {
 	/**
 	 * Checks And Converts Boolean Value Into Proper Bool.
@@ -502,47 +566,47 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
+if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 	/**
 	 * Extracts all fileds ids and returns it.
 	 *
-	 * @param array $fields
-	 * @param bool  $parent_id
+	 * @param array|\WPO\Container|\WPO\Field $fields
+	 * @param bool                            $parent_id
 	 *
 	 * @return array
 	 */
-	function wponion_get_all_fields_ids_and_defaults( $fields = array(), $parent_id = true ) {
+	function wponion_fields_all_ids_defaults( $fields = array(), $parent_id = true ) {
 		$return = array();
 
-		if ( isset( $fields['sections'] ) && ! isset( $section['callback'] ) ) {
-			foreach ( $fields['sections'] as $sections ) {
-				if ( isset( $sections['fields'] ) && ! isset( $sections['callback'] ) ) {
-					$name   = ( isset( $sections['name'] ) ) ? $sections['name'] : ( isset( $sections['title'] ) ) ? $sections['title'] : false;
-					$return = array_merge( $return, wponion_get_all_fields_ids_and_defaults( $sections, $parent_id . '_' . $name ) );
+		if ( $fields instanceof \WPO\Helper\Base && $fields->has_containers() && ! $fields->has_callback() ) {
+			foreach ( $fields->containers() as $container ) {
+				/* @var $container WPO\Container */
+				if ( $container->has_fields() && ! $container->has_callback() ) {
+					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $container, $parent_id . '_' . $container->name() ) );
 				}
 			}
-		} elseif ( isset( $fields['fields'] ) && ! isset( $section['callback'] ) ) {
-			foreach ( $fields['fields'] as $field ) {
-				if ( isset( $field['id'] ) ) {
+		} elseif ( $fields instanceof \WPO\Helper\Base && $fields->has_fields() && ! $fields->has_callback() ) {
+			foreach ( $fields->fields() as $field ) {
+				/* @var $field WPO\Field */
+				if ( ! empty( $field->id() ) ) {
 					$nested = array();
-					if ( isset( $field['fields'] ) ) {
-						$nested = wponion_get_all_fields_ids_and_defaults( $field, $parent_id . '_' . $field['id'] );
+					if ( $field->has_fields() ) {
+						$nested = wponion_fields_all_ids_defaults( $field, $parent_id . '_' . $field->id() );
 					}
 
-					$return[ $parent_id . '_' . $field['id'] ] = isset( $field['default'] ) ? $field['default'] : false;
+					$return[ $parent_id . '_' . $field->id() ] = $field->default();
 
 					if ( ! empty( $nested ) ) {
-						$return = array_merge( $return, $nested );
+						$return = wponion_parse_args( $return, $nested );
 					}
 				}
 			}
 		} elseif ( wponion_is_array( $fields ) ) {
 			foreach ( $fields as $data ) {
-				if ( isset( $data['sections'] ) || isset( $data['fields'] ) ) {
-					$name   = ( isset( $data['name'] ) ) ? $data['name'] : ( isset( $data['title'] ) ) ? $data['title'] : false;
-					$return = array_merge( $return, wponion_get_all_fields_ids_and_defaults( $data, $parent_id . '_' . $name ) );
-				} elseif ( wponion_valid_field( $data ) ) {
-					$return[ $data['id'] ] = ( isset( $data['default'] ) ) ? $data['default'] : false;
+				if ( $data instanceof \WPO\Container ) {
+					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $data, $parent_id . '_' . $data->name() ) );
+				} elseif ( $data instanceof WPO\Field ) {
+					$return[ $data->id() ] = $data->default();
 				}
 			}
 		}
@@ -612,7 +676,7 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 				if ( true === $group ) {
 					$fonts_array[ $key ][ __( 'Websafe Fonts' ) ] = $fonts['fonts'];
 				} else {
-					$fonts_array[ $key ] = array_merge( $fonts_array[ $key ], $fonts['fonts'] );
+					$fonts_array[ $key ] = wponion_parse_args( $fonts_array[ $key ], $fonts['fonts'] );
 				}
 			}
 
@@ -622,7 +686,7 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 				if ( true === $group ) {
 					$fonts_array[ $key ][ __( 'Google Fonts' ) ] = $fonts;
 				} else {
-					$fonts_array[ $key ] = array_merge( $fonts, $fonts );
+					$fonts_array[ $key ] = wponion_parse_args( $fonts, $fonts );
 				}
 			}
 		}

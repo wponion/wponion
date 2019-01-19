@@ -43,10 +43,10 @@ if ( ! function_exists( 'wponion_settings' ) ) {
 	/**
 	 * Returns a new instance for settings page.
 	 *
-	 * @param array|string $instance_id_or_args
-	 * @param array        $fields
+	 * @param array $instance_id_or_args
+	 * @param array $fields
 	 *
-	 * @return bool|\WPOnion\Modules\Settings
+	 * @return bool|mixed|\WPOnion\Modules\Settings
 	 */
 	function wponion_settings( $instance_id_or_args = array(), $fields = array() ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {

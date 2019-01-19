@@ -218,7 +218,7 @@ if ( ! class_exists( '\WPOnion\WP_Sysinfo' ) ) {
 				$data[ __( 'Parent Theme Version' ) ] = $parent_theme->{'Version'};
 				$data[ __( 'Parent URI' ) ]           = $parent_theme->get( 'ThemeURI' );
 				$data[ __( 'Parent Author URI' ) ]    = $parent_theme->{'Author URI'};
-				self::$status[ __( 'Active Theme' ) ] = array_merge( self::$status[ __( 'Active Theme' ) ], self::filter( $data, 'active_parent_theme' ) );
+				self::$status[ __( 'Active Theme' ) ] = wponion_parse_args( self::$status[ __( 'Active Theme' ) ], self::filter( $data, 'active_parent_theme' ) );
 			}
 		}
 

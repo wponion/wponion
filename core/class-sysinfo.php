@@ -32,10 +32,10 @@ if ( ! class_exists( '\WPOnion\Sysinfo' ) ) {
 				if ( wponion_is_callable( $args['custom_reports'] ) ) {
 					$_d = wponion_callback( $args['custom_reports'] );
 					if ( wponion_is_array( $_d ) ) {
-						$data = array_merge( $data, $_d );
+						$data = wponion_parse_args( $data, $_d );
 					}
 				} elseif ( wponion_is_array( $args['custom_reports'] ) ) {
-					$data = array_merge( $data, $args['custom_reports'] );
+					$data = wponion_parse_args( $data, $args['custom_reports'] );
 				}
 			}
 			self::render_html( $data, $reports );

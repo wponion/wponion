@@ -41,8 +41,14 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 		 */
 		protected $errors = false;
 
-		public function __construct( $settings = array(), $fields = array() ) {
-			parent::__construct( $fields, $settings );
+		/**
+		 * Widget constructor.
+		 *
+		 * @param array $settings
+		 * @param null  $fields
+		 */
+		public function __construct( $settings = array(), $fields = null ) {
+			parent::__construct( null, $settings );
 			$this->init();
 			add_action( 'admin_print_styles-widgets.php', array( __CLASS__, 'load_assets' ) );
 		}

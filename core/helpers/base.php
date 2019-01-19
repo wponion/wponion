@@ -139,7 +139,7 @@ if ( ! function_exists( 'wponion_get_var' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
+if ( ! function_exists( 'wponion_validate_parent_container_ids' ) ) {
 	/**
 	 * Checks if given section and parent id are valid and none of them has empty values.
 	 *
@@ -147,25 +147,14 @@ if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
 	 *
 	 * @return array|bool
 	 */
-	function wponion_validate_parent_section_ids( $ids = array() ) {
-		if ( empty( array_filter( $ids ) ) ) {
-			return false;
-		} elseif ( empty( $ids['section_id'] ) && ! empty( $ids['parent_id'] ) ) {
+	function wponion_validate_parent_container_ids( $ids = array() ) {
+		if ( ! empty( $ids['sub_container_id'] ) && empty( $ids['container_id'] ) ) {
 			return array(
-				'section_id' => false,
-				'parent_id'  => $ids['parent_id'],
-			);
-		} elseif ( ! empty( $ids['section_id'] ) && empty( $ids['parent_id'] ) ) {
-			return array(
-				'section_id' => false,
-				'parent_id'  => $ids['section_id'],
-			);
-		} else {
-			return array(
-				'section_id' => $ids['section_id'],
-				'parent_id'  => $ids['parent_id'],
+				'sub_container_id' => false,
+				'container_id'     => $ids['sub_container_id'],
 			);
 		}
+		return ( empty( array_filter( $ids ) ) ) ? false : $ids;
 	}
 }
 
@@ -293,7 +282,7 @@ if ( ! function_exists( 'wponion_html_class' ) ) {
 			$default_class = explode( ' ', $default_class );
 		}
 
-		$user_class = array_merge( $default_class, $user_class );
+		$user_class = wponion_parse_args( $default_class, $user_class );
 		$user_class = array_filter( array_unique( $user_class ) );
 		if ( true === $return_string ) {
 			return implode( ' ', $user_class );
@@ -473,11 +462,11 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 				$args = ( ! wponion_is_array( $args ) ) ? array( $args ) : $args;
 				$data = call_user_func_array( $callback, $args );
 			} elseif ( is_string( $callback ) && has_filter( $callback ) ) {
-				$data = call_user_func_array( 'apply_filters', array_merge( array( $callback ), $args ) );
+				$data = call_user_func_array( 'apply_filters', wponion_parse_args( array( $callback ), $args ) );
 			} elseif ( is_string( $callback ) && has_action( $callback ) ) {
 				ob_start();
 				$args = ( ! wponion_is_array( $args ) ) ? array( $args ) : $args;
-				echo call_user_func_array( 'do_action', array_merge( array( $callback ), $args ) );
+				echo call_user_func_array( 'do_action', wponion_parse_args( array( $callback ), $args ) );
 				$data = ob_get_clean();
 				ob_flush();
 			}
@@ -588,7 +577,49 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 	 * @return bool
 	 */
 	function wponion_is_array( $data ) {
-		return ( is_array( $data ) );
+		return ( $data instanceof \WPO\Helper\Dimensional_Array || is_array( $data ) );
+	}
+}
+
+
+if ( ! function_exists( 'wponion_parse_args' ) ) {
+	/**
+	 * @param $new
+	 * @param $old
+	 *
+	 * @return array|object
+	 */
+	function wponion_parse_args( $new, $old ) {
+		if ( is_array( $new ) && is_array( $old ) ) {
+			return wp_parse_args( $new, $old );
+		}
+
+		$_new      = $new;
+		$_defaults = $old;
+
+		if ( $new instanceof \WPO\Field || $new instanceof \WPO\Helper\Dimensional_Array ) {
+			$_new = $new->get();
+		}
+		if ( $old instanceof \WPO\Field || $old instanceof \WPO\Helper\Dimensional_Array ) {
+			$_defaults = $old->get();
+		}
+
+		if ( $new instanceof \WPO\Helper\Dimensional_Array || $old instanceof \WPO\Helper\Dimensional_Array ) {
+			$final = wponion_parse_args( $_new, $_defaults );
+		} else {
+			$final = wp_parse_args( $_new, $_defaults );
+		}
+
+		if ( $new instanceof \WPO\Field || $new instanceof \WPO\Helper\Dimensional_Array ) {
+			$new->set( $final );
+			return $new;
+		}
+		if ( $old instanceof \WPO\Field || $old instanceof \WPO\Helper\Dimensional_Array ) {
+			$old->set( $final );
+			return $old;
+		}
+
+		return $new;
 	}
 }
 

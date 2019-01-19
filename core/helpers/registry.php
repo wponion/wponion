@@ -315,6 +315,19 @@ if ( ! function_exists( 'wponion_wp_pointers_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_field_builder_registry' ) ) {
+	/**
+	 * Returns An Active Instance.
+	 *
+	 * @param $instance
+	 *
+	 * @return \WPO\Field|bool
+	 */
+	function wponion_field_builder_registry( &$instance ) {
+		return wponion_get_registry_instance( 'field_builder', $instance, 'settings' );
+	}
+}
+
 /**
  * Core / Theme Registry
  */

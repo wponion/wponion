@@ -200,66 +200,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( $this->field_default(), array(
-				/**
-				 * Common Args.
-				 */
-				'id'              => false, # Unique Database ID For Each And Every Field
-				'title'           => false, # Title For Each Field,
-				'help'            => false, # Used for field tooltip
-				'default'         => null, # Stores Default Value,
-				'desc'            => false, # Field Description to print after title,
-				'desc_field'      => false, # Field description to print after field output.
-				'name'            => false,
-
-				/**
-				 * DB Save Handler Related.
-				 */
-				'sanitize'        => null,    #sanitize of field. can be enabled or disabled
-				'validate'        => null,    #validate of field. can be enabled or disabled
-				'js_validate'     => null,    #JS validate of field. can be enabled or disabled
-
-				/**
-				 * Field Related.
-				 */
-				'type'            => false, # Type of the field,
-				'style'           => false,
-				'placeholder'     => false,
-				'disabled'        => false,
-				'attributes'      => array(), # attributes of field. supporting only html standard attributes
-				'class'           => false, # Extra Element Class,
-
-				/**
-				 * UI Related.
-				 */
-				'before'          => null,
-				'after'           => null,
-				'horizontal'      => false,
-				'only_field'      => false,
-				'dependency'      => array(), # dependency for showing and hiding fields
-
-				/**
-				 * Cloner Related.
-				 */
-				'clone'           => false,
-				'clone_settings'  => array(),
-				'debug'           => wponion_field_debug(),
-
-				/**
-				 * WordPress Releated.
-				 */
-				'query_args'      => array(),
-				'wp_pointer'      => false,
-
-				/**
-				 * Wrap Releated
-				 */
-				'wrap_tooltip'    => false,
-				'wrap_class'      => null, # custom class for the field wrapper,
-				'wrap_id'         => null, # custom ID for the field wrapper,
-				'wrap_attributes' => array(),
-
-			) );
+			return $this->parse_args( $this->field_default(), wponion_field_defaults() );
 		}
 
 		/**
