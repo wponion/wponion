@@ -1,38 +1,42 @@
 <?php
-
-foreach ( $ins->fields() as $option ) {
-	if ( false === $ins->valid_option( $option ) ) {
+/**
+ * @var $container \WPO\Container
+ * @var $sub_container \WPO\Container
+ */
+foreach ( $ins->fields() as $container ) {
+	if ( false === $ins->valid_option( $container ) ) {
 		continue;
 	}
 
 	?>
-	<div id="<?php echo $ins->output_parent_wrap_id( $option ); ?>"
-		 class="<?php echo $ins->output_parent_wrap_class( $option ); ?>">
+	<div id="<?php echo $ins->output_container_wrap_id( $container ); ?>"
+		 class="<?php echo $ins->output_container_wrap_class( $container ); ?>">
 		<?php
-		if ( $option->has_sections() ) {
-			$first_section = $ins->get_first_section( $option );
-			foreach ( $option->sections() as $section ) {
-				if ( false === $ins->valid_option( $section, true ) ) {
+		if ( $container->has_containers() ) {
+			$first_section = $container->first_container()
+				->name();
+			foreach ( $container->containers() as $sub_container ) {
+				if ( false === $ins->valid_option( $sub_container, true ) ) {
 					continue;
 				}
-				$sec_id    = $ins->output_section_wrap_id( $option, $section );
-				$sec_class = $ins->output_section_wrap_class( $option, $section, $first_section );
-				echo '<div id="' . $sec_id . '" class="' . $sec_class . '" data-section-id="' . $section->name() . '">';
-				if ( $section->has_callback() ) {
-					echo wponion_callback( $section->callback(), array( $section ) );
-				} elseif ( $section->has_fields() ) {
-					foreach ( $section->fields() as $field ) {
-						echo $ins->render_field( $field, $option->name(), $section->name() );
+				$sec_id    = $ins->output_sub_container_wrap_id( $container, $sub_container );
+				$sec_class = $ins->output_sub_container_wrap_class( $container, $sub_container, $first_section );
+				echo '<div id="' . $sec_id . '" class="' . $sec_class . '" data-section-id="' . $sub_container->name() . '">';
+				if ( $sub_container->has_callback() ) {
+					echo wponion_callback( $sub_container->callback(), array( $sub_container ) );
+				} elseif ( $sub_container->has_fields() ) {
+					foreach ( $sub_container->fields() as $field ) {
+						echo $ins->render_field( $field, $container->name(), $sub_container->name() );
 					}
 				}
 				echo '</div>';
 			}
-		} elseif ( $option->fields() ) {
-			foreach ( $option->fields() as $field ) {
-				echo $ins->render_field( $field, $option->name() );
+		} elseif ( $container->has_fields() ) {
+			foreach ( $container->fields() as $field ) {
+				echo $ins->render_field( $field, $container->name() );
 			}
-		} elseif ( $option->has_callback() ) {
-			echo wponion_callback( $option->callback(), array( $option ) );
+		} elseif ( $container->has_callback() ) {
+			echo wponion_callback( $container->callback(), array( $container ) );
 		}
 		?>
 	</div>
