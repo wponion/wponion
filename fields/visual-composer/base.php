@@ -137,7 +137,7 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 						$_data[1] = ( isset( $_data[1] ) ) ? $_data[1] : '';
 						$is_array = explode( ',', $_data[1] );
 						if ( wponion_is_array( $is_array ) && count( $is_array ) > 1 ) {
-							$return[ $_data[0] ] = array_merge( $is_array, $return[ $_data[0] ] );
+							$return[ $_data[0] ] = wponion_parse_args( $is_array, $return[ $_data[0] ] );
 						} else {
 							$return[ $_data[0] ] = $_data[1];
 						}
@@ -194,7 +194,7 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 					$return[ $replace ] = $this->orginal_field[ $base ];
 				}
 			}
-			$return                    = array_merge( $return, $this->filter_vc_args() );
+			$return                    = wponion_parse_args( $return, $this->filter_vc_args() );
 			$return['type']            = $this->orginal_field['type'];
 			$return['class']           = isset( $return['class'] ) ? $return['class'] : '';
 			$return['class']           = $return['class'] . ' ' . $this->extra_class( $return );

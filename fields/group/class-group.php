@@ -202,7 +202,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		protected function get_first_field() {
 			static $fields_ids = false;
 			if ( false === $fields_ids ) {
-				$fields_ids = wponion_get_all_fields_ids_and_defaults( $this->data( 'fields' ), false );
+				$fields_ids = wponion_fields_all_ids_defaults( $this->data( 'fields' ), false );
 			}
 			return $fields_ids;
 		}
