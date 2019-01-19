@@ -64,12 +64,12 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		protected $page_url = array();
 
 		/**
-		 * WPOnion_Settings constructor.
+		 * Settings constructor.
 		 *
-		 * @param array $settings array of WPOnion Settings Configuration.
-		 * @param array $fields Array of settings fields.
+		 * @param \WPO\Builder|null $fields
+		 * @param array             $settings
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->raw_options = $settings;
 			$this->init();
@@ -153,7 +153,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 							}
 						}
 					}
-
 					$this->_action( 'register_submenu', $menu['menu_slug'], $this );
 				}
 			}
@@ -164,9 +163,11 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function wp_admin_init() {
 			register_setting( $this->unique, $this->unique, array(
-				'sanitize_callback' => array( &$this, 'save_validate' ),
+				'sanitize_callback' => array(
+					&$this,
+					'save_validate',
+				),
 			) );
-
 			$this->force_set_defaults( false );
 		}
 
@@ -193,9 +194,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			) )
 				->run();
 
-			$this->options_cache['parent_id']    = isset( $_POST['parent-id'] ) ? sanitize_text_field( $_POST['parent-id'] ) : null;
-			$this->options_cache['section_id']   = isset( $_POST['section-id'] ) ? sanitize_text_field( $_POST['section-id'] ) : null;
-			$this->options_cache['field_errors'] = $instance->get_errors();
+			$this->options_cache['container_id']     = isset( $_POST['container-id'] ) ? sanitize_text_field( $_POST['container-id'] ) : null;
+			$this->options_cache['sub_container_id'] = isset( $_POST['sub-container-id'] ) ? sanitize_text_field( $_POST['sub-container-id'] ) : null;
+			$this->options_cache['field_errors']     = $instance->get_errors();
 			$this->set_cache( $this->options_cache );
 			return $instance->get_values();
 		}
@@ -208,11 +209,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function force_set_defaults( $force = false ) {
 			$cache = $this->get_cache();
 			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
-				if ( false === $force ) {
-					$this->set_defaults();
-				} elseif ( true === $force ) {
-					$this->set_defaults();
-				}
+				$this->set_defaults();
 			}
 
 		}
@@ -243,14 +240,14 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 								}
 							}
 						}
-					} elseif ( $options->has_sections() ) {
-						foreach ( $options->sections() as $section ) {
-							/* @var $section \WPOnion\Module_Fields */
-							if ( ! $section->has_fields() ) {
+					} elseif ( $options->has_containers() ) {
+						foreach ( $options->containers() as $containers ) {
+							/* @var $containers \WPO\Container */
+							if ( ! $containers->has_fields() ) {
 								continue;
 							}
-							if ( false !== $this->valid_option( $section, true, false ) ) {
-								foreach ( $section->fields() as $field ) {
+							if ( false !== $this->valid_option( $containers, true, false ) ) {
+								foreach ( $containers->fields() as $field ) {
 									if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 										continue;
 									}
@@ -321,8 +318,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			echo '<form method="post" action="' . $this->form_post_page() . '" enctype="multipart/form-data" class="wponion-form">';
 			echo '<div class="hidden" style="display:none;" id="wponion-hidden-fields">';
 			settings_fields( $this->unique );
-			echo '<input type="hidden" name="parent-id" value="' . $this->active( true ) . '"/>';
-			echo '<input type="hidden" name="section-id" value="' . $this->active( false ) . '"/>';
+			echo '<input type="hidden" name="container-id" value="' . $this->active( true ) . '"/>';
+			echo '<input type="hidden" name="sub-container-id" value="' . $this->active( false ) . '"/>';
 			echo '</div>';
 			$instance = $this->init_theme();
 			$instance->render_settings_html();
@@ -348,32 +345,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			$this->init_theme();
 			$this->_action( 'page_onload' );
-			//$this->init_fields();
-		}
-
-		/**
-		 * Returns Default Active Menu of current settings Page.
-		 *
-		 * @return array
-		 */
-		protected function get_default_actives() {
-			$first_fields = current( $this->fields );
-			if ( isset( $first_fields['sections'] ) ) {
-				$first_section = current( $first_fields['sections'] );
-				return array(
-					'parent_id'  => ( isset( $first_fields['name'] ) ) ? $first_fields['name'] : false,
-					'section_id' => ( isset( $first_section['name'] ) ) ? $first_section['name'] : false,
-				);
-			} elseif ( isset( $first_fields['fields'] ) || isset( $first_fields['callback'] ) ) {
-				return array(
-					'section_id' => false,
-					'parent_id'  => ( isset( $first_fields['name'] ) ) ? $first_fields['name'] : false,
-				);
-			}
-			return array(
-				'section_id' => false,
-				'parent_id'  => false,
-			);
 		}
 
 		/**
@@ -383,114 +354,83 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( ! empty( $this->active_menu ) ) {
 				return $this->active_menu;
 			}
-			$cache  = $this->get_cache();
-			$_cache = array(
-				'parent_id'  => ( ! empty( $cache['parent_id'] ) ) ? $cache['parent_id'] : false,
-				'section_id' => ( ! empty( $cache['section_id'] ) ) ? $cache['section_id'] : false,
-			);
 
-			$_url     = array(
-				'parent_id'  => wponion_get_var( 'parent-id', false ),
-				'section_id' => wponion_get_var( 'section-id', false ),
+			$cache    = $this->get_cache();
+			$_cache   = array(
+				'container_id'     => ( ! empty( $cache['container_id'] ) ) ? $cache['container_id'] : false,
+				'sub_container_id' => ( ! empty( $cache['sub_container_id'] ) ) ? $cache['sub_container_id'] : false,
 			);
-			$_cache_v = wponion_validate_parent_section_ids( $_cache );
-			$_url_v   = wponion_validate_parent_section_ids( $_url );
+			$_url     = array(
+				'container_id'     => wponion_get_var( 'container-id', false ),
+				'sub_container_id' => wponion_get_var( 'sub-container-id', false ),
+			);
+			$_cache_v = wponion_validate_parent_container_ids( $_cache );
+			$_url_v   = wponion_validate_parent_container_ids( $_url );
 
 			if ( false !== $_cache_v ) {
-				$default                           = $this->validate_sections( $_cache_v['parent_id'], $_cache_v['section_id'] );
-				$this->options_cache['section_id'] = false;
-				$this->options_cache['parent_id']  = false;
+				$default                                 = $this->validate_sub_container( $_cache_v['container_id'], $_cache_v['sub_container_id'] );
+				$this->options_cache['sub_container_id'] = false;
+				$this->options_cache['container_id']     = false;
 				$this->set_cache( $this->options_cache );
 			} elseif ( false !== $_url_v ) {
-				$default = $this->validate_sections( $_url_v['parent_id'], $_url_v['section_id'] );
+				$default = $this->validate_sub_container( $_url_v['container_id'], $_url_v['sub_container_id'] );
 			} else {
-				$default = $this->validate_sections( false, false );
+				$default = $this->validate_sub_container( false, false );
 			}
 
-			if ( ( null === $default['section_id'] || false === $default['section_id'] ) && $default['parent_id'] ) {
-				$default['section_id'] = $default['parent_id'];
+			if ( ( null === $default['sub_container_id'] || false === $default['sub_container_id'] ) && $default['container_id'] ) {
+				$default['sub_container_id'] = $default['container_id'];
 			}
 			$this->active_menu = $default;
 			return $this->active_menu;
 		}
 
 		/**
-		 * Validates given parent id & section id.
+		 * Validates given parent id & container id.
 		 *
-		 * @param string $parent_id
-		 * @param string $section_id
+		 * @param string $container_id
+		 * @param string $sub_container_id
 		 *
 		 * @return array
 		 */
-		public function validate_sections( $parent_id = '', $section_id = '' ) {
-			$parent_id  = $this->is_page_section_exists( $parent_id, $section_id );
-			$section_id = $this->is_page_section_exists( $parent_id, $section_id, true );
-			return array(
-				'section_id' => $section_id,
-				'parent_id'  => $parent_id,
-			);
-		}
-
-		/**
-		 * checks if page & section id exists in given fields array.
-		 *
-		 * @param string $page_id
-		 * @param string $section_id
-		 * @param bool   $is_section
-		 *
-		 * @return bool|string
-		 */
-		public function is_page_section_exists( $page_id = '', $section_id = '', $is_section = false ) {
-			if ( false === $is_section && is_string( $page_id ) && true === $this->fields->offsetExists( $page_id ) ) {
-				return $page_id;
-			} elseif ( true === $is_section && is_string( $page_id ) && is_string( $section_id ) ) {
-				if ( true === $this->fields->offsetExists( $page_id . '/sections/' . $section_id ) ) {
-					return $section_id;
-				}
-			}
-			$page_id = ( true === $is_section ) ? $page_id : null;
-			return $this->get_page_section_id( $is_section, $page_id );
-		}
-
-		/**
-		 * returns a active & isset page / section id.
-		 *
-		 * @param bool $is_section
-		 * @param null $page
-		 *
-		 * @return bool
-		 */
-		private function get_page_section_id( $is_section = true, $page = null ) {
-			if ( null !== $page ) {
-				if ( $this->fields->offsetExists( $page ) && true === $is_section && $this->fields->offsetExists( $page . '/sections' ) ) {
-					$sections = $this->fields->get( $page );
-					$return   = $sections->first_section();
-					$return   = $return->name();
-					return $return;
-				} elseif ( $this->fields->offsetExists( $page ) && false === $is_section ) {
-					return $this->fields->get( $page )
-						->name();
-				}
-			} else {
-				$this->fields->rewind();
-				$page = $this->fields->current();
-				$this->fields->rewind();
-				if ( $page ) {
-					if ( true === $is_section ) {
-						if ( $page->offsetExists( 'sections' ) ) {
-							/* @var $sections \WPOnion\Module_Fields */
-							$sections = $page->get( 'sections' );
-							$return   = $sections->current();
-							$return   = $return->name();
-							$sections->rewind();
-							return $return;
+		public function validate_sub_container( $container_id = '', $sub_container_id = '' ) {
+			if ( false === $container_id && false === $sub_container_id ) {
+				$container = $this->fields->first_container();
+				if ( $container ) {
+					$container_id = $container->name();
+					if ( $container->has_containers() ) {
+						$sub_container = $container->first_container();
+						if ( $sub_container ) {
+							$sub_container_id = $sub_container->name();
 						}
-					} else {
-						return $page->name();
 					}
 				}
+			} elseif ( false !== $container_id && false === $sub_container_id ) {
+				/* @var $container \WPO\Container */
+				$container = $this->fields->container_exists( $container_id );
+				if ( false !== $container ) {
+					if ( $container->has_containers() ) {
+						$current = $container->first_container();
+						if ( $current ) {
+							$sub_container_id = $current->name();
+						}
+					}
+				} else {
+					return $this->validate_sub_container( false, false );
+				}
+			} elseif ( false !== $container_id && false !== $sub_container_id ) {
+				$container = $this->fields->container_exists( $container_id );
+				if ( false !== $container ) {
+					$sub_container = $container->container_exists( $sub_container_id );
+					if ( false === $sub_container ) {
+						return $this->validate_sub_container( $container_id, false );
+					}
+				} else {
+					return $this->validate_sub_container( false, false );
+				}
 			}
-			return false;
+
+			return array( 'sub_container_id' => $sub_container_id, 'container_id' => $container_id );
 		}
 
 		/**
@@ -502,9 +442,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function active( $is_parent ) {
 			if ( true === $is_parent ) {
-				return isset( $this->active_menu['parent_id'] ) ? $this->active_menu['parent_id'] : false;
+				return isset( $this->active_menu['container_id'] ) ? $this->active_menu['container_id'] : false;
 			}
-			return isset( $this->active_menu['section_id'] ) ? $this->active_menu['section_id'] : false;
+			return isset( $this->active_menu['sub_container_id'] ) ? $this->active_menu['sub_container_id'] : false;
 		}
 
 		/**
@@ -516,7 +456,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( ! empty( $this->menus ) ) {
 				return $this->menus;
 			}
-			$this->menus = $this->extract_fields_menus();
+			$this->menus = $this->extract_fields_menus( $this->fields );
 			return $this->menus;
 		}
 
@@ -558,12 +498,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'theme'         => 'wp',
 				'template_path' => false,
 				'save_button'   => __( 'Save Settings' ),
-				/*
-				'buttons'     => array(
-					'save'    => __( 'Save Settings' ),
-					'restore' => false, #__( 'Restore' )
-					'reset'   => false, #__( 'Reset All Options' )
-				),*/
 			);
 		}
 
@@ -596,34 +530,33 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( 1 === count( $this->fields ) ) {
 				$class[] = 'wponion-hide-nav';
 				$c       = $this->fields;
-				if ( $c->has_fields() || ( $c->has_sections() && 1 === count( $c->sections() ) ) ) {
+				if ( $c->has_fields() || ( $c->has_containers() && 1 === count( $c->container() ) ) ) {
 					$class[] = 'wponion-no-subnav';
 				}
 			}
-
 			return parent::wrap_class( wponion_html_class( $extra_class, array_filter( $class ) ) );
 		}
 
 		/**
 		 * Checks if Option Loop Is Valid
 		 *
-		 * @param array|\WPonion\Module_Fields $option
-		 * @param bool                         $section
-		 * @param bool                         $check_current_page
+		 * @param array|\WPonion\Module_Fields|\WPO\Container $container
+		 * @param bool                                        $sub_container
+		 * @param bool                                        $check_current_page
 		 *
 		 * @return bool
 		 */
-		public function valid_option( $option = array(), $section = false, $check_current_page = true ) {
-			if ( ! $option->has_fields() && ! $option->has_sections() && ! $option->has_callback() ) {
+		public function valid_option( $container = array(), $sub_container = false, $check_current_page = true ) {
+			if ( ! $container->has_fields() && ! $container->has_containers() && ! $container->has_callback() ) {
 				return false;
 			}
 
 			if ( true === $check_current_page ) {
-				if ( false === $section && ( false === $this->is_single_page() || 'only_submenu' === $this->is_single_page() ) && $option->name() !== $this->active( true ) ) {
+				if ( false === $sub_container && ( false === $this->is_single_page() || 'only_submenu' === $this->is_single_page() ) && $container->name() !== $this->active( true ) ) {
 					return false;
 				}
 
-				if ( true === $section && false === $this->is_single_page() && $option->name() !== $this->active( false ) ) {
+				if ( true === $sub_container && false === $this->is_single_page() && $container->name() !== $this->active( false ) ) {
 					return false;
 				}
 			}
@@ -633,19 +566,19 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		/**
 		 * checks if given (PAGE/SECTION) is active [CALLED AS TAB]
 		 *
-		 * @param bool $parent
-		 * @param bool $child
-		 * @param bool $first_section
+		 * @param bool $container
+		 * @param bool $sub_container
+		 * @param bool $first_container
 		 *
 		 * @return bool
 		 */
-		public function is_tab_active( $parent = false, $child = false, $first_section = false ) {
-			if ( false !== $parent && false === $child ) {
-				return ( $parent === $this->active( true ) ) ? true : false;
+		public function is_tab_active( $container = false, $sub_container = false, $first_container = false ) {
+			if ( false !== $container && false === $sub_container ) {
+				return ( $container === $this->active( true ) ) ? true : false;
 			} else {
-				if ( $parent === $this->active( true ) && $child === $this->active( false ) ) {
+				if ( $container === $this->active( true ) && $sub_container === $this->active( false ) ) {
 					return true;
-				} elseif ( $parent !== $this->active( true ) && $first_section === $child ) {
+				} elseif ( $container !== $this->active( true ) && $first_container === $sub_container ) {
 					return true;
 				}
 				return false;
@@ -653,67 +586,17 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
-		 * This function should be used in each loop when parent loop is runnig.
-		 *
-		 * @param $options \WPOnion\Module_Fields
-		 *
-		 * @return array|bool|mixed
-		 */
-		public function get_first_section( $options ) {
-			if ( $options->has_sections() ) {
-				$first_sec = $options->first_section();
-				return $first_sec->name();
-			}
-			return false;
-		}
-
-		/**
 		 * Renders / Creates An First Instance based on the $is_init_field variable value.
 		 *
 		 * @param array $field
-		 * @param bool  $parent_section
-		 * @param bool  $section
+		 * @param bool  $parent_container
+		 * @param bool  $sub_container
 		 * @param bool  $is_init_field
 		 *
 		 * @return mixed
 		 */
-		public function render_field( $field = array(), $parent_section = false, $section = false, $is_init_field = false ) {
-			return parent::render_field( $field, sanitize_title( $parent_section . '-' . $section ), $is_init_field );
-		}
-
-		/**
-		 * Inits All Base Fields.
-		 */
-		public function init_fields() {
-			foreach ( $this->fields as $options ) {
-				if ( false === $this->valid_option( $options ) ) {
-					continue;
-				}
-				if ( $options->has_callback() ) {
-					continue;
-				}
-
-				if ( $options->has_sections() ) {
-					/* @var $section \WPOnion\Module_Fields */
-					foreach ( $options->sections() as $section ) {
-						if ( false === $this->valid_option( $section, true ) ) {
-							continue;
-						}
-
-						if ( $options->has_callback() || ! $section->has_fields() ) {
-							continue;
-						}
-
-						foreach ( $section->fields() as $field ) {
-							$this->render_field( $field, $options->name(), $section->name(), true );
-						}
-					}
-				} elseif ( $options->has_fields() ) {
-					foreach ( $options->fields() as $field ) {
-						$this->render_field( $field, $options->name(), false, true );
-					}
-				}
-			}
+		public function render_field( $field = array(), $parent_container = false, $sub_container = false, $is_init_field = false ) {
+			return parent::render_field( $field, sanitize_title( $parent_container . '-' . $sub_container ), $is_init_field );
 		}
 
 		/**

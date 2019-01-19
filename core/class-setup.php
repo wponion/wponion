@@ -25,20 +25,25 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	 */
 	final class Setup {
 		/**
-		 * Stores Autoloader Instance.
-		 *
 		 * @var bool
 		 * @access
+		 * @static
 		 */
 		private static $core_autoloader = false;
 
 		/**
-		 * Stores Autoloader Instance.
-		 *
 		 * @var bool
 		 * @access
+		 * @static
 		 */
 		private static $field_autoloader = false;
+
+		/**
+		 * @var bool
+		 * @access
+		 * @static
+		 */
+		private static $builder_autoloader = false;
 
 		/**
 		 * Fires Basic Setup Hook.
@@ -115,10 +120,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @throws \Exception
 		 */
 		public static function init_autoloader() {
-			self::$field_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
-			self::$core_autoloader  = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
+			self::$field_autoloader   = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
+			self::$core_autoloader    = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
 				'exclude' => 'WPOnion\Field',
 			) );
+			self::$builder_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPO', WPONION_PATH . 'builder/', array(), false );
 
 			self::$core_autoloader->add( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
 			self::$core_autoloader->add( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );

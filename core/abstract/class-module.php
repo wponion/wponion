@@ -13,6 +13,7 @@
  */
 
 namespace WPOnion\Bridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -51,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Fields
 		 *
-		 * @var array
+		 * @var array|\WPO\Builder
 		 */
 		protected $fields = array();
 
@@ -103,13 +104,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * WPOnion_Settings constructor.
 		 *
-		 * @param array $fields Array of settings fields.
-		 * @param array $settings array of WPOnion Settings Configuration.
+		 * @param \WPO\Builder $fields Array of settings fields.
+		 * @param array        $settings array of WPOnion Settings Configuration.
 		 */
-		public function __construct( $fields = array(), $settings = array() ) {
-			if ( wponion_is_array( $fields ) ) {
-				$this->fields = new \WPOnion\Module_Fields( $fields );
+		public function __construct( \WPO\Builder $fields = null, $settings = array() ) {
+			if ( $fields instanceof \WPO\Builder ) {
+				$this->fields = $fields;
 			}
+
 			$this->raw_fields = $fields;
 			$this->settings   = $this->set_args( $settings );
 			$this->unique     = ( isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
@@ -141,14 +143,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Generated A Unique ID For each Options Array And stores it.
 		 *
-		 * @param array $fields
-		 *
 		 * @return bool|string
 		 */
-		protected function fields_md5( $fields = array() ) {
+		protected function fields_md5() {
 			if ( false === $this->fields_md5 ) {
-				$fields           = empty( $fields ) ? $this->raw_fields : $fields;
-				$this->fields_md5 = wponion_hash_array( wponion_get_all_fields_ids_and_defaults( $fields ) );
+				$this->fields_md5 = wponion_hash_array( wponion_fields_all_ids_defaults( $this->fields->get() ) );
 			}
 			return $this->fields_md5;
 		}
@@ -330,43 +329,40 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * Extracts Settings Sections and its subsections from the $this->fields array.
+		 * Extracts Settings Sections and its sub containers from the $this->fields array.
 		 *
-		 * @param \WPOnion\Module_Fields|array $fields
-		 * @param bool                         $is_child
-		 * @param bool                         $parent
-		 * @param bool                         $first_section
+		 * @param \WPOnion\Module_Fields|\WPO\Builder|array $fields
+		 * @param bool                                      $is_child
+		 * @param bool                                      $container
+		 * @param bool                                      $first_container
 		 *
 		 * @uses \WPOnion\Modules\Metabox
 		 * @uses \WPOnion\Modules\Settings
 		 *
 		 * @return array
 		 */
-		protected function extract_fields_menus( $fields = array(), $is_child = false, $parent = false, $first_section = false ) {
+		protected function extract_fields_menus( $fields = array(), $is_child = false, $container = false, $first_container = false ) {
 			$return = array();
-			if ( empty( $fields ) ) {
-				$fields = $this->fields;
-			}
 
 			if ( ! empty( $fields ) ) {
 				foreach ( $fields as $field ) {
-					if ( $field->has_sections() && ! empty( $field->sections() ) ) {
-						$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
+					if ( $field->has_containers() && ! empty( $field->containers() ) ) {
+						$menu = $this->handle_single_menu( $field, $is_child, $container, $first_container );
 						if ( false !== $menu ) {
 							$_name                       = $menu['name'];
 							$return[ $_name ]            = $menu;
-							$first_section_name          = $field->first_section()
+							$first_container_name        = $field->first_container()
 								->name();
-							$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->sections(), true, $_name, $first_section_name );
+							$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->containers(), true, $_name, $first_container_name );
 						}
 					} elseif ( ( $field->has_fields() && ! empty( $field->fields() ) ) || $field->has_callback() || $field->has_href() ) {
-						$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
+						$menu = $this->handle_single_menu( $field, $is_child, $container, $first_container );
 						if ( false !== $menu ) {
 							$return[ $menu['name'] ] = $menu;
 						}
 					} else {
 						if ( 'metabox' !== $this->module() ) {
-							$menu = $this->handle_single_menu( $field, $is_child, $parent, $first_section );
+							$menu = $this->handle_single_menu( $field, $is_child, $container, $first_container );
 							if ( false !== $menu ) {
 								$return[ $menu['name'] ]                 = $menu;
 								$return[ $menu['name'] ]['is_seperator'] = isset( $menu['seperator'] ) ? $menu['seperator'] : false;
@@ -381,14 +377,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Handles Single Field args and converts into a menu.
 		 *
-		 * @param \WPOnion\Module_Fields $menu
-		 * @param bool                   $is_child
-		 * @param bool                   $parent
-		 * @param bool                   $first_section
+		 * @param \WPO\Container $menu
+		 * @param bool           $is_child
+		 * @param bool           $container
+		 * @param bool           $first_container
 		 *
 		 * @return array|bool
 		 */
-		protected function handle_single_menu( $menu, $is_child = false, $parent = false, $first_section = false ) {
+		protected function handle_single_menu( $menu, $is_child = false, $container = false, $first_container = false ) {
 			if ( null === $menu->name() && null === $menu->title() ) {
 				return false;
 			}
@@ -399,10 +395,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			$part_href     = false;
 			$is_active     = false;
 
-			if ( false === $parent ) {
+			if ( false === $container ) {
 				if ( true === $internal_href ) {
-					$href      = add_query_arg( array( 'parent-id' => $name ), $this->page_url() );
-					$part_href = add_query_arg( array( 'parent-id' => $name ), $this->page_url( true ) );
+					$href      = add_query_arg( array( 'container-id' => $name ), $this->page_url() );
+					$part_href = add_query_arg( array( 'container-id' => $name ), $this->page_url( true ) );
 				} else {
 					$part_href = $menu->href();
 				}
@@ -410,11 +406,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				if ( $name === $this->active( true ) ) {
 					$is_active = true;
 				}
-			} elseif ( true === $is_child && false !== $parent ) {
+			} elseif ( true === $is_child && false !== $container ) {
 				if ( true === $internal_href ) {
 					$query_args = array(
-						'parent-id'  => $parent,
-						'section-id' => $name,
+						'container-id'     => $container,
+						'sub-container-id' => $name,
 					);
 					$href       = add_query_arg( $query_args, $this->page_url() );
 					$part_href  = add_query_arg( $query_args, $this->page_url( true ) );
@@ -422,20 +418,20 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$part_href = $menu->href();
 				}
 
-				if ( $name === $this->active( false ) && $parent === $this->active( true ) ) {
+				if ( $name === $this->active( false ) && $container === $this->active( true ) ) {
 					$is_active = true;
-				} elseif ( $parent !== $this->active( true ) && $name === $first_section ) {
+				} elseif ( $container !== $this->active( true ) && $name === $first_container ) {
 					$is_active = true;
 				}
 			}
 
-			if ( ! empty( $menu->get( 'query_args' ) ) ) {
-				$href      = add_query_arg( $menu->get( 'query_args' ), $href );
-				$part_href = add_query_arg( $menu->get( 'query_args' ), $part_href );
+			if ( ! empty( $menu->query_args() ) ) {
+				$href      = add_query_arg( $menu->query_args(), $href );
+				$part_href = add_query_arg( $menu->query_args(), $part_href );
 			}
 
 			return array(
-				'attributes'       => $menu->get( 'attributes', array() ),
+				'attributes'       => $menu->attributes(),
 				'title'            => $menu->title(),
 				'name'             => $name,
 				'icon'             => $menu->icon(),
@@ -443,18 +439,18 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'is_internal_href' => $internal_href,
 				'href'             => $href,
 				'part_href'        => $part_href,
-				'query_args'       => $menu->get( 'query_args', false ),
-				'class'            => $menu->get( 'class', false ),
+				'query_args'       => $menu->query_args(),
+				'class'            => $menu->css_class(),
 			);
 		}
 
 		/**
-		 * @param $is_parent
+		 * @param $is_container
 		 *
 		 * @return null
 		 */
-		public function active( $is_parent ) {
-			return $is_parent;
+		public function active( $is_container ) {
+			return $is_container;
 		}
 
 		/**
@@ -469,12 +465,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Check if option loop is valid.
 		 *
-		 * @param array|\WPOnion\Module_Fields $option
+		 * @param array|\WPOnion\Module_Fields|\WPO\Container $option
 		 *
 		 * @return bool
 		 */
 		public function valid_option( $option = array() ) {
-			return ( $option->has_callback() || $option->has_fields() || $option->has_sections() ) ? true : false;
+			return ( $option->has_callback() || $option->has_fields() || $option->has_containers() ) ? true : false;
 		}
 
 		/**
@@ -519,52 +515,53 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * @param $parent \WPOnion\Module_Fields
+		 * @param $container \WPOnion\Module_Fields|\WPO\Container
 		 *
 		 * @return array|string
 		 */
-		public function output_parent_wrap_class( $parent ) {
+		public function output_container_wrap_class( $container ) {
 			return wponion_html_class( array(
-				'wponion-tab-' . $parent->name(),
-				( $parent->has_sections() ) ? 'wponion-has-sections' : '',
-				( $parent->has_callback() ) ? 'wponion-has-callback' : '',
-				( $parent->has_fields() ) ? 'wponion-has-fields' : '',
-				( true === $this->is_tab_active( $parent->name(), false ) ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden',
+				'wponion-tab-' . $container->name(),
+				( $container->has_containers() ) ? 'wponion-has-sections' : '',
+				( $container->has_callback() ) ? 'wponion-has-callback' : '',
+				( $container->has_fields() ) ? 'wponion-has-fields' : '',
+				( true === $this->is_tab_active( $container->name(), false ) ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden',
 			) );
 		}
 
 		/**
-		 * @param $parent \WPOnion\Module_Fields
+		 * @param $container \WPOnion\Module_Fields|\WPO\Container
 		 *
 		 * @return string
 		 */
-		public function output_parent_wrap_id( $parent ) {
-			return 'wponion-tab-' . $parent->name();
+		public function output_container_wrap_id( $container ) {
+			return 'wponion-tab-' . $container->name();
 		}
 
 		/**
-		 * @param $parent \WPOnion\Module_Fields
-		 * @param $section \WPOnion\Module_Fields
-		 * @param $first_section
+		 * @param $container \WPO\Container
+		 * @param $sub_container \WPO\Container
+		 * @param $first_container
 		 *
 		 * @return array|string
 		 */
-		public function output_section_wrap_class( $parent, $section, $first_section ) {
+		public function output_sub_container_wrap_class( $container, $sub_container, $first_container ) {
 			return wponion_html_class( array(
-				'wponion-tab-' . $parent->name() . '-' . $section->name(),
-				( $section->has_callback() ) ? 'wponion-has-callback' : '',
-				( $section->has_fields() ) ? 'wponion-has-fields' : '',
-				( true === $this->is_tab_active( $parent->name(), $section->name(), $first_section ) ) ? 'wponion-section-wraps' : 'wponion-section-wraps hidden',
+				'wponion-tab-' . $container->name() . '-' . $sub_container->name(),
+				( $sub_container->has_callback() ) ? 'wponion-has-callback' : '',
+				( $sub_container->has_fields() ) ? 'wponion-has-fields' : '',
+				( true === $this->is_tab_active( $container->name(), $sub_container->name(), $first_container ) ) ? 'wponion-section-wraps' : 'wponion-section-wraps hidden',
 			) );
 		}
 
 		/**
-		 * @param $parent \WPOnion\Module_Fields
+		 * @param $container \WPO\Container
+		 * @param $sub_container \WPO\Container
 		 *
 		 * @return string
 		 */
-		public function output_section_wrap_id( $parent, $section ) {
-			return 'wponion-tab-' . $parent->name() . '-' . $section->name();
+		public function output_sub_container_wrap_id( $container, $sub_container ) {
+			return 'wponion-tab-' . $container->name() . '-' . $sub_container->name();
 		}
 
 		/**
