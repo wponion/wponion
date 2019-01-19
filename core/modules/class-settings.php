@@ -109,11 +109,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					if ( wponion_is_array( $menu['submenu'] ) && ! isset( $menu['submenu'][0] ) || ! wponion_is_array( $menu['submenu'] ) ) {
 						$menu['submenu'] = array( $menu['submenu'] );
 					}
-					$menu['submenu'] = array_merge( array(
-						array(
-							&$this,
-							'register_admin_menu',
-						),
+					$menu['submenu'] = wponion_parse_args( array(
+						array( &$this, 'register_admin_menu' ),
 					), $menu['submenu'] );
 				}
 			}
