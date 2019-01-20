@@ -11,7 +11,9 @@
 
 namespace WPO;
 
-if ( ! class_exists( '\WPO\Container' ) ) {
+use WPO\Helper\Container\Helper;
+
+if ( ! class_exists( 'WPO\Container' ) ) {
 	/**
 	 * Class Container
 	 *
@@ -19,7 +21,7 @@ if ( ! class_exists( '\WPO\Container' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Container extends Helper\Base {
+	class Container extends Helper {
 		/**
 		 * Container constructor.
 		 *
@@ -28,237 +30,143 @@ if ( ! class_exists( '\WPO\Container' ) ) {
 		 * @param bool $icon
 		 */
 		public function __construct( $slug = false, $title = false, $icon = false ) {
-			unset( $this->plugin_id );
-			unset( $this->settings );
-			unset( $this->module );
-
-			$args = array();
-
-			if ( ! wponion_is_array( $slug ) && ! wponion_is_array( $title ) && ! wponion_is_array( $icon ) ) {
-				$args = $this->set_args( array(
-					'title' => $title,
-					'name'  => $slug,
-					'icon'  => $icon,
-				) );
-			} elseif ( wponion_is_array( $slug ) ) {
-				$args = $this->set_args( $slug );
-			} elseif ( ! wponion_is_array( $slug ) && wponion_is_array( $title ) ) {
-				$args = $this->set_args( $this->parse_args( $title, array(
-					'name' => $slug,
-				) ) );
-			} elseif ( ! wponion_is_array( $slug ) && ! wponion_is_array( $title ) && wponion_is_array( $icon ) ) {
-				$args = $this->set_args( $this->parse_args( $icon, array(
-					'name'  => $slug,
-					'title' => $title,
-				) ) );
-			}
-
-			if ( ! isset( $args['name'] ) || isset( $args['name'] ) && empty( $args['name'] ) ) {
-				$args['name'] = wponion_hash_array( $args );
-			}
-
-			$this->variable          = 'fields';
-			$this->{$this->variable} = $args;
-			$this->unique            = $this->name();
+			$this->slug  = $slug;
+			$this->title = $title;
+			$this->icon  = $icon;
 		}
 
 		/**
-		 * @param bool $slug
+		 * @param bool $container_slug
 		 * @param bool $title
 		 * @param bool $icon
 		 *
 		 * @static
 		 * @return \WPO\Container
 		 */
-		public static function create( $slug = false, $title = false, $icon = false ) {
-			$args = func_get_args();
-			if ( empty( $args ) ) {
-				return new static();
+		public static function create( $container_slug = false, $title = false, $icon = false ) {
+			return new self( $container_slug, $title, $icon );
+		}
+
+		/**
+		 * @param bool $container_slug_or_instance
+		 * @param bool $title
+		 * @param bool $icon
+		 *
+		 * @return $this|bool|false|\WPO\Container
+		 * @throws \Exception
+		 */
+		public function container( $container_slug_or_instance = false, $title = false, $icon = false ) {
+			if ( $this->has_fields() ) {
+				throw new \Exception( 'A Container Cannot Have Both Field & Containers' );
 			}
-			if ( 3 === count( $args ) ) {
-				return new static( $args[0], $args[1], $args[2] );
-			} elseif ( 2 === count( $args ) ) {
-				return new static( $args[0], $args[1], false );
-			}
-			return new static( $args[0], false, false );
-		}
-
-		/**
-		 * @param null $name
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function name( $name = null ) {
-			if ( null !== $name ) {
-				$this->unique = $name;
-			}
-			return $this->_set_get_args( 'name', $name );
-		}
-
-		/**
-		 * @param null $title
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function title( $title = null ) {
-			return $this->_set_get_args( 'title', $title );
-		}
-
-		/**
-		 * @param null $icon
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function icon( $icon = null ) {
-			return $this->_set_get_args( 'icon', $icon );
-		}
-
-		/**
-		 * @param null $callback
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function callback( $callback = null ) {
-			return $this->_set_get_args( 'callback', $callback );
-		}
-
-		/**
-		 * @param null $href
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function href( $href = null ) {
-			return $this->_set_get_args( 'href', $href );
-		}
-
-		/**
-		 * @param null $fields
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function fields( $fields = null ) {
-			return $this->_set_get_args( 'fields', $fields );
-		}
-
-		/**
-		 * @param null $sections
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function containers( $sections = null ) {
-			return $this->_set_get_args( 'containers', $sections );
-		}
-
-		/**
-		 * @param null $query_args
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function query_args( $query_args = null ) {
-			return $this->_set_get_args( 'query_args', $query_args );
-		}
-
-		/**
-		 * @param null $attributes
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function attributes( $attributes = null ) {
-			return $this->_set_get_args( 'attributes', $attributes );
-		}
-
-		/**
-		 * @param null $css_class
-		 *
-		 * @return mixed|\WPO\Container
-		 */
-		public function css_class( $css_class = null ) {
-			return $this->_set_get_args( 'css_class', $css_class );
-		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'title'      => false,
-				'slug'       => false,
-				'icon'       => false,
-				'callback'   => false,
-				'href'       => false,
-				'fields'     => false,
-				'query_args' => array(),
-				'css_class'  => array(),
-				'attributes' => array(),
-				'containers' => false,
-			);
-		}
-
-		/**
-		 * Checks If Containers Exists.
-		 *
-		 * @return bool
-		 */
-		public function has_containers() {
-			return ( isset( $this->{$this->variable}['containers'] ) && false !== $this->{$this->variable}['containers'] && wponion_is_array( $this->{$this->variable}['containers'] ) );
-		}
-
-		/**
-		 * Checks if Fields Exists.
-		 *
-		 * @return bool
-		 */
-		public function has_fields() {
-			return ( isset( $this->{$this->variable}['fields'] ) && false !== $this->{$this->variable}['fields'] && wponion_is_array( $this->{$this->variable}['fields'] ) );
-		}
-
-		/**
-		 * Checks if Href Exists.
-		 *
-		 * @return bool
-		 */
-		public function has_href() {
-			return ( isset( $this->{$this->variable}['href'] ) && false !== $this->{$this->variable}['href'] );
-		}
-
-		/**
-		 * Checks If Callback Exists.
-		 *
-		 * @return bool
-		 */
-		public function has_callback() {
-			return ( isset( $this->{$this->variable}['callback'] ) && false !== $this->{$this->variable}['callback'] );
-		}
-
-		/**
-		 * @param      $container_slug_or_instance
-		 * @param bool $page_title
-		 * @param bool $page_icon
-		 *
-		 * @return mixed|\WPO\Container|\WPO\Helper\Base
-		 */
-		public function container( $container_slug_or_instance, $page_title = false, $page_icon = false ) {
-			if ( ! isset( $this->{$this->variable}['containers'] ) ) {
-				$this->{$this->variable}['containers'] = array();
-			}
-
-			$_instance = parent::container( $container_slug_or_instance, $page_title, $page_icon );
-			$instance  = $_instance;
 			if ( $container_slug_or_instance instanceof Container ) {
-				$instance = $container_slug_or_instance;
+				$this->sub_containers[] = $container_slug_or_instance;
+				return $this;
 			}
 
-			if ( $instance instanceof Container ) {
-				if ( isset( $this->{$this->variable}[ $instance->unique() ] ) ) {
-					$this->{$this->variable}['containers'][ $instance->unique() ] = $instance;
-					unset( $this->{$this->variable}[ $instance->unique() ] );
+			$return = false;
+
+			if ( is_string( $container_slug_or_instance ) && false === $title && false === $icon ) {
+				$return = $this->container_exists( $container_slug_or_instance );
+			}
+
+			if ( false === $return ) {
+				$return                 = self::create( $container_slug_or_instance, $title, $icon );
+				$this->sub_containers[] = $return;
+			}
+			return $return;
+		}
+
+		/**
+		 * @param string|\WPO\Field $field_type_or_instance
+		 * @param string            $field_id
+		 * @param bool              $title
+		 * @param array             $args
+		 *
+		 * @return $this|bool|mixed|\WPO\Field
+		 * @throws \Exception
+		 */
+		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
+			if ( $this->has_containers() ) {
+				throw new \Exception( 'A Container Cannot Have Both Field & Containers' );
+			}
+
+			if ( $field_type_or_instance instanceof Field ) {
+				$this->fields[] = $field_type_or_instance;
+				return $this;
+			}
+
+			$return = false;
+
+			if ( is_string( $field_type_or_instance ) && false === $field_id && false === $title ) {
+				$return = $this->field_exists( $field_type_or_instance );
+			}
+
+			if ( false === $return ) {
+				$return = Field::create( $field_type_or_instance, $field_id, $title, $args );
+				if ( $return ) {
+					$this->fields[] = $return;
+				} else {
+					$return = false;
 				}
 			}
+			return $return;
+		}
 
-			return $_instance;
+		/**
+		 * @return string|bool
+		 */
+		public function name() {
+			return $this->slug;
+		}
 
+		/**
+		 * @return string|bool
+		 */
+		public function slug() {
+			return $this->slug;
+		}
+
+		/**
+		 * @return string|bool
+		 */
+		public function title() {
+			return $this->title;
+		}
+
+		/**
+		 * @return string|bool
+		 */
+		public function icon() {
+			return $this->icon;
+		}
+
+		/**
+		 * @return callable|bool
+		 */
+		public function callback() {
+			return $this->callback;
+		}
+
+		/**
+		 * @return bool|string
+		 */
+		public function href() {
+			return $this->href;
+		}
+
+		/**
+		 * @return array
+		 */
+		public function query_args() {
+			return $this->query_args;
+		}
+
+		/**
+		 * @return array|string
+		 */
+		public function class() {
+			return $this->class;
 		}
 	}
 }

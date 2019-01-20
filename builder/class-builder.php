@@ -11,17 +11,15 @@
 
 namespace WPO;
 
-use WPO\Helper\Array_Helper;
-
 if ( ! class_exists( 'WPO\Builder' ) ) {
 	/**
 	 * Class Builder
 	 *
-	 * @package WPOnion\Builder
+	 * @package WPO
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Builder extends Array_Helper {
+	class Builder extends Helper\Base {
 		/**
 		 * Builder constructor.
 		 */
@@ -30,36 +28,6 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 			unset( $this->fields );
 			unset( $this->module );
 			$this->settings = array();
-		}
-
-		/**
-		 * @param $data
-		 *
-		 * @return $this
-		 */
-		public function add( $data ) {
-			if ( $data instanceof Container || $data instanceof Field ) {
-				$this[ $data->unique() ] = $data;
-			}
-			return $this;
-		}
-
-		/**
-		 * Checks if Fields Exists.
-		 *
-		 * @return mixed
-		 */
-		public function has_fields() {
-			return ( isset( $this->{$this->variable}['fields'] ) && wponion_is_array( $this->{$this->variable}['fields'] ) );
-		}
-
-		/**
-		 * Returns All Fields.
-		 *
-		 * @return array
-		 */
-		public function fields() {
-			return ( $this->has_fields() ) ? $this->{$this->variable}['fields'] : array();
 		}
 	}
 }

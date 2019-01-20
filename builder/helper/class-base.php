@@ -11,46 +11,27 @@
 
 namespace WPO\Helper;
 
-
 if ( ! class_exists( 'WPO\Helper\Base' ) ) {
-	/**
-	 * Class Base
-	 *
-	 * @package WPOnion\Builder
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
-	 */
 	abstract class Base extends \WPOnion\Bridge implements \JsonSerializable, \Countable, \Serializable {
 		/**
-		 * @var null
-		 * @access
-		 */
-		protected $variable = 'settings';
-
-		/**
-		 * Fields
+		 * Custom Variable Name That Class Uses To Work As Array.
 		 *
-		 * @var array
+		 * @uses \ArrayAccess
+		 * @var string
+		 * @access protected
 		 */
-		public $fields = array();
+		protected $array_var = 'settings';
 
 		/**
-		 * Stores Settings Args.
-		 *
-		 * @var array
-		 * @access
-		 */
-		public $settings = array();
-
-		/**
-		 * unique for database.
+		 * Stores Unique value.
 		 *
 		 * @var string
+		 * @access
 		 */
 		protected $unique = '';
 
 		/**
-		 * Checks The Type of Class.
+		 * Check's and returns class type.
 		 *
 		 * @param bool $type
 		 *
@@ -72,40 +53,38 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		}
 
 		/**
-		 * Returns A Value.
+		 * Returns Array Accessable Variable.
 		 *
 		 * @return mixed
 		 */
 		public function get() {
-			return $this->{$this->variable};
+			return $this->{$this->array_var};
 		}
 
 		/**
-		 * Sets A Value To Args.
+		 * Updates Array Access Variable With New Data.
 		 *
-		 * @param $data
+		 * @param $args
 		 *
 		 * @return $this
 		 */
-		public function set( $data ) {
-			$this->{$this->variable} = $data;
+		public function set( $args ) {
+			$this->{$this->array_var} = $args;
 			return $this;
 		}
 
 		/**
-		 * Counts The Array And Returns It.
-		 *
 		 * @return int
 		 */
 		public function count() {
-			return count( $this->{$this->variable} );
+			return count( $this->get() );
 		}
 
 		/**
 		 * @return mixed
 		 */
 		public function jsonSerialize() {
-			return $this->{$this->variable};
+			return $this->get();
 		}
 
 		/**
@@ -114,7 +93,7 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		 * @return string
 		 */
 		public function serialize() {
-			return serialize( $this->{$this->variable} );
+			return serialize( $this->get() );
 		}
 
 		/**
@@ -123,7 +102,7 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		 * @param string $content
 		 */
 		public function unserialize( $content ) {
-			$this->{$this->variable} = unserialize( $content );
+			$this->set( unserialize( $content ) );
 		}
 
 		/**
@@ -133,124 +112,6 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		 */
 		public function unique() {
 			return $this->unique;
-		}
-
-		/**
-		 * Internal Array Set / Get Handler.
-		 *
-		 * @param      $key
-		 * @param null $value
-		 *
-		 * @return $this|mixed
-		 */
-		protected function _set_get_args( $key, $value = null ) {
-			if ( null === $value ) {
-				return $this->{$this->variable}[ $key ];
-			}
-			$this->{$this->variable}[ $key ] = $value;
-			return $this;
-		}
-
-		/**
-		 * Returns First Container Instance.
-		 *
-		 * @return bool|mixed|\WPO\Container
-		 */
-		public function first_container() {
-			$first = false;
-
-			if ( $this->is( 'builder' ) ) {
-				$first = current( $this->{$this->variable} );
-			} elseif ( $this->is( 'container' ) ) {
-				if ( isset( $this->{$this->variable}['containers'] ) ) {
-					$first = current( $this->{$this->variable}['containers'] );
-				} else {
-					$first = current( $this->{$this->variable} );
-				}
-			}
-
-			return ( ! empty( $first ) && $first instanceof \WPO\Container ) ? $first : false;
-		}
-
-		/**
-		 * Checks if Container Exists.
-		 *
-		 * @param $container_id
-		 *
-		 * @return bool|\WPO\Container
-		 */
-		public function container_exists( $container_id ) {
-			$containers = false;
-			if ( $this->is( 'builder' ) ) {
-				$containers = $this->{$this->variable};
-			} elseif ( $this->is( 'container' ) ) {
-				$containers = ( isset( $this->{$this->variable}['containers'] ) ) ? $this->{$this->variable}['containers'] : $this->{$this->variable};
-			}
-
-			if ( $containers ) {
-				/* @var $container \WPO\Container */
-				foreach ( $containers as $container ) {
-					if ( $container->name() === $container_id ) {
-						return $container;
-					}
-				}
-			}
-			return false;
-		}
-
-		/**
-		 * Returns A New Container Instance.
-		 *
-		 * @param      $container_slug_or_instance
-		 * @param bool $page_title
-		 * @param bool $page_icon
-		 *
-		 * @return $this|mixed|\WPO\Container
-		 */
-		public function container( $container_slug_or_instance, $page_title = false, $page_icon = false ) {
-			if ( is_string( $container_slug_or_instance ) && isset( $this->{$this->variable}[ $container_slug_or_instance ] ) && $this->{$this->variable}[ $container_slug_or_instance ] instanceof \WPO\Container ) {
-				return $this->{$this->variable}[ $container_slug_or_instance ];
-			} else {
-				if ( $container_slug_or_instance instanceof \WPO\Container ) {
-					$this->{$this->variable}[ $container_slug_or_instance->unique() ] = $container_slug_or_instance;
-				} else {
-					$args = func_get_args();
-					$ins  = wponion_callback( array( '\WPO\Container', 'create' ), $args );
-
-					$this->{$this->variable}[ $ins->unique() ] = $ins;
-					return $ins;
-				}
-			}
-			return $this;
-		}
-
-		/**
-		 * Returns A New Field Instance
-		 *
-		 * @param string $filed_type_or_instance
-		 * @param string $field_id
-		 * @param string $field_title
-		 *
-		 * @return $this|\WPO\Field
-		 */
-		public function field( $filed_type_or_instance = '', $field_id = '', $field_title = '' ) {
-			if ( ! isset( $this->{$this->variable}['fields'] ) ) {
-				$this->{$this->variable}['fields'] = array();
-			}
-
-			if ( $filed_type_or_instance instanceof \WPO\Field ) {
-				$this->{$this->variable}['fields'][ $filed_type_or_instance->unique() ] = $filed_type_or_instance;
-			} elseif ( is_string( $filed_type_or_instance ) && isset( $this->{$this->variable}['fields'][ $filed_type_or_instance ] ) && $this->{$this->variable}['fields'][ $filed_type_or_instance ] instanceof \WPO\Field ) {
-				return $this->{$this->variable}['fields'][ $filed_type_or_instance ];
-			} else {
-				$args    = func_get_args();
-				$args[3] = $this->unique();
-				$ins     = wponion_callback( array( '\WPO\Field', 'create' ), $args );
-
-				$this->{$this->variable}['fields'][ $ins->unique() ] = $ins;
-				return $ins;
-			}
-			return $this;
 		}
 	}
 }

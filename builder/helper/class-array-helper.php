@@ -11,9 +11,18 @@
 
 namespace WPO\Helper;
 
-if ( ! class_exists( '\WPOnion\Helper\Array_Helper' ) ) {
+if ( ! class_exists( 'WPO\Helper\Array_Helper' ) ) {
+	/**
+	 * Class Array_Helper
+	 *
+	 * @package WPO\Helper
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class Array_Helper extends Base implements \ArrayAccess, \Iterator {
 		/**
+		 * Store Array Position.
+		 *
 		 * @var null
 		 * @access
 		 */
@@ -25,7 +34,7 @@ if ( ! class_exists( '\WPOnion\Helper\Array_Helper' ) ) {
 		 * @return bool
 		 */
 		public function offsetExists( $offset ) {
-			return ( isset( $this->{$this->variable}[ $offset ] ) );
+			return ( isset( $this->{$this->array_var}[ $offset ] ) );
 		}
 
 		/**
@@ -36,7 +45,7 @@ if ( ! class_exists( '\WPOnion\Helper\Array_Helper' ) ) {
 		public function offsetGet( $offset ) {
 			$defaults = $this->defaults();
 			if ( $this->offsetExists( $offset ) ) {
-				return $this->{$this->variable}[ $offset ];
+				return $this->{$this->array_var}[ $offset ];
 			} elseif ( isset( $defaults[ $offset ] ) ) {
 				return $defaults[ $offset ];
 			}
@@ -48,22 +57,22 @@ if ( ! class_exists( '\WPOnion\Helper\Array_Helper' ) ) {
 		 * @param mixed $value
 		 */
 		public function offsetSet( $offset, $value ) {
-			$this->{$this->variable}[ $offset ] = $value;
+			$this->{$this->array_var}[ $offset ] = $value;
 		}
 
 		/**
 		 * @param mixed $offset
 		 */
 		public function offsetUnset( $offset ) {
-			unset( $this->{$this->variable}[ $offset ] );
+			unset( $this->{$this->array_var}[ $offset ] );
 		}
 
 		/**
 		 * @return mixed
 		 */
 		public function current() {
-			$keys = array_keys( $this->{$this->variable} );
-			return $this->{$this->variable}[ $keys[ $this->position ] ];
+			$keys = array_keys( $this->{$this->array_var} );
+			return $this->{$this->array_var}[ $keys[ $this->position ] ];
 		}
 
 		/**
@@ -77,7 +86,7 @@ if ( ! class_exists( '\WPOnion\Helper\Array_Helper' ) ) {
 		 * @return mixed
 		 */
 		public function key() {
-			$keys = array_keys( $this->{$this->variable} );
+			$keys = array_keys( $this->{$this->array_var} );
 			return $keys[ $this->position ];
 		}
 
@@ -85,7 +94,7 @@ if ( ! class_exists( '\WPOnion\Helper\Array_Helper' ) ) {
 		 * @return bool
 		 */
 		public function valid() {
-			$keys = array_keys( $this->{$this->variable} );
+			$keys = array_keys( $this->{$this->array_var} );
 			return isset( $keys[ $this->position ] );
 		}
 
@@ -94,22 +103,6 @@ if ( ! class_exists( '\WPOnion\Helper\Array_Helper' ) ) {
 		 */
 		public function rewind() {
 			$this->position = 0;
-		}
-
-		/**
-		 * Internal Array Set / Get Handler.
-		 *
-		 * @param      $key
-		 * @param null $value
-		 *
-		 * @return $this|mixed
-		 */
-		protected function _set_get_args( $key, $value = null ) {
-			if ( null === $value ) {
-				return $this[ $key ];
-			}
-			$this[ $key ] = $value;
-			return $this;
 		}
 	}
 }
