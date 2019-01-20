@@ -22,6 +22,9 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 	 * @since 1.0
 	 */
 	class Container extends Helper {
+		use \WPO\Helper\Container\Functions;
+		use \WPO\Helper\Field\Functions;
+
 		/**
 		 * Container constructor.
 		 *
@@ -45,72 +48,6 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		public static function create( $container_slug = false, $title = false, $icon = false ) {
 			return new self( $container_slug, $title, $icon );
-		}
-
-		/**
-		 * @param bool $container_slug_or_instance
-		 * @param bool $title
-		 * @param bool $icon
-		 *
-		 * @return $this|bool|false|\WPO\Container
-		 * @throws \Exception
-		 */
-		public function container( $container_slug_or_instance = false, $title = false, $icon = false ) {
-			if ( $this->has_fields() ) {
-				throw new \Exception( 'A Container Cannot Have Both Field & Containers' );
-			}
-			if ( $container_slug_or_instance instanceof Container ) {
-				$this->sub_containers[] = $container_slug_or_instance;
-				return $this;
-			}
-
-			$return = false;
-
-			if ( is_string( $container_slug_or_instance ) && false === $title && false === $icon ) {
-				$return = $this->container_exists( $container_slug_or_instance );
-			}
-
-			if ( false === $return ) {
-				$return                 = self::create( $container_slug_or_instance, $title, $icon );
-				$this->sub_containers[] = $return;
-			}
-			return $return;
-		}
-
-		/**
-		 * @param string|\WPO\Field $field_type_or_instance
-		 * @param string            $field_id
-		 * @param bool              $title
-		 * @param array             $args
-		 *
-		 * @return $this|bool|mixed|\WPO\Field
-		 * @throws \Exception
-		 */
-		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
-			if ( $this->has_containers() ) {
-				throw new \Exception( 'A Container Cannot Have Both Field & Containers' );
-			}
-
-			if ( $field_type_or_instance instanceof Field ) {
-				$this->fields[] = $field_type_or_instance;
-				return $this;
-			}
-
-			$return = false;
-
-			if ( is_string( $field_type_or_instance ) && false === $field_id && false === $title ) {
-				$return = $this->field_exists( $field_type_or_instance );
-			}
-
-			if ( false === $return ) {
-				$return = Field::create( $field_type_or_instance, $field_id, $title, $args );
-				if ( $return ) {
-					$this->fields[] = $return;
-				} else {
-					$return = false;
-				}
-			}
-			return $return;
 		}
 
 		/**
