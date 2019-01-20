@@ -27,8 +27,7 @@ if ( ! class_exists( '\WPOnion\DB\Media_Fields_Save_Handler' ) ) {
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
-			$fields = new Module_Fields( array( 'fields' => $this->fields ) );
-			$this->field_loop( $fields );
+			$this->field_loop( $this->fields );
 		}
 	}
 }
