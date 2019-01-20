@@ -44,7 +44,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 		 */
 		public function __construct( $post_type = array(), $arguments = array(), $render_callback = array() ) {
 			if ( ! empty( $post_type ) && isset( $post_type['title'] ) ) {
-				parent::__construct( array(), $post_type );
+				parent::__construct( null, $post_type );
 				$this->on_init();
 			} elseif ( ! empty( $post_type ) && ! empty( $arguments ) ) {
 				$arguments = ( is_string( $arguments ) ) ? array( 'title' => $arguments ) : $arguments;
@@ -72,7 +72,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 					} else {
 						$arguments = $this->parse_args( $post_type, $arguments );
 					}
-					parent::__construct( array(), $arguments );
+					parent::__construct( null, $arguments );
 					$this->on_init();
 				}
 			} elseif ( ! empty( $post_type ) && empty( $arguments ) ) {
@@ -81,7 +81,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 						new self( $types );
 					}
 				} else {
-					parent::__construct( array(), $post_type );
+					parent::__construct( null, $post_type );
 					$this->on_init();
 				}
 			}
