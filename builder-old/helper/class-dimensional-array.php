@@ -9,7 +9,7 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO\Helper;
+namespace WPOs\Helper;
 
 if ( ! class_exists( '\WPOnion\Helper\Dimensional_Array' ) ) {
 	class Dimensional_Array extends Array_Helper {
