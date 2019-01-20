@@ -31,27 +31,32 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
-			foreach ( $this->fields as $option ) {
-				/* @var \WPOnion\Modules\Settings $settings */
-				$settings = $this->args['settings'];
-				if ( ! $settings->valid_option( $option, false, true ) ) {
+			/**
+			 * @var \WPOnion\Modules\Settings $settings
+			 * @var \WPO\Container            $container
+			 * @var \WPO\Container            $sub_container
+			 */
+			$settings = $this->args['settings'];
+
+			foreach ( $this->fields as $container ) {
+				if ( ! $settings->valid_option( $container, false, true ) ) {
 					continue;
 				}
 
-				if ( $option->has_sections() ) {
-					foreach ( $option->sections() as $section ) {
-						if ( ! $settings->valid_option( $section, true, true ) ) {
+				if ( $container->has_containers() ) {
+					foreach ( $container->containers() as $sub_container ) {
+						if ( ! $settings->valid_option( $sub_container, true, true ) ) {
 							continue;
 						}
 
-						if ( ! $section->has_fields() ) {
+						if ( ! $sub_container->has_fields() ) {
 							continue;
 						}
 
-						$this->field_loop( $section );
+						$this->field_loop( $sub_container );
 					}
-				} elseif ( $option->has_fields() ) {
-					$this->field_loop( $option );
+				} elseif ( $container->has_fields() ) {
+					$this->field_loop( $container );
 				}
 			}
 

@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * fields
 		 *
-		 * @var array|\WPOnion\Module_Fields
+		 * @var array|\WPO\Container|\WPO\Builder
 		 */
 		protected $fields = array();
 
@@ -327,7 +327,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * Runs A Field.Inner Loop.
 		 *
-		 * @param array|\WPOnion\Module_Fields $section
+		 * @param array|\WPO\Container $section
 		 */
 		protected function field_loop( $section ) {
 			foreach ( $section->fields() as $field ) {
