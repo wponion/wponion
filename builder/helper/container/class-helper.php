@@ -5,6 +5,13 @@ namespace WPO\Helper\Container;
 use WPO\Helper\Base;
 
 if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
+	/**
+	 * Class Helper
+	 *
+	 * @package WPO\Helper\Container
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	abstract class Helper extends Base implements \WPO\Helper\Interfaces\Container, \WPO\Helper\Interfaces\Field {
 		/**
 		 * Container Title.

@@ -12,6 +12,13 @@
 namespace WPO\Helper\Container;
 
 if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
+	/**
+	 * Trait Functions
+	 *
+	 * @package WPO\Helper\Container
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	trait Functions {
 		/**
 		 * Returns Sub Containers.

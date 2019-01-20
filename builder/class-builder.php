@@ -22,6 +22,7 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 	class Builder extends Helper\Base implements Helper\Interfaces\Container, Helper\Interfaces\Field {
 		use Helper\Container\Functions;
 		use Helper\Field\Functions;
+		use Helper\Field\Types;
 
 		/**
 		 * Stores All Fields.

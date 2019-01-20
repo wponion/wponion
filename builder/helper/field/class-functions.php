@@ -12,6 +12,13 @@
 namespace WPO\Helper\Field;
 
 if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
+	/**
+	 * Trait Functions
+	 *
+	 * @package WPO\Helper\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	trait Functions {
 		/**
 		 * Checks If Current Instance Has Fields.

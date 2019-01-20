@@ -24,6 +24,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 	class Container extends Helper {
 		use \WPO\Helper\Container\Functions;
 		use \WPO\Helper\Field\Functions;
+		use \WPO\Helper\Field\Types;
 
 		/**
 		 * Container constructor.
