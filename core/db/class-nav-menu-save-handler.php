@@ -32,9 +32,7 @@ if ( ! class_exists( '\WPOnion\DB\Nav_Menu_Save_Handler' ) ) {
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
-			$fields = $this->fields;
-			$fields = new \WPOnion\Module_Fields( array( 'fields' => $fields ) );
-			$this->field_loop( $fields );
+			$this->field_loop( $this->fields );
 		}
 	}
 }

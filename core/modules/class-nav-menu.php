@@ -43,12 +43,11 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		/**
 		 * Nav_Menu constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param array             $settings
+		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->fields = $fields;
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 				$this->on_page_load();
 			} else {
@@ -126,7 +125,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		public function render( $item_id, $post, $depth, $args, $id ) {
 			$this->post_id = $item_id;
 			echo '<div class="' . $this->wrap_class( '' ) . '">';
-			foreach ( $this->fields as $field ) {
+			foreach ( $this->fields->fields() as $field ) {
 				echo $this->render_field( $field );
 			}
 			echo '</div>';
