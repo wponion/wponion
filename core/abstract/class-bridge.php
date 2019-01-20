@@ -214,7 +214,6 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 			return ( isset( $this->settings[ $key ] ) ) ? $this->settings[ $key ] : $default;
 		}
 
-
 		/**
 		 * Updates $this->settings array.
 		 *
