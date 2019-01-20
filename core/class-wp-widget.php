@@ -36,6 +36,14 @@ if ( ! class_exists( '\WPOnion\WP_Widget' ) ) {
 		 */
 		protected $widget_instance = null;
 
+		/**
+		 * WP_Widget constructor.
+		 *
+		 * @param       $id_base
+		 * @param       $name
+		 * @param array $widget_options
+		 * @param array $control_options
+		 */
 		public function __construct( $id_base, $name, $widget_options = array(), $control_options = array() ) {
 			parent::__construct( $id_base, $name, $widget_options, $control_options );
 			$this->widget_instance = new Modules\Widget( $this->widget_settings_config(), $this->fields() );
@@ -62,20 +70,47 @@ if ( ! class_exists( '\WPOnion\WP_Widget' ) ) {
 		}
 
 		/**
-		 * @return array
+		 * @return array|\WPO\Builder|\WPO\Container|\WPO\Field
 		 */
 		abstract function fields();
 
+		/**
+		 * Handles Widget Form Generation.
+		 *
+		 * @param array $instance
+		 *
+		 * @return string|void
+		 */
 		public function form( $instance ) {
 			$unique = $this->get_field_name( '{demo}' );
 			$unique = str_replace( '[{demo}]', '', $unique );
 			$this->widget_instance->render( $unique, $instance );
 		}
 
+		/**
+		 * Handles Widget Data Updates.
+		 *
+		 * @param array $new_instance
+		 * @param array $old_instance
+		 *
+		 * @return array
+		 */
 		public function update( $new_instance, $old_instance ) {
 			$unique = $this->get_field_name( '{demo}' );
 			$unique = str_replace( '[{demo}]', '', $unique );
 			return $this->widget_instance->save( $old_instance, $new_instance, $unique );
+		}
+
+		/**
+		 * Function To Render Widget Output.
+		 *
+		 * @param array $widget_config Basic Widget Configuration.
+		 * @param array $widget_settings Options Configured By End User.
+		 */
+		public function widget( $widget_config, $widget_settings ) {
+			echo '<pre>';
+			echo print_r( $widget_settings, true );
+			echo '</pre>';
 		}
 	}
 }

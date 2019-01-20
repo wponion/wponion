@@ -44,11 +44,11 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 		/**
 		 * Widget constructor.
 		 *
-		 * @param array $settings
-		 * @param null  $fields
+		 * @param array             $settings
+		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), $fields = null ) {
-			parent::__construct( null, $settings );
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+			parent::__construct( $fields, $settings );
 			$this->init();
 			add_action( 'admin_print_styles-widgets.php', array( __CLASS__, 'load_assets' ) );
 		}
@@ -62,11 +62,17 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 			wponion_load_core_assets( 'wponion-widgets' );
 		}
 
+		/**
+		 * Renders Widgets Form HTML.
+		 *
+		 * @param $unique
+		 * @param $values
+		 */
 		public function render( $unique, $values ) {
 			$instance        = $this->init_theme();
 			$this->unique    = $unique;
 			$this->db_values = $values;
-			$this->fields    = ( $this->fields instanceof \WPOnion\Module_Fields ) ? $this->fields : new \WPOnion\Module_Fields( $this->fields );
+			//$this->fields    = ( $this->fields instanceof \WPOnion\Module_Fields ) ? $this->fields : new \WPOnion\Module_Fields( $this->fields );
 			if ( false !== $this->errors ) {
 				$this->init_error_registry( $this->errors );
 			}
@@ -98,18 +104,16 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 			return $instance->get_values();
 		}
 
-		public function on_init() {
-		}
-
-		public function set_unique( $unique ) {
-			$this->unique = $unique;
-		}
-
 		/**
+		 * Returns Default Args.
+		 *
 		 * @return array
 		 */
 		protected function defaults() {
 			return $this->parse_args( parent::defaults(), array() );
+		}
+
+		public function on_init() {
 		}
 	}
 }
