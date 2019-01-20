@@ -58,12 +58,12 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		protected $active_data = null;
 
 		/**
-		 * metabox constructor.
+		 * Metabox constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param array             $settings
+		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
@@ -84,11 +84,10 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 * @return string
 		 */
 		public function wrap_class( $extra_class = '' ) {
-			$custom_class = array(
+			return parent::wrap_class( wponion_html_class( $extra_class, array(
 				'wponion-module-metabox-' . $this->option( 'context' ),
 				'wponion-module-metabox-' . $this->option( 'context' ) . '-framework',
-			);
-			return parent::wrap_class( wponion_html_class( $extra_class, $custom_class ) );
+			) ) );
 		}
 
 		/**
@@ -201,10 +200,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 */
 		public function active( $is_parent ) {
 			$this->active_page();
-			if ( true === $is_parent ) {
-				return $this->active_data['parent_id'];
-			}
-			return $this->active_data['section_id'];
+			return ( true === $is_parent ) ? $this->active_data['container_id'] : $this->active_data['sub_container_id'];
 		}
 
 		/**
@@ -213,13 +209,9 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 * @return array
 		 */
 		protected function theme_callback_args() {
-			return array(
-				'data' => array(
-					'plugin_id'   => $this->plugin_id() . '_' . $this->metabox_id(),
-					'unique'      => $this->unique(),
-					'instance_id' => $this->unique(),
-				),
-			);
+			$args                      = parent::theme_callback_args();
+			$args['data']['plugin_id'] = $this->plugin_id() . '_' . $this->metabox_id();
+			return $args;
 		}
 
 		/**
@@ -238,14 +230,14 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 * Renders / Creates An First Instance based on the $is_init_field variable value.
 		 *
 		 * @param array $field
-		 * @param bool  $parent_section
-		 * @param bool  $section
+		 * @param bool  $container
+		 * @param bool  $sub_container
 		 * @param bool  $is_init_field
 		 *
 		 * @return mixed
 		 */
-		public function render_field( $field = array(), $parent_section = false, $section = false, $is_init_field = false ) {
-			return parent::render_field( $field, sanitize_title( $parent_section . '-' . $section ), $is_init_field );
+		public function render_field( $field = array(), $container = false, $sub_container = false, $is_init_field = false ) {
+			return parent::render_field( $field, sanitize_title( $container . '-' . $sub_container ), $is_init_field );
 		}
 
 		/**
@@ -316,40 +308,24 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		}
 
 		/**
-		 * Checks and returns currenty active section and page.
+		 * Checks and returns currenty active sub_container and container.
 		 *
 		 * @return array
 		 */
 		public function active_page() {
 			if ( null === $this->active_data ) {
-				$parent_id  = false;
-				$section_id = false;
-				if ( isset( $this->options_cache['parent_id'] ) ) {
-					$parent_id = $this->options_cache['parent_id'];
+				$active = wponion_validate_parent_container_ids( array(
+					'container_id'     => isset( $this->options_cache['container_id'] ) ? $this->options_cache['container_id'] : false,
+					'sub_container_id' => isset( $this->options_cache['sub_container_id'] ) ? $this->options_cache['sub_container_id'] : false,
+				) );
+
+				if ( false === $active ) {
+					$active = $this->validate_container_sub_container( false, false );
+				} elseif ( false !== $active ) {
+					$active = $this->validate_container_sub_container( $active['container_id'], $active['sub_container_id'] );
 				}
 
-				if ( isset( $this->options_cache['section_id'] ) ) {
-					$section_id = $this->options_cache['section_id'];
-				}
-
-				if ( false === $parent_id ) {
-					$page = $this->fields->current();
-					$this->fields->rewind();
-					if ( $page->has_sections() ) {
-						$parent_id = $page->name();
-						/* @var $sections \WPOnion\Module_Fields */
-						$sections   = $page->sections();
-						$section    = $sections->current();
-						$section_id = $section->name();
-						$sections->rewind();
-					} else {
-						$parent_id = $page->name();
-					}
-				}
-				$this->active_data = array(
-					'parent_id'  => $parent_id,
-					'section_id' => $section_id,
-				);
+				$this->active_data = $active;
 			}
 			return $this->active_data;
 		}
@@ -383,10 +359,9 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 				'class' => 'button button-success wponion-save',
 				'type'  => 'button',
 			);
-			$label        = __( 'Save Settings' );
 			$user_attr    = ( wponion_is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
 			$text         = ( wponion_is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
-			$text         = ( false === $text && is_string( $user ) ) ? $user : $label;
+			$text         = ( false === $text && is_string( $user ) ) ? $user : __( 'Save Settings' );
 			return '<button ' . wponion_array_to_html_attributes( $this->parse_args( $user_attr, $default_attr ) ) . ' >' . $text . '</button>';
 		}
 
