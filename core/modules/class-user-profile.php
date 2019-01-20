@@ -51,10 +51,10 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		/**
 		 * User_Profile constructor.
 		 *
-		 * @param array $fields
-		 * @param array $settings
+		 * @param array             $settings
+		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
