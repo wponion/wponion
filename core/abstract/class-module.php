@@ -171,13 +171,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * Adds Debug Bar.
-		 */
-		protected function debug_bar() {
-			return '';
-		}
-
-		/**
 		 * @return \WPOnion\Theme_API
 		 */
 		protected function init_theme() {
@@ -480,8 +473,61 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function valid_field( $option = array() ) {
-			return ( isset( $option['type'] ) ) ? true : false;
+		public function valid_field( $option ) {
+			if ( $option instanceof \WPO\Helper\Base ) {
+				return ( $option->is( 'field' ) );
+			} elseif ( wponion_is_array( $option ) ) {
+				return ( isset( $option['type'] ) ) ? true : false;
+			}
+			return false;
+		}
+
+		/**
+		 * Validates given parent id & container id.
+		 *
+		 * @param string $container_id
+		 * @param string $sub_container_id
+		 *
+		 * @return array
+		 */
+		public function validate_container_sub_container( $container_id = '', $sub_container_id = '' ) {
+			if ( false === $container_id && false === $sub_container_id ) {
+				$container = $this->fields->first_container();
+				if ( $container ) {
+					$container_id = $container->name();
+					if ( $container->has_containers() ) {
+						$sub_container = $container->first_container();
+						if ( $sub_container ) {
+							$sub_container_id = $sub_container->name();
+						}
+					}
+				}
+			} elseif ( false !== $container_id && false === $sub_container_id ) {
+				/* @var $container \WPO\Container */
+				$container = $this->fields->container_exists( $container_id );
+				if ( false !== $container ) {
+					if ( $container->has_containers() ) {
+						$current = $container->first_container();
+						if ( $current ) {
+							$sub_container_id = $current->name();
+						}
+					}
+				} else {
+					return $this->validate_container_sub_container( false, false );
+				}
+			} elseif ( false !== $container_id && false !== $sub_container_id ) {
+				$container = $this->fields->container_exists( $container_id );
+				if ( false !== $container ) {
+					$sub_container = $container->container_exists( $sub_container_id );
+					if ( false === $sub_container ) {
+						return $this->validate_container_sub_container( $container_id, false );
+					}
+				} else {
+					return $this->validate_container_sub_container( false, false );
+				}
+			}
+
+			return array( 'sub_container_id' => $sub_container_id, 'container_id' => $container_id );
 		}
 
 		/**
