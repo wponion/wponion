@@ -37,10 +37,10 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		/**
 		 * Quick_Edit constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param array             $settings
+		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 			if ( wponion_is_array( $this->option( 'column' ) ) ) {
@@ -135,6 +135,7 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		 */
 		public function render_quick_edit( $column ) {
 			$this->db_values = array();
+			var_dump( $this->option( 'column' ) );
 			if ( $column === $this->option( 'column' ) ) {
 				wponion_load_core_assets();
 				$this->render_quick_edit_html();
@@ -147,7 +148,8 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		public function render_quick_edit_html() {
 			echo '<fieldset class="wponion-quick-edit-fieldset ' . $this->option( 'wrap_class' ) . '">';
 			echo '<div data-wponion-jsid="' . $this->unique . '" class="' . $this->wrap_class() . '">';
-			foreach ( $this->fields as $field ) {
+			/* @var $field \WPO\Field */
+			foreach ( $this->fields->fields() as $field ) {
 				$field['__no_instance'] = true;
 				echo $this->render_field( $field );
 			}
