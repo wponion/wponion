@@ -134,7 +134,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
 			$default                                = array();
 
-			foreach ( $this->fields as $field ) {
+			foreach ( $this->fields->get() as $field ) {
 				if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 					continue;
 				}

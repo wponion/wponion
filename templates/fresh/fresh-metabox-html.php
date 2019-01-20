@@ -52,7 +52,8 @@ if ( ! empty( $settings->option( 'theme_color' ) ) && 'false' !== $settings->opt
 		?>
 		<div class="wponion-metabox-content-wrap content-wrap">
 			<?php
-			foreach ( $settings->fields() as $container ) {
+			foreach ( $settings->fields()
+						  ->get() as $container ) {
 				if ( false === $settings->valid_field( $container ) && true === $settings->valid_option( $container ) ) {
 					$class = ( $container->name() === $active['container_id'] ) ? '' : 'hidden';
 					$slug  = $container->name();

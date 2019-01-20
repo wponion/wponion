@@ -3,7 +3,10 @@
  * @var $container \WPO\Container
  * @var $sub_container \WPO\Container
  */
-foreach ( $ins->fields() as $container ) {
+$fields = $ins->fields()
+	->get();
+
+foreach ( $fields as $container ) {
 	if ( false === $ins->valid_option( $container ) ) {
 		continue;
 	}

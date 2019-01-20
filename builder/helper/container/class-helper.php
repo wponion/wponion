@@ -95,6 +95,24 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		protected $containers = array();
 
 		/**
+		 * Checks if Href Exists.
+		 *
+		 * @return bool
+		 */
+		public function has_href() {
+			return ( false !== $this->href );
+		}
+
+		/**
+		 * Checks If Callback Exists.
+		 *
+		 * @return bool
+		 */
+		public function has_callback() {
+			return ( false !== $this->callback && wponion_is_callable( $this->callback ) );
+		}
+
+		/**
 		 * @param $slug
 		 *
 		 * @return $this|\WPO\Container

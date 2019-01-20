@@ -35,7 +35,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return bool
 		 */
 		public function has_containers() {
-			return ( false !== $this->containers && wponion_is_array( $this->containers ) );
+			return ( false !== $this->containers && wponion_is_array( $this->containers ) && ! empty( $this->containers ) );
 		}
 
 		/**
@@ -74,11 +74,10 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @param bool $icon
 		 *
 		 * @return $this|bool|false|\WPO\Container
-		 * @throws \Exception
 		 */
 		public function container( $container_slug_or_instance = false, $title = false, $icon = false ) {
-			if ( $this->has_fields() ) {
-				throw new \Exception( 'A Container Cannot Have Both Field & Containers' );
+			if ( $this->has_fields() && $this->has_containers() ) {
+				wp_die( __( 'A Container Cannot Have Both Field & Containers' ) );
 			}
 			if ( $container_slug_or_instance instanceof \WPO\Container ) {
 				$this->containers[] = $container_slug_or_instance;
@@ -92,7 +91,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			}
 
 			if ( false === $return ) {
-				$return             = self::create( $container_slug_or_instance, $title, $icon );
+				$return             = \WPO\Container::create( $container_slug_or_instance, $title, $icon );
 				$this->containers[] = $return;
 			}
 			return $return;

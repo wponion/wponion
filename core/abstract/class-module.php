@@ -164,7 +164,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Returns Fields.
 		 *
-		 * @return array
+		 * @return \WPO\Builder|array
 		 */
 		public function fields() {
 			return $this->fields;
@@ -433,7 +433,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'href'             => $href,
 				'part_href'        => $part_href,
 				'query_args'       => $menu->query_args(),
-				'class'            => $menu->css_class(),
+				'class'            => $menu->class(),
 			);
 		}
 

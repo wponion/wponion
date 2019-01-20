@@ -87,6 +87,13 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		}
 
 		/**
+		 * @return array
+		 */
+		public function attributes() {
+			return $this->attributes;
+		}
+
+		/**
 		 * @return bool|string
 		 */
 		public function href() {

@@ -20,13 +20,14 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 	 * @since 1.0
 	 */
 	trait Functions {
+
 		/**
 		 * Checks If Current Instance Has Fields.
 		 *
 		 * @return bool
 		 */
 		public function has_fields() {
-			return ( false !== $this->fields && wponion_is_array( $this->fields ) );
+			return ( false !== $this->fields && wponion_is_array( $this->fields ) && ! empty( $this->fields ) );
 		}
 
 		/**
@@ -64,11 +65,10 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 * @param array             $args
 		 *
 		 * @return $this|bool|mixed|\WPO\Field
-		 * @throws \Exception
 		 */
 		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
-			if ( $this->has_containers() ) {
-				throw new \Exception( 'A Container Cannot Have Both Field & Containers' );
+			if ( $this->has_fields() && $this->has_containers() ) {
+				wp_die( 'A Container Cannot Have Both Field & Containers' );
 			}
 
 			if ( $field_type_or_instance instanceof \WPO\Field ) {

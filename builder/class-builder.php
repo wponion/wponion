@@ -25,12 +25,12 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		use Helper\Field\Types;
 
 		/**
-		 * Stores All Fields.
+		 * Fields.
 		 *
-		 * @var bool
+		 * @var bool|array
 		 * @access
 		 */
-		protected $fields = false;
+		public $fields = false;
 
 		/**
 		 * Stores All Containers.
@@ -38,14 +38,13 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		 * @var bool
 		 * @access
 		 */
-		protected $containers = false;
+		public $containers = false;
 
 		/**
 		 * Builder constructor.
 		 */
 		public function __construct() {
 			unset( $this->plugin_id );
-			unset( $this->fields );
 			unset( $this->module );
 			unset( $this->unique );
 			unset( $this->array_var );

@@ -223,7 +223,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
 			$default                                = array();
 
-			foreach ( $this->fields as $options ) {
+			foreach ( $this->fields->get() as $options ) {
 				if ( false !== $this->valid_option( $options, false, false ) ) {
 					if ( $options->has_fields() ) {
 						foreach ( $options->fields() as $field ) {
@@ -407,7 +407,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( ! empty( $this->menus ) ) {
 				return $this->menus;
 			}
-			$this->menus = $this->extract_fields_menus( $this->fields );
+			$this->menus = $this->extract_fields_menus( $this->fields->get() );
 			return $this->menus;
 		}
 
@@ -478,10 +478,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
 			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
 
-			if ( 1 === count( $this->fields ) ) {
+			if ( 1 === count( $this->fields->get() ) ) {
 				$class[] = 'wponion-hide-nav';
-				$c       = $this->fields;
-				if ( $c->has_fields() || ( $c->has_containers() && 1 === count( $c->container() ) ) ) {
+				if ( $this->fields->has_fields() || ( $this->fields->has_containers() && 1 === count( $this->fields->containers() ) ) ) {
 					$class[] = 'wponion-no-subnav';
 				}
 			}

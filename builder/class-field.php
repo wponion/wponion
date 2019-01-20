@@ -71,7 +71,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 					break;
 				case 3:
 					$_args = $this->parse_args( array(
-						'type'  => $title,
+						'type'  => $type,
 						'id'    => $id,
 						'title' => ( wponion_is_array( $title ) ) ? false : $title,
 					), $this->defaults() );
@@ -80,7 +80,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 					break;
 				case 4:
 					$_args = $this->parse_args( array(
-						'type'  => $title,
+						'type'  => $type,
 						'id'    => $id,
 						'title' => $title,
 					), $this->defaults() );
