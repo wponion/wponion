@@ -48,12 +48,12 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 		protected $current_widget = false;
 
 		/**
-		 * WPOnion_Dashboard_Widgets constructor.
+		 * Dashboard_Widgets constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param array             $settings
+		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( array $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
@@ -102,7 +102,7 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
 			$default                                = array();
 
-			foreach ( $this->fields as $field ) {
+			foreach ( $this->fields->fields() as $field ) {
 				if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 					continue;
 				}

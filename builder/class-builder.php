@@ -43,5 +43,23 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 			}
 			return $this;
 		}
+
+		/**
+		 * Checks if Fields Exists.
+		 *
+		 * @return mixed
+		 */
+		public function has_fields() {
+			return ( isset( $this->{$this->variable}['fields'] ) && wponion_is_array( $this->{$this->variable}['fields'] ) );
+		}
+
+		/**
+		 * Returns All Fields.
+		 *
+		 * @return array
+		 */
+		public function fields() {
+			return ( $this->has_fields() ) ? $this->{$this->variable}['fields'] : array();
+		}
 	}
 }

@@ -45,6 +45,19 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		}
 
 		/**
+		 * Updates Field Args.
+		 *
+		 * @param $key
+		 * @param $value
+		 *
+		 * @return $this
+		 */
+		public function set_arg( $key, $value ) {
+			$this[ $key ] = $value;
+			return $this;
+		}
+
+		/**
 		 * Field constructor.
 		 *
 		 * @param string $type
