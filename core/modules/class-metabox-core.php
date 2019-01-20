@@ -25,7 +25,14 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox_Core' ) ) {
 	 * @private
 	 */
 	class Metabox_Core extends metabox {
-		public function __construct( $settings = array(), $fields = array() ) {
+
+		/**
+		 * Metabox_Core constructor.
+		 *
+		 * @param array             $settings
+		 * @param null|\WPO\Builder $fields
+		 */
+		public function __construct( $settings = array(), $fields = null ) {
 			parent::__construct( $settings, $fields );
 		}
 
