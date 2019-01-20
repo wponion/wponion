@@ -58,10 +58,10 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		/**
 		 * Taxonomy constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param \WPO\Builder|null $fields
+		 * @param array             $settings
 		 */
-		public function __construct( array $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
