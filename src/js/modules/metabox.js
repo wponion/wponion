@@ -29,15 +29,15 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 				}
 			} else {
 				let $href           = window.wponion.helper.url_params( jQuery( this ).attr( 'data-href' ) ),
-					$parent         = 'wponion-tab-' + $href[ 'parent-id' ],
-					$section        = ( $href[ 'section-id' ] !== undefined ) ? $parent + '-' + $href[ 'section-id' ] : false,
+					$parent         = 'wponion-tab-' + $href[ 'container-id' ],
+					$section        = ( $href[ 'sub-container-id' ] !== undefined ) ? $parent + '-' + $href[ 'sub-container-id' ] : false,
 					$parent_actives = $elem.find( 'div.wponion-parent-wraps' ),
 					$current        = $elem.find( 'div#' + $parent );
 
 				$elem.find( 'div.wponion-section-wraps' ).hide();
 				$parent_actives.hide();
 
-				if( $href[ 'section-id' ] !== undefined && $href[ 'parent-id' ] !== undefined ) {
+				if( $href[ 'sub-container-id' ] !== undefined && $href[ 'container-id' ] !== undefined ) {
 					$current.find( 'div.wponion-section-wraps' ).hide();
 					$current.find( ' div#' + $section ).show();
 				}
@@ -47,7 +47,7 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 				$elem.find( 'ul.wponion-metabox-parent-menu a.active ' ).removeClass( 'active ' );
 				jQuery( this ).addClass( 'active' );
 				$elem.find( 'ul.wponion-metabox-parent-menu > li > a' ).removeClass( 'active' );
-				$elem.find( 'ul.wponion-metabox-parent-menu a[data-wponion-id="wponion_menu_' + $href[ 'parent-id' ] + '"]' )
+				$elem.find( 'ul.wponion-metabox-parent-menu a[data-wponion-id="wponion_menu_' + $href[ 'container-id' ] + '"]' )
 					 .addClass( 'active' );
 			}
 		} );
