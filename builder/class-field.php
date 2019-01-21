@@ -31,12 +31,16 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param array $args
 		 *
 		 * @static
-		 * @return bool|$this|\WPO\Field
+		 * @return false | $this | \WPO\Field | \WPO\Accordion | \WPO\Background | \WPO\Button | \WPO\Checkbox | \WPO\Color_Palette | \WPO\Color_Picker | \WPO\Date_Picker | \WPO\Fieldset | \WPO\Font_Picker | \WPO\Gallery | \WPO\Google_Maps | \WPO\Group | \WPO\Hidden | \WPO\Icon_Picker | \WPO\Image | \WPO\Image_Select | \WPO\Key_Value | \WPO\Oembed | \WPO\Radio | \WPO\Select | \WPO\Sorter | \WPO\Switcher | \WPO\Tab | \WPO\Text | \WPO\Textarea | \WPO\Typography | \WPO\Upload | \WPO\WP_Editor | \WPO\WP_Link | \WPO\Color_Group | \WPO\Link_Color | \WPO\Input_Group | \WPO\Spacing | \WPO\Dimensions | \WPO\Button_Set | \WPO\Content | \WPO\Heading | \WPO\Iframe | \WPO\Jambo_Content | \WPO\Notice | \WPO\Notice_Danger | \WPO\Notice_Dark | \WPO\Notice_Info | \WPO\Notice_Light | \WPO\Notice_Primary | \WPO\Notice_Secondary | \WPO\Notice_Success | \WPO\Notice_Warning | \WPO\Subheading | \WPO\WP_Error_Notice | \WPO\WP_Info_Notice | \WPO\WP_List_Table | \WPO\WP_Notice | \WPO\WP_Success_Notice | \WPO\WP_Warning_Notice | \WPO\Change_Log
 		 */
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
-				$class = ( false === class_exists( $type ) ) ? '\WPO\Field' : '\WPO\\' . $type;
-				return new $class( $type, $id, $title, $args );
+				if ( class_exists( '\WPO\\' . $type ) ) {
+					$class = '\WPO\\' . $type;
+					return new $class( $id, $title, $args );
+				} else {
+					return new Field( $type, $id, $title, $args );
+				}
 			}
 			return false;
 		}
@@ -57,7 +61,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 				case 1:
 					$_args = $this->parse_args( array(
 						'type' => ( wponion_is_array( $type ) ) ? false : $type,
-					), $this->defaults() );
+					), $this->_defaults() );
 					$type  = ( wponion_is_array( $type ) ) ? $type : array();
 					$_args = $this->parse_args( $type, $_args );
 					break;
@@ -65,7 +69,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 					$_args = $this->parse_args( array(
 						'type' => $type,
 						'id'   => ( wponion_is_array( $id ) ) ? false : $id,
-					), $this->defaults() );
+					), $this->_defaults() );
 					$id    = ( wponion_is_array( $id ) ) ? $id : array();
 					$_args = $this->parse_args( $id, $_args );
 					break;
@@ -74,7 +78,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 						'type'  => $type,
 						'id'    => $id,
 						'title' => ( wponion_is_array( $title ) ) ? false : $title,
-					), $this->defaults() );
+					), $this->_defaults() );
 					$title = ( wponion_is_array( $title ) ) ? $title : array();
 					$_args = $this->parse_args( $title, $_args );
 					break;
@@ -83,7 +87,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 						'type'  => $type,
 						'id'    => $id,
 						'title' => $title,
-					), $this->defaults() );
+					), $this->_defaults() );
 					$args  = wponion_is_array( $args ) ? $args : array();
 					$_args = $this->parse_args( $args, $_args );
 					break;
@@ -107,10 +111,8 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function defaults() {
-			return wponion_field_defaults();
+		protected function _defaults() {
+			return $this->parse_args( $this->defaults(), wponion_field_defaults() );
 		}
-
 	}
 }
-
