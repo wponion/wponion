@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\DB\Metabox_Save_Handler' ) ) {
 			 */
 			$settings = $this->args['settings'];
 
-			foreach ( $this->fields as $container ) {
+			foreach ( $this->fields->get() as $container ) {
 				if ( $settings->valid_option( $container ) ) {
 					if ( $container->has_containers() ) {
 						foreach ( $container->containers() as $sub_container ) {

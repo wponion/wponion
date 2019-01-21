@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 			 */
 			$settings = $this->args['settings'];
 
-			foreach ( $this->fields as $container ) {
+			foreach ( $this->fields->get() as $container ) {
 				if ( ! $settings->valid_option( $container, false, true ) ) {
 					continue;
 				}
