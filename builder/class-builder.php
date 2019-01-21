@@ -73,12 +73,13 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		 * @throws \Exception
 		 */
 		public function add( $instance ) {
-			if ( $instance instanceof \WPO\Container ) {
+			if ( $instance instanceof Container ) {
 				return $this->container( $instance );
 			}
-			if ( $instance instanceof \WPO\Field ) {
+			if ( $instance instanceof Field ) {
 				return $this->field( $instance );
 			}
+			return $this;
 		}
 	}
 }
