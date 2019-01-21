@@ -577,7 +577,7 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 	 * @return bool
 	 */
 	function wponion_is_array( $data ) {
-		return ( $data instanceof \WPO\Helper\Dimensional_Array || is_array( $data ) );
+		return ( $data instanceof \WPO\Field || is_array( $data ) );
 	}
 }
 
@@ -597,24 +597,20 @@ if ( ! function_exists( 'wponion_parse_args' ) ) {
 		$_new      = $new;
 		$_defaults = $old;
 
-		if ( $new instanceof \WPO\Field || $new instanceof \WPO\Helper\Dimensional_Array ) {
+		if ( $new instanceof \WPO\Field ) {
 			$_new = $new->get();
 		}
-		if ( $old instanceof \WPO\Field || $old instanceof \WPO\Helper\Dimensional_Array ) {
+		if ( $old instanceof \WPO\Field ) {
 			$_defaults = $old->get();
 		}
 
-		if ( $new instanceof \WPO\Helper\Dimensional_Array || $old instanceof \WPO\Helper\Dimensional_Array ) {
-			$final = wponion_parse_args( $_new, $_defaults );
-		} else {
-			$final = wp_parse_args( $_new, $_defaults );
-		}
+		$final = wp_parse_args( $_new, $_defaults );
 
-		if ( $new instanceof \WPO\Field || $new instanceof \WPO\Helper\Dimensional_Array ) {
+		if ( $new instanceof \WPO\Field ) {
 			$new->set( $final );
 			return $new;
 		}
-		if ( $old instanceof \WPO\Field || $old instanceof \WPO\Helper\Dimensional_Array ) {
+		if ( $old instanceof \WPO\Field ) {
 			$old->set( $final );
 			return $old;
 		}
