@@ -70,6 +70,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			self::init_autoloader();
 
+			require_once WPONION_PATH . 'builder/class-builder.php';
+			require_once WPONION_PATH . 'builder/class-container.php';
+			require_once WPONION_PATH . 'builder/class-field.php';
+
 			require_once WPONION_PATH . 'core/helpers/base.php';
 
 			require_once WPONION_PATH . 'core/registry/class-common.php';
@@ -124,7 +128,8 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$core_autoloader    = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
 				'exclude' => 'WPOnion\Field',
 			) );
-			self::$builder_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPO', WPONION_PATH . 'builder/', array(), false );
+			self::$builder_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPO\Helper', WPONION_PATH . 'builder/helper/', array(), false );
+			new \Varunsridharan\PHP\Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array(), false );
 
 			self::$core_autoloader->add( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
 			self::$core_autoloader->add( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
