@@ -22,6 +22,8 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 	 * @method range()
 	 * @method settings()
 	 * @method theme()
+	 * @method date()
+	 * @method to_date()
 	 */
 	class Date_Picker extends Field {
 		/**
@@ -148,7 +150,7 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function to_date( $date ) {
+		public function set_to_date( $date ) {
 			$this['to_date'] = $date;
 			return $this;
 		}
