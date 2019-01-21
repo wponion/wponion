@@ -127,7 +127,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_desc( $desc = false, $below_title = false ) {
+		public function set_desc( $desc = false, $below_title = true ) {
 			if ( true === $below_title ) {
 				$this['desc'] = $desc;
 			} else {
