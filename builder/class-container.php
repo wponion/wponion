@@ -52,6 +52,21 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		}
 
 		/**
+		 * @param $instance
+		 *
+		 * @return $this|\WPO\Builder|\WPO\Container|\WPO\Field
+		 */
+		public function add( $instance ) {
+			if ( $instance instanceof Container ) {
+				return $this->container( $instance );
+			}
+			if ( $instance instanceof Field ) {
+				return $this->field( $instance );
+			}
+			return $this;
+		}
+
+		/**
 		 * @return string|bool
 		 */
 		public function name() {
