@@ -46,6 +46,13 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		}
 
 		/**
+		 * Renders Element HTML.
+		 */
+		public function element_html() {
+			echo '<input ' . $this->_input_attributes() . '/>';
+		}
+
+		/**
 		 * Final HTML Output
 		 */
 		protected function output() {
@@ -63,7 +70,7 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 				echo '<div  class="input-group-area">';
 			}
 
-			echo '<input ' . $this->_input_attributes() . '/>';
+			$this->element_html();
 
 			if ( false !== $this->has_prefix_surfix() ) {
 				echo '</div>';
