@@ -38,10 +38,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_sanitize( $sanitize = null, $merge = true ) {
-			if ( null === $sanitize ) {
-				return $this['sanitize'];
-			}
-
 			if ( true === $merge ) {
 				if ( wponion_is_array( $this['sanitize'] ) ) {
 					$this['sanitize'][] = $sanitize;
@@ -67,10 +63,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_validate( $validate = null, $merge = true ) {
-			if ( null === $validate ) {
-				return $this['validate'];
-			}
-
 			if ( true === $merge ) {
 				if ( wponion_is_array( $this['validate'] ) ) {
 					$this['validate'][] = $validate;
@@ -92,10 +84,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_attributes( $attributes = null, $merge = true ) {
-			if ( null === $attributes ) {
-				return $this['attributes'];
-			}
-
 			if ( true === $merge ) {
 				if ( wponion_is_array( $this['attributes'] ) ) {
 					$this['attributes'] = $this->parse_args( $attributes, $this['attributes'] );
@@ -130,10 +118,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_wrap_attributes( $attributes = null, $merge = true ) {
-			if ( null === $attributes ) {
-				return $this['wrap_attributes'];
-			}
-
 			if ( true === $merge ) {
 				if ( wponion_is_array( $this['wrap_attributes'] ) ) {
 					$this['wrap_attributes'] = $this->parse_args( $attributes, $this['wrap_attributes'] );
@@ -169,6 +153,50 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		public function set_dependency( $dependency = null ) {
 			$this['dependency'] = $dependency;
 			return $this;
+		}
+
+		/**
+		 * @param array $options
+		 * @param bool  $merge
+		 *
+		 * @return $this
+		 */
+		public function set_options( $options = array(), $merge = true ) {
+			if ( true === $merge ) {
+				if ( wponion_is_array( $this['options'] ) ) {
+					$this['options'] = $this->parse_args( $options, $this['options'] );
+				} else {
+					$this['options'] = $options;
+				}
+			} else {
+				$this['options'] = $options;
+			}
+
+			return $this;
+		}
+
+		/**
+		 * @param string $key
+		 * @param mixed  $value
+		 *
+		 * @return $this
+		 */
+		public function set_option( $key = null, $value = null ) {
+			if ( empty( $key ) ) {
+				return $this;
+			}
+			$value = ( empty( $value ) && ! empty( $key ) ) ? $key : $value;
+			return $this->set_options( array( $key => $value ) );
+		}
+
+		/**
+		 * @param string $key
+		 * @param mixed  $value
+		 *
+		 * @return $this
+		 */
+		public function option( $key = null, $value = null ) {
+			return $this->set_option( $key, $value );
 		}
 	}
 }
