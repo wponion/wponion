@@ -27,6 +27,26 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 	 */
 	class Array_Args extends Helper {
 		/**
+		 * @param bool $key
+		 * @param null $data
+		 * @param bool $merge
+		 *
+		 * @return $this
+		 */
+		protected function _set_array_handler( $key = false, $data = null, $merge = true ) {
+			if ( true === $merge ) {
+				if ( wponion_is_array( $this[ $key ] ) ) {
+					$this[ $key ] = $this->parse_args( $data, $this[ $key ] );
+				} else {
+					$this[ $key ] = $data;
+				}
+			} else {
+				$this[ $key ] = $data;
+			}
+			return $this;
+		}
+
+		/**
 		 * Field Sanitize Functions.
 		 * It can be either a single function or multiple.
 		 * if you want to override all and have only 1 function then add like below
@@ -38,16 +58,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_sanitize( $sanitize = null, $merge = true ) {
-			if ( true === $merge ) {
-				if ( wponion_is_array( $this['sanitize'] ) ) {
-					$this['sanitize'][] = $sanitize;
-				} else {
-					$this['sanitize'] = $sanitize;
-				}
-			} else {
-				$this['sanitize'] = $sanitize;
-			}
-
+			$this->_set_array_handler( 'sanitize', $sanitize, $merge );
 			return $this;
 		}
 
@@ -63,15 +74,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_validate( $validate = null, $merge = true ) {
-			if ( true === $merge ) {
-				if ( wponion_is_array( $this['validate'] ) ) {
-					$this['validate'][] = $validate;
-				} else {
-					$this['validate'] = $validate;
-				}
-			} else {
-				$this['validate'] = $validate;
-			}
+			$this->_set_array_handler( 'validate', $validate, $merge );
 			return $this;
 		}
 
@@ -84,16 +87,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_attributes( $attributes = null, $merge = true ) {
-			if ( true === $merge ) {
-				if ( wponion_is_array( $this['attributes'] ) ) {
-					$this['attributes'] = $this->parse_args( $attributes, $this['attributes'] );
-				} else {
-					$this['attributes'] = $attributes;
-				}
-			} else {
-				$this['attributes'] = $attributes;
-			}
-
+			$this->_set_array_handler( 'attributes', $attributes, $merge );
 			return $this;
 		}
 
@@ -118,16 +112,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_wrap_attributes( $attributes = null, $merge = true ) {
-			if ( true === $merge ) {
-				if ( wponion_is_array( $this['wrap_attributes'] ) ) {
-					$this['wrap_attributes'] = $this->parse_args( $attributes, $this['wrap_attributes'] );
-				} else {
-					$this['wrap_attributes'] = $attributes;
-				}
-			} else {
-				$this['wrap_attributes'] = $attributes;
-			}
-
+			$this->_set_array_handler( 'wrap_attributes', $attributes, $merge );
 			return $this;
 		}
 
@@ -162,16 +147,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_options( $options = array(), $merge = true ) {
-			if ( true === $merge ) {
-				if ( wponion_is_array( $this['options'] ) ) {
-					$this['options'] = $this->parse_args( $options, $this['options'] );
-				} else {
-					$this['options'] = $options;
-				}
-			} else {
-				$this['options'] = $options;
-			}
-
+			$this->_set_array_handler( 'options', $options, $merge );
 			return $this;
 		}
 
@@ -182,10 +158,10 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function set_option( $key = null, $value = null ) {
-			if ( empty( $key ) ) {
+			if ( null === $key && null === $value ) {
 				return $this;
 			}
-			$value = ( empty( $value ) && ! empty( $key ) ) ? $key : $value;
+			$value = ( null === $value && null !== $key ) ? $key : $value;
 			return $this->set_options( array( $key => $value ) );
 		}
 
