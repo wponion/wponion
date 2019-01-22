@@ -18,7 +18,7 @@ $loading = __( 'Loading Please Wait...' );
 ?>
 
 <div class="wrap">
-	<div class="<?php echo $ins->wrap_class(  ); ?>">
+	<div class="<?php echo $ins->wrap_class( ); ?>">
 		<div class="wponion-framework-header">
 			<?php
 			if ( ! empty( $ins->option( 'framework_title' ) ) ) {
