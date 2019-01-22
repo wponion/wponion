@@ -74,5 +74,12 @@ if ( ! class_exists( 'WPO\Select' ) ) {
 		public function select_framework( $framework, $options = true ) {
 			return $this->set_select_framework( $framework, $options );
 		}
+
+		/**
+		 * @return array
+		 */
+		public function defaults() {
+			return array( 'ajax' => false );
+		}
 	}
 }
