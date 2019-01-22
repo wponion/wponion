@@ -18,6 +18,12 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 	 * @package WPO
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
+	 *
+	 * @method add_button()
+	 * @method remove_button()
+	 * @method icon_tooltip()
+	 * @method enabled()
+	 * @method disabled()
 	 */
 	class Icon_Picker extends Field {
 		/**
@@ -114,14 +120,13 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 			return $this;
 		}
 
-
 		/**
 		 * Returns Default Args.
 		 *
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( array(
+			return array(
 				'add_button'    => __( 'Add Icon' ),
 				'remove_button' => __( 'Remove Icon' ),
 				'show_input'    => true,
@@ -131,7 +136,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 				),
 				'enabled'       => true,
 				'disabled'      => false,
-			), parent::defaults() );
+			);
 		}
 	}
 }
