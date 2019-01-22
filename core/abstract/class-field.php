@@ -365,8 +365,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 			if ( false !== $this->data( 'wrap_tooltip' ) ) {
 				$_wrap_attr['class'] = $_wrap_attr['class'] . ' wponion-has-wrap-tooltip wponion-wrap-tooltip';
-				$_data               = $this->tooltip_data( $this->data( 'wrap_tooltip' ), array(), 'wrap_tooltip' );
-				$_wrap_attr['title'] = $_data['attr']['title'];
+				$this->tooltip_data( $this->data( 'wrap_tooltip' ), array(), 'wrap_tooltip' );
 			}
 
 			$_wrap_attr['id'] = $this->wrap_id();
