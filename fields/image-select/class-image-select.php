@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 		 * @return mixed;
 		 */
 		protected function output() {
-			$this->field['type'] = $this->field['image_type'];
+			$this->field['type'] = ( true === $this->field['multiple'] ) ? 'checkbox' : 'radio';
 			return parent::output();
 		}
 
@@ -57,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 
 
 		protected function field_default() {
-			return $this->parse_args( parent::field_default(), array( 'image_type' => 'checkbox' ) );
+			return $this->parse_args( parent::field_default(), array( 'multiple' => false ) );
 		}
 	}
 }
