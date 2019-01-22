@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 		 * @return array|mixed|string
 		 */
 		public function get_element_values() {
-			$defaults = $this->data( 'default' );
+			$defaults = $this->data( 'options' );
 			if ( empty( $this->value() ) ) {
 				return $defaults;
 			}
@@ -75,8 +75,7 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 
 		protected function field_default() {
 			return array(
-				'enabled'        => array(),
-				'disabled'       => array(),
+				'options'        => array(),
 				'enabled_title'  => __( 'Enabled Modules' ),
 				'disabled_title' => __( 'Disabled Modules' ),
 			);
