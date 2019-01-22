@@ -22,6 +22,9 @@ if ( ! class_exists( '\WPOnion\Field\Color_Palette' ) ) {
 	/**
 	 * Class Color_Palette
 	 *
+	 * @todo This class moved to color picker
+	 * @todo rework this class based on color palette concept. [cs/rd]
+	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0

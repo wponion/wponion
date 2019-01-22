@@ -75,7 +75,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 			if ( true === $settings['example'] ) {
 				echo '<span class="example_output"><strong>' . __( 'Example : ' ) . '</strong><span class="value"></span></span><br/><br/>';
 			}
-			echo '<textarea id="' . $this->js_field_id() . '" class="hidden wponion-validation-ignore"></textarea>';
+			echo '<textarea id="' . $this->js_field_id() . 'wplinks" class="hidden wponion-validation-ignore"></textarea>';
 
 			echo '<div id="wponion-wp-link-picker">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'button' ), array(
