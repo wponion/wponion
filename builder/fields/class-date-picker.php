@@ -61,8 +61,7 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		}
 
 		/**
-		 * @param string $theme
-		 * options :
+		 * Options Are :
 		 * - default
 		 * - dark
 		 * - material_blue
@@ -71,6 +70,8 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		 * - material_orange
 		 * - airbnb
 		 * - confetti
+		 *
+		 * @param string $theme
 		 *
 		 * @return $this
 		 */
