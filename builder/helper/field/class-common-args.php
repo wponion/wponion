@@ -44,6 +44,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 	 * @method mixed wrap_tooltip
 	 * @method mixed wrap_class
 	 * @method mixed wrap_id
+	 * @method bool multiple()
 	 */
 	class Common_Args extends Array_Args {
 		/**
@@ -407,5 +408,18 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 			$this['wp_pointer'] = $wp_pointer;
 			return $this;
 		}
+
+		/**
+		 * Set Field Multiple.
+		 *
+		 * @param bool $is_multiple
+		 *
+		 * @return $this
+		 */
+		public function set_multiple( $is_multiple = true ) {
+			$this['multiple'] = $is_multiple;
+			return $this;
+		}
+
 	}
 }
