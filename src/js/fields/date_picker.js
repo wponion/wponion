@@ -7,7 +7,7 @@ class field extends WPOnion_Field {
 	init() {
 		let $this     = this,
 			$elem     = $this.element,
-			$settings = this.handle_args( this.option( 'settings' ) ),
+			$settings = this.option( 'settings' ),
 			$view;
 
 		if( false === window.wponion._.isUndefined( $settings.theme ) ) {
@@ -16,23 +16,23 @@ class field extends WPOnion_Field {
 		} else {
 			$view = 'default';
 		}
-
-		if( jQuery( 'div#' + this.id() ).length === 0 ) {
+		if( jQuery( 'div#' + this.id() + 'datepicker' ).length === 0 ) {
 			jQuery( 'body' )
-				.append( jQuery( '<div class="wponion-datepicker-' + $view + '" id="' + this.id() + '"></div>' ) );
+				.append( jQuery( '<div class="wponion-datepicker-' + $view + '" id="' + this.id() + 'datepicker"></div>' ) );
 		}
 
 		if( $elem.hasClass( 'wponion-datepicker-range' ) ) {
-			$settings.appendTo = jQuery( 'div#' + this.id() )[ 0 ];
+			$settings.appendTo = jQuery( 'div#' + this.id() + 'datepicker' )[ 0 ];
 			if( $settings.plugins === undefined ) {
 				$settings.plugins = [];
 			}
 
 			$settings.plugins.push( new rangePlugin( { input: $elem.find( 'input[data-wponion-datepicker-to-date]' )[ 0 ] } ) );
-			$elem.find( 'input[data-wponion-datepicker-from-date]' ).flatpickr( $settings );
+			$elem.find( 'input[data-wponion-datepicker-from-date]' )
+				 .flatpickr( this.handle_args( $settings, 'date_picker' ) );
 		} else {
-			$settings.appendTo = jQuery( 'div#' + this.id() )[ 0 ];
-			$elem.find( 'input' ).flatpickr( $settings );
+			$settings.appendTo = jQuery( 'div#' + this.id() + 'datepicker' )[ 0 ];
+			$elem.find( 'input' ).flatpickr( this.handle_args( $settings, 'date_picker' ) );
 		}
 	}
 }
