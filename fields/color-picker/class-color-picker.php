@@ -46,8 +46,8 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 				echo '<input ' . $this->attributes( $attributes ) . '/>';
 				echo $this->after();
 			} else {
-				echo '<div class=" colors-wrapper ' . $this->data( 'style' ) . ' ">';
-				$this->field['type'] = $this->field['palette_type'];
+				echo '<div class=" colors-wrapper ' . $this->data( 'layout' ) . ' ">';
+				$this->field['type'] = ( true === $this->field['multiple'] ) ? 'checkbox' : 'radio';
 				parent::output();
 				echo '</div>';
 			}
@@ -69,10 +69,10 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(
-				'rgba'         => true,
-				'style'        => 'round with-margin',
-				'palette_type' => 'radio',
-				'size'         => 25,
+				'rgba'     => true,
+				'layout'   => 'round with-margin',
+				'multiple' => false,
+				'size'     => 25,
 			), parent::field_default() );
 		}
 
