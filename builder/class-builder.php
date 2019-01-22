@@ -70,7 +70,6 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		 * @param $instance
 		 *
 		 * @return bool|false|mixed|\WPO\Builder|\WPO\Container|\WPO\Field
-		 * @throws \Exception
 		 */
 		public function add( $instance ) {
 			if ( $instance instanceof Container ) {
