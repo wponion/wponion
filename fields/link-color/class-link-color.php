@@ -54,6 +54,11 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 			echo parent::output();
 		}
 
+		/**
+		 * Default Link Color Elements.
+		 *
+		 * @return array
+		 */
 		protected function get_options() {
 			return array(
 				'color'   => __( 'Color' ),
@@ -70,7 +75,9 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 		 * @return array|mixed
 		 */
 		protected function field_default() {
-			return $this->parse_args( array( 'rgba' => false, 'options' => array() ), $this->get_options() );
+			return $this->parse_args( array(
+				'rgba' => false,
+			), $this->get_options() );
 		}
 	}
 }
