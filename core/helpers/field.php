@@ -588,13 +588,13 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 		} elseif ( $fields instanceof \WPO\Helper\Base && $fields->has_fields() && ! $fields->has_callback() ) {
 			foreach ( $fields->fields() as $field ) {
 				/* @var $field WPO\Field */
-				if ( ! empty( $field->id() ) ) {
+				if ( ! empty( $field['id'] ) ) {
 					$nested = array();
-					if ( $field->has_fields() ) {
-						$nested = wponion_fields_all_ids_defaults( $field, $parent_id . '_' . $field->id() );
+					if ( ! empty( $field['fields'] ) && wponion_is_array( $field['fields'] ) ) {
+						$nested = wponion_fields_all_ids_defaults( $field, $parent_id . '_' . $field['id'] );
 					}
 
-					$return[ $parent_id . '_' . $field->id() ] = $field->default();
+					$return[ $parent_id . '_' . $field['id'] ] = isset( $field['default'] ) ? $field['default'] : null;
 
 					if ( ! empty( $nested ) ) {
 						$return = wponion_parse_args( $return, $nested );
@@ -605,8 +605,8 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 			foreach ( $fields as $data ) {
 				if ( $data instanceof \WPO\Container ) {
 					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $data, $parent_id . '_' . $data->name() ) );
-				} elseif ( $data instanceof WPO\Field ) {
-					$return[ $data->id() ] = $data->default();
+				} elseif ( $data instanceof WPO\Field || isset( $data['id'] ) && isset( $data['type'] ) ) {
+					$return[ $data['id'] ] = isset( $data['default'] ) ? $data['default'] : null;
 				}
 			}
 		}
