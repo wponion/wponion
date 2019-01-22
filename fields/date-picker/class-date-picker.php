@@ -80,13 +80,19 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			$settings          = ( $this->has( 'settings' ) ) ? $this->data( 'settings' ) : array();
-			$settings['theme'] = $this->data( 'theme' );
-			$settings['range'] = $this->data( 'range' );
-			wponion_localize()->add( $this->js_field_id(), array(
-				'settings' => $settings,
-			) );
 			wponion_load_asset( 'wponion-datepicker' );
+		}
+
+		/**
+		 * @return array|bool|mixed
+		 */
+		protected function js_field_args() {
+			$js_args                      = array();
+			$settings                     = ( $this->has( 'settings' ) ) ? $this->data( 'settings' ) : array();
+			$js_args['settings']          = $settings;
+			$js_args['settings']['theme'] = $this->data( 'theme' );
+			$js_args['settings']['range'] = $this->data( 'range' );
+			return $js_args;
 		}
 
 		/**
