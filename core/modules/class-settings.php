@@ -163,10 +163,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function wp_admin_init() {
 			register_setting( $this->unique, $this->unique, array(
-				'sanitize_callback' => array(
-					&$this,
-					'save_validate',
-				),
+				'sanitize_callback' => array( &$this, 'save_validate' ),
 			) );
 			$this->force_set_defaults( false );
 		}
@@ -211,7 +208,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
 				$this->set_defaults();
 			}
-
 		}
 
 		/**
@@ -580,6 +576,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				), __( 'Save Settings' ) );
 			}
 			return $html;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function search_no_result() {
+			return '<div class="search-no-result"><h3>' . __( 'No Result Found' ) . '</h3></div>';
 		}
 	}
 }
