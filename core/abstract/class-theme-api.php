@@ -227,6 +227,22 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		}
 
 		/**
+		 * Loads A Given File From Theme.
+		 *
+		 * @param      $file
+		 * @param bool $is_require
+		 */
+		public function load_file( $file, $is_require = false ) {
+			if ( file_exists( $this->dir( $file ) ) ) {
+				if ( $is_require ) {
+					require $this->dir( $file );
+				} else {
+					include $this->dir( $file );
+				}
+			}
+		}
+
+		/**
 		 * Searches And returns files path
 		 *
 		 * @param $file
