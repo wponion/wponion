@@ -14,6 +14,8 @@
 
 namespace WPOnion\Bridge;
 
+use WPO\Container;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -561,52 +563,39 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * @param $container \WPOnion\Module_Fields|\WPO\Container
+		 * @param \WPO\Container|     $container
+		 * @param \WPO\Container|bool $sub_container
+		 * @param bool                $first_container
 		 *
 		 * @return array|string
 		 */
-		public function output_container_wrap_class( $container ) {
-			return wponion_html_class( array(
-				'wponion-tab-' . $container->name(),
-				( $container->has_containers() ) ? 'wponion-has-sections' : '',
-				( $container->has_callback() ) ? 'wponion-has-callback' : '',
-				( $container->has_fields() ) ? 'wponion-has-fields' : '',
-				( true === $this->is_tab_active( $container->name(), false ) ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden',
-			) );
+		public function container_wrap_class( $container, $sub_container = false, $first_container = false ) {
+			$_class   = array( $this->container_id( $container ) );
+			$_class[] = ( ( $sub_container instanceof Container && $sub_container->has_callback() ) || $container->has_callback() ) ? 'wponion-has-callback' : '';
+			$_class[] = ( ( $sub_container instanceof Container && $sub_container->has_fields() ) || $container->has_fields() ) ? 'wponion-has-fields' : '';
+			$_class[] = ( $container->has_containers() ) ? 'wponion-has-containers' : '';
+
+			if ( false === $sub_container ) {
+				$_class[] = ( true === $this->is_tab_active( $container->name(), false ) ) ? ' wponion-container-wraps ' : ' wponion-container-wraps hidden';
+			}
+
+			if ( $sub_container instanceof Container ) {
+				$_class[] = ( true === $this->is_tab_active( $container->name(), $sub_container->name(), $first_container ) ) ? 'wponion-sub-container-wraps' : 'wponion-sub-container-wraps hidden';
+			}
+
+			return wponion_html_class( array_filter( $_class ) );
 		}
 
 		/**
-		 * @param $container \WPOnion\Module_Fields|\WPO\Container
+		 * @param \WPO\Container      $container
+		 * @param bool|\WPO\Container $sub_container
 		 *
 		 * @return string
 		 */
-		public function output_container_wrap_id( $container ) {
-			return 'wponion-tab-' . $container->name();
-		}
-
-		/**
-		 * @param $container \WPO\Container
-		 * @param $sub_container \WPO\Container
-		 * @param $first_container
-		 *
-		 * @return array|string
-		 */
-		public function output_sub_container_wrap_class( $container, $sub_container, $first_container ) {
-			return wponion_html_class( array(
-				'wponion-tab-' . $container->name() . '-' . $sub_container->name(),
-				( $sub_container->has_callback() ) ? 'wponion-has-callback' : '',
-				( $sub_container->has_fields() ) ? 'wponion-has-fields' : '',
-				( true === $this->is_tab_active( $container->name(), $sub_container->name(), $first_container ) ) ? 'wponion-section-wraps' : 'wponion-section-wraps hidden',
-			) );
-		}
-
-		/**
-		 * @param $container \WPO\Container
-		 * @param $sub_container \WPO\Container
-		 *
-		 * @return string
-		 */
-		public function output_sub_container_wrap_id( $container, $sub_container ) {
+		public function container_wrap_id( $container, $sub_container = false ) {
+			if ( false === $sub_container ) {
+				return 'wponion-tab-' . $container->name();
+			}
 			return 'wponion-tab-' . $container->name() . '-' . $sub_container->name();
 		}
 
