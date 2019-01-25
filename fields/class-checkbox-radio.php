@@ -154,7 +154,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 				$label_attr                      = $options['tooltip']['attr'];
 				$label_attr['data-wponion-jsid'] = $this->js_field_id();
 				$label_attr['data-field-jsid']   = $elem_id;
-				$label_attr['class']             = ' wponion-field-tooltip ';
+				$label_attr['class']             = ( 'image_select' !== $this->element_type() ) ? ' wponion-field-tooltip ' : ' wponion-checkbox-radio-tooltip ';
 				wponion_localize()->add( $this->js_field_id(), array( $elem_id . 'tooltip' => $options['tooltip']['data'] ) );
 			}
 
