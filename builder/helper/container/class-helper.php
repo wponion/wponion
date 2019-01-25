@@ -2,6 +2,7 @@
 
 namespace WPO\Helper\Container;
 
+use WPO\Container;
 use WPO\Helper\Base;
 
 if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
@@ -119,6 +120,34 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 */
 		public function set_slug( $slug ) {
 			$this->slug = $slug;
+			return $this;
+		}
+
+		/**
+		 * @param $slug
+		 *
+		 * @return $this|\WPO\Container
+		 */
+		public function set_fields( $slug ) {
+			$this->fields = $slug;
+			return $this;
+		}
+
+		/**
+		 * Sets Sections.
+		 *
+		 * @param $sections
+		 *
+		 * @return $this
+		 */
+		public function set_sections( $sections ) {
+			if ( wponion_is_array( $sections ) && ! empty( $sections ) ) {
+				foreach ( $sections as $section ) {
+					if ( Container::is_valid( $section ) ) {
+						$this->container( new Container( $section ) );
+					}
+				}
+			}
 			return $this;
 		}
 
