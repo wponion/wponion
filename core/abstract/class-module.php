@@ -570,7 +570,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array|string
 		 */
 		public function container_wrap_class( $container, $sub_container = false, $first_container = false ) {
-			$_class   = array( $this->container_id( $container ) );
+			$_class   = array( $this->container_wrap_id( $container ), 'row' );
 			$_class[] = ( ( $sub_container instanceof Container && $sub_container->has_callback() ) || $container->has_callback() ) ? 'wponion-has-callback' : '';
 			$_class[] = ( ( $sub_container instanceof Container && $sub_container->has_fields() ) || $container->has_fields() ) ? 'wponion-has-fields' : '';
 			$_class[] = ( $container->has_containers() ) ? 'wponion-has-containers' : '';
