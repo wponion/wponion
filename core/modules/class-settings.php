@@ -219,22 +219,17 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
 			$default                                = array();
 
+			/**
+			 * @var $options \WPO\Container
+			 */
+
 			foreach ( $this->fields->get() as $options ) {
-				if ( false !== $this->valid_option( $options, false, false ) ) {
+				if ( $this->valid_field( $options ) ) {
+					$this->get_fields_defaults_value( $options );
+				} elseif ( false !== $this->valid_option( $options, false, false ) ) {
 					if ( $options->has_fields() ) {
 						foreach ( $options->fields() as $field ) {
-							if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
-								continue;
-							}
-
-							if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
-								$default[ $field['id'] ] = $field['default'];
-								if ( wponion_is_unarrayed( $field ) ) {
-									$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
-								} else {
-									$this->db_values[ $field['id'] ] = $field['default'];
-								}
-							}
+							$this->get_fields_defaults_value( $field );
 						}
 					} elseif ( $options->has_containers() ) {
 						foreach ( $options->containers() as $containers ) {
@@ -244,18 +239,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 							}
 							if ( false !== $this->valid_option( $containers, true, false ) ) {
 								foreach ( $containers->fields() as $field ) {
-									if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
-										continue;
-									}
-
-									if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
-										$default[ $field['id'] ] = $field['default'];
-										if ( wponion_is_unarrayed( $field ) ) {
-											$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
-										} else {
-											$this->db_values[ $field['id'] ] = $field['default'];
-										}
-									}
+									$this->get_fields_defaults_value( $field );
 								}
 							}
 						}
@@ -266,6 +250,26 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				$this->set_db_values();
 			}
 			$this->set_cache( $this->options_cache );
+		}
+
+		/**
+		 * Extracts Field Default Values.
+		 *
+		 * @param $field
+		 */
+		private function get_fields_defaults_value( $field ) {
+			if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
+				return;
+			}
+
+			if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
+				$default[ $field['id'] ] = $field['default'];
+				if ( wponion_is_unarrayed( $field ) ) {
+					$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
+				} else {
+					$this->db_values[ $field['id'] ] = $field['default'];
+				}
+			}
 		}
 
 		/**
@@ -350,33 +354,40 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				return $this->active_menu;
 			}
 
-			$cache    = $this->get_cache();
-			$_cache   = array(
-				'container_id'     => ( ! empty( $cache['container_id'] ) ) ? $cache['container_id'] : false,
-				'sub_container_id' => ( ! empty( $cache['sub_container_id'] ) ) ? $cache['sub_container_id'] : false,
-			);
-			$_url     = array(
-				'container_id'     => wponion_get_var( 'container-id', false ),
-				'sub_container_id' => wponion_get_var( 'sub-container-id', false ),
-			);
-			$_cache_v = wponion_validate_parent_container_ids( $_cache );
-			$_url_v   = wponion_validate_parent_container_ids( $_url );
-
-			if ( false !== $_cache_v ) {
-				$default                                 = $this->validate_container_sub_container( $_cache_v['container_id'], $_cache_v['sub_container_id'] );
-				$this->options_cache['sub_container_id'] = false;
-				$this->options_cache['container_id']     = false;
-				$this->set_cache( $this->options_cache );
-			} elseif ( false !== $_url_v ) {
-				$default = $this->validate_container_sub_container( $_url_v['container_id'], $_url_v['sub_container_id'] );
+			if ( $this->fields->has_fields() ) {
+				$this->active_menu = array(
+					'container_id'     => false,
+					'sub_container_id' => false,
+				);
 			} else {
-				$default = $this->validate_container_sub_container( false, false );
-			}
+				$cache    = $this->get_cache();
+				$_cache   = array(
+					'container_id'     => ( ! empty( $cache['container_id'] ) ) ? $cache['container_id'] : false,
+					'sub_container_id' => ( ! empty( $cache['sub_container_id'] ) ) ? $cache['sub_container_id'] : false,
+				);
+				$_url     = array(
+					'container_id'     => wponion_get_var( 'container-id', false ),
+					'sub_container_id' => wponion_get_var( 'sub-container-id', false ),
+				);
+				$_cache_v = wponion_validate_parent_container_ids( $_cache );
+				$_url_v   = wponion_validate_parent_container_ids( $_url );
 
-			if ( ( null === $default['sub_container_id'] || false === $default['sub_container_id'] ) && $default['container_id'] ) {
-				$default['sub_container_id'] = $default['container_id'];
+				if ( false !== $_cache_v ) {
+					$default                                 = $this->validate_container_sub_container( $_cache_v['container_id'], $_cache_v['sub_container_id'] );
+					$this->options_cache['sub_container_id'] = false;
+					$this->options_cache['container_id']     = false;
+					$this->set_cache( $this->options_cache );
+				} elseif ( false !== $_url_v ) {
+					$default = $this->validate_container_sub_container( $_url_v['container_id'], $_url_v['sub_container_id'] );
+				} else {
+					$default = $this->validate_container_sub_container( false, false );
+				}
+
+				if ( ( null === $default['sub_container_id'] || false === $default['sub_container_id'] ) && $default['container_id'] ) {
+					$default['sub_container_id'] = $default['container_id'];
+				}
+				$this->active_menu = $default;
 			}
-			$this->active_menu = $default;
 			return $this->active_menu;
 		}
 
@@ -400,10 +411,10 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return array
 		 */
 		public function settings_menus() {
-			if ( ! empty( $this->menus ) ) {
-				return $this->menus;
+			if ( empty( $this->menus ) && false === $this->fields->has_fields() ) {
+				$this->menus = $this->extract_fields_menus( $this->fields->get() );
 			}
-			$this->menus = $this->extract_fields_menus( $this->fields->get() );
+
 			return $this->menus;
 		}
 
@@ -454,7 +465,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return bool|string
 		 */
 		public function is_single_page() {
-			if ( 'submenu' === $this->option( 'is_single_page' ) ) {
+			$key = strtolower( $this->option( 'is_single_page' ) );
+			if ( in_array( $key, array( 'submenu', 'submenus', 'section', 'sections' ) ) ) {
 				return 'only_submenu';
 			} elseif ( true === $this->option( 'is_single_page' ) ) {
 				return true;
