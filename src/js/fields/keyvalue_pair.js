@@ -7,9 +7,9 @@ class field extends WPOnion_Field {
 	init() {
 		this.global_validate = false;
 		this.element.find( '.wponion-keyvalue_wrap' ).WPOnionCloner( {
-			add_btn: this.element.find( '.wponion-fieldset > .wponion-keyvalue-action-container  > button[data-wponion-keyvalue-add]' ),
+			add_btn: this.element.find( '> .row > .wponion-fieldset > .wponion-keyvalue-action-container  > button[data-wponion-keyvalue-add]' ),
 			limit: ( -1 === this.option( 'limit' ) ) ? null : this.option( 'limit' ),
-			clone_elem: '> .wponion-fieldset > .wponion-keyvalue-field',
+			clone_elem: '> .row > .wponion-fieldset > .wponion-keyvalue-field',
 			remove_btn: '.wponion-keyvalue-field > button[data-wponion-keyvalue-remove]',
 			template: this.option( 'html_template' ),
 			templateAfterRender: ( $elem ) => {
