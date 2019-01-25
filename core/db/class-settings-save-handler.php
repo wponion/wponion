@@ -38,30 +38,33 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 			 */
 			$settings = $this->args['settings'];
 
-			foreach ( $this->fields->get() as $container ) {
-				if ( ! $settings->valid_option( $container, false, true ) ) {
-					continue;
-				}
-
-				if ( $container->has_containers() ) {
-					foreach ( $container->containers() as $sub_container ) {
-						if ( ! $settings->valid_option( $sub_container, true, true ) ) {
-							continue;
-						}
-
-						if ( ! $sub_container->has_fields() ) {
-							continue;
-						}
-
-						$this->field_loop( $sub_container );
+			if ( $this->fields->has_fields() ) {
+				$this->field_loop( $this->fields );
+			} else {
+				foreach ( $this->fields->get() as $container ) {
+					if ( ! $settings->valid_option( $container, false, true ) ) {
+						continue;
 					}
-				} elseif ( $container->has_fields() ) {
-					$this->field_loop( $container );
-				}
-			}
 
-			if ( false === $settings->is_single_page() || 'only_submenu' === $settings->is_single_page() ) {
-				$this->return_values = $this->array_merge( $this->return_values, $this->db_values );
+					if ( $container->has_containers() ) {
+						foreach ( $container->containers() as $sub_container ) {
+							if ( ! $settings->valid_option( $sub_container, true, true ) ) {
+								continue;
+							}
+
+							if ( ! $sub_container->has_fields() ) {
+								continue;
+							}
+
+							$this->field_loop( $sub_container );
+						}
+					} elseif ( $container->has_fields() ) {
+						$this->field_loop( $container );
+					}
+				}
+				if ( false === $settings->is_single_page() || 'only_submenu' === $settings->is_single_page() ) {
+					$this->return_values = $this->array_merge( $this->return_values, $this->db_values );
+				}
 			}
 		}
 	}
