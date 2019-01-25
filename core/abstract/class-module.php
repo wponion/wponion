@@ -476,7 +476,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return bool
 		 */
 		public function valid_field( $option ) {
-			if ( $option instanceof \WPO\Helper\Base ) {
+			if ( $option instanceof \WPO\Field ) {
 				return ( $option->is( 'field' ) );
 			} elseif ( wponion_is_array( $option ) ) {
 				return ( isset( $option['type'] ) ) ? true : false;
