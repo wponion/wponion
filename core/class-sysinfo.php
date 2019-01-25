@@ -25,17 +25,22 @@ if ( ! class_exists( '\WPOnion\Sysinfo' ) ) {
 	 */
 	class Sysinfo {
 
+		/**
+		 * @param $args
+		 *
+		 * @static
+		 */
 		public static function get( $args ) {
-			$reports = ( isset( $args['reports'] ) ) ? $args['reports'] : array();
+			$reports = ( isset( $args->reports ) ) ? $args->reports : array();
 			$data    = WP_Sysinfo::get();
-			if ( isset( $args['custom_reports'] ) ) {
-				if ( wponion_is_callable( $args['custom_reports'] ) ) {
-					$_d = wponion_callback( $args['custom_reports'] );
+			if ( isset( $args->custom_reports ) ) {
+				if ( wponion_is_callable( $args->custom_reports ) ) {
+					$_d = wponion_callback( $args->custom_reports );
 					if ( wponion_is_array( $_d ) ) {
 						$data = wponion_parse_args( $data, $_d );
 					}
-				} elseif ( wponion_is_array( $args['custom_reports'] ) ) {
-					$data = wponion_parse_args( $data, $args['custom_reports'] );
+				} elseif ( wponion_is_array( $args->custom_reports ) ) {
+					$data = wponion_parse_args( $data, $args->custom_reports );
 				}
 			}
 			self::render_html( $data, $reports );
@@ -57,6 +62,12 @@ JAVASCRIPT;
 
 		}
 
+		/**
+		 * @param $data
+		 * @param $args
+		 *
+		 * @static
+		 */
 		public static function render_html( $data, $args ) {
 			$_content = '<p>';
 
