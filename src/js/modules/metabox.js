@@ -9,46 +9,16 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 	 * Inits Module.
 	 */
 	module_init() {
-		this.menu();
+		this.ui_menu_handler();
 		this.element.on( 'click', 'h2.ajax-container button', this.save_handler );
-	}
-
-	/**
-	 * Handles Metabox Menu's
-	 */
-	menu() {
-		let $elem = this.element;
-		$elem.on( 'click', 'ul.wponion-metabox-parent-menu li a', function( e ) {
-			e.preventDefault();
-			if( jQuery( this ).hasClass( 'dropdown' ) ) {
-				if( jQuery( this ).next( 'ul' ).is( ':visible' ) ) {
-					jQuery( this ).next( 'ul' ).slideToggle( 'fast' );
-				} else {
-					$elem.find( 'ul.wponion-metabox-parent-menu li ul' ).slideUp( 'fast' );
-					jQuery( this ).next( 'ul' ).slideToggle( 'fast' );
-				}
+		jQuery( document ).on( 'postbox-moved', function( event, $element ) {
+			let $id = jQuery( $element ).attr( 'id' );
+			if( jQuery( '#postbox-container-1 ' ).find( '#' + $id ).length > 0 ) {
+				jQuery( $element ).addClass( 'wponion-metabox-side-metabox' );
+				jQuery( $element ).addClass( 'wponion-metabox-side' );
 			} else {
-				let $href           = window.wponion.helper.url_params( jQuery( this ).attr( 'data-href' ) ),
-					$parent         = 'wponion-tab-' + $href[ 'container-id' ],
-					$section        = ( $href[ 'sub-container-id' ] !== undefined ) ? $parent + '-' + $href[ 'sub-container-id' ] : false,
-					$parent_actives = $elem.find( 'div.wponion-parent-wraps' ),
-					$current        = $elem.find( 'div#' + $parent );
-
-				$elem.find( 'div.wponion-section-wraps' ).hide();
-				$parent_actives.hide();
-
-				if( $href[ 'sub-container-id' ] !== undefined && $href[ 'container-id' ] !== undefined ) {
-					$current.find( 'div.wponion-section-wraps' ).hide();
-					$current.find( ' div#' + $section ).show();
-				}
-
-				$current.show();
-
-				$elem.find( 'ul.wponion-metabox-parent-menu a.active ' ).removeClass( 'active ' );
-				jQuery( this ).addClass( 'active' );
-				$elem.find( 'ul.wponion-metabox-parent-menu > li > a' ).removeClass( 'active' );
-				$elem.find( 'ul.wponion-metabox-parent-menu a[data-wponion-id="wponion_menu_' + $href[ 'container-id' ] + '"]' )
-					 .addClass( 'active' );
+				jQuery( $element ).removeClass( 'wponion-metabox-side-metabox' );
+				jQuery( $element ).removeClass( 'wponion-metabox-side' );
 			}
 		} );
 	}
