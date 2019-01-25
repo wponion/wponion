@@ -1,8 +1,7 @@
 .wponion-element.wponion-element-sorter {
 	.ui-sortable-placeholder {
-		height:           20px;
-		border:           1px dashed #f1c40f;
-		background-color: #fffae4;
+		height: 20px;
+		@include wponion_ui_sortable_placeholder();
 	}
 
 	.wponion-modules {
