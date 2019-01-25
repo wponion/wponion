@@ -36,10 +36,16 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 		protected function output() {
 			echo $this->before();
 			if ( wponion_is_array( $this->data( 'fields' ) ) ) {
+				echo '<div class=" row">';
 				foreach ( $this->data( 'fields' ) as $id => $data ) {
-					$field_args = $this->handle_args( 'title', $data, array( 'type' => 'text' ), array( 'id' => $id ) );
+					$field_args = $this->handle_args( 'title', $data, array(
+						'type'       => 'text',
+						'horizontal' => true,
+						'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					), array( 'id' => $id ) );
 					echo $this->sub_field( $field_args, $this->value( $id ), $this->name() );
 				}
+				echo '</div>';
 			}
 			echo $this->after();
 		}
