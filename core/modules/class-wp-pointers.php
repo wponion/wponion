@@ -11,6 +11,8 @@
 
 namespace WPOnion\Modules;
 
+use WPOnion\WP\Pointers\Pointer;
+
 if ( ! class_exists( 'WP_Pointers' ) ) {
 	/**
 	 * Class WP_Pointers
@@ -97,10 +99,10 @@ if ( ! class_exists( 'WP_Pointers' ) ) {
 		 * @param bool  $text
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer
+		 * @return Pointer
 		 */
 		public function create( $selector = false, $title = false, $text = false, $args = array() ) {
-			return new WP_Pointers\Pointer( $selector, $title, $text, $args, $this->unique() );
+			return new Pointer( $selector, $title, $text, $args, $this->unique() );
 		}
 
 		/**
@@ -111,10 +113,10 @@ if ( ! class_exists( 'WP_Pointers' ) ) {
 		 * @param bool  $text
 		 * @param array $args
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer
+		 * @return Pointer
 		 */
 		public function add( $selector = false, $title = false, $text = false, $args = array() ) {
-			if ( $selector instanceof \WPOnion\Modules\WP_Pointers\Pointer ) {
+			if ( $selector instanceof Pointer ) {
 				$instance = $selector;
 			} else {
 				$instance = $this->create( $selector, $title, $text, $args );

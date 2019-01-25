@@ -779,7 +779,7 @@ if ( ! function_exists( 'wponion_sysinfo' ) ) {
 	 * @param $args
 	 */
 	function wponion_sysinfo( $args ) {
-		\WPOnion\Sysinfo::get( $args );
+		\WPOnion\WP\Sysinfo\Sysinfo::get( $args );
 	}
 }
 

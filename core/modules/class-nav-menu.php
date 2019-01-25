@@ -186,7 +186,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 * @static
 		 */
 		public static function change_nav_walker() {
-			return '\WPOnion\WP_Nav_Menu_Walker';
+			return '\WPOnion\WP\Nav_Menu\Walker';
 		}
 	}
 }

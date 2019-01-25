@@ -292,10 +292,10 @@ if ( ! function_exists( 'wponion_wp_pointer' ) ) {
 	 * @param array $args
 	 * @param bool  $pointer_instance
 	 *
-	 * @return \WPOnion\Modules\WP_Pointers\Pointer
+	 * @return \WPOnion\WP\Pointers\Pointer
 	 */
 	function wponion_wp_pointer( $selector = false, $title = false, $text = false, $args = array(), $pointer_instance = false ) {
-		return new \WPOnion\Modules\WP_Pointers\Pointer( $selector, $title, $text, $args, $pointer_instance );
+		return new \WPOnion\WP\Pointers\Pointer( $selector, $title, $text, $args, $pointer_instance );
 	}
 }
 
