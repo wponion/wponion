@@ -1,4 +1,31 @@
 .wponion-element.wponion-element-spacing {
+	> .row {
+		.wponion-fieldset {
+			.row {
+				margin-left:  -10px;
+				margin-right: -10px;
+
+				> div {
+					width:          auto !important;
+					display:        inline-block !important;
+					flex-basis:     auto !important;
+					padding-top:    0;
+					padding-bottom: 0;
+					padding-left:   10px;
+					padding-right:  10px;
+
+					.clear {
+						display: none !important;
+					}
+
+					.wponion-input-group {
+						margin-right: 0;
+					}
+				}
+			}
+		}
+	}
+
 	.wponion-fieldset {
 		input {
 			width:      65px;
