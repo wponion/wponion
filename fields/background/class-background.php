@@ -29,11 +29,14 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 		protected function output() {
 			echo $this->before();
 
+			echo '<div class="row">';
 			if ( false !== $this->data( 'background-color' ) ) {
 				$title = ( true === $this->data( 'background-color' ) ) ? __( 'Background Color' ) : $this->data( 'background-color' );
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type' => 'color_picker',
-					'id'   => 'color',
+					'type'       => 'color_picker',
+					'id'         => 'color',
+					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal' => true,
 				) ), $this->value( 'color' ), $this->name() );
 			}
 
@@ -44,6 +47,8 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					'options'               => $this->get_options( 'repeat' ),
 					'id'                    => 'repeat',
 					'style'                 => 'width:100%;',
+					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'            => true,
 					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'repeat' ), $this->name() );
 			}
@@ -55,6 +60,8 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					'options'               => $this->get_options( 'attachment' ),
 					'id'                    => 'attachment',
 					'style'                 => 'width:100%;',
+					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'            => true,
 					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'attachment' ), $this->name() );
 			}
@@ -66,6 +73,8 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					'options'               => $this->get_options( 'position' ),
 					'id'                    => 'position',
 					'style'                 => 'width:100%;',
+					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'            => true,
 					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'position' ), $this->name() );
 			}
@@ -77,6 +86,8 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					'options'               => $this->get_options( 'clip' ),
 					'id'                    => 'clip',
 					'style'                 => 'width:100%;',
+					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'            => true,
 					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'clip' ), $this->name() );
 			}
@@ -88,6 +99,8 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					'options'               => $this->get_options( 'origin' ),
 					'id'                    => 'origin',
 					'style'                 => 'width:100%;',
+					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'            => true,
 					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'origin' ), $this->name() );
 			}
@@ -99,6 +112,8 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					'options'               => $this->get_options( 'size' ),
 					'id'                    => 'size',
 					'style'                 => 'width:100%;',
+					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'            => true,
 					$this->select_framework => $this->data( $this->select_framework ),
 				) ), $this->value( 'size' ), $this->name() );
 			}
@@ -106,10 +121,13 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 			if ( false !== $this->data( 'background-image' ) ) {
 				$title = ( true === $this->data( 'background-image' ) ) ? __( 'Background Image' ) : $this->data( 'background-image' );
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type' => 'upload',
-					'id'   => 'image',
+					'type'       => 'upload',
+					'id'         => 'image',
+					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal' => true,
 				) ), $this->value( 'image' ), $this->name() );
 			}
+			echo '</div>';
 			echo $this->after();
 		}
 
