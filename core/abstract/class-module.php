@@ -471,7 +471,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Checks If given array is a valid field array.
 		 *
-		 * @param array $option
+		 * @param array|object $option
 		 *
 		 * @return bool
 		 */
