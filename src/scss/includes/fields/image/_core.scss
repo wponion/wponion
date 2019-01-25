@@ -3,11 +3,6 @@
 	display:  inline-block;
 	width:    100%;
 
-	.sortable-placeholder {
-		display:      inline-block;
-		margin-right: 10px;
-	}
-
 	.wponion-preview {
 		margin-right:   10px;
 		vertical-align: top;
@@ -61,6 +56,12 @@
 				visibility: visible !important;
 			}
 		}
+	}
+
+	.sortable-placeholder {
+		display:      inline-block;
+		margin-right: 10px;
+		@include wponion_ui_sortable_placeholder();
 	}
 
 	.wponion-preview-add {
