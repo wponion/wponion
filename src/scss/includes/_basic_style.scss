@@ -42,7 +42,9 @@
 }
 
 .wponion-search-matched {
-	display: inherit !important;
+	display:    inline-block !important;
+	width:      100%;
+	min-height: 0 !important;
 }
 
 .wponion-row {
