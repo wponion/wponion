@@ -30,7 +30,8 @@ window.wponion = window.wponion || Object.create( {
 /**
  * WPonion Modules.
  */
-window.wponion.metabox = require( './modules/metabox' ).default;
+window.wponion.settings = require( './modules/settings' ).default;
+window.wponion.metabox         = require( './modules/metabox' ).default;
 window.wponion.wp_pointers     = require( './modules/wp-pointers' ).default;
 window.wponion.media_fields    = require( './modules/media-fields' ).default;
 window.wponion.bulk_edit       = require( './modules/bulk-edit' ).default;
