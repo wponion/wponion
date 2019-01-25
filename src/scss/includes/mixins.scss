@@ -4,29 +4,6 @@
 	}
 }
 
-@mixin bootstrabtns($base1,$base2,$base3,$hover) {
-	color:        #fff !important;
-	border-color: $base1 $base2 $base2 !important;
-	background:   $base3 !important;
-	box-shadow:   0 1px 0 $base2 !important;
-	text-shadow:  0 -1px 1px $base2,
-				  1px 0 1px $base2,
-				  0 1px 1px $base2,
-				  -1px 0 1px $base2 !important;
-
-	&:hover, &:focus {
-		border-color: $base2 !important;
-		background:   $hover !important;
-		box-shadow:   0 1px 0 $base2 !important;
-	}
-
-	&:active {
-		border-color: $base2 !important;
-		background:   $base1 !important;
-		box-shadow:   inset 0 2px 0 $base2 !important;
-	}
-}
-
 @mixin loader() {
 	&::before {
 		height:          1em;
@@ -48,17 +25,38 @@
 	}
 }
 
+@mixin wponion_field_border_fix() {
+	border-bottom: $element_border;
+	border-top:    none;
+	border-right:  $element_border;
+
+	&:last-child {
+		border-bottom: none;
+	}
+}
+
 @mixin wponion_field_horizontal() {
-	> .wponion-field-title {
-		width:         100%;
-		display:       block;
-		margin-bottom: 10px;
-		margin-right:  0px;
+	> .row {
+		> .wponion-field-title {
+			flex:          0 0 100% !important;
+			max-width:     100% !important;
+			width:         100% !important;
+			margin-bottom: 10px;
+			margin-right:  0;
+		}
+
+		> .wponion-fieldset {
+			flex:      0 0 100% !important;
+			max-width: 100% !important;
+			width:     100% !important;
+			float:     none;
+		}
 	}
-	> .wponion-fieldset {
-		width: 100%;
-		float: none;
-	}
+}
+
+@mixin wponion_ui_sortable_placeholder() {
+	border:           1px dashed #f1c40f;
+	background-color: #fffae4;
 }
 
 @mixin wponion_button( $button-color, $text-color: #fff ) {
