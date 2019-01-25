@@ -13,20 +13,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion;
+namespace WPOnion\WP\Sysinfo;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\WP_Sysinfo' ) ) {
+if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 	/**
-	 * Class WP_Sysinfo
+	 * Class Data
 	 *
-	 * @package WPOnion
+	 * @package WPOnion\WP\Sysinfo
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Sysinfo {
+	class Data {
 		public static $status = array();
 
 		/**

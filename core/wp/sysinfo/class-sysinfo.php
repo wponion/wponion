@@ -13,13 +13,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion;
+namespace WPOnion\WP\Sysinfo;
 
-if ( ! class_exists( '\WPOnion\Sysinfo' ) ) {
+if ( ! class_exists( '\WPOnion\WP\Sysinfo\Sysinfo' ) ) {
 	/**
 	 * Class Sysinfo
 	 *
-	 * @package WPOnion
+	 * @package WPOnion\WP\Sysinfo
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPOnion\Sysinfo' ) ) {
 		 */
 		public static function get( $args ) {
 			$reports = ( isset( $args->reports ) ) ? $args->reports : array();
-			$data    = WP_Sysinfo::get();
+			$data    = Data::get();
 			if ( isset( $args->custom_reports ) ) {
 				if ( wponion_is_callable( $args->custom_reports ) ) {
 					$_d = wponion_callback( $args->custom_reports );
