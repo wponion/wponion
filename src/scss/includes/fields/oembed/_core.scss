@@ -1,14 +1,15 @@
 .wponion-element.wponion-element-oembed {
 	.spinner {
 		float:          none;
-		vertical-align: sub;
+		vertical-align: middle;
 		margin:         0;
 		margin-left:    10px;
 		display:        inline-block;
 	}
 
 	.wponion-input-group {
-		display: inline-block;
+		display:        inline-block;
+		vertical-align: middle;
 	}
 
 	img.wponion-no-preview {
