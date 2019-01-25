@@ -13,16 +13,16 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion;
-if ( ! class_exists( '\WPOnion\WP_Nav_Menu_Walker' ) ) {
+namespace WPOnion\WP\Nav_Menu;
+if ( ! class_exists( '\WPOnion\WP\Nav_Menu\Walker' ) ) {
 	/**
-	 * Class WP_Nav_Menu_Walker
+	 * Class Walker
 	 *
-	 * @package WPOnion
+	 * @package WPOnion\WP\Nav_Menu
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Nav_Menu_Walker extends \Walker_Nav_Menu_Edit {
+	class Walker extends \Walker_Nav_Menu_Edit {
 		/**
 		 * Start the element output.
 		 *
