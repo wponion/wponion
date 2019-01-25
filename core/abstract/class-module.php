@@ -326,7 +326,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Extracts Settings Sections and its sub containers from the $this->fields array.
 		 *
-		 * @param \WPOnion\Module_Fields|\WPO\Builder|array $fields
+		 * @param \WPO\Builder|array $fields
 		 * @param bool                                      $is_child
 		 * @param bool                                      $container
 		 * @param bool                                      $first_container
@@ -460,7 +460,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Check if option loop is valid.
 		 *
-		 * @param array|\WPOnion\Module_Fields|\WPO\Container $option
+		 * @param array|\WPO\Container $option
 		 *
 		 * @return bool
 		 */

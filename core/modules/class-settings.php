@@ -498,7 +498,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		/**
 		 * Checks if Option Loop Is Valid
 		 *
-		 * @param array|\WPonion\Module_Fields|\WPO\Container $container
+		 * @param array|\WPO\Container $container
 		 * @param bool                                        $sub_container
 		 * @param bool                                        $check_current_page
 		 *

@@ -72,7 +72,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 			$instance        = $this->init_theme();
 			$this->unique    = $unique;
 			$this->db_values = $values;
-			//$this->fields    = ( $this->fields instanceof \WPOnion\Module_Fields ) ? $this->fields : new \WPOnion\Module_Fields( $this->fields );
 			if ( false !== $this->errors ) {
 				$this->init_error_registry( $this->errors );
 			}
