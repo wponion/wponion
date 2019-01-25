@@ -16,6 +16,7 @@
 		> ul {
 			overflow-y: auto;
 			max-height: 305px;
+			margin:     0;
 
 			> li {
 				&.has-subgroup {
@@ -37,9 +38,6 @@
 					font-size:     14px;
 					margin:        0;
 					margin-bottom: 15px;
-				}
-
-				> ul {
 				}
 			}
 		}
