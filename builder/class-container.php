@@ -22,6 +22,11 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 	 * @since 1.0
 	 */
 	class Container extends Helper {
+		/**
+		 * @var array
+		 * @access
+		 */
+		protected $custom_data = array();
 		use \WPO\Helper\Container\Functions;
 		use \WPO\Helper\Field\Functions;
 		use \WPO\Helper\Field\Types;
@@ -29,14 +34,28 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		/**
 		 * Container constructor.
 		 *
-		 * @param bool $slug
-		 * @param bool $title
-		 * @param bool $icon
+		 * @param bool|array $slug
+		 * @param bool       $title
+		 * @param bool       $icon
 		 */
 		public function __construct( $slug = false, $title = false, $icon = false ) {
-			$this->slug  = $slug;
-			$this->title = $title;
-			$this->icon  = $icon;
+			if ( wponion_is_array( $slug ) ) {
+				if ( ! empty( $slug ) ) {
+					foreach ( $slug as $key => $val ) {
+						if ( method_exists( $this, 'set_' . $key ) ) {
+							try {
+								$this->{'set_' . $key}( $val );
+							} catch ( \Exception $exception ) {
+
+							}
+						}
+					}
+				}
+			} else {
+				$this->slug  = $slug;
+				$this->title = $title;
+				$this->icon  = $icon;
+			}
 		}
 
 		/**
@@ -66,18 +85,25 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 			return $this;
 		}
 
-		/**
-		 * @return string|bool
-		 */
-		public function name() {
+		private function get_slug() {
+			if ( empty( $this->slug ) ) {
+				$this->slug = sanitize_title( 'auto-' . $this->title() );
+			}
 			return $this->slug;
 		}
 
 		/**
 		 * @return string|bool
 		 */
+		public function name() {
+			return $this->get_slug();
+		}
+
+		/**
+		 * @return string|bool
+		 */
 		public function slug() {
-			return $this->slug;
+			return $this->get_slug();
 		}
 
 		/**
@@ -127,6 +153,64 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		public function class() {
 			return $this->class;
+		}
+
+		/**
+		 * Checks if Given data is valid container data.
+		 *
+		 * @param $args
+		 *
+		 * @static
+		 * @return bool
+		 */
+		public static function is_valid( $args ) {
+			return ( isset( $args['sections'] ) || isset( $args['fields'] ) || isset( $args['href'] ) || isset( $args['callback'] ) );
+		}
+
+		/**
+		 * @param $name
+		 * @param $value
+		 */
+		public function __set( $name, $value ) {
+			$defined_vars = array_keys( get_class_vars( __CLASS__ ) );
+			if ( ! in_array( $name, $defined_vars ) ) {
+				$this->custom_data[ $name ] = $value;
+			} else {
+				throw new \Error( 'WPOnion Container\'s Core Variables Cannot Me Modified' );
+			}
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function __get( $name ) {
+			$defined_vars = array_keys( get_class_vars( __CLASS__ ) );
+			if ( ! in_array( $name, $defined_vars ) ) {
+				return ( isset( $this->custom_data[ $name ] ) ) ? $this->custom_data[ $name ] : false;
+			}
+			return false;
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function __isset( $name ) {
+			$defined_vars = array_keys( get_class_vars( __CLASS__ ) );
+			if ( ! in_array( $name, $defined_vars ) ) {
+				return ( isset( $this->custom_data[ $name ] ) );
+			}
+			return false;
+		}
+
+		/**
+		 * @param $name
+		 */
+		public function __unset( $name ) {
+			unset( $this->custom_data[ $name ] );
 		}
 	}
 }
