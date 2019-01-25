@@ -37,22 +37,25 @@ if ( ! class_exists( '\WPOnion\DB\Metabox_Save_Handler' ) ) {
 			 * @var \WPO\Container           $sub_container
 			 */
 			$settings = $this->args['settings'];
+			if ( $this->fields->has_fields() ) {
+				$this->field_loop( $this->fields );
+			} else {
+				foreach ( $this->fields->get() as $container ) {
+					if ( $settings->valid_option( $container ) ) {
+						if ( $container->has_containers() ) {
+							foreach ( $container->containers() as $sub_container ) {
+								if ( ! $settings->valid_option( $sub_container ) ) {
+									continue;
+								}
+								if ( ! $sub_container->has_fields() ) {
+									continue;
+								}
 
-			foreach ( $this->fields->get() as $container ) {
-				if ( $settings->valid_option( $container ) ) {
-					if ( $container->has_containers() ) {
-						foreach ( $container->containers() as $sub_container ) {
-							if ( ! $settings->valid_option( $sub_container ) ) {
-								continue;
+								$this->field_loop( $sub_container );
 							}
-							if ( ! $sub_container->has_fields() ) {
-								continue;
-							}
-
-							$this->field_loop( $sub_container );
+						} elseif ( $container->has_fields() ) {
+							$this->field_loop( $container );
 						}
-					} elseif ( $container->has_fields() ) {
-						$this->field_loop( $container );
 					}
 				}
 			}
