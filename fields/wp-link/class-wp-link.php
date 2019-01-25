@@ -62,7 +62,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 
 			if ( true === $settings['title'] ) {
 				$_value = ( true === $show_value ) ? '<span class="value">' . $this->get_value( 'title' ) . '</span>' : '';
-				echo '<span class="url"><strong>' . __( 'Title : ' ) . '</strong> ' . $_value;
+				echo '<span class="title"><strong>' . __( 'Title : ' ) . '</strong> ' . $_value;
 				echo '<input  style="width:350px" type="' . $show_input . '" name="' . $this->name( '[title]' ) . '" value="' . $this->get_value( 'title' ) . '" id="title"/>';
 				echo '</span><br/><br/>';
 
