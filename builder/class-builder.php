@@ -52,6 +52,33 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		}
 
 		/**
+		 * @param $data
+		 */
+		public function load_from_existing( $data ) {
+			if ( wponion_is_array( $data ) ) {
+				if ( isset( $data[0] ) ) {
+					foreach ( $data as $_d ) {
+						if ( Container::is_valid( $_d ) ) {
+							$this->container( new Container( $_d ) );
+						} elseif ( Field::is_valid( $_d ) ) {
+							$this->set_fields( $_d );
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * @param array $fields
+		 *
+		 * @return $this
+		 */
+		public function set_fields( $fields = array() ) {
+			$this->fields = $fields;
+			return $this;
+		}
+
+		/**
 		 * Returns Args Based on the configs.
 		 *
 		 * @return array
