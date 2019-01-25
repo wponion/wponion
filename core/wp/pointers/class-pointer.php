@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules\WP_Pointers;
+namespace WPOnion\WP\Pointers;
 
-if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
+if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 	/**
 	 * Class Pointer
 	 *
-	 * @package WPOnion\Modules\WP_Pointers
+	 * @package WPOnion\WP\Pointers
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
@@ -139,7 +139,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $selector
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function selector( $selector = null ) {
 			if ( null !== $selector ) {
@@ -157,7 +157,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $title
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function title( $title = null ) {
 			if ( null !== $title ) {
@@ -170,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $text
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function text( $text = null ) {
 			if ( null !== $text ) {
@@ -183,7 +183,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $show
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function show( $show = null ) {
 			if ( null !== $show ) {
@@ -196,7 +196,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $jsnext
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function jsnext( $jsnext = null ) {
 			if ( null !== $jsnext ) {
@@ -209,7 +209,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $phpcode
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function phpcode( $phpcode = null ) {
 			if ( null !== $phpcode ) {
@@ -222,7 +222,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $next
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function next( $next = null ) {
 			if ( empty( $this->selector() ) && null !== $next ) {
@@ -252,7 +252,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $parent
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function parent( $parent = null ) {
 			if ( null !== $parent ) {
@@ -271,7 +271,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $css_class
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function css_class( $css_class = null ) {
 			if ( null !== $css_class ) {
@@ -284,7 +284,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $width
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function width( $width = null ) {
 			if ( null !== $width ) {
@@ -297,7 +297,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $align
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function align( $align = null ) {
 			if ( null !== $align ) {
@@ -310,7 +310,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $edge
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function edge( $edge = null ) {
 			if ( null !== $edge ) {
@@ -323,7 +323,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $post_type
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function post_type( $post_type = null ) {
 			if ( null !== $post_type ) {
@@ -337,7 +337,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $pages
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function pages( $pages = null ) {
 			if ( null !== $pages ) {
@@ -351,7 +351,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP_Pointers\Pointer' ) ) {
 		/**
 		 * @param null $icon_class
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers\Pointer|bool|mixed
+		 * @return Pointer|bool|mixed
 		 */
 		public function icon_class( $icon_class = null ) {
 			if ( null !== $icon_class ) {
