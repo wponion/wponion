@@ -30,28 +30,27 @@ class field extends WPOnion_Field {
 				$elem.find( 'span.example_output span.value' ).html( jQuery( this ).val() );
 			}
 
-			if( $elem.find( 'input#url' ) ) {
+			if( $elem.find( 'input#url' ).length > 0 ) {
 				$elem.find( 'input#url' ).val( $data.attr( 'href' ) );
-
 			}
 
-			if( $elem.find( 'input#title' ) ) {
+			if( $elem.find( 'input#title' ).length > 0 ) {
 				$elem.find( 'input#title' ).val( $data.text() );
 			}
 
-			if( $elem.find( 'input#target' ) ) {
+			if( $elem.find( 'input#target' ).length > 0 ) {
 				$elem.find( 'input#target' ).val( $data.attr( 'target' ) );
 			}
 
-			if( $elem.find( 'span.url span.value' ) ) {
+			if( $elem.find( 'span.url span.value' ).length > 0 ) {
 				$elem.find( 'span.url span.value' ).html( $data.attr( 'href' ) );
 			}
 
-			if( $elem.find( 'span.title span.value' ) ) {
+			if( $elem.find( 'span.title span.value' ).length > 0 ) {
 				$elem.find( 'span.title span.value' ).html( $data.text() );
 			}
 
-			if( $elem.find( 'span.target span.value' ) ) {
+			if( $elem.find( 'span.target span.value' ).length > 0 ) {
 				$elem.find( 'span.target span.value' ).html( $data.attr( 'target' ) );
 			}
 		} );
