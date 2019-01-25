@@ -48,7 +48,7 @@ export default class extends WPOnion_Module {
 	 * @param element
 	 */
 	js_error_handler( element = this.element ) {
-		element.on( 'wponion_js_validation_message', '> .wponion-fieldset :input', ( e, data ) => this.js_error( data ) );
+		element.on( 'wponion_js_validation_message', '> .row > .wponion-fieldset :input', ( e, data ) => this.js_error( data ) );
 	}
 
 	/**
@@ -171,7 +171,7 @@ export default class extends WPOnion_Module {
 				} );
 			} );
 
-			$found.find( '> .wponion-fieldset .wponion-field-debug-code-gen' ).on( 'click', () => {
+			$found.find( '> .row > .wponion-fieldset .wponion-field-debug-code-gen' ).on( 'click', () => {
 				let $string = this.option( 'debug_field_code' );
 				if( window.wponion._.isString( $string ) ) {
 					swal( {
