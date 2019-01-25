@@ -138,7 +138,7 @@ export default class extends WPOnion_Module {
 		if( false !== $found ) {
 			let $this = this;
 
-			$found.find( '> .wponion-field-title > h4' )
+			$found.find( '> .row > .wponion-field-title > h4' )
 				  .tippy( {
 					  content: $wponion.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ),
 					  arrow: true,
@@ -149,7 +149,7 @@ export default class extends WPOnion_Module {
 					  appendTo: this.get_field_parent_by_id( this.element )[ 0 ],
 				  } );
 
-			$found.find( '> .wponion-field-title > h4' ).on( 'click', () => {
+			$found.find( '> .row > .wponion-field-title > h4' ).on( 'click', () => {
 				let $d          = $this.id() + 'debugINFO',
 					$notice_txt = '<p class=\'wponion-field-debug-notice\'>' + $wponion.option( 'debug_notice' ) + '</p>',
 					$elem       = jQuery( '<div id="' + $d + '" class="wponion-field-debug-popup" ><div id="' + $d + '" ></div>' + $notice_txt + '</div>' );
