@@ -74,7 +74,11 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			'wrap_class'      => null, # custom class for the field wrapper,
 			'wrap_id'         => null, # custom ID for the field wrapper,
 			'wrap_attributes' => array(),
-
+			/**
+			 * Custom Column Handler.
+			 */
+			'title_column'    => false,
+			'fieldset_column' => false,
 		);
 	}
 }
