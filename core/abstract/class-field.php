@@ -27,22 +27,16 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 	 * @since 1.0
 	 */
 	abstract class Field extends Bridge {
-		/**
-		 * columns
-		 *
-		 * @var int
-		 */
-		protected static $columns = 0;
 
 		/**
-		 * columns
+		 * Total Fields.
 		 *
 		 * @var int
 		 */
 		public static $total_fields = 0;
 
 		/**
-		 * columns
+		 * Render Time.
 		 *
 		 * @var int
 		 */
@@ -242,8 +236,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			} else {
 				$this->wrapper();
 			}
-			$this->debug( __( 'Render Time' ), $this->debug_time( true ) );
 
+			$this->debug( __( 'Render Time' ), $this->debug_time( true ) );
 			$this->debug( __( 'Raw Field Args' ), $this->orginal_field );
 			$this->debug( __( 'Field Args' ), $this->field );
 			$this->debug( __( 'Field Value' ), $this->value );
@@ -275,10 +269,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return bool
 		 */
 		protected function has( $key = '' ) {
-			if ( false == $this->data( $key ) || null === $this->data( $key ) || empty( $this->data( $key ) ) ) {
-				return false;
-			}
-			return true;
+			return ( false == $this->data( $key ) || null === $this->data( $key ) || empty( $this->data( $key ) ) ) ? false : true;
 		}
 
 		/**
@@ -300,31 +291,17 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
-		 * Returns Field Cols
-		 *
-		 * @return bool|mixed
-		 */
-		protected function get_cols() {
-			if ( false !== $this->data( 'columns' ) ) {
-				return $this->data( 'columns' );
-			} elseif ( false !== $this->data( 'column' ) ) {
-				return $this->data( 'column' );
-			}
-			return false;
-		}
-
-		/**
 		 * Generates Elements Wrapper.
 		 */
 		protected function wrapper() {
 			$_wrap_attr                      = $this->data( 'wrap_attributes' );
 			$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
 			$is_pseudo                       = ( true === $this->data( 'pseudo' ) ) ? ' wponion-pseudo-field ' : '';
-			$col_class                       = false;
 			$has_dep                         = false;
 			$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
 			$is_js_validate                  = ( $this->has( 'js_validate' ) ) ? 'wponion-js-validate' : '';
 			$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
+
 			if ( $this->has( 'dependency' ) ) {
 				$has_dep    = 'wponion-has-dependency';
 				$dependency = $this->data( 'dependency' );
@@ -339,25 +316,18 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				}
 			}
 
-			if ( 12 === self::$columns ) {
-				self::$columns = 0;
-			} elseif ( false !== $this->get_cols() ) {
-				echo ( 0 === self::$columns ) ? '<div class="row wponion-row">' : '';
-				$col_class     = 'col';
-				self::$columns = ( 0 === self::$columns ) ? $this->get_cols() : $this->get_cols() + self::$columns;
-			} elseif ( false === $this->get_cols() && self::$columns > 0 ) {
-				$col_class = 'col';
-			}
-
 			$_wrap_attr['class'] = wponion_html_class( $this->data( 'wrap_class' ), $this->default_wrap_class( array(
 				$is_pseudo,
 				$has_title,
 				$has_dep,
-				$col_class,
 				$is_debug,
 				$is_js_validate,
 				wponion_html_class( $this->field_wrap_class() ),
 			) ) );
+
+			if ( false === self::has_column_css( $_wrap_attr['class'] ) ) {
+				$_wrap_attr['class'] .= ' col-xs-12 ';
+			}
 
 			if ( $this->has( 'horizontal' ) && true === $this->data( 'horizontal' ) ) {
 				$_wrap_attr['class'] .= ' horizontal ';
@@ -370,20 +340,27 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 			$_wrap_attr['id'] = $this->wrap_id();
 			$_wrap_attr       = wponion_array_to_html_attributes( $_wrap_attr );
+			$this->_handle_column_data();
 
-			echo '<div ' . $_wrap_attr . '>';
+			echo '<div ' . $_wrap_attr . '><div class="row no-gutters">';
 			echo $this->title();
 			echo $this->field_wrapper( true );
 			echo $this->output();
 			echo $this->field_wrapper( false ) . '<div class="clear"></div>';
-			echo '</div>';
-			if ( 12 === self::$columns ) {
-				echo '</div>';
-				self::$columns = 0;
-			} elseif ( false === $this->get_cols() && self::$columns > 0 ) {
-				echo '</div>';
-				self::$columns = 0;
-			}
+			echo '</div></div>';
+		}
+
+		/**
+		 * Validates if Current Element Has Column Wrap Class.
+		 *
+		 * @param $class
+		 *
+		 * @static
+		 * @return bool
+		 */
+		public static function has_column_css( $class ) {
+			preg_match_all( '/col\b-(xs|sm|md|lg|xl)?\b-?\b(1[0-2]|[1-9])/', $class, $matches, PREG_SET_ORDER, 0 );
+			return ( empty( $matches ) ) ? false : $matches;
 		}
 
 		/**
@@ -427,11 +404,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function field_wrapper( $is_start = true ) {
 			if ( true === $is_start ) {
-				$wrap_class = ' wponion-fieldset ';
-				if ( ! $this->has( 'title' ) ) {
-					$wrap_class .= ' wponion-fieldset-notitle';
-				}
-				return '<div class="' . $wrap_class . '">';
+				$wrap_class = ( ! $this->has( 'title' ) ) ? ' wponion-fieldset wponion-fieldset-notitle ' : ' wponion-fieldset ';
+				return '<div class="' . $wrap_class . ' ' . $this->data( 'fieldset_column' ) . '">';
 			}
 			return '</div>';
 		}
@@ -451,13 +425,41 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function title() {
 			$html = '';
 			if ( $this->has( 'title' ) ) {
-				$html .= '<div class="wponion-field-title wponion-element-title">';
+				$html .= '<div class="wponion-field-title wponion-element-title ' . $this->data( 'title_column' ) . '">';
 				$html .= $this->title_before_after( false ) . '<h4>' . $this->data( 'title' ) . '</h4>' . $this->title_before_after( true );
 				$html .= $this->field_help();
 				$html .= $this->title_desc();
 				$html .= '</div>';
 			}
 			return $html;
+		}
+
+		/**
+		 * Validates Column Data.
+		 */
+		protected function _handle_column_data() {
+			$title    = $this->data( 'title_column' );
+			$fieldset = $this->data( 'fieldset_column' );
+			if ( false === $title && false === $fieldset ) {
+				$this->field['title_column']    = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2';
+				$this->field['fieldset_column'] = ( false === $this->has( 'title' ) ) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-12' : 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-10';
+			} else {
+				if ( false !== $title && false === $fieldset ) {
+					$matches   = self::has_column_css( $title );
+					$new_class = wponion_get_possible_column_class( $matches );
+					if ( ! empty( $new_class ) ) {
+						$this->field['fieldset_column'] = $new_class;
+					}
+				}
+
+				if ( false === $title && false !== $fieldset ) {
+					$matches   = self::has_column_css( $fieldset );
+					$new_class = wponion_get_possible_column_class( $matches );
+					if ( ! empty( $new_class ) ) {
+						$this->field['title_column'] = $new_class;
+					}
+				}
+			}
 		}
 
 		/**
@@ -1089,10 +1091,10 @@ PHP;
 		/**
 		 * Check if value is === to given value and returns an html output.
 		 *
-		 * @param string $helper
-		 * @param string $current
-		 * @param string $type
-		 * @param bool   $echo
+		 * @param string|array $helper
+		 * @param string       $current
+		 * @param string       $type
+		 * @param bool         $echo
 		 *
 		 * @return string
 		 */
