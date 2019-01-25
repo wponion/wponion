@@ -174,8 +174,8 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 * @return array
 		 */
 		public function metabox_menus() {
-			if ( empty( $this->menus ) ) {
-				$this->menus = $this->extract_fields_menus( $this->fields );
+			if ( empty( $this->menus ) && false === $this->fields->has_fields() ) {
+				$this->menus = $this->extract_fields_menus( $this->fields->get() );
 			}
 			return $this->menus;
 		}
@@ -196,7 +196,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 *
 		 * @param $is_parent
 		 *
-		 * @return bool|string|null
+		 * @return bool|string
 		 */
 		public function active( $is_parent ) {
 			$this->active_page();
@@ -363,6 +363,28 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 			$text         = ( wponion_is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
 			$text         = ( false === $text && is_string( $user ) ) ? $user : __( 'Save Settings' );
 			return '<button ' . wponion_array_to_html_attributes( $this->parse_args( $user_attr, $default_attr ) ) . ' >' . $text . '</button>';
+		}
+
+		/**
+		 * checks if given (PAGE/SECTION) is active [CALLED AS TAB]
+		 *
+		 * @param bool $container
+		 * @param bool $sub_container
+		 * @param bool $first_container
+		 *
+		 * @return bool
+		 */
+		public function is_tab_active( $container = false, $sub_container = false, $first_container = false ) {
+			if ( false !== $container && false === $sub_container ) {
+				return ( $container === $this->active( true ) ) ? true : false;
+			} else {
+				if ( $container === $this->active( true ) && $sub_container === $this->active( false ) ) {
+					return true;
+				} elseif ( $container !== $this->active( true ) && $first_container === $sub_container ) {
+					return true;
+				}
+				return false;
+			}
 		}
 
 		/**
