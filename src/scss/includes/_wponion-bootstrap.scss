@@ -1,48 +1,38 @@
 @import "../../../node_modules/bootstrap/scss/functions";
 @import "../../../node_modules/bootstrap/scss/variables";
 @import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/mixins/breakpoints";
+@import "../../../node_modules/bootstrap/scss/mixins/grid-framework";
+/*
+@import "../../../node_modules/bootstrap/scss/mixins/grid";
+@import "../../../node_modules/bootstrap/scss/grid";
+@import "../../../node_modules/bootstrap/scss/utilities/display";
+@import "../../../node_modules/bootstrap/scss/utilities/flex";
+*/
+@import "../../../node_modules/flexboxgrid2/flexboxgrid2.min";
 
 .wponion-framework {
-	.row {
-		@include make-row();
+	[class*="col-"] {
+		padding-left:  15px;
+		padding-right: 15px;
 	}
 
-	%grid-column {
-		position:      relative;
-		width:         100%;
-		min-height:    1px; // Prevent columns from collapsing when empty
-		padding-right: ($grid-gutter-width / 2);
-		padding-left:  ($grid-gutter-width / 2);
-	}
-
-	@each $breakpoint in map-keys($grid-breakpoints) {
-		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-		@include media-breakpoint-up($breakpoint, $grid-breakpoints) {
-			.col#{$infix} {
-				flex-basis: 0;
-				flex-grow:  1;
-				max-width:  100%;
-			}
-			.col#{$infix}-auto {
-				flex:      0 0 auto;
-				width:     auto;
-				max-width: none; // Reset earlier grid tiers
-			}
-
-		}
+	div.row {
+		margin-left:  -15px;
+		margin-right: -15px;
 	}
 
 	@import "../../../node_modules/bootstrap/scss/transitions";
 	@import "../../../node_modules/bootstrap/scss/jumbotron";
 	@import "../../../node_modules/bootstrap/scss/alert";
+	@import "../../../node_modules/bootstrap/scss/badge";
+	@import "../../../node_modules/bootstrap/scss/utilities/text";
+
 	//@import "../../../node_modules/bootstrap/scss/close";
 	//@import "../../../node_modules/bootstrap/scss/type";
 	//@import "../../../node_modules/bootstrap/scss/images";
 	//@import "../../../node_modules/bootstrap/scss/buttons";
 	//@import "../../../node_modules/bootstrap/scss/card";
-	@import "../../../node_modules/bootstrap/scss/badge";
-	@import "../../../node_modules/bootstrap/scss/utilities/text";
-	@import "../../../node_modules/bootstrap/scss/utilities/align";
-	@import "../../../node_modules/bootstrap/scss/utilities/position";
+	//@import "../../../node_modules/bootstrap/scss/utilities/align";
+	//@import "../../../node_modules/bootstrap/scss/utilities/position";
 }
