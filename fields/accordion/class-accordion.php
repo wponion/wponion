@@ -46,10 +46,12 @@ if ( ! class_exists( '\WPOnion\Field\Accordion' ) ) {
 			echo '<div class="wponion-accordion-wrap ' . $is_open . '">';
 			echo '<h4 class="wponion-accordion-title"> <span class="heading">' . $this->data( 'heading' ) . '</span><a title="' . __( 'Delete' ) . '" class="wponion-remove wponion-group-remove dashicons"></a></h4>';
 			echo '<div class="wponion-accordion-content">';
+			echo '<div class="wponion-row row">';
 			foreach ( $this->data( 'fields' ) as $field_id => $field ) {
 				$this->render_single_field( $field );
 			}
 			echo $this->after_accordion();
+			echo '</div>';
 			echo '</div>';
 			echo '</div>';
 		}
