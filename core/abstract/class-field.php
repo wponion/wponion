@@ -342,7 +342,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$_wrap_attr       = wponion_array_to_html_attributes( $_wrap_attr );
 			$this->_handle_column_data();
 
-			echo '<div ' . $_wrap_attr . '><div class="row no-gutters">';
+			echo '<div ' . $_wrap_attr . '><div class="row">';
 			echo $this->title();
 			echo $this->field_wrapper( true );
 			echo $this->output();
