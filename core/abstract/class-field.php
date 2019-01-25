@@ -497,15 +497,16 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data['image']   = $data['content'];
 				$data['content'] = false;
 			}
-			$attr = array(
-				'data-tippy' => $data['content'],
-				'class'      => 'wponion-help',
-			);
+
+			$attr = array( 'class' => 'wponion-help' );
 
 			if ( false !== $localize ) {
 				$localize = ( true === $localize ) ? 'wponion-help' : $localize;
 				wponion_localize()->add( $this->js_field_id(), array( $localize => $data ) );
+			} else {
+				$attr['data-tippy'] = $data['content'];
 			}
+
 			return array(
 				'attr' => $attr,
 				'data' => $data,
