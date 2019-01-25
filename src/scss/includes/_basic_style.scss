@@ -1,11 +1,4 @@
-/**
- * Accordion PlaceHolder
- */
-.wponion-accordion-placeholder {
-	border:        1px dashed #bdbdbd;
-	margin-bottom: 10px;
-}
-
+/** Other Library Style Fixes **/
 /**
  * BlockUI Overlay Style.
  */
@@ -14,13 +7,16 @@
 }
 
 /**
- * Custom Chosen Hack.
+ * Chosen Style Fix.
  */
 .chosen-container.chosen-container-single, .chosen-container.chosen-container-multi {
 	width:     auto !important; /* or any value that fits your needs */
 	min-width: 200px !important;
 }
 
+/**
+ * SweatAlert2 Style Fix.
+ */
 .swal2-container {
 	z-index: 9999999 !important;
 
@@ -30,6 +26,30 @@
 		}
 	}
 }
+
+/** General Common Styles **/
+
+/**
+ * Accordion PlaceHolder
+ */
+.wponion-accordion-placeholder {
+	margin-bottom: 15px;
+	@include wponion_ui_sortable_placeholder();
+}
+
+.wponion-search-unmatched {
+	display: none !important;
+}
+
+.wponion-search-matched {
+	display: inherit !important;
+}
+
+.wponion-row {
+	margin-left:  0 !important;
+	margin-right: 0 !important;
+}
+
 
 @each $color, $value in $wponionThemes {
 	.button.button-#{$color} {
