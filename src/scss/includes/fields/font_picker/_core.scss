@@ -1,10 +1,13 @@
 .wponion-element.wponion-element-font_picker {
 	.wponion-font-select-container {
-		display:      inline-block;
 		margin-right: 15px;
 
 		&:last-child {
 			margin-right: 0;
+		}
+
+		.select2-container {
+			width: 100% !important;
 		}
 
 		select {
