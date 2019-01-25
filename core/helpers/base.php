@@ -581,7 +581,6 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_parse_args' ) ) {
 	/**
 	 * @param $new
@@ -616,6 +615,38 @@ if ( ! function_exists( 'wponion_parse_args' ) ) {
 		}
 
 		return $new;
+	}
+}
+
+if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
+	/**
+	 * @param array $matches
+	 * $matches = array(
+	 *    array(
+	 *        0 => 'col-xs-12', // Full Column Class
+	 *        1 => 'xs', // Device Class
+	 *        2 => '12' // Column Count
+	 *    ),
+	 *    array(
+	 *        0 => 'col-xs-12', // Full Column Class
+	 *        1 => 'xs', // Device Class
+	 *        2 => '12' // Column Count
+	 *    ),
+	 * );
+	 *
+	 * @return bool
+	 */
+	function wponion_get_possible_column_class( $matches = array() ) {
+		$return = array();
+		if ( wponion_is_array( $matches ) ) {
+			foreach ( $matches as $class ) {
+				if ( ! empty( array_filter( $class ) ) ) {
+					$count    = ( isset( $class[2] ) && '12' !== $class[2] ) ? '-' . ( 12 - $class[2] ) : null;
+					$return[] = 'col-' . $class[1] . $count;
+				}
+			}
+		}
+		return join( ' ', $return );
 	}
 }
 
