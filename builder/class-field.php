@@ -114,5 +114,17 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		protected function _defaults() {
 			return $this->parse_args( $this->defaults(), wponion_field_defaults() );
 		}
+
+		/**
+		 * Checks if Given Data is valid field type.
+		 *
+		 * @param $data
+		 *
+		 * @static
+		 * @return bool
+		 */
+		public static function is_valid( $data ) {
+			return ( false === Container::is_valid( $data ) && isset( $data['type'] ) );
+		}
 	}
 }
