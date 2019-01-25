@@ -34,10 +34,10 @@ export default class extends Base {
 						$elem.addClass( 'active' );
 						$elem.parent().parent().parent().find( '> a' ).addClass( 'active' );
 					} else {
-						//window.location.href = $elem.attr( 'href' );
+						window.location.href = $elem.attr( 'href' );
 					}
 				} else {
-					//window.location.href = $elem.attr( 'href' );
+					window.location.href = $elem.attr( 'href' );
 				}
 			}
 		} );
