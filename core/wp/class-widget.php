@@ -12,7 +12,7 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion;
+namespace WPOnion\WP;
 
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,15 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if ( ! class_exists( '\WPOnion\WP_Widget' ) ) {
+if ( ! class_exists( '\WPOnion\WP\Widget' ) ) {
 	/**
-	 * Class WP_Widget
+	 * Class Widget
 	 *
-	 * @package WPOnion
+	 * @package WPOnion\WP
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class WP_Widget extends \WP_Widget {
+	abstract class Widget extends \WP_Widget {
 		/***
 		 * widget_instance
 		 *
@@ -46,7 +46,7 @@ if ( ! class_exists( '\WPOnion\WP_Widget' ) ) {
 		 */
 		public function __construct( $id_base, $name, $widget_options = array(), $control_options = array() ) {
 			parent::__construct( $id_base, $name, $widget_options, $control_options );
-			$this->widget_instance = new Modules\Widget( $this->widget_settings_config(), $this->fields() );
+			$this->widget_instance = new \WPOnion\Modules\Widget( $this->widget_settings_config(), $this->fields() );
 		}
 
 		/**
@@ -54,7 +54,7 @@ if ( ! class_exists( '\WPOnion\WP_Widget' ) ) {
 		 */
 		public function widget_settings_config() {
 			return wp_parse_args( $this->settings_config(), array(
-				'theme'       => 'wp',
+				'theme'       => 'wp_modern',
 				'plugin_id'   => false,
 				'option_name' => $this->id_base,
 			) );
