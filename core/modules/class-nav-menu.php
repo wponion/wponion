@@ -124,11 +124,8 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public function render( $item_id, $post, $depth, $args, $id ) {
 			$this->post_id = $item_id;
-			echo '<div class="' . $this->wrap_class( '' ) . '">';
-			foreach ( $this->fields->fields() as $field ) {
-				echo $this->render_field( $field );
-			}
-			echo '</div>';
+			$this->init_theme()
+				->render_nav_menu();
 		}
 
 		/**
@@ -187,6 +184,18 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public static function change_nav_walker() {
 			return '\WPOnion\WP\Nav_Menu\Walker';
+		}
+
+		/**
+		 * Returns Default Args.
+		 *
+		 * @return array
+		 */
+		protected function defaults() {
+			return $this->parse_args( array(
+				'theme' => 'wp_modern',
+				parent::defaults(),
+			) );
 		}
 	}
 }

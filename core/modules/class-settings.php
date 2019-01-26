@@ -322,7 +322,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			echo '<input type="hidden" name="sub-container-id" value="' . $this->active( false ) . '"/>';
 			echo '</div>';
 			$instance = $this->init_theme();
-			$instance->render_settings_html();
+			$instance->render_settings();
 			echo '</form>';
 		}
 

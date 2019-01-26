@@ -186,7 +186,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				do_meta_boxes( $screen->id, 'normal', $this->user_id );
 			} else {
 				$instance = $this->init_theme();
-				$instance->render_user_profile_html();
+				$instance->render_user_profile();
 			}
 		}
 

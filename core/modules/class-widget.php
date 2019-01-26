@@ -75,7 +75,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 			if ( false !== $this->errors ) {
 				$this->init_error_registry( $this->errors );
 			}
-			echo $instance->render_widgets_html();
+			echo $instance->render_widgets();
 		}
 
 		/**

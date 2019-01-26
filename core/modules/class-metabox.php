@@ -223,7 +223,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 			$this->post_id = ( is_object( $post ) ) ? $post->ID : $post;
 			$instance      = $this->init_theme();
 			$this->get_db_values();
-			$instance->render_metabox_html();
+			$instance->render_metabox();
 		}
 
 		/**

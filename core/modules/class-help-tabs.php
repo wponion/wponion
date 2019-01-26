@@ -199,7 +199,7 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 		 * @param $id
 		 * @param $tab
 		 *
-		 * @return array|null
+		 * @return array
 		 */
 		public function render_help_tab_contents( $id, $tab ) {
 			if ( ! isset( $tab['id'] ) && ! isset( $tab['title'] ) && ! is_numeric( $id ) && isset( $tab['content'] ) || isset( $tab['callback'] ) ) {

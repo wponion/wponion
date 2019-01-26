@@ -180,7 +180,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				echo '</div>';
 			} else {
 				$theme_instance = $this->init_theme();
-				$theme_instance->render_taxonomy_html();
+				$theme_instance->render_taxonomy();
 			}
 		}
 
