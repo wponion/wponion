@@ -54,7 +54,8 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 				$settings = $this->get_settings( $page );
 				unset( $page['option_name'] );
 				unset( $page['plugin_id'] );
-				parent::__construct( $page, $settings );
+				parent::__construct( null, $settings );
+				$this->fields = $page;
 			} elseif ( wponion_is_array( $help_tabs ) && false !== $page ) {
 				if ( is_string( $page ) ) {
 					$help_tabs = array(
@@ -73,7 +74,8 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 					);
 				}
 
-				parent::__construct( $help_tabs, $this->get_settings( $page ) );
+				parent::__construct( null, $this->get_settings( $page ) );
+				$this->fields = $help_tabs;
 			}
 
 			if ( isset( $this->fields['page'] ) ) {
