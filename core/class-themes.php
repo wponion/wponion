@@ -81,6 +81,13 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 		 * @static
 		 */
 		public static function setup() {
+			self::register( 'wp_modern', array(
+				'settings',
+				'metabox',
+				'taxonomy',
+				'nav_menu',
+				'user_profile',
+			), 'wponion_wp_modern_theme_init' );
 			self::register( 'wp', array( 'settings', 'metabox', 'woocommerce', 'taxonomy' ), 'wponion_wp_theme_init' );
 			self::register( 'modern', array(
 				'settings',
