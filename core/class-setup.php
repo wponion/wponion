@@ -76,13 +76,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			require_once WPONION_PATH . 'core/helpers/base.php';
 
-			require_once WPONION_PATH . 'core/registry/class-common.php';
-			require_once WPONION_PATH . 'core/registry/class-core.php';
-			require_once WPONION_PATH . 'core/registry/class-modules.php';
-			require_once WPONION_PATH . 'core/registry/class-field-types.php';
-			require_once WPONION_PATH . 'core/registry/class-fields.php';
-			require_once WPONION_PATH . 'core/registry/class-field-error.php';
-
 			require_once WPONION_PATH . 'core/class-themes.php';
 			require_once WPONION_PATH . 'core/class-assets.php';
 			require_once WPONION_PATH . 'core/class-icons.php';
