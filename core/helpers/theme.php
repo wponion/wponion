@@ -1,5 +1,4 @@
 <?php
-
 if ( ! function_exists( 'wponion_wp_modern_theme_init' ) ) {
 	/**
 	 * @param $data
@@ -29,7 +28,6 @@ if ( ! function_exists( 'wponion_wp_theme_init' ) ) {
 		return new WPOnion_Wp_Theme( $data );
 	}
 }
-
 
 if ( ! function_exists( 'wponion_modern_theme_init' ) ) {
 	/**
