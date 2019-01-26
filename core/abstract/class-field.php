@@ -441,6 +441,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		/**
 		 * Returns Default Column CSS Class based on the modules or it returns defaults.
 		 *
+		 * @uses \apply_filters('wponion_field_column_css_class')
 		 * @return array
 		 */
 		protected function get_default_column_class() {
@@ -471,7 +472,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12';
 			}
 
-			return $return;
+			return apply_filters( 'wponion_field_column_css_class', $return, $this );
 		}
 
 		/**
