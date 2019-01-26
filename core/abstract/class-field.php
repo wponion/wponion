@@ -447,9 +447,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$return             = array();
 			$return['title']    = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2';
 			$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10';
-
 			switch ( $this->module() ) {
 				case 'taxonomy':
+				case 'visual_composer':
 					$return['title']    = 'col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3';
 					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9';
 					break;
