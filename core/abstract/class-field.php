@@ -333,6 +333,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$_wrap_attr['class'] .= ' horizontal ';
 			}
 
+			if ( wponion_field_types()::design_exists( $this->element_type() ) ) {
+				$_wrap_attr['class'] .= ' ui-field wponion-ui-field ';
+			}
+
 			if ( false !== $this->data( 'wrap_tooltip' ) ) {
 				$_wrap_attr['class'] = $_wrap_attr['class'] . ' wponion-has-wrap-tooltip wponion-wrap-tooltip';
 				$this->tooltip_data( $this->data( 'wrap_tooltip' ), array(), 'wrap_tooltip' );
@@ -435,14 +439,51 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Returns Default Column CSS Class based on the modules or it returns defaults.
+		 *
+		 * @return array
+		 */
+		protected function get_default_column_class() {
+			$return             = array();
+			$return['title']    = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2';
+			$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10';
+
+			switch ( $this->module() ) {
+				case 'taxonomy':
+					$return['title']    = 'col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3';
+					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9';
+					break;
+				case 'metabox':
+					$screen = get_current_screen();
+					if ( $screen ) {
+						if ( in_array( $screen->base, array( 'term', 'edit-tags' ) ) ) {
+							$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4';
+							$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8';
+						}
+					}
+					break;
+				default:
+					$return['title']    = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2';
+					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10';
+					break;
+			}
+			if ( false === $this->has( 'title' ) ) {
+				$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12';
+			}
+
+			return $return;
+		}
+
+		/**
 		 * Validates Column Data.
 		 */
 		protected function _handle_column_data() {
+			$defaults = $this->get_default_column_class();
 			$title    = $this->data( 'title_column' );
 			$fieldset = $this->data( 'fieldset_column' );
 			if ( false === $title && false === $fieldset ) {
-				$this->field['title_column']    = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2';
-				$this->field['fieldset_column'] = ( false === $this->has( 'title' ) ) ? 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xs-12' : 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-10';
+				$this->field['title_column']    = $defaults['title'];
+				$this->field['fieldset_column'] = $defaults['fieldset'];
 			} else {
 				if ( false !== $title && false === $fieldset ) {
 					$matches   = self::has_column_css( $title );
