@@ -24,6 +24,11 @@ $_json[ 'scss' ]         = {
 		concat: 'wponion-fresh-theme.css',
 		dist: 'templates/fresh/assets/'
 	},
+	"src/scss/themes/wp-modern/style.scss": {
+		sourcemap: false,
+		concat: 'style.css',
+		dist: 'templates/wp-modern/assets/'
+	},
 	"src/scss/themes/modern/wponion-modern-theme.scss": {
 		sourcemap: false,
 		concat: "wponion-modern-theme.css",
@@ -80,6 +85,10 @@ $_json[ 'js' ]           = {
 	"src/js/themes/fresh-theme.js": {
 		dist: "templates/fresh/assets/",
 		babel: false, babel_dev: false, uglify: true, combine_files: true, concat: 'wponion-fresh-theme.js'
+	}, "src/js/themes/wp-modern.js": {
+		dist: "templates/wp-modern/assets/",
+		babel: false, babel_dev: false, uglify: true, combine_files: true,
+		concat: 'script.js'
 	},
 	"src/js/wponion-cloner.js": {
 		dist: "assets/js",
