@@ -1,5 +1,19 @@
 <?php
 
+if ( ! function_exists( 'wponion_wp_modern_theme_init' ) ) {
+	/**
+	 * @param $data
+	 *
+	 * @return \WPOnion\Theme\WP_Modern
+	 */
+	function wponion_wp_modern_theme_init( $data ) {
+		if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
+			require_once WPONION_PATH . 'templates/wp-modern/class-wp-modern.php';
+		}
+		return new WPOnion\Theme\WP_Modern( $data );
+	}
+}
+
 if ( ! function_exists( 'wponion_wp_theme_init' ) ) {
 	/**
 	 * Inits WP Theme.
