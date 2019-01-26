@@ -573,6 +573,15 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		}
 
 		/**
+		 * Returns Unique Page Slug.
+		 *
+		 * @return string
+		 */
+		public function uid() {
+			return $this->get_slug();
+		}
+
+		/**
 		 * Returns A Unique Name.
 		 *
 		 * @return string
