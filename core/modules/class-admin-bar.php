@@ -29,6 +29,12 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Bar' ) ) {
 	 */
 	class Admin_Bar extends \WPOnion\Bridge\Module {
 		/**
+		 * @var string
+		 * @access
+		 */
+		protected $module = 'admin_bar';
+
+		/**
 		 * hook_priority
 		 *
 		 * @var null
@@ -45,15 +51,16 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Bar' ) ) {
 		/**
 		 * Admin_Bar constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param array             $settings
+		 * @param null|\WPO\Builder $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), $fields = null ) {
 			if ( ! empty( $settings ) && empty( $fields ) ) {
 				$fields   = $settings;
-				$settings = array();
+				$settings = null;
 			}
-			parent::__construct( $fields, $settings );
+			parent::__construct( null, $settings );
+			$this->fields = $fields;
 			$this->on_init();
 		}
 
