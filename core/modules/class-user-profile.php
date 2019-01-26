@@ -64,12 +64,13 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function init_metabox() {
 			if ( false !== $this->option( 'metabox' ) ) {
+				$heading = ( true === $this->option( 'metabox' ) && ! empty( $this->option( 'heading' ) ) ) ? $this->option( 'heading' ) : $this->option( 'metabox' );
 				if ( wponion_is_array( $this->option( 'metabox' ) ) ) {
 					$metabox = $this->parse_args( $this->option( 'metabox' ), array() );
 				} else {
 					$metabox = array(
-						'metabox_title' => $this->option( 'metabox' ),
-						'metabox_id'    => sanitize_title( $this->option( 'metabox' ) ),
+						'metabox_title' => $heading,
+						'metabox_id'    => sanitize_title( $heading ),
 					);
 				}
 
