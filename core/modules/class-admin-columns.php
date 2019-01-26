@@ -29,6 +29,12 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 	 */
 	class Admin_Columns extends \WPOnion\Bridge\Module {
 		/**
+		 * @var string
+		 * @access
+		 */
+		protected $module = 'admin_columns';
+
+		/**
 		 * already_exists
 		 *
 		 * @var bool
@@ -115,6 +121,15 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 					$this->add_filter( $this->get_hook_name( $type, '_sortable_columns', 'manage_edit-', '' ), 'sortable_column' );
 				}
 			}
+		}
+
+		/**
+		 * Returns Unique Slug ID.
+		 *
+		 * @return string
+		 */
+		public function uid() {
+			return $this->slug();
 		}
 
 		/**
