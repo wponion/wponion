@@ -299,6 +299,8 @@ if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	/**
 	 * Returns a list of non editable fileds type.
 	 *
+	 * @todo check and remove.
+	 *
 	 * @return array
 	 */
 	function wponion_noninput_fields() {
