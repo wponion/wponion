@@ -4,8 +4,13 @@
 	width:     100%;
 	max-width: 100%;
 
-	> .wponion-element, > .wponion-row {
+	> .wponion-element {
 		border: 0;
+
+		&:not(.wponion-ui-field) {
+			padding-left:  0;
+			padding-right: 0;
+		}
 	}
 
 	&.wponion-taxonomy-new-form {
@@ -17,10 +22,4 @@
 	&.wponion-taxonomy-edit-form {
 	}
 
-}
-
-.form-field.wponion-taxonomy {
-	.wponion-element {
-		@include wponion_field_horizontal();
-	}
 }
