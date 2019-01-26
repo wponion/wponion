@@ -327,9 +327,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * Extracts Settings Sections and its sub containers from the $this->fields array.
 		 *
 		 * @param \WPO\Builder|array $fields
-		 * @param bool                                      $is_child
-		 * @param bool                                      $container
-		 * @param bool                                      $first_container
+		 * @param bool               $is_child
+		 * @param bool               $container
+		 * @param bool               $first_container
 		 *
 		 * @uses \WPOnion\Modules\Metabox
 		 * @uses \WPOnion\Modules\Settings
