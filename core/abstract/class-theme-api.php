@@ -142,18 +142,6 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		}
 
 		/**
-		 * Handles Assets Url.
-		 *
-		 * @param string $url
-		 * @param string $ext
-		 *
-		 * @return string
-		 */
-		protected function asset( $url = '', $ext = 'css' ) {
-			return wponion_debug_assets( $this->url( $url ), $ext );
-		}
-
-		/**
 		 * Returns Settings Instance.
 		 *
 		 * @return \WPOnion\Modules\Settings
