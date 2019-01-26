@@ -35,6 +35,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 		 * @param array $settings
 		 */
 		public function __construct( $settings = array() ) {
+			if ( is_string( $settings ) ) {
+				$settings = array( 'option_name' => $settings );
+			}
 			parent::__construct( null, $settings );
 			$this->on_init();
 			$this->add_action( 'admin_notices', 'display_notices' );
@@ -116,7 +119,6 @@ JAVASCRIPT;
 			return array(
 				'option_name' => '_wponion_admin_notices',
 				'ajax_action' => 'remove-admin-notice',
-				'plugin_id'   => false,
 			);
 		}
 

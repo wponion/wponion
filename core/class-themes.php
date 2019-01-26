@@ -86,6 +86,7 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 				'metabox',
 				'taxonomy',
 				'nav_menu',
+				'dashboard_widgets',
 				'user_profile',
 			), 'wponion_wp_modern_theme_init' );
 			self::register( 'wp', array( 'settings', 'metabox', 'woocommerce', 'taxonomy' ), 'wponion_wp_theme_init' );

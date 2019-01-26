@@ -57,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Bar' ) ) {
 		public function __construct( $settings = array(), $fields = null ) {
 			if ( ! empty( $settings ) && empty( $fields ) ) {
 				$fields   = $settings;
-				$settings = null;
+				$settings = array();
 			}
 			parent::__construct( null, $settings );
 			$this->fields = $fields;
