@@ -179,7 +179,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				do_meta_boxes( $screen->id, 'normal', $term );
 				echo '</div>';
 			} else {
-
 				$theme_instance = $this->init_theme();
 				$theme_instance->render_taxonomy_html();
 			}
