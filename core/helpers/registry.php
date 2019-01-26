@@ -73,7 +73,7 @@ if ( ! function_exists( 'wponion_widget_registry' ) ) {
 	 * @return bool
 	 */
 	function wponion_widget_registry( &$instance ) {
-		return wponion_get_registry_instance( 'widget', $instance, 'settings' );
+		return wponion_get_registry_instance( 'widget', $instance, 'module' );
 	}
 }
 
