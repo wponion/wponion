@@ -124,12 +124,12 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		}
 
 		/**
-		 * @param $slug
+		 * @param array $fields
 		 *
 		 * @return $this|\WPO\Container
 		 */
-		public function set_fields( $slug ) {
-			$this->fields = $slug;
+		public function set_fields( $fields ) {
+			$this->fields = $fields;
 			return $this;
 		}
 
