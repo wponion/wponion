@@ -126,5 +126,39 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		public static function is_valid( $data ) {
 			return ( false === Container::is_valid( $data ) && isset( $data['type'] ) );
 		}
+
+
+		/**
+		 * @param $name
+		 * @param $value
+		 */
+		public function __set( $name, $value ) {
+			$this->{$this->array_var}[ $name ] = $value;
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function __get( $name ) {
+			return ( isset( $this->{$this->array_var}[ $name ] ) ) ? $this->{$this->array_var}[ $name ] : false;
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function __isset( $name ) {
+			return ( isset( $this->{$this->array_var}[ $name ] ) );
+		}
+
+		/**
+		 * @param $name
+		 */
+		public function __unset( $name ) {
+			unset( $this->{$this->array_var}[ $name ] );
+		}
 	}
 }
