@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 		 * @param $section
 		 */
 		protected function field_loop( $section ) {
-			$fields = ( $section instanceof \WPOnion\Module_Fields ) ? $section->fields() : $section['fields'];
+			$fields = ( wponion_is_builder( $section, 'container' ) ) ? $section->fields() : $section['fields'];
 			foreach ( $fields as $field ) {
 				if ( 'only' === $this->args['settings']->is_variation( $field ) && false === $this->is_variation ) {
 					continue;
@@ -66,11 +66,11 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 			$this->is_variation = $is_variation;
 
 			if ( false === $is_variation ) {
-				foreach ( $this->fields as $page ) {
+				foreach ( $this->fields->get() as $page ) {
 					if ( 'only' === $this->args['settings']->is_variation( $page ) && false === $this->is_variation ) {
 						continue;
 					}
-					$this->field_loop( $page, $is_variation );
+					$this->field_loop( $page );
 				}
 			} else {
 				foreach ( $this->fields as $field ) {
