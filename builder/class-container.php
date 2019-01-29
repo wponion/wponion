@@ -11,7 +11,10 @@
 
 namespace WPO;
 
+use WPO\Helper\Container\Functions as Container_Functions;
 use WPO\Helper\Container\Helper;
+use WPO\Helper\Field\Functions as Field_Functions;
+use WPO\Helper\Field\Types as Field_Types;
 
 if ( ! class_exists( 'WPO\Container' ) ) {
 	/**
@@ -27,9 +30,27 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 * @access
 		 */
 		protected $custom_data = array();
-		use \WPO\Helper\Container\Functions;
-		use \WPO\Helper\Field\Functions;
-		use \WPO\Helper\Field\Types;
+
+		/**
+		 * Loads Required Container_Functions.
+		 *
+		 * @see \WPO\Helper\Container\Functions
+		 */
+		use Container_Functions;
+
+		/**
+		 * Loads Required Field_Functions.
+		 *
+		 * @see \WPO\Helper\Field\Functions
+		 */
+		use Field_Functions;
+
+		/**
+		 * Loads Required Field_Types.
+		 *
+		 * @see \WPO\Helper\Field\Types
+		 */
+		use Field_Types;
 
 		/**
 		 * Container constructor.
