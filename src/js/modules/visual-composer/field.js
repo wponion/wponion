@@ -163,7 +163,7 @@ export default class extends WPOnion_Field {
 	 * @returns {*}
 	 */
 	input_data() {
-		let $data = this.element.find( ':input:not(.wpb_vc_param_value)' ).serializeObject();
+		let $data = this.element.find( ':input:not(.wpb_vc_param_value)' ).serializeJSON();
 		if( false === window.wponion._.isUndefined( $data[ this.param_name ] ) ) {
 			return $data[ this.param_name ];
 		}

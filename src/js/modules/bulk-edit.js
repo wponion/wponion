@@ -11,7 +11,7 @@ export default ( ( window, document, $ ) => {
 			} );
 
 			$bulk_edit.find( '.wponion-quick-edit-fieldset' ).each( function() {
-				$final_args = window.wponion._.merge( $( this ).serializeObject(), $final_args );
+				$final_args = window.wponion._.merge( $( this ).serializeJSON(), $final_args );
 			} );
 
 			return $wponion.ajax( 'save-bulk-edit', {

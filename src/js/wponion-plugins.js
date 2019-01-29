@@ -1,4 +1,5 @@
-//@wponion-inline ../../node_modules/form-serializer/dist/jquery.serialize-object.min.js
+//@wponion-inline ../../node_modules/jquery-serializejson/jquery.serializejson.min.js
+// @ wponion-inline ../../node_modules/form-serializer/dist/jquery.serialize-object.min.js
 ( function( window, document, wp, $ ) {
 //@wponion-inline ../vendors/jquery-interdependencies/jquery-interdependencies.js
 //@wponion-inline ../vendors/bootstrap/button.js
