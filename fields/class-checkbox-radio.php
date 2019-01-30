@@ -72,7 +72,10 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 					}
 				}
 				echo '</ul>';
-			} elseif ( in_array( $this->element_type(), array( 'switcher', 'checkbox' ) ) ) {
+			} elseif ( in_array( $this->element_type(), array(
+					'switcher',
+					'checkbox',
+				) ) && ! wponion_is_array( $options ) && empty( $options ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			}
 
