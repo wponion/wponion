@@ -166,11 +166,8 @@
 		padding-bottom: 10px;
 
 		pre {
-			margin: 0;
-		}
-
-		pre, code {
-			background: transparent;
+			margin:  0;
+			display: block;
 		}
 
 		&:last-child {
@@ -207,4 +204,14 @@
 		float:          none;
 		vertical-align: middle;
 	}
+}
+
+.wponion-debug-pre {
+	background:  #fcfcfc;
+	border:      1px solid #d5d5d5;
+	padding:     10px;
+	margin:      5px 0;
+	display:     inline-block;
+	line-height: initial;
+	box-shadow:  0 0 3px #d5d5d5 inset;
 }
