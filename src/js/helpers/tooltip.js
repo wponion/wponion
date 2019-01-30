@@ -93,11 +93,16 @@ class field extends WPOnion_Field {
 			$arg = {};
 		}
 
-		if( window.wponion._.isUndefined( $arg.appendTo ) ) {
+		if( false === window.wponion._.isUndefined( $arg.followCursor ) && true === $arg.followCursor && window.wponion._.isUndefined( $arg.appendTo ) ) {
+			$arg.appendTo = () => {
+				return document.body;
+			};
+		} else if( window.wponion._.isUndefined( $arg.appendTo ) ) {
 			$arg.appendTo = () => {
 				return jQuery( 'div.wponion-element[data-wponion-jsid=' + this.id() + ']' )[ 0 ];
 			};
 		}
+
 		delete $arg.image;
 		delete $arg.icon;
 		this.element.tippy( this.handle_args( $arg, $tooltip_key ) );
