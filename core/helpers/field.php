@@ -184,7 +184,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 				$unique    = isset( $unique['unique'] ) ? $unique['unique'] : '';
 			}
 
-			if ( is_string( $base_unique ) || ! isset( $field['id'] ) ) {
+			if ( is_string( $base_unique ) || ! isset( $field['id'] ) || isset( $field['id'] ) && empty( $field['id'] ) ) {
 				$uid = wponion_hash_array( $field );
 			} else {
 				$uid = $field['id'] . '_' . $field['type'] . '_' . $unique . '_' . $hash;

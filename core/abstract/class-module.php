@@ -539,7 +539,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				}
 			}
 
-			return array( 'sub_container_id' => $sub_container_id, 'container_id' => $container_id );
+			return array(
+				'sub_container_id' => $sub_container_id,
+				'container_id'     => $container_id,
+			);
 		}
 
 		/**
@@ -548,6 +551,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param array $field
 		 * @param bool  $hash
 		 * @param bool  $is_init_field
+		 *
+		 * @uses \wponion_add_element()
+		 * @uses \wponion_field()
 		 *
 		 * @return mixed
 		 */
