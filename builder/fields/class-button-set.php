@@ -32,16 +32,6 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		protected $type = 'button_set';
 
 		/**
-		 * @param $multiple
-		 *
-		 * @return $this
-		 */
-		public function set_multiple( $multiple ) {
-			$this['multiple'] = $multiple;
-			return $this;
-		}
-
-		/**
 		 * @param $size
 		 *
 		 * @return $this

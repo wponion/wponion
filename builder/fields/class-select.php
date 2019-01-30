@@ -54,9 +54,12 @@ if ( ! class_exists( 'WPO\Select' ) ) {
 		 *
 		 * @param string     $framework Select Framework Name.
 		 * @param bool|array $options For Options please visit Select Frameworks Website to know more about arguments.
+		 *
+		 * @return \WPO\Select
 		 */
 		public function set_select_framework( $framework, $options = true ) {
 			$this[ $framework ] = $options;
+			return $this;
 		}
 
 		/**
@@ -70,6 +73,8 @@ if ( ! class_exists( 'WPO\Select' ) ) {
 		 *
 		 * @param string     $framework Select Framework Name.
 		 * @param bool|array $options For Options please visit Select Frameworks Website to know more about arguments.
+		 *
+		 * @return \WPO\Select
 		 */
 		public function select_framework( $framework, $options = true ) {
 			return $this->set_select_framework( $framework, $options );
