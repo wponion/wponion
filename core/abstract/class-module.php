@@ -316,7 +316,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @param array $values
 		 */
-		protected function set_db_values( $values = array() ) {
+		protected function set_db_values( $values ) {
 			$this->db_values = $values;
 			wponion_update_option( $this->unique(), $values );
 		}

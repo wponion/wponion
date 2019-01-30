@@ -247,7 +247,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				}
 			}
 			if ( ! empty( $default ) ) {
-				$this->set_db_values();
+				$this->set_db_values( array() );
 			}
 			$this->set_cache( $this->options_cache );
 		}
@@ -274,8 +274,10 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 		/**
 		 * Saves Options.
+		 *
+		 * @param $values
 		 */
-		public function set_db_values() {
+		public function set_db_values( $values ) {
 			update_option( $this->unique, $this->db_values );
 		}
 
@@ -499,8 +501,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Checks if Option Loop Is Valid
 		 *
 		 * @param array|\WPO\Container $container
-		 * @param bool                                        $sub_container
-		 * @param bool                                        $check_current_page
+		 * @param bool                 $sub_container
+		 * @param bool                 $check_current_page
 		 *
 		 * @return bool
 		 */
