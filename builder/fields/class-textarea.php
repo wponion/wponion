@@ -13,7 +13,7 @@ namespace WPO;
 
 if ( ! class_exists( 'WPO\Textarea' ) ) {
 	/**
-	 * Class Text
+	 * Class Textarea
 	 *
 	 * @package WPO
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPO\Textarea' ) ) {
 		/**
 		 * @param int $rows
 		 *
-		 * @return $this
+		 * @return \WPO\Textarea
 		 */
 		public function set_rows( $rows = 5 ) {
 			$this['rows'] = $rows;
@@ -48,7 +48,7 @@ if ( ! class_exists( 'WPO\Textarea' ) ) {
 		/**
 		 * @param int $cols
 		 *
-		 * @return $this
+		 * @return \WPO\Textarea
 		 */
 		public function set_cols( $cols = 5 ) {
 			$this['cols'] = $cols;
