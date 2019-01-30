@@ -23,12 +23,12 @@ if ( ! class_exists( 'WPO\Subheading' ) ) {
 		/**
 		 * Subheading constructor.
 		 *
+		 * @param bool  $content
 		 * @param bool  $id
-		 * @param bool  $title
 		 * @param array $args
 		 */
-		public function __construct( $id = false, $title = false, $args = array() ) {
-			parent::__construct( $id, $title, $args );
+		public function __construct( $content = false, $id = false, $args = array() ) {
+			parent::__construct( $content, $id, $args );
 			$this['type'] = 'subheading';
 		}
 	}

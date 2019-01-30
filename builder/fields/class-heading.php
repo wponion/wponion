@@ -21,14 +21,14 @@ if ( ! class_exists( 'WPO\Heading' ) ) {
 	 */
 	class Heading extends Field {
 		/**
-		 * Notice constructor.
+		 * Subheading constructor.
 		 *
+		 * @param bool  $content
 		 * @param bool  $id
-		 * @param bool  $title
 		 * @param array $args
 		 */
-		public function __construct( $id = false, $title = false, $args = array() ) {
-			parent::__construct( 'heading', $id, $title, $args );
+		public function __construct( $content = false, $id = false, $args = array() ) {
+			parent::__construct( 'heading', $id, false, $this->parse_args( array( 'content' => $content ), $args ) );
 		}
 
 		/**
@@ -41,6 +41,9 @@ if ( ! class_exists( 'WPO\Heading' ) ) {
 			return $this;
 		}
 
+		/**
+		 * @return array
+		 */
 		public function defaults() {
 			return array(
 				'content' => false,
