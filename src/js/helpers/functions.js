@@ -100,6 +100,40 @@ export default ( ( window, document, $, jQuery ) => {
 			let $_instance_id = jQuery( this ).attr( 'data-tippy-instance-id' );
 			return ( undefined !== window[ $_instance_id ] ) ? window[ $_instance_id ] : false;
 		},
+
+		/**
+		 * Copy Element Attr To Another Attr.
+		 * @param from
+		 * @param to
+		 */
+		copyAttr: function( from, to ) {
+			if( jQuery( this ).length > 1 ) {
+				jQuery( this ).each( function() {
+					jQuery( this ).copyAttr( from, to );
+				} );
+			} else {
+				var $existing = jQuery( this ).attr( from );
+				if( typeof $existing !== 'undefined' || $existing !== undefined ) {
+					jQuery( this ).attr( to, $existing );
+				}
+			}
+		},
+
+		/**
+		 * Move Element Attr To Another Attr.
+		 * @param from
+		 * @param to
+		 */
+		moveAttr: function( from, to ) {
+			if( jQuery( this ).length > 1 ) {
+				jQuery( this ).each( function() {
+					jQuery( this ).moveAttr( from, to );
+				} );
+			} else {
+				jQuery( this ).copyAttr( from, to );
+				jQuery( this ).removeAttr( from );
+			}
+		}
 	} );
 
 	/**
