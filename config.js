@@ -97,6 +97,13 @@ $_json[ 'js' ]           = {
 		webpack_dev: false,
 		babel: true,
 	},
+	"src/js/wponion-backbone-cloner.js": {
+		dist: "assets/js",
+		concat: "wponion-backbone-cloner.js",
+		webpack: true,
+		webpack_dev: true,
+		babel: true,
+	},
 
 	/**
 	 * Plugins.

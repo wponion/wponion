@@ -636,7 +636,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			}
 
 			if ( $this->data( 'debug' ) || wponion_field_debug() ) {
-				$r      = '<div class="wponion-field-debug-code wponion-framework-bootstrap">';
+				$r      = '<div class="wponion-field-debug-code wponion-framework">';
 				$field  = var_export( $this->orginal_field, true );
 				$value  = var_export( $this->orginal_value, true );
 				$unique = var_export( $this->orginal_unique, true );
@@ -654,9 +654,9 @@ PHP;
 				$usage  = wponion_highlight_string( $usage );
 
 				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ' ) . '</strong>';
-				$r .= '<div ><code>' . $code . '</code></div>';
+				$r .= '<div >' . htmlentities($code) . '</div>';
 				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ' ) . '</strong>';
-				$r .= '<div style="display: none;"><code>' . $usage . '</code></div>';
+				$r .= '<div style="display: none;">' . $usage . '</div>';
 
 				$base   = $this->base_unique();
 				$unique = str_replace( array( $base, '][', ']', '[' ), array(
@@ -677,7 +677,7 @@ PHP;
 					$usage      = wponion_highlight_string( $_code );
 
 					$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'VALUE : ' ) . '</strong>';
-					$r .= '<div style="display: none;"><code>' . $usage . '</code></div>';
+					$r .= '<div style="display: none;">' . $usage . '</div>';
 				}
 
 				$r .= '<div class="alert alert-warning">' . __( 'Debug Information shown only if field has debug attribute enabled or define( <code>WPONION_FIELD_DEBUG</code> ) is set to true' ) . '</div>';
