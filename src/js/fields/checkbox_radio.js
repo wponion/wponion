@@ -10,45 +10,53 @@ class field extends WPOnion_Field {
 			let $radios       = this.element.find( 'input[type=radio]' );
 			let $checkbox     = this.element.find( 'input[type=checkbox]' );
 
-			$custom_input.each( function() {
-				jQuery( this ).attr( 'data-name', jQuery( this ).attr( 'name' ) );
-				jQuery( this ).removeAttr( 'name' );
-			} );
-
+			$custom_input.moveAttr( 'name', 'data-name' );
 
 			$radios.each( ( i, e ) => {
 				if( jQuery( e ).is( ':checked' ) ) {
 					if( jQuery( e ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
-						$custom_input.removeAttr( 'name' );
-						let $i = jQuery( e ).parent().find( '.wponion-custom-value-input' );
-						$i.attr( 'name', $i.attr( 'data-name' ) );
+						$custom_input.moveAttr( 'name', 'data-name' );
+						jQuery( e ).parent().find( '.wponion-custom-value-input' ).moveAttr( 'data-name', 'name' );
 					}
 				}
 			} );
 
 			$radios.on( 'click', ( e ) => {
+				$custom_input.moveAttr( 'name', 'data-name' );
 				if( jQuery( e.currentTarget ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
-					$custom_input.removeAttr( 'name' );
-					let $i = jQuery( e.currentTarget ).parent().find( '.wponion-custom-value-input' );
-					$i.attr( 'name', $i.attr( 'data-name' ) );
+					jQuery( e.currentTarget )
+						.parent()
+						.find( '.wponion-custom-value-input' )
+						.moveAttr( 'data-name', 'name' );
 				}
 			} );
 
 			$checkbox.each( ( i, e ) => {
-				if( jQuery( e ).is( ':checked' ) ) {
-					if( jQuery( e ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
-						jQuery( e ).removeAttr( 'name' );
-						let $i = jQuery( e ).parent().find( '.wponion-custom-value-input' );
-						$i.attr( 'name', $i.attr( 'data-name' ) );
+				if( jQuery( e ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
+					if( jQuery( e ).is( ':checked' ) ) {
+						jQuery( e ).moveAttr( 'name', 'data-name' );
+						jQuery( e ).parent().find( '.wponion-custom-value-input' ).moveAttr( 'data-name', 'name' );
+					} else {
+						jQuery( e ).moveAttr( 'name', 'data-name' );
+						jQuery( e ).parent().find( '.wponion-custom-value-input' ).moveAttr( 'name', 'data-name' );
 					}
 				}
 			} );
 
 			$checkbox.on( 'click', ( e ) => {
 				if( jQuery( e.currentTarget ).parent().find( '.wponion-custom-value-input' ).length > 0 ) {
-					jQuery( e.currentTarget ).removeAttr( 'name' );
-					let $i = jQuery( e.currentTarget ).parent().find( '.wponion-custom-value-input' );
-					$i.attr( 'name', $i.attr( 'data-name' ) );
+					if( jQuery( e.currentTarget ).is( ':checked' ) ) {
+						jQuery( e.currentTarget ).moveAttr( 'name', 'data-name' );
+						jQuery( e.currentTarget )
+							.parent()
+							.find( '.wponion-custom-value-input' )
+							.moveAttr( 'data-name', 'name' );
+					} else {
+						jQuery( e.currentTarget )
+							.parent()
+							.find( '.wponion-custom-value-input' )
+							.moveAttr( 'name', 'data-name' );
+					}
 				}
 			} );
 		}
