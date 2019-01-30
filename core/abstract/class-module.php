@@ -312,6 +312,16 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Updates Values To Database.
+		 *
+		 * @param array $values
+		 */
+		protected function set_db_values( $values = array() ) {
+			$this->db_values = $values;
+			wponion_update_option( $this->unique(), $values );
+		}
+
+		/**
 		 * Returns a default array.
 		 *
 		 * @return array
