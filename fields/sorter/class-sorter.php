@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 			echo $this->before();
 			$value = $this->get_element_values();
 
-			$wrap_class = ( ! empty( $value['enabled'] ) && ! empty( $value['disabled'] ) ) ? 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6' : 'col-xs-12';
+			$wrap_class = ( ! empty( $value['enabled'] ) && ! empty( $value['disabled'] ) ) ? 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6' : 'col-xs-12 col-sm-12 col-md-6';
 
 			echo '<div class="row">';
 			if ( ! empty( $value['enabled'] ) ) {
