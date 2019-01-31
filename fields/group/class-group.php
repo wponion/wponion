@@ -48,6 +48,13 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		protected $loop_value = array();
 
 		/**
+		 * loop_value
+		 *
+		 * @var array
+		 */
+		protected $sub_fields_ids = false;
+
+		/**
 		 * Creates / inits its sub fields.
 		 */
 		protected function init_subfields() {
@@ -200,11 +207,10 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 * @return array|bool
 		 */
 		protected function get_first_field() {
-			static $fields_ids = false;
-			if ( false === $fields_ids ) {
-				$fields_ids = wponion_fields_all_ids_defaults( $this->data( 'fields' ), false );
+			if ( false === $this->sub_fields_ids ) {
+				$this->sub_fields_ids = wponion_fields_all_ids_defaults( $this->data( 'fields' ), false );
 			}
-			return $fields_ids;
+			return $this->sub_fields_ids;
 		}
 
 		/**
