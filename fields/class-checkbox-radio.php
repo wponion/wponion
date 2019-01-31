@@ -53,6 +53,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			$options = $this->data( 'options' );
 			$options = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$this->catch_output( 'start' );
+
 			if ( wponion_is_array( $options ) && ! empty( $options ) ) {
 				echo '<ul>';
 				foreach ( $options as $option_key => $option ) {
@@ -72,7 +73,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 					}
 				}
 				echo '</ul>';
-			} elseif ( 'checkbox' === $this->element_type() && ! wponion_is_array( $options ) && empty( $options ) ) {
+			} elseif ( 'checkbox' === $this->element_type() && empty( $options ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			} elseif ( 'switcher' === $this->element_type() ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
