@@ -90,9 +90,12 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		 * ),
 		 *
 		 * @param array $args
+		 *
+		 * @return $this
 		 */
 		public function set_icon_tooltip( $args = array() ) {
 			$this['icon_tooltip'] = $args;
+			return $this;
 		}
 
 		/**
