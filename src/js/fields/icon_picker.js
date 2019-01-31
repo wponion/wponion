@@ -36,10 +36,11 @@ class field extends WPOnion_Field {
 				if( $args.popup_tooltip !== 'false' ) {
 					let $tp      = ( typeof $args.popup_tooltip === 'object' ) ? $args.popup_tooltip : {};
 					$tp.appendTo = $work.elm[ 0 ];
+					$tp          = $wponion.js_func( $tp );
 					if( $work.elems.length > 0 ) {
 						$work.elems.each( function() {
-							delete $tp.content;
-							jQuery( this ).tippy( $tp );
+							let $ep = window.wponion._.cloneDeep( $tp );
+							jQuery( this ).tippy( $ep );
 						} );
 					}
 				}
