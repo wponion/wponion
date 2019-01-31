@@ -637,7 +637,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 			if ( $this->data( 'debug' ) || wponion_field_debug() ) {
 				$r      = '<div class="wponion-field-debug-code wponion-framework">';
-				$field  = var_export( $this->orginal_field, true );
+				$_field = $this->orginal_field;
+				unset( $_field['__instance'] );
+				$field  = var_export( $_field, true );
 				$value  = var_export( $this->orginal_value, true );
 				$unique = var_export( $this->orginal_unique, true );
 				$code   = <<<PHP
@@ -654,7 +656,7 @@ PHP;
 				$usage  = wponion_highlight_string( $usage );
 
 				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ' ) . '</strong>';
-				$r .= '<div >' . htmlentities($code) . '</div>';
+				$r .= '<div >' . htmlentities( $code ) . '</div>';
 				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ' ) . '</strong>';
 				$r .= '<div style="display: none;">' . $usage . '</div>';
 
