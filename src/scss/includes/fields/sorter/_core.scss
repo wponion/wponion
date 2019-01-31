@@ -4,41 +4,9 @@
 		@include wponion_ui_sortable_placeholder();
 	}
 
-	.wponion-modules {
-		float: left;
-		width: 50%;
-	}
-
-	.wponion-enabled {
-		margin-right: 15px;
-	}
-
-	.wponion-disabled, .wponion-enabled {
-		padding:          5px 15px;
-		border:           1px dashed #ddd;
-		background-color: #fff;
-	}
-
-	.wponion-disabled {
-		li {
-			transition: opacity 0.15s;
-			opacity:    0.5;
-		}
-
-		.ui-sortable-helper {
-			opacity: 1;
-		}
-	}
-
-	h3 {
-		font-size: 14px;
-		margin:    0 0 15px 0;
-	}
-
 	ul {
 		list-style-type: none;
 		margin:          0;
-		padding:         0;
 		min-height:      62px;
 
 		li {
@@ -54,6 +22,33 @@
 			&:hover {
 				border-color: #bbb;
 			}
+		}
+	}
+
+	.wponion-disabled, .wponion-enabled {
+		padding:          5px 15px;
+		border:           1px dashed #ddd;
+		background-color: #fff;
+	}
+
+	.wponion-modules {
+		> .wponion-element-subheading {
+			border: 1px dashed #ddd;
+
+			& + .wponion-disabled, & + .wponion-enabled {
+				border-top: none;
+			}
+		}
+	}
+
+	.wponion-disabled {
+		li {
+			transition: opacity 0.15s;
+			opacity:    0.5;
+		}
+
+		.ui-sortable-helper {
+			opacity: 1;
 		}
 	}
 }
