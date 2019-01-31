@@ -30,23 +30,44 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 		protected function output() {
 			echo $this->before();
 			$value = $this->get_element_values();
-			echo '<div class="wponion-modules"> <h3>' . $this->field ['enabled_title'] . '</h3>';
-			echo '<ul class="wponion-enabled">';
-			if ( ! empty( $value ['enabled'] ) ) {
-				foreach ( $value ['enabled'] as $id => $_name ) {
-					echo '<li><input type="hidden" name="' . $this->name( '[enabled][' . $id . ']' ) . '" value="' . $_name . '"/><label>' . $_name . '</label></li>';
-				}
-			}
-			echo '</ul></div>';
 
-			echo '<div class="wponion-modules"> <h3>' . $this->field ['disabled_title'] . '</h3>';
-			echo '<ul class="wponion-disabled">';
-			if ( ! empty( $value ['disabled'] ) ) {
-				foreach ( $value ['disabled'] as $id => $_name ) {
-					echo '<li><input type="hidden" name="' . $this->name( '[disabled][' . $id . ']' ) . '" value="' . $_name . '"/><label>' . $_name . '</label></li>';
+			$wrap_class = ( ! empty( $value['enabled'] ) && ! empty( $value['disabled'] ) ) ? 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6' : 'col-xs-12';
+
+			echo '<div class="row">';
+			if ( ! empty( $value['enabled'] ) ) {
+				echo '<div class="wponion-modules ' . $wrap_class . '">';
+				if ( ! empty( $this->field ['enabled_title'] ) ) {
+					echo $this->sub_field( array(
+						'type'    => 'subheading',
+						'content' => $this->field ['enabled_title'],
+					), null, null );
 				}
+				echo '<ul class="wponion-enabled">';
+				if ( ! empty( $value ['enabled'] ) ) {
+					foreach ( $value ['enabled'] as $id => $_name ) {
+						echo '<li><input type="hidden" name="' . $this->name( '[enabled][' . $id . ']' ) . '" value="' . $_name . '"/><label>' . $_name . '</label></li>';
+					}
+				}
+				echo '</ul></div>';
 			}
-			echo '</ul> </div>';
+
+			if ( ! empty( $value['disabled'] ) ) {
+				echo '<div class="wponion-modules ' . $wrap_class . '">';
+				if ( ! empty( $this->field ['disabled_title'] ) ) {
+					echo $this->sub_field( array(
+						'type'    => 'subheading',
+						'content' => $this->field ['disabled_title'],
+					), null, null );
+				}
+				echo '<ul class="wponion-disabled">';
+				if ( ! empty( $value ['disabled'] ) ) {
+					foreach ( $value ['disabled'] as $id => $_name ) {
+						echo '<li><input type="hidden" name="' . $this->name( '[disabled][' . $id . ']' ) . '" value="' . $_name . '"/><label>' . $_name . '</label></li>';
+					}
+				}
+				echo '</ul> </div>';
+			}
+			echo '</div>';
 			//echo '<div class="clear"></div>';
 			echo $this->after();
 		}
