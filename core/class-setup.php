@@ -196,6 +196,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			/**
 			 * Registers UI Field.
 			 */
+			\wponion_register_ui_field( 'divider', 'all' );
 			\wponion_register_ui_field( 'content', 'all' );
 			\wponion_register_ui_field( 'heading', 'all' );
 			\wponion_register_ui_field( 'iframe', 'all' );
