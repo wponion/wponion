@@ -27,11 +27,24 @@ if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 	 * @since 1.0
 	 */
 	class Notice extends Heading {
-
+		/**
+		 * @var string
+		 * @access
+		 */
 		protected $notice_type = 'success';
 
+		/**
+		 * @param array $data
+		 *
+		 * @return array
+		 */
 		public function handle_field_args( $data = array() ) {
-			$data['type'] = 'notice';
+			$data['type']            = 'notice';
+			$data['wrap_attributes'] = ( isset( $data['wrap_attribtues'] ) ) ? $data['wrap_attribtues'] : array();
+
+			if ( false !== $data['autoclose'] ) {
+				$data['wrap_attributes']['data-autoclose'] = intval( $data['autoclose'] );
+			}
 			return $data;
 		}
 
@@ -42,7 +55,13 @@ if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 			echo $this->before();
 			$auto_close = ( false === $this->data( 'autoclose' ) ) ? '' : ' data-autoclose="' . intval( $this->data( 'autoclose' ) ) . '" ';
 			echo '<div class="alert alert-' . $this->data( 'notice_type' ) . '" ' . $auto_close . '>';
-			echo $this->data( 'content' );
+			$content = $this->data( 'content' );
+			$content = str_replace( array(
+				'[count]',
+				'[counter]',
+			), '<span class="wpo-counter">' . intval( $this->data( 'autoclose' ) / 1000 ) . '</span>', $content );
+			echo $content;
+
 			if ( true === $this->data( 'close' ) && false === $this->data( 'autoclose' ) ) {
 				echo '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide' ) . '"></a>';
 			}

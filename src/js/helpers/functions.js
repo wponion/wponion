@@ -150,29 +150,46 @@ export default ( ( window, document, $, jQuery ) => {
 	 * @returns {*}
 	 */
 	window.wponion_notice = ( $elem ) => {
-		if( $elem.find( '.wponion-remove' ).length > 0 ) {
+		if( $elem.length > 1 ) {
 			$elem.each( function() {
-				let $_el = jQuery( this );
-				jQuery( this ).find( '.wponion-remove' ).tippy( {
-					appendTo: () => jQuery( this )[ 0 ],
-				} );
-				jQuery( this ).find( '.wponion-remove' ).on( 'click', function() {
-					$_el.slideUp( 'slow', function() {
-						$_el.remove();
+				wponion_notice( jQuery( this ) );
+			} );
+		} else {
+			if( $elem.find( '.wponion-remove' ).length > 0 ) {
+				$elem.each( function() {
+					let $_el = jQuery( this );
+					jQuery( this ).find( '.wponion-remove' ).tippy( {
+						appendTo: () => jQuery( this )[ 0 ],
+					} );
+					jQuery( this ).find( '.wponion-remove' ).on( 'click', function() {
+						$_el.slideUp( 'slow', function() {
+							$_el.remove();
+						} );
 					} );
 				} );
-			} );
-			return $elem;
-		}
+				return $elem;
+			}
 
-		let $auto = $elem.attr( 'data-autoclose' );
-		if( $auto ) {
-			$auto = parseInt( $auto );
-			setTimeout( () => {
-				$elem.slideUp( 'slow', () => {
-					$elem.remove();
-				} );
-			}, $auto );
+			let $auto = $elem.attr( 'data-autoclose' );
+			if( $auto ) {
+				$auto     = parseInt( $auto );
+				let $left = $auto / 1000;
+				if( $elem.find( '.wpo-counter' ).length === 1 ) {
+					let $runnder = setInterval( function() {
+						$elem.find( '.wpo-counter' ).html( $left );
+						$left -= 1;
+						if( $left < 0 ) {
+							clearInterval( $runnder );
+							$elem.find( '.wpo-counter' ).html( '0' );
+						}
+					}, 900 );
+				}
+				setTimeout( () => {
+					$elem.slideUp( 'slow', () => {
+						$elem.remove();
+					} );
+				}, $auto );
+			}
 		}
 	};
 
