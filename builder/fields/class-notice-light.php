@@ -23,12 +23,12 @@ if ( ! class_exists( 'WPO\Notice_Light' ) ) {
 		/**
 		 * Notice_Light constructor.
 		 *
+		 * @param bool  $content
 		 * @param bool  $id
-		 * @param bool  $title
 		 * @param array $args
 		 */
-		public function __construct( $id = false, $title = false, $args = array() ) {
-			parent::__construct( $id, $title, $args );
+		public function __construct( $content = false, $id = false, $args = array() ) {
+			parent::__construct( $content, $id, $args );
 			$this['notice_type'] = 'light';
 		}
 	}
