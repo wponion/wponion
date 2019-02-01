@@ -210,12 +210,12 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'notice_success', 'all' );
 			\wponion_register_ui_field( 'notice_warning', 'all' );
 			\wponion_register_ui_field( 'subheading', 'all' );
-			\wponion_register_ui_field( 'wp_error_notice', 'all' );
-			\wponion_register_ui_field( 'wp_info_notice', 'all' );
 			\wponion_register_ui_field( 'wp_list_table', 'all' );
 			\wponion_register_ui_field( 'wp_notice', 'all' );
-			\wponion_register_ui_field( 'wp_success_notice', 'all' );
-			\wponion_register_ui_field( 'wp_warning_notice', 'all' );
+			\wponion_register_ui_field( 'wp_notice_success', 'all' );
+			\wponion_register_ui_field( 'wp_notice_warning', 'all' );
+			\wponion_register_ui_field( 'wp_notice_error', 'all' );
+			\wponion_register_ui_field( 'wp_notice_info', 'all' );
 			\wponion_register_ui_field( 'change_log', 'all' );
 
 			do_action( 'wponion_core_fields_registered' );
