@@ -21,23 +21,23 @@ if ( ! class_exists( 'WPO\Divider' ) ) {
 	 */
 	class Divider extends Field {
 		/**
-		 * Dimensions constructor.
+		 * Divider constructor.
 		 *
-		 * @param bool $style
+		 * @param $text
 		 */
-		public function __construct( $style = false ) {
+		public function __construct( $text ) {
 			parent::__construct( 'divider', false, false, array(
-				'hr_style' => $style,
+				'text' => $text,
 			) );
 		}
 
 		/**
-		 * @param $hr_style
+		 * @param $text
 		 *
 		 * @return $this
 		 */
-		public function set_hr_style( $hr_style ) {
-			$this['hr_style'] = $hr_style;
+		public function set_text( $text ) {
+			$this['text'] = $text;
 			return $this;
 		}
 
@@ -46,7 +46,7 @@ if ( ! class_exists( 'WPO\Divider' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'hr_style' => '15',
+				'text' => false,
 			);
 		}
 	}

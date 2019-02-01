@@ -33,7 +33,8 @@ if ( ! class_exists( '\WPOnion\Field\Divider' ) ) {
 		 * Final HTML Output
 		 */
 		public function output() {
-			echo '<hr class="style' . $this->data( 'hr_style' ) . '"/>';
+			$text = ( false !== $this->data( 'text' ) ) ? ' data-content="' . $this->data( 'text' ) . '" ' : '';
+			echo '<hr class="hr-text" ' . $text . '/>';
 		}
 
 		public function field_assets() {
@@ -47,7 +48,7 @@ if ( ! class_exists( '\WPOnion\Field\Divider' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'hr_style' => '18',
+				'text' => false,
 			);
 		}
 	}
