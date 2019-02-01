@@ -66,7 +66,6 @@ if ( ! class_exists( '\WPOnion\Field\Iframe' ) ) {
 		protected function field_default() {
 			return array(
 				'heading' => false,
-				'content' => false,
 				'url'     => false,
 				'height'  => '100%',
 				'width'   => '100%',
