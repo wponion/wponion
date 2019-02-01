@@ -145,10 +145,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$field_autoloader->add( 'WPOnion\Field\Notice_Secondary', WPONION_PATH . '/fields/notice/class-notice-secondary.php' );
 			self::$field_autoloader->add( 'WPOnion\Field\Notice_Success', WPONION_PATH . '/fields/notice/class-notice-success.php' );
 			self::$field_autoloader->add( 'WPOnion\Field\Notice_Warning', WPONION_PATH . '/fields/notice/class-notice-warning.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\WP_Error_Notice', WPONION_PATH . '/fields/wp-notice/class-wp-error-notice.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\WP_Info_Notice', WPONION_PATH . '/fields/wp-notice/class-wp-info-notice.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\WP_Success_Notice', WPONION_PATH . '/fields/wp-notice/class-wp-success-notice.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\WP_Warning_Notice', WPONION_PATH . '/fields/wp-notice/class-wp-warning-notice.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\WP_Notice_Error', WPONION_PATH . '/fields/wp-notice/class-wp-notice-error.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\WP_Notice_Info', WPONION_PATH . '/fields/wp-notice/class-wp-notice-info.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\WP_Notice_Success', WPONION_PATH . '/fields/wp-notice/class-wp-notice-success.php' );
+			self::$field_autoloader->add( 'WPOnion\Field\WP_Notice_Warning', WPONION_PATH . '/fields/wp-notice/class-wp-notice-warning.php' );
 		}
 
 		/**
