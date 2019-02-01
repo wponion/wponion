@@ -11,7 +11,7 @@
 
 namespace WPO;
 
-if ( ! class_exists( 'WPO\WP_Notice' ) ) {
+if ( ! class_exists( 'WPO\WP_Notice_Info' ) ) {
 	/**
 	 * Class WP_Notice
 	 *
@@ -22,9 +22,9 @@ if ( ! class_exists( 'WPO\WP_Notice' ) ) {
 	 * @method large()
 	 * @method alt()
 	 */
-	class WP_Notice extends Notice {
+	class WP_Notice_Info extends WP_Notice {
 		/**
-		 * WP_Notice constructor.
+		 * WP_Info_Notice constructor.
 		 *
 		 * @param bool  $content
 		 * @param bool  $id
@@ -32,38 +32,7 @@ if ( ! class_exists( 'WPO\WP_Notice' ) ) {
 		 */
 		public function __construct( $content = false, $id = false, $args = array() ) {
 			parent::__construct( $content, $id, $args );
-			$this['type'] = 'wp_notice';
+			$this['notice_type'] = 'info';
 		}
-
-		/**
-		 * @param bool $large
-		 *
-		 * @return $this
-		 */
-		public function set_large( $large = false ) {
-			$this['large'] = $large;
-			return $this;
-		}
-
-		/**
-		 * @param bool $alt
-		 *
-		 * @return $this
-		 */
-		public function set_alt( $alt = false ) {
-			$this['alt'] = $alt;
-			return $this;
-		}
-
-		/**
-		 * @return array
-		 */
-		public function defaults() {
-			return $this->parse_args( array(
-				'large' => false,
-				'alt'   => false,
-			), parent::defaults() );
-		}
-
 	}
 }
