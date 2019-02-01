@@ -220,7 +220,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 	function wponion_add_element( $field = array(), $value = array(), $unique = '' ) {
 		if ( false === wponion_get_field_type( $field ) ) {
 			return wponion_add_element( array(
-				'type'    => 'wp_error_notice',
+				'type'    => 'wp_notice_error',
 				'alt'     => true,
 				'large'   => true,
 				'content' => sprintf( __( '<p>Requested Field Type <code>%s</code>  Is Not Registed With WPOnion</p>' ), wponion_get_field_type( $field, false ) ),

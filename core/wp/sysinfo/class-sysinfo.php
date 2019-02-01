@@ -79,7 +79,7 @@ JAVASCRIPT;
 			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ' ) . '</p>';
 			$_content .= '<a href="#" data-another-text="' . __( 'Copy Report' ) . '" class="button-primary wponion-debug-report">' . __( 'Get system report' ) . '</a>';
 			echo wponion_add_element( array(
-				'type'    => 'wp_info_notice',
+				'type'    => 'wp_notice_info',
 				'large'   => true,
 				'alt'     => true,
 				'close'   => false,

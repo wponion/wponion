@@ -66,7 +66,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 
 			if ( false === $this->select_framework && true === $this->data( 'ajax' ) ) {
 				echo wponion_add_element( array(
-					'type'    => 'wp_error_notice',
+					'type'    => 'wp_notice_error',
 					'before'  => '<br/>',
 					'large'   => true,
 					'alt'     => true,
