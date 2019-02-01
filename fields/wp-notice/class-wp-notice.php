@@ -53,7 +53,13 @@ if ( ! class_exists( '\WPOnion\Field\WP_Notice' ) ) {
 			$notice_class .= ( true === $this->data( 'large' ) ) ? ' notice-large ' : ' ';
 			$notice_class .= ( true === $this->data( 'alt' ) ) ? ' notice-alt ' : ' ';
 			echo '<div class="' . $notice_class . '" ' . $auto_close . '>';
-			echo $this->data( 'content' );
+			$content = $this->data( 'content' );
+			$content = str_replace( array(
+				'[count]',
+				'[counter]',
+			), '<span class="wpo-counter">' . intval( $this->data( 'autoclose' ) / 1000 ) . '</span>', $content );
+			echo $content;
+
 			if ( true === $this->data( 'close' ) && false === $this->data( 'autoclose' ) ) {
 				echo '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide' ) . '"></a>';
 			}
