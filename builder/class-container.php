@@ -177,6 +177,13 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		}
 
 		/**
+		 * @return bool
+		 */
+		public function is_separator() {
+			return ( $this->separator );
+		}
+
+		/**
 		 * Checks if Given data is valid container data.
 		 *
 		 * @param $args

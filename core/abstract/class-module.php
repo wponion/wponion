@@ -370,7 +370,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 							$menu = $this->handle_single_menu( $field, $is_child, $container, $first_container );
 							if ( false !== $menu ) {
 								$return[ $menu['name'] ]                 = $menu;
-								$return[ $menu['name'] ]['is_seperator'] = isset( $menu['seperator'] ) ? $menu['seperator'] : false;
+								$return[ $menu['name'] ]['is_separator'] = isset( $menu['separator'] ) ? $menu['separator'] : false;
 							}
 						}
 					}
@@ -446,6 +446,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'part_href'        => $part_href,
 				'query_args'       => $menu->query_args(),
 				'class'            => $menu->class(),
+				'separator'        => $menu->is_separator(),
 			);
 		}
 

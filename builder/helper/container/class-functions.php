@@ -69,6 +69,19 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		}
 
 		/**
+		 * @param bool $instance_or_slug
+		 * @param bool $title
+		 * @param bool $icon
+		 *
+		 * @return $this|bool|false|\WPO\Container
+		 */
+		public function separator( $instance_or_slug = false, $title = false, $icon = false ) {
+			$_container = $this->container( $instance_or_slug, $title, $icon );
+			$_container->set_separator( true );
+			return $_container;
+		}
+
+		/**
 		 * @param bool $container_slug_or_instance
 		 * @param bool $title
 		 * @param bool $icon

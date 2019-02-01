@@ -23,6 +23,14 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		protected $title = false;
 
 		/**
+		 * Container separator.
+		 *
+		 * @var bool
+		 * @access
+		 */
+		protected $separator = false;
+
+		/**
 		 * Container Slug / Name.
 		 *
 		 * @var bool
@@ -187,6 +195,16 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 */
 		public function set_href( $href ) {
 			$this->href = $href;
+			return $this;
+		}
+
+		/**
+		 * @param $separator
+		 *
+		 * @return $this|\WPO\Container
+		 */
+		public function set_separator( $separator ) {
+			$this->separator = $separator;
 			return $this;
 		}
 

@@ -137,7 +137,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					$this->find_active_menu();
 					$menus = $this->settings_menus();
 					foreach ( $menus as $id => $_menu ) {
-						if ( isset( $_menu['is_seperator'] ) && true == $_menu['is_seperator'] ) {
+						if ( isset( $_menu['is_separator'] ) && true == $_menu['is_separator'] ) {
 							continue;
 						}
 						add_submenu_page( $menu['menu_slug'], $_menu['title'], $_menu['title'], $menu['capability'], $id, $callback );

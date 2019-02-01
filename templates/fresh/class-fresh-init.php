@@ -87,7 +87,7 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 
 			if ( wponion_is_array( $menus ) ) {
 				foreach ( $menus as $slug => $menu ) {
-					if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
+					if ( isset( $menu['is_separator'] ) && true === $menu['is_separator'] ) {
 						continue;
 					}
 					$sub_menu      = $this->submenu_html( $slug );
@@ -136,7 +136,7 @@ if ( ! class_exists( 'WPOnion_Fresh_Theme' ) ) {
 				}
 				$return = array();
 				foreach ( $menus[ $menu_slug ]['submenu'] as $slug => $menu ) {
-					if ( isset( $menu['is_seperator'] ) && true === $menu['is_seperator'] ) {
+					if ( isset( $menu['is_separator'] ) && true === $menu['is_separator'] ) {
 						continue;
 					}
 

@@ -18,6 +18,27 @@ $metabox_menu_width: 200px;
 		li {
 			list-style: none;
 
+			&.separator {
+				margin:     10px 0;
+				background: #2e2e2e;
+				min-height: 5px;
+
+				> span {
+					padding:      10px;
+					padding-left: 15px;
+					margin:       10px 0;
+					display:      block;
+					color:        #cdcdcd;
+
+					i {
+						width:      20px;
+						height:     20px;
+						text-align: center;
+					}
+				}
+
+			}
+
 			a {
 				position:        relative;
 				text-decoration: none;
