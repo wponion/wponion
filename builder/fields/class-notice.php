@@ -54,9 +54,12 @@ if ( ! class_exists( 'WPO\Notice' ) ) {
 
 		/**
 		 * @param $close
+		 *
+		 * @return $this
 		 */
 		public function set_close( $close ) {
 			$this['close'] = $close;
+			return $this;
 		}
 
 
