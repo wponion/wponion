@@ -46,11 +46,11 @@ The preferred way to install this extension is through [Composer](http://getcomp
 
 To install **WPOnion library**, simply:
 
-    $ composer require wponion/wponion
+    $ composer require wponion/wponion:dev-development
 
 The previous command will only install the necessary files, if you prefer to **download the entire source code** you can use:
 
-    $ composer require wponion/wponion --prefer-source
+    $ composer require wponion/wponion:dev-development --prefer-source
 
 You can also **clone the complete repository** with Git:
 
