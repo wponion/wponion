@@ -20,14 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if ( ! class_exists( '\WPOnion\Field\WP_Info_Notice' ) ) {
+if ( ! class_exists( '\WPOnion\Field\WP_Notice_Info' ) ) {
 	/**
 	 * Class WPOnion_Field_Notice
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Info_Notice extends WP_Notice {
+	class WP_Notice_Info extends WP_Notice {
 		protected $notice_type = 'info';
 	}
 }

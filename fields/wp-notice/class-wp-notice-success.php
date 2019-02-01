@@ -3,8 +3,8 @@
  *
  * Project : wponion
  * Date : 26-11-2018
- * Time : 12:32 PM
- * File : wp-warning-notice.php
+ * Time : 12:27 PM
+ * File : wp-success-notice.php
  *
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  * @version 1.0
@@ -20,14 +20,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if ( ! class_exists( '\WPOnion\Field\WP_Warning_Notice' ) ) {
+if ( ! class_exists( '\WPOnion\Field\WP_Notice_Success' ) ) {
 	/**
 	 * Class WPOnion_Field_Notice
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Warning_Notice extends WP_Notice {
-		protected $notice_type = 'warning';
+	class WP_Notice_Success extends WP_Notice {
+		protected $notice_type = 'success';
 	}
 }
