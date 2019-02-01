@@ -31,7 +31,12 @@ if ( ! class_exists( '\WPOnion\Field\WP_Notice' ) ) {
 		protected $notice_type = 'success';
 
 		public function handle_field_args( $data = array() ) {
-			$data['type'] = 'wp_notice';
+			$data['type']            = 'wp_notice';
+			$data['wrap_attributes'] = ( isset( $data['wrap_attribtues'] ) ) ? $data['wrap_attribtues'] : array();
+
+			if ( false !== $data['autoclose'] ) {
+				$data['wrap_attributes']['data-autoclose'] = intval( $data['autoclose'] );
+			}
 			return $data;
 		}
 
