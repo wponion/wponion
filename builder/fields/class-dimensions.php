@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 		 * @return $this
 		 */
 		public function set_width( $width = true ) {
-			$this['width'] = true;
+			$this['width'] = $width;
 			return $this;
 		}
 
