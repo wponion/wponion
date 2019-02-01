@@ -69,6 +69,16 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		}
 
 		/**
+		 * @param string|mixed $button
+		 *
+		 * @return $this
+		 */
+		public function set_button( $button ) {
+			$this['button'] = $button;
+			return $this;
+		}
+
+		/**
 		 * Returns Default Args.
 		 *
 		 * @return array
