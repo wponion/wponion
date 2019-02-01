@@ -32,6 +32,14 @@
 	}
 }
 
+.wponion-element + .wponion-element-divider {
+	border: none;
+}
+
+.wponion-element-divider + .wponion-element {
+	border: none;
+}
+
 .wponion-element-divider {
 	margin:  10px 0;
 	padding: 0;
