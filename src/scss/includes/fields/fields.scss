@@ -55,6 +55,10 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 		}
 
 		> .wponion-fieldset {
+			.wponion-field-errors {
+				display: block;
+				color:   red;
+			}
 		}
 	}
 
