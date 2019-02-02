@@ -33,8 +33,9 @@ export default class extends WPOnion_Field {
 						$field = '[data-wponion-jsid="' + $wponion.fieldID( $INPUT ) + '"]:input';
 					}
 				}
-				this.set_contxt( this.contxt.createRule( $field, $condition, $value ) );
-				this.set_contxt( this.contxt.include( this.element ) );
+				let $a = this.contxt.createRule( $field, $condition, $value );
+				$a.include( this.element );
+				this.set_contxt( $a );
 			}
 		}
 		$wponion_debug.add( this.id(), { 'Dependency': $dep, 'Nestable Dependency': this.config.nestable } );

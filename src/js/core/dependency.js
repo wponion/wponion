@@ -24,7 +24,7 @@ export default class {
 					el.find( ':input' ).removeClass( 'wponion-dependent' );
 				},
 				hide: ( el ) => {
-					el.slideUp();
+					el.hide();
 					el.find( ':input' ).addClass( 'wponion-dependent' );
 				},
 				log: false,
@@ -37,10 +37,10 @@ export default class {
 		this.base.depRoot  = () => {
 			this.base.$el.each( function() {
 				jQuery( this ).find( '.wponion-has-dependency' ).each( function() {
-					$this.base.instance = new WPOnion_Dependency( jQuery( this ), $this.base.ruleset, {
+					$this.base.instance.push( new WPOnion_Dependency( jQuery( this ), $this.base.ruleset, {
 						nestable: $this.param.nestable,
 						parent: ( true === $this.param.nestable ) ? $this.base.$el : $this.param.parent,
-					} );
+					} ) );
 				} );
 			} );
 		};
