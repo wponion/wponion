@@ -19,7 +19,7 @@
 		},
 
 		evalCondition: function( context, control, condition, val1, val2 ) {
-			if( "==" === condition || "OR" === condition ) {
+			if( "==" === condition ||"=" === condition || "OR" === condition ) {
 				return this.checkBoolean( val1 ) === this.checkBoolean( val2 );
 			} else if( "!=" === condition ) {
 				return this.checkBoolean( val1 ) !== this.checkBoolean( val2 );
