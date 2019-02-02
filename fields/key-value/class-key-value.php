@@ -35,6 +35,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function key_value( $name = '', $key = '', $value = '' ) {
 			echo '<div class="wponion-keyvalue-field">';
+			echo '<div class="sortable-handler">' . wponion_icon( 'dashicons dashicons-menu' ) . '</div>';
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
 				'id'         => 'key',
 				'type'       => 'text',
@@ -102,7 +103,6 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 				'only_field' => true,
 				'class'      => 'button button-primary',
 			) ), false, $this->unique() );
-
 			echo '</div>';
 			echo $this->after();
 		}
@@ -119,6 +119,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 				'key_input'     => array(),
 				'value_input'   => array(),
 				'limit'         => false,
+				'sort'          => false,
 				'error_msg'     => __( 'You Can\'t Add More..' ),
 			);
 		}

@@ -8,6 +8,20 @@ class field extends WPOnion_Field {
 		this.global_validate = false;
 		this.element.find( '.wponion-keyvalue_wrap' ).WPOnionCloner( {
 			add_btn: this.element.find( '> .row > .wponion-fieldset > .wponion-keyvalue-action-container  > button[data-wponion-keyvalue-add]' ),
+			sortable: {
+				items: '.wponion-keyvalue-field',
+				handle: '.sortable-handler',
+				placeholder: 'wponion-accordion-placeholder',
+				start: function( event, ui ) {
+					ui.item.css( 'background-color', '#eeee' );
+				},
+				stop: ( event, ui ) => {
+					ui.item.removeAttr( 'style' );
+					this.update_groups_title();
+					this.element.trigger( 'change' );
+				}
+
+			},
 			limit: ( -1 === this.option( 'limit' ) ) ? null : this.option( 'limit' ),
 			clone_elem: '> .row > .wponion-fieldset > .wponion-keyvalue-field',
 			remove_btn: '.wponion-keyvalue-field > button[data-wponion-keyvalue-remove]',
