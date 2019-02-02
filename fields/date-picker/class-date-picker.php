@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 					'type'       => 'text',
 					'prefix'     => '<i class="dashicons dashicons-calendar"></i>',
 					'only_field' => true,
-				) ), $this->value(), $this->name() );
+				) ), $this->value(), $this->unique() );
 			}
 
 			echo $this->after();
