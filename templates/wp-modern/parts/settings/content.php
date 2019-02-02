@@ -22,6 +22,9 @@ $fields = $module->fields();
 
 	<div class="content-wrap">
 		<?php
+		if ( $fields->has_fields() ) {
+			echo '<div class="row">';
+		}
 		if ( wponion_is_array( $fields->get() ) ) :
 			foreach ( $fields->get() as $container ) :
 				if ( $module->valid_field( $container ) ) {
@@ -74,6 +77,10 @@ $fields = $module->fields();
 			endforeach;
 		endif;
 		echo $module->search_no_result();
+
+		if ( $fields->has_fields() ) {
+			echo '</div>';
+		}
 		?>
 	</div>
 </div>
