@@ -19,6 +19,7 @@ after_script:
           cd wponion/
           git checkout development
           cd ../../
+          mkdir ./docs/development/
           vendor/bin/apigen generate -s development/wponion/ --destination ./docs/development/
           
           cd docs/
