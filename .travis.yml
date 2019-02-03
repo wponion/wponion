@@ -16,9 +16,8 @@ after_script:
           ls
           cd development/
           git clone https://github.com/wponion/wponion.git
-          git pull origin development
-          ls -l
           cd wponion/
+          git pull origin development
           ls
         fi
         
