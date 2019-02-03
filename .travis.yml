@@ -23,9 +23,10 @@ after_script:
             vendor/bin/apigen generate -s $TRAVIS_REPO_SLUG/ --destination ./docs/
             
             echo "Development Generator";
-            mkdir ./docs/development/
-            vendor/bin/apigen generate -s development/wponion/ --destination ./docs/development
-
+            mkdir ./docs_2/
+            mkdir ./docs_2/development/
+            vendor/bin/apigen generate -s development/wponion/ --destination ./docs_2/development/
+            mv ./docs_2/ ./docs/
             cd docs/
             git init
             git remote add origin https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
