@@ -302,6 +302,10 @@ $metabox_menu_width: 200px;
 				.wponion-container-wraps {
 				}
 
+				&.only-fields {
+					padding: 0;
+					margin:  0;
+				}
 			}
 
 			&.full-width {

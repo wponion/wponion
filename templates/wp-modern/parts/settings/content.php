@@ -6,12 +6,14 @@
  * @var $field \WPO\Field
  *
  */
-$module = $this->settings();
-$fields = $module->fields();
+$module      = $this->settings();
+$fields      = $module->fields();
+$has_fields  = $fields->has_fields();
+$extra_class = ( true === $has_fields ) ? ' row only-fields ' : '';
 ?>
 
 <div class="content-outer-wrap">
-	<?php if ( false === $fields->has_fields() ): ?>
+	<?php if ( false === $has_fields ): ?>
 		<div class="menu-wrap">
 			<div class="wponion-menu">
 				<?php echo $this->get_main_menu_html(); ?>
@@ -20,11 +22,8 @@ $fields = $module->fields();
 		</div>
 	<?php endif; ?>
 
-	<div class="content-wrap">
+	<div class="content-wrap <?php echo $extra_class; ?>">
 		<?php
-		if ( $fields->has_fields() ) {
-			echo '<div class="row">';
-		}
 		if ( wponion_is_array( $fields->get() ) ) :
 			foreach ( $fields->get() as $container ) :
 				if ( $module->valid_field( $container ) ) {
@@ -77,10 +76,6 @@ $fields = $module->fields();
 			endforeach;
 		endif;
 		echo $module->search_no_result();
-
-		if ( $fields->has_fields() ) {
-			echo '</div>';
-		}
 		?>
 	</div>
 </div>
