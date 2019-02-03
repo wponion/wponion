@@ -12,6 +12,8 @@ after_script:
           cd $TRAVIS_REPO_SLUG
           mkdir ./docs/
           ../../vendor/bin/apigen generate -s ../../$TRAVIS_REPO_SLUG/ --destination ../../$TRAVIS_REPO_SLUG/docs/
+          git pull wponion development
+          ls
           cd ../../$TRAVIS_REPO_SLUG/docs/
           git init
           git remote add origin https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
