@@ -10,7 +10,7 @@ after_script:
           cd ../../
           composer require apigen/apigen --dev
           mkdir ./docs/
-          ../vendor/bin/apigen generate -s $TRAVIS_REPO_SLUG/ --destination ./docs/
+          vendor/bin/apigen generate -s $TRAVIS_REPO_SLUG/ --destination ./docs/
           
           mkdir ./development/
           ls
@@ -19,7 +19,7 @@ after_script:
           cd wponion/
           git checkout development
           cd ../../
-          ../vendor/bin/apigen generate -s development/wponion/ --destination ./docs/development/
+          vendor/bin/apigen generate -s development/wponion/ --destination ./docs/development/
           
           cd docs/
             git init
