@@ -8,7 +8,8 @@ after_script:
     - |
         if [[ $TRAVIS_BRANCH == "master" ]]; then
             cd ../../
-            composer require apigen/apigen --dev
+            composer require apigen/apigen:dev-master --dev
+            composer require roave/better-reflection:dev-master#c87d856 --dev
 
             mkdir ./docs/
             mkdir ./development/
