@@ -7,23 +7,26 @@ script:
 after_script:
     - |
         if [[ $TRAVIS_BRANCH == "master" ]]; then
-          cd ../../
-          composer require apigen/apigen --dev
-          mkdir ./docs/
-          vendor/bin/apigen generate -s $TRAVIS_REPO_SLUG/ --destination ./docs/
-          
-          mkdir ./development/
-          ls
-          cd development/
-          git clone https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
-          cd wponion/
-          git checkout development
-          ls
-          cd ../../
-          mkdir ./docs/development/
-          vendor/bin/apigen generate -s ./development/wponion/ --destination ./docs/development/
-          
-          cd docs/
+            cd ../../
+            composer require apigen/apigen --dev
+
+            mkdir ./docs/
+            mkdir ./docs/development/
+            mkdir ./development/
+
+            cd development/
+            git clone https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
+            cd wponion/
+            git checkout development
+            cd ../../
+
+            echo "Master Generator";
+            vendor/bin/apigen generate -s $TRAVIS_REPO_SLUG/ --destination ./docs/
+            
+            echo "Development Generator";
+            vendor/bin/apigen generate -s development/wponion/ --destination ./docs/development
+
+            cd docs/
             git init
             git remote add origin https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
             git config --global user.email "travis@travis-ci.org"
