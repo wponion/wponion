@@ -15,7 +15,7 @@ after_script:
           mkdir ./development/
           ls
           cd development/
-          git remote add origin https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
+          git clone https://github.com/wponion/wponion.git
           git pull origin development
           ls -l
           cd wponion/
