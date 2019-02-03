@@ -25,7 +25,7 @@ after_script:
             echo "Development Generator";
             mkdir ./docs_2/
             mkdir ./docs_2/development/
-            vendor/bin/apigen generate -s development/wponion/ --destination ./docs_2/development/
+            vendor/bin/apigen generate -s development/wponion/ --destination ./docs_2/development/ --debug
             mv ./docs_2/ ./docs/
             cd docs/
             git init
