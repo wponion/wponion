@@ -15,7 +15,7 @@ after_script:
           mkdir ./development/
           ls
           cd development/
-          git clone https://github.com/wponion/wponion.git
+          git clone https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
           cd wponion/
           git checkout development
           cd ../../
