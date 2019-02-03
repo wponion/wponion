@@ -155,7 +155,6 @@
 				control.hide();
 			};
 
-
 			var controls = $.map( this.controls, function( elem ) {
 				var control = ( typeof elem === 'object' ) ? elem : context.find( elem );
 				if( cfg.log && control.size() === 0 ) {
