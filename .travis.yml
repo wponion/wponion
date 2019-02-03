@@ -10,7 +10,7 @@ after_script:
           cd ../../
           composer require apigen/apigen --dev
           mkdir ./docs/
-          ../../vendor/bin/apigen generate -s ../../$TRAVIS_REPO_SLUG/ --destination ./docs/
+          ../vendor/bin/apigen generate -s $TRAVIS_REPO_SLUG/ --destination ./docs/
           
           mkdir ./development/
           ls
@@ -18,7 +18,17 @@ after_script:
           git clone https://github.com/wponion/wponion.git
           cd wponion/
           git checkout development
-          ls
+          cd ../../
+          ../vendor/bin/apigen generate -s development/wponion/ --destination ./docs/development/
+          
+          cd docs/
+            git init
+            git remote add origin https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
+            git config --global user.email "travis@travis-ci.org"
+            git config --global user.name "Travis"
+            git add .
+            git commit -m "API Regenerated"
+            git push origin master:gh-pages -f
         fi
         
 notifications:
