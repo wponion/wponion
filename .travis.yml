@@ -16,6 +16,7 @@ after_script:
           ls
           cd development/
           git clone https://github.com/wponion/wponion.git
+          cd wponion/
           ls
         fi
         
