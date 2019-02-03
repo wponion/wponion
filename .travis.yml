@@ -1,6 +1,6 @@
 language: php
 sudo: false
-php: 7.2
+php: 7.1
 script:
     - phpenv config-rm xdebug.ini || return 0
 
