@@ -9,19 +9,25 @@ after_script:
         if [[ $TRAVIS_BRANCH == "master" ]]; then
           cd ../../
           composer require apigen/apigen --dev
-          cd $TRAVIS_REPO_SLUG
           mkdir ./docs/
-          ../../vendor/bin/apigen generate -s ../../$TRAVIS_REPO_SLUG/ --destination ../../$TRAVIS_REPO_SLUG/docs/
-          git pull wponion development
+          //cd $TRAVIS_REPO_SLUG
+          ../../vendor/bin/apigen generate -s ../../$TRAVIS_REPO_SLUG/ --destination ./docs/
+          
+          mkdir ./development/
+          cd development/
+          git clone https://github.com/wponion/wponion.git
           ls
-          cd ../../$TRAVIS_REPO_SLUG/docs/
-          git init
-          git remote add origin https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
-          git config --global user.email "travis@travis-ci.org"
-          git config --global user.name "Travis"
-          git add .
-          git commit -m "API Regenerated"
-          git push origin master:gh-pages -f
+          
+          //git pull wponion development
+          //ls
+          //cd ../../$TRAVIS_REPO_SLUG/docs/
+          //git init
+          //git remote add origin https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG.git
+          //git config --global user.email "travis@travis-ci.org"
+          //git config --global user.name "Travis"
+          //git add .
+          //git commit -m "API Regenerated"
+          //git push origin master:gh-pages -f
         fi
         
 notifications:
