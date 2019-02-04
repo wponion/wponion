@@ -9,7 +9,7 @@ class field extends WPOnion_Field {
 	 */
 	init() {
 		let $image = ( window.wponion._.isUndefined( this.element.attr( 'data-fullsize' ) ) ) ? this.element.attr( 'src' ) : this.element.attr( 'data-fullsize' );
-		swal( {
+		swal.fire( {
 			imageUrl: $image,
 			animation: false,
 			background: 'transparent',

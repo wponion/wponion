@@ -102,10 +102,10 @@ class field extends WPOnion_Field {
 								$work.init( $work.elm, $work.popup );
 							} else {
 								jQuery( $work.elm ).find( '.wponion-icon-picker-container-scroll' ).remove();
-								$work.popup.showValidationError( $res.data );
+								$work.popup.showValidationMessage( $res.data );
 							}
 						},
-						() => $work.popup.showValidationError( $wponion.txt( 'unknown_ajax_error' ) ),
+						() => $work.popup.showValidationMessage( $wponion.txt( 'unknown_ajax_error' ) ),
 						() => $work.popup.disableLoading()
 					);
 				} );
@@ -136,7 +136,7 @@ class field extends WPOnion_Field {
 		 * Handles Add Button Click Event.
 		 */
 		$add_btn.on( 'click', function() {
-			let $popup = swal( {
+			let $popup = swal.fire( {
 				title: $elem.find( '.wponion-field-title h4' ).html(),
 				animation: false,
 				allowOutsideClick: false,
@@ -159,10 +159,10 @@ class field extends WPOnion_Field {
 								$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' );
 								$work.init( $popup_elem, $popup );
 							} else {
-								$popup.showValidationError( $res.data );
+								$popup.showValidationMessage( $res.data );
 							}
 						},
-						onError: () => $popup.showValidationError( $wponion.txt( 'unknown_ajax_error' ) ),
+						onError: () => $popup.showValidationMessage( $wponion.txt( 'unknown_ajax_error' ) ),
 						onAlways: () => $popup.disableLoading(),
 					} );
 				}

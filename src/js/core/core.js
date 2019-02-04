@@ -142,7 +142,7 @@ export default class WPOnion {
 
 		$handle.on( 'click', ( ( e ) => {
 			e.preventDefault();
-			swal( {
+			swal.fire( {
 				title: WPOnion.txt( 'global_json_output', 'Global WPOnion Debug Data' ),
 				html: jQuery( '#wponiondebuginfopopup > div' ),
 				showConfirmButton: true,
@@ -157,7 +157,7 @@ export default class WPOnion {
 				},
 			} ).then( ( result ) => {
 				if( result.value ) {
-					return swal( {
+					return swal.fire( {
 						width: '600px',
 						html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( WPOnion.debug_info ) + '</textarea>',
 					} );

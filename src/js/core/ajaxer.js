@@ -158,11 +158,11 @@ export class WPOnion_Ajaxer {
 			} else {
 				let $url_params = {};
 				parse_str( $config.url, $url_params );
-				$config.url  = window.ajaxurl;
+				$config.url  = $wponion.option( 'ajaxurl' );
 				$config.data = window.wponion._.merge( $config.data, $url_params );
 			}
 		} else {
-			$config.url = window.ajaxurl;
+			$config.url = $wponion.option( 'ajaxurl' );
 		}
 
 		if( false !== $config.action ) {

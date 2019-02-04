@@ -154,7 +154,7 @@ export default class extends WPOnion_Module {
 					$notice_txt = '<p class=\'wponion-field-debug-notice\'>' + $wponion.option( 'debug_notice' ) + '</p>',
 					$elem       = jQuery( '<div id="' + $d + '" class="wponion-field-debug-popup" ><div id="' + $d + '" ></div>' + $notice_txt + '</div>' );
 				let $data       = $wponion_debug.get( $this.id() );
-				swal( {
+				swal.fire( {
 					html: $elem,
 					showConfirmButton: true,
 					confirmButtonText: $wponion.txt( 'get_json_output', 'As JSON' ),
@@ -163,7 +163,7 @@ export default class extends WPOnion_Module {
 					onOpen: () => jQuery( '#swal2-content > div > #' + $d ).jsonView( $data )
 				} ).then( ( result ) => {
 					if( result.value ) {
-						swal( {
+						swal.fire( {
 							width: '600px',
 							html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( $wponion_debug.get( $this.id() ) ) + '</textarea>'
 						} );
@@ -174,7 +174,7 @@ export default class extends WPOnion_Module {
 			$found.find( '> .row > .wponion-fieldset .wponion-field-debug-code-gen' ).on( 'click', () => {
 				let $string = this.option( 'debug_field_code' );
 				if( window.wponion._.isString( $string ) ) {
-					swal( {
+					swal.fire( {
 						html: $string,
 						width: '800px',
 						showCloseButton: true,

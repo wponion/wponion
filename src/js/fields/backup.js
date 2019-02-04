@@ -89,7 +89,7 @@ class field extends WPOnion_Field {
 	 * @param msg
 	 */
 	swal_error( msg ) {
-		swal( {
+		swal.fire( {
 			type: 'error',
 			title: msg
 		} );
@@ -156,7 +156,7 @@ class field extends WPOnion_Field {
 			},
 			onSuccess: ( e ) => {
 				if( e.success ) {
-					swal( {
+					swal.fire( {
 						type: 'success',
 						title: e.data,
 					} );

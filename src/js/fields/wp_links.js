@@ -13,7 +13,7 @@ class field extends WPOnion_Field {
 		$elem.find( '#wponion-wp-link-picker > button' ).on( 'click', function() {
 			$textarea.val( '' );
 			if( !window.wpLink ) {
-				swal( {
+				swal.fire( {
 					type: 'error',
 					title: $wponion.text( 'wp_link_error_title', 'WP Link JS Lib Not Found' ),
 				} );
