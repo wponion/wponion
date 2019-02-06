@@ -110,5 +110,51 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			return $return;
 		}
 
+		/**
+		 * @param                $before_container_id
+		 * @param \WPO\Container $new_container
+		 *
+		 * @return $this
+		 */
+		public function container_before( $before_container_id, \WPO\Container $new_container ) {
+			if ( $this->has_fields() ) {
+				$new_arr = array();
+				/* @var \WPO\Container $container */
+				foreach ( $this->containers() as $container ) {
+					if ( $container->name() === $before_container_id ) {
+						$new_arr[] = $new_container;
+						$new_arr[] = $container;
+					} elseif ( $container->name() !== $new_container->name() ) {
+						$new_arr[] = $container;
+					}
+				}
+				$this->containers = $new_arr;
+			}
+			return $this;
+		}
+
+		/**
+		 * @param                $after_container_id
+		 * @param \WPO\Container $new_container
+		 *
+		 * @return $this
+		 */
+		public function container_after( $after_container_id, \WPO\Container $new_container ) {
+			if ( $this->has_fields() ) {
+				$new_arr = array();
+				/* @var \WPO\Container $container */
+				foreach ( $this->containers() as $container ) {
+					if ( $container->name() === $after_container_id ) {
+						$new_arr[] = $container;
+						$new_arr[] = $new_container;
+					} elseif ( $container->name() !== $new_container->name() ) {
+						$new_arr[] = $container;
+					}
+				}
+				$this->containers = $new_arr;
+			}
+			return $this;
+		}
+
 	}
 }

@@ -93,5 +93,51 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 			return $return;
 		}
 
+		/**
+		 * @param null       $before_field_id
+		 * @param \WPO\Field $new_field
+		 *
+		 * @return bool
+		 */
+		public function field_before( $before_field_id, $new_field ) {
+			if ( $this->has_fields() ) {
+				$new_fields = array();
+				/* @var $field \WPO\Field */
+				foreach ( $this->fields() as $field ) {
+					if ( $field->id() === $before_field_id ) {
+						$new_fields[] = $new_field;
+						$new_fields[] = $field;
+					} elseif ( $field->id() !== $new_field->id() ) {
+						$new_fields[] = $field;
+					}
+				}
+				$this->fields = $new_fields;
+			}
+			return false;
+		}
+
+		/**
+		 * @param null $after_field_id
+		 * @param      $new_field
+		 *
+		 * @return bool
+		 */
+		public function field_after( $after_field_id, $new_field ) {
+			if ( $this->has_fields() ) {
+				$new_fields = array();
+				/* @var $field \WPO\Field */
+				foreach ( $this->fields() as $field ) {
+					if ( $field->id() === $after_field_id ) {
+						$new_fields[] = $field;
+						$new_fields[] = $new_field;
+					} else {
+						$new_fields[] = $field;
+					}
+				}
+				$this->fields = $new_fields;
+			}
+			return false;
+		}
+
 	}
 }
