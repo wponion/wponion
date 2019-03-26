@@ -7,7 +7,7 @@ $module = $this->settings();
 $title              = $module->option( 'framework_title' );
 $desc               = $module->option( 'framework_desc' );
 $is_single_page     = $module->is_single_page();
-$search_placeholder = __( 'Search Option(s)' );
+$search_placeholder = __( 'Search Option(s)', 'wponion' );
 $is_sticky          = $module->option( 'sticky_header', true );
 $is_sticky          = ( true === $is_sticky ) ? 'header-sticky' : '';
 ?>

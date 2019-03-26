@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'TypIcons' ),
+	'name'  => __( 'TypIcons', 'wponion' ),
 	'icons' => array(
 		'typcn typcn-adjust-brightness',
 		'typcn typcn-adjust-contrast',

@@ -70,7 +70,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 					'before'  => '<br/>',
 					'large'   => true,
 					'alt'     => true,
-					'content' => __( 'Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>' ),
+					'content' => __( 'Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>', 'wponion' ),
 				) );
 			}
 

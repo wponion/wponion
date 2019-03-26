@@ -80,11 +80,11 @@ if ( ! class_exists( 'WPO\Group' ) ) {
 		 */
 		protected function defaults() {
 			return $this->parse_args( array(
-				'add_button'    => __( 'Add New' ),
-				'remove_button' => __( 'Remove' ),
+				'add_button'    => __( 'Add New', 'wponion' ),
+				'remove_button' => __( 'Remove', 'wponion' ),
 				'limit'         => false,
 				'heading'       => null,
-				'error_msg'     => __( 'You Can\'t Add More..' ),
+				'error_msg'     => __( 'You Can\'t Add More..', 'wponion' ),
 			), parent::defaults() );
 		}
 	}

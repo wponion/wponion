@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					),
 					'only_field'  => true,
 					'button_type' => 'button',
-					'label'       => __( 'Add + ' ),
+					'label'       => __( 'Add + ', 'wponion' ),
 				) ), null, null );
 
 			}
@@ -163,7 +163,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 				'toast_error'   => false,
 				'error_msg'     => null,
 				'limit'         => null,
-				'add_button'    => __( 'Add +' ),
+				'add_button'    => __( 'Add +', 'wponion' ),
 				'remove_button' => wponion_icon( 'dashicons dashicons-trash' ),
 			);
 
@@ -173,7 +173,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			$data['clone'] = $this->parse_args( $data['clone'], $defaults );
 
 			if ( null === $data['clone']['error_msg'] ) {
-				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s' ), $data['clone']['limit'] );
+				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s', 'wponion' ), $data['clone']['limit'] );
 			}
 
 			$data['clone']['error_msg'] = $this->handle_args( 'content', $data['clone']['error_msg'], array(

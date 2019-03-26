@@ -61,11 +61,11 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 		 */
 		protected function get_options() {
 			return array(
-				'color'   => __( 'Color' ),
-				'hover'   => __( 'Hover' ),
-				'active'  => __( 'Active' ),
-				'visited' => __( 'Visited' ),
-				'foucs'   => __( 'Focus' ),
+				'color'   => __( 'Color', 'wponion' ),
+				'hover'   => __( 'Hover', 'wponion' ),
+				'active'  => __( 'Active', 'wponion' ),
+				'visited' => __( 'Visited', 'wponion' ),
+				'foucs'   => __( 'Focus', 'wponion' ),
 			);
 		}
 

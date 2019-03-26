@@ -457,7 +457,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'plugin_id'     => false,
 				'theme'         => 'wp',
 				'template_path' => false,
-				'save_button'   => __( 'Save Settings' ),
+				'save_button'   => __( 'Save Settings', 'wponion' ),
 			);
 		}
 
@@ -587,7 +587,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				$html .= $this->_button( $options, array(
 					'class' => 'button button-primary wponion-save',
 					'type'  => 'submit',
-				), __( 'Save Settings' ) );
+				), __( 'Save Settings', 'wponion' ) );
 			}
 			return $html;
 		}
@@ -596,7 +596,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return string
 		 */
 		public function search_no_result() {
-			return '<div class="search-no-result"><h3>' . __( 'No Result Found' ) . '</h3></div>';
+			return '<div class="search-no-result"><h3>' . __( 'No Result Found', 'wponion' ) . '</h3></div>';
 		}
 	}
 }

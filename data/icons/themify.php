@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'Themify' ),
+	'name'  => __( 'Themify', 'wponion' ),
 	'icons' => array(
-		__( 'Arrows & Direction Icons' ) => array(
+		__( 'Arrows & Direction Icons', 'wponion' ) => array(
 			'ti-arrow-up',
 			'ti-arrow-right',
 			'ti-arrow-left',
@@ -54,7 +54,7 @@ return array(
 			'ti-back-left',
 			'ti-exchange-vertical',
 		),
-		__( 'Web App Icons' )            => array(
+		__( 'Web App Icons', 'wponion' )            => array(
 			'ti-wand',
 			'ti-save',
 			'ti-save-alt',
@@ -246,7 +246,7 @@ return array(
 			'ti-rss',
 			'ti-rss-alt',
 		),
-		__( 'Control Icons' )            => array(
+		__( 'Control Icons', 'wponion' )            => array(
 			'ti-control-stop',
 			'ti-control-shuffle',
 			'ti-control-play',
@@ -259,7 +259,7 @@ return array(
 			'ti-control-record',
 			'ti-control-eject',
 		),
-		__( 'Text Editor' )              => array(
+		__( 'Text Editor', 'wponion' )              => array(
 			'ti-paragraph',
 			'ti-uppercase',
 			'ti-underline',
@@ -275,7 +275,7 @@ return array(
 			'ti-quote-right',
 			'ti-quote-left',
 		),
-		__( 'Layout Icons' )             => array(
+		__( 'Layout Icons', 'wponion' )             => array(
 			'ti-layout-width-full',
 			'ti-layout-width-default',
 			'ti-layout-width-default-alt',
@@ -339,7 +339,7 @@ return array(
 			'ti-layout-column3-alt',
 			'ti-layout-column2-alt',
 		),
-		__( 'Brand Icons' )              => array(
+		__( 'Brand Icons', 'wponion' )              => array(
 			'ti-flickr',
 			'ti-flickr-alt',
 			'ti-instagram',

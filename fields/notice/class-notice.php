@@ -63,7 +63,7 @@ if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 			echo $content;
 
 			if ( true === $this->data( 'close' ) && false === $this->data( 'autoclose' ) ) {
-				echo '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide' ) . '"></a>';
+				echo '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide', 'wponion' ) . '"></a>';
 			}
 			echo '</div>';
 			echo $this->after();

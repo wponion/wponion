@@ -37,14 +37,14 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 				$date = $this->data( 'date' );
 
 				if ( false === $date ) {
-					$date = __( 'From Date' );
+					$date = __( 'From Date', 'wponion' );
 				}
 
 				echo '<div class="date-range-container row">';
 				echo $this->sub_field( $this->handle_args( 'title', $date, array(
 					'id'         => 'from',
 					'type'       => 'text',
-					'title'      => __( 'From Date' ),
+					'title'      => __( 'From Date', 'wponion' ),
 					'wrap_class' => 'col-xs-12 col-sm-12 col-md-2',
 					'horizontal' => true,
 					'attributes' => array(
@@ -54,7 +54,7 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 				echo $this->sub_field( $this->handle_args( 'title', $this->data( 'to_date' ), array(
 					'id'         => 'to',
 					'type'       => 'text',
-					'title'      => __( 'To Date' ),
+					'title'      => __( 'To Date', 'wponion' ),
 					'wrap_class' => 'col-xs-12 col-sm-12 col-md-2',
 					'horizontal' => true,
 					'attributes' => array(
@@ -109,8 +109,8 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 				'range'    => false,
 				'settings' => array(),
 				'theme'    => 'default',
-				'date'     => __( 'Date' ),
-				'to_date'  => __( 'Till Date' ),
+				'date'     => __( 'Date', 'wponion' ),
+				'to_date'  => __( 'Till Date', 'wponion' ),
 			);
 		}
 	}

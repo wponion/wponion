@@ -39,14 +39,14 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
 				'id'         => 'key',
 				'type'       => 'text',
-				'prefix'     => __( 'Key' ),
+				'prefix'     => __( 'Key', 'wponion' ),
 				'only_field' => true,
 			) ), $key, $name );
 
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'value_input' ), array(
 				'id'         => 'value',
 				'type'       => 'text',
-				'prefix'     => __( 'Value' ),
+				'prefix'     => __( 'Value', 'wponion' ),
 				'only_field' => true,
 			) ), $value, $name );
 
@@ -98,7 +98,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 			echo '<div class="wponion-keyvalue-action-container">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
 				'type'       => 'button',
-				'label'      => __( 'Add +' ),
+				'label'      => __( 'Add +', 'wponion' ),
 				'attributes' => array( 'data-wponion-keyvalue-add' => 'yes' ),
 				'only_field' => true,
 				'class'      => 'button button-primary',
@@ -114,13 +114,13 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'add_button'    => __( 'Add +' ),
-				'remove_button' => __( '-' ),
+				'add_button'    => __( 'Add +', 'wponion' ),
+				'remove_button' => __( '-' , 'wponion'),
 				'key_input'     => array(),
 				'value_input'   => array(),
 				'limit'         => false,
 				'sort'          => false,
-				'error_msg'     => __( 'You Can\'t Add More..' ),
+				'error_msg'     => __( 'You Can\'t Add More..', 'wponion' ),
 			);
 		}
 

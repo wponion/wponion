@@ -86,7 +86,7 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		protected function defaults() {
 			return array(
 				'settings' => array(),
-				'button'   => __( 'Upload' ),
+				'button'   => __( 'Upload', 'wponion' ),
 			);
 		}
 	}

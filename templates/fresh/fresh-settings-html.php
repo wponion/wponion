@@ -14,7 +14,7 @@
  */
 /* @var $ins \WPOnion\Modules\Settings */
 $ins     = $this->settings();
-$loading = __( 'Loading Please Wait...' );
+$loading = __( 'Loading Please Wait...', 'wponion' );
 
 $is_sticky = $ins->option( 'sticky_header', true );
 $is_sticky = ( true === $is_sticky ) ? 'wponion-header-sticky' : '';
@@ -41,7 +41,7 @@ $is_sticky = ( true === $is_sticky ) ? 'wponion-header-sticky' : '';
 					<?php if ( false !== $ins->is_single_page() ): ?>
 						<div class="action-search">
 							<div class="wponion-settings-search">
-								<input type="text" placeholder="<?php echo __( 'Search Option(s)' ); ?>"/>
+								<input type="text" placeholder="<?php echo __( 'Search Option(s)', 'wponion' ); ?>"/>
 							</div>
 						</div>
 					<?php endif; ?>

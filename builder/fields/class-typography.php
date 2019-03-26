@@ -164,16 +164,16 @@ if ( ! class_exists( 'WPO\Typography' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'font_family'        => __( 'Font Family & Weight' ),
-				'backup_font_family' => __( 'Backup Font Family' ),
-				'text_align'         => __( 'Text Align' ),
-				'direction'          => __( 'Text Direction' ),
-				'element_tag'        => __( 'Element Tag' ),
-				'font_style'         => __( 'Font Style' ),
-				'font_size'          => __( 'Font Size' ),
-				'line_height'        => __( 'Line Height' ),
-				'letter_spacing'     => __( 'Letter Spacing' ),
-				'color'              => __( 'Text Color' ),
+				'font_family'        => __( 'Font Family & Weight', 'wponion' ),
+				'backup_font_family' => __( 'Backup Font Family', 'wponion' ),
+				'text_align'         => __( 'Text Align', 'wponion' ),
+				'direction'          => __( 'Text Direction', 'wponion' ),
+				'element_tag'        => __( 'Element Tag', 'wponion' ),
+				'font_style'         => __( 'Font Style', 'wponion' ),
+				'font_size'          => __( 'Font Size', 'wponion' ),
+				'line_height'        => __( 'Line Height', 'wponion' ),
+				'letter_spacing'     => __( 'Letter Spacing', 'wponion' ),
+				'color'              => __( 'Text Color', 'wponion' ),
 				'preview'            => true,
 				'preview_text'       => 'Lorem ipsum dolor sit amet, pro ad sanctus admodum, vim at insolens appellantur. Eum veri adipiscing an, probo nonumy an vis.',
 			);

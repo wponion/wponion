@@ -85,32 +85,32 @@ if ( ! class_exists( '\WPOnion\Field\Change_Log' ) ) {
 		protected function groups() {
 			return array(
 				'added'      => array(
-					'title' => __( 'Added' ),
+					'title' => __( 'Added', 'wponion' ),
 					'bg'    => '#9ac45e',
 					'color' => '#fff',
 				),
 				'fixed'      => array(
-					'title' => __( 'Fixed' ),
+					'title' => __( 'Fixed', 'wponion' ),
 					'bg'    => '#3498db',
 					'color' => '#fff',
 				),
 				'changed'    => array(
-					'title' => __( 'Changed' ),
+					'title' => __( 'Changed', 'wponion' ),
 					'bg'    => '#2c3e50',
 					'color' => '#fff',
 				),
 				'deprecated' => array(
-					'title' => __( 'Deprecated' ),
+					'title' => __( 'Deprecated', 'wponion' ),
 					'bg'    => '#898989',
 					'color' => '#fff',
 				),
 				'removed'    => array(
-					'title' => __( 'Removed' ),
+					'title' => __( 'Removed', 'wponion' ),
 					'bg'    => '#d1d1d166',
 					'color' => '#666',
 				),
 				'security'   => array(
-					'title' => __( 'Security' ),
+					'title' => __( 'Security', 'wponion' ),
 					'bg'    => '#b44848',
 					'color' => '#fff',
 				),
@@ -179,7 +179,7 @@ if ( ! class_exists( '\WPOnion\Field\Change_Log' ) ) {
 				'show_time'   => false,
 				'style'       => 'style1',
 				'groups'      => $this->groups(),
-				'heading'     => __( 'Change Log' ),
+				'heading'     => __( 'Change Log', 'wponion' ),
 			);
 		}
 

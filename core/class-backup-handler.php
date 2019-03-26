@@ -118,7 +118,7 @@ if ( ! class_exists( '\WPOnion\Backup_Handler' ) ) {
 					$return .= '<li><a href="' . $url . '" target="_self" data-backupid="' . $time . '">' . $show_date . '</a></li>';
 				}
 			} else {
-				return '<span>' . __( 'No Backups Found' ) . '</span>';
+				return '<span>' . __( 'No Backups Found', 'wponion' ) . '</span>';
 			}
 
 			$return .= '</ul>';

@@ -1,5 +1,5 @@
 <?php
-$title = __( 'Close media panel' );
+$title = __( 'Close media panel', 'wponion' );
 return <<<HTML
 <div tabindex="0" class="media-modal wp-core-ui">
 

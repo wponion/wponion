@@ -76,8 +76,8 @@ if ( ! class_exists( 'WPO\Switcher' ) ) {
 				'switch_style' => 'style-8',
 				'switch_size'  => '',
 				'label'        => false,
-				'on'           => __( 'ON' ),
-				'off'          => __( 'OFF' ),
+				'on'           => __( 'ON', 'wponion' ),
+				'off'          => __( 'OFF', 'wponion' ),
 			);
 		}
 	}

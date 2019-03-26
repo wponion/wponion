@@ -71,13 +71,13 @@ JAVASCRIPT;
 		public static function render_html( $data, $args ) {
 			$_content = '<p>';
 
-			$_content .= __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ' );
+			$_content .= __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ', 'wponion' );
 			$_content .= '</p>';
 			$_content .= '<div id="sysreport" style="display:none;" ><textarea style="width:100%;min-height:250px;"  >';
 			$_content .= self::render_text_data( $data, $args );
 			$_content .= '</textarea></div>';
-			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ' ) . '</p>';
-			$_content .= '<a href="#" data-another-text="' . __( 'Copy Report' ) . '" class="button-primary wponion-debug-report">' . __( 'Get system report' ) . '</a>';
+			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ', 'wponion' ) . '</p>';
+			$_content .= '<a href="#" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
 			echo wponion_add_element( array(
 				'type'    => 'wp_notice_info',
 				'large'   => true,

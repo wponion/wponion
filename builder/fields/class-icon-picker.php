@@ -130,8 +130,8 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'add_button'    => __( 'Add Icon' ),
-				'remove_button' => __( 'Remove Icon' ),
+				'add_button'    => __( 'Add Icon', 'wponion' ),
+				'remove_button' => __( 'Remove Icon', 'wponion' ),
 				'show_input'    => true,
 				'icon_tooltip'  => array(
 					'placement' => 'bottom',

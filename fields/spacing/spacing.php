@@ -54,7 +54,7 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 			} else {
 				$defaults      = array(
 					'prefix'      => $icons['all'],
-					'placeholder' => __( 'All' ),
+					'placeholder' => __( 'All', 'wponion' ),
 				);
 				$fields['all'] = ( true === $this->data( 'all' ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( 'all' ), $defaults );
 			}
@@ -97,11 +97,11 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 		 */
 		protected function default_title() {
 			return array(
-				'top'    => __( 'Top' ),
-				'bottom' => __( 'Bottom' ),
-				'left'   => __( 'Left' ),
-				'right'  => __( 'Right' ),
-				'unit'   => __( 'Unit' ),
+				'top'    => __( 'Top' , 'wponion'),
+				'bottom' => __( 'Bottom' , 'wponion'),
+				'left'   => __( 'Left' , 'wponion'),
+				'right'  => __( 'Right', 'wponion' ),
+				'unit'   => __( 'Unit' , 'wponion'),
 			);
 		}
 

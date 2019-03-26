@@ -91,7 +91,7 @@ if ( ! class_exists( '\WPOnion\WP_List_Table' ) ) {
 				/**
 				 * Custom Settings.
 				 */
-				'no_items'         => __( 'No Items Found' ),
+				'no_items'         => __( 'No Items Found', 'wponion' ),
 				'columns'          => array(),
 				'sortable'         => array(),
 				'default_callback' => array(),
@@ -147,7 +147,7 @@ if ( ! class_exists( '\WPOnion\WP_List_Table' ) ) {
 		 * Message to be displayed when there are no items
 		 */
 		public function no_items() {
-			echo $this->option( 'no_items', __( 'No Items Found' ) );
+			echo $this->option( 'no_items', __( 'No Items Found', 'wponion' ) );
 		}
 
 		/**

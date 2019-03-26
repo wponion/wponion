@@ -237,13 +237,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$this->wrapper();
 			}
 
-			$this->debug( __( 'Render Time' ), $this->debug_time( true ) );
-			$this->debug( __( 'Raw Field Args' ), $this->orginal_field );
-			$this->debug( __( 'Field Args' ), $this->field );
-			$this->debug( __( 'Field Value' ), $this->value );
-			$this->debug( __( 'Unique' ), $this->unique );
-			$this->debug( __( 'Plugin ID' ), $this->plugin_id() );
-			$this->debug( __( 'Module' ), $this->module() );
+			$this->debug( __( 'Render Time', 'wponion' ), $this->debug_time( true ) );
+			$this->debug( __( 'Raw Field Args', 'wponion' ), $this->orginal_field );
+			$this->debug( __( 'Field Args', 'wponion' ), $this->field );
+			$this->debug( __( 'Field Value', 'wponion' ), $this->value );
+			$this->debug( __( 'Unique', 'wponion' ), $this->unique );
+			$this->debug( __( 'Plugin ID', 'wponion' ), $this->plugin_id() );
+			$this->debug( __( 'Module', 'wponion' ), $this->module() );
 			$this->wp_pointer();
 			$this->localize_field();
 		}
@@ -655,9 +655,9 @@ PHP;
 				$code   = wponion_highlight_string( $code );
 				$usage  = wponion_highlight_string( $usage );
 
-				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ' ) . '</strong>';
+				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ', 'wponion' ) . '</strong>';
 				$r .= '<div >' . htmlentities( $code ) . '</div>';
-				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ' ) . '</strong>';
+				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ', 'wponion' ) . '</strong>';
 				$r .= '<div style="display: none;">' . $usage . '</div>';
 
 				$base   = $this->base_unique();
@@ -678,16 +678,16 @@ print_r(\$value["$unique"]);
 PHP;
 					$usage      = wponion_highlight_string( $_code );
 
-					$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'VALUE : ' ) . '</strong>';
+					$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'VALUE : ', 'wponion' ) . '</strong>';
 					$r .= '<div style="display: none;">' . $usage . '</div>';
 				}
 
-				$r .= '<div class="alert alert-warning">' . __( 'Debug Information shown only if field has debug attribute enabled or define( <code>WPONION_FIELD_DEBUG</code> ) is set to true' ) . '</div>';
+				$r .= '<div class="alert alert-warning">' . __( 'Debug Information shown only if field has debug attribute enabled or define( <code>WPONION_FIELD_DEBUG</code> ) is set to true', 'wponion' ) . '</div>';
 				$r .= '</div>';
 			}
 
 			$this->localize_field( array( 'debug_field_code' => $r ), false );
-			return ' <span data-wponion-jsid="' . $this->js_field_id() . '" class="wponion-field-debug-code-gen badge badge-sm badge-primary">' . __( 'Get PHP Code' ) . '</span>';
+			return ' <span data-wponion-jsid="' . $this->js_field_id() . '" class="wponion-field-debug-code-gen badge badge-sm badge-primary">' . __( 'Get PHP Code', 'wponion' ) . '</span>';
 		}
 
 		/**
@@ -702,7 +702,7 @@ PHP;
 				if ( $error_instance ) {
 					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
 					$this->errors = $error_instance->get( $field_id );
-					$this->debug( __( 'Field Errors' ), $this->errors );
+					$this->debug( __( 'Field Errors', 'wponion' ), $this->errors );
 				} else {
 					$this->errors = false;
 				}

@@ -105,11 +105,11 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'add_button'    => __( 'Create Gallery' ),
-				'edit_button'   => __( 'Edit Gallery' ),
+				'add_button'    => __( 'Create Gallery', 'wponion' ),
+				'edit_button'   => __( 'Edit Gallery', 'wponion' ),
 				'size'          => 100,
 				'sort'          => true,
-				'remove_button' => __( 'Clear Gallery' ),
+				'remove_button' => __( 'Clear Gallery', 'wponion' ),
 			);
 		}
 	}

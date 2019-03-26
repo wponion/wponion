@@ -113,7 +113,7 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'button'   => __( 'Select URL' ),
+				'button'   => __( 'Select URL', 'wponion' ),
 				'settings' => array(
 					'url'        => true,
 					'title'      => true,

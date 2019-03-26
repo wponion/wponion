@@ -72,8 +72,8 @@ if ( ! class_exists( 'WPO\Image' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'frame_title' => __( 'Select A Image' ),
-				'remove'      => __( 'Remove' ),
+				'frame_title' => __( 'Select A Image', 'wponion' ),
+				'remove'      => __( 'Remove', 'wponion' ),
 				'size'        => 100,
 			);
 		}

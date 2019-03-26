@@ -61,13 +61,13 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			}
 
 			/* translators: */
-			$js_notice = __( ' %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s ' );
+			$js_notice = __( ' %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s ', 'wponion' );
 
 			/* translators: */
-			$js_notice = $js_notice . __( ' %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php ' );
+			$js_notice = $js_notice . __( ' %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php ', 'wponion' );
 
 			/* translators: */
-			$js_notice = $js_notice . __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it' );
+			$js_notice = $js_notice . __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it', 'wponion' );
 			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<strong>', '</strong>', '<br/>' );
 
 			if ( false === self::$core_data ) {
@@ -79,15 +79,15 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					'debug'           => ( true === defined( 'WP_DEBUG' ) || true === defined( 'SCRIPT_DEBUG' ) ) ? true : false,
 					'debug_notice'    => $js_notice,
 				);
-				$this->text( 'get_json_output', __( 'As JSON' ) );
-				$this->text( 'global_json_output', __( 'Global WPOnion JSON Output' ) );
-				$this->text( 'unmodified_debug', __( 'PHP Args' ) );
-				$this->text( 'modified_debug', __( 'JS Args' ) );
-				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.' ) );
-				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info' ) );
-				$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.' ) );
-				$this->text( 'delete', __( 'Delete' ) );
-				$this->text( 'restore', __( 'Restore' ) );
+				$this->text( 'get_json_output', __( 'As JSON', 'wponion' ) );
+				$this->text( 'global_json_output', __( 'Global WPOnion JSON Output', 'wponion' ) );
+				$this->text( 'unmodified_debug', __( 'PHP Args', 'wponion' ) );
+				$this->text( 'modified_debug', __( 'JS Args', 'wponion' ) );
+				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.', 'wponion' ) );
+				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info', 'wponion' ) );
+				$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.', 'wponion' ) );
+				$this->text( 'delete', __( 'Delete', 'wponion' ) );
+				$this->text( 'restore', __( 'Restore', 'wponion' ) );
 				$this->modal_template();
 				self::$core_data = true;
 			}

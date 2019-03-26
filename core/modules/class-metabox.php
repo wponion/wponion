@@ -361,7 +361,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 			);
 			$user_attr    = ( wponion_is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
 			$text         = ( wponion_is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
-			$text         = ( false === $text && is_string( $user ) ) ? $user : __( 'Save Settings' );
+			$text         = ( false === $text && is_string( $user ) ) ? $user : __( 'Save Settings', 'wponion' );
 			return '<button ' . wponion_array_to_html_attributes( $this->parse_args( $user_attr, $default_attr ) ) . ' >' . $text . '</button>';
 		}
 

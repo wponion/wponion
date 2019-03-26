@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'Dashicons' ),
+	'name'  => __( 'Dashicons', 'wponion' ),
 	'icons' => array(
 		'dashicons dashicons-menu',
 		'dashicons dashicons-admin-site',

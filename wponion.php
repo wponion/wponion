@@ -62,8 +62,8 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 
 			if ( empty( $info ) ) {
 				$msg = base64_encode( wp_json_encode( self::$data ) );
-				$ms  = __( 'Unable To Load WPOnion Framework. Please Contact The Author' );
-				$ms  = $ms . '<p style="word-break: break-all;"> <strong>' . __( 'ERROR ID : ' ) . '</strong>' . $msg . '</p>';
+				$ms  = __( 'Unable To Load WPOnion Framework. Please Contact The Author', 'wponion' );
+				$ms  = $ms . '<p style="word-break: break-all;"> <strong>' . __( 'ERROR ID : ', 'wponion' ) . '</strong>' . $msg . '</p>';
 				wp_die( $ms );
 			}
 			self::$_loaded = array(

@@ -88,8 +88,8 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 		/**
 		 * Default Icons Are :
 		 * array(
-		 * 'height' => __( 'Height' ),
-		 * 'width'  => __( 'Width' ),
+		 * 'height' => __( 'Height', 'wponion' ),
+		 * 'width'  => __( 'Width' , 'wponion'),
 		 * ),
 		 *
 		 * @param $icons
@@ -115,8 +115,8 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 					'em' => 'em',
 				),
 				'icons'        => array(
-					'height' => __( 'Height' ),
-					'width'  => __( 'Width' ),
+					'height' => __( 'Height', 'wponion' ),
+					'width'  => __( 'Width', 'wponion' ),
 				),
 			);
 		}

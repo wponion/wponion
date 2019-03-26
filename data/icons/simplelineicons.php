@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'SimpleLine' ),
+	'name'  => __( 'SimpleLine', 'wponion' ),
 	'icons' => array(
 		'icon-user icons',
 		'icon-people icons',

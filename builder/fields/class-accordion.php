@@ -65,7 +65,7 @@ if ( ! class_exists( 'WPO\Accordion' ) ) {
 		protected function defaults() {
 			return $this->parse_args( array(
 				'is_open' => false,
-				'heading' => __( 'Accordion' ),
+				'heading' => __( 'Accordion', 'wponion' ),
 			), parent::defaults() );
 		}
 	}

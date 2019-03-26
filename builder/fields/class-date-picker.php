@@ -164,8 +164,8 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 				'range'    => false,
 				'settings' => array(),
 				'theme'    => 'default',
-				'date'     => __( 'Date' ),
-				'to_date'  => __( 'Till Date' ),
+				'date'     => __( 'Date', 'wponion' ),
+				'to_date'  => __( 'Till Date', 'wponion' ),
 			);
 		}
 	}

@@ -90,7 +90,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 */
 		public function container( $container_slug_or_instance = false, $title = false, $icon = false ) {
 			if ( $this->has_fields() && $this->has_containers() ) {
-				wp_die( __( 'A Container Cannot Have Both Field & Containers' ) );
+				wp_die( __( 'A Container Cannot Have Both Field & Containers', 'wponion' ) );
 			}
 			if ( $container_slug_or_instance instanceof \WPO\Container ) {
 				$this->containers[] = $container_slug_or_instance;

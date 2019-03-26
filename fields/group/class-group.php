@@ -108,7 +108,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => __( 'Add New' ),
+				'label'       => __( 'Add New', 'wponion' ),
 			) ), false, $this->unique() );
 
 			$this->is_js_sample     = true;
@@ -137,7 +137,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => __( 'Remove ' ),
+				'label'       => __( 'Remove ', 'wponion' ),
 			) ), false, $this->unique() );
 			echo '</div>';
 		}
@@ -153,7 +153,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 			), array( 'only_field' => true ) );
 
 			return array(
-				'default_heading'        => __( 'Group #[count]' ),
+				'default_heading'        => __( 'Group #[count]', 'wponion' ),
 				'heading_counter'        => strpos( $this->data( 'heading' ), '[count]' ),
 				'heading'                => $this->data( 'heading' ),
 				'limit'                  => $this->data( 'limit' ),
@@ -220,11 +220,11 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(
-				'add_button'    => __( 'Add New' ),
-				'remove_button' => __( 'Remove' ),
+				'add_button'    => __( 'Add New', 'wponion' ),
+				'remove_button' => __( 'Remove', 'wponion' ),
 				'limit'         => false,
 				'heading'       => false,
-				'error_msg'     => __( 'You Can\'t Add More..' ),
+				'error_msg'     => __( 'You Can\'t Add More..', 'wponion' ),
 			), parent::field_default() );
 		}
 

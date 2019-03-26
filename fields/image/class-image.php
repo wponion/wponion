@@ -69,7 +69,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 			) ) );
 			$this->localize_field( array(
 				'wpo-image-remove' => array(
-					'content' => __( 'Remove' ),
+					'content' => __( 'Remove', 'wponion' ),
 					'arrow'   => true,
 				),
 			) );
@@ -94,8 +94,8 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'frame_title' => __( 'Select A Image' ),
-				'remove'      => __( 'Remove' ),
+				'frame_title' => __( 'Select A Image', 'wponion' ),
+				'remove'      => __( 'Remove', 'wponion' ),
 				'size'        => 100,
 			);
 		}

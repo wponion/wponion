@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'BoxIcons' ),
+	'name'  => __( 'BoxIcons', 'wponion' ),
 	'icons' => array(
 		'bx bx-adjust',
 		'bx bx-alarm',

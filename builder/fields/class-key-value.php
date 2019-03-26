@@ -103,12 +103,12 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'add_button'    => __( 'Add +' ),
-				'remove_button' => __( '-' ),
+				'add_button'    => __( 'Add +', 'wponion' ),
+				'remove_button' => __( '-', 'wponion' ),
 				'key_input'     => array(),
 				'value_input'   => array(),
 				'limit'         => false,
-				'error_msg'     => __( 'You Can\'t Add More..' ),
+				'error_msg'     => __( 'You Can\'t Add More..', 'wponion' ),
 			);
 		}
 	}

@@ -55,14 +55,14 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 
 			if ( true === $settings['url'] ) {
 				$_value = ( true === $show_value ) ? '<span class="value">' . $this->get_value( 'url' ) . '</span>' : '';
-				echo '<span class="url"><strong>' . __( 'URL : ' ) . '</strong> ' . $_value;
+				echo '<span class="url"><strong>' . __( 'URL : ', 'wponion' ) . '</strong> ' . $_value;
 				echo '<input style="width:350px" type="' . $show_input . '" name="' . $this->name( '[url]' ) . '" value="' . $this->get_value( 'url' ) . '" id="url"/>';
 				echo '</span><br/><br/>';
 			}
 
 			if ( true === $settings['title'] ) {
 				$_value = ( true === $show_value ) ? '<span class="value">' . $this->get_value( 'title' ) . '</span>' : '';
-				echo '<span class="title"><strong>' . __( 'Title : ' ) . '</strong> ' . $_value;
+				echo '<span class="title"><strong>' . __( 'Title : ', 'wponion' ) . '</strong> ' . $_value;
 				echo '<input  style="width:350px" type="' . $show_input . '" name="' . $this->name( '[title]' ) . '" value="' . $this->get_value( 'title' ) . '" id="title"/>';
 				echo '</span><br/><br/>';
 
@@ -73,7 +73,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 			}
 
 			if ( true === $settings['example'] ) {
-				echo '<span class="example_output"><strong>' . __( 'Example : ' ) . '</strong><span class="value"></span></span><br/><br/>';
+				echo '<span class="example_output"><strong>' . __( 'Example : ', 'wponion' ) . '</strong><span class="value"></span></span><br/><br/>';
 			}
 			echo '<textarea id="' . $this->js_field_id() . 'wplinks" class="hidden wponion-validation-ignore"></textarea>';
 
@@ -83,7 +83,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 				'only_field'  => true,
 				'type'        => 'button',
 				'class'       => 'button button-primary',
-				'label'       => __( 'Select URL' ),
+				'label'       => __( 'Select URL', 'wponion' ),
 				'attributes'  => array(
 					'data-wponion-jsid' => $this->js_field_id(),
 				),
@@ -101,7 +101,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'button'   => __( 'Select URL' ),
+				'button'   => __( 'Select URL', 'wponion' ),
 				'settings' => array(
 					'url'        => true,
 					'title'      => true,

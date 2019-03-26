@@ -97,8 +97,8 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 		protected function field_default() {
 			return array(
 				'options'        => array(),
-				'enabled_title'  => __( 'Enabled Modules' ),
-				'disabled_title' => __( 'Disabled Modules' ),
+				'enabled_title'  => __( 'Enabled Modules', 'wponion' ),
+				'disabled_title' => __( 'Disabled Modules', 'wponion' ),
 			);
 		}
 

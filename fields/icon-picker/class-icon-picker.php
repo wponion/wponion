@@ -88,7 +88,7 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 				),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => __( 'Add Icon' ),
+				'label'       => __( 'Add Icon', 'wponion' ),
 			) ), false, $this->unique() );
 
 			$html .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
@@ -100,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 				),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => __( 'Remove Icon' ),
+				'label'       => __( 'Remove Icon', 'wponion' ),
 			) ), false, $this->unique() );
 
 			return $html;
@@ -113,8 +113,8 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'add_button'    => __( 'Add Icon' ),
-				'remove_button' => __( 'Remove Icon' ),
+				'add_button'    => __( 'Add Icon', 'wponion' ),
+				'remove_button' => __( 'Remove Icon', 'wponion' ),
 				'show_input'    => true,
 				'icon_tooltip'  => array(
 					'placement' => 'bottom',

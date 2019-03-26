@@ -84,7 +84,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$selected_lib = ( ! isset( $libs[ $selected_lib ] ) ) ? $default_lib : $selected_lib;
 			$json         = \WPOnion\Icons::get( $selected_lib );
 			$html         = '<div class="wponion-icon-picker-model-header">';
-			$html         = $html . '<input type="text" placeholder="' . __( 'Search Icon' ) . '"/>';
+			$html         = $html . '<input type="text" placeholder="' . __( 'Search Icon', 'wponion' ) . '"/>';
 
 			if ( wponion_is_array( $libs ) && count( $libs ) > 1 ) {
 				$html = $html . '<select>';
@@ -118,7 +118,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 				$html .= '</div>';
 			} else {
-				wp_send_json_error( __( 'Icon Library Not found' ) );
+				wp_send_json_error( __( 'Icon Library Not found', 'wponion' ) );
 			}
 			$html .= '</div>';
 			wp_send_json_success( $html );
@@ -190,14 +190,14 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$unique = ( isset( $_POST['unique'] ) ) ? $_POST['unique'] : false;
 			$extra  = ( isset( $_POST['extra'] ) ) ? $_POST['extra'] : false;
 			if ( false === $module ) {
-				wp_send_json_error( __( 'Error Code : #BKP189' ) );
+				wp_send_json_error( __( 'Error Code : #BKP189', 'wponion' ) );
 			}
 
 			$status = Backup_Handler::new_backup( $unique, $module, $extra );
 			if ( $status ) {
 				wp_send_json_success( Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
 			}
-			wp_send_json_error( __( 'Error Code : #BKP201' ) );
+			wp_send_json_error( __( 'Error Code : #BKP201', 'wponion' ) );
 		}
 
 		/**
@@ -210,14 +210,14 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$backup_id = ( isset( $_POST['backup_id'] ) ) ? $_POST['backup_id'] : false;
 
 			if ( false === $module ) {
-				wp_send_json_error( __( 'Error Code : #BKP210' ) );
+				wp_send_json_error( __( 'Error Code : #BKP210', 'wponion' ) );
 			}
 
 			$status = Backup_Handler::delete_backup( $backup_id, $unique, $module, $extra );
 			if ( $status ) {
 				wp_send_json_success( Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
 			}
-			wp_send_json_error( __( 'Error Code : #BKP217' ) );
+			wp_send_json_error( __( 'Error Code : #BKP217', 'wponion' ) );
 		}
 
 		/**
@@ -255,10 +255,10 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 			if ( $backup_id && $unique && $module ) {
 				Backup_Handler::restore_backup( $backup_id, $unique, $module, $extra );
-				wp_send_json_success( __( 'Backup Successfully Restored' ) );
+				wp_send_json_success( __( 'Backup Successfully Restored', 'wponion' ) );
 			}
 
-			wp_send_json_error( __( 'Error Code: #BKP259' ) );
+			wp_send_json_error( __( 'Error Code: #BKP259', 'wponion' ) );
 
 		}
 

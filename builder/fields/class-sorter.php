@@ -126,8 +126,8 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		public function defaults() {
 			return array(
 				'options'        => array(),
-				'enabled_title'  => __( 'Enabled Modules' ),
-				'disabled_title' => __( 'Disabled Modules' ),
+				'enabled_title'  => __( 'Enabled Modules', 'wponion' ),
+				'disabled_title' => __( 'Disabled Modules', 'wponion' ),
 			);
 		}
 	}

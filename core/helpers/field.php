@@ -223,7 +223,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 				'type'    => 'wp_notice_error',
 				'alt'     => true,
 				'large'   => true,
-				'content' => sprintf( __( '<p>Requested Field Type <code>%s</code>  Is Not Registed With WPOnion</p>' ), wponion_get_field_type( $field, false ) ),
+				'content' => sprintf( __( '<p>Requested Field Type <code>%s</code>  Is Not Registed With WPOnion</p>', 'wponion' ), wponion_get_field_type( $field, false ) ),
 			) );
 		}
 
@@ -247,7 +247,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 		} else {
 			$args = '';
 			ob_start();
-			echo '<h2>' . __( 'Callback Arguments' ) . '</h2>';
+			echo '<h2>' . __( 'Callback Arguments', 'wponion' ) . '</h2>';
 			var_dump( func_get_args() );
 			$args .= ob_get_clean();
 
@@ -255,7 +255,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			$output = wponion_add_element( array(
 				'type'        => 'notice',
 				'notice_type' => 'danger',
-				'content'     => sprintf( __( '<code>%s</code> Field Class Not Found.' ), $type ) . $args,
+				'content'     => sprintf( __( '<code>%s</code> Field Class Not Found.', 'wponion' ), $type ) . $args,
 			) );
 		}
 		return $output;
@@ -508,26 +508,26 @@ if ( ! function_exists( 'wponion_websafe_fonts' ) ) {
 	function wponion_websafe_fonts() {
 		return apply_filters( 'wponion_websafe_fonts', array(
 			'variants' => array(
-				'regular'   => __( 'Regular' ),
-				'italic'    => __( 'Italic' ),
-				'700'       => __( '700' ),
-				'700italic' => __( '700 Italic' ),
-				'inherit'   => __( 'inherit' ),
+				'regular'   => __( 'Regular', 'wponion' ),
+				'italic'    => __( 'Italic', 'wponion' ),
+				'700'       => __( '700', 'wponion' ),
+				'700italic' => __( '700 Italic', 'wponion' ),
+				'inherit'   => __( 'inherit', 'wponion' ),
 			),
 			'fonts'    => array(
-				'Arial'               => __( 'Arial' ),
-				'Arial Black'         => __( 'Arial Black' ),
-				'Comic Sans MS'       => __( 'Comic Sans MS' ),
-				'Impact'              => __( 'Impact' ),
-				'Lucida Sans Unicode' => __( 'Lucida Sans Unicode' ),
-				'Tahoma'              => __( 'Tahoma' ),
-				'Trebuchet MS'        => __( 'Trebuchet MS' ),
-				'Verdana'             => __( 'Verdana' ),
-				'Courier New'         => __( 'Courier New' ),
-				'Lucida Console'      => __( 'Lucida Console' ),
-				'Georgia, serif'      => __( 'Georgia, serif' ),
-				'Palatino Linotype'   => __( 'Palatino Linotype' ),
-				'Times New Roman'     => __( 'Times New Roman' ),
+				'Arial'               => __( 'Arial', 'wponion' ),
+				'Arial Black'         => __( 'Arial Black', 'wponion' ),
+				'Comic Sans MS'       => __( 'Comic Sans MS', 'wponion' ),
+				'Impact'              => __( 'Impact', 'wponion' ),
+				'Lucida Sans Unicode' => __( 'Lucida Sans Unicode', 'wponion' ),
+				'Tahoma'              => __( 'Tahoma', 'wponion' ),
+				'Trebuchet MS'        => __( 'Trebuchet MS', 'wponion' ),
+				'Verdana'             => __( 'Verdana', 'wponion' ),
+				'Courier New'         => __( 'Courier New', 'wponion' ),
+				'Lucida Console'      => __( 'Lucida Console', 'wponion' ),
+				'Georgia, serif'      => __( 'Georgia, serif', 'wponion' ),
+				'Palatino Linotype'   => __( 'Palatino Linotype', 'wponion' ),
+				'Times New Roman'     => __( 'Times New Roman', 'wponion' ),
 			),
 
 		) );
@@ -680,7 +680,7 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 			if ( true === $websafe_fonts ) {
 				$fonts = wponion_websafe_fonts();
 				if ( true === $group ) {
-					$fonts_array[ $key ][ __( 'Websafe Fonts' ) ] = $fonts['fonts'];
+					$fonts_array[ $key ][ __( 'Websafe Fonts', 'wponion' ) ] = $fonts['fonts'];
 				} else {
 					$fonts_array[ $key ] = wponion_parse_args( $fonts_array[ $key ], $fonts['fonts'] );
 				}
@@ -690,7 +690,7 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 				$fonts = array_keys( wponion_google_fonts_data() );
 				$fonts = array_combine( $fonts, $fonts );
 				if ( true === $group ) {
-					$fonts_array[ $key ][ __( 'Google Fonts' ) ] = $fonts;
+					$fonts_array[ $key ][ __( 'Google Fonts', 'wponion' ) ] = $fonts;
 				} else {
 					$fonts_array[ $key ] = wponion_parse_args( $fonts, $fonts );
 				}

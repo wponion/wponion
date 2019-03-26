@@ -122,7 +122,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 			$class = self::get_class( self::field_type( $type ) );
 			if ( false === $class ) {
 				/* translators: Added Field Type. */
-				return '<p>' . sprintf( __( 'Visual Composer Integration For WPOnion Field (%s) Not Found' ), $type ) . '</p>';
+				return '<p>' . sprintf( __( 'Visual Composer Integration For WPOnion Field (%s) Not Found', 'wponion' ), $type ) . '</p>';
 			}
 
 			$field_args['type'] = self::field_type( $type );

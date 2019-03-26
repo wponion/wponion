@@ -511,7 +511,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		public function admin_footer_text() {
 			if ( empty( $this->option( 'footer_text' ) ) ) {
 				/* translators: Added WPOnion */
-				return sprintf( __( 'Proudly Powered By %1$s %2$s %3$s ' ), '<a href="http://wponion.com"><strong>', __( 'WPOnion' ), '</strong></a>' );
+				return sprintf( __( 'Proudly Powered By %1$s %2$s %3$s ', 'wponion' ), '<a href="http://wponion.com"><strong>', __( 'WPOnion', 'wponion' ), '</strong></a>' );
 			}
 			return ( wponion_is_callable( $this->option( 'footer_text' ) ) ) ? wponion_callback( $this->option( 'footer_text' ) ) : $this->option( 'footer_text' );
 		}
@@ -524,7 +524,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		public function admin_footer_right_text() {
 			if ( empty( $this->option( 'footer_right_text' ) ) ) {
 				/* translators: Added WPOnionVersion  */
-				return sprintf( __( 'WPOnion Version : %s' ), WPONION_VERSION ) . ' | ' . core_update_footer();
+				return sprintf( __( 'WPOnion Version : %s', 'wponion' ), WPONION_VERSION ) . ' | ' . core_update_footer();
 			}
 			return ( wponion_is_callable( $this->option( 'footer_right_text' ) ) ) ? wponion_callback( $this->option( 'footer_right_text' ) ) : $this->option( 'footer_right_text' );
 		}

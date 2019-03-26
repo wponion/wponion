@@ -68,7 +68,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 */
 		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
 			if ( $this->has_fields() && $this->has_containers() ) {
-				wp_die( 'A Container Cannot Have Both Field & Containers' );
+				wp_die( 'A Container Cannot Have Both Field & Containers', 'wponion' );
 			}
 
 			if ( $field_type_or_instance instanceof \WPO\Field ) {

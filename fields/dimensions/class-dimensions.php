@@ -41,8 +41,8 @@ if ( ! class_exists( '\WPOnion\Field\Dimensions' ) ) {
 		 */
 		protected function default_icons() {
 			return array(
-				'height' => __( 'Height' ),
-				'width'  => __( 'Width' ),
+				'height' => __( 'Height', 'wponion' ),
+				'width'  => __( 'Width', 'wponion' ),
 			);
 		}
 
@@ -53,8 +53,8 @@ if ( ! class_exists( '\WPOnion\Field\Dimensions' ) ) {
 		 */
 		protected function default_title() {
 			return array(
-				'height' => __( 'Height' ),
-				'width'  => __( 'Width' ),
+				'height' => __( 'Height', 'wponion' ),
+				'width'  => __( 'Width', 'wponion' ),
 			);
 		}
 
