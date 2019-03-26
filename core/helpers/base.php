@@ -468,6 +468,9 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 
 
 // WPOnion Assets Related Functions.
+require_once WPONION_PATH . 'core/helpers/builder.php';
+
+// WPOnion Assets Related Functions.
 require_once WPONION_PATH . 'core/helpers/assets.php';
 
 // WPOnion Fields Related Functions.
