@@ -12,28 +12,43 @@
  * @copyright 2018 Varun Sridharan
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
+/* @var $ins \WPOnion\Modules\Settings */
 $ins     = $this->settings();
-$loading = __( 'Loading Please Wait...' );
+$loading = __( 'Loading Please Wait...', 'wponion' );
+
+$is_sticky = $ins->option( 'sticky_header', true );
+$is_sticky = ( true === $is_sticky ) ? 'wponion-header-sticky' : '';
 ?>
 
 <div class="wrap">
 	<div class="<?php echo $ins->wrap_class( ' wponion-fresh-theme-layouts ' ); ?>">
 
-		<div class="wponion-settings-header">
-			<div class="wponion-settings-heading">
-				<?php
-				if ( ! empty( $ins->option( 'framework_title' ) ) ) {
-					echo '<h1>' . $ins->option( 'framework_title' ) . '</h1>';
-				}
+		<div class="wponion-settings-header <?php echo $is_sticky; ?>">
+			<div class="wponion-settings-header-inner">
+				<div class="wponion-settings-heading">
+					<?php
+					if ( ! empty( $ins->option( 'framework_title' ) ) ) {
+						echo '<h1>' . $ins->option( 'framework_title' ) . '</h1>';
+					}
 
-				if ( ! empty( $ins->option( 'framework_desc' ) ) ) {
-					echo '<p>' . $ins->option( 'framework_desc' ) . '</p>';
-				}
-				?>
+					if ( ! empty( $ins->option( 'framework_desc' ) ) ) {
+						echo '<p>' . $ins->option( 'framework_desc' ) . '</p>';
+					}
+					?>
 
-			</div>
-			<div class="action-holder">
-				<?php echo $ins->settings_button(); ?>
+				</div>
+				<div class="action-holder">
+					<?php if ( false !== $ins->is_single_page() ): ?>
+						<div class="action-search">
+							<div class="wponion-settings-search">
+								<input type="text" placeholder="<?php echo __( 'Search Option(s)', 'wponion' ); ?>"/>
+							</div>
+						</div>
+					<?php endif; ?>
+					<div class="action-buttons">
+						<?php echo $ins->settings_button(); ?>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="wponion-fresh-theme-inside-wrap">

@@ -33,7 +33,7 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 			echo '<input type="text" name="' . $this->name() . '" value="' . $this->value() . '"/>';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'button' ), array(
 				'type'       => 'button',
-				'label'      => __( 'Upload' ),
+				'label'      => __( 'Upload', 'wponion' ),
 				'only_field' => true,
 				'class'      => 'button button-secondary',
 			) ), false, $this->unique() );
@@ -46,17 +46,21 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 		protected function field_default() {
 			return array(
 				'settings' => array(),
-				'button'   => __( 'Upload' ),
+				'button'   => __( 'Upload', 'wponion' ),
+			);
+		}
+
+		protected function js_field_args() {
+			return array(
+				'settings' => $this->parse_args( $this->data( 'settings' ), array(
+					'upload_type'  => 'image',
+					'frame_title'  => __( 'Upload', 'wponion' ),
+					'insert_title' => __( 'Use', 'wponion' ),
+				) ),
 			);
 		}
 
 		public function field_assets() {
-			$settings = $this->parse_args( $this->data( 'settings' ), array(
-				'upload_type'  => 'image',
-				'frame_title'  => __( 'Upload' ),
-				'insert_title' => __( 'Use' ),
-			) );
-			$this->localize_field( array( 'settings' => $settings ) );
 			wp_enqueue_media();
 		}
 	}

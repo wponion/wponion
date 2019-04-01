@@ -542,7 +542,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 			echo '<p>' . $content . '</p>';
 
 			if ( true === $this->option( 'dismissible' ) ) {
-				echo '<button type="button" class="notice-dismiss wpo-stick-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice.' ) . '</span></button>';
+				echo '<button type="button" class="notice-dismiss wpo-stick-dismiss"><span class="screen-reader-text">' . __( 'Dismiss this notice.', 'wponion' ) . '</span></button>';
 			}
 			echo '</div>';
 			return '';

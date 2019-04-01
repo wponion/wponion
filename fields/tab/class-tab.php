@@ -53,7 +53,7 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 
 				foreach ( $section['fields'] as $field ) {
 					$this->catch_output( 'start' );
-					echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $unique );
+					echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value( $slug ) ), $unique );
 					$content .= $this->catch_output( 'stop' );
 				}
 

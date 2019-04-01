@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 				$button = $this->handle_args( 'label', $this->data( 'add_button' ), array(
 					'button_type' => 'button',
 					'type'        => 'button',
-					'label'       => __( 'Add Gallery' ),
+					'label'       => __( 'Add Gallery', 'wponion' ),
 					'class'       => 'button button-primary',
 				), array(
 					'only_field' => true,
@@ -80,7 +80,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 				$button = $this->handle_args( 'label', $this->data( 'edit_button' ), array(
 					'button_type' => 'button',
 					'type'        => 'button',
-					'label'       => __( 'Edit Gallery' ),
+					'label'       => __( 'Edit Gallery', 'wponion' ),
 					'class'       => 'button button-secondary',
 				), array(
 					'only_field' => true,
@@ -92,7 +92,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 				$button = $this->handle_args( 'label', $this->data( 'remove_button' ), array(
 					'button_type' => 'button',
 					'type'        => 'button',
-					'label'       => __( 'Edit Gallery' ),
+					'label'       => __( 'Edit Gallery', 'wponion' ),
 					'class'       => 'button button-secondary',
 				), array(
 					'only_field' => true,
@@ -112,11 +112,11 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'add_button'    => __( 'Create Gallery' ),
-				'edit_button'   => __( 'Edit Gallery' ),
+				'add_button'    => __( 'Create Gallery', 'wponion' ),
+				'edit_button'   => __( 'Edit Gallery', 'wponion' ),
 				'size'          => 100,
 				'sort'          => true,
-				'remove_button' => __( 'Clear Gallery' ),
+				'remove_button' => __( 'Clear Gallery', 'wponion' ),
 			);
 		}
 

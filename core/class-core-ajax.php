@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$enabled  = ( isset( $_REQUEST['enabled'] ) ) ? $_REQUEST['enabled'] : true;
 			$disabled = ( isset( $_REQUEST['disabled'] ) ) ? $_REQUEST['disabled'] : false;
 
-			if ( is_array( $enabled ) ) {
+			if ( wponion_is_array( $enabled ) ) {
 				foreach ( $libs as $name => $_n ) {
 					if ( ! in_array( $name, $enabled ) ) {
 						unset( $libs[ $name ] );
@@ -71,7 +71,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 			}
 
-			if ( is_array( $disabled ) && is_array( $libs ) ) {
+			if ( wponion_is_array( $disabled ) && wponion_is_array( $libs ) ) {
 				foreach ( $libs as $name => $_n ) {
 					if ( in_array( $name, $disabled ) ) {
 						unset( $libs[ $name ] );
@@ -79,14 +79,14 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 			}
 
-			$default_lib  = is_array( $libs ) ? current( array_keys( $libs ) ) : $libs;
+			$default_lib  = wponion_is_array( $libs ) ? current( array_keys( $libs ) ) : $libs;
 			$selected_lib = ( isset( $_REQUEST['wponion-icon-lib'] ) ) ? $_REQUEST['wponion-icon-lib'] : $default_lib;
 			$selected_lib = ( ! isset( $libs[ $selected_lib ] ) ) ? $default_lib : $selected_lib;
 			$json         = \WPOnion\Icons::get( $selected_lib );
 			$html         = '<div class="wponion-icon-picker-model-header">';
-			$html         = $html . '<input type="text" placeholder="' . __( 'Search Icon' ) . '"/>';
+			$html         = $html . '<input type="text" placeholder="' . __( 'Search Icon', 'wponion' ) . '"/>';
 
-			if ( is_array( $libs ) && count( $libs ) > 1 ) {
+			if ( wponion_is_array( $libs ) && count( $libs ) > 1 ) {
 				$html = $html . '<select>';
 				foreach ( $libs as $lib => $ejson ) {
 					$is_selected = ( $lib === $selected_lib ) ? ' selected="selected" ' : '';
@@ -96,10 +96,10 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				$html .= '</select>';
 			}
 			$html .= '</div>';
-			if ( is_array( $json ) && ! empty( $json ) ) {
+			if ( wponion_is_array( $json ) && ! empty( $json ) ) {
 				$html .= '<div class="wponion-icon-picker-container-scroll"><div class="wponion-icon-picker-container">';
 				foreach ( $json as $json_title => $icons ) {
-					if ( is_array( $icons ) ) {
+					if ( wponion_is_array( $icons ) ) {
 						foreach ( $icons as $key => $icon ) {
 							$_icon = ( is_numeric( $key ) ) ? $icon : $key;
 							$title = ( is_numeric( $key ) ) ? $icon : $icon;
@@ -118,7 +118,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 				$html .= '</div>';
 			} else {
-				wp_send_json_error( __( 'Icon Library Not found' ) );
+				wp_send_json_error( __( 'Icon Library Not found', 'wponion' ) );
 			}
 			$html .= '</div>';
 			wp_send_json_success( $html );
@@ -174,7 +174,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		 */
 		public function save_bulk_edit() {
 			if ( isset( $_POST['post_ids'] ) ) {
-				if ( is_array( $_POST['post_ids'] ) ) {
+				if ( wponion_is_array( $_POST['post_ids'] ) ) {
 					foreach ( $_POST['post_ids'] as $id ) {
 						do_action( 'wponion_save_bulk_edit', $id );
 					}
@@ -190,14 +190,14 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$unique = ( isset( $_POST['unique'] ) ) ? $_POST['unique'] : false;
 			$extra  = ( isset( $_POST['extra'] ) ) ? $_POST['extra'] : false;
 			if ( false === $module ) {
-				wp_send_json_error( __( 'Error Code : #BKP189' ) );
+				wp_send_json_error( __( 'Error Code : #BKP189', 'wponion' ) );
 			}
 
 			$status = Backup_Handler::new_backup( $unique, $module, $extra );
 			if ( $status ) {
 				wp_send_json_success( Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
 			}
-			wp_send_json_error( __( 'Error Code : #BKP201' ) );
+			wp_send_json_error( __( 'Error Code : #BKP201', 'wponion' ) );
 		}
 
 		/**
@@ -210,14 +210,14 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$backup_id = ( isset( $_POST['backup_id'] ) ) ? $_POST['backup_id'] : false;
 
 			if ( false === $module ) {
-				wp_send_json_error( __( 'Error Code : #BKP210' ) );
+				wp_send_json_error( __( 'Error Code : #BKP210', 'wponion' ) );
 			}
 
 			$status = Backup_Handler::delete_backup( $backup_id, $unique, $module, $extra );
 			if ( $status ) {
 				wp_send_json_success( Backup_Handler::get_backup_lists( $unique, $module, $extra ) );
 			}
-			wp_send_json_error( __( 'Error Code : #BKP217' ) );
+			wp_send_json_error( __( 'Error Code : #BKP217', 'wponion' ) );
 		}
 
 		/**
@@ -255,10 +255,10 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 			if ( $backup_id && $unique && $module ) {
 				Backup_Handler::restore_backup( $backup_id, $unique, $module, $extra );
-				wp_send_json_success( __( 'Backup Successfully Restored' ) );
+				wp_send_json_success( __( 'Backup Successfully Restored', 'wponion' ) );
 			}
 
-			wp_send_json_error( __( 'Error Code: #BKP259' ) );
+			wp_send_json_error( __( 'Error Code: #BKP259', 'wponion' ) );
 
 		}
 
@@ -280,6 +280,19 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			}
 			wp_send_json_error();
 
+		}
+
+		/**
+		 * Handles Ajax Data Query.
+		 */
+		public function ajax_wp_query_data() {
+			$query_args    = ( isset( $_REQUEST['query_args'] ) ) ? $_REQUEST['query_args'] : array();
+			$search        = ( isset( $_REQUEST['q'] ) ) ? $_REQUEST['q'] : '';
+			$search        = ( isset( $_REQUEST['s'] ) ) ? $_REQUEST['s'] : $search;
+			$query_options = ( isset( $_REQUEST['query_options'] ) ) ? $_REQUEST['query_options'] : false;
+			$data          = wponion_query()->query( $query_options, $query_args, $search );
+			wp_send_json( $data );
+			wp_die();
 		}
 
 	}

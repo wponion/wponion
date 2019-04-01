@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'FontAwesome 5' ),
+	'name'  => __( 'FontAwesome 5', 'wponion' ),
 	'icons' => array(
-		__( 'Brand Icons' )   => array(
+		__( 'Brand Icons', 'wponion' )   => array(
 			'fab fa-500px',
 			'fab fa-accessible-icon',
 			'fab fa-accusoft',
@@ -384,7 +384,7 @@ return array(
 			'fab fa-youtube',
 			'fab fa-youtube-square',
 		),
-		__( 'Regular Icons' ) => array(
+		__( 'Regular Icons', 'wponion' ) => array(
 			'far fa-address-book',
 			'far fa-address-card',
 			'far fa-arrow-alt-circle-down',
@@ -505,7 +505,7 @@ return array(
 			'far fa-window-minimize',
 			'far fa-window-restore',
 		),
-		__( 'Solid Icons' )   => array(
+		__( 'Solid Icons', 'wponion' )   => array(
 			'fas fa-address-book',
 			'fas fa-address-card',
 			'fas fa-adjust',

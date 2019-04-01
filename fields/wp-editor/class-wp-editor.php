@@ -28,10 +28,16 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 	 */
 	class WP_Editor extends \WPOnion\Field {
 		/**
+		 * @var null
+		 * @access
+		 * @static
+		 */
+		private static $assets = null;
+
+		/**
 		 * @return mixed|void
 		 */
 		protected function output() {
-			global $wp_version;
 			echo $this->before();
 			$settings = ( $this->has( 'settings' ) ) ? $this->data( 'settings' ) : array();
 			$settings = $this->parse_args( $settings, array(
@@ -40,17 +46,33 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 			) );
 			$elem_id  = ( true === $this->data( 'in_group' ) ) ? $this->field_id() . $this->data( 'group_count' ) : $this->field_id();
 
+			if ( null === self::$assets ) {
+				$this->catch_output( 'start' );
+				wp_print_styles( 'editor-buttons' );
+				self::$assets = $this->catch_output( 'stop' );
+				$class        = array( __CLASS__, 'load_editor_style' );
+
+				if ( ! has_action( 'admin_footer', $class ) ) {
+					add_action( 'admin_footer', $class );
+				}
+				if ( ! has_action( 'wp_footer', $class ) && defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
+					add_action( 'wp_footer', $class );
+				}
+			}
+
 			wp_editor( $this->value(), $elem_id, $settings );
-
-			wponion_localize()
-				->add( $this->js_field_id(), array(
-					'wpeditor_id' => $elem_id,
-				) )
-				->add( 'wponion_core', array(
-					'wpeditor_buttons_css' => includes_url( 'css/editor.css?ver=' . $wp_version ),
-				) );
-
+			wponion_localize()->add( $this->js_field_id(), array(
+				'wpeditor_id' => $elem_id,
+			) );
 			echo $this->after();
+		}
+
+		/**
+		 * @static
+		 */
+		public static function load_editor_style() {
+			echo self::$assets;
+			wp_print_styles( 'editor-buttons' );
 		}
 
 		/**

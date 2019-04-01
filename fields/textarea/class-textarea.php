@@ -27,12 +27,10 @@ if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 	 */
 	class Textarea extends text {
 		/**
-		 * Final HTML Output
+		 * Renders Element Html.
 		 */
-		protected function output() {
-			echo $this->before();
+		public function element_html() {
 			echo '<textarea ' . $this->_input_attributes() . '>' . $this->value() . '</textarea>';
-			echo $this->after();
 		}
 
 		/**
@@ -60,7 +58,7 @@ if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 		 * @return array|mixed
 		 */
 		protected function field_default() {
-			return array_merge( parent::field_default(), array(
+			return $this->parse_args( parent::field_default(), array(
 				'rows' => 5,
 				'cols' => 5,
 			) );

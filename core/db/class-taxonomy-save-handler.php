@@ -31,8 +31,6 @@ if ( ! class_exists( '\WPOnion\DB\Taxonomy_Save_Handler' ) ) {
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
-			$fields = $this->fields->get();
-			$this->fields->set( 'fields', $fields );
 			$this->field_loop( $this->fields );
 		}
 	}

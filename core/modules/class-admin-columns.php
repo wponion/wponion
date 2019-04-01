@@ -29,6 +29,12 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 	 */
 	class Admin_Columns extends \WPOnion\Bridge\Module {
 		/**
+		 * @var string
+		 * @access
+		 */
+		protected $module = 'admin_columns';
+
+		/**
 		 * already_exists
 		 *
 		 * @var bool
@@ -44,7 +50,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 		 */
 		public function __construct( $post_type = array(), $arguments = array(), $render_callback = array() ) {
 			if ( ! empty( $post_type ) && isset( $post_type['title'] ) ) {
-				parent::__construct( array(), $post_type );
+				parent::__construct( null, $post_type );
 				$this->on_init();
 			} elseif ( ! empty( $post_type ) && ! empty( $arguments ) ) {
 				$arguments = ( is_string( $arguments ) ) ? array( 'title' => $arguments ) : $arguments;
@@ -56,7 +62,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 						if ( ! empty( $render_callback ) && ! isset( $arg['render'] ) ) {
 							$arg['render'] = $render_callback;
 						}
-						if ( is_array( $post_type ) && isset( $post_type[0] ) ) {
+						if ( wponion_is_array( $post_type ) && isset( $post_type[0] ) ) {
 							$arg = $this->parse_args( array( 'post_type' => $post_type ), $arg );
 						} else {
 							$arg = $this->parse_args( $post_type, $arg );
@@ -67,12 +73,12 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 					if ( ! empty( $render_callback ) && ! isset( $arguments['render'] ) ) {
 						$arguments['render'] = $render_callback;
 					}
-					if ( is_array( $post_type ) && isset( $post_type[0] ) ) {
+					if ( wponion_is_array( $post_type ) && isset( $post_type[0] ) ) {
 						$arguments = $this->parse_args( array( 'post_type' => $post_type ), $arguments );
 					} else {
 						$arguments = $this->parse_args( $post_type, $arguments );
 					}
-					parent::__construct( array(), $arguments );
+					parent::__construct( null, $arguments );
 					$this->on_init();
 				}
 			} elseif ( ! empty( $post_type ) && empty( $arguments ) ) {
@@ -81,7 +87,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 						new self( $types );
 					}
 				} else {
-					parent::__construct( array(), $post_type );
+					parent::__construct( null, $post_type );
 					$this->on_init();
 				}
 			}
@@ -107,7 +113,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 		 */
 		public function on_init() {
 			$post_types = $this->option( 'post_type' );
-			$post_types = ( ! is_array( $post_types ) ) ? array( $post_types ) : $post_types;
+			$post_types = ( ! wponion_is_array( $post_types ) ) ? array( $post_types ) : $post_types;
 			foreach ( $post_types as $type ) {
 				$this->add_filter( $this->get_hook_name( $type, 'columns' ), 'add_custom_column' );
 				$this->add_filter( $this->get_hook_name( $type ), 'render_column', 30, 2 );
@@ -115,6 +121,15 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 					$this->add_filter( $this->get_hook_name( $type, '_sortable_columns', 'manage_edit-', '' ), 'sortable_column' );
 				}
 			}
+		}
+
+		/**
+		 * Returns Unique Slug ID.
+		 *
+		 * @return string
+		 */
+		public function uid() {
+			return $this->slug();
 		}
 
 		/**
@@ -206,7 +221,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
 				'post_type' => false,
 				'name'      => false,
 				'title'     => false,
-				'reoder'    => false,
+				'reorder'   => false,
 				'render'    => false,
 				'sortable'  => false,
 			) );

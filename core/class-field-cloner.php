@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					),
 					'only_field'  => true,
 					'button_type' => 'button',
-					'label'       => __( 'Add + ' ),
+					'label'       => __( 'Add + ', 'wponion' ),
 				) ), null, null );
 
 			}
@@ -91,7 +91,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			$count  = ( empty( $values ) ) ? 0 : count( $values );
 			echo '<div class="wponion-clone-wrap" data-wponion-clone-count="' . $count . '" data-wponion-jsid="' . $this->js_field_id() . '">';
 
-			if ( is_array( $values ) ) {
+			if ( wponion_is_array( $values ) ) {
 				foreach ( $values as $value_id => $value ) {
 					echo $this->clone_single_element( $value, '[' . $value_id . ']' );
 				}
@@ -163,17 +163,17 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 				'toast_error'   => false,
 				'error_msg'     => null,
 				'limit'         => null,
-				'add_button'    => __( 'Add +' ),
+				'add_button'    => __( 'Add +', 'wponion' ),
 				'remove_button' => wponion_icon( 'dashicons dashicons-trash' ),
 			);
 
-			if ( ! is_array( $data['clone'] ) ) {
+			if ( ! wponion_is_array( $data['clone'] ) ) {
 				$data['clone'] = array();
 			}
 			$data['clone'] = $this->parse_args( $data['clone'], $defaults );
 
 			if ( null === $data['clone']['error_msg'] ) {
-				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s' ), $data['clone']['limit'] );
+				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s', 'wponion' ), $data['clone']['limit'] );
 			}
 
 			$data['clone']['error_msg'] = $this->handle_args( 'content', $data['clone']['error_msg'], array(

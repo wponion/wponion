@@ -62,7 +62,7 @@ if ( ! class_exists( '\WPOnion\Modules\Network_Settings' ) ) {
 		protected function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = get_site_option( $this->unique );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}
@@ -71,8 +71,10 @@ if ( ! class_exists( '\WPOnion\Modules\Network_Settings' ) ) {
 
 		/**
 		 * Stores Values In Main Table.
+		 *
+		 * @param $values
 		 */
-		public function set_db_values() {
+		public function set_db_values( $values ) {
 			update_site_option( $this->unique, $this->db_values );
 		}
 
@@ -82,7 +84,7 @@ if ( ! class_exists( '\WPOnion\Modules\Network_Settings' ) ) {
 		public function on_settings_page_load() {
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->db_values = $this->save_validate( $_POST[ $this->unique ] );
-				$this->set_db_values();
+				$this->set_db_values( array() );
 			}
 			parent::on_settings_page_load();
 		}

@@ -51,10 +51,10 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		/**
 		 * User_Profile constructor.
 		 *
-		 * @param array $fields
-		 * @param array $settings
+		 * @param array             $settings
+		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
@@ -64,12 +64,13 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function init_metabox() {
 			if ( false !== $this->option( 'metabox' ) ) {
-				if ( is_array( $this->option( 'metabox' ) ) ) {
+				$heading = ( true === $this->option( 'metabox' ) && ! empty( $this->option( 'heading' ) ) ) ? $this->option( 'heading' ) : $this->option( 'metabox' );
+				if ( wponion_is_array( $this->option( 'metabox' ) ) ) {
 					$metabox = $this->parse_args( $this->option( 'metabox' ), array() );
 				} else {
 					$metabox = array(
-						'metabox_title' => $this->option( 'metabox' ),
-						'metabox_id'    => sanitize_title( $this->option( 'metabox' ) ),
+						'metabox_title' => $heading,
+						'metabox_id'    => sanitize_title( $heading ),
 					);
 				}
 
@@ -134,7 +135,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
 			$default                                = array();
 
-			foreach ( $this->fields as $field ) {
+			foreach ( $this->fields->get() as $field ) {
 				if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 					continue;
 				}
@@ -185,7 +186,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				do_meta_boxes( $screen->id, 'normal', $this->user_id );
 			} else {
 				$instance = $this->init_theme();
-				$instance->render_user_profile_html();
+				$instance->render_user_profile();
 			}
 		}
 
@@ -197,7 +198,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = get_user_meta( $this->user_id, $this->unique(), true );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}

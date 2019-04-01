@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * fields
 		 *
-		 * @var array|\WPOnion\Module_Fields
+		 * @var array|\WPO\Container|\WPO\Builder
 		 */
 		protected $fields = array();
 
@@ -162,7 +162,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 				$functions = $field['sanitize'];
 			}
 
-			if ( is_array( $functions ) ) {
+			if ( wponion_is_array( $functions ) ) {
 				foreach ( $functions as $function ) {
 					if ( wponion_is_callable( $function ) ) {
 						$value = wponion_callback( $function, array(
@@ -210,7 +210,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 			}
 
 			$errors = array();
-			if ( is_array( $functions ) ) {
+			if ( wponion_is_array( $functions ) ) {
 				foreach ( $functions as $key => $function ) {
 					$custom_message = ( ! is_numeric( $key ) ) ? $function : false;
 					$function       = ( ! is_numeric( $key ) ) ? $key : $function;
@@ -327,7 +327,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * Runs A Field.Inner Loop.
 		 *
-		 * @param array|\WPOnion\Module_Fields $section
+		 * @param array|\WPO\Container $section
 		 */
 		protected function field_loop( $section ) {
 			foreach ( $section->fields() as $field ) {
@@ -357,7 +357,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		protected function nested_field_loop( $field ) {
 			$parent_field = $field;
 
-			if ( is_array( $field['fields'] ) ) {
+			if ( wponion_is_array( $field['fields'] ) ) {
 				foreach ( $field['fields'] as $_field ) {
 					if ( wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 						continue;

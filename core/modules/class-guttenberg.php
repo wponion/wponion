@@ -100,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Modules\GuttenBerg' ) ) {
 			}
 
 			$attributes['block_meta'] = get_post_meta( $post_id, '__block_' . $attributes['block_id'], true );
-			if ( ! is_array( $attributes['block_meta'] ) ) {
+			if ( ! wponion_is_array( $attributes['block_meta'] ) ) {
 				$attributes['block_meta'] = [];
 			}
 

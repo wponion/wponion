@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 		 * @return mixed;
 		 */
 		protected function output() {
-			$this->field['type'] = $this->field['image_type'];
+			$this->field['type'] = ( true === $this->field['multiple'] ) ? 'checkbox' : 'radio';
 			return parent::output();
 		}
 
@@ -47,17 +47,17 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			return '<div class=" form-group form-check ">
+			return '<div class="wponion-checker">
 				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
 					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
-					<div class="wponion-image-select-thumbnail"><img alt="" src="' . $options['label'] . '" /></div>
+					<div class="wponion-image-select-thumbnail wponion-checker-content"><img alt="" src="' . $options['label'] . '" /></div>
 				</label>
 			</div>';
 		}
 
 
 		protected function field_default() {
-			return $this->parse_args( parent::field_default(), array( 'image_type' => 'checkbox' ) );
+			return $this->parse_args( parent::field_default(), array( 'multiple' => false ) );
 		}
 	}
 }

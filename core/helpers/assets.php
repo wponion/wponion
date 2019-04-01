@@ -15,41 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $wponion_js, $wponion_css;
-
-$wponion_js = array(
-	'wponion-plugins'     => array(
-		'assets/js/wponion-plugins.js',
-		array( 'jquery', 'backbone', 'underscore', 'wp-util' ),
-	),
-	'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
-	'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
-	'wponion-woocommerce' => array( 'assets/js/wponion-woocommerce.js', array( 'wponion-core' ) ),
-	'wponion-postmessags' => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
-	'wponion-cloner'      => array( 'assets/js/wponion-cloner.js' ),
-	'wponion-inputmask'   => array( 'assets/plugins/inputmask/jquery.inputmask.bundle.min.js', array( 'jquery' ) ),
-	'select2'             => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
-	'chosen'              => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
-	'wponion-colorpicker' => array(
-		'assets/plugins/colorpicker/wp-color-picker-alpha.js',
-		array( 'wp-color-picker' ),
-	),
-	'wponion-datepicker'  => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
-);
-
-$wponion_css = array(
-	'chosen'              => array( 'assets/plugins/chosen/chosen.min.css' ),
-	'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
-	'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
-	'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
-	'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
-	'wponion-colorpicker' => array(
-		'assets/plugins/wp-color-picker-alpha/cs-colorpicker.css',
-		array( 'wp-color-picker' ),
-	),
-	'wponion-datepicker'  => array( 'assets/plugins/flatpickr/style.css' ),
-);
-
 if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 	/**
 	 * Loads More assets and also with core.
@@ -59,7 +24,7 @@ if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 	function wponion_load_core_assets( $extra = array() ) {
 		wponion_load_asset( 'wponion-core' );
 
-		if ( is_array( $extra ) ) {
+		if ( wponion_is_array( $extra ) ) {
 			foreach ( $extra as $slug ) {
 				wponion_load_asset( $slug );
 			}

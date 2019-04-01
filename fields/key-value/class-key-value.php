@@ -35,17 +35,18 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function key_value( $name = '', $key = '', $value = '' ) {
 			echo '<div class="wponion-keyvalue-field">';
+			echo '<div class="sortable-handler">' . wponion_icon( 'dashicons dashicons-menu' ) . '</div>';
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
 				'id'         => 'key',
 				'type'       => 'text',
-				'prefix'     => __( 'Key' ),
+				'prefix'     => __( 'Key', 'wponion' ),
 				'only_field' => true,
 			) ), $key, $name );
 
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'value_input' ), array(
 				'id'         => 'value',
 				'type'       => 'text',
-				'prefix'     => __( 'Value' ),
+				'prefix'     => __( 'Value', 'wponion' ),
 				'only_field' => true,
 			) ), $value, $name );
 
@@ -65,15 +66,18 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			$values = ( is_array( $this->value() ) ) ? $this->value() : array();
+			$values = ( wponion_is_array( $this->value() ) ) ? $this->value() : array();
+			$values = array_filter( $values );
 			$_count = ( count( $values ) === 0 ) ? 1 : count( $values );
 			echo '<div class="wponion-keyvalue_wrap" data-wponion-clone-count="' . $_count . '">';
-			if ( is_array( $this->value() ) ) {
+			if ( wponion_is_array( $this->value() ) ) {
 				foreach ( $values as $i => $value ) {
-					echo $this->key_value( $this->name( '[' . $i . ']' ), $value['key'], $value['value'] );
+					if ( isset( $value['key'] ) && isset( $value['value'] ) ) {
+						echo $this->key_value( $this->name( '[' . $i . ']' ), $value['key'], $value['value'] );
+					}
 				}
 			} else {
-				echo $this->key_value( $this->name( '[0]' ), '', '' );
+				echo $this->key_value( $this->name( '[1]' ), '', '' );
 			}
 			echo '</div>';
 
@@ -94,12 +98,11 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 			echo '<div class="wponion-keyvalue-action-container">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
 				'type'       => 'button',
-				'label'      => __( 'Add +' ),
+				'label'      => __( 'Add +', 'wponion' ),
 				'attributes' => array( 'data-wponion-keyvalue-add' => 'yes' ),
 				'only_field' => true,
 				'class'      => 'button button-primary',
 			) ), false, $this->unique() );
-
 			echo '</div>';
 			echo $this->after();
 		}
@@ -111,12 +114,13 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'add_button'    => __( 'Add +' ),
-				'remove_button' => __( '-' ),
+				'add_button'    => __( 'Add +', 'wponion' ),
+				'remove_button' => __( '-' , 'wponion'),
 				'key_input'     => array(),
 				'value_input'   => array(),
 				'limit'         => false,
-				'error_msg'     => __( 'You Can\'t Add More..' ),
+				'sort'          => false,
+				'error_msg'     => __( 'You Can\'t Add More..', 'wponion' ),
 			);
 		}
 

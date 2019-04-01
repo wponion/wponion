@@ -35,7 +35,10 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 		 * @param array $settings
 		 */
 		public function __construct( $settings = array() ) {
-			parent::__construct( false, $settings );
+			if ( is_string( $settings ) ) {
+				$settings = array( 'option_name' => $settings );
+			}
+			parent::__construct( null, $settings );
 			$this->on_init();
 			$this->add_action( 'admin_notices', 'display_notices' );
 			$this->add_action( 'shutdown', 'save_notices' );
@@ -116,7 +119,6 @@ JAVASCRIPT;
 			return array(
 				'option_name' => '_wponion_admin_notices',
 				'ajax_action' => 'remove-admin-notice',
-				'plugin_id'   => false,
 			);
 		}
 
@@ -215,7 +217,7 @@ JAVASCRIPT;
 			$screens = $notice->getScreens();
 			if ( ! empty( $screens ) ) {
 				$curScreen = get_current_screen();
-				if ( ! is_array( $screens ) || ! in_array( $curScreen->id, $screens ) ) {
+				if ( ! wponion_is_array( $screens ) || ! in_array( $curScreen->id, $screens ) ) {
 					return false;
 				}
 			}

@@ -45,10 +45,10 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		/**
 		 * Media_Fields constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param array             $settings
+		 * @param null|\WPO\Builder $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->on_init();
 		}
@@ -62,7 +62,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 			if ( ! isset( $this->db_values[ $this->post_id ] ) || empty( $this->db_values[ $this->post_id ] ) ) {
 				$this->db_values[ $this->post_id ] = get_post_meta( $this->post_id, $this->unique(), true );
 			}
-			return ( ! is_array( $this->db_values[ $this->post_id ] ) ) ? array() : $this->db_values[ $this->post_id ];
+			return ( ! wponion_is_array( $this->db_values[ $this->post_id ] ) ) ? array() : $this->db_values[ $this->post_id ];
 		}
 
 		/**
@@ -70,6 +70,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 */
 		public function on_init() {
 			$this->add_action( 'load-upload.php', 'on_page_load' );
+			$this->add_action( 'load-post.php', 'on_page_load' );
 			$this->add_filter( 'attachment_fields_to_edit', 'display_fields', 10, 2 );
 			$this->add_filter( 'attachment_fields_to_save', 'save_data', 10, 1 );
 		}
@@ -111,7 +112,10 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 * On Page Load Hook.
 		 */
 		public function on_page_load() {
-			$this->add_action( 'admin_enqueue_scripts', 'load_assets' );
+			global $typenow;
+			if ( 'attachment' === $typenow ) {
+				$this->add_action( 'admin_enqueue_scripts', 'load_assets' );
+			}
 		}
 
 		/**
@@ -132,7 +136,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		public function display_fields( $form, $attachment ) {
 			$this->post_id = $attachment->ID;
 			$o             = '<div class="' . $this->wrap_class() . '">';
-			foreach ( $this->fields as $field ) {
+			foreach ( $this->fields->fields() as $field ) {
 				$this->catch_output();
 				echo $this->render_field( $field, $this->post_id );
 				$o .= $this->catch_output( 'stop' );
@@ -144,7 +148,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 			$form[] = array(
 				'input' => 'html',
 				'html'  => $o . '</div>' . $script,
-				'label' => 'ddd',
+				'label' => null,
 			);
 			return $form;
 		}

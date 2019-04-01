@@ -142,18 +142,6 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		}
 
 		/**
-		 * Handles Assets Url.
-		 *
-		 * @param string $url
-		 * @param string $ext
-		 *
-		 * @return string
-		 */
-		protected function asset( $url = '', $ext = 'css' ) {
-			return wponion_debug_assets( $this->url( $url ), $ext );
-		}
-
-		/**
 		 * Returns Settings Instance.
 		 *
 		 * @return \WPOnion\Modules\Settings
@@ -207,7 +195,6 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 			return wponion_help_tabs_registry( $this->module_instance );
 		}
 
-
 		/**
 		 * Returns User Profile Instance.
 		 *
@@ -218,12 +205,28 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		}
 
 		/**
-		 * Returns Screen Options Instance.
+		 * Returns Nav Menu Instance.
 		 *
-		 * @return bool
+		 * @return bool|\WPOnion\Modules\Nav_Menu
 		 */
-		public function screen_options() {
-			return wponion_screen_options_registry( $this->module_instance );
+		public function nav_menu() {
+			return wponion_nav_menu_registry( $this->module_instance );
+		}
+
+		/**
+		 * Loads A Given File From Theme.
+		 *
+		 * @param      $file
+		 * @param bool $is_require
+		 */
+		public function load_file( $file, $is_require = false ) {
+			if ( file_exists( $this->dir( $file ) ) ) {
+				if ( $is_require ) {
+					require $this->dir( $file );
+				} else {
+					include $this->dir( $file );
+				}
+			}
 		}
 
 		/**
@@ -234,35 +237,35 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 * @return string
 		 */
 		protected function find_html_file( $file ) {
-			return wponion_locate_template( $this->theme . '/' . $this->theme . '-' . $file, $this->dir );
+			return wponion_locate_template( $this->theme . '/' . $file, $this->dir );
 		}
 
 		/**
 		 * Generates Metabox HTML Webpage.
 		 */
-		public function render_metabox_html() {
-			include $this->find_html_file( 'metabox-html.php' );
+		public function render_metabox() {
+			include $this->find_html_file( 'metabox.php' );
 		}
 
 		/**
 		 * Generates Settings Page HTML.
 		 */
-		public function render_settings_html() {
-			include $this->find_html_file( 'settings-html.php' );
+		public function render_settings() {
+			include $this->find_html_file( 'settings.php' );
 		}
 
 		/**
 		 * Generates Taxonomy Page HTML.
 		 */
-		public function render_taxonomy_html() {
-			include $this->find_html_file( 'taxonomy-html.php' );
+		public function render_taxonomy() {
+			include $this->find_html_file( 'taxonomy.php' );
 		}
 
 		/**
 		 * Generates User Profile HTML.
 		 */
-		public function render_user_profile_html() {
-			include $this->find_html_file( 'user-profile-html.php' );
+		public function render_user_profile() {
+			include $this->find_html_file( 'user-profile.php' );
 		}
 
 		/**
@@ -275,15 +278,8 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Generates Taxonomy Page HTML.
 		 */
-		public function render_widgets_html() {
+		public function render_widgets() {
 			include $this->find_html_file( 'widgets.php' );
-		}
-
-		/**
-		 * Generates Screen Options HTML.
-		 */
-		public function render_screen_options() {
-			include $this->find_html_file( 'screen-options.php' );
 		}
 
 		/**
@@ -291,6 +287,13 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 */
 		public function render_help_tabs() {
 			include $this->find_html_file( 'help-tabs.php' );
+		}
+
+		/**
+		 * Generates Nav Menu HTML.
+		 */
+		public function render_nav_menu() {
+			include $this->find_html_file( 'nav-menu.php' );
 		}
 	}
 }

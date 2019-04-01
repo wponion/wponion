@@ -37,13 +37,15 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 				$date = $this->data( 'date' );
 
 				if ( false === $date ) {
-					$date = __( 'From Date' );
+					$date = __( 'From Date', 'wponion' );
 				}
 
+				echo '<div class="date-range-container row">';
 				echo $this->sub_field( $this->handle_args( 'title', $date, array(
 					'id'         => 'from',
 					'type'       => 'text',
-					'title'      => __( 'From Date' ),
+					'title'      => __( 'From Date', 'wponion' ),
+					'wrap_class' => 'col-xs-12 col-sm-12 col-md-2',
 					'horizontal' => true,
 					'attributes' => array(
 						'data-wponion-datepicker-from-date' => true,
@@ -52,12 +54,14 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 				echo $this->sub_field( $this->handle_args( 'title', $this->data( 'to_date' ), array(
 					'id'         => 'to',
 					'type'       => 'text',
-					'title'      => __( 'To Date' ),
+					'title'      => __( 'To Date', 'wponion' ),
+					'wrap_class' => 'col-xs-12 col-sm-12 col-md-2',
 					'horizontal' => true,
 					'attributes' => array(
 						'data-wponion-datepicker-to-date' => true,
 					),
 				) ), $this->value( 'to' ), $this->name() );
+				echo '</div>';
 			} else {
 				echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'date' ), array(
 					'id'         => $this->field_id(),
@@ -80,13 +84,19 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			$settings          = ( $this->has( 'settings' ) ) ? $this->data( 'settings' ) : array();
-			$settings['theme'] = $this->data( 'theme' );
-			$settings['range'] = $this->data( 'range' );
-			wponion_localize()->add( $this->js_field_id(), array(
-				'settings' => $settings,
-			) );
 			wponion_load_asset( 'wponion-datepicker' );
+		}
+
+		/**
+		 * @return array|bool|mixed
+		 */
+		protected function js_field_args() {
+			$js_args                      = array();
+			$settings                     = ( $this->has( 'settings' ) ) ? $this->data( 'settings' ) : array();
+			$js_args['settings']          = $settings;
+			$js_args['settings']['theme'] = $this->data( 'theme' );
+			$js_args['settings']['range'] = $this->data( 'range' );
+			return $js_args;
 		}
 
 		/**
@@ -99,8 +109,8 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 				'range'    => false,
 				'settings' => array(),
 				'theme'    => 'default',
-				'date'     => __( 'Date' ),
-				'to_date'  => __( 'Till Date' ),
+				'date'     => __( 'Date', 'wponion' ),
+				'to_date'  => __( 'Till Date', 'wponion' ),
 			);
 		}
 	}

@@ -22,7 +22,7 @@ if ( ! function_exists( 'wponion_is_email' ) ) {
 	 * @return bool|string
 	 */
 	function wponion_is_email( $value ) {
-		return ( ! sanitize_email( $value ) ) ? __( 'Please Enter A Valid Email' ) : true;
+		return ( ! sanitize_email( $value ) ) ? __( 'Please Enter A Valid Email', 'wponion' ) : true;
 	}
 }
 
@@ -35,7 +35,7 @@ if ( ! function_exists( 'wponion_is_url' ) ) {
 	 * @return mixed
 	 */
 	function wponion_is_url( $content ) {
-		return ( false === filter_var( $content, FILTER_VALIDATE_URL ) ) ? __( 'Enter A Valid URL' ) : true;
+		return ( false === filter_var( $content, FILTER_VALIDATE_URL ) ) ? __( 'Enter A Valid URL', 'wponion' ) : true;
 	}
 }
 
@@ -48,7 +48,7 @@ if ( ! function_exists( 'wponion_is_numeric' ) ) {
 	 * @return bool|string
 	 */
 	function wponion_is_numeric( $value ) {
-		return ( ! is_numeric( $value ) ) ? __( 'Please Enter A Valid Numeric Value' ) : true;
+		return ( ! is_numeric( $value ) ) ? __( 'Please Enter A Valid Numeric Value', 'wponion' ) : true;
 	}
 }
 
@@ -61,7 +61,7 @@ if ( ! function_exists( 'wponion_is_required' ) ) {
 	 * @return bool|string
 	 */
 	function wponion_is_required( $value ) {
-		return ( empty( $value ) ) ? __( 'This Field Is Required' ) : true;
+		return ( empty( $value ) ) ? __( 'This Field Is Required', 'wponion' ) : true;
 	}
 }
 
@@ -74,6 +74,6 @@ if ( ! function_exists( 'wponion_is_ip' ) ) {
 	 * @return bool|string
 	 */
 	function wponion_is_ip( $value ) {
-		return ( false === filter_var( $value, FILTER_VALIDATE_IP ) ) ? __( 'Enter A Valid IP Address' ) : true;
+		return ( false === filter_var( $value, FILTER_VALIDATE_IP ) ) ? __( 'Enter A Valid IP Address', 'wponion' ) : true;
 	}
 }

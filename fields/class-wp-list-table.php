@@ -34,7 +34,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 			$instance = new \WPOnion\WP_List_Table( $this->data( 'settings' ), $this->data( 'data' ) );
 			$instance->prepare_items();
 			$instance->views();
-			$instance->search_box( __( 'Search' ), 'search' );
+			$instance->search_box( __( 'Search', 'wponion' ), 'search' );
 			$instance->display();
 			echo '</div>';
 			echo $this->after();

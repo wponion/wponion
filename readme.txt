@@ -154,6 +154,63 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Beta : 0.0.9] - 01/04/2019
+### Added
+* Field Type Registry Class
+* Basic WPOnion Setup Class
+* Lodash Support
+* Search Option
+* Flexbox Grid
+* Single Page Layout For Settings Page
+
+#### New Modules
+* Ajax Support
+* WPPointers
+* Visual Composer
+* WooCommerce Settings Page
+
+#### Builders
+* WPOnion Base Builder
+* WPOnion Field Builder### Library
+* WP Dependencies lib by varunsridharan
+* PHP-Autoloader lib by varunsridharan### New Functions
+* Function `wponion_register_field`
+* Function `wponion_deregister_field`
+* Function `wponion_register_ui_field`
+* Function `wponion_field_add_support`
+* Function `wponion_field_remove_support`
+* Function `wponion_validate_bool_val`
+
+#### Fields
+* Button Set Field
+* Color Group Field
+* Change Log Field
+* Link Color Field
+* Input Group Field
+* Spacing Field
+* Dimensions Field
+
+### Changed
+* Updated WordPress JS Hooks With Proper WordPress Hooks Framework From WordPress
+* Updated Builtin Themes
+* SweatAlert2
+
+### Removed
+* Locutus Support
+
+---
+
+## [Beta : 0.0.8.1] - 19/12/2018
+### Changed
+1. `class-admin-notice.php` code bug fixed
+2. Updated `composer.json`
+3. Updated Readme.md to handle both **dev* & **stable** version details
+4. Updated `.gitignore` file
+5. Updated Version To `0.0.8.1`
+6. Updated Change Log
+
+---
+
 ## [Beta : 0.0.8] - 11/12/2018
 ### Fixed
 1. Core : `wponion_get_all_fields_ids_and_defaults` Function Fully Redeveloped
@@ -166,6 +223,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
+
+---
 
 ## [Beta : 0.0.7] - 25/11/2018
 ### Added

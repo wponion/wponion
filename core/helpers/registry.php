@@ -15,29 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-
-if ( ! function_exists( 'wponion_get_registry' ) ) {
-	/**
-	 * Get the registry by type.
-	 * Always return the same instance of the registry.
-	 *
-	 * @param string $type
-	 * @param string $class
-	 *
-	 * @return mixed
-	 */
-	function wponion_get_registry( $type = '', $class = '' ) {
-		static $data = array();
-		if ( true === $type ) {
-			return $data;
-		}
-		if ( ! isset( $data[ $type ] ) ) {
-			$data[ $type ] = new $class;
-		}
-		return $data[ $type ];
-	}
-}
-
 if ( ! function_exists( 'wponion_registry' ) ) {
 	/**
 	 * Get the registry by type.
@@ -50,8 +27,7 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	 */
 	function wponion_registry( $type = '', $class = null ) {
 		switch ( $type ) {
-			case 'settings':
-			case 'modules':
+			case 'module':
 			case 'theme':
 				$class = '\WPOnion\Registry\Modules';
 				break;
@@ -63,7 +39,7 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 				$class = '\WPOnion\Registry\Fields';
 				break;
 		}
-		return wponion_get_registry( $type, $class );
+		return \WPOnion\Registry\Holder::registry( $type, $class );
 	}
 }
 
@@ -88,149 +64,6 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_settings_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for settings module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool|mixed|\WPOnion\Modules\Settings
-	 */
-	function wponion_settings_registry( &$instance ) {
-		return wponion_get_registry_instance( 'settings', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_network_settings_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for settings module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool|mixed|\WPOnion\Modules\Settings
-	 */
-	function wponion_network_settings_registry( &$instance ) {
-		return wponion_get_registry_instance( 'network_settings', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_metabox_registry' ) ) {
-	/**
-	 * Returns Active Metabox instance.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool|\WPOnion\Modules\Metabox
-	 */
-	function wponion_metabox_registry( &$instance ) {
-		return wponion_get_registry_instance( 'metabox', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_taxonomy_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for metabox module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_taxonomy_registry( &$instance ) {
-		return wponion_get_registry_instance( 'taxonomy', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_user_profile_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for User Profile. module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_user_profile_registry( &$instance ) {
-		return wponion_get_registry_instance( 'user_profile', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_screen_options_registry' ) ) {
-	/**
-	 * Creates & Returns an static Instance for screen options module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_screen_options_registry( &$instance ) {
-		return wponion_get_registry_instance( 'screen_options', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_woocommerce_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for User Profile. module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_woocommerce_registry( &$instance ) {
-		return wponion_get_registry_instance( 'woocommerce', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_help_tabs_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for User Profile. module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_help_tabs_registry( &$instance ) {
-		return wponion_get_registry_instance( 'help_tabs', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_admin_page_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for User Profile. module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_admin_page_registry( &$instance ) {
-		return wponion_get_registry_instance( 'admin_page', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_help_tabs_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for User Profile. module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_help_tabs_registry( &$instance ) {
-		return wponion_get_registry_instance( 'help_tabs', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_dashboard_widgets_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for dashboard widgets module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_dashboard_widgets_registry( &$instance ) {
-		return wponion_get_registry_instance( 'dashboard_widgets', $instance, 'settings' );
-	}
-}
-
 if ( ! function_exists( 'wponion_widget_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for widgets module.
@@ -240,68 +73,20 @@ if ( ! function_exists( 'wponion_widget_registry' ) ) {
 	 * @return bool
 	 */
 	function wponion_widget_registry( &$instance ) {
-		return wponion_get_registry_instance( 'widget', $instance, 'settings' );
+		return wponion_get_registry_instance( 'widget', $instance, 'module' );
 	}
 }
 
-if ( ! function_exists( 'wponion_quick_edit_registry' ) ) {
+if ( ! function_exists( 'wponion_field_builder_registry' ) ) {
 	/**
-	 * Creates & Returns an static instance for widgets module.
+	 * Returns An Active Instance.
 	 *
 	 * @param $instance
 	 *
-	 * @return bool
+	 * @return \WPO\Field|bool
 	 */
-	function wponion_quick_edit_registry( &$instance ) {
-		return wponion_get_registry_instance( 'quick_edit', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_admin_columns_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for widgets module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_admin_columns_registry( &$instance ) {
-		return wponion_get_registry_instance( 'admin_columns', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_bulk_edit_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for widgets module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_bulk_edit_registry( &$instance ) {
-		return wponion_get_registry_instance( 'admin_columns', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_nav_menu_registry' ) ) {
-	/**
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_nav_menu_registry( &$instance ) {
-		return wponion_get_registry_instance( 'nav_menu', $instance, 'settings' );
-	}
-}
-
-if ( ! function_exists( 'wponion_admin_notices_registry' ) ) {
-	/**
-	 * @param $instance
-	 *
-	 * @return bool
-	 */
-	function wponion_admin_notices_registry( &$instance ) {
-		return wponion_get_registry_instance( 'admin_notices', $instance, 'settings' );
+	function wponion_field_builder_registry( &$instance ) {
+		return wponion_get_registry_instance( 'field_builder', $instance, 'settings' );
 	}
 }
 
@@ -334,22 +119,6 @@ if ( ! function_exists( 'wponion_theme_registry' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_async' ) ) {
-	/**
-	 * Creates an instance of Async_Request
-	 *
-	 * @return bool|\WPOnion\Async_Request
-	 */
-	function wponion_async() {
-		static $instance = false;
-
-		if ( false === $instance ) {
-			$instance = new WPOnion\Async_Request();
-		}
-		return $instance;
-	}
-}
-
 if ( ! function_exists( 'wponion_query' ) ) {
 	/**
 	 * Returns a static instance of \WPOnion\DB\Query
@@ -367,15 +136,11 @@ if ( ! function_exists( 'wponion_query' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_value_registry' ) ) {
+if ( ! function_exists( 'wponion_field_types' ) ) {
 	/**
-	 * Creates & Returns an static instance for module's value API.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool
+	 * @return string|\WPOnion\Registry\Field_Types
 	 */
-	function wponion_value_registry( &$instance ) {
-		return wponion_get_registry_instance( 'module_values', $instance, 'settings' );
+	function wponion_field_types() {
+		return '\WPOnion\Registry\Field_Types';
 	}
 }

@@ -26,35 +26,6 @@ if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_get_template' ) ) {
-	/**
-	 * Get other templates (e.g. product attributes) passing attributes and including the file.
-	 *
-	 * @access public
-	 *
-	 * @param string $template_name Template name.
-	 * @param array  $args Arguments. (default: array).
-	 * @param string $template_path Template path. (default: '').
-	 */
-	function wponion_get_template( $template_name, $args = array(), $template_path = '' ) {
-		if ( ! empty( $args ) && is_array( $args ) ) {
-			extract( $args ); // @codingStandardsIgnoreLine
-		}
-
-		$located = wponion_locate_template( $template_name, $template_path );
-
-		if ( ! file_exists( $located ) ) {
-			return;
-		}
-
-		// Allow 3rd party plugin filter template file from their plugin.
-		$located = apply_filters( 'wponion_template', $located, $template_name, $args, $template_path );
-		do_action( 'wponion_before_template_part', $template_name, $template_path, $located, $args );
-		include $located; // @codingStandardsIgnoreLine
-		do_action( 'wponion_after_template_part', $template_name, $template_path, $located, $args );
-	}
-}
-
 if ( ! function_exists( 'wponion_locate_template' ) ) {
 	/**
 	 * Locate a template and return the path for inclusion.
@@ -91,26 +62,6 @@ if ( ! function_exists( 'wponion_locate_template' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_get_template_html' ) ) {
-	/**
-	 * Like wc_get_template, but returns the HTML instead of outputting.
-	 *
-	 * @see wponion_get_template
-	 * @since 2.5.0
-	 *
-	 * @param string $template_name Template name.
-	 * @param array  $args Arguments. (default: array).
-	 * @param string $template_path Template path. (default: '').
-	 *
-	 * @return string
-	 */
-	function wponion_get_template_html( $template_name, $args = array(), $template_path = '' ) {
-		ob_start();
-		wponion_get_template( $template_name, $args, $template_path );
-		return ob_get_clean();
-	}
-}
-
 if ( ! function_exists( 'wponion_get_var' ) ) {
 	/**
 	 * Getting POST Var
@@ -122,14 +73,14 @@ if ( ! function_exists( 'wponion_get_var' ) ) {
 	 */
 	function wponion_get_var( $var, $default = '' ) {
 		if ( isset( $_POST[ $var ] ) ) {
-			if ( is_array( $_POST[ $var ] ) ) {
+			if ( wponion_is_array( $_POST[ $var ] ) ) {
 				return $_POST[ $var ];
 			} else {
 				return sanitize_text_field( $_POST[ $var ] );
 			}
 		}
 		if ( isset( $_GET[ $var ] ) ) {
-			if ( is_array( $_GET[ $var ] ) ) {
+			if ( wponion_is_array( $_GET[ $var ] ) ) {
 				return $_GET[ $var ];
 			} else {
 				return sanitize_text_field( $_GET[ $var ] );
@@ -139,7 +90,7 @@ if ( ! function_exists( 'wponion_get_var' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
+if ( ! function_exists( 'wponion_validate_parent_container_ids' ) ) {
 	/**
 	 * Checks if given section and parent id are valid and none of them has empty values.
 	 *
@@ -147,54 +98,14 @@ if ( ! function_exists( 'wponion_validate_parent_section_ids' ) ) {
 	 *
 	 * @return array|bool
 	 */
-	function wponion_validate_parent_section_ids( $ids = array() ) {
-		if ( empty( array_filter( $ids ) ) ) {
-			return false;
-		} elseif ( empty( $ids['section_id'] ) && ! empty( $ids['parent_id'] ) ) {
+	function wponion_validate_parent_container_ids( $ids = array() ) {
+		if ( ! empty( $ids['sub_container_id'] ) && empty( $ids['container_id'] ) ) {
 			return array(
-				'section_id' => false,
-				'parent_id'  => $ids['parent_id'],
-			);
-		} elseif ( ! empty( $ids['section_id'] ) && empty( $ids['parent_id'] ) ) {
-			return array(
-				'section_id' => false,
-				'parent_id'  => $ids['section_id'],
-			);
-		} else {
-			return array(
-				'section_id' => $ids['section_id'],
-				'parent_id'  => $ids['parent_id'],
+				'sub_container_id' => false,
+				'container_id'     => $ids['sub_container_id'],
 			);
 		}
-	}
-}
-
-if ( ! function_exists( 'wponion_debug_assets' ) ) {
-	/**
-	 * Checks if assets needs to be loaded a unminifed version.
-	 *
-	 * @param string $file_name
-	 * @param string $ext
-	 *
-	 * @return string
-	 */
-	function wponion_debug_assets( $file_name = '', $ext = 'css' ) {
-		return ( ( defined( 'WP_DEBUG' ) && true === WP_DEBUG ) || defined( 'SCRIPT_DEBUG' ) && true === SCRIPT_DEBUG ) ? $file_name . '.' . $ext : $file_name . '.min.' . $ext;
-	}
-}
-
-if ( ! function_exists( 'wponion_plugin_localize' ) ) {
-	/**
-	 * wponion localize_script plugin.js
-	 *
-	 * @param string $object
-	 * @param array  $data
-	 *
-	 * @return bool
-	 */
-	function wponion_plugin_localize( $object = '', $data = array() ) {
-		$add = wp_localize_script( 'wponion-plugins', $object, $data );
-		return ( false === $add ) ? wp_localize_script( 'wponion-core', $object, $data ) : wponion_js_vars( $object, $data, true );
+		return ( empty( array_filter( $ids ) ) ) ? false : $ids;
 	}
 }
 
@@ -262,7 +173,7 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 		$atts = '';
 		if ( ! empty( $attributes ) ) {
 			foreach ( $attributes as $key => $value ) {
-				$value = ( is_array( $value ) ) ? wp_json_encode( $value ) : $value;
+				$value = ( wponion_is_array( $value ) ) ? wp_json_encode( $value ) : $value;
 				if ( 'only-key' === $value ) {
 					$atts .= ' ' . esc_attr( $key );
 				} else {
@@ -285,15 +196,15 @@ if ( ! function_exists( 'wponion_html_class' ) ) {
 	 * @return string|array
 	 */
 	function wponion_html_class( $user_class = array(), $default_class = array(), $return_string = true ) {
-		if ( ! is_array( $user_class ) ) {
+		if ( ! wponion_is_array( $user_class ) ) {
 			$user_class = explode( ' ', $user_class );
 		}
 
-		if ( ! is_array( $default_class ) ) {
+		if ( ! wponion_is_array( $default_class ) ) {
 			$default_class = explode( ' ', $default_class );
 		}
 
-		$user_class = array_merge( $default_class, $user_class );
+		$user_class = wponion_parse_args( $default_class, $user_class );
 		$user_class = array_filter( array_unique( $user_class ) );
 		if ( true === $return_string ) {
 			return implode( ' ', $user_class );
@@ -359,74 +270,6 @@ if ( ! function_exists( 'wponion_field_debug' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_read_json_files' ) ) {
-	/**
-	 * Reads Given File Path.
-	 *
-	 * @param $file_path
-	 *
-	 * @return array|mixed|object
-	 */
-	function wponion_read_json_files( $file_path ) {
-		return ( file_exists( $file_path ) ) ? json_decode( file_get_contents( $file_path ), true ) : array();
-	}
-}
-
-if ( ! function_exists( 'wponion_get_term_meta' ) ) {
-	/**
-	 * Returns Terms Meta Info.
-	 *
-	 * @param string $term_id
-	 * @param string $unique
-	 *
-	 * @return mixed
-	 */
-	function wponion_get_term_meta( $term_id = '', $unique = '' ) {
-		if ( function_exists( 'get_term_meta' ) ) {
-			return get_term_meta( $term_id, $unique, true );
-		}
-		$key = 'wponion_' . wponion_hash_string( $term_id . '_' . $unique );
-		return get_option( $key, true );
-	}
-}
-
-if ( ! function_exists( 'wponion_update_term_meta' ) ) {
-	/**
-	 * Updates Term Meta.
-	 *
-	 * @param string $term_id
-	 * @param string $unique
-	 * @param array  $values
-	 *
-	 * @return bool|int|\WP_Error
-	 */
-	function wponion_update_term_meta( $term_id = '', $unique = '', $values = array() ) {
-		if ( function_exists( 'update_term_meta' ) ) {
-			return update_term_meta( $term_id, $unique, $values );
-		}
-
-		$key = 'wponion_' . wponion_hash_string( $term_id . '_' . $unique );
-		return update_option( $key, $values );
-	}
-}
-
-if ( ! function_exists( 'wponion_delete_term_meta' ) ) {
-	/**
-	 * Deletes a Term Meta.
-	 *
-	 * @param string $term_id
-	 * @param string $unique
-	 *
-	 * @return bool
-	 */
-	function wponion_delete_term_meta( $term_id = '', $unique = '' ) {
-		if ( function_exists( 'delete_term_meta' ) ) {
-			return delete_term_meta( $term_id, $unique );
-		}
-		return delete_option( 'wponion_' . wponion_hash_string( $term_id . '_' . $unique ) );
-	}
-}
-
 if ( ! function_exists( 'wponion_is_callable' ) ) {
 	/**
 	 * Checks if given value is a callback.
@@ -470,14 +313,14 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 		$data = false;
 		try {
 			if ( is_callable( $callback ) ) {
-				$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
+				$args = ( ! wponion_is_array( $args ) ) ? array( $args ) : $args;
 				$data = call_user_func_array( $callback, $args );
 			} elseif ( is_string( $callback ) && has_filter( $callback ) ) {
-				$data = call_user_func_array( 'apply_filters', array_merge( array( $callback ), $args ) );
+				$data = call_user_func_array( 'apply_filters', wponion_parse_args( array( $callback ), $args ) );
 			} elseif ( is_string( $callback ) && has_action( $callback ) ) {
 				ob_start();
-				$args = ( ! is_array( $args ) ) ? array( $args ) : $args;
-				echo call_user_func_array( 'do_action', array_merge( array( $callback ), $args ) );
+				$args = ( ! wponion_is_array( $args ) ) ? array( $args ) : $args;
+				echo call_user_func_array( 'do_action', wponion_parse_args( array( $callback ), $args ) );
 				$data = ob_get_clean();
 				ob_flush();
 			}
@@ -485,42 +328,6 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 			$data = false;
 		}
 		return $data;
-	}
-}
-
-if ( ! function_exists( 'wponion_update_option' ) ) {
-	/**
-	 * Custom Wrapper For update_option & update_site_option.
-	 *
-	 * @param string $option
-	 * @param mixed  $value
-	 * @param bool   $autoload
-	 * @param bool   $force_local
-	 */
-	function wponion_update_option( $option, $value, $autoload = false, $force_local = false ) {
-		if ( is_network_admin() && is_multisite() && false === $force_local ) {
-			update_site_option( $option, $value );
-		} else {
-			update_option( $option, $value, $autoload );
-		}
-	}
-}
-
-if ( ! function_exists( 'wponion_get_option' ) ) {
-	/**
-	 * Custom Wrapper for get_option / get_site_option.
-	 *
-	 * @param      $option_name
-	 * @param      $default
-	 * @param bool $force_local
-	 *
-	 * @return mixed
-	 */
-	function wponion_get_option( $option_name, $default, $force_local = false ) {
-		if ( is_multisite() && is_network_admin() && false === $force_local ) {
-			return get_site_option( $option_name, $default );
-		}
-		return get_option( $option_name, $default );
 	}
 }
 
@@ -557,6 +364,111 @@ if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_highlight_string' ) ) {
+	/**
+	 * Highlights A Code.
+	 *
+	 * @uses \highlight_string()
+	 *
+	 * @param      $sting
+	 * @param bool $append_pre
+	 *
+	 * @return bool|string|string
+	 */
+	function wponion_highlight_string( $sting, $append_pre = true ) {
+		$sting = ( is_array( $sting ) ) ? var_export( $sting, true ) : $sting;
+		$text  = highlight_string( '<?php ' . trim( $sting ), true );  // highlight_string() requires opening PHP tag or otherwise it will not colorize the text
+		$text  = preg_replace( '|^\\<code\\>\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>|', '', trim( $text ), 1 );  // remove prefix
+		$text  = preg_replace( '|\\</code\\>$|', '', $text, 1 );  // remove suffix 1
+		$text  = preg_replace( '|\\</span\\>$|', '', trim( $text ), 1 );  // remove suffix 2
+		$text  = preg_replace( '|^(\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>)(&lt;\\?php&nbsp;)(.*?)(\\</span\\>)|', '$1$3$4', trim( $text ) );  // remove custom added "<?php "
+		return ( true === $append_pre ) ? '<pre class="wponion-debug-pre">' . $text . '</pre>' : $text;
+	}
+}
+
+if ( ! function_exists( 'wponion_is_array' ) ) {
+	/**
+	 * @param $data
+	 *
+	 * @return bool
+	 */
+	function wponion_is_array( $data ) {
+		return ( $data instanceof \WPO\Field || is_array( $data ) );
+	}
+}
+
+if ( ! function_exists( 'wponion_parse_args' ) ) {
+	/**
+	 * @param $new
+	 * @param $old
+	 *
+	 * @return array|object
+	 */
+	function wponion_parse_args( $new, $old ) {
+		if ( is_array( $new ) && is_array( $old ) ) {
+			return wp_parse_args( $new, $old );
+		}
+
+		$_new      = $new;
+		$_defaults = $old;
+
+		if ( $new instanceof \WPO\Field ) {
+			$_new = $new->get();
+		}
+		if ( $old instanceof \WPO\Field ) {
+			$_defaults = $old->get();
+		}
+
+		$final = wp_parse_args( $_new, $_defaults );
+
+		if ( $new instanceof \WPO\Field ) {
+			$new->set( $final );
+			return $new;
+		}
+		if ( $old instanceof \WPO\Field ) {
+			$old->set( $final );
+			return $old;
+		}
+
+		return $new;
+	}
+}
+
+if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
+	/**
+	 * @param array $matches
+	 * $matches = array(
+	 *    array(
+	 *        0 => 'col-xs-12', // Full Column Class
+	 *        1 => 'xs', // Device Class
+	 *        2 => '12' // Column Count
+	 *    ),
+	 *    array(
+	 *        0 => 'col-xs-12', // Full Column Class
+	 *        1 => 'xs', // Device Class
+	 *        2 => '12' // Column Count
+	 *    ),
+	 * );
+	 *
+	 * @return bool
+	 */
+	function wponion_get_possible_column_class( $matches = array() ) {
+		$return = array();
+		if ( wponion_is_array( $matches ) ) {
+			foreach ( $matches as $class ) {
+				if ( ! empty( array_filter( $class ) ) ) {
+					$count    = ( isset( $class[2] ) && '12' !== $class[2] ) ? '-' . ( 12 - $class[2] ) : null;
+					$return[] = 'col-' . $class[1] . $count;
+				}
+			}
+		}
+		return join( ' ', $return );
+	}
+}
+
+
+// WPOnion Assets Related Functions.
+require_once WPONION_PATH . 'core/helpers/builder.php';
 
 // WPOnion Assets Related Functions.
 require_once WPONION_PATH . 'core/helpers/assets.php';
@@ -578,6 +490,3 @@ require_once WPONION_PATH . 'core/helpers/validator.php';
 
 // WPOnion Theme Related Functions
 require_once WPONION_PATH . 'core/helpers/theme.php';
-
-// WPOnion Theme Related Functions
-require_once WPONION_PATH . 'core/helpers/admin-notice.php';

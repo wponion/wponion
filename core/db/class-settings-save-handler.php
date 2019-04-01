@@ -31,32 +31,40 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
-			foreach ( $this->fields as $option ) {
-				/* @var \WPOnion\Modules\Settings $settings */
-				$settings = $this->args['settings'];
-				if ( ! $settings->valid_option( $option, false, true ) ) {
-					continue;
-				}
+			/**
+			 * @var \WPOnion\Modules\Settings $settings
+			 * @var \WPO\Container            $container
+			 * @var \WPO\Container            $sub_container
+			 */
+			$settings = $this->args['settings'];
 
-				if ( $option->has_sections() ) {
-					foreach ( $option->sections() as $section ) {
-						if ( ! $settings->valid_option( $section, true, true ) ) {
-							continue;
-						}
-
-						if ( ! $section->has_fields() ) {
-							continue;
-						}
-
-						$this->field_loop( $section );
+			if ( $this->fields->has_fields() ) {
+				$this->field_loop( $this->fields );
+			} else {
+				foreach ( $this->fields->get() as $container ) {
+					if ( ! $settings->valid_option( $container, false, true ) ) {
+						continue;
 					}
-				} elseif ( $option->has_fields() ) {
-					$this->field_loop( $option );
-				}
-			}
 
-			if ( false === $settings->is_single_page() || 'only_submenu' === $settings->is_single_page() ) {
-				$this->return_values = $this->array_merge( $this->return_values, $this->db_values );
+					if ( $container->has_containers() ) {
+						foreach ( $container->containers() as $sub_container ) {
+							if ( ! $settings->valid_option( $sub_container, true, true ) ) {
+								continue;
+							}
+
+							if ( ! $sub_container->has_fields() ) {
+								continue;
+							}
+
+							$this->field_loop( $sub_container );
+						}
+					} elseif ( $container->has_fields() ) {
+						$this->field_loop( $container );
+					}
+				}
+				if ( false === $settings->is_single_page() || 'only_submenu' === $settings->is_single_page() ) {
+					$this->return_values = $this->array_merge( $this->return_values, $this->db_values );
+				}
 			}
 		}
 	}

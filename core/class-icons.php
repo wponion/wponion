@@ -46,11 +46,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 */
 		public static function add( $icon_name = '', $icon_slug = '', $icons = '' ) {
 			if ( ! isset( self::$icons[ $icon_slug ] ) && ! isset( self::$icon_names[ $icon_slug ] ) ) {
-				$is_json = ( is_string( $icons ) ) ? true : false;
-				if ( $is_json ) {
-					$icons = wponion_read_json_files( $icons );
-				}
-
 				self::$icons[ $icon_slug ]      = $icons;
 				self::$icon_names[ $icon_slug ] = $icon_name;
 			}

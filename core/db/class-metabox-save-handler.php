@@ -31,23 +31,30 @@ if ( ! class_exists( '\WPOnion\DB\Metabox_Save_Handler' ) ) {
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
+			/**
+			 * @var \WPOnion\Modules\Metabox $settings
+			 * @var \WPO\Container           $container
+			 * @var \WPO\Container           $sub_container
+			 */
+			$settings = $this->args['settings'];
+			if ( $this->fields->has_fields() ) {
+				$this->field_loop( $this->fields );
+			} else {
+				foreach ( $this->fields->get() as $container ) {
+					if ( $settings->valid_option( $container ) ) {
+						if ( $container->has_containers() ) {
+							foreach ( $container->containers() as $sub_container ) {
+								if ( ! $settings->valid_option( $sub_container ) ) {
+									continue;
+								}
+								if ( ! $sub_container->has_fields() ) {
+									continue;
+								}
 
-			foreach ( $this->fields as $option ) {
-				/* @var \WPOnion\Modules\Metabox $settings */
-				$settings = $this->args['settings'];
-				if ( $settings->valid_option( $option ) ) {
-					if ( $option->has_fields() ) {
-						$this->field_loop( $option );
-					} elseif ( $option->has_sections() ) {
-						foreach ( $option->sections() as $section ) {
-							if ( ! $settings->valid_option( $section ) ) {
-								continue;
+								$this->field_loop( $sub_container );
 							}
-							if ( ! $section->has_fields() ) {
-								continue;
-							}
-
-							$this->field_loop( $section );
+						} elseif ( $container->has_fields() ) {
+							$this->field_loop( $container );
 						}
 					}
 				}

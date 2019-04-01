@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'Line Awesome' ),
+	'name'  => __( 'Line Awesome', 'wponion' ),
 	'icons' => array(
-		__( 'Web Application' ) => array(
+		__( 'Web Application', 'wponion' ) => array(
 			'la la-adjust',
 			'la la-anchor',
 			'la la-archive',
@@ -405,7 +405,7 @@ return array(
 			'la la-wheelchair',
 			'la la-wifi',
 		),
-		__( 'Hand' )            => array(
+		__( 'Hand', 'wponion' )            => array(
 			'la la-wrench',
 			'la la-hand-grab-o',
 			'la la-hand-lizard-o',
@@ -424,7 +424,7 @@ return array(
 			'la la-hand-o-left',
 			'la la-hand-o-right',
 		),
-		__( 'Transportation' )  => array(
+		__( 'Transportation', 'wponion' )  => array(
 			'la la-hand-o-up',
 			'la la-automobile',
 			'la la-bicycle',
@@ -444,7 +444,7 @@ return array(
 			'la la-subway',
 			'la la-train',
 		),
-		__( 'Gender' )          => array(
+		__( 'Gender', 'wponion' )          => array(
 			'la la-genderless',
 			'la la-intersex',
 			'la la-mars',
@@ -460,7 +460,7 @@ return array(
 			'la la-venus-double',
 			'la la-venus-mars',
 		),
-		__( 'File Type' )       => array(
+		__( 'File Type', 'wponion' )       => array(
 			'la la-file-archive-o',
 			'la la-file-audio-o',
 			'la la-file-code-o',
@@ -480,14 +480,14 @@ return array(
 			'la la-file-text',
 			'la la-file-text-o',
 		),
-		__( 'Spinner' )         => array(
+		__( 'Spinner', 'wponion' )         => array(
 			'la la-circle-o-notch',
 			'la la-cog',
 			'la la-gear',
 			'la la-refresh',
 			'la la-spinner',
 		),
-		__( 'Form Control' )    => array(
+		__( 'Form Control', 'wponion' )    => array(
 			'la la-check-square',
 			'la la-check-square-o',
 			'la la-circle',
@@ -500,7 +500,7 @@ return array(
 			'la la-square',
 			'la la-square-o',
 		),
-		__( 'Payment' )         => array(
+		__( 'Payment', 'wponion' )         => array(
 			'la la-credit-card',
 			'la la-cc-amex',
 			'la la-cc-diners-club',
@@ -509,7 +509,7 @@ return array(
 			'la la-cc-mastercard',
 			'la la-cc-paypal',
 		),
-		__( 'Chart' )           => array(
+		__( 'Chart', 'wponion' )           => array(
 			'la la-cc-stripe',
 			'la la-cc-visa',
 			'la la-google-wallet',
@@ -520,7 +520,7 @@ return array(
 			'la la-line-chart',
 			'la la-pie-chart',
 		),
-		__( 'Currency' )        => array(
+		__( 'Currency', 'wponion' )        => array(
 			'la la-money',
 			'la la-bitcoin',
 			'la la-btc',
@@ -548,7 +548,7 @@ return array(
 			'la la-won',
 			'la la-yen',
 		),
-		__( 'Text Editor' )     => array(
+		__( 'Text Editor', 'wponion' )     => array(
 			'la la-eraser',
 			'la la-file',
 			'la la-file-o',
@@ -599,7 +599,7 @@ return array(
 			'la la-undo',
 			'la la-unlink',
 		),
-		__( 'Directional' )     => array(
+		__( 'Directional', 'wponion' )     => array(
 			'la la-arrows',
 			'la la-arrows-h',
 			'la la-arrows-v',
@@ -654,7 +654,7 @@ return array(
 			'la la-long-arrow-right',
 			'la la-long-arrow-up',
 		),
-		__( 'Video Player' )    => array(
+		__( 'Video Player', 'wponion' )    => array(
 			'la la-random',
 			'la la-arrows-alt',
 			'la la-backward',
@@ -673,7 +673,7 @@ return array(
 			'la la-stop',
 			'la la-youtube-play',
 		),
-		__( 'Brands' )          => array(
+		__( 'Brands', 'wponion' )          => array(
 			'la la-share-alt',
 			'la la-share-alt-square',
 			'la la-cc-amex',
@@ -820,7 +820,7 @@ return array(
 			'la la-youtube',
 			'la la-youtube-square',
 		),
-		__( 'Medical' )         => array(
+		__( 'Medical', 'wponion' )         => array(
 			'la la-heart',
 			'la la-heart-o',
 			'la la-heartbeat',

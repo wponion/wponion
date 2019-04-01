@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		protected function output() {
 			echo $this->before();
 			$options = $this->data( 'options' );
-			$options = ( is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
+			$options = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$attr    = $this->attributes( array(
 				'name'  => ( true === $this->has( 'multiple' ) ) ? $this->name( '[]' ) : $this->name(),
 				'class' => array( 'form-control' ),
@@ -49,9 +49,9 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 				echo $this->data( 'options_html' );
 			} else {
 				foreach ( $options as $key => $option ) {
-					if ( is_array( $option ) && isset( $option['label'] ) ) {
+					if ( wponion_is_array( $option ) && isset( $option['label'] ) ) {
 						echo $this->sel_option( $this->handle_options( $key, $option ) );
-					} elseif ( is_array( $option ) && ! isset( $option['label'] ) ) {
+					} elseif ( wponion_is_array( $option ) && ! isset( $option['label'] ) ) {
 						echo '<optgroup label="' . $key . '">';
 						foreach ( $option as $k => $v ) {
 							echo $this->sel_option( $this->handle_options( $k, $v ) );
@@ -63,6 +63,16 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 				}
 			}
 			echo '</select>';
+
+			if ( false === $this->select_framework && true === $this->data( 'ajax' ) ) {
+				echo wponion_add_element( array(
+					'type'    => 'wp_notice_error',
+					'before'  => '<br/>',
+					'large'   => true,
+					'alt'     => true,
+					'content' => __( 'Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>', 'wponion' ),
+				) );
+			}
 
 			echo $this->after();
 		}
@@ -76,7 +86,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		 */
 		protected function sel_option( $data ) {
 			$elem_id = sanitize_title( $this->name() . '_' . $data['key'] );
-			if ( isset( $data['tooltip'] ) && is_array( $data['tooltip'] ) ) {
+			if ( isset( $data['tooltip'] ) && wponion_is_array( $data['tooltip'] ) ) {
 				$data['attributes']['title']             = $data['tooltip']['attr']['title'];
 				$data['attributes']['data-wponion-jsid'] = $this->js_field_id();
 				$data['attributes']['data-field-jsid']   = $elem_id;
@@ -108,7 +118,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 			$select_class                = wponion_select_classes( $this->select_framework );
 			$data['attributes']['class'] = wponion_html_class( $data['attributes']['class'], $select_class, false );
 			wponion_localize()->add( $this->js_field_id(), array(
-				$this->select_framework => ( isset( $data[ $this->select_framework ] ) && is_array( $data[ $this->select_framework ] ) ) ? $data[ $this->select_framework ] : array(),
+				$this->select_framework => ( isset( $data[ $this->select_framework ] ) && wponion_is_array( $data[ $this->select_framework ] ) ) ? $data[ $this->select_framework ] : array(),
 			) );
 			return $data;
 		}
@@ -122,6 +132,18 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 			return array(
 				'options'  => array(),
 				'multiple' => false,
+				'ajax'     => false,
+			);
+		}
+
+		/**
+		 * @return array
+		 */
+		protected function js_field_args() {
+			return array(
+				'ajax'          => $this->data( 'ajax' ),
+				'query_args'    => ( true === $this->data( 'ajax' ) ) ? $this->data( 'query_args' ) : array(),
+				'query_options' => ( true === $this->data( 'ajax' ) ) ? $this->data( 'options' ) : array(),
 			);
 		}
 

@@ -48,6 +48,13 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		protected $loop_value = array();
 
 		/**
+		 * loop_value
+		 *
+		 * @var array
+		 */
+		protected $sub_fields_ids = false;
+
+		/**
 		 * Creates / inits its sub fields.
 		 */
 		protected function init_subfields() {
@@ -81,7 +88,8 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 			$default_title    = $this->data( 'heading' );
 			$count            = ( empty( $this->value ) ) ? 0 : count( $this->value );
 			echo '<div class="wponion-group-wrap" data-wponion-clone-count="' . $count . '">';
-			if ( is_array( $this->value ) ) {
+			if ( wponion_is_array( $this->value ) ) {
+				$this->value = array_filter( $this->value );
 				foreach ( $this->value as $i => $value ) {
 					$this->loop_count       = $this->loop_count + 1;
 					$this->loop_value       = $value;
@@ -100,7 +108,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => __( 'Add New' ),
+				'label'       => __( 'Add New', 'wponion' ),
 			) ), false, $this->unique() );
 
 			$this->is_js_sample     = true;
@@ -120,7 +128,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 * After Accordion Callback
 		 */
 		protected function after_accordion() {
-			echo '<div class="wponion-group-action">';
+			echo '<div class="wponion-group-action col-xs-12">';
 			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
 				'class'       => array( 'button button-secondary' ),
 				'type'        => 'button',
@@ -129,7 +137,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => __( 'Remove ' ),
+				'label'       => __( 'Remove ', 'wponion' ),
 			) ), false, $this->unique() );
 			echo '</div>';
 		}
@@ -145,7 +153,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 			), array( 'only_field' => true ) );
 
 			return array(
-				'default_heading'        => __( 'Group #[count]' ),
+				'default_heading'        => __( 'Group #[count]', 'wponion' ),
 				'heading_counter'        => strpos( $this->data( 'heading' ), '[count]' ),
 				'heading'                => $this->data( 'heading' ),
 				'limit'                  => $this->data( 'limit' ),
@@ -184,7 +192,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				}
 			}
 
-			if ( ! is_array( $accordion_title ) ) {
+			if ( ! wponion_is_array( $accordion_title ) ) {
 				if ( false !== strpos( $accordion_title, '[count]' ) ) {
 					$accordion_title = str_replace( '[count]', $this->loop_count, $accordion_title );
 				}
@@ -199,11 +207,10 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 * @return array|bool
 		 */
 		protected function get_first_field() {
-			static $fields_ids = false;
-			if ( false === $fields_ids ) {
-				$fields_ids = wponion_get_all_fields_ids_and_defaults( $this->data( 'fields' ), false );
+			if ( false === $this->sub_fields_ids ) {
+				$this->sub_fields_ids = wponion_fields_all_ids_defaults( $this->data( 'fields' ), false );
 			}
-			return $fields_ids;
+			return $this->sub_fields_ids;
 		}
 
 		/**
@@ -213,11 +220,11 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(
-				'add_button'    => __( 'Add New' ),
-				'remove_button' => __( 'Remove' ),
+				'add_button'    => __( 'Add New', 'wponion' ),
+				'remove_button' => __( 'Remove', 'wponion' ),
 				'limit'         => false,
 				'heading'       => false,
-				'error_msg'     => __( 'You Can\'t Add More..' ),
+				'error_msg'     => __( 'You Can\'t Add More..', 'wponion' ),
 			), parent::field_default() );
 		}
 

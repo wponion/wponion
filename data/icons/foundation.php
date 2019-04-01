@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'Foundation' ),
+	'name'  => __( 'Foundation', 'wponion' ),
 	'icons' => array(
-		__( 'General Icons' )        => array(
+		__( 'General Icons', 'wponion' )        => array(
 			'fi-heart small',
 			'fi-star small',
 			'fi-plus small',
@@ -94,7 +94,7 @@ return array(
 			'fi-web small',
 			'fi-foundation small',
 		),
-		__( 'Page Icons' )           => array(
+		__( 'Page Icons', 'wponion' )           => array(
 			'fi-page small',
 			'fi-page-csv small',
 			'fi-page-doc small',
@@ -112,7 +112,7 @@ return array(
 			'fi-page-filled small',
 			'fi-page-multiple small',
 		),
-		__( 'Arrow Icons' )          => array(
+		__( 'Arrow Icons', 'wponion' )          => array(
 			'fi-arrow-up small',
 			'fi-arrow-right small',
 			'fi-arrow-down small',
@@ -122,7 +122,7 @@ return array(
 			'fi-arrows-expand small',
 			'fi-arrows-compress small',
 		),
-		__( 'People Icons' )         => array(
+		__( 'People Icons', 'wponion' )         => array(
 			'fi-torso small',
 			'fi-torso-female small',
 			'fi-torsos small',
@@ -132,7 +132,7 @@ return array(
 			'fi-torsos-all-female small',
 			'fi-torso-business small',
 		),
-		__( 'Device Icons' )         => array(
+		__( 'Device Icons', 'wponion' )         => array(
 			'fi-monitor small',
 			'fi-laptop small',
 			'fi-tablet-portrait small',
@@ -141,7 +141,7 @@ return array(
 			'fi-mobile-signal small',
 			'fi-usb small',
 		),
-		__( 'Text Editor Icons' )    => array(
+		__( 'Text Editor Icons', 'wponion' )    => array(
 			'fi-bold small',
 			'fi-italic small',
 			'fi-underline small',
@@ -167,7 +167,7 @@ return array(
 			'fi-unlink small',
 			'fi-quote small',
 		),
-		__( 'Media Control Icons' )  => array(
+		__( 'Media Control Icons', 'wponion' )  => array(
 			'fi-play small',
 			'fi-stop small',
 			'fi-pause small',
@@ -185,7 +185,7 @@ return array(
 			'fi-eject small',
 			'fi-rewind-ten small',
 		),
-		__( 'Ecommerce Icons' )      => array(
+		__( 'Ecommerce Icons', 'wponion' )      => array(
 			'fi-dollar small',
 			'fi-euro small',
 			'fi-pound small',
@@ -203,7 +203,7 @@ return array(
 			'fi-shopping-bag small',
 			'fi-dollar-bill small',
 		),
-		__( 'Accessibility Icons' )  => array(
+		__( 'Accessibility Icons', 'wponion' )  => array(
 			'fi-wheelchair small',
 			'fi-braille small',
 			'fi-closed-caption small',
@@ -220,7 +220,7 @@ return array(
 			'fi-male-symbol small',
 			'fi-female-symbol small',
 		),
-		__( 'Social & Brand Icons' ) => array(
+		__( 'Social & Brand Icons', 'wponion' ) => array(
 			'fi-social-500px small',
 			'fi-social-adobe small',
 			'fi-social-amazon small',
@@ -279,7 +279,7 @@ return array(
 			'fi-social-zerply small',
 			'fi-social-zurb small',
 		),
-		__( 'Miscellaneous Icons' )  => array(
+		__( 'Miscellaneous Icons', 'wponion' )  => array(
 			'fi-compass small',
 			'fi-music small',
 			'fi-lightbulb small',

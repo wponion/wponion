@@ -43,12 +43,11 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		/**
 		 * Nav_Menu constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param array             $settings
+		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), $fields = array() ) {
+		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->fields = $fields;
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 				$this->on_page_load();
 			} else {
@@ -125,11 +124,8 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public function render( $item_id, $post, $depth, $args, $id ) {
 			$this->post_id = $item_id;
-			echo '<div class="' . $this->wrap_class( '' ) . '">';
-			foreach ( $this->fields as $field ) {
-				echo $this->render_field( $field );
-			}
-			echo '</div>';
+			$this->init_theme()
+				->render_nav_menu();
 		}
 
 		/**
@@ -140,7 +136,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = get_post_meta( $this->post_id, $this->unique, true );
-				if ( ! is_array( $this->db_values ) ) {
+				if ( ! wponion_is_array( $this->db_values ) ) {
 					$this->db_values = array();
 				}
 			}
@@ -187,7 +183,19 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 * @static
 		 */
 		public static function change_nav_walker() {
-			return '\WPOnion\WP_Nav_Menu_Walker';
+			return '\WPOnion\WP\Nav_Menu\Walker';
+		}
+
+		/**
+		 * Returns Default Args.
+		 *
+		 * @return array
+		 */
+		protected function defaults() {
+			return $this->parse_args( array(
+				'theme' => 'wp_modern',
+				parent::defaults(),
+			) );
 		}
 	}
 }

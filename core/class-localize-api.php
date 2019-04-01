@@ -61,13 +61,13 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			}
 
 			/* translators: */
-			$js_notice = __( ' %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s ' );
+			$js_notice = __( ' %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s ', 'wponion' );
 
 			/* translators: */
-			$js_notice = $js_notice . __( ' %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php ' );
+			$js_notice = $js_notice . __( ' %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php ', 'wponion' );
 
 			/* translators: */
-			$js_notice = $js_notice . __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it' );
+			$js_notice = $js_notice . __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it', 'wponion' );
 			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<strong>', '</strong>', '<br/>' );
 
 			if ( false === self::$core_data ) {
@@ -79,15 +79,15 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					'debug'           => ( true === defined( 'WP_DEBUG' ) || true === defined( 'SCRIPT_DEBUG' ) ) ? true : false,
 					'debug_notice'    => $js_notice,
 				);
-				$this->text( 'get_json_output', __( 'As JSON' ) );
-				$this->text( 'global_json_output', __( 'Global WPOnion JSON Output' ) );
-				$this->text( 'unmodified_debug', __( 'PHP Args' ) );
-				$this->text( 'modified_debug', __( 'JS Args' ) );
-				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.' ) );
-				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info' ) );
-				$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.' ) );
-				$this->text( 'delete', __( 'Delete' ) );
-				$this->text( 'restore', __( 'Restore' ) );
+				$this->text( 'get_json_output', __( 'As JSON', 'wponion' ) );
+				$this->text( 'global_json_output', __( 'Global WPOnion JSON Output', 'wponion' ) );
+				$this->text( 'unmodified_debug', __( 'PHP Args', 'wponion' ) );
+				$this->text( 'modified_debug', __( 'JS Args', 'wponion' ) );
+				$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.', 'wponion' ) );
+				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info', 'wponion' ) );
+				$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.', 'wponion' ) );
+				$this->text( 'delete', __( 'Delete', 'wponion' ) );
+				$this->text( 'restore', __( 'Restore', 'wponion' ) );
 				$this->modal_template();
 				self::$core_data = true;
 			}
@@ -99,17 +99,35 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @param string $object_id
 		 * @param array  $args
 		 * @param bool   $merge
+		 * @param bool   $convert_js_funcion
 		 *
 		 * @return self
 		 */
-		public function add( $object_id = '', $args = array(), $merge = true ) {
-			$args = $this->handle_js_function( $args );
+		public function add( $object_id = '', $args = array(), $merge = true, $convert_js_funcion = true ) {
+			if ( true === $convert_js_funcion ) {
+				$args = $this->handle_js_function( $args );
+			}
 			if ( true === $merge && isset( $this->js_args[ $object_id ] ) ) {
 				$this->js_args[ $object_id ] = $this->parse_args( $args, $this->js_args[ $object_id ] );
 			} else {
 				$this->js_args[ $object_id ] = $args;
 			}
 			return $this;
+		}
+
+		/**
+		 * Returns An Existing Array.
+		 *
+		 * @param string $object_id
+		 * @param bool   $default
+		 *
+		 * @return bool|mixed
+		 */
+		public function get( $object_id = '', $default = false ) {
+			if ( isset( $this->js_args[ $object_id ] ) ) {
+				return $this->js_args[ $object_id ];
+			}
+			return $default;
 		}
 
 		/**
@@ -124,14 +142,14 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				return $args;
 			}
 			foreach ( $args as $i => $ar ) {
-				if ( is_array( $ar ) ) {
+				if ( wponion_is_array( $ar ) ) {
 					$args[ $i ] = $this->handle_js_function( $ar );
 				} elseif ( is_string( $ar ) ) {
 					$re = '/\bfunction[ ]{0,1}(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';
 					/*'/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';*/
 					preg_match_all( $re, $ar, $matches, PREG_SET_ORDER, 0 );
 
-					if ( is_array( $matches ) && ! empty( array_filter( $matches ) ) ) {
+					if ( wponion_is_array( $matches ) && ! empty( array_filter( $matches ) ) ) {
 						$args[ $i ] = array(
 							'wponion_js_args'     => false,
 							'wponion_js_contents' => false,
@@ -172,12 +190,12 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 */
 		public function render_js_args() {
 			if ( defined( 'WPONION_ADD_FONT_DATA' ) && true === WPONION_ADD_FONT_DATA ) {
-				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts() );
-				$this->add( 'wponion_gfonts', wponion_google_fonts_data() );
+				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts(), true, false );
+				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
 			}
 
 			if ( wponion_is_debug() ) {
-				$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
+				//$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
 			}
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
@@ -248,14 +266,14 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		private function modal_template() {
 			$extra                         = array(
 				'modal' => array(
-					'html'             => include WPONION_PATH . 'core/views/modal-html.php',
+					'html'             => include WPONION_PATH . 'templates/wponion-modal-html.php',
 					'frame-menu-item'  => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
 					'router-menu-item' => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
 					'page_content'     => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content"><div class="media-frame-title"><h1>{{data.title}}</h1></div><div class="media-frame-router"> <div class="media-router"></div> </div> <div class="media-frame-content">{{data.html}}<div class="media-sidebar"></div></div></div>',
 					'section_content'  => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content wponion-section-modal-content">{{data.html}}<div class="media-sidebar"></div></div>',
 				),
 			);
-			$this->js_args['wponion_core'] = array_merge( $this->js_args['wponion_core'], $extra );
+			$this->js_args['wponion_core'] = wponion_parse_args( $this->js_args['wponion_core'], $extra );
 		}
 	}
 }

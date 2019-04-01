@@ -50,12 +50,13 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 		 * @param string $help_sidebar
 		 */
 		public function __construct( $page = '', $help_tabs = array(), $help_sidebar = '' ) {
-			if ( is_array( $page ) ) {
+			if ( wponion_is_array( $page ) ) {
 				$settings = $this->get_settings( $page );
 				unset( $page['option_name'] );
 				unset( $page['plugin_id'] );
-				parent::__construct( $page, $settings );
-			} elseif ( is_array( $help_tabs ) && false !== $page ) {
+				parent::__construct( null, $settings );
+				$this->fields = $page;
+			} elseif ( wponion_is_array( $help_tabs ) && false !== $page ) {
 				if ( is_string( $page ) ) {
 					$help_tabs = array(
 						$page => array(
@@ -73,7 +74,8 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 					);
 				}
 
-				parent::__construct( $help_tabs, $this->get_settings( $page ) );
+				parent::__construct( null, $this->get_settings( $page ) );
+				$this->fields = $help_tabs;
 			}
 
 			if ( isset( $this->fields['page'] ) ) {
@@ -94,7 +96,7 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 				'option_name' => false,
 				'plugin_id'   => false,
 			);
-			if ( is_array( $help_tabs ) ) {
+			if ( wponion_is_array( $help_tabs ) ) {
 				if ( isset( $help_tabs['option_name'] ) ) {
 					$settings['option_name'] = $help_tabs['option_name'];
 				}
@@ -160,12 +162,12 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 					$help_sidebar = '';
 
 					if ( isset( $field['tabs'] ) && isset( $field['sidebar'] ) ) {
-						$help_tabs    = ( is_array( $field['tabs'] ) ) ? $field['tabs'] : array();
+						$help_tabs    = ( wponion_is_array( $field['tabs'] ) ) ? $field['tabs'] : array();
 						$help_sidebar = ( ! empty( $field['sidebar'] ) ) ? $field['sidebar'] : '';
 					} elseif ( isset( $field['tabs'] ) && ! isset( $field['sidebar'] ) ) {
-						$help_tabs = ( is_array( $field['tabs'] ) ) ? $field['tabs'] : array();
+						$help_tabs = ( wponion_is_array( $field['tabs'] ) ) ? $field['tabs'] : array();
 					} elseif ( isset( $field ) && ! isset( $field['sidebar'] ) ) {
-						$help_tabs = ( is_array( $field ) ) ? $field : array();
+						$help_tabs = ( wponion_is_array( $field ) ) ? $field : array();
 					}
 
 					if ( wponion_is_callable( $help_sidebar ) ) {
@@ -199,7 +201,7 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 		 * @param $id
 		 * @param $tab
 		 *
-		 * @return array|null
+		 * @return array
 		 */
 		public function render_help_tab_contents( $id, $tab ) {
 			if ( ! isset( $tab['id'] ) && ! isset( $tab['title'] ) && ! is_numeric( $id ) && isset( $tab['content'] ) || isset( $tab['callback'] ) ) {

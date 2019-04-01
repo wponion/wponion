@@ -5,7 +5,8 @@
 <?php } ?>
 <div class="<?php echo $settings->wrap_class(); ?>">
 	<?php
-	foreach ( $settings->fields() as $field ) {
+	foreach ( $settings->fields()
+				  ->fields() as $field ) {
 		echo $settings->render_field( $field );
 	}
 	?>

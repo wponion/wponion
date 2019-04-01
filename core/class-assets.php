@@ -42,15 +42,59 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function init() {
-			global $wponion_js, $wponion_css;
-			self::$scripts = $wponion_js;
-			self::$style   = $wponion_css;
+			self::$scripts = array(
+				'wponion-plugins'     => array(
+					'assets/js/wponion-plugins.js',
+					array( 'lodash', 'wp-util', 'backbone' ),
+				),
+				'wponion-cloner'      => array( 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ) ),
+				'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
+				'wponion-inputmask'   => array(
+					'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
+					array( 'jquery' ),
+				),
+				'wponion-colorpicker' => array(
+					'assets/plugins/colorpicker/wp-color-picker-alpha.js',
+					array( 'wp-color-picker' ),
+				),
+				'wponion-datepicker'  => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
+				'select2'             => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
+				'chosen'              => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
+			);
+			self::$style   = array(
+				'chosen'              => array( 'assets/plugins/chosen/chosen.min.css' ),
+				'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
+				'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
+				'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
+				'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
+				'wponion-colorpicker' => array(
+					'assets/plugins/wp-color-picker-alpha/cs-colorpicker.css',
+					array( 'wp-color-picker' ),
+				),
+				'wponion-datepicker'  => array( 'assets/plugins/flatpickr/style.css' ),
+			);
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
+
 			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
 				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			}
+		}
+
+		/**
+		 * Returns All Script / Styles Keys.
+		 *
+		 * @param string $type
+		 *
+		 * @static
+		 * @return array
+		 */
+		public static function get( $type = 'script' ) {
+			if ( 'script' === $type ) {
+				return array_keys( self::$scripts );
+			}
+			return array_keys( self::$style );
 		}
 
 		/**
@@ -60,17 +104,22 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 */
 		public static function register_assets() {
 			do_action( 'wponion_register_assets_before' );
+			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
+			$url     = WPONION_URL;
+			self::register_styles( $version, $url );
+			self::register_scripts( $version, $url );
 			self::loop_assets( self::$style, 'wp_register_style', 'all' );
-			self::loop_assets( self::$scripts, 'wp_register_script', 'all' );
+			self::loop_assets( self::$scripts, 'wp_register_script', true );
 			do_action( 'wponion_register_assets_after' );
 		}
 
 		/**
-		 * Runs a loop with array of assets lists.
+		 * @param $data
+		 * @param $callback
+		 * @param $last_arg
 		 *
-		 * @param array           $data Array Of Assets.
-		 * @param string|callable $callback fixed value (wp_register_script | wp_register_style).
-		 * @param mixed           $last_arg true / false.
+		 * @uses \wp_register_style()
+		 * @uses \wp_register_script()
 		 *
 		 * @static
 		 */
@@ -80,6 +129,31 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				$file[2] = ( isset( $file[2] ) ) ? $file[2] : $version;
 				$file[1] = ( isset( $file[1] ) ) ? $file[1] : array();
 				$callback( $id, WPONION_URL . $file[0], $file[1], $file[2], $last_arg );
+			}
+		}
+
+		/**
+		 * Registers WPOnion Assets.
+		 *
+		 * @param $version
+		 * @param $url
+		 *
+		 * @static
+		 */
+		public static function register_styles( $version, $url ) {
+		}
+
+		/**
+		 * Registers WPOnion Assets.
+		 *
+		 * @param $version
+		 * @param $url
+		 *
+		 * @static
+		 */
+		public static function register_scripts( $version, $url ) {
+			if ( is_version_lte( 'wordpress', '5.0' ) ) {
+				wp_register_script( 'lodash', 'https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js', array(), '4.17.11', true );
 			}
 		}
 	}

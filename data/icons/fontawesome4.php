@@ -17,9 +17,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'FontAwesome 4' ),
+	'name'  => __( 'FontAwesome 4', 'wponion' ),
 	'icons' => array(
-		__( 'Web Application' ) => array(
+		__( 'Web Application', 'wponion' ) => array(
 			'fa fa-address-book',
 			'fa fa-address-book-o',
 			'fa fa-address-card',
@@ -472,7 +472,7 @@ return array(
 			'fa fa-window-restore',
 			'fa fa-wrench',
 		),
-		__( 'Accessibility' )   => array(
+		__( 'Accessibility', 'wponion' )   => array(
 			'fa fa-american-sign-language-interpreting',
 			'fa fa-asl-interpreting',
 			'fa fa-assistive-listening-systems',
@@ -493,7 +493,7 @@ return array(
 			'fa fa-wheelchair',
 			'fa fa-wheelchair-alt',
 		),
-		__( 'Hand' )            => array(
+		__( 'Hand', 'wponion' )            => array(
 			'fa fa-hand-grab-o',
 			'fa fa-hand-lizard-o',
 			'fa fa-hand-o-down',
@@ -512,7 +512,7 @@ return array(
 			'fa fa-thumbs-o-up',
 			'fa fa-thumbs-up',
 		),
-		__( 'Transportation' )  => array(
+		__( 'Transportation', 'wponion' )  => array(
 			'fa fa-ambulance',
 			'fa fa-automobile',
 			'fa fa-bicycle',
@@ -532,7 +532,7 @@ return array(
 			'fa fa-wheelchair',
 			'fa fa-wheelchair-alt',
 		),
-		__( 'Gender' )          => array(
+		__( 'Gender', 'wponion' )          => array(
 			'fa fa-genderless',
 			'fa fa-intersex',
 			'fa fa-mars',
@@ -548,7 +548,7 @@ return array(
 			'fa fa-venus-double',
 			'fa fa-venus-mars',
 		),
-		__( 'File Type' )       => array(
+		__( 'File Type', 'wponion' )       => array(
 			'fa fa-file',
 			'fa fa-file-archive-o',
 			'fa fa-file-audio-o',
@@ -568,14 +568,14 @@ return array(
 			'fa fa-file-word-o',
 			'fa fa-file-zip-o',
 		),
-		__( 'Spinner' )         => array(
+		__( 'Spinner', 'wponion' )         => array(
 			'fa fa-circle-o-notch',
 			'fa fa-cog',
 			'fa fa-gear',
 			'fa fa-refresh',
 			'fa fa-spinner',
 		),
-		__( 'Form Control' )    => array(
+		__( 'Form Control', 'wponion' )    => array(
 			'fa fa-check-square',
 			'fa fa-check-square-o',
 			'fa fa-circle',
@@ -588,7 +588,7 @@ return array(
 			'fa fa-square',
 			'fa fa-square-o',
 		),
-		__( 'Payment' )         => array(
+		__( 'Payment', 'wponion' )         => array(
 			'fa fa-cc-amex',
 			'fa fa-cc-diners-club',
 			'fa fa-cc-discover',
@@ -602,14 +602,14 @@ return array(
 			'fa fa-google-wallet',
 			'fa fa-paypal',
 		),
-		__( 'Chart' )           => array(
+		__( 'Chart', 'wponion' )           => array(
 			'fa fa-area-chart',
 			'fa fa-bar-chart',
 			'fa fa-bar-chart-o',
 			'fa fa-line-chart',
 			'fa fa-pie-chart',
 		),
-		__( 'Currency' )        => array(
+		__( 'Currency', 'wponion' )        => array(
 			'fa fa-bitcoin',
 			'fa fa-btc',
 			'fa fa-cny',
@@ -638,7 +638,7 @@ return array(
 			'fa fa-won',
 			'fa fa-yen',
 		),
-		__( 'Text Editor' )     => array(
+		__( 'Text Editor', 'wponion' )     => array(
 			'fa fa-align-center',
 			'fa fa-align-justify',
 			'fa fa-align-left',
@@ -689,7 +689,7 @@ return array(
 			'fa fa-undo',
 			'fa fa-unlink',
 		),
-		__( 'Directional' )     => array(
+		__( 'Directional', 'wponion' )     => array(
 			'fa fa-angle-double-down',
 			'fa fa-angle-double-left',
 			'fa fa-angle-double-right',
@@ -744,7 +744,7 @@ return array(
 			'fa fa-toggle-right',
 			'fa fa-toggle-up',
 		),
-		__( 'Video Player' )    => array(
+		__( 'Video Player', 'wponion' )    => array(
 			'fa fa-arrows-alt',
 			'fa fa-backward',
 			'fa fa-compress',
@@ -767,7 +767,7 @@ return array(
 			'fa fa-stop-circle-o',
 			'fa fa-youtube-play',
 		),
-		__( 'Brand' )           => array(
+		__( 'Brand', 'wponion' )           => array(
 			'fa fa-500px',
 			'fa fa-adn',
 			'fa fa-amazon',
@@ -958,7 +958,7 @@ return array(
 			'fa fa-youtube-play',
 			'fa fa-youtube-square',
 		),
-		__( 'Medical' )         => array(
+		__( 'Medical', 'wponion' )         => array(
 			'fa fa-ambulance',
 			'fa fa-h-square',
 			'fa fa-heart',

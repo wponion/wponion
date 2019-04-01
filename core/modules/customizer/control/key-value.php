@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules\Customize\Control;
+namespace WPOnion\Modules\Customizer\Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Key_Value' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customizer\Control\Key_Value' ) ) {
 	/**
 	 * Class key_value
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Key_Value' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0.
 	 */
-	class Key_Value extends \WPOnion\Modules\Customize\Control {
+	class Key_Value extends \WPOnion\Modules\Customizer\Control {
 		/**
 		 * type
 		 *

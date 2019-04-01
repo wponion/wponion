@@ -1,6 +1,6 @@
 <?php
 $ins     = $this->settings();
-$loading = __( 'Loading Please Wait...' );
+$loading = __( 'Loading Please Wait...', 'wponion' );
 ?>
 
 <div class="wrap">

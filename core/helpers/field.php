@@ -15,36 +15,142 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! function_exists( 'wponion_field_defaults' ) ) {
+	/**
+	 * Returns Global WPOnion Field Default Args.
+	 *
+	 * @return array
+	 */
+	function wponion_field_defaults() {
+		return array(
+			/**
+			 * Common Args.
+			 */
+			'id'              => false, # Unique Database ID For Each And Every Field
+			'title'           => false, # Title For Each Field,
+			'help'            => false, # Used for field tooltip
+			'default'         => null, # Stores Default Value,
+			'desc'            => false, # Field Description to print after title,
+			'desc_field'      => false, # Field description to print after field output.
+			'name'            => false,
+			/**
+			 * DB Save Handler Related.
+			 */
+			'sanitize'        => null,    #sanitize of field. can be enabled or disabled
+			'validate'        => null,    #validate of field. can be enabled or disabled
+			'js_validate'     => null,    #JS validate of field. can be enabled or disabled
+			/**
+			 * Field Related.
+			 */
+			'type'            => false, # Type of the field,
+			'style'           => false,
+			'placeholder'     => false,
+			'disabled'        => false,
+			'attributes'      => array(), # attributes of field. supporting only html standard attributes
+			'class'           => false, # Extra Element Class,
+			/**
+			 * UI Related.
+			 */
+			'before'          => null,
+			'after'           => null,
+			'horizontal'      => false,
+			'only_field'      => false,
+			'dependency'      => array(), # dependency for showing and hiding fields
+			/**
+			 * Cloner Related.
+			 */
+			'clone'           => false,
+			'clone_settings'  => array(),
+			'debug'           => wponion_field_debug(),
+			/**
+			 * WordPress Releated.
+			 */
+			'query_args'      => array(),
+			'wp_pointer'      => false,
+			/**
+			 * Wrap Releated
+			 */
+			'wrap_tooltip'    => false,
+			'wrap_class'      => null, # custom class for the field wrapper,
+			'wrap_id'         => null, # custom ID for the field wrapper,
+			'wrap_attributes' => array(),
+			/**
+			 * Custom Column Handler.
+			 */
+			'title_column'    => false,
+			'fieldset_column' => false,
+		);
+	}
+}
+
+if ( ! function_exists( 'wponion_validate_bool_val' ) ) {
+	/**
+	 * Checks And Converts Boolean Value Into Proper Bool.
+	 *
+	 * @param $value
+	 *
+	 * @return array|bool
+	 */
+	function wponion_validate_bool_val( $value ) {
+		if ( wponion_is_array( $value ) ) {
+			return array_map( 'wponion_validate_bool_val', $value );
+		}
+		switch ( strtolower( $value ) ) {
+			case 'true':
+			case 'TRUE':
+			case '1':
+				$value = true;
+				break;
+
+			case 'false':
+			case 'FALSE':
+			case '0':
+				$value = false;
+				break;
+		}
+		return $value;
+	}
+}
+
 if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	/**
 	 * Checks And Returns Fields Class.
 	 *
 	 * @param string|array $field
+	 * @param string       $module
 	 *
 	 * @return bool|string
 	 */
-	function wponion_get_field_class( $field = '' ) {
-		$field_type = null;
-		if ( is_array( $field ) ) {
-			$field_type = isset( $field['type'] ) ? $field['type'] : false;
+	function wponion_get_field_class( $field = '', $module = 'core' ) {
+		$return = false;
+		if ( wponion_is_array( $field ) || $field instanceof \WPO\Field ) {
+			$field_type = ( isset( $field['type'] ) ) ? $field['type'] : false;
+			$is_clone   = ( isset( $field['clone'] ) && ( true === $field['clone'] || true === wponion_is_array( $field['clone'] ) ) ) ? true : false;
+		} else {
+			$field_type = $field;
+			$is_clone   = false;
 		}
 
-		if ( ! empty( $field_type ) || ! empty( $field ) ) {
-			$is_in_clone = ( isset( $field['in_clone'] ) && true === $field['in_clone'] ) ? true : false;
-
-			if ( false === $is_in_clone && isset( $field['clone'] ) && ( true === $field['clone'] || true === is_array( $field['clone'] ) ) ) {
-				if ( ! class_exists( '\WPOnion\Field\Cloner', false ) ) {
+		if ( false !== $field_type ) {
+			if ( true === $is_clone && ( ! isset( $field['in_clone'] ) || isset( $field['in_clone'] ) && false === $field['in_clone'] ) ) {
+				if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					require_once WPONION_PATH . 'core/class-field-cloner.php';
 				}
-				return '\WPOnion\Field\Cloner';
+				$return = '\WPOnion\Field\Cloner';
 			} else {
-				$class = 'WPOnion\\Field\\' . $field_type;
+				$module_name = '';
+
+				if ( 'core' !== $module ) {
+					$module_name = str_replace( '-', '_', $module ) . '\\';
+				}
+
+				$class = '\WPOnion\Field\\' . $module_name . $field_type;
 				if ( class_exists( $class ) ) {
-					return $class;
+					$return = $class;
 				}
 			}
 		}
-		return false;
+		return $return;
 	}
 }
 
@@ -71,14 +177,14 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			$module    = 'user_fields';
 			$hash      = null;
 
-			if ( is_array( $unique ) ) {
+			if ( wponion_is_array( $unique ) ) {
 				$plugin_id = isset( $unique['plugin_id'] ) ? $unique['plugin_id'] : '';
 				$module    = isset( $unique['module'] ) ? $unique['module'] : '';
 				$hash      = isset( $unique['hash'] ) ? $unique['hash'] : '';
 				$unique    = isset( $unique['unique'] ) ? $unique['unique'] : '';
 			}
 
-			if ( is_string( $base_unique ) || ! isset( $field['id'] ) ) {
+			if ( is_string( $base_unique ) || ! isset( $field['id'] ) || isset( $field['id'] ) && empty( $field['id'] ) ) {
 				$uid = wponion_hash_array( $field );
 			} else {
 				$uid = $field['id'] . '_' . $field['type'] . '_' . $unique . '_' . $hash;
@@ -112,6 +218,15 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 	 * @return string
 	 */
 	function wponion_add_element( $field = array(), $value = array(), $unique = '' ) {
+		if ( false === wponion_get_field_type( $field ) ) {
+			return wponion_add_element( array(
+				'type'    => 'wp_notice_error',
+				'alt'     => true,
+				'large'   => true,
+				'content' => sprintf( __( '<p>Requested Field Type <code>%s</code>  Is Not Registed With WPOnion</p>', 'wponion' ), wponion_get_field_type( $field, false ) ),
+			) );
+		}
+
 		$output = '';
 
 		if ( isset( $field['__instance'] ) ) {
@@ -127,22 +242,43 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 		if ( false !== $class ) {
 			ob_start();
 			$element = ( is_string( $class ) ) ? new $class( $field, $value, $unique ) : $class;
-			$element->final_output();
+			echo $element->final_output();
 			$output .= ob_get_clean();
 		} else {
 			$args = '';
-			if ( wponion_is_debug() ) {
-				ob_start();
-				echo '<pre>' . print_r( debug_backtrace(), true ) . '</pre>';
-				var_dump( $field );
-				$args .= ob_get_clean();
-			} else {
-				$args = '<pre>' . print_r( $field, true ) . '</pre>';
-			}
-			/* translators: Added Var Dump Data */
-			$output .= '<p>' . sprintf( esc_html__( 'This field class is not available! %s' ), '<br/>  ' . $args ) . ' </p> ';
+			ob_start();
+			echo '<h2>' . __( 'Callback Arguments', 'wponion' ) . '</h2>';
+			var_dump( func_get_args() );
+			$args .= ob_get_clean();
+
+			$type   = ( isset( $field['type'] ) ) ? $field['type'] : false;
+			$output = wponion_add_element( array(
+				'type'        => 'notice',
+				'notice_type' => 'danger',
+				'content'     => sprintf( __( '<code>%s</code> Field Class Not Found.', 'wponion' ), $type ) . $args,
+			) );
 		}
 		return $output;
+	}
+}
+
+if ( ! function_exists( 'wponion_get_field_type' ) ) {
+	/**
+	 * Check If Field Type Attribute Exists And If so Then it checks if field exists. WPOnion.
+	 *
+	 * @param      $field
+	 * @param bool $check
+	 *
+	 * @return bool|string
+	 */
+	function wponion_get_field_type( $field, $check = true ) {
+		if ( is_string( $field ) && $check ) {
+			return ( \WPOnion\Registry\Field_Types::exists( $field ) ) ? $field : false;
+		} elseif ( wponion_is_array( $field ) ) {
+			$type = isset( $field['type'] ) ? $field['type'] : false;
+			return wponion_get_field_type( $type, $check );
+		}
+		return $field;
 	}
 }
 
@@ -162,6 +298,8 @@ if ( ! function_exists( 'wponion_valid_field' ) ) {
 if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	/**
 	 * Returns a list of non editable fileds type.
+	 *
+	 * @todo check and remove.
 	 *
 	 * @return array
 	 */
@@ -185,7 +323,7 @@ if ( ! function_exists( 'wponion_valid_user_input_field' ) ) {
 	 * @return bool
 	 */
 	function wponion_valid_user_input_field( $field ) {
-		$field = ( is_array( $field ) ) ? ( isset( $field['type'] ) ) ? $field['type'] : false : $field;
+		$field = ( wponion_is_array( $field ) ) ? ( isset( $field['type'] ) ) ? $field['type'] : false : $field;
 		return ( ! in_array( $field, wponion_noninput_fields() ) );
 	}
 }
@@ -247,7 +385,7 @@ if ( ! function_exists( 'wponion_get_field_value' ) ) {
 
 		$field_id = wponion_field_id( $field );
 
-		if ( wponion_is_unarrayed( $field ) && isset( $field['fields'] ) && is_array( $field['fields'] ) ) {
+		if ( wponion_is_unarrayed( $field ) && isset( $field['fields'] ) && wponion_is_array( $field['fields'] ) ) {
 			$return_values = array();
 			foreach ( $field['fields'] as $_field ) {
 				if ( false !== wponion_valid_field( $_field ) ) {
@@ -287,9 +425,9 @@ if ( ! function_exists( 'wponion_validate_select_framework' ) ) {
 		$frameworks = wponion_select_frameworks();
 
 		foreach ( $frameworks as $f ) {
-			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || $f === $fld[ 'is_' . $f ] || true === is_array( $fld[ 'is_' . $f ] ) ) ) {
+			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || $f === $fld[ 'is_' . $f ] || true === wponion_is_array( $fld[ 'is_' . $f ] ) ) ) {
 				return $f;
-			} elseif ( isset( $fld[ $f ] ) && ( true === $fld[ $f ] || $f === $fld[ $f ] || true === is_array( $fld[ $f ] ) ) ) {
+			} elseif ( isset( $fld[ $f ] ) && ( true === $fld[ $f ] || $f === $fld[ $f ] || true === wponion_is_array( $fld[ $f ] ) ) ) {
 				return $f;
 			}
 		}
@@ -337,25 +475,27 @@ if ( ! function_exists( 'wponion_backup_fonts' ) ) {
 	 * @return array
 	 */
 	function wponion_backup_fonts() {
-		return apply_filters( 'wponion_backup_fonts', array(
-			'Arial, Helvetica, sans-serif'                         => 'Arial, Helvetica, sans-serif',
-			'"Arial Black", Gadget, sans-serif'                    => '"Arial Black", Gadget, sans-serif',
-			'"Bookman Old Style", serif'                           => '"Bookman Old Style", serif',
-			'"Comic Sans MS", cursive'                             => '"Comic Sans MS", cursive',
-			'Courier, monospace'                                   => 'Courier, monospace',
-			'Garamond, serif'                                      => 'Garamond, serif',
-			'Georgia, serif'                                       => 'Georgia, serif',
-			'Impact, Charcoal, sans-serif'                         => 'Impact, Charcoal, sans-serif',
-			'"Lucida Console", Monaco, monospace'                  => '"Lucida Console", Monaco, monospace',
-			'"Lucida Sans Unicode", "Lucida Grande", sans-serif'   => '"Lucida Sans Unicode", "Lucida Grande", sans-serif',
-			'"MS Sans Serif", Geneva, sans-serif'                  => '"MS Sans Serif", Geneva, sans-serif',
-			'"MS Serif", "New York", sans-serif'                   => '"MS Serif", "New York", sans-serif',
-			'"Palatino Linotype", "Book Antiqua", Palatino, serif' => '"Palatino Linotype", "Book Antiqua", Palatino, serif',
-			'Tahoma,Geneva, sans-serif'                            => 'Tahoma, Geneva, sans-serif',
-			'"Times New Roman", Times,serif'                       => '"Times New Roman", Times, serif',
-			'"Trebuchet MS", Helvetica, sans-serif'                => '"Trebuchet MS", Helvetica, sans-serif',
-			'Verdana, Geneva, sans-serif'                          => 'Verdana, Geneva, sans-serif',
-		) );
+		$fonts                                        = array();
+		$fonts['Arial, Helvetica, sans-serif']        = 'Arial, Helvetica, sans-serif';
+		$fonts['"Arial Black", Gadget, sans-serif']   = '"Arial Black", Gadget, sans-serif';
+		$fonts['"Bookman Old Style", serif']          = '"Bookman Old Style", serif';
+		$fonts['"Comic Sans MS", cursive']            = '"Comic Sans MS", cursive';
+		$fonts['Courier, monospace']                  = 'Courier, monospace';
+		$fonts['Garamond, serif']                     = 'Garamond, serif';
+		$fonts['Georgia, serif']                      = 'Georgia, serif';
+		$fonts['Impact, Charcoal, sans-serif']        = 'Impact, Charcoal, sans-serif';
+		$fonts['"MS Serif", "New York", sans-serif']  = '"MS Serif", "New York", sans-serif';
+		$fonts['Tahoma,Geneva, sans-serif']           = 'Tahoma, Geneva, sans-serif';
+		$fonts['"Times New Roman", Times,serif']      = '"Times New Roman", Times, serif';
+		$fonts['"Lucida Console", Monaco, monospace'] = '"Lucida Console", Monaco, monospace';
+		$fonts['"MS Sans Serif", Geneva, sans-serif'] = '"MS Sans Serif", Geneva, sans-serif';
+		$fonts['Verdana, Geneva, sans-serif']         = 'Verdana, Geneva, sans-serif';
+
+		$fonts['"Trebuchet MS", Helvetica, sans-serif']                = '"Trebuchet MS", Helvetica, sans-serif';
+		$fonts['"Lucida Sans Unicode", "Lucida Grande", sans-serif']   = '"Lucida Sans Unicode", "Lucida Grande", sans-serif';
+		$fonts['"Palatino Linotype", "Book Antiqua", Palatino, serif'] = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
+
+		return apply_filters( 'wponion_backup_fonts', $fonts );
 	}
 }
 
@@ -368,26 +508,26 @@ if ( ! function_exists( 'wponion_websafe_fonts' ) ) {
 	function wponion_websafe_fonts() {
 		return apply_filters( 'wponion_websafe_fonts', array(
 			'variants' => array(
-				'regular'   => __( 'Regular' ),
-				'italic'    => __( 'Italic' ),
-				'700'       => __( '700' ),
-				'700italic' => __( '700 Italic' ),
-				'inherit'   => __( 'inherit' ),
+				'regular'   => __( 'Regular', 'wponion' ),
+				'italic'    => __( 'Italic', 'wponion' ),
+				'700'       => __( '700', 'wponion' ),
+				'700italic' => __( '700 Italic', 'wponion' ),
+				'inherit'   => __( 'inherit', 'wponion' ),
 			),
 			'fonts'    => array(
-				'Arial'               => __( 'Arial' ),
-				'Arial Black'         => __( 'Arial Black' ),
-				'Comic Sans MS'       => __( 'Comic Sans MS' ),
-				'Impact'              => __( 'Impact' ),
-				'Lucida Sans Unicode' => __( 'Lucida Sans Unicode' ),
-				'Tahoma'              => __( 'Tahoma' ),
-				'Trebuchet MS'        => __( 'Trebuchet MS' ),
-				'Verdana'             => __( 'Verdana' ),
-				'Courier New'         => __( 'Courier New' ),
-				'Lucida Console'      => __( 'Lucida Console' ),
-				'Georgia, serif'      => __( 'Georgia, serif' ),
-				'Palatino Linotype'   => __( 'Palatino Linotype' ),
-				'Times New Roman'     => __( 'Times New Roman' ),
+				'Arial'               => __( 'Arial', 'wponion' ),
+				'Arial Black'         => __( 'Arial Black', 'wponion' ),
+				'Comic Sans MS'       => __( 'Comic Sans MS', 'wponion' ),
+				'Impact'              => __( 'Impact', 'wponion' ),
+				'Lucida Sans Unicode' => __( 'Lucida Sans Unicode', 'wponion' ),
+				'Tahoma'              => __( 'Tahoma', 'wponion' ),
+				'Trebuchet MS'        => __( 'Trebuchet MS', 'wponion' ),
+				'Verdana'             => __( 'Verdana', 'wponion' ),
+				'Courier New'         => __( 'Courier New', 'wponion' ),
+				'Lucida Console'      => __( 'Lucida Console', 'wponion' ),
+				'Georgia, serif'      => __( 'Georgia, serif', 'wponion' ),
+				'Palatino Linotype'   => __( 'Palatino Linotype', 'wponion' ),
+				'Times New Roman'     => __( 'Times New Roman', 'wponion' ),
 			),
 
 		) );
@@ -415,10 +555,10 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 		$data   = wponion_google_fonts();
 		$return = array();
 
-		if ( is_array( $data ) ) {
+		if ( wponion_is_array( $data ) ) {
 			foreach ( $data as $d => $v ) {
 				$vars = array();
-				if ( is_array( $v ) && ! empty( $v ) ) {
+				if ( wponion_is_array( $v ) && ! empty( $v ) ) {
 					foreach ( $v as $id => $name ) {
 						$vars[ $id ] = $name;
 					}
@@ -432,45 +572,47 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_get_all_fields_ids_and_defaults' ) ) {
+if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 	/**
 	 * Extracts all fileds ids and returns it.
 	 *
-	 * @param array $fields
-	 * @param bool  $parent_id
+	 * @param array|\WPO\Container|\WPO\Field $fields
+	 * @param bool                            $parent_id
 	 *
 	 * @return array
 	 */
-	function wponion_get_all_fields_ids_and_defaults( $fields = array(), $parent_id = true ) {
+	function wponion_fields_all_ids_defaults( $fields = array(), $parent_id = true ) {
 		$return = array();
 
-		if ( isset( $fields['sections'] ) && ! isset( $section['callback'] ) ) {
-			foreach ( $fields['sections'] as $sections ) {
-				if ( isset( $sections['fields'] ) && ! isset( $sections['callback'] ) ) {
-					$name   = ( isset( $sections['name'] ) ) ? $sections['name'] : ( isset( $sections['title'] ) ) ? $sections['title'] : false;
-					$return = array_merge( $return, wponion_get_all_fields_ids_and_defaults( $sections, $parent_id . '_' . $name ) );
+		if ( $fields instanceof \WPO\Helper\Base && $fields->has_containers() && ! $fields->has_callback() ) {
+			foreach ( $fields->containers() as $container ) {
+				/* @var $container WPO\Container */
+				if ( $container->has_fields() && ! $container->has_callback() ) {
+					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $container, $parent_id . '_' . $container->name() ) );
 				}
 			}
-		} elseif ( isset( $fields['fields'] ) && ! isset( $section['callback'] ) ) {
-			foreach ( $fields['fields'] as $field ) {
-				if ( isset( $field['id'] ) ) {
+		} elseif ( $fields instanceof \WPO\Helper\Base && $fields->has_fields() && ! $fields->has_callback() ) {
+			foreach ( $fields->fields() as $field ) {
+				/* @var $field WPO\Field */
+				if ( ! empty( $field['id'] ) ) {
 					$nested = array();
-					if ( isset( $field['fields'] ) ) {
-						$nested = wponion_get_all_fields_ids_and_defaults( $field, $parent_id . '_' . $field['id'] );
+					if ( ! empty( $field['fields'] ) && wponion_is_array( $field['fields'] ) ) {
+						$nested = wponion_fields_all_ids_defaults( $field, $parent_id . '_' . $field['id'] );
 					}
 
-					$return[ $parent_id . '_' . $field['id'] ] = isset( $field['default'] ) ? $field['default'] : false;
+					$return[ $parent_id . '_' . $field['id'] ] = isset( $field['default'] ) ? $field['default'] : null;
 
 					if ( ! empty( $nested ) ) {
-						$return = array_merge( $return, $nested );
+						$return = wponion_parse_args( $return, $nested );
 					}
 				}
 			}
-		} elseif ( is_array( $fields ) ) {
+		} elseif ( wponion_is_array( $fields ) ) {
 			foreach ( $fields as $data ) {
-				if ( isset( $data['sections'] ) || isset( $data['fields'] ) ) {
-					$name   = ( isset( $data['name'] ) ) ? $data['name'] : ( isset( $data['title'] ) ) ? $data['title'] : false;
-					$return = array_merge( $return, wponion_get_all_fields_ids_and_defaults( $data, $parent_id . '_' . $name ) );
+				if ( $data instanceof \WPO\Container ) {
+					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $data, $parent_id . '_' . $data->name() ) );
+				} elseif ( $data instanceof WPO\Field || isset( $data['id'] ) && isset( $data['type'] ) ) {
+					$return[ $data['id'] ] = isset( $data['default'] ) ? $data['default'] : null;
 				}
 			}
 		}
@@ -488,7 +630,7 @@ if ( ! function_exists( 'wponion_field_value_class' ) ) {
 	 * @return bool|string
 	 */
 	function wponion_field_value_class( $field_type ) {
-		$field_type = ( is_array( $field_type ) ) ? $field_type['type'] : $field_type;
+		$field_type = ( wponion_is_array( $field_type ) ) ? $field_type['type'] : $field_type;
 		$class      = '\WPOnion\Value\\' . $field_type;
 		return ( class_exists( $class ) ) ? $class : false;
 	}
@@ -538,9 +680,9 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 			if ( true === $websafe_fonts ) {
 				$fonts = wponion_websafe_fonts();
 				if ( true === $group ) {
-					$fonts_array[ $key ][ __( 'Websafe Fonts' ) ] = $fonts['fonts'];
+					$fonts_array[ $key ][ __( 'Websafe Fonts', 'wponion' ) ] = $fonts['fonts'];
 				} else {
-					$fonts_array[ $key ] = array_merge( $fonts_array[ $key ], $fonts['fonts'] );
+					$fonts_array[ $key ] = wponion_parse_args( $fonts_array[ $key ], $fonts['fonts'] );
 				}
 			}
 
@@ -548,9 +690,9 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 				$fonts = array_keys( wponion_google_fonts_data() );
 				$fonts = array_combine( $fonts, $fonts );
 				if ( true === $group ) {
-					$fonts_array[ $key ][ __( 'Google Fonts' ) ] = $fonts;
+					$fonts_array[ $key ][ __( 'Google Fonts', 'wponion' ) ] = $fonts;
 				} else {
-					$fonts_array[ $key ] = array_merge( $fonts, $fonts );
+					$fonts_array[ $key ] = wponion_parse_args( $fonts, $fonts );
 				}
 			}
 		}
@@ -578,7 +720,7 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 		$_group   = ( true === $group ) ? 'yes' : 'no';
 		$key      = $gfonts . $webfonts . $_group;
 
-		if ( ! is_array( $selected ) ) {
+		if ( ! wponion_is_array( $selected ) ) {
 			$selected = array( $selected );
 		}
 
@@ -586,7 +728,7 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 			$fonts = wponion_get_fonts_array( $google_fonts, $websafe_fonts, $group );
 			$html  = '';
 			foreach ( $fonts as $id => $value ) {
-				if ( is_array( $value ) ) {
+				if ( wponion_is_array( $value ) ) {
 					$html .= '<optgroup label="' . $id . '">';
 					foreach ( $value as $i => $v ) {
 						$html .= '<option value="' . $i . '">' . $v . '</option>';
@@ -621,7 +763,7 @@ if ( ! function_exists( 'wponion_key_value_to_array' ) ) {
 	 */
 	function wponion_key_value_to_array( $data = array() ) {
 		$return = array();
-		if ( is_array( $data ) ) {
+		if ( wponion_is_array( $data ) ) {
 			foreach ( $data as $key => $value ) {
 				if ( true === isset( $value['key'] ) && true === isset( $value['value'] ) ) {
 					$return[ $value['key'] ] = $value['value'];
@@ -639,6 +781,77 @@ if ( ! function_exists( 'wponion_sysinfo' ) ) {
 	 * @param $args
 	 */
 	function wponion_sysinfo( $args ) {
-		\WPOnion\Sysinfo::get( $args );
+		\WPOnion\WP\Sysinfo\Sysinfo::get( $args );
+	}
+}
+
+/**
+ * Field Registry Related Functions.
+ */
+
+if ( ! function_exists( 'wponion_register_field' ) ) {
+	/**
+	 * Registers a field with field type Registry Class.
+	 *
+	 * @param string $field_type
+	 * @param array  $supports
+	 * @param array  $args
+	 *
+	 * @uses \WPOnion\Registry\Field_Types
+	 */
+	function wponion_register_field( $field_type = '', $supports = array(), $args = array() ) {
+		wponion_field_types()::add( $field_type, $supports, $args );
+	}
+}
+
+if ( ! function_exists( 'wponion_deregister_field' ) ) {
+	/**
+	 * Removes A Registered Field.
+	 *
+	 * @param string $field_type
+	 */
+	function wponion_deregister_field( $field_type = '' ) {
+		wponion_field_types()::remove( $field_type );
+	}
+}
+
+if ( ! function_exists( 'wponion_register_ui_field' ) ) {
+	/**
+	 * Registers A Field With Field Type Registry Class.
+	 *
+	 * @param string $field_type
+	 * @param string $callback
+	 * @param array  $supports
+	 * @param array  $args
+	 *
+	 * @uses \wponion_register_field()
+	 */
+	function wponion_register_ui_field( $field_type = '', $supports = array(), $args = array() ) {
+		$args = wp_parse_args( $args, array( 'design' => true ) );
+		wponion_register_field( $field_type, $supports, $args );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_add_support' ) ) {
+	/**
+	 * Adds A Field Support.
+	 *
+	 * @param $type
+	 * @param $support
+	 */
+	function wponion_field_add_support( $type, $support ) {
+		wponion_field_types()::add_support( $type, $support );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_remove_support' ) ) {
+	/**
+	 * Adds A Field Support.
+	 *
+	 * @param $type
+	 * @param $support
+	 */
+	function wponion_field_remove_support( $type, $support ) {
+		wponion_field_types()::remove_support( $type, $support );
 	}
 }

@@ -46,30 +46,30 @@ if ( ! class_exists( '\WPOnion\Field\Google_Maps' ) ) {
 			echo '</div>';
 
 			echo '<div  class="map_fields" id="gmap_fields_' . $this->js_field_id() . '">';
-			echo $this->_sub_field( 'street_number', 'street_number', __( 'Street Number' ) );
-			echo $this->_sub_field( 'route', 'route', __( 'Route' ) );
-			echo $this->_sub_field( 'locality', 'locality', __( 'Locality' ) );
-			echo $this->_sub_field( 'administrative_area_level_1', 'administrative_area_level_1', __( 'State' ) );
-			echo $this->_sub_field( 'postal_code', 'postal_code', __( 'Postal Code' ) );
-			echo $this->_sub_field( 'country', 'country', __( 'Country' ) );
+			echo $this->_sub_field( 'street_number', 'street_number', __( 'Street Number', 'wponion' ) );
+			echo $this->_sub_field( 'route', 'route', __( 'Route', 'wponion' ) );
+			echo $this->_sub_field( 'locality', 'locality', __( 'Locality', 'wponion' ) );
+			echo $this->_sub_field( 'administrative_area_level_1', 'administrative_area_level_1', __( 'State', 'wponion' ) );
+			echo $this->_sub_field( 'postal_code', 'postal_code', __( 'Postal Code', 'wponion' ) );
+			echo $this->_sub_field( 'country', 'country', __( 'Country', 'wponion' ) );
 
-			echo $this->_sub_field( 'item_name', 'name', __( 'Name' ) );
-			echo $this->_sub_field( 'formatted_address', 'formatted_address', __( 'Formatted Address' ) );
+			echo $this->_sub_field( 'item_name', 'name', __( 'Name', 'wponion' ) );
+			echo $this->_sub_field( 'formatted_address', 'formatted_address', __( 'Formatted Address', 'wponion' ) );
 
-			echo $this->_sub_field( 'url', 'url', __( 'URL' ) );
-			echo $this->_sub_field( 'website', 'website', __( 'Website' ) );
+			echo $this->_sub_field( 'url', 'url', __( 'URL', 'wponion' ) );
+			echo $this->_sub_field( 'website', 'website', __( 'Website', 'wponion' ) );
 
-			echo $this->_sub_field( 'latitude', 'lat', __( 'Latitude' ) );
-			echo $this->_sub_field( 'longitude', 'lng', __( 'Longitude' ) );
+			echo $this->_sub_field( 'latitude', 'lat', __( 'Latitude', 'wponion' ) );
+			echo $this->_sub_field( 'longitude', 'lng', __( 'Longitude', 'wponion' ) );
 
-			echo $this->_sub_field( 'location', 'location', __( 'Location' ) );
-			echo $this->_sub_field( 'location_type', 'location_type', __( 'location_type' ) );
-			echo $this->_sub_field( 'poi', 'point_of_interest', __( 'Point Of Interest' ) );
+			echo $this->_sub_field( 'location', 'location', __( 'Location', 'wponion' ) );
+			echo $this->_sub_field( 'location_type', 'location_type', __( 'location_type', 'wponion' ) );
+			echo $this->_sub_field( 'poi', 'point_of_interest', __( 'Point Of Interest', 'wponion' ) );
 
-			echo $this->_sub_field( 'bounds', 'bounds', __( 'Bounds' ) );
-			echo $this->_sub_field( 'viewport', 'viewport', __( 'Viewport' ) );
-			echo $this->_sub_field( 'sublocality', 'sublocality', __( 'Sub Locality' ) );
-			echo $this->_sub_field( 'country_short', 'country_short', __( 'Country Short' ) );
+			echo $this->_sub_field( 'bounds', 'bounds', __( 'Bounds', 'wponion' ) );
+			echo $this->_sub_field( 'viewport', 'viewport', __( 'Viewport', 'wponion' ) );
+			echo $this->_sub_field( 'sublocality', 'sublocality', __( 'Sub Locality', 'wponion' ) );
+			echo $this->_sub_field( 'country_short', 'country_short', __( 'Country Short', 'wponion' ) );
 
 			echo $this->hidden_fields;
 
@@ -130,23 +130,23 @@ if ( ! class_exists( '\WPOnion\Field\Google_Maps' ) ) {
 				'search_box'                  => '',
 				'item_name'                   => false,
 				'poi'                         => false,
-				'latitude'                    => __( 'Latitude' ),
-				'longitude'                   => __( 'Longitude' ),
+				'latitude'                    => __( 'Latitude', 'wponion' ),
+				'longitude'                   => __( 'Longitude', 'wponion' ),
 				'location'                    => false,
 				'location_type'               => false,
 				'formatted_address'           => false,
 				'bounds'                      => false,
-				'route'                       => __( 'Route' ),
-				'street_number'               => __( 'Street Number' ),
+				'route'                       => __( 'Route', 'wponion' ),
+				'street_number'               => __( 'Street Number', 'wponion' ),
 				'viewport'                    => false,
-				'postal_code'                 => __( 'Postal Code' ),
-				'locality'                    => __( 'Locality' ),
+				'postal_code'                 => __( 'Postal Code', 'wponion' ),
+				'locality'                    => __( 'Locality', 'wponion' ),
 				'sublocality'                 => false,
-				'country'                     => __( 'Country' ),
+				'country'                     => __( 'Country', 'wponion' ),
 				'country_short'               => false,
-				'administrative_area_level_1' => __( 'State' ),
-				'url'                         => __( 'Url' ),
-				'website'                     => __( 'Website' ),
+				'administrative_area_level_1' => __( 'State', 'wponion' ),
+				'url'                         => __( 'Url', 'wponion' ),
+				'website'                     => __( 'Website', 'wponion' ),
 			);
 		}
 	}

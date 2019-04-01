@@ -42,7 +42,7 @@ if ( ! class_exists( '\WPOnion\Field\Fieldset' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			echo '<div class="wponion-fieldset-wrap">';
+			echo '<div class="wponion-fieldset-wrap row">';
 
 			if ( $this->has( 'fields' ) ) {
 				if ( $this->has( 'heading' ) ) {

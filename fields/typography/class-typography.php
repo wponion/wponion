@@ -77,10 +77,10 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'text_align' ), array(
 					'horizontal' => true,
 					'options'    => array(
-						'left'    => __( 'Left' ),
-						'center'  => __( 'Center' ),
-						'right'   => __( 'Right' ),
-						'justify' => __( 'Justify' ),
+						'left'    => __( 'Left', 'wponion' ),
+						'center'  => __( 'Center', 'wponion' ),
+						'right'   => __( 'Right', 'wponion' ),
+						'justify' => __( 'Justify', 'wponion' ),
 					),
 				), array(
 					'id'         => 'text_align',
@@ -93,8 +93,8 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'direction' ), array(
 					'horizontal' => true,
 					'options'    => array(
-						'ltr' => __( 'left to right' ),
-						'rtl' => __( 'right to left' ),
+						'ltr' => __( 'left to right', 'wponion' ),
+						'rtl' => __( 'right to left', 'wponion' ),
 					),
 				), array(
 					'id'         => 'direction',
@@ -107,9 +107,9 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'font_style' ), array(
 					'horizontal' => true,
 					'options'    => array(
-						'normal'  => __( 'normal' ),
-						'italic'  => __( 'italic' ),
-						'oblique' => __( 'oblique' ),
+						'normal'  => __( 'normal', 'wponion' ),
+						'italic'  => __( 'italic', 'wponion' ),
+						'oblique' => __( 'oblique', 'wponion' ),
 					),
 				), array(
 					'id'         => 'font_style',
@@ -167,16 +167,16 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 
 		protected function field_default() {
 			return array(
-				'font_family'        => __( 'Font Family & Weight' ),
-				'backup_font_family' => __( 'Backup Font Family' ),
-				'text_align'         => __( 'Text Align' ),
-				'direction'          => __( 'Text Direction' ),
-				'element_tag'        => __( 'Element Tag' ),
-				'font_style'         => __( 'Font Style' ),
-				'font_size'          => __( 'Font Size' ),
-				'line_height'        => __( 'Line Height' ),
-				'letter_spacing'     => __( 'Letter Spacing' ),
-				'color'              => __( 'Text Color' ),
+				'font_family'        => __( 'Font Family & Weight', 'wponion' ),
+				'backup_font_family' => __( 'Backup Font Family', 'wponion' ),
+				'text_align'         => __( 'Text Align', 'wponion' ),
+				'direction'          => __( 'Text Direction', 'wponion' ),
+				'element_tag'        => __( 'Element Tag', 'wponion' ),
+				'font_style'         => __( 'Font Style', 'wponion' ),
+				'font_size'          => __( 'Font Size', 'wponion' ),
+				'line_height'        => __( 'Line Height', 'wponion' ),
+				'letter_spacing'     => __( 'Letter Spacing', 'wponion' ),
+				'color'              => __( 'Text Color', 'wponion' ),
 				'preview'            => true,
 				'preview_text'       => 'Lorem ipsum dolor sit amet, pro ad sanctus admodum, vim at insolens appellantur. Eum veri adipiscing an, probo nonumy an vis.',
 			);

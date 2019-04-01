@@ -130,6 +130,8 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		 * Loads Required Styles.
 		 */
 		public function load_styles() {
+			wp_register_script( 'wponion-customizer', WPONION_URL . 'assets/js/wponion-customizer.js', array( 'wponion-core' ), WPONION_VERSION, true );
+			wp_register_script( 'wponion-postmessags', WPONION_URL . 'assets/js/wponion-postmessags.js', array( 'wponion-customizer' ), WPONION_VERSION, true );
 			wponion_load_core_assets( array( 'wponion-customizer', 'wponion-postmessags' ) );
 		}
 
@@ -211,10 +213,10 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 						'options'  => $field,
 					);
 
-					if ( class_exists( '\WPOnion\Modules\Customize\Control\\' . $field['type'] ) ) {
-						$class = '\WPOnion\Modules\Customize\Control\\' . $field['type'];
+					if ( class_exists( '\WPOnion\Modules\Customizer\Control\\' . $field['type'] ) ) {
+						$class = '\WPOnion\Modules\Customizer\Control\\' . $field['type'];
 					} else {
-						$class = '\WPOnion\Modules\Customize\control';
+						$class = '\WPOnion\Modules\Customizer\control';
 					}
 
 					$this->wp->add_control( new $class( $this->wp, $field['id'], $control_args, $this->default_wrap_class() ) );

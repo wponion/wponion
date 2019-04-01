@@ -12,13 +12,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules\Customize\Control;
+namespace WPOnion\Modules\Customizer\Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Cloneable' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customizer\Control\Cloneable' ) ) {
 	/**
 	 * Class cloneable
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Cloneable' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Cloneable extends \WPOnion\Modules\Customize\Control {
+	class Cloneable extends \WPOnion\Modules\Customizer\Control {
 		/**
 		 * type
 		 *
@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Cloneable' ) ) {
 		protected function el_value() {
 			$is_decode = json_decode( $this->value(), true );
 
-			if ( is_array( $is_decode ) ) {
+			if ( wponion_is_array( $is_decode ) ) {
 				return $is_decode;
 			}
 			return false;

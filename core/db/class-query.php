@@ -246,7 +246,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @return bool|mixed
 		 */
 		private function _single_option_data( $data, $key, $default ) {
-			if ( is_array( $data ) ) {
+			if ( wponion_is_array( $data ) ) {
 				if ( isset( $data[ $key ] ) ) {
 					return $data[ $key ];
 				} elseif ( isset( $data[ $default ] ) ) {

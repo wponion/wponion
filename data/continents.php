@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 return array(
 	'AF' => array(
-		'name'      => __( 'Africa' ),
+		'name'      => __( 'Africa','wponion' ),
 		'countries' => array(
 			'AO',
 			'BF',
@@ -79,7 +79,7 @@ return array(
 		),
 	),
 	'AN' => array(
-		'name'      => __( 'Antarctica' ),
+		'name'      => __( 'Antarctica','wponion' ),
 		'countries' => array(
 			'AQ',
 			'BV',
@@ -89,7 +89,7 @@ return array(
 		),
 	),
 	'AS' => array(
-		'name'      => __( 'Asia' ),
+		'name'      => __( 'Asia','wponion' ),
 		'countries' => array(
 			'AE',
 			'AF',
@@ -147,7 +147,7 @@ return array(
 		),
 	),
 	'EU' => array(
-		'name'      => __( 'Europe' ),
+		'name'      => __( 'Europe','wponion' ),
 		'countries' => array(
 			'AD',
 			'AL',
@@ -205,7 +205,7 @@ return array(
 		),
 	),
 	'NA' => array(
-		'name'      => __( 'North America' ),
+		'name'      => __( 'North America','wponion' ),
 		'countries' => array(
 			'AG',
 			'AI',
@@ -252,7 +252,7 @@ return array(
 		),
 	),
 	'OC' => array(
-		'name'      => __( 'Oceania' ),
+		'name'      => __( 'Oceania','wponion' ),
 		'countries' => array(
 			'AS',
 			'AU',
@@ -283,7 +283,7 @@ return array(
 		),
 	),
 	'SA' => array(
-		'name'      => __( 'South America' ),
+		'name'      => __( 'South America','wponion' ),
 		'countries' => array(
 			'AR',
 			'BO',

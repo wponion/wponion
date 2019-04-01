@@ -13,13 +13,13 @@
  */
 
 
-namespace WPOnion\Modules\Customize\Control;
+namespace WPOnion\Modules\Customizer\Control;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Gallery' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Customizer\Control\Gallery' ) ) {
 	/**
 	 * Class image_select
 	 *
@@ -27,7 +27,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customize\Control\Gallery' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Gallery extends \WPOnion\Modules\Customize\Control\Cloneable {
+	class Gallery extends \WPOnion\Modules\Customizer\Control\Cloneable {
 		/**
 		 * type
 		 *
