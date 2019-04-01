@@ -3,7 +3,7 @@
  * Plugin Name: WPOnion
  * Plugin URI: https://github.com/wponion/
  * Description: Powerfull,Reliable & Lightweight Options Framework.
- * Version: 0.0.8.1
+ * Version: 0.0.9
  * Author: varunsridharan
  * Author URI: https://varunsridharan.in
  * Text Domain: wponion
