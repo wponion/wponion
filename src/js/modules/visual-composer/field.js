@@ -1,8 +1,7 @@
 /* global wponion_init_field:true */
 import WPOnion_Field from '../../core/field';
 
-const base64_encode = require( 'vsp-js-helper/index' ).base64_encode;
-const rawurlencode  = require( 'vsp-js-helper/index' ).rawurlencode;
+const { base64_encode, rawurlencode } = require( 'vsp-js-helper/index' ).default;
 
 /**
  * Custom VC Abstract Field Class.

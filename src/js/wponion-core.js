@@ -3,7 +3,7 @@ import WPOnion_Validator from './core/validation';
 import { createHooks } from '@wordpress/hooks';
 
 // VSP JS Helper Global.
-window.vsp_js_helper = require( 'vsp-js-helper/index' );
+window.vsp_js_helper = require( 'vsp-js-helper/index' ).default;
 
 require( './helpers/functions' );
 
@@ -48,7 +48,7 @@ window.wponion.field_abstract  = require( './core/field' ).default;
 
 require( './wponion-fields' );
 
-module.exports = ( ( window, document, wp, $ ) => {
+export default ( ( window, document, wp, $ ) => {
 	// Document On Load.
 	$( () => {
 		window.wponion_setup();
