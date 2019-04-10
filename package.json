@@ -13,7 +13,7 @@
   "author": "varunsridharan",
   "license": "GPLV3",
   "devDependencies": {
-    "easy-gulp-tasker": "^1.0.5",
+    "easy-gulp-tasker": "^1.0.6",
     "@wordpress/autop": "^2.0.2",
     "@wordpress/deprecated": "^2.0.3",
     "@wordpress/hooks": "^2.0.3",
@@ -35,7 +35,7 @@
     "selectize.js": "^0.12.12",
     "sweetalert2": "^8.0.5",
     "tippy.js": "^3.4.0",
-    "vsp-js-helper": "^1.0.29",
+    "vsp-js-helper": "^1.0.30",
     "wordpress-js-ports": "^1.0.6",
     "jQuery-QueryBuilder": "^2.5.2"
   }
