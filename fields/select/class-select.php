@@ -38,6 +38,13 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		protected function output() {
 			echo $this->before();
 			$options = $this->data( 'options' );
+
+			if ( isset( $this->field['ajax'] ) && true === $this->field['ajax'] && ! empty( $this->value ) && wponion_is_callable( $options ) ) {
+				$options = wponion_callback( $options, array( $this ) );
+			} elseif ( ( ! isset( $this->field['ajax'] ) || isset( $this->field['ajax'] ) && false === $this->field['ajax'] ) && wponion_is_callable( $options ) ) {
+				$options = wponion_callback( $options, array( $this ) );
+			}
+
 			$options = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$attr    = $this->attributes( array(
 				'name'  => ( true === $this->has( 'multiple' ) ) ? $this->name( '[]' ) : $this->name(),

@@ -290,7 +290,11 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$search        = ( isset( $_REQUEST['q'] ) ) ? $_REQUEST['q'] : '';
 			$search        = ( isset( $_REQUEST['s'] ) ) ? $_REQUEST['s'] : $search;
 			$query_options = ( isset( $_REQUEST['query_options'] ) ) ? $_REQUEST['query_options'] : false;
-			$data          = wponion_query()->query( $query_options, $query_args, $search );
+			if ( wponion_is_callable( $query_options ) ) {
+				$data = wponion_callback( $query_options );
+			} else {
+				$data = wponion_query()->query( $query_options, $query_args, $search );
+			}
 			wp_send_json( $data );
 			wp_die();
 		}
