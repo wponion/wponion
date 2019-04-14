@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Beta : 0.0.9.1] - 14/04/2019
+## Added
+* EasyGulpTasker -- Development
+* Option To Load Select Options Via Custom Callback
+
+## Removed
+* Removed Gulp Boilerplate -- Development
+
 ## [Beta : 0.0.9] - 01/04/2019
 ### Added
 * Field Type Registry Class
@@ -203,6 +211,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.9.1]: https://github.com/wponion/wponion/releases/tag/0.0.9.1
 [Beta : 0.0.9]: https://github.com/wponion/wponion/releases/tag/0.0.9
 [Beta : 0.0.8.1]: https://github.com/wponion/wponion/releases/tag/0.0.8.1
 [Beta : 0.0.8]: https://github.com/wponion/wponion/releases/tag/0.0.8
