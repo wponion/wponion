@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
 				'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
 				'wponion-colorpicker' => array(
-					'assets/plugins/wp-color-picker-alpha/cs-colorpicker.css',
+					'assets/plugins/colorpicker/cs-colorpicker.css',
 					array( 'wp-color-picker' ),
 				),
 				'wponion-datepicker'  => array( 'assets/plugins/flatpickr/style.css' ),
