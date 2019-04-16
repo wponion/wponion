@@ -48,7 +48,10 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 					array( 'lodash', 'wp-util', 'backbone' ),
 				),
 				'wponion-cloner'      => array( 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ) ),
-				'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
+				'wponion-core'        => array(
+					self::is_debug( 'assets/js/wponion-core.js' ),
+					array( 'wponion-plugins' ),
+				),
 				'wponion-inputmask'   => array(
 					'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
 					array( 'jquery' ),
@@ -66,7 +69,10 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
 				'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
 				'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
-				'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
+				'wponion-core'        => array(
+					self::is_debug( 'assets/css/wponion-base.css' ),
+					array( 'wponion-plugins' ),
+				),
 				'wponion-colorpicker' => array(
 					'assets/plugins/colorpicker/cs-colorpicker.css',
 					array( 'wp-color-picker' ),
@@ -111,6 +117,19 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			self::loop_assets( self::$style, 'wp_register_style', 'all' );
 			self::loop_assets( self::$scripts, 'wp_register_script', true );
 			do_action( 'wponion_register_assets_after' );
+		}
+
+		/**
+		 * @param $string
+		 *
+		 * @static
+		 * @return mixed
+		 */
+		public static function is_debug( $string ) {
+			if ( false === wponion_is_debug() && ( ! defined( 'SCRIPT_DEBUG' ) || defined( 'SCRIPT_DEBUG' ) && false === SCRIPT_DEBUG ) ) {
+				return str_replace( array( '.js', '.css' ), array( '.min.js', '.min.css' ), $string );
+			}
+			return $string;
 		}
 
 		/**
