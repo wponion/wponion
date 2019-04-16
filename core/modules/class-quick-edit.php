@@ -135,7 +135,7 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 		 */
 		public function render_quick_edit( $column ) {
 			$this->db_values = array();
-			var_dump( $this->option( 'column' ) );
+			//var_dump( $this->option( 'column' ) );
 			if ( $column === $this->option( 'column' ) ) {
 				wponion_load_core_assets();
 				$this->render_quick_edit_html();

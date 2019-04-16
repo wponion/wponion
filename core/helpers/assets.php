@@ -22,6 +22,7 @@ if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 	 * @param array $extra
 	 */
 	function wponion_load_core_assets( $extra = array() ) {
+		wponion_localize();
 		wponion_load_asset( 'wponion-core' );
 
 		if ( wponion_is_array( $extra ) ) {
