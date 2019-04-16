@@ -94,7 +94,8 @@ $files[ 'src/js/wponion-core.js' ]        = [
 	},
 	{
 		dist: 'assets/js',
-		watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/fields/*', 'src/js/helpers/*', 'src/js/modules/*', 'src/js/modules/*/*', 'src/vendors/backbone-modal.js' ],
+		//watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/fields/*', 'src/js/helpers/*', 'src/js/modules/*', 'src/js/modules/*/*', 'src/vendors/backbone-modal.js' ],
+		watch: [ 'assets/js/wponion-core.js' ],
 		webpack: 'webpack',
 		rename: 'wponion-core.min.js',
 	}
