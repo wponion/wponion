@@ -8,6 +8,7 @@ import {
 	call_user_func_array,
 	function_exists,
 	create_function,
+	parse_url
 } from 'vsp-js-helper/index';
 import $wponion from './core';
 import { remove_query_arg } from 'wordpress-js-ports';
@@ -34,6 +35,12 @@ export class WPOnion_Ajaxer {
 			response_element: false,
 			button: false,
 			element: false,
+			blockUI: {
+				message: null,
+				overlayCSS: {
+					background: '#000', opacity: 0.7
+				}
+			},
 			spinner: '<span class="spinner"></span>',
 		};
 		this.instance        = null;
@@ -132,7 +139,7 @@ export class WPOnion_Ajaxer {
 	 * @param data
 	 */
 	onAlways( data ) {
-		this.button_unlock();
+		this.element_button_unlock();
 		if( false !== this.ajax_args.always ) {
 			if( is_callable( this.ajax_args.always ) ) {
 				call_user_func_array( this.ajax_args.always, [ data ] );
@@ -144,7 +151,7 @@ export class WPOnion_Ajaxer {
 	 * Triggers An Ajax Request. Based On The Config.
 	 */
 	ajax() {
-		this.button_lock();
+		this.element_button_lock();
 		let $config = window.wponion._.clone( this.ajax_args );
 		if( false !== $config.url ) {
 			if( false !== is_url( $config.url ) ) {
@@ -157,13 +164,19 @@ export class WPOnion_Ajaxer {
 				$config.data = window.wponion._.merge( $config.data, $url_params );
 			} else {
 				let $url_params = {};
-				parse_str( $config.url, $url_params );
-				$config.url  = $wponion.option( 'ajaxurl' );
-				$config.data = window.wponion._.merge( $config.data, $url_params );
+				let $url_data   = parse_url( $config.url );
+				if( typeof $url_data.query !== 'undefined' ) {
+					parse_str( $url_data.query, $url_params );
+					$config.url  = $wponion.option( 'ajaxurl' );
+					$config.data = window.wponion._.merge( $config.data, $url_params );
+				} else {
+					$config.url = $wponion.option( 'ajaxurl' );
+				}
 			}
 		} else {
 			$config.url = $wponion.option( 'ajaxurl' );
 		}
+
 
 		if( false !== $config.action ) {
 			$config.data.action = $config.action;
@@ -208,7 +221,7 @@ export class WPOnion_Ajaxer {
 	/**
 	 * Locks A Given Button Element.
 	 */
-	button_lock() {
+	element_button_lock() {
 		if( false !== this.config( 'button' ) ) {
 			let $button = to_jquery( this.config( 'button' ) );
 			if( $button ) {
@@ -222,12 +235,19 @@ export class WPOnion_Ajaxer {
 				}
 			}
 		}
+
+		if( false !== this.config( 'element' ) ) {
+			let $elem = to_jquery( this.config( 'element' ) );
+			if( $elem.length > 0 ) {
+				$elem.block( this.config( 'blockUI' ) );
+			}
+		}
 	}
 
 	/**
 	 * Unlocks A Given Button Element.
 	 */
-	button_unlock() {
+	element_button_unlock() {
 		if( false !== this.config( 'button' ) ) {
 			let $button = to_jquery( this.config( 'button' ) );
 			if( $button ) {
@@ -239,6 +259,13 @@ export class WPOnion_Ajaxer {
 				} else {
 					$button.parent().find( '.spinner' ).remove();
 				}
+			}
+		}
+
+		if( false !== this.config( 'element' ) ) {
+			let $elem = to_jquery( this.config( 'element' ) );
+			if( $elem.length > 0 ) {
+				$elem.unblock();
 			}
 		}
 	}
