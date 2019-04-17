@@ -1,6 +1,6 @@
 {
   "name"        : "wponion/wponion",
-  "description" : "~ Lightweight, Flexible & Rapid WP Development Framework ~  | Development Version of WPOnion Framework",
+  "description" : "~ Lightweight, Flexible & Rapid WP Development Framework ~",
   "license"     : "GPL-3.0+",
   "homepage"    : "https://wponion.com",
   "authors"     : [
@@ -40,7 +40,8 @@
   "autoload"    : {
     "files" : [ "wponion.php" ]
   },
-  "conflict"          : {
-	  "wponion/dev" : "dev-master"
+  "conflict"    : {
+    "wponion/dev"     : "dev-master",
+    "wponion/wponion" : "dev-development"
   }
 }
