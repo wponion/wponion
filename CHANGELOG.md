@@ -4,14 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Beta : 0.0.9.2] - 16/04/2019
+## [Beta : 0.0.9.3] - 17/04/2019
 ## Added
+* Added Option To Block An Element in `window.wponion.ajaxer`
+
+## [Beta : 0.0.9.2] - 16/04/2019
+## Updated
 * Minor Bug Fixed  -- EasyGulpTasker -- Development
+
+## Added
 * Added Option To Load Minified or unminified version of Sources
 * Auto localize scripts when `wponion_load_core_assets`
-
-## Removed
-* Removed Gulp Boilerplate -- Development
 
 ## [Beta : 0.0.9.1] - 14/04/2019
 ## Added
@@ -220,6 +223,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.9.3]: https://github.com/wponion/wponion/releases/tag/0.0.9.3
 [Beta : 0.0.9.2]: https://github.com/wponion/wponion/releases/tag/0.0.9.2
 [Beta : 0.0.9.1]: https://github.com/wponion/wponion/releases/tag/0.0.9.1
 [Beta : 0.0.9]: https://github.com/wponion/wponion/releases/tag/0.0.9
