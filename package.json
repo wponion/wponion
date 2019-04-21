@@ -36,7 +36,7 @@
     "selectize.js": "^0.12.12",
     "sweetalert2": "^8.8.5",
     "tippy.js": "^3.4.0",
-    "vsp-js-helper": "^1.0.30",
+    "vsp-js-helper": "^1.0.32",
     "wordpress-js-ports": "^1.0.6"
   }
 }
