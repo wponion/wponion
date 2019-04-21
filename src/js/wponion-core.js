@@ -30,21 +30,22 @@ window.wponion = window.wponion || Object.create( {
 /**
  * WPonion Modules.
  */
-window.wponion.settings = require( './modules/settings' ).default;
-window.wponion.metabox         = require( './modules/metabox' ).default;
-window.wponion.wp_pointers     = require( './modules/wp-pointers' ).default;
-window.wponion.media_fields    = require( './modules/media-fields' ).default;
-window.wponion.bulk_edit       = require( './modules/bulk-edit' ).default;
-window.wponion.guttenberg      = require( './modules/guttenberg' ).default;
-window.wponion.woocommerce     = require( './modules/woocommerce' ).default;
-window.wponion.quick_edit      = require( './modules/quick-edit' ).default;
-window.wponion.visual_composer = require( './modules/visual-composer' ).default;
-window.wponion.modal           = require( '../vendors/backbone-modal' ).default;
-window.wponion.ajaxer          = require( './core/ajaxer' ).WPOnion_Ajaxer;
-window.wponion.ajax            = require( './core/ajaxer' ).default;
-window.wponion.debug           = require( './core/debug' ).default;
-window.wponion.core            = require( './core/core' ).default;
-window.wponion.field_abstract  = require( './core/field' ).default;
+require( './modules/settings' ).default;
+require( './modules/metabox' ).default;
+require( './modules/wp-pointers' ).default;
+require( './modules/media-fields' ).default;
+require( './modules/bulk-edit' ).default;
+require( './modules/guttenberg' ).default;
+require( './modules/woocommerce' ).default;
+require( './modules/quick-edit' ).default;
+require( './modules/visual-composer' ).default;
+
+window.wponion.modal          = require( '../vendors/backbone-modal' ).default;
+window.wponion.ajaxer         = require( './core/ajaxer' ).WPOnion_Ajaxer;
+window.wponion.ajax           = require( './core/ajaxer' ).default;
+window.wponion.debug          = require( './core/debug' ).default;
+window.wponion.core           = require( './core/core' ).default;
+window.wponion.field_abstract = require( './core/field' ).default;
 
 require( './wponion-fields' );
 

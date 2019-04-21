@@ -2,8 +2,6 @@
 /* global console:true */
 /* global tippy:true */
 
-import WPOnion from "../core/core";
-
 let WPOButton = function( element, options ) {
 	this.$element  = jQuery( element );
 	this.options   = jQuery.extend( {}, WPOButton.DEFAULTS, options );
@@ -217,7 +215,7 @@ export default ( ( window, document, $, jQuery ) => {
 	 * Returns A Abstract Class Instance.
 	 * @param $elem
 	 * @param $contxt
-	 * @returns {{ajax(*=, *=): *, js_error(*): void, init_field(*=, *): void, set_args(*): *, js_validate_elem(*=, *): void, js_error_handler(*=): void, id(): *, plugin_id(): *, field_debug(): (undefined), handle_args(*=, *=): *, maybe_js_validate_elem(*=, *=): void, get_field_parent_by_id(*=): *, option(*=, *=): *, options(): *, js_validator(): void, init(), reload(): *, module(): *, set_contxt(*): *, contxt: *, element: *, hook: *, module_init(), set_element(*=): *}|*|window.wponion.field_abstract}
+	 * @returns {{init(), js_error(*): void, js_error_handler(*=): void, js_validator(): void, maybe_js_validate_elem(*=, *=): void, js_validate_elem(*=, *): void, handle_args(*=, *=): (*|$data), field_debug(): (undefined), options(): *, option(*=, *=): *, id(): *, module(): *, plugin_id(): *, ajax(*=, *=): *, init_single_field(*=, *=): void, init_field(*=, *=): void, reload(): *, set_args(*): *, get_field_parent_by_id(*=): (*|jQuery|HTMLElement), ui_menu_handler(): void, module_init(), set_element(*=): *, set_contxt(*): *, hook: *, element: *, contxt: *}|{init(), js_error(*): void, js_error_handler(*=): void, js_validator(): void, maybe_js_validate_elem(*=, *=): void, js_validate_elem(*=, *): void, handle_args(*=, *=): (*|$data), field_debug(): (undefined), options(): *, option(*=, *=): *, id(): *, module(): *, plugin_id(): *, ajax(*=, *=): *, init_single_field(*=, *=): void, init_field(*=, *=): void, reload(): *, set_args(*): *, get_field_parent_by_id(*=): (*|jQuery|HTMLElement), ui_menu_handler(): void, module_init(), set_element(*=): *, set_contxt(*): *, hook: *, element: *, contxt: *}|*}
 	 */
 	window.wponion_field = ( $elem, $contxt = {} ) => new window.wponion.field_abstract( $elem, $contxt );
 
