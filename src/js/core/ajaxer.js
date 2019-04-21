@@ -8,48 +8,62 @@ import {
 	call_user_func_array,
 	function_exists,
 	create_function,
-	parse_url
+	parse_url,
+	parse_args
 } from 'vsp-js-helper/index';
 import $wponion from './core';
 import { remove_query_arg } from 'wordpress-js-ports';
 
 /**
- * WPOnion Custom Ajax Handler.
+ * Ajax Handler.
  */
 export class WPOnion_Ajaxer {
 	/**
-	 * @param $ajax_args
-	 * @param $ajax_config
+	 *
+	 * @param $arg
 	 */
-	constructor( $ajax_args, $ajax_config ) {
-		this.defaults        = {
-			method: 'POST',
-			url: ( typeof window.ajaxurl !== 'undefined' ) ? window.ajaxurl : false,
+	constructor( $arg ) {
+		this.default        = {
+			type: 'POST',
+			url: ( window.wponion._.isUndefined( window.ajaxurl ) ) ? window.ajaxurl : false,
 			data: {},
 			success: false,
 			error: false,
 			always: false,
 			action: false,
 		};
-		this.default_configs = {
+		this.default_config = {
+			button_lock: false,
 			response_element: false,
-			button: false,
-			element: false,
+			element_lock: false,
 			blockUI: {
 				message: null,
 				overlayCSS: {
-					background: '#000', opacity: 0.7
+					background: '#000',
+					opacity: 0.7
 				}
 			},
 			spinner: '<span class="spinner"></span>',
 		};
-		this.instance        = null;
-		/**
-		 * @type {WPOnion_Ajaxer.defaults}
-		 */
-		this.ajax_args = window.wponion._.merge( this.defaults, $ajax_args );
-		this.ajax_config = window.wponion._.merge( this.default_configs, $ajax_config );
-		this.ajax();
+		this.all_default    = parse_args( this.default_config, this.default );
+		this.config         = {};
+		this.run_config     = {};
+		let $config         = parse_args( $arg, this.all_default, false );
+
+		for( let $id in this.default_config ) {
+			if( this.default_config.hasOwnProperty( $id ) ) {
+				if( false === window.wponion._.isUndefined( $config[ $id ] ) ) {
+					this.run_config[ $id ] = $config[ $id ];
+					delete $config[ $id ];
+				}
+
+				if( false === window.wponion._.isUndefined( $arg[ $id ] ) ) {
+					this.run_config[ $id ] = $arg[ $id ];
+				}
+			}
+		}
+
+		this.config = $config;
 	}
 
 	/**
@@ -108,15 +122,35 @@ export class WPOnion_Ajaxer {
 	}
 
 	/**
+	 * Handles Response Element.
+	 * @param data
+	 */
+	handle_response( data ) {
+		if( false !== this.run_config.response_element ) {
+			let $elem = to_jquery( this.run_config.response_element );
+			if( $elem.length > 0 ) {
+				if( false === window.wponion._.isUndefined( data.msg ) && window.wponion._.isString( data.msg ) ) {
+					$elem.html( data.msg );
+				} else if( false === window.wponion._.isUndefined( data.html ) && window.wponion._.isString( data.html ) ) {
+					$elem.html( data.html );
+				} else if( window.wponion._.isString( data ) ) {
+					$elem.html( data );
+				}
+			}
+		}
+
+	}
+
+	/**
 	 * Triggered On Ajax onSuccess
 	 * @param data
 	 */
 	onSuccess( data ) {
 		this.handle_callbacks( data );
-
-		if( false !== this.ajax_args.success ) {
-			if( is_callable( this.ajax_args.success ) ) {
-				call_user_func_array( this.ajax_args.success, [ data ] );
+		this.handle_response( data );
+		if( false !== this.config.success ) {
+			if( is_callable( this.config.success ) ) {
+				call_user_func_array( this.config.success, [ data ] );
 			}
 		}
 	}
@@ -127,9 +161,10 @@ export class WPOnion_Ajaxer {
 	 */
 	onError( data ) {
 		this.handle_callbacks( data );
-		if( false !== this.ajax_args.error ) {
-			if( is_callable( this.ajax_args.error ) ) {
-				call_user_func_array( this.ajax_args.error, [ data ] );
+		this.handle_response( data );
+		if( false !== this.config.error ) {
+			if( is_callable( this.config.error ) ) {
+				call_user_func_array( this.config.error, [ data ] );
 			}
 		}
 	}
@@ -139,133 +174,127 @@ export class WPOnion_Ajaxer {
 	 * @param data
 	 */
 	onAlways( data ) {
-		this.element_button_unlock();
-		if( false !== this.ajax_args.always ) {
-			if( is_callable( this.ajax_args.always ) ) {
-				call_user_func_array( this.ajax_args.always, [ data ] );
+		this.unlock();
+		if( false !== this.config.always ) {
+			if( is_callable( this.config.always ) ) {
+				call_user_func_array( this.config.always, [ data ] );
 			}
 		}
 	}
 
 	/**
-	 * Triggers An Ajax Request. Based On The Config.
+	 * Trigger An Ajax Request.
+	 * @param $arg
+	 * @returns {*}
 	 */
-	ajax() {
-		this.element_button_lock();
-		let $config = window.wponion._.clone( this.ajax_args );
-		if( false !== $config.url ) {
-			if( false !== is_url( $config.url ) ) {
-				let $url_params = url_params( $config.url );
-				for( let $key in $url_params ) {
-					if( $url_params.hasOwnProperty( $key ) ) {
-						$config.url = remove_query_arg( $key, $config.url );
+	send( $arg = false ) {
+		if( false === $arg ) {
+			this.lock();
+			let $default_ajaxurl = $wponion.option( 'ajaxurl', ajaxurl );
+			let $config          = window.wponion._.clone( this.config );
+			if( false !== $config.url ) {
+				let $url_params = {};
+				if( false !== is_url( $config.url ) ) {
+					$url_params = url_params( $config.url );
+					for( let $key in $url_params ) {
+						if( $url_params.hasOwnProperty( $key ) ) {
+							$config.url = remove_query_arg( $key, $config.url );
+						}
+					}
+					$config.data = parse_args( $config.data, $url_params );
+				} else {
+					let $url_data = parse_url( $config.url );
+					if( typeof $url_data.query !== 'undefined' ) {
+						parse_str( $url_data.query, $url_params );
+						$config.url  = $default_ajaxurl;
+						$config.data = parse_args( $config.data, $url_params );
+					} else {
+						$config.url = $default_ajaxurl;
 					}
 				}
-				$config.data = window.wponion._.merge( $config.data, $url_params );
 			} else {
-				let $url_params = {};
-				let $url_data   = parse_url( $config.url );
-				if( typeof $url_data.query !== 'undefined' ) {
-					parse_str( $url_data.query, $url_params );
-					$config.url  = $wponion.option( 'ajaxurl' );
-					$config.data = window.wponion._.merge( $config.data, $url_params );
-				} else {
-					$config.url = $wponion.option( 'ajaxurl' );
-				}
+				$config.url = $default_ajaxurl;
 			}
+
+
+			if( false !== $config.action ) {
+				$config.data.action = $config.action;
+				delete $config.action;
+			}
+
+			if( typeof $config.success !== 'undefined' ) {
+				delete $config.success;
+			}
+			if( typeof $config.always !== 'undefined' ) {
+				delete $config.always;
+			}
+			if( typeof $config.error !== 'undefined' ) {
+				delete $config.error;
+			}
+
+			this.instance = window.wp.ajax.send( $config );
+			this.instance.done( ( data ) => this.onSuccess( data ) );
+			this.instance.fail( ( data ) => this.onError( data ) );
+			this.instance.always( ( data ) => this.onAlways( data ) );
+			return this.instance;
 		} else {
-			$config.url = $wponion.option( 'ajaxurl' );
-		}
+			let $_arg = parse_args( this.config, this.run_config );
 
-
-		if( false !== $config.action ) {
-			$config.data.action = $config.action;
-			delete $config.action;
+			//let $ex_data  = ( false === window.wponion._.isUndefined( $_arg.data ) ) ? $_arg.data : {};
+			//let $new_data = ( false === window.wponion._.isUndefined( $arg.data ) ) ? $arg.data : {};
+			$_arg         = parse_args( $arg, $_arg, true );
+			//$_arg.data    = parse_args( $new_data, $ex_data );
+			let $instance = new WPOnion_Ajaxing( $_arg );
+			return $instance.send();
 		}
-
-		if( typeof $config.success !== 'undefined' ) {
-			delete $config.success;
-		}
-		if( typeof $config.always !== 'undefined' ) {
-			delete $config.always;
-		}
-		if( typeof $config.error !== 'undefined' ) {
-			delete $config.error;
-		}
-
-		this.instance = window.wp.ajax.send( $config );
-		this.instance.done( ( data ) => this.onSuccess( data ) );
-		this.instance.fail( ( data ) => this.onError( data ) );
-		this.instance.always( ( data ) => this.onAlways( data ) );
 	}
 
 	/**
-	 * Checks if A Config Data Exsits Based on The Given Key.
-	 * @param $key
-	 * @returns {boolean}
+	 * Lock
 	 */
-	has_config( $key = '' ) {
-		return ( typeof this.ajax_config[ $key ] !== 'undefined' );
+	lock() {
+		this.button_lock_unlock( false );
+		this.element_lock_unlock( false );
 	}
 
 	/**
-	 * Returns The Config Data Based on The Config Key.
-	 * @param $key
-	 * @param $default
-	 * @returns {boolean}
+	 * UnLock
 	 */
-	config( $key = '', $default = false ) {
-		return ( this.has_config( $key ) ) ? this.ajax_config[ $key ] : $default;
+	unlock() {
+		this.button_lock_unlock( true );
+		this.element_lock_unlock( true );
 	}
 
 	/**
-	 * Locks A Given Button Element.
+	 * Unblock / Block An Element
+	 * @param $unlock
 	 */
-	element_button_lock() {
-		if( false !== this.config( 'button' ) ) {
-			let $button = to_jquery( this.config( 'button' ) );
-			if( $button ) {
-				$button.wpo_button( 'processing' );
-				$button.attr( 'disabled', 'disabled' );
-
-				if( this.config( 'spinner' ) ) {
-					let $spinner = jQuery( this.config( 'spinner' ) );
-					$spinner.addClass( 'is-active' );
-					$button.parent().append( $spinner );
-				}
-			}
-		}
-
-		if( false !== this.config( 'element' ) ) {
-			let $elem = to_jquery( this.config( 'element' ) );
+	element_lock_unlock( $unlock = false ) {
+		if( false !== this.run_config.element_lock ) {
+			let $elem = to_jquery( this.run_config.element_lock );
 			if( $elem.length > 0 ) {
-				$elem.block( this.config( 'blockUI' ) );
-			}
-		}
-	}
-
-	/**
-	 * Unlocks A Given Button Element.
-	 */
-	element_button_unlock() {
-		if( false !== this.config( 'button' ) ) {
-			let $button = to_jquery( this.config( 'button' ) );
-			if( $button ) {
-				$button.wpo_button( 'complete' );
-				$button.removeAttr( 'disabled' );
-				let $spinner = $button.next();
-				if( $spinner.hasClass( 'spinner' ) ) {
-					$spinner.remove();
+				if( false === $unlock ) {
+					$elem.block( this.run_config.blockUI );
 				} else {
-					$button.parent().find( '.spinner' ).remove();
+					$elem.unblock();
 				}
 			}
 		}
+	}
 
-		if( false !== this.config( 'element' ) ) {
-			let $elem = to_jquery( this.config( 'element' ) );
+	/**
+	 * Unblock / Block A Button.
+	 * @param $unlock
+	 */
+	button_lock_unlock( $unlock = false ) {
+		if( false !== this.run_config.button_lock ) {
+			let $elem = to_jquery( this.run_config.button_lock );
 			if( $elem.length > 0 ) {
-				$elem.unblock();
+				if( false === $unlock ) {
+					$elem.wponion_button( 'loading' );
+				} else {
+					$elem.wponion_button( 'reset' );
+				}
 			}
 		}
 	}
@@ -275,7 +304,6 @@ export default ( ( $, document ) => {
 	$( () => {
 		let $class = '[data-wponion-inline-ajax], .wponion-ajax, .wponion-ajax-get, .wponion-ajax-post, .wponion-inline-ajax, .wponion-inline-ajax-get, .wponion-inline-ajax-post';
 		$( document ).on( 'click', $class, ( e ) => {
-
 			let $elem            = $( e.currentTarget ),
 				$_data           = $elem.data(),
 				$_class_instance = null,
@@ -283,7 +311,7 @@ export default ( ( $, document ) => {
 					url: false,
 				};
 
-			if( $elem.attr( 'data-wponion-inline-ajax' ) !== 'undefined' ) {
+			if( false === window.wponion._.isUndefined( $elem.attr( 'data-wponion-inline-ajax' ) ) ) {
 				let $fid1  = $elem.attr( 'data-wponion-inline-ajax' );
 				let $fid2  = $elem.attr( 'id' );
 				let $js_id = $wponion.fieldID( $elem );
@@ -306,33 +334,33 @@ export default ( ( $, document ) => {
 				}
 			} else {
 				if( $elem.hasClass( 'wponion-ajax-get' ) || $elem.hasClass( 'wponion-inline-ajax-get' ) ) {
-					$args.method = 'GET';
+					$args.type = 'GET';
 				} else if( $elem.hasClass( 'wponion-ajax-post' ) || $elem.hasClass( 'wponion-inline-ajax-post' ) ) {
-					$args.method = 'POST';
-				} else if( $elem.hasClass( 'wponion-ajax' ) || $elem.hasClass( 'wponion-inline-ajax' ) && typeof $_data.method !== 'undefined' ) {
-					$args.method = $_data.method;
+					$args.type = 'POST';
+				} else if( $elem.hasClass( 'wponion-ajax' ) || $elem.hasClass( 'wponion-inline-ajax' ) && typeof $_data.type !== 'undefined' ) {
+					$args.type = $_data.type;
 				}
 
-				if( typeof $_data.url !== 'undefined' ) {
+				if( false === window.wponion._.isUndefined( $_data.url ) ) {
 					$args.url = $_data.url;
-				} else if( typeof $_data.href !== 'undefined' ) {
+				} else if( false === window.wponion._.isUndefined( $_data.href ) ) {
 					$args.url = $_data.href;
 				} else if( $elem.attr( 'href' ) ) {
 					$args.url = $elem.attr( 'href' );
 				}
 
-				if( typeof $_data[ 'ajax-data' ] !== 'undefined' ) {
+				if( false === window.wponion._.isUndefined( $_data[ 'ajax-data' ] ) ) {
 					$args.data = $_data[ 'ajax-data' ];
 				}
 
-				if( typeof $_data.action !== 'undefined' ) {
+				if( false === window.wponion._.isUndefined( $_data.action ) ) {
 					$args.action = $_data.action;
 				}
 			}
 
-			$_class_instance = new WPOnion_Ajaxer( $args, {
-				button: $elem,
-			} );
+			$args.button_lock = $elem;
+			$_class_instance  = new WPOnion_Ajaxer( $args );
+			$_class_instance.send();
 		} );
 	} );
 } )( jQuery, document );
