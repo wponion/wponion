@@ -174,7 +174,7 @@ export default class WPOnion {
 	 */
 	static option( $key, $default = {} ) {
 		let $args = WPOnion.settings_args;
-		if( false === window.wponion._.isUndefined( $args[ $key ] ) ) {
+		if( false === window.wponion._.isUndefined( $args ) && false === window.wponion._.isUndefined( $args[ $key ] ) ) {
 			return $args[ $key ];
 		}
 		return $default;
