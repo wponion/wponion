@@ -2,7 +2,67 @@
 /* global console:true */
 /* global tippy:true */
 
+import WPOnion from "../core/core";
+
+let WPOButton = function( element, options ) {
+	this.$element  = jQuery( element );
+	this.options   = jQuery.extend( {}, WPOButton.DEFAULTS, options );
+	this.isLoading = false;
+};
+
+WPOButton.VERSION = '3.4.1';
+
+WPOButton.DEFAULTS = {
+	loadingText: 'loading...',
+	spinner: {
+		html: '<span class="spinner is-active wpo-spinner"></span>',
+		active_class: 'is-active',
+	},
+};
+
+WPOButton.prototype.setState = function( state ) {
+	let d    = 'disabled';
+	let $el  = this.$element;
+	let val  = $el.is( 'input' ) ? 'val' : 'html';
+	let data = $el.data();
+
+	state += 'Text';
+
+	if( data.resetText == null ) {
+		$el.data( 'resetText', $el[ val ]() );
+	}
+
+	setTimeout( jQuery.proxy( function() {
+		let $state = ( false !== window.wponion._.isUndefined( $el.data( state ) ) ) ? this.options[ state ] : $el.data( state );
+
+		if( 'html' === val && 'loadingText' === state ) {
+			$state += ' ' + this.options.spinner.html;
+		}
+
+		$el[ val ]( $state );
+
+		if( 'loadingText' === state ) {
+			this.isLoading = true;
+			$el.addClass( d ).attr( d, d ).prop( d, true );
+		} else if( this.isLoading ) {
+			this.isLoading = false;
+			$el.removeClass( d ).removeAttr( d ).prop( d, false );
+		}
+
+		if( 'val' === val ) {
+			if( true === this.isLoading ) {
+				$el.parent().append( jQuery( this.options.spinner.html ) );
+			} else {
+				$el.parent().find( '.wpo-spinner' ).remove();
+			}
+		}
+
+
+	}, this ), 0 );
+};
+
 export default ( ( window, document, $, jQuery ) => {
+
 	/**
 	 * WPOnion Related Functions.
 	 */
@@ -133,7 +193,24 @@ export default ( ( window, document, $, jQuery ) => {
 				jQuery( this ).copyAttr( from, to );
 				jQuery( this ).removeAttr( from );
 			}
-		}
+		},
+
+		/**
+		 * Adds Bootstrap Button Element
+		 */
+		wponion_button: function Plugin( option ) {
+			return this.each( function() {
+				var $this   = $( this );
+				var data    = $this.data( 'wpobs.button' );
+				var options = typeof option === 'object' && option;
+
+				if( !data ) {
+					$this.data( 'wpobs.button', ( data = new WPOButton( this, options ) ) );
+				}
+
+				data.setState( option );
+			} );
+		},
 	} );
 
 	/**
@@ -266,6 +343,15 @@ export default ( ( window, document, $, jQuery ) => {
 				console.error( 'WPOnion Field Type : ' + $field_type + ' Init Function Not Found', '\nAction Used : wponion_init_' + $module + 'field_' + $field_type );
 			}
 		}
+	};
+
+	/**
+	 * Creates A New Instance of Ajaxer and returns it.
+	 * @param $args
+	 * @returns {*}
+	 */
+	window.wponion_ajax = ( $args ) => {
+		return new window.wponion.ajaxer( $args );
 	};
 
 } )( window, document, jQuery, jQuery );
