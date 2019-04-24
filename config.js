@@ -100,6 +100,12 @@ $files[ 'src/js/wponion-core.js' ]        = [
 		rename: 'wponion-core.min.js',
 	}
 ];
+$files[ 'src/js/wponion-customizer.js' ]        = {
+	dist: 'assets/js',
+	watch: true,
+	webpack: 'webpack_dev',
+	rename: 'wponion-customizer.js',
+};
 $files[ 'src/js/themes/wp-theme.js' ]     = {
 	dist: 'templates/wp/assets/',
 	webpack: 'webpack_dev',
