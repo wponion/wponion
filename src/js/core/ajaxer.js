@@ -83,7 +83,7 @@ export class WPOnion_Ajaxer {
 	 */
 	single_callback( $callback ) {
 		if( window.wponion._.isFunction( $callback ) ) {
-			window.wponion._.call_user_func( $callback );
+			call_user_func( $callback );
 		} else if( window.wponion._.isString( $callback ) && false !== function_exists( $callback ) ) {
 			call_user_func( $callback );
 		} else if( window.wponion._.isString( $callback ) ) {

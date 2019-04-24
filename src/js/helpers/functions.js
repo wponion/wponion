@@ -13,7 +13,6 @@ let WPOButton = function( element, options ) {
 	this.$element  = jQuery( element );
 	this.options   = jQuery.extend( {}, this.DEFAULTS, options );
 	this.isLoading = false;
-
 };
 
 WPOButton.VERSION = '3.4.1';
