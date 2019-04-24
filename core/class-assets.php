@@ -112,6 +112,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			do_action( 'wponion_register_assets_before' );
 			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
 			$url     = WPONION_URL;
+			wponion_localize();
 			self::register_styles( $version, $url );
 			self::register_scripts( $version, $url );
 			self::loop_assets( self::$style, 'wp_register_style', 'all' );

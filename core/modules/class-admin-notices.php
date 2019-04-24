@@ -89,20 +89,23 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 			$notice_handler = $this->unique();
 			$nounce         = wp_create_nonce( 'wpo-admin-notice-sticky-remove' );
 			if ( false === $this->script_renderd ) {
+				wponion_load_core_assets();
 				echo <<<JAVASCRIPT
 <script type="text/javascript">
 jQuery(document).ready(function(){
 	var data = {action:"wponion-ajax","wponion-ajax":"$action",notice_hander:"$notice_handler",wp_nounce:"$nounce"};
-	jQuery(".wpo-sticky-dismiss").on("click",function(){
+	jQuery('body').on('click','.wpo-stick-dismiss',function(){
 		var elem = jQuery(this).parents('.notice');
 		data.notice_id =  elem.attr('id');
-		jQuery.post(ajaxurl,data,function(res){
-			if(res.success){
+		wponion_ajax({
+			data:data,
+			success:function(){
 				elem.slideUp(function(){
 					elem.remove();
-				})
-			}
-		})
+				});
+			},
+			button_lock:jQuery(this),
+		}).send();
 	});
 });
 </script>

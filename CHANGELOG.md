@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Beta : 0.0.9.4] - 24/04/2019
+## Added
+* POT File.
+
+## Changed
+* Fixed Issue with Global localization Function
+* Updated Ajax Framework
+* Javascript Bug Fixed.
+
 ## [Beta : 0.0.9.3] - 17/04/2019
 ## Added
 * Added Option To Block An Element in `window.wponion.ajaxer`
@@ -223,6 +232,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.9.4]: https://github.com/wponion/wponion/releases/tag/0.0.9.4
 [Beta : 0.0.9.3]: https://github.com/wponion/wponion/releases/tag/0.0.9.3
 [Beta : 0.0.9.2]: https://github.com/wponion/wponion/releases/tag/0.0.9.2
 [Beta : 0.0.9.1]: https://github.com/wponion/wponion/releases/tag/0.0.9.1
