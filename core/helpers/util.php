@@ -47,7 +47,7 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 			$args['content'] = false;
 		}
 
-		$attr = array( 'class' => 'wponion-help' );
+		$attr = array( 'wponion-help' => 'wponion-help' );
 
 		if ( false !== $localize ) {
 			$localize = ( true === $localize ) ? 'wponion-help' : $localize;

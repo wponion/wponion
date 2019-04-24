@@ -320,6 +320,7 @@ export default class extends WPOnion_Module {
 
 		this.init_field( '.wponion-field-tooltip', 'tooltip' );
 		this.init_field( '.wponion-help', 'tooltip' );
+		this.init_field( '[wponion-help]', 'tooltip' );
 		this.init_field( '.wponion-wrap-tooltip', 'tooltip' );
 
 		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
