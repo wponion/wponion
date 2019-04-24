@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ab6de486367e028e46a17faf3464d90",
+    "content-hash": "da075ee3cd673f78560a9446354f62c8",
     "packages": [
         {
             "name": "varunsridharan/php-autoloader",
-            "version": "1.3.2",
+            "version": "1.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/php-autoloader.git",
-                "reference": "b1fa6309d68645ad1d26c63f1d9667d0c818af2b"
+                "reference": "45820c41d0a7529c456262cab38bf38f517675ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/php-autoloader/zipball/b1fa6309d68645ad1d26c63f1d9667d0c818af2b",
-                "reference": "b1fa6309d68645ad1d26c63f1d9667d0c818af2b",
+                "url": "https://api.github.com/repos/varunsridharan/php-autoloader/zipball/45820c41d0a7529c456262cab38bf38f517675ec",
+                "reference": "45820c41d0a7529c456262cab38bf38f517675ec",
                 "shasum": ""
             },
             "type": "library",
@@ -39,7 +39,7 @@
                 }
             ],
             "description": "Lightweight PSR-4 PHP Autoloader Class.",
-            "time": "2019-03-31T14:10:32+00:00"
+            "time": "2019-04-24T01:37:30+00:00"
         },
         {
             "name": "varunsridharan/wp-dependencies",

@@ -190,7 +190,7 @@ export class WPOnion_Ajaxer {
 	send( $arg = false ) {
 		if( false === $arg ) {
 			this.lock();
-			let $default_ajaxurl = $wponion.option( 'ajaxurl', ajaxurl );
+			let $default_ajaxurl = $wponion.option( 'ajaxurl', window.ajaxurl );
 			let $config          = window.wponion._.clone( this.config );
 			if( false !== $config.url ) {
 				let $url_params = {};
@@ -244,7 +244,7 @@ export class WPOnion_Ajaxer {
 			//let $new_data = ( false === window.wponion._.isUndefined( $arg.data ) ) ? $arg.data : {};
 			$_arg         = parse_args( $arg, $_arg, true );
 			//$_arg.data    = parse_args( $new_data, $ex_data );
-			let $instance = new WPOnion_Ajaxing( $_arg );
+			let $instance = new WPOnion_Ajaxer( $_arg );
 			return $instance.send();
 		}
 	}

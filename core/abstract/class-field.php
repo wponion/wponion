@@ -441,8 +441,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		/**
 		 * Returns Default Column CSS Class based on the modules or it returns defaults.
 		 *
-		 * @uses \apply_filters('wponion_field_column_css_class')
 		 * @return array
+		 * @uses \apply_filters('wponion_field_column_css_class')
 		 */
 		protected function get_default_column_class() {
 			$return             = array();
@@ -529,30 +529,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function tooltip_data( $main_data = array(), $extra_args = array(), $localize = true ) {
 			$data = $this->handle_data( $main_data, $this->parse_args( $extra_args, array(
-				'content'   => false,
-				'image'     => false,
-				'arrow'     => true,
-				'arrowType' => 'round',
+				'content'     => false,
+				'image'       => false,
+				'arrow'       => true,
+				'arrowType'   => 'round',
+				'js_field_id' => $this->js_field_id(),
 			) ), 'content' );
-
-			if ( false === $data['image'] && true === wponion_is_url( $data['content'] ) ) {
-				$data['image']   = $data['content'];
-				$data['content'] = false;
-			}
-
-			$attr = array( 'class' => 'wponion-help' );
-
-			if ( false !== $localize ) {
-				$localize = ( true === $localize ) ? 'wponion-help' : $localize;
-				wponion_localize()->add( $this->js_field_id(), array( $localize => $data ) );
-			} else {
-				$attr['data-tippy'] = $data['content'];
-			}
-
-			return array(
-				'attr' => $attr,
-				'data' => $data,
-			);
+			return wponion_tooltip( false, $data, false, $localize );
 		}
 
 		/**
@@ -1114,9 +1097,9 @@ PHP;
 		 * @param      $unqiue
 		 * @param bool $is_init
 		 *
+		 * @return mixed
 		 * @uses wponion_add_element|wponion_field
 		 *
-		 * @return mixed
 		 */
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
 			$func      = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';

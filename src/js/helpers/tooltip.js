@@ -5,21 +5,35 @@ import $wponion from '../core/core';
  * WPOnion Field ToolTip
  */
 class field extends WPOnion_Field {
+	tooltip_arg() {
+		let $tooltipkey = this.element.attr( 'data-wponion-tooltip-id' );
+		let $tooltips   = {
+			'wponion-help': this.option( 'wponion-help', false ),
+			'wrap_tooltip': this.option( 'wrap_tooltip', false )
+		};
+
+		$tooltips[ $tooltipkey ]                                        = this.option( $tooltipkey, false );
+		$tooltips[ this.element.attr( 'data-field-jsid' ) + 'tooltip' ] = this.option( this.element.attr( 'data-field-jsid' ) + 'tooltip', false );
+		$tooltips[ this.element.attr( 'data-field-jsid' ) ]             = this.option( this.element.attr( 'data-field-jsid' ), false );
+
+		for( var $k in $tooltips ) {
+			if( $tooltips.hasOwnProperty( $k ) && window.wponion._.isObject( $tooltips[ $k ] ) ) {
+				this.tooltipkey = $k;
+				return $tooltips[ $k ];
+			}
+		}
+		return {};
+	}
+
 	/**
 	 * Handle Each And Every Single Field ToolTip.
 	 */
 	init() {
-		let $fid         = this.element.attr( 'data-field-jsid' );
-		let $tooltip_key = false;
-		if( true === this.element.hasClass( 'wponion-help' ) ) {
-			$tooltip_key = 'wponion-help';
-		} else if( true === this.element.hasClass( 'wponion-wrap-tooltip' ) ) {
-			$tooltip_key = 'wrap_tooltip';
-		} else {
-			$tooltip_key = $fid + 'tooltip';
-		}
+		this.tooltipkey = null;
+		let $fid        = this.element.attr( 'data-field-jsid' );
 
-		let $arg = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.option( $tooltip_key, false );
+		let $arg = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.tooltip_arg();
+		//let $arg = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.option( $tooltip_key, false );
 
 		const state = {
 			isFetching: false,
@@ -30,16 +44,18 @@ class field extends WPOnion_Field {
 			let $classToCheck = [ 'data-tippy', 'data-tippy-args', 'tippy-args' ];
 			let $found        = false;
 			for( let $k in $classToCheck ) {
-				let $attr = this.element.attr( $classToCheck[ $k ] );
-				if( $attr ) {
-					if( $wponion.valid_json( $attr ) ) {
-						$arg   = JSON.parse( $attr );
-						$found = $classToCheck[ $k ];
-						break;
-					} else if( false !== this.option( $attr, false ) ) {
-						$arg   = this.option( $attr, false );
-						$found = $classToCheck[ $k ];
-						break;
+				if( $classToCheck.hasOwnProperty( $k ) ) {
+					let $attr = this.element.attr( $classToCheck[ $k ] );
+					if( $attr ) {
+						if( $wponion.valid_json( $attr ) ) {
+							$arg   = JSON.parse( $attr );
+							$found = $classToCheck[ $k ];
+							break;
+						} else if( false !== this.option( $attr, false ) ) {
+							$arg   = this.option( $attr, false );
+							$found = $classToCheck[ $k ];
+							break;
+						}
 					}
 				}
 			}
@@ -87,7 +103,6 @@ class field extends WPOnion_Field {
 						}
 					}
 				};
-
 			}
 		} else {
 			$arg = {};
@@ -98,14 +113,20 @@ class field extends WPOnion_Field {
 				return document.body;
 			};
 		} else if( window.wponion._.isUndefined( $arg.appendTo ) ) {
-			$arg.appendTo = () => {
-				return jQuery( 'div.wponion-element[data-wponion-jsid=' + this.id() + ']' )[ 0 ];
-			};
+			if( jQuery( 'div.wponion-element[data-wponion-jsid=' + this.id() + ']' ).length > 0 ) {
+				$arg.appendTo = () => {
+					return jQuery( 'div.wponion-element[data-wponion-jsid=' + this.id() + ']' )[ 0 ];
+				};
+			} else {
+				$arg.appendTo = () => {
+					return document.body;
+				};
+			}
 		}
 
 		delete $arg.image;
 		delete $arg.icon;
-		this.element.tippy( this.handle_args( $arg, $tooltip_key ) );
+		this.element.tippy( this.handle_args( $arg, this.tooltipkey ) );
 	}
 }
 
