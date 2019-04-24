@@ -34,10 +34,11 @@ export class WPOnion_Ajaxer {
 		};
 		this.default_config = {
 			button_lock: false,
+			loading_text: window.wponion.core.txt( 'processing' ),
 			response_element: false,
 			element_lock: false,
 			blockUI: {
-				message: null,
+				message: false,
 				overlayCSS: {
 					background: '#000',
 					opacity: 0.7
@@ -291,7 +292,9 @@ export class WPOnion_Ajaxer {
 			let $elem = to_jquery( this.run_config.button_lock );
 			if( $elem.length > 0 ) {
 				if( false === $unlock ) {
-					$elem.wponion_button( 'loading' );
+					$elem.wponion_button( {
+						loadingText: this.run_config.loading_text
+					} ).wponion_button( 'loading' );
 				} else {
 					$elem.wponion_button( 'reset' );
 				}

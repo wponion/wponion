@@ -87,6 +87,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info', 'wponion' ) );
 				$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.', 'wponion' ) );
 				$this->text( 'delete', __( 'Delete', 'wponion' ) );
+				$this->text( 'processing', __( 'Processing ...' ) );
 				$this->text( 'restore', __( 'Restore', 'wponion' ) );
 				$this->modal_template();
 				self::$core_data = true;

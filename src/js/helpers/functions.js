@@ -3,20 +3,21 @@
 /* global tippy:true */
 
 let WPOButton = function( element, options ) {
+	this.DEFAULTS  = {
+		loadingText: window.wponion.core.txt( 'processing', 'Loading ...' ),
+		spinner: {
+			html: '<span class="spinner is-active wpo-spinner"></span>',
+			active_class: 'is-active',
+		},
+	};
 	this.$element  = jQuery( element );
-	this.options   = jQuery.extend( {}, WPOButton.DEFAULTS, options );
+	this.options   = jQuery.extend( {}, this.DEFAULTS, options );
 	this.isLoading = false;
+
 };
 
 WPOButton.VERSION = '3.4.1';
 
-WPOButton.DEFAULTS = {
-	loadingText: 'loading...',
-	spinner: {
-		html: '<span class="spinner is-active wpo-spinner"></span>',
-		active_class: 'is-active',
-	},
-};
 
 WPOButton.prototype.setState = function( state ) {
 	let d    = 'disabled';
