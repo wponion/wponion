@@ -3,14 +3,14 @@ if ( ! function_exists( 'wponion_is_builder' ) ) {
 	/**
 	 * Checks if given builder is a instance of any in below
 	 *
-	 * @see \WPO\Builder
-	 * @see \WPO\Container
-	 * @see \WPO\Field
-	 *
 	 * @param        $builder
 	 * @param string $type
 	 *
 	 * @return bool
+	 * @see \WPO\Builder
+	 * @see \WPO\Container
+	 * @see \WPO\Field
+	 *
 	 */
 	function wponion_is_builder( $builder, $type = 'builder' ) {
 		switch ( strtolower( $type ) ) {
