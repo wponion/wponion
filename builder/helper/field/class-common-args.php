@@ -420,6 +420,5 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 			$this['multiple'] = $is_multiple;
 			return $this;
 		}
-
 	}
 }

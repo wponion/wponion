@@ -441,8 +441,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		/**
 		 * Returns Default Column CSS Class based on the modules or it returns defaults.
 		 *
-		 * @return array
 		 * @uses \apply_filters('wponion_field_column_css_class')
+		 * @return array
 		 */
 		protected function get_default_column_class() {
 			$return             = array();
@@ -1097,9 +1097,9 @@ PHP;
 		 * @param      $unqiue
 		 * @param bool $is_init
 		 *
-		 * @return mixed
 		 * @uses wponion_add_element|wponion_field
 		 *
+		 * @return mixed
 		 */
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
 			$func      = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';

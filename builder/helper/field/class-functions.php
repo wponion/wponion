@@ -20,7 +20,6 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 	 * @since 1.0
 	 */
 	trait Functions {
-
 		/**
 		 * Checks If Current Instance Has Fields.
 		 *
@@ -138,6 +137,5 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 			}
 			return false;
 		}
-
 	}
 }
