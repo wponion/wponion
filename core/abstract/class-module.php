@@ -15,6 +15,7 @@
 namespace WPOnion\Bridge;
 
 use WPO\Container;
+use WPOnion\Themes;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -181,13 +182,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( false === $this->current_theme ) {
 				$theme      = $this->option( 'theme' );
 				$theme_args = $this->theme_callback_args();
-				if ( \WPOnion\Themes::is_support( $theme, $this->module() ) ) {
-					$return = \WPOnion\Themes::callback( $theme, $theme_args );
+				if ( Themes::is_support( $theme, $this->module() ) ) {
+					$return = Themes::callback( $theme, $theme_args );
 					if ( $return ) {
 						$this->current_theme = $return->uid();
 					}
 				} else {
-					$return = \WPOnion\Themes::callback( wponion_default_theme(), $theme_args );
+					$return = Themes::callback( wponion_default_theme(), $theme_args );
 					if ( $return ) {
 						$this->current_theme = $return->uid();
 					}
@@ -341,10 +342,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param bool               $container
 		 * @param bool               $first_container
 		 *
-		 * @uses \WPOnion\Modules\Metabox
+		 * @return array
 		 * @uses \WPOnion\Modules\Settings
 		 *
-		 * @return array
+		 * @uses \WPOnion\Modules\Metabox
 		 */
 		protected function extract_fields_menus( $fields = array(), $is_child = false, $container = false, $first_container = false ) {
 			$return = array();
@@ -553,10 +554,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param bool  $hash
 		 * @param bool  $is_init_field
 		 *
-		 * @uses \wponion_add_element()
+		 * @return mixed
 		 * @uses \wponion_field()
 		 *
-		 * @return mixed
+		 * @uses \wponion_add_element()
 		 */
 		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
 			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
