@@ -29,6 +29,7 @@ class field extends WPOnion_Field {
 				.find( '> .wponion-accordion-content .row > .wponion-group-action > button' )
 				.click();
 		} );
+		this.update_groups_title();
 
 		$group_wrap.WPOnionCloner( {
 			add_btn: $add,
