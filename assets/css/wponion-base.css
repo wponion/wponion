@@ -452,6 +452,14 @@
   box-shadow: inset 0 3px 0 #121416 !important;
 }
 
+.dropdown .wponion-submenu-i:before {
+  content: "\f345";
+}
+
+.dropdown.open .wponion-submenu-i:before {
+  content: "\f347";
+}
+
 .wponion-checker {
   display: inline-block;
   margin-right: 10px;

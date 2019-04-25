@@ -12,9 +12,12 @@ export default class extends Base {
 
 			if( $elem.hasClass( 'dropdown' ) ) {
 				if( $elem.parent().find( '> ul' ).is( ':visible' ) ) {
+					this.element.find( '.wponion-menu > ul a.dropdown' ).removeClass( 'open' );
 					$elem.parent().find( '> ul' ).slideToggle();
 				} else {
 					this.element.find( '.wponion-menu > ul ul' ).slideUp();
+					this.element.find( '.wponion-menu > ul a.dropdown' ).removeClass( 'open' );
+					$elem.addClass( 'open' );
 					$elem.parent().find( '> ul' ).slideToggle();
 				}
 

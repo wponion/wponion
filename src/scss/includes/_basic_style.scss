@@ -59,6 +59,22 @@
 	}
 }
 
+.dropdown {
+	.wponion-submenu-i {
+		&:before {
+			content: "\f345";
+		}
+	}
+
+	&.open {
+		.wponion-submenu-i {
+			&:before {
+				content: "\f347";
+			}
+		}
+	}
+}
+
 .wponion-checker {
 	display:      inline-block;
 	margin-right: 10px;

@@ -72,8 +72,6 @@ export default ( ( window, document, wp, $ ) => {
 
 		window.wponion_notice( $wpof_div.find( '.wponion-element-wp_notice, .wponion-element-notice' ) );
 
-		window.wponion.core.submenu_indicator( $( document ).find( '.wponion-submenu-i' ) );
-
 		// Triggers Field Debug Data.
 		$( document ).on( 'click', '.wponion-field-debug-code > strong', function() {
 			jQuery( this ).next().slideToggle();
