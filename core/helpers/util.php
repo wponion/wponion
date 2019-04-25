@@ -99,10 +99,15 @@ if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 	 * @return string
 	 */
 	function wponion_inline_ajax( $action = '', $args = array(), $button_html = '' ) {
-		if ( is_scalar( $args ) && empty( $button_html ) ) {
+		if ( is_array( $action ) && is_scalar( $args ) && empty( $button_html ) ) {
+			$button_html = $args;
+			$args        = $action;
+			$action      = null;
+		} elseif ( is_scalar( $args ) && empty( $button_html ) ) {
 			$button_html = $args;
 			$args        = array();
 		}
+
 		$args      = wp_parse_args( $args, array(
 			'method'   => 'post',
 			'url'      => admin_url( 'admin-ajax.php' ),
@@ -113,7 +118,7 @@ if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 			'always'   => false,
 			'action'   => $action,
 		) );
-		$unique_id = wponion_hash_array( $args );
+		$unique_id = 'wpoajax' . wponion_hash_array( $args );
 		wponion_localize()->add( $unique_id, array( 'inline_ajax' => $args ) );
 		if ( ! empty( $button_html ) ) {
 			$button_html = preg_replace( '/<a (.+?)>/i', "<a $1 data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );

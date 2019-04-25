@@ -307,10 +307,9 @@ export default ( ( $, document ) => {
 	$( () => {
 		let $class = '[data-wponion-inline-ajax], .wponion-ajax, .wponion-ajax-get, .wponion-ajax-post, .wponion-inline-ajax, .wponion-inline-ajax-get, .wponion-inline-ajax-post';
 		$( document ).on( 'click', $class, ( e ) => {
-			let $elem            = $( e.currentTarget ),
-				$_data           = $elem.data(),
-				$_class_instance = null,
-				$args            = {
+			let $elem  = $( e.currentTarget ),
+				$_data = $elem.data(),
+				$args  = {
 					url: false,
 				};
 
@@ -318,8 +317,7 @@ export default ( ( $, document ) => {
 				let $fid1  = $elem.attr( 'data-wponion-inline-ajax' );
 				let $fid2  = $elem.attr( 'id' );
 				let $js_id = $wponion.fieldID( $elem );
-				let $args  = {};
-				if( $js_id ) {
+				if( $js_id && window.wponion._.isObject( $wponion.fieldArgs( $js_id, false ) ) ) {
 					let $_args = $wponion.fieldArgs( $js_id, false );
 					if( $_args.hasOwnProperty( 'inline_ajax' ) && false !== window.wponion._.isUndefined( $_args.inline_ajax ) ) {
 						$args = $_args.inline_ajax;
@@ -362,8 +360,7 @@ export default ( ( $, document ) => {
 			}
 
 			$args.button_lock = $elem;
-			$_class_instance  = new WPOnion_Ajaxer( $args );
-			$_class_instance.send();
+			wponion_ajax( $args ).send();
 		} );
 	} );
 } )( jQuery, document );
