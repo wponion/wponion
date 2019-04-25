@@ -90,14 +90,8 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 				'widget',
 				'user_profile',
 			), 'wponion_wp_modern_theme_init' );
-			self::register( 'wp', array( 'settings', 'metabox', 'woocommerce', 'taxonomy' ), 'wponion_wp_theme_init' );
-			self::register( 'modern', array(
-				'settings',
-				'metabox',
-				'woocommerce',
-				'taxonomy',
-			), 'wponion_modern_theme_init' );
-			self::register( 'fresh', array( 'settings', 'metabox' ), 'wponion_fresh_theme_init' );
+			self::register( 'wp_lite', array( 'settings' ), 'wponion_wp_lite_theme_init' );
+			self::register( 'wp', array( 'settings' ), 'wponion_wp_theme_init' );
 		}
 
 		/**

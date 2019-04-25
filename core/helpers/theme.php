@@ -13,49 +13,34 @@ if ( ! function_exists( 'wponion_wp_modern_theme_init' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_wp_lite_theme_init' ) ) {
+	/**
+	 * @param $data
+	 *
+	 * @return \WPOnion\Theme\WP_Lite
+	 */
+	function wponion_wp_lite_theme_init( $data ) {
+		if ( ! class_exists( '\WPOnion\Theme\WP_Lite' ) ) {
+			require_once WPONION_PATH . 'templates/wp-lite/class-wp-lite.php';
+		}
+		return new WPOnion\Theme\WP_Lite( $data );
+	}
+}
+
 if ( ! function_exists( 'wponion_wp_theme_init' ) ) {
 	/**
-	 * Inits WP Theme.
-	 *
 	 * @param $data
 	 *
-	 * @return \WPOnion_Wp_Theme
+	 * @return \WPOnion\Theme\WP
 	 */
 	function wponion_wp_theme_init( $data ) {
-		if ( ! class_exists( '\WPOnion_Wp_Theme' ) ) {
-			require_once WPONION_PATH . 'templates/wp/class-wp-init.php';
+		if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
+			require_once WPONION_PATH . 'templates/wp/class-wp.php';
 		}
-		return new WPOnion_Wp_Theme( $data );
+		return new WPOnion\Theme\WP( $data );
 	}
 }
 
-if ( ! function_exists( 'wponion_modern_theme_init' ) ) {
-	/**
-	 * @param $data
-	 *
-	 * @return \WPOnion_Modern_Theme
-	 */
-	function wponion_modern_theme_init( $data ) {
-		if ( ! class_exists( '\WPOnion_Modern_Theme' ) ) {
-			require_once WPONION_PATH . 'templates/modern/class-modern-init.php';
-		}
-		return new WPOnion_Modern_Theme( $data );
-	}
-}
-
-if ( ! function_exists( 'wponion_fresh_theme_init' ) ) {
-	/**
-	 * @param $data
-	 *
-	 * @return \WPOnion_Fresh_Theme
-	 */
-	function wponion_fresh_theme_init( $data ) {
-		if ( ! class_exists( '\WPOnion_Fresh_Theme' ) ) {
-			require_once WPONION_PATH . 'templates/fresh/class-fresh-init.php';
-		}
-		return new WPOnion_Fresh_Theme( $data );
-	}
-}
 
 if ( ! function_exists( 'wponion_default_theme' ) ) {
 	/**
