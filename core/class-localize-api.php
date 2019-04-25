@@ -146,7 +146,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				if ( wponion_is_array( $ar ) ) {
 					$args[ $i ] = $this->handle_js_function( $ar );
 				} elseif ( is_string( $ar ) ) {
-					$re = '\bfunction[ ]{0,1}(\(((?>[^()]+|(?-2))*)\))(.|)(\{((?>[^{}]+|(?-2))*)\})';
+					$re = '/\bfunction[ ]{0,1}(\(((?>[^()]+|(?-2))*)\))(.|)(\{((?>[^{}]+|(?-2))*)\})';
 					/*'/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';*/
 					preg_match_all( $re, $ar, $matches, PREG_SET_ORDER, 0 );
 
