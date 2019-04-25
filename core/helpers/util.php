@@ -119,7 +119,7 @@ if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 			'action'   => $action,
 		) );
 		$unique_id = 'wpoajax' . wponion_hash_array( $args );
-		wponion_localize()->add( $unique_id, array( 'inline_ajax' => $args ) );
+		wponion_localize()->add( $unique_id, array( 'inline_ajax' => $args ), true, true );
 		if ( ! empty( $button_html ) ) {
 			$button_html = preg_replace( '/<a (.+?)>/i', "<a $1 data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );
 			return preg_replace( '/<button (.+?)>/i', "<button $1  data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );
