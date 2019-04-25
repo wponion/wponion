@@ -14,7 +14,6 @@ $files[ 'assets/css/wponion-base.css' ]   = {
 	rename: 'wponion-base.min.css',
 	watch: true,
 };
-// wponion-plugins.scss
 $files[ 'src/scss/wponion-plugins.scss' ] = {
 	dist: 'assets/css/',
 	combine_files: true,
@@ -22,69 +21,14 @@ $files[ 'src/scss/wponion-plugins.scss' ] = {
 	minify: true,
 	watch: [ 'src/scss/wponion-plugins.scss', 'src/vendors/json-view/json-view.scss' ]
 };
-/*$files[ 'assets/css/wponion-plugins.css' ]                   = {
-	dist: 'assets/css/',
-	minify: true,
-	rename: 'wponion-plugins.min.css',
-	watch: true,
-};*/
-// Fresh Theme
-$files[ 'src/scss/themes/fresh/wponion-fresh-theme.scss' ] = {
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	watch: true,
-	dist: 'templates/fresh/assets/',
-};
-/*$files[ 'templates/fresh/assets/wponion-fresh-theme.css' ]   = {
-	rename: 'wponion-fresh-theme.min.css',
-	minify: true,
-	watch: true,
-	dist: 'templates/fresh/assets/',
-};*/
-// Modern Theme
-$files[ 'src/scss/themes/modern/wponion-modern-theme.scss' ] = {
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	watch: true,
-	dist: 'templates/modern/assets/',
-};
-/*$files[ 'templates/modern/assets/wponion-modern-theme.css' ] = {
-	minify: true,
-	rename: 'wponion-modern-theme.min.css',
-	watch: true,
-	dist: 'templates/modern/assets/',
-};*/
-// Plugins.
-$files[ 'src/vendors/flatpickr/style.scss' ]           = {
-	dist: 'assets/plugins/flatpickr/',
-	combine_files: true,
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	rename: 'style.css',
-};
-$files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {
-	dist: 'assets/plugins/colorpicker/',
-	watch: [ 'src/js/wponion-plugins.js' ],
-	autoprefixer: true,
-	minify: true,
-	rename: 'cs-colorpicker.css',
-};
+
 // Javascripts
-$files[ 'src/js/wponion-plugins.js' ]                  = {
+$files[ 'src/js/wponion-plugins.js' ]     = {
 	dist: 'assets/js',
 	watch: [ './src/vendors/*/*.js', 'src/js/wponion-plugins.js' ],
 	combine_files: true,
 	uglify: true,
 };
-/*$files[ 'assets/js/wponion-plugins.js' ]               = {
-	dist: 'assets/js',
-	rename: 'wponion-plugins.min.js',
-	watch: true,
-	uglify: true,
-};*/
 $files[ 'src/js/wponion-core.js' ]        = [
 	{
 		dist: 'assets/js',
@@ -133,6 +77,75 @@ $files[ 'src/js/wponion-cloner.js' ]      = {
 	uglify: true,
 	watch: true,
 	rename: 'wponion-cloner.js',
+};
+
+// Plugins.
+$files[ 'src/vendors/flatpickr/style.scss' ]           = {
+	dist: 'assets/plugins/flatpickr/',
+	combine_files: true,
+	scss: true,
+	autoprefixer: true,
+	minify: true,
+	rename: 'style.css',
+};
+$files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {
+	dist: 'assets/plugins/colorpicker/',
+	watch: [ 'src/js/wponion-plugins.js' ],
+	autoprefixer: true,
+	minify: true,
+	rename: 'cs-colorpicker.css',
+};
+
+// Themes
+
+// WP Modern
+$files[ 'src/js/themes/wp-modern.js' ]           = {
+	watch: true,
+	babel: true,
+	uglify: true,
+	rename: 'script.js',
+	dist: 'templates/wp-modern/assets/',
+};
+$files[ 'src/scss/themes/wp-modern/style.scss' ] = {
+	watch: true,
+	scss: true,
+	autoprefixer: true,
+	minify: true,
+	rename: 'style.css',
+	dist: 'templates/wp-modern/assets/',
+};
+
+// wp-lite
+$files[ 'src/js/themes/wp-lite.js' ]           = {
+	watch: true,
+	babel: true,
+	uglify: true,
+	rename: 'script.js',
+	dist: 'templates/wp-lite/assets/',
+};
+$files[ 'src/scss/themes/wp-lite/style.scss' ] = {
+	watch: true,
+	scss: true,
+	autoprefixer: true,
+	minify: true,
+	rename: 'style.css',
+	dist: 'templates/wp-lite/assets/',
+};
+// wp-lite
+$files[ 'src/js/themes/wp.js' ]                = {
+	watch: true,
+	babel: true,
+	uglify: true,
+	rename: 'script.js',
+	dist: 'templates/wp/assets/',
+};
+$files[ 'src/scss/themes/wp/style.scss' ]      = {
+	watch: true,
+	scss: true,
+	autoprefixer: true,
+	minify: true,
+	rename: 'style.css',
+	dist: 'templates/wp/assets/',
 };
 
 module.exports = {
