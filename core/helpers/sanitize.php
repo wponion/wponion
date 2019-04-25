@@ -41,11 +41,10 @@ if ( ! function_exists( 'wponion_field_text_sanitize' ) ) {
 	 *
 	 * @param $value
 	 * @param $field
-	 * @param $plugin_id
 	 *
 	 * @return array|string
 	 */
-	function wponion_field_text_sanitize( $value, $field, $plugin_id ) {
+	function wponion_field_text_sanitize( $value, $field ) {
 		if ( wponion_is_cloneable( $field ) ) {
 			return wponion_field_cloneable_sanitize( $value, 'sanitize_text_field' );
 		}
@@ -60,11 +59,10 @@ if ( ! function_exists( 'wponion_field_textarea_sanitize' ) ) {
 	 *
 	 * @param $value
 	 * @param $field
-	 * @param $plugin_id
 	 *
 	 * @return array|string
 	 */
-	function wponion_field_textarea_sanitize( $value, $field, $plugin_id ) {
+	function wponion_field_textarea_sanitize( $value, $field ) {
 		if ( wponion_is_cloneable( $field ) ) {
 			return wponion_field_cloneable_sanitize( $value, 'sanitize_textarea_field' );
 		}

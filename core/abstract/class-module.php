@@ -120,12 +120,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			$this->raw_fields = $fields;
 			$this->settings   = $this->set_args( $settings );
 			$this->unique     = ( isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
-			$this->plugin_id  = $this->unique;
-
-			if ( isset( $this->settings['plugin_id'] ) && false !== $this->settings['plugin_id'] ) {
-				$this->plugin_id = $this->settings['plugin_id'];
-			}
-
 			$this->save_instance();
 		}
 
@@ -163,7 +157,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array|string
 		 */
 		protected function default_wrap_class() {
-			return wponion_module_html_class( $this->module(), $this->plugin_id(), $this->option( 'theme' ) );
+			return wponion_module_html_class( $this->module(), $this->option( 'theme' ) );
 		}
 
 		/**
@@ -210,7 +204,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function theme_callback_args() {
 			return array(
 				'data' => array(
-					'plugin_id'   => $this->plugin_id(),
 					'unique'      => $this->unique(),
 					'instance_id' => $this->unique(),
 				),
@@ -285,7 +278,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param $errors
 		 */
 		protected function init_error_registry( $errors ) {
-			$instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), '\WPOnion\Registry\Field_Error' );
+			$instance = wponion_registry( $this->module() . '_' . $this->unique(), '\WPOnion\Registry\Field_Error' );
 			$instance->set( $errors );
 		}
 
@@ -330,10 +323,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return array(
-				'option_name' => false,
-				'plugin_id'   => false,
-			);
+			return array( 'option_name' => false );
 		}
 
 		/**
@@ -564,10 +554,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
 			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
 			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
-				'plugin_id' => $this->plugin_id(),
-				'module'    => $this->module(),
-				'unique'    => $this->unique(),
-				'hash'      => $hash,
+				'module' => $this->module(),
+				'unique' => $this->unique(),
+				'hash'   => $hash,
 			) );
 		}
 
@@ -632,7 +621,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			unset( $this->unique );
 			unset( $this->db_values );
 			unset( $this->options_cache );
-			unset( $this->plugin_id );
 			unset( $this->module );
 		}
 

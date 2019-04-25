@@ -213,24 +213,13 @@ export default class extends WPOnion_Module {
 	}
 
 	/**
-	 * Returns Field's Plugin Slug.
-	 * @returns {*}
-	 */
-	plugin_id() {
-		return this.option( 'plugin_id', false );
-	}
-
-	/**
 	 * Triggers An Ajax Action.
 	 * @param $action
 	 * @param $data
 	 */
 	ajax( $action = '', $data = {} ) {
 		let $ajax_key         = $wponion.option( 'ajax_action_key' );
-		let $default          = {
-			plugin_id: this.plugin_id(),
-			module: this.module(),
-		};
+		let $default          = { module: this.module() };
 		$default[ $ajax_key ] = $action;
 		$data.data            = ( false === window.wponion._.isUndefined( $data.data ) ) ? window.wponion._.merge( $default, $data.data ) : $default;
 

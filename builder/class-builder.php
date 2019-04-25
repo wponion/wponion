@@ -44,7 +44,6 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		 * Builder constructor.
 		 */
 		public function __construct() {
-			unset( $this->plugin_id );
 			unset( $this->module );
 			unset( $this->unique );
 			unset( $this->array_var );

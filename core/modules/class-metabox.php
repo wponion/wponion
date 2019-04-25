@@ -209,9 +209,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		 * @return array
 		 */
 		protected function theme_callback_args() {
-			$args                      = parent::theme_callback_args();
-			$args['data']['plugin_id'] = $this->plugin_id() . '_' . $this->metabox_id();
-			return $args;
+			return parent::theme_callback_args();
 		}
 
 		/**
@@ -336,7 +334,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 		public function hidden_secure_data() {
 			$data = array(
 				'metabox_id'     => $this->metabox_id(),
-				'plugin_id'      => $this->plugin_id(),
 				'unique'         => $this->unique(),
 				'wponion_postid' => $this->post_id,
 			);
@@ -398,7 +395,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
 				$instance = new \WPOnion\DB\Metabox_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'metabox',
-					'plugin_id' => $this->plugin_id(),
 					'unique'    => $this->unique,
 					'fields'    => $this->fields,
 					'db_values' => $this->get_db_values(),

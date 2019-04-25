@@ -129,14 +129,12 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		 * Handles Ajax Metabox Save.
 		 */
 		public function save_metabox() {
-			if ( isset( $_REQUEST['metabox_id'] ) && isset( $_REQUEST['plugin_id'] ) ) {
+			if ( isset( $_REQUEST['metabox_id'] ) ) {
 				wponion_localize();
-				$plugin_id       = sanitize_text_field( $_REQUEST['plugin_id'] );
-				$unique          = sanitize_text_field( $_REQUEST['unique'] );
-				$this->plugin_id = $plugin_id;
-				$this->module    = 'metabox';
-				$instance        = wponion_metabox_registry( $unique );
-				$post_id         = sanitize_text_field( $_REQUEST['wponion_postid'] );
+				$unique       = sanitize_text_field( $_REQUEST['unique'] );
+				$this->module = 'metabox';
+				$instance     = wponion_metabox_registry( $unique );
+				$post_id      = sanitize_text_field( $_REQUEST['wponion_postid'] );
 				if ( $instance ) {
 					$instance->set_post_id( $post_id );
 					$instance->save_metabox( $post_id );

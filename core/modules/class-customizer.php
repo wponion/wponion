@@ -67,7 +67,6 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		public function render_field( $field = array(), $parent_section = false, $section = false ) {
 			$callback = 'wponion_field';
 			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
-				'plugin_id' => $this->plugin_id(),
 				'module'    => $this->module(),
 				'unique'    => $this->unique,
 				'hash'      => sanitize_title( $parent_section . '-' . $section ),
@@ -204,7 +203,6 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 					$control_args = array(
 						'unique'   => array(
 							'module'    => $this->module(),
-							'plugin_id' => $this->plugin_id(),
 							'unique'    => $this->unique(),
 						),
 						'section'  => $section['name'],

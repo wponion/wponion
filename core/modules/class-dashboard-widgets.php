@@ -157,7 +157,6 @@ if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
 				$instance = new \WPOnion\DB\Dashboard_Widgets_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'dashboard_widgets',
-					'plugin_id' => $this->plugin_id(),
 					'unique'    => $this->unique(),
 					'fields'    => $this->fields,
 					'db_values' => $this->get_db_values(),

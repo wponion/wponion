@@ -128,13 +128,11 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->value          = $value;
 
 			if ( ! wponion_is_array( $unique ) ) {
-				$this->unique    = $unique;
-				$this->plugin_id = false;
-				$this->module    = false;
+				$this->unique = $unique;
+				$this->module = false;
 			} else {
-				$this->unique    = ( isset( $unique['unique'] ) ) ? $unique['unique'] : false;
-				$this->plugin_id = ( isset( $unique['plugin_id'] ) ) ? $unique['plugin_id'] : false;
-				$this->module    = ( isset( $unique['module'] ) ) ? $unique['module'] : false;
+				$this->unique = ( isset( $unique['unique'] ) ) ? $unique['unique'] : false;
+				$this->module = ( isset( $unique['module'] ) ) ? $unique['module'] : false;
 			}
 
 			$this->get_errors();
@@ -225,7 +223,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->debug( __( 'Field Args', 'wponion' ), $this->field );
 			$this->debug( __( 'Field Value', 'wponion' ), $this->value );
 			$this->debug( __( 'Unique', 'wponion' ), $this->unique );
-			$this->debug( __( 'Plugin ID', 'wponion' ), $this->plugin_id() );
 			$this->debug( __( 'Module', 'wponion' ), $this->module() );
 			$this->wp_pointer();
 			$this->localize_field();
@@ -504,7 +501,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		protected function tooltip_data( $main_data = array(), $extra_args = array(), $localize = true ) {
-			$data = $this->handle_data( $main_data, $this->parse_args( $extra_args, array( 'js_field_id' => $this->js_field_id() ) ), 'content' );
+			$data = $this->handle_data( $main_data, $this->parse_args( $extra_args, array(
+				'content'     => false,
+				'js_field_id' => $this->js_field_id(),
+			) ), 'content' );
 			return wponion_tooltip( false, $data, false, $localize );
 		}
 
@@ -514,7 +514,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function unid() {
-			return $this->module() . '_' . $this->plugin_id() . '_' . $this->field_id();
+			return $this->module() . '_' . $this->field_id();
 		}
 
 		/**
@@ -582,7 +582,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function get_errors() {
 			if ( null === $this->errors ) {
-				$error_instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), '\WPOnion\Registry\Field_Error' );
+				$error_instance = wponion_registry( $this->module() . '_' . $this->unique(), '\WPOnion\Registry\Field_Error' );
 
 				if ( $error_instance ) {
 					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
@@ -824,9 +824,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 					wponion_localize()->add( $this->js_field_id(), array( 'js_validate' => $this->data( 'js_validate' ) ) );
 				}
 				$data       = array(
-					'module'    => $this->module(),
-					'plugin_id' => $this->plugin_id(),
-					'unique'    => $this->base_unique(),
+					'module' => $this->module(),
+					'unique' => $this->base_unique(),
 				);
 				$js_convert = false;
 			}
@@ -987,9 +986,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
 			$func      = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
 			$_instance = $func( $field, $value, array(
-				'unique'    => $unqiue,
-				'plugin_id' => $this->plugin_id(),
-				'module'    => $this->module(),
+				'unique' => $unqiue,
+				'module' => $this->module(),
 			) );
 
 			if ( true == $is_init ) {

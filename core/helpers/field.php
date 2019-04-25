@@ -23,9 +23,7 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 	 */
 	function wponion_field_defaults() {
 		return array(
-			/**
-			 * Common Args.
-			 */
+			// Common Args.
 			'id'              => false, # Unique Database ID For Each And Every Field
 			'title'           => false, # Title For Each Field,
 			'help'            => false, # Used for field tooltip
@@ -33,50 +31,36 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			'desc'            => false, # Field Description to print after title,
 			'desc_field'      => false, # Field description to print after field output.
 			'name'            => false,
-			/**
-			 * DB Save Handler Related.
-			 */
+			/// DB Save Handler Related.
 			'sanitize'        => null,    #sanitize of field. can be enabled or disabled
 			'validate'        => null,    #validate of field. can be enabled or disabled
 			'js_validate'     => null,    #JS validate of field. can be enabled or disabled
-			/**
-			 * Field Related.
-			 */
+			//Field Related.
 			'type'            => false, # Type of the field,
 			'style'           => false,
 			'placeholder'     => false,
 			'disabled'        => false,
 			'attributes'      => array(), # attributes of field. supporting only html standard attributes
 			'class'           => false, # Extra Element Class,
-			/**
-			 * UI Related.
-			 */
+			//UI Related.
 			'before'          => null,
 			'after'           => null,
 			'horizontal'      => false,
 			'only_field'      => false,
 			'dependency'      => array(), # dependency for showing and hiding fields
-			/**
-			 * Cloner Related.
-			 */
+			//Cloner Related.
 			'clone'           => false,
 			'clone_settings'  => array(),
 			'debug'           => wponion_field_debug(),
-			/**
-			 * WordPress Releated.
-			 */
+			//WordPress Releated.
 			'query_args'      => array(),
 			'wp_pointer'      => false,
-			/**
-			 * Wrap Releated
-			 */
+			//Wrap Releated
 			'wrap_tooltip'    => false,
 			'wrap_class'      => null, # custom class for the field wrapper,
 			'wrap_id'         => null, # custom ID for the field wrapper,
 			'wrap_attributes' => array(),
-			/**
-			 * Custom Column Handler.
-			 */
+			//Custom Column Handler.
 			'title_column'    => false,
 			'fieldset_column' => false,
 		);
@@ -173,15 +157,13 @@ if ( ! function_exists( 'wponion_field' ) ) {
 		}
 
 		if ( false !== $class ) {
-			$plugin_id = '';
-			$module    = 'user_fields';
-			$hash      = null;
+			$module = 'user_fields';
+			$hash   = null;
 
 			if ( wponion_is_array( $unique ) ) {
-				$plugin_id = isset( $unique['plugin_id'] ) ? $unique['plugin_id'] : '';
-				$module    = isset( $unique['module'] ) ? $unique['module'] : '';
-				$hash      = isset( $unique['hash'] ) ? $unique['hash'] : '';
-				$unique    = isset( $unique['unique'] ) ? $unique['unique'] : '';
+				$module = isset( $unique['module'] ) ? $unique['module'] : '';
+				$hash   = isset( $unique['hash'] ) ? $unique['hash'] : '';
+				$unique = isset( $unique['unique'] ) ? $unique['unique'] : '';
 			}
 
 			if ( is_string( $base_unique ) || ! isset( $field['id'] ) || isset( $field['id'] ) && empty( $field['id'] ) ) {
@@ -189,7 +171,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			} else {
 				$uid = $field['id'] . '_' . $field['type'] . '_' . $unique . '_' . $hash;
 			}
-			$registry_key = implode( '_', array_filter( array( $module, $plugin_id, $unique ) ) );
+			$registry_key = implode( '_', array_filter( array( $module, $unique ) ) );
 			$registry     = wponion_registry( $registry_key, '\WPOnion\Registry\Fields' );
 
 			if ( false !== $registry->get( $uid ) ) {
@@ -299,9 +281,9 @@ if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	/**
 	 * Returns a list of non editable fileds type.
 	 *
+	 * @return array
 	 * @todo check and remove.
 	 *
-	 * @return array
 	 */
 	function wponion_noninput_fields() {
 		return apply_filters( 'wponion_non_input_fields', array(

@@ -50,12 +50,12 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 				$key = $instance->uid();
 			} elseif ( method_exists( $instance, 'unique' ) ) {
 				$key = $instance->unique();
-			} else {
-				$key = $instance->plugin_id();
 			}
 
-			if ( ! isset( $registry[ $type ][ $key ] ) ) {
-				$this->registry[ $type ][ $key ] = $instance;
+			if ( ! empty( $key ) ) {
+				if ( ! isset( $registry[ $type ][ $key ] ) ) {
+					$this->registry[ $type ][ $key ] = $instance;
+				}
 			}
 		}
 

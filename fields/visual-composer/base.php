@@ -219,7 +219,6 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 			$field_arr = $this->field_array();
 			return wponion_add_element( $field_arr, $this->value( $field_arr ), array(
 				'module'    => 'visual_composer',
-				'plugin_id' => false,
 				'unique'    => false,
 			) );
 		}

@@ -71,7 +71,6 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 */
 		public function __construct( $data, $theme_file = __FILE__, $theme_name = false ) {
 			$data = $this->parse_args( $data, array(
-				'plugin_id'   => false,
 				'unique'      => false,
 				'instance_id' => false,
 			) );
@@ -79,7 +78,6 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 			$this->dir             = plugin_dir_path( $theme_file );
 			$this->url             = plugin_dir_url( $theme_file );
 			$this->theme           = $theme_name;
-			$this->plugin_id       = $data['plugin_id'];
 			$this->unique          = $data['unique'];
 			$this->module_instance = $data['instance_id'];
 			wponion_theme_registry( $this );
@@ -109,7 +107,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 * @return string
 		 */
 		public function uid() {
-			return $this->theme . '_' . $this->unique . '_' . $this->plugin_id;
+			return $this->theme . '_' . $this->unique;
 		}
 
 		/**

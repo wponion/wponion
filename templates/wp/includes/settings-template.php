@@ -1,22 +1,28 @@
 <?php
+/**
+ * @var \WPO\Builder|\WPO\Container $option
+ * @var \WPO\Builder|\WPO\Container $section
+ * @var \WPO\Field                  $field
+ */
 
-foreach ( $ins->fields() as $option ) {
+foreach ( $ins->fields()
+			  ->get() as $option ) {
 	if ( false === $ins->valid_option( $option ) ) {
 		continue;
 	}
 
-	$has_submenu   = ( $option->has_sections() ) ? ' wponion-has-sections ' : '';
-	$parent_active = ( true === $ins->is_tab_active( $option['name'], false ) ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden';
+	$has_submenu   = ( $option->has_containers() ) ? ' wponion-has-sections ' : '';
+	$parent_active = ( true === $ins->is_tab_active( $option->name(), false ) ) ? ' wponion-parent-wraps ' : 'wponion-parent-wraps hidden';
 	$parent_active = $parent_active . $has_submenu;
 	?>
 	<div id="wponion-tab-<?php echo $option->name(); ?>" class="<?php echo $parent_active; ?>">
 		<?php
 		echo $this->submenu_html( $option->name() );
 
-		if ( $option->has_sections() ) {
-			$first_section = $ins->get_first_section( $option );
+		if ( $option->has_containers() ) {
+			$first_section = $option->first_container();
 
-			foreach ( $option->sections() as $section ) {
+			foreach ( $option->containers() as $section ) {
 				if ( false === $ins->valid_option( $section, true ) ) {
 					continue;
 				}

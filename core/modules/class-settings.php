@@ -182,7 +182,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			$instance->init_class( array(
 				'module'      => 'settings',
-				'plugin_id'   => $this->plugin_id(),
 				'unique'      => $this->unique,
 				'fields'      => $this->fields,
 				'user_values' => $request,
@@ -454,7 +453,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'extra_css'     => array(),
 				'extra_js'      => array(),
 				'option_name'   => '_wponion',
-				'plugin_id'     => false,
 				'theme'         => 'wp',
 				'template_path' => false,
 				'save_button'   => __( 'Save Settings', 'wponion' ),

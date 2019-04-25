@@ -99,7 +99,6 @@ if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
 					$instance        = new \WPOnion\DB\Quick_Edit_Save_Handler();
 					$instance->init_class( array(
 						'module'       => $this->module(),
-						'plugin_id'    => $this->plugin_id(),
 						'unique'       => $this->unique(),
 						'fields'       => $this->fields,
 						'user_values'  => $_POST[ $this->unique ],

@@ -55,7 +55,6 @@ if ( ! class_exists( '\WPOnion\WP\Widget' ) ) {
 		public function widget_settings_config() {
 			return wp_parse_args( $this->settings_config(), array(
 				'theme'       => 'wp_modern',
-				'plugin_id'   => false,
 				'option_name' => $this->id_base,
 			) );
 		}

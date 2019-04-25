@@ -27,14 +27,6 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 	 * @since 1.0
 	 */
 	abstract class Bridge {
-		/**
-		 * Plugin_id
-		 * This is used in do_action & apply_filters to provide plugin developers with a custom hook to run only when
-		 * their instance is created / running.
-		 *
-		 * @var null.
-		 */
-		protected $plugin_id = null;
 
 		/**
 		 * Settings
@@ -116,13 +108,13 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		/**
 		 * Custom Wrapper for both do_action & apply_filters
 		 *
-		 * @uses \do_action()
-		 * @uses \apply_filters()
-		 *
 		 * @param string $type
 		 * @param array  $args
 		 *
 		 * @return mixed
+		 * @uses \apply_filters()
+		 *
+		 * @uses \do_action()
 		 */
 		private function action_filter( $type = '', $args = array() ) {
 			return call_user_func_array( $type, $args );
@@ -150,25 +142,18 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		protected function global_action_filter( $type = 'apply_filters', $args = array() ) {
 			$_args            = $args;
 			$actual_hook_slug = $args[0];
-			$_args[0]         = $this->get_action_filter_slugs( true ) . $actual_hook_slug;
-			$data             = $this->action_filter( $type, $_args );
 			$_args[0]         = $this->get_action_filter_slugs( false ) . $actual_hook_slug;
 			$data             = $this->action_filter( $type, $_args );
 			return $data;
 		}
 
 		/**
-		 * Returns Custom Prefix For Every Action & Filter Applied By WPSF
-		 *
-		 * @param bool $plugin_id
+		 * Returns Custom Prefix For Every Action & Filter Applied By WPOnion
 		 *
 		 * @return string
 		 */
-		protected function get_action_filter_slugs( $plugin_id = false ) {
-			if ( false === $plugin_id ) {
-				return $this->generate_filter_slug( array( 'wponion', $this->module() ) );
-			}
-			return $this->generate_filter_slug( array( 'wponion', $this->module(), $this->plugin_id() ) );
+		protected function get_action_filter_slugs() {
+			return $this->generate_filter_slug( array( 'wponion', $this->module() ) );
 		}
 
 		/**
@@ -225,15 +210,6 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		public function set_option( $key, $value ) {
 			$this->settings[ $key ] = $value;
 			return $this;
-		}
-
-		/**
-		 * Returns current plugin_id
-		 *
-		 * @return array
-		 */
-		public function plugin_id() {
-			return $this->plugin_id;
 		}
 
 		/**

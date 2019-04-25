@@ -92,7 +92,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 			$instance->init_class( array(
 				'module'      => 'dashboard_widgets',
 				'user_values' => $new_values,
-				'plugin_id'   => $this->plugin_id(),
 				'unique'      => $unique,
 				'fields'      => $this->fields,
 				'db_values'   => $old_values,

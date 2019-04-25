@@ -64,7 +64,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public function __construct( $type = false, $id = false, $title = false, $args = array() ) {
 			unset( $this->module );
-			unset( $this->plugin_id );
 			$_args = array();
 			switch ( func_num_args() ) {
 				case 1:
