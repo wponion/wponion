@@ -357,7 +357,7 @@ export default ( ( $, document ) => {
 			}
 
 			$args.button_lock = $elem;
-			wponion_ajax( $args ).send();
+			wponion_ajax( window.wponion.core.js_func( $args ) ).send();
 		} );
 	} );
 } )( jQuery, document );
