@@ -14,7 +14,9 @@
 
 namespace WPOnion\Bridge;
 
+use WPO\Builder;
 use WPO\Container;
+use WPOnion\Bridge;
 use WPOnion\Themes;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Module extends \WPOnion\Bridge {
+	abstract class Module extends Bridge {
 		/**
 		 * Stores Current template information.
 		 * current_theme
@@ -110,8 +112,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param \WPO\Builder $fields Array of settings fields.
 		 * @param array        $settings array of WPOnion Settings Configuration.
 		 */
-		public function __construct( \WPO\Builder $fields = null, $settings = array() ) {
-			if ( $fields instanceof \WPO\Builder ) {
+		public function __construct( Builder $fields = null, $settings = array() ) {
+			if ( $fields instanceof Builder ) {
 				$this->fields = $fields;
 			}
 
