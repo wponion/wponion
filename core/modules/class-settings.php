@@ -430,7 +430,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$menu = array(
 				'submenu'       => 'themes.php',
 				'menu_title'    => WPONION_NAME,
-				'page_title'    => WPONION_NAME,
+				'page_title'    => false,
 				'capability'    => 'manage_options',
 				'menu_slug'     => 'wponion',
 				'icon'          => false,

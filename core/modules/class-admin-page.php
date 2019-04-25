@@ -311,7 +311,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
 		 */
 		public function get_page_title() {
-			return ( empty( $this->page_title() ) ) ? $this->menu_title() : $this->page_title();
+			return $this->page_title();
 		}
 
 		/**
