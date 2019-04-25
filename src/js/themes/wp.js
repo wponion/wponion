@@ -12,6 +12,9 @@ class WP {
 			this.settings_main_menu();
 			this.settings_submenu();
 		}
+		if( this.element.hasClass( 'wponion-submenu-single-page' ) ) {
+			this.settings_submenu();
+		}
 	}
 
 	settings_main_menu() {
