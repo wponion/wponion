@@ -313,24 +313,21 @@ export default ( ( $, document ) => {
 					url: false,
 				};
 
+
 			if( false === window.wponion._.isUndefined( $elem.attr( 'data-wponion-inline-ajax' ) ) ) {
 				let $fid1  = $elem.attr( 'data-wponion-inline-ajax' );
 				let $fid2  = $elem.attr( 'id' );
 				let $js_id = $wponion.fieldID( $elem );
-				if( $js_id && window.wponion._.isObject( $wponion.fieldArgs( $js_id, false ) ) ) {
-					let $_args = $wponion.fieldArgs( $js_id, false );
-					if( $_args.hasOwnProperty( 'inline_ajax' ) && false !== window.wponion._.isUndefined( $_args.inline_ajax ) ) {
-						$args = $_args.inline_ajax;
-					}
-				} else if( false !== $wponion.fieldArgs( $fid1, false ) ) {
-					let $_args = $wponion.fieldArgs( $fid1, false );
-					if( $_args.hasOwnProperty( 'inline_ajax' ) && false === window.wponion._.isUndefined( $_args.inline_ajax ) ) {
-						$args = $_args.inline_ajax;
-					}
-				} else if( false !== $wponion.fieldArgs( $fid2, false ) ) {
-					let $_args = $wponion.fieldArgs( $fid2, false );
-					if( $_args.hasOwnProperty( 'inline_ajax' ) && false === window.wponion._.isUndefined( $_args.inline_ajax ) ) {
-						$args = $_args.inline_ajax;
+				let $_args = [];
+				$_args.push( $wponion.fieldArgs( $js_id, false ) );
+				$_args.push( $wponion.fieldArgs( $fid1, false ) );
+				$_args.push( $wponion.fieldArgs( $fid2, false ) );
+
+				for( let $k in $_args ) {
+					if( $_args.hasOwnProperty( $k ) && false !== $_args[ $k ] && window.wponion._.isObject( $_args[ $k ] ) ) {
+						if( $_args[ $k ].hasOwnProperty( 'inline_ajax' ) && false === window.wponion._.isUndefined( $_args[ $k ].inline_ajax ) && window.wponion._.isObject( $_args[ $k ].inline_ajax ) ) {
+							$args = $_args[ $k ].inline_ajax;
+						}
 					}
 				}
 			} else {
