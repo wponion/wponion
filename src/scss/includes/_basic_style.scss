@@ -142,54 +142,6 @@
 	}
 }
 
-.wponion-field-debug-code-gen {
-	font-size:     11px !important;
-	padding:       6px 10px !important;
-	border-radius: 5px !important;
-	cursor:        pointer !important;
-}
-
-.wponion-field-debug-code {
-	text-align:    left;
-
-	> strong {
-		color:         #333; // #ffbc00;
-		margin-bottom: 10px;
-		cursor:        pointer;
-		display:       block;
-	}
-
-	div {
-		margin-bottom:  15px;
-		padding-left:   25px;
-		display:        block;
-		padding-bottom: 10px;
-
-		pre {
-			margin:  0;
-			display: block;
-		}
-
-		&:last-child {
-			margin-bottom: 0;
-		}
-	}
-
-	padding:       15px;
-	color:         #eaeaea;
-	font-size:     13px;
-	margin-top:    15px;
-	border:        1px solid #d4d4d4;
-	border-radius: 5px;
-
-	.alert {
-		display:       block;
-		font-size:     12px;
-		padding:       5px 10px;
-		margin-bottom: 0 !important;
-	}
-}
-
 .wponion-submenu-i {
 	float: right;
 }

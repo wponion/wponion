@@ -96,13 +96,13 @@ export default class extends WPOnion_Module {
 	 */
 	handle_args( $arg, $key = false ) {
 		let $args   = $wponion.js_func( $arg ),
-			$exists = $wponion_debug.get( this.id(), { 'PHP Args': {}, 'JS Args': {} } );
-		$exists     = window.wponion._.merge( { 'PHP Args': {}, 'JS Args': {} }, $exists );
+			$exists = $wponion_debug.get( this.id(), { 'php': {}, 'javascript': {} } );
+		$exists     = window.wponion._.merge( { 'php': {}, 'javascript': {} }, $exists );
 
 		if( false === $key ) {
-			$exists[ 'JS Args' ] = $args;
+			$exists.javascript = $args;
 		} else {
-			$exists[ 'JS Args' ][ $key ] = $args;
+			$exists.javascript [ $key ] = $args;
 		}
 		$wponion_debug.add( this.id(), $exists );
 		return $args;
@@ -120,7 +120,7 @@ export default class extends WPOnion_Module {
 
 		if( false === window.wponion._.isUndefined( $info ) ) {
 			if( false === window.wponion._.isEmpty( $info ) ) {
-				$wponion_debug.add( this.id(), { 'PHP Args': $info, 'JS Args': {} } );
+				$wponion_debug.add( this.id(), { 'php': $info, 'javascript': {} } );
 			}
 		}
 
@@ -169,20 +169,6 @@ export default class extends WPOnion_Module {
 						} );
 					}
 				} );
-			} );
-
-			$found.find( '> .row > .wponion-fieldset .wponion-field-debug-code-gen' ).on( 'click', () => {
-				let $string = this.option( 'debug_field_code' );
-				if( window.wponion._.isString( $string ) ) {
-					swal.fire( {
-						html: $string,
-						width: '800px',
-						showCloseButton: true,
-						heightAuto: false,
-						showConfirmButton: false,
-						animation: false,
-					} );
-				}
 			} );
 		}
 	}

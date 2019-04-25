@@ -156,12 +156,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
-		 * Fired after __constructor fired for the current plugin to handle subplugins.
-		 */
-		protected function init_subfields() {
-		}
-
-		/**
 		 * Handles Defaults Field Args.
 		 *
 		 * @param $data
@@ -175,17 +169,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data['attributes']['class'] = wponion_html_class( $data['attributes']['class'], $data['class'], false );
 			}
 			return $this->handle_field_args( $data );
-		}
-
-		/**
-		 * This function is called after array merge with default is done.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
-		 */
-		public function handle_field_args( $data = array() ) {
-			return $data;
 		}
 
 		/**
@@ -415,13 +398,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
-		 * Custom Hookable Function to provide custom wrap class.
-		 */
-		protected function field_wrap_class() {
-			return '';
-		}
-
-		/**
 		 * Renders Element Title HTML.
 		 *
 		 * @return string
@@ -441,8 +417,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		/**
 		 * Returns Default Column CSS Class based on the modules or it returns defaults.
 		 *
-		 * @uses \apply_filters('wponion_field_column_css_class')
 		 * @return array
+		 * @uses \apply_filters('wponion_field_column_css_class')
 		 */
 		protected function get_default_column_class() {
 			$return             = array();
@@ -528,13 +504,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		protected function tooltip_data( $main_data = array(), $extra_args = array(), $localize = true ) {
-			$data = $this->handle_data( $main_data, $this->parse_args( $extra_args, array(
-				'content'     => false,
-				'image'       => false,
-				'arrow'       => true,
-				'arrowType'   => 'round',
-				'js_field_id' => $this->js_field_id(),
-			) ), 'content' );
+			$data = $this->handle_data( $main_data, $this->parse_args( $extra_args, array( 'js_field_id' => $this->js_field_id() ) ), 'content' );
 			return wponion_tooltip( false, $data, false, $localize );
 		}
 
@@ -600,77 +570,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$data = ( false !== $this->has( 'after' ) ) ? $this->data( 'after' ) : '';
 				$data = $data . $this->field_desc();
 				$data = $data . $this->field_error();
-				$data = $data . $this->field_debug_code();
 				return $data;
 			}
 			return '';
-		}
-
-		/**
-		 * Renders Field Debug Code.
-		 *
-		 * @return string
-		 */
-		protected function field_debug_code() {
-			$r = '';
-
-			if ( false === $this->data( 'debug' ) ) {
-				return $r;
-			}
-
-			if ( $this->data( 'debug' ) || wponion_field_debug() ) {
-				$r      = '<div class="wponion-field-debug-code wponion-framework">';
-				$_field = $this->orginal_field;
-				unset( $_field['__instance'] );
-				$field  = var_export( $_field, true );
-				$value  = var_export( $this->orginal_value, true );
-				$unique = var_export( $this->orginal_unique, true );
-				$code   = <<<PHP
-\$field = $field;
-
-\$value = $value;
-
-\$unique = $unique;
-PHP;
-				$usage  = <<<PHP
-echo wponion_add_element( \$field, \$value, \$unique);
-PHP;
-				$code   = wponion_highlight_string( $code );
-				$usage  = wponion_highlight_string( $usage );
-
-				$r .= '<strong class="dashicons-before dashicons-arrow-down"> ' . __( 'CONFIG : ', 'wponion' ) . '</strong>';
-				$r .= '<div >' . htmlentities( $code ) . '</div>';
-				$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'USAGE : ', 'wponion' ) . '</strong>';
-				$r .= '<div style="display: none;">' . $usage . '</div>';
-
-				$base   = $this->base_unique();
-				$unique = str_replace( array( $base, '][', ']', '[' ), array(
-					null,
-					'/',
-					null,
-					null,
-				), $this->unique() );
-				$base   = empty( $base ) ? '' : $base;
-
-				if ( ! empty( $unique ) || ! empty( $this->data( 'id' ) ) ) {
-					$unique     = ( ! empty( $unique ) ) ? $unique . '/' . $this->data( 'id' ) : $this->data( 'id' );
-					$value_func = 'wponion_' . $this->module() . '_option';
-					$_code      = <<<PHP
-\$value = $value_func("$base");
-print_r(\$value["$unique"]);
-PHP;
-					$usage      = wponion_highlight_string( $_code );
-
-					$r .= '<strong class="dashicons-before dashicons-arrow-right"> ' . __( 'VALUE : ', 'wponion' ) . '</strong>';
-					$r .= '<div style="display: none;">' . $usage . '</div>';
-				}
-
-				$r .= '<div class="alert alert-warning">' . __( 'Debug Information shown only if field has debug attribute enabled or define( <code>WPONION_FIELD_DEBUG</code> ) is set to true', 'wponion' ) . '</div>';
-				$r .= '</div>';
-			}
-
-			$this->localize_field( array( 'debug_field_code' => $r ), false );
-			return ' <span data-wponion-jsid="' . $this->js_field_id() . '" class="wponion-field-debug-code-gen badge badge-sm badge-primary">' . __( 'Get PHP Code', 'wponion' ) . '</span>';
 		}
 
 		/**
@@ -870,8 +772,7 @@ PHP;
 		 */
 		protected function unique( $extra = '', $unique = false ) {
 			$unique = ( false === $unique ) ? $this->unique : $unique;
-			$unique = ( ! empty( $extra ) ) ? $unique . '[' . $extra . ']' : $unique;
-			return $unique;
+			return ( ! empty( $extra ) ) ? $unique . '[' . $extra . ']' : $unique;
 		}
 
 		/**
@@ -880,9 +781,7 @@ PHP;
 		 * @return mixed
 		 */
 		protected function base_unique() {
-			$re  = '/\w+/';
-			$str = $this->unique();
-			preg_match( $re, $str, $matches, PREG_OFFSET_CAPTURE, 0 );
+			preg_match( '/\w+/', $this->unique(), $matches, PREG_OFFSET_CAPTURE, 0 );
 			if ( ! empty( $matches ) ) {
 				$current = current( $matches );
 				if ( wponion_is_array( $current ) && isset( $current[0] ) ) {
@@ -899,8 +798,7 @@ PHP;
 		protected function js_field_id() {
 			if ( ! isset( $this->js_field_id ) ) {
 				$key               = wponion_localize_object_name( 'wponion', 'field', $this->unid() . '_' . $this->unique() . '_' . uniqid( time() ) );
-				$key               = str_replace( array( '-', '_' ), '', $key );
-				$this->js_field_id = sanitize_key( $key );
+				$this->js_field_id = sanitize_key( str_replace( array( '-', '_' ), '', $key ) );
 			}
 			return $this->js_field_id;
 		}
@@ -925,15 +823,15 @@ PHP;
 				if ( $this->has( 'js_validate' ) ) {
 					wponion_localize()->add( $this->js_field_id(), array( 'js_validate' => $this->data( 'js_validate' ) ) );
 				}
-
-				wponion_localize()->add( $this->js_field_id(), array(
+				$data       = array(
 					'module'    => $this->module(),
 					'plugin_id' => $this->plugin_id(),
 					'unique'    => $this->base_unique(),
-				), true, false );
-			} else {
-				wponion_localize()->add( $this->js_field_id(), $data, true, $js_convert );
+				);
+				$js_convert = false;
 			}
+
+			wponion_localize()->add( $this->js_field_id(), $data, true, $js_convert );
 		}
 
 		/**
@@ -944,15 +842,9 @@ PHP;
 		 * @return \WPOnion\Modules\WP_Pointers
 		 */
 		private function wp_pointer_instance( $pointer_id = false ) {
-			if ( empty( $pointer_id ) ) {
-				$pointer_id = sanitize_title( $this->unique() );
-			}
-
-			$instance = wponion_wp_pointers( $pointer_id );
-			if ( false === $instance ) {
-				return $this->wp_pointer_instance( false );
-			}
-			return $instance;
+			$pointer_id = ( empty( $pointer_id ) ) ? sanitize_title( $this->unique() ) : $pointer_id;
+			$instance   = wponion_wp_pointers( $pointer_id );
+			return ( false === $instance ) ? $this->wp_pointer_instance( false ) : $instance;
 		}
 
 		/**
@@ -1003,15 +895,6 @@ PHP;
 						->add( '#' . $this->wrap_id() . ' > .wponion-field-title', $pointer );
 				}
 			}
-		}
-
-		/**
-		 * This function is used to set any args that requires in javascript for the current field.
-		 *
-		 * @return array
-		 */
-		protected function js_field_args() {
-			return array();
 		}
 
 		/**
@@ -1097,9 +980,9 @@ PHP;
 		 * @param      $unqiue
 		 * @param bool $is_init
 		 *
+		 * @return mixed
 		 * @uses wponion_add_element|wponion_field
 		 *
-		 * @return mixed
 		 */
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
 			$func      = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
@@ -1163,6 +1046,39 @@ PHP;
 
 			$data = wponion_query()->query( $type, $query_args, '' );
 			return $data;
+		}
+
+		/**
+		 * This function is used to set any args that requires in javascript for the current field.
+		 *
+		 * @return array
+		 */
+		protected function js_field_args() {
+			return array();
+		}
+
+		/**
+		 * Fired after __constructor fired for the current plugin to handle subplugins.
+		 */
+		protected function init_subfields() {
+		}
+
+		/**
+		 * This function is called after array merge with default is done.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
+		public function handle_field_args( $data = array() ) {
+			return $data;
+		}
+
+		/**
+		 * Custom Hookable Function to provide custom wrap class.
+		 */
+		protected function field_wrap_class() {
+			return '';
 		}
 
 		/**
