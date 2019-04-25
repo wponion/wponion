@@ -81,14 +81,19 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 				return $defaults;
 			}
 			$saved = $this->value();
-			foreach ( $defaults['enabled'] as $i => $val ) {
-				if ( isset( $saved['enabled'][ $i ] ) === false && isset( $saved['disabled'][ $i ] ) === false ) {
-					$saved['disabled'][ $i ] = $val;
+			if ( isset( $defaults['enabled'] ) ) {
+				foreach ( $defaults['enabled'] as $i => $val ) {
+					if ( isset( $saved['enabled'][ $i ] ) === false && isset( $saved['disabled'][ $i ] ) === false ) {
+						$saved['disabled'][ $i ] = $val;
+					}
 				}
 			}
-			foreach ( $defaults['disabled'] as $i => $val ) {
-				if ( isset( $saved['enabled'][ $i ] ) === false && isset( $saved['disabled'][ $i ] ) === false ) {
-					$saved['disabled'][ $i ] = $val;
+
+			if ( isset( $defaults['disabled'] ) ) {
+				foreach ( $defaults['disabled'] as $i => $val ) {
+					if ( isset( $saved['enabled'][ $i ] ) === false && isset( $saved['disabled'][ $i ] ) === false ) {
+						$saved['disabled'][ $i ] = $val;
+					}
 				}
 			}
 			return $saved;
