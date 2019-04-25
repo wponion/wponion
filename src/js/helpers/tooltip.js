@@ -7,14 +7,19 @@ import $wponion from '../core/core';
 class field extends WPOnion_Field {
 	tooltip_arg() {
 		let $tooltipkey = this.element.attr( 'data-wponion-tooltip-id' );
+		let $jsfieldid  = this.element.attr( 'data-field-jsid' );
 		let $tooltips   = {
 			'wponion-help': this.option( 'wponion-help', false ),
 			'wrap_tooltip': this.option( 'wrap_tooltip', false )
 		};
 
-		$tooltips[ $tooltipkey ]                                        = this.option( $tooltipkey, false );
-		$tooltips[ this.element.attr( 'data-field-jsid' ) + 'tooltip' ] = this.option( this.element.attr( 'data-field-jsid' ) + 'tooltip', false );
-		$tooltips[ this.element.attr( 'data-field-jsid' ) ]             = this.option( this.element.attr( 'data-field-jsid' ), false );
+		if( false === window.wponion._.isUndefined( $tooltipkey ) ) {
+			$tooltips[ $tooltipkey ] = this.option( $tooltipkey, false );
+		}
+		if( false === window.wponion._.isUndefined( $jsfieldid ) ) {
+			$tooltips[ $jsfieldid + 'tooltip' ] = this.option( $jsfieldid + 'tooltip', false );
+			$tooltips[ $jsfieldid ]             = this.option( $jsfieldid, false );
+		}
 
 		for( var $k in $tooltips ) {
 			if( $tooltips.hasOwnProperty( $k ) && window.wponion._.isObject( $tooltips[ $k ] ) ) {
@@ -31,11 +36,8 @@ class field extends WPOnion_Field {
 	init() {
 		this.tooltipkey = null;
 		let $fid        = this.element.attr( 'data-field-jsid' );
-
-		let $arg = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.tooltip_arg();
-		//let $arg = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.option( $tooltip_key, false );
-
-		const state = {
+		let $arg        = ( true === $wponion.valid_json( $fid ) ) ? JSON.parse( $fid ) : this.tooltip_arg();
+		const state     = {
 			isFetching: false,
 			canFetch: true
 		};
