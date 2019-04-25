@@ -187,9 +187,11 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		}
 
 		/**
-		 * Renders JS Args.
+		 * @param bool $return
+		 *
+		 * @return bool
 		 */
-		public function render_js_args() {
+		public function render_js_args( $return = false ) {
 			if ( defined( 'WPONION_ADD_FONT_DATA' ) && true === WPONION_ADD_FONT_DATA ) {
 				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts(), true, false );
 				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
@@ -200,7 +202,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			}
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
-				return $this->print_js_data();
+				return $this->print_js_data( $return );
 			}
 
 			foreach ( $this->scripts_check as $script ) {
@@ -208,7 +210,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					return $this->localize_script( $script );
 				}
 			}
-			return $this->print_js_data();
+			$this->print_js_data( false );
 		}
 
 		/**
@@ -246,8 +248,12 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 
 		/**
 		 * Outputs Raw HTML of js info.
+		 *
+		 * @param bool $return
+		 *
+		 * @return string
 		 */
-		private function print_js_data() {
+		private function print_js_data( $return = false ) {
 			$h = "<script type='text/javascript' id='wponion_field_js_vars'>\n"; // CDATA and type='text/javascript' is not needed for HTML 5
 
 			$h .= "/* <![CDATA[ */\n";
@@ -257,8 +263,10 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 
 			$h .= "/* ]]> */\n";
 			$h .= "</script>\n";
-			echo $h;
-			return true;
+			if ( false === $return ) {
+				echo $h;
+			}
+			return $h;
 		}
 
 		/**
