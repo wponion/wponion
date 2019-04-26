@@ -69,10 +69,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
 				'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
 				'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
-				'wponion-core'        => array(
-					self::is_debug( 'assets/css/wponion-base.css' ),
-					array( 'wponion-plugins' ),
-				),
+				'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
 				'wponion-colorpicker' => array(
 					'assets/plugins/colorpicker/cs-colorpicker.css',
 					array( 'wp-color-picker' ),
