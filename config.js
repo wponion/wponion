@@ -1,19 +1,16 @@
 let $files = {};
 
 // wponion-base.scss
-$files[ 'src/scss/wponion-base.scss' ]    = {
+$files[ 'src/scss/wponion-base.scss' ] = {
 	dist: 'assets/css/',
 	combine_files: true,
 	scss: true,
 	autoprefixer: true,
+	minify: true,
+	rename: 'wponion-base.css',
 	watch: [ 'src/scss/wponion-base.scss', 'src/scss/includes/*', 'src/scss/includes/fields/*', 'src/scss/includes/fields/*/*', 'src/scss/includes/modules/*', 'src/scss/includes/modules/*/*' ],
 };
-$files[ 'assets/css/wponion-base.css' ]   = {
-	dist: 'assets/css/',
-	minify: true,
-	rename: 'wponion-base.min.css',
-	watch: true,
-};
+
 $files[ 'src/scss/wponion-plugins.scss' ] = {
 	dist: 'assets/css/',
 	combine_files: true,

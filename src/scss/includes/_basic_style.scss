@@ -1,22 +1,17 @@
 /** Other Library Style Fixes **/
-/**
- * BlockUI Overlay Style.
- */
+
+//BlockUI Overlay Style.
 .blockUI.blockOverlay {
 	@include loader();
 }
 
-/**
- * Chosen Style Fix.
- */
+//Chosen Style Fix.
 .chosen-container.chosen-container-single, .chosen-container.chosen-container-multi {
 	width:     auto !important; /* or any value that fits your needs */
 	min-width: 200px !important;
 }
 
-/**
- * SweatAlert2 Style Fix.
- */
+// SweatAlert2 Style Fix.
 .swal2-container {
 	z-index: 9999999 !important;
 
@@ -29,38 +24,50 @@
 
 /** General Common Styles **/
 
-/**
- * Accordion PlaceHolder
- */
+// Accordion PlaceHolder
 .wponion-accordion-placeholder {
 	margin-bottom: 15px;
 	@include wponion_ui_sortable_placeholder();
 }
 
+// WPOnion Search Unmatched
 .wponion-search-unmatched {
 	display: none !important;
 }
 
+// WPOnion Search matched
 .wponion-search-matched {
 	display:    inline-block !important;
 	width:      100%;
 	min-height: 0 !important;
 }
 
+// WPOnion Row
 .wponion-row {
 	margin-left:  0 !important;
 	margin-right: 0 !important;
 }
 
-
+// WordPress Custom Button Styling
+// 1. button button-primary
+// 2. button button-secondary
+// 3. button button-success
+// 4. button button-danger
+// 5. button button-warning
+// 6. button button-info
+// 7. button button-light
+// 8. button button-dark
 @each $color, $value in $wponionThemes {
 	.button.button-#{$color} {
 		@include wponion_button($value);
 	}
 }
 
+//Drownload Icon Indicator.
 .dropdown {
 	.wponion-submenu-i {
+		float: right;
+
 		&:before {
 			content: "\f345";
 		}
@@ -75,6 +82,7 @@
 	}
 }
 
+// Tick Marks
 .wponion-checker {
 	display:      inline-block;
 	margin-right: 10px;
@@ -127,6 +135,7 @@
 	}
 }
 
+// WPOnion Remove CSS
 .wponion-remove {
 	font-size: 16px;
 	color:     #AAAAAA;
@@ -141,6 +150,7 @@
 	}
 }
 
+// Alerts & Notice Styling.
 .alert {
 	.wponion-remove {
 		float:          right;
@@ -149,6 +159,7 @@
 	}
 }
 
+//Alerts & Notice Styling.
 .notice {
 	.wponion-remove {
 		padding:  10px;
@@ -158,22 +169,15 @@
 	}
 }
 
-.wponion-submenu-i {
-	float: right;
-}
-
-.wponion-ajax,
-.wponion-ajax-post,
-.wponion-ajax-get,
-.wponion-inline-ajax,
-.wponion-inline-ajax-get,
-.wponion-inline-ajax-post {
+// Ajax Styling.
+.wponion-ajax, .wponion-ajax-post, .wponion-ajax-get, .wponion-inline-ajax, .wponion-inline-ajax-get, .wponion-inline-ajax-post {
 	+ .spinner {
 		float:          none;
 		vertical-align: middle;
 	}
 }
 
+// WPOnion Debug View.
 .wponion-debug-pre {
 	background:  #fcfcfc;
 	border:      1px solid #d5d5d5;
