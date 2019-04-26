@@ -68,7 +68,7 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 			);
 		}
 		$attr['data-wponion-jsid'] = $js_field_id;
-		preg_match_all( '/^<[a-z][a-z0-9]*?\b/s', $element, $matches, PREG_SET_ORDER, 0 );
+		preg_match_all( '/^(.?)<[a-z][a-z0-9]*?\b/s', $element, $matches, PREG_SET_ORDER, 0 );
 		if ( isset( $matches[0][0] ) ) {
 			return str_replace( $matches[0][0], $matches[0][0] . ' ' . wponion_array_to_html_attributes( $attr ) . ' ', $element );
 		}
