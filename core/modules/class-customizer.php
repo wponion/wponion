@@ -120,7 +120,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		public function init() {
 			if ( ! empty( $this->fields ) ) {
 				if ( is_customize_preview() ) {
-					//$this->init_fields();
+					$this->init_fields();
 				}
 				$this->add_action( 'customize_register', 'customize_register' );
 				$this->add_action( 'customize_controls_enqueue_scripts', 'load_styles' );
