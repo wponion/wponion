@@ -14,6 +14,8 @@
 
 namespace WPOnion\Modules;
 
+use WPOnion\Modules\Customizer\Panel;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -65,11 +67,10 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		 * @return mixed
 		 */
 		public function render_field( $field = array(), $parent_section = false, $section = false ) {
-			$callback = 'wponion_field';
-			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
-				'module'    => $this->module(),
-				'unique'    => $this->unique,
-				'hash'      => sanitize_title( $parent_section . '-' . $section ),
+			return wponion_field( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
+				'module' => $this->module(),
+				'unique' => $this->unique(),
+				'hash'   => sanitize_title( $parent_section . '-' . $section ),
 			) );
 		}
 
@@ -77,24 +78,26 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		 * Inits All Base Fields.
 		 */
 		public function init_fields() {
-			foreach ( $this->fields as $o => $options ) {
-				if ( isset( $options['callback'] ) && false !== $options['callback'] ) {
+			/**
+			 * @var \WPO\Container $options
+			 * @var \WPO\Container $section
+			 */
+			foreach ( $this->fields->get() as $options ) {
+				if ( $options->has_callback() ) {
 					continue;
 				}
 
-				if ( isset( $options['sections'] ) ) {
-					foreach ( $options['sections'] as $s => $section ) {
-						if ( isset( $section['callback'] ) && false !== $section['callback'] || false === isset( $section['fields'] ) ) {
-							continue;
-						}
-
-						foreach ( $section['fields'] as $f => $field ) {
-							$this->render_field( $field, $options['name'], $section['name'] );
+				if ( $options->has_containers() ) {
+					foreach ( $options->containers() as $section ) {
+						if ( ! $section->has_callback() && $section->has_fields() ) {
+							foreach ( $section->fields() as $field ) {
+								$this->render_field( $field, $options->slug(), $section->slug() );
+							}
 						}
 					}
-				} elseif ( isset( $options['fields'] ) ) {
-					foreach ( $options['fields'] as $f => $field ) {
-						$this->render_field( $field, $options['name'], false );
+				} elseif ( $options->has_fields() ) {
+					foreach ( $options->fields() as $field ) {
+						$this->render_field( $field, $options->slug(), false );
 					}
 				}
 			}
@@ -117,10 +120,9 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		public function init() {
 			if ( ! empty( $this->fields ) ) {
 				if ( is_customize_preview() ) {
-					$this->init_fields();
+					//$this->init_fields();
 				}
 				$this->add_action( 'customize_register', 'customize_register' );
-				$this->add_action( 'customize_controls_enqueue_scripts', 'outer_sections_css' );
 				$this->add_action( 'customize_controls_enqueue_scripts', 'load_styles' );
 			}
 		}
@@ -129,9 +131,8 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		 * Loads Required Styles.
 		 */
 		public function load_styles() {
-			wp_register_script( 'wponion-customizer', WPONION_URL . 'assets/js/wponion-customizer.js', array( 'wponion-core' ), WPONION_VERSION, true );
-			wp_register_script( 'wponion-postmessags', WPONION_URL . 'assets/js/wponion-postmessags.js', array( 'wponion-customizer' ), WPONION_VERSION, true );
 			wponion_load_core_assets( array( 'wponion-customizer', 'wponion-postmessags' ) );
+			$this->outer_sections_css();
 		}
 
 		/**
@@ -142,81 +143,80 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 				$this->wp = $wp_customize;
 			}
 
-			foreach ( $this->fields as $page ) {
-				if ( isset( $page['sections'] ) ) {
-					$this->panels( $page, true );
-					$this->register_section( $page['sections'], $page['name'] );
-				} elseif ( isset( $page['fields'] ) ) {
+			/**
+			 * @var \WPO\Container $page
+			 */
+			foreach ( $this->fields->get() as $page ) {
+				if ( $page->has_containers() ) {
+					$this->register_section( $page->containers(), $this->panels( $page, true ) );
+				} elseif ( $page->has_fields() ) {
 					$this->register_section( array( $page ) );
 				}
 			}
 		}
 
 		/**
-		 * Registers A Panel With WP.
+		 * Registers With WordPress
 		 *
-		 * @param      $section
-		 * @param bool $is_parent
+		 * @param \WPO\Container $section
+		 * @param bool           $is_parent
+		 *
+		 * @return \WP_Customize_Panel|\WP_Customize_Section
 		 */
 		protected function panels( $section, $is_parent = false ) {
-			$callback = ( true === $is_parent ) ? 'add_panel' : 'add_section';
-			$args     = array(
-				'title'       => $section['title'],
-				'priority'    => ( isset( $section['priority'] ) ) ? $section['priority'] : null,
-				'description' => ( isset( $section['description'] ) ) ? $section['description'] : '',
-				'panel'       => ( isset( $section['panel'] ) ) ? $section['panel'] : '',
-				'type'        => 'default',
+			$args = array(
+				'title'       => $section->title(),
+				'priority'    => ( isset( $section->priority ) ) ? $section->priority : null,
+				'description' => ( isset( $section->description ) ) ? $section->description : null,
+				'panel'       => ( isset( $section->panel ) ) ? $section->panel : null,
+				'type'        => 'wponion',
 			);
 
-			if ( isset( $section['outer'] ) && true === $section['outer'] ) {
-				$args['type'] = 'outer';
-				if ( ! isset( $this->outers[ $section['name'] ] ) ) {
-					$this->outers[ $section['name'] ] = $section['name'];
-				}
-				$this->wp->$callback( new \WP_Customize_Section( $this->wp, $section['name'], $args ) );
-			} else {
-				$this->wp->$callback( $section['name'], $args );
+			if ( isset( $section->outer ) && true === $section->outer ) {
+				$args['type']                     = 'outer';
+				$this->outers[ $section->name() ] = $section->name();
 			}
+
+			if ( false !== $is_parent ) {
+				return $this->wp->add_panel( new Customizer\Panel( $this->wp, $section->slug(), $args ) );
+			}
+			return $this->wp->add_section( new Customizer\Section( $this->wp, $section->slug(), $args ) );
 		}
 
 		/**
 		 * Registers Sections and fields.
 		 *
-		 * @param      $page
-		 * @param bool $parent
+		 * @param array                                                                 $page
+		 * @param \WPOnion\Modules\Customizer\Panel|\WPOnion\Modules\Customizer\Section $parent
 		 */
 		protected function register_section( $page, $parent = false ) {
+			/**
+			 * @var \WPO\Container $section
+			 */
 			foreach ( $page as $section ) {
-				$this->panels( $this->parse_args( $section, array(
-					'panel' => $parent,
-				) ) );
-				foreach ( $section['fields'] as $field ) {
-					$field_db            = $this->unique() . '[' . $field['id'] . ']';
-					$_fdbs               = wp_parse_args( $field, array(
-						'type'       => 'option',
-						'capability' => 'edit_theme_options',
-					) );
-					$_fdbs['field_type'] = $_fdbs['type'];
-					$_fdbs['type']       = 'option';
-					$this->wp->add_setting( $field_db, $_fdbs );
+				if ( false !== $parent ) {
+					$section->panel = $parent->id;
+				}
 
+				$panel = $this->panels( $section );
+				foreach ( $section->fields() as $field ) {
+					$class        = '\WPOnion\Modules\Customizer\control';
 					$control_args = array(
 						'unique'   => array(
-							'module'    => $this->module(),
-							'unique'    => $this->unique(),
+							'module' => $this->module(),
+							'unique' => $this->unique(),
 						),
-						'section'  => $section['name'],
-						'settings' => $field_db,
+						'section'  => $panel->id,
+						'settings' => $this->unique() . '[' . $field['id'] . ']',
 						'priority' => ( isset( $field['priority'] ) ) ? $field['priority'] : null,
 						'options'  => $field,
 					);
 
-					if ( class_exists( '\WPOnion\Modules\Customizer\Control\\' . $field['type'] ) ) {
-						$class = '\WPOnion\Modules\Customizer\Control\\' . $field['type'];
-					} else {
-						$class = '\WPOnion\Modules\Customizer\control';
-					}
+					$this->wp->add_setting( $control_args['settings'], wp_parse_args( $field, array( 'capability' => 'edit_theme_options' ) ) );
 
+					if ( class_exists( $class . '\\' . $field['type'] ) ) {
+						$class = $class . '\\' . $field['type'];
+					}
 					$this->wp->add_control( new $class( $this->wp, $field['id'], $control_args, $this->default_wrap_class() ) );
 				}
 			}
@@ -235,28 +235,6 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 			}
 			if ( ! empty( $css ) ) {
 				echo '<style>' . esc_attr( $css ) . '</style>';
-			}
-		}
-
-		/**
-		 * Parses all fields and searches for the "partial_refresh" argument inside them.
-		 * If that argument is found, then it starts parsing the array of arguments.
-		 * Registers a selective_refresh in the customizer for each one of them.
-		 *
-		 * @param $field
-		 */
-		public function register_partials( $field ) {
-			if ( ! isset( $this->wp->selective_refresh ) ) {
-				return;
-			}
-
-			if ( isset( $field['partial_refresh'] ) && ! empty( $field['partial_refresh'] ) ) {
-				foreach ( $field['partial_refresh'] as $partial_refresh => $partial_refresh_args ) {
-					if ( isset( $partial_refresh_args['render_callback'] ) && isset( $partial_refresh_args['selector'] ) ) {
-						$partial_refresh_args = wp_parse_args( $partial_refresh_args, array( 'settings' => $field['settings'] ) );
-						$this->wp->selective_refresh->add_partial( $partial_refresh, $partial_refresh_args );
-					}
-				}
 			}
 		}
 
