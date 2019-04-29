@@ -47,6 +47,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 					'assets/js/wponion-plugins.js',
 					array( 'lodash', 'wp-util', 'backbone' ),
 				),
+				'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
+				'wponion-postmessage' => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 				'wponion-cloner'      => array( 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ) ),
 				'wponion-core'        => array(
 					self::is_debug( 'assets/js/wponion-core.js' ),
