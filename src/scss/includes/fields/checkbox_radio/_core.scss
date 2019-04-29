@@ -43,3 +43,20 @@
 		}
 	}
 }
+
+/* Customizer Style */
+.wponion-module-customizer {
+	.wponion-element.wponion-element-checkbox, .wponion-element.wponion-element-radio {
+		.wponion-checker {
+			display:      inline-block;
+			width:        100%;
+			margin-right: 0;
+
+			.wponion-custom-value-input {
+				display:      inline-block;
+				margin-right: 0 !important;
+				width:        auto !important;
+			}
+		}
+	}
+}

@@ -38,6 +38,10 @@ export default class WPOnion_Validator {
 			return jQuery( 'form.wponion-form' );
 		}
 
+		if( jQuery( 'form.customize-controls' ).length > 0 ) {
+			return jQuery( 'form.customize-controls' );
+		}
+
 		if( jQuery( 'form#your-profile' ).length > 0 ) {
 			return jQuery( 'form#your-profile' );
 		}

@@ -1,7 +1,15 @@
 body.wp-customizer {
+	.flatpickr-calendar {
+		z-index: 9999999;
+	}
+
 	.wponion-framework.wponion-module-customizer {
 		.wponion-element {
 			padding: 0;
+
+			> div {
+				max-width: 100%;
+			}
 
 			.wponion-field-title {
 				display:       block;
