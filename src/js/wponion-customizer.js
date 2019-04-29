@@ -32,6 +32,7 @@
 	$wpcc.wponion_field_accordion   = $wpcc.wponion_field_clone;
 	$wpcc.wponion_field_group       = $wpcc.wponion_field_clone;
 	$wpcc.wponion_field_icon_picker = $wpcc.wponion_field_clone;
+	$wpcc.wponion_field_icon_picker = $wpcc.wponion_field_clone;
 
 	/**
 	 * Field Checkbox.
@@ -56,6 +57,7 @@
 	$wpcc.wponion_field_link_color   = $wpcc.wponion_field_checkbox;
 	$wpcc.wponion_field_spacing      = $wpcc.wponion_field_checkbox;
 	$wpcc.wponion_field_dimensions   = $wpcc.wponion_field_checkbox;
+	$wpcc.wponion_field_upload       = $wpcc.wponion_field_checkbox;
 
 	/**
 	 * Field Sorter.
