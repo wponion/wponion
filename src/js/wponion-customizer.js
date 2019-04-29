@@ -1,8 +1,7 @@
 ( ( window, document, $, wp ) => {
-	let wphooks = window.wponion.hooks,
-		$wpcc   = wp.customize.controlConstructor,
-		$wpc    = wp.customize.Control,
-		$wpoch  = {
+	let $wpcc  = wp.customize.controlConstructor,
+		$wpc   = wp.customize.Control,
+		$wpoch = {
 			values: ( $values ) => {
 				$.each( $values, function( $k, $vs ) {
 					$.each( $vs, function( $e, $ep ) {
@@ -76,14 +75,4 @@
 			this.container.on( 'wponion_field_updated', () => $wpoch.save( this ) );
 		}
 	} );
-
-	/**
-	 * Inits Customizer Instance.
-	 */
-	wphooks.addAction( 'wponion_init', 'wponion_core', ( () => {
-		$( '.wponion-module-customizer-framework.wponion-framework' ).each( function() {
-
-		} );
-	} ) );
-
 } )( window, document, jQuery, wp );
