@@ -42,3 +42,33 @@
 		padding: 10px;
 	}
 }
+
+.wponion-framework.wponion-module-customizer {
+	.wponion-element.wponion-element-key_value {
+		.wponion-keyvalue-field {
+			position:   relative;
+			text-align: right;
+
+			.sortable-handler {
+				position:      absolute;
+				bottom:        0;
+				margin-bottom: 0;
+				left:          0px;
+			}
+
+			.wponion-input-group {
+				display:       block;
+				margin-bottom: 10px !important;
+
+				input {
+					text-align: left;
+				}
+			}
+
+			+ .wponion-keyvalue-field {
+				padding-top: 10px;
+				border-top:  $element_border;
+			}
+		}
+	}
+}

@@ -35,3 +35,15 @@
 	}
 }
 
+
+.wponion-framework.wponion-module-customizer {
+	.wponion-element.wponion-element-background {
+		.wponion-element {
+			width:      100%;
+			flex-basis: 100%;
+			max-width:  100%;
+			@include wponion_field_horizontal();
+		}
+	}
+}
+

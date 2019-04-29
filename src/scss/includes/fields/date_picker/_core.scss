@@ -15,3 +15,21 @@
 		}
 	}
 }
+
+.wponion-framework.wponion-module-customizer {
+	.wponion-element.wponion-element-date_picker {
+		input[readonly] {
+			background: #fafafa;
+		}
+		.date-range-container {
+			> .wponion-element {
+				width:      100%;
+				flex-basis: 100%;
+				max-width:  100%;
+				@include wponion_field_horizontal();
+
+
+			}
+		}
+	}
+}

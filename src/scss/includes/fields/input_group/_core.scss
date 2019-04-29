@@ -7,3 +7,25 @@
 		}
 	}
 }
+
+.wponion-framework.wponion-module-customizer {
+	.wponion-element.wponion-element-input_group {
+		> .row {
+			> .wponion-fieldset {
+				> .row {
+					margin: 0;
+				}
+			}
+		}
+
+		.wponion-element {
+			width:         100%;
+			flex-basis:    100%;
+			max-width:     100% !important;
+			margin-bottom: 15px;
+			@include wponion_field_horizontal();
+
+		}
+	}
+}
+

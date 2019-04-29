@@ -131,3 +131,11 @@
 		margin-left:  10px;
 	}
 }
+
+.wponion-framework.wponion-module-customizer {
+	.wponion-element.wponion-element-icon_picker {
+		input:not(.hidden) {
+			margin-bottom: 10px;
+		}
+	}
+}

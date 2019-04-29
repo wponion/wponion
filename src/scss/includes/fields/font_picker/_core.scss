@@ -46,3 +46,22 @@
 	}
 }
 
+.wponion-framework.wponion-module-customizer {
+	.wponion-element.wponion-element-font_picker {
+		.wponion-font-select-container {
+			width:         100%;
+			flex-basis:    100%;
+			max-width:     100%;
+			margin-bottom: 15px;
+			margin-right:  0;
+
+			> select {
+				width:   100%;
+				display: block;
+			}
+			&:last-child{
+				margin-bottom: 0;
+			}
+		}
+	}
+}
