@@ -106,8 +106,8 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		/**
 		 * customizer constructor.
 		 *
-		 * @param array $settings
-		 * @param array $fields
+		 * @param array              $settings
+		 * @param array|\WPO\Builder $fields
 		 */
 		public function __construct( $settings = array(), $fields = array() ) {
 			parent::__construct( $fields, $settings );
@@ -161,7 +161,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		 * @param \WPO\Container $section
 		 * @param bool           $is_parent
 		 *
-		 * @return \WP_Customize_Panel|\WP_Customize_Section
+		 * @return \WP_Customize_Panel|\WP_Customize_Section|\WPOnion\Modules\Customizer\Panel|\WPOnion\Modules\Customizer\Section
 		 */
 		protected function panels( $section, $is_parent = false ) {
 			$args = array(
@@ -186,8 +186,8 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		/**
 		 * Registers Sections and fields.
 		 *
-		 * @param array                                                                 $page
-		 * @param \WPOnion\Modules\Customizer\Panel|\WPOnion\Modules\Customizer\Section $parent
+		 * @param mixed                                                                         $page
+		 * @param \WPOnion\Modules\Customizer\Panel|\WPOnion\Modules\Customizer\Section|boolean $parent
 		 */
 		protected function register_section( $page, $parent = false ) {
 			/**
@@ -210,12 +210,13 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 						'settings' => $this->unique() . '[' . $field['id'] . ']',
 						'priority' => ( isset( $field['priority'] ) ) ? $field['priority'] : null,
 						'options'  => $field,
+						'type'     => $field['type'],
 					);
 
 					$this->wp->add_setting( $control_args['settings'], wp_parse_args( $field, array( 'capability' => 'edit_theme_options' ) ) );
-
-					if ( class_exists( $class . '\\' . $field['type'] ) ) {
-						$class = $class . '\\' . $field['type'];
+					$customizer_class = wponion_get_field_class( $field, 'customizer', true );
+					if ( false !== $customizer_class ) {
+						$class = $customizer_class;
 					}
 					$this->wp->add_control( new $class( $this->wp, $field['id'], $control_args, $this->default_wrap_class() ) );
 				}
