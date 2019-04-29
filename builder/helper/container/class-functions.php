@@ -156,5 +156,41 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			return $this;
 		}
 
+		/**
+		 * @param $name
+		 * @param $value
+		 *
+		 * @return $this
+		 */
+		public function set_var( $name, $value ) {
+			$this->custom_data[ $name ] = $value;
+			return $this;
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function get_var( $name ) {
+			return ( isset( $this->custom_data[ $name ] ) ) ? $this->custom_data[ $name ] : false;
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function isset_var( $name ) {
+			return ( isset( $this->custom_data[ $name ] ) );
+		}
+
+		/**
+		 * @param $name
+		 */
+		public function remove_var( $name ) {
+			unset( $this->custom_data[ $name ] );
+		}
+
 	}
 }
