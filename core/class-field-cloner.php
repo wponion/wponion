@@ -28,13 +28,19 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 	 */
 	class Cloner extends \WPOnion\Field {
 		/**
+		 * @var null
+		 * @access
+		 */
+		protected $actual_type = null;
+
+		/**
 		 * Handles Fields Wrapper.
 		 */
 		protected function wrapper() {
-			$type                = $this->field['type'];
+			$this->actual_type   = $this->field['type'];
 			$this->field['type'] = 'clone';
 			parent::wrapper();
-			$this->field['type'] = $type;
+			$this->field['type'] = $this->actual_type;
 		}
 
 		/**
@@ -110,6 +116,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 * @return mixed|void
 		 */
 		protected function output() {
+			$this->field['type'] = $this->actual_type;
 			echo $this->before();
 			echo $this->_clone_fields();
 			echo $this->after();
@@ -168,7 +175,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			);
 
 			if ( ! wponion_is_array( $data['clone'] ) ) {
-				$data['clone'] = array();
+				$data['clone'] = ( isset( $data['clone_settings'] ) && is_array( $data['clone_settings'] ) ) ? $data['clone_settings'] : array();
 			}
 			$data['clone'] = $this->parse_args( $data['clone'], $defaults );
 
