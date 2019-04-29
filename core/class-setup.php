@@ -43,6 +43,13 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @access
 		 * @static
 		 */
+		private static $module_fields_autoloader = false;
+
+		/**
+		 * @var bool
+		 * @access
+		 * @static
+		 */
 		private static $builder_autoloader = false;
 
 		/**
@@ -117,11 +124,12 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @throws \Exception
 		 */
 		public static function init_autoloader() {
-			self::$field_autoloader   = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
-			self::$core_autoloader    = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
+			self::$field_autoloader         = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
+			self::$module_fields_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Module_Fields', WPONION_PATH . 'module_fields/', array(), true );
+			self::$core_autoloader          = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
 				'exclude' => 'WPOnion\Field',
 			) );
-			self::$builder_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPO\Helper', WPONION_PATH . 'builder/helper/', array(), false );
+			self::$builder_autoloader       = new \Varunsridharan\PHP\Autoloader( 'WPO\Helper', WPONION_PATH . 'builder/helper/', array(), false );
 			new \Varunsridharan\PHP\Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array(), false );
 
 			self::$core_autoloader->add( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
@@ -157,6 +165,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function register_core_fields() {
+			\wponion_register_field( 'clone', 'all' );
 			\wponion_register_field( 'accordion', 'all' );
 			\wponion_register_field( 'background', 'all' );
 			\wponion_register_field( 'button', 'all' );
