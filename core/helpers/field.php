@@ -100,12 +100,13 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	/**
 	 * Checks And Returns Fields Class.
 	 *
-	 * @param string|array $field
-	 * @param string       $module
+	 * @param string $field
+	 * @param string $module
+	 * @param bool   $strict
 	 *
 	 * @return bool|string
 	 */
-	function wponion_get_field_class( $field = '', $module = 'core' ) {
+	function wponion_get_field_class( $field = '', $module = 'core', $strict = false ) {
 		$return = false;
 		if ( wponion_is_array( $field ) || $field instanceof \WPO\Field ) {
 			$field_type = ( isset( $field['type'] ) ) ? $field['type'] : false;
@@ -116,21 +117,29 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 		}
 
 		if ( false !== $field_type ) {
-			if ( true === $is_clone && ( ! isset( $field['in_clone'] ) || isset( $field['in_clone'] ) && false === $field['in_clone'] ) ) {
-				if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
-					require_once WPONION_PATH . 'core/class-field-cloner.php';
+			if ( true === $is_clone && ! isset( $field['in_clone'] ) || isset( $field['in_clone'] ) && false === $field['in_clone'] ) {
+				if ( 'core' !== $module && class_exists( '\WPOnion\Module_Fields\\' . $module . '\\Cloner' ) ) {
+					return '\WPOnion\Module_Fields\\' . $module . '\\Cloner';
+				} elseif ( 'core' === $module ) {
+					if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
+						require_once WPONION_PATH . 'core/class-field-cloner.php';
+					}
+					$return = '\WPOnion\Field\Cloner';
 				}
-				$return = '\WPOnion\Field\Cloner';
 			} else {
-				$module_name = '';
 
 				if ( 'core' !== $module ) {
-					$module_name = str_replace( '-', '_', $module ) . '\\';
+					$class = '\WPOnion\Module_Fields\\' . str_replace( '-', '_', $module ) . '\\' . $field_type;
+					if ( class_exists( $class ) ) {
+						$return = $class;
+					}
 				}
 
-				$class = '\WPOnion\Field\\' . $module_name . $field_type;
-				if ( class_exists( $class ) ) {
-					$return = $class;
+				if ( false === $return && false === $strict ) {
+					$class = '\WPOnion\Field\\' . $field_type;
+					if ( class_exists( $class ) ) {
+						$return = $class;
+					}
 				}
 			}
 		}
