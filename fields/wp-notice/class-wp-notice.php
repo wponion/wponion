@@ -27,10 +27,20 @@ if ( ! class_exists( '\WPOnion\Field\WP_Notice' ) ) {
 	 * @since 1.0
 	 */
 	class WP_Notice extends Heading {
-
+		/**
+		 * Notice Type.
+		 *
+		 * @var string
+		 * @access
+		 */
 		protected $notice_type = 'success';
 
 		public function handle_field_args( $data = array() ) {
+			if ( isset( $data['type'] ) && ! empty( $data['type'] ) && 'wp_notice' !== $data['type'] ) {
+				$this->notice_type   = str_replace( 'wp_notice_', '', $data['type'] );
+				$data['notice_type'] = $this->notice_type;
+			}
+
 			$data['type']            = 'wp_notice';
 			$data['wrap_attributes'] = ( isset( $data['wrap_attribtues'] ) ) ? $data['wrap_attribtues'] : array();
 
