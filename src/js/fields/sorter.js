@@ -20,6 +20,7 @@ class field extends WPOnion_Field {
 					$el.attr( 'name', $el.attr( 'name' ).replace( 'enabled', 'disabled' ) );
 				}
 				$this.trigger( 'wponion-sorter-updated' );
+				$this.trigger( 'wponion_field_updated' );
 			}
 		} );
 

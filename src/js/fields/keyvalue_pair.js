@@ -17,8 +17,8 @@ class field extends WPOnion_Field {
 				},
 				stop: ( event, ui ) => {
 					ui.item.removeAttr( 'style' );
-					this.update_groups_title();
 					this.element.trigger( 'change' );
+					this.element.trigger( 'wponion_field_updated' );
 				}
 
 			},
@@ -29,11 +29,13 @@ class field extends WPOnion_Field {
 			templateAfterRender: ( $elem ) => {
 				this.hook.doAction( 'wponion_key_value_updated', $elem );
 				this.element.trigger( 'change' );
+				this.element.trigger( 'wponion_field_updated' );
 				this.js_validate_elem( this.option( 'js_validate', false ), $elem.find( '> div:last-child' ) );
 			},
 			onRemove: ( $elem ) => {
 				$elem.parent().remove();
 				this.element.trigger( 'change' );
+				this.element.trigger( 'wponion_field_updated' );
 				this.hook.doAction( 'wponion_key_value_updated', $elem );
 			},
 			onLimitReached: () => {
@@ -60,6 +62,9 @@ class field extends WPOnion_Field {
 	 * @param $elem
 	 */
 	js_validate_elem( $args, $elem ) {
+		if( false === window.wponion._.isObject( $args ) ) {
+			return false;
+		}
 		if( true !== window.wponion._.isUndefined( $args.key ) ) {
 			$elem.find( '.wponion-keyvalue-field' ).each( function() {
 				jQuery( this ).find( '> div' ).eq( 0 ).find( ':input' ).rules( 'add', $args.key );

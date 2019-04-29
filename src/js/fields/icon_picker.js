@@ -120,8 +120,8 @@ class field extends WPOnion_Field {
 		/**
 		 * Handles Blur Even / change even in inputfield.
 		 */
-		$input.on( 'keyup blur change keypress', function() {
-			let $val = jQuery( this ).val();
+		$input.on( 'keyup blur change keypress', ( e ) => {
+			let $val = jQuery( e.currentTarget ).val();
 
 			if( $val !== '' ) {
 				$preview.html( '<i class="' + $val + '"></i>' ).show();
@@ -130,6 +130,7 @@ class field extends WPOnion_Field {
 				$preview.hide();
 				$remove_btn.hide();
 			}
+			this.element.trigger( 'wponion_field_updated' );
 		} );
 
 		/**
@@ -173,9 +174,9 @@ class field extends WPOnion_Field {
 		 * Handles Remove Button Event.
 		 */
 		$remove_btn.on( 'click', function() {
-			$input.val( '' );
 			$preview.hide();
 			$remove_btn.hide();
+			$input.val( '' ).trigger( 'change' );
 		} );
 
 		return this;

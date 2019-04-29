@@ -10,6 +10,7 @@ class field extends WPOnion_Field {
 		this.element.find( ':input' ).on( 'click', ( e ) => {
 			this.remove_active_class();
 			this.add_active_class();
+			this.element.trigger( 'wponion_field_updated' );
 		} );
 	}
 

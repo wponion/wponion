@@ -43,6 +43,7 @@ class field extends WPOnion_Field {
 				} );
 				this.update_groups_title();
 				this.element.trigger( 'change' );
+				this.element.trigger( 'wponion_field_updated' );
 			},
 			templateAfterRender: () => {
 				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
@@ -59,6 +60,7 @@ class field extends WPOnion_Field {
 				this.init_field( $data.find( '.wponion-element-wp_editor' ), 'reload_wp_editor' );
 				$data.slideDown();
 				this.element.trigger( 'change' );
+				this.element.trigger( 'wponion_field_updated' );
 			},
 			sortable: {
 				items: '.wponion-accordion-wrap',
@@ -71,6 +73,7 @@ class field extends WPOnion_Field {
 					ui.item.removeAttr( 'style' );
 					this.update_groups_title();
 					this.element.trigger( 'change' );
+					this.element.trigger( 'wponion_field_updated' );
 				}
 
 			},
