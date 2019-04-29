@@ -39,6 +39,11 @@ if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 		 * @return array
 		 */
 		public function handle_field_args( $data = array() ) {
+			if ( isset( $data['type'] ) && ! empty( $data['type'] ) && 'notice' !== $data['type'] ) {
+				$this->notice_type   = str_replace( 'notice_', '', $data['type'] );
+				$data['notice_type'] = $this->notice_type;
+			}
+
 			$data['type']            = 'notice';
 			$data['wrap_attributes'] = ( isset( $data['wrap_attribtues'] ) ) ? $data['wrap_attribtues'] : array();
 
