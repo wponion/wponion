@@ -30,9 +30,15 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
 		/**
 		 * unique
 		 *
-		 * @var string
+		 * @var array
 		 */
-		public $unique = '';
+		protected $unique = '';
+
+		/**
+		 * @var bool
+		 * @access
+		 */
+		protected $link_attr = true;
 
 		/**
 		 * type
@@ -79,6 +85,13 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
 		 */
 		public function __construct( \WP_Customize_Manager $manager, string $id, array $args = array(), $wrap_class = '' ) {
 			parent::__construct( $manager, $id, $args );
+
+			if ( wponion_is_cloneable( $args['options'] ) ) {
+				$this->type = 'wponion_field_clone';
+			} else {
+				$this->type = ( isset( $args['type'] ) && ! empty( $args['type'] ) ) ? 'wponion_field_' . $args['type'] : 'wponion_field';
+			}
+
 			$this->wrap_class = $wrap_class;
 		}
 
@@ -94,7 +107,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
 		/**
 		 * Returns Element Unique
 		 *
-		 * @return string
+		 * @return string|array
 		 */
 		protected function unique() {
 			return $this->unique;
@@ -106,9 +119,12 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
 		 * @return array
 		 */
 		protected function field() {
-			$this->options['id']                                        = $this->id;
-			$this->options['default']                                   = $this->setting->default;
-			$this->options['attributes']['data-customize-setting-link'] = $this->settings['default']->id;
+			$this->options['id']            = $this->id;
+			$this->options['default']       = $this->setting->default;
+			$this->options['__no_instance'] = true;
+			if ( true === $this->link_attr ) {
+				$this->options['attributes']['data-customize-setting-link'] = $this->settings['default']->id;
+			}
 			return $this->options;
 		}
 
