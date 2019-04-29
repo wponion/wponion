@@ -96,6 +96,20 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
 		}
 
 		/**
+		 * Renders the control wrapper and calls $this->render_content() for the internals.
+		 *
+		 * @since 3.4.0
+		 */
+		protected function render() {
+			$id    = 'customize-control-' . str_replace( array( '[', ']' ), array( '-', '' ), $this->id );
+			$class = 'customize-control customize-control-' . $this->type . ' wponion-field';
+
+			printf( '<li id="%s" class="%s">', esc_attr( $id ), esc_attr( $class ) );
+			$this->render_content();
+			echo '</li>';
+		}
+
+		/**
 		 * Returns Element Value.
 		 *
 		 * @return mixed

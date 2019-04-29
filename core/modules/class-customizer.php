@@ -200,6 +200,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 
 				$panel = $this->panels( $section );
 				foreach ( $section->fields() as $field ) {
+					$field['id']  = ( false === $field['id'] ) ? wponion_hash_array( $field ) . 'wpocustomid' : $field['id'];
 					$class        = '\WPOnion\Modules\Customizer\control';
 					$control_args = array(
 						'unique'   => array(
