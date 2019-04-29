@@ -96,54 +96,56 @@ if ( ! function_exists( 'wponion_validate_bool_val' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_get_field_class_remap' ) ) {
+	/**
+	 * Checks & Returns Default Class.
+	 *
+	 * @param      $class
+	 * @param bool $default
+	 *
+	 * @return bool|mixed
+	 */
+	function wponion_get_field_class_remap( $class, $default = false ) {
+		return \WPOnion\Setup::remap( $class, $default );
+	}
+}
+
+
 if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	/**
-	 * Checks And Returns Fields Class.
-	 *
-	 * @param string $field
+	 * @param        $field
 	 * @param string $module
 	 * @param bool   $strict
 	 *
-	 * @return bool|string
+	 * @return bool|mixed|string
 	 */
-	function wponion_get_field_class( $field = '', $module = 'core', $strict = false ) {
-		$return = false;
-		if ( wponion_is_array( $field ) || $field instanceof \WPO\Field ) {
-			$field_type = ( isset( $field['type'] ) ) ? $field['type'] : false;
-			$is_clone   = ( isset( $field['clone'] ) && ( true === $field['clone'] || true === wponion_is_array( $field['clone'] ) ) ) ? true : false;
-		} else {
-			$field_type = $field;
-			$is_clone   = false;
-		}
+	function wponion_get_field_class( $field, $module = 'core', $strict = false ) {
+		$type     = wponion_get_field_type( $field, false );
+		$clone    = wponion_is_cloneable( $field );
+		$module_s = str_replace( '-', '_', $module );
+		$in_clone = ( isset( $field['in_clone'] ) || isset( $field['in_clone'] ) && false === $field['in_clone'] );
+		$return   = false;
 
-		if ( false !== $field_type ) {
-			if ( true === $is_clone && ! isset( $field['in_clone'] ) || isset( $field['in_clone'] ) && false === $field['in_clone'] ) {
-				if ( 'core' !== $module && class_exists( '\WPOnion\Module_Fields\\' . $module . '\\Cloner' ) ) {
-					return '\WPOnion\Module_Fields\\' . $module . '\\Cloner';
-				} elseif ( 'core' === $module ) {
-					if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
-						require_once WPONION_PATH . 'core/class-field-cloner.php';
-					}
-					$return = '\WPOnion\Field\Cloner';
-				}
-			} else {
-
+		if ( false !== $type ) {
+			if ( true === $clone && false === $in_clone ) {
 				if ( 'core' !== $module ) {
-					$class = '\WPOnion\Module_Fields\\' . str_replace( '-', '_', $module ) . '\\' . $field_type;
-					if ( class_exists( $class ) ) {
-						$return = $class;
-					}
+					$_class = '\WPOnion\Module_Fields\\' . $module . '\\Cloner';
+					$return = wponion_get_field_class_remap( $_class, $_class );
+				}
+
+				$return = ( false === $return && false === $strict ) ? '\WPOnion\Field\Cloner' : $return;
+			} else {
+				if ( 'core' !== $module ) {
+					$_class = '\WPOnion\Module_Fields\\' . $module_s . '\\' . $type;
+					$return = wponion_get_field_class_remap( $_class, $_class );
 				}
 
 				if ( false === $return && false === $strict ) {
-					$class = '\WPOnion\Field\\' . $field_type;
-					if ( class_exists( $class ) ) {
-						$return = $class;
-					}
+					$return = wponion_get_field_class_remap( '\WPOnion\Field\\' . $type, '\WPOnion\Field\\' . $type );
 				}
 			}
 		}
-		return $return;
+		return ( class_exists( $return ) ) ? $return : false;
 	}
 }
 
