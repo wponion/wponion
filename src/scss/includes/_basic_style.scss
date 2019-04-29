@@ -184,6 +184,9 @@
 	padding:     10px;
 	margin:      5px 0;
 	display:     inline-block;
+	float:       left;
+	max-width:   100%;
 	line-height: initial;
+	overflow:    scroll;
 	box-shadow:  0 0 3px #d5d5d5 inset;
 }
