@@ -222,7 +222,6 @@ export default class extends WPOnion_Module {
 		let $default          = { module: this.module() };
 		$default[ $ajax_key ] = $action;
 		$data.data            = ( false === window.wponion._.isUndefined( $data.data ) ) ? window.wponion._.merge( $default, $data.data ) : $default;
-
 		return $wponion.ajax( $data );
 	}
 
@@ -302,7 +301,6 @@ export default class extends WPOnion_Module {
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
-
 
 		window.wponion.hooks.doAction( 'wponion_after_fields_reload' );
 		return this;

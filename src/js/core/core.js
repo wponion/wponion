@@ -123,50 +123,6 @@ export default class WPOnion {
 	}
 
 	/**
-	 * Handles Global Debug View POPUP.
-	 */
-	static global_debug() {
-		let $handle = jQuery( 'a.wponion-global-debug-handle' ),
-			$json   = {};
-		if( WPOnion.debug_info === null && $handle.length > 0 ) {
-			let $defined_vars = WPOnion.windowArgs( 'wponion_defined_vars' );
-			if( window.wponion._.isObject( $defined_vars ) ) {
-				for( let $key in $defined_vars ) {
-					if( $defined_vars.hasOwnProperty( $key ) && false === window.wponion._.isUndefined( $defined_vars[ $key ] ) ) {
-						$json[ $defined_vars[ $key ] ] = WPOnion.windowArgs( $defined_vars[ $key ] );
-					}
-				}
-				WPOnion.debug_info = $json;
-			}
-		}
-
-		$handle.on( 'click', ( ( e ) => {
-			e.preventDefault();
-			swal.fire( {
-				title: WPOnion.txt( 'global_json_output', 'Global WPOnion Debug Data' ),
-				html: jQuery( '#wponiondebuginfopopup > div' ),
-				showConfirmButton: true,
-				confirmButtonText: WPOnion.txt( 'get_json_output', 'Get JSON Output' ),
-				showCloseButton: false,
-				animation: false,
-				width: '800px',
-				onBeforeOpen: () => swal.enableLoading(),
-				onOpen: () => {
-					jQuery( '#swal2-content #wponion-global-debug-content' ).jsonView( WPOnion.debug_info );
-					swal.disableLoading();
-				},
-			} ).then( ( result ) => {
-				if( result.value ) {
-					return swal.fire( {
-						width: '600px',
-						html: '<textarea style="min-width:550px; min-height:300px">' + JSON.stringify( WPOnion.debug_info ) + '</textarea>',
-					} );
-				}
-			} );
-		} ) );
-	}
-
-	/**
 	 * Checks and Retrives Values from $wponion.settings
 	 * @param $key
 	 * @param $default
