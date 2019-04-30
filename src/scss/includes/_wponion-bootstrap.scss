@@ -2,8 +2,16 @@
 @import "../../../node_modules/bootstrap/scss/variables";
 @import "../../../node_modules/bootstrap/scss/mixins";
 @import "../../../node_modules/bootstrap/scss/mixins/breakpoints";
-
 @import "../../../node_modules/flexboxgrid2/flexboxgrid2.min";
+
+.wpo {
+	& {
+		@import "../../../node_modules/bootstrap/scss/badge";
+		@import "../../../node_modules/bootstrap/scss/buttons";
+		@import "../../../node_modules/bootstrap/scss/utilities/text";
+		@import "../../../node_modules/bootstrap/scss/utilities/background";
+	}
+}
 
 .wponion-framework {
 	[class*="col-"] {
@@ -16,11 +24,6 @@
 		margin-right: -15px;
 	}
 
-	@import "../../../node_modules/bootstrap/scss/transitions";
 	@import "../../../node_modules/bootstrap/scss/jumbotron";
 	@import "../../../node_modules/bootstrap/scss/alert";
-	@import "../../../node_modules/bootstrap/scss/badge";
-	@import "../../../node_modules/bootstrap/scss/buttons";
-	@import "../../../node_modules/bootstrap/scss/utilities/text";
-	@import "../../../node_modules/bootstrap/scss/utilities/background";
 }
