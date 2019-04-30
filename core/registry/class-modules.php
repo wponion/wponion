@@ -74,5 +74,17 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 			}
 			return false;
 		}
+
+		/**
+		 * @param $type
+		 *
+		 * @return bool|mixed
+		 */
+		public function get_all( $type ) {
+			if ( isset( $this->registry[ $type ] ) ) {
+				return $this->registry[ $type ];
+			}
+			return false;
+		}
 	}
 }
