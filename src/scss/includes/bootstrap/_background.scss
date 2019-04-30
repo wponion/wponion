@@ -1,0 +1,19 @@
+// stylelint-disable declaration-no-important
+
+@each $color, $value in $theme-colors {
+	@include bg-variant(".wpo-bg-#{$color}", $value);
+}
+
+@if $enable-gradients {
+	@each $color, $value in $theme-colors {
+		@include bg-gradient-variant(".wpo-bg-gradient-#{$color}", $value);
+	}
+}
+
+.wpo-bg-white {
+	background-color: $white !important;
+}
+
+.wpo-bg-transparent {
+	background-color: transparent !important;
+}
