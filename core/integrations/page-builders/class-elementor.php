@@ -14,6 +14,8 @@ namespace WPOnion\Integrations\Page_Builders;
 use WPOnion\Field\Cloner;
 use WPOnion\Integrations\Page_Builders\Elementor\Metabox;
 use WPOnion\Integrations\Page_Builders\Elementor\Metabox_Data;
+use WPOnion\Integrations\Page_Builders\Elementor\Taxonomy;
+use WPOnion\Integrations\Page_Builders\Elementor\Taxonomy_Data;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -45,6 +47,45 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 		 */
 		public static function register_tags( $dynamic_tags ) {
 			self::set_metaboxes( $dynamic_tags );
+			self::set_taxonomy( $dynamic_tags );
+		}
+
+		/**
+		 * @param \Elementor\Core\DynamicTags\Manager $dynamic_tags
+		 *
+		 * @static
+		 */
+		private static function set_taxonomy( $dynamic_tags ) {
+			/**
+			 * @var \WPOnion\Modules\Taxonomy                              $mb
+			 * @var \WPOnion\Integrations\Page_Builders\Elementor\Taxonomy $new_class
+			 */
+			$instances = 'all';
+			$taxonomy  = wponion_taxonomy_registry( $instances );
+			foreach ( $taxonomy as $mb ) {
+				if ( false !== $mb->option( 'elementor' ) ) {
+					$title     = $mb->option( 'elementor' );
+					$slug      = str_replace( '-', '', sanitize_title( $title ) );
+					$new_class = 'wpo_' . $slug . '_elementor_taxonomy';
+					$class     = new Class extends Taxonomy {
+					};
+
+					class_alias( get_class( $class ), $new_class );
+					$new_class::$wpo_title    = $title;
+					$new_class::$wpo_slug     = $slug;
+					$new_class::$wpo_instance = $mb;
+					$dynamic_tags->register_tag( $new_class );
+					$class_data = new Class extends Taxonomy_Data {
+					};
+
+					$new_class = $new_class . '_data';
+					class_alias( get_class( $class_data ), $new_class );
+					$new_class::$wpo_title    = $title;
+					$new_class::$wpo_slug     = $slug . '-data';
+					$new_class::$wpo_instance = $mb;
+					$dynamic_tags->register_tag( $new_class );
+				}
+			}
 		}
 
 		/**
@@ -63,7 +104,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 				if ( false !== $mb->option( 'elementor' ) ) {
 					$title     = ( true === $mb->option( 'elementor' ) ) ? $mb->option( 'metabox_title' ) : $mb->option( 'elementor' );
 					$slug      = str_replace( '-', '', sanitize_title( $title ) );
-					$new_class = 'wpo_' . $slug . '_elementor';
+					$new_class = 'wpo_' . $slug . '_elementor_metabox';
 					$class     = new Class extends Metabox {
 					};
 
