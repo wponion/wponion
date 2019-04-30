@@ -44,7 +44,7 @@ if ( ! class_exists( 'WPO\Helper\Field\Helper' ) ) {
 		 * @param $name
 		 * @param $arguments
 		 *
-		 * @return bool|mixed
+		 * @return $this|bool|\WPO\Field
 		 */
 		public function __call( $name, $arguments ) {
 			if ( empty( $arguments ) && isset( $this[ $name ] ) ) {
