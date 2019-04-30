@@ -93,7 +93,7 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 		 */
 		protected function _register_controls() {
 			$this->add_control( 'key', array(
-				'label'  => __( 'Field' ),
+				'label'  => __( 'Field', 'wponion' ),
 				'type'   => Controls_Manager::SELECT,
 				'groups' => $this->get_option_groups(),
 			) );
@@ -205,7 +205,7 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 		 * @return string|void
 		 */
 		public function get_title() {
-			return ( ! empty( self::$wpo_title ) ) ? self::$wpo_title : __( 'WPOnion Field' );
+			return ( ! empty( self::$wpo_title ) ) ? self::$wpo_title : __( 'WPOnion Field', 'wponion' );
 		}
 
 		/**
