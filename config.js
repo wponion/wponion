@@ -1,7 +1,7 @@
 let $files = {};
 
 // wponion-base.scss
-$files[ 'src/scss/wponion-base.scss' ] = {
+$files[ 'src/scss/wponion-base.scss' ]    = {
 	dist: 'assets/css/',
 	combine_files: true,
 	scss: true,
@@ -10,7 +10,6 @@ $files[ 'src/scss/wponion-base.scss' ] = {
 	rename: 'wponion-base.css',
 	watch: [ 'src/scss/wponion-base.scss', 'src/scss/includes/*', 'src/scss/includes/fields/*', 'src/scss/includes/fields/*/*', 'src/scss/includes/modules/*', 'src/scss/includes/modules/*/*' ],
 };
-
 $files[ 'src/scss/wponion-plugins.scss' ] = {
 	dist: 'assets/css/',
 	combine_files: true,
@@ -26,21 +25,20 @@ $files[ 'src/js/wponion-plugins.js' ]     = {
 	combine_files: true,
 	uglify: true,
 };
-$files[ 'src/js/wponion-core.js' ]        = [
-	{
-		dist: 'assets/js',
-		watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/fields/*', 'src/js/helpers/*', 'src/js/modules/*', 'src/js/modules/*/*', 'src/vendors/backbone-modal.js' ],
-		webpack: 'webpack_dev_eval',
-		rename: 'wponion-core.js',
-	},
-	{
-		dist: 'assets/js',
-		//watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/fields/*', 'src/js/helpers/*', 'src/js/modules/*', 'src/js/modules/*/*', 'src/vendors/backbone-modal.js' ],
-		watch: [ 'assets/js/wponion-core.js' ],
-		webpack: 'webpack',
-		rename: 'wponion-core.min.js',
-	}
-];
+$files[ 'src/js/wponion-core.js' ]        = {
+	dist: 'assets/js',
+	watch: [
+		'src/js/wponion-core.js',
+		'src/js/core/*',
+		'src/js/fields/*',
+		'src/js/helpers/*',
+		'src/js/modules/*',
+		'src/js/modules/*/*',
+		'src/vendors/backbone-modal.js' ],
+	webpack: 'webpack_dev',
+	sourcemaps: true,
+	rename: 'wponion-core.js',
+};
 $files[ 'src/js/wponion-customizer.js' ]  = {
 	dist: 'assets/js',
 	watch: true,
@@ -152,28 +150,6 @@ module.exports = {
 			append: 'wponion-append',
 			prepend: 'wponion-prepend',
 			inline: 'wponion-inline',
-		},
-		webpack_dev_eval: {
-			devtool: 'eval',
-			mode: 'development',
-			target: 'node',
-			externals: {
-				jquery: 'jQuery'
-			},
-			output: {
-				filename: '[name].js',
-			},
-			module: {
-				rules: [
-					{
-						test: /\.js$/,
-						loader: 'babel-loader',
-						options: {
-							presets: [ '@babel/env' ]
-						}
-					}
-				]
-			},
 		},
 	}
 };
