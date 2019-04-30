@@ -154,26 +154,5 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 			$this['background-image'] = $background_image;
 			return $this;
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'background-repeat'     => true,
-				'background-attachment' => true,
-				'background-position'   => true,
-				'background-clip'       => true,
-				'background-origin'     => true,
-				'background-size'       => true,
-				'background-color'      => true,
-				'background-image'      => true,
-				'preview_media'         => false,
-				'preview'               => true,
-				'preview_height'        => '200px',
-			);
-		}
 	}
 }

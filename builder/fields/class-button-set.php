@@ -87,17 +87,5 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		public function normal() {
 			return $this->set_size( false );
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return $this->parse_args( array(
-				'multiple' => false,
-				'size'     => false,
-				'active'   => 'button-primary',
-				'inactive' => 'button-secondary',
-			), parent::defaults() );
-		}
 	}
 }

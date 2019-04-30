@@ -136,31 +136,5 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 			$this['icons'] = $icons;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'top'          => true,
-				'bottom'       => true,
-				'left'         => true,
-				'right'        => true,
-				'all'          => false,
-				'unit'         => true,
-				'unit_options' => array(
-					'px' => 'px',
-					'%'  => '%',
-					'em' => 'em',
-				),
-				'icons'        => array(
-					'top'    => '<i class="dashicons dashicons-arrow-up-alt"></i>',
-					'bottom' => '<i class="dashicons dashicons-arrow-down-alt"></i>',
-					'left'   => '<i class="dashicons dashicons-arrow-left-alt"></i>',
-					'right'  => '<i class="dashicons dashicons-arrow-right-alt"></i>',
-					'all'    => '<i class="dashicons dashicons-move"></i>',
-				),
-			);
-		}
 	}
 }

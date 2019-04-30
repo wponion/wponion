@@ -61,18 +61,5 @@ if ( ! class_exists( 'WPO\Notice' ) ) {
 			$this['close'] = $close;
 			return $this;
 		}
-
-
-		/**
-		 * @return array
-		 */
-		public function defaults() {
-			return array(
-				'autoclose'   => false,
-				'close'       => true,
-				'notice_type' => 'success',
-			);
-		}
-
 	}
 }

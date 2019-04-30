@@ -70,16 +70,5 @@ if ( ! class_exists( 'WPO\Font_Picker' ) ) {
 			$this['group'] = $show_in_group;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'google_fonts'  => true,
-				'websafe_fonts' => true,
-				'group'         => true,
-			);
-		}
 	}
 }

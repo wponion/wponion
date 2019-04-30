@@ -105,23 +105,5 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 			$this['button'] = $button;
 			return $this;
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'button'   => __( 'Select URL', 'wponion' ),
-				'settings' => array(
-					'url'        => true,
-					'title'      => true,
-					'target'     => true,
-					'example'    => true,
-					'show_input' => false,
-				),
-			);
-		}
 	}
 }

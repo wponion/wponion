@@ -70,17 +70,5 @@ if ( ! class_exists( 'WPO\Iframe' ) ) {
 			$this['heading'] = $heading;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'heading' => false,
-				'url'     => false,
-				'height'  => '100%',
-				'width'   => '100%',
-			);
-		}
 	}
 }

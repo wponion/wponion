@@ -54,17 +54,5 @@ if ( ! class_exists( 'WPO\Textarea' ) ) {
 			$this['cols'] = $cols;
 			return $this;
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return $this->parse_args( parent::defaults(), array(
-				'rows' => 5,
-				'cols' => 5,
-			) );
-		}
 	}
 }

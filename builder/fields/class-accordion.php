@@ -56,17 +56,5 @@ if ( ! class_exists( 'WPO\Accordion' ) ) {
 		public function close() {
 			return $this->set_is_open( false );
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return $this->parse_args( array(
-				'is_open' => false,
-				'heading' => __( 'Accordion', 'wponion' ),
-			), parent::defaults() );
-		}
 	}
 }

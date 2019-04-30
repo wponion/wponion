@@ -30,14 +30,5 @@ if ( ! class_exists( 'WPO\Fieldset' ) ) {
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( 'fieldset', $id, $title, $args );
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return $this->parse_args( array( 'heading' => null ), parent::defaults() );
-		}
 	}
 }

@@ -119,16 +119,5 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 			$this['disabled_title'] = $title;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		public function defaults() {
-			return array(
-				'options'        => array(),
-				'enabled_title'  => __( 'Enabled Modules', 'wponion' ),
-				'disabled_title' => __( 'Disabled Modules', 'wponion' ),
-			);
-		}
 	}
 }

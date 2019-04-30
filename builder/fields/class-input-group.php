@@ -30,12 +30,5 @@ if ( ! class_exists( 'WPO\Input_Group' ) ) {
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( 'input_group', $id, $title, $args );
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array( 'fields' => array() );
-		}
 	}
 }

@@ -54,16 +54,5 @@ if ( ! class_exists( 'WPO\WP_Notice' ) ) {
 			$this['alt'] = $alt;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		public function defaults() {
-			return $this->parse_args( array(
-				'large' => false,
-				'alt'   => false,
-			), parent::defaults() );
-		}
-
 	}
 }

@@ -155,18 +155,5 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 			$this['to_date'] = $date;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'range'    => false,
-				'settings' => array(),
-				'theme'    => 'default',
-				'date'     => __( 'Date', 'wponion' ),
-				'to_date'  => __( 'Till Date', 'wponion' ),
-			);
-		}
 	}
 }

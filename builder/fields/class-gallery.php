@@ -99,18 +99,5 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 		public function disable_sort() {
 			return $this->set_sort( false );
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'add_button'    => __( 'Create Gallery', 'wponion' ),
-				'edit_button'   => __( 'Edit Gallery', 'wponion' ),
-				'size'          => 100,
-				'sort'          => true,
-				'remove_button' => __( 'Clear Gallery', 'wponion' ),
-			);
-		}
 	}
 }

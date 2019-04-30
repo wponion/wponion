@@ -64,18 +64,5 @@ if ( ! class_exists( 'WPO\Image' ) ) {
 			$this['size'] = $size;
 			return $this;
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'frame_title' => __( 'Select A Image', 'wponion' ),
-				'remove'      => __( 'Remove', 'wponion' ),
-				'size'        => 100,
-			);
-		}
 	}
 }

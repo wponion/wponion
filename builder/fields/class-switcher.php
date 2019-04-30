@@ -70,15 +70,5 @@ if ( ! class_exists( 'WPO\Switcher' ) ) {
 			$this['switch_size'] = $size;
 			return $this;
 		}
-
-		public function defaults() {
-			return array(
-				'switch_style' => 'style-8',
-				'switch_size'  => '',
-				'label'        => false,
-				'on'           => __( 'ON', 'wponion' ),
-				'off'          => __( 'OFF', 'wponion' ),
-			);
-		}
 	}
 }

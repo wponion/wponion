@@ -122,24 +122,5 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 			$this['disabled'] = $disabled_icon_frameworks;
 			return $this;
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'add_button'    => __( 'Add Icon', 'wponion' ),
-				'remove_button' => __( 'Remove Icon', 'wponion' ),
-				'show_input'    => true,
-				'icon_tooltip'  => array(
-					'placement' => 'bottom',
-					'arrow'     => true,
-				),
-				'enabled'       => true,
-				'disabled'      => false,
-			);
-		}
 	}
 }

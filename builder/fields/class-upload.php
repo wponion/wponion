@@ -77,17 +77,5 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 			$this['button'] = $button;
 			return $this;
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'settings' => array(),
-				'button'   => __( 'Upload', 'wponion' ),
-			);
-		}
 	}
 }

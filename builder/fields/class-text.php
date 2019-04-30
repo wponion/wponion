@@ -74,20 +74,5 @@ if ( ! class_exists( 'WPO\Text' ) ) {
 		public function set_datalist( $options ) {
 			return $this->set_options( $options );
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'inputmask'   => false,
-				'placeholder' => false,
-				'prefix'      => false,
-				'options'     => false,
-				'surfix'      => false,
-			);
-		}
 	}
 }

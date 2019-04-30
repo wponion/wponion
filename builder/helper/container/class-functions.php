@@ -191,6 +191,5 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		public function remove_var( $name ) {
 			unset( $this->custom_data[ $name ] );
 		}
-
 	}
 }
