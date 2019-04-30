@@ -124,6 +124,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				Integrations\Page_Builders\Visual_Composer::init();
 			}
 
+			if ( wp_is_plugin_active( 'elementor/elementor.php' ) ) {
+				Integrations\Page_Builders\Elementor::init();
+			}
+
 			do_action( 'wponion_init' );
 		}
 
