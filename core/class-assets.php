@@ -50,10 +50,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
 				'wponion-postmessage' => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 				'wponion-cloner'      => array( 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ) ),
-				'wponion-core'        => array(
-					self::is_debug( 'assets/js/wponion-core.js' ),
-					array( 'wponion-plugins' ),
-				),
+				'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
 				'wponion-inputmask'   => array(
 					'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
 					array( 'jquery' ),
