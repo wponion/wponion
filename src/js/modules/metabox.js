@@ -46,6 +46,7 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 			$base.html( res );
 			$base.unblock();
 			window.wponion_field( $base.find( '.wponion-framework' ) ).reload();
+			window.wponion_theme( $base.find( '.wponion-framework' ) );
 		} );
 	}
 }

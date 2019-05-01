@@ -220,6 +220,13 @@ export default ( ( window, document, $, jQuery ) => {
 	window.wponion_field = ( $elem, $contxt = {} ) => new window.wponion.field_abstract( $elem, $contxt );
 
 	/**
+	 * Triggers Theme Init.
+	 * @param $element
+	 * @returns {{addAction, removeAction, applyFilters, removeFilter, addFilter, doAction}}
+	 */
+	window.wponion_theme = ( $element ) => window.wponion.hooks.doAction( 'wponion_theme_init', $element );
+
+	/**
 	 * Handles WPOnion Notices.
 	 * @param $elem
 	 * @returns {*}
@@ -352,5 +359,24 @@ export default ( ( window, document, $, jQuery ) => {
 		return new window.wponion.ajaxer( $args );
 	};
 
-} )( window, document, jQuery, jQuery );
+	/**
+	 *
+	 * @param data
+	 * @param file_name
+	 * @param data_type
+	 */
+	window.wponion_js_file = ( data, file_name = 'file.json', data_type = 'data:text/json;charset=utf-8,' ) => {
+		if( window.wponion._.isObject( data ) ) {
+			data = encodeURIComponent( JSON.stringify( data ) );
+		}
 
+		let dataStr            = data_type + data;
+		let downloadAnchorNode = document.createElement( 'a' );
+		downloadAnchorNode.setAttribute( 'href', dataStr );
+		downloadAnchorNode.setAttribute( 'download', file_name );
+		document.body.appendChild( downloadAnchorNode );
+		downloadAnchorNode.click();
+		downloadAnchorNode.remove();
+	};
+
+} )( window, document, jQuery, jQuery );

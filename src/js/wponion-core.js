@@ -57,7 +57,7 @@ export default ( ( window, document, wp, $ ) => {
 		if( $wpof_div.length > 0 ) {
 			window.wponion.hooks.doAction( 'wponion_before_theme_init', $wpof_div );
 			$wpof_div.each( function() {
-				window.wponion.hooks.doAction( 'wponion_theme_init', $( this ) );
+				window.wponion_theme( $( this ) );
 			} );
 			window.wponion.hooks.doAction( 'wponion_after_theme_init', $wpof_div );
 		}
