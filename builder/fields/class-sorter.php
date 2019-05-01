@@ -34,6 +34,10 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( 'sorter', $id, $title, $args );
+			$this['options'] = array(
+				'enabled'  => array(),
+				'disabled' => array(),
+			);
 		}
 
 		/**
