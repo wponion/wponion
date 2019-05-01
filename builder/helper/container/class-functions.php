@@ -44,8 +44,20 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return false|\WPO\Container
 		 */
 		public function first_container() {
-			$first = current( $this->containers() );
-			return ( ! empty( $first ) && $first instanceof \WPO\Container ) ? $first : false;
+			$containers = $this->containers();
+			$return     = false;
+			$i          = 0;
+
+			while ( count( $containers ) >= $i ) {
+				if ( isset( $containers[ $i ] ) ) {
+					if ( $containers[ $i ] instanceof \WPO\Container && false === $containers[ $i ]->is_disabled() ) {
+						$return = $containers[ $i ];
+						break;
+					}
+				}
+				$i++;
+			}
+			return $return;
 		}
 
 		/**

@@ -65,6 +65,14 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		protected $href = false;
 
 		/**
+		 * True / False if container is disabled.
+		 *
+		 * @var bool
+		 * @access
+		 */
+		protected $disabled = false;
+
+		/**
 		 * Fields.
 		 *
 		 * @var bool|array
@@ -120,6 +128,13 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 */
 		public function has_callback() {
 			return ( false !== $this->callback && wponion_is_callable( $this->callback ) );
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function is_disabled() {
+			return $this->disabled;
 		}
 
 		/**
@@ -307,6 +322,22 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 */
 		public function query_arg( $key, $value ) {
 			return $this->set_query_arg( $key, $value );
+		}
+
+		/**
+		 * @return $this
+		 */
+		public function disable() {
+			$this->disabled = true;
+			return $this;
+		}
+
+		/**
+		 * @return $this
+		 */
+		public function enable() {
+			$this->disabled = false;
+			return $this;
 		}
 	}
 }
