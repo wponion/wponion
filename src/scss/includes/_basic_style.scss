@@ -20,9 +20,24 @@
 			overflow: scroll;
 		}
 	}
+
+	.wpo-btn {
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
 }
 
 /** General Common Styles **/
+.wponion-icon {
+	margin-right:   4px;
+	&.dashicons {
+		vertical-align: middle;
+		display:        inline-block;
+	}
+}
 
 // Accordion PlaceHolder
 .wponion-accordion-placeholder {
