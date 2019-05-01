@@ -330,6 +330,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 			}
 
 			$defaults['menu_active_background'] = $colors;
+			$defaults['menu_hover_background']  = $colors;
 			return $defaults;
 		}
 

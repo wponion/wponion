@@ -473,7 +473,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return bool
 		 */
 		public function valid_option( $option = array() ) {
-			return ( $option->has_callback() || $option->has_fields() || $option->has_containers() ) ? true : false;
+			return ( false === $option->is_disabled() && ( $option->has_callback() || $option->has_fields() || $option->has_containers() ) ) ? true : false;
 		}
 
 		/**
