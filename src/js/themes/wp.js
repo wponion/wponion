@@ -16,13 +16,8 @@ class WP {
 	}
 
 	settings_menu_handler() {
-		if( this.element.hasClass( 'wponion-single-page' ) ) {
-			this.settings_main_menu();
-			this.settings_submenu();
-		}
-		if( this.element.hasClass( 'wponion-submenu-single-page' ) ) {
-			this.settings_submenu();
-		}
+		this.settings_main_menu();
+		this.settings_submenu();
 	}
 
 	settings_main_menu() {
@@ -39,10 +34,10 @@ class WP {
 					this.element.find( 'nav.nav-tab-wrapper a.nav-tab-active' ).removeClass( 'nav-tab-active' );
 					$elem.addClass( 'nav-tab-active' );
 					$lookup.find( '.wponion-submenus a.current' ).click();
-				} else {
+				} else if( false === $elem.hasClass( 'disabled' ) ) {
 					window.location.href = $elem.attr( 'href' );
 				}
-			} else {
+			} else if( false === $elem.hasClass( 'disabled' ) ) {
 				window.location.href = $elem.attr( 'href' );
 			}
 		} );
@@ -57,8 +52,6 @@ class WP {
 			if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
 				let $lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
 				if( $lookup.length > 0 ) {
-					$lookup.find( '.wponion-submenus a.current' ).removeClass( 'current' );
-					$elem.addClass( 'current' );
 
 					if( false === window.wponion._.isUndefined( $href[ 'sub-container-id' ] ) ) {
 						$lookup = $lookup.find( 'div#wponion-tab-' + $href[ 'container-id' ] + '-' + $href[ 'sub-container-id' ] );
@@ -66,16 +59,18 @@ class WP {
 							this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] + ' .wponion-sub-container-wraps ' )
 								.hide();
 							$lookup.show();
-						} else {
+							$lookup.find( '.wponion-submenus a.current' ).removeClass( 'current' );
+							$elem.addClass( 'current' );
+						} else if( false === $elem.hasClass( 'disabled' ) ) {
 							window.location.href = $elem.attr( 'href' );
 						}
-					} else {
+					} else if( false === $elem.hasClass( 'disabled' ) ) {
 						window.location.href = $elem.attr( 'href' );
 					}
-				} else {
+				} else if( false === $elem.hasClass( 'disabled' ) ) {
 					window.location.href = $elem.attr( 'href' );
 				}
-			} else {
+			} else if( false === $elem.hasClass( 'disabled' ) ) {
 				window.location.href = $elem.attr( 'href' );
 			}
 		} );

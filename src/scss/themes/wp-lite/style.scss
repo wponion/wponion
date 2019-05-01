@@ -1,4 +1,10 @@
 .wponion-framework.wponion-wp_lite-theme {
+	.wponion-subnav-container, .nav-tab-wrapper {
+		.disabled {
+			opacity: 0.5;
+		}
+	}
+
 	&.wponion-module-settings {
 		header {
 			.inner-container {

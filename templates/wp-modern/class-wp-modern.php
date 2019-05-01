@@ -196,7 +196,8 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 				if ( count( $menus[ $menu_slug ]['submenu'] ) <= 1 ) {
 					return '';
 				}
-				$return = array();
+				$return       = array();
+				$is_pdisabled = ( true === $menus[ $menu_slug ]['is_disabled'] ) ? ' disabled ' : '';
 				foreach ( $menus[ $menu_slug ]['submenu'] as $slug => $menu ) {
 					if ( isset( $menu['is_separator'] ) && true === $menu['is_separator'] ) {
 						continue;
@@ -212,13 +213,14 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 						( ! empty( $men['icon'] ) ) ? 'menu-with-icon' : '',
 						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'menu-internal-href' : '',
 						( true === $menu['is_active'] ) ? 'active' : '',
+						( true === $menu['is_disabled'] || true === $menus[ $menu_slug ]['is_disabled'] ) ? 'disabled ' : '',
 					) );
 
 					$attr     = wponion_array_to_html_attributes( $attr );
 					$return[] = '<li> <a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . ' ' . $page_title . '</a> ';
 				}
 				$return = implode( '  </li>', $return );
-				$return = '<ul class="submenus"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';
+				$return = '<ul class="submenus ' . $is_pdisabled . '"  id="wponion-tab-' . $menus[ $menu_slug ]['name'] . '" >' . $return . '</ul>';
 				return $return;
 			} else {
 				return '';
@@ -258,6 +260,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 							( ! empty( $men['icon'] ) ) ? 'menu-with-icon' : '',
 							( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'menu-internal-href' : '',
 							( true === $menu['is_active'] ) ? 'active menu-show-child open' : '',
+							( true === $menu['is_disabled'] ) ? 'disabled ' : '',
 						) );
 						$attr          = wponion_array_to_html_attributes( $attr );
 

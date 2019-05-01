@@ -15,6 +15,7 @@ $metabox_menu_width: 200px;
 	ul {
 		margin: 0;
 
+
 		li {
 			list-style: none;
 
@@ -50,12 +51,22 @@ $metabox_menu_width: 200px;
 				padding:         10px;
 				padding-left:    15px;
 
+				&.disabled {
+					opacity: 0.5;
+				}
+
 				i {
 					width:      20px;
 					height:     20px;
 					text-align: center;
 				}
 
+			}
+
+			ul {
+				&.disabled {
+					opacity: 0.5;
+				}
 			}
 
 			&:hover {

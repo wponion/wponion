@@ -55,6 +55,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 					( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
 					( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
 					( true === $menu['is_active'] ) ? 'nav-tab-active' : '',
+					( true === $menu['is_disabled'] ) ? ' disabled ' : '',
 				) );
 				$attr          = wponion_array_to_html_attributes( $attr );
 
@@ -72,7 +73,8 @@ if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 		public function settings_submenu( $parent_slug, $menus ) {
 			$return = '';
 			if ( isset( $menus[ $parent_slug ]['submenu'] ) && is_array( $menus[ $parent_slug ]['submenu'] ) && ! empty( $menus[ $parent_slug ]['submenu'] ) ) {
-				$return = '<div class="wponion-subnav-container"> <ul class="wponion-submenus subsubsub"  id="wponion-tab-' . $parent_slug . '" >';
+				$is_pdisabled = ( true === $menus[ $parent_slug ]['is_disabled'] ) ? ' disabled ' : '';
+				$return       = '<div class="wponion-subnav-container"> <ul class="wponion-submenus subsubsub ' . $is_pdisabled . '"  id="wponion-tab-' . $parent_slug . '" >';
 				foreach ( $menus[ $parent_slug ]['submenu'] as $slug => $menu ) {
 					if ( isset( $menu['is_separator'] ) && true === $menu['is_separator'] ) {
 						continue;
@@ -88,6 +90,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 						( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
 						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
 						( true === $menu['is_active'] ) ? 'current' : '',
+						( true === $menu['is_disabled'] || true === $menus[ $parent_slug ]['is_disabled'] ) ? 'disabled ' : '',
 					) );
 					$attr          = wponion_array_to_html_attributes( $attr );
 

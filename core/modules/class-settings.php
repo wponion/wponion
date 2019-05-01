@@ -505,7 +505,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @return bool
 		 */
 		public function valid_option( $container = array(), $sub_container = false, $check_current_page = true ) {
-			if ( ! $container->has_fields() && ! $container->has_containers() && ! $container->has_callback() ) {
+			if ( ! $container->has_fields() && ! $container->has_containers() && ! $container->has_callback() || true === $container->is_disabled() ) {
 				return false;
 			}
 

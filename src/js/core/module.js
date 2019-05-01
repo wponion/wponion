@@ -36,10 +36,10 @@ export default class extends Base {
 						this.element.find( '.wponion-menu .active' ).removeClass( 'active' );
 						$elem.addClass( 'active' );
 						$elem.parent().parent().parent().find( '> a' ).addClass( 'active' );
-					} else {
+					} else if( false === $elem.hasClass( 'disabled' ) ) {
 						window.location.href = $elem.attr( 'href' );
 					}
-				} else {
+				} else if(false === $elem.hasClass( 'disabled' )) {
 					window.location.href = $elem.attr( 'href' );
 				}
 			}

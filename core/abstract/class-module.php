@@ -438,6 +438,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'icon'             => $menu->icon(),
 				'is_active'        => $is_active,
 				'is_internal_href' => $internal_href,
+				'is_disabled'      => $menu->is_disabled(),
 				'href'             => $href,
 				'part_href'        => $part_href,
 				'query_args'       => $menu->query_args(),
@@ -506,7 +507,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$container_id = $container->name();
 					if ( $container->has_containers() ) {
 						$sub_container = $container->first_container();
-						if ( $sub_container ) {
+						if ( $sub_container instanceof \WPO\Container && false === $sub_container->is_disabled() ) {
 							$sub_container_id = $sub_container->name();
 						}
 					}
@@ -514,10 +515,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			} elseif ( false !== $container_id && false === $sub_container_id ) {
 				/* @var $container \WPO\Container */
 				$container = $this->fields->container_exists( $container_id );
-				if ( false !== $container ) {
+				if ( $container instanceof \WPO\Container && false === $container->is_disabled() ) {
 					if ( $container->has_containers() ) {
 						$current = $container->first_container();
-						if ( $current ) {
+						if ( $current instanceof \WPO\Container && false === $current->is_disabled() ) {
 							$sub_container_id = $current->name();
 						}
 					}
@@ -526,9 +527,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				}
 			} elseif ( false !== $container_id && false !== $sub_container_id ) {
 				$container = $this->fields->container_exists( $container_id );
-				if ( false !== $container ) {
+				if ( $container instanceof \WPO\Container && false === $container->is_disabled() ) {
 					$sub_container = $container->container_exists( $sub_container_id );
-					if ( false === $sub_container ) {
+					if ( $sub_container instanceof \WPO\Container && true === $sub_container->is_disabled() ) {
 						return $this->validate_container_sub_container( $container_id, false );
 					}
 				} else {
