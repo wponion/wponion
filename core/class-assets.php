@@ -78,10 +78,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
-
-			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
-				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
-			}
+			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 		}
 
 		/**

@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 				if ( ! has_action( 'admin_footer', $class ) ) {
 					add_action( 'admin_footer', $class );
 				}
-				if ( ! has_action( 'wp_footer', $class ) && defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
+				if ( ! has_action( 'wp_footer', $class ) ) {
 					add_action( 'wp_footer', $class );
 				}
 			}

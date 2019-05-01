@@ -56,9 +56,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			$this->add_action( 'customize_controls_print_footer_scripts', 'render_js_args', 9999999999999 );
 			$this->add_action( 'wponion_metabox_ajax_render', 'render_js_args' );
 			$this->add_action( 'wponion_module_woocommerce_ajax_variation_fields', 'render_js_args' );
-			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
-				$this->add_action( 'wp_footer', 'render_js_args' );
-			}
+			$this->add_action( 'wp_footer', 'render_js_args' );
 
 			/* translators: */
 			$js_notice = __( ' %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s ', 'wponion' );

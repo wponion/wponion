@@ -24,10 +24,6 @@ if ( ! function_exists( 'wponion_setup' ) ) {
 	 * Setup's Basic WPOnion.
 	 */
 	function wponion_setup() {
-
-		if ( false === is_admin() && false === defined( 'DOING_AJAX' ) && false === ( defined( 'WPONION_FRONTEND' ) && true == WPONION_FRONTEND ) && false === is_customize_preview() ) {
-			return;
-		}
 		require_once WPONION_PATH . 'core/class-setup.php';
 	}
 

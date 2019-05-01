@@ -144,10 +144,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			} else {
 				$this->add_action( 'admin_enqueue_scripts', 'field_assets', 1 );
 				$this->add_action( 'customize_controls_enqueue_scripts', 'field_assets', 99999 );
-
-				if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
-					$this->add_action( 'wp_enqueue_scripts', 'field_assets', 1 );
-				}
+				$this->add_action( 'wp_enqueue_scripts', 'field_assets', 1 );
 			}
 
 			$this->init_subfields();
