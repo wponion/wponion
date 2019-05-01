@@ -5,6 +5,14 @@ class WP {
 			this.settings_menu_handler();
 			this.settings_init_search_input();
 		}
+		if( this.element.hasClass( 'wponion-metabox' ) ) {
+			this.metabox_menu_handler();
+		}
+	}
+
+	metabox_menu_handler() {
+		this.settings_main_menu();
+		this.settings_submenu();
 	}
 
 	settings_menu_handler() {

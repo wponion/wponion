@@ -5,14 +5,11 @@
  * @var $sub_container \WPO\Container
  * @var $field \WPO\Field
  */
-$module = $this->settings();
-echo '<div class="main-navigation">';
-echo $this->main_menu( $module->settings_menus() );
-echo '</div>';
-
+$module  = $this->metabox();
+$menus   = $module->metabox_menus();
 $options = $module->fields()
 	->get();
-echo '<div class="main-content col-xs-12">';
+echo '<div class="content-wrap col-xs-12">';
 if ( wponion_is_array( $options ) ) {
 	foreach ( $options as $container ) {
 		if ( $module->valid_field( $container ) ) {
@@ -27,12 +24,9 @@ if ( wponion_is_array( $options ) ) {
 			echo '<div id="' . $container_id . '" class="' . $container_class . '">';
 
 			if ( $container->has_containers() ) {
-				echo $this->settings_submenu( $container->slug(), $module->settings_menus() );
+				echo $this->settings_submenu( $container->slug(), $menus );
 				$first_container = $container->first_container();
 				foreach ( $container->containers() as $sub_container ) {
-					if ( false === $module->valid_option( $sub_container, true ) ) {
-						continue;
-					}
 					$sub_id    = $module->container_wrap_id( $container, $sub_container );
 					$sub_class = $module->container_wrap_class( $container, $sub_container, $first_container );
 					echo '<div id="' . $sub_id . '" class="wponion-container-wraps ' . str_replace( 'row', '', $sub_class ) . '">';

@@ -1,3 +1,9 @@
+.wponion-metabox-wp_lite {
+	h2.hndle {
+		border: none;
+	}
+}
+
 .wponion-framework.wponion-wp-theme {
 	&.wponion-module-settings {
 		header {
@@ -70,11 +76,6 @@
 						a {
 							font-size:      14px;
 							vertical-align: middle;
-
-							.wponion-icon {
-								vertical-align: middle;
-								margin-right:   5px;
-							}
 						}
 					}
 				}
@@ -97,6 +98,48 @@
 					border:           1px solid #ccc;
 					border-top:       none;
 					width:            100%;
+				}
+			}
+		}
+	}
+
+	&.wponion-module-metabox {
+		.wponion-metabox-inside-wrap {
+			.content-outer-wrap {
+				.wponion-menu {
+					background: #eee;
+					border-top: 1px solid #ddd;
+
+					nav.nav-tab-wrapper {
+						border-bottom: none;
+
+						a.nav-tab-active {
+							background:          #fff;
+							border-bottom-color: #fff;
+						}
+					}
+				}
+
+				.content-wrap {
+					border-top: 1px solid #ddd;
+
+					.wponion-container-wraps:not(.wponion-has-containers) {
+						padding-top:    15px;
+						padding-bottom: 15px;
+					}
+
+					.wponion-subnav-container {
+						display:       inline-block;
+						width:         100%;
+						padding:       7px 0;
+						border-bottom: 1px solid #ccc;
+						background:    #fbfbfb;
+
+						ul {
+							margin:  0;
+							padding: 0 15px;
+						}
+					}
 				}
 			}
 		}

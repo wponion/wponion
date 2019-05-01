@@ -33,13 +33,11 @@ if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 		}
 
 		/**
-		 * Returns Settings Main Menu HTML.
+		 * @param $menus
 		 *
 		 * @return string
 		 */
-		public function settings_main_menu() {
-			$menus  = $this->settings()
-				->settings_menus();
+		public function main_menu( $menus ) {
 			$return = '<nav class="nav-tab-wrapper">';
 			foreach ( $menus as $slug => $menu ) {
 				if ( isset( $menu['is_separator'] ) && true === $menu['is_separator'] ) {
@@ -66,16 +64,15 @@ if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 		}
 
 		/**
-		 * Returns Settings Main Menu HTML.
+		 * @param $parent_slug
+		 * @param $menus
 		 *
 		 * @return string
 		 */
-		public function settings_submenu( $parent_slug ) {
-			$menus  = $this->settings()
-				->settings_menus();
+		public function settings_submenu( $parent_slug, $menus ) {
 			$return = '';
 			if ( isset( $menus[ $parent_slug ]['submenu'] ) && is_array( $menus[ $parent_slug ]['submenu'] ) && ! empty( $menus[ $parent_slug ]['submenu'] ) ) {
-				$return = '<h2 class="wponion-subnav-container hndle"> <ul class="wponion-submenus subsubsub"  id="wponion-tab-' . $parent_slug . '" >';
+				$return = '<div class="wponion-subnav-container"> <ul class="wponion-submenus subsubsub"  id="wponion-tab-' . $parent_slug . '" >';
 				foreach ( $menus[ $parent_slug ]['submenu'] as $slug => $menu ) {
 					if ( isset( $menu['is_separator'] ) && true === $menu['is_separator'] ) {
 						continue;
@@ -96,7 +93,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 
 					$return .= '<li><a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a> | </li>';
 				}
-				return $return . '</ul></h2>';
+				return $return . '</ul></div>';
 			}
 		}
 	}
