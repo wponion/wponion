@@ -3,14 +3,10 @@
  * @var $this \WPOnion\Theme\WP_Modern
  */
 $module = $this->settings();
+$colors = $this->color_scheme( $module->option( 'color_scheme', array() ) );
 
-if ( ! empty( $module->option( 'theme_color' ) ) && 'false' !== $module->option( 'theme_color' ) ) {
-	echo '<style>';
-	echo ' .wponion-menu > ul > li > a.active ';
-	echo ' , ';
-	echo ' .wponion-menu > ul > li:hover > a ';
-	echo '{background:' . $module->option( 'theme_color' ) . '}';
-	echo '</style>';
+if ( ! empty( $colors ) ) {
+	echo '<style>' . $this->render_color_scheme_css( $colors ) . '</style>';
 }
 
 echo '<div class="' . $module->wrap_class() . '">';

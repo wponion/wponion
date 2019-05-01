@@ -4,16 +4,10 @@
  */
 
 $metabox = $this->metabox();
+$colors  = $this->color_scheme( $metabox->option( 'color_scheme', array() ) );
 
-if ( ! empty( $metabox->option( 'theme_color' ) ) && 'false' !== $metabox->option( 'theme_color' ) ) {
-	echo '<style>';
-	echo '#' . $metabox->metabox_id() . ' ';
-	echo ' .wponion-menu > ul > li > a.active ';
-	echo ' , ';
-	echo '#' . $metabox->metabox_id() . ' ';
-	echo ' .wponion-menu > ul > li:hover > a ';
-	echo '{background:' . $metabox->option( 'theme_color' ) . '}';
-	echo '</style>';
+if ( ! empty( $colors ) ) {
+	echo '<style>' . $this->render_color_scheme_css( $colors, '#' . $metabox->metabox_id() ) . '</style>';
 }
 
 echo '<div class="' . $metabox->wrap_class() . '">';
