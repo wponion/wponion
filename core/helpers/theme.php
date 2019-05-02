@@ -42,6 +42,21 @@ if ( ! function_exists( 'wponion_wp_theme_init' ) ) {
 }
 
 
+if ( ! function_exists( 'wponion_wc_theme_init' ) ) {
+	/**
+	 * @param $data
+	 *
+	 * @return \WPOnion\Theme\WP
+	 */
+	function wponion_wc_theme_init( $data ) {
+		if ( ! class_exists( '\WPOnion\Theme\WC' ) ) {
+			require_once WPONION_PATH . 'templates/wc/class-wc.php';
+		}
+		return new WPOnion\Theme\WC( $data );
+	}
+}
+
+
 if ( ! function_exists( 'wponion_default_theme' ) ) {
 	/**
 	 * Returns Default Theme.

@@ -92,6 +92,7 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 			), 'wponion_wp_modern_theme_init' );
 			self::register( 'wp_lite', array( 'settings' ), 'wponion_wp_lite_theme_init' );
 			self::register( 'wp', array( 'settings', 'metabox' ), 'wponion_wp_theme_init' );
+			self::register( 'wc', array( 'metabox', 'settings' ), 'wponion_wc_theme_init' );
 		}
 
 		/**
