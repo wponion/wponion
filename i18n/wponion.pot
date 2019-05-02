@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPOnion 0.0.9.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wponion\n"
-"POT-Creation-Date: 2019-04-30 10:32:00+00:00\n"
+"POT-Creation-Date: 2019-05-02 03:58:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,194 +12,35 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: builder/fields/class-accordion.php:68
-#: fields/accordion/class-accordion.php:91
-msgid "Accordion"
-msgstr ""
-
-#: builder/fields/class-date-picker.php:167
-#: fields/date-picker/class-date-picker.php:112
-msgid "Date"
-msgstr ""
-
-#: builder/fields/class-date-picker.php:168
-#: fields/date-picker/class-date-picker.php:113
-msgid "Till Date"
-msgstr ""
-
-#: builder/fields/class-dimensions.php:118
-#: fields/dimensions/class-dimensions.php:44
-#: fields/dimensions/class-dimensions.php:56
-msgid "Height"
-msgstr ""
-
-#: builder/fields/class-dimensions.php:119
-#: fields/dimensions/class-dimensions.php:45
-#: fields/dimensions/class-dimensions.php:57
-msgid "Width"
-msgstr ""
-
-#: builder/fields/class-gallery.php:108 fields/gallery/class-gallery.php:115
-msgid "Create Gallery"
-msgstr ""
-
-#: builder/fields/class-gallery.php:109 fields/gallery/class-gallery.php:83
-#: fields/gallery/class-gallery.php:95 fields/gallery/class-gallery.php:116
-msgid "Edit Gallery"
-msgstr ""
-
-#: builder/fields/class-gallery.php:112 fields/gallery/class-gallery.php:119
-msgid "Clear Gallery"
-msgstr ""
-
-#: builder/fields/class-group.php:83 fields/group/class-group.php:111
-#: fields/group/class-group.php:223
-msgid "Add New"
-msgstr ""
-
-#: builder/fields/class-group.php:84 builder/fields/class-image.php:76
-#: fields/group/class-group.php:224 fields/image/class-image.php:72
-#: fields/image/class-image.php:98
-msgid "Remove"
-msgstr ""
-
-#: builder/fields/class-group.php:87 builder/fields/class-key-value.php:111
-#: fields/group/class-group.php:227 fields/key-value/class-key-value.php:123
-msgid "You Can't Add More.."
-msgstr ""
-
-#: builder/fields/class-icon-picker.php:133
-#: fields/icon-picker/class-icon-picker.php:91
-#: fields/icon-picker/class-icon-picker.php:116
-msgid "Add Icon"
-msgstr ""
-
-#: builder/fields/class-icon-picker.php:134
-#: fields/icon-picker/class-icon-picker.php:103
-#: fields/icon-picker/class-icon-picker.php:117
-msgid "Remove Icon"
-msgstr ""
-
-#: builder/fields/class-image.php:75 fields/image/class-image.php:97
-msgid "Select A Image"
-msgstr ""
-
-#: builder/fields/class-key-value.php:106 core/class-field-cloner.php:173
-#: fields/key-value/class-key-value.php:101
-#: fields/key-value/class-key-value.php:117
-msgid "Add +"
-msgstr ""
-
-#: builder/fields/class-key-value.php:107
-#: fields/key-value/class-key-value.php:118
-msgid "-"
-msgstr ""
-
-#: builder/fields/class-sorter.php:129 fields/sorter/class-sorter.php:112
-msgid "Enabled Modules"
-msgstr ""
-
-#: builder/fields/class-sorter.php:130 fields/sorter/class-sorter.php:113
-msgid "Disabled Modules"
-msgstr ""
-
-#: builder/fields/class-switcher.php:79 fields/switcher/class-switcher.php:39
-msgid "ON"
-msgstr ""
-
-#: builder/fields/class-switcher.php:80 fields/switcher/class-switcher.php:40
-msgid "OFF"
-msgstr ""
-
-#: builder/fields/class-typography.php:167
-#: fields/typography/class-typography.php:170
-msgid "Font Family & Weight"
-msgstr ""
-
-#: builder/fields/class-typography.php:168
-#: fields/typography/class-typography.php:171
-msgid "Backup Font Family"
-msgstr ""
-
-#: builder/fields/class-typography.php:169
-#: fields/typography/class-typography.php:172
-msgid "Text Align"
-msgstr ""
-
-#: builder/fields/class-typography.php:170
-#: fields/typography/class-typography.php:173
-msgid "Text Direction"
-msgstr ""
-
-#: builder/fields/class-typography.php:171
-#: fields/typography/class-typography.php:174
-msgid "Element Tag"
-msgstr ""
-
-#: builder/fields/class-typography.php:172
-#: fields/typography/class-typography.php:175
-msgid "Font Style"
-msgstr ""
-
-#: builder/fields/class-typography.php:173
-#: fields/typography/class-typography.php:176
-msgid "Font Size"
-msgstr ""
-
-#: builder/fields/class-typography.php:174
-#: fields/typography/class-typography.php:177
-msgid "Line Height"
-msgstr ""
-
-#: builder/fields/class-typography.php:175
-#: fields/typography/class-typography.php:178
-msgid "Letter Spacing"
-msgstr ""
-
-#: builder/fields/class-typography.php:176
-#: fields/typography/class-typography.php:179
-msgid "Text Color"
-msgstr ""
-
-#: builder/fields/class-upload.php:89 fields/upload/class-upload.php:36
-#: fields/upload/class-upload.php:49 fields/upload/class-upload.php:57
-msgid "Upload"
-msgstr ""
-
-#: builder/fields/class-wp-link.php:116 fields/wp-link/class-wp-link.php:86
-#: fields/wp-link/class-wp-link.php:104
-msgid "Select URL"
-msgstr ""
-
-#: builder/helper/container/class-functions.php:93
+#: builder/helper/container/class-functions.php:105
 msgid "A Container Cannot Have Both Field & Containers"
 msgstr ""
 
-#: core/abstract/class-field.php:221
+#: core/abstract/class-field.php:218
 msgid "Render Time"
 msgstr ""
 
-#: core/abstract/class-field.php:222
+#: core/abstract/class-field.php:219
 msgid "Raw Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:223
+#: core/abstract/class-field.php:220
 msgid "Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:224
+#: core/abstract/class-field.php:221
 msgid "Field Value"
 msgstr ""
 
-#: core/abstract/class-field.php:225
+#: core/abstract/class-field.php:222
 msgid "Unique"
 msgstr ""
 
-#: core/abstract/class-field.php:226
+#: core/abstract/class-field.php:223
 msgid "Module"
 msgstr ""
 
-#: core/abstract/class-field.php:590
+#: core/abstract/class-field.php:587
 msgid "Field Errors"
 msgstr ""
 
@@ -243,68 +84,73 @@ msgstr ""
 msgid "Add + "
 msgstr ""
 
+#: core/class-field-cloner.php:173 fields/key-value/class-key-value.php:101
+#: fields/key-value/class-key-value.php:117
+msgid "Add +"
+msgstr ""
+
 #: core/class-field-cloner.php:183
 msgid "You Cannot Add More Than %s"
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:64
+#: core/class-localize-api.php:62
 msgid ""
 " %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or "
 "%1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s "
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:67
+#: core/class-localize-api.php:65
 msgid ""
 " %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php "
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:70
+#: core/class-localize-api.php:68
 msgid ""
 "%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this "
 "framework. for each plugin it shows the plugin name and its array passed to "
 "it"
 msgstr ""
 
-#: core/class-localize-api.php:82
+#: core/class-localize-api.php:80
 msgid "As JSON"
 msgstr ""
 
-#: core/class-localize-api.php:83
+#: core/class-localize-api.php:81
 msgid "Global WPOnion JSON Output"
 msgstr ""
 
-#: core/class-localize-api.php:84
+#: core/class-localize-api.php:82
 msgid "PHP Args"
 msgstr ""
 
-#: core/class-localize-api.php:85
+#: core/class-localize-api.php:83
 msgid "JS Args"
 msgstr ""
 
-#: core/class-localize-api.php:86
+#: core/class-localize-api.php:84
 msgid "Unknown Error Occured. Please Try Again."
 msgstr ""
 
-#: core/class-localize-api.php:87
+#: core/class-localize-api.php:85
 msgid "Click To View Field Debug Info"
 msgstr ""
 
-#: core/class-localize-api.php:88
+#: core/class-localize-api.php:86
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
-#: core/class-localize-api.php:89 fields/accordion/class-accordion.php:47
+#: core/class-localize-api.php:87 fields/accordion/class-accordion.php:47
 msgid "Delete"
 msgstr ""
 
-#: core/class-localize-api.php:90
+#: core/class-localize-api.php:88
 msgid "Processing ..."
 msgstr ""
 
-#: core/class-localize-api.php:91
+#: core/class-localize-api.php:89
 msgid "Restore"
 msgstr ""
 
@@ -426,7 +272,7 @@ msgid "Enter A Valid IP Address"
 msgstr ""
 
 #. translators: Added Field Type.
-#: core/integrations/page-builders/class-visual-composer.php:125
+#: core/integrations/page-builders/class-visual-composer.php:123
 msgid "Visual Composer Integration For WPOnion Field (%s) Not Found"
 msgstr ""
 
@@ -459,7 +305,7 @@ msgstr ""
 msgid "WPOnion Version : %s"
 msgstr ""
 
-#: core/modules/class-metabox.php:361 core/modules/class-settings.php:458
+#: core/modules/class-metabox.php:362 core/modules/class-settings.php:458
 #: core/modules/class-settings.php:588
 msgid "Save Settings"
 msgstr ""
@@ -7673,6 +7519,10 @@ msgstr ""
 msgid "Western Cape"
 msgstr ""
 
+#: fields/accordion/class-accordion.php:91
+msgid "Accordion"
+msgstr ""
+
 #: fields/background/class-background.php:34
 msgid "Background Color"
 msgstr ""
@@ -7830,8 +7680,39 @@ msgstr ""
 msgid "To Date"
 msgstr ""
 
+#: fields/date-picker/class-date-picker.php:112
+msgid "Date"
+msgstr ""
+
+#: fields/date-picker/class-date-picker.php:113
+msgid "Till Date"
+msgstr ""
+
+#: fields/dimensions/class-dimensions.php:44
+#: fields/dimensions/class-dimensions.php:56
+msgid "Height"
+msgstr ""
+
+#: fields/dimensions/class-dimensions.php:45
+#: fields/dimensions/class-dimensions.php:57
+msgid "Width"
+msgstr ""
+
 #: fields/gallery/class-gallery.php:71
 msgid "Add Gallery"
+msgstr ""
+
+#: fields/gallery/class-gallery.php:83 fields/gallery/class-gallery.php:95
+#: fields/gallery/class-gallery.php:116
+msgid "Edit Gallery"
+msgstr ""
+
+#: fields/gallery/class-gallery.php:115
+msgid "Create Gallery"
+msgstr ""
+
+#: fields/gallery/class-gallery.php:119
+msgid "Clear Gallery"
 msgstr ""
 
 #: fields/google-maps/class-google-maps.php:49
@@ -7923,6 +7804,10 @@ msgstr ""
 msgid "Url"
 msgstr ""
 
+#: fields/group/class-group.php:111 fields/group/class-group.php:223
+msgid "Add New"
+msgstr ""
+
 #: fields/group/class-group.php:140
 msgid "Remove "
 msgstr ""
@@ -7931,12 +7816,39 @@ msgstr ""
 msgid "Group #[count]"
 msgstr ""
 
+#: fields/group/class-group.php:224 fields/image/class-image.php:72
+#: fields/image/class-image.php:98
+msgid "Remove"
+msgstr ""
+
+#: fields/group/class-group.php:227 fields/key-value/class-key-value.php:123
+msgid "You Can't Add More.."
+msgstr ""
+
+#: fields/icon-picker/class-icon-picker.php:91
+#: fields/icon-picker/class-icon-picker.php:116
+msgid "Add Icon"
+msgstr ""
+
+#: fields/icon-picker/class-icon-picker.php:103
+#: fields/icon-picker/class-icon-picker.php:117
+msgid "Remove Icon"
+msgstr ""
+
+#: fields/image/class-image.php:97
+msgid "Select A Image"
+msgstr ""
+
 #: fields/key-value/class-key-value.php:42
 msgid "Key"
 msgstr ""
 
 #: fields/key-value/class-key-value.php:49
 msgid "Value"
+msgstr ""
+
+#: fields/key-value/class-key-value.php:118
+msgid "-"
 msgstr ""
 
 #: fields/link-color/class-link-color.php:64
@@ -7966,6 +7878,14 @@ msgid ""
 "code>"
 msgstr ""
 
+#: fields/sorter/class-sorter.php:112
+msgid "Enabled Modules"
+msgstr ""
+
+#: fields/sorter/class-sorter.php:113
+msgid "Disabled Modules"
+msgstr ""
+
 #: fields/spacing/spacing.php:57
 msgid "All"
 msgstr ""
@@ -7988,6 +7908,14 @@ msgstr ""
 
 #: fields/spacing/spacing.php:104
 msgid "Unit"
+msgstr ""
+
+#: fields/switcher/class-switcher.php:39
+msgid "ON"
+msgstr ""
+
+#: fields/switcher/class-switcher.php:40
+msgid "OFF"
 msgstr ""
 
 #: fields/typography/class-typography.php:81
@@ -8018,6 +7946,51 @@ msgstr ""
 msgid "oblique"
 msgstr ""
 
+#: fields/typography/class-typography.php:170
+msgid "Font Family & Weight"
+msgstr ""
+
+#: fields/typography/class-typography.php:171
+msgid "Backup Font Family"
+msgstr ""
+
+#: fields/typography/class-typography.php:172
+msgid "Text Align"
+msgstr ""
+
+#: fields/typography/class-typography.php:173
+msgid "Text Direction"
+msgstr ""
+
+#: fields/typography/class-typography.php:174
+msgid "Element Tag"
+msgstr ""
+
+#: fields/typography/class-typography.php:175
+msgid "Font Style"
+msgstr ""
+
+#: fields/typography/class-typography.php:176
+msgid "Font Size"
+msgstr ""
+
+#: fields/typography/class-typography.php:177
+msgid "Line Height"
+msgstr ""
+
+#: fields/typography/class-typography.php:178
+msgid "Letter Spacing"
+msgstr ""
+
+#: fields/typography/class-typography.php:179
+msgid "Text Color"
+msgstr ""
+
+#: fields/upload/class-upload.php:36 fields/upload/class-upload.php:49
+#: fields/upload/class-upload.php:57
+msgid "Upload"
+msgstr ""
+
 #: fields/upload/class-upload.php:58
 msgid "Use"
 msgstr ""
@@ -8034,8 +8007,12 @@ msgstr ""
 msgid "Example : "
 msgstr ""
 
-#: templates/wp/parts/settings/header.php:19
-#: templates/wp-lite/parts/settings/header.php:19
+#: fields/wp-link/class-wp-link.php:86 fields/wp-link/class-wp-link.php:104
+msgid "Select URL"
+msgstr ""
+
+#: templates/global/parts/settings/header.php:10
+#: templates/wc/parts/settings/header.php:10
 #: templates/wp-modern/parts/settings/header.php:10
 msgid "Search Option(s)"
 msgstr ""
