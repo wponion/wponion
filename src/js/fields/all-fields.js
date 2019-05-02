@@ -11,4 +11,6 @@ export default ( ( w ) => {
 	w.wponion_register_field( 'subheading', ( $elem ) => new window.wponion.field_abstract( $elem ) );
 	w.wponion_register_field( 'wp_editor', ( $elem ) => new window.wponion.field_abstract( $elem ) );
 	w.wponion_register_field( 'color_palette', ( $elem ) => new window.wponion.field_abstract( $elem ) );
+	w.wponion_register_field( 'subheading', ( $elem ) => new window.wponion.field_abstract( $elem ) );
+	w.wponion_register_field( 'content', ( $elem ) => new window.wponion.field_abstract( $elem ) );
 } )( window );
