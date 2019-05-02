@@ -47,10 +47,11 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
+			$url = ( isset( $options['image'] ) && true === wponion_is_url( $options['image'] ) ) ? $options['image'] : $options['label'];
 			return '<div class="wponion-checker">
 				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
 					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
-					<div class="wponion-image-select-thumbnail wponion-checker-content"><img alt="" src="' . $options['label'] . '" /></div>
+					<div class="wponion-image-select-thumbnail wponion-checker-content"><img alt="" src="' . $url . '" /></div>
 				</label>
 			</div>';
 		}
