@@ -12,7 +12,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.9.4' );
+defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.9.5' );
 defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', __( 'WPOnion', 'wponion' ) );
 defined( 'WPONION_FILE' ) or define( 'WPONION_FILE', __FILE__ );
 defined( 'WPONION_PATH' ) or define( 'WPONION_PATH', plugin_dir_path( __FILE__ ) );
