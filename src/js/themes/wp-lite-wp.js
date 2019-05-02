@@ -50,15 +50,15 @@ class WP {
 			let $href = window.wponion.helper.url_params( $elem.attr( 'href' ) );
 
 			if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
-				let $lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
-				if( $lookup.length > 0 ) {
+				let $base_lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
+				if( $base_lookup.length > 0 ) {
 					if( false === window.wponion._.isUndefined( $href[ 'sub-container-id' ] ) ) {
-						$lookup = $lookup.find( 'div#wponion-tab-' + $href[ 'container-id' ] + '-' + $href[ 'sub-container-id' ] );
+						let $lookup = $base_lookup.find( 'div#wponion-tab-' + $href[ 'container-id' ] + '-' + $href[ 'sub-container-id' ] );
 						if( $lookup.length > 0 ) {
 							this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] + ' .wponion-sub-container-wraps ' )
 								.hide();
 							$lookup.show();
-							$lookup.find( '.wponion-submenus a.current' ).removeClass( 'current' );
+							$base_lookup.find( '.wponion-submenus a.current' ).removeClass( 'current' );
 							$elem.addClass( 'current' );
 						} else if( false === $elem.hasClass( 'disabled' ) ) {
 							window.location.href = $elem.attr( 'href' );
