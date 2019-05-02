@@ -1,9 +1,9 @@
 <?php
 /**
- * @var $this \WPOnion\Theme\WP
- * @var $container \WPO\Container
- * @var $sub_container \WPO\Container
- * @var $field \WPO\Field
+ * @var \WPOnion\Theme\WP_Lite|\WPOnion\Theme\WP $this
+ * @var \WPO\Container                           $container
+ * @var \WPO\Container                           $sub_container
+ * @var \WPO\Field                               $field
  */
 $module = $this->settings();
 echo '<div class="main-navigation">';
@@ -56,7 +56,6 @@ if ( wponion_is_array( $options ) ) {
 				endif;
 			}
 			echo '</div>';
-
 		}
 	}
 }
