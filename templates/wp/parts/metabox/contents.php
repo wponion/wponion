@@ -27,6 +27,9 @@ if ( wponion_is_array( $options ) ) {
 				echo $this->settings_submenu( $container->slug(), $menus );
 				$first_container = $container->first_container();
 				foreach ( $container->containers() as $sub_container ) {
+					if ( false === $module->valid_option( $sub_container ) ) {
+						continue;
+					}
 					$sub_id    = $module->container_wrap_id( $container, $sub_container );
 					$sub_class = $module->container_wrap_class( $container, $sub_container, $first_container );
 					echo '<div id="' . $sub_id . '" class="wponion-container-wraps ' . str_replace( 'row', '', $sub_class ) . '">';
