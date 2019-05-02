@@ -1,0 +1,245 @@
+@import "../../includes/variables";
+
+$metabox_menu_color: #e14d43;
+$metabox_a_color: #fff;
+$metabox_header_bg: #fafafa;
+$metabox_a_bg: $metabox_header_bg;
+$metabox_menu_bg_color: #32373C;
+$metabox_menu_width: 200px;
+
+
+.wponion-framework.wponion-wc-theme {
+	.wponion-menu {
+		background: $metabox_a_bg;
+		display:    block;
+		width:      100%;
+
+		&-bg {
+			position:     absolute;
+			top:          0;
+			background:   $metabox_a_bg;
+			bottom:       0;
+			z-index:      -1;
+			flex-basis:   100%;
+			width:        100%;
+			border-right: 1px solid #eee;
+		}
+
+		nav {
+			a {
+				position:        relative;
+				display:         block;
+				text-decoration: none;
+				background:      $metabox_a_bg;
+				color:           #65686d;
+				cursor:          pointer;
+				width:           180px;
+				padding:         2px 10px;
+				margin:          0;
+				border:          none;
+				border-bottom:   1px solid #e9e9e9;
+				text-align:      left;
+				line-height:     33px;
+
+				&.wpo-tab-active {
+					display:       block;
+					background:    #ffffff;
+					cursor:        default;
+					color:         #6d6d6d;
+					width:         181px;
+					border:        none;
+					border-bottom: 1px solid #e9e9e9;
+				}
+
+				&:hover {
+					background: #ededed;
+					color:      #4d4f54;
+				}
+			}
+		}
+	}
+
+	.content-outer-wrap {
+		background: white;
+	}
+
+	&.wponion-module-settings, &.wponion-module-metabox {
+		.wponion-subnav-container {
+			display:       inline-block;
+			width:         100%;
+			background:    #fbfbfb;
+			padding:       10px 0;
+			border-bottom: 1px solid #eee;
+
+			ul {
+				margin:  0;
+				padding: 0 5px;
+			}
+		}
+
+		header {
+			.inner-container {
+				.left {
+					h1 {
+						padding-top: 0;
+					}
+
+					p {
+						margin: 5px 0;
+					}
+				}
+
+				.right {
+					text-align:     right;
+					vertical-align: middle;
+
+					.action-search, .action-buttons {
+						display:        inline-block;
+						margin-right:   10px;
+						vertical-align: middle;
+						text-align:     right;
+
+						input {
+							transition: width 0.8s;
+							width:      250px;
+
+							&:focus {
+								width: 450px;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		footer {
+			border:     1px solid #e5e5e5;
+			border-top: none;
+			padding:    10px 0;
+			background: #fff;
+
+			.right {
+				text-align: right;
+			}
+		}
+
+		header, footer, .content-outer-wrap {
+			width:   100%;
+			float:   left;
+			display: block;
+		}
+
+		.content-outer-wrap {
+			border-right: $element_border;
+			display:      table;
+
+			.menu-wrap {
+				z-index:        1;
+				position:       relative;
+				width:          200px;
+				max-width:      200px;
+				display:        table-cell;
+				vertical-align: top;
+
+				& + .content-wrap {
+					max-width:      calc(100% - 30px);
+					width:          calc(100% - 30px);
+					display:        inline-block;
+					vertical-align: top;
+					padding-left:   15px;
+					padding-right:  15px;
+				}
+
+				.wponion-menu-bg {
+					left: 0;
+				}
+			}
+
+			.content-wrap {
+				position: relative;
+
+				.search-no-result {
+					display:    none;
+					padding:    15px;
+					text-align: center;
+				}
+
+				.wponion-container-wraps {
+				}
+
+				.wponion-sub-container-wraps {
+					width: 100%;
+				}
+
+				&.only-fields {
+					padding: 0;
+					margin:  0;
+				}
+			}
+
+			&.full-width {
+				display:  block;
+				position: relative;
+				width:    100%;
+
+				.content-wrap {
+					display:   block;
+					width:     100%;
+					max-width: 100%;
+
+					> div {
+						display: block !important;
+						width:   100%;
+					}
+				}
+			}
+		}
+
+		footer {
+			position:                   relative;
+			border-bottom-right-radius: 5px;
+			border-bottom-left-radius:  5px;
+
+			.row {
+				margin: 0;
+			}
+
+			.left {
+				min-height: 15px;
+			}
+
+			.right {
+				text-align: right;
+			}
+		}
+	}
+
+	&.wponion-module-settings {
+		.postbox {
+			margin-bottom: 0;
+			float:         left;
+			width:         100%;
+		}
+
+		.full-width {
+			.main-navigation {
+				display: none;
+			}
+		}
+	}
+
+	&.wponion-module-metabox {
+		.wponion-metabox-inside-wrap {
+			width:     100%;
+			max-width: 100%;
+			display:   inline-block;
+
+			.content-wrap {
+				&.only-fields {
+					padding: 0;
+					margin:  0;
+				}
+			}
+		}
+	}
+}

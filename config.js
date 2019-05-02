@@ -105,6 +105,23 @@ $files[ 'src/scss/themes/wp-modern/style.scss' ] = {
 	dist: 'templates/wp-modern/assets/',
 };
 
+// WP Modern
+$files[ 'src/js/themes/wc.js' ]           = {
+	watch: true,
+	babel: true,
+	uglify: true,
+	rename: 'script.js',
+	dist: 'templates/wc/assets/',
+};
+$files[ 'src/scss/themes/wc/style.scss' ] = {
+	watch: true,
+	scss: true,
+	autoprefixer: true,
+	minify: true,
+	rename: 'style.css',
+	dist: 'templates/wc/assets/',
+};
+
 module.exports = {
 	files: $files,
 	config: {
