@@ -47,11 +47,10 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 					'assets/js/wponion-plugins.js',
 					array( 'lodash', 'wp-util', 'backbone' ),
 				),
+				'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
+				'wponion-postmessage' => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
 				'wponion-cloner'      => array( 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ) ),
-				'wponion-core'        => array(
-					self::is_debug( 'assets/js/wponion-core.js' ),
-					array( 'wponion-plugins' ),
-				),
+				'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
 				'wponion-inputmask'   => array(
 					'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
 					array( 'jquery' ),
@@ -69,10 +68,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
 				'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
 				'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
-				'wponion-core'        => array(
-					self::is_debug( 'assets/css/wponion-base.css' ),
-					array( 'wponion-plugins' ),
-				),
+				'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
 				'wponion-colorpicker' => array(
 					'assets/plugins/colorpicker/cs-colorpicker.css',
 					array( 'wp-color-picker' ),
@@ -82,10 +78,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
-
-			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
-				add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
-			}
+			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 		}
 
 		/**

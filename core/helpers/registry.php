@@ -58,6 +58,9 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 			$_registry = wponion_registry( $registry_type );
 			$_registry->add( $module, $instance );
 		} elseif ( is_string( $instance ) ) {
+			if ( 'all' === $instance ) {
+				return wponion_registry( $registry_type )->get_all( $module );
+			}
 			return wponion_registry( $registry_type )->get( $module, $instance );
 		}
 		return true;

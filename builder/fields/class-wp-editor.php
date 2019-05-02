@@ -41,16 +41,5 @@ if ( ! class_exists( 'WPO\WP_Editor' ) ) {
 			$this->_set_array_handler( 'settings', $args, $merge );
 			return $this;
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'settings' => array(),
-			);
-		}
 	}
 }

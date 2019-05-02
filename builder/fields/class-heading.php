@@ -40,15 +40,5 @@ if ( ! class_exists( 'WPO\Heading' ) ) {
 			$this['content'] = $content;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		public function defaults() {
-			return array(
-				'content' => false,
-			);
-		}
-
 	}
 }

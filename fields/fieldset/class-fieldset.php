@@ -30,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Field\Fieldset' ) ) {
 		 * Creates / inits its sub fields.
 		 */
 		protected function init_subfields() {
-			if ( $this->has( 'fields' ) ) {
+			if ( $this->has( 'fields' ) && false === is_customize_preview() ) {
 				foreach ( $this->data( 'fields' ) as $field_id => $field ) {
 					$this->field['fields'][ $field_id ] = $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), true );
 				}

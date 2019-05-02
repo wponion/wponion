@@ -79,18 +79,5 @@ if ( ! class_exists( 'WPO\Content' ) ) {
 			$this['markdown'] = $is_markdown;
 			return $this;
 		}
-
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'content'       => false,
-				'callback_hook' => false,
-				'include'       => false,
-				'markdown'      => false,
-			);
-		}
 	}
 }

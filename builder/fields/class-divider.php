@@ -40,14 +40,5 @@ if ( ! class_exists( 'WPO\Divider' ) ) {
 			$this['text'] = $text;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'text' => false,
-			);
-		}
 	}
 }

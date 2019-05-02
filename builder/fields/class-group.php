@@ -72,20 +72,5 @@ if ( ! class_exists( 'WPO\Group' ) ) {
 			$this['error_msg'] = $error_msg;
 			return $this;
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return $this->parse_args( array(
-				'add_button'    => __( 'Add New', 'wponion' ),
-				'remove_button' => __( 'Remove', 'wponion' ),
-				'limit'         => false,
-				'heading'       => null,
-				'error_msg'     => __( 'You Can\'t Add More..', 'wponion' ),
-			), parent::defaults() );
-		}
 	}
 }

@@ -78,7 +78,6 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$metabox['option_name']   = $this->unique();
 				$metabox['theme']         = $this->option( 'theme' );
 				$metabox['screens']       = array( 'profile', 'user-edit', 'user-edit-network' );
-				$metabox['plugin_id']     = $this->plugin_id();
 				$metabox['set_cache']     = array( $this, 'set_cache' );
 				$metabox['get_cache']     = array( $this, 'get_db_cache' );
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
@@ -251,7 +250,6 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 					$instance = new \WPOnion\DB\User_Profile_Save_Handler();
 					$instance->init_class( array(
 						'module'    => 'user_profile',
-						'plugin_id' => $this->plugin_id(),
 						'unique'    => $this->unique,
 						'fields'    => $this->fields,
 						'db_values' => $this->get_db_values(),

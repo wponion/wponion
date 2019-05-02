@@ -34,7 +34,7 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 			$wrap_class = ( ! empty( $value['enabled'] ) && ! empty( $value['disabled'] ) ) ? 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6' : 'col-xs-12 col-sm-12 col-md-6';
 
 			echo '<div class="row">';
-			if ( ! empty( $value['enabled'] ) ) {
+			if ( false !== $value['enabled'] && is_array( $value['enabled'] ) ) {
 				echo '<div class="wponion-modules ' . $wrap_class . '">';
 				if ( ! empty( $this->field ['enabled_title'] ) ) {
 					echo $this->sub_field( array(
@@ -51,7 +51,7 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 				echo '</ul></div>';
 			}
 
-			if ( ! empty( $value['disabled'] ) ) {
+			if ( false !== $value['disabled'] && is_array( $value['disabled'] ) ) {
 				echo '<div class="wponion-modules ' . $wrap_class . '">';
 				if ( ! empty( $this->field ['disabled_title'] ) ) {
 					echo $this->sub_field( array(
@@ -80,16 +80,28 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 			if ( empty( $this->value() ) ) {
 				return $defaults;
 			}
-			$saved = $this->value();
-			foreach ( $defaults['enabled'] as $i => $val ) {
-				if ( isset( $saved['enabled'][ $i ] ) === false && isset( $saved['disabled'][ $i ] ) === false ) {
-					$saved['disabled'][ $i ] = $val;
+			$saved = wp_parse_args( $this->value(), array(
+				'enabled'  => array(),
+				'disabled' => array(),
+			) );
+			if ( isset( $defaults['enabled'] ) && is_array( $defaults['enabled'] ) ) {
+				foreach ( $defaults['enabled'] as $i => $val ) {
+					if ( isset( $saved['enabled'][ $i ] ) === false && isset( $saved['disabled'][ $i ] ) === false ) {
+						$saved['disabled'][ $i ] = $val;
+					}
 				}
+			} else {
+				$saved['enabled'] = false;
 			}
-			foreach ( $defaults['disabled'] as $i => $val ) {
-				if ( isset( $saved['enabled'][ $i ] ) === false && isset( $saved['disabled'][ $i ] ) === false ) {
-					$saved['disabled'][ $i ] = $val;
+
+			if ( isset( $defaults['disabled'] ) && is_array( $defaults['disabled'] ) ) {
+				foreach ( $defaults['disabled'] as $i => $val ) {
+					if ( isset( $saved['enabled'][ $i ] ) === false && isset( $saved['disabled'][ $i ] ) === false ) {
+						$saved['disabled'][ $i ] = $val;
+					}
 				}
+			} else {
+				$saved['disabled'] = false;
 			}
 			return $saved;
 		}

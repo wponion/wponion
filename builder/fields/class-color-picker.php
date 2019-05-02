@@ -91,18 +91,5 @@ if ( ! class_exists( 'WPO\Color_Picker' ) ) {
 			$this['layout'] = $custom;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'rgba'     => false,
-				'options'  => array(),
-				'layout'   => 'round with-margin',
-				'multiple' => false,
-				'size'     => 25,
-			);
-		}
 	}
 }

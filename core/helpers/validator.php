@@ -35,7 +35,7 @@ if ( ! function_exists( 'wponion_is_url' ) ) {
 	 * @return mixed
 	 */
 	function wponion_is_url( $content ) {
-		return ( false === filter_var( $content, FILTER_VALIDATE_URL ) ) ? __( 'Enter A Valid URL', 'wponion' ) : true;
+		return ( false === filter_var( $content, FILTER_VALIDATE_URL ) ) ? __( 'Please Enter A Valid URL', 'wponion' ) : true;
 	}
 }
 

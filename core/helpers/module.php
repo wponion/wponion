@@ -3,14 +3,14 @@ if ( ! function_exists( 'wponion_is_builder' ) ) {
 	/**
 	 * Checks if given builder is a instance of any in below
 	 *
-	 * @see \WPO\Builder
-	 * @see \WPO\Container
-	 * @see \WPO\Field
-	 *
 	 * @param        $builder
 	 * @param string $type
 	 *
 	 * @return bool
+	 * @see \WPO\Builder
+	 * @see \WPO\Container
+	 * @see \WPO\Field
+	 *
 	 */
 	function wponion_is_builder( $builder, $type = 'builder' ) {
 		switch ( strtolower( $type ) ) {
@@ -34,20 +34,16 @@ if ( ! function_exists( 'wponion_is_builder' ) ) {
 if ( ! function_exists( 'wponion_module_html_class' ) ) {
 	/**
 	 * @param string $module
-	 * @param string $plugin_id
 	 * @param string $theme
 	 *
 	 * @return array|string
 	 */
-	function wponion_module_html_class( $module = '', $plugin_id = '', $theme = '' ) {
+	function wponion_module_html_class( $module = '', $theme = '' ) {
 		$html_class = array( 'wponion-framework' );
 		if ( ! empty( $module ) ) {
 			$html_class[] = 'wponion-' . $module;
 			$html_class[] = 'wponion-module-' . $module;
 			$html_class[] = 'wponion-module-' . $module . '-framework';
-			if ( ! empty( $plugin_id ) ) {
-				$html_class[] = 'wponion-' . $plugin_id . '-' . $module;
-			}
 		}
 
 		if ( ! empty( $theme ) ) {

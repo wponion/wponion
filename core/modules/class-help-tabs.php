@@ -45,15 +45,14 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 		/**
 		 * Help_Tabs constructor.
 		 *
-		 * @param string $page
-		 * @param array  $help_tabs
-		 * @param string $help_sidebar
+		 * @param string|array $page
+		 * @param array        $help_tabs
+		 * @param string       $help_sidebar
 		 */
 		public function __construct( $page = '', $help_tabs = array(), $help_sidebar = '' ) {
 			if ( wponion_is_array( $page ) ) {
 				$settings = $this->get_settings( $page );
 				unset( $page['option_name'] );
-				unset( $page['plugin_id'] );
 				parent::__construct( null, $settings );
 				$this->fields = $page;
 			} elseif ( wponion_is_array( $help_tabs ) && false !== $page ) {
@@ -92,17 +91,10 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 		 * @return array
 		 */
 		public function get_settings( $help_tabs ) {
-			$settings = array(
-				'option_name' => false,
-				'plugin_id'   => false,
-			);
+			$settings = array( 'option_name' => false );
 			if ( wponion_is_array( $help_tabs ) ) {
 				if ( isset( $help_tabs['option_name'] ) ) {
 					$settings['option_name'] = $help_tabs['option_name'];
-				}
-
-				if ( isset( $help_tabs['plugin_id'] ) ) {
-					$settings['plugin_id'] = $help_tabs['plugin_id'];
 				}
 			}
 			return $settings;

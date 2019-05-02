@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  * @version 1.0
  * @since 1.0
@@ -30,8 +29,18 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
+		 * @return false | $this | \WPO\Field | \WPO\Accordion | \WPO\Background | \WPO\Checkbox | \WPO\Color_Picker | \WPO\Date_Picker | \WPO\Fieldset | \WPO\Font_Picker | \WPO\Gallery | \WPO\Group  | \WPO\Icon_Picker | \WPO\Image | \WPO\Image_Select | \WPO\Key_Value | \WPO\Oembed | \WPO\Radio | \WPO\Select | \WPO\Sorter | \WPO\Switcher | \WPO\Text | \WPO\Textarea | \WPO\Typography | \WPO\Upload | \WPO\WP_Editor | \WPO\WP_Link | \WPO\Color_Group | \WPO\Link_Color | \WPO\Input_Group | \WPO\Spacing | \WPO\Dimensions | \WPO\Button_Set | \WPO\Content | \WPO\Heading | \WPO\Iframe | \WPO\Jambo_Content | \WPO\Notice | \WPO\Notice_Danger | \WPO\Notice_Dark | \WPO\Notice_Info | \WPO\Notice_Light | \WPO\Notice_Primary | \WPO\Notice_Secondary | \WPO\Notice_Success | \WPO\Notice_Warning | \WPO\Subheading | \WPO\WP_Notice_Error | \WPO\WP_Notice_Info | \WPO\WP_Notice | \WPO\WP_Notice_Success | \WPO\WP_Notice_Warning
+		 *
+		 * @todo \WPO\Button
+		 * @todo \WPO\Color_Palette
+		 * @todo \WPO\Google_Maps
+		 * @todo \WPO\Hidden
+		 * @todo \WPO\Tab
+		 * @todo \WPO\WP_List_Table
+		 * @todo \WPO\Change_Log
+		 *
+		 *
 		 * @static
-		 * @return false | $this | \WPO\Field | \WPO\Accordion | \WPO\Background | \WPO\Button | \WPO\Checkbox | \WPO\Color_Palette | \WPO\Color_Picker | \WPO\Date_Picker | \WPO\Fieldset | \WPO\Font_Picker | \WPO\Gallery | \WPO\Google_Maps | \WPO\Group | \WPO\Hidden | \WPO\Icon_Picker | \WPO\Image | \WPO\Image_Select | \WPO\Key_Value | \WPO\Oembed | \WPO\Radio | \WPO\Select | \WPO\Sorter | \WPO\Switcher | \WPO\Tab | \WPO\Text | \WPO\Textarea | \WPO\Typography | \WPO\Upload | \WPO\WP_Editor | \WPO\WP_Link | \WPO\Color_Group | \WPO\Link_Color | \WPO\Input_Group | \WPO\Spacing | \WPO\Dimensions | \WPO\Button_Set | \WPO\Content | \WPO\Heading | \WPO\Iframe | \WPO\Jambo_Content | \WPO\Notice | \WPO\Notice_Danger | \WPO\Notice_Dark | \WPO\Notice_Info | \WPO\Notice_Light | \WPO\Notice_Primary | \WPO\Notice_Secondary | \WPO\Notice_Success | \WPO\Notice_Warning | \WPO\Subheading | \WPO\WP_Error_Notice | \WPO\WP_Info_Notice | \WPO\WP_List_Table | \WPO\WP_Notice | \WPO\WP_Success_Notice | \WPO\WP_Warning_Notice | \WPO\Change_Log
 		 */
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
@@ -55,7 +64,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public function __construct( $type = false, $id = false, $title = false, $args = array() ) {
 			unset( $this->module );
-			unset( $this->plugin_id );
 			$_args = array();
 			switch ( func_num_args() ) {
 				case 1:

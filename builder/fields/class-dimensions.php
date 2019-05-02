@@ -100,25 +100,5 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 			$this['icons'] = $icons;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'width'        => true,
-				'height'       => true,
-				'unit'         => true,
-				'unit_options' => array(
-					'px' => 'px',
-					'%'  => '%',
-					'em' => 'em',
-				),
-				'icons'        => array(
-					'height' => __( 'Height', 'wponion' ),
-					'width'  => __( 'Width', 'wponion' ),
-				),
-			);
-		}
 	}
 }

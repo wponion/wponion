@@ -56,9 +56,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			$this->add_action( 'customize_controls_print_footer_scripts', 'render_js_args', 9999999999999 );
 			$this->add_action( 'wponion_metabox_ajax_render', 'render_js_args' );
 			$this->add_action( 'wponion_module_woocommerce_ajax_variation_fields', 'render_js_args' );
-			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
-				$this->add_action( 'wp_footer', 'render_js_args' );
-			}
+			$this->add_action( 'wp_footer', 'render_js_args' );
 
 			/* translators: */
 			$js_notice = __( ' %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s ', 'wponion' );
@@ -87,6 +85,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info', 'wponion' ) );
 				$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.', 'wponion' ) );
 				$this->text( 'delete', __( 'Delete', 'wponion' ) );
+				$this->text( 'processing', __( 'Processing ...', 'wponion' ) );
 				$this->text( 'restore', __( 'Restore', 'wponion' ) );
 				$this->modal_template();
 				self::$core_data = true;
@@ -145,7 +144,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				if ( wponion_is_array( $ar ) ) {
 					$args[ $i ] = $this->handle_js_function( $ar );
 				} elseif ( is_string( $ar ) ) {
-					$re = '/\bfunction[ ]{0,1}(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';
+					$re = '/\bfunction[ ]{0,1}(\(((?>[^()]+|(?-2))*)\))(.|)(\{((?>[^{}]+|(?-2))*)\})/';
 					/*'/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';*/
 					preg_match_all( $re, $ar, $matches, PREG_SET_ORDER, 0 );
 
@@ -186,9 +185,11 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		}
 
 		/**
-		 * Renders JS Args.
+		 * @param bool $return
+		 *
+		 * @return bool
 		 */
-		public function render_js_args() {
+		public function render_js_args( $return = false ) {
 			if ( defined( 'WPONION_ADD_FONT_DATA' ) && true === WPONION_ADD_FONT_DATA ) {
 				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts(), true, false );
 				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
@@ -199,7 +200,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			}
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
-				return $this->print_js_data();
+				return $this->print_js_data( $return );
 			}
 
 			foreach ( $this->scripts_check as $script ) {
@@ -207,7 +208,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					return $this->localize_script( $script );
 				}
 			}
-			return $this->print_js_data();
+			$this->print_js_data( false );
 		}
 
 		/**
@@ -245,8 +246,12 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 
 		/**
 		 * Outputs Raw HTML of js info.
+		 *
+		 * @param bool $return
+		 *
+		 * @return string
 		 */
-		private function print_js_data() {
+		private function print_js_data( $return = false ) {
 			$h = "<script type='text/javascript' id='wponion_field_js_vars'>\n"; // CDATA and type='text/javascript' is not needed for HTML 5
 
 			$h .= "/* <![CDATA[ */\n";
@@ -256,8 +261,10 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 
 			$h .= "/* ]]> */\n";
 			$h .= "</script>\n";
-			echo $h;
-			return true;
+			if ( false === $return ) {
+				echo $h;
+			}
+			return $h;
 		}
 
 		/**

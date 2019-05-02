@@ -28,19 +28,6 @@ if ( ! class_exists( 'WPO\Nested_Fields' ) ) {
 		use Types;
 
 		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'fields'   => array(),
-				'un_array' => false,
-				'heading'  => false,
-			);
-		}
-
-		/**
 		 * @param $heading
 		 *
 		 * @return $this

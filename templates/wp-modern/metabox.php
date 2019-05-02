@@ -4,6 +4,11 @@
  */
 
 $metabox = $this->metabox();
+$colors  = $this->color_scheme( $metabox->option( 'color_scheme', array() ) );
+
+if ( ! empty( $colors ) ) {
+	echo '<style>' . $this->render_color_scheme_css( $colors, '#' . $metabox->metabox_id() ) . '</style>';
+}
 
 echo '<div class="' . $metabox->wrap_class() . '">';
 echo '<div class="wponion-metabox-inside-wrap">';

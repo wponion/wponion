@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Beta : 0.0.9.5] - 02/05/2019
+## Added
+* `wponion_tooltip` Function Added
+* Option To Set Custom Text in `wponion_ajax` JS
+* `WP` New Theme (Settings & Metabox)
+* `WP_Lite` New Theme (Settings)
+* `WC` New Theme (Settings & Metabox)
+* `Customizer` Module
+* Helper functions (`set_var`,`get_var`,`isset_var`,`remove_var`) For Container Helper
+* `Elementor` Integration
+* `color_scheme` for WP_Modern theme with prefinded wp color scheme too
+* `_clone` For Container & Field
+* Now Load WPonion In frontend by default
+
+## Fixed
+* #24 Issue Fixed
+
+## Removed
+* `plugin_id` Argument From everywhere
+* `WPONION_FRONTEND` defined variable
+
+## Updated
+* Localizer JS Function Converter Regex.
+* `wponion_get_field_class` function to work with given module info.
+
+
 ## [Beta : 0.0.9.4] - 24/04/2019
 ## Added
 * POT File.
@@ -232,6 +258,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.9.5]: https://github.com/wponion/wponion/releases/tag/0.0.9.5
 [Beta : 0.0.9.4]: https://github.com/wponion/wponion/releases/tag/0.0.9.4
 [Beta : 0.0.9.3]: https://github.com/wponion/wponion/releases/tag/0.0.9.3
 [Beta : 0.0.9.2]: https://github.com/wponion/wponion/releases/tag/0.0.9.2

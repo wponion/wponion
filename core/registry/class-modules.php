@@ -50,12 +50,12 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 				$key = $instance->uid();
 			} elseif ( method_exists( $instance, 'unique' ) ) {
 				$key = $instance->unique();
-			} else {
-				$key = $instance->plugin_id();
 			}
 
-			if ( ! isset( $registry[ $type ][ $key ] ) ) {
-				$this->registry[ $type ][ $key ] = $instance;
+			if ( ! empty( $key ) ) {
+				if ( ! isset( $registry[ $type ][ $key ] ) ) {
+					$this->registry[ $type ][ $key ] = $instance;
+				}
 			}
 		}
 
@@ -71,6 +71,18 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 		public function get( $type, $key ) {
 			if ( isset( $this->registry[ $type ][ $key ] ) ) {
 				return $this->registry[ $type ][ $key ];
+			}
+			return false;
+		}
+
+		/**
+		 * @param $type
+		 *
+		 * @return bool|mixed
+		 */
+		public function get_all( $type ) {
+			if ( isset( $this->registry[ $type ] ) ) {
+				return $this->registry[ $type ];
 			}
 			return false;
 		}

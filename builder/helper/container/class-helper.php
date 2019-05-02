@@ -4,6 +4,7 @@ namespace WPO\Helper\Container;
 
 use WPO\Container;
 use WPO\Helper\Base;
+use WPO\Helper\Interfaces\Field;
 
 if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 	/**
@@ -13,7 +14,7 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Helper extends Base implements \WPO\Helper\Interfaces\Container, \WPO\Helper\Interfaces\Field {
+	abstract class Helper extends Base implements \WPO\Helper\Interfaces\Container, Field {
 		/**
 		 * Container Title.
 		 *
@@ -62,6 +63,14 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * @access
 		 */
 		protected $href = false;
+
+		/**
+		 * True / False if container is disabled.
+		 *
+		 * @var bool
+		 * @access
+		 */
+		protected $disabled = false;
 
 		/**
 		 * Fields.
@@ -119,6 +128,13 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 */
 		public function has_callback() {
 			return ( false !== $this->callback && wponion_is_callable( $this->callback ) );
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function is_disabled() {
+			return $this->disabled;
 		}
 
 		/**
@@ -306,6 +322,22 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 */
 		public function query_arg( $key, $value ) {
 			return $this->set_query_arg( $key, $value );
+		}
+
+		/**
+		 * @return $this
+		 */
+		public function disable() {
+			$this->disabled = true;
+			return $this;
+		}
+
+		/**
+		 * @return $this
+		 */
+		public function enable() {
+			$this->disabled = false;
+			return $this;
 		}
 	}
 }

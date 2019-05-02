@@ -74,7 +74,6 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 
 			$instance->init_class( array(
 				'module'    => 'settings',
-				'plugin_id' => $this->plugin_id(),
 				'unique'    => $this->unique,
 				'fields'    => $this->fields,
 				'db_values' => $this->get_db_values(),

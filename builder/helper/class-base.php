@@ -12,6 +12,13 @@
 namespace WPO\Helper;
 
 if ( ! class_exists( 'WPO\Helper\Base' ) ) {
+	/**
+	 * Class Base
+	 *
+	 * @package WPO\Helper
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	abstract class Base extends \WPOnion\Bridge implements \JsonSerializable, \Countable, \Serializable {
 		/**
 		 * Custom Variable Name That Class Uses To Work As Array.
@@ -112,6 +119,15 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		 */
 		public function unique() {
 			return $this->unique;
+		}
+
+		/**
+		 * Clones An Instance.
+		 *
+		 * @return \WPO\Helper\Base
+		 */
+		public function _clone() {
+			return clone $this;
 		}
 	}
 }

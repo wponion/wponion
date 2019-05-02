@@ -14,7 +14,10 @@
 
 namespace WPOnion\Bridge;
 
+use WPO\Builder;
 use WPO\Container;
+use WPOnion\Bridge;
+use WPOnion\Themes;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -28,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Module extends \WPOnion\Bridge {
+	abstract class Module extends Bridge {
 		/**
 		 * Stores Current template information.
 		 * current_theme
@@ -109,20 +112,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param \WPO\Builder $fields Array of settings fields.
 		 * @param array        $settings array of WPOnion Settings Configuration.
 		 */
-		public function __construct( \WPO\Builder $fields = null, $settings = array() ) {
-			if ( $fields instanceof \WPO\Builder ) {
+		public function __construct( Builder $fields = null, $settings = array() ) {
+			if ( $fields instanceof Builder ) {
 				$this->fields = $fields;
 			}
 
 			$this->raw_fields = $fields;
 			$this->settings   = $this->set_args( $settings );
 			$this->unique     = ( isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
-			$this->plugin_id  = $this->unique;
-
-			if ( isset( $this->settings['plugin_id'] ) && false !== $this->settings['plugin_id'] ) {
-				$this->plugin_id = $this->settings['plugin_id'];
-			}
-
 			$this->save_instance();
 		}
 
@@ -160,7 +157,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array|string
 		 */
 		protected function default_wrap_class() {
-			return wponion_module_html_class( $this->module(), $this->plugin_id(), $this->option( 'theme' ) );
+			return wponion_module_html_class( $this->module(), $this->option( 'theme' ) );
 		}
 
 		/**
@@ -181,13 +178,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( false === $this->current_theme ) {
 				$theme      = $this->option( 'theme' );
 				$theme_args = $this->theme_callback_args();
-				if ( \WPOnion\Themes::is_support( $theme, $this->module() ) ) {
-					$return = \WPOnion\Themes::callback( $theme, $theme_args );
+				if ( Themes::is_support( $theme, $this->module() ) ) {
+					$return = Themes::callback( $theme, $theme_args );
 					if ( $return ) {
 						$this->current_theme = $return->uid();
 					}
 				} else {
-					$return = \WPOnion\Themes::callback( wponion_default_theme(), $theme_args );
+					$return = Themes::callback( wponion_default_theme(), $theme_args );
 					if ( $return ) {
 						$this->current_theme = $return->uid();
 					}
@@ -207,7 +204,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function theme_callback_args() {
 			return array(
 				'data' => array(
-					'plugin_id'   => $this->plugin_id(),
 					'unique'      => $this->unique(),
 					'instance_id' => $this->unique(),
 				),
@@ -282,7 +278,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param $errors
 		 */
 		protected function init_error_registry( $errors ) {
-			$instance = wponion_registry( $this->module() . '_' . $this->plugin_id(), '\WPOnion\Registry\Field_Error' );
+			$instance = wponion_registry( $this->module() . '_' . $this->unique(), '\WPOnion\Registry\Field_Error' );
 			$instance->set( $errors );
 		}
 
@@ -327,10 +323,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return array(
-				'option_name' => false,
-				'plugin_id'   => false,
-			);
+			return array( 'option_name' => false );
 		}
 
 		/**
@@ -341,10 +334,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param bool               $container
 		 * @param bool               $first_container
 		 *
-		 * @uses \WPOnion\Modules\Metabox
+		 * @return array
 		 * @uses \WPOnion\Modules\Settings
 		 *
-		 * @return array
+		 * @uses \WPOnion\Modules\Metabox
 		 */
 		protected function extract_fields_menus( $fields = array(), $is_child = false, $container = false, $first_container = false ) {
 			$return = array();
@@ -423,9 +416,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$part_href = $menu->href();
 				}
 
-				if ( $name === $this->active( false ) && $container === $this->active( true ) ) {
+				$is_main_active = ( $name === $this->active( false ) && $container === $this->active( true ) );
+				$is_sub_active  = ( $container !== $this->active( true ) && $name === $first_container );
+
+				if ( 'metabox' === $this->module() && $is_main_active || $is_sub_active ) {
 					$is_active = true;
-				} elseif ( $container !== $this->active( true ) && $name === $first_container ) {
+				} elseif ( $is_main_active || ( $is_sub_active && false !== $this->option( 'is_single_page' ) ) ) {
 					$is_active = true;
 				}
 			}
@@ -442,6 +438,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'icon'             => $menu->icon(),
 				'is_active'        => $is_active,
 				'is_internal_href' => $internal_href,
+				'is_disabled'      => $menu->is_disabled(),
 				'href'             => $href,
 				'part_href'        => $part_href,
 				'query_args'       => $menu->query_args(),
@@ -476,7 +473,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return bool
 		 */
 		public function valid_option( $option = array() ) {
-			return ( $option->has_callback() || $option->has_fields() || $option->has_containers() ) ? true : false;
+			return ( false === $option->is_disabled() && ( $option->has_callback() || $option->has_fields() || $option->has_containers() ) ) ? true : false;
 		}
 
 		/**
@@ -510,7 +507,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$container_id = $container->name();
 					if ( $container->has_containers() ) {
 						$sub_container = $container->first_container();
-						if ( $sub_container ) {
+						if ( $sub_container instanceof \WPO\Container && false === $sub_container->is_disabled() ) {
 							$sub_container_id = $sub_container->name();
 						}
 					}
@@ -518,10 +515,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			} elseif ( false !== $container_id && false === $sub_container_id ) {
 				/* @var $container \WPO\Container */
 				$container = $this->fields->container_exists( $container_id );
-				if ( false !== $container ) {
+				if ( $container instanceof \WPO\Container && false === $container->is_disabled() ) {
 					if ( $container->has_containers() ) {
 						$current = $container->first_container();
-						if ( $current ) {
+						if ( $current instanceof \WPO\Container && false === $current->is_disabled() ) {
 							$sub_container_id = $current->name();
 						}
 					}
@@ -530,9 +527,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				}
 			} elseif ( false !== $container_id && false !== $sub_container_id ) {
 				$container = $this->fields->container_exists( $container_id );
-				if ( false !== $container ) {
+				if ( $container instanceof \WPO\Container && false === $container->is_disabled() ) {
 					$sub_container = $container->container_exists( $sub_container_id );
-					if ( false === $sub_container ) {
+					if ( $sub_container instanceof \WPO\Container && true === $sub_container->is_disabled() ) {
 						return $this->validate_container_sub_container( $container_id, false );
 					}
 				} else {
@@ -553,18 +550,17 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param bool  $hash
 		 * @param bool  $is_init_field
 		 *
-		 * @uses \wponion_add_element()
+		 * @return mixed
 		 * @uses \wponion_field()
 		 *
-		 * @return mixed
+		 * @uses \wponion_add_element()
 		 */
 		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
 			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
 			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
-				'plugin_id' => $this->plugin_id(),
-				'module'    => $this->module(),
-				'unique'    => $this->unique(),
-				'hash'      => $hash,
+				'module' => $this->module(),
+				'unique' => $this->unique(),
+				'hash'   => $hash,
 			) );
 		}
 
@@ -629,7 +625,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			unset( $this->unique );
 			unset( $this->db_values );
 			unset( $this->options_cache );
-			unset( $this->plugin_id );
 			unset( $this->module );
 		}
 

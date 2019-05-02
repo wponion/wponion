@@ -96,7 +96,6 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 				$instance      = new \WPOnion\DB\Media_Fields_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'media_fields',
-					'plugin_id' => $this->plugin_id(),
 					'unique'    => $this->unique(),
 					'fields'    => $this->fields,
 					'db_values' => $this->get_db_values(),

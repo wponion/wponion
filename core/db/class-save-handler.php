@@ -98,7 +98,6 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		public function init_class( $args = array() ) {
 			$args = $this->parse_args( $args, array(
 				'module'       => false,
-				'plugin_id'    => false,
 				'unique'       => false,
 				'fields'       => false,
 				'db_values'    => false,
@@ -108,7 +107,6 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 			) );
 
 			$this->module       = $args['module'];
-			$this->plugin_id    = $args['plugin_id'];
 			$this->unique       = $args['unique'];
 			$this->fields       = $args['fields'];
 			$this->db_values    = $args['db_values'];
@@ -166,24 +164,22 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 				foreach ( $functions as $function ) {
 					if ( wponion_is_callable( $function ) ) {
 						$value = wponion_callback( $function, array(
-							'value'     => $value,
-							'field'     => $field,
-							'plugin_id' => $this->plugin_id(),
-							'module'    => $this->module(),
+							'value'  => $value,
+							'field'  => $field,
+							'module' => $this->module(),
 						) );
 					} elseif ( is_string( $value ) && has_filter( $functions ) ) {
-						$value = apply_filters( $functions, $value, $field, $this->plugin_id(), $this->module() );
+						$value = apply_filters( $functions, $value, $field, $this->module() );
 					}
 				}
 			} elseif ( wponion_is_callable( $functions ) ) {
 				$value = wponion_callback( $functions, array(
-					'value'     => $value,
-					'field'     => $field,
-					'plugin_id' => $this->plugin_id(),
-					'module'    => $this->module(),
+					'value'  => $value,
+					'field'  => $field,
+					'module' => $this->module(),
 				) );
 			} elseif ( has_filter( $functions ) ) {
-				$value = apply_filters( $functions, $value, $field, $this->plugin_id(), $this->module() );
+				$value = apply_filters( $functions, $value, $field, $this->module() );
 			}
 
 			return $value;
@@ -245,7 +241,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		 * @return mixed
 		 */
 		protected function _validate( $function, $field, $value ) {
-			return wponion_callback( $function, array( $value, $field, $this->plugin_id(), $this->module() ) );
+			return wponion_callback( $function, array( $value, $field, $this->module() ) );
 		}
 
 		/**

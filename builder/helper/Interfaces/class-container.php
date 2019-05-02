@@ -64,6 +64,6 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Container' ) ) {
 		 *
 		 * @return false|\WPO\Container
 		 */
-		public function container( $container_slug_or_instance = false, $title = false, $icon = false );
+		public function container( $container_slug_or_instance, $title = false, $icon = false );
 	}
 }

@@ -42,15 +42,5 @@ if ( ! class_exists( 'WPO\Color_Group' ) ) {
 			$this['rgba'] = $is_rgba;
 			return $this;
 		}
-
-		/**
-		 * @return array
-		 */
-		protected function defaults() {
-			return array(
-				'rgba'    => false,
-				'options' => array(),
-			);
-		}
 	}
 }

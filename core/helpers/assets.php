@@ -53,20 +53,6 @@ if ( ! function_exists( 'wponion_load_asset' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_icon' ) ) {
-	/**
-	 * Checks and returns icon html + load the required icon font.
-	 *
-	 * @param        $icon
-	 * @param string $xtra_attrs
-	 *
-	 * @return string
-	 */
-	function wponion_icon( $icon, $xtra_attrs = '' ) {
-		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon" ' . $xtra_attrs . '> </i>' : '';
-	}
-}
-
 if ( ! function_exists( 'wponion_localize' ) ) {
 	/**
 	 * Returns an active instance of WPOnion_Localize_API.

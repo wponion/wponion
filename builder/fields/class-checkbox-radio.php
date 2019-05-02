@@ -118,17 +118,5 @@ if ( ! class_exists( 'WPO\Checkbox_Radio' ) ) {
 			}
 			parent::offsetSet( $offset, $value );
 		}
-
-		/**
-		 * Returns Default Args.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return $this->parse_args( array(
-				'options' => array(),
-				'label'   => false,
-			), parent::defaults() );
-		}
 	}
 }

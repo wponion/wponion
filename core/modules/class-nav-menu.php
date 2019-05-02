@@ -91,7 +91,6 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 				$instance      = new \WPOnion\DB\Nav_Menu_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'metabox',
-					'plugin_id' => $this->plugin_id(),
 					'unique'    => $this->unique,
 					'fields'    => $this->fields,
 					'db_values' => $this->get_db_values(),

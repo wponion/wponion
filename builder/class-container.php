@@ -106,6 +106,11 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 			return $this;
 		}
 
+		/**
+		 * Gets A Unique Slug
+		 *
+		 * @return array|bool|string
+		 */
 		private function get_slug() {
 			if ( empty( $this->slug ) ) {
 				$this->slug = sanitize_title( 'auto-' . $this->title() );

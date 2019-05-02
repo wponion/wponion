@@ -22,7 +22,6 @@ if ( ! class_exists( 'WPO\Helper\Field\Helper' ) ) {
 	 * @since 1.0
 	 */
 	class Helper extends Array_Helper {
-
 		/**
 		 * @param mixed $offset
 		 *
@@ -45,7 +44,7 @@ if ( ! class_exists( 'WPO\Helper\Field\Helper' ) ) {
 		 * @param $name
 		 * @param $arguments
 		 *
-		 * @return bool|mixed
+		 * @return $this|bool|\WPO\Field
 		 */
 		public function __call( $name, $arguments ) {
 			if ( empty( $arguments ) && isset( $this[ $name ] ) ) {
@@ -53,6 +52,5 @@ if ( ! class_exists( 'WPO\Helper\Field\Helper' ) ) {
 			}
 			return false;
 		}
-
 	}
 }

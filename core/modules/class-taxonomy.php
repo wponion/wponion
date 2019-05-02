@@ -113,7 +113,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				$metabox['option_name']   = $this->unique();
 				$metabox['theme']         = $this->option( 'theme' );
 				$metabox['screens']       = $taxs;
-				$metabox['plugin_id']     = $this->plugin_id();
 				$metabox['set_cache']     = array( $this, 'set_cache' );
 				$metabox['get_cache']     = array( $this, 'get_db_cache' );
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
@@ -276,7 +275,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 					$instance = new \WPOnion\DB\Taxonomy_Save_Handler();
 					$instance->init_class( array(
 						'module'    => 'metabox',
-						'plugin_id' => $this->plugin_id(),
 						'unique'    => $this->unique,
 						'fields'    => $this->fields,
 						'db_values' => $this->get_db_values(),

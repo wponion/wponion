@@ -43,7 +43,23 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @access
 		 * @static
 		 */
+		private static $module_fields_autoloader = false;
+
+		/**
+		 * @var bool
+		 * @access
+		 * @static
+		 */
 		private static $builder_autoloader = false;
+
+		/**
+		 * Stores Remaps Class.
+		 *
+		 * @var array
+		 * @access
+		 * @static
+		 */
+		private static $remaps = array();
 
 		/**
 		 * Fires Basic Setup Hook.
@@ -54,6 +70,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		public static function init() {
 			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), 1 );
 			self::load_required_files();
+			self::setup_remaps();
 		}
 
 		/**
@@ -70,15 +87,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			self::init_autoloader();
 
-			require_once WPONION_PATH . 'builder/class-builder.php';
-			require_once WPONION_PATH . 'builder/class-container.php';
-			require_once WPONION_PATH . 'builder/class-field.php';
-
 			require_once WPONION_PATH . 'core/helpers/base.php';
 
 			require_once WPONION_PATH . 'core/class-themes.php';
 			require_once WPONION_PATH . 'core/class-assets.php';
-			require_once WPONION_PATH . 'core/class-icons.php';
 			require_once WPONION_PATH . 'core/class-core-ajax.php';
 
 			/**
@@ -107,6 +119,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				Integrations\Page_Builders\Visual_Composer::init();
 			}
 
+			if ( wp_is_plugin_active( 'elementor/elementor.php' ) ) {
+				Integrations\Page_Builders\Elementor::init();
+			}
+
 			do_action( 'wponion_init' );
 		}
 
@@ -117,12 +133,15 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @throws \Exception
 		 */
 		public static function init_autoloader() {
-			self::$field_autoloader   = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
-			self::$core_autoloader    = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
+			self::$field_autoloader         = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
+			self::$module_fields_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Module_Fields', WPONION_PATH . 'module_fields/', array(), true );
+			self::$core_autoloader          = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
 				'exclude' => 'WPOnion\Field',
 			) );
-			self::$builder_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPO\Helper', WPONION_PATH . 'builder/helper/', array(), false );
+			self::$builder_autoloader       = new \Varunsridharan\PHP\Autoloader( 'WPO\Helper', WPONION_PATH . 'builder/helper/', array(), false );
+
 			new \Varunsridharan\PHP\Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array(), false );
+			new \Varunsridharan\PHP\Autoloader( 'WPO', WPONION_PATH . 'builder/', array(), false );
 
 			self::$core_autoloader->add( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
 			self::$core_autoloader->add( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
@@ -133,22 +152,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			 */
 			self::$field_autoloader->add( 'WPOnion\Field\Cloner', WPONION_PATH . '/core/class-field-cloner.php' );
 			self::$field_autoloader->add( 'WPOnion\Field', WPONION_PATH . '/core/abstract/class-field.php' );
-
-			/**
-			 * Remaps Notice Fields.
-			 */
-			self::$field_autoloader->add( 'WPOnion\Field\Notice_Danger', WPONION_PATH . '/fields/notice/class-notice-danger.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\Notice_Dark', WPONION_PATH . '/fields/notice/class-notice-dark.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\Notice_Info', WPONION_PATH . '/fields/notice/class-notice-info.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\Notice_Light', WPONION_PATH . '/fields/notice/class-notice-light.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\Notice_Primary', WPONION_PATH . '/fields/notice/class-notice-primary.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\Notice_Secondary', WPONION_PATH . '/fields/notice/class-notice-secondary.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\Notice_Success', WPONION_PATH . '/fields/notice/class-notice-success.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\Notice_Warning', WPONION_PATH . '/fields/notice/class-notice-warning.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\WP_Notice_Error', WPONION_PATH . '/fields/wp-notice/class-wp-notice-error.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\WP_Notice_Info', WPONION_PATH . '/fields/wp-notice/class-wp-notice-info.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\WP_Notice_Success', WPONION_PATH . '/fields/wp-notice/class-wp-notice-success.php' );
-			self::$field_autoloader->add( 'WPOnion\Field\WP_Notice_Warning', WPONION_PATH . '/fields/wp-notice/class-wp-notice-warning.php' );
 		}
 
 		/**
@@ -157,6 +160,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function register_core_fields() {
+			\wponion_register_field( 'clone', 'all' );
 			\wponion_register_field( 'accordion', 'all' );
 			\wponion_register_field( 'background', 'all' );
 			\wponion_register_field( 'button', 'all' );
@@ -220,6 +224,58 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'change_log', 'all' );
 
 			do_action( 'wponion_core_fields_registered' );
+		}
+
+		private static function setup_remaps() {
+			/**
+			 * Customizer Module Fields.
+			 */
+			self::$remaps['\WPOnion\Module_Fields\Customizer\radio']        = '\WPOnion\Module_Fields\Customizer\Checkbox';
+			self::$remaps['\WPOnion\Module_Fields\Customizer\input_group']  = '\WPOnion\Module_Fields\Customizer\Checkbox';
+			self::$remaps['\WPOnion\Module_Fields\Customizer\fieldset']     = '\WPOnion\Module_Fields\Customizer\Checkbox';
+			self::$remaps['\WPOnion\Module_Fields\Customizer\accordion']    = '\WPOnion\Module_Fields\Customizer\Checkbox';
+			self::$remaps['\WPOnion\Module_Fields\Customizer\group']        = '\WPOnion\Module_Fields\Customizer\Checkbox';
+			self::$remaps['\WPOnion\Module_Fields\Customizer\color_picker'] = '\WPOnion\Module_Fields\Customizer\Button_Set';
+			self::$remaps['\WPOnion\Module_Fields\Customizer\image_select'] = '\WPOnion\Module_Fields\Customizer\Button_Set';
+
+			/**
+			 * WP Notice Remaps.
+			 */
+			self::$remaps['\WPOnion\Field\wp_notice_success'] = '\WPOnion\Field\WP_Notice';
+			self::$remaps['\WPOnion\Field\wp_notice_warning'] = '\WPOnion\Field\WP_Notice';
+			self::$remaps['\WPOnion\Field\wp_notice_error']   = '\WPOnion\Field\WP_Notice';
+			self::$remaps['\WPOnion\Field\wp_notice_info']    = '\WPOnion\Field\WP_Notice';
+
+			/**
+			 * General Notice.
+			 */
+			self::$remaps['\WPOnion\Field\Notice_Warning']   = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Primary']   = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Secondary'] = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Success']   = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Dark']      = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Info']      = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Light']     = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Danger']    = '\WPOnion\Field\Notice';
+
+			self::$remaps = apply_filters( 'wponion_field_class_remaps', self::$remaps );
+
+			foreach ( self::$remaps as $key => $val ) {
+				self::$remaps[ strtolower( $key ) ] = strtolower( $val );
+			}
+		}
+
+		/**
+		 * Returns Remaps Class if Exists.
+		 *
+		 * @param $class
+		 * @param $default
+		 *
+		 * @static
+		 * @return bool|mixed
+		 */
+		public static function remap( $class, $default = false ) {
+			return ( isset( self::$remaps[ strtolower( $class ) ] ) ) ? self::$remaps[ strtolower( $class ) ] : $default;
 		}
 	}
 }

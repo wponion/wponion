@@ -34,6 +34,10 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( 'sorter', $id, $title, $args );
+			$this['options'] = array(
+				'enabled'  => array(),
+				'disabled' => array(),
+			);
 		}
 
 		/**
@@ -118,17 +122,6 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		public function set_disabled_title( $title = null ) {
 			$this['disabled_title'] = $title;
 			return $this;
-		}
-
-		/**
-		 * @return array
-		 */
-		public function defaults() {
-			return array(
-				'options'        => array(),
-				'enabled_title'  => __( 'Enabled Modules', 'wponion' ),
-				'disabled_title' => __( 'Disabled Modules', 'wponion' ),
-			);
 		}
 	}
 }

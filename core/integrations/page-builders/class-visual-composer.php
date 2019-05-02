@@ -59,9 +59,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 			self::register_fields();
 			add_action( 'vc_edit_form_fields_after_render', array( __CLASS__, 'is_wponion_used' ) );
 			add_action( 'vc_backend_editor_enqueue_js_css', array( __CLASS__, 'load_assets' ), 1 );
-			if ( defined( 'WPONION_FRONTEND' ) && true === WPONION_FRONTEND ) {
-				add_action( 'vc_frontend_editor_enqueue_js_css', array( __CLASS__, 'load_assets' ), 1 );
-			}
+			add_action( 'vc_frontend_editor_enqueue_js_css', array( __CLASS__, 'load_assets' ), 1 );
 		}
 
 		/**

@@ -158,6 +158,10 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		/**
 		 * Field Inline Style.
 		 *
+		 * @param null|array|string $style
+		 * @param bool              $merge
+		 *
+		 * @return $this
 		 * @example Inline Style As String.
 		 * $field->style('color:red');
 		 * Inline Style As Array
@@ -170,10 +174,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * if $merge is set to true then existing style gets appended to new style.
 		 *
 		 *
-		 * @param null|array|string $style
-		 * @param bool              $merge
-		 *
-		 * @return $this
 		 */
 		public function set_style( $style = null, $merge = true ) {
 			if ( null === $style ) {
@@ -420,6 +420,5 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 			$this['multiple'] = $is_multiple;
 			return $this;
 		}
-
 	}
 }

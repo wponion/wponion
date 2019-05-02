@@ -30,7 +30,7 @@ if ( ! interface_exists( '\WPOnion\Registry\Common' ) ) {
 		/**
 		 * Stores Instance of a give feature.
 		 *
-		 * @param string            $feature_type
+		 * @param string          $feature_type
 		 * @param \WPOnion\Bridge $instance
 		 *
 		 * @return mixed
@@ -41,10 +41,10 @@ if ( ! interface_exists( '\WPOnion\Registry\Common' ) ) {
 		 * Get And Returns An Instance of a give key.
 		 *
 		 * @param string $feature_type
-		 * @param        $plugin_id
+		 * @param mixed  $extra
 		 *
 		 * @return mixed
 		 */
-		public function get( $feature_type, $plugin_id );
+		public function get( $feature_type, $extra );
 	}
 }
