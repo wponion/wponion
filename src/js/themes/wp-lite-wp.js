@@ -5,7 +5,7 @@ class WP {
 			this.settings_menu_handler();
 			this.settings_init_search_input();
 		}
-		if( this.element.hasClass( 'wponion-metabox' ) ) {
+		if( this.element.hasClass( 'wponion-metabox' ) && this.element.hasClass( 'wponion-wp-theme' ) ) {
 			this.metabox_menu_handler();
 		}
 	}
@@ -52,7 +52,6 @@ class WP {
 			if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
 				let $lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
 				if( $lookup.length > 0 ) {
-
 					if( false === window.wponion._.isUndefined( $href[ 'sub-container-id' ] ) ) {
 						$lookup = $lookup.find( 'div#wponion-tab-' + $href[ 'container-id' ] + '-' + $href[ 'sub-container-id' ] );
 						if( $lookup.length > 0 ) {
@@ -132,6 +131,10 @@ class WP {
 ( ( window ) => {
 	window.wponion.hooks.addAction( 'wponion_theme_init', 'wponion_core', ( $elem ) => {
 		if( $elem.hasClass( 'wponion-wp-theme' ) ) {
+			new WP( $elem );
+		}
+
+		if( $elem.hasClass( 'wponion-wp_lite-theme' ) ) {
 			new WP( $elem );
 		}
 	} );

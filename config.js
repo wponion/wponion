@@ -19,13 +19,13 @@ $files[ 'src/scss/wponion-plugins.scss' ] = {
 };
 
 // Javascripts
-$files[ 'src/js/wponion-plugins.js' ]     = {
+$files[ 'src/js/wponion-plugins.js' ]    = {
 	dist: 'assets/js',
 	watch: [ './src/vendors/*/*.js', 'src/js/wponion-plugins.js' ],
 	combine_files: true,
 	uglify: true,
 };
-$files[ 'src/js/wponion-core.js' ]        = {
+$files[ 'src/js/wponion-core.js' ]       = {
 	dist: 'assets/js',
 	watch: [
 		'src/js/wponion-core.js',
@@ -39,34 +39,13 @@ $files[ 'src/js/wponion-core.js' ]        = {
 	sourcemaps: true,
 	rename: 'wponion-core.js',
 };
-$files[ 'src/js/wponion-customizer.js' ]  = {
+$files[ 'src/js/wponion-customizer.js' ] = {
 	dist: 'assets/js',
 	watch: true,
 	webpack: true,
 	rename: 'wponion-customizer.js',
 };
-$files[ 'src/js/themes/wp-theme.js' ]     = {
-	dist: 'templates/wp/assets/',
-	webpack: 'webpack_dev',
-	uglify: true,
-	watch: true,
-	rename: 'wponion-wp-theme.js',
-};
-$files[ 'src/js/themes/modern-theme.js' ] = {
-	dist: 'templates/modern/assets/',
-	webpack: 'webpack_dev',
-	uglify: true,
-	watch: true,
-	rename: 'wponion-modern-theme.js'
-};
-$files[ 'src/js/themes/fresh-theme.js' ]  = {
-	dist: 'templates/fresh/assets/',
-	webpack: 'webpack_dev',
-	uglify: true,
-	watch: true,
-	rename: 'wponion-fresh-theme.js'
-};
-$files[ 'src/js/wponion-cloner.js' ]      = {
+$files[ 'src/js/wponion-cloner.js' ]     = {
 	dist: 'assets/js',
 	babel: true,
 	uglify: true,
@@ -92,6 +71,22 @@ $files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {
 };
 
 // Themes
+// WP & WP Lite Theme
+$files[ 'src/js/themes/wp-lite-wp.js' ]           = {
+	watch: true,
+	babel: true,
+	uglify: true,
+	rename: 'script.js',
+	dist: 'templates/global/assets/',
+};
+$files[ 'src/scss/themes/wp-lite-wp/style.scss' ] = {
+	watch: true,
+	scss: true,
+	autoprefixer: true,
+	minify: true,
+	rename: 'style.css',
+	dist: 'templates/global/assets/',
+};
 
 // WP Modern
 $files[ 'src/js/themes/wp-modern.js' ]           = {
@@ -108,39 +103,6 @@ $files[ 'src/scss/themes/wp-modern/style.scss' ] = {
 	minify: true,
 	rename: 'style.css',
 	dist: 'templates/wp-modern/assets/',
-};
-
-// wp-lite
-$files[ 'src/js/themes/wp-lite.js' ]           = {
-	watch: true,
-	babel: true,
-	uglify: true,
-	rename: 'script.js',
-	dist: 'templates/wp-lite/assets/',
-};
-$files[ 'src/scss/themes/wp-lite/style.scss' ] = {
-	watch: true,
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	rename: 'style.css',
-	dist: 'templates/wp-lite/assets/',
-};
-// wp-lite
-$files[ 'src/js/themes/wp.js' ]                = {
-	watch: true,
-	babel: true,
-	uglify: true,
-	rename: 'script.js',
-	dist: 'templates/wp/assets/',
-};
-$files[ 'src/scss/themes/wp/style.scss' ]      = {
-	watch: true,
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	rename: 'style.css',
-	dist: 'templates/wp/assets/',
 };
 
 module.exports = {
