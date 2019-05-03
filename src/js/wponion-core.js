@@ -46,6 +46,7 @@ window.wponion.ajax           = require( './core/ajaxer' ).default;
 window.wponion.debug          = require( './core/debug' ).default;
 window.wponion.core           = require( './core/core' ).default;
 window.wponion.field_abstract = require( './core/field' ).default;
+window.wponion.dependency     = require( './core/dependency' ).default;
 
 require( './wponion-fields' );
 
@@ -81,32 +82,28 @@ export default ( ( window, document, wp, $ ) => {
 		// Triggers Hook With Widgets.
 		$( document ).on( 'widget-added widget-updated', function( event, $widget ) {
 			window.wponion_field( $widget ).reload();
-			new WPOnion_Dependency( $widget );
+			wponion_dependency( $widget );
 		} );
 
 		// Triggers When New Menu Item Added.
 		$( document ).on( 'menu-item-added', function( event, $menu ) {
 			window.wponion_field( $menu ).reload();
-			new WPOnion_Dependency( $menu );
+			wponion_dependency( $menu );
 		} );
 
 		if( $wpof_div.length > 0 ) {
-			// Renders Validation.
-			new WPOnion_Validator();
+			new WPOnion_Validator(); // Renders Validation.
 
 			// Handles Fields init.
 			window.wponion.hooks.doAction( 'wponion_before_fields_init', $wpof_div );
 			$wpof_div.each( function() {
 				window.wponion_field( $( this ) ).reload();
-				new WPOnion_Dependency( $( this ) );
+				wponion_dependency( $( this ) );
 			} );
 			window.wponion.hooks.doAction( 'wponion_after_fields_init', $wpof_div );
 		}
-
 		window.wponion.hooks.doAction( 'wponion_init' );
-
 	} ) );
 
 	window.wponion.hooks.doAction( 'wponion_loaded' );
-
 } )( window, document, wp, jQuery );

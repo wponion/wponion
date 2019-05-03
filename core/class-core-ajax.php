@@ -297,6 +297,60 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			wp_die();
 		}
 
+
+		/**
+		 * Ajax Save Settings Option.
+		 */
+		public function save_settings() {
+			$option_page = $_REQUEST['option_page'];
+			$settings    = wponion_settings( $option_page );
+
+			if ( ! $settings instanceof \WPOnion\Modules\Settings && ! $settings instanceof \WPOnion\Modules\Network_Settings ) {
+				wp_send_json_error();
+			}
+
+			$to_be_saved     = $_REQUEST[ $option_page ];
+			$is_network_wide = isset( $_REQUEST['network_wide'] ) && $_REQUEST['network_wide'];
+
+			if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], $option_page . '-options' ) ) {
+				wp_send_json_error( __( 'Cheatin&#8217; uh?' ) );
+			}
+
+			if ( $is_network_wide && ! is_super_admin() ) {
+				wp_send_json_error( __( 'Cheatin&#8217; uh?' ) );
+			}
+
+			$capability = apply_filters( "option_page_capability_{$option_page}", 'manage_options' );
+			if ( ! current_user_can( $capability ) ) {
+				wp_send_json_error( __( 'Cheatin&#8217; uh?' ) );
+			}
+
+			$whitelist_options = apply_filters( 'whitelist_options', array() );
+			$options           = $whitelist_options[ $option_page ];
+			if ( empty( $options[0] ) || $options[0] != $option_page ) {
+				wp_send_json_error( "You can't do that!" );
+			}
+
+			if ( $is_network_wide ) {
+				update_site_option( $option_page, $to_be_saved );
+			} else {
+				update_option( $option_page, $to_be_saved );
+			}
+
+			$this->catch_output();
+			$settings->reload_cache()
+				->reload_values();
+			$settings->on_settings_page_load();
+			$settings->render();
+			$form = $this->catch_output( 'stop' );
+			$this->catch_output();
+			wponion_localize()->render_js_args();
+			$script = $this->catch_output( 'stop' );
+			wp_send_json_success( array(
+				'form'   => '<div>' . $form . '</div>',
+				'script' => $script,
+			) );
+		}
 	}
 }
 return new Core_Ajax;

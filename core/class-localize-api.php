@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			$js_notice = $js_notice . __( '%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it', 'wponion' );
 			$js_notice = sprintf( $js_notice, '<code>', '</code>', '<strong>', '</strong>', '<br/>' );
 
-			if ( false === self::$core_data ) {
+			if ( false === self::$core_data && false === wponion_is_ajax() ) {
 				$this->js_args['wponion_core'] = array(
 					'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 					'ajax_action'     => 'wponion-ajax',
@@ -87,6 +87,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'delete', __( 'Delete', 'wponion' ) );
 				$this->text( 'processing', __( 'Processing ...', 'wponion' ) );
 				$this->text( 'restore', __( 'Restore', 'wponion' ) );
+				$this->text( 'settings_saved', __( 'Settings Updated', 'wponion' ) );
 				$this->modal_template();
 				self::$core_data = true;
 			}

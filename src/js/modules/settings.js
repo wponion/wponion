@@ -1,4 +1,5 @@
 import WPOnion_Module from '../core/module';
+import WPOnion_Validator from '../core/validation';
 
 /**
  *
@@ -9,14 +10,51 @@ class WPOnion_Settings_Module extends WPOnion_Module {
 	 */
 	module_init() {
 		this.ui_menu_handler();
+
+		if( this.element.hasClass( 'wponion-ajax-save' ) ) {
+			this.element.on( 'click', 'button.wponion-save', ( e ) => {
+				e.preventDefault();
+				let $data               = jQuery( 'form.wponion-form' ).serializeJSON();
+				$data.action            = 'wponion-ajax';
+				$data[ 'wponion-ajax' ] = 'save_settings';
+				wponion_ajax( {
+					data: $data,
+					element_lock: jQuery( 'button.wponion-save' ),
+					success: ( response ) => {
+						let $elem = jQuery( response.form );
+						jQuery( 'body' ).find( 'script#wponion_field_js_vars' ).append( response.script );
+						this.element.parent().html( $elem.find( '.wponion-form' ).html() );
+						window.swal.fire( {
+							type: 'success',
+							title: window.wponion.core.txt( 'settings_saved' ),
+						} );
+
+						let $elm = jQuery( '.wponion-framework' );
+
+						new WPOnion_Validator();
+
+						window.wponion.hooks.doAction( 'wponion_before_theme_init', $elm );
+						window.wponion_theme( $elm );
+						window.wponion.hooks.doAction( 'wponion_after_theme_init', $elm );
+
+						window.wponion.hooks.doAction( 'wponion_before_fields_init', $elm );
+						window.wponion_field( $elm ).reload();
+						wponion_dependency( $elm );
+						window.wponion.hooks.doAction( 'wponion_after_fields_init', $elm );
+					},
+					error: () => {
+						this.element.parent().submit();
+					}
+				} ).send();
+			} );
+		}
 	}
 }
 
 export default ( ( window, document, $ ) => {
 	$( function() {
-		$( 'div.wponion-framework.wponion-settings' ).each( function() {
-			new WPOnion_Settings_Module( $( this ), false );
+		window.wponion.hooks.addAction( 'wponion_theme_init', 'wponion-core', ( $elem ) => {
+			new WPOnion_Settings_Module( $elem, false );
 		} );
 	} );
 } )( window, document, jQuery );
-

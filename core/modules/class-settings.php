@@ -450,6 +450,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			return array(
 				'menu'          => $menu,
+				'ajax'          => true,
 				'extra_css'     => array(),
 				'extra_js'      => array(),
 				'option_name'   => '_wponion',
@@ -485,7 +486,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$class   = array();
 			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
 			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
-
+			$class[] = ( true === $this->option( 'ajax' ) ) ? 'wponion-ajax-save' : '';
 			if ( 1 === count( $this->fields->get() ) ) {
 				$class[] = 'wponion-hide-nav';
 				if ( $this->fields->has_fields() || ( $this->fields->has_containers() && 1 === count( $this->fields->containers() ) ) ) {

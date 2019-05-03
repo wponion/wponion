@@ -5,10 +5,7 @@
 let WPOButton = function( element, options ) {
 	this.DEFAULTS  = {
 		loadingText: window.wponion.core.txt( 'processing', 'Loading ...' ),
-		spinner: {
-			html: '<span class="spinner is-active wpo-spinner"></span>',
-			active_class: 'is-active',
-		},
+		spinner: 'spinner is-active',
 	};
 	this.$element  = jQuery( element );
 	this.options   = jQuery.extend( {}, this.DEFAULTS, options );
@@ -34,7 +31,7 @@ WPOButton.prototype.setState = function( state ) {
 		let $state = ( false !== window.wponion._.isUndefined( $el.data( state ) ) ) ? this.options[ state ] : $el.data( state );
 
 		if( 'html' === val && 'loadingText' === state ) {
-			$state += ' ' + this.options.spinner.html;
+			$state += ' ' + '<span class="' + this.options.spinner + ' wpo-spinner"></span>';
 		}
 
 		$el[ val ]( $state );
@@ -49,12 +46,11 @@ WPOButton.prototype.setState = function( state ) {
 
 		if( 'val' === val ) {
 			if( true === this.isLoading ) {
-				$el.parent().append( jQuery( this.options.spinner.html ) );
+				$el.parent().append( jQuery( '<span class="' + this.options.spinner + ' wpo-spinner"></span>' ) );
 			} else {
 				$el.parent().find( '.wpo-spinner' ).remove();
 			}
 		}
-
 
 	}, this ), 0 );
 };
@@ -225,6 +221,13 @@ export default ( ( window, document, $, jQuery ) => {
 	 * @returns {{addAction, removeAction, applyFilters, removeFilter, addFilter, doAction}}
 	 */
 	window.wponion_theme = ( $element ) => window.wponion.hooks.doAction( 'wponion_theme_init', $element );
+
+	/**
+	 *
+	 * @param $element
+	 * @returns {{}|*}
+	 */
+	window.wponion_dependency = ( $element = false ) => new window.wponion.dependency( $element );
 
 	/**
 	 * Handles WPOnion Notices.

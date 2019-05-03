@@ -247,6 +247,28 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Reloads System Cache
+		 *
+		 * @return $this
+		 */
+		public function reload_cache() {
+			$this->options_cache = false;
+			$this->get_cache();
+			return $this;
+		}
+
+		/**
+		 * Reloads System values.
+		 *
+		 * @return $this
+		 */
+		public function reload_values() {
+			$this->db_values = array();
+			$this->get_db_values();
+			return $this;
+		}
+
+		/**
 		 * Returns Options Cache.
 		 */
 		protected function get_cache() {
