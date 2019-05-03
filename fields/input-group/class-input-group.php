@@ -44,8 +44,14 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 						'type'       => 'text',
 						'horizontal' => true,
 						'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
-					), array( 'id' => $field_id ) );
-					echo $this->sub_field( $field_args, $this->value( $field_id ), $this->name() );
+						'id'         => $field_id,
+					) );
+
+					if ( empty( $field_args['id'] ) ) {
+						$field_args['id'] = $field_id;
+					}
+
+					echo $this->sub_field( $field_args, $this->value( $field_args['id'] ), $this->name() );
 				}
 				echo '</div>';
 			}
