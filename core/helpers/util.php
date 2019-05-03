@@ -36,6 +36,7 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 			'arrowType'   => 'round',
 			'js_field_id' => false,
 			'element'     => $element,
+			'placement'   => 'top',
 		) );
 		$js_field_id = $args['js_field_id'];
 		$element     = $args['element'];
