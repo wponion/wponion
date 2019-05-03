@@ -44,7 +44,7 @@ export class WPOnion_Ajaxer {
 					opacity: 0.7
 				}
 			},
-			spinner: '<span class="spinner"></span>',
+			spinner: 'spinner is-active',
 		};
 		this.all_default    = parse_args( this.default_config, this.default );
 		this.config         = {};
@@ -293,7 +293,8 @@ export class WPOnion_Ajaxer {
 			if( $elem.length > 0 ) {
 				if( false === $unlock ) {
 					$elem.wponion_button( {
-						loadingText: this.run_config.loading_text
+						loadingText: this.run_config.loading_text,
+						spinner: this.run_config.spinner,
 					} ).wponion_button( 'loading' );
 				} else {
 					$elem.wponion_button( 'reset' );

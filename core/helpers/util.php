@@ -54,7 +54,7 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 			$localize = ( true === $localize ) ? 'wponion-help' : $localize;
 			$localize = ( false !== $element ) ? md5( $element ) : $localize;
 			if ( empty( $js_field_id ) ) {
-				$js_field_id = 'wpo' . md5( $element . microtime( true ) );
+				$js_field_id = 'wpo' . wponion_hash_string( $element . microtime( true ) );
 			}
 			$attr['data-wponion-tooltip-id'] = $localize;
 			wponion_localize()->add( $js_field_id, array( $localize => $args ) );
@@ -93,37 +93,34 @@ if ( ! function_exists( 'wponion_icon' ) ) {
 
 if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 	/**
-	 * @param string $action
 	 * @param array  $args
-	 * @param string $button_html
+	 * @param string $element
 	 *
 	 * @return string
 	 */
-	function wponion_inline_ajax( $action = '', $args = array(), $button_html = '' ) {
-		if ( is_array( $action ) && is_scalar( $args ) && empty( $button_html ) ) {
-			$button_html = $args;
-			$args        = $action;
-			$action      = null;
-		} elseif ( is_scalar( $args ) && empty( $button_html ) ) {
-			$button_html = $args;
-			$args        = array();
-		}
-
-		$args      = wp_parse_args( $args, array(
-			'method'   => 'post',
-			'url'      => admin_url( 'admin-ajax.php' ),
-			'part_url' => false,
-			'data'     => array(),
-			'success'  => false,
-			'error'    => false,
-			'always'   => false,
-			'action'   => $action,
+	function wponion_inline_ajax( $args = array(), $element = '' ) {
+		$args = wp_parse_args( $args, array(
+			'method'      => 'post',
+			'url'         => admin_url( 'admin-ajax.php' ),
+			'part_url'    => false,
+			'data'        => array(),
+			'success'     => false,
+			'error'       => false,
+			'always'      => false,
+			'js_field_id' => false,
+			'element'     => $element,
 		) );
-		$unique_id = 'wpoajax' . wponion_hash_array( $args );
-		wponion_localize()->add( $unique_id, array( 'inline_ajax' => $args ), true, true );
-		if ( ! empty( $button_html ) ) {
-			$button_html = preg_replace( '/<a (.+?)>/i', "<a $1 data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );
-			return preg_replace( '/<button (.+?)>/i', "<button $1  data-wponion-inline-ajax='" . $unique_id . "'>", $button_html );
+
+		$element   = $args['element'];
+		$jsid      = $args['js_field_id'];
+		$jsid      = ( empty( $jsid ) ) ? 'wpo' . wponion_hash_string( wponion_hash_array( $args ) . microtime( true ) ) : $jsid;
+		$unique_id = 'wpoajax' . $jsid;
+		unset( $args['button'] );
+		unset( $args['js_field_id'] );
+		wponion_localize()->add( $unique_id, array( 'inline_ajax' => $args ) );
+		if ( ! empty( $element ) ) {
+			$element = preg_replace( '/<a (.+?)>/i', "<a $1 data-wponion-inline-ajax='" . $unique_id . "'>", $element );
+			return preg_replace( '/<button (.+?)>/i', "<button $1  data-wponion-inline-ajax='" . $unique_id . "'>", $element );
 		}
 		return $unique_id;
 	}
