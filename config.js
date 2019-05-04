@@ -58,13 +58,20 @@ $files[ 'src/vendors/flatpickr/style.scss' ]           = {
 	dist: 'assets/plugins/flatpickr/',
 	combine_files: true,
 	scss: true,
-	autoprefixer: true,
 	minify: true,
+	watch: true,
 	rename: 'style.css',
+};
+$files[ 'src/vendors/flatpickr/script.js' ]            = {
+	dist: 'assets/plugins/flatpickr/',
+	combine_files: true,
+	uglify: true,
+	watch: true,
+	rename: 'script.js',
 };
 $files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {
 	dist: 'assets/plugins/colorpicker/',
-	watch: [ 'src/js/wponion-plugins.js' ],
+	watch: [ 'src/vendors/colorpicker/cs-colorpicker.css', 'src/js/wponion-plugins.js' ],
 	autoprefixer: true,
 	minify: true,
 	rename: 'cs-colorpicker.css',
@@ -121,6 +128,12 @@ $files[ 'src/scss/themes/wc/style.scss' ] = {
 	rename: 'style.css',
 	dist: 'templates/wc/assets/',
 };
+
+/**
+ * Other Plugins
+ */
+$files[ '' ] = {};
+
 
 module.exports = {
 	files: $files,

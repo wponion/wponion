@@ -142,12 +142,8 @@ if ( ! function_exists( 'wponion_js_vars' ) ) {
 			}
 			$l10n[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
 		}
-		$script = null;
-		if ( ! empty( $object_name ) ) {
-			$script = "var $object_name = " . wp_json_encode( $l10n ) . ';';
-		} else {
-			$script = wp_json_encode( $l10n );
-		}
+		$script = ( ! empty( $object_name ) ) ? "var $object_name = " . wp_json_encode( $l10n ) . ';' : wp_json_encode( $l10n );
+
 		if ( ! empty( $after ) ) {
 			$script .= "\n$after;";
 		}
@@ -174,11 +170,7 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 		if ( ! empty( $attributes ) ) {
 			foreach ( $attributes as $key => $value ) {
 				$value = ( wponion_is_array( $value ) ) ? wp_json_encode( $value ) : $value;
-				if ( 'only-key' === $value ) {
-					$atts .= ' ' . esc_attr( $key );
-				} else {
-					$atts .= ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
-				}
+				$atts  .= ( 'only-key' === $value ) ? ' ' . esc_attr( $key ) : ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
 			}
 		}
 		return $atts;

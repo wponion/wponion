@@ -104,7 +104,13 @@ if ( ! function_exists( 'wponion_warning_admin_notice' ) ) {
 }
 
 if ( ! function_exists( 'wponion_upgrade_admin_notice' ) ) {
-
+	/**
+	 * @param string $content
+	 * @param string $title
+	 * @param array  $args
+	 *
+	 * @return \WPOnion\Modules\Admin_Notice
+	 */
 	function wponion_upgrade_admin_notice( $content = '', $title = '', $args = array() ) {
 		return wponion_admin_notice( 'update-nag', $content, $title, $args );
 	}

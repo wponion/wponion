@@ -468,22 +468,21 @@ if ( ! function_exists( 'wponion_backup_fonts' ) ) {
 	 * @return array
 	 */
 	function wponion_backup_fonts() {
-		$fonts                                        = array();
-		$fonts['Arial, Helvetica, sans-serif']        = 'Arial, Helvetica, sans-serif';
-		$fonts['"Arial Black", Gadget, sans-serif']   = '"Arial Black", Gadget, sans-serif';
-		$fonts['"Bookman Old Style", serif']          = '"Bookman Old Style", serif';
-		$fonts['"Comic Sans MS", cursive']            = '"Comic Sans MS", cursive';
-		$fonts['Courier, monospace']                  = 'Courier, monospace';
-		$fonts['Garamond, serif']                     = 'Garamond, serif';
-		$fonts['Georgia, serif']                      = 'Georgia, serif';
-		$fonts['Impact, Charcoal, sans-serif']        = 'Impact, Charcoal, sans-serif';
-		$fonts['"MS Serif", "New York", sans-serif']  = '"MS Serif", "New York", sans-serif';
-		$fonts['Tahoma,Geneva, sans-serif']           = 'Tahoma, Geneva, sans-serif';
-		$fonts['"Times New Roman", Times,serif']      = '"Times New Roman", Times, serif';
-		$fonts['"Lucida Console", Monaco, monospace'] = '"Lucida Console", Monaco, monospace';
-		$fonts['"MS Sans Serif", Geneva, sans-serif'] = '"MS Sans Serif", Geneva, sans-serif';
-		$fonts['Verdana, Geneva, sans-serif']         = 'Verdana, Geneva, sans-serif';
-
+		$fonts                                                         = array();
+		$fonts['Arial, Helvetica, sans-serif']                         = 'Arial, Helvetica, sans-serif';
+		$fonts['"Arial Black", Gadget, sans-serif']                    = '"Arial Black", Gadget, sans-serif';
+		$fonts['"Bookman Old Style", serif']                           = '"Bookman Old Style", serif';
+		$fonts['"Comic Sans MS", cursive']                             = '"Comic Sans MS", cursive';
+		$fonts['Courier, monospace']                                   = 'Courier, monospace';
+		$fonts['Garamond, serif']                                      = 'Garamond, serif';
+		$fonts['Georgia, serif']                                       = 'Georgia, serif';
+		$fonts['Impact, Charcoal, sans-serif']                         = 'Impact, Charcoal, sans-serif';
+		$fonts['"MS Serif", "New York", sans-serif']                   = '"MS Serif", "New York", sans-serif';
+		$fonts['Tahoma,Geneva, sans-serif']                            = 'Tahoma, Geneva, sans-serif';
+		$fonts['"Times New Roman", Times,serif']                       = '"Times New Roman", Times, serif';
+		$fonts['"Lucida Console", Monaco, monospace']                  = '"Lucida Console", Monaco, monospace';
+		$fonts['"MS Sans Serif", Geneva, sans-serif']                  = '"MS Sans Serif", Geneva, sans-serif';
+		$fonts['Verdana, Geneva, sans-serif']                          = 'Verdana, Geneva, sans-serif';
 		$fonts['"Trebuchet MS", Helvetica, sans-serif']                = '"Trebuchet MS", Helvetica, sans-serif';
 		$fonts['"Lucida Sans Unicode", "Lucida Grande", sans-serif']   = '"Lucida Sans Unicode", "Lucida Grande", sans-serif';
 		$fonts['"Palatino Linotype", "Book Antiqua", Palatino, serif'] = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
@@ -611,21 +610,6 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 		}
 
 		return $return;
-	}
-}
-
-if ( ! function_exists( 'wponion_field_value_class' ) ) {
-	/**
-	 * Generates Field Value Class Name.
-	 *
-	 * @param $field_type
-	 *
-	 * @return bool|string
-	 */
-	function wponion_field_value_class( $field_type ) {
-		$field_type = ( wponion_is_array( $field_type ) ) ? $field_type['type'] : $field_type;
-		$class      = '\WPOnion\Value\\' . $field_type;
-		return ( class_exists( $class ) ) ? $class : false;
 	}
 }
 

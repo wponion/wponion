@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPOnion 0.0.9.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wponion\n"
-"POT-Creation-Date: 2019-05-04 04:15:49+00:00\n"
+"POT-Creation-Date: 2019-05-04 05:41:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,36 +52,36 @@ msgstr ""
 msgid "Search Icon"
 msgstr ""
 
-#: core/class-core-ajax.php:121
+#: core/class-core-ajax.php:120
 msgid "Icon Library Not found"
 msgstr ""
 
-#: core/class-core-ajax.php:191
+#: core/class-core-ajax.php:185
 msgid "Error Code : #BKP189"
 msgstr ""
 
-#: core/class-core-ajax.php:198
+#: core/class-core-ajax.php:192
 msgid "Error Code : #BKP201"
 msgstr ""
 
-#: core/class-core-ajax.php:211
+#: core/class-core-ajax.php:205
 msgid "Error Code : #BKP210"
 msgstr ""
 
-#: core/class-core-ajax.php:218
+#: core/class-core-ajax.php:212
 msgid "Error Code : #BKP217"
 msgstr ""
 
-#: core/class-core-ajax.php:256
+#: core/class-core-ajax.php:250
 msgid "Backup Successfully Restored"
 msgstr ""
 
-#: core/class-core-ajax.php:259
+#: core/class-core-ajax.php:252
 msgid "Error Code: #BKP259"
 msgstr ""
 
-#: core/class-core-ajax.php:316 core/class-core-ajax.php:320
-#: core/class-core-ajax.php:325
+#: core/class-core-ajax.php:304 core/class-core-ajax.php:308
+#: core/class-core-ajax.php:313
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
@@ -245,83 +245,83 @@ msgstr ""
 msgid "<code>%s</code> Field Class Not Found."
 msgstr ""
 
-#: core/helpers/field.php:504
+#: core/helpers/field.php:503
 msgid "Regular"
 msgstr ""
 
-#: core/helpers/field.php:505
+#: core/helpers/field.php:504
 msgid "Italic"
 msgstr ""
 
-#: core/helpers/field.php:506
+#: core/helpers/field.php:505
 msgid "700"
 msgstr ""
 
-#: core/helpers/field.php:507
+#: core/helpers/field.php:506
 msgid "700 Italic"
 msgstr ""
 
-#: core/helpers/field.php:508
+#: core/helpers/field.php:507
 msgid "inherit"
 msgstr ""
 
-#: core/helpers/field.php:511
+#: core/helpers/field.php:510
 msgid "Arial"
 msgstr ""
 
-#: core/helpers/field.php:512
+#: core/helpers/field.php:511
 msgid "Arial Black"
 msgstr ""
 
-#: core/helpers/field.php:513
+#: core/helpers/field.php:512
 msgid "Comic Sans MS"
 msgstr ""
 
-#: core/helpers/field.php:514
+#: core/helpers/field.php:513
 msgid "Impact"
 msgstr ""
 
-#: core/helpers/field.php:515
+#: core/helpers/field.php:514
 msgid "Lucida Sans Unicode"
 msgstr ""
 
-#: core/helpers/field.php:516
+#: core/helpers/field.php:515
 msgid "Tahoma"
 msgstr ""
 
-#: core/helpers/field.php:517
+#: core/helpers/field.php:516
 msgid "Trebuchet MS"
 msgstr ""
 
-#: core/helpers/field.php:518
+#: core/helpers/field.php:517
 msgid "Verdana"
 msgstr ""
 
-#: core/helpers/field.php:519
+#: core/helpers/field.php:518
 msgid "Courier New"
 msgstr ""
 
-#: core/helpers/field.php:520
+#: core/helpers/field.php:519
 msgid "Lucida Console"
 msgstr ""
 
-#: core/helpers/field.php:521
+#: core/helpers/field.php:520
 msgid "Georgia, serif"
 msgstr ""
 
-#: core/helpers/field.php:522
+#: core/helpers/field.php:521
 msgid "Palatino Linotype"
 msgstr ""
 
-#: core/helpers/field.php:523
+#: core/helpers/field.php:522
 msgid "Times New Roman"
 msgstr ""
 
-#: core/helpers/field.php:676
+#: core/helpers/field.php:660
 msgid "Websafe Fonts"
 msgstr ""
 
-#: core/helpers/field.php:686
+#: core/helpers/field.php:670
 msgid "Google Fonts"
 msgstr ""
 
@@ -1336,181 +1336,8 @@ msgstr ""
 msgid "Zambian kwacha"
 msgstr ""
 
-#: data/icons/boxicons.php:20
-msgid "BoxIcons"
-msgstr ""
-
 #: data/icons/dashicons.php:20
 msgid "Dashicons"
-msgstr ""
-
-#: data/icons/fontawesome4.php:20
-msgid "FontAwesome 4"
-msgstr ""
-
-#: data/icons/fontawesome4.php:22 data/icons/lineawesome.php:22
-msgid "Web Application"
-msgstr ""
-
-#: data/icons/fontawesome4.php:475
-msgid "Accessibility"
-msgstr ""
-
-#: data/icons/fontawesome4.php:496 data/icons/lineawesome.php:408
-msgid "Hand"
-msgstr ""
-
-#: data/icons/fontawesome4.php:515 data/icons/lineawesome.php:427
-msgid "Transportation"
-msgstr ""
-
-#: data/icons/fontawesome4.php:535 data/icons/lineawesome.php:447
-msgid "Gender"
-msgstr ""
-
-#: data/icons/fontawesome4.php:551 data/icons/lineawesome.php:463
-msgid "File Type"
-msgstr ""
-
-#: data/icons/fontawesome4.php:571 data/icons/lineawesome.php:483
-msgid "Spinner"
-msgstr ""
-
-#: data/icons/fontawesome4.php:578 data/icons/lineawesome.php:490
-msgid "Form Control"
-msgstr ""
-
-#: data/icons/fontawesome4.php:591 data/icons/lineawesome.php:503
-msgid "Payment"
-msgstr ""
-
-#: data/icons/fontawesome4.php:605 data/icons/lineawesome.php:512
-msgid "Chart"
-msgstr ""
-
-#: data/icons/fontawesome4.php:612 data/icons/lineawesome.php:523
-msgid "Currency"
-msgstr ""
-
-#: data/icons/fontawesome4.php:641 data/icons/lineawesome.php:551
-#: data/icons/themify.php:262
-msgid "Text Editor"
-msgstr ""
-
-#: data/icons/fontawesome4.php:692 data/icons/lineawesome.php:602
-msgid "Directional"
-msgstr ""
-
-#: data/icons/fontawesome4.php:747 data/icons/lineawesome.php:657
-msgid "Video Player"
-msgstr ""
-
-#: data/icons/fontawesome4.php:770
-msgid "Brand"
-msgstr ""
-
-#: data/icons/fontawesome4.php:961 data/icons/lineawesome.php:823
-msgid "Medical"
-msgstr ""
-
-#: data/icons/fontawesome5.php:20
-msgid "FontAwesome 5"
-msgstr ""
-
-#: data/icons/fontawesome5.php:22 data/icons/themify.php:342
-msgid "Brand Icons"
-msgstr ""
-
-#: data/icons/fontawesome5.php:387
-msgid "Regular Icons"
-msgstr ""
-
-#: data/icons/fontawesome5.php:508
-msgid "Solid Icons"
-msgstr ""
-
-#: data/icons/foundation.php:20
-msgid "Foundation"
-msgstr ""
-
-#: data/icons/foundation.php:22
-msgid "General Icons"
-msgstr ""
-
-#: data/icons/foundation.php:97
-msgid "Page Icons"
-msgstr ""
-
-#: data/icons/foundation.php:115
-msgid "Arrow Icons"
-msgstr ""
-
-#: data/icons/foundation.php:125
-msgid "People Icons"
-msgstr ""
-
-#: data/icons/foundation.php:135
-msgid "Device Icons"
-msgstr ""
-
-#: data/icons/foundation.php:144
-msgid "Text Editor Icons"
-msgstr ""
-
-#: data/icons/foundation.php:170
-msgid "Media Control Icons"
-msgstr ""
-
-#: data/icons/foundation.php:188
-msgid "Ecommerce Icons"
-msgstr ""
-
-#: data/icons/foundation.php:206
-msgid "Accessibility Icons"
-msgstr ""
-
-#: data/icons/foundation.php:223
-msgid "Social & Brand Icons"
-msgstr ""
-
-#: data/icons/foundation.php:282
-msgid "Miscellaneous Icons"
-msgstr ""
-
-#: data/icons/lineawesome.php:20
-msgid "Line Awesome"
-msgstr ""
-
-#: data/icons/lineawesome.php:676
-msgid "Brands"
-msgstr ""
-
-#: data/icons/simplelineicons.php:20
-msgid "SimpleLine"
-msgstr ""
-
-#: data/icons/themify.php:20
-msgid "Themify"
-msgstr ""
-
-#: data/icons/themify.php:22
-msgid "Arrows & Direction Icons"
-msgstr ""
-
-#: data/icons/themify.php:57
-msgid "Web App Icons"
-msgstr ""
-
-#: data/icons/themify.php:249
-msgid "Control Icons"
-msgstr ""
-
-#: data/icons/themify.php:278
-msgid "Layout Icons"
-msgstr ""
-
-#: data/icons/typeicons.php:20
-msgid "TypIcons"
 msgstr ""
 
 #: fields/accordion/class-accordion.php:91
