@@ -26,7 +26,11 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Checkbox_Radio extends \WPOnion\Field {
+	class Checkbox_Radio extends \WPOnion\Field {
+		public function field_assets() {
+			// TODO: Implement field_assets() method.
+		}
+
 		/**
 		 * Returns all fields default.
 		 *

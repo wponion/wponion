@@ -306,7 +306,7 @@ export default ( ( window, document, $, jQuery ) => {
 			try {
 				$callback( $elem );
 			} catch( e ) {
-				console.log( arguments, ' \n' + e + '  \nFor : wponion_init_' + $module + 'field_' + $type );
+				console.error( arguments, ' \n' + e + '  \nFor : wponion_init_' + $module + 'field_' + $type );
 			}
 		} );
 	};
@@ -413,5 +413,4 @@ export default ( ( window, document, $, jQuery ) => {
 			timer: 3000
 		} );
 	};
-
 } )( window, document, jQuery, jQuery );

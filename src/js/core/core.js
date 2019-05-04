@@ -1,4 +1,3 @@
-/* global swal:true */
 import {
 	call_user_func,
 	is_jquery,

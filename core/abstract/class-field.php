@@ -1040,7 +1040,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			}
 
 			$data = wponion_query()->query( $type, $query_args, '' );
-			return $data;
+			return ( ! is_array( $data ) ) ? array() : $data;
 		}
 
 		/**

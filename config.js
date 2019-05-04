@@ -35,7 +35,8 @@ $files[ 'src/js/wponion-core.js' ]       = {
 		'src/js/modules/*',
 		'src/js/modules/*/*',
 		'src/vendors/backbone-modal.js' ],
-	webpack: 'webpack',
+	//webpack: 'webpack_dev_eval',
+	webpack: true,
 	sourcemaps: false,
 	rename: 'wponion-core.js',
 };
@@ -142,6 +143,28 @@ module.exports = {
 			append: 'wponion-append',
 			prepend: 'wponion-prepend',
 			inline: 'wponion-inline',
+		},
+		webpack_dev_eval: {
+			devtool: 'eval',
+			mode: 'development',
+			target: 'node',
+			externals: {
+				jquery: 'jQuery'
+			},
+			output: {
+				filename: '[name].js',
+			},
+			module: {
+				rules: [
+					{
+						test: /\.js$/,
+						loader: 'babel-loader',
+						options: {
+							presets: [ '@babel/env' ]
+						}
+					}
+				]
+			},
 		},
 	}
 };

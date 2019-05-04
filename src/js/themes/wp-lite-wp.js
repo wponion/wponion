@@ -5,7 +5,7 @@ class WP {
 			this.settings_menu_handler();
 			this.settings_init_search_input();
 		}
-		if( this.element.hasClass( 'wponion-metabox' ) && this.element.hasClass( 'wponion-wp-theme' ) ) {
+		if( this.element.hasClass( 'wponion-metabox' ) && ( this.element.hasClass( 'wponion-wp-theme' ) && this.element.hasClass( 'wponion-wc-theme' ) ) ) {
 			this.metabox_menu_handler();
 		}
 	}
@@ -20,8 +20,10 @@ class WP {
 		this.settings_submenu();
 	}
 
+
 	settings_main_menu() {
-		this.element.find( '.main-navigation .nav-tab-wrapper a' ).on( 'click', ( e ) => {
+		let $elem = ( this.element.hasClass( 'wponion-wc-theme' ) ) ? '.main-navigation nav a' : '.main-navigation .nav-tab-wrapper a';
+		this.element.find( $elem ).on( 'click', ( e ) => {
 			e.preventDefault();
 			let $elem = jQuery( e.currentTarget );
 			let $href = window.wponion.helper.url_params( $elem.attr( 'href' ) );
@@ -31,8 +33,13 @@ class WP {
 				if( $lookup.length > 0 ) {
 					this.element.find( '.wponion-container-wraps' ).hide();
 					$lookup.show();
-					this.element.find( 'nav.nav-tab-wrapper a.nav-tab-active' ).removeClass( 'nav-tab-active' );
-					$elem.addClass( 'nav-tab-active' );
+					if( this.element.hasClass( 'wponion-wc-theme' ) ) {
+						this.element.find( 'nav a.wpo-tab-active' ).removeClass( 'wpo-tab-active' );
+						$elem.addClass( 'wpo-tab-active' );
+					}else{
+						this.element.find( 'nav.nav-tab-wrapper a.nav-tab-active' ).removeClass( 'nav-tab-active' );
+						$elem.addClass( 'nav-tab-active' );
+					}
 					if( $lookup.find( '.wponion-submenus a.current' ).length === 0 ) {
 						$lookup.find( '.wponion-submenus li:first-child a' ).click();
 					} else {
@@ -134,11 +141,7 @@ class WP {
 
 ( ( window ) => {
 	window.wponion.hooks.addAction( 'wponion_theme_init', 'wponion_core', ( $elem ) => {
-		if( $elem.hasClass( 'wponion-wp-theme' ) ) {
-			new WP( $elem );
-		}
-
-		if( $elem.hasClass( 'wponion-wp_lite-theme' ) ) {
+		if( $elem.hasClass( 'wponion-wp-theme' ) || $elem.hasClass( 'wponion-wp_lite-theme' ) || $elem.hasClass( 'wponion-wc-theme' ) ) {
 			new WP( $elem );
 		}
 	} );
