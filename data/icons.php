@@ -16,14 +16,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-return array(
-	'dashicons'       => include WPONION_PATH . '/data/icons/dashicons.php',
-	'fontawesome-4'   => include WPONION_PATH . '/data/icons/fontawesome4.php',
-	'fontawesome-5'   => include WPONION_PATH . '/data/icons/fontawesome5.php',
-	'boxicons'        => include WPONION_PATH . '/data/icons/boxicons.php',
-	'typeicons'       => include WPONION_PATH . '/data/icons/typeicons.php',
-	'simplelineicons' => include WPONION_PATH . '/data/icons/simplelineicons.php',
-	'lineawesome'     => include WPONION_PATH . '/data/icons/lineawesome.php',
-	'themify'         => include WPONION_PATH . '/data/icons/themify.php',
-	'foundation'      => include WPONION_PATH . '/data/icons/foundation.php',
-);
+return array( 'dashicons' => include WPONION_PATH . '/data/icons/dashicons.php' );
