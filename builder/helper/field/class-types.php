@@ -349,7 +349,8 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\Notice
 		 */
 		public function notice_danger( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_danger', $id, $title, $args );
+			return $this->field( 'notice_danger', $id, $title, $args )
+				->set_notice_type( 'notice_danger' );
 		}
 
 		/**
@@ -360,7 +361,8 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\Notice
 		 */
 		public function notice_dark( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_dark', $id, $title, $args );
+			return $this->field( 'notice_dark', $id, $title, $args )
+				->set_notice_type( 'notice_dark' );
 		}
 
 		/**
@@ -371,7 +373,8 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\Notice
 		 */
 		public function notice_info( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_info', $id, $title, $args );
+			return $this->field( 'notice_info', $id, $title, $args )
+				->set_notice_type( 'notice_info' );
 		}
 
 		/**
@@ -382,7 +385,8 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\Notice
 		 */
 		public function notice_light( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_light', $id, $title, $args );
+			return $this->field( 'notice_light', $id, $title, $args )
+				->set_notice_type( 'notice_light' );
 		}
 
 		/**
@@ -393,7 +397,8 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\Notice
 		 */
 		public function notice_primary( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_primary', $id, $title, $args );
+			return $this->field( 'notice_primary', $id, $title, $args )
+				->set_notice_type( 'notice_primary' );
 		}
 
 		/**
@@ -415,7 +420,8 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\Notice
 		 */
 		public function notice_success( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_success', $id, $title, $args );
+			return $this->field( 'notice_success', $id, $title, $args )
+				->set_notice_type( 'notice_success' );
 		}
 
 		/**
@@ -426,7 +432,8 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\Notice
 		 */
 		public function notice_warning( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_warning', $id, $title, $args );
+			return $this->field( 'notice_warning', $id, $title, $args )
+				->set_notice_type( 'notice_warning' );
 		}
 
 		/**
@@ -602,7 +609,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\WP_Notice
 		 */
 		public function wp_notice_error( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_error', $id, $title, $args );
+			return $this->field( 'wp_notice_error', $id, $title, $args )->set_notice_type( 'error' );
 		}
 
 		/**
@@ -613,7 +620,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\WP_Notice
 		 */
 		public function wp_notice_info( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_info', $id, $title, $args );
+			return $this->field( 'wp_notice_info', $id, $title, $args )->set_notice_type( 'info' );
 		}
 
 		/**
@@ -624,7 +631,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\WP_Notice
 		 */
 		public function wp_notice_success( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_success', $id, $title, $args );
+			return $this->field( 'wp_notice_success', $id, $title, $args )->set_notice_type( 'success' );
 		}
 
 		/**
@@ -635,7 +642,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return $this|\WPO\WP_Notice
 		 */
 		public function wp_notice_warning( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_warning', $id, $title, $args );
+			return $this->field( 'wp_notice_warning', $id, $title, $args )->set_notice_type( 'warning' );
 		}
 
 		/**

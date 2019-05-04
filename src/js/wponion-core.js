@@ -107,3 +107,4 @@ export default ( ( window, document, wp, $ ) => {
 
 	window.wponion.hooks.doAction( 'wponion_loaded' );
 } )( window, document, wp, jQuery );
+

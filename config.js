@@ -35,8 +35,8 @@ $files[ 'src/js/wponion-core.js' ]       = {
 		'src/js/modules/*',
 		'src/js/modules/*/*',
 		'src/vendors/backbone-modal.js' ],
-	webpack: 'webpack_dev',
-	sourcemaps: true,
+	webpack: 'webpack',
+	sourcemaps: false,
 	rename: 'wponion-core.js',
 };
 $files[ 'src/js/wponion-customizer.js' ] = {

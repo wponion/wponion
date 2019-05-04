@@ -68,9 +68,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @throws \Exception
 		 */
 		public static function init() {
+			self::setup_remaps();
 			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), 1 );
 			self::load_required_files();
-			self::setup_remaps();
 		}
 
 		/**
@@ -227,6 +227,22 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		}
 
 		private static function setup_remaps() {
+			/**
+			 * WPO Builder Remaps
+			 */
+			self::$remaps['\WPO\notice_danger']     = '\WPO\Notice';
+			self::$remaps['\WPO\notice_dark']       = '\WPO\Notice';
+			self::$remaps['\WPO\notice_light']      = '\WPO\Notice';
+			self::$remaps['\WPO\notice_primary']    = '\WPO\Notice';
+			self::$remaps['\WPO\notice_info']       = '\WPO\Notice';
+			self::$remaps['\WPO\notice_secondary']  = '\WPO\Notice';
+			self::$remaps['\WPO\notice_success']    = '\WPO\Notice';
+			self::$remaps['\WPO\notice_warning']    = '\WPO\Notice';
+			self::$remaps['\WPO\WP_Notice_Error']   = '\WPO\WP_Notice';
+			self::$remaps['\WPO\WP_Notice_Warning'] = '\WPO\WP_Notice';
+			self::$remaps['\WPO\WP_Notice_Success'] = '\WPO\WP_Notice';
+			self::$remaps['\WPO\WP_Notice_Info']    = '\WPO\WP_Notice';
+
 			/**
 			 * Customizer Module Fields.
 			 */

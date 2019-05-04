@@ -21,6 +21,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 	 * @since 1.0
 	 */
 	class Field extends Common_Args {
+
 		/**
 		 * Creates A New Field Instance.
 		 *
@@ -44,8 +45,8 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
-				if ( class_exists( '\WPO\\' . $type ) ) {
-					$class = '\WPO\\' . $type;
+				$class = class_exists( '\WPO\\' . $type ) ? '\WPO\\' . $type : wponion_get_field_class_remap( '\WPO\\' . $type, false );
+				if ( false !== $class ) {
 					return new $class( $id, $title, $args );
 				} else {
 					return new Field( $type, $id, $title, $args );
