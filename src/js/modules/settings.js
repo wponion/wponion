@@ -24,23 +24,29 @@ class WPOnion_Settings_Module extends WPOnion_Module {
 						let $elem = jQuery( response.form );
 						jQuery( 'body' ).find( 'script#wponion_field_js_vars' ).append( response.script );
 						this.element.parent().html( $elem.find( '.wponion-form' ).html() );
-						window.swal.fire( {
-							type: 'success',
-							title: window.wponion.core.txt( 'settings_saved' ),
-						} );
+						let $settings = window.wponion._.clone( window.wponion.core.option( 'settings_ajax' ) );
+
+						if( window.wponion._.isObject( $settings ) ) {
+							if( false === window.wponion._.isUndefined( $settings.toast ) ) {
+								delete $settings.toast;
+								wponion_swal_toast().fire( $settings );
+							} else {
+								window.swal.fire( window.wponion._.merge( {
+									type: 'success'
+								}, $settings ) );
+							}
+						} else {
+							window.swal.fire( {
+								type: 'success',
+								title: $settings,
+							} );
+						}
 
 						let $elm = jQuery( '.wponion-framework' );
-
 						new WPOnion_Validator();
-
-						window.wponion.hooks.doAction( 'wponion_before_theme_init', $elm );
 						window.wponion_theme( $elm );
-						window.wponion.hooks.doAction( 'wponion_after_theme_init', $elm );
-
-						window.wponion.hooks.doAction( 'wponion_before_fields_init', $elm );
 						window.wponion_field( $elm ).reload();
 						wponion_dependency( $elm );
-						window.wponion.hooks.doAction( 'wponion_after_fields_init', $elm );
 					},
 					error: () => {
 						this.element.parent().submit();

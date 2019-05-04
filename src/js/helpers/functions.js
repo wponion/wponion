@@ -14,7 +14,6 @@ let WPOButton = function( element, options ) {
 
 WPOButton.VERSION = '3.4.1';
 
-
 WPOButton.prototype.setState = function( state ) {
 	let d    = 'disabled';
 	let $el  = this.$element;
@@ -353,6 +352,11 @@ export default ( ( window, document, $, jQuery ) => {
 		}
 	};
 
+
+	/**
+	 * Utility Functions.
+	 */
+
 	/**
 	 * Creates A New Instance of Ajaxer and returns it.
 	 * @param $args
@@ -380,6 +384,34 @@ export default ( ( window, document, $, jQuery ) => {
 		document.body.appendChild( downloadAnchorNode );
 		downloadAnchorNode.click();
 		downloadAnchorNode.remove();
+	};
+
+	/**
+	 * Creates A Swal With BootStrap Button Class.
+	 * @returns {*|Function|Object|void}
+	 */
+	window.wponion_bs_swal = () => {
+		return window.swal.mixin( {
+			customClass: {
+				confirmButton: 'wpo-btn wpo-btn-success',
+				cancelButton: 'wpo-btn wpo-btn-danger'
+			},
+			buttonsStyling: false,
+		} );
+	};
+
+	/**
+	 * Creates A Swal Toast.
+	 * @returns {*|Function|Object|void}
+	 */
+	window.wponion_swal_toast = () => {
+		return window.swal.mixin( {
+			toast: true,
+			type: 'success',
+			position: 'top-end',
+			showConfirmButton: false,
+			timer: 3000
+		} );
 	};
 
 } )( window, document, jQuery, jQuery );

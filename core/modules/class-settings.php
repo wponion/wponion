@@ -325,6 +325,14 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$instance = $this->init_theme();
 			$instance->render_settings();
 			echo '</form>';
+
+			if ( false !== $this->option( 'ajax' ) ) {
+				$ajax = ( true === $this->option( 'ajax' ) ) ? __( 'Settings Updated' ) : $this->option( 'ajax' );
+				if ( is_array( $ajax ) && ! isset( $ajax['title'] ) ) {
+					$ajax['title'] = __( 'Settings Updated' );
+				}
+				wponion_localize()->add( 'wponion_core', array( 'settings_ajax' => $ajax ) );
+			}
 		}
 
 		/**
@@ -450,11 +458,11 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			return array(
 				'menu'          => $menu,
-				'ajax'          => true,
+				'ajax'          => false,
 				'extra_css'     => array(),
 				'extra_js'      => array(),
 				'option_name'   => '_wponion',
-				'theme'         => 'wp',
+				'theme'         => 'wp_modern',
 				'template_path' => false,
 				'save_button'   => __( 'Save Settings', 'wponion' ),
 			);
@@ -486,7 +494,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$class   = array();
 			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
 			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
-			$class[] = ( true === $this->option( 'ajax' ) ) ? 'wponion-ajax-save' : '';
+			$class[] = ( false !== $this->option( 'ajax' ) ) ? 'wponion-ajax-save' : '';
 			if ( 1 === count( $this->fields->get() ) ) {
 				$class[] = 'wponion-hide-nav';
 				if ( $this->fields->has_fields() || ( $this->fields->has_containers() && 1 === count( $this->fields->containers() ) ) ) {
