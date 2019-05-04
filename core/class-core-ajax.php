@@ -313,16 +313,16 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$is_network_wide = isset( $_REQUEST['network_wide'] ) && $_REQUEST['network_wide'];
 
 			if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], $option_page . '-options' ) ) {
-				wp_send_json_error( __( 'Cheatin&#8217; uh?' ) );
+				wp_send_json_error( __( 'Cheatin&#8217; uh?', 'wponion' ) );
 			}
 
 			if ( $is_network_wide && ! is_super_admin() ) {
-				wp_send_json_error( __( 'Cheatin&#8217; uh?' ) );
+				wp_send_json_error( __( 'Cheatin&#8217; uh?', 'wponion' ) );
 			}
 
 			$capability = apply_filters( "option_page_capability_{$option_page}", 'manage_options' );
 			if ( ! current_user_can( $capability ) ) {
-				wp_send_json_error( __( 'Cheatin&#8217; uh?' ) );
+				wp_send_json_error( __( 'Cheatin&#8217; uh?', 'wponion' ) );
 			}
 
 			$whitelist_options = apply_filters( 'whitelist_options', array() );

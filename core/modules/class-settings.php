@@ -327,9 +327,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			echo '</form>';
 
 			if ( false !== $this->option( 'ajax' ) ) {
-				$ajax = ( true === $this->option( 'ajax' ) ) ? __( 'Settings Updated' ) : $this->option( 'ajax' );
+				$ajax = ( true === $this->option( 'ajax' ) ) ? __( 'Settings Updated', 'wponion' ) : $this->option( 'ajax' );
 				if ( is_array( $ajax ) && ! isset( $ajax['title'] ) ) {
-					$ajax['title'] = __( 'Settings Updated' );
+					$ajax['title'] = __( 'Settings Updated', 'wponion' );
 				}
 				wponion_localize()->add( 'wponion_core', array( 'settings_ajax' => $ajax ) );
 			}
