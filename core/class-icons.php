@@ -97,10 +97,12 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function setup() {
+			do_action( 'wponion_before_icons_setup' );
 			$icons = Helper::get_data( 'icons' );
 			foreach ( $icons as $slug => $key ) {
 				self::add( $key['name'], $slug, $key['icons'] );
 			}
+			do_action( 'wponion_after_icons_setup' );
 		}
 	}
 }
