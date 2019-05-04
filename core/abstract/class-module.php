@@ -439,11 +439,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				}
 
 				$is_main_active = ( $name === $this->active( false ) && $container === $this->active( true ) );
-				$is_sub_active  = ( $container !== $this->active( true ) && $name === $first_container );
+				$is_sub_active  = ( $container !== $this->active( true ) && ( 'submeu' === $this->option( 'is_single_page' ) && $name === $first_container ) );
+
 
 				if ( 'metabox' === $this->module() && $is_main_active || $is_sub_active ) {
 					$is_active = true;
-				} elseif ( $is_main_active || ( $is_sub_active && false !== $this->option( 'is_single_page' ) ) ) {
+				} elseif ( $is_main_active || $is_sub_active ) {
 					$is_active = true;
 				}
 			}

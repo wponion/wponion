@@ -500,7 +500,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Checks if Option Loop Is Valid
 		 *
 		 * @param array|\WPO\Container $container
-		 * @param bool                 $sub_container
+		 * @param bool|\WPO\Container  $sub_container
 		 * @param bool                 $check_current_page
 		 *
 		 * @return bool
@@ -516,6 +516,10 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				}
 
 				if ( true === $sub_container && false === $this->is_single_page() && $container->name() !== $this->active( false ) ) {
+					return false;
+				}
+
+				if ( $sub_container instanceof \WPO\Container && false === $this->is_single_page() && $sub_container->name() !== $this->active( false ) ) {
 					return false;
 				}
 			}
@@ -537,7 +541,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			} else {
 				if ( $container === $this->active( true ) && $sub_container === $this->active( false ) ) {
 					return true;
-				} elseif ( $container !== $this->active( true ) && $first_container === $sub_container ) {
+				} elseif ( $container !== $this->active( true ) && $sub_container !== $this->active( false ) && $first_container === $sub_container ) {
 					return true;
 				}
 				return false;

@@ -33,7 +33,11 @@ class WP {
 					$lookup.show();
 					this.element.find( 'nav.nav-tab-wrapper a.nav-tab-active' ).removeClass( 'nav-tab-active' );
 					$elem.addClass( 'nav-tab-active' );
-					$lookup.find( '.wponion-submenus a.current' ).click();
+					if( $lookup.find( '.wponion-submenus a.current' ).length === 0 ) {
+						$lookup.find( '.wponion-submenus li:first-child a' ).click();
+					} else {
+						$lookup.find( '.wponion-submenus a.current' ).click();
+					}
 				} else if( false === $elem.hasClass( 'disabled' ) ) {
 					window.location.href = $elem.attr( 'href' );
 				}
