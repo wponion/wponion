@@ -599,40 +599,41 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * @param \WPO\Container|     $container
-		 * @param \WPO\Container|bool $sub_container
-		 * @param bool                $first_container
+		 * @param bool|\WPO\Container $container
+		 * @param bool|\WPO\Container $sub_container
+		 * @param bool|\WPO\Container $first_container
 		 *
 		 * @return array|string
 		 */
-		public function container_wrap_class( $container, $sub_container = false, $first_container = false ) {
+		public function container_wrap_class( $container = false, $sub_container = false, $first_container = false ) {
 			$_class   = array( $this->container_wrap_id( $container ), 'row' );
-			$_class[] = ( ( $sub_container instanceof Container && $sub_container->has_callback() ) || $container->has_callback() ) ? 'wponion-has-callback' : '';
-			$_class[] = ( ( $sub_container instanceof Container && $sub_container->has_fields() ) || $container->has_fields() ) ? 'wponion-has-fields' : '';
-			$_class[] = ( $container->has_containers() ) ? 'wponion-has-containers' : '';
+			$_class[] = ( ( wponion_is_container( $sub_container ) && $sub_container->has_callback() ) || ( wponion_is_container( $container ) && $container->has_callback() ) ) ? 'wponion-has-callback' : '';
+			$_class[] = ( ( wponion_is_container( $sub_container ) && $sub_container->has_fields() ) || ( wponion_is_container( $container ) && $container->has_fields() ) ) ? 'wponion-has-fields' : '';
+			$_class[] = ( wponion_is_container( $container ) && $container->has_containers() ) ? 'wponion-has-containers' : '';
 
-			if ( false === $sub_container ) {
+			if ( ! $sub_container && wponion_is_container( $container ) ) {
 				$_class[] = ( true === $this->is_tab_active( $container->name(), false ) ) ? ' wponion-container-wraps ' : ' wponion-container-wraps hidden';
-			}
-
-			if ( $sub_container instanceof Container ) {
+			} elseif ( wponion_is_container( $sub_container ) ) {
 				$_class[] = ( true === $this->is_tab_active( $container->name(), $sub_container->name(), $first_container ) ) ? 'wponion-sub-container-wraps' : 'wponion-sub-container-wraps hidden';
+			} elseif ( ! $sub_container && ! $container ) {
+				$_class[] = 'wponion-container-wraps';
 			}
-
 			return wponion_html_class( array_filter( $_class ) );
 		}
 
 		/**
-		 * @param \WPO\Container      $container
+		 * @param bool|\WPO\Container $container
 		 * @param bool|\WPO\Container $sub_container
 		 *
 		 * @return string
 		 */
 		public function container_wrap_id( $container, $sub_container = false ) {
-			if ( false === $sub_container ) {
+			if ( wponion_is_container( $container ) && wponion_is_container( $sub_container ) ) {
+				return 'wponion-tab-' . $container->name() . '-' . $sub_container->name();
+			} elseif ( wponion_is_container( $container ) ) {
 				return 'wponion-tab-' . $container->name();
 			}
-			return 'wponion-tab-' . $container->name() . '-' . $sub_container->name();
+			return '';
 		}
 
 		/**
