@@ -19,7 +19,7 @@ if ( ! class_exists( 'WPO\Color_Group' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method rgba()
+	 * @method get_rgba()
 	 */
 	class Color_Group extends Field {
 		/**
@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPO\Color_Group' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_rgba( $is_rgba = true ) {
+		public function rgba( $is_rgba = true ) {
 			$this['rgba'] = $is_rgba;
 			return $this;
 		}

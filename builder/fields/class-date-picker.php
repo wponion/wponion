@@ -19,11 +19,11 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method range()
-	 * @method settings()
-	 * @method theme()
-	 * @method date()
-	 * @method to_date()
+	 * @method get_range()
+	 * @method get_settings()
+	 * @method get_theme()
+	 * @method get_date()
+	 * @method get_to_date()
 	 */
 	class Date_Picker extends Field {
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_range( $is_range = false ) {
+		public function range( $is_range = false ) {
 			$this['range'] = $is_range;
 			return $this;
 		}
@@ -55,7 +55,7 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_settings( $args ) {
+		public function settings( $args ) {
 			$this['settings'] = $args;
 			return $this;
 		}
@@ -75,7 +75,7 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_theme( $theme = 'default' ) {
+		public function theme( $theme = 'default' ) {
 			$this['theme'] = $theme;
 			return $this;
 		}
@@ -84,56 +84,56 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		 * @return $this
 		 */
 		public function theme_default() {
-			return $this->set_theme( 'default' );
+			return $this->theme( 'default' );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function theme_dark() {
-			return $this->set_theme( 'dark' );
+			return $this->theme( 'dark' );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function theme_material_blue() {
-			return $this->set_theme( 'material_blue' );
+			return $this->theme( 'material_blue' );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function theme_material_green() {
-			return $this->set_theme( 'material_green' );
+			return $this->theme( 'material_green' );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function theme_material_red() {
-			return $this->set_theme( 'material_red' );
+			return $this->theme( 'material_red' );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function theme_material_orange() {
-			return $this->set_theme( 'material_orange' );
+			return $this->theme( 'material_orange' );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function theme_airbnb() {
-			return $this->set_theme( 'airbnb' );
+			return $this->theme( 'airbnb' );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function theme_confetti() {
-			return $this->set_theme( 'confetti' );
+			return $this->theme( 'confetti' );
 		}
 
 		/**
@@ -141,7 +141,7 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_date( $date ) {
+		public function date( $date ) {
 			$this['date'] = $date;
 			return $this;
 		}
@@ -151,7 +151,7 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_to_date( $date ) {
+		public function to_date( $date ) {
 			$this['to_date'] = $date;
 			return $this;
 		}

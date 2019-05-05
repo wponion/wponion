@@ -49,7 +49,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 			if ( $this->has_fields() ) {
 				/* @var $field \WPO\Field */
 				foreach ( $this->fields() as $field ) {
-					if ( $field->id() === $field_id ) {
+					if ( $field->get_id() === $field_id ) {
 						return $field;
 					}
 				}
@@ -103,10 +103,10 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 				$new_fields = array();
 				/* @var $field \WPO\Field */
 				foreach ( $this->fields() as $field ) {
-					if ( $field->id() === $before_field_id ) {
+					if ( $field->get_id() === $before_field_id ) {
 						$new_fields[] = $new_field;
 						$new_fields[] = $field;
-					} elseif ( $field->id() !== $new_field->id() ) {
+					} elseif ( $field->get_id() !== $new_field->get_id() ) {
 						$new_fields[] = $field;
 					}
 				}
@@ -126,7 +126,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 				$new_fields = array();
 				/* @var $field \WPO\Field */
 				foreach ( $this->fields() as $field ) {
-					if ( $field->id() === $after_field_id ) {
+					if ( $field->get_id() === $after_field_id ) {
 						$new_fields[] = $field;
 						$new_fields[] = $new_field;
 					} else {

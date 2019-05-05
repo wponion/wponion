@@ -19,10 +19,10 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method disabled()
-	 * @method enabled()
-	 * @method enabled_title()
-	 * @method disabled_title()
+	 * @method get_disabled()
+	 * @method get_enabled()
+	 * @method get_enabled_title()
+	 * @method get_disabled_title()
 	 */
 	class Sorter extends Field {
 		/**
@@ -46,7 +46,7 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_enabled( $enabled, $merge = true ) {
+		public function enabled( $enabled, $merge = true ) {
 			$this->_set_array_handler( 'enabled', $enabled, $merge );
 			$this['options']['enabled'] = $this['enabled'];
 			return $this;
@@ -58,7 +58,7 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_disabled( $disabled = array(), $merge = true ) {
+		public function disabled( $disabled = array(), $merge = true ) {
 			$this->_set_array_handler( 'disabled', $disabled, $merge );
 			$this['options']['disabled'] = $this['disabled'];
 			return $this;
@@ -70,28 +70,8 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_enable( $slug = null, $title = null ) {
-			return $this->set_enabled( array( $slug => $title ) );
-		}
-
-		/**
-		 * @param null|string $slug
-		 * @param null|string $title
-		 *
-		 * @return $this
-		 */
 		public function enable( $slug = null, $title = null ) {
-			return $this->set_enable( $slug, $title );
-		}
-
-		/**
-		 * @param null|string $slug
-		 * @param null|string $title
-		 *
-		 * @return $this
-		 */
-		public function set_disable( $slug = null, $title = null ) {
-			return $this->set_disabled( array( $slug => $title ) );
+			return $this->enabled( array( $slug => $title ) );
 		}
 
 		/**
@@ -101,7 +81,7 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		 * @return $this
 		 */
 		public function disable( $slug = null, $title = null ) {
-			return $this->set_disable( $slug, $title );
+			return $this->disabled( array( $slug => $title ) );
 		}
 
 		/**
@@ -109,7 +89,7 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_enabled_title( $title = null ) {
+		public function enabled_title( $title = null ) {
 			$this['enabled_title'] = $title;
 			return $this;
 		}
@@ -119,7 +99,7 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_disabled_title( $title = null ) {
+		public function disabled_title( $title = null ) {
 			$this['disabled_title'] = $title;
 			return $this;
 		}

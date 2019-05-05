@@ -19,7 +19,7 @@ if ( ! class_exists( 'WPO\Checkbox_Radio' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method label()
+	 * @method get_label()
 	 */
 	class Checkbox_Radio extends Field {
 		/**
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Checkbox_Radio' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_label( $label ) {
+		public function label( $label ) {
 			$this['label'] = $label;
 			return $this;
 		}
@@ -60,18 +60,9 @@ if ( ! class_exists( 'WPO\Checkbox_Radio' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_option_group( $option_group = '' ) {
+		public function option_group( $option_group = '' ) {
 			$this->option_group = $option_group;
 			return $this;
-		}
-
-		/**
-		 * @param $option_group
-		 *
-		 * @return \WPO\Checkbox_Radio
-		 */
-		public function option_group( $option_group ) {
-			return $this->set_option_group( $option_group );
 		}
 
 		/**
@@ -80,7 +71,7 @@ if ( ! class_exists( 'WPO\Checkbox_Radio' ) ) {
 		 *
 		 * @return $this|\WPO\Field
 		 */
-		public function set_options( $options = array(), $merge = true ) {
+		public function options( $options = array(), $merge = true ) {
 			if ( false !== $this->option_group ) {
 				if ( ! isset( $this['options'][ $this->option_group ] ) ) {
 					$this['options'][ $this->option_group ] = array();

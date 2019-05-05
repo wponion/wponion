@@ -170,7 +170,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $thisset
+		 * @return $this
 		 */
 		public function fieldset( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'fieldset', $id, $title, $args );

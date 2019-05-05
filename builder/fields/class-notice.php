@@ -37,7 +37,7 @@ if ( ! class_exists( 'WPO\Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_notice_type( $notice_type ) {
+		public function notice_type( $notice_type ) {
 			$this['notice_type'] = $notice_type;
 			return $this;
 		}
@@ -47,7 +47,7 @@ if ( ! class_exists( 'WPO\Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_autoclose( $autoclose ) {
+		public function autoclose( $autoclose ) {
 			$this['autoclose'] = $autoclose;
 			return $this;
 		}
@@ -57,7 +57,7 @@ if ( ! class_exists( 'WPO\Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_close( $close ) {
+		public function close( $close ) {
 			$this['close'] = $close;
 			return $this;
 		}

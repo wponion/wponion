@@ -18,11 +18,11 @@ if ( ! class_exists( 'WPO\Link_Color' ) ) {
 	 * @package WPO
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 * @method color()
-	 * @method hover()
-	 * @method active()
-	 * @method visited()
-	 * @method foucs()
+	 * @method get_color()
+	 * @method get_hover()
+	 * @method get_active()
+	 * @method get_visited()
+	 * @method get_foucs()
 	 */
 	class Link_Color extends Color_Group {
 		/**
@@ -45,7 +45,7 @@ if ( ! class_exists( 'WPO\Link_Color' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_color( $field = false ) {
+		public function color( $field = false ) {
 			$this['color'] = $field;
 			return $this;
 		}
@@ -58,7 +58,7 @@ if ( ! class_exists( 'WPO\Link_Color' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_hover( $field = false ) {
+		public function hover( $field = false ) {
 			$this['hover'] = $field;
 			return $this;
 		}
@@ -71,7 +71,7 @@ if ( ! class_exists( 'WPO\Link_Color' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_active( $field = false ) {
+		public function active( $field = false ) {
 			$this['active'] = $field;
 			return $this;
 		}
@@ -84,7 +84,7 @@ if ( ! class_exists( 'WPO\Link_Color' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_visited( $field = false ) {
+		public function visited( $field = false ) {
 			$this['visited'] = $field;
 			return $this;
 		}
@@ -97,7 +97,7 @@ if ( ! class_exists( 'WPO\Link_Color' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_foucs( $field = false ) {
+		public function foucs( $field = false ) {
 			$this['foucs'] = $field;
 			return $this;
 		}

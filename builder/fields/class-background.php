@@ -19,15 +19,15 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method preview()
-	 * @method background_repeat()
-	 * @method background_attachment()
-	 * @method background_position()
-	 * @method background_clip()
-	 * @method background_origin()
-	 * @method background_size()
-	 * @method background_color()
-	 * @method background_image()
+	 * @method get_preview()
+	 * @method get_background_repeat()
+	 * @method get_background_attachment()
+	 * @method get_background_position()
+	 * @method get_background_clip()
+	 * @method get_background_origin()
+	 * @method get_background_size()
+	 * @method get_background_color()
+	 * @method get_background_image()
 	 */
 	class Background extends Field {
 		/**
@@ -46,23 +46,22 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_preview( $show_preview = true ) {
-			$this['preview'] = $show_preview;
-			return $this;
+		public function preview( $show_preview = true ) {
+			return $this->_set( 'preview', $show_preview );
 		}
 
 		/**
 		 * @return \WPO\Background
 		 */
 		public function show_preview() {
-			return $this->set_preview( true );
+			return $this->preview( true );
 		}
 
 		/**
 		 * @return \WPO\Background
 		 */
 		public function hide_preview() {
-			return $this->set_preview( false );
+			return $this->preview( false );
 		}
 
 		/**
@@ -70,9 +69,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_preview_height( $height = '200px' ) {
-			$this['height'] = $height;
-			return $this;
+		public function preview_height( $height = '200px' ) {
+			return $this->_set( 'height', $height );
 		}
 
 		/**
@@ -80,9 +78,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_background_repeat( $background_repeat = true ) {
-			$this['background-repeat'] = $background_repeat;
-			return $this;
+		public function background_repeat( $background_repeat = true ) {
+			return $this->_set( 'background-repeat', $background_repeat );
 		}
 
 		/**
@@ -90,9 +87,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_background_attachment( $background_attachment = true ) {
-			$this['background-attachment'] = $background_attachment;
-			return $this;
+		public function background_attachment( $background_attachment = true ) {
+			return $this->_set( 'background-attachment', $background_attachment );
 		}
 
 		/**
@@ -100,9 +96,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_background_position( $background_position = true ) {
-			$this['background-position'] = $background_position;
-			return $this;
+		public function background_position( $background_position = true ) {
+			return $this->_set( 'background-position', $background_position );
 		}
 
 		/**
@@ -110,9 +105,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_background_clip( $background_clip = true ) {
-			$this['background-clip'] = $background_clip;
-			return $this;
+		public function background_clip( $background_clip = true ) {
+			return $this->_set( 'background-clip', $background_clip );
 		}
 
 		/**
@@ -120,9 +114,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_background_origin( $background_origin = true ) {
-			$this['background-origin'] = $background_origin;
-			return $this;
+		public function background_origin( $background_origin = true ) {
+			return $this->_set( 'background-origin', $background_origin );
 		}
 
 		/**
@@ -130,9 +123,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_background_size( $background_size = true ) {
-			$this['background-size'] = $background_size;
-			return $this;
+		public function background_size( $background_size = true ) {
+			return $this->_set( 'background-size', $background_size );
 		}
 
 		/**
@@ -140,9 +132,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_background_color( $background_color = true ) {
-			$this['background-color'] = $background_color;
-			return $this;
+		public function background_color( $background_color = true ) {
+			return $this->_set( 'background-color', $background_color );
 		}
 
 		/**
@@ -150,9 +141,8 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_background_image( $background_image = true ) {
-			$this['background-image'] = $background_image;
-			return $this;
+		public function background_image( $background_image = true ) {
+			return $this->_set( 'background-image', $background_image );
 		}
 	}
 }

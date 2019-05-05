@@ -47,7 +47,8 @@ if ( ! class_exists( 'WPO\Helper\Field\Helper' ) ) {
 		 * @return $this|bool|\WPO\Field
 		 */
 		public function __call( $name, $arguments ) {
-			if ( empty( $arguments ) && isset( $this[ $name ] ) ) {
+			if ( empty( $arguments ) && false !== strpos( strtolower( $name ), 'get_' ) ) {
+				$name = str_replace( 'get_', '', $name );
 				return $this[ $name ];
 			}
 			return false;

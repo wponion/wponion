@@ -19,32 +19,37 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method mixed id
-	 * @method mixed title
-	 * @method mixed help
-	 * @method mixed default
-	 * @method mixed desc
-	 * @method mixed desc_field
-	 * @method mixed name
-	 * @method mixed js_validate
-	 * @method mixed type
-	 * @method mixed style
-	 * @method mixed placeholder
-	 * @method mixed disabled
+	 * @method mixed get_id
+	 * @method mixed get_title
+	 * @method mixed get_help
+	 * @method mixed get_default
+	 * @method mixed get_desc
+	 * @method mixed get_desc_field
+	 * @method mixed get_name
+	 * @method mixed get_js_validate
+	 * @method mixed get_type
+	 * @method mixed get_style
+	 * @method mixed get_placeholder
+	 * @method mixed get_disabled
 	 * @method mixed class
-	 * @method mixed before
-	 * @method mixed after
-	 * @method mixed horizontal
-	 * @method mixed only_field
-	 * @method mixed clone
-	 * @method mixed clone_settings
-	 * @method mixed debug
-	 * @method mixed query_args
-	 * @method mixed wp_pointer
-	 * @method mixed wrap_tooltip
-	 * @method mixed wrap_class
-	 * @method mixed wrap_id
-	 * @method bool multiple()
+	 * @method mixed get_before
+	 * @method mixed get_after
+	 * @method mixed get_horizontal
+	 * @method mixed get_only_field
+	 * @method mixed get_clone
+	 * @method mixed get_clone_settings
+	 * @method mixed get_debug
+	 * @method mixed get_query_args
+	 * @method mixed get_wp_pointer
+	 * @method mixed get_wrap_tooltip
+	 * @method mixed get_wrap_class
+	 * @method mixed get_wrap_id
+	 * @method bool get_multiple
+	 * @method mixed get_sanitize
+	 * @method mixed get_validate
+	 * @method mixed get_attributes
+	 * @method mixed get_dependency
+	 * @method mixed get_wrap_attributes
 	 */
 	class Common_Args extends Array_Args {
 		/**
@@ -54,9 +59,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_type( $type ) {
-			$this['type'] = $type;
-			return $this;
+		public function type( $type ) {
+			return $this->_set( 'type', $type );
 		}
 
 		/**
@@ -66,7 +70,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_id( $id ) {
+		public function id( $id ) {
 			$this['id']   = $id;
 			$this->unique = $id;
 			return $this;
@@ -79,9 +83,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_title( $title ) {
-			$this['title'] = $title;
-			return $this;
+		public function title( $title ) {
+			return $this->_set( 'title', $title );
 		}
 
 		/**
@@ -91,9 +94,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_name( $name ) {
-			$this['name'] = $name;
-			return $this;
+		public function name( $name ) {
+			return $this->_set( 'name', $name );
 		}
 
 		/**
@@ -103,9 +105,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_help( $help ) {
-			$this['help'] = $help;
-			return $this;
+		public function help( $help ) {
+			return $this->_set( 'help', $help );
 		}
 
 		/**
@@ -115,9 +116,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_default( $default = null ) {
-			$this['default'] = $default;
-			return $this;
+		public function default( $default = null ) {
+			return $this->_set( 'default', $default );
 		}
 
 		/**
@@ -128,13 +128,9 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_desc( $desc = false, $below_title = true ) {
-			if ( true === $below_title ) {
-				$this['desc'] = $desc;
-			} else {
-				$this['desc_field'] = $desc;
-			}
-			return $this;
+		public function desc( $desc = false, $below_title = true ) {
+			$k = ( $below_title ) ? 'desc' : 'desc_field';
+			return $this->_set( $k, $desc );
 		}
 
 		/**
@@ -144,10 +140,10 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_desc_field( $desc_field = true ) {
+		public function desc_field( $desc_field = true ) {
 			if ( true === $desc_field && ! empty( $this['desc'] ) ) {
 				$this['desc_field'] = $this['desc'];
-				$this->set_desc( false );
+				$this->desc( false );
 			} else {
 				$this['desc_field'] = $desc_field;
 			}
@@ -175,11 +171,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 *
 		 */
-		public function set_style( $style = null, $merge = true ) {
-			if ( null === $style ) {
-				return $this['style'];
-			}
-
+		public function style( $style = null, $merge = true ) {
 			if ( wponion_is_array( $style ) ) {
 				$_style = $style;
 				$style  = '';
@@ -190,8 +182,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 				}
 			}
 
-			$this['style'] = ( true === $merge ) ? $this['style'] . ' ' . $style : $style;
-			return $this;
+			return $this->_set( 'style', ( true === $merge ) ? $this['style'] . ' ' . $style : $style );
 		}
 
 		/**
@@ -201,9 +192,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_placeholder( $placeholder = null ) {
-			$this['placeholder'] = $placeholder;
-			return $this;
+		public function placeholder( $placeholder = null ) {
+			return $this->_set( 'placeholder', $placeholder );
 		}
 
 		/**
@@ -214,9 +204,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_disabled( $is_disabled = true ) {
-			$this['disabled'] = $is_disabled;
-			return $this;
+		public function disabled( $is_disabled = true ) {
+			return $this->_set( 'disabled', $is_disabled );
 		}
 
 		/**
@@ -225,7 +214,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @return $this
 		 */
 		public function disable() {
-			return $this->set_disabled( true );
+			return $this->disabled( true );
 		}
 
 		/**
@@ -234,7 +223,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @return $this
 		 */
 		public function enable() {
-			return $this->set_disabled( false );
+			return $this->disabled( false );
 		}
 
 		/**
@@ -244,9 +233,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_before( $before = null ) {
-			$this['before'] = $before;
-			return $this;
+		public function before( $before = null ) {
+			return $this->_set( 'before', $before );
 		}
 
 		/**
@@ -256,9 +244,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_after( $after = null ) {
-			$this['after'] = $after;
-			return $this;
+		public function after( $after = null ) {
+			return $this->_set( 'after', $after );
 		}
 
 		/**
@@ -268,9 +255,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_horizontal( $horizontal = true ) {
-			$this['horizontal'] = $horizontal;
-			return $this;
+		public function horizontal( $horizontal = true ) {
+			return $this->_set( 'horizontal', $horizontal );
 		}
 
 		/**
@@ -280,9 +266,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_only_field( $only_field = true ) {
-			$this['only_field'] = $only_field;
-			return $this;
+		public function only_field( $only_field = true ) {
+			return $this->_set( 'only_field', $only_field );
 		}
 
 		/**
@@ -291,10 +276,11 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @param bool|array $clone
 		 *
 		 * @return $this
+		 *
 		 */
-		public function set_clone( $clone = false ) {
+		public function clone( $clone = false ) {
 			if ( wponion_is_array( $clone ) ) {
-				$this->set_clone_settings( $clone );
+				$this->clone_settings( $clone );
 				$this['clone'] = true;
 			}
 			$this['clone'] = $clone;
@@ -308,9 +294,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_clone_settings( $clone_settings = null ) {
-			$this['clone_settings'] = $clone_settings;
-			return $this;
+		public function clone_settings( $clone_settings = null ) {
+			return $this->_set( 'clone_settings', $clone_settings );
 		}
 
 		/**
@@ -320,9 +305,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_debug( $debug = true ) {
-			$this['debug'] = $debug;
-			return $this;
+		public function debug( $debug = true ) {
+			return $this->_set( 'debug', $debug );
 		}
 
 		/**
@@ -332,9 +316,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_wrap_tooltip( $wrap_tooltip = null ) {
-			$this['wrap_tooltip'] = $wrap_tooltip;
-			return $this;
+		public function wrap_tooltip( $wrap_tooltip = null ) {
+			return $this->_set( 'wrap_tooltip', $wrap_tooltip );
 		}
 
 		/**
@@ -344,9 +327,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_wrap_class( $wrap_class = null ) {
-			$this['wrap_class'] = $wrap_class;
-			return $this;
+		public function wrap_class( $wrap_class = null ) {
+			return $this->_set( 'wrap_class', $wrap_class );
 		}
 
 		/**
@@ -356,9 +338,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_wrap_id( $wrap_id = null ) {
-			$this['wrap_id'] = $wrap_id;
-			return $this;
+		public function wrap_id( $wrap_id = null ) {
+			return $this->_set( 'wrap_id', $wrap_id );
 		}
 
 		/**
@@ -368,9 +349,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_js_validate( $js_validate = null ) {
-			$this['js_validate'] = $js_validate;
-			return $this;
+		public function js_validate( $js_validate = null ) {
+			return $this->_set( 'js_validate', $js_validate );
 		}
 
 		/**
@@ -380,9 +360,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_query_args( $query_args = null ) {
-			$this['query_args'] = $query_args;
-			return $this;
+		public function query_args( $query_args = null ) {
+			return $this->_set( 'query_args', $query_args );
 		}
 
 		/**
@@ -391,10 +370,11 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @param $class
 		 *
 		 * @return $this
+		 * @todo check names.
+		 *
 		 */
 		public function set_class( $class = null ) {
-			$this['class'] = $class;
-			return $this;
+			return $this->_set( 'class', $class );
 		}
 
 		/**
@@ -404,9 +384,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_wp_pointer( $wp_pointer = null ) {
-			$this['wp_pointer'] = $wp_pointer;
-			return $this;
+		public function wp_pointer( $wp_pointer = null ) {
+			return $this->_set( 'wp_pointer', $wp_pointer );
 		}
 
 		/**
@@ -416,9 +395,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_multiple( $is_multiple = true ) {
-			$this['multiple'] = $is_multiple;
-			return $this;
+		public function multiple( $is_multiple = true ) {
+			return $this->_set( 'multiple', $is_multiple );
 		}
 	}
 }

@@ -19,13 +19,19 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method mixed sanitize
-	 * @method mixed validate
-	 * @method mixed attributes
-	 * @method mixed dependency
-	 * @method mixed wrap_attributes
 	 */
 	class Array_Args extends Helper {
+		/**
+		 * @param $key
+		 * @param $data
+		 *
+		 * @return $this
+		 */
+		protected function _set( $key, $data ) {
+			$this[ $key ] = $data;
+			return $this;
+		}
+
 		/**
 		 * @param bool $key
 		 * @param null $data
@@ -35,11 +41,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 */
 		protected function _set_array_handler( $key = false, $data = null, $merge = true ) {
 			if ( true === $merge ) {
-				if ( wponion_is_array( $this[ $key ] ) ) {
-					$this[ $key ] = $this->parse_args( $data, $this[ $key ] );
-				} else {
-					$this[ $key ] = $data;
-				}
+				$this[ $key ] = ( wponion_is_array( $this[ $key ] ) ) ? $this->parse_args( $data, $this[ $key ] ) : $data;
 			} else {
 				$this[ $key ] = $data;
 			}
@@ -57,9 +59,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_sanitize( $sanitize = null, $merge = true ) {
-			$this->_set_array_handler( 'sanitize', $sanitize, $merge );
-			return $this;
+		public function sanitize( $sanitize = null, $merge = true ) {
+			return $this->_set_array_handler( 'sanitize', $sanitize, $merge );
 		}
 
 		/**
@@ -73,9 +74,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_validate( $validate = null, $merge = true ) {
-			$this->_set_array_handler( 'validate', $validate, $merge );
-			return $this;
+		public function validate( $validate = null, $merge = true ) {
+			return $this->_set_array_handler( 'validate', $validate, $merge );
 		}
 
 		/**
@@ -86,9 +86,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_attributes( $attributes = null, $merge = true ) {
-			$this->_set_array_handler( 'attributes', $attributes, $merge );
-			return $this;
+		public function attributes( $attributes = null, $merge = true ) {
+			return $this->_set_array_handler( 'attributes', $attributes, $merge );
 		}
 
 		/**
@@ -100,7 +99,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function attribute( $key = null, $value = null ) {
-			return $this->set_attributes( array( $key => $value ) );
+			return $this->attributes( array( $key => $value ) );
 		}
 
 		/**
@@ -111,9 +110,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_wrap_attributes( $attributes = null, $merge = true ) {
-			$this->_set_array_handler( 'wrap_attributes', $attributes, $merge );
-			return $this;
+		public function wrap_attributes( $attributes = null, $merge = true ) {
+			return $this->_set_array_handler( 'wrap_attributes', $attributes, $merge );
 		}
 
 		/**
@@ -125,7 +123,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function wrap_attribute( $key = null, $value = null ) {
-			return $this->set_attributes( array( $key => $value ) );
+			return $this->wrap_attributes( array( $key => $value ) );
 		}
 
 		/**
@@ -135,7 +133,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_dependency( $dependency = null ) {
+		public function dependency( $dependency = null ) {
 			$this['dependency'] = $dependency;
 			return $this;
 		}
@@ -146,23 +144,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_options( $options = array(), $merge = true ) {
-			$this->_set_array_handler( 'options', $options, $merge );
-			return $this;
-		}
-
-		/**
-		 * @param string $key
-		 * @param mixed  $value
-		 *
-		 * @return $this
-		 */
-		public function set_option( $key = null, $value = null ) {
-			if ( null === $key && null === $value ) {
-				return $this;
-			}
-			$value = ( null === $value && null !== $key ) ? $key : $value;
-			return $this->set_options( array( $key => $value ) );
+		public function options( $options = array(), $merge = true ) {
+			return $this->_set_array_handler( 'options', $options, $merge );
 		}
 
 		/**
@@ -172,7 +155,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		public function option( $key = null, $value = null ) {
-			return $this->set_option( $key, $value );
+			$value = ( null === $value && null !== $key ) ? $key : $value;
+			return $this->options( array( $key => $value ) );
 		}
 	}
 }
