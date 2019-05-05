@@ -30,7 +30,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return false | \WPO\Field | \WPO\Accordion | \WPO\Background | \WPO\Checkbox | \WPO\Color_Picker | \WPO\Date_Picker | \WPO\Fieldset | \WPO\Font_Picker | \WPO\Gallery | \WPO\Group  | \WPO\Icon_Picker | \WPO\Image | \WPO\Image_Select | \WPO\Key_Value | \WPO\Oembed | \WPO\Radio | \WPO\Select | \WPO\Sorter | \WPO\Switcher | \WPO\Text | \WPO\Textarea | \WPO\Typography | \WPO\Upload | \WPO\WP_Editor | \WPO\WP_Link | \WPO\Color_Group | \WPO\Link_Color | \WPO\Input_Group | \WPO\Spacing | \WPO\Dimensions | \WPO\Button_Set | \WPO\Content | \WPO\Heading | \WPO\Iframe | \WPO\Jambo_Content | \WPO\Notice  | \WPO\Subheading | \WPO\WP_Notice
+		 * @return false|\WPO\Field|\WPO\Accordion|\WPO\Background|\WPO\Checkbox|\WPO\Color_Picker|\WPO\Date_Picker|\WPO\Fieldset|\WPO\Font_Picker|\WPO\Gallery|\WPO\Group |\WPO\Icon_Picker|\WPO\Image|\WPO\Image_Select|\WPO\Key_Value|\WPO\Oembed|\WPO\Radio|\WPO\Select|\WPO\Sorter|\WPO\Switcher|\WPO\Text|\WPO\Textarea|\WPO\Typography|\WPO\Upload|\WPO\WP_Editor|\WPO\WP_Link|\WPO\Color_Group|\WPO\Link_Color|\WPO\Input_Group|\WPO\Spacing|\WPO\Dimensions|\WPO\Button_Set|\WPO\Content|\WPO\Heading|\WPO\Iframe|\WPO\Jambo_Content|\WPO\Notice |\WPO\Subheading|\WPO\WP_Notice
 		 *
 		 * @todo \WPO\Button
 		 * @todo \WPO\Color_Palette
@@ -60,63 +60,25 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public function __construct( $type = false, $id = false, $title = false, $args = array() ) {
 			unset( $this->module );
-			$_args = array();
-			switch ( func_num_args() ) {
-				case 1:
-					$_args = $this->parse_args( array(
-						'type' => ( wponion_is_array( $type ) ) ? false : $type,
-					), $this->_defaults() );
-					$type  = ( wponion_is_array( $type ) ) ? $type : array();
-					$_args = $this->parse_args( $type, $_args );
-					break;
-				case 2:
-					$_args = $this->parse_args( array(
-						'type' => $type,
-						'id'   => ( wponion_is_array( $id ) ) ? false : $id,
-					), $this->_defaults() );
-					$id    = ( wponion_is_array( $id ) ) ? $id : array();
-					$_args = $this->parse_args( $id, $_args );
-					break;
-				case 3:
-					$_args = $this->parse_args( array(
-						'type'  => $type,
-						'id'    => $id,
-						'title' => ( wponion_is_array( $title ) ) ? false : $title,
-					), $this->_defaults() );
-					$title = ( wponion_is_array( $title ) ) ? $title : array();
-					$_args = $this->parse_args( $title, $_args );
-					break;
-				case 4:
-					$_args = $this->parse_args( array(
-						'type'  => $type,
-						'id'    => $id,
-						'title' => $title,
-					), $this->_defaults() );
-					$args  = wponion_is_array( $args ) ? $args : array();
-					$_args = $this->parse_args( $args, $_args );
-					break;
-			}
 
-			foreach ( $_args as $key => $val ) {
-				$this[ $key ] = $val;
+			$args = wponion_is_array( $args ) ? $args : array();
+			$args = $this->parse_args( $args, array(
+				'type'  => $type,
+				'id'    => $id,
+				'title' => $title,
+			) );
+
+			foreach ( $args as $key => $val ) {
+				$this->_set( $key, $val );
 			}
 
 			$this->unique = null;
 
 			if ( ! isset( $this['id'] ) || isset( $this['id'] ) && empty( $this['id'] ) ) {
-				$this->unique = wponion_hash_string( $this->unique . wponion_hash_array( $_args ) );
+				$this->unique = wponion_hash_string( $this->unique . wponion_hash_array( $args ) );
 			} elseif ( isset( $this['id'] ) ) {
 				$this->unique = $this['id'];
 			}
-		}
-
-		/**
-		 * Returns Field Default Args.
-		 *
-		 * @return array
-		 */
-		protected function _defaults() {
-			return $this->parse_args( $this->defaults(), wponion_field_defaults() );
 		}
 
 		/**

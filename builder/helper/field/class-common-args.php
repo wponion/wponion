@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 	 * @method mixed get_style
 	 * @method mixed get_placeholder
 	 * @method mixed get_disabled
-	 * @method mixed class
+	 * @method mixed get_class
 	 * @method mixed get_before
 	 * @method mixed get_after
 	 * @method mixed get_horizontal
@@ -370,10 +370,9 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @param $class
 		 *
 		 * @return $this
-		 * @todo check names.
 		 *
 		 */
-		public function set_class( $class = null ) {
+		public function class( $class = null ) {
 			return $this->_set( 'class', $class );
 		}
 

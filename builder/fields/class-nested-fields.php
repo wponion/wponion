@@ -86,7 +86,7 @@ if ( ! class_exists( 'WPO\Nested_Fields' ) ) {
 		 * @param bool              $title
 		 * @param array             $args
 		 *
-		 * @return $this|bool|false|\WPO\Accordion|\WPO\Background|\WPO\Button_Set|\WPO\Checkbox|\WPO\Color_Group|\WPO\Color_Picker|\WPO\Content|\WPO\Date_Picker|\WPO\Dimensions|\WPO\Field|\WPO\Fieldset|\WPO\Font_Picker|\WPO\Gallery|\WPO\Group|\WPO\Heading|\WPO\Icon_Picker|\WPO\Iframe|\WPO\Image|\WPO\Image_Select|\WPO\Input_Group|\WPO\Jambo_Content|\WPO\Key_Value|\WPO\Link_Color|\WPO\Notice|\WPO\Oembed|\WPO\Radio|\WPO\Select|\WPO\Sorter|\WPO\Spacing|\WPO\Subheading|\WPO\Switcher|\WPO\Text|\WPO\Textarea|\WPO\Typography|\WPO\Upload|\WPO\WP_Editor|\WPO\WP_Link|\WPO\WP_Notice
+		 * @return $this|false|\WPO\Accordion|\WPO\Background|\WPO\Button_Set|\WPO\Checkbox|\WPO\Color_Group|\WPO\Color_Picker|\WPO\Content|\WPO\Date_Picker|\WPO\Dimensions|\WPO\Field|\WPO\Fieldset|\WPO\Font_Picker|\WPO\Gallery|\WPO\Group|\WPO\Heading|\WPO\Icon_Picker|\WPO\Iframe|\WPO\Image|\WPO\Image_Select|\WPO\Input_Group|\WPO\Jambo_Content|\WPO\Key_Value|\WPO\Link_Color|\WPO\Notice|\WPO\Oembed|\WPO\Radio|\WPO\Select|\WPO\Sorter|\WPO\Spacing|\WPO\Subheading|\WPO\Switcher|\WPO\Text|\WPO\Textarea|\WPO\Typography|\WPO\Upload|\WPO\WP_Editor|\WPO\WP_Link|\WPO\WP_Notice
 		 */
 		public function field( $field_type_or_instance, $field_id = false, $title = false, $args = array() ) {
 			if ( ! wponion_is_array( $this['fields'] ) ) {

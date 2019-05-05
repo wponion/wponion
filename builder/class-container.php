@@ -60,15 +60,13 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 * @param bool       $icon
 		 */
 		public function __construct( $slug = false, $title = false, $icon = false ) {
-			if ( wponion_is_array( $slug ) ) {
-				if ( ! empty( $slug ) ) {
-					foreach ( $slug as $key => $val ) {
-						if ( method_exists( $this, 'set_' . $key ) ) {
-							try {
-								$this->{'set_' . $key}( $val );
-							} catch ( \Exception $exception ) {
+			if ( wponion_is_array( $slug ) && ! empty( $slug ) ) {
+				foreach ( $slug as $key => $val ) {
+					if ( method_exists( $this, 'set_' . $key ) ) {
+						try {
+							$this->{'set_' . $key}( $val );
+						} catch ( \Exception $exception ) {
 
-							}
 						}
 					}
 				}
