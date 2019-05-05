@@ -30,13 +30,12 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return false | $this | \WPO\Field | \WPO\Accordion | \WPO\Background | \WPO\Checkbox | \WPO\Color_Picker | \WPO\Date_Picker | \WPO\Fieldset | \WPO\Font_Picker | \WPO\Gallery | \WPO\Group  | \WPO\Icon_Picker | \WPO\Image | \WPO\Image_Select | \WPO\Key_Value | \WPO\Oembed | \WPO\Radio | \WPO\Select | \WPO\Sorter | \WPO\Switcher | \WPO\Text | \WPO\Textarea | \WPO\Typography | \WPO\Upload | \WPO\WP_Editor | \WPO\WP_Link | \WPO\Color_Group | \WPO\Link_Color | \WPO\Input_Group | \WPO\Spacing | \WPO\Dimensions | \WPO\Button_Set | \WPO\Content | \WPO\Heading | \WPO\Iframe | \WPO\Jambo_Content | \WPO\Notice | \WPO\Notice_Danger | \WPO\Notice_Dark | \WPO\Notice_Info | \WPO\Notice_Light | \WPO\Notice_Primary | \WPO\Notice_Secondary | \WPO\Notice_Success | \WPO\Notice_Warning | \WPO\Subheading | \WPO\WP_Notice_Error | \WPO\WP_Notice_Info | \WPO\WP_Notice | \WPO\WP_Notice_Success | \WPO\WP_Notice_Warning
+		 * @return false | \WPO\Field | \WPO\Accordion | \WPO\Background | \WPO\Checkbox | \WPO\Color_Picker | \WPO\Date_Picker | \WPO\Fieldset | \WPO\Font_Picker | \WPO\Gallery | \WPO\Group  | \WPO\Icon_Picker | \WPO\Image | \WPO\Image_Select | \WPO\Key_Value | \WPO\Oembed | \WPO\Radio | \WPO\Select | \WPO\Sorter | \WPO\Switcher | \WPO\Text | \WPO\Textarea | \WPO\Typography | \WPO\Upload | \WPO\WP_Editor | \WPO\WP_Link | \WPO\Color_Group | \WPO\Link_Color | \WPO\Input_Group | \WPO\Spacing | \WPO\Dimensions | \WPO\Button_Set | \WPO\Content | \WPO\Heading | \WPO\Iframe | \WPO\Jambo_Content | \WPO\Notice  | \WPO\Subheading | \WPO\WP_Notice
 		 *
 		 * @todo \WPO\Button
 		 * @todo \WPO\Color_Palette
 		 * @todo \WPO\Google_Maps
 		 * @todo \WPO\Hidden
-		 * @todo \WPO\Tab
 		 * @todo \WPO\WP_List_Table
 		 * @todo \WPO\Change_Log
 		 *
@@ -46,11 +45,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
 				$class = class_exists( '\WPO\\' . $type ) ? '\WPO\\' . $type : wponion_get_field_class_remap( '\WPO\\' . $type, false );
-				if ( false !== $class ) {
-					return new $class( $id, $title, $args );
-				} else {
-					return new Field( $type, $id, $title, $args );
-				}
+				return ( false !== $class ) ? new $class( $id, $title, $args ) : new Field( $type, $id, $title, $args );
 			}
 			return false;
 		}
