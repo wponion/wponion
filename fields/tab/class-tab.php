@@ -25,45 +25,58 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 	 * @since 1.0
 	 */
 	class Tab extends \WPOnion\Field {
+		/**
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 			echo $this->tab_output();
 			echo $this->after();
 		}
 
+		/**
+		 * Tabs HTML Output.
+		 */
 		protected function tab_output() {
-			echo '<div class="wponion-tab-wrap wponion-tabs-' . $this->data( 'tab_style' ) . '">';
-			$nav     = '<ul class="wponion-tab-menus">';
-			$content = '';
+			if ( $this->field instanceof \WPO\Tab && ! empty( $this->field->containers() ) ) {
 
-			foreach ( $this->data( 'sections' ) as $section ) {
-				$section = $this->parse_args( $section, array(
-					'name'     => false,
-					'title'    => false,
-					'icon'     => false,
-					'un_array' => false,
-					'fields'   => array(),
-				) );
-				$slug    = ( ! empty( $section['name'] ) ) ? $section['name'] : sanitize_title( $section['title'] );
-				$unique  = ( true === $section['un_array'] ) ? $this->name() : $this->name( '[' . $slug . ']' );
-				$icon    = ( filter_var( $section['icon'], FILTER_VALIDATE_URL ) ) ? '<img src="' . $section['icon'] . '">' : wponion_icon( $section['icon'] );
+				echo '<div class="wponion-tab-wrap wponion-tabs-' . $this->data( 'tab_style' ) . '">';
+				$nav     = '<ul class="wponion-tab-menus">';
+				$content = '';
 
-				$nav     .= '<li class="wponion-tab"><a href="" data-tab-name="' . $slug . '">' . $icon . ' ' . $section['title'] . '</a></li>';
-				$content .= '<div id="wponion-tab-' . $slug . '" class="wponion-tab-page">';
+				$first = $this->field->first_container();
 
-				foreach ( $section['fields'] as $field ) {
-					$this->catch_output( 'start' );
-					echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value( $slug ) ), $unique );
-					$content .= $this->catch_output( 'stop' );
+				/**
+				 * @var \WPO\Container $section
+				 * @var \WPO\Field     $field
+				 */
+				foreach ( $this->field->containers() as $section ) {
+					$active = ( $first->name() === $section->name() );
+					$menu   = ( $active ) ? 'wponion-tab-current' : '';
+					$style  = ( $active ) ? 'style="display:block;"' : '';
+
+					$slug    = ( ! empty( $section->name() ) ) ? $section->name() : sanitize_title( $section->name() );
+					$unique  = ( true === $section->get_var( 'un_array' ) ) ? $this->name() : $this->name( '[' . $slug . ']' );
+					$icon    = ( filter_var( $section->icon(), FILTER_VALIDATE_URL ) ) ? '<img src="' . $section->icon() . '">' : wponion_icon( $section->icon() );
+					$nav     .= '<li class="wponion-tab ' . $menu . '"><a href="" data-tab-name="' . $slug . '">' . $icon . ' ' . $section->title() . '</a></li>';
+					$content .= '<div id="wponion-tab-' . $slug . '" class="wponion-tab-page" ' . $style . '>';
+
+					if ( $section->has_fields() ) {
+						foreach ( $section->fields() as $field ) {
+							$this->catch_output( 'start' );
+							echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value( $slug ) ), $unique );
+							$content .= $this->catch_output( 'stop' );
+						}
+					}
+
+					$content .= '</div>';
 				}
 
-				$content .= '</div>';
+				$nav .= '</ul>';
+				echo $nav;
+				echo '<div class="wponion-tab-pages">' . $content . '</div>';
+				echo '</div>';
 			}
-
-			$nav .= '</ul>';
-			echo $nav;
-			echo '<div class="wponion-tab-pages">' . $content . '</div>';
-			echo '</div>';
 		}
 
 		public function field_assets() {

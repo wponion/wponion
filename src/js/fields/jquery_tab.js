@@ -7,7 +7,7 @@ class field extends WPOnion_Field {
 	init() {
 		let $this      = this,
 			$elem      = $this.element,
-			$this_elem = $elem.find( '> .wponion-fieldset > .wponion-tab-wrap ' );
+			$this_elem = $elem.find( '> .row > .wponion-fieldset > .wponion-tab-wrap ' );
 
 		$this_elem.find( '> ul.wponion-tab-menus li a' ).on( 'click', function( e ) {
 			e.preventDefault();
