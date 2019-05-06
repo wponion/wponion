@@ -8,13 +8,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Util;
 
-if ( ! class_exists( 'Plugin_Links' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
 	/**
 	 * Class Plugin_Links
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Util
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
@@ -127,7 +127,7 @@ if ( ! class_exists( 'Plugin_Links' ) ) {
 		 * @param $slug
 		 * @param $element
 		 *
-		 * @return \WPOnion\Modules\Plugin_Links
+		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
 		public function action_link( $slug, $element ) {
 			return $this->_store( 'action_link', 'center', $slug, $element );
@@ -137,7 +137,7 @@ if ( ! class_exists( 'Plugin_Links' ) ) {
 		 * @param $slug
 		 * @param $element
 		 *
-		 * @return \WPOnion\Modules\Plugin_Links
+		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
 		public function action_link_before( $slug, $element ) {
 			return $this->_store( 'action_link', 'before', $slug, $element );
@@ -147,7 +147,7 @@ if ( ! class_exists( 'Plugin_Links' ) ) {
 		 * @param $slug
 		 * @param $element
 		 *
-		 * @return \WPOnion\Modules\Plugin_Links
+		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
 		public function action_link_after( $slug, $element ) {
 			return $this->_store( 'action_link', 'after', $slug, $element );
@@ -156,7 +156,7 @@ if ( ! class_exists( 'Plugin_Links' ) ) {
 		/**
 		 * @param $element
 		 *
-		 * @return \WPOnion\Modules\Plugin_Links
+		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
 		public function row_link( $element ) {
 			return $this->_store( 'row_links', 'center', false, $element );
@@ -165,7 +165,7 @@ if ( ! class_exists( 'Plugin_Links' ) ) {
 		/**
 		 * @param $element
 		 *
-		 * @return \WPOnion\Modules\Plugin_Links
+		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
 		public function row_link_before( $element ) {
 			return $this->_store( 'row_links', 'before', false, $element );
@@ -174,7 +174,7 @@ if ( ! class_exists( 'Plugin_Links' ) ) {
 		/**
 		 * @param $element
 		 *
-		 * @return \WPOnion\Modules\Plugin_Links
+		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
 		public function row_link_after( $element ) {
 			return $this->_store( 'row_links', 'after', false, $element );

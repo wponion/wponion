@@ -179,7 +179,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Help Tab Instance.
 		 *
-		 * @return \WPOnion\Modules\Help_Tabs
+		 * @return \WPOnion\Modules\Util\Help_Tabs
 		 */
 		public function help_tabs() {
 			return wponion_help_tabs_registry( $this->module_instance );

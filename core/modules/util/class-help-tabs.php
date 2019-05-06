@@ -13,12 +13,12 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Util;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 	/**
 	 * Class Help_Tabs
 	 *

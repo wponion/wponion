@@ -5,7 +5,7 @@ if ( ! function_exists( 'wponion_help_tabs_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\Help_Tabs
+	 * @return bool|\WPOnion\Modules\Util\Help_Tabs
 	 */
 	function wponion_help_tabs_registry( &$instance ) {
 		return wponion_get_registry_instance( 'help_tabs', $instance, 'module' );
@@ -20,9 +20,9 @@ if ( ! function_exists( 'wponion_help_tabs' ) ) {
 	 * @param array  $help_tabs
 	 * @param string $help_sidebar
 	 *
-	 * @return \WPOnion\Modules\Help_Tabs
+	 * @return \WPOnion\Modules\Util\Help_Tabs
 	 */
 	function wponion_help_tabs( $page, $help_tabs = array(), $help_sidebar = '' ) {
-		return new \WPOnion\Modules\Help_Tabs( $page, $help_tabs, $help_sidebar );
+		return new \WPOnion\Modules\Util\Help_Tabs( $page, $help_tabs, $help_sidebar );
 	}
 }

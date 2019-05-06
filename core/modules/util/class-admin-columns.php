@@ -13,13 +13,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Util;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Admin_Columns' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 	/**
 	 * Class Admin_Columns
 	 *

@@ -3,7 +3,7 @@ if ( ! function_exists( 'wponion_wp_pointers_registry' ) ) {
 	/**
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\WP_Pointers
+	 * @return bool|\WPOnion\Modules\Util\WP_Pointers
 	 */
 	function wponion_wp_pointers_registry( &$instance ) {
 		return wponion_get_registry_instance( 'wp_pointers', $instance, 'module' );
@@ -14,13 +14,13 @@ if ( ! function_exists( 'wponion_wp_pointers' ) ) {
 	/**
 	 * @param $pointer_id_or_instance_id
 	 *
-	 * @return \WPOnion\Modules\WP_Pointers
+	 * @return \WPOnion\Modules\Util\WP_Pointers
 	 */
 	function wponion_wp_pointers( $pointer_id_or_instance_id ) {
 		if ( false !== wponion_wp_pointers_registry( $pointer_id_or_instance_id ) ) {
 			return wponion_wp_pointers_registry( $pointer_id_or_instance_id );
 		}
-		return new \WPOnion\Modules\WP_Pointers( $pointer_id_or_instance_id );
+		return new \WPOnion\Modules\Util\WP_Pointers( $pointer_id_or_instance_id );
 	}
 }
 

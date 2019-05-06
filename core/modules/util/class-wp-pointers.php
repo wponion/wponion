@@ -9,11 +9,11 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Util;
 
 use WPOnion\WP\Pointers\Pointer;
 
-if ( ! class_exists( 'WP_Pointers' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 	/**
 	 * Class WP_Pointers
 	 *
@@ -129,7 +129,7 @@ if ( ! class_exists( 'WP_Pointers' ) ) {
 		}
 
 		/**
-		 * @param \WPOnion\Modules\WP_Pointers\Pointer $pointer_instance
+		 * @param \WPOnion\WP\Pointers\Pointer $pointer_instance
 		 * @param array                                $args
 		 *
 		 * @return mixed
