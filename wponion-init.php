@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.9.6' );
 defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', 'WPOnion' );
-defined( 'WPONION_FILE' ) or define( 'WPONION_FILE', __FILE__ );
+defined( 'WPONION_FILE' ) or define( 'WPONION_FILE', plugin_dir_path( __FILE__ ) . 'index.php' );
 defined( 'WPONION_PATH' ) or define( 'WPONION_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'WPONION_URL' ) or define( 'WPONION_URL', plugin_dir_url( __FILE__ ) );
 defined( 'WPONION_DB_VERSION' ) or define( 'WPONION_DB_VERSION', '060520190703' );
