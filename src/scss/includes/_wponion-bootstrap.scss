@@ -10,7 +10,7 @@
 @import "bootstrap/spinner";
 @import "../../../node_modules/bootstrap/scss/utilities/borders";
 .wponion-framework {
-	[class*="col-"] {
+	/*[class*="col-"] {
 		padding-left:  15px;
 		padding-right: 15px;
 	}
@@ -18,7 +18,7 @@
 	div.row {
 		margin-left:  -15px;
 		margin-right: -15px;
-	}
+	}*/
 
 	@import "../../../node_modules/bootstrap/scss/jumbotron";
 	@import "../../../node_modules/bootstrap/scss/alert";
