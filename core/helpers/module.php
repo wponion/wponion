@@ -22,6 +22,9 @@ if ( ! function_exists( 'wponion_module_html_class' ) ) {
 	}
 }
 
+// Simple Modules Related Functions
+require WPONION_PATH . 'core/helpers/modules/simple-module.php';
+
 // admin-bar related functions
 require WPONION_PATH . 'core/helpers/modules/admin-bar.php';
 
