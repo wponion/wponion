@@ -143,7 +143,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Metabox Instance.
 		 *
-		 * @return \WPOnion\Modules\metabox
+		 * @return \WPOnion\Modules\Metabox\metabox
 		 */
 		public function metabox() {
 			return wponion_metabox_registry( $this->module_instance );

@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPOnion\DB\Metabox_Save_Handler' ) ) {
 		 */
 		public function run() {
 			/**
-			 * @var \WPOnion\Modules\Metabox $settings
+			 * @var \WPOnion\Modules\Metabox\Metabox $settings
 			 * @var \WPO\Container           $container
 			 * @var \WPO\Container           $sub_container
 			 */

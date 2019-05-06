@@ -44,7 +44,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		/**
 		 * metabox_instance
 		 *
-		 * @var \WPOnion\Modules\Metabox_Core
+		 * @var \WPOnion\Modules\Metabox\Core
 		 */
 		protected $metabox_instance = false;
 
@@ -82,7 +82,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$metabox['get_cache']     = array( $this, 'get_db_cache' );
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
-				$this->metabox_instance   = new Metabox_Core( $metabox, $this->raw_fields );
+				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
 			}
 		}
 

@@ -6,7 +6,7 @@ if ( ! function_exists( 'wponion_metabox_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\Metabox
+	 * @return bool|\WPOnion\Modules\Metabox\Metabox
 	 */
 	function wponion_metabox_registry( &$instance ) {
 		return wponion_get_registry_instance( 'metabox', $instance, 'module' );
@@ -21,12 +21,12 @@ if ( ! function_exists( 'wponion_metabox' ) ) {
 	 * @param array              $instance_id_or_args
 	 * @param array|\WPO\Builder $fields
 	 *
-	 * @return bool|\WPOnion\Modules\metabox
+	 * @return bool|\WPOnion\Modules\Metabox\metabox
 	 */
 	function wponion_metabox( $instance_id_or_args = array(), $fields = array() ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_metabox_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\metabox( $instance_id_or_args, $fields );
+		return new \WPOnion\Modules\Metabox\metabox( $instance_id_or_args, $fields );
 	}
 }

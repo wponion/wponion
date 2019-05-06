@@ -359,7 +359,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array
 		 * @uses \WPOnion\Modules\Settings\Settings
 		 *
-		 * @uses \WPOnion\Modules\Metabox
+		 * @uses \WPOnion\Modules\Metabox\Metabox
 		 */
 		protected function extract_fields_menus( $fields = array(), $is_child = false, $container = false, $first_container = false ) {
 			$return = array();

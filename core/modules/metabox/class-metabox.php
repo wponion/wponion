@@ -12,17 +12,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Metabox;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Metabox' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 	/**
-	 * Class metabox
+	 * Class Metabox
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Metabox
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
