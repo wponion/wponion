@@ -161,7 +161,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Dashboard Instance.
 		 *
-		 * @return \WPOnion\Modules\Dashboard_Widgets
+		 * @return \WPOnion\Modules\Widgets\Dashboard
 		 */
 		public function dashboard_widgets() {
 			return wponion_dashboard_widgets_registry( $this->module_instance );
@@ -170,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Dashboard Instance.
 		 *
-		 * @return \WPOnion\Modules\Dashboard_Widgets
+		 * @return \WPOnion\Modules\Widgets\Dashboard
 		 */
 		public function widgets() {
 			return wponion_widget_registry( $this->module_instance );

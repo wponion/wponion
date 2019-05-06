@@ -12,20 +12,20 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Widgets;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Dashboard_Widgets' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 	/**
-	 * Class Dashboard_Widgets
+	 * Class Dashboard
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Widgets
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Dashboard_Widgets extends \WPOnion\Bridge\Module {
+	class Dashboard extends \WPOnion\Bridge\Module {
 		/**
 		 * module
 		 *

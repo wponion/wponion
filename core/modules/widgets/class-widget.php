@@ -13,17 +13,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Widgets;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 	/**
 	 * Class Widget
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Widgets
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
