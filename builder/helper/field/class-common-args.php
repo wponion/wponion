@@ -64,6 +64,17 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		}
 
 		/**
+		 * Hides Field Title.
+		 *
+		 * @param bool $hide_title
+		 *
+		 * @return $this
+		 */
+		public function hide_type( $hide_title = false ) {
+			return $this->_set( 'hide_title', $hide_title );
+		}
+
+		/**
 		 * Sets id.
 		 *
 		 * @param $id

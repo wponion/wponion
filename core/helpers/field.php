@@ -26,6 +26,7 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			// Common Args.
 			'id'              => false, # Unique Database ID For Each And Every Field
 			'title'           => false, # Title For Each Field,
+			'hide_title'      => false, # Title For Each Field,
 			'help'            => false, # Used for field tooltip
 			'default'         => null, # Stores Default Value,
 			'desc'            => false, # Field Description to print after title,
