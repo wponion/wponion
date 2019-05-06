@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Beta : 0.0.9.6] - 06/05/2019
+## Added
+* Option to check for image link in `image` key in `image_select` field
+* Few layout images `body`,`header`,`sidebar`
+* Ajax Save Settings
+* Bootstrap Spinners
+* new hook / action `wponion_before_icons_setup`
+* new hook / action `wponion_after_icons_setup`
+* New Function `wponion_is_container`
+* Addons Manager
+* Hide Title Feature for field.
+
+## Changed
+* Renamed all field builder function names from `set_` to just its name. EG : `set_placeholder to `placeholder`
+
+
+## Removed
+* Unused / Unwanted Fields Class files
+* Unsued / unwanted data files
+* `data/animate-css.php` | `data/continents.php` | `data/countries.php`
+* Icon files removed except dashicons
+
+
 ## [Beta : 0.0.9.5] - 02/05/2019
 ## Added
 * `wponion_tooltip` Function Added
@@ -258,6 +281,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.9.6]: https://github.com/wponion/wponion/releases/tag/0.0.9.6
 [Beta : 0.0.9.5]: https://github.com/wponion/wponion/releases/tag/0.0.9.5
 [Beta : 0.0.9.4]: https://github.com/wponion/wponion/releases/tag/0.0.9.4
 [Beta : 0.0.9.3]: https://github.com/wponion/wponion/releases/tag/0.0.9.3
