@@ -70,7 +70,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function hide_type( $hide_title = false ) {
+		public function hide_title( $hide_title = false ) {
 			return $this->_set( 'hide_title', $hide_title );
 		}
 
