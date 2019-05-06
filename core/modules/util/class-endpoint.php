@@ -61,15 +61,25 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 		protected $value_pattern_replace = '([^\/]+)';
 
 		/**
+		 * @var array
+		 * @access
+		 */
+		protected $rules_queryvars = array();
+
+		/**
 		 * Endpoint constructor.
 		 *
 		 * @param $custom_prefix
 		 */
 		public function __construct( $custom_prefix ) {
 			$this->prefix = $custom_prefix;
-			add_action( 'init', array( &$this, 'on_wp_init' ) );
+			if ( did_action( 'init' ) ) {
+				$this->on_wp_init();
+			} else {
+				add_action( 'init', array( &$this, 'on_wp_init' ) );
+			}
 			add_action( 'parse_request', array( $this, 'parse_request' ) );
-			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 0 );
+			add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
 			add_action( 'shutdown', array( $this, 'on_wp_shutdown' ) );
 			add_action( 'shutdown', array( __CLASS__, 'save_cache' ), 99999999 );
 		}
@@ -141,8 +151,9 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 			$matches = [];
 			if ( preg_match_all( $this->parameter_pattern, $path, $matches ) ) {
 				foreach ( $matches[1] as $id => $param ) {
-					$param  = ( empty( $this->rewrite_prefix ) ) ? $param : $this->rewrite_prefix . '_' . $param;
-					$_url[] = "{$param}=\$matches[" . ( $id + 1 ) . ']';
+					$param                   = ( empty( $this->prefix ) ) ? $param : $this->prefix . '_' . $param;
+					$this->rules_queryvars[] = $param;
+					$_url[]                  = "{$param}=\$matches[" . ( $id + 1 ) . ']';
 					$this->add_tag( '%' . $param . '%', '(.+)' );
 				}
 			}
@@ -164,7 +175,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 		 * @return $this
 		 */
 		public function add_tag( $tag = '', $regex = '', $force = false ) {
-			if ( ! isset( $this->rewrite_tag[ $tag ] ) || isset( $this->rewrite_tag[ $tag ] ) && true === $force ) {
+			if ( ! isset( $this->tags[ $tag ] ) || isset( $this->tags[ $tag ] ) && true === $force ) {
 				$this->tags[ $tag ] = $regex;
 			}
 			return $this;
@@ -227,7 +238,9 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 		 * @return array
 		 */
 		public function add_query_vars( $vars = array() ) {
-			return ( ! empty( $this->endpoints ) ) ? array_merge( $vars, array_keys( $this->endpoints ) ) : $vars;
+			$vars = ( ! empty( $this->endpoints ) ) ? array_merge( $vars, array_keys( $this->endpoints ) ) : $vars;
+			$vars = ( ! empty( $this->rules_queryvars ) ) ? array_merge( $vars, array_unique( $this->rules_queryvars ) ) : $vars;
+			return $vars;
 		}
 	}
 }
