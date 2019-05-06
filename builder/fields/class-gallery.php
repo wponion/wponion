@@ -18,11 +18,11 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 	 * @package WPO
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 * @method add_button()
-	 * @method edit_button()
-	 * @method size()
-	 * @method sort()
-	 * @method remove_button()
+	 * @method get_add_button()
+	 * @method get_edit_button()
+	 * @method get_size()
+	 * @method get_sort()
+	 * @method get_remove_button()
 	 */
 	class Gallery extends Field {
 		/**
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_add_button( $button ) {
+		public function add_button( $button ) {
 			$this['add_button'] = $button;
 			return $this;
 		}
@@ -51,7 +51,7 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_edit_button( $button ) {
+		public function edit_button( $button ) {
 			$this['edit_button'] = $button;
 			return $this;
 		}
@@ -61,7 +61,7 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_remove_button( $button ) {
+		public function remove_button( $button ) {
 			$this['remove_button'] = $button;
 			return $this;
 		}
@@ -71,7 +71,7 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_size( $size = 150 ) {
+		public function size( $size = 150 ) {
 			$this['size'] = $size;
 			return $this;
 		}
@@ -81,7 +81,7 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_sort( $sort = false ) {
+		public function sort( $sort = false ) {
 			$this['sort'] = $sort;
 			return $this;
 		}
@@ -90,14 +90,14 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 		 * @return $this
 		 */
 		public function enable_sort() {
-			return $this->set_sort( true );
+			return $this->sort( true );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function disable_sort() {
-			return $this->set_sort( false );
+			return $this->sort( false );
 		}
 	}
 }

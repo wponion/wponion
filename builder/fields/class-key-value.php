@@ -19,12 +19,12 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method add_button()
-	 * @method remove_button()
-	 * @method limit()
-	 * @method error_msg()
-	 * @method key_input()
-	 * @method value_input()
+	 * @method get_add_button()
+	 * @method get_remove_button()
+	 * @method get_limit()
+	 * @method get_error_msg()
+	 * @method get_key_input()
+	 * @method get_value_input()
 	 */
 	class Key_Value extends Field {
 		/**
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_add_button( $button ) {
+		public function add_button( $button ) {
 			$this['add_button'] = $button;
 			return $this;
 		}
@@ -53,7 +53,7 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_remove_button( $button ) {
+		public function remove_button( $button ) {
 			$this['remove_button'] = $button;
 			return $this;
 		}
@@ -63,7 +63,7 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_limit( $limit = false ) {
+		public function limit( $limit = false ) {
 			$this['limit'] = $limit;
 			return $this;
 		}
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_error_msg( $error_msg ) {
+		public function error_msg( $error_msg ) {
 			$this['error_msg'] = $error_msg;
 			return $this;
 		}
@@ -83,7 +83,7 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_key_input( $input ) {
+		public function key_input( $input ) {
 			$this['key_input'] = $input;
 			return $this;
 		}
@@ -93,7 +93,7 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_value_input( $input ) {
+		public function value_input( $input ) {
 			$this['value_input'] = $input;
 			return $this;
 		}

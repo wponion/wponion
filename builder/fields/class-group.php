@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPO\Group' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_add_button( $button ) {
+		public function add_button( $button ) {
 			$this['add_button'] = $button;
 			return $this;
 		}
@@ -48,7 +48,7 @@ if ( ! class_exists( 'WPO\Group' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_remove_button( $button ) {
+		public function remove_button( $button ) {
 			$this['remove_button'] = $button;
 			return $this;
 		}
@@ -58,7 +58,7 @@ if ( ! class_exists( 'WPO\Group' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_limit( $limit = false ) {
+		public function limit( $limit = false ) {
 			$this['limit'] = $limit;
 			return $this;
 		}
@@ -68,7 +68,7 @@ if ( ! class_exists( 'WPO\Group' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_error_msg( $error_msg ) {
+		public function error_msg( $error_msg ) {
 			$this['error_msg'] = $error_msg;
 			return $this;
 		}

@@ -45,7 +45,7 @@ if ( ! class_exists( 'WPO\Content' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_content( $content ) {
+		public function content( $content ) {
 			$this['content'] = $content;
 			return $this;
 		}
@@ -55,7 +55,7 @@ if ( ! class_exists( 'WPO\Content' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_include( $include ) {
+		public function include( $include ) {
 			$this['include'] = $include;
 			return $this;
 		}
@@ -65,7 +65,7 @@ if ( ! class_exists( 'WPO\Content' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_callback_hook( $callback ) {
+		public function callback_hook( $callback ) {
 			$this['callback_hook'] = $callback;
 			return $this;
 		}

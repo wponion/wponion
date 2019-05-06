@@ -19,9 +19,9 @@ if ( ! class_exists( 'WPO\Image' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method frame_title()
-	 * @method remove()
-	 * @method size()
+	 * @method get_frame_title()
+	 * @method get_remove()
+	 * @method get_size()
 	 */
 	class Image extends Field {
 		/**
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPO\Image' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_frame_title( $title ) {
+		public function frame_title( $title ) {
 			$this['frame_title'] = $title;
 			return $this;
 		}
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Image' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_remove( $remove_text ) {
+		public function remove( $remove_text ) {
 			$this['remove'] = $remove_text;
 			return $this;
 		}
@@ -60,7 +60,7 @@ if ( ! class_exists( 'WPO\Image' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_size( $size = 100 ) {
+		public function size( $size = 100 ) {
 			$this['size'] = $size;
 			return $this;
 		}

@@ -36,7 +36,7 @@ if ( ! class_exists( 'WPO\Divider' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_text( $text ) {
+		public function text( $text ) {
 			$this['text'] = $text;
 			return $this;
 		}

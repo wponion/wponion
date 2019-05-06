@@ -325,6 +325,14 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$instance = $this->init_theme();
 			$instance->render_settings();
 			echo '</form>';
+
+			if ( false !== $this->option( 'ajax' ) ) {
+				$ajax = ( true === $this->option( 'ajax' ) ) ? __( 'Settings Updated', 'wponion' ) : $this->option( 'ajax' );
+				if ( is_array( $ajax ) && ! isset( $ajax['title'] ) ) {
+					$ajax['title'] = __( 'Settings Updated', 'wponion' );
+				}
+				wponion_localize()->add( 'wponion_core', array( 'settings_ajax' => $ajax ) );
+			}
 		}
 
 		/**
@@ -450,10 +458,11 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 			return array(
 				'menu'          => $menu,
+				'ajax'          => false,
 				'extra_css'     => array(),
 				'extra_js'      => array(),
 				'option_name'   => '_wponion',
-				'theme'         => 'wp',
+				'theme'         => 'wp_modern',
 				'template_path' => false,
 				'save_button'   => __( 'Save Settings', 'wponion' ),
 			);
@@ -485,7 +494,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			$class   = array();
 			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
 			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
-
+			$class[] = ( false !== $this->option( 'ajax' ) ) ? 'wponion-ajax-save' : '';
 			if ( 1 === count( $this->fields->get() ) ) {
 				$class[] = 'wponion-hide-nav';
 				if ( $this->fields->has_fields() || ( $this->fields->has_containers() && 1 === count( $this->fields->containers() ) ) ) {
@@ -499,7 +508,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Checks if Option Loop Is Valid
 		 *
 		 * @param array|\WPO\Container $container
-		 * @param bool                 $sub_container
+		 * @param bool|\WPO\Container  $sub_container
 		 * @param bool                 $check_current_page
 		 *
 		 * @return bool
@@ -515,6 +524,10 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				}
 
 				if ( true === $sub_container && false === $this->is_single_page() && $container->name() !== $this->active( false ) ) {
+					return false;
+				}
+
+				if ( $sub_container instanceof \WPO\Container && false === $this->is_single_page() && $sub_container->name() !== $this->active( false ) ) {
 					return false;
 				}
 			}
@@ -536,7 +549,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			} else {
 				if ( $container === $this->active( true ) && $sub_container === $this->active( false ) ) {
 					return true;
-				} elseif ( $container !== $this->active( true ) && $first_container === $sub_container ) {
+				} elseif ( $container !== $this->active( true ) && $sub_container !== $this->active( false ) && $first_container === $sub_container ) {
 					return true;
 				}
 				return false;

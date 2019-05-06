@@ -19,14 +19,14 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method top()
-	 * @method bottom()
-	 * @method left()
-	 * @method right()
-	 * @method all()
-	 * @method unit()
-	 * @method unit_options()
-	 * @method icons()
+	 * @method get_top()
+	 * @method get_bottom()
+	 * @method get_left()
+	 * @method get_right()
+	 * @method get_all()
+	 * @method get_unit()
+	 * @method get_unit_options()
+	 * @method get_icons()
 	 */
 	class Spacing extends Field {
 		/**
@@ -45,7 +45,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_top( $top ) {
+		public function top( $top ) {
 			$this['top'] = $top;
 			return $this;
 		}
@@ -55,7 +55,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_bottom( $bottom ) {
+		public function bottom( $bottom ) {
 			$this['bottom'] = $bottom;
 			return $this;
 		}
@@ -65,7 +65,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_left( $left ) {
+		public function left( $left ) {
 			$this['left'] = $left;
 			return $this;
 		}
@@ -75,7 +75,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_right( $right ) {
+		public function right( $right ) {
 			$this['right'] = $right;
 			return $this;
 		}
@@ -85,7 +85,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_all( $all = true ) {
+		public function all( $all = true ) {
 			$this['all'] = $all;
 			return $this;
 		}
@@ -95,7 +95,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_unit( $unit ) {
+		public function unit( $unit ) {
 			$this['unit'] = $unit;
 			return $this;
 		}
@@ -112,7 +112,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_unit_options( $options ) {
+		public function unit_options( $options ) {
 			$this['unit_options'] = $options;
 			return $this;
 		}
@@ -132,7 +132,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_icons( $icons ) {
+		public function icons( $icons ) {
 			$this['icons'] = $icons;
 			return $this;
 		}

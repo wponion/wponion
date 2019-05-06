@@ -16,7 +16,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Accordion
+		 * @return \WPO\Accordion
 		 */
 		public function accordion( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'accordion', $id, $title, $args );
@@ -27,7 +27,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Background
+		 * @return \WPO\Background
 		 */
 		public function background( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'background', $id, $title, $args );
@@ -38,7 +38,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Backup
+		 * @return \WPO\Backup
 		 */
 		public function backup( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'backup', $id, $title, $args );
@@ -49,7 +49,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Button
+		 * @return \WPO\Button
 		 */
 		public function button( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'button', $id, $title, $args );
@@ -60,7 +60,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Button_Set
+		 * @return \WPO\Button_Set
 		 */
 		public function button_set( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'button_set', $id, $title, $args );
@@ -71,7 +71,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Card
+		 * @return \WPO\Card
 		 */
 		public function card( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'card', $id, $title, $args );
@@ -82,7 +82,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Change_Log
+		 * @return \WPO\Change_Log
 		 */
 		public function change_log( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'change_log', $id, $title, $args );
@@ -93,7 +93,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Checkbox
+		 * @return \WPO\Checkbox
 		 */
 		public function checkbox( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'checkbox', $id, $title, $args );
@@ -104,7 +104,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Color_Group
+		 * @return \WPO\Color_Group
 		 */
 		public function color_group( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'color_group', $id, $title, $args );
@@ -115,7 +115,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Color_Palette
+		 * @return \WPO\Color_Palette
 		 */
 		public function color_palette( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'color_palette', $id, $title, $args );
@@ -126,7 +126,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Color_Picker
+		 * @return \WPO\Color_Picker
 		 */
 		public function color_picker( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'color_picker', $id, $title, $args );
@@ -137,7 +137,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Content
+		 * @return \WPO\Content
 		 */
 		public function content( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'content', $id, $title, $args );
@@ -148,7 +148,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Date_Picker
+		 * @return \WPO\Date_Picker
 		 */
 		public function date_picker( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'date_picker', $id, $title, $args );
@@ -159,7 +159,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Dimensions
+		 * @return \WPO\Dimensions
 		 */
 		public function dimensions( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'dimensions', $id, $title, $args );
@@ -170,7 +170,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $thisset
+		 * @return $this
 		 */
 		public function fieldset( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'fieldset', $id, $title, $args );
@@ -181,7 +181,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Font_Picker
+		 * @return \WPO\Font_Picker
 		 */
 		public function font_picker( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'font_picker', $id, $title, $args );
@@ -192,7 +192,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Gallery
+		 * @return \WPO\Gallery
 		 */
 		public function gallery( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'gallery', $id, $title, $args );
@@ -203,7 +203,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Google_Maps
+		 * @return \WPO\Google_Maps
 		 */
 		public function google_maps( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'google_maps', $id, $title, $args );
@@ -214,7 +214,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Group
+		 * @return \WPO\Group
 		 */
 		public function group( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'group', $id, $title, $args );
@@ -225,7 +225,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Heading
+		 * @return \WPO\Heading
 		 */
 		public function heading( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'heading', $id, $title, $args );
@@ -236,7 +236,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Hidden
+		 * @return \WPO\Hidden
 		 */
 		public function hidden( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'hidden', $id, $title, $args );
@@ -247,7 +247,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Icon_Picker
+		 * @return \WPO\Icon_Picker
 		 */
 		public function icon_picker( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'icon_picker', $id, $title, $args );
@@ -258,7 +258,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Iframe
+		 * @return \WPO\Iframe
 		 */
 		public function iframe( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'iframe', $id, $title, $args );
@@ -269,7 +269,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Image
+		 * @return \WPO\Image
 		 */
 		public function image( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'image', $id, $title, $args );
@@ -280,7 +280,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Image_Select
+		 * @return \WPO\Image_Select
 		 */
 		public function image_select( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'image_select', $id, $title, $args );
@@ -291,7 +291,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Input_Group
+		 * @return \WPO\Input_Group
 		 */
 		public function input_group( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'input_group', $id, $title, $args );
@@ -302,7 +302,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Jambo_Content
+		 * @return \WPO\Jambo_Content
 		 */
 		public function jambo_content( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'jambo_content', $id, $title, $args );
@@ -313,7 +313,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Key_Value
+		 * @return \WPO\Key_Value
 		 */
 		public function key_value( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'key_value', $id, $title, $args );
@@ -324,7 +324,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Link_Color
+		 * @return \WPO\Link_Color
 		 */
 		public function link_color( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'link_color', $id, $title, $args );
@@ -335,7 +335,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'notice', $id, $title, $args );
@@ -346,10 +346,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice_danger( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_danger', $id, $title, $args );
+			return $this->field( 'notice_danger', $id, $title, $args )
+				->notice_type( 'notice_danger' );
 		}
 
 		/**
@@ -357,10 +358,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice_dark( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_dark', $id, $title, $args );
+			return $this->field( 'notice_dark', $id, $title, $args )
+				->notice_type( 'notice_dark' );
 		}
 
 		/**
@@ -368,10 +370,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice_info( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_info', $id, $title, $args );
+			return $this->field( 'notice_info', $id, $title, $args )
+				->notice_type( 'notice_info' );
 		}
 
 		/**
@@ -379,10 +382,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice_light( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_light', $id, $title, $args );
+			return $this->field( 'notice_light', $id, $title, $args )
+				->notice_type( 'notice_light' );
 		}
 
 		/**
@@ -390,10 +394,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice_primary( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_primary', $id, $title, $args );
+			return $this->field( 'notice_primary', $id, $title, $args )
+				->notice_type( 'notice_primary' );
 		}
 
 		/**
@@ -401,10 +406,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice_secondary( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_secondary', $id, $title, $args );
+			return $this->field( 'notice_secondary', $id, $title, $args )
+				->notice_type( 'notice_secondary' );
 		}
 
 		/**
@@ -412,10 +418,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice_success( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_success', $id, $title, $args );
+			return $this->field( 'notice_success', $id, $title, $args )
+				->notice_type( 'notice_success' );
 		}
 
 		/**
@@ -423,10 +430,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Notice
+		 * @return \WPO\Notice
 		 */
 		public function notice_warning( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_warning', $id, $title, $args );
+			return $this->field( 'notice_warning', $id, $title, $args )
+				->notice_type( 'notice_warning' );
 		}
 
 		/**
@@ -434,7 +442,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\OEmbed
+		 * @return \WPO\OEmbed
 		 */
 		public function oembed( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'oembed', $id, $title, $args );
@@ -445,7 +453,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Radio
+		 * @return \WPO\Radio
 		 */
 		public function radio( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'radio', $id, $title, $args );
@@ -456,7 +464,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Select
+		 * @return \WPO\Select
 		 */
 		public function select( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'select', $id, $title, $args );
@@ -467,7 +475,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Sorter
+		 * @return \WPO\Sorter
 		 */
 		public function sorter( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'sorter', $id, $title, $args );
@@ -478,7 +486,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Spacing
+		 * @return \WPO\Spacing
 		 */
 		public function spacing( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'spacing', $id, $title, $args );
@@ -489,7 +497,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Subheading
+		 * @return \WPO\Subheading
 		 */
 		public function subheading( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'subheading', $id, $title, $args );
@@ -500,7 +508,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Switcher
+		 * @return \WPO\Switcher
 		 */
 		public function switcher( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'switcher', $id, $title, $args );
@@ -511,7 +519,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Tab
+		 * @return \WPO\Tab
 		 */
 		public function tab( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'tab', $id, $title, $args );
@@ -522,7 +530,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Text
+		 * @return \WPO\Text
 		 */
 		public function text( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'text', $id, $title, $args );
@@ -533,7 +541,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Textarea
+		 * @return \WPO\Textarea
 		 */
 		public function textarea( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'textarea', $id, $title, $args );
@@ -544,7 +552,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Typography
+		 * @return \WPO\Typography
 		 */
 		public function typography( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'typography', $id, $title, $args );
@@ -555,7 +563,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Upload
+		 * @return \WPO\Upload
 		 */
 		public function upload( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'upload', $id, $title, $args );
@@ -566,7 +574,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\WP_Editor
+		 * @return \WPO\WP_Editor
 		 */
 		public function wp_editor( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'wp_editor', $id, $title, $args );
@@ -577,7 +585,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\WP_Link
+		 * @return \WPO\WP_Link
 		 */
 		public function wp_link( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'wp_link', $id, $title, $args );
@@ -588,7 +596,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\WP_Notice
+		 * @return \WPO\WP_Notice
 		 */
 		public function wp_notice( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'wp_notice', $id, $title, $args );
@@ -599,10 +607,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\WP_Notice
+		 * @return \WPO\WP_Notice
 		 */
 		public function wp_notice_error( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_error', $id, $title, $args );
+			return $this->field( 'wp_notice_error', $id, $title, $args )
+				->notice_type( 'error' );
 		}
 
 		/**
@@ -610,10 +619,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\WP_Notice
+		 * @return \WPO\WP_Notice
 		 */
 		public function wp_notice_info( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_info', $id, $title, $args );
+			return $this->field( 'wp_notice_info', $id, $title, $args )
+				->notice_type( 'info' );
 		}
 
 		/**
@@ -621,10 +631,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\WP_Notice
+		 * @return \WPO\WP_Notice
 		 */
 		public function wp_notice_success( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_success', $id, $title, $args );
+			return $this->field( 'wp_notice_success', $id, $title, $args )
+				->notice_type( 'success' );
 		}
 
 		/**
@@ -632,10 +643,11 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\WP_Notice
+		 * @return \WPO\WP_Notice
 		 */
 		public function wp_notice_warning( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_warning', $id, $title, $args );
+			return $this->field( 'wp_notice_warning', $id, $title, $args )
+				->notice_type( 'warning' );
 		}
 
 		/**
@@ -643,7 +655,7 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return $this|\WPO\Divider
+		 * @return \WPO\Divider
 		 */
 		public function divider( $id = false, $title = false, $args = array() ) {
 			return $this->field( 'divider', $id, $title, $args );

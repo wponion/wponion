@@ -19,8 +19,8 @@ if ( ! class_exists( 'WPO\Textarea' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method rows()
-	 * @method cols()
+	 * @method get_rows()
+	 * @method get_cols()
 	 */
 	class Textarea extends Text {
 		/**
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPO\Textarea' ) ) {
 		 *
 		 * @return \WPO\Textarea
 		 */
-		public function set_rows( $rows = 5 ) {
+		public function rows( $rows = 5 ) {
 			$this['rows'] = $rows;
 			return $this;
 		}
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Textarea' ) ) {
 		 *
 		 * @return \WPO\Textarea
 		 */
-		public function set_cols( $cols = 5 ) {
+		public function cols( $cols = 5 ) {
 			$this['cols'] = $cols;
 			return $this;
 		}

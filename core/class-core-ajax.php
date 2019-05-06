@@ -42,8 +42,8 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				if ( ! defined( 'WPONION_DOING_AJAX' ) ) {
 					define( 'WPONION_DOING_AJAX', true );
 				}
-				$function = sanitize_text_field( $_REQUEST['wponion-ajax'] );
-				$function = str_replace( '-', '_', sanitize_title( $function ) );
+
+				$function = str_replace( '-', '_', sanitize_title( sanitize_text_field( $_REQUEST['wponion-ajax'] ) ) );
 				if ( method_exists( $this, $function ) ) {
 					$this->$function();
 				}
@@ -103,10 +103,9 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 						foreach ( $icons as $key => $icon ) {
 							$_icon = ( is_numeric( $key ) ) ? $icon : $key;
 							$title = ( is_numeric( $key ) ) ? $icon : $icon;
-
-							$html .= '<div class="wponion-icon-preview-wrap">';
-							$html .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
-							$html .= '</div>';
+							$html  .= '<div class="wponion-icon-preview-wrap">';
+							$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
+							$html  .= '</div>';
 						}
 					} else {
 						$_icon = ( is_numeric( $json_title ) ) ? $icons : $json_title;
@@ -161,21 +160,16 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				$wp_embed->return_false_on_fail = $temp;
 			}
 
-			if ( $embed ) {
-				wp_send_json_success( $embed );
-			}
-			wp_send_json_error();
+			( $embed ) ? wp_send_json_success( $embed ) : wp_send_json_error();
 		}
 
 		/**
 		 * Handles Saving Bulk Edit Data.
 		 */
 		public function save_bulk_edit() {
-			if ( isset( $_POST['post_ids'] ) ) {
-				if ( wponion_is_array( $_POST['post_ids'] ) ) {
-					foreach ( $_POST['post_ids'] as $id ) {
-						do_action( 'wponion_save_bulk_edit', $id );
-					}
+			if ( isset( $_POST['post_ids'] ) && wponion_is_array( $_POST['post_ids'] ) ) {
+				foreach ( $_POST['post_ids'] as $id ) {
+					do_action( 'wponion_save_bulk_edit', $id );
 				}
 			}
 		}
@@ -255,7 +249,6 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				Backup_Handler::restore_backup( $backup_id, $unique, $module, $extra );
 				wp_send_json_success( __( 'Backup Successfully Restored', 'wponion' ) );
 			}
-
 			wp_send_json_error( __( 'Error Code: #BKP259', 'wponion' ) );
 
 		}
@@ -277,7 +270,6 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				}
 			}
 			wp_send_json_error();
-
 		}
 
 		/**
@@ -288,15 +280,65 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$search        = ( isset( $_REQUEST['q'] ) ) ? $_REQUEST['q'] : '';
 			$search        = ( isset( $_REQUEST['s'] ) ) ? $_REQUEST['s'] : $search;
 			$query_options = ( isset( $_REQUEST['query_options'] ) ) ? $_REQUEST['query_options'] : false;
-			if ( wponion_is_callable( $query_options ) ) {
-				$data = wponion_callback( $query_options );
-			} else {
-				$data = wponion_query()->query( $query_options, $query_args, $search );
-			}
+			$data          = ( wponion_is_callable( $query_options ) ) ? wponion_callback( $query_options ) : wponion_query()->query( $query_options, $query_args, $search );
 			wp_send_json( $data );
 			wp_die();
 		}
 
+
+		/**
+		 * Ajax Save Settings Option.
+		 */
+		public function save_settings() {
+			$option_page = $_REQUEST['option_page'];
+			$settings    = wponion_settings( $option_page );
+
+			if ( ! $settings instanceof \WPOnion\Modules\Settings && ! $settings instanceof \WPOnion\Modules\Network_Settings ) {
+				wp_send_json_error();
+			}
+
+			$to_be_saved     = $_REQUEST[ $option_page ];
+			$is_network_wide = isset( $_REQUEST['network_wide'] ) && $_REQUEST['network_wide'];
+
+			if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], $option_page . '-options' ) ) {
+				wp_send_json_error( __( 'Cheatin&#8217; uh?', 'wponion' ) );
+			}
+
+			if ( $is_network_wide && ! is_super_admin() ) {
+				wp_send_json_error( __( 'Cheatin&#8217; uh?', 'wponion' ) );
+			}
+
+			$capability = apply_filters( "option_page_capability_{$option_page}", 'manage_options' );
+			if ( ! current_user_can( $capability ) ) {
+				wp_send_json_error( __( 'Cheatin&#8217; uh?', 'wponion' ) );
+			}
+
+			$whitelist_options = apply_filters( 'whitelist_options', array() );
+			$options           = $whitelist_options[ $option_page ];
+			if ( empty( $options[0] ) || $options[0] != $option_page ) {
+				wp_send_json_error( "You can't do that!" );
+			}
+
+			if ( $is_network_wide ) {
+				update_site_option( $option_page, $to_be_saved );
+			} else {
+				update_option( $option_page, $to_be_saved );
+			}
+
+			$this->catch_output();
+			$settings->reload_cache()
+				->reload_values();
+			$settings->on_settings_page_load();
+			$settings->render();
+			$form = $this->catch_output( 'stop' );
+			$this->catch_output();
+			wponion_localize()->render_js_args();
+			$script = $this->catch_output( 'stop' );
+			wp_send_json_success( array(
+				'form'   => '<div>' . $form . '</div>',
+				'script' => $script,
+			) );
+		}
 	}
 }
 return new Core_Ajax;

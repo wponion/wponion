@@ -95,7 +95,7 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 		 */
 		public function add( $data = '', $version = false ) {
 			if ( false === $version ) {
-				$args    = get_file_data( trailingslashit( $data ) . 'wponion-init.php', array( 'version' => '@version' ) );
+				$args    = get_file_data( trailingslashit( $data ) . 'index.php', array( 'version' => 'Version' ) );
 				$version = ( isset( $args['version'] ) && ! empty( $args['version'] ) ) ? $args['version'] : $version;
 			}
 			self::$data[ $version ] = trailingslashit( $data );

@@ -26,7 +26,7 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Field' ) ) {
 		 *
 		 * @param $field_id
 		 *
-		 * @return mixed
+		 * @return bool|array|\WPO\Field
 		 */
 		public function field_exists( $field_id );
 
@@ -40,7 +40,7 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Field' ) ) {
 		/**
 		 * Returns All Containers.
 		 *
-		 * @return mixed
+		 * @return array
 		 */
 		public function fields();
 

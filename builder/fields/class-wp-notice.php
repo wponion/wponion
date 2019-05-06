@@ -19,8 +19,8 @@ if ( ! class_exists( 'WPO\WP_Notice' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method large()
-	 * @method alt()
+	 * @method get_large()
+	 * @method get_alt()
 	 */
 	class WP_Notice extends Notice {
 		/**
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPO\WP_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_large( $large = false ) {
+		public function large( $large = false ) {
 			$this['large'] = $large;
 			return $this;
 		}
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\WP_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_alt( $alt = false ) {
+		public function alt( $alt = false ) {
 			$this['alt'] = $alt;
 			return $this;
 		}

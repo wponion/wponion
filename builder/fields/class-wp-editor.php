@@ -37,7 +37,7 @@ if ( ! class_exists( 'WPO\WP_Editor' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_settings( $args, $merge = true ) {
+		public function settings( $args, $merge = true ) {
 			$this->_set_array_handler( 'settings', $args, $merge );
 			return $this;
 		}

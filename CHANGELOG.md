@@ -4,7 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Beta : 0.0.9.5] - 02/05/2019
+# [Beta : 0.0.9.6] - 06/05/2019
+## Added
+* Option to check for image link in `image` key in `image_select` field
+* Few layout images `body`,`header`,`sidebar`
+* Ajax Save Settings
+* Bootstrap Spinners
+* new hook / action `wponion_before_icons_setup`
+* new hook / action `wponion_after_icons_setup`
+* New Function `wponion_is_container`
+* Addons Manager
+* Hide Title Feature for field.
+
+## Changed
+* Renamed all field builder function names from `set_` to just its name. EG : `set_placeholder to `placeholder`
+
+## Removed
+* Unused / Unwanted Fields Class files
+* Unsued / unwanted data files
+* `data/animate-css.php` | `data/continents.php` | `data/countries.php`
+* Icon files removed except dashicons
+
+---
+
+# [Beta : 0.0.9.5] - 02/05/2019
 ## Added
 * `wponion_tooltip` Function Added
 * Option To Set Custom Text in `wponion_ajax` JS
@@ -29,8 +52,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Localizer JS Function Converter Regex.
 * `wponion_get_field_class` function to work with given module info.
 
+---
 
-## [Beta : 0.0.9.4] - 24/04/2019
+# [Beta : 0.0.9.4] - 24/04/2019
 ## Added
 * POT File.
 
@@ -39,11 +63,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Updated Ajax Framework
 * Javascript Bug Fixed.
 
-## [Beta : 0.0.9.3] - 17/04/2019
+---
+
+# [Beta : 0.0.9.3] - 17/04/2019
 ## Added
 * Added Option To Block An Element in `window.wponion.ajaxer`
 
-## [Beta : 0.0.9.2] - 16/04/2019
+---
+
+# [Beta : 0.0.9.2] - 16/04/2019
 ## Updated
 * Minor Bug Fixed  -- EasyGulpTasker -- Development
 
@@ -51,7 +79,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Added Option To Load Minified or unminified version of Sources
 * Auto localize scripts when `wponion_load_core_assets`
 
-## [Beta : 0.0.9.1] - 14/04/2019
+---
+
+# [Beta : 0.0.9.1] - 14/04/2019
 ## Added
 * EasyGulpTasker -- Development
 * Option To Load Select Options Via Custom Callback
@@ -59,8 +89,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Removed
 * Removed Gulp Boilerplate -- Development
 
-## [Beta : 0.0.9] - 01/04/2019
-### Added
+---
+
+# [Beta : 0.0.9] - 01/04/2019
+## Added
 * Field Type Registry Class
 * Basic WPOnion Setup Class
 * Lodash Support
@@ -68,13 +100,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Flexbox Grid
 * Single Page Layout For Settings Page
 
-#### New Modules
+### New Modules
 * Ajax Support
 * WPPointers
 * Visual Composer
 * WooCommerce Settings Page
 
-#### Builders
+### Builders
 * WPOnion Base Builder
 * WPOnion Field Builder### Library
 * WP Dependencies lib by varunsridharan
@@ -86,7 +118,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Function `wponion_field_remove_support`
 * Function `wponion_validate_bool_val`
 
-#### Fields
+### Fields
 * Button Set Field
 * Color Group Field
 * Change Log Field
@@ -95,42 +127,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Spacing Field
 * Dimensions Field
 
-### Changed
+## Changed
 * Updated WordPress JS Hooks With Proper WordPress Hooks Framework From WordPress
 * Updated Builtin Themes
 * SweatAlert2
 
-### Removed
+## Removed
 * Locutus Support
 
 ---
 
-## [Beta : 0.0.8.1] - 19/12/2018
-### Changed
+# [Beta : 0.0.8.1] - 19/12/2018
+## Changed
 1. `class-admin-notice.php` code bug fixed
 2. Updated `composer.json`
-3. Updated Readme.md to handle both **dev* & **stable** version details
+3. Updated Readme.md to handle both **dev** & **stable** version details
 4. Updated `.gitignore` file
 5. Updated Version To `0.0.8.1`
 6. Updated Change Log
 
-## [Beta : 0.0.8] - 11/12/2018
-### Fixed
+---
+
+# [Beta : 0.0.8] - 11/12/2018
+## Fixed
 1. Core : `wponion_get_all_fields_ids_and_defaults` Function Fully Redeveloped
 2. Core : Managed To Check if debug enabled properly and provided WPOnion's Debug Const Priority
  
-### Added
+## Added
 1. WP Module  - WP Notice (Clone of https://github.com/panvagenas/wp-admin-notices)
 2. Field Type - Core WP Notice As Field
 3. Field Type - Sysinfo
 
-### Changed
+## Changed
 Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
-## [Beta : 0.0.7] - 25/11/2018
-### Added
+# [Beta : 0.0.7] - 25/11/2018
+## Added
 1. WP Module  - AdminBar
 2. WP Module  - Custom Meta box Support
 3. WP Module  - WP Nav Menu
@@ -139,22 +173,22 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 6. Field API  - Field Compile Time Recorder
 7. Field Type - Added Option To Set Dynamic Heading in Group Field (#10)
 
-### Changed
+## Changed
 1. WP Module - Updated Taxonomy & User Profile Fields To Work with Custom Meta boxes
 2. Themes - Updated Fresh Theme To Work With WPOnion Modules API
 3. Field Type - Accordion / Group / Field set Not saving properly
 4. Field Type - Customize able Group / KeyValue / Cloner error Msg (#11)
 5. option_value to option_label in query_args
 
-### Removed 
+## Removed 
 1. JS Lib : Pretty Checkbox
 2. JS Lib : AnimateCSS
 3. Value API : ValueAPI & Its Functions
 
 ---
 
-## [Beta : 0.0.6] - 18/11/2018
-### Added
+# [Beta : 0.0.6] - 18/11/2018
+## Added
 1. Field API - Auto Generate Sample PHP Code For Field If debug enabled
 2. WP Module - Option To Set Custom Footer Left & Right Text in Admin Page 
 3. WP Module - Added `menu_url` function to retrive admin page's menu url
@@ -162,7 +196,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 5. WP Module - Quick Edit
 6. WP Module - Bulk Edit
 
-### Fixed
+## Fixed
 1. Field API - PHP : wp_link saved value not showing (#4)
 2. Field JS API - Validation  Works With Accordion
 3. Field JS API - Validation  Works With Group
@@ -174,8 +208,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
-## [Beta : 0.0.5] - 16/11/2018
-### Added
+# [Beta : 0.0.5] - 16/11/2018
+## Added
 1.  Field Type - notice_success
 2.  Field Type - notice_danger
 3.  Field Type - notice_warning
@@ -193,30 +227,30 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 15. WP Module - Dashboard Widgets
 16. JS Module - JS Field Validation
 
-### Fixed
+## Fixed
 1. Field Type  - ColorPicker
 2. Field Type  - PrettyCheckbox CSS Issue
 3. Core/Field - POPUP CSS Issue
 4. Core       - Random key was added each time for each instance. so its fixed with a static key per instance.
  
-### Changed
+## Changed
 1. Field API - Updated all fields to use `$this->sub_field` function if it uses `wponion_add_element`
 2. Core      - changed meterial => material
 
 ---
 
-## [Beta : 0.0.4] - 08/11/2018
+# [Beta : 0.0.4] - 08/11/2018
 ### Major Redevelopment Done
 
 ---
 
-## [Beta : 0.0.3] - 07/11/2018
+# [Beta : 0.0.3] - 07/11/2018
 ### Major Redevelopment Work Going On
 
 ---
 
-## [Beta : 0.0.2] - 25/7/2018
-### Added
+# [Beta : 0.0.2] - 25/7/2018
+## Added
 1. Field Type - Datepicker
 2. Field Type - Content
 3. Field Type - Background
@@ -225,16 +259,16 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 6. WP Module - User Profile
 7. Core Lib  - Markdown Parser
 
-### Changed
+## Changed
 1. Core         - WPOnion Now Works on `after_setup_theme` instead of `init` hook
 2. Core Helper  - Migrated All JSON Files into PHP Array and saved them in `data/` folder to make it bit faster
 3. Field Type    - Icon Field has option to **enable** / **disable** certain icon framework
 
-### Fixed
+## Fixed
 1. Spelling mistake - ( horizontal )
 2. WP Module        - WC Metabox Style Updated
 
-### Removed
+## Removed
 1. CSS - FontAwesome
 2. CSS - TypeIcons
 3. CSS - BoxIcons
@@ -245,8 +279,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
-## [Beta : 0.0.1] - 10/7/2018
-### Added
+# [Beta : 0.0.1] - 10/7/2018
+## Added
 1. Core Module -  Field Registry
 2. Core Module -  Core Registry
 3. Core Module -  Theme API
@@ -258,6 +292,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.9.6]: https://github.com/wponion/wponion/releases/tag/0.0.9.6
 [Beta : 0.0.9.5]: https://github.com/wponion/wponion/releases/tag/0.0.9.5
 [Beta : 0.0.9.4]: https://github.com/wponion/wponion/releases/tag/0.0.9.4
 [Beta : 0.0.9.3]: https://github.com/wponion/wponion/releases/tag/0.0.9.3
@@ -269,5 +304,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [Beta : 0.0.7]: https://github.com/wponion/wponion/releases/tag/0.0.7
 [Beta : 0.0.6]: https://github.com/wponion/wponion/releases/tag/0.0.6
 [Beta : 0.0.5]: https://github.com/wponion/wponion/releases/tag/0.0.5
+[Beta : 0.0.4]: https://github.com/wponion/wponion/releases/tag/0.0.4
+[Beta : 0.0.3]: https://github.com/wponion/wponion/releases/tag/0.0.3
 [Beta : 0.0.2]: https://github.com/wponion/wponion/releases/tag/Beta2
 [Beta : 0.0.1]: https://github.com/wponion/wponion/releases/tag/121010072018

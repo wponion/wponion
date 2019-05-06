@@ -398,7 +398,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function title() {
 			$html = '';
-			if ( $this->has( 'title' ) ) {
+			if ( $this->has( 'title' ) && false === $this->data( 'hide_title' ) ) {
 				$html .= '<div class="wponion-field-title wponion-element-title ' . $this->data( 'title_column' ) . '">';
 				$html .= $this->title_before_after( false ) . '<h4>' . $this->data( 'title' ) . '</h4>' . $this->title_before_after( true );
 				$html .= $this->field_help();
@@ -1040,7 +1040,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			}
 
 			$data = wponion_query()->query( $type, $query_args, '' );
-			return $data;
+			return ( ! is_array( $data ) ) ? array() : $data;
 		}
 
 		/**

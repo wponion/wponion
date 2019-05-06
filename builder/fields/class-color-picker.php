@@ -19,9 +19,9 @@ if ( ! class_exists( 'WPO\Color_Picker' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method rgba()
-	 * @method size()
-	 * @method layout()
+	 * @method get_rgba()
+	 * @method get_size()
+	 * @method get_layout()
 	 */
 	class Color_Picker extends Field {
 		/**
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPO\Color_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_rgba( $is_rgba = true ) {
+		public function rgba( $is_rgba = true ) {
 			$this['rgba'] = $is_rgba;
 			return $this;
 		}
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Color_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_size( $size = 30 ) {
+		public function size( $size = 30 ) {
 			$this['size'] = $size;
 			return $this;
 		}
@@ -73,20 +73,12 @@ if ( ! class_exists( 'WPO\Color_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_layout( $is_round = false, $with_margin = false, $box_shadow = false, $custom = false ) {
+		public function layout( $is_round = false, $with_margin = false, $box_shadow = false, $custom = false ) {
 			if ( false === $custom ) {
 				$custom = '';
-				if ( true === $is_round ) {
-					$custom .= ' round ';
-				}
-
-				if ( true === $with_margin ) {
-					$custom .= ' with-margin ';
-				}
-
-				if ( true === $box_shadow ) {
-					$custom .= ' box-shadow ';
-				}
+				$custom .= ( true === $is_round ) ? ' round ' : '';
+				$custom .= ( true === $with_margin ) ? ' with-margin ' : '';
+				$custom .= ( true === $box_shadow ) ? ' box-shadow ' : '';
 			}
 			$this['layout'] = $custom;
 			return $this;

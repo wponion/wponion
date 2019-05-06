@@ -19,9 +19,9 @@ if ( ! class_exists( 'WPO\Font_Picker' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method google_fonts()
-	 * @method websafe_fonts()
-	 * @method group()
+	 * @method get_google_fonts()
+	 * @method get_websafe_fonts()
+	 * @method get_group()
 	 */
 	class Font_Picker extends Field {
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'WPO\Font_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_google_fonts( $show_google_fonts = true ) {
+		public function google_fonts( $show_google_fonts = true ) {
 			$this['google_fonts'] = $show_google_fonts;
 			return $this;
 		}
@@ -54,7 +54,7 @@ if ( ! class_exists( 'WPO\Font_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_websafe_fonts( $show_websafe_fonts = true ) {
+		public function websafe_fonts( $show_websafe_fonts = true ) {
 			$this['websafe_fonts'] = $show_websafe_fonts;
 			return $this;
 		}
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPO\Font_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_group( $show_in_group = true ) {
+		public function group( $show_in_group = true ) {
 			$this['group'] = $show_in_group;
 			return $this;
 		}

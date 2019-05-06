@@ -46,7 +46,7 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_settings( $args, $merge = true ) {
+		public function settings( $args, $merge = true ) {
 			$this->_set_array_handler( 'settings', $args, $merge );
 			return $this;
 		}
@@ -56,8 +56,8 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		 *
 		 * @return \WPO\WP_Link
 		 */
-		public function set_url( $url ) {
-			return $this->set_settings( array( 'url' => $url ) );
+		public function url( $url ) {
+			return $this->settings( array( 'url' => $url ) );
 		}
 
 		/**
@@ -65,8 +65,8 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		 *
 		 * @return \WPO\WP_Link
 		 */
-		public function set_link_title( $title ) {
-			return $this->set_settings( array( 'title' => $title ) );
+		public function link_title( $title ) {
+			return $this->settings( array( 'title' => $title ) );
 		}
 
 		/**
@@ -74,8 +74,8 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		 *
 		 * @return \WPO\WP_Link
 		 */
-		public function set_target( $target ) {
-			return $this->set_settings( array( 'target' => $target ) );
+		public function target( $target ) {
+			return $this->settings( array( 'target' => $target ) );
 		}
 
 		/**
@@ -83,8 +83,8 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		 *
 		 * @return \WPO\WP_Link
 		 */
-		public function set_example( $example ) {
-			return $this->set_settings( array( 'example' => $example ) );
+		public function example( $example ) {
+			return $this->settings( array( 'example' => $example ) );
 		}
 
 		/**
@@ -92,8 +92,8 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		 *
 		 * @return \WPO\WP_Link
 		 */
-		public function set_show_input( $show_input ) {
-			return $this->set_settings( array( 'show_input' => $show_input ) );
+		public function show_input( $show_input ) {
+			return $this->settings( array( 'show_input' => $show_input ) );
 		}
 
 		/**
@@ -101,7 +101,7 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_button( $button ) {
+		public function button( $button ) {
 			$this['button'] = $button;
 			return $this;
 		}

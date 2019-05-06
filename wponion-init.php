@@ -12,18 +12,19 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.9.5' );
-defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', __( 'WPOnion', 'wponion' ) );
+defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '0.0.9.6' );
+defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', 'WPOnion' );
 defined( 'WPONION_FILE' ) or define( 'WPONION_FILE', __FILE__ );
 defined( 'WPONION_PATH' ) or define( 'WPONION_PATH', plugin_dir_path( __FILE__ ) );
 defined( 'WPONION_URL' ) or define( 'WPONION_URL', plugin_dir_url( __FILE__ ) );
-defined( 'WPONION_DB_VERSION' ) or define( 'WPONION_DB_VERSION', '010420190518' );
+defined( 'WPONION_DB_VERSION' ) or define( 'WPONION_DB_VERSION', '060520190703' );
 
 if ( ! function_exists( 'wponion_setup' ) ) {
 	/**
 	 * Setup's Basic WPOnion.
 	 */
 	function wponion_setup() {
+		require_once WPONION_PATH . 'core/class-addons.php';
 		require_once WPONION_PATH . 'core/class-setup.php';
 	}
 

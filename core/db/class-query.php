@@ -147,6 +147,18 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 				case 'currency_symbol':
 					return ( 'currency_symbol' === $type ) ? \WPOnion\Helper::get_currency_symbol() : \WPOnion\Helper::get_currency();
 					break;
+
+				case 'body_layouts':
+				case 'body_layout':
+				case 'header_layouts':
+				case 'header_layout':
+				case 'sidebar_layouts':
+				case 'sidebar_layout':
+					$layout  = str_replace( array( '_layouts', '_layout' ), '', $type );
+					$size    = ( isset( $args['size'] ) ) ? $args['size'] : '200';
+					$exclude = ( isset( $args['exclude'] ) ) ? $args['exclude'] : array();
+					return wponion_layouts_field_option( $layout, $size, $exclude );
+					break;
 			}
 
 			$this->handle_query_args();

@@ -19,10 +19,10 @@ if ( ! class_exists( 'WPO\Text' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method prefix()
-	 * @method surfix()
-	 * @method datalist()
-	 * @method inputmask()
+	 * @method get_prefix()
+	 * @method get_surfix()
+	 * @method get_datalist()
+	 * @method get_inputmask()
 	 */
 	class Text extends Field {
 		/**
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPO\Text' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_prefix( $prefix ) {
+		public function prefix( $prefix ) {
 			$this['prefix'] = $prefix;
 			return $this;
 		}
@@ -51,7 +51,7 @@ if ( ! class_exists( 'WPO\Text' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_surfix( $surfix ) {
+		public function surfix( $surfix ) {
 			$this['surfix'] = $surfix;
 			return $this;
 		}
@@ -61,7 +61,7 @@ if ( ! class_exists( 'WPO\Text' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_inputmask( $inputmask ) {
+		public function inputmask( $inputmask ) {
 			$this['inputmask'] = $inputmask;
 			return $this;
 		}
@@ -71,8 +71,8 @@ if ( ! class_exists( 'WPO\Text' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function set_datalist( $options ) {
-			return $this->set_options( $options );
+		public function datalist( $options ) {
+			return $this->options( $options );
 		}
 	}
 }

@@ -31,7 +31,7 @@ if ( ! class_exists( 'WPO\Switcher' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_on( $label = null ) {
+		public function on( $label = null ) {
 			$this['on'] = $label;
 			return $this;
 		}
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPO\Switcher' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_off( $label = null ) {
+		public function off( $label = null ) {
 			$this['off'] = $label;
 			return $this;
 		}
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WPO\Switcher' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_switch_style( $style = 'style-8' ) {
+		public function switch_style( $style = 'style-8' ) {
 			$this['switch_style'] = $style;
 			return $this;
 		}
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPO\Switcher' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_switch_size( $size ) {
+		public function switch_size( $size ) {
 			$this['switch_size'] = $size;
 			return $this;
 		}

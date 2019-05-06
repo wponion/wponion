@@ -20,6 +20,12 @@ if ( ! class_exists( 'WPO\Jambo_Content' ) ) {
 	 * @since 1.0
 	 */
 	class Jambo_Content extends Content {
+		/**
+		 * Jambo_Content constructor.
+		 *
+		 * @param bool $content
+		 * @param bool $markdown
+		 */
 		public function __construct( $content = false, $markdown = false ) {
 			parent::__construct( $content, $markdown );
 			$this['type'] = 'jambo_content';

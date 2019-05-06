@@ -19,7 +19,7 @@ if ( ! class_exists( 'WPO\Accordion' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method is_open()
+	 * @method get_is_open()
 	 */
 	class Accordion extends Nested_Fields {
 		/**
@@ -38,23 +38,22 @@ if ( ! class_exists( 'WPO\Accordion' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_is_open( $is_open = false ) {
-			$this['is_open'] = $is_open;
-			return $this;
+		public function is_open( $is_open = false ) {
+			return $this->_set( 'is_open', $is_open );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function open() {
-			return $this->set_is_open( true );
+			return $this->is_open( true );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function close() {
-			return $this->set_is_open( false );
+			return $this->is_open( false );
 		}
 	}
 }

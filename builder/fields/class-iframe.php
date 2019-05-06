@@ -36,7 +36,7 @@ if ( ! class_exists( 'WPO\Iframe' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_width( $width = true ) {
+		public function width( $width = true ) {
 			$this['width'] = $width;
 			return $this;
 		}
@@ -46,7 +46,7 @@ if ( ! class_exists( 'WPO\Iframe' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_height( $height = true ) {
+		public function height( $height = true ) {
 			$this['height'] = $height;
 			return $this;
 		}
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WPO\Iframe' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_url( $url = true ) {
+		public function url( $url = true ) {
 			$this['url'] = $url;
 			return $this;
 		}
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPO\Iframe' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_heading( $heading = true ) {
+		public function heading( $heading = true ) {
 			$this['heading'] = $heading;
 			return $this;
 		}

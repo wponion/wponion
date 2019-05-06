@@ -36,7 +36,7 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_settings( $args ) {
+		public function settings( $args ) {
 			$this->_set_array_handler( 'settings', $args, true );
 			return $this;
 		}
@@ -46,8 +46,8 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_library( $library = 'all' ) {
-			return $this->set_settings( array( 'upload_type' => $library ) );
+		public function library( $library = 'all' ) {
+			return $this->settings( array( 'upload_type' => $library ) );
 		}
 
 		/**
@@ -55,8 +55,8 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		 *
 		 * @return \WPO\Upload
 		 */
-		public function set_frame_title( $frame_title = 'Upload' ) {
-			return $this->set_settings( array( 'frame_title' => $frame_title ) );
+		public function frame_title( $frame_title = 'Upload' ) {
+			return $this->settings( array( 'frame_title' => $frame_title ) );
 		}
 
 		/**
@@ -64,8 +64,8 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		 *
 		 * @return \WPO\Upload
 		 */
-		public function set_insert_title( $insert_title = 'Insert' ) {
-			return $this->set_settings( array( 'insert_title' => $insert_title ) );
+		public function insert_title( $insert_title = 'Insert' ) {
+			return $this->settings( array( 'insert_title' => $insert_title ) );
 		}
 
 		/**
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_button( $button ) {
+		public function button( $button ) {
 			$this['button'] = $button;
 			return $this;
 		}

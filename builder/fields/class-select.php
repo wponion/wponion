@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPO\Select' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_ajax( $load_via_ajax = false ) {
+		public function ajax( $load_via_ajax = false ) {
 			$this['ajax'] = $load_via_ajax;
 			return $this;
 		}
@@ -57,27 +57,9 @@ if ( ! class_exists( 'WPO\Select' ) ) {
 		 *
 		 * @return \WPO\Select
 		 */
-		public function set_select_framework( $framework, $options = true ) {
+		public function select_framework( $framework, $options = true ) {
 			$this[ $framework ] = $options;
 			return $this;
-		}
-
-		/**
-		 * Options
-		 * - select2 [https://select2.org/]
-		 * - chosen [https://harvesthq.github.io/chosen/]
-		 * - selectize [https://selectize.github.io/selectize.js/]
-		 *
-		 * -- Note --
-		 * - For Selectize https://github.com/wponion/selectize-addon is required to be installed & activated.
-		 *
-		 * @param string     $framework Select Framework Name.
-		 * @param bool|array $options For Options please visit Select Frameworks Website to know more about arguments.
-		 *
-		 * @return \WPO\Select
-		 */
-		public function select_framework( $framework, $options = true ) {
-			return $this->set_select_framework( $framework, $options );
 		}
 	}
 }

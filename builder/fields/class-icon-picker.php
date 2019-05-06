@@ -19,11 +19,11 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method add_button()
-	 * @method remove_button()
-	 * @method icon_tooltip()
-	 * @method enabled()
-	 * @method disabled()
+	 * @method get_add_button()
+	 * @method get_remove_button()
+	 * @method get_icon_tooltip()
+	 * @method get_enabled()
+	 * @method get_disabled()
 	 */
 	class Icon_Picker extends Field {
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_add_button( $button ) {
+		public function add_button( $button ) {
 			$this['add_button'] = $button;
 			return $this;
 		}
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_remove_button( $button ) {
+		public function remove_button( $button ) {
 			$this['remove_button'] = $button;
 			return $this;
 		}
@@ -62,7 +62,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_show_input( $show_input = true ) {
+		public function show_input( $show_input = true ) {
 			$this['show_input'] = $show_input;
 			return $this;
 		}
@@ -70,15 +70,8 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		/**
 		 * @return \WPO\Icon_Picker
 		 */
-		public function show_input() {
-			return $this->set_show_input( true );
-		}
-
-		/**
-		 * @return \WPO\Icon_Picker
-		 */
 		public function hide_input() {
-			return $this->set_show_input( false );
+			return $this->show_input( false );
 		}
 
 		/**
@@ -93,7 +86,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_icon_tooltip( $args = array() ) {
+		public function icon_tooltip( $args = array() ) {
 			$this['icon_tooltip'] = $args;
 			return $this;
 		}
@@ -106,7 +99,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_enabled( $enabled_icon_frameworks = true ) {
+		public function enabled( $enabled_icon_frameworks = true ) {
 			$this['enabled'] = $enabled_icon_frameworks;
 			return $this;
 		}
@@ -118,7 +111,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_disabled( $disabled_icon_frameworks = true ) {
+		public function disabled( $disabled_icon_frameworks = true ) {
 			$this['disabled'] = $disabled_icon_frameworks;
 			return $this;
 		}

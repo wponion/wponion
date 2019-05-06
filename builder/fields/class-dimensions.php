@@ -19,11 +19,11 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method width()
-	 * @method height()
-	 * @method unit()
-	 * @method unit_options()
-	 * @method icons()
+	 * @method get_width()
+	 * @method get_height()
+	 * @method get_unit()
+	 * @method get_unit_options()
+	 * @method get_icons()
 	 */
 	class Dimensions extends Field {
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_width( $width = true ) {
+		public function width( $width = true ) {
 			$this['width'] = $width;
 			return $this;
 		}
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_height( $height = true ) {
+		public function height( $height = true ) {
 			$this['height'] = $height;
 			return $this;
 		}
@@ -62,7 +62,7 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_unit( $unit ) {
+		public function unit( $unit ) {
 			$this['unit'] = $unit;
 			return $this;
 		}
@@ -79,7 +79,7 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_unit_options( $options ) {
+		public function unit_options( $options ) {
 			$this['unit_options'] = $options;
 			return $this;
 		}
@@ -96,7 +96,7 @@ if ( ! class_exists( 'WPO\Dimensions' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_icons( $icons ) {
+		public function icons( $icons ) {
 			$this['icons'] = $icons;
 			return $this;
 		}

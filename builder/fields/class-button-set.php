@@ -20,9 +20,9 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 	 * @since 1.0
 	 *
 	 * @method multiple()
-	 * @method size()
-	 * @method active()
-	 * @method inactive()
+	 * @method get_size()
+	 * @method get_active()
+	 * @method get_inactive()
 	 */
 	class Button_Set extends Checkbox_Radio {
 		/**
@@ -36,7 +36,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_size( $size ) {
+		public function size( $size ) {
 			$this['size'] = $size;
 			return $this;
 		}
@@ -46,7 +46,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_active( $active = 'button-primary' ) {
+		public function active( $active = 'button-primary' ) {
 			$this['active'] = $active;
 			return $this;
 		}
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_inactive( $inactive = 'button-secondary' ) {
+		public function inactive( $inactive = 'button-secondary' ) {
 			$this['inactive'] = $inactive;
 			return $this;
 		}
@@ -67,7 +67,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		 * @return \WPO\Button_Set
 		 */
 		public function large() {
-			return $this->set_size( 'large' );
+			return $this->size( 'large' );
 		}
 
 		/**
@@ -76,7 +76,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		 * @return \WPO\Button_Set
 		 */
 		public function small() {
-			return $this->set_size( 'small' );
+			return $this->size( 'small' );
 		}
 
 		/**
@@ -85,7 +85,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		 * @return \WPO\Button_Set
 		 */
 		public function normal() {
-			return $this->set_size( false );
+			return $this->size( false );
 		}
 	}
 }

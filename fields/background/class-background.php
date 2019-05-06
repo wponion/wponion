@@ -13,6 +13,7 @@
  */
 
 namespace WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -30,6 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 			echo $this->before();
 
 			echo '<div class="row">';
+
 			if ( false !== $this->data( 'background-color' ) ) {
 				$title = ( true === $this->data( 'background-color' ) ) ? __( 'Background Color', 'wponion' ) : $this->data( 'background-color' );
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
@@ -40,82 +42,28 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 				) ), $this->value( 'color' ), $this->name() );
 			}
 
-			if ( false !== $this->data( 'background-repeat' ) ) {
-				$title = ( true === $this->data( 'background-repeat' ) ) ? __( 'Repeat', 'wponion' ) : $this->data( 'background-repeat' );
-				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type'                  => 'select',
-					'options'               => $this->get_options( 'repeat' ),
-					'id'                    => 'repeat',
-					'style'                 => 'width:100%;',
-					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
-					'horizontal'            => true,
-					$this->select_framework => $this->data( $this->select_framework ),
-				) ), $this->value( 'repeat' ), $this->name() );
-			}
+			$parts = array(
+				'repeat'     => __( 'Repeat', 'wponion' ),
+				'attachment' => __( 'Attachment', 'wponion' ),
+				'position'   => __( 'Position', 'wponion' ),
+				'clip'       => __( 'Clip', 'wponion' ),
+				'origin'     => __( 'Origin', 'wponion' ),
+				'size'       => __( 'Size', 'wponion' ),
+			);
 
-			if ( false !== $this->data( 'background-attachment' ) ) {
-				$title = ( true === $this->data( 'background-attachment' ) ) ? __( 'Attachment', 'wponion' ) : $this->data( 'background-attachment' );
-				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type'                  => 'select',
-					'options'               => $this->get_options( 'attachment' ),
-					'id'                    => 'attachment',
-					'style'                 => 'width:100%;',
-					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
-					'horizontal'            => true,
-					$this->select_framework => $this->data( $this->select_framework ),
-				) ), $this->value( 'attachment' ), $this->name() );
-			}
-
-			if ( false !== $this->data( 'background-position' ) ) {
-				$title = ( true === $this->data( 'background-position' ) ) ? __( 'Position', 'wponion' ) : $this->data( 'background-position' );
-				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type'                  => 'select',
-					'options'               => $this->get_options( 'position' ),
-					'id'                    => 'position',
-					'style'                 => 'width:100%;',
-					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
-					'horizontal'            => true,
-					$this->select_framework => $this->data( $this->select_framework ),
-				) ), $this->value( 'position' ), $this->name() );
-			}
-
-			if ( false !== $this->data( 'background-clip' ) ) {
-				$title = ( true === $this->data( 'background-clip' ) ) ? __( 'Clip', 'wponion' ) : $this->data( 'background-clip' );
-				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type'                  => 'select',
-					'options'               => $this->get_options( 'clip' ),
-					'id'                    => 'clip',
-					'style'                 => 'width:100%;',
-					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
-					'horizontal'            => true,
-					$this->select_framework => $this->data( $this->select_framework ),
-				) ), $this->value( 'clip' ), $this->name() );
-			}
-
-			if ( false !== $this->data( 'background-origin' ) ) {
-				$title = ( true === $this->data( 'background-origin' ) ) ? __( 'Origin', 'wponion' ) : $this->data( 'background-origin' );
-				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type'                  => 'select',
-					'options'               => $this->get_options( 'origin' ),
-					'id'                    => 'origin',
-					'style'                 => 'width:100%;',
-					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
-					'horizontal'            => true,
-					$this->select_framework => $this->data( $this->select_framework ),
-				) ), $this->value( 'origin' ), $this->name() );
-			}
-
-			if ( false !== $this->data( 'background-size' ) ) {
-				$title = ( true === $this->data( 'background-size' ) ) ? __( 'Size', 'wponion' ) : $this->data( 'background-size' );
-				echo $this->sub_field( $this->handle_args( 'title', $title, array(
-					'type'                  => 'select',
-					'options'               => $this->get_options( 'size' ),
-					'id'                    => 'size',
-					'style'                 => 'width:100%;',
-					'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
-					'horizontal'            => true,
-					$this->select_framework => $this->data( $this->select_framework ),
-				) ), $this->value( 'size' ), $this->name() );
+			foreach ( $parts as $id => $title ) {
+				if ( false !== $this->data( 'background-' . $id ) ) {
+					$title = ( true === $this->data( 'background-' . $id ) ) ? $title : $this->data( 'background-' . $id );
+					echo $this->sub_field( $this->handle_args( 'title', $title, array(
+						'type'                  => 'select',
+						'options'               => $this->get_options( $id ),
+						'id'                    => $title,
+						'style'                 => 'width:100%;',
+						'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
+						'horizontal'            => true,
+						$this->select_framework => $this->data( $this->select_framework ),
+					) ), $this->value( $id ), $this->name() );
+				}
 			}
 
 			if ( false !== $this->data( 'background-image' ) ) {
@@ -212,7 +160,6 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					);
 					break;
 			}
-
 			return $this->_filter( 'background_' . $type, $return );
 		}
 	}

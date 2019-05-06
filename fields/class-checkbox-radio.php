@@ -27,10 +27,8 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 	 * @since 1.0
 	 */
 	class Checkbox_Radio extends \WPOnion\Field {
-		/**
-		 * Loads the required plugins assets.
-		 */
 		public function field_assets() {
+			// TODO: Implement field_assets() method.
 		}
 
 		/**

@@ -21,8 +21,8 @@ if ( ! class_exists( 'WPO\Nested_Fields' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method heading()
-	 * @method un_array()
+	 * @method get_heading()
+	 * @method get_un_array()
 	 */
 	class Nested_Fields extends Field implements \WPO\Helper\Interfaces\Field {
 		use Types;
@@ -32,9 +32,8 @@ if ( ! class_exists( 'WPO\Nested_Fields' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_heading( $heading ) {
-			$this['heading'] = $heading;
-			return $this;
+		public function heading( $heading ) {
+			return $this->_set( 'heading', $heading );
 		}
 
 		/**
@@ -42,9 +41,8 @@ if ( ! class_exists( 'WPO\Nested_Fields' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_un_array( $un_array = false ) {
-			$this['un_array'] = $un_array;
-			return $this;
+		public function un_array( $un_array = false ) {
+			return $this->_set( 'un_array', $un_array );
 		}
 
 		/**
@@ -74,7 +72,7 @@ if ( ! class_exists( 'WPO\Nested_Fields' ) ) {
 			if ( $this->has_fields() ) {
 				/* @var $field \WPO\Field */
 				foreach ( $this->fields() as $field ) {
-					if ( $field->id() === $field_id ) {
+					if ( $field->get_id() === $field_id ) {
 						return $field;
 					}
 				}
@@ -88,7 +86,7 @@ if ( ! class_exists( 'WPO\Nested_Fields' ) ) {
 		 * @param bool              $title
 		 * @param array             $args
 		 *
-		 * @return $this|bool|false|\WPO\Accordion|\WPO\Background|\WPO\Button|\WPO\Button_Set|\WPO\Change_Log|\WPO\Checkbox|\WPO\Color_Group|\WPO\Color_Palette|\WPO\Color_Picker|\WPO\Content|\WPO\Date_Picker|\WPO\Dimensions|\WPO\Field|\WPO\Fieldset|\WPO\Font_Picker|\WPO\Gallery|\WPO\Google_Maps|\WPO\Group|\WPO\Heading|\WPO\Hidden|\WPO\Icon_Picker|\WPO\Iframe|\WPO\Image|\WPO\Image_Select|\WPO\Input_Group|\WPO\Jambo_Content|\WPO\Key_Value|\WPO\Link_Color|\WPO\Notice|\WPO\Notice_Danger|\WPO\Notice_Dark|\WPO\Notice_Info|\WPO\Notice_Light|\WPO\Notice_Primary|\WPO\Notice_Secondary|\WPO\Notice_Success|\WPO\Notice_Warning|\WPO\Oembed|\WPO\Radio|\WPO\Select|\WPO\Sorter|\WPO\Spacing|\WPO\Subheading|\WPO\Switcher|\WPO\Tab|\WPO\Text|\WPO\Textarea|\WPO\Typography|\WPO\Upload|\WPO\WP_Editor|\WPO\WP_Error_Notice|\WPO\WP_Info_Notice|\WPO\WP_Link|\WPO\WP_List_Table|\WPO\WP_Notice|\WPO\WP_Success_Notice|\WPO\WP_Warning_Notice
+		 * @return $this|false|\WPO\Accordion|\WPO\Background|\WPO\Button_Set|\WPO\Checkbox|\WPO\Color_Group|\WPO\Color_Picker|\WPO\Content|\WPO\Date_Picker|\WPO\Dimensions|\WPO\Field|\WPO\Fieldset|\WPO\Font_Picker|\WPO\Gallery|\WPO\Group|\WPO\Heading|\WPO\Icon_Picker|\WPO\Iframe|\WPO\Image|\WPO\Image_Select|\WPO\Input_Group|\WPO\Jambo_Content|\WPO\Key_Value|\WPO\Link_Color|\WPO\Notice|\WPO\Oembed|\WPO\Radio|\WPO\Select|\WPO\Sorter|\WPO\Spacing|\WPO\Subheading|\WPO\Switcher|\WPO\Text|\WPO\Textarea|\WPO\Typography|\WPO\Upload|\WPO\WP_Editor|\WPO\WP_Link|\WPO\WP_Notice
 		 */
 		public function field( $field_type_or_instance, $field_id = false, $title = false, $args = array() ) {
 			if ( ! wponion_is_array( $this['fields'] ) ) {

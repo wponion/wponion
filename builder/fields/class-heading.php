@@ -36,7 +36,7 @@ if ( ! class_exists( 'WPO\Heading' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_content( $content = null ) {
+		public function content( $content = null ) {
 			$this['content'] = $content;
 			return $this;
 		}
