@@ -13,20 +13,20 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Edits;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Quick_Edit' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 	/**
-	 * Class Quick_Edit
+	 * Class Quick
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Edits
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Quick_Edit extends \WPOnion\Bridge\Module {
+	class Quick extends \WPOnion\Bridge\Module {
 		/**
 		 * module
 		 *

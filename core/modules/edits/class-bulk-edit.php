@@ -13,21 +13,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Edits;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Bulk_Edit' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Edits\Bulk' ) ) {
 	/**
-	 * Class Bulk_Edit
+	 * Class Bulk
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Edits
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Bulk_Edit extends Quick_Edit {
+	class Bulk extends Quick {
 		/**
 		 * module
 		 *
