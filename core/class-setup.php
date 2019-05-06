@@ -11,6 +11,8 @@
 
 namespace WPOnion;
 
+use Varunsridharan\PHP\Autoloader;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -23,7 +25,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	final class Setup {
+	final class Setup extends Addons {
 		/**
 		 * @var bool
 		 * @access
@@ -74,9 +76,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		}
 
 		/**
-		 * Loads Basic Files To Support WPOnion.
-		 *
-		 * @hook wponion_loaded
 		 * @static
 		 * @throws \Exception
 		 */
@@ -98,11 +97,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			 */
 			do_action( 'wponion_core_loaded' );
 
-			if ( wp_is_plugin_active( 'js_composer/js_composer.php' ) ) {
-				require_once WPONION_PATH . 'core/integrations/page-builders/class-visual-composer.php';
-			}
-
 			do_action( 'wponion_integrations_loaded' );
+
+			do_action( 'wponion_before_addons_load' );
+			self::load_addons();
+			do_action( 'wponion_after_addons_load' );
 
 			do_action( 'wponion_loaded' );
 		}
@@ -133,23 +132,21 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @throws \Exception
 		 */
 		public static function init_autoloader() {
-			self::$field_autoloader         = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
-			self::$module_fields_autoloader = new \Varunsridharan\PHP\Autoloader( 'WPOnion\Module_Fields', WPONION_PATH . 'module_fields/', array(), true );
-			self::$core_autoloader          = new \Varunsridharan\PHP\Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
+			self::$field_autoloader         = new Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
+			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', WPONION_PATH . 'module_fields/', array(), true );
+			self::$core_autoloader          = new Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
 				'exclude' => 'WPOnion\Field',
 			) );
-			self::$builder_autoloader       = new \Varunsridharan\PHP\Autoloader( 'WPO\Helper', WPONION_PATH . 'builder/helper/', array(), false );
+			self::$builder_autoloader       = new Autoloader( 'WPO\Helper', WPONION_PATH . 'builder/helper/', array(), false );
 
-			new \Varunsridharan\PHP\Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array(), false );
-			new \Varunsridharan\PHP\Autoloader( 'WPO', WPONION_PATH . 'builder/', array(), false );
+			new Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array(), false );
+			new Autoloader( 'WPO', WPONION_PATH . 'builder/', array(), false );
 
 			self::$core_autoloader->add( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
 			self::$core_autoloader->add( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
 			self::$core_autoloader->add( 'WPOnion\Theme_API', WPONION_PATH . '/core/abstract/class-theme-api.php' );
 
-			/**
-			 * Remap Field & Field Cloner.
-			 */
+			//Remap Field & Field Cloner.
 			self::$field_autoloader->add( 'WPOnion\Field\Cloner', WPONION_PATH . '/core/class-field-cloner.php' );
 			self::$field_autoloader->add( 'WPOnion\Field', WPONION_PATH . '/core/abstract/class-field.php' );
 		}

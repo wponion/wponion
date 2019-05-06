@@ -427,6 +427,9 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 
 
 // WPOnion Assets Related Functions.
+require_once WPONION_PATH . 'core/helpers/addons.php';
+
+// WPOnion Assets Related Functions.
 require_once WPONION_PATH . 'core/helpers/util.php';
 
 // WPOnion Assets Related Functions.
