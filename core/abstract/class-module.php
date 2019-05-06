@@ -357,7 +357,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param bool               $first_container
 		 *
 		 * @return array
-		 * @uses \WPOnion\Modules\Settings
+		 * @uses \WPOnion\Modules\Settings\Settings
 		 *
 		 * @uses \WPOnion\Modules\Metabox
 		 */

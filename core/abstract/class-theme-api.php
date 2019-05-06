@@ -134,7 +134,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Settings Instance.
 		 *
-		 * @return \WPOnion\Modules\Settings
+		 * @return \WPOnion\Modules\Settings\Settings
 		 */
 		public function settings() {
 			return wponion_settings_registry( $this->module_instance );

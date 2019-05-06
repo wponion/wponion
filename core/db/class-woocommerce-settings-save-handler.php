@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Settings_Save_Handler' ) ) {
 		 */
 		public function run() {
 			/**
-			 * @var \WPOnion\Modules\Settings $settings
+			 * @var \WPOnion\Modules\Settings\Settings $settings
 			 * @var \WPO\Container            $container
 			 * @var \WPO\Container            $sub_container
 			 */

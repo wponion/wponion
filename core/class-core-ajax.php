@@ -293,7 +293,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$option_page = $_REQUEST['option_page'];
 			$settings    = wponion_settings( $option_page );
 
-			if ( ! $settings instanceof \WPOnion\Modules\Settings && ! $settings instanceof \WPOnion\Modules\Network_Settings ) {
+			if ( ! $settings instanceof \WPOnion\Modules\Settings\Settings && ! $settings instanceof \WPOnion\Modules\Settings\Network ) {
 				wp_send_json_error();
 			}
 

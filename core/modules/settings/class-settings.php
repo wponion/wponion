@@ -12,7 +12,7 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,8 +20,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 	/**
-	 * Class WPOnion_Settings
+	 * Class Settings
 	 *
+	 * @package WPOnion\Modules\Settings
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
