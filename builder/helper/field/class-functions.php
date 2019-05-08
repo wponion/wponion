@@ -11,6 +11,8 @@
 
 namespace WPO\Helper\Field;
 
+use WPO\Field;
+
 if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 	/**
 	 * Trait Functions
@@ -70,7 +72,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 				wp_die( 'A Container Cannot Have Both Field & Containers', 'wponion' );
 			}
 
-			if ( $field_type_or_instance instanceof \WPO\Field ) {
+			if ( $field_type_or_instance instanceof Field ) {
 				$this->fields[] = $field_type_or_instance;
 				return $this;
 			}
@@ -82,7 +84,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 			}
 
 			if ( false === $return ) {
-				$return = \WPO\Field::create( $field_type_or_instance, $field_id, $title, $args );
+				$return = Field::create( $field_type_or_instance, $field_id, $title, $args );
 				if ( $return ) {
 					$this->fields[] = $return;
 				} else {

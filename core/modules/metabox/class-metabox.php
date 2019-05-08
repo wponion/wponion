@@ -14,6 +14,10 @@
 
 namespace WPOnion\Modules\Metabox;
 
+use WPO\Builder;
+use WPOnion\Bridge\Module;
+use WPOnion\DB\Metabox_Save_Handler;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Metabox extends \WPOnion\Bridge\Module {
+	class Metabox extends Module {
 		/**
 		 * Type - Value can be anything like (settings,text_field)
 		 *
@@ -63,7 +67,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 * @param array             $settings
 		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
@@ -393,7 +397,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		public function save_metabox( $post_id ) {
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->set_post_id( $post_id );
-				$instance = new \WPOnion\DB\Metabox_Save_Handler();
+				$instance = new Metabox_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'metabox',
 					'unique'    => $this->unique,

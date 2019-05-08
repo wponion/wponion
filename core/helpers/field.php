@@ -217,7 +217,8 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 				'type'    => 'wp_notice_error',
 				'alt'     => true,
 				'large'   => true,
-				'content' => sprintf( __( '<p>Requested Field Type <code>%s</code>  Is Not Registed With WPOnion</p>', 'wponion' ), wponion_get_field_type( $field, false ) ),
+				// translators: Creates a msg says that <p>requested field type not found</p>
+				'content' => sprintf( __( '%1$s Requested Field Type %2$s  Is Not Registed With WPOnion %3$s', 'wponion' ), '<p>', '<code>' . wponion_get_field_type( $field, false ) . '</code>', '</p>' ),
 			) );
 		}
 
@@ -249,6 +250,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			$output = wponion_add_element( array(
 				'type'        => 'notice',
 				'notice_type' => 'danger',
+				// translators:
 				'content'     => sprintf( __( '<code>%s</code> Field Class Not Found.', 'wponion' ), $type ) . $args,
 			) );
 		}
@@ -318,7 +320,7 @@ if ( ! function_exists( 'wponion_valid_user_input_field' ) ) {
 	 */
 	function wponion_valid_user_input_field( $field ) {
 		$field = ( wponion_is_array( $field ) ) ? ( isset( $field['type'] ) ) ? $field['type'] : false : $field;
-		return ( ! in_array( $field, wponion_noninput_fields() ) );
+		return ( ! in_array( $field, wponion_noninput_fields(), true ) );
 	}
 }
 
@@ -429,7 +431,7 @@ if ( ! function_exists( 'wponion_validate_select_framework' ) ) {
 		if ( isset( $field['attributes']['class'] ) ) {
 			$class = is_string( $fld['attributes']['class'] ) ? explode( ' ', $fld['attributes']['class'] ) : $fld['attributes']['class'];
 			foreach ( $frameworks as $f ) {
-				if ( in_array( $f, $class ) ) {
+				if ( in_array( $f, $class, true ) ) {
 					return $f;
 				}
 			}

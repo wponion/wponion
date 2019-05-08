@@ -14,6 +14,11 @@
 
 namespace WPOnion\Modules\Settings;
 
+use WPO\Builder;
+use WPO\Container;
+use WPOnion\Bridge\Module;
+use WPOnion\DB\Settings_Save_Handler;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -26,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Settings extends \WPOnion\Bridge\Module {
+	class Settings extends Module {
 		/**
 		 * menu_instance
 		 *
@@ -70,7 +75,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * @param \WPO\Builder|null $fields
 		 * @param array             $settings
 		 */
-		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->raw_options = $settings;
 			$this->init();
@@ -138,7 +143,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					$this->find_active_menu();
 					$menus = $this->settings_menus();
 					foreach ( $menus as $id => $_menu ) {
-						if ( isset( $_menu['is_separator'] ) && true == $_menu['is_separator'] ) {
+						if ( isset( $_menu['is_separator'] ) && false !== $_menu['is_separator'] ) {
 							continue;
 						}
 						add_submenu_page( $menu['menu_slug'], $_menu['title'], $_menu['title'], $menu['capability'], $id, $callback );
@@ -166,7 +171,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			register_setting( $this->unique, $this->unique, array(
 				'sanitize_callback' => array( &$this, 'save_validate' ),
 			) );
-			$this->force_set_defaults( false );
+			$this->force_set_defaults();
 		}
 
 		/**
@@ -179,7 +184,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function save_validate( $request ) {
 			$this->get_cache();
 			$this->find_active_menu();
-			$instance = new \WPOnion\DB\Settings_Save_Handler();
+			$instance = new Settings_Save_Handler();
 
 			$instance->init_class( array(
 				'module'      => 'settings',
@@ -200,10 +205,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 
 		/**
 		 * Handles SettingUP Settings Defaults.
-		 *
-		 * @param bool $force
 		 */
-		public function force_set_defaults( $force = false ) {
+		public function force_set_defaults() {
 			$cache = $this->get_cache();
 			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
 				$this->set_defaults();
@@ -476,7 +479,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		public function is_single_page() {
 			$key = strtolower( $this->option( 'is_single_page' ) );
-			if ( in_array( $key, array( 'submenu', 'submenus', 'section', 'sections' ) ) ) {
+			if ( in_array( $key, array( 'submenu', 'submenus', 'section', 'sections' ), true ) ) {
 				return 'only_submenu';
 			} elseif ( true === $this->option( 'is_single_page' ) ) {
 				return true;
@@ -528,7 +531,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					return false;
 				}
 
-				if ( $sub_container instanceof \WPO\Container && false === $this->is_single_page() && $sub_container->name() !== $this->active( false ) ) {
+				if ( $sub_container instanceof Container && false === $this->is_single_page() && $sub_container->name() !== $this->active( false ) ) {
 					return false;
 				}
 			}

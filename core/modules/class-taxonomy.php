@@ -14,6 +14,10 @@
 
 namespace WPOnion\Modules;
 
+use WPO\Builder;
+use WPOnion\Bridge\Module;
+use WPOnion\DB\Taxonomy_Save_Handler;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Taxonomy extends \WPOnion\Bridge\Module {
+	class Taxonomy extends Module {
 		/**
 		 * module
 		 *
@@ -61,7 +65,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 * @param \WPO\Builder|null $fields
 		 * @param array             $settings
 		 */
-		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
@@ -126,7 +130,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 */
 		public function on_page_load() {
 			global $taxnow;
-			if ( in_array( $taxnow, $this->option( 'taxonomy' ) ) ) {
+			if ( in_array( $taxnow, $this->option( 'taxonomy' ), true ) ) {
 				$this->add_action( 'admin_enqueue_scripts', 'load_style_script' );
 				if ( false === $this->option( 'metabox' ) ) {
 					$this->init_theme();
@@ -272,7 +276,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				$this->metabox_instance->save_metabox( $term_id );
 			} else {
 				if ( isset( $_POST[ $this->unique ] ) ) {
-					$instance = new \WPOnion\DB\Taxonomy_Save_Handler();
+					$instance = new Taxonomy_Save_Handler();
 					$instance->init_class( array(
 						'module'    => 'metabox',
 						'unique'    => $this->unique,

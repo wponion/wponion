@@ -15,6 +15,8 @@
 
 namespace WPOnion\Modules\Util;
 
+use WPOnion\Bridge\Module;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -27,7 +29,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Admin_Columns extends \WPOnion\Bridge\Module {
+	class Admin_Columns extends Module {
 		/**
 		 * @var string
 		 * @access

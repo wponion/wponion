@@ -13,6 +13,11 @@
  */
 
 namespace WPOnion\Modules\Widgets;
+
+use WPO\Builder;
+use WPOnion\Bridge\Module;
+use WPOnion\DB\Dashboard_Widgets_Save_Handler;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -25,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Dashboard extends \WPOnion\Bridge\Module {
+	class Dashboard extends Module {
 		/**
 		 * module
 		 *
@@ -53,7 +58,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		 * @param array             $settings
 		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( array $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( array $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
@@ -151,10 +156,10 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		public function save_widget() {
 			$this->get_cache();
 			$this->get_db_values();
-			if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST[ $this->unique() ] ) ) {
+			if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST[ $this->unique() ] ) ) {
 				$this->get_db_values();
 				$this->get_cache();
-				$instance = new \WPOnion\DB\Dashboard_Widgets_Save_Handler();
+				$instance = new Dashboard_Widgets_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'dashboard_widgets',
 					'unique'    => $this->unique(),

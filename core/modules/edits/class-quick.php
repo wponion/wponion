@@ -14,6 +14,10 @@
  */
 
 namespace WPOnion\Modules\Edits;
+use WPO\Builder;
+use WPOnion\Bridge\Module;
+use WPOnion\DB\Quick_Edit_Save_Handler;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Quick extends \WPOnion\Bridge\Module {
+	class Quick extends Module {
 		/**
 		 * module
 		 *
@@ -40,7 +44,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		 * @param array             $settings
 		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 			if ( wponion_is_array( $this->option( 'column' ) ) ) {
@@ -96,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 			if ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] || 'bulk_edit' === $this->module() ) {
 				if ( isset( $_POST[ $this->unique ] ) ) {
 					$this->db_values = $this->get_values( $post_id );
-					$instance        = new \WPOnion\DB\Quick_Edit_Save_Handler();
+					$instance        = new Quick_Edit_Save_Handler();
 					$instance->init_class( array(
 						'module'       => $this->module(),
 						'unique'       => $this->unique(),

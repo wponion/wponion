@@ -2,7 +2,9 @@
 
 namespace WPOnion\Modules\WooCommerce;
 
+use WPO\Builder;
 use WPOnion\Bridge\Module;
+use WPOnion\DB\WooCommerce_Save_Handler;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -68,7 +70,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * @param array             $settings
 		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
@@ -268,7 +270,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			 * @var \WPO\Container $data
 			 */
 			foreach ( $this->fields->get() as $data ) {
-				if ( wponion_is_builder( $data, 'container' ) && false === $data->has_containers() && ! in_array( $data->name(), $this->exclude_global_render ) ) {
+				if ( wponion_is_builder( $data, 'container' ) && false === $data->has_containers() && ! in_array( $data->name(), $this->exclude_global_render, true ) ) {
 					$is_var = $this->is_variation( $data );
 					if ( 'only' !== $is_var ) {
 						$id = sanitize_title( 'wponion_' . $data->name() );
@@ -508,7 +510,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			if ( false === $this->variation_id ) {
 				$this->set_post_id( $product->get_id() );
 			}
-			$instance = new \WPOnion\DB\WooCommerce_Save_Handler();
+			$instance = new WooCommerce_Save_Handler();
 			$instance->init_class( array(
 				'module'      => $this->module(),
 				'unique'      => $this->unique,

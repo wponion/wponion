@@ -46,7 +46,7 @@ if ( ! function_exists( 'wponion_wc_theme_init' ) ) {
 	/**
 	 * @param $data
 	 *
-	 * @return \WPOnion\Theme\WP
+	 * @return \WPOnion\Theme\WC
 	 */
 	function wponion_wc_theme_init( $data ) {
 		if ( ! class_exists( '\WPOnion\Theme\WC' ) ) {

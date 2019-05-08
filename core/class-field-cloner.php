@@ -14,6 +14,8 @@
 
 namespace WPOnion\Field;
 
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +28,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Cloner extends \WPOnion\Field {
+	class Cloner extends Field {
 		/**
 		 * @var null
 		 * @access
@@ -180,6 +182,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			$data['clone'] = $this->parse_args( $data['clone'], $defaults );
 
 			if ( null === $data['clone']['error_msg'] ) {
+				/* translators: Adds Max Count */
 				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s', 'wponion' ), $data['clone']['limit'] );
 			}
 

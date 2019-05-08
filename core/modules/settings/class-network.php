@@ -44,7 +44,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Network' ) ) {
 		 * WP Admin Init.
 		 */
 		public function wp_admin_init() {
-			$this->force_set_defaults( false );
+			$this->force_set_defaults();
 		}
 
 		/**

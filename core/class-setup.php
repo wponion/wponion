@@ -129,7 +129,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * Inits Autoloader.
 		 *
 		 * @static
-		 * @throws \Exception
 		 */
 		public static function init_autoloader() {
 			self::$field_autoloader = new Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(
@@ -149,7 +148,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				'prepend' => true,
 			) );
 
-			new Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array(), false );
+			new Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array() );
 
 			self::$core_autoloader->map( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );

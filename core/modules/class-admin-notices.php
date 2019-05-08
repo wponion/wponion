@@ -8,6 +8,8 @@
 
 namespace WPOnion\Modules;
 
+use WPOnion\Bridge\Module;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -18,7 +20,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 	 *
 	 * @package WPOnion\Modules
 	 */
-	class Admin_Notices extends \WPOnion\Bridge\Module {
+	class Admin_Notices extends Module {
 		/**
 		 * @var bool
 		 */

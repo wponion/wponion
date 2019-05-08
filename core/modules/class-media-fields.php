@@ -16,6 +16,7 @@
 namespace WPOnion\Modules;
 
 use WPOnion\Bridge\Module;
+use WPOnion\DB\Media_Fields_Save_Handler;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -93,7 +94,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		public function save_data( $post ) {
 			if ( isset( $_POST[ $this->unique() ] ) ) {
 				$this->post_id = $post['ID'];
-				$instance      = new \WPOnion\DB\Media_Fields_Save_Handler();
+				$instance      = new Media_Fields_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'media_fields',
 					'unique'    => $this->unique(),

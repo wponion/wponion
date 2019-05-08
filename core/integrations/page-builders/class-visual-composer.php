@@ -11,6 +11,8 @@
 
 namespace WPOnion\Integrations\Page_Builders;
 
+use WPOnion\Assets;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -68,8 +70,8 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 		 * @static
 		 */
 		public static function load_assets() {
-			$scripts = \WPOnion\Assets::get( 'script' );
-			$styles  = \WPOnion\Assets::get( 'styles' );
+			$scripts = Assets::get( 'script' );
+			$styles  = Assets::get( 'styles' );
 
 			foreach ( $scripts as $script ) {
 				wp_enqueue_script( $script );

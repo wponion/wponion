@@ -14,6 +14,9 @@
 
 namespace WPOnion;
 
+use WPOnion\Modules\Settings\Network;
+use WPOnion\Modules\Settings\Settings;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -61,7 +64,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 			if ( wponion_is_array( $enabled ) ) {
 				foreach ( $libs as $name => $_n ) {
-					if ( ! in_array( $name, $enabled ) ) {
+					if ( ! in_array( $name, $enabled, true ) ) {
 						unset( $libs[ $name ] );
 					}
 				}
@@ -73,7 +76,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 			if ( wponion_is_array( $disabled ) && wponion_is_array( $libs ) ) {
 				foreach ( $libs as $name => $_n ) {
-					if ( in_array( $name, $disabled ) ) {
+					if ( in_array( $name, $disabled, true ) ) {
 						unset( $libs[ $name ] );
 					}
 				}
@@ -82,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$default_lib  = wponion_is_array( $libs ) ? current( array_keys( $libs ) ) : $libs;
 			$selected_lib = ( isset( $_REQUEST['wponion-icon-lib'] ) ) ? $_REQUEST['wponion-icon-lib'] : $default_lib;
 			$selected_lib = ( ! isset( $libs[ $selected_lib ] ) ) ? $default_lib : $selected_lib;
-			$json         = \WPOnion\Icons::get( $selected_lib );
+			$json         = Icons::get( $selected_lib );
 			$html         = '<div class="wponion-icon-picker-model-header">';
 			$html         = $html . '<input type="text" placeholder="' . __( 'Search Icon', 'wponion' ) . '"/>';
 
@@ -293,7 +296,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			$option_page = $_REQUEST['option_page'];
 			$settings    = wponion_settings( $option_page );
 
-			if ( ! $settings instanceof \WPOnion\Modules\Settings\Settings && ! $settings instanceof \WPOnion\Modules\Settings\Network ) {
+			if ( ! $settings instanceof Settings && ! $settings instanceof Network ) {
 				wp_send_json_error();
 			}
 
@@ -315,7 +318,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 			$whitelist_options = apply_filters( 'whitelist_options', array() );
 			$options           = $whitelist_options[ $option_page ];
-			if ( empty( $options[0] ) || $options[0] != $option_page ) {
+			if ( empty( $options[0] ) || $options[0] !== $option_page ) {
 				wp_send_json_error( "You can't do that!" );
 			}
 

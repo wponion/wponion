@@ -3,6 +3,7 @@
 namespace WPOnion\Modules\WooCommerce;
 
 use WPOnion\Bridge\Module;
+use WPOnion\DB\WooCommerce_Settings_Save_Handler;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -70,7 +71,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 		 */
 		public function save_validate( $current_tab, $current_section ) {
 			$this->get_cache();
-			$instance = new \WPOnion\DB\WooCommerce_Settings_Save_Handler();
+			$instance = new WooCommerce_Settings_Save_Handler();
 
 			$instance->init_class( array(
 				'module'    => 'settings',

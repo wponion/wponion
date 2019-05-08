@@ -1,6 +1,10 @@
 <?php
 
 namespace WPOnion\Modules\WooCommerce;
+
+use WC_Settings_Page;
+use WPO\Container;
+
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
@@ -13,7 +17,7 @@ if ( ! class_exists( 'WC_Settings' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WC_Settings extends \WC_Settings_Page {
+	class WC_Settings extends WC_Settings_Page {
 		/**
 		 * @var bool|\WPO\Container
 		 * @access
@@ -31,9 +35,10 @@ if ( ! class_exists( 'WC_Settings' ) ) {
 		/**
 		 * WC_Settings constructor.
 		 *
-		 * @param \WPO\Container $data
+		 * @param \WPO\Container                        $data
+		 * @param \WPOnion\Modules\WooCommerce\Settings $parent_instance
 		 */
-		public function __construct( \WPO\Container $data, Settings $parent_instance ) {
+		public function __construct( Container $data, Settings $parent_instance ) {
 			$this->id        = $data->name();
 			$this->label     = $data->title();
 			$this->container = $data;

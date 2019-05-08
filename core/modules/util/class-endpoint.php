@@ -2,6 +2,8 @@
 
 namespace WPOnion\Modules\Util;
 
+use const EP_ROOT;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -126,7 +128,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 		 *
 		 * @example add_endpoint('hello/',EP_PAGES,'my_page_calback')
 		 */
-		public function add_endpoint( $endpoint = '', $endpoint_type = \EP_ROOT, $callback = array() ) {
+		public function add_endpoint( $endpoint = '', $endpoint_type = EP_ROOT, $callback = array() ) {
 			if ( ! isset( $this->endpoints[ $endpoint ] ) ) {
 				$this->endpoints[ $endpoint ] = array(
 					'type'     => $endpoint_type,

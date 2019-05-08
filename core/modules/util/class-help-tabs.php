@@ -14,6 +14,10 @@
  */
 
 namespace WPOnion\Modules\Util;
+
+use WPOnion\Bridge\Module;
+use WPOnion\Modules\Admin_Page;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Help_Tabs extends \WPOnion\Bridge\Module {
+	class Help_Tabs extends Module {
 
 		/**
 		 * module

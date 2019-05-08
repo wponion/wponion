@@ -14,6 +14,10 @@
  */
 
 namespace WPOnion\Modules;
+use WPO\Builder;
+use WPOnion\Bridge\Module;
+use WPOnion\DB\Nav_Menu_Save_Handler;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Nav_Menu extends \WPOnion\Bridge\Module {
+	class Nav_Menu extends Module {
 		/**
 		 * module
 		 *
@@ -46,7 +50,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 * @param array             $settings
 		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 				$this->on_page_load();
@@ -88,7 +92,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->post_id = $menu_item_db_id;
-				$instance      = new \WPOnion\DB\Nav_Menu_Save_Handler();
+				$instance      = new Nav_Menu_Save_Handler();
 				$instance->init_class( array(
 					'module'    => 'metabox',
 					'unique'    => $this->unique,

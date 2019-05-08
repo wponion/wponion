@@ -11,6 +11,7 @@
 
 namespace WPOnion\Modules\Util;
 
+use WPOnion\Bridge\Module;
 use WPOnion\WP\Pointers\Pointer;
 
 if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
@@ -21,7 +22,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Pointers extends \WPOnion\Bridge\Module {
+	class WP_Pointers extends Module {
 		/**
 		 * Stores Printable Pointers.
 		 *
@@ -130,7 +131,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 
 		/**
 		 * @param \WPOnion\WP\Pointers\Pointer $pointer_instance
-		 * @param array                                $args
+		 * @param array                        $args
 		 *
 		 * @return mixed
 		 */
@@ -169,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 					) );
 				}
 			} else {
-				if ( ! in_array( $single_pointer_id, $dismissed ) ) {
+				if ( ! in_array( $single_pointer_id, $dismissed, true ) ) {
 					$pointer = $this->fields[ $single_pointer_id ];
 					if ( ! empty( $pointer->phpcode() ) ) {
 						wponion_callback( $pointer->phpcode() );
@@ -263,7 +264,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 
 					foreach ( $pointers as $key => $pointer ) {
 						if ( isset( self::$pointers_ids[ $unique ] ) ) {
-							if ( in_array( $pointer, self::$pointers_ids[ $unique ] ) ) {
+							if ( in_array( $pointer, self::$pointers_ids[ $unique ], true ) ) {
 								unset( $pointers[ $key ] );
 							}
 						}

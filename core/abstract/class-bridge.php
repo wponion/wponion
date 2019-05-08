@@ -142,7 +142,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		protected function global_action_filter( $type = 'apply_filters', $args = array() ) {
 			$_args            = $args;
 			$actual_hook_slug = $args[0];
-			$_args[0]         = $this->get_action_filter_slugs( false ) . $actual_hook_slug;
+			$_args[0]         = $this->get_action_filter_slugs() . $actual_hook_slug;
 			$data             = $this->action_filter( $type, $_args );
 			return $data;
 		}

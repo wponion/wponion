@@ -93,7 +93,7 @@ if ( ! class_exists( 'WPO\Nested_Fields' ) ) {
 				$this['fields'] = array();
 			}
 
-			if ( $field_type_or_instance instanceof \WPO\Field ) {
+			if ( $field_type_or_instance instanceof Field ) {
 				$this['fields'][] = $field_type_or_instance;
 				return $this;
 			}
