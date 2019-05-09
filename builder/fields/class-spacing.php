@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Spacing' ) ) {
+if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 	/**
 	 * Class Spacing
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -28,7 +28,7 @@ if ( ! class_exists( 'WPO\Spacing' ) ) {
 	 * @method get_unit_options()
 	 * @method get_icons()
 	 */
-	class Spacing extends Field {
+	class Spacing extends \WPO\Field {
 		/**
 		 * Spacing constructor.
 		 *

@@ -66,6 +66,11 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 			return true;
 		}
 
+		/**
+		 * Loads Latest Addon.
+		 *
+		 * @static
+		 */
 		protected static function load_addons() {
 			if ( ! empty( self::$addons ) ) {
 				foreach ( self::$addons as $addon_name => $data ) {

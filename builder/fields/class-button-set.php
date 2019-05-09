@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Button_Set' ) ) {
+if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 	/**
 	 * Class Button_Set
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -64,7 +64,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		/**
 		 * Sets To Small Size Button.
 		 *
-		 * @return \WPO\Button_Set
+		 * @return \WPO\Fields\Button_Set
 		 */
 		public function large() {
 			return $this->size( 'large' );
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		/**
 		 * Sets To Small Size Button.
 		 *
-		 * @return \WPO\Button_Set
+		 * @return \WPO\Fields\Button_Set
 		 */
 		public function small() {
 			return $this->size( 'small' );
@@ -82,7 +82,7 @@ if ( ! class_exists( 'WPO\Button_Set' ) ) {
 		/**
 		 * Sets To Normal Size Button.
 		 *
-		 * @return \WPO\Button_Set
+		 * @return \WPO\Fields\Button_Set
 		 */
 		public function normal() {
 			return $this->size( false );

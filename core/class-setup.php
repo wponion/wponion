@@ -129,26 +129,35 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * Inits Autoloader.
 		 *
 		 * @static
-		 * @throws \Exception
 		 */
 		public static function init_autoloader() {
-			self::$field_autoloader         = new Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(), true );
-			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', WPONION_PATH . 'module_fields/', array(), true );
-			self::$core_autoloader          = new Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
-				'exclude' => 'WPOnion\Field',
+			self::$field_autoloader = new Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(
+				'prepend' => true,
 			) );
-			self::$builder_autoloader       = new Autoloader( 'WPO\Helper', WPONION_PATH . 'builder/helper/', array(), false );
 
-			new Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array(), false );
-			new Autoloader( 'WPO', WPONION_PATH . 'builder/', array(), false );
+			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', WPONION_PATH . 'module_fields/', array(
+				'prepend' => true,
+			) );
 
-			self::$core_autoloader->add( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
-			self::$core_autoloader->add( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
-			self::$core_autoloader->add( 'WPOnion\Theme_API', WPONION_PATH . '/core/abstract/class-theme-api.php' );
+			self::$core_autoloader = new Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
+				'exclude' => array( 'WPOnion\Field', 'WPOnion\Module_Fields' ),
+			) );
+
+			self::$builder_autoloader = new Autoloader( 'WPO', WPONION_PATH . 'builder/', array(
+				'exclude' => array( 'WPOnion' ),
+				'prepend' => true,
+			) );
+
+			//new Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array() );
+
+			self::$core_autoloader->map( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
+			self::$core_autoloader->map( 'WPOnion\Theme_API', WPONION_PATH . '/core/abstract/class-theme-api.php' );
+			self::$core_autoloader->map( 'WPOnion\Addon', WPONION_PATH . '/core/abstract/class-addon.php' );
 
 			//Remap Field & Field Cloner.
-			self::$field_autoloader->add( 'WPOnion\Field\Cloner', WPONION_PATH . '/core/class-field-cloner.php' );
-			self::$field_autoloader->add( 'WPOnion\Field', WPONION_PATH . '/core/abstract/class-field.php' );
+			self::$field_autoloader->map( 'WPOnion\Field\Cloner', WPONION_PATH . '/core/class-field-cloner.php' );
+			self::$field_autoloader->map( 'WPOnion\Field', WPONION_PATH . '/core/abstract/class-field.php' );
 		}
 
 		/**
@@ -227,18 +236,18 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			/**
 			 * WPO Builder Remaps
 			 */
-			self::$remaps['\WPO\notice_danger']     = '\WPO\Notice';
-			self::$remaps['\WPO\notice_dark']       = '\WPO\Notice';
-			self::$remaps['\WPO\notice_light']      = '\WPO\Notice';
-			self::$remaps['\WPO\notice_primary']    = '\WPO\Notice';
-			self::$remaps['\WPO\notice_info']       = '\WPO\Notice';
-			self::$remaps['\WPO\notice_secondary']  = '\WPO\Notice';
-			self::$remaps['\WPO\notice_success']    = '\WPO\Notice';
-			self::$remaps['\WPO\notice_warning']    = '\WPO\Notice';
-			self::$remaps['\WPO\WP_Notice_Error']   = '\WPO\WP_Notice';
-			self::$remaps['\WPO\WP_Notice_Warning'] = '\WPO\WP_Notice';
-			self::$remaps['\WPO\WP_Notice_Success'] = '\WPO\WP_Notice';
-			self::$remaps['\WPO\WP_Notice_Info']    = '\WPO\WP_Notice';
+			self::$remaps['\WPO\Fields\notice_danger']     = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_dark']       = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_light']      = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_primary']    = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_info']       = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_secondary']  = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_success']    = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_warning']    = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\WP_Notice_Error']   = '\WPO\Fields\WP_Notice';
+			self::$remaps['\WPO\Fields\WP_Notice_Warning'] = '\WPO\Fields\WP_Notice';
+			self::$remaps['\WPO\Fields\WP_Notice_Success'] = '\WPO\Fields\WP_Notice';
+			self::$remaps['\WPO\Fields\WP_Notice_Info']    = '\WPO\Fields\WP_Notice';
 
 			/**
 			 * Customizer Module Fields.

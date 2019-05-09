@@ -30,21 +30,21 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return false|\WPO\Field|\WPO\Accordion|\WPO\Background|\WPO\Checkbox|\WPO\Color_Picker|\WPO\Date_Picker|\WPO\Fieldset|\WPO\Font_Picker|\WPO\Gallery|\WPO\Group |\WPO\Icon_Picker|\WPO\Image|\WPO\Image_Select|\WPO\Key_Value|\WPO\Oembed|\WPO\Radio|\WPO\Select|\WPO\Sorter|\WPO\Switcher|\WPO\Text|\WPO\Textarea|\WPO\Typography|\WPO\Upload|\WPO\WP_Editor|\WPO\WP_Link|\WPO\Color_Group|\WPO\Link_Color|\WPO\Input_Group|\WPO\Spacing|\WPO\Dimensions|\WPO\Button_Set|\WPO\Content|\WPO\Heading|\WPO\Iframe|\WPO\Jambo_Content|\WPO\Notice |\WPO\Subheading|\WPO\WP_Notice
+		 * @return false|\WPO\Field|\WPO\Fields\Accordion|\WPO\Fields\Background|\WPO\Fields\Checkbox|\WPO\Fields\Color_Picker|\WPO\Fields\Date_Picker|\WPO\Fields\Fieldset|\WPO\Fields\Font_Picker|\WPO\Fields\Gallery|\WPO\Fields\Group |\WPO\Fields\Icon_Picker|\WPO\Fields\Image|\WPO\Fields\Image_Select|\WPO\Fields\Key_Value|\WPO\Fields\Oembed|\WPO\Fields\Radio|\WPO\Fields\Select|\WPO\Fields\Sorter|\WPO\Fields\Switcher|\WPO\Fields\Text|\WPO\Fields\Textarea|\WPO\Fields\Typography|\WPO\Fields\Upload|\WPO\Fields\WP_Editor|\WPO\Fields\WP_Link|\WPO\Fields\Color_Group|\WPO\Fields\Link_Color|\WPO\Fields\Input_Group|\WPO\Fields\Spacing|\WPO\Fields\Dimensions|\WPO\Fields\Button_Set|\WPO\Fields\Content|\WPO\Fields\Heading|\WPO\Fields\Iframe|\WPO\Fields\Jambo_Content|\WPO\Fields\Notice |\WPO\Fields\Subheading|\WPO\Fields\WP_Notice
 		 *
-		 * @todo \WPO\Button
-		 * @todo \WPO\Color_Palette
-		 * @todo \WPO\Google_Maps
-		 * @todo \WPO\Hidden
-		 * @todo \WPO\WP_List_Table
-		 * @todo \WPO\Change_Log
+		 * @todo \WPO\Fields\Button
+		 * @todo \WPO\Fields\Color_Palette
+		 * @todo \WPO\Fields\Google_Maps
+		 * @todo \WPO\Fields\Hidden
+		 * @todo \WPO\Fields\WP_List_Table
+		 * @todo \WPO\Fields\Change_Log
 		 *
 		 *
 		 * @static
 		 */
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
-				$class = class_exists( '\WPO\\' . $type ) ? '\WPO\\' . $type : wponion_get_field_class_remap( '\WPO\\' . $type, false );
+				$class = class_exists( '\WPO\Fields\\' . $type ) ? '\WPO\Fields\\' . $type : wponion_get_field_class_remap( '\WPO\Fields\\' . $type, false );
 				return ( false !== $class ) ? new $class( $id, $title, $args ) : new Field( $type, $id, $title, $args );
 			}
 			return false;

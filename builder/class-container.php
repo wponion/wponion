@@ -204,7 +204,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		public function __set( $name, $value ) {
 			$defined_vars = array_keys( get_class_vars( __CLASS__ ) );
-			if ( ! in_array( $name, $defined_vars ) ) {
+			if ( ! in_array( $name, $defined_vars, true ) ) {
 				$this->custom_data[ $name ] = $value;
 			} else {
 				throw new \Error( 'WPOnion Container\'s Core Variables Cannot Me Modified' );
@@ -218,7 +218,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		public function __get( $name ) {
 			$defined_vars = array_keys( get_class_vars( __CLASS__ ) );
-			if ( ! in_array( $name, $defined_vars ) ) {
+			if ( ! in_array( $name, $defined_vars, true ) ) {
 				return ( isset( $this->custom_data[ $name ] ) ) ? $this->custom_data[ $name ] : false;
 			}
 			return false;
@@ -231,7 +231,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		public function __isset( $name ) {
 			$defined_vars = array_keys( get_class_vars( __CLASS__ ) );
-			if ( ! in_array( $name, $defined_vars ) ) {
+			if ( ! in_array( $name, $defined_vars, true ) ) {
 				return ( isset( $this->custom_data[ $name ] ) );
 			}
 			return false;

@@ -14,6 +14,10 @@
 
 namespace WPOnion\DB;
 
+use WP_Query;
+use WPOnion\Bridge;
+use WPOnion\Helper;
+
 if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 	/**
 	 * Class Query
@@ -22,7 +26,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Query extends \WPOnion\Bridge {
+	class Query extends Bridge {
 
 		/**
 		 * query
@@ -84,7 +88,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 					$_q_type   = 'cpt';
 					$def_key   = 'ID';
 					$def_value = 'post_title';
-					if ( in_array( $type, array( 'posts', 'post' ) ) ) {
+					if ( in_array( $type, array( 'posts', 'post' ), true ) ) {
 						if ( ! isset( $this->query_args['post_type'] ) ) {
 							$this->query_args['post_type'] = 'post';
 						}
@@ -103,7 +107,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 					$def_key   = 'term_id';
 					$def_value = 'name';
 					if ( ! isset( $this->query_args['taxonomies'] ) && ! isset( $this->query_args['taxonomy'] ) ) {
-						if ( in_array( $type, array( 'tags', 'tag' ) ) ) {
+						if ( in_array( $type, array( 'tags', 'tag' ), true ) ) {
 							$this->query_args ['taxonomies'] = ( isset( $this->query_args ['taxonomies'] ) ) ? $this->query_args['taxonomies'] : 'post_tag';
 						} else {
 							$this->query_args['taxonomy'] = 'category';
@@ -128,7 +132,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 					break;
 
 				case 'post_types':
-					return \WPOnion\Helper::get_post_types();
+					return Helper::get_post_types();
 					break;
 
 				case 'sidebars':
@@ -145,7 +149,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 
 				case 'currency':
 				case 'currency_symbol':
-					return ( 'currency_symbol' === $type ) ? \WPOnion\Helper::get_currency_symbol() : \WPOnion\Helper::get_currency();
+					return ( 'currency_symbol' === $type ) ? Helper::get_currency_symbol() : Helper::get_currency();
 					break;
 
 				case 'body_layouts':
@@ -165,7 +169,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 
 			switch ( $_q_type ) {
 				case 'cpt':
-					$this->query = new \WP_Query( $this->query_args );
+					$this->query = new WP_Query( $this->query_args );
 					$result      = $this->query->posts;
 					break;
 				case 'cat':

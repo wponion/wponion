@@ -9,19 +9,19 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Color_Group' ) ) {
+if ( ! class_exists( 'WPO\Fields\Color_Group' ) ) {
 	/**
 	 * Class Color_Group
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
 	 * @method get_rgba()
 	 */
-	class Color_Group extends Field {
+	class Color_Group extends \WPO\Field {
 		/**
 		 * Color_Group constructor.
 		 *

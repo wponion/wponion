@@ -14,7 +14,7 @@
 
 namespace WPOnion\Modules;
 
-use WPOnion\Modules\Customizer\Panel;
+use WPOnion\Bridge\Module;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -28,7 +28,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Customizer extends \WPOnion\Bridge\Module {
+	class Customizer extends Module {
 		/**
 		 * module
 		 *

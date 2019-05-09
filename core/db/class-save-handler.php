@@ -337,7 +337,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 				$user_val = $this->user_options( $field );
 
 				$this->save_value( $this->handle_field( $field, $user_val, $db_val ), $field );
-				if ( ! in_array( $field['type'], array( 'group' ) ) ) {
+				if ( ! in_array( $field['type'], array( 'group' ), true ) ) {
 					if ( isset( $field['fields'] ) ) {
 						$this->nested_field_loop( $field );
 					}
@@ -374,7 +374,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 
 					$this->save_value( $user_val, $parent_field );
 
-					if ( ! in_array( $_field['type'], array( 'group' ) ) ) {
+					if ( ! in_array( $_field['type'], array( 'group' ), true ) ) {
 						if ( isset( $_field['fields'] ) ) {
 							$this->nested_field_loop( $_field );
 						}

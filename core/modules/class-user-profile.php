@@ -14,6 +14,10 @@
 
 namespace WPOnion\Modules;
 
+use WPO\Builder;
+use WPOnion\Bridge\Module;
+use WPOnion\DB\User_Profile_Save_Handler;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class User_Profile extends \WPOnion\Bridge\Module {
+	class User_Profile extends Module {
 		/**
 		 * module
 		 *
@@ -44,7 +48,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		/**
 		 * metabox_instance
 		 *
-		 * @var \WPOnion\Modules\Metabox_Core
+		 * @var \WPOnion\Modules\Metabox\Core
 		 */
 		protected $metabox_instance = false;
 
@@ -54,7 +58,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @param array             $settings
 		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 		}
@@ -82,7 +86,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$metabox['get_cache']     = array( $this, 'get_db_cache' );
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
-				$this->metabox_instance   = new Metabox_Core( $metabox, $this->raw_fields );
+				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
 			}
 		}
 
@@ -247,7 +251,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				if ( isset( $_POST[ $this->unique ] ) ) {
 					$this->get_db_values();
 					$this->get_cache();
-					$instance = new \WPOnion\DB\User_Profile_Save_Handler();
+					$instance = new User_Profile_Save_Handler();
 					$instance->init_class( array(
 						'module'    => 'user_profile',
 						'unique'    => $this->unique,

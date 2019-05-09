@@ -9,17 +9,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Upload' ) ) {
+if ( ! class_exists( 'WPO\Fields\Upload' ) ) {
 	/**
 	 * Class Upload
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Upload extends Field {
+	class Upload extends \WPO\Field {
 		/**
 		 * Upload constructor.
 		 *
@@ -53,7 +53,7 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		/**
 		 * @param string $frame_title
 		 *
-		 * @return \WPO\Upload
+		 * @return \WPO\Fields\Upload
 		 */
 		public function frame_title( $frame_title = 'Upload' ) {
 			return $this->settings( array( 'frame_title' => $frame_title ) );
@@ -62,7 +62,7 @@ if ( ! class_exists( 'WPO\Upload' ) ) {
 		/**
 		 * @param string $insert_title
 		 *
-		 * @return \WPO\Upload
+		 * @return \WPO\Fields\Upload
 		 */
 		public function insert_title( $insert_title = 'Insert' ) {
 			return $this->settings( array( 'insert_title' => $insert_title ) );

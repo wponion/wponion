@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Key_Value' ) ) {
+if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 	/**
 	 * Class Color_Picker
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( 'WPO\Key_Value' ) ) {
 	 * @method get_key_input()
 	 * @method get_value_input()
 	 */
-	class Key_Value extends Field {
+	class Key_Value extends \WPO\Field {
 		/**
 		 * Color_Group constructor.
 		 *

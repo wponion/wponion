@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Image' ) ) {
+if ( ! class_exists( 'WPO\Fields\Image' ) ) {
 	/**
 	 * Class Image
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPO\Image' ) ) {
 	 * @method get_remove()
 	 * @method get_size()
 	 */
-	class Image extends Field {
+	class Image extends \WPO\Field {
 		/**
 		 * Image constructor.
 		 *

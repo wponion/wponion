@@ -14,6 +14,8 @@
 
 namespace WPOnion\Modules\Customizer;
 
+use WP_Customize_Manager;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -83,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
 		 * @param array                 $args
 		 * @param string                $wrap_class
 		 */
-		public function __construct( \WP_Customize_Manager $manager, string $id, array $args = array(), $wrap_class = '' ) {
+		public function __construct( WP_Customize_Manager $manager, string $id, array $args = array(), $wrap_class = '' ) {
 			parent::__construct( $manager, $id, $args );
 
 			if ( wponion_is_cloneable( $args['options'] ) ) {

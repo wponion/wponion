@@ -103,11 +103,9 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 */
 		public static function register_assets() {
 			do_action( 'wponion_register_assets_before' );
-			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
-			$url     = WPONION_URL;
 			wponion_localize();
-			self::register_styles( $version, $url );
-			self::register_scripts( $version, $url );
+			self::register_styles();
+			self::register_scripts();
 			self::loop_assets( self::$style, 'wp_register_style', 'all' );
 			self::loop_assets( self::$scripts, 'wp_register_script', true );
 			do_action( 'wponion_register_assets_after' );
@@ -148,23 +146,17 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		/**
 		 * Registers WPOnion Assets.
 		 *
-		 * @param $version
-		 * @param $url
-		 *
 		 * @static
 		 */
-		public static function register_styles( $version, $url ) {
+		public static function register_styles() {
 		}
 
 		/**
 		 * Registers WPOnion Assets.
 		 *
-		 * @param $version
-		 * @param $url
-		 *
 		 * @static
 		 */
-		public static function register_scripts( $version, $url ) {
+		public static function register_scripts() {
 			if ( is_version_lte( 'wordpress', '5.0' ) ) {
 				wp_register_script( 'lodash', 'https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js', array(), '4.17.11', true );
 			}

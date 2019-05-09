@@ -196,9 +196,9 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
 			}
 
-			if ( wponion_is_debug() ) {
+			/*if ( wponion_is_debug() ) {
 				//$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
-			}
+			}*/
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 				return $this->print_js_data( $return );

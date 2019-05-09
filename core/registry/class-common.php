@@ -14,6 +14,8 @@
 
 namespace WPOnion\Registry;
 
+use WPOnion\Bridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -35,7 +37,7 @@ if ( ! interface_exists( '\WPOnion\Registry\Common' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function add( $feature_type, \WPOnion\Bridge &$instance );
+		public function add( $feature_type, Bridge &$instance );
 
 		/**
 		 * Get And Returns An Instance of a give key.

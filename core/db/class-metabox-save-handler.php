@@ -26,13 +26,13 @@ if ( ! class_exists( '\WPOnion\DB\Metabox_Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Metabox_Save_Handler extends \WPOnion\DB\Save_Handler {
+	class Metabox_Save_Handler extends Save_Handler {
 		/**
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
 			/**
-			 * @var \WPOnion\Modules\Metabox $settings
+			 * @var \WPOnion\Modules\Metabox\Metabox $settings
 			 * @var \WPO\Container           $container
 			 * @var \WPO\Container           $sub_container
 			 */

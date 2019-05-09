@@ -9,17 +9,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Select' ) ) {
+if ( ! class_exists( 'WPO\Fields\Select' ) ) {
 	/**
 	 * Class OEmbed
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Select extends Field {
+	class Select extends \WPO\Field {
 		/**
 		 * Select constructor.
 		 *
@@ -55,7 +55,7 @@ if ( ! class_exists( 'WPO\Select' ) ) {
 		 * @param string     $framework Select Framework Name.
 		 * @param bool|array $options For Options please visit Select Frameworks Website to know more about arguments.
 		 *
-		 * @return \WPO\Select
+		 * @return \WPO\Fields\Select
 		 */
 		public function select_framework( $framework, $options = true ) {
 			$this[ $framework ] = $options;

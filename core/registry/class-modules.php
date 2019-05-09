@@ -13,6 +13,8 @@
  */
 
 namespace WPOnion\Registry;
+use WPOnion\Bridge;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -41,7 +43,7 @@ if ( ! class_exists( '\WPOnion\Registry\Modules' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function add( $type, \WPOnion\Bridge &$instance ) {
+		public function add( $type, Bridge &$instance ) {
 			if ( ! isset( $this->registry[ $type ] ) ) {
 				$this->registry[ $type ] = array();
 			}

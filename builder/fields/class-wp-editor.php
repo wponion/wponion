@@ -9,17 +9,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\WP_Editor' ) ) {
+if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 	/**
 	 * Class WP_Editor
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Editor extends Field {
+	class WP_Editor extends \WPO\Field {
 		/**
 		 * Upload constructor.
 		 *

@@ -13,21 +13,21 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Network_Settings' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Settings\Network' ) ) {
 	/**
-	 * Class Network_Settings
+	 * Class Network
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Settings
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Network_Settings extends Settings {
+	class Network extends Settings {
 		/**
 		 * Inits Class Instance.
 		 *
@@ -44,7 +44,7 @@ if ( ! class_exists( '\WPOnion\Modules\Network_Settings' ) ) {
 		 * WP Admin Init.
 		 */
 		public function wp_admin_init() {
-			$this->force_set_defaults( false );
+			$this->force_set_defaults();
 		}
 
 		/**

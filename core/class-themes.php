@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 		 */
 		public static function is_support( $theme_name = '', $module = '' ) {
 			if ( isset( self::$themes[ $theme_name ] ) ) {
-				if ( isset( self::$themes[ $theme_name ]['supports'][ $module ] ) || in_array( $module, self::$themes[ $theme_name ]['supports'] ) ) {
+				if ( isset( self::$themes[ $theme_name ]['supports'][ $module ] ) || in_array( $module, self::$themes[ $theme_name ]['supports'], true ) ) {
 					return true;
 				}
 			}

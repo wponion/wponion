@@ -13,21 +13,25 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Widgets;
+
+use WPO\Builder;
+use WPOnion\Bridge\Module;
+use WPOnion\DB\Widgets_Save_Handler;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 	/**
 	 * Class Widget
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Widgets
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Widget extends \WPOnion\Bridge\Module {
+	class Widget extends Module {
 		/**
 		 * module
 		 *
@@ -47,7 +51,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 		 * @param array             $settings
 		 * @param \WPO\Builder|null $fields
 		 */
-		public function __construct( $settings = array(), \WPO\Builder $fields = null ) {
+		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->init();
 			add_action( 'admin_print_styles-widgets.php', array( __CLASS__, 'load_assets' ) );
@@ -88,7 +92,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widget' ) ) {
 		 * @return array
 		 */
 		public function save( $old_values, $new_values, $unique ) {
-			$instance = new \WPOnion\DB\Widgets_Save_Handler();
+			$instance = new Widgets_Save_Handler();
 			$instance->init_class( array(
 				'module'      => 'dashboard_widgets',
 				'user_values' => $new_values,

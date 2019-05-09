@@ -11,7 +11,6 @@
 
 namespace WPOnion\Integrations\Page_Builders;
 
-use WPOnion\Field\Cloner;
 use WPOnion\Integrations\Page_Builders\Elementor\Metabox;
 use WPOnion\Integrations\Page_Builders\Elementor\Metabox_Data;
 use WPOnion\Integrations\Page_Builders\Elementor\Taxonomy;
@@ -95,7 +94,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 		 */
 		private static function set_metaboxes( $dynamic_tags ) {
 			/**
-			 * @var \WPOnion\Modules\Metabox                              $mb
+			 * @var \WPOnion\Modules\Metabox\Metabox                              $mb
 			 * @var \WPOnion\Integrations\Page_Builders\Elementor\Metabox $new_class
 			 */
 			$instances = 'all';

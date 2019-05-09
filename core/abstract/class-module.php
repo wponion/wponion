@@ -16,6 +16,7 @@ namespace WPOnion\Bridge;
 
 use WPO\Builder;
 use WPO\Container;
+use WPO\Field;
 use WPOnion\Bridge;
 use WPOnion\Themes;
 
@@ -357,9 +358,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param bool               $first_container
 		 *
 		 * @return array
-		 * @uses \WPOnion\Modules\Settings
+		 * @uses \WPOnion\Modules\Settings\Settings
 		 *
-		 * @uses \WPOnion\Modules\Metabox
+		 * @uses \WPOnion\Modules\Metabox\Metabox
 		 */
 		protected function extract_fields_menus( $fields = array(), $is_child = false, $container = false, $first_container = false ) {
 			$return = array();
@@ -441,7 +442,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				$is_main_active = ( $name === $this->active( false ) && $container === $this->active( true ) );
 				$is_sub_active  = ( $container !== $this->active( true ) && ( 'submeu' === $this->option( 'is_single_page' ) && $name === $first_container ) );
 
-
 				if ( 'metabox' === $this->module() && $is_main_active || $is_sub_active ) {
 					$is_active = true;
 				} elseif ( $is_main_active || $is_sub_active ) {
@@ -507,7 +507,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return bool
 		 */
 		public function valid_field( $option ) {
-			if ( $option instanceof \WPO\Field ) {
+			if ( $option instanceof Field ) {
 				return true;
 			} elseif ( wponion_is_array( $option ) ) {
 				return ( isset( $option['type'] ) ) ? true : false;
@@ -530,7 +530,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$container_id = $container->name();
 					if ( $container->has_containers() ) {
 						$sub_container = $container->first_container();
-						if ( $sub_container instanceof \WPO\Container && false === $sub_container->is_disabled() ) {
+						if ( $sub_container instanceof Container && false === $sub_container->is_disabled() ) {
 							$sub_container_id = $sub_container->name();
 						}
 					}
@@ -538,10 +538,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			} elseif ( false !== $container_id && false === $sub_container_id ) {
 				/* @var $container \WPO\Container */
 				$container = $this->fields->container_exists( $container_id );
-				if ( $container instanceof \WPO\Container && false === $container->is_disabled() ) {
+				if ( $container instanceof Container && false === $container->is_disabled() ) {
 					if ( $container->has_containers() ) {
 						$current = $container->first_container();
-						if ( $current instanceof \WPO\Container && false === $current->is_disabled() ) {
+						if ( $current instanceof Container && false === $current->is_disabled() ) {
 							$sub_container_id = $current->name();
 						}
 					}
@@ -550,9 +550,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				}
 			} elseif ( false !== $container_id && false !== $sub_container_id ) {
 				$container = $this->fields->container_exists( $container_id );
-				if ( $container instanceof \WPO\Container && false === $container->is_disabled() ) {
+				if ( $container instanceof Container && false === $container->is_disabled() ) {
 					$sub_container = $container->container_exists( $sub_container_id );
-					if ( $sub_container instanceof \WPO\Container && true === $sub_container->is_disabled() ) {
+					if ( $sub_container instanceof Container && true === $sub_container->is_disabled() ) {
 						return $this->validate_container_sub_container( $container_id, false );
 					}
 				} else {
@@ -638,6 +638,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 
 		/**
 		 * Unsets Global Args.
+		 *
+		 * @todo Change Function Name.
 		 */
 		protected function __unset_globals() {
 			unset( $this->current_theme );

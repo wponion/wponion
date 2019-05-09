@@ -13,12 +13,16 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Util;
+
+use WPOnion\Bridge\Module;
+use WPOnion\Modules\Admin_Page;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 	/**
 	 * Class Help_Tabs
 	 *
@@ -26,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Modules\Help_Tabs' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Help_Tabs extends \WPOnion\Bridge\Module {
+	class Help_Tabs extends Module {
 
 		/**
 		 * module

@@ -13,18 +13,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Metabox;
 
-if ( ! class_exists( '\WPOnion\Modules\Metabox_Core' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 	/**
-	 * Class Metabox_Core
+	 * Class Core
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Metabox
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 * @private
 	 */
-	class Metabox_Core extends metabox {
+	class Core extends metabox {
 
 		/**
 		 * Metabox_Core constructor.

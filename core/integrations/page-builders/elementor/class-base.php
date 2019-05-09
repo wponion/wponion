@@ -41,7 +41,7 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 		public static $wpo_slug = false;
 
 		/**
-		 * @var \WPOnion\Modules\Metabox|\WPOnion\Modules\Taxonomy|\WPOnion\Modules\Settings
+		 * @var \WPOnion\Modules\Metabox\Metabox|\WPOnion\Modules\Taxonomy|\WPOnion\Modules\Settings\Settings
 		 * @access
 		 * @static
 		 */
@@ -111,7 +111,7 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 				$fields = array( 'image_select', 'image', 'upload', 'oembed' );
 			}
 
-			return in_array( wponion_get_field_type( $field, false ), $fields );
+			return in_array( wponion_get_field_type( $field, false ), $fields, true );
 		}
 
 		/**

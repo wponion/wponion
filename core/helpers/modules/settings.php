@@ -5,7 +5,7 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|mixed|\WPOnion\Modules\Settings
+	 * @return bool|mixed|\WPOnion\Modules\Settings\Settings
 	 */
 	function wponion_settings_registry( &$instance ) {
 		return wponion_get_registry_instance( 'settings', $instance, 'module' );
@@ -18,7 +18,7 @@ if ( ! function_exists( 'wponion_network_settings_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|mixed|\WPOnion\Modules\Settings
+	 * @return bool|mixed|\WPOnion\Modules\Settings\Settings
 	 */
 	function wponion_network_settings_registry( &$instance ) {
 		return wponion_get_registry_instance( 'network_settings', $instance, 'module' );
@@ -32,13 +32,13 @@ if ( ! function_exists( 'wponion_settings' ) ) {
 	 * @param array              $instance_id_or_args
 	 * @param array|\WPO\Builder $fields
 	 *
-	 * @return \WPOnion\Modules\Settings
+	 * @return \WPOnion\Modules\Settings\Settings
 	 */
 	function wponion_settings( $instance_id_or_args = array(), $fields = array() ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_settings_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\Settings( $instance_id_or_args, $fields );
+		return new \WPOnion\Modules\Settings\Settings( $instance_id_or_args, $fields );
 	}
 }
 
@@ -49,13 +49,13 @@ if ( ! function_exists( 'wponion_network_settings' ) ) {
 	 * @param array              $instance_id_or_args
 	 * @param array|\WPO\Builder $fields
 	 *
-	 * @return \WPOnion\Modules\Network_Settings
+	 * @return \WPOnion\Modules\Settings\Network
 	 */
 	function wponion_network_settings( $instance_id_or_args = array(), $fields = array() ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_settings_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\Network_Settings( $instance_id_or_args, $fields );
+		return new \WPOnion\Modules\Settings\Network( $instance_id_or_args, $fields );
 	}
 }
 

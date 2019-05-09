@@ -131,7 +131,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 		 */
 		public static function server_information() {
 			global $wpdb;
-			$data                                       = array(
+			$data                                                  = array(
 				__( 'Host', 'wponion' )             => self::get_host(),
 				__( 'PHP Version', 'wponion' )      => PHP_VERSION,
 				__( 'MySQL Version', 'wponion' )    => ( $wpdb->use_mysqli ) ? @mysqli_get_server_info( $wpdb->dbh ) : @mysql_get_server_info(),

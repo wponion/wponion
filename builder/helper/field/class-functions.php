@@ -11,6 +11,8 @@
 
 namespace WPO\Helper\Field;
 
+use WPO\Field;
+
 if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 	/**
 	 * Trait Functions
@@ -63,14 +65,14 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 * @param bool   $title
 		 * @param array  $args
 		 *
-		 * @return $this|bool|false|mixed|\WPO\Accordion|\WPO\Background|\WPO\Button_Set|\WPO\Checkbox|\WPO\Color_Group|\WPO\Color_Picker|\WPO\Content|\WPO\Date_Picker|\WPO\Dimensions|\WPO\Field|\WPO\Fieldset|\WPO\Font_Picker|\WPO\Gallery|\WPO\Group|\WPO\Heading|\WPO\Icon_Picker|\WPO\Iframe|\WPO\Image|\WPO\Image_Select|\WPO\Input_Group|\WPO\Jambo_Content|\WPO\Key_Value|\WPO\Link_Color|\WPO\Notice|\WPO\Oembed|\WPO\Radio|\WPO\Select|\WPO\Sorter|\WPO\Spacing|\WPO\Subheading|\WPO\Switcher|\WPO\Text|\WPO\Textarea|\WPO\Typography|\WPO\Upload|\WPO\WP_Editor|\WPO\WP_Link|\WPO\WP_Notice
+		 * @return $this|bool|false|mixed|\WPO\Fields\Accordion|\WPO\Fields\Background|\WPO\Fields\Button_Set|\WPO\Fields\Checkbox|\WPO\Fields\Color_Group|\WPO\Fields\Color_Picker|\WPO\Fields\Content|\WPO\Fields\Date_Picker|\WPO\Fields\Dimensions|\WPO\Field|\WPO\Fields\Fieldset|\WPO\Fields\Font_Picker|\WPO\Fields\Gallery|\WPO\Fields\Group|\WPO\Fields\Heading|\WPO\Fields\Icon_Picker|\WPO\Fields\Iframe|\WPO\Fields\Image|\WPO\Fields\Image_Select|\WPO\Fields\Input_Group|\WPO\Fields\Jambo_Content|\WPO\Fields\Key_Value|\WPO\Fields\Link_Color|\WPO\Fields\Notice|\WPO\Fields\Oembed|\WPO\Fields\Radio|\WPO\Fields\Select|\WPO\Fields\Sorter|\WPO\Fields\Spacing|\WPO\Fields\Subheading|\WPO\Fields\Switcher|\WPO\Fields\Text|\WPO\Fields\Textarea|\WPO\Fields\Typography|\WPO\Fields\Upload|\WPO\Fields\WP_Editor|\WPO\Fields\WP_Link|\WPO\Fields\WP_Notice
 		 */
 		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
 			if ( $this->has_fields() && $this->has_containers() ) {
 				wp_die( 'A Container Cannot Have Both Field & Containers', 'wponion' );
 			}
 
-			if ( $field_type_or_instance instanceof \WPO\Field ) {
+			if ( $field_type_or_instance instanceof Field ) {
 				$this->fields[] = $field_type_or_instance;
 				return $this;
 			}
@@ -82,7 +84,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 			}
 
 			if ( false === $return ) {
-				$return = \WPO\Field::create( $field_type_or_instance, $field_id, $title, $args );
+				$return = Field::create( $field_type_or_instance, $field_id, $title, $args );
 				if ( $return ) {
 					$this->fields[] = $return;
 				} else {

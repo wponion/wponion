@@ -246,7 +246,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return bool
 		 */
 		protected function has( $key = '' ) {
-			return ( false == $this->data( $key ) || null === $this->data( $key ) || empty( $this->data( $key ) ) ) ? false : true;
+			return ( false === $this->data( $key ) || null === $this->data( $key ) || empty( $this->data( $key ) ) ) ? false : true;
 		}
 
 		/**
@@ -427,7 +427,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				case 'metabox':
 					$screen = get_current_screen();
 					if ( $screen ) {
-						if ( in_array( $screen->base, array( 'term', 'edit-tags' ) ) ) {
+						if ( in_array( $screen->base, array( 'term', 'edit-tags' ), true ) ) {
 							$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4';
 							$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8';
 						}
@@ -835,7 +835,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @param bool $pointer_id
 		 *
-		 * @return \WPOnion\Modules\WP_Pointers
+		 * @return \WPOnion\Modules\Util\WP_Pointers
 		 */
 		private function wp_pointer_instance( $pointer_id = false ) {
 			$pointer_id = ( empty( $pointer_id ) ) ? sanitize_title( $this->unique() ) : $pointer_id;
@@ -987,7 +987,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'module' => $this->module(),
 			) );
 
-			if ( true == $is_init ) {
+			if ( true === $is_init ) {
 				$field['__instance'] = $_instance;
 				return $field;
 			}
@@ -1005,9 +1005,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		public function checked( $helper = '', $current = '', $type = 'checked', $echo = false ) {
-			if ( wponion_is_array( $helper ) && in_array( $current, $helper ) ) {
+			if ( wponion_is_array( $helper ) && in_array( $current, $helper, true ) ) {
 				$result = ' ' . $type . '="' . $type . '"';
-			} elseif ( $helper == $current ) {
+			} elseif ( $helper === $current ) {
 				$result = ' ' . $type . '="' . $type . '"';
 			} else {
 				$result = '';

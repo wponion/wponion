@@ -15,6 +15,8 @@
 namespace WPOnion\WP;
 
 
+use WP_Widget;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -28,7 +30,7 @@ if ( ! class_exists( '\WPOnion\WP\Widget' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Widget extends \WP_Widget {
+	abstract class Widget extends WP_Widget {
 		/***
 		 * widget_instance
 		 *
@@ -46,7 +48,7 @@ if ( ! class_exists( '\WPOnion\WP\Widget' ) ) {
 		 */
 		public function __construct( $id_base, $name, $widget_options = array(), $control_options = array() ) {
 			parent::__construct( $id_base, $name, $widget_options, $control_options );
-			$this->widget_instance = new \WPOnion\Modules\Widget( $this->widget_settings_config(), $this->fields() );
+			$this->widget_instance = new \WPOnion\Modules\Widgets\Widget( $this->widget_settings_config(), $this->fields() );
 		}
 
 		/**
@@ -108,6 +110,7 @@ if ( ! class_exists( '\WPOnion\WP\Widget' ) ) {
 		 */
 		public function widget( $widget_config, $widget_settings ) {
 			echo '<pre>';
+			echo print_r( $widget_config, true );
 			echo print_r( $widget_settings, true );
 			echo '</pre>';
 		}

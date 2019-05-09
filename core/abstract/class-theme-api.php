@@ -134,7 +134,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Settings Instance.
 		 *
-		 * @return \WPOnion\Modules\Settings
+		 * @return \WPOnion\Modules\Settings\Settings
 		 */
 		public function settings() {
 			return wponion_settings_registry( $this->module_instance );
@@ -143,7 +143,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Metabox Instance.
 		 *
-		 * @return \WPOnion\Modules\metabox
+		 * @return \WPOnion\Modules\Metabox\metabox
 		 */
 		public function metabox() {
 			return wponion_metabox_registry( $this->module_instance );
@@ -161,7 +161,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Dashboard Instance.
 		 *
-		 * @return \WPOnion\Modules\Dashboard_Widgets
+		 * @return \WPOnion\Modules\Widgets\Dashboard
 		 */
 		public function dashboard_widgets() {
 			return wponion_dashboard_widgets_registry( $this->module_instance );
@@ -170,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Dashboard Instance.
 		 *
-		 * @return \WPOnion\Modules\Dashboard_Widgets
+		 * @return \WPOnion\Modules\Widgets\Dashboard
 		 */
 		public function widgets() {
 			return wponion_widget_registry( $this->module_instance );
@@ -179,7 +179,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Help Tab Instance.
 		 *
-		 * @return \WPOnion\Modules\Help_Tabs
+		 * @return \WPOnion\Modules\Util\Help_Tabs
 		 */
 		public function help_tabs() {
 			return wponion_help_tabs_registry( $this->module_instance );

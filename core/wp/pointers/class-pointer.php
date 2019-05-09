@@ -11,6 +11,8 @@
 
 namespace WPOnion\WP\Pointers;
 
+use WPOnion\Bridge\Module;
+
 if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 	/**
 	 * Class Pointer
@@ -19,7 +21,7 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Pointer extends \WPOnion\Bridge\Module implements \JsonSerializable {
+	class Pointer extends Module implements \JsonSerializable {
 		/**
 		 * @var null
 		 * @access
@@ -108,7 +110,6 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 		}
 
 		public function on_init() {
-			// TODO: Implement on_init() method.
 		}
 
 		/**

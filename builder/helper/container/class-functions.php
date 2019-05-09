@@ -11,6 +11,8 @@
 
 namespace WPO\Helper\Container;
 
+use WPO\Container;
+
 if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 	/**
 	 * Trait Functions
@@ -50,7 +52,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 
 			while ( count( $containers ) >= $i ) {
 				if ( isset( $containers[ $i ] ) ) {
-					if ( $containers[ $i ] instanceof \WPO\Container && false === $containers[ $i ]->is_disabled() ) {
+					if ( $containers[ $i ] instanceof Container && false === $containers[ $i ]->is_disabled() ) {
 						$return = $containers[ $i ];
 						break;
 					}
@@ -104,7 +106,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			if ( $this->has_fields() && $this->has_containers() ) {
 				wp_die( __( 'A Container Cannot Have Both Field & Containers', 'wponion' ) );
 			}
-			if ( $container_slug_or_instance instanceof \WPO\Container ) {
+			if ( $container_slug_or_instance instanceof Container ) {
 				$this->containers[] = $container_slug_or_instance;
 				return $this;
 			}
@@ -116,7 +118,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			}
 
 			if ( false === $return ) {
-				$return             = \WPO\Container::create( $container_slug_or_instance, $title, $icon );
+				$return             = Container::create( $container_slug_or_instance, $title, $icon );
 				$this->containers[] = $return;
 			}
 			return $return;
@@ -128,7 +130,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function container_before( $before_container_id, \WPO\Container $new_container ) {
+		public function container_before( $before_container_id, Container $new_container ) {
 			if ( $this->has_fields() ) {
 				$new_arr = array();
 				/* @var \WPO\Container $container */
@@ -151,7 +153,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function container_after( $after_container_id, \WPO\Container $new_container ) {
+		public function container_after( $after_container_id, Container $new_container ) {
 			if ( $this->has_fields() ) {
 				$new_arr = array();
 				/* @var \WPO\Container $container */
