@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Beta : 0.0.9.7] - 09/05/2019
+## Added
+* WP-Admin Plugins Row / Action Link Module
+
+## Updated
+* Moved Certain Class Files
+* Changed Namespace for WPO Fields 
+* Updated Coding Standards.
+
+## Fixed
+* Minor Issue With EndPoint
+
+---
+
 # [Beta : 0.0.9.6] - 06/05/2019
 ## Added
 * Option to check for image link in `image` key in `image_select` field
@@ -292,6 +306,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.9.7]: https://github.com/wponion/wponion/releases/tag/0.0.9.7
 [Beta : 0.0.9.6]: https://github.com/wponion/wponion/releases/tag/0.0.9.6
 [Beta : 0.0.9.5]: https://github.com/wponion/wponion/releases/tag/0.0.9.5
 [Beta : 0.0.9.4]: https://github.com/wponion/wponion/releases/tag/0.0.9.4
