@@ -148,7 +148,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				'prepend' => true,
 			) );
 
-			new Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array() );
+			//new Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array() );
 
 			self::$core_autoloader->map( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
@@ -236,18 +236,18 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			/**
 			 * WPO Builder Remaps
 			 */
-			self::$remaps['\WPO\notice_danger']     = '\WPO\Notice';
-			self::$remaps['\WPO\notice_dark']       = '\WPO\Notice';
-			self::$remaps['\WPO\notice_light']      = '\WPO\Notice';
-			self::$remaps['\WPO\notice_primary']    = '\WPO\Notice';
-			self::$remaps['\WPO\notice_info']       = '\WPO\Notice';
-			self::$remaps['\WPO\notice_secondary']  = '\WPO\Notice';
-			self::$remaps['\WPO\notice_success']    = '\WPO\Notice';
-			self::$remaps['\WPO\notice_warning']    = '\WPO\Notice';
-			self::$remaps['\WPO\WP_Notice_Error']   = '\WPO\WP_Notice';
-			self::$remaps['\WPO\WP_Notice_Warning'] = '\WPO\WP_Notice';
-			self::$remaps['\WPO\WP_Notice_Success'] = '\WPO\WP_Notice';
-			self::$remaps['\WPO\WP_Notice_Info']    = '\WPO\WP_Notice';
+			self::$remaps['\WPO\Fields\notice_danger']     = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_dark']       = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_light']      = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_primary']    = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_info']       = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_secondary']  = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_success']    = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\notice_warning']    = '\WPO\Fields\Notice';
+			self::$remaps['\WPO\Fields\WP_Notice_Error']   = '\WPO\Fields\WP_Notice';
+			self::$remaps['\WPO\Fields\WP_Notice_Warning'] = '\WPO\Fields\WP_Notice';
+			self::$remaps['\WPO\Fields\WP_Notice_Success'] = '\WPO\Fields\WP_Notice';
+			self::$remaps['\WPO\Fields\WP_Notice_Info']    = '\WPO\Fields\WP_Notice';
 
 			/**
 			 * Customizer Module Fields.

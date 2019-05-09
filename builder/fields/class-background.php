@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Background' ) ) {
+if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 	/**
 	 * Class Background
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -29,7 +29,7 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 	 * @method get_background_color()
 	 * @method get_background_image()
 	 */
-	class Background extends Field {
+	class Background extends \WPO\Field {
 		/**
 		 * Background constructor.
 		 *
@@ -51,14 +51,14 @@ if ( ! class_exists( 'WPO\Background' ) ) {
 		}
 
 		/**
-		 * @return \WPO\Background
+		 * @return \WPO\Fields\Background
 		 */
 		public function show_preview() {
 			return $this->preview( true );
 		}
 
 		/**
-		 * @return \WPO\Background
+		 * @return \WPO\Fields\Background
 		 */
 		public function hide_preview() {
 			return $this->preview( false );

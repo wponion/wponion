@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Sorter' ) ) {
+if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 	/**
 	 * Class Sorter
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -24,7 +24,7 @@ if ( ! class_exists( 'WPO\Sorter' ) ) {
 	 * @method get_enabled_title()
 	 * @method get_disabled_title()
 	 */
-	class Sorter extends Field {
+	class Sorter extends \WPO\Field {
 		/**
 		 * Select constructor.
 		 *

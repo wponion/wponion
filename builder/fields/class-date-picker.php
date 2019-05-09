@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Date_Picker' ) ) {
+if ( ! class_exists( 'WPO\Fields\Date_Picker' ) ) {
 	/**
 	 * Class Color_Picker
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -25,7 +25,7 @@ if ( ! class_exists( 'WPO\Date_Picker' ) ) {
 	 * @method get_date()
 	 * @method get_to_date()
 	 */
-	class Date_Picker extends Field {
+	class Date_Picker extends \WPO\Field {
 		/**
 		 * Date_Picker constructor.
 		 *

@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Color_Picker' ) ) {
+if ( ! class_exists( 'WPO\Fields\Color_Picker' ) ) {
 	/**
 	 * Class Color_Picker
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPO\Color_Picker' ) ) {
 	 * @method get_size()
 	 * @method get_layout()
 	 */
-	class Color_Picker extends Field {
+	class Color_Picker extends \WPO\Field {
 		/**
 		 * Color_Group constructor.
 		 *

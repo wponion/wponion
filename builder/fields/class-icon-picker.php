@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
+if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 	/**
 	 * Class Icon_Picker
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -25,7 +25,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 	 * @method get_enabled()
 	 * @method get_disabled()
 	 */
-	class Icon_Picker extends Field {
+	class Icon_Picker extends \WPO\Field {
 		/**
 		 * Icon_Picker constructor.
 		 *
@@ -68,7 +68,7 @@ if ( ! class_exists( 'WPO\Icon_Picker' ) ) {
 		}
 
 		/**
-		 * @return \WPO\Icon_Picker
+		 * @return \WPO\Fields\Icon_Picker
 		 */
 		public function hide_input() {
 			return $this->show_input( false );

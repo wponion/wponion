@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Textarea' ) ) {
+if ( ! class_exists( 'WPO\Fields\Textarea' ) ) {
 	/**
 	 * Class Textarea
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPO\Textarea' ) ) {
 		/**
 		 * @param int $rows
 		 *
-		 * @return \WPO\Textarea
+		 * @return \WPO\Fields\Textarea
 		 */
 		public function rows( $rows = 5 ) {
 			$this['rows'] = $rows;
@@ -48,7 +48,7 @@ if ( ! class_exists( 'WPO\Textarea' ) ) {
 		/**
 		 * @param int $cols
 		 *
-		 * @return \WPO\Textarea
+		 * @return \WPO\Fields\Textarea
 		 */
 		public function cols( $cols = 5 ) {
 			$this['cols'] = $cols;

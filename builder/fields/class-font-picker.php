@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Font_Picker' ) ) {
+if ( ! class_exists( 'WPO\Fields\Font_Picker' ) ) {
 	/**
 	 * Class Font_Picker
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPO\Font_Picker' ) ) {
 	 * @method get_websafe_fonts()
 	 * @method get_group()
 	 */
-	class Font_Picker extends Field {
+	class Font_Picker extends \WPO\Field {
 		/**
 		 * Color_Group constructor.
 		 *

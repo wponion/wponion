@@ -9,17 +9,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Heading' ) ) {
+if ( ! class_exists( 'WPO\Fields\Heading' ) ) {
 	/**
 	 * Class Notice
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Heading extends Field {
+	class Heading extends \WPO\Field {
 		/**
 		 * Subheading constructor.
 		 *

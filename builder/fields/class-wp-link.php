@@ -9,17 +9,17 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\WP_Link' ) ) {
+if ( ! class_exists( 'WPO\Fields\WP_Link' ) ) {
 	/**
 	 * Class WP_Link
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Link extends Field {
+	class WP_Link extends \WPO\Field {
 		/**
 		 * Upload constructor.
 		 *
@@ -54,7 +54,7 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		/**
 		 * @param $url
 		 *
-		 * @return \WPO\WP_Link
+		 * @return \WPO\Fields\WP_Link
 		 */
 		public function url( $url ) {
 			return $this->settings( array( 'url' => $url ) );
@@ -63,7 +63,7 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		/**
 		 * @param $title
 		 *
-		 * @return \WPO\WP_Link
+		 * @return \WPO\Fields\WP_Link
 		 */
 		public function link_title( $title ) {
 			return $this->settings( array( 'title' => $title ) );
@@ -72,7 +72,7 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		/**
 		 * @param $target
 		 *
-		 * @return \WPO\WP_Link
+		 * @return \WPO\Fields\WP_Link
 		 */
 		public function target( $target ) {
 			return $this->settings( array( 'target' => $target ) );
@@ -81,7 +81,7 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		/**
 		 * @param $example
 		 *
-		 * @return \WPO\WP_Link
+		 * @return \WPO\Fields\WP_Link
 		 */
 		public function example( $example ) {
 			return $this->settings( array( 'example' => $example ) );
@@ -90,7 +90,7 @@ if ( ! class_exists( 'WPO\WP_Link' ) ) {
 		/**
 		 * @param $show_input
 		 *
-		 * @return \WPO\WP_Link
+		 * @return \WPO\Fields\WP_Link
 		 */
 		public function show_input( $show_input ) {
 			return $this->settings( array( 'show_input' => $show_input ) );

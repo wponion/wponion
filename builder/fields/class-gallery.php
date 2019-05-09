@@ -9,13 +9,13 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPO;
+namespace WPO\Fields;
 
-if ( ! class_exists( 'WPO\Gallery' ) ) {
+if ( ! class_exists( 'WPO\Fields\Gallery' ) ) {
 	/**
 	 * Class Gallery
 	 *
-	 * @package WPO
+	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 * @method get_add_button()
@@ -24,7 +24,7 @@ if ( ! class_exists( 'WPO\Gallery' ) ) {
 	 * @method get_sort()
 	 * @method get_remove_button()
 	 */
-	class Gallery extends Field {
+	class Gallery extends \WPO\Field {
 		/**
 		 * Color_Group constructor.
 		 *
