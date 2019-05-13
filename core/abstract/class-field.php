@@ -1007,7 +1007,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		public function checked( $helper = '', $current = '', $type = 'checked', $echo = false ) {
 			if ( wponion_is_array( $helper ) && in_array( $current, $helper, true ) ) {
 				$result = ' ' . $type . '="' . $type . '"';
-			} elseif ( $helper === $current ) {
+			} elseif ( wponion_validate_bool_val( $helper ) === wponion_validate_bool_val( $current ) ) {
 				$result = ' ' . $type . '="' . $type . '"';
 			} else {
 				$result = '';
