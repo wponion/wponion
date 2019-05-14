@@ -3,9 +3,9 @@ Contributors: varunms,vaahosttech
 Donate link: https://paypal.me/varunsridharan23
 Tags: settings,taxonomy,metabox,user profile,custom fields,guttenberg,network-settings,meta,wplisttable
 Requires at least: 4.0
-Tested up to: 4.8
+Tested up to: 5.5
 Stable tag: trunk
-Requires PHP: 5.5
+Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://github.com/wponion/wponion/blob/master/LICENSE
 
