@@ -23,6 +23,18 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 	class Field extends Common_Args {
 
 		/**
+		 * Renders HTML Output.
+		 *
+		 * @param $value
+		 * @param $unique
+		 *
+		 * @return string
+		 */
+		public function render( $value = array(), $unique = array() ) {
+			return wponion_add_element( $this, $value, $unique );
+		}
+
+		/**
 		 * Creates A New Field Instance.
 		 *
 		 * @param bool  $type
@@ -45,8 +57,10 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
 				$class = class_exists( '\WPO\Fields\\' . $type ) ? '\WPO\Fields\\' . $type : wponion_get_field_class_remap( '\WPO\Fields\\' . $type, false );
+
 				return ( false !== $class ) ? new $class( $id, $title, $args ) : new Field( $type, $id, $title, $args );
 			}
+
 			return false;
 		}
 
