@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Beta : 0.0.9.9] - 14/05/2019
+## Added
+* `wponion_before_fields_reload` JS Hook
+* `wponion_after_fields_reload` JS Hook
+* Option To Render A Field Via Builder
+* `wponion_load_field_class` PHP Action To Load Field Class If Not Exists
+* Addon Handler Created
+
+## Updated
+* Minor Code Reformatted.
+* Min PHP Version 5.6
+
+---
+
 # [Beta : 0.0.9.8] - 09/05/2019
 ## Fixed
 * Switcher Element Saving Issue
@@ -312,6 +326,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.9.9]: https://github.com/wponion/wponion/releases/tag/0.0.9.9
+[Beta : 0.0.9.8]: https://github.com/wponion/wponion/releases/tag/0.0.9.8
 [Beta : 0.0.9.7]: https://github.com/wponion/wponion/releases/tag/0.0.9.7
 [Beta : 0.0.9.6]: https://github.com/wponion/wponion/releases/tag/0.0.9.6
 [Beta : 0.0.9.5]: https://github.com/wponion/wponion/releases/tag/0.0.9.5

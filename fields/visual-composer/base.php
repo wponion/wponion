@@ -203,7 +203,7 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Composer\Base' ) ) {
 			$return['id']              = strtolower( $return['id'] );
 			$return['name']            = strtolower( $return['name'] );
 
-			if ( false === wponion_field_types()::design_exists( $return['type'] ) ) {
+			if ( false === \WPOnion\Registry\Field_Types::design_exists( $return['type'] ) ) {
 				$return['wrap_attributes']['data-param-name'] = $return['id'];
 			}
 

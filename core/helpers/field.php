@@ -146,6 +146,11 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 				}
 			}
 		}
+
+		if ( ! class_exists( $return ) ) {
+			do_action( 'wponion_load_field_class', $return, $type, $module_s );
+		}
+
 		return ( class_exists( $return ) ) ? $return : false;
 	}
 }
@@ -780,7 +785,7 @@ if ( ! function_exists( 'wponion_register_field' ) ) {
 	 * @uses \WPOnion\Registry\Field_Types
 	 */
 	function wponion_register_field( $field_type = '', $supports = array(), $args = array() ) {
-		wponion_field_types()::add( $field_type, $supports, $args );
+		\WPOnion\Registry\Field_Types::add( $field_type, $supports, $args );
 	}
 }
 
@@ -791,7 +796,7 @@ if ( ! function_exists( 'wponion_deregister_field' ) ) {
 	 * @param string $field_type
 	 */
 	function wponion_deregister_field( $field_type = '' ) {
-		wponion_field_types()::remove( $field_type );
+		\WPOnion\Registry\Field_Types::remove( $field_type );
 	}
 }
 
@@ -820,7 +825,7 @@ if ( ! function_exists( 'wponion_field_add_support' ) ) {
 	 * @param $support
 	 */
 	function wponion_field_add_support( $type, $support ) {
-		wponion_field_types()::add_support( $type, $support );
+		\WPOnion\Registry\Field_Types::add_support( $type, $support );
 	}
 }
 
@@ -832,6 +837,6 @@ if ( ! function_exists( 'wponion_field_remove_support' ) ) {
 	 * @param $support
 	 */
 	function wponion_field_remove_support( $type, $support ) {
-		wponion_field_types()::remove_support( $type, $support );
+		\WPOnion\Registry\Field_Types::remove_support( $type, $support );
 	}
 }

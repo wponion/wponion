@@ -175,7 +175,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		/**
 		 * @return array|string
 		 */
-		public function class() {
+		public function container_class() {
 			return $this->class;
 		}
 

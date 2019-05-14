@@ -55,16 +55,47 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 		protected $url = false;
 
 		/**
+		 * Stores All Instance.
+		 *
+		 * @var array
+		 * @access
+		 */
+		protected static $instances = array();
+
+		/**
+		 * Stores Version Information.
+		 *
+		 * @var null
+		 * @access
+		 */
+		protected $version = null;
+
+		/**
 		 * Addon constructor.
 		 *
 		 * @param bool   $addon_name
 		 * @param string $addon_file
+		 * @param null   $version
 		 */
-		public function __construct( $addon_name = false, $addon_file = __FILE__ ) {
+		public function __construct( $addon_name = false, $addon_file = __FILE__, $version = null ) {
 			$this->addon_name = $addon_name;
 			$this->addon_file = $addon_file;
+			$this->version    = $version;
 			$this->dir        = plugin_dir_path( $addon_file );
 			$this->url        = plugin_dir_url( $addon_file );
+			add_action( 'wponion_register_assets_after', array( &$this, 'register_assets' ) );
+		}
+
+		/**
+		 * Stores And Retrive An Instance.
+		 *
+		 * @return $this|static|\WPOnion\Addon
+		 */
+		public static function instance() {
+			if ( ! isset( self::$instances[ static::class ] ) ) {
+				self::$instances[ static::class ] = new static();
+			}
+			return self::$instances[ static::class ];
 		}
 
 		/**
@@ -87,6 +118,15 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 		 */
 		public function dir( $extra = '' ) {
 			return $this->dir . $extra;
+		}
+
+		/**
+		 * Hooks with WPonion To Allow Devs To Register Their Assets.
+		 *
+		 * @hook wponion_register_assets_after
+		 */
+		public function register_assets() {
+
 		}
 	}
 }

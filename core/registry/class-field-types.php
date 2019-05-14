@@ -127,6 +127,7 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 
 		/**
 		 * Returns Only Design Fields
+		 *
 		 * @static
 		 * @return array
 		 */

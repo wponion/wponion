@@ -57,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Visual_Composer' ) ) {
 		 * @static
 		 */
 		public static function init() {
-			self::$integrated_fields = wponion_field_types()::get( 'vc' );
+			self::$integrated_fields = \WPOnion\Registry\Field_Types::get( 'vc' );
 			self::register_fields();
 			add_action( 'vc_edit_form_fields_after_render', array( __CLASS__, 'is_wponion_used' ) );
 			add_action( 'vc_backend_editor_enqueue_js_css', array( __CLASS__, 'load_assets' ), 1 );

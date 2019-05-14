@@ -310,7 +310,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$_wrap_attr['class'] .= ' horizontal ';
 			}
 
-			if ( wponion_field_types()::design_exists( $this->element_type() ) ) {
+			if ( \WPOnion\Registry\Field_Types::design_exists( $this->element_type() ) ) {
 				$_wrap_attr['class'] .= ' ui-field wponion-ui-field ';
 			}
 

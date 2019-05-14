@@ -154,6 +154,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
 			self::$core_autoloader->map( 'WPOnion\Theme_API', WPONION_PATH . '/core/abstract/class-theme-api.php' );
 			self::$core_autoloader->map( 'WPOnion\Addon', WPONION_PATH . '/core/abstract/class-addon.php' );
+			self::$core_autoloader->map( 'WPOnion\Addon_Field', WPONION_PATH . '/core/abstract/class-addon-field.php' );
 
 			//Remap Field & Field Cloner.
 			self::$field_autoloader->map( 'WPOnion\Field\Cloner', WPONION_PATH . '/core/class-field-cloner.php' );

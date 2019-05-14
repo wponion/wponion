@@ -228,7 +228,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 						$args                  = array(
 							'label'    => $data->title(),
 							'target'   => ! empty( $data->name() ) ? sanitize_title( 'wponion_' . $data->name() ) : false,
-							'class'    => ! empty( $data->class() ) ? $data->class() : false,
+							'class'    => ! empty( $data->container_class() ) ? $data->container_class() : false,
 							'priority' => ( isset( $data->priority ) && ! empty( $data->priority ) ) ? $data->priority : null,
 						);
 						$args['class']         = wponion_html_class( $args['class'], $this->show_hide_class( $data ), false );
