@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Updated
 * Minor Code Reformatted.
-* Min PHP Version 7.0
+* Min PHP Version 5.6
 
 ---
 
