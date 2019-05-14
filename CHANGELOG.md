@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Beta : 0.0.10] - 14/05/2019
+## Fixed
+* PHP Autoloader Issue
+
+---
+
 # [Beta : 0.0.9.9] - 14/05/2019
 ## Added
 * `wponion_before_fields_reload` JS Hook
@@ -326,6 +332,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.10]: https://github.com/wponion/wponion/releases/tag/0.0.10
 [Beta : 0.0.9.9]: https://github.com/wponion/wponion/releases/tag/0.0.9.9
 [Beta : 0.0.9.8]: https://github.com/wponion/wponion/releases/tag/0.0.9.8
 [Beta : 0.0.9.7]: https://github.com/wponion/wponion/releases/tag/0.0.9.7
