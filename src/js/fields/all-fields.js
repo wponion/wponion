@@ -1,5 +1,5 @@
 export default ( ( w ) => {
-	w.wponion_register_field( 'jambo_content', ( $elem ) => new window.wponion.field_abstract( $elem ) )
+	w.wponion_register_field( 'jambo_content', ( $elem ) => new window.wponion.field_abstract( $elem ) );
 	w.wponion_register_field( 'background', ( $elem ) => new window.wponion.field_abstract( $elem ) );
 	w.wponion_register_field( 'text', ( $elem ) => new window.wponion.field_abstract( $elem ) );
 	w.wponion_register_field( 'notice', ( $elem ) => new window.wponion.field_abstract( $elem ) );
