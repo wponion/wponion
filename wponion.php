@@ -66,6 +66,12 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 				$ms  = $ms . '<p style="word-break: break-all;"> <strong>' . __( 'ERROR ID : ', 'wponion' ) . '</strong>' . $msg . '</p>';
 				wp_die( $ms );
 			}
+
+			if ( ! version_compare( PHP_VERSION, '5.6', '>=' ) ) {
+				$msg = sprintf( __( 'WPOnion incompatible with PHP Version %2$s. Please Install/Upgrade PHP To %1$s or Higher ', 'wponion' ), '<strong>5.6</strong>', '<code>' . PHP_VERSION . '</code>' );
+				wp_die( $msg );
+			}
+
 			self::$_loaded = array(
 				'path'    => $info,
 				'version' => $latest_version,

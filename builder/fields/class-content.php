@@ -55,7 +55,7 @@ if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function include( $include ) {
+		public function field_include( $include ) {
 			$this['include'] = $include;
 			return $this;
 		}

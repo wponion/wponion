@@ -73,10 +73,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 		 */
 		public function options( $options = array(), $merge = true ) {
 			if ( false !== $this->option_group ) {
-				if ( ! isset( $this['options'][ $this->option_group ] ) ) {
-					$this['options'][ $this->option_group ] = array();
-				}
-				$_options = $this['options'][ $this->option_group ];
+				$_options = ( isset( $this['options'][ $this->option_group ] ) ) ? $this['options'][ $this->option_group ] : array();
 			} else {
 				$_options = $this['options'];
 			}
@@ -92,6 +89,9 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 			}
 
 			if ( false !== $this->option_group ) {
+				if ( ! is_array( $this['options'] ) ) {
+					$this['options'] = array();
+				}
 				$this['options'][ $this->option_group ] = $_options;
 			} else {
 				$this['options'] = $_options;

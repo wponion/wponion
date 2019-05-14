@@ -465,7 +465,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'href'             => $href,
 				'part_href'        => $part_href,
 				'query_args'       => $menu->query_args(),
-				'class'            => $menu->class(),
+				'class'            => $menu->container_class(),
 				'separator'        => $menu->is_separator(),
 			);
 		}

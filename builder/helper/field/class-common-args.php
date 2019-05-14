@@ -127,7 +127,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function default( $default = null ) {
+		public function field_default( $default = null ) {
 			return $this->_set( 'default', $default );
 		}
 
@@ -289,7 +289,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @return $this
 		 *
 		 */
-		public function clone( $clone = false ) {
+		public function _clone( $clone = false ) {
 			if ( wponion_is_array( $clone ) ) {
 				$this->clone_settings( $clone );
 				$this['clone'] = true;
@@ -383,7 +383,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @return $this
 		 *
 		 */
-		public function class( $class = null ) {
+		public function field_class( $class = null ) {
 			return $this->_set( 'class', $class );
 		}
 
