@@ -254,7 +254,7 @@ export default class extends WPOnion_Module {
 	 * Reloads All Field Type Inside This Field.
 	 */
 	reload() {
-		window.wponion.hooks.doAction( 'wponion_before_fields_reload' );
+		window.wponion.hooks.doAction( 'wponion_before_fields_reload', this );
 
 		this.init_field( '.wponion-element-accordion', 'accordion' );
 		this.init_field( '.wponion-element-background', 'background' );
@@ -302,7 +302,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
 
-		window.wponion.hooks.doAction( 'wponion_after_fields_reload' );
+		window.wponion.hooks.doAction( 'wponion_after_fields_reload', this );
 		return this;
 	}
 
