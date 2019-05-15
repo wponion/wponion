@@ -85,6 +85,7 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 				'settings',
 				'metabox',
 				'taxonomy',
+				'help_tabs',
 				'nav_menu',
 				'dashboard_widgets',
 				'widget',
@@ -93,6 +94,7 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 			self::register( 'wp_lite', array(
 				'settings',
 				'user_profile',
+				'help_tabs',
 				'nav_menu',
 				'dashboard_widgets',
 			), 'wponion_wp_lite_theme_init' );
@@ -100,12 +102,14 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 				'settings',
 				'metabox',
 				'nav_menu',
+				'help_tabs',
 				'user_profile',
 				'dashboard_widgets',
 			), 'wponion_wp_theme_init' );
 			self::register( 'wc', array(
 				'metabox',
 				'settings',
+				'help_tabs',
 				'user_profile',
 				'nav_menu',
 				'dashboard_widgets',
