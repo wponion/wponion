@@ -636,6 +636,55 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			return '';
 		}
 
+		protected function get_defaults() {
+			/**
+			 * @var $options \WPO\Container
+			 */
+			foreach ( $this->fields->get() as $options ) {
+				if ( $this->valid_field( $options ) ) {
+					$this->get_fields_defaults_value( $options );
+				} elseif ( false !== $this->valid_option( $options ) ) {
+					if ( $options->has_fields() ) {
+						foreach ( $options->fields() as $field ) {
+							$this->get_fields_defaults_value( $field );
+						}
+					} elseif ( $options->has_containers() ) {
+						foreach ( $options->containers() as $containers ) {
+							/* @var $containers \WPO\Container */
+							if ( ! $containers->has_fields() ) {
+								continue;
+							}
+							if ( false !== $this->valid_option( $containers ) ) {
+								foreach ( $containers->fields() as $field ) {
+									$this->get_fields_defaults_value( $field );
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * Extracts Field Default Values.
+		 *
+		 * @param $field
+		 */
+		private function get_fields_defaults_value( $field ) {
+			if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
+				return;
+			}
+
+			if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
+				$default[ $field['id'] ] = $field['default'];
+				if ( wponion_is_unarrayed( $field ) ) {
+					$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
+				} else {
+					$this->db_values[ $field['id'] ] = $field['default'];
+				}
+			}
+		}
+
 		/**
 		 * Unsets Global Args.
 		 *

@@ -137,21 +137,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 			$this->options_cache['fuid']            = $this->fields_md5();
 			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
 			$default                                = array();
-
-			foreach ( $this->fields->get() as $field ) {
-				if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
-					continue;
-				}
-
-				if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
-					$default[ $field['id'] ] = $field['default'];
-					if ( wponion_is_unarrayed( $field ) ) {
-						$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
-					} else {
-						$this->db_values[ $field['id'] ] = $field['default'];
-					}
-				}
-			}
+			$this->get_defaults();
 			if ( ! empty( $default ) ) {
 				$this->set_db_values( $this->db_values );
 			}
