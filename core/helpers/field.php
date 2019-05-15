@@ -309,13 +309,7 @@ if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	 *
 	 */
 	function wponion_noninput_fields() {
-		return apply_filters( 'wponion_non_input_fields', array(
-			'backup',
-			'notice',
-			'subheading',
-			'heading',
-			'jambo_content',
-		) );
+		return apply_filters( 'wponion_non_input_fields', \WPOnion\Registry\Field_Types::get_design() );
 	}
 }
 
