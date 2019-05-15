@@ -159,15 +159,19 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	/**
 	 * Creates A New instance for a field or returns an existing field instance.
 	 *
-	 * @param array        $field
-	 * @param string|array $value
-	 * @param array|string $unique
+	 * @param array|\WPO\Field $field
+	 * @param string|array     $value
+	 * @param array|string     $unique
 	 *
 	 * @return bool
 	 */
 	function wponion_field( $field = array(), $value = '', $unique = array() ) {
 		$class       = wponion_get_field_class( $field );
 		$base_unique = $unique;
+
+		if ( wponion_is_builder( $field, 'field' ) ) {
+			$field = clone $field;
+		}
 
 		if ( isset( $field['__no_instance'] ) && true === $field['__no_instance'] ) {
 			return new $class( $field, $value, $base_unique );
@@ -805,7 +809,6 @@ if ( ! function_exists( 'wponion_register_ui_field' ) ) {
 	 * Registers A Field With Field Type Registry Class.
 	 *
 	 * @param string $field_type
-	 * @param string $callback
 	 * @param array  $supports
 	 * @param array  $args
 	 *
