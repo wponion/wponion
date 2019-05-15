@@ -267,8 +267,8 @@ if ( ! function_exists( 'wponion_get_field_type' ) ) {
 	/**
 	 * Check If Field Type Attribute Exists And If so Then it checks if field exists. WPOnion.
 	 *
-	 * @param      $field
-	 * @param bool $check
+	 * @param array $field
+	 * @param bool  $check
 	 *
 	 * @return bool|string
 	 */
