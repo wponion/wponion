@@ -213,6 +213,9 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		 * @return array
 		 */
 		protected function pointers_data() {
+			/**
+			 * @var \WPOnion\WP\Pointers\Pointer $args
+			 */
 			foreach ( $this->fields as $selector => $args ) {
 				if ( false === $args->is_valid() ) {
 					unset( $this->fields[ $selector ] );

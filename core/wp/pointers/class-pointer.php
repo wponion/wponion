@@ -400,17 +400,17 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 			$pages    = $this->pages();
 			$is_valid = true;
 
-			if ( ! empty( $types ) ) {
-				if ( false === isset( $types[ $post ] ) || false === in_array( $post, $types ) ) {
-					$is_valid = false;
-				}
+			if ( ! empty( $types ) && is_array( $types ) && ( ! in_array( $post, $types ) && ! isset( $types[ $post ] ) ) ) {
+				$is_valid = false;
+			} elseif ( ! empty( $types ) && is_string( $types ) && $types !== $post ) {
+				$is_valid = false;
 			}
 
-			if ( $is_valid ) {
-				if ( ! empty( $pages ) ) {
-					if ( false === isset( $pages[ $pagenow ] ) || false === in_array( $pagenow, $pages ) ) {
-						$is_valid = false;
-					}
+			if ( $is_valid && ! empty( $pages ) ) {
+				if ( is_array( $pages ) && ( ! in_array( $pagenow, $pages ) && ! isset( $pages[ $pagenow ] ) ) ) {
+					$is_valid = false;
+				} elseif ( is_string( $pages ) && $pagenow !== $pages ) {
+					$is_valid = false;
 				}
 			}
 
