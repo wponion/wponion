@@ -93,11 +93,13 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 			self::register( 'wp_lite', array(
 				'settings',
 				'user_profile',
+				'nav_menu',
 				'dashboard_widgets',
 			), 'wponion_wp_lite_theme_init' );
 			self::register( 'wp', array(
 				'settings',
 				'metabox',
+				'nav_menu',
 				'user_profile',
 				'dashboard_widgets',
 			), 'wponion_wp_theme_init' );
@@ -105,6 +107,7 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 				'metabox',
 				'settings',
 				'user_profile',
+				'nav_menu',
 				'dashboard_widgets',
 			), 'wponion_wc_theme_init' );
 		}
