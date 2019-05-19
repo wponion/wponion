@@ -20,42 +20,57 @@
 		},
 
 		evalCondition: function( context, control, condition, val1, val2 ) {
-			if( '==' === condition || '=' === condition || 'OR' === condition ) {
-				return this.checkBoolean( val1 ) === this.checkBoolean( val2 );
-			} else if( '!=' === condition ) {
-				return this.checkBoolean( val1 ) !== this.checkBoolean( val2 );
-			} else if( '>=' === condition ) {
-				return Number( val2 ) >= Number( val1 );
-			} else if( '<=' === condition ) {
-				return Number( val2 ) <= Number( val1 );
-			} else if( '>' === condition ) {
-				return Number( val2 ) > Number( val1 );
-			} else if( '<' === condition ) {
-				return Number( val2 ) < Number( val1 );
-			} else if( '()' === condition ) {
-				return window[ val1 ]( context, control, val2 ); // FIXED: function method
-			} else if( 'in' === condition ) {
-				if( '' === val2 || null === val2 ) {
-					return false;
-				}
-				if( typeof val2 === 'object' ) {
-					for( var i = 0; i <= val2.length; i++ ) {
-						if( val2[ i ] !== undefined ) {
-							if( val2[ i ] === val1 ) {
-								return true;
+			var $return = null;
+			switch( condition ) {
+				case '""':
+				case '\'\'':
+				case 'empty':
+				case 'EMPTY':
+					return ( '' === val2 );
+				case '==':
+				case '=':
+				case 'OR':
+				case 'or':
+					return this.checkBoolean( val1 ) === this.checkBoolean( val2 );
+				case '!=':
+					return this.checkBoolean( val1 ) !== this.checkBoolean( val2 );
+				case'>':
+				case '>=':
+					return ( '>' === condition ) ? Number( val2 ) > Number( val1 ) : Number( val2 ) >= Number( val1 );
+				case '<':
+				case '<=':
+					return ( '<' === condition ) ? Number( val2 ) < Number( val1 ) : Number( val2 ) <= Number( val1 );
+				case '()':
+					return window[ val1 ]( context, control, val2 ); // FIXED: function method
+				case 'in':
+				case 'IN':
+					if( '' === val2 || null === val2 ) {
+						return false;
+					}
+					if( typeof val2 === 'string' && typeof val1 === 'string' ) {
+						return ( val2.indexOf( val1 ) > 0 );
+					}
+					if( typeof val2 === 'object' ) {
+						for( var i = 0; i <= val2.length; i++ ) {
+							if( val2[ i ] !== undefined ) {
+								if( val2[ i ] === val1 ) {
+									return true;
+								}
 							}
 						}
-					}
 
-				}
-				return false;
-			} else if( 'any' === condition ) {
-				return $.inArray( val2, val1.split( ',' ) ) > -1;
-			} else if( 'not-any' === condition ) {
-				return -1 === $.inArray( val2, val1.split( ',' ) );
-			} else {
-				throw new Error( 'Unknown condition:' + condition );
+					}
+					return false;
+				case 'any':
+				case 'ANY':
+					return $.inArray( val2, val1.split( ',' ) ) > -1;
+				case 'not-any':
+				case 'NOT-ANY':
+					return -1 === $.inArray( val2, val1.split( ',' ) );
+				default:
+					throw new Error( 'Unknown condition:' + condition );
 			}
+			return $return;
 		},
 
 		checkBoolean: function( value ) {

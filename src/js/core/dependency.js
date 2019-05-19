@@ -24,7 +24,7 @@ export default class {
 					el.find( ':input' ).removeClass( 'wponion-dependent' );
 				},
 				hide: ( el ) => {
-					el.hide();
+					el.slideUp();
 					el.find( ':input' ).addClass( 'wponion-dependent' );
 				},
 				log: false,
