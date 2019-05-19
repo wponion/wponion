@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Beta : 0.0.10.2] - 19/05/2019
+## Fixed
+* Pointer Module
+* User Profile Module
+* Dashboard Widgets
+* Nav Menu
+* Help Tabs
+* [#30](https://github.com/wponion/wponion/issues/30) Issue Fixed 
+
+## Updated
+* Code Clean UP Done
+
 
 # [Beta : 0.0.10.1] - 14/05/2019
 ## Fixed
@@ -339,6 +351,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.10.2]: https://github.com/wponion/wponion/releases/tag/0.0.10.2
 [Beta : 0.0.10.1]: https://github.com/wponion/wponion/releases/tag/0.0.10.1
 [Beta : 0.0.10]: https://github.com/wponion/wponion/releases/tag/0.0.10
 [Beta : 0.0.9.9]: https://github.com/wponion/wponion/releases/tag/0.0.9.9

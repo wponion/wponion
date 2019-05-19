@@ -159,15 +159,19 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	/**
 	 * Creates A New instance for a field or returns an existing field instance.
 	 *
-	 * @param array        $field
-	 * @param string|array $value
-	 * @param array|string $unique
+	 * @param array|\WPO\Field $field
+	 * @param string|array     $value
+	 * @param array|string     $unique
 	 *
 	 * @return bool
 	 */
 	function wponion_field( $field = array(), $value = '', $unique = array() ) {
 		$class       = wponion_get_field_class( $field );
 		$base_unique = $unique;
+
+		if ( wponion_is_builder( $field, 'field' ) ) {
+			$field = clone $field;
+		}
 
 		if ( isset( $field['__no_instance'] ) && true === $field['__no_instance'] ) {
 			return new $class( $field, $value, $base_unique );
@@ -267,8 +271,8 @@ if ( ! function_exists( 'wponion_get_field_type' ) ) {
 	/**
 	 * Check If Field Type Attribute Exists And If so Then it checks if field exists. WPOnion.
 	 *
-	 * @param      $field
-	 * @param bool $check
+	 * @param array $field
+	 * @param bool  $check
 	 *
 	 * @return bool|string
 	 */
@@ -305,13 +309,7 @@ if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	 *
 	 */
 	function wponion_noninput_fields() {
-		return apply_filters( 'wponion_non_input_fields', array(
-			'backup',
-			'notice',
-			'subheading',
-			'heading',
-			'jambo_content',
-		) );
+		return apply_filters( 'wponion_non_input_fields', \WPOnion\Registry\Field_Types::get_design() );
 	}
 }
 
@@ -805,7 +803,6 @@ if ( ! function_exists( 'wponion_register_ui_field' ) ) {
 	 * Registers A Field With Field Type Registry Class.
 	 *
 	 * @param string $field_type
-	 * @param string $callback
 	 * @param array  $supports
 	 * @param array  $args
 	 *

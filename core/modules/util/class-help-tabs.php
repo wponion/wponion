@@ -119,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		 * @param $id
 		 * @param $page
 		 *
-		 * @return bool|null|string
+		 * @return bool|string
 		 */
 		public function get_page_id( $id, $page ) {
 			if ( isset( $page['page'] ) ) {
