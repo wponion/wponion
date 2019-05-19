@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "WPOnion Simple & Light Weight Framework For WordPress.",
   "main": "",
-  "scripts": {},
+  "scripts": {
+    "makepot": "wp-cli i18n make-pot . i18n/wponion.pot "
+  },
   "keywords": [
     "wordpress",
     "wordpress-plugin",
