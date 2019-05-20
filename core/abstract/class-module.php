@@ -301,7 +301,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param $errors
 		 */
 		protected function init_error_registry( $errors ) {
-			$instance = wponion_registry( $this->module() . '_' . $this->unique(), '\WPOnion\Registry\Field_Error' );
+			$instance = wponion_registry( $this->module() . '_' . $this->unique() . '_errors', '\WPOnion\Registry\Field_Error' );
 			$instance->set( $errors );
 		}
 
@@ -670,7 +670,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @param $field
 		 */
-		private function get_fields_defaults_value( $field ) {
+		protected function get_fields_defaults_value( $field ) {
 			if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 				return;
 			}
@@ -687,10 +687,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 
 		/**
 		 * Unsets Global Args.
-		 *
-		 * @todo Change Function Name.
 		 */
-		protected function __unset_globals() {
+		protected function _unset_globals() {
 			unset( $this->current_theme );
 			unset( $this->fields_md5 );
 			unset( $this->menus );
