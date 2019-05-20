@@ -16,7 +16,6 @@ namespace WPOnion\Modules\Widgets;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Dashboard_Widgets_Save_Handler;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
