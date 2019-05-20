@@ -17,6 +17,7 @@ namespace WPOnion\Modules\Widgets;
 use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Dashboard_Widgets_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -159,15 +160,13 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 			if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST[ $this->unique() ] ) ) {
 				$this->get_db_values();
 				$this->get_cache();
-				$instance = new Dashboard_Widgets_Save_Handler();
-				$instance->init_class( array(
-					'module'    => 'dashboard_widgets',
+				$instance = new Data_Validator_Sanitizer( array(
+					'module'    => &$this,
 					'unique'    => $this->unique(),
 					'fields'    => $this->fields,
 					'db_values' => $this->get_db_values(),
-					'args'      => array( 'settings' => &$this ),
-				) )
-					->run();
+				) );
+				$instance->run();
 
 				$this->options_cache['field_errors'] = $instance->get_errors();
 				$this->set_cache( $this->options_cache );
