@@ -16,7 +16,7 @@ namespace WPOnion\Modules;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\User_Profile_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -86,6 +86,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$metabox['get_cache']     = array( $this, 'get_db_cache' );
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
+				$metabox['module']        = $this->module();
 				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
 			}
 		}
@@ -231,26 +232,21 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function save( $user_id ) {
 			$this->user_id = $user_id;
-			if ( false !== $this->option( 'metabox' ) ) {
-				$this->metabox_instance->save_metabox( $user_id );
-			} else {
-				if ( isset( $_POST[ $this->unique ] ) ) {
-					$this->get_db_values();
-					$this->get_cache();
-					$instance = new User_Profile_Save_Handler();
-					$instance->init_class( array(
-						'module'    => 'user_profile',
-						'unique'    => $this->unique,
-						'fields'    => $this->fields,
-						'db_values' => $this->get_db_values(),
-						'args'      => array( 'settings' => &$this ),
-					) )
-						->run();
 
-					$this->options_cache['field_errors'] = $instance->get_errors();
-					$this->set_cache( $this->options_cache );
-					$this->set_db_values( $instance->get_values() );
-				}
+			if ( isset( $_POST[ $this->unique ] ) ) {
+				$this->get_db_values();
+				$this->get_cache();
+				$instance = new Data_Validator_Sanitizer( array(
+					'module'    => &$this,
+					'unique'    => $this->unique,
+					'fields'    => $this->fields,
+					'db_values' => $this->get_db_values(),
+				) );
+				$instance->run();
+
+				$this->options_cache['field_errors'] = $instance->get_errors();
+				$this->set_cache( $this->options_cache );
+				$this->set_db_values( $instance->get_values() );
 			}
 		}
 	}
