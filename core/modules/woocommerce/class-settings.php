@@ -16,6 +16,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 	 * @package WPOnion\Modules\WooCommerce
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
+	 * @todo Rework a bit
 	 */
 	class Settings extends Module {
 		/**

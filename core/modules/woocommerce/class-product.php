@@ -72,6 +72,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
+			$this->module_db = 'postmeta';
 			$this->init();
 		}
 
@@ -521,9 +522,9 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			) );
 			$instance->run( $is_var );
 			$values = $instance->get_values();
-			$this->save_db_values( $values );
+			$this->set_db_values( $values );
 			$this->options_cache['field_errors'] = $instance->get_errors();
-			$this->set_cache( $this->options_cache );
+			$this->set_db_cache( $this->options_cache );
 		}
 
 		/**
@@ -556,36 +557,11 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 *
 		 * @param $post_id
 		 */
-		protected function set_post_id( $post_id ) {
-			$this->post_id = $post_id;
+		public function set_post_id( $post_id ) {
+			parent::set_post_id( $post_id );
 			$this->get_db_values();
 			$this->options_cache = false;
 			$this->get_cache();
-		}
-
-		/**
-		 * Retrives Stored DB Values.
-		 *
-		 * @return array|mixed
-		 */
-		public function get_db_values() {
-			if ( ! isset( $this->db_values[ $this->post_id ] ) ) {
-				$this->db_values[ $this->post_id ] = get_post_meta( $this->post_id, $this->unique, true );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values[ $this->post_id ];
-		}
-
-		/**
-		 * UPDates DB Values.
-		 *
-		 * @param $value
-		 */
-		protected function save_db_values( $value ) {
-			$this->db_values[ $this->post_id ] = $value;
-			update_post_meta( $this->post_id, $this->unique, $value );
 		}
 
 		/**
@@ -594,27 +570,9 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			return 'wponion_' . wponion_hash_string( $this->post_id . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
+			return 'wponion_' . wponion_hash_string( $this->post_id() . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
 		}
 
-		/**
-		 * Stores Cache Data.
-		 *
-		 * @param array $data
-		 */
-		public function set_cache( $data = array() ) {
-			$data['wponion_version'] = WPONION_DB_VERSION;
-			update_post_meta( $this->post_id, $this->get_cache_id(), $data );
-			$this->options_cache = $data;
-		}
 
-		/**
-		 * Retrives Stored DB Cache.
-		 *
-		 * @return mixed
-		 */
-		protected function get_db_cache() {
-			return get_post_meta( $this->post_id, $this->get_cache_id(), true );
-		}
 	}
 }

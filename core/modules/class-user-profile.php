@@ -60,6 +60,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
+			$this->module_db = 'user_profile';
 			$this->init();
 		}
 
@@ -142,7 +143,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 			if ( ! empty( $default ) ) {
 				$this->set_db_values( $this->db_values );
 			}
-			$this->set_cache( $this->options_cache );
+			$this->set_db_cache( $this->options_cache );
 		}
 
 		/**
@@ -181,53 +182,6 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		}
 
 		/**
-		 * Returns DB Values.
-		 *
-		 * @return array|mixed
-		 */
-		public function get_db_values() {
-			if ( empty( $this->db_values ) ) {
-				$this->db_values = get_user_meta( $this->user_id, $this->unique(), true );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
-		}
-
-		/**
-		 * Returns DB Cache
-		 *
-		 * @return mixed
-		 */
-		public function get_db_cache() {
-			return get_user_meta( $this->user_id, $this->get_cache_id(), true );
-		}
-
-		/**
-		 * Updates User Cache.
-		 *
-		 * @param array $data
-		 */
-		public function set_cache( $data = array() ) {
-			update_user_meta( $this->user_id, $this->get_cache_id(), $data );
-			$this->options_cache = $data;
-		}
-
-		/**
-		 * Updates User Meta.
-		 *
-		 * @param $values
-		 *
-		 * @return $this
-		 */
-		public function set_db_values( $values ) {
-			$this->db_values = $values;
-			update_user_meta( $this->user_id, $this->unique, $values );
-			return $this;
-		}
-
-		/**
 		 * @param $user_id
 		 */
 		public function save( $user_id ) {
@@ -245,7 +199,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$instance->run();
 
 				$this->options_cache['field_errors'] = $instance->get_errors();
-				$this->set_cache( $this->options_cache );
+				$this->set_db_cache( $this->options_cache );
 				$this->set_db_values( $instance->get_values() );
 			}
 		}

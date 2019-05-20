@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Module extends Bridge {
+	abstract class Module extends Module_DB {
 		/**
 		 * Stores Current template information.
 		 * current_theme
@@ -75,27 +75,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @var array
 		 */
 		protected $raw_fields = array();
-
-		/**
-		 * unique for database.
-		 *
-		 * @var string
-		 */
-		protected $unique = '';
-
-		/**
-		 * Stores Database Values.
-		 *
-		 * @var array
-		 */
-		protected $db_values = array();
-
-		/**
-		 * options_cache
-		 *
-		 * @var array
-		 */
-		protected $options_cache = false;
 
 		/**
 		 * @param $name
@@ -221,33 +200,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * Returns DB Slug.
-		 *
-		 * @return string
-		 */
-		public function unique() {
-			return $this->unique;
-		}
-
-		/**
-		 * Returns Unique Cache ID For each instance but only once.
-		 *
-		 * @return string
-		 */
-		protected function get_cache_id() {
-			return 'wponion_' . wponion_hash_string( $this->unique() . '_' . $this->module() ) . '_cache';
-		}
-
-		/**
-		 * Retrives Stored DB Cache.
-		 *
-		 * @return mixed
-		 */
-		protected function get_db_cache() {
-			return wponion_get_option( $this->get_cache_id(), array() );
-		}
-
-		/**
 		 * Reloads System Cache
 		 *
 		 * @return $this
@@ -286,7 +238,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 							wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'], true, false );
 						}
 						unset( $this->options_cache['field_errors'] );
-						$this->set_cache( $this->options_cache );
+						$this->set_db_cache( $this->options_cache );
 					}
 				}
 			}
@@ -303,41 +255,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function init_error_registry( $errors ) {
 			$instance = wponion_registry( sanitize_title( $this->module() . '_' . $this->unique() . '_errors' ), '\WPOnion\Registry\Field_Error' );
 			$instance->set( $errors );
-		}
-
-		/**
-		 * Saves Cache.
-		 *
-		 * @param array $data .
-		 */
-		protected function set_cache( $data = array() ) {
-			wponion_update_option( $this->get_cache_id(), $data );
-			$this->options_cache = $data;
-		}
-
-		/**
-		 * Returns Database Values of the settings.
-		 *
-		 * @return array|mixed
-		 */
-		protected function get_db_values() {
-			if ( empty( $this->db_values ) ) {
-				$this->db_values = get_option( $this->unique );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
-		}
-
-		/**
-		 * Updates Values To Database.
-		 *
-		 * @param array $values
-		 */
-		protected function set_db_values( $values ) {
-			$this->db_values = $values;
-			wponion_update_option( $this->unique(), $values );
 		}
 
 		/**

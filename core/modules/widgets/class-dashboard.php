@@ -60,6 +60,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		 */
 		public function __construct( array $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
+			$this->module_db = 'dashboard_widget';
 			$this->init();
 		}
 
@@ -124,7 +125,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 			if ( ! empty( $default ) ) {
 				$this->set_db_values( $this->db_values );
 			}
-			$this->set_cache( $this->options_cache );
+			$this->set_db_cache( $this->options_cache );
 		}
 
 		/**
@@ -168,7 +169,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 				$instance->run();
 
 				$this->options_cache['field_errors'] = $instance->get_errors();
-				$this->set_cache( $this->options_cache );
+				$this->set_db_cache( $this->options_cache );
 				$this->set_db_values( $instance->get_values() );
 				if ( ! empty( $instance->get_errors() ) ) {
 					wp_redirect( add_query_arg( 'wponion-save', 'error' ) );
@@ -178,34 +179,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 				$instance = $this->init_theme();
 				echo $instance->render_dashboard_widgets();
 			}
-		}
-
-		/**
-		 * Updates User Meta.
-		 *
-		 * @param $values
-		 *
-		 * @return $this
-		 */
-		public function set_db_values( $values ) {
-			$this->db_values = $values;
-			wponion_update_option( $this->unique(), $values );
-			return $this;
-		}
-
-		/**
-		 * Returns DB Values.
-		 *
-		 * @return array|mixed
-		 */
-		protected function get_db_values() {
-			if ( empty( $this->db_values ) ) {
-				$this->db_values = wponion_get_option( $this->unique(), true );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
 		}
 
 		/**

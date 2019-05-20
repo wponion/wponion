@@ -46,14 +46,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		protected $menus = array();
 
 		/**
-		 * Retrives Post ID.
-		 * post_id
-		 *
-		 * @var null
-		 */
-		protected $post_id = null;
-
-		/**
 		 * Stores Active Section and page names.
 		 * active_data
 		 *
@@ -69,6 +61,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
+			$this->module_db = 'postmeta';
 			$this->init();
 		}
 
@@ -223,8 +216,9 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 * @param $post
 		 */
 		public function render( $post ) {
-			$this->post_id = ( is_object( $post ) ) ? $post->ID : $post;
-			$instance      = $this->init_theme();
+			$post_id = ( is_object( $post ) ) ? $post->ID : $post;
+			$this->set_post_id( $post_id );
+			$instance = $this->init_theme();
 			$this->get_cache();
 			$this->get_db_values();
 			$instance->render_metabox();
@@ -251,64 +245,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 */
 		protected function get_cache_id() {
 			return 'wponion_' . wponion_hash_string( $this->metabox_id() . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
-		}
-
-		/**
-		 * Stores Cache Data.
-		 *
-		 * @param array $data
-		 */
-		public function set_cache( $data = array() ) {
-			$data['wponion_version'] = WPONION_DB_VERSION;
-			update_post_meta( $this->post_id, $this->get_cache_id(), $data );
-			$this->options_cache = $data;
-		}
-
-		/**
-		 * Retrives Stored DB Cache.
-		 *
-		 * @return mixed
-		 */
-		protected function get_db_cache() {
-			return get_post_meta( $this->post_id, $this->get_cache_id(), true );
-		}
-
-		/**
-		 * @param $post_id
-		 *
-		 * @return $this
-		 */
-		public function set_post_id( $post_id ) {
-			$this->post_id = $post_id;
-			return $this;
-		}
-
-		/**
-		 * Retrives Stored DB Values.
-		 *
-		 * @return array|mixed
-		 */
-		public function get_db_values() {
-			if ( empty( $this->db_values ) ) {
-				$this->db_values = get_post_meta( $this->post_id, $this->unique, true );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
-		}
-
-		/**
-		 * Stores Values into DB.
-		 *
-		 * @param $value
-		 *
-		 * @return $this
-		 */
-		protected function set_db_values( $value ) {
-			$this->db_values = $value;
-			update_post_meta( $this->post_id, $this->unique, $value );
-			return $this;
 		}
 
 		/**
@@ -407,10 +343,9 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 				$instance->run();
 
 				$this->options_cache['field_errors'] = $instance->get_errors();
-				$this->set_cache( $this->options_cache );
-				$this->options_cache = false;
+				$this->set_db_cache( $this->options_cache );
 				$this->set_db_values( $instance->get_values() );
-				$this->db_values = null;
+				$this->options_cache = false;
 			}
 		}
 	}

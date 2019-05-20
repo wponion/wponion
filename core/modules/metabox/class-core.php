@@ -87,11 +87,11 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 *
 		 * @return bool|false|mixed|string|void
 		 */
-		public function set_cache( $data = array() ) {
+		public function set_db_cache( $data = array() ) {
 			if ( false !== $this->option( 'set_cache' ) && wponion_is_callable( $this->option( 'set_cache' ) ) ) {
 				return wponion_callback( $this->option( 'set_cache' ), array( $data, $this->post_id ) );
 			}
-			return parent::set_cache( $data );
+			return parent::set_db_cache( $data );
 		}
 
 		/**
@@ -119,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 *
 		 * @return bool|false|mixed|string|\WPOnion\Modules\Metabox\Metabox
 		 */
-		protected function set_db_values( $value ) {
+		protected function set_db_values( $value = array() ) {
 			if ( false !== $this->option( 'set_db_values' ) && wponion_is_callable( $this->option( 'set_db_values' ) ) ) {
 				return wponion_callback( $this->option( 'set_db_values' ), array( $value, $this->post_id ) );
 			}

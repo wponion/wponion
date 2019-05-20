@@ -53,6 +53,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
+			$this->module_db = 'postmeta';
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 				$this->on_page_load();
 			} else {
@@ -84,16 +85,15 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 *
 		 * @param $menu_id
 		 * @param $menu_item_db_id
-		 * @param $menu_item_args
 		 */
-		public function save( $menu_id, $menu_item_db_id, $menu_item_args ) {
+		public function save( $menu_id, $menu_item_db_id ) {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 				return;
 			}
 
 			if ( isset( $_POST[ $this->unique ] ) ) {
-				$this->post_id = $menu_item_db_id;
-				$instance      = new Data_Validator_Sanitizer( array(
+				$this->set_post_id( $menu_item_db_id );
+				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique(),
 					'fields'    => $this->fields,
@@ -102,11 +102,10 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 
 				$instance->run();
 				$this->options_cache['field_errors'] = $instance->get_errors();
-				$this->set_cache( $this->options_cache );
+				$this->set_db_cache( $this->options_cache );
 				$this->set_db_values( $instance->get_values() );
-				$this->db_values = null;
+				$this->options_cache = false;
 			}
-
 		}
 
 		/**
@@ -120,64 +119,12 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 * Renders HTML.
 		 *
 		 * @param $item_id
-		 * @param $post
-		 * @param $depth
-		 * @param $args
-		 * @param $id
 		 */
-		public function render( $item_id, $post, $depth, $args, $id ) {
-			$this->post_id = $item_id;
+		public function render( $item_id ) {
+			$this->set_post_id( $item_id );
 			$this->get_cache();
 			$this->init_theme()
 				->render_nav_menu();
-		}
-
-		/**
-		 * Retrives Stored DB Values.
-		 *
-		 * @return array|mixed
-		 */
-		public function get_db_values() {
-			if ( empty( $this->db_values ) ) {
-				$this->db_values = get_post_meta( $this->post_id, $this->unique, true );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
-		}
-
-		/**
-		 * Stores Values into DB.
-		 *
-		 * @param $value
-		 *
-		 * @return $this
-		 */
-		protected function set_db_values( $value ) {
-			$this->db_values = $value;
-			update_post_meta( $this->post_id, $this->unique, $value );
-			return $this;
-		}
-
-		/**
-		 * Stores Cache Data.
-		 *
-		 * @param array $data
-		 */
-		public function set_cache( $data = array() ) {
-			$data['wponion_version'] = WPONION_DB_VERSION;
-			update_post_meta( $this->post_id, $this->get_cache_id(), $data );
-			$this->options_cache = $data;
-		}
-
-		/**
-		 * Retrives Stored DB Cache.
-		 *
-		 * @return mixed
-		 */
-		protected function get_db_cache() {
-			return get_post_meta( $this->post_id, $this->get_cache_id(), true );
 		}
 
 		/**
