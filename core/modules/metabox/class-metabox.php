@@ -16,7 +16,7 @@ namespace WPOnion\Modules\Metabox;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Metabox_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -225,6 +225,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		public function render( $post ) {
 			$this->post_id = ( is_object( $post ) ) ? $post->ID : $post;
 			$instance      = $this->init_theme();
+			$this->get_cache();
 			$this->get_db_values();
 			$instance->render_metabox();
 		}
@@ -397,18 +398,17 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		public function save_metabox( $post_id ) {
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->set_post_id( $post_id );
-				$instance = new Metabox_Save_Handler();
-				$instance->init_class( array(
-					'module'    => 'metabox',
+				$instance = new Data_Validator_Sanitizer( array(
+					'module'    => &$this,
 					'unique'    => $this->unique,
 					'fields'    => $this->fields,
 					'db_values' => $this->get_db_values(),
-					'args'      => array( 'settings' => &$this ),
-				) )
-					->run();
+				) );
+				$instance->run();
 
 				$this->options_cache['field_errors'] = $instance->get_errors();
 				$this->set_cache( $this->options_cache );
+				$this->options_cache = false;
 				$this->set_db_values( $instance->get_values() );
 				$this->db_values = null;
 			}
