@@ -112,17 +112,33 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					if ( ! wponion_valid_field( $field ) ) {
 						continue;
 					}
+					$this->handle_single_field( $field );
+				}
+			}
+		}
 
-					$field['error_id'] = $this->unique . '/' . wponion_field_id( $field );
-					$user_val          = $this->user_options( $field );
-					$db_val            = $this->db_options( $field );
-					$this->save_value( $this->handle_field( $field, $user_val, $db_val ), $field );
+		/**
+		 * Handles Single Field Loop.
+		 *
+		 * @param $field
+		 */
+		protected function handle_single_field( $field ) {
+			$field['error_id'] = $this->unique . '/' . wponion_field_id( $field );
+			$user_val          = $this->user_options( $field );
+			$db_val            = $this->db_options( $field );
+			$this->save_value( $this->handle_field( $field, $user_val, $db_val ), $field );
+			$this->go_nested( $field );
+		}
 
-					if ( ! in_array( $field['type'], array( 'group' ), true ) ) {
-						if ( isset( $field['fields'] ) ) {
-							$this->nested_field_loop( $field );
-						}
-					}
+		/**
+		 * Diggs Deep Into Nested Fields.
+		 *
+		 * @param $field
+		 */
+		protected function go_nested( $field ) {
+			if ( ! in_array( $field['type'], array( 'group' ), true ) ) {
+				if ( isset( $field['fields'] ) ) {
+					$this->nested_field_loop( $field );
 				}
 			}
 		}
@@ -155,11 +171,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					$value                     = $this->handle_field( $_field, $_user_val, $_db_val );
 					$user_val[ $_field['id'] ] = $value;
 					$this->save_value( $user_val, $parent_field );
-					if ( ! in_array( $_field['type'], array( 'group' ), true ) ) {
-						if ( isset( $_field['fields'] ) ) {
-							$this->nested_field_loop( $_field );
-						}
-					}
+					$this->go_nested( $_field );
 				}
 			}
 		}

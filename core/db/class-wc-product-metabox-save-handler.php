@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
+if ( ! class_exists( '\WPOnion\DB\WC_Product_Metabox_Save_Handler' ) ) {
 	/**
 	 * Class Save_Handler
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WooCommerce_Save_Handler extends Save_Handler {
+	class WC_Product_Metabox_Save_Handler extends Data_Validator_Sanitizer {
 		/**
 		 * is_variation
 		 *
@@ -40,20 +40,18 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 		 * @param $section
 		 */
 		protected function field_loop( $section ) {
-			$fields = ( wponion_is_builder( $section, 'container' ) ) ? $section->fields() : $section['fields'];
+			$module = $this->module();
+			$fields = ( wponion_is_builder( $section, 'container' ) || wponion_is_builder( $section, 'builder' ) ) ? $section->fields() : $section['fields'];
 			foreach ( $fields as $field ) {
-				if ( 'only' === $this->args['settings']->is_variation( $field ) && false === $this->is_variation ) {
+				if ( 'only' === $module->is_variation( $field ) && false === $this->is_variation ) {
 					continue;
 				}
 				if ( wponion_valid_field( $field ) && false === wponion_valid_user_input_field( $field ) ) {
 					continue;
 				}
 
-				$field['error_id'] = sanitize_key( $this->unique . $field['id'] );
-				$this->save_value( $this->handle_field( $field, $this->user_options( $field ), $this->db_options( $field ) ), $field );
-				if ( isset( $field['fields'] ) ) {
-					$this->nested_field_loop( $field );
-				}
+				$this->handle_single_field( $field );
+				$this->go_nested( $field );
 			}
 		}
 
@@ -64,17 +62,19 @@ if ( ! class_exists( '\WPOnion\DB\WooCommerce_Save_Handler' ) ) {
 		 */
 		public function run( $is_variation = false ) {
 			$this->is_variation = $is_variation;
-
+			$module             = $this->module();
 			if ( false === $is_variation ) {
 				foreach ( $this->fields->get() as $page ) {
-					if ( 'only' === $this->args['settings']->is_variation( $page ) && false === $this->is_variation ) {
+					if ( 'only' === $module->is_variation( $page ) && false === $this->is_variation ) {
 						continue;
 					}
 					$this->field_loop( $page );
 				}
 			} else {
 				foreach ( $this->fields as $field ) {
-					$this->field_loop( array( 'fields' => $field ) );
+					$builder = wponion_builder();
+					$builder->set_fields( $field );
+					$this->field_loop( $builder );
 				}
 			}
 		}

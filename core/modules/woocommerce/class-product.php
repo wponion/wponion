@@ -4,7 +4,8 @@ namespace WPOnion\Modules\WooCommerce;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\WooCommerce_Save_Handler;
+use WPOnion\DB\WC_Product_Metabox_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -250,6 +251,10 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			$wrap_class = $this->wrap_class( wponion_html_class( $extra_wrap_class, array( 'wponion-wc-metabox-fields' ) ) );
 			echo '<div class="' . $wrap_class . '"><div class="row">';
 			foreach ( $fields as $field ) {
+				$is_var = $this->is_variation( $field );
+				if ( 'only' === $is_var && false === $this->variation_id ) {
+					continue;
+				}
 				$field = $this->parse_args( $field, array( 'wrap_class' => array() ) );
 				if ( ! wponion_is_array( $field['wrap_class'] ) ) {
 					$field['wrap_class'] = array( $field['wrap_class'] );
@@ -511,20 +516,20 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			if ( false === $this->variation_id ) {
 				$this->set_post_id( $product->get_id() );
 			}
-			$instance = new WooCommerce_Save_Handler();
-			$instance->init_class( array(
-				'module'      => $this->module(),
-				'unique'      => $this->unique,
-				'fields'      => $fields,
-				'user_values' => $values,
-				'db_values'   => $this->get_db_values(),
-				'args'        => array( 'settings' => &$this ),
+			$instance = new WC_Product_Metabox_Save_Handler( array(
+				'module'        => &$this,
+				'unique'        => $this->unique(),
+				'fields'        => $fields,
+				'posted_values' => $values,
+				'db_values'     => $this->get_db_values(),
 			) );
+
 			$instance->run( $is_var );
 			$values = $instance->get_values();
 			$this->set_db_values( $values );
 			$this->options_cache['field_errors'] = $instance->get_errors();
 			$this->set_db_cache( $this->options_cache );
+			$this->options_cache = false;
 		}
 
 		/**
@@ -572,7 +577,5 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		protected function get_cache_id() {
 			return 'wponion_' . wponion_hash_string( $this->post_id() . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
 		}
-
-
 	}
 }
