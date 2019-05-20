@@ -132,9 +132,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
-		 * @param $ins \WPOnion\Modules\Admin_Page
+		 * Registers Admin Menu.
 		 */
-		public function register_admin_menu( $ins ) {
+		public function register_admin_menu() {
 			if ( isset( $this->settings['menu'] ) ) {
 				$menu     = $this->option( 'menu' );
 				$callback = array( &$this, 'render' );
@@ -184,17 +184,14 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function save_validate( $request ) {
 			$this->get_cache();
 			$this->find_active_menu();
-			$instance = new Settings_Save_Handler();
-
-			$instance->init_class( array(
-				'module'      => 'settings',
-				'unique'      => $this->unique,
-				'fields'      => $this->fields,
-				'user_values' => $request,
-				'db_values'   => $this->get_db_values(),
-				'args'        => array( 'settings' => &$this ),
-			) )
-				->run();
+			$instance = new Settings_Save_Handler( array(
+				'module'        => &$this,
+				'unique'        => $this->unique(),
+				'fields'        => $this->fields,
+				'posted_values' => $request,
+				'db_values'     => $this->get_db_values(),
+			) );
+			$instance->run();
 
 			$this->options_cache['container_id']     = isset( $_POST['container-id'] ) ? sanitize_text_field( $_POST['container-id'] ) : null;
 			$this->options_cache['sub_container_id'] = isset( $_POST['sub-container-id'] ) ? sanitize_text_field( $_POST['sub-container-id'] ) : null;
