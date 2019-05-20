@@ -26,17 +26,17 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Settings_Save_Handler extends Save_Handler {
+	class Settings_Save_Handler extends Data_Validator_Sanitizer {
 		/**
 		 * Runs custom loop to work with Settings fields array.
 		 */
 		public function run() {
 			/**
 			 * @var \WPOnion\Modules\Settings\Settings $settings
-			 * @var \WPO\Container            $container
-			 * @var \WPO\Container            $sub_container
+			 * @var \WPO\Container                     $container
+			 * @var \WPO\Container                     $sub_container
 			 */
-			$settings = $this->args['settings'];
+			$settings = $this->module();
 
 			if ( $this->fields->has_fields() ) {
 				$this->field_loop( $this->fields );
@@ -66,6 +66,21 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 					$this->return_values = $this->array_merge( $this->return_values, $this->db_values );
 				}
 			}
+		}
+
+		/**
+		 * @param array $new_values
+		 * @param array $old_values
+		 *
+		 * @return array
+		 */
+		public function array_merge( $new_values = array(), $old_values = array() ) {
+			foreach ( $old_values as $key => $value ) {
+				if ( ! isset( $new_values[ $key ] ) ) {
+					$new_values[ $key ] = $old_values[ $key ];
+				}
+			}
+			return $new_values;
 		}
 	}
 }
