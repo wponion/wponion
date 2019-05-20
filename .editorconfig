@@ -8,7 +8,7 @@ root = true
 
 [*]
 charset = utf-8
-end_of_line = lf
+end_of_line = crlf
 indent_size = 4
 tab_width = 4
 indent_style = tab
@@ -18,7 +18,7 @@ trim_trailing_whitespace = true
 [*.txt]
 trim_trailing_whitespace = false
 
-[*.{md,json,yml}]
+[*.{md, json, yml}]
 trim_trailing_whitespace = false
 indent_style = space
 indent_size = 2
