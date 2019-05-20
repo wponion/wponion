@@ -301,7 +301,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param $errors
 		 */
 		protected function init_error_registry( $errors ) {
-			$instance = wponion_registry( $this->module() . '_' . $this->unique() . '_errors', '\WPOnion\Registry\Field_Error' );
+			$instance = wponion_registry( sanitize_title( $this->module() . '_' . $this->unique() . '_errors' ), '\WPOnion\Registry\Field_Error' );
 			$instance->set( $errors );
 		}
 
@@ -583,6 +583,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
 				'module' => $this->module(),
 				'unique' => $this->unique(),
+				'base'   => $this->unique(),
 				'hash'   => $hash,
 			) );
 		}

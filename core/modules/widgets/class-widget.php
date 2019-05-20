@@ -17,7 +17,7 @@ namespace WPOnion\Modules\Widgets;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Widgets_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 		protected $module = 'widget';
 
 		/**
-		 * @var bool
+		 * @var bool|array
 		 * @access protected
 		 */
 		protected $errors = false;
@@ -92,17 +92,19 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 		 * @return array
 		 */
 		public function save( $old_values, $new_values, $unique ) {
-			$instance = new Widgets_Save_Handler();
-			$instance->init_class( array(
-				'module'      => 'dashboard_widgets',
-				'user_values' => $new_values,
-				'unique'      => $unique,
-				'fields'      => $this->fields,
-				'db_values'   => $old_values,
-				'args'        => array( 'settings' => &$this ),
-			) )
-				->run();
-			$this->errors = $instance->get_errors();
+			$instance = new Data_Validator_Sanitizer( array(
+				'module'        => &$this,
+				'posted_values' => $new_values,
+				'unique'        => $unique,
+				'fields'        => $this->fields,
+				'db_values'     => $old_values,
+			) );
+
+			$instance->run();
+			$errors       = $instance->get_errors();
+			$errors       = ( isset( $errors[ $unique ] ) ) ? $errors[ $unique ] : $errors;
+			$id           = str_replace( array( '[', ']' ), array( '/', '' ), $unique );
+			$this->errors = \WPonion\Helper::array_key_set( $id, $errors, $this->errors );
 			return $instance->get_values();
 		}
 
