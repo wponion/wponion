@@ -579,14 +579,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function get_errors() {
 			if ( null === $this->errors ) {
-				$error_instance = wponion_registry( $this->module() . '_' . $this->unique(), '\WPOnion\Registry\Field_Error' );
-
+				$this->errors   = false;
+				$error_instance = wponion_registry( $this->module() . '_' . $this->base_unique() . '_errors', '\WPOnion\Registry\Field_Error' );
 				if ( $error_instance ) {
-					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
-					$this->errors = $error_instance->get( $field_id );
+					$id           = str_replace( array( '[', ']' ), array( '/', '' ), $this->name() );
+					$this->errors = $error_instance->get( $id );
 					$this->debug( __( 'Field Errors', 'wponion' ), $this->errors );
-				} else {
-					$this->errors = false;
 				}
 			}
 			return $this->errors;
