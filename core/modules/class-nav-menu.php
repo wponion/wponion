@@ -14,9 +14,10 @@
  */
 
 namespace WPOnion\Modules;
+
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Nav_Menu_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -92,15 +93,14 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->post_id = $menu_item_db_id;
-				$instance      = new Nav_Menu_Save_Handler();
-				$instance->init_class( array(
-					'module'    => 'metabox',
-					'unique'    => $this->unique,
+				$instance      = new Data_Validator_Sanitizer( array(
+					'module'    => &$this,
+					'unique'    => $this->unique(),
 					'fields'    => $this->fields,
 					'db_values' => $this->get_db_values(),
-					'args'      => array( 'settings' => &$this ),
-				) )
-					->run();
+				) );
+
+				$instance->run();
 				$this->options_cache['field_errors'] = $instance->get_errors();
 				$this->set_cache( $this->options_cache );
 				$this->set_db_values( $instance->get_values() );
@@ -127,6 +127,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public function render( $item_id, $post, $depth, $args, $id ) {
 			$this->post_id = $item_id;
+			$this->get_cache();
 			$this->init_theme()
 				->render_nav_menu();
 		}
