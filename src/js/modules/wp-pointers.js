@@ -16,11 +16,6 @@ export default ( ( window, $ ) => {
 		}
 	};
 
-	window.wponion_wp_pointer_create = () => {
-
-	};
-
-
 	$( window ).on( 'load', () => {
 		let $pointers_group = $wponion.windowArgs( 'wp_pointers', false );
 
@@ -36,8 +31,6 @@ export default ( ( window, $ ) => {
 					}
 
 					let $pointer = $pointers_group[ $group_id ][ $pointer_key ];
-
-
 					$( $pointer.selector ).WPOnion_onAvailable( () => {
 						if( !$pointer.show ) {
 							$pointer.show = 'open';
@@ -110,7 +103,6 @@ export default ( ( window, $ ) => {
 					for( let $pid in $pointers_group[ $id ] ) {
 						if( $pointers_group[ $id ].hasOwnProperty( $pid ) ) {
 							let $pointer = $pointers_group[ $id ][ $pid ];
-
 							if( $pointers_group[ $id ][ $pointer.next ] ) {
 								//	jQuery( $pointers_group[ $id ][ $pointer.next ].selector ).pointer( 'close' );
 							}

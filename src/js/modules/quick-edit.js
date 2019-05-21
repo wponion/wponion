@@ -17,7 +17,6 @@ class WPOnion_Quick_Edit extends WPOnion_Module {
 			this.values.html = jQuery( this.values.html );
 			this.element.parent().html( this.values.html.find( '> div' ) );
 		}
-
 		window.wponion_field( this.element ).reload();
 	}
 }

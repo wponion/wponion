@@ -60,36 +60,8 @@ class WPOnion_Guttenberg {
 		}
 
 		let selector = 'form[data-block-id="' + block_id + '"]';
-
-		if( jQuery( selector ).length < 1 ) {
-		}
-
-
-		/*if( $( selector ).length < 1 ) {
-			$( document ).on( 'acb_save_fields', function() {
-				var tryUpdate = function() {
-					if( block.isSelected || $( selector ).is( ':hover' ) ) {
-						clearTimeout( block.updateTimeout );
-						block.updateTimeout = setTimeout( tryUpdate, 500 );
-						return;
-					}
-
-					block.setAttributes( {
-						acf_fields: acf.serialize( $( selector ) )[ 'acf' ],
-					} );
-				};
-
-				setTimeout( tryUpdate, 250 );
-			} );
-		}*/
-		// setTimeout(function () {
-		//   acf.do_action('ready', $('[data-block-id="' + block_id + '"]'));
-		// }, 500);
-
 		children.push( $remote );
-
 		return el( 'div', { className: 'wponion-block-group-wrapper' }, children );
-
 	}
 }
 
