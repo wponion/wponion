@@ -2,6 +2,8 @@
 
 namespace WPO\Helper\Field;
 
+use WPOnion\Registry\Field_Types;
+
 if ( ! trait_exists( 'Types' ) ) {
 	/**
 	 * Trait Types
@@ -9,656 +11,105 @@ if ( ! trait_exists( 'Types' ) ) {
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
+	 *
+	 * @method \WPO\Fields\Accordion accordion( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Background background( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Backup backup( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Button button( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Button_Set button_set( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Card Card( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\change_log change_log( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\checkbox checkbox( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\color_group color_group( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\color_palette color_palette( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\color_picker color_picker( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\content content( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\date_picker date_picker( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\dimensions dimensions( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\fieldset fieldset( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\font_picker font_picker( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\gallery gallery( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\google_maps google_maps( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\group group( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\heading heading( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\hidden hidden( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\icon_picker icon_picker( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\iframe iframe( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\image image( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\input_group input_group( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\jambo_content jambo_content( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\image_select image_select( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\key_value key_value( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\link_color link_color( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\notice notice( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\oembed oembed( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\radio radio( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\select select( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\sorter sorter( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\spacing spacing( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\subheading subheading( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\switcher switcher( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\tab tab( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\textarea textarea( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\text text( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\typography typography( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\upload upload( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\wp_editor wp_editor( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\wp_link wp_link( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\wp_notice wp_notice( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\divider divider( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Notice notice_danger( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Notice notice_dark( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Notice notice_info( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Notice notice_light( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Notice notice_primary( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Notice notice_secondary( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Notice notice_success( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Notice notice_warning( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\WP_Notice wp_notice_error( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\WP_Notice wp_notice_info( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\WP_Notice wp_notice_success( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\WP_Notice wp_notice_warning( $id = false, $title = false, $args = array() )
 	 */
 	trait Types {
 		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
+		 * @param $name
+		 * @param $arguments
 		 *
-		 * @return \WPO\Fields\Accordion
+		 * @return bool|\WPO\Field
 		 */
-		public function accordion( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'accordion', $id, $title, $args );
-		}
+		public function __call( $name, $arguments ) {
+			if ( in_array( $name, array_keys( Field_Types::$all_fields ), true ) ) {
+				$arg      = array_merge( array( $name ), $arguments );
+				$instance = wponion_callback( array( $this, 'field' ), $arg );
 
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Background
-		 */
-		public function background( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'background', $id, $title, $args );
-		}
+				switch ( $name ) {
+					case 'notice_danger':
+					case 'notice_dark':
+					case 'notice_info':
+					case 'notice_light':
+					case 'notice_primary':
+					case 'notice_secondary':
+					case 'notice_success':
+					case 'notice_warning':
+						$instance->notice_type( $name );
+						break;
+					case 'wp_notice_error':
+						$instance->notice_type( 'error' );
+						break;
+					case 'wp_notice_info':
+						$instance->notice_type( 'info' );
+						break;
+					case 'wp_notice_success':
+						$instance->notice_type( 'success' );
+						break;
+					case 'wp_notice_warning':
+						$instance->notice_type( 'warning' );
+						break;
+				}
 
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Backup
-		 */
-		public function backup( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'backup', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Button
-		 */
-		public function button( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'button', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Button_Set
-		 */
-		public function button_set( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'button_set', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Card
-		 */
-		public function card( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'card', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Change_Log
-		 */
-		public function change_log( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'change_log', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Checkbox
-		 */
-		public function checkbox( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'checkbox', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Color_Group
-		 */
-		public function color_group( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'color_group', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Color_Palette
-		 */
-		public function color_palette( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'color_palette', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Color_Picker
-		 */
-		public function color_picker( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'color_picker', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Content
-		 */
-		public function content( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'content', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Date_Picker
-		 */
-		public function date_picker( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'date_picker', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Dimensions
-		 */
-		public function dimensions( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'dimensions', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return $this
-		 */
-		public function fieldset( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'fieldset', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Font_Picker
-		 */
-		public function font_picker( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'font_picker', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Gallery
-		 */
-		public function gallery( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'gallery', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Google_Maps
-		 */
-		public function google_maps( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'google_maps', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Group
-		 */
-		public function group( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'group', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Heading
-		 */
-		public function heading( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'heading', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Hidden
-		 */
-		public function hidden( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'hidden', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Icon_Picker
-		 */
-		public function icon_picker( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'icon_picker', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Iframe
-		 */
-		public function iframe( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'iframe', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Image
-		 */
-		public function image( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'image', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Image_Select
-		 */
-		public function image_select( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'image_select', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Input_Group
-		 */
-		public function input_group( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'input_group', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Jambo_Content
-		 */
-		public function jambo_content( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'jambo_content', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Key_Value
-		 */
-		public function key_value( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'key_value', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Link_Color
-		 */
-		public function link_color( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'link_color', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice_danger( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_danger', $id, $title, $args )
-				->notice_type( 'notice_danger' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice_dark( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_dark', $id, $title, $args )
-				->notice_type( 'notice_dark' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice_info( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_info', $id, $title, $args )
-				->notice_type( 'notice_info' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice_light( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_light', $id, $title, $args )
-				->notice_type( 'notice_light' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice_primary( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_primary', $id, $title, $args )
-				->notice_type( 'notice_primary' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice_secondary( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_secondary', $id, $title, $args )
-				->notice_type( 'notice_secondary' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice_success( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_success', $id, $title, $args )
-				->notice_type( 'notice_success' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Notice
-		 */
-		public function notice_warning( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'notice_warning', $id, $title, $args )
-				->notice_type( 'notice_warning' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\OEmbed
-		 */
-		public function oembed( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'oembed', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Radio
-		 */
-		public function radio( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'radio', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Select
-		 */
-		public function select( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'select', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Sorter
-		 */
-		public function sorter( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'sorter', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Spacing
-		 */
-		public function spacing( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'spacing', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Subheading
-		 */
-		public function subheading( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'subheading', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Switcher
-		 */
-		public function switcher( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'switcher', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Tab
-		 */
-		public function tab( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'tab', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Text
-		 */
-		public function text( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'text', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Textarea
-		 */
-		public function textarea( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'textarea', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Typography
-		 */
-		public function typography( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'typography', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Upload
-		 */
-		public function upload( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'upload', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\WP_Editor
-		 */
-		public function wp_editor( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_editor', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\WP_Link
-		 */
-		public function wp_link( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_link', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\WP_Notice
-		 */
-		public function wp_notice( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice', $id, $title, $args );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\WP_Notice
-		 */
-		public function wp_notice_error( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_error', $id, $title, $args )
-				->notice_type( 'error' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\WP_Notice
-		 */
-		public function wp_notice_info( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_info', $id, $title, $args )
-				->notice_type( 'info' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\WP_Notice
-		 */
-		public function wp_notice_success( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_success', $id, $title, $args )
-				->notice_type( 'success' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\WP_Notice
-		 */
-		public function wp_notice_warning( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'wp_notice_warning', $id, $title, $args )
-				->notice_type( 'warning' );
-		}
-
-		/**
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 *
-		 * @return \WPO\Fields\Divider
-		 */
-		public function divider( $id = false, $title = false, $args = array() ) {
-			return $this->field( 'divider', $id, $title, $args );
+				return $instance;
+			}
 		}
 	}
 }
