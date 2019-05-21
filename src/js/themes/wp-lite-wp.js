@@ -5,7 +5,11 @@ class WP {
 			this.settings_menu_handler();
 			this.settings_init_search_input();
 		}
-		if( this.element.hasClass( 'wponion-metabox' ) && ( this.element.hasClass( 'wponion-wp-theme' ) && this.element.hasClass( 'wponion-wc-theme' ) ) ) {
+		if( this.element.hasClass( 'wponion-metabox' ) && this.element.hasClass( 'wponion-wp-theme' ) ) {
+			this.metabox_menu_handler();
+		}
+
+		if( this.element.hasClass( 'wponion-metabox' ) && this.element.hasClass( 'wponion-wc-theme' ) ) {
 			this.metabox_menu_handler();
 		}
 	}
@@ -36,7 +40,7 @@ class WP {
 					if( this.element.hasClass( 'wponion-wc-theme' ) ) {
 						this.element.find( 'nav a.wpo-tab-active' ).removeClass( 'wpo-tab-active' );
 						$elem.addClass( 'wpo-tab-active' );
-					}else{
+					} else {
 						this.element.find( 'nav.nav-tab-wrapper a.nav-tab-active' ).removeClass( 'nav-tab-active' );
 						$elem.addClass( 'nav-tab-active' );
 					}
