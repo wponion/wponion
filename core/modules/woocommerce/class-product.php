@@ -575,7 +575,8 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			return 'wponion_' . wponion_hash_string( $this->post_id() . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
+			//return 'wponion_' . wponion_hash_string( $this->post_id() . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
+			return $this->post_id() . '_' . $this->unique() . '_' . $this->module();
 		}
 	}
 }
