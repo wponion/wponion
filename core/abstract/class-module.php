@@ -101,6 +101,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			$this->settings   = $this->set_args( $settings );
 			$this->unique     = ( isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
 			$this->save_instance();
+			parent::__construct();
 		}
 
 		/**
@@ -229,17 +230,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				$values              = $this->get_db_cache();
 				$this->options_cache = ( wponion_is_array( $values ) ) ? $values : array();
 
-				if ( false === isset( $this->options_cache['wponion_version'] ) || ! version_compare( $this->options_cache['wponion_version'], WPONION_DB_VERSION, '=' ) ) {
-					$this->options_cache = array();
-				} else {
-					if ( isset( $this->options_cache['field_errors'] ) ) {
-						$this->init_error_registry( $this->options_cache['field_errors'] );
-						if ( wponion_is_debug() ) {
-							wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'], true, false );
-						}
-						unset( $this->options_cache['field_errors'] );
-						$this->set_db_cache( $this->options_cache );
+				if ( isset( $this->options_cache['field_errors'] ) && ! empty( $this->options_cache['field_errors'] ) ) {
+					$this->init_error_registry( $this->options_cache['field_errors'] );
+					if ( wponion_is_debug() ) {
+						wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'], true, false );
 					}
+					unset( $this->options_cache['field_errors'] );
+					$this->set_db_cache( $this->options_cache );
 				}
 			}
 			return $this->options_cache;

@@ -205,10 +205,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Handles SettingUP Settings Defaults.
 		 */
 		public function force_set_defaults() {
-			$cache = $this->get_cache();
-			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
-				$this->set_defaults();
-			}
+			$this->get_cache();
+			$this->set_defaults();
 		}
 
 		/**
@@ -216,14 +214,11 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		protected function set_defaults() {
 			$this->get_db_values();
-			$this->options_cache['fuid']            = $this->fields_md5();
-			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
-			$default                                = array();
+			$default = array();
 
 			/**
 			 * @var $options \WPO\Container
 			 */
-
 			foreach ( $this->fields->get() as $options ) {
 				if ( $this->valid_field( $options ) ) {
 					$this->get_fields_defaults_value( $options );
@@ -250,7 +245,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( ! empty( $default ) ) {
 				$this->set_db_values( array() );
 			}
-			$this->set_db_cache( $this->options_cache );
 		}
 
 		/**

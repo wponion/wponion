@@ -244,8 +244,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			//return 'wponion_' . wponion_hash_string( $this->metabox_id() . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
-			return $this->metabox_id() . '_' . $this->unique() . '_' . $this->module();
+			return wponion_hash_string( $this->post_id() . '_' . $this->metabox_id() . '_' . $this->unique() . '_' . $this->module() );
 		}
 
 		/**

@@ -81,6 +81,15 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		}
 
 		/**
+		 * Returns Unique Cache ID For each instance but only once.
+		 *
+		 * @return string
+		 */
+		protected function get_cache_id() {
+			return wponion_hash_string( $this->post_id() . '_' . $this->module() . '_' . $this->unique() );
+		}
+
+		/**
 		 * Save Menu Custom Fields.
 		 *
 		 * @param $menu_id

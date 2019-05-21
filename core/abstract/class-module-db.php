@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Module_DB extends Bridge {
+	abstract class Module_DB extends Module_DB_Cache {
 		/**
 		 * unique for database.
 		 *
@@ -62,10 +62,29 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		protected $options_cache = false;
 
+		/**
+		 * Stores Current Post ID
+		 *
+		 * @var null
+		 * @access
+		 */
 		protected $post_id = null;
-		protected $term_id = false;
-		protected $user_id = false;
 
+		/**
+		 * Stores Current Term ID.
+		 *
+		 * @var bool
+		 * @access
+		 */
+		protected $term_id = false;
+
+		/**
+		 * Stores Current User ID.
+		 *
+		 * @var bool
+		 * @access
+		 */
+		protected $user_id = false;
 
 		/**
 		 * @return array|mixed|void
@@ -155,23 +174,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return bool|mixed
 		 */
 		protected function get_db_cache() {
-			switch ( $this->module_db ) {
-				case 'settings':
-				case 'network_settings':
-				case 'dashboard_widget':
-					return wponion_get_option( $this->get_cache_id(), array() );
-					break;
-				case 'postmeta':
-					return get_post_meta( $this->post_id(), $this->get_cache_id(), true );
-					break;
-				case 'taxonomy':
-					return wponion_get_term_meta( $this->term_id(), $this->get_cache_id() );
-					break;
-				case 'user_profile':
-					return get_user_meta( $this->user_id, $this->get_cache_id(), true );
-					break;
-			}
-			return false;
+			self::retrive_db_cache();
+			$cid = $this->get_cache_id();
+			return ( isset( self::$cache[ $cid ] ) && is_array( self::$cache[ $cid ] ) ) ? self::$cache[ $cid ] : array();
 		}
 
 		/**
@@ -180,28 +185,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return $this
 		 */
 		protected function set_db_cache( $values ) {
-			switch ( $this->module_db ) {
-				case 'settings':
-				case 'network_settings':
-				case 'dashboard_widget':
-					wponion_update_option( $this->get_cache_id(), $values );
-					$this->options_cache = $values;
-					break;
-				case 'postmeta':
-				case 'taxonomy':
-					$values['wponion_version'] = WPONION_DB_VERSION;
-					$this->options_cache       = $values;
-					if ( 'postmeta' === $this->module_db ) {
-						update_post_meta( $this->post_id(), $this->get_cache_id(), $values );
-					} else {
-						wponion_update_term_meta( $this->term_id(), $this->get_cache_id(), $values );
-					}
-					break;
-				case 'user_profile':
-					$this->options_cache = $values;
-					update_user_meta( $this->user_id(), $this->get_cache_id(), $values );
-					break;
-			}
+			$cid                 = $this->get_cache_id();
+			$values              = array_filter( $values );
+			$this->options_cache = $values;
+			self::$cache[ $cid ] = $values;
 			return $this;
 		}
 
@@ -220,7 +207,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			return 'wponion_' . wponion_hash_string( $this->unique() . '_' . $this->module() ) . '_cache';
+			return wponion_hash_string( $this->module() . '_' . $this->unique() );
 		}
 
 		/**
@@ -279,6 +266,5 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		public function term_id() {
 			return $this->term_id;
 		}
-
 	}
 }

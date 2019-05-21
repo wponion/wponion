@@ -93,10 +93,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		public function on_page_load() {
 			$this->init_theme();
 			$cache = $this->get_cache();
-
-			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
-				$this->set_defaults();
-			}
+			$this->set_defaults();
 		}
 
 		/**
@@ -104,9 +101,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		 */
 		public function set_defaults() {
 			$this->get_db_values();
-			$this->options_cache['fuid']            = $this->fields_md5();
-			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
-			$default                                = array();
+			$default = array();
 
 			foreach ( $this->fields->fields() as $field ) {
 				if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
@@ -125,7 +120,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 			if ( ! empty( $default ) ) {
 				$this->set_db_values( $this->db_values );
 			}
-			$this->set_db_cache( $this->options_cache );
 		}
 
 		/**

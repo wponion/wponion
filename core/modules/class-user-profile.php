@@ -136,14 +136,11 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function set_defaults() {
 			$this->get_db_values();
-			$this->options_cache['fuid']            = $this->fields_md5();
-			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
-			$default                                = array();
+			$default = array();
 			$this->get_defaults();
 			if ( ! empty( $default ) ) {
 				$this->set_db_values( $this->db_values );
 			}
-			$this->set_db_cache( $this->options_cache );
 		}
 
 		/**
@@ -165,9 +162,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		public function render( $user ) {
 			$this->user_id = ( is_object( $user ) ) ? $user->ID : $user;
 			$cache         = $this->get_cache();
-			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
-				$this->set_defaults();
-			}
+			$this->set_defaults();
 
 			if ( false !== $this->option( 'metabox' ) ) {
 				$screen = get_current_screen();
@@ -179,6 +174,15 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$instance = $this->init_theme();
 				$instance->render_user_profile();
 			}
+		}
+
+		/**
+		 * Returns Unique Cache ID For each instance but only once.
+		 *
+		 * @return string
+		 */
+		protected function get_cache_id() {
+			return wponion_hash_string( $this->user_id() . '_' . $this->module() . '_' . $this->unique() );
 		}
 
 		/**

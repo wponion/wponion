@@ -200,6 +200,15 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		}
 
 		/**
+		 * Returns Unique Cache ID For each instance but only once.
+		 *
+		 * @return string
+		 */
+		protected function get_cache_id() {
+			return wponion_hash_string( $this->term_id() . '_' . $this->module() . '_' . $this->unique() );
+		}
+
+		/**
 		 * Saves Taxonomy data.
 		 *
 		 * @param $term_id
