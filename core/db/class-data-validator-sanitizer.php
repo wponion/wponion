@@ -74,6 +74,12 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		protected $errors = array();
 
 		/**
+		 * @var array
+		 * @access
+		 */
+		protected $args = array();
+
+		/**
 		 * Data_Validator_Sanitizer constructor.
 		 *
 		 * @param $args
@@ -85,6 +91,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 				'fields'        => false,
 				'db_values'     => false,
 				'retain_value'  => false,
+				'args'          => false,
 				'posted_values' => false,
 			) );
 			$this->module        = $args['module'];
@@ -93,6 +100,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 			$this->retain_values = $args['retain_value'];
 			$this->posted_values = $args['posted_values'];
 			$this->db_values     = $args['db_values'];
+			$this->args          = $args['args'];
 
 			if ( false === $this->posted_values ) {
 				$this->posted_values = ( isset( $_POST[ $this->unique ] ) ) ? $_POST[ $this->unique ] : array();
