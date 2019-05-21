@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Beta : 0.0.10.3] - 21/05/2019
+## Added
+* Local POT File Generator -- For Development Use Only
+* Option to check if a string exists via javascript Dependency module
+* Option to check if a string empty via javascript Dependency module
+* Common Module Database Handler
+* Common Module Cache Handler
+
+## Fixed
+* Template Issues
+* WC Template Metabox Issue fixed
+
+## Updated
+* Resized All Layout Images
+* `wponion.pot` i18n
+* Javascript Dependency Rules Updated
+* Recoded Validation & Sanitizer Handler
+
 # [Beta : 0.0.10.2] - 19/05/2019
 ## Fixed
 * Pointer Module
@@ -351,6 +369,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.10.3]: https://github.com/wponion/wponion/releases/tag/0.0.10.3
 [Beta : 0.0.10.2]: https://github.com/wponion/wponion/releases/tag/0.0.10.2
 [Beta : 0.0.10.1]: https://github.com/wponion/wponion/releases/tag/0.0.10.1
 [Beta : 0.0.10]: https://github.com/wponion/wponion/releases/tag/0.0.10

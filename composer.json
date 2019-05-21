@@ -34,7 +34,8 @@
     "settings-api"
   ],
   "require"     : {
-    "varunsridharan/php-autoloader" : "^2.0"
+    "varunsridharan/php-autoloader" : "^2.0",
+    "varunsridharan/wp-dependencies"  : "^1.0"
   },
   "autoload"    : {
     "files" : [ "wponion.php" ]
