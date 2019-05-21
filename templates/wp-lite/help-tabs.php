@@ -1,3 +1,3 @@
 <?php
 
-require_once WPONION_PATH . 'templates/global/help-tabs.php';
+include WPONION_PATH . 'templates/global/help-tabs.php';

@@ -44,7 +44,7 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 		 * @param bool  $pointer_instance
 		 */
 		public function __construct( $selector = false, $title = false, $text = false, $args = array(), $pointer_instance = false ) {
-			$this->__unset_globals();
+			$this->_unset_globals();
 
 			$valid_selector         = ( ! wponion_is_array( $selector ) && false !== $selector );
 			$valid_title            = ( ! wponion_is_array( $title ) && false !== $title );

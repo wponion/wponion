@@ -16,7 +16,7 @@ namespace WPOnion\Modules;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Taxonomy_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -46,13 +46,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		public $is_new = false;
 
 		/**
-		 * Stores Current Term ID.
-		 *
-		 * @var bool
-		 */
-		public $term_id = false;
-
-		/**
 		 * metabox_instance
 		 *
 		 * @var \WPOnion\Modules\Metabox\metabox
@@ -67,6 +60,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
+			$this->module_db = 'taxonomy';
 			$this->init();
 		}
 
@@ -117,10 +111,11 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				$metabox['option_name']   = $this->unique();
 				$metabox['theme']         = $this->option( 'theme' );
 				$metabox['screens']       = $taxs;
-				$metabox['set_cache']     = array( $this, 'set_cache' );
+				$metabox['set_cache']     = array( $this, 'set_db_cache' );
 				$metabox['get_cache']     = array( $this, 'get_db_cache' );
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
+				$metabox['module']        = $this->module();
 				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
 			}
 		}
@@ -172,7 +167,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		public function render( $term ) {
 			$this->is_new = ( is_object( $term ) ) ? false : true;
 			$term_id      = ( is_object( $term ) ) ? $term->term_id : false;
-			$this->set_taxonomy_id( $term_id );
+			$this->set_term_id( $term_id );
 			$this->get_cache();
 			$this->get_db_values();
 			$screen = get_current_screen();
@@ -205,64 +200,12 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		}
 
 		/**
-		 * Returns Current DB Values.
+		 * Returns Unique Cache ID For each instance but only once.
 		 *
-		 * @return array|mixed
+		 * @return string
 		 */
-		public function get_db_values() {
-			$this->db_values = array();
-			if ( false !== $this->term_id ) {
-				$this->db_values = wponion_get_term_meta( $this->term_id, $this->unique );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
-		}
-
-		/**
-		 * Updates Term Meta.
-		 *
-		 * @param $values
-		 *
-		 * @return $this
-		 */
-		public function set_db_values( $values ) {
-			$this->db_values = $values;
-			wponion_update_term_meta( $this->term_id, $this->unique, $values );
-			return $this;
-		}
-
-		/**
-		 * Updateds Current Term ID.
-		 *
-		 * @param $term_id
-		 *
-		 * @return $this
-		 */
-		protected function set_taxonomy_id( $term_id ) {
-			$this->term_id = $term_id;
-			return $this;
-		}
-
-		/**
-		 * Retrives Stored DB Cache.
-		 *
-		 * @return mixed
-		 */
-		public function get_db_cache() {
-			return wponion_get_term_meta( $this->term_id, $this->get_cache_id() );
-		}
-
-		/**
-		 * Stores Cache Data.
-		 *
-		 * @param array $data
-		 */
-		public function set_cache( $data = array() ) {
-			$data['wponion_version'] = WPONION_DB_VERSION;
-			wponion_update_term_meta( $this->term_id, $this->get_cache_id(), $data );
-			$this->options_cache = $data;
+		protected function get_cache_id() {
+			return wponion_hash_string( $this->term_id() . '_' . $this->module() . '_' . $this->unique() );
 		}
 
 		/**
@@ -271,25 +214,18 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 * @param $term_id
 		 */
 		public function save_taxonomy( $term_id ) {
-			$this->set_taxonomy_id( $term_id );
-			if ( false !== $this->option( 'metabox' ) ) {
-				$this->metabox_instance->save_metabox( $term_id );
-			} else {
-				if ( isset( $_POST[ $this->unique ] ) ) {
-					$instance = new Taxonomy_Save_Handler();
-					$instance->init_class( array(
-						'module'    => 'metabox',
-						'unique'    => $this->unique,
-						'fields'    => $this->fields,
-						'db_values' => $this->get_db_values(),
-						'args'      => array( 'settings' => &$this ),
-					) )
-						->run();
-
-					$this->options_cache['field_errors'] = $instance->get_errors();
-					$this->set_cache( $this->options_cache );
-					$this->set_db_values( $instance->get_values() );
-				}
+			$this->set_term_id( $term_id );
+			if ( isset( $_POST[ $this->unique ] ) ) {
+				$instance = new Data_Validator_Sanitizer( array(
+					'module'    => &$this,
+					'unique'    => $this->unique,
+					'fields'    => $this->fields,
+					'db_values' => $this->get_db_values(),
+				) );
+				$instance->run();
+				$this->options_cache['field_errors'] = $instance->get_errors();
+				$this->set_db_cache( $this->options_cache );
+				$this->set_db_values( $instance->get_values() );
 			}
 		}
 	}

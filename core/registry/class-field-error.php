@@ -14,6 +14,8 @@
 
 namespace WPOnion\Registry;
 
+use WPOnion\Helper;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -40,10 +42,7 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Error' ) ) {
 		 * @return bool|string|array
 		 */
 		public function get( $error_id = 'settings' ) {
-			if ( isset( $this->errors[ $error_id ] ) ) {
-				return $this->errors[ $error_id ];
-			}
-			return false;
+			return Helper::array_key_get( $error_id, $this->errors, false );
 		}
 
 		/**

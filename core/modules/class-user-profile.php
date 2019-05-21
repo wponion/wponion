@@ -16,7 +16,7 @@ namespace WPOnion\Modules;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\User_Profile_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -60,6 +60,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
+			$this->module_db = 'user_profile';
 			$this->init();
 		}
 
@@ -86,6 +87,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$metabox['get_cache']     = array( $this, 'get_db_cache' );
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
+				$metabox['module']        = $this->module();
 				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
 			}
 		}
@@ -134,14 +136,11 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function set_defaults() {
 			$this->get_db_values();
-			$this->options_cache['fuid']            = $this->fields_md5();
-			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
-			$default                                = array();
+			$default = array();
 			$this->get_defaults();
 			if ( ! empty( $default ) ) {
 				$this->set_db_values( $this->db_values );
 			}
-			$this->set_cache( $this->options_cache );
 		}
 
 		/**
@@ -163,9 +162,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		public function render( $user ) {
 			$this->user_id = ( is_object( $user ) ) ? $user->ID : $user;
 			$cache         = $this->get_cache();
-			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
-				$this->set_defaults();
-			}
+			$this->set_defaults();
 
 			if ( false !== $this->option( 'metabox' ) ) {
 				$screen = get_current_screen();
@@ -180,50 +177,12 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		}
 
 		/**
-		 * Returns DB Values.
+		 * Returns Unique Cache ID For each instance but only once.
 		 *
-		 * @return array|mixed
+		 * @return string
 		 */
-		public function get_db_values() {
-			if ( empty( $this->db_values ) ) {
-				$this->db_values = get_user_meta( $this->user_id, $this->unique(), true );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
-		}
-
-		/**
-		 * Returns DB Cache
-		 *
-		 * @return mixed
-		 */
-		public function get_db_cache() {
-			return get_user_meta( $this->user_id, $this->get_cache_id(), true );
-		}
-
-		/**
-		 * Updates User Cache.
-		 *
-		 * @param array $data
-		 */
-		public function set_cache( $data = array() ) {
-			update_user_meta( $this->user_id, $this->get_cache_id(), $data );
-			$this->options_cache = $data;
-		}
-
-		/**
-		 * Updates User Meta.
-		 *
-		 * @param $values
-		 *
-		 * @return $this
-		 */
-		public function set_db_values( $values ) {
-			$this->db_values = $values;
-			update_user_meta( $this->user_id, $this->unique, $values );
-			return $this;
+		protected function get_cache_id() {
+			return wponion_hash_string( $this->user_id() . '_' . $this->module() . '_' . $this->unique() );
 		}
 
 		/**
@@ -231,26 +190,21 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		public function save( $user_id ) {
 			$this->user_id = $user_id;
-			if ( false !== $this->option( 'metabox' ) ) {
-				$this->metabox_instance->save_metabox( $user_id );
-			} else {
-				if ( isset( $_POST[ $this->unique ] ) ) {
-					$this->get_db_values();
-					$this->get_cache();
-					$instance = new User_Profile_Save_Handler();
-					$instance->init_class( array(
-						'module'    => 'user_profile',
-						'unique'    => $this->unique,
-						'fields'    => $this->fields,
-						'db_values' => $this->get_db_values(),
-						'args'      => array( 'settings' => &$this ),
-					) )
-						->run();
 
-					$this->options_cache['field_errors'] = $instance->get_errors();
-					$this->set_cache( $this->options_cache );
-					$this->set_db_values( $instance->get_values() );
-				}
+			if ( isset( $_POST[ $this->unique ] ) ) {
+				$this->get_db_values();
+				$this->get_cache();
+				$instance = new Data_Validator_Sanitizer( array(
+					'module'    => &$this,
+					'unique'    => $this->unique,
+					'fields'    => $this->fields,
+					'db_values' => $this->get_db_values(),
+				) );
+				$instance->run();
+
+				$this->options_cache['field_errors'] = $instance->get_errors();
+				$this->set_db_cache( $this->options_cache );
+				$this->set_db_values( $instance->get_values() );
 			}
 		}
 	}

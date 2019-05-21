@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	/**
 	 * Checks if current request is ajax.

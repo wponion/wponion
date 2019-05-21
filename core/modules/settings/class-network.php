@@ -34,6 +34,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Network' ) ) {
 		 * @return mixed|void
 		 */
 		public function on_init() {
+			$this->module_db = 'network_settings';
 			$menu            = $this->parse_args( $this->option( 'menu' ), $this->defaults( 'menu' ) );
 			$menu['network'] = 'only';
 			$this->set_option( 'menu', $menu );
@@ -52,30 +53,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Network' ) ) {
 		 */
 		public function form_post_page() {
 			return '';
-		}
-
-		/**
-		 * Gets DB Values.
-		 *
-		 * @return array
-		 */
-		protected function get_db_values() {
-			if ( empty( $this->db_values ) ) {
-				$this->db_values = get_site_option( $this->unique );
-				if ( ! wponion_is_array( $this->db_values ) ) {
-					$this->db_values = array();
-				}
-			}
-			return $this->db_values;
-		}
-
-		/**
-		 * Stores Values In Main Table.
-		 *
-		 * @param $values
-		 */
-		public function set_db_values( $values ) {
-			update_site_option( $this->unique, $this->db_values );
 		}
 
 		/**

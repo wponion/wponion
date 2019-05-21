@@ -16,7 +16,7 @@
 namespace WPOnion\Modules;
 
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Media_Fields_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -51,19 +51,8 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 */
 		public function __construct( $settings = array(), $fields = null ) {
 			parent::__construct( $fields, $settings );
+			$this->module_db = 'postmeta';
 			$this->on_init();
-		}
-
-		/**
-		 * Returns Database Values of the settings.
-		 *
-		 * @return array|mixed
-		 */
-		protected function get_db_values() {
-			if ( ! isset( $this->db_values[ $this->post_id ] ) || empty( $this->db_values[ $this->post_id ] ) ) {
-				$this->db_values[ $this->post_id ] = get_post_meta( $this->post_id, $this->unique(), true );
-			}
-			return ( ! wponion_is_array( $this->db_values[ $this->post_id ] ) ) ? array() : $this->db_values[ $this->post_id ];
 		}
 
 		/**
@@ -77,14 +66,6 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		}
 
 		/**
-		 * @param $data
-		 */
-		public function set_db_values( $data ) {
-			$this->db_values[ $this->post_id ] = $data;
-			update_post_meta( $this->post_id, $this->unique(), $data );
-		}
-
-		/**
 		 * Saves Data In DB.
 		 *
 		 * @param $post
@@ -94,16 +75,17 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		public function save_data( $post ) {
 			if ( isset( $_POST[ $this->unique() ] ) ) {
 				$this->post_id = $post['ID'];
-				$instance      = new Media_Fields_Save_Handler();
-				$instance->init_class( array(
-					'module'    => 'media_fields',
+				$instance      = new Data_Validator_Sanitizer( array(
+					'module'    => &$this,
 					'unique'    => $this->unique(),
 					'fields'    => $this->fields,
 					'db_values' => $this->get_db_values(),
-					'args'      => array( 'settings' => &$this ),
-				) )
-					->run();
+				) );
+				$instance->run();
+				$this->options_cache['field_errors'] = $instance->get_errors();
 				$this->set_db_values( $instance->get_values() );
+				$this->set_db_cache( $this->options_cache );
+				$this->options_cache = false;
 			}
 			return $post;
 		}
@@ -126,6 +108,15 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		}
 
 		/**
+		 * Returns Unique Cache ID For each instance but only once.
+		 *
+		 * @return string
+		 */
+		protected function get_cache_id() {
+			return wponion_hash_string( $this->post_id() . '_' . $this->module() . '_' . $this->unique() );
+		}
+
+		/**
 		 * Renders Fields Output.
 		 *
 		 * @param $form
@@ -134,8 +125,9 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 * @return array
 		 */
 		public function display_fields( $form, $attachment ) {
-			$this->post_id = $attachment->ID;
-			$o             = '<div class="' . $this->wrap_class() . '">';
+			$this->set_post_id( $attachment->ID );
+			$this->get_cache();
+			$o = '<div class="' . $this->wrap_class() . '">';
 			foreach ( $this->fields->fields() as $field ) {
 				$this->catch_output();
 				echo $this->render_field( $field, $this->post_id );

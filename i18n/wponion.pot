@@ -1,18 +1,43 @@
-# Copyright (C) 2019 WPOnion
-# This file is distributed under the same license as the WPOnion package.
+# Copyright (C) 2019 varunsridharan
+# This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 0.0.9.5\n"
+"Project-Id-Version: WPOnion 0.0.10.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wponion\n"
-"POT-Creation-Date: 2019-05-04 05:41:31+00:00\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2019-05-19T06:56:59+05:30\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.2.0\n"
+"X-Domain: wponion\n"
 
-#: builder/helper/container/class-functions.php:105
+#. Plugin Name of the plugin
+#. translators: Added WPOnion
+#: core/modules/class-admin-page.php:516
+#: core/wp/sysinfo/class-data.php:310
+msgid "WPOnion"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://github.com/wponion/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Powerfull,Reliable & Lightweight Options Framework."
+msgstr ""
+
+#. Author of the plugin
+msgid "varunsridharan"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://varunsridharan.in"
+msgstr ""
+
+#: builder/helper/container/class-functions.php:107
 msgid "A Container Cannot Have Both Field & Containers"
 msgstr ""
 
@@ -48,75 +73,72 @@ msgstr ""
 msgid "No Backups Found"
 msgstr ""
 
-#: core/class-core-ajax.php:87
+#: core/class-core-ajax.php:90
 msgid "Search Icon"
 msgstr ""
 
-#: core/class-core-ajax.php:120
+#: core/class-core-ajax.php:123
 msgid "Icon Library Not found"
 msgstr ""
 
-#: core/class-core-ajax.php:185
+#: core/class-core-ajax.php:188
 msgid "Error Code : #BKP189"
 msgstr ""
 
-#: core/class-core-ajax.php:192
+#: core/class-core-ajax.php:195
 msgid "Error Code : #BKP201"
 msgstr ""
 
-#: core/class-core-ajax.php:205
+#: core/class-core-ajax.php:208
 msgid "Error Code : #BKP210"
 msgstr ""
 
-#: core/class-core-ajax.php:212
+#: core/class-core-ajax.php:215
 msgid "Error Code : #BKP217"
 msgstr ""
 
-#: core/class-core-ajax.php:250
+#: core/class-core-ajax.php:253
 msgid "Backup Successfully Restored"
 msgstr ""
 
-#: core/class-core-ajax.php:252
+#: core/class-core-ajax.php:255
 msgid "Error Code: #BKP259"
 msgstr ""
 
-#: core/class-core-ajax.php:304 core/class-core-ajax.php:308
-#: core/class-core-ajax.php:313
+#: core/class-core-ajax.php:307
+#: core/class-core-ajax.php:311
+#: core/class-core-ajax.php:316
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: core/class-field-cloner.php:64
+#: core/class-field-cloner.php:66
 msgid "Add + "
 msgstr ""
 
-#: core/class-field-cloner.php:173 fields/key-value/class-key-value.php:101
+#: core/class-field-cloner.php:175
+#: fields/key-value/class-key-value.php:101
 #: fields/key-value/class-key-value.php:117
 msgid "Add +"
 msgstr ""
 
-#: core/class-field-cloner.php:183
+#. translators: Adds Max Count
+#: core/class-field-cloner.php:186
 msgid "You Cannot Add More Than %s"
 msgstr ""
 
 #. translators:
 #: core/class-localize-api.php:62
-msgid ""
-" %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or "
-"%1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s "
+msgid " %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s "
 msgstr ""
 
 #. translators:
 #: core/class-localize-api.php:65
-msgid ""
-" %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php "
+msgid " %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php "
 msgstr ""
 
 #. translators:
 #: core/class-localize-api.php:68
-msgid ""
-"%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this "
-"framework. for each plugin it shows the plugin name and its array passed to "
-"it"
+msgid "%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it"
 msgstr ""
 
 #: core/class-localize-api.php:80
@@ -147,7 +169,8 @@ msgstr ""
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
-#: core/class-localize-api.php:87 fields/accordion/class-accordion.php:47
+#: core/class-localize-api.php:87
+#: fields/accordion/class-accordion.php:47
 msgid "Delete"
 msgstr ""
 
@@ -159,169 +182,188 @@ msgstr ""
 msgid "Restore"
 msgstr ""
 
-#: core/class-localize-api.php:90 core/modules/class-settings.php:330
-#: core/modules/class-settings.php:332
+#: core/class-localize-api.php:90
+#: core/modules/settings/class-settings.php:315
+#: core/modules/settings/class-settings.php:317
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-wp-list-table.php:94 core/class-wp-list-table.php:150
+#: core/class-wp-list-table.php:94
+#: core/class-wp-list-table.php:150
 msgid "No Items Found"
 msgstr ""
 
-#: core/helpers/assets.php:103 core/helpers/assets.php:104
+#: core/helpers/assets.php:103
+#: core/helpers/assets.php:104
 msgid "Boxed"
 msgstr ""
 
-#: core/helpers/assets.php:108 core/helpers/assets.php:109
+#: core/helpers/assets.php:108
+#: core/helpers/assets.php:109
 msgid "Full Width"
 msgstr ""
 
-#: core/helpers/assets.php:115 core/helpers/assets.php:116
+#: core/helpers/assets.php:115
+#: core/helpers/assets.php:116
 msgid "Fullscreen Header"
 msgstr ""
 
-#: core/helpers/assets.php:120 core/helpers/assets.php:121
+#: core/helpers/assets.php:120
+#: core/helpers/assets.php:121
 msgid "Logo Center Header"
 msgstr ""
 
-#: core/helpers/assets.php:125 core/helpers/assets.php:126
+#: core/helpers/assets.php:125
+#: core/helpers/assets.php:126
 msgid "Logo Left Header"
 msgstr ""
 
-#: core/helpers/assets.php:130 core/helpers/assets.php:131
+#: core/helpers/assets.php:130
+#: core/helpers/assets.php:131
 msgid "Logo Right Header"
 msgstr ""
 
-#: core/helpers/assets.php:135 core/helpers/assets.php:136
+#: core/helpers/assets.php:135
+#: core/helpers/assets.php:136
 msgid "Overlay Header"
 msgstr ""
 
-#: core/helpers/assets.php:140 core/helpers/assets.php:141
+#: core/helpers/assets.php:140
+#: core/helpers/assets.php:141
 msgid "Side Header Left"
 msgstr ""
 
-#: core/helpers/assets.php:145 core/helpers/assets.php:146
+#: core/helpers/assets.php:145
+#: core/helpers/assets.php:146
 msgid "Side Header Right"
 msgstr ""
 
-#: core/helpers/assets.php:150 core/helpers/assets.php:151
+#: core/helpers/assets.php:150
+#: core/helpers/assets.php:151
 msgid "Slideout Left Header"
 msgstr ""
 
-#: core/helpers/assets.php:155 core/helpers/assets.php:156
+#: core/helpers/assets.php:155
+#: core/helpers/assets.php:156
 msgid "Slideout Right Header"
 msgstr ""
 
-#: core/helpers/assets.php:162 core/helpers/assets.php:163
+#: core/helpers/assets.php:162
+#: core/helpers/assets.php:163
 msgid "Dual Sidebar"
 msgstr ""
 
-#: core/helpers/assets.php:167 core/helpers/assets.php:168
+#: core/helpers/assets.php:167
+#: core/helpers/assets.php:168
 msgid "Dual Sidebar Left"
 msgstr ""
 
-#: core/helpers/assets.php:172 core/helpers/assets.php:173
+#: core/helpers/assets.php:172
+#: core/helpers/assets.php:173
 msgid "Dual Sidebar Right"
 msgstr ""
 
-#: core/helpers/assets.php:177 core/helpers/assets.php:178
+#: core/helpers/assets.php:177
+#: core/helpers/assets.php:178
 msgid "Left Sidebar"
 msgstr ""
 
-#: core/helpers/assets.php:182 core/helpers/assets.php:183
+#: core/helpers/assets.php:182
+#: core/helpers/assets.php:183
 msgid "Right Sidebar"
 msgstr ""
 
-#: core/helpers/field.php:219
-msgid ""
-"<p>Requested Field Type <code>%s</code>  Is Not Registed With WPOnion</p>"
+#. translators: Creates a msg says that <p>requested field type not found</p>
+#: core/helpers/field.php:230
+msgid "%1$s Requested Field Type %2$s  Is Not Registed With WPOnion %3$s"
 msgstr ""
 
-#: core/helpers/field.php:243
+#: core/helpers/field.php:254
 msgid "Callback Arguments"
 msgstr ""
 
-#: core/helpers/field.php:251
+#. translators:
+#: core/helpers/field.php:263
 msgid "<code>%s</code> Field Class Not Found."
 msgstr ""
 
-#: core/helpers/field.php:503
+#: core/helpers/field.php:509
 msgid "Regular"
 msgstr ""
 
-#: core/helpers/field.php:504
+#: core/helpers/field.php:510
 msgid "Italic"
 msgstr ""
 
-#: core/helpers/field.php:505
+#: core/helpers/field.php:511
 msgid "700"
 msgstr ""
 
-#: core/helpers/field.php:506
+#: core/helpers/field.php:512
 msgid "700 Italic"
 msgstr ""
 
-#: core/helpers/field.php:507
+#: core/helpers/field.php:513
 msgid "inherit"
 msgstr ""
 
-#: core/helpers/field.php:510
+#: core/helpers/field.php:516
 msgid "Arial"
 msgstr ""
 
-#: core/helpers/field.php:511
+#: core/helpers/field.php:517
 msgid "Arial Black"
 msgstr ""
 
-#: core/helpers/field.php:512
+#: core/helpers/field.php:518
 msgid "Comic Sans MS"
 msgstr ""
 
-#: core/helpers/field.php:513
+#: core/helpers/field.php:519
 msgid "Impact"
 msgstr ""
 
-#: core/helpers/field.php:514
+#: core/helpers/field.php:520
 msgid "Lucida Sans Unicode"
 msgstr ""
 
-#: core/helpers/field.php:515
+#: core/helpers/field.php:521
 msgid "Tahoma"
 msgstr ""
 
-#: core/helpers/field.php:516
+#: core/helpers/field.php:522
 msgid "Trebuchet MS"
 msgstr ""
 
-#: core/helpers/field.php:517
+#: core/helpers/field.php:523
 msgid "Verdana"
 msgstr ""
 
-#: core/helpers/field.php:518
+#: core/helpers/field.php:524
 msgid "Courier New"
 msgstr ""
 
-#: core/helpers/field.php:519
+#: core/helpers/field.php:525
 msgid "Lucida Console"
 msgstr ""
 
-#: core/helpers/field.php:520
+#: core/helpers/field.php:526
 msgid "Georgia, serif"
 msgstr ""
 
-#: core/helpers/field.php:521
+#: core/helpers/field.php:527
 msgid "Palatino Linotype"
 msgstr ""
 
-#: core/helpers/field.php:522
+#: core/helpers/field.php:528
 msgid "Times New Roman"
 msgstr ""
 
-#: core/helpers/field.php:660
+#: core/helpers/field.php:666
 msgid "Websafe Fonts"
 msgstr ""
 
-#: core/helpers/field.php:670
+#: core/helpers/field.php:676
 msgid "Google Fonts"
 msgstr ""
 
@@ -346,7 +388,7 @@ msgid "Enter A Valid IP Address"
 msgstr ""
 
 #. translators: Added Field Type.
-#: core/integrations/page-builders/class-visual-composer.php:123
+#: core/integrations/page-builders/class-visual-composer.php:125
 msgid "Visual Composer Integration For WPOnion Field (%s) Not Found"
 msgstr ""
 
@@ -358,38 +400,34 @@ msgstr ""
 msgid "WPOnion Field"
 msgstr ""
 
-#: core/modules/class-admin-notice.php:545
+#: core/modules/class-admin-notice.php:547
 msgid "Dismiss this notice."
 msgstr ""
 
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:514
+#: core/modules/class-admin-page.php:516
 msgid "Proudly Powered By %1$s %2$s %3$s "
 msgstr ""
 
-#. #-#-#-#-#  wponion.pot (WPOnion 0.0.9.5)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: core/modules/class-admin-page.php:514 core/wp/sysinfo/class-data.php:310
-#: wponion-init.php:16
-msgid "WPOnion"
-msgstr ""
-
 #. translators: Added WPOnionVersion
-#: core/modules/class-admin-page.php:527
+#: core/modules/class-admin-page.php:529
 msgid "WPOnion Version : %s"
 msgstr ""
 
-#: core/modules/class-metabox.php:362 core/modules/class-settings.php:467
-#: core/modules/class-settings.php:601
+#: core/modules/metabox/class-metabox.php:366
+#: core/modules/settings/class-settings.php:452
+#: core/modules/settings/class-settings.php:586
 msgid "Save Settings"
 msgstr ""
 
-#: core/modules/class-settings.php:610
+#: core/modules/settings/class-settings.php:595
 msgid "No Result Found"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:43 core/wp/sysinfo/class-data.php:240
-#: core/wp/sysinfo/class-data.php:266 core/wp/sysinfo/class-data.php:267
+#: core/wp/sysinfo/class-data.php:43
+#: core/wp/sysinfo/class-data.php:240
+#: core/wp/sysinfo/class-data.php:266
+#: core/wp/sysinfo/class-data.php:267
 #: core/wp/sysinfo/class-data.php:283
 msgid "Plugins"
 msgstr ""
@@ -614,7 +652,8 @@ msgstr ""
 msgid "Child Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:213 core/wp/sysinfo/class-data.php:222
+#: core/wp/sysinfo/class-data.php:213
+#: core/wp/sysinfo/class-data.php:222
 msgid "Active Theme"
 msgstr ""
 
@@ -638,7 +677,8 @@ msgstr ""
 msgid "Must Use Plugins"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:266 fields/link-color/class-link-color.php:66
+#: core/wp/sysinfo/class-data.php:266
+#: fields/link-color/class-link-color.php:66
 msgid "Active"
 msgstr ""
 
@@ -667,17 +707,11 @@ msgid "Used By"
 msgstr ""
 
 #: core/wp/sysinfo/class-sysinfo.php:74
-msgid ""
-" The system information shown below can also be copied and pasted into "
-"support requests such as on the WordPress.org forums, or to your theme and "
-"plugin developers. "
+msgid " The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. "
 msgstr ""
 
 #: core/wp/sysinfo/class-sysinfo.php:79
-msgid ""
-" Some information may be filtered out from the list you are about to copy, "
-"this is information that may be considered private, and is not meant to be "
-"shared in a public forum. "
+msgid " Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. "
 msgstr ""
 
 #: core/wp/sysinfo/class-sysinfo.php:80
@@ -1523,7 +1557,8 @@ msgstr ""
 msgid "Add Gallery"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:83 fields/gallery/class-gallery.php:95
+#: fields/gallery/class-gallery.php:83
+#: fields/gallery/class-gallery.php:95
 #: fields/gallery/class-gallery.php:116
 msgid "Edit Gallery"
 msgstr ""
@@ -1625,7 +1660,8 @@ msgstr ""
 msgid "Url"
 msgstr ""
 
-#: fields/group/class-group.php:111 fields/group/class-group.php:223
+#: fields/group/class-group.php:111
+#: fields/group/class-group.php:223
 msgid "Add New"
 msgstr ""
 
@@ -1637,12 +1673,14 @@ msgstr ""
 msgid "Group #[count]"
 msgstr ""
 
-#: fields/group/class-group.php:224 fields/image/class-image.php:72
+#: fields/group/class-group.php:224
+#: fields/image/class-image.php:72
 #: fields/image/class-image.php:98
 msgid "Remove"
 msgstr ""
 
-#: fields/group/class-group.php:227 fields/key-value/class-key-value.php:123
+#: fields/group/class-group.php:227
+#: fields/key-value/class-key-value.php:123
 msgid "You Can't Add More.."
 msgstr ""
 
@@ -1688,15 +1726,13 @@ msgstr ""
 msgid "Focus"
 msgstr ""
 
-#: fields/notice/class-notice.php:71 fields/wp-notice/class-wp-notice.php:74
+#: fields/notice/class-notice.php:71
+#: fields/wp-notice/class-wp-notice.php:74
 msgid "Hide"
 msgstr ""
 
 #: fields/select/class-select.php:80
-msgid ""
-"Ajax Search Will Not Work In Select Field If Not Javascript Select Framework "
-"Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</"
-"code>"
+msgid "Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>"
 msgstr ""
 
 #: fields/sorter/class-sorter.php:112
@@ -1719,11 +1755,13 @@ msgstr ""
 msgid "Bottom"
 msgstr ""
 
-#: fields/spacing/spacing.php:102 fields/typography/class-typography.php:80
+#: fields/spacing/spacing.php:102
+#: fields/typography/class-typography.php:80
 msgid "Left"
 msgstr ""
 
-#: fields/spacing/spacing.php:103 fields/typography/class-typography.php:82
+#: fields/spacing/spacing.php:103
+#: fields/typography/class-typography.php:82
 msgid "Right"
 msgstr ""
 
@@ -1807,7 +1845,8 @@ msgstr ""
 msgid "Text Color"
 msgstr ""
 
-#: fields/upload/class-upload.php:36 fields/upload/class-upload.php:49
+#: fields/upload/class-upload.php:36
+#: fields/upload/class-upload.php:49
 #: fields/upload/class-upload.php:57
 msgid "Upload"
 msgstr ""
@@ -1828,7 +1867,8 @@ msgstr ""
 msgid "Example : "
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:86 fields/wp-link/class-wp-link.php:104
+#: fields/wp-link/class-wp-link.php:86
+#: fields/wp-link/class-wp-link.php:104
 msgid "Select URL"
 msgstr ""
 
@@ -1850,18 +1890,6 @@ msgstr ""
 msgid "ERROR ID : "
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "https://github.com/wponion/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Powerfull,Reliable & Lightweight Options Framework."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "varunsridharan"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://varunsridharan.in"
+#: wponion.php:71
+msgid "WPOnion incompatible with PHP Version %2$s. Please Install/Upgrade PHP To %1$s or Higher "
 msgstr ""

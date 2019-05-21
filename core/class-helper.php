@@ -230,5 +230,142 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 			}
 			return self::get_cache( 'currency_symbol', array() );
 		}
+
+		/**
+		 * Recursively find a key's value in array
+		 *
+		 * @param string       $keys 'a/b/c'
+		 * @param array|object $array_or_object
+		 * @param null|mixed   $default_value
+		 * @param string       $keys_delimiter
+		 *
+		 * @return mixed
+		 */
+		public static function array_key_get( $keys, $array_or_object, $default_value = null, $keys_delimiter = '/' ) {
+			if ( ! is_array( $keys ) ) {
+				$keys = explode( $keys_delimiter, (string) $keys );
+			}
+			$array_or_object = ( wponion_is_callable( $array_or_object ) ) ? wponion_callback( $array_or_object ) : $array_or_object;
+			$key_or_property = array_shift( $keys );
+			$is_object       = is_object( $array_or_object );
+
+			if ( null === $key_or_property ) {
+				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+			}
+
+			if ( $is_object && ! property_exists( $array_or_object, $key_or_property ) ) {
+				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+			} elseif ( ! is_array( $array_or_object ) || ! array_key_exists( $key_or_property, $array_or_object ) ) {
+				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+			}
+
+			if ( isset( $keys[0] ) ) {
+				return ( $is_object ) ? self::array_key_get( $keys, $array_or_object->{$key_or_property}, $default_value ) : self::array_key_get( $keys, $array_or_object[ $key_or_property ], $default_value );
+			} else {
+				return ( $is_object ) ? $array_or_object->{$key_or_property} : $array_or_object[ $key_or_property ];
+			}
+		}
+
+		/**
+		 * Set (or create if not exists) value for specified key in some array level
+		 *
+		 * @param string       $keys 'a/b/c', or 'a/b/c/' equivalent to: $arr['a']['b']['c'][] = $val;
+		 * @param mixed        $value
+		 * @param array|object $array_or_object
+		 * @param string       $keys_delimiter
+		 *
+		 * @return array|object
+		 */
+		public static function array_key_set( $keys, $value, &$array_or_object, $keys_delimiter = '/' ) {
+			if ( ! is_array( $keys ) ) {
+				$keys = explode( $keys_delimiter, (string) $keys );
+			}
+			$key_or_property = array_shift( $keys );
+			if ( null === $key_or_property ) {
+				return $array_or_object;
+			}
+			$is_object = is_object( $array_or_object );
+			if ( $is_object ) {
+				if ( ! property_exists( $array_or_object, $key_or_property ) || ! ( is_array( $array_or_object->{$key_or_property} ) || is_object( $array_or_object->{$key_or_property} ) ) ) {
+					if ( '' === $key_or_property ) {
+						trigger_error( 'Cannot push value to object like in array ($arr[] = $val)', E_USER_WARNING );
+					} else {
+						$array_or_object->{$key_or_property} = array();
+					}
+				}
+			} else {
+				if ( ! is_array( $array_or_object ) ) {
+					$array_or_object = array();
+				}
+				if ( ! array_key_exists( $key_or_property, $array_or_object ) || ! is_array( $array_or_object[ $key_or_property ] ) ) {
+					if ( '' === $key_or_property ) {
+						// this happens when use 'empty keys' like: abc.d.e....i.j..foo.
+						$array_or_object[] = array();
+						// get auto created key (last)
+						end( $array_or_object );
+						$key_or_property = key( $array_or_object );
+					} else {
+						$array_or_object[ $key_or_property ] = array();
+					}
+				}
+			}
+			if ( isset( $keys[0] ) ) { // not used count() for performance reasons
+				if ( $is_object ) {
+					self::array_key_set( $keys, $value, $array_or_object->{$key_or_property} );
+				} else {
+					self::array_key_set( $keys, $value, $array_or_object[ $key_or_property ] );
+				}
+			} else {
+				if ( $is_object ) {
+					$array_or_object->{$key_or_property} = $value;
+				} else {
+					$array_or_object[ $key_or_property ] = $value;
+				}
+			}
+			return $array_or_object;
+		}
+
+		/**
+		 * Unset specified key in some array level
+		 *
+		 * @param string       $keys 'a/b/c' -> unset($arr['a']['b']['c']);
+		 * @param array|object $array_or_object
+		 * @param string       $keys_delimiter
+		 *
+		 * @return array|object
+		 */
+		public static function array_key_unset( $keys, &$array_or_object, $keys_delimiter = '/' ) {
+			if ( ! is_array( $keys ) ) {
+				$keys = explode( $keys_delimiter, (string) $keys );
+			}
+			$key_or_property = array_shift( $keys );
+			if ( null === $key_or_property || '' === $key_or_property ) {
+				return $array_or_object;
+			}
+			$is_object = is_object( $array_or_object );
+			if ( $is_object ) {
+				if ( ! property_exists( $array_or_object, $key_or_property ) ) {
+					return $array_or_object;
+				}
+			} else {
+				if ( ! is_array( $array_or_object ) || ! array_key_exists( $key_or_property, $array_or_object ) ) {
+					return $array_or_object;
+				}
+			}
+			if ( isset( $keys[0] ) ) { // not used count() for performance reasons
+				if ( $is_object ) {
+					self::array_key_unset( $keys, $array_or_object->{$key_or_property} );
+				} else {
+					self::array_key_unset( $keys, $array_or_object[ $key_or_property ] );
+				}
+			} else {
+				if ( $is_object ) {
+					unset( $array_or_object->{$key_or_property} );
+				} else {
+					unset( $array_or_object[ $key_or_property ] );
+				}
+			}
+			return $array_or_object;
+		}
 	}
 }

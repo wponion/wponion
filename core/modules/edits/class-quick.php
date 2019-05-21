@@ -14,9 +14,10 @@
  */
 
 namespace WPOnion\Modules\Edits;
+
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Quick_Edit_Save_Handler;
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -100,17 +101,15 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 			if ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] || 'bulk_edit' === $this->module() ) {
 				if ( isset( $_POST[ $this->unique ] ) ) {
 					$this->db_values = $this->get_values( $post_id );
-					$instance        = new Quick_Edit_Save_Handler();
-					$instance->init_class( array(
-						'module'       => $this->module(),
+					$instance        = new Data_Validator_Sanitizer( array(
+						'module'       => &$this,
 						'unique'       => $this->unique(),
 						'fields'       => $this->fields,
 						'user_values'  => $_POST[ $this->unique ],
 						'retain_value' => true,
 						'db_values'    => $this->db_values,
-						'args'         => array( 'settings' => &$this ),
-					) )
-						->run();
+					) );
+					$instance->run();
 
 					$this->db_values = $instance->get_values();
 					if ( false === $this->option( 'save' ) ) {

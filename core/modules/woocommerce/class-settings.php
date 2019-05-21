@@ -71,10 +71,8 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 		 */
 		public function save_validate( $current_tab, $current_section ) {
 			$this->get_cache();
-			$instance = new WooCommerce_Settings_Save_Handler();
-
-			$instance->init_class( array(
-				'module'    => 'settings',
+			$instance = new WooCommerce_Settings_Save_Handler( array(
+				'module'    => &$this,
 				'unique'    => $this->unique,
 				'fields'    => $this->fields,
 				'db_values' => $this->get_db_values(),
@@ -83,11 +81,12 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 					'current_tab'     => $current_tab,
 					'current_section' => $current_section,
 				),
-			) )
-				->run();
+			) );
+
+			$instance->run();
 
 			$this->options_cache['field_errors'] = $instance->get_errors();
-			$this->set_cache( $this->options_cache );
+			$this->set_db_cache( $this->options_cache );
 			$this->set_db_values( $instance->get_values() );
 			return $instance->get_values();
 		}

@@ -78,6 +78,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->raw_options = $settings;
+			$this->module_db   = 'settings';
 			$this->init();
 		}
 
@@ -132,9 +133,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		}
 
 		/**
-		 * @param $ins \WPOnion\Modules\Admin_Page
+		 * Registers Admin Menu.
 		 */
-		public function register_admin_menu( $ins ) {
+		public function register_admin_menu() {
 			if ( isset( $this->settings['menu'] ) ) {
 				$menu     = $this->option( 'menu' );
 				$callback = array( &$this, 'render' );
@@ -184,22 +185,19 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function save_validate( $request ) {
 			$this->get_cache();
 			$this->find_active_menu();
-			$instance = new Settings_Save_Handler();
-
-			$instance->init_class( array(
-				'module'      => 'settings',
-				'unique'      => $this->unique,
-				'fields'      => $this->fields,
-				'user_values' => $request,
-				'db_values'   => $this->get_db_values(),
-				'args'        => array( 'settings' => &$this ),
-			) )
-				->run();
+			$instance = new Settings_Save_Handler( array(
+				'module'        => &$this,
+				'unique'        => $this->unique(),
+				'fields'        => $this->fields,
+				'posted_values' => $request,
+				'db_values'     => $this->get_db_values(),
+			) );
+			$instance->run();
 
 			$this->options_cache['container_id']     = isset( $_POST['container-id'] ) ? sanitize_text_field( $_POST['container-id'] ) : null;
 			$this->options_cache['sub_container_id'] = isset( $_POST['sub-container-id'] ) ? sanitize_text_field( $_POST['sub-container-id'] ) : null;
 			$this->options_cache['field_errors']     = $instance->get_errors();
-			$this->set_cache( $this->options_cache );
+			$this->set_db_cache( $this->options_cache );
 			return $instance->get_values();
 		}
 
@@ -207,10 +205,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Handles SettingUP Settings Defaults.
 		 */
 		public function force_set_defaults() {
-			$cache = $this->get_cache();
-			if ( ! isset( $cache['fuid'] ) || ( isset( $cache['fuid'] ) && $cache['fuid'] !== $this->fields_md5() ) ) {
-				$this->set_defaults();
-			}
+			$this->get_cache();
+			$this->set_defaults();
 		}
 
 		/**
@@ -218,14 +214,11 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		protected function set_defaults() {
 			$this->get_db_values();
-			$this->options_cache['fuid']            = $this->fields_md5();
-			$this->options_cache['wponion_version'] = WPONION_DB_VERSION;
-			$default                                = array();
+			$default = array();
 
 			/**
 			 * @var $options \WPO\Container
 			 */
-
 			foreach ( $this->fields->get() as $options ) {
 				if ( $this->valid_field( $options ) ) {
 					$this->get_fields_defaults_value( $options );
@@ -252,17 +245,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			if ( ! empty( $default ) ) {
 				$this->set_db_values( array() );
 			}
-			$this->set_cache( $this->options_cache );
-		}
-
-
-		/**
-		 * Saves Options.
-		 *
-		 * @param $values
-		 */
-		public function set_db_values( $values ) {
-			update_option( $this->unique, $this->db_values );
 		}
 
 		/**
@@ -370,7 +352,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 					$default                                 = $this->validate_container_sub_container( $_cache_v['container_id'], $_cache_v['sub_container_id'] );
 					$this->options_cache['sub_container_id'] = false;
 					$this->options_cache['container_id']     = false;
-					$this->set_cache( $this->options_cache );
+					$this->set_db_cache( $this->options_cache );
 				} elseif ( false !== $_url_v ) {
 					$default = $this->validate_container_sub_container( $_url_v['container_id'], $_url_v['sub_container_id'] );
 				} else {

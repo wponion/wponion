@@ -309,7 +309,6 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 		public static function self_info_data() {
 			self::$status[ __( 'WPOnion', 'wponion' ) ] = array(
 				__( 'Version ', 'wponion' )    => WPONION_VERSION,
-				__( 'DB Version ', 'wponion' ) => WPONION_DB_VERSION,
 				__( 'Loaded Path', 'wponion' ) => WPONION_PATH,
 				__( 'Used By', 'wponion' )     => \WPOnion_Loader::$data,
 			);

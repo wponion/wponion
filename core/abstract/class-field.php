@@ -71,6 +71,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected $unique = '';
 
 		/**
+		 * Database ID
+		 *
+		 * @var string
+		 */
+		protected $base_unique = '';
+
+		/**
 		 * field
 		 *
 		 * @var array
@@ -128,11 +135,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->value          = $value;
 
 			if ( ! wponion_is_array( $unique ) ) {
-				$this->unique = $unique;
-				$this->module = false;
+				$this->unique      = $unique;
+				$this->base_unique = $unique;
+				$this->module      = false;
 			} else {
-				$this->unique = ( isset( $unique['unique'] ) ) ? $unique['unique'] : false;
-				$this->module = ( isset( $unique['module'] ) ) ? $unique['module'] : false;
+				$this->unique      = ( isset( $unique['unique'] ) ) ? $unique['unique'] : false;
+				$this->base_unique = ( isset( $unique['base'] ) ) ? $unique['base'] : false;
+				$this->module      = ( isset( $unique['module'] ) ) ? $unique['module'] : false;
 			}
 
 			$this->get_errors();
@@ -579,14 +588,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function get_errors() {
 			if ( null === $this->errors ) {
-				$error_instance = wponion_registry( $this->module() . '_' . $this->unique(), '\WPOnion\Registry\Field_Error' );
-
+				$this->errors   = false;
+				$error_instance = wponion_registry( sanitize_title( $this->module() . '_' . $this->base_unique() . '_errors' ), '\WPOnion\Registry\Field_Error' );
 				if ( $error_instance ) {
-					$field_id     = sanitize_key( $this->unique( $this->field_id() ) );
-					$this->errors = $error_instance->get( $field_id );
+					$id           = str_replace( array( '[', ']' ), array( '/', '' ), $this->name() );
+					$this->errors = $error_instance->get( $id );
 					$this->debug( __( 'Field Errors', 'wponion' ), $this->errors );
-				} else {
-					$this->errors = false;
 				}
 			}
 			return $this->errors;
@@ -778,6 +785,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return mixed
 		 */
 		protected function base_unique() {
+			return $this->base_unique;
 			preg_match( '/\w+/', $this->unique(), $matches, PREG_OFFSET_CAPTURE, 0 );
 			if ( ! empty( $matches ) ) {
 				$current = current( $matches );
@@ -984,6 +992,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$func      = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
 			$_instance = $func( $field, $value, array(
 				'unique' => $unqiue,
+				'base'   => $this->base_unique,
 				'module' => $this->module(),
 			) );
 
