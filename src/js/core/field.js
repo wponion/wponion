@@ -291,6 +291,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-content', 'content' );
 		this.init_field( '.wponion-element-jambo_content', 'jambo_content' );
 		this.init_field( '.wponion-element-notice', 'notice' );
+		this.init_field( '.wponion-element-faq', 'faq' );
 
 		this.init_field( '.wponion-field-tooltip', 'tooltip' );
 		this.init_field( '.wponion-help', 'tooltip' );

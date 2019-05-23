@@ -24,6 +24,7 @@ require( './fields/google_maps' );
 require( './fields/typography' );
 require( './fields/oembed' );
 require( './fields/backup' );
+require( './fields/faq' );
 
 require( './helpers/image_popup' );
 require( './helpers/tooltip' );

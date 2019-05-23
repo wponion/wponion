@@ -1,0 +1,69 @@
+.wponion-element-faq.wponion-element {
+	.faqs-container {
+		$lightgrey: #dddddd;
+
+		.faq {
+			border-bottom: 1px solid $lightgrey;
+
+			.faq-title {
+				position:      relative;
+				display:       block;
+				margin-bottom: 6px;
+
+
+				h3 {
+					font-size:   18px;
+					margin:      0px;
+					line-height: 1;
+					cursor:      pointer;
+					font-weight: 500;
+				}
+			}
+
+			.faq-content {
+				padding:     7px 25px 10px 25px;
+				display:     none;
+				line-height: 14px;
+				margin:      -7px 0 6px;
+
+				div {
+					max-width: 100%;
+				}
+
+				p {
+					line-height: 25px;
+					font-size:   14px;
+				}
+			}
+
+			.faq-title {
+				.title-name {
+					display:        inline-block;
+					padding:        15px;
+					vertical-align: middle;
+				}
+
+				a i {
+					font-size:    22px;
+					margin-right: 5px;
+				}
+
+				i {
+					transition:     all 0.3s ease;
+					vertical-align: middle;
+
+					&:before {
+						content: "\f345";
+					}
+				}
+
+				&.active i {
+					&:before {
+						content: "\f347";
+					}
+				}
+			}
+		}
+
+	}
+}

@@ -32,7 +32,8 @@
 
 /** General Common Styles **/
 .wponion-icon {
-	margin-right:   4px;
+	margin-right: 4px;
+
 	&.dashicons {
 		vertical-align: middle;
 		display:        inline-block;
@@ -192,6 +193,22 @@
 	}
 }
 
+
+.wponion-framework pre {
+	display:          block;
+	padding:          9.5px;
+	margin:           0 0 10px;
+	font-size:        13px;
+	line-height:      1.42857143;
+	color:            #333;
+	word-break:       break-all;
+	word-wrap:        break-word;
+	background-color: #f8f8f8;
+	border:           1px solid #ccc;
+	border-radius:    4px;
+	overflow:         auto;
+}
+
 // WPOnion Debug View.
 .wponion-debug-pre {
 	background:  #fcfcfc;
@@ -204,4 +221,31 @@
 	line-height: initial;
 	overflow:    scroll;
 	box-shadow:  0 0 3px #d5d5d5 inset;
+}
+
+.wponion-framework code.red {
+	padding:          3px 10px;
+	font-size:        90%;
+	line-height:      10px;
+	color:            #c7254e;
+	background-color: #f9f2f4;
+	border:           1px solid #ffbfd1;
+	border-radius:    4px;
+	font-family:      Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.wponion-framework blockquote {
+	padding:     10px 20px;
+	margin:      0 0 20px;
+	font-size:   17.5px;
+	border-left: 5px solid #eee;
+
+	> p:first-child {
+		margin-top: 0px;
+	}
+
+	> p:last-child {
+		margin-bottom: 0px;
+	}
+
 }
