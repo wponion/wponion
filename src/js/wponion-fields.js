@@ -1,4 +1,3 @@
-require( './fields/all-fields' );
 require( './fields/button_set' );
 require( './fields/image_select' );
 require( './fields/select2' );
@@ -20,12 +19,9 @@ require( './fields/image_upload' );
 require( './fields/jquery_tab' );
 require( './fields/clone_element' );
 require( './fields/sorter' );
-require( './fields/google_maps' );
 require( './fields/typography' );
 require( './fields/oembed' );
-//require( './fields/backup' );
 require( './fields/faq' );
-
 require( './helpers/image_popup' );
 require( './helpers/tooltip' );
 require( './helpers/reload_wp_editor' );

@@ -12,8 +12,6 @@ let WPOButton = function( element, options ) {
 	this.isLoading = false;
 };
 
-WPOButton.VERSION = '3.4.1';
-
 WPOButton.prototype.setState = function( state ) {
 	let d    = 'disabled';
 	let $el  = this.$element;
@@ -346,12 +344,12 @@ export default ( ( window, document, $, jQuery ) => {
 		if( window.wponion.hooks.hasAction( 'wponion_init_' + $module + 'field_' + $field_type ) ) {
 			window.wponion.hooks.doAction( 'wponion_init_' + $module + 'field_' + $field_type, $argument );
 		} else {
+			window.wponion_field( $argument );
 			if( true === $log_err ) {
-				console.error( 'WPOnion Field Type : ' + $field_type + ' Init Function Not Found', '\nAction Used : wponion_init_' + $module + 'field_' + $field_type );
+				console.info( 'WPOnion Field Type : ' + $field_type + ' Init Function Not Found', '\nAction Used : wponion_init_' + $module + 'field_' + $field_type );
 			}
 		}
 	};
-
 
 	/**
 	 * Utility Functions.

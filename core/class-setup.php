@@ -180,7 +180,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'fieldset', 'all' );
 			\wponion_register_field( 'font_picker', 'all' );
 			\wponion_register_field( 'gallery', 'all' );
-			\wponion_register_field( 'google_maps', 'all' );
+
 			\wponion_register_field( 'group', 'all' );
 			\wponion_register_field( 'hidden', 'all' );
 			\wponion_register_field( 'icon_picker', 'all' );
@@ -232,7 +232,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'wp_notice_error', 'all' );
 			\wponion_register_ui_field( 'wp_notice_info', 'all' );
 			\wponion_register_ui_field( 'faq', 'all' );
-			\wponion_register_ui_field( 'change_log', 'all' );
 
 			do_action( 'wponion_core_fields_registered' );
 		}

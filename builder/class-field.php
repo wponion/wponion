@@ -46,10 +46,8 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 *
 		 * @todo \WPO\Fields\Button
 		 * @todo \WPO\Fields\Color_Palette
-		 * @todo \WPO\Fields\Google_Maps
 		 * @todo \WPO\Fields\Hidden
 		 * @todo \WPO\Fields\WP_List_Table
-		 * @todo \WPO\Fields\Change_Log
 		 *
 		 *
 		 * @static

@@ -164,7 +164,7 @@ export default class extends WPOnion_Module {
 					confirmButtonText: $wponion.txt( 'get_json_output', 'As JSON' ),
 					showCloseButton: false,
 					width: '800px',
-					onOpen: () => jQuery( '#swal2-content > div > #' + $d ).jsonView( $data )
+					onOpen: () => jQuery( '#swal2-content > div > #' + $d ).html( JSON.stringify( $data, '\n' ) )
 				} ).then( ( result ) => {
 					if( result.value ) {
 						swal.fire( {
@@ -286,7 +286,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-image', 'image_upload' );
 		this.init_field( '.wponion-element-button_set', 'button_set' );
 		this.init_field( '.wponion-element-tab', 'jquery_tab' );
-		this.init_field( '.wponion-element-google_maps', 'google_maps' );
+
 		this.init_field( '.wponion-element-sorter', 'sorter' );
 		this.init_field( '.wponion-element-typography', 'typography' );
 		this.init_field( '.wponion-element-oembed', 'oembed' );

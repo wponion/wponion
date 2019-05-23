@@ -35,8 +35,6 @@ require( './modules/metabox' ).default;
 require( './modules/wp-pointers' ).default;
 require( './modules/media-fields' ).default;
 require( './modules/bulk-edit' ).default;
-require( './modules/guttenberg' ).default;
-require( './modules/woocommerce' ).default;
 require( './modules/quick-edit' ).default;
 require( './modules/visual-composer' ).default;
 
@@ -62,6 +60,14 @@ export default ( ( window, document, wp, $ ) => {
 			} );
 			window.wponion.hooks.doAction( 'wponion_after_theme_init', $wpof_div );
 		}
+
+		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
+			window.wponion_field( '.wponion-framework.wponion-woocommerce-variation' ).reload();
+		} );
+
+		$( '#variable_product_options' ).on( 'woocommerce_variations_added', function() {
+			window.wponion_field( '.wponion-framework.wponion-woocommerce-variation' ).reload();
+		} );
 	} );
 
 	// Window On Load.
