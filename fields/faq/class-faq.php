@@ -33,6 +33,7 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 		 * Final HTML Output
 		 */
 		public function output() {
+			$this->before();
 			$options = $this->data( 'options' );
 			echo '<div class="faqs-container">';
 			foreach ( $options as $faq ) {
@@ -42,6 +43,7 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 				echo '</div>';
 			}
 			echo '</div>';
+			$this->after();
 		}
 
 		public function field_assets() {
