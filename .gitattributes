@@ -1,3 +1,4 @@
+* text=CRLF
 .travis.yml export-ignore
 .github/ export-ignore
 .gitignore export-ignore
