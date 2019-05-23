@@ -266,7 +266,6 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-checkbox', 'checkbox_radio' );
 		this.init_field( '.wponion-element-radio', 'checkbox_radio' );
 		this.init_field( '.wponion-element-clone', 'clone_element' );
-		this.init_field( '.wponion-element-color_palette', 'color_palette' );
 		this.init_field( '.wponion-element-color_picker', 'color_picker' );
 		this.init_field( '.wponion-element-select', 'select' );
 		this.init_field( '.wponion-element-icon_picker', 'icon_picker' );
