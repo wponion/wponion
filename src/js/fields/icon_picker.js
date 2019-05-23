@@ -17,21 +17,13 @@ class field extends WPOnion_Field {
 			$preview    = $elem.find( 'span.wponion-icon-preview' );
 
 		let $work = {
-			/**
-			 * Stores POPUP Information.
-			 */
+			//Stores POPUP Information.
 			elems: null,
-			/**
-			 * Stores POPUP Information.
-			 */
+			//Stores POPUP Information.
 			popup: null,
-			/**
-			 * Stores POPUP Information.
-			 */
+			//Stores POPUP Information.
 			elm: null,
-			/**
-			 * Creates A New Instance for ToolTip.
-			 */
+			//Creates A New Instance for ToolTip.
 			init_tooltip: () => {
 				if( $args.popup_tooltip !== 'false' ) {
 					let $tp      = ( typeof $args.popup_tooltip === 'object' ) ? $args.popup_tooltip : {};

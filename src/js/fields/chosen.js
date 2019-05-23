@@ -5,10 +5,7 @@ class field extends WPOnion_Field {
 	 * Inits Field.
 	 */
 	init() {
-		let $arg = this.option( 'chosen', {} );
-
-		$arg = this.handle_args( $arg, 'chosen' );
-		this.element.chosen( $arg );
+		this.element.chosen( this.handle_args( this.option( 'chosen', {} ), 'chosen' ) );
 		return this;
 	}
 

@@ -17,6 +17,7 @@ class field extends WPOnion_Field {
 	show_preview() {
 		let $value = this.element.find( ':input' ).val();
 		this.element.find( '.wponion-spinner' ).addClass( 'is-active' );
+		let $preview = this.element.find( '.wponion-oembed-preview' );
 		$wponion.ajax( 'oembed-preview', {
 			method: 'POST',
 			data: {
@@ -24,14 +25,12 @@ class field extends WPOnion_Field {
 			}
 		}, ( res ) => {
 			if( false === res.success ) {
-				this.element.find( '.wponion-oembed-preview' )
-					.html( '<img class="wponion-no-preview" src="' + this.image + '"/>' );
+				$preview.html( '<img class="wponion-no-preview" src="' + this.image + '"/>' );
 			} else {
-				this.element.find( '.wponion-oembed-preview' ).html( res.data );
+				$preview.html( res.data );
 			}
 		}, () => {
-			this.element.find( '.wponion-oembed-preview' )
-				.html( '<img class="wponion-no-preview" src="' + this.image + '"/>' );
+			$preview.html( '<img class="wponion-no-preview" src="' + this.image + '"/>' );
 		}, () => {
 			this.element.find( '.wponion-spinner' ).removeClass( 'is-active' );
 		} );
