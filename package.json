@@ -28,7 +28,7 @@
     "jquery": "^3.4.1",
     "jquery-serializejson": "^2.9.0",
     "jquery-validation": "^1.18.0",
-    "select2": "^4.0.6",
+    "select2": "^4.0.7",
     "selectize.js": "^0.12.12",
     "sweetalert2": "^8.10.0",
     "tippy.js": "^3.4.0",
