@@ -24,6 +24,7 @@ $files[ 'src/js/wponion-plugins.js' ]    = {
 	watch: [ './src/vendors/*/*.js', 'src/js/wponion-plugins.js' ],
 	combine_files: true,
 	uglify: true,
+	rename: 'wponion-plugins.js',
 };
 $files[ 'src/js/wponion-core.js' ]       = {
 	dist: 'assets/js',
@@ -72,7 +73,7 @@ $files[ 'src/vendors/flatpickr/script.js' ]            = {
 };
 $files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {
 	dist: 'assets/plugins/colorpicker/',
-	watch: [ 'src/vendors/colorpicker/cs-colorpicker.css', 'src/js/wponion-plugins.js' ],
+	watch: [ 'src/vendors/colorpicker/cs-colorpicker.css' ],
 	autoprefixer: true,
 	minify: true,
 	rename: 'cs-colorpicker.css',
