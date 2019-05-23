@@ -19,12 +19,16 @@ export default class extends WPOnion_Module {
 	 */
 	constructor( $selector, $context = null, $config = null ) {
 		super( $selector, $context );
-		this.set_args( false );
-		this.field_debug();
-		this.config = $config;
-		this.init();
-		this.js_error_handler();
-		this.js_validator();
+
+		if( !this.element.hasClass( 'wponion-field-inited' ) ) {
+			this.set_args( false );
+			this.field_debug();
+			this.config = $config;
+			this.init();
+			this.js_error_handler();
+			this.js_validator();
+			this.element.addClass( 'wponion-field-inited' );
+		}
 	}
 
 	/**
