@@ -101,9 +101,14 @@ if ( ! function_exists( 'wponion_tooltip_faq' ) ) {
 	 * @return array|string
 	 */
 	function wponion_tooltip_faq( $content = false, $args = array(), $element = false, $localize = true ) {
+		if ( ! is_array( $args ) ) {
+			$args = array();
+		}
+
 		$args['interactive'] = true;
 		$args['theme']       = 'light-border dropdown';
 		$args['trigger']     = 'click';
+
 		return wponion_tooltip( $content, $args, $element, $localize );
 	}
 }

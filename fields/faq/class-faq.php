@@ -35,14 +35,19 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 		public function output() {
 			$this->before();
 			$options = $this->data( 'options' );
-			echo '<div class="faqs-container">';
+			echo '<ul class="faqs-container">';
 			foreach ( $options as $faq ) {
-				echo '<div class="faq">';
-				echo '<div class="faq-title"><h3><i class="dashicons dashicons-before"></i> <span class="title-name">' . $faq['heading'] . '</span></h3></div>';
-				echo '<div class="faq-content">' . wpautop( $faq['content'] ) . '</div>';
-				echo '</div>';
+				if ( ! class_exists( '\Parsedown' ) ) {
+					require_once WPONION_PATH . 'core/vendors/erusev/parsedown.php';
+				}
+				$parse_down = new \Parsedown();
+
+				echo '<li class="faq">';
+				echo '<div class="faq-title"><h3><i class="dashicons"></i><span class="title-name">' . $faq['heading'] . '</span></h3></div>';
+				echo '<div class="faq-content">' . do_shortcode( $parse_down->text( $faq['content'] ) ) . '</div>';
+				echo '</li>';
 			}
-			echo '</div>';
+			echo '</ul>';
 			$this->after();
 		}
 
