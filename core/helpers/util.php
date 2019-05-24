@@ -89,6 +89,26 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_tooltip_faq' ) ) {
+	/**
+	 * Creates FAQ View in Tooltip.
+	 *
+	 * @param bool  $content
+	 * @param array $args
+	 * @param bool  $element
+	 * @param bool  $localize
+	 *
+	 * @return array|string
+	 */
+	function wponion_tooltip_faq( $content = false, $args = array(), $element = false, $localize = true ) {
+		$args['interactive'] = true;
+		$args['theme']       = 'light-border dropdown';
+		$args['trigger']     = 'click';
+		return wponion_tooltip( $content, $args, $element, $localize );
+	}
+}
+
+
 if ( ! function_exists( 'wponion_icon' ) ) {
 	/**
 	 * Checks and returns icon html + load the required icon font.
