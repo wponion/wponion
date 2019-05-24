@@ -202,15 +202,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		}
 
 		/**
-		 * Returns A Array of callback args for the theme.
-		 *
-		 * @return array
-		 */
-		protected function theme_callback_args() {
-			return parent::theme_callback_args();
-		}
-
-		/**
 		 * Renders Post Metabox.
 		 *
 		 * @param $post
@@ -264,7 +255,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 				} elseif ( false !== $active ) {
 					$active = $this->validate_container_sub_container( $active['container_id'], $active['sub_container_id'] );
 				}
-
 				$this->active_data = $active;
 			}
 			return $this->active_data;

@@ -68,6 +68,7 @@ if ( ! function_exists( 'wponion_layouts' ) ) {
 	/**
 	 * @param        $type
 	 * @param string $size
+	 * @param array  $exclude
 	 *
 	 * @return array|bool
 	 */
@@ -93,7 +94,7 @@ if ( ! function_exists( 'wponion_layouts_field_option' ) ) {
 	 * @return bool|mixed
 	 */
 	function wponion_layouts_field_option( $type, $size = '125', $exclude = array() ) {
-		if ( ! in_array( $size, array( '75', '100', '125' ) ) ) {
+		if ( ! in_array( $size, array( '75', '100', '125' ), true ) ) {
 			return false;
 		}
 		$url   = WPONION_URL . 'assets/img/layouts/' . $size . '/' . strtolower( $type ) . '/';

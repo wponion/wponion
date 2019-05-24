@@ -251,16 +251,12 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * @return $this|\WPO\Container
 		 */
 		public function set_attributes( $attributes = null, $merge = true ) {
-			if ( true === $merge ) {
-				if ( wponion_is_array( $this->attributes ) ) {
-					$this->attributes = $this->parse_args( $attributes, $this->attributes );
-				} else {
-					$this->attributes = $attributes;
-				}
-			} else {
+			if ( true !== $merge ) {
 				$this->attributes = $attributes;
+			} else {
+				$this->attributes = ( ! wponion_is_array( $this->attributes ) ) ? array() : $this->attributes;
+				$this->attributes = $this->parse_args( $attributes, $this->attributes );
 			}
-
 			return $this;
 		}
 
@@ -291,14 +287,11 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * @return $this|\WPO\Container
 		 */
 		public function set_query_args( $query_args = null, $merge = true ) {
-			if ( true === $merge ) {
-				if ( wponion_is_array( $this->query_args ) ) {
-					$this->query_args = $this->parse_args( $query_args, $this->query_args );
-				} else {
-					$this->query_args = $query_args;
-				}
-			} else {
+			if ( false === $merge ) {
 				$this->query_args = $query_args;
+			} else {
+				$this->query_args = ( ! wponion_is_array( $this->query_args ) ) ? array() : $this->query_args;
+				$this->query_args = $this->parse_args( $query_args, $this->query_args );
 			}
 
 			return $this;

@@ -111,7 +111,6 @@ if ( ! function_exists( 'wponion_get_field_class_remap' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_get_field_class' ) ) {
 	/**
 	 * @param        $field
@@ -232,12 +231,9 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 		}
 
 		$output = '';
-
-		if ( isset( $field['__instance'] ) ) {
-			$class = $field['__instance'];
-		} else {
+		$class  = ( isset( $field['__instance'] ) ) ? $field['__instance'] : false;
+		if ( false === $class ) {
 			$class = wponion_field( $field, $value, $unique );
-
 			if ( false === $class ) {
 				$class = wponion_get_field_class( $field );
 			}
@@ -305,7 +301,6 @@ if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	 * Returns a list of non editable fileds type.
 	 *
 	 * @return array
-	 * @todo check and remove.
 	 *
 	 */
 	function wponion_noninput_fields() {
