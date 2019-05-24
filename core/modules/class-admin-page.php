@@ -416,6 +416,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * Renders.
 		 */
 		public function render() {
+			if ( wponion_is_debug() ) {
+				wponion_timer( 'wpo-admin-page' );
+			}
 			echo '<div class="wrap">';
 			echo '<h1>' . get_admin_page_title() . '</h1>';
 
@@ -437,6 +440,11 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 
 			if ( false !== $_callback ) {
 				echo wponion_callback( $_callback, $this );
+			}
+
+			if ( wponion_is_debug() ) {
+				$timer = get_num_queries() . ' queries in ' . wponion_timer( 'wpo-admin-page', true ) . ' seconds <br/> WPOnion is currently set to developer mode';
+				echo '<div class="wponion-developer-timer">' . $timer . '</div>';
 			}
 			echo '</div>';
 		}

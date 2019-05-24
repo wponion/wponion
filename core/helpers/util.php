@@ -3,6 +3,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! function_exists( 'wponion_timer' ) ) {
+	/**
+	 * @param string $key Unique Timer Key.
+	 * @param bool   $stop true / false
+	 * @param int    $precision
+	 *
+	 * @return bool|string
+	 */
+	function wponion_timer( $key = '', $stop = false, $precision = 3 ) {
+		return ( false === $stop ) ? \WPOnion\Helper::timer_start( $key ) : \WPOnion\Helper::timer_stop( $key, $precision );
+	}
+}
 
 if ( ! function_exists( 'wponion_tooltip' ) ) {
 	/**
