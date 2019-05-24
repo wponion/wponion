@@ -56,21 +56,6 @@ $files[ 'src/js/wponion-cloner.js' ]     = {
 };
 
 // Plugins.
-$files[ 'src/vendors/flatpickr/style.scss' ]           = {
-	dist: 'assets/plugins/flatpickr/',
-	combine_files: true,
-	scss: true,
-	minify: true,
-	watch: true,
-	rename: 'style.css',
-};
-$files[ 'src/vendors/flatpickr/script.js' ]            = {
-	dist: 'assets/plugins/flatpickr/',
-	combine_files: true,
-	uglify: true,
-	watch: true,
-	rename: 'script.js',
-};
 $files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {
 	dist: 'assets/plugins/colorpicker/',
 	watch: [ 'src/vendors/colorpicker/cs-colorpicker.css' ],
@@ -130,11 +115,6 @@ $files[ 'src/scss/themes/wc/style.scss' ] = {
 	rename: 'style.css',
 	dist: 'templates/wc/assets/',
 };
-
-/**
- * Other Plugins
- */
-$files[ '' ] = {};
 
 
 module.exports = {
