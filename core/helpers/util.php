@@ -27,19 +27,17 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 	 */
 	function wponion_tooltip( $content = false, $args = array(), $element = false, $localize = true ) {
 		if ( is_array( $content ) && ! empty( $args ) && is_string( $args ) ) {
-			if ( false === isset( $content['content'] ) || isset( $content['content'] ) && empty( $content['content'] ) ) {
-				$_content = $args;
-				$args     = $content;
-				$content  = $_content;
-			} else {
-				$element = $args;
-				$args    = $content;
-				$content = null;
-			}
+			$element = $args;
+			$args    = $content;
+			$content = null;
 		} elseif ( is_array( $content ) && empty( $args ) ) {
 			$args    = $content;
 			$content = null;
+		} elseif ( is_string( $content ) && is_string( $args ) ) {
+			$element = $args;
+			$args    = array();
 		}
+
 
 		$args        = wp_parse_args( $args, array(
 			'content'     => $content,
