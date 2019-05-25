@@ -28,13 +28,28 @@ if ( ! class_exists( '\WPOnion\Shortcodes' ) ) {
 	 */
 	class Shortcodes extends Bridge {
 		/**
+		 * @var array
+		 * @access
+		 */
+		protected static $shortcodes = array();
+
+		/**
 		 * Shortcodes constructor.
 		 */
 		public function __construct() {
-			add_shortcode( 'wpo_tooltip', array( &$this, 'tooltip' ) );
-			add_shortcode( 'logic', array( &$this, 'wp_if_condition' ) );
-			add_shortcode( 'wp_logic', array( &$this, 'wp_if_condition' ) );
-			add_shortcode( 'wpo_logic', array( &$this, 'wp_if_condition' ) );
+			self::$shortcodes['wpo_tooltip'] = array( &$this, 'tooltip' );
+			self::$shortcodes['logic']       = array( &$this, 'wp_if_condition' );
+			self::$shortcodes['logic_1']     = array( &$this, 'wp_if_condition' );
+			self::$shortcodes['logic_2']     = array( &$this, 'wp_if_condition' );
+			self::$shortcodes['logic_3']     = array( &$this, 'wp_if_condition' );
+			self::$shortcodes['wp_logic']    = array( &$this, 'wp_if_condition' );
+			self::$shortcodes['wpo_logic']   = array( &$this, 'wp_if_condition' );
+
+			foreach ( self::$shortcodes as $code => $callback ) {
+				if ( ! shortcode_exists( $code ) ) {
+					add_shortcode( $code, $callback );
+				}
+			}
 		}
 
 		/**
@@ -86,7 +101,7 @@ if ( ! class_exists( '\WPOnion\Shortcodes' ) ) {
 					);
 				}
 			}
-			var_dump( $content );
+
 			if ( ! empty( $new_rules ) ) {
 				$builder = wp_conditional_logic_builder( $args['condition'] );
 				foreach ( $new_rules as $rule ) {
@@ -96,7 +111,6 @@ if ( ! class_exists( '\WPOnion\Shortcodes' ) ) {
 			}
 			return do_shortcode( $content, true );
 		}
-
 	}
 }
 return new Shortcodes;
