@@ -257,6 +257,31 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				'script' => $script,
 			) );
 		}
+
+		/**
+		 * System Information Emailer.
+		 */
+		public function sysinfo_emailer() {
+			if ( ! isset( $_POST['wponion_sysinfo'] ) ) {
+				wp_send_json_error( __( 'Unknown Error' ) );
+			}
+			$data    = $_POST['wponion_sysinfo'];
+			$headers = array(
+				'From: ' . sanitize_text_field( $data['from_name'] ) . ' <' . sanitize_text_field( $data['from_email'] ) . '>',
+				'Reply-To: ' . sanitize_text_field( $data['from_email'] ),
+			);
+
+			$message = $data['message'];
+			$message .= "\r\n\r\n---------------\r\n\r\n";
+			$message .= $_POST['sysinfo'];
+
+			$sent = wp_mail( $data['developer'], sanitize_text_field( $data['subject'] ), stripslashes( $message ), $headers );
+
+			if ( $sent ) {
+				wp_send_json_success();
+			}
+			wp_send_json_error();
+		}
 	}
 }
 return new Core_Ajax;

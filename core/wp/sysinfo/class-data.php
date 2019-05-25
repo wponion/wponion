@@ -306,6 +306,11 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 			return $r;
 		}
 
+		/**
+		 * WPOnion Information.
+		 *
+		 * @static
+		 */
 		public static function self_info_data() {
 			self::$status[ __( 'WPOnion', 'wponion' ) ] = array(
 				__( 'Version ', 'wponion' )    => WPONION_VERSION,

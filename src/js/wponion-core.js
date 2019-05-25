@@ -30,6 +30,7 @@ window.wponion = window.wponion || Object.create( {
 /**
  * WPonion Modules.
  */
+require( './helpers/system-info' ).default;
 require( './modules/settings' ).default;
 require( './modules/metabox' ).default;
 require( './modules/wp-pointers' ).default;

@@ -43,7 +43,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Sysinfo' ) ) {
 					$data = wponion_parse_args( $data, $args->custom_reports );
 				}
 			}
-			self::render_html( $data, $reports );
+			self::render_html( $data, $reports, $args );
 			self::js();
 		}
 
@@ -63,21 +63,27 @@ JAVASCRIPT;
 		}
 
 		/**
-		 * @param $data
-		 * @param $args
+		 * @param                      $data
+		 * @param                      $args
+		 * @param \WPO\Container|false $container_arg
 		 *
 		 * @static
 		 */
-		public static function render_html( $data, $args ) {
+		public static function render_html( $data, $args, $container_arg = false ) {
 			$_content = '<p>';
-
+			$email    = '<a style="margin-left:10px;" href="javascript:void(0);" class="button button-secondary wponion-system-report-email">' . __( 'Send As Email', 'wponion' ) . '</a>';
 			$_content .= __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ', 'wponion' );
 			$_content .= '</p>';
 			$_content .= '<div id="sysreport" style="display:none;" ><textarea style="width:100%;min-height:250px;"  >';
 			$_content .= self::render_text_data( $data, $args );
 			$_content .= '</textarea></div>';
 			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ', 'wponion' ) . '</p>';
-			$_content .= '<a href="#" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
+			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
+			$_content .= wponion_tooltip( __( 'Email System Info To The Plugin Developer / Author' ), array(
+				//'size'      => 'small',
+				'placement' => 'bottom',
+				'element'   => $email,
+			) );
 			echo wponion_add_element( array(
 				'type'    => 'wp_notice_info',
 				'large'   => true,
@@ -85,6 +91,60 @@ JAVASCRIPT;
 				'close'   => false,
 				'content' => $_content,
 			) );
+
+			if ( wponion_is_builder( $container_arg, 'container' ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
+				$user    = wp_get_current_user();
+				$emailer = wponion_builder();
+
+				$emailer->hidden( 'developer' );
+
+				$emailer->text( 'from_name', __( 'From Name' ) )
+					->placeholder( __( 'From Name' ) )
+					->style( 'width:100%;padding:10px;' )
+					->debug( false )
+					->horizontal( true );
+				$emailer->text( 'from_email', __( 'From Email' ) )
+					->placeholder( __( 'From Email' ) )
+					->style( 'width:100%;padding:10px;' )
+					->debug( false )
+					->horizontal( true );
+
+				$emailer->text( 'subject', __( 'Subject' ) )
+					->style( 'width:100%;padding:10px;' )
+					->debug( false )
+					->horizontal( true );
+
+				$emailer->textarea( 'message', __( 'Message' ) )
+					->style( 'width:100%;' )
+					->rows( 10 )
+					->desc_field( __( 'System Information Will Be Attached With Your Message' ) )
+					->debug( false )
+					->horizontal( true );
+				$html = '<div class="wponion-framework" id="wponion-sysinfo-popup-emailer">';
+				/**
+				 * @var \WPO\Field $field
+				 */
+				foreach ( $emailer->fields() as $field ) {
+					$value = false;
+
+					if ( 'developer' === $field['id'] ) {
+						$value = $container_arg->get_var( 'developer' );
+					} elseif ( 'from_name' === $field['id'] ) {
+						$value = $user->display_name;
+					} elseif ( 'from_email' === $field['id'] ) {
+						$value = $user->user_email;
+					} elseif ( 'subject' === $field['id'] ) {
+						$value = sprintf( __( 'Reg : [%s] System Information ' ), home_url() );
+					}
+					$html .= $field->render( $value, 'wponion_sysinfo' );
+				}
+				$html .= '</div>';
+
+				wponion_localize()->add( 'wponionsysinfo', array(
+					'title' => __( 'Send Sys Info Via Email' ),
+					'html'  => $html,
+				) );
+			}
 
 			foreach ( $data as $key => $_data ) {
 				if ( isset( $args[ $key ] ) && false === $args[ $key ] || isset( $args[ $key . '_html' ] ) && false === $args[ $key . '_html' ] ) {

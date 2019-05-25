@@ -88,6 +88,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'processing', __( 'Processing ...', 'wponion' ) );
 				$this->text( 'restore', __( 'Restore', 'wponion' ) );
 				$this->text( 'settings_saved', __( 'Settings Updated', 'wponion' ) );
+				$this->text( 'email_sent', __( 'Email Sent', 'wponion' ) );
 				$this->modal_template();
 				self::$core_data = true;
 			}
