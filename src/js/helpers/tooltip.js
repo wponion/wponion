@@ -64,7 +64,7 @@ class field extends WPOnion_Field {
 		}
 
 		if( $arg ) {
-			$arg.performance = false;
+			$arg.ignoreAttributes = false;
 			if( $arg.image !== undefined && $arg.image !== false ) {
 				let $image          = $arg.image;
 				$arg.interactive    = true;
