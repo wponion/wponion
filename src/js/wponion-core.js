@@ -36,6 +36,7 @@ require( './modules/wp-pointers' ).default;
 require( './modules/media-fields' ).default;
 require( './modules/bulk-edit' ).default;
 require( './modules/quick-edit' ).default;
+require( './modules/page-actions' ).default;
 require( './modules/visual-composer' ).default;
 
 window.wponion.modal          = require( '../vendors/backbone-modal' ).default;
@@ -74,6 +75,8 @@ export default ( ( window, document, wp, $ ) => {
 	$( window ).on( 'load', ( () => {
 
 		window.wponion.hooks.doAction( 'wponion_before_init' );
+
+		window.wponion_field( 'body' ).reload_global_fields();
 
 		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
 

@@ -20,15 +20,12 @@ export default class extends WPOnion_Module {
 	constructor( $selector, $context = null, $config = null ) {
 		super( $selector, $context );
 
-		if( !this.element.hasClass( 'wponion-field-inited' ) ) {
-			this.set_args( false );
-			this.field_debug();
-			this.config = $config;
-			this.init();
-			this.js_error_handler();
-			this.js_validator();
-			this.element.addClass( 'wponion-field-inited' );
-		}
+		this.set_args( false );
+		this.field_debug();
+		this.config = $config;
+		this.init();
+		this.js_error_handler();
+		this.js_validator();
 	}
 
 	/**
@@ -296,10 +293,7 @@ export default class extends WPOnion_Module {
 		this.init_field( '.wponion-element-notice', 'notice' );
 		this.init_field( '.wponion-element-faq', 'faq' );
 
-		this.init_field( '.wponion-field-tooltip', 'tooltip' );
-		this.init_field( '.wponion-help', 'tooltip' );
-		this.init_field( '[wponion-help]', 'tooltip' );
-		this.init_field( '.wponion-wrap-tooltip', 'tooltip' );
+		this.reload_global_fields();
 
 		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
 		this.init_field( '.select2', 'select2' );
@@ -308,6 +302,12 @@ export default class extends WPOnion_Module {
 
 		window.wponion.hooks.doAction( 'wponion_after_fields_reload', this );
 		return this;
+	}
+
+	reload_global_fields() {
+		this.init_field( '.wponion-field-tooltip', 'tooltip' );
+		this.init_field( '.wponion-help', 'tooltip' );
+		this.init_field( '[wponion-help]', 'tooltip' );
 	}
 
 	/**
