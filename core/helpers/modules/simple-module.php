@@ -11,7 +11,6 @@ if ( ! function_exists( 'wponion_plugin_links' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_endpoint' ) ) {
 	/**
 	 * @param $slug
@@ -20,5 +19,15 @@ if ( ! function_exists( 'wponion_endpoint' ) ) {
 	 */
 	function wponion_endpoint( $slug ) {
 		return new \WPOnion\Modules\Util\Endpoint( $slug );
+	}
+}
+
+if ( ! function_exists( 'wponion_page_actions' ) ) {
+	/**
+	 * @param       $post_type
+	 * @param array $buttons
+	 */
+	function wponion_page_actions( $post_type, $buttons = array() ) {
+		\WPOnion\Modules\Util\Page_Actions::add( $post_type, $buttons );
 	}
 }
