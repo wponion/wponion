@@ -206,14 +206,14 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 						}
 						self::register( $script, $key, $url, $dep, $v, $footer_or_media );
 					} else {
-						$msg = __( 'Please wait a few minutes, then try refreshing the page. Unable to load some remotely hosted scripts.', 'redux-framework' );
+						$msg = __( 'Please wait a few minutes, then try refreshing the page. Unable to load some remotely hosted scripts.', 'redux-framework', 'wponion' );
 						if ( wponion_is_debug() ) {
 							/* translators: */
-							$msg = __( 'If you are developing offline, please download and install the <a href="%s" target="_blank">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning' );
+							$msg = __( 'If you are developing offline, please download and install the <a href="%s" target="_blank">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning', 'wponion' );
 							$msg = sprintf( $msg, 'https://github.com/wponion/vendor-support' );
 						}
 						if ( false === self::$error_msg && is_admin() ) {
-							wponion_warning_admin_notice( $msg, __( 'WPOnion Framework Warning' ) );
+							wponion_warning_admin_notice( $msg, __( 'WPOnion Framework Warning', 'wponion' ) );
 							self::$error_msg = true;
 						}
 					}

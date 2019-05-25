@@ -319,7 +319,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			echo $this->field_wrapper( true );
 			echo $this->output();
 			echo $this->field_wrapper( false ) . '<div class="clear"></div>';
-			echo '<div class="wponion-developer-timer">' . __( 'Field Rendered In' ) . ' ' . wponion_timer( $this->unique(), true ) . ' ' . __( 'Seconds' ) . '</div>';
+			echo '<div class="wponion-developer-timer">' . __( 'Field Rendered In', 'wponion' ) . ' ' . wponion_timer( $this->unique(), true ) . ' ' . __( 'Seconds', 'wponion' ) . '</div>';
 			echo '</div></div>';
 		}
 
