@@ -72,3 +72,6 @@ require WPONION_PATH . 'core/helpers/modules/woocommerce.php';
 
 // wp-pointers related functions
 require WPONION_PATH . 'core/helpers/modules/wp-pointers.php';
+
+// cpt related functions
+require WPONION_PATH . 'core/helpers/modules/cpt.php';
