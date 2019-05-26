@@ -24,45 +24,26 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Taxonomy' ) ) {
 	 */
 	class Taxonomy extends Common {
 		/**
-		 * Stores Common Post Type Labels.
+		 * @param $singular
+		 * @param $plural
 		 *
-		 * @var array
-		 * @access
-		 * @static
+		 * @return $this|\WPOnion\Modules\CPT\Labels\Common
 		 */
-		protected static $taxonomy_labels = array();
-
-		/**
-		 * Returns Common Labels.
-		 *
-		 * @return array
-		 */
-		private function taxonomy_labels() {
-			if ( empty( self::$taxonomy_labels ) ) {
-				self::$taxonomy_labels = array(
-					'parent_item',
-					'new_item_name',
-					'separate_items_with_commas',
-					'add_or_remove_items',
-					'choose_from_most_used',
-					'popular_items',
-					'no_terms',
-				);
+		public function set( $singular, $plural ) {
+			if ( ! empty( $singular ) && ! empty( $plural ) ) {
+				$this->labels['popular_items']              = sprintf( 'Popular %s', $plural );
+				$this->labels['parent_item']                = sprintf( 'Parent %s', $singular );
+				$this->labels['update_item']                = sprintf( 'Update %s', $singular );
+				$this->labels['new_item_name']              = sprintf( 'New %s Name', $singular );
+				$this->labels['separate_items_with_commas'] = sprintf( 'Separate %s with commas', strtolower( $plural ) );
+				$this->labels['add_or_remove_items']        = sprintf( 'Add or remove %s', strtolower( $plural ) );
+				$this->labels['choose_from_most_used']      = sprintf( 'Choose from most used %s', strtolower( $plural ) );
+				$this->labels['no_terms']                   = sprintf( 'No %s', strtolower( $plural ) );
+				$this->labels['most_used']                  = 'Most Used';
+				$this->labels['back_to_items']              = sprintf( '&larr; Back to %s', $plural );
+				$this->labels['no_item']                    = sprintf( 'No %s', strtolower( $singular ) );
 			}
-			return self::$taxonomy_labels;
-		}
-
-		/**
-		 * @param $name
-		 * @param $arguments
-		 *
-		 * @return bool|$this|\WPOnion\Modules\CPT\Labels\Taxonomy
-		 */
-		public function __call( $name, $arguments ) {
-			if ( in_array( $name, $this->taxonomy_labels(), true ) && ! is_array( $arguments ) ) {
-				return $this->set_label( $name, $arguments[0] );
-			}
-			return parent::__call( $name, $arguments );
+			return parent::set( $singular, $plural );
 		}
 	}
 }

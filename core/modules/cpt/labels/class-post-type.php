@@ -31,52 +31,26 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Post_Type' ) ) {
 	 */
 	class Post_Type extends Common {
 		/**
-		 * Stores Common Post Type Labels.
+		 * @param $singular
+		 * @param $plural
 		 *
-		 * @var array
-		 * @access
-		 * @static
-		 */
-		protected static $post_type_labels = array();
-
-		/**
-		 * Returns Common Labels.
+		 * @return $this|\WPOnion\Modules\CPT\Labels\Common
 		 *
-		 * @return array
 		 */
-		private function post_type_labels() {
-			if ( empty( self::$post_type_labels ) ) {
-				self::$post_type_labels = array(
-					'name_admin_bar',
-					'archives',
-					'attributes',
-					'add_new',
-					'new_item',
-					'view_items',
-					'not_found_in_trash',
-					'featured_image',
-					'set_featured_image',
-					'remove_featured_image',
-					'use_featured_image',
-					'insert_into_item',
-					'uploaded_to_this_item',
-					'filter_items_list',
-				);
+		public function set( $singular, $plural ) {
+			if ( ! empty( $singular ) && ! empty( $plural ) ) {
+				$this->labels['name_admin_bar']        = $singular;
+				$this->labels['add_new']               = 'Add New';
+				$this->labels['new_item']              = sprintf( 'New %s', $singular );
+				$this->labels['view_items']            = sprintf( 'View %s', $plural );
+				$this->labels['not_found_in_trash']    = sprintf( 'No %s found in trash.', strtolower( $plural ) );
+				$this->labels['archives']              = sprintf( '%s Archives', $singular );
+				$this->labels['attributes']            = sprintf( '%s Attributes', $singular );
+				$this->labels['insert_into_item']      = sprintf( 'Insert into %s', strtolower( $singular ) );
+				$this->labels['uploaded_to_this_item'] = sprintf( 'Uploaded to this %s', strtolower( $singular ) );
+				$this->labels['filter_items_list']     = sprintf( 'Filter %s list', strtolower( $plural ) );
 			}
-			return self::$post_type_labels;
-		}
-
-		/**
-		 * @param $name
-		 * @param $arguments
-		 *
-		 * @return bool|$this|\WPOnion\Modules\CPT\Labels\Taxonomy
-		 */
-		public function __call( $name, $arguments ) {
-			if ( in_array( $name, $this->post_type_labels(), true ) && ! is_array( $arguments ) ) {
-				return $this->set_label( $name, $arguments[0] );
-			}
-			return parent::__call( $name, $arguments );
+			return parent::set( $singular, $plural );
 		}
 	}
 }

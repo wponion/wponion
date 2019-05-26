@@ -52,28 +52,35 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Taxonomy' ) ) {
 			$labels         = array();
 			if ( is_string( $taxonomy ) && is_array( $object_type ) && isset( $object_type['object_type'] ) ) {
 				$this->object_type = $object_type['object_type'];
-				$labels            = isset( $object_type['labels'] ) ? $object_type['labels'] : array();
 				unset( $object_type['object_type'] );
-				unset( $object_type['labels'] );
 				$this->arguments = $object_type;
 
 			} else {
 				$this->object_type = $object_type;
 				$this->arguments   = $args;
-				$labels            = isset( $object_type['labels'] ) ? $object_type['labels'] : array();
-				unset( $object_type['labels'] );
 			}
 			if ( ! empty( $this->taxonomy ) ) {
+				$this->init_labels( '\WPOnion\Modules\CPT\Labels\Taxonomy' );
 				add_action( 'init', array( &$this, 'on_init' ) );
-				$this->labels = new \WPOnion\Modules\CPT\Labels\Post_Type( $labels );
 			}
 		}
 
 		/**
+		 * Singular  |   Plural
+		 * --------------------
+		 * boat      |   boats
+		 * house     |   houses
+		 * cat       |   cats
+		 * river     |   rivers
+		 * --------------------
+		 *
+		 * @param bool $singular Example : boat
+		 * @param bool $plural Example : boats
+		 *
 		 * @return \WPOnion\Modules\CPT\Labels\Taxonomy
 		 */
-		public function labels() {
-			return $this->labels;
+		public function labels( $singular = false, $plural = false ) {
+			return ( empty( $plural ) && empty( $singular ) ) ? $this->labels : $this->labels->set( $singular, $plural );
 		}
 
 		/**

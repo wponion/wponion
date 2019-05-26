@@ -37,48 +37,43 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
 		 */
 		protected $labels = array();
 
-		/**
-		 * Stores Common Labels.
-		 *
-		 * @var array
-		 * @access
-		 * @static
-		 */
-		protected static $common_labels = array();
-
-		/**
-		 * Returns Common Labels.
-		 *
-		 * @return array
-		 */
-		private function common_labels() {
-			if ( empty( self::$common_labels ) ) {
-				self::$common_labels = array(
-					'name',
-					'singular_name',
-					'menu_name',
-					'all_items',
-					'parent_item_colon',
-					'add_new_item',
-					'edit_item',
-					'update_item',
-					'view_item',
-					'search_items',
-					'not_found',
-					'items_list',
-					'items_list_navigation',
-				);
-			}
-			return self::$common_labels;
-		}
 
 		/**
 		 * Common constructor.
 		 *
-		 * @param $labels
+		 * @param string|array $singular
+		 * @param bool         $plural
 		 */
-		public function __construct( $labels ) {
-			$this->labels = $labels;
+		public function __construct( $singular = '', $plural = false ) {
+			if ( is_array( $singular ) ) {
+				$this->labels = $singular;
+			} else {
+				$this->set( $singular, $plural );
+			}
+		}
+
+		/**
+		 * @param $singular
+		 * @param $plural
+		 *
+		 * @return $this
+		 */
+		public function set( $singular, $plural ) {
+			if ( ! empty( $singular ) && ! empty( $plural ) ) {
+				$this->labels['name']                  = $plural;
+				$this->labels['singular_name']         = $singular;
+				$this->labels['menu_name']             = $plural;
+				$this->labels['add_new_item']          = sprintf( 'Add New %s', $singular );
+				$this->labels['edit_item']             = sprintf( 'Edit %s', $singular );
+				$this->labels['view_item']             = sprintf( 'View %s', $singular );
+				$this->labels['search_items']          = sprintf( 'Search %s', $plural );
+				$this->labels['not_found']             = sprintf( 'No %s found.', strtolower( $plural ) );
+				$this->labels['parent_item_colon']     = sprintf( 'Parent %s:', $singular );
+				$this->labels['all_items']             = sprintf( 'All %s', $plural );
+				$this->labels['items_list_navigation'] = sprintf( '%s list navigation', $plural );
+				$this->labels['items_list']            = sprintf( '%s list', $plural );
+			}
+			return $this;
 		}
 
 		/**
@@ -108,10 +103,40 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
 		 * @return bool|\WPOnion\Modules\CPT\Labels\Common
 		 */
 		public function __call( $name, $arguments ) {
-			if ( in_array( $name, $this->common_labels(), true ) && isset( $arguments[0] ) ) {
-				return $this->set_label( $name, $arguments[0] );
-			}
-			return null;
+			return $this->set_label( $name, $arguments[0] );
+		}
+
+		/**
+		 * @param $name
+		 * @param $value
+		 */
+		public function __set( $name, $value ) {
+			$this->set_label( $name, $value );
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function __isset( $name ) {
+			return ( isset( $this->labels[ $name ] ) );
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function __get( $name ) {
+			return ( isset( $this->labels[ $name ] ) );
+		}
+
+		/**
+		 * @param $name
+		 */
+		public function __unset( $name ) {
+			unset( $this->labels[ $name ] );
 		}
 	}
 }

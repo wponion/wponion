@@ -51,19 +51,14 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Post_Type' ) ) {
 		public function __construct( $post_type = false, $post_type_args_or_label = null ) {
 			if ( ! empty( $post_type ) ) {
 				if ( is_array( $post_type_args_or_label ) ) {
-					$labels = isset( $post_type_args_or_label['labels'] ) ? $post_type_args_or_label['labels'] : array();
-
-					if ( isset( $post_type_args_or_label['labels'] ) ) {
-						unset( $post_type_args_or_label['labels'] );
-					}
 					$this->arguments = $post_type_args_or_label;
 					$this->post_type = $post_type;
-					$this->labels    = new \WPOnion\Modules\CPT\Labels\Post_Type( $labels );
 				} elseif ( ! is_array( $post_type ) && ! is_array( $post_type_args_or_label ) ) {
-					$this->labels    = new \WPOnion\Modules\CPT\Labels\Post_Type( array() );
 					$this->post_type = $post_type;
 					$this->label( $post_type_args_or_label );
 				}
+
+				$this->init_labels( '\WPOnion\Modules\CPT\Labels\Post_Type' );
 				add_action( 'init', array( &$this, 'on_init' ) );
 			}
 		}
@@ -78,10 +73,21 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Post_Type' ) ) {
 		}
 
 		/**
+		 * Singular  |   Plural
+		 * --------------------
+		 * boat      |   boats
+		 * house     |   houses
+		 * cat       |   cats
+		 * river     |   rivers
+		 * --------------------
+		 *
+		 * @param bool $singular Example : boat
+		 * @param bool $plural Example : boats
+		 *
 		 * @return \WPOnion\Modules\CPT\Labels\Post_Type
 		 */
-		public function labels() {
-			return $this->labels;
+		public function labels( $singular = false, $plural = false ) {
+			return ( empty( $plural ) && empty( $singular ) ) ? $this->labels : $this->labels->set( $singular, $plural );
 		}
 
 		/**

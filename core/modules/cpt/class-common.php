@@ -106,5 +106,56 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Common' ) ) {
 		public function is_private() {
 			return $this->set_arg( 'private', true );
 		}
+
+		/**
+		 * Inits Labels.
+		 *
+		 * @param $class
+		 */
+		protected function init_labels( $class ) {
+			if ( isset( $this->arguments['labels'] ) ) {
+				$this->labels = class_exists( $class ) ? new $class( $this->arguments['labels'] ) : false;
+			} else {
+				$singular     = ( isset( $this->arguments['singular'] ) ) ? $this->arguments['singular'] : false;
+				$plural       = ( isset( $this->arguments['plural'] ) ) ? $this->arguments['plural'] : false;
+				$this->labels = class_exists( $class ) ? new $class( $singular, $plural ) : false;
+			}
+			unset( $this->arguments['singular'] );
+			unset( $this->arguments['plural'] );
+			unset( $this->arguments['labels'] );
+		}
+
+		/**
+		 * @param $name
+		 * @param $value
+		 */
+		public function __set( $name, $value ) {
+			$this->arguments[ $name ] = $value;
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function __isset( $name ) {
+			return ( isset( $this->arguments[ $name ] ) );
+		}
+
+		/**
+		 * @param $name
+		 *
+		 * @return bool
+		 */
+		public function __get( $name ) {
+			return ( isset( $this->arguments[ $name ] ) );
+		}
+
+		/**
+		 * @param $name
+		 */
+		public function __unset( $name ) {
+			unset( $this->arguments[ $name ] );
+		}
 	}
 }
