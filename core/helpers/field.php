@@ -402,7 +402,7 @@ if ( ! function_exists( 'wponion_select_frameworks' ) ) {
 	 * @return mixed
 	 */
 	function wponion_select_frameworks() {
-		return apply_filters( 'wponion_select_input_frameworks', array( 'select2', 'chosen' ) );
+		return apply_filters( 'wponion_select_input_frameworks', array( 'selectize', 'select2', 'chosen' ) );
 	}
 }
 
@@ -455,6 +455,9 @@ if ( ! function_exists( 'wponion_select_classes' ) ) {
 					break;
 				case 'chosen':
 					$return = ( is_rtl() ) ? 'chosen chosen-rtl' : 'chosen';
+					break;
+				case 'selectize':
+					$return = 'selectize';
 					break;
 			}
 		}

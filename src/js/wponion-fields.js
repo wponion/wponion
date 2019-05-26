@@ -2,6 +2,7 @@ require( './fields/button_set' );
 require( './fields/image_select' );
 require( './fields/select2' );
 require( './fields/chosen' );
+require( './fields/selectize' );
 require( './fields/icon_picker' );
 require( './fields/font_selector' );
 require( './fields/accordion' );
