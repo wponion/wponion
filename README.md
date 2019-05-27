@@ -1,4 +1,5 @@
 [![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
 
 ## So what is WPOnion , exactly?
 
@@ -87,6 +88,11 @@ https://wponion.gitbook.io/docs/
 
 ## Contributors
 Thanks to all the Contributors who worked on this project to get it done asap
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="https://EnterpriseBranding.io"><img src="https://avatars3.githubusercontent.com/u/6123260?v=4" width="100px;" alt="Enterprise Branding"/><br /><sub><b>Enterprise Branding</b></sub></a><br /><a href="https://github.com/wponion/wponion/commits?author=EnterpriseBranding" title="Documentation">📖</a></td></tr></table>
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 1. [pixelnx](https://profiles.wordpress.org/pixelnx) -- Created WPOnion Logo
 
 ---
