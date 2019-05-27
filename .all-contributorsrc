@@ -1,0 +1,23 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "EnterpriseBranding",
+      "name": "Enterprise Branding",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6123260?v=4",
+      "profile": "https://EnterpriseBranding.io",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "wponion",
+  "projectOwner": "wponion",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
