@@ -66,6 +66,15 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Taxonomy' ) ) {
 		}
 
 		/**
+		 * Returns Taxonomy
+		 *
+		 * @return bool|string
+		 */
+		public function taxonomy() {
+			return $this->taxonomy;
+		}
+
+		/**
 		 * Singular  |   Plural
 		 * --------------------
 		 * boat      |   boats

@@ -64,6 +64,16 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Post_Type' ) ) {
 		}
 
 		/**
+		 * Returns Current Post Type.
+		 *
+		 * @return bool|string
+		 */
+		public function post_type() {
+			return $this->post_type;
+		}
+
+
+		/**
 		 * Registers Post Type With WordPress.
 		 */
 		public function on_init() {
@@ -121,12 +131,13 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Post_Type' ) ) {
 		}
 
 		/**
-		 * @param      $taxonomies
-		 * @param bool $merge
+		 * @param string|array|\WPOnion\Modules\CPT\Taxonomy $taxonomies
+		 * @param bool                                       $merge
 		 *
 		 * @return \WPOnion\Modules\CPT\Post_Type
 		 */
 		public function taxonomies( $taxonomies, $merge = true ) {
+			$taxonomies = ( $taxonomies instanceof \WPOnion\Modules\CPT\Taxonomy ) ? $taxonomies->taxonomy() : $taxonomies;
 			return $this->_merge( 'taxonomies', $taxonomies, $merge );
 		}
 
