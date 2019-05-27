@@ -446,3 +446,6 @@ require_once WPONION_PATH . 'core/helpers/validator.php';
 
 // WPOnion Theme Related Functions
 require_once WPONION_PATH . 'core/helpers/theme.php';
+
+// WPOnion Alias Functions.
+require_once WPONION_PATH . 'core/helpers/alias.php';
