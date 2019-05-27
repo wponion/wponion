@@ -72,8 +72,6 @@ function your-prefix_after_wponion_loaded(){
     //do your stuff here.
 }
 ```
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/settings-modern-theme.jpg)](https://s3.wponion.com/preview/settings-modern-theme.jpg)
-
 
 ## Contribution
 
@@ -98,3 +96,16 @@ Thanks to all the Contributors who worked on this project to get it done asap
 <table><tr><td align="center"><a href="https://EnterpriseBranding.io"><img src="https://avatars3.githubusercontent.com/u/6123260?v=4" width="100px;" alt="Enterprise Branding"/><br /><sub><b>Enterprise Branding</b></sub></a><br /><a href="https://github.com/wponion/wponion/commits?author=EnterpriseBranding" title="Documentation">📖</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
+## License
+This project is licensed under **MIT**. See the [LICENSE](LICENSE) file for more info.
+
+## Backed By
+| [![DigitalOcean][do-image]][do-ref] | [![JetBrains][jb-image]][jb-ref] |  [![Tidio Chat][tidio-image]][tidio-ref] |
+| --- | --- | --- |
+[do-image]: https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/DO_Logo_Horizontal_Blue-small.png
+[jb-image]: https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/phpstorm-small.png?v3
+[tidio-image]: https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/tidiochat-small.png
+[do-ref]: https://s.svarun.in/Ef
+[jb-ref]: https://www.jetbrains.com
+[tidio-ref]: https://tidiochat.com
