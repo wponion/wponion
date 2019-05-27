@@ -70,6 +70,19 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		public function __construct( $type = false, $id = false, $title = false, $args = array() ) {
 			unset( $this->module );
 
+			if ( ! is_array( $type ) && ! is_array( $id ) && ! is_array( $title ) && ( is_array( $args ) || ! is_array( $args ) && ! empty( $args ) ) ) {
+				$args = wponion_is_array( $args ) ? $args : array();
+			} elseif ( ! is_array( $type ) && ! is_array( $id ) && is_array( $title ) && ( is_array( $args ) || ! is_array( $args ) && ! empty( $args ) ) ) {
+				$args  = wponion_is_array( $title ) ? $title : array();
+				$title = false;
+			} elseif ( ! is_array( $type ) && is_array( $id ) && ! is_array( $title ) && ( is_array( $args ) || ! is_array( $args ) && ! empty( $args ) ) ) {
+				$args = wponion_is_array( $id ) ? $id : array();
+				$id   = false;
+			} elseif ( is_array( $type ) && ! is_array( $id ) && ! is_array( $title ) && ( is_array( $args ) || ! is_array( $args ) && ! empty( $args ) ) ) {
+				$args = wponion_is_array( $type ) ? $type : array();
+				$type = false;
+			}
+
 			$args = wponion_is_array( $args ) ? $args : array();
 			$args = $this->parse_args( $args, array(
 				'type'  => $type,
