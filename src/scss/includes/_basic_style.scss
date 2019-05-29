@@ -204,9 +204,17 @@
 	word-break:       break-all;
 	word-wrap:        break-word;
 	background-color: #f8f8f8;
-	border:           1px solid #ccc;
+	border:           1px solid rgba(0, 0, 0, .15);
 	border-radius:    4px;
 	overflow:         auto;
+
+	code {
+		padding:     0;
+		color:       inherit;
+		background:  transparent;
+		border:      none;
+		font-family: inherit;
+	}
 }
 
 // WPOnion Debug View.
@@ -224,14 +232,17 @@
 }
 
 .wponion-framework code {
-	padding:          3px 4px;
-	font-size:        90%;
-	line-height:      10px;
-	color:            #c7254e;
-	background-color: #f9f2f4;
-	border:           1px solid #ffbfd1;
-	border-radius:    4px;
-	font-family:      Menlo, Monaco, Consolas, "Courier New", monospace;
+	padding:                2px 3px 1px;
+	font-size:              .75rem;
+	line-height:            .75rem;
+	color:                  #e01e5a;
+	background-color:       #f7f7f9;
+	font-variant-ligatures: none;
+	tab-size:               4;
+	white-space:            normal;
+	border:                 1px solid #e1e1e8;
+	border-radius:          4px;
+	font-family:            Monaco, Menlo, Consolas, "Courier New", monospace;
 }
 
 .wponion-framework blockquote {
