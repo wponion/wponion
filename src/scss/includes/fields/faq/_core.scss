@@ -49,10 +49,12 @@
 			}
 
 			.faq-content {
-				padding-top: 10px;
-				display:     none;
-				line-height: 14px;
-
+				padding-top:    10px;
+				display:        none;
+				line-height:    14px;
+				border-bottom:  1px solid #eaeaea;
+				padding-bottom: 15px;
+				margin-bottom:  15px;
 
 				div {
 					max-width: 100%;

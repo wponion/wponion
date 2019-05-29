@@ -27,6 +27,13 @@
 				case 'empty':
 				case 'EMPTY':
 					return ( '' === val2 );
+				case '!""':
+				case '!\'\'':
+				case '!empty':
+				case '!EMPTY':
+				case 'not-empty':
+				case 'not-EMPTY':
+					return ( '' !== val2 );
 				case '==':
 				case '=':
 				case 'OR':

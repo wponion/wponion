@@ -1,4 +1,5 @@
 //@wponion-inline ../../node_modules/jquery-serializejson/jquery.serializejson.min.js
+//@wponion-append ../../node_modules/clipboard/dist/clipboard.min.js
 ( function( window, document, wp, $ ) {
 //@wponion-inline ../vendors/jquery-interdependencies/jquery-interdependencies.js
 //@wponion-inline ../vendors/json-view/json-view.js
