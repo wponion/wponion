@@ -224,7 +224,7 @@ export default ( ( window, document, $, jQuery ) => {
 	 * @param $element
 	 * @returns {{}|*}
 	 */
-	window.wponion_dependency = ( $element = false ) => new window.wponion.dependency( $element );
+	window.wponion_dependency = ( $element = false, $args = false ) => new window.wponion.dependency( $element, $args );
 
 	/**
 	 * Handles WPOnion Notices.
@@ -411,4 +411,42 @@ export default ( ( window, document, $, jQuery ) => {
 			timer: 3000
 		} );
 	};
+
+	jQuery( window ).on( 'load', function() {
+
+		jQuery( '.wponion-framework pre' ).tippy( {
+			theme: 'dark',
+			content: 'Click To Copy',
+			trigger: 'mouseenter click manual',
+			arrow: true,
+			followCursor: true,
+			hideOnClick: false,
+			placement: 'bottom',
+		} );
+
+		let clipboard = new ClipboardJS( '.wponion-framework pre', {
+			text: function( trigger ) {
+				return jQuery( trigger ).html();
+			}
+		} );
+
+		clipboard.on( 'success', function( e ) {
+			let $ins = jQuery( e.trigger ).tippy_get();
+			/*$ins.show();
+			*/
+			$ins.setContent( '<strong>Copied !</strong>' );
+			$ins.show();
+			setTimeout( function() {
+				$ins.hide();
+				$ins.setContent( 'Click To Copy' );
+			}, 1000 );
+
+			/*window.wponion_swal_toast().fire( {
+				title: 'Copied',
+				target: e.trigger,
+				position: 'top-end',
+				customContainerClass: 'position-absolute',
+			} );*/
+		} );
+	} );
 } )( window, document, jQuery, jQuery );
