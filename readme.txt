@@ -3,8 +3,8 @@ Contributors: varunms,vaahosttech
 Donate link: https://paypal.me/varunsridharan23
 Tags: settings,taxonomy,metabox,user profile,custom fields,guttenberg,network-settings,meta,wplisttable
 Requires at least: 4.0
-Tested up to: 5.5
-Stable tag: trunk
+Tested up to: 5.2.1
+Stable tag: 1.0
 Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://github.com/wponion/wponion/blob/master/LICENSE
@@ -19,74 +19,56 @@ The framework lets you define custom meta boxes and custom fields via arrays and
 
 ## Features
 1. Admin Bar
-2. Admin Columns
-3. Admin Notice
-4. Custom Admin Page
-5. Customizer
-6. Dashboard Widgets
-7. Widgets
-8. Gutenberg
-9. Help Tabs
-10. Custom Media Fields
-11. Custom CPT Metabox
-12. Custom NAV Menu Fields
-13. Network Settings Page
-14. Settings Page
-15. Quick & Bulk Edit
-16. Custom Taxonomy Fields
-17. Custom User Profile Fields
-18. WooCommerce Metabox Fields
+2. Admin Notice
+3. Admin Page
+4. Customizer
+5. Media Fields
+6. Nav Menus
+7. Taxonomy
+8. User Profile
+9. Custom Post Type
+10. Custom Taxonomy 
+11. Quick Edit
+12. Bull Edit
+13. Metabox
+14. Settings
+15. Network Settings
+16. Admin Columns
+17. Editpoints
+18. Help Tabs
+19. Page Actions
+20. Plugin Links
+21. WP Pointers
+22. Widgets
+23. Dashboard Widgets
+24. WooCommerce Product Metabox
+25. WooCommerce Settings Page
+26. Conditional Logic Shortcode [<code>logic</code> | <code>logic_1</code> | <code>logic_2</code> | <code>logic_3</code> | <code>wp_logic</code> | <code>wpo_logic</code>]
+
+## Themes
+1. WP
+2. WP Lite
+3. WC
+4. Modern
+
+### Addons
+1. <a href="https://github.com/wponion/icon-dropins">Icon Dropins</a>
+2. <a href="https://github.com/wponion/vendor-support ">vendor-support</a>
 
 ## Plugin Demo
-https://wponion.com/demo/
+<a href="https://wponion.com/demo/">https://wponion.com/demo/</a>
 
 ## Github URL 
-https://github.com/wponion/
+<a href="https://github.com/wponion/">https://github.com/wponion/</a>
 
-## WPONion DOCS
-https://docs.wponion.com
+## WPOnion DOCS
+<a href="https://docs.wponion.com">https://docs.wponion.com</a>
 
 ## Demo Plugin Source
-https://github.com/wponion/demo/
+<a href="https://github.com/wponion/demo/">https://github.com/wponion/demo/</a>
 
 
 == Installation ==
-
-## Include In Theme
-
-* Extract download zip on `your-theme-name/wponion` folder under your theme directory 
-* Add framework include code on your theme `your-theme-name/functions.php` file
-* Yay! Right now you are ready to use the framework
-* Read for about configuration
-
-### Folder Structure
-
-```
-├── wp-content
-|   ├── themes
-|   |   ├── themename
-|   |   ├── functions.php
-|   |   ├── ...
-|   |   ├── ...
-```
-
-> This is not meant replace your main functions.php, only put this code below your codes
-
-```php
-/**
- * WPOnion Framework
- * A Lightweight and easy-to-use WordPress Options Framework
- */
-require_once get_template_directory_uri() .'/wponion/wponion.php';
-​
-// -( or )-
-// require_once get_template_directory_uri() .'/subfolder/wponion/wponion.php';
-```
-
----
-
-## Include In plugin
-
 * Extract download zip on `your-plugin/wponion` folder under your theme directory
 * Add framework include code on your theme `your-plugin/functions.php` file
 * Yay! Right now you are ready to use the framework
@@ -154,8 +136,216 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Beta : 0.0.9] - 01/04/2019
-### Added
+# 1.0 - 29/05/2019
+## First Stable Release.
+
+# [Beta : 0.0.10.5] - 29/05/2019
+## Added
+* Hidden Field Builder
+* Page Debug Timer
+* Element Debug Timer
+* Loaded Some Major Assets via CDN
+* Logic Shortcode <code>logic</code> | <code>logic_1</code> | <code>logic_2</code> | <code>logic_3</code> | <code>wp_logic</code> | <code>wpo_logic</code>
+* ToolTip Shortcode <code>wpo_tooltip</code>
+* **Page Actions** Module Created ![Page Actions Demo](https://vsp.ams3.cdn.digitaloceanspaces.com/sshots/i/2019/May/25/1558786042-169.jpg)
+* Sysinfo Emailer
+* Custom Post Type & Custom Taxonomy Generator
+
+## Changed
+* FAQ Field
+* TippyJS from 3.4.1 to 4.3.1
+* @wordpress/hooks from 2.2.0 to 2.3.0
+* tar from 2.2.1 to 2.2.2 
+* sweetalert2 from 8.10.0 to 8.11.6 
+* Codeclean up done.
+
+## Removed
+* ColorPalette Field
+* Deleted Unused File.
+
+---
+
+# [Beta : 0.0.10.4] - 23/05/2019
+## Added
+* FAQ Field
+* Metabox Field
+
+## Removed
+* Google Maps Field
+* ChangeLog Field
+* Card Field
+
+---
+
+# [Beta : 0.0.10.3] - 21/05/2019
+## Added
+* Local POT File Generator -- For Development Use Only
+* Option to check if a string exists via javascript Dependency module
+* Option to check if a string empty via javascript Dependency module
+* Common Module Database Handler
+* Common Module Cache Handler
+
+## Fixed
+* Template Issues
+* WC Template Metabox Issue fixed
+
+## Changed
+* Resized All Layout Images
+* `wponion.pot` i18n
+* Javascript Dependency Rules Updated
+* Recoded Validation & Sanitizer Handler
+
+---
+
+# [Beta : 0.0.10.2] - 19/05/2019
+## Fixed
+* Pointer Module
+* User Profile Module
+* Dashboard Widgets
+* Nav Menu
+* Help Tabs
+* [#30](https://github.com/wponion/wponion/issues/30) Issue Fixed 
+
+## Changed
+* Code Clean UP Done
+
+---
+
+# [Beta : 0.0.10.1] - 14/05/2019
+## Fixed
+* PHP Autoloader Issue
+
+---
+
+# [Beta : 0.0.10] - 14/05/2019
+## Fixed
+* PHP Autoloader Issue
+
+---
+
+# [Beta : 0.0.9.9] - 14/05/2019
+## Added
+* `wponion_before_fields_reload` JS Hook
+* `wponion_after_fields_reload` JS Hook
+* Option To Render A Field Via Builder
+* `wponion_load_field_class` PHP Action To Load Field Class If Not Exists
+* Addon Handler Created
+
+## Changed
+* Minor Code Reformatted.
+* Min PHP Version 5.6
+
+---
+
+# [Beta : 0.0.9.8] - 09/05/2019
+## Fixed
+* Switcher Element Saving Issue
+
+---
+
+# [Beta : 0.0.9.7] - 09/05/2019
+## Added
+* WP-Admin Plugins Row / Action Link Module
+
+## Changed
+* Moved Certain Class Files
+* Changed Namespace for WPO Fields 
+* Updated Coding Standards.
+
+## Fixed
+* Minor Issue With EndPoint
+
+---
+
+# [Beta : 0.0.9.6] - 06/05/2019
+## Added
+* Option to check for image link in `image` key in `image_select` field
+* Few layout images `body`,`header`,`sidebar`
+* Ajax Save Settings
+* Bootstrap Spinners
+* new hook / action `wponion_before_icons_setup`
+* new hook / action `wponion_after_icons_setup`
+* New Function `wponion_is_container`
+* Addons Manager
+* Hide Title Feature for field.
+
+## Changed
+* Renamed all field builder function names from `set_` to just its name. EG : `set_placeholder to `placeholder`
+
+## Removed
+* Unused / Unwanted Fields Class files
+* Unsued / unwanted data files
+* `data/animate-css.php` | `data/continents.php` | `data/countries.php`
+* Icon files removed except dashicons
+
+---
+
+# [Beta : 0.0.9.5] - 02/05/2019
+## Added
+* `wponion_tooltip` Function Added
+* Option To Set Custom Text in `wponion_ajax` JS
+* `WP` New Theme (Settings & Metabox)
+* `WP_Lite` New Theme (Settings)
+* `WC` New Theme (Settings & Metabox)
+* `Customizer` Module
+* Helper functions (`set_var`,`get_var`,`isset_var`,`remove_var`) For Container Helper
+* `Elementor` Integration
+* `color_scheme` for WP_Modern theme with prefinded wp color scheme too
+* `_clone` For Container & Field
+* Now Load WPonion In frontend by default
+
+## Fixed
+* #24 Issue Fixed
+
+## Removed
+* `plugin_id` Argument From everywhere
+* `WPONION_FRONTEND` defined variable
+
+## Changed
+* Localizer JS Function Converter Regex.
+* `wponion_get_field_class` function to work with given module info.
+
+---
+
+# [Beta : 0.0.9.4] - 24/04/2019
+## Added
+* POT File.
+
+## Changed
+* Fixed Issue with Global localization Function
+* Updated Ajax Framework
+* Javascript Bug Fixed.
+
+---
+
+# [Beta : 0.0.9.3] - 17/04/2019
+## Added
+* Added Option To Block An Element in `window.wponion.ajaxer`
+
+---
+
+# [Beta : 0.0.9.2] - 16/04/2019
+## Changed
+* Minor Bug Fixed  -- EasyGulpTasker -- Development
+
+## Added
+* Added Option To Load Minified or unminified version of Sources
+* Auto localize scripts when `wponion_load_core_assets`
+
+---
+
+# [Beta : 0.0.9.1] - 14/04/2019
+## Added
+* EasyGulpTasker -- Development
+* Option To Load Select Options Via Custom Callback
+
+## Removed
+* Removed Gulp Boilerplate -- Development
+
+---
+
+# [Beta : 0.0.9] - 01/04/2019
+## Added
 * Field Type Registry Class
 * Basic WPOnion Setup Class
 * Lodash Support
@@ -163,13 +353,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Flexbox Grid
 * Single Page Layout For Settings Page
 
-#### New Modules
+### New Modules
 * Ajax Support
 * WPPointers
 * Visual Composer
 * WooCommerce Settings Page
 
-#### Builders
+### Builders
 * WPOnion Base Builder
 * WPOnion Field Builder### Library
 * WP Dependencies lib by varunsridharan
@@ -181,7 +371,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Function `wponion_field_remove_support`
 * Function `wponion_validate_bool_val`
 
-#### Fields
+### Fields
 * Button Set Field
 * Color Group Field
 * Change Log Field
@@ -190,44 +380,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Spacing Field
 * Dimensions Field
 
-### Changed
+## Changed
 * Updated WordPress JS Hooks With Proper WordPress Hooks Framework From WordPress
 * Updated Builtin Themes
 * SweatAlert2
 
-### Removed
+## Removed
 * Locutus Support
 
 ---
 
-## [Beta : 0.0.8.1] - 19/12/2018
-### Changed
+# [Beta : 0.0.8.1] - 19/12/2018
+## Changed
 1. `class-admin-notice.php` code bug fixed
 2. Updated `composer.json`
-3. Updated Readme.md to handle both **dev* & **stable** version details
+3. Updated Readme.md to handle both **dev** & **stable** version details
 4. Updated `.gitignore` file
 5. Updated Version To `0.0.8.1`
 6. Updated Change Log
 
 ---
 
-## [Beta : 0.0.8] - 11/12/2018
-### Fixed
+# [Beta : 0.0.8] - 11/12/2018
+## Fixed
 1. Core : `wponion_get_all_fields_ids_and_defaults` Function Fully Redeveloped
 2. Core : Managed To Check if debug enabled properly and provided WPOnion's Debug Const Priority
  
-### Added
+## Added
 1. WP Module  - WP Notice (Clone of https://github.com/panvagenas/wp-admin-notices)
 2. Field Type - Core WP Notice As Field
 3. Field Type - Sysinfo
 
-### Changed
+## Changed
 Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
-## [Beta : 0.0.7] - 25/11/2018
-### Added
+# [Beta : 0.0.7] - 25/11/2018
+## Added
 1. WP Module  - AdminBar
 2. WP Module  - Custom Meta box Support
 3. WP Module  - WP Nav Menu
@@ -236,22 +426,22 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 6. Field API  - Field Compile Time Recorder
 7. Field Type - Added Option To Set Dynamic Heading in Group Field (#10)
 
-### Changed
+## Changed
 1. WP Module - Updated Taxonomy & User Profile Fields To Work with Custom Meta boxes
 2. Themes - Updated Fresh Theme To Work With WPOnion Modules API
 3. Field Type - Accordion / Group / Field set Not saving properly
 4. Field Type - Customize able Group / KeyValue / Cloner error Msg (#11)
 5. option_value to option_label in query_args
 
-### Removed 
+## Removed 
 1. JS Lib : Pretty Checkbox
 2. JS Lib : AnimateCSS
 3. Value API : ValueAPI & Its Functions
 
 ---
 
-## [Beta : 0.0.6] - 18/11/2018
-### Added
+# [Beta : 0.0.6] - 18/11/2018
+## Added
 1. Field API - Auto Generate Sample PHP Code For Field If debug enabled
 2. WP Module - Option To Set Custom Footer Left & Right Text in Admin Page 
 3. WP Module - Added `menu_url` function to retrive admin page's menu url
@@ -259,7 +449,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 5. WP Module - Quick Edit
 6. WP Module - Bulk Edit
 
-### Fixed
+## Fixed
 1. Field API - PHP : wp_link saved value not showing (#4)
 2. Field JS API - Validation  Works With Accordion
 3. Field JS API - Validation  Works With Group
@@ -271,8 +461,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
-## [Beta : 0.0.5] - 16/11/2018
-### Added
+# [Beta : 0.0.5] - 16/11/2018
+## Added
 1.  Field Type - notice_success
 2.  Field Type - notice_danger
 3.  Field Type - notice_warning
@@ -290,30 +480,30 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 15. WP Module - Dashboard Widgets
 16. JS Module - JS Field Validation
 
-### Fixed
+## Fixed
 1. Field Type  - ColorPicker
 2. Field Type  - PrettyCheckbox CSS Issue
 3. Core/Field - POPUP CSS Issue
 4. Core       - Random key was added each time for each instance. so its fixed with a static key per instance.
  
-### Changed
+## Changed
 1. Field API - Updated all fields to use `$this->sub_field` function if it uses `wponion_add_element`
 2. Core      - changed meterial => material
 
 ---
 
-## [Beta : 0.0.4] - 08/11/2018
+# [Beta : 0.0.4] - 08/11/2018
 ### Major Redevelopment Done
 
 ---
 
-## [Beta : 0.0.3] - 07/11/2018
+# [Beta : 0.0.3] - 07/11/2018
 ### Major Redevelopment Work Going On
 
 ---
 
-## [Beta : 0.0.2] - 25/7/2018
-### Added
+# [Beta : 0.0.2] - 25/7/2018
+## Added
 1. Field Type - Datepicker
 2. Field Type - Content
 3. Field Type - Background
@@ -322,16 +512,16 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 6. WP Module - User Profile
 7. Core Lib  - Markdown Parser
 
-### Changed
+## Changed
 1. Core         - WPOnion Now Works on `after_setup_theme` instead of `init` hook
 2. Core Helper  - Migrated All JSON Files into PHP Array and saved them in `data/` folder to make it bit faster
 3. Field Type    - Icon Field has option to **enable** / **disable** certain icon framework
 
-### Fixed
+## Fixed
 1. Spelling mistake - ( horizontal )
 2. WP Module        - WC Metabox Style Updated
 
-### Removed
+## Removed
 1. CSS - FontAwesome
 2. CSS - TypeIcons
 3. CSS - BoxIcons
@@ -342,8 +532,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
-## [Beta : 0.0.1] - 10/7/2018
-### Added
+# [Beta : 0.0.1] - 10/7/2018
+## Added
 1. Core Module -  Field Registry
 2. Core Module -  Core Registry
 3. Core Module -  Theme API
