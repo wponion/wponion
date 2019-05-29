@@ -195,25 +195,34 @@
 
 
 .wponion-framework pre {
-	display:          block;
-	padding:          9.5px;
-	margin:           0 0 10px;
-	font-size:        13px;
-	line-height:      1.42857143;
-	color:            #333;
-	word-break:       break-all;
-	word-wrap:        break-word;
-	background-color: #f8f8f8;
-	border:           1px solid rgba(0, 0, 0, .15);
-	border-radius:    4px;
-	overflow:         auto;
+	display:                block;
+	padding:                9.5px;
+	font-variant-ligatures: none;
+	word-break:             normal;
+	margin:                 .5rem 0 .2rem;
+	font-size:              .75rem;
+	line-height:            1.15rem;
+	color:                  #333;
+	white-space:            pre-wrap;
+	word-wrap:              break-word;
+	background-color:       #f8f8f8;
+	border:                 1px solid rgba(0, 0, 0, .15);
+	border-radius:          4px;
+	overflow:               auto;
+	border-radius:          4px;
+	font-family:            Monaco, Menlo, Consolas, "Courier New", monospace !important;
 
 	code {
 		padding:     0;
 		color:       inherit;
-		background:  transparent;
+		background:  0 0;
 		border:      none;
 		font-family: inherit;
+		display:     inline-block;
+		word-wrap:   unset;
+		word-break:  inherit;
+		white-space: inherit;
+		line-height: inherit;
 	}
 }
 
