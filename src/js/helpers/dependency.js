@@ -20,19 +20,22 @@ export default class extends WPOnion_Field {
 	 * Inits Dependency Worker.
 	 */
 	init() {
+
 		let $dep = this.option( 'dependency' );
-		for( let $key in $dep.controller ) {
-			if( $dep.controller.hasOwnProperty( $key ) && $dep.condition.hasOwnProperty( $key ) && $dep.value.hasOwnProperty( $key ) ) {
-				let $controller = $dep.controller [ $key ],
-					$condition  = $dep.condition [ $key ],
-					$value      = $dep.value [ $key ],
+		for( let $key in $dep ) {
+			if( $dep.hasOwnProperty( $key ) ) {
+				let $controller = $dep[ $key ].controller,
+					$condition  = $dep[ $key ].condition,
+					$value      = $dep[ $key ].value,
 					$field      = '[data-depend-id="' + $controller + '"]';
+
 				if( false !== this.config.nestable ) {
 					let $INPUT = this.config.parent.find( '[data-depend-id=' + $controller + ']' );
 					if( $INPUT.length > 0 ) {
 						$field = '[data-wponion-jsid="' + $wponion.fieldID( $INPUT ) + '"]:input';
 					}
 				}
+
 				let $a = this.contxt.createRule( $field, $condition, $value );
 				$a.include( this.element );
 				this.set_contxt( $a );
