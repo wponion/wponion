@@ -42,8 +42,10 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 			}
 			parent::__construct( null, $settings );
 			$this->on_init();
-			$this->add_action( 'admin_notices', 'display_notices' );
-			$this->add_action( 'shutdown', 'save_notices' );
+			if ( ! empty( $this->db_values ) ) {
+				$this->add_action( 'admin_notices', 'display_notices' );
+				$this->add_action( 'shutdown', 'save_notices' );
+			}
 		}
 
 		/**

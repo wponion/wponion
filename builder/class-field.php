@@ -45,8 +45,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @return false|\WPO\Field|\WPO\Fields\Accordion|\WPO\Fields\Background|\WPO\Fields\Checkbox|\WPO\Fields\Color_Picker|\WPO\Fields\Date_Picker|\WPO\Fields\Fieldset|\WPO\Fields\Font_Picker|\WPO\Fields\Gallery|\WPO\Fields\Group |\WPO\Fields\Icon_Picker|\WPO\Fields\Image|\WPO\Fields\Image_Select|\WPO\Fields\Key_Value|\WPO\Fields\Oembed|\WPO\Fields\Radio|\WPO\Fields\Select|\WPO\Fields\Sorter|\WPO\Fields\Switcher|\WPO\Fields\Text|\WPO\Fields\Textarea|\WPO\Fields\Typography|\WPO\Fields\Upload|\WPO\Fields\WP_Editor|\WPO\Fields\WP_Link|\WPO\Fields\Color_Group|\WPO\Fields\Link_Color|\WPO\Fields\Input_Group|\WPO\Fields\Spacing|\WPO\Fields\Dimensions|\WPO\Fields\Button_Set|\WPO\Fields\Content|\WPO\Fields\Heading|\WPO\Fields\Iframe|\WPO\Fields\Jambo_Content|\WPO\Fields\Notice |\WPO\Fields\Subheading|\WPO\Fields\WP_Notice
 		 *
 		 * @todo \WPO\Fields\Button
-		 * @todo \WPO\Fields\Color_Palette
-		 * @todo \WPO\Fields\Hidden
 		 * @todo \WPO\Fields\WP_List_Table
 		 *
 		 *
@@ -55,7 +53,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
 				$class = class_exists( '\WPO\Fields\\' . $type ) ? '\WPO\Fields\\' . $type : wponion_get_field_class_remap( '\WPO\Fields\\' . $type, false );
-
 				return ( false !== $class ) ? new $class( $id, $title, $args ) : new Field( $type, $id, $title, $args );
 			}
 
@@ -72,6 +69,19 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public function __construct( $type = false, $id = false, $title = false, $args = array() ) {
 			unset( $this->module );
+
+			if ( ! is_array( $type ) && ! is_array( $id ) && ! is_array( $title ) && ( is_array( $args ) || ! is_array( $args ) && ! empty( $args ) ) ) {
+				$args = wponion_is_array( $args ) ? $args : array();
+			} elseif ( ! is_array( $type ) && ! is_array( $id ) && is_array( $title ) && ( is_array( $args ) || ! is_array( $args ) && ! empty( $args ) ) ) {
+				$args  = wponion_is_array( $title ) ? $title : array();
+				$title = false;
+			} elseif ( ! is_array( $type ) && is_array( $id ) && ! is_array( $title ) && ( is_array( $args ) || ! is_array( $args ) && ! empty( $args ) ) ) {
+				$args = wponion_is_array( $id ) ? $id : array();
+				$id   = false;
+			} elseif ( is_array( $type ) && ! is_array( $id ) && ! is_array( $title ) && ( is_array( $args ) || ! is_array( $args ) && ! empty( $args ) ) ) {
+				$args = wponion_is_array( $type ) ? $type : array();
+				$type = false;
+			}
 
 			$args = wponion_is_array( $args ) ? $args : array();
 			$args = $this->parse_args( $args, array(

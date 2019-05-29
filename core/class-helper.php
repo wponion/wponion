@@ -35,6 +35,15 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		protected static $gfonts = array();
 
 		/**
+		 * Stores Timer Information.
+		 *
+		 * @var array
+		 * @access
+		 * @static
+		 */
+		protected static $timer = array();
+
+		/**
 		 * Stores Cache.
 		 *
 		 * @var array
@@ -366,6 +375,37 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 				}
 			}
 			return $array_or_object;
+		}
+
+
+		/**
+		 * Start the WordPress micro-timer.
+		 *
+		 * @param string $key Unique Timer Key.
+		 *
+		 * @static
+		 * @return mixed
+		 */
+		public static function timer_start( $key ) {
+			self::$timer[ $key ] = microtime( true );
+			return self::$timer[ $key ];
+		}
+
+		/**
+		 * Retrieve or display the time from the page start to when function is called.
+		 *
+		 * @param string $key Unqiue Timer Key.
+		 * @param int    $precision
+		 *
+		 * @static
+		 * @return bool|string
+		 */
+		public static function timer_stop( $key = '', $precision = 3 ) {
+			if ( isset( self::$timer[ $key ] ) ) {
+				$timetotal = microtime( true ) - self::$timer[ $key ];
+				return ( function_exists( 'number_format_i18n' ) ) ? number_format_i18n( $timetotal, $precision ) : number_format( $timetotal, $precision );
+			}
+			return false;
 		}
 	}
 }

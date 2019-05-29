@@ -72,7 +72,7 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 				'id'                    => 'font',
 				'only_field'            => true,
 				'class'                 => 'wponion-font-selector',
-				'options'               => wponion_get_fonts_array( $this->data( 'google_fonts' ), $this->data( 'websafe_fonts' ), $this->data( 'group' ) ),
+				//'options'               => wponion_get_fonts_array( $this->data( 'google_fonts' ), $this->data( 'websafe_fonts' ), $this->data( 'group' ) ),
 				'options_html'          => wponion_fonts_options_html( $this->data( 'google_fonts' ), $this->data( 'websafe_fonts' ), $this->data( 'group' ), $this->value( 'font' ) ),
 				$this->select_framework => $this->data( $this->select_framework ),
 			) );

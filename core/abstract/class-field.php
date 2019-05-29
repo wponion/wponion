@@ -36,13 +36,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		public static $total_fields = 0;
 
 		/**
-		 * Render Time.
-		 *
-		 * @var int
-		 */
-		protected $render_time = 0;
-
-		/**
 		 * orginal_field
 		 *
 		 * @var array
@@ -217,14 +210,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
-			$this->debug_time();
 			if ( $this->has( 'only_field' ) ) {
 				$this->output();
 			} else {
 				$this->wrapper();
 			}
 
-			$this->debug( __( 'Render Time', 'wponion' ), $this->debug_time( true ) );
 			$this->debug( __( 'Raw Field Args', 'wponion' ), $this->orginal_field );
 			$this->debug( __( 'Field Args', 'wponion' ), $this->field );
 			$this->debug( __( 'Field Value', 'wponion' ), $this->value );
@@ -232,19 +223,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->debug( __( 'Module', 'wponion' ), $this->module() );
 			$this->wp_pointer();
 			$this->localize_field();
-		}
-
-		/**
-		 * @param bool $is_end
-		 *
-		 * @return int|mixed
-		 */
-		protected function debug_time( $is_end = false ) {
-			if ( $is_end ) {
-				return microtime( true ) - $this->render_time;
-			}
-			$this->render_time = microtime( true );
-			return $this->render_time;
 		}
 
 		/**
@@ -280,6 +258,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Elements Wrapper.
 		 */
 		protected function wrapper() {
+			if ( wponion_is_debug() ) {
+				wponion_timer( $this->unique() );
+			}
 			$_wrap_attr                      = $this->data( 'wrap_attributes' );
 			$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
 			$is_pseudo                       = ( true === $this->data( 'pseudo' ) ) ? ' wponion-pseudo-field ' : '';
@@ -325,7 +306,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 			if ( false !== $this->data( 'wrap_tooltip' ) ) {
 				$_wrap_attr['class'] = $_wrap_attr['class'] . ' wponion-has-wrap-tooltip wponion-wrap-tooltip';
-				$this->tooltip_data( $this->data( 'wrap_tooltip' ), array(), 'wrap_tooltip' );
+				$tooltip             = $this->tooltip_data( $this->data( 'wrap_tooltip' ), array(), 'wrap_tooltip' );
+				$_wrap_attr          = $this->parse_args( $tooltip['attr'], $_wrap_attr );
 			}
 
 			$_wrap_attr['id'] = $this->wrap_id();
@@ -337,6 +319,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			echo $this->field_wrapper( true );
 			echo $this->output();
 			echo $this->field_wrapper( false ) . '<div class="clear"></div>';
+			if ( $this->has( 'debug' ) ) {
+				echo '<div class="wponion-developer-timer">' . __( 'Field Rendered In', 'wponion' ) . ' ' . wponion_timer( $this->unique(), true ) . ' ' . __( 'Seconds', 'wponion' ) . '</div>';
+			}
 			echo '</div></div>';
 		}
 

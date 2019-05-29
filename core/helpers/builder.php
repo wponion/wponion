@@ -15,6 +15,21 @@ if ( ! function_exists( 'wponion_builder' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_container_builder' ) ) {
+	/**
+	 * Creates WPOnion Container Builder Instance.
+	 *
+	 * @param bool $slug
+	 * @param bool $title
+	 * @param bool $icon
+	 *
+	 * @return \WPO\Container
+	 */
+	function wponion_container_builder( $slug = false, $title = false, $icon = false ) {
+		return new \WPO\Container( $slug, $title, $icon );
+	}
+}
+
 if ( ! function_exists( 'wponion_field_builder' ) ) {
 	/**
 	 * Returns A New Field Builder Instance.
@@ -30,6 +45,7 @@ if ( ! function_exists( 'wponion_field_builder' ) ) {
 		return WPO\Field::create( $type, $id, $title, $args );
 	}
 }
+
 if ( ! function_exists( 'wponion_is_container' ) ) {
 	/**
 	 * Checks if given instance is  a \WPO\Fields\Container.

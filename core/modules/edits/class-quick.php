@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * Project : wponion
  * Date : 17-11-2018
  * Time : 06:45 AM
@@ -137,7 +136,6 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		 */
 		public function render_quick_edit( $column ) {
 			$this->db_values = array();
-			//var_dump( $this->option( 'column' ) );
 			if ( $column === $this->option( 'column' ) ) {
 				wponion_load_core_assets();
 				$this->render_quick_edit_html();
@@ -188,7 +186,6 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		public function render_hidden_data( $column, $id ) {
 			if ( $column === $this->option( 'column' ) ) {
 				$this->db_values = $this->get_values( $id );
-
 				$this->catch_output( 'start' );
 				echo $this->render_quick_edit_html();
 				$html = $this->catch_output( 'stop' );

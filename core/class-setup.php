@@ -91,6 +91,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			require_once WPONION_PATH . 'core/class-themes.php';
 			require_once WPONION_PATH . 'core/class-assets.php';
 			require_once WPONION_PATH . 'core/class-core-ajax.php';
+			require_once WPONION_PATH . 'core/class-shortcodes.php';
 
 			/**
 			 * This Hook Fires Before Integrations Files Loads.

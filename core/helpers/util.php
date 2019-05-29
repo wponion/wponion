@@ -3,6 +3,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! function_exists( 'wponion_timer' ) ) {
+	/**
+	 * @param string $key Unique Timer Key.
+	 * @param bool   $stop true / false
+	 * @param int    $precision
+	 *
+	 * @return bool|string
+	 */
+	function wponion_timer( $key = '', $stop = false, $precision = 3 ) {
+		return ( false === $stop ) ? \WPOnion\Helper::timer_start( $key ) : \WPOnion\Helper::timer_stop( $key, $precision );
+	}
+}
 
 if ( ! function_exists( 'wponion_tooltip' ) ) {
 	/**
@@ -15,19 +27,17 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 	 */
 	function wponion_tooltip( $content = false, $args = array(), $element = false, $localize = true ) {
 		if ( is_array( $content ) && ! empty( $args ) && is_string( $args ) ) {
-			if ( false === isset( $content['content'] ) || isset( $content['content'] ) && empty( $content['content'] ) ) {
-				$_content = $args;
-				$args     = $content;
-				$content  = $_content;
-			} else {
-				$element = $args;
-				$args    = $content;
-				$content = null;
-			}
+			$element = $args;
+			$args    = $content;
+			$content = null;
 		} elseif ( is_array( $content ) && empty( $args ) ) {
 			$args    = $content;
 			$content = null;
+		} elseif ( is_string( $content ) && is_string( $args ) ) {
+			$element = $args;
+			$args    = array();
 		}
+
 
 		$args        = wp_parse_args( $args, array(
 			'content'     => $content,
@@ -76,6 +86,31 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 		return $element;
 	}
 }
+
+if ( ! function_exists( 'wponion_tooltip_faq' ) ) {
+	/**
+	 * Creates FAQ View in Tooltip.
+	 *
+	 * @param bool  $content
+	 * @param array $args
+	 * @param bool  $element
+	 * @param bool  $localize
+	 *
+	 * @return array|string
+	 */
+	function wponion_tooltip_faq( $content = false, $args = array(), $element = false, $localize = true ) {
+		if ( ! is_array( $args ) ) {
+			$args = array();
+		}
+
+		$args['interactive'] = true;
+		$args['theme']       = 'light-border dropdown';
+		$args['trigger']     = 'click';
+
+		return wponion_tooltip( $content, $args, $element, $localize );
+	}
+}
+
 
 if ( ! function_exists( 'wponion_icon' ) ) {
 	/**

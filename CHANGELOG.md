@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Beta : 0.0.10.5] - 20/05/2019
+## Added
+* Hidden Field Builder
+* Page Debug Timer
+* Element Debug Timer
+* Loaded Some Major Assets via CDN
+* Logic Shortcode <code>logic</code> | <code>logic_1</code> | <code>logic_2</code> | <code>logic_3</code> | <code>wp_logic</code> | <code>wpo_logic</code>
+* ToolTip Shortcode <code>wpo_tooltip</code>
+* **Page Actions** Module Created ![Page Actions Demo](https://vsp.ams3.cdn.digitaloceanspaces.com/sshots/i/2019/May/25/1558786042-169.jpg)
+* Sysinfo Emailer
+* Custom Post Type & Custom Taxonomy Generator
+
+## Changed
+* FAQ Field
+* TippyJS from 3.4.1 to 4.3.1
+* @wordpress/hooks from 2.2.0 to 2.3.0
+* tar from 2.2.1 to 2.2.2 
+* sweetalert2 from 8.10.0 to 8.11.6 
+* Codeclean up done.
+
+## Removed
+* ColorPalette Field
+* Deleted Unused File.
+
+---
+
 # [Beta : 0.0.10.4] - 23/05/2019
 ## Added
 * FAQ Field
@@ -28,7 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Template Issues
 * WC Template Metabox Issue fixed
 
-## Updated
+## Changed
 * Resized All Layout Images
 * `wponion.pot` i18n
 * Javascript Dependency Rules Updated
@@ -45,7 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Help Tabs
 * [#30](https://github.com/wponion/wponion/issues/30) Issue Fixed 
 
-## Updated
+## Changed
 * Code Clean UP Done
 
 ---
@@ -70,7 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `wponion_load_field_class` PHP Action To Load Field Class If Not Exists
 * Addon Handler Created
 
-## Updated
+## Changed
 * Minor Code Reformatted.
 * Min PHP Version 5.6
 
@@ -86,7 +112,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 * WP-Admin Plugins Row / Action Link Module
 
-## Updated
+## Changed
 * Moved Certain Class Files
 * Changed Namespace for WPO Fields 
 * Updated Coding Standards.
@@ -140,7 +166,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `plugin_id` Argument From everywhere
 * `WPONION_FRONTEND` defined variable
 
-## Updated
+## Changed
 * Localizer JS Function Converter Regex.
 * `wponion_get_field_class` function to work with given module info.
 
@@ -164,7 +190,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 # [Beta : 0.0.9.2] - 16/04/2019
-## Updated
+## Changed
 * Minor Bug Fixed  -- EasyGulpTasker -- Development
 
 ## Added
@@ -384,6 +410,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[Beta : 0.0.10.5]: https://github.com/wponion/wponion/releases/tag/0.0.10.5
 [Beta : 0.0.10.4]: https://github.com/wponion/wponion/releases/tag/0.0.10.4
 [Beta : 0.0.10.3]: https://github.com/wponion/wponion/releases/tag/0.0.10.3
 [Beta : 0.0.10.2]: https://github.com/wponion/wponion/releases/tag/0.0.10.2

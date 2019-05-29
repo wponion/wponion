@@ -23,6 +23,22 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 	 */
 	final class Assets {
 		/**
+		 * @var bool
+		 * @access
+		 * @static
+		 */
+		protected static $cache_updated = false;
+
+		/**
+		 * Checks if error msg is added.
+		 *
+		 * @var bool
+		 * @access
+		 * @static
+		 */
+		protected static $error_msg = false;
+
+		/**
 		 * Scripts
 		 *
 		 * @var array
@@ -37,45 +53,20 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		public static $style = array();
 
 		/**
+		 * @var array
+		 * @access
+		 * @static
+		 */
+		protected static $cache = array();
+
+		/**
 		 * Inits WPOnion_Assets Class.
 		 *
 		 * @static
 		 */
 		public static function init() {
-			self::$scripts = array(
-				'wponion-plugins'     => array(
-					'assets/js/wponion-plugins.js',
-					array( 'lodash', 'wp-util', 'backbone' ),
-				),
-				'wponion-customizer'  => array( 'assets/js/wponion-customizer.js', array( 'wponion-core' ) ),
-				'wponion-postmessage' => array( 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ) ),
-				'wponion-cloner'      => array( 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ) ),
-				'wponion-core'        => array( 'assets/js/wponion-core.js', array( 'wponion-plugins' ) ),
-				'wponion-inputmask'   => array(
-					'assets/plugins/inputmask/jquery.inputmask.bundle.min.js',
-					array( 'jquery' ),
-				),
-				'wponion-colorpicker' => array(
-					'assets/plugins/colorpicker/wp-color-picker-alpha.js',
-					array( 'wp-color-picker' ),
-				),
-				'wponion-datepicker'  => array( 'assets/plugins/flatpickr/script.js', array( 'jquery' ) ),
-				'select2'             => array( 'assets/plugins/select2/select2.full.min.js', array( 'jquery' ) ),
-				'chosen'              => array( 'assets/plugins/chosen/chosen.jquery.min.js', array( 'jquery' ) ),
-			);
-			self::$style   = array(
-				'chosen'              => array( 'assets/plugins/chosen/chosen.min.css' ),
-				'select2'             => array( 'assets/plugins/select2/select2.min.css' ),
-				'animate.css'         => array( 'assets/plugins/animate.css/animate.min.css' ),
-				'wponion-plugins'     => array( 'assets/css/wponion-plugins.css' ),
-				'wponion-core'        => array( 'assets/css/wponion-base.css', array( 'wponion-plugins' ) ),
-				'wponion-colorpicker' => array(
-					'assets/plugins/colorpicker/cs-colorpicker.css',
-					array( 'wp-color-picker' ),
-				),
-				'wponion-datepicker'  => array( 'assets/plugins/flatpickr/style.css' ),
-			);
-
+			self::$cache = get_transient( '_wponion_cdn_cache' );
+			self::$cache = ( ! is_array( self::$cache ) ) ? array() : self::$cache;
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
@@ -90,10 +81,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @return array
 		 */
 		public static function get( $type = 'script' ) {
-			if ( 'script' === $type ) {
-				return array_keys( self::$scripts );
-			}
-			return array_keys( self::$style );
+			return ( 'script' === $type ) ? array_keys( self::$scripts ) : array_keys( self::$style );
 		}
 
 		/**
@@ -102,64 +90,140 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function register_assets() {
+			$v = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
 			do_action( 'wponion_register_assets_before' );
 			wponion_localize();
-			self::register_styles();
-			self::register_scripts();
-			self::loop_assets( self::$style, 'wp_register_style', 'all' );
-			self::loop_assets( self::$scripts, 'wp_register_script', true );
-			do_action( 'wponion_register_assets_after' );
-		}
 
-		/**
-		 * @param $string
-		 *
-		 * @static
-		 * @return mixed
-		 */
-		public static function is_debug( $string ) {
-			if ( false === wponion_is_debug() && ( ! defined( 'SCRIPT_DEBUG' ) || defined( 'SCRIPT_DEBUG' ) && false === SCRIPT_DEBUG ) ) {
-				return str_replace( array( '.js', '.css' ), array( '.min.js', '.min.css' ), $string );
-			}
-			return $string;
-		}
-
-		/**
-		 * @param $data
-		 * @param $callback
-		 * @param $last_arg
-		 *
-		 * @uses \wp_register_style()
-		 * @uses \wp_register_script()
-		 *
-		 * @static
-		 */
-		protected static function loop_assets( $data, $callback, $last_arg ) {
-			$version = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
-			foreach ( $data as $id => $file ) {
-				$file[2] = ( isset( $file[2] ) ) ? $file[2] : $version;
-				$file[1] = ( isset( $file[1] ) ) ? $file[1] : array();
-				$callback( $id, WPONION_URL . $file[0], $file[1], $file[2], $last_arg );
-			}
-		}
-
-		/**
-		 * Registers WPOnion Assets.
-		 *
-		 * @static
-		 */
-		public static function register_styles() {
-		}
-
-		/**
-		 * Registers WPOnion Assets.
-		 *
-		 * @static
-		 */
-		public static function register_scripts() {
 			if ( is_version_lte( 'wordpress', '5.0' ) ) {
 				wp_register_script( 'lodash', 'https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js', array(), '4.17.11', true );
 			}
+
+			/**
+			 * Registers CDN Assets For The Following
+			 * 1. Select2
+			 * 2. Chosen
+			 * 3. Selectize
+			 * 4. InputMask
+			 * 5. FlatPickr
+			 */
+			self::cdn( 'wponion-inputmask', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/inputmask/jquery.inputmask.bundle.min.js', array( 'jquery' ), $v, true );
+			self::cdn( 'select2', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/select2/select2.full.min.js', array( 'jquery' ), $v, true );
+			self::cdn( 'select2', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/select2/select2.min.css', array(), $v, 'all', false );
+			self::cdn( 'chosen', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/chosen/chosen.jquery.min.js', array( 'jquery' ), $v, true );
+			self::cdn( 'chosen', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/chosen/chosen.min.css', array(), $v, 'all', false );
+			self::cdn( 'selectize', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/selectize/selectize.js', array( 'jquery' ), $v, true );
+			self::cdn( 'selectize', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/selectize/selectize.css', array(), $v, 'all', false );
+			self::cdn( 'wponion-datepicker', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/flatpickr/script.js', array( 'jquery' ), $v, true );
+			self::cdn( 'wponion-datepicker', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/flatpickr/style.css', array(), $v, 'all', false );
+
+			/**
+			 * Registers Local Style.
+			 */
+			self::register( 'style', 'wponion-plugins', WPONION_URL . 'assets/css/wponion-plugins.css', array(), $v, 'all' );
+			self::register( 'style', 'wponion-core', WPONION_URL . 'assets/css/wponion-base.css', array( 'wponion-plugins' ), $v, 'all' );
+			self::register( 'style', 'wponion-colorpicker', WPONION_URL . 'assets/plugins/colorpicker/cs-colorpicker.css', array( 'wp-color-picker' ), $v, 'all' );
+
+			/**
+			 * Registers Local Scripts.
+			 */
+			self::register( 'script', 'wponion-plugins', WPONION_URL . 'assets/js/wponion-plugins.js', array(
+				'lodash',
+				'wp-util',
+				'backbone',
+			), $v, true );
+			self::register( 'script', 'wponion-customizer', WPONION_URL . 'assets/js/wponion-customizer.js', array( 'wponion-core' ), $v, true );
+			self::register( 'script', 'wponion-postmessage', WPONION_URL . 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ), $v, true );
+			self::register( 'script', 'wponion-cloner', WPONION_URL . 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ), $v, true );
+			self::register( 'script', 'wponion-core', WPONION_URL . 'assets/js/wponion-core.js', array( 'wponion-plugins' ), $v, true );
+			self::register( 'script', 'wponion-colorpicker', WPONION_URL . 'assets/plugins/colorpicker/wp-color-picker-alpha.js', array( 'wp-color-picker' ), $v, true );
+
+			do_action( 'wponion_register_assets_after' );
+
+			if ( self::$cache_updated ) {
+				set_transient( '_wponion_cdn_cache', self::$cache, MINUTE_IN_SECONDS * 1440 );
+			}
+		}
+
+		/**
+		 * Registers Assets With WordPress.
+		 *
+		 * @param $type
+		 * @param $key
+		 * @param $src
+		 * @param $dep
+		 * @param $version
+		 * @param $footer
+		 *
+		 * @static
+		 * @return bool
+		 * @uses \wp_register_style()
+		 *
+		 * @uses \wp_register_script()
+		 */
+		public static function register( $type, $key, $src, $dep, $version, $footer ) {
+			if ( 'script' === $type ) {
+				self::$scripts[ $key ] = $key;
+				wp_register_script( $key, $src, $dep, $version, $footer );
+				return true;
+			}
+
+			self::$style[ $key ] = $key;
+			wp_register_style( $key, $src, $dep, $version, $footer );
+			return true;
+		}
+
+		/**
+		 * @param      $key
+		 * @param      $url
+		 * @param      $dep
+		 * @param      $v
+		 * @param      $footer_or_media
+		 * @param bool $script
+		 *
+		 * @static
+		 */
+		public static function cdn( $key, $url, $dep, $v, $footer_or_media, $script = true ) {
+			$script    = ( true === $script ) ? 'script' : 'style';
+			$cdn_is_up = isset( self::$cache[ $key . '_' . $script ] ) ? self::$cache[ $key . '_' . $script ] : false;
+
+			if ( defined( 'WPONION_OFF_CDN' ) && true === WPONION_OFF_CDN && class_exists( 'WPOnion_Vendor_Support' ) ) {
+				if ( 'script' === $script ) {
+					$url = \WPOnion_Vendor_Support::script( $key );
+				} else {
+					$url = \WPOnion_Vendor_Support::style( $key );
+				}
+				self::register( $script, $key, $url, $dep, $v, $footer_or_media );
+			} elseif ( $cdn_is_up ) {
+				self::register( $script, $key, $url, $dep, $v, $footer_or_media );
+			} else {
+				$cdn_response = @wp_remote_get( $url );
+				if ( is_wp_error( $cdn_response ) || 200 !== wp_remote_retrieve_response_code( $cdn_response ) ) {
+					if ( class_exists( 'WPOnion_Vendor_Support' ) ) {
+						if ( 'script' === $script ) {
+							$url = \WPOnion_Vendor_Support::script( $key );
+						} else {
+							$url = \WPOnion_Vendor_Support::style( $key );
+						}
+						self::register( $script, $key, $url, $dep, $v, $footer_or_media );
+					} else {
+						$msg = __( 'Please wait a few minutes, then try refreshing the page. Unable to load some remotely hosted scripts.', 'redux-framework', 'wponion' );
+						if ( wponion_is_debug() ) {
+							/* translators: */
+							$msg = __( 'If you are developing offline, please download and install the <a href="%s" target="_blank">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning', 'wponion' );
+							$msg = sprintf( $msg, 'https://github.com/wponion/vendor-support' );
+						}
+						if ( false === self::$error_msg && is_admin() ) {
+							wponion_warning_admin_notice( $msg, __( 'WPOnion Framework Warning', 'wponion' ) );
+							self::$error_msg = true;
+						}
+					}
+				} else {
+					self::$cache[ $key . '_' . $script ] = true;
+					self::$cache_updated                 = true;
+					self::register( $script, $key, $url, $dep, $v, $footer_or_media );
+				}
+			}
+
 		}
 	}
 }

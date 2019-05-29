@@ -29,7 +29,7 @@ if ( ! trait_exists( 'Types' ) ) {
 	 * @method \WPO\Fields\gallery gallery( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\group group( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\heading heading( $id = false, $title = false, $args = array() )
-	 * @method \WPO\Fields\hidden hidden( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Text hidden( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\icon_picker icon_picker( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\iframe iframe( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\image image( $id = false, $title = false, $args = array() )
@@ -102,6 +102,9 @@ if ( ! trait_exists( 'Types' ) ) {
 						break;
 					case 'wp_notice_warning':
 						$instance->notice_type( 'warning' );
+						break;
+					case 'hidden':
+						$instance->type( 'hidden' );
 						break;
 				}
 
