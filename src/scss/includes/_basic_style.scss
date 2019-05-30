@@ -281,6 +281,11 @@
 	font-style: italic;
 }
 
+img[wponion-img-popup] {
+	cursor: pointer;
+	border: 1px solid #eee;
+}
+
 .wponion-element {
 	.wponion-developer-timer {
 		margin:     0;
