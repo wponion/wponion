@@ -70,5 +70,15 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 			$this['switch_size'] = $size;
 			return $this;
 		}
+
+		/**
+		 * @param $size
+		 *
+		 * @return $this
+		 */
+		public function switch_width( $size ) {
+			$this['switch_width'] = $size;
+			return $this;
+		}
 	}
 }
