@@ -37,14 +37,9 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 			$options = $this->data( 'options' );
 			echo '<ul class="faqs-container">';
 			foreach ( $options as $faq ) {
-				if ( ! class_exists( '\Parsedown' ) ) {
-					require_once WPONION_PATH . 'core/vendors/erusev/parsedown.php';
-				}
-				$parse_down = new \Parsedown();
-
 				echo '<li class="faq">';
 				echo '<div class="faq-title"><h3><i class="dashicons"></i><span class="title-name">' . $faq['heading'] . '</span></h3></div>';
-				echo '<div class="faq-content">' . do_shortcode( $parse_down->text( $faq['content'] ) ) . '</div>';
+				echo '<div class="faq-content">' . do_shortcode( wponion_markdown( $faq['content'] ) ) . '</div>';
 				echo '</li>';
 			}
 			echo '</ul>';

@@ -48,12 +48,8 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 			}
 
 			if ( $this->has( 'markdown' ) && true === $this->has( 'markdown' ) ) {
-				if ( ! class_exists( '\Parsedown' ) ) {
-					require_once WPONION_PATH . 'core/vendors/erusev/parsedown.php';
-				}
-				$parse_down = new \Parsedown();
 				echo '<div class="wponion-markdown-output">';
-				echo $parse_down->text( $content );
+				echo wponion_markdown( $content );
 				echo '</div>';
 			} else {
 				echo $content;
