@@ -48,7 +48,7 @@ class field extends WPOnion_Field {
 		} );
 
 		$preview.find( '.wponion-image-remove' ).on( 'click', () => $input.val( '' ).trigger( 'change' ) );
-		$preview.on( 'click', 'img', ( event ) => this.init_field( event.target, 'image_popup' ) );
+		this.init_field( $preview.find( 'img' ), 'image_popup' );
 	}
 }
 

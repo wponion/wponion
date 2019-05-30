@@ -89,7 +89,7 @@ class field extends WPOnion_Field {
 			$add.show();
 		} );
 
-		$preview.on( 'click', 'img', ( event ) => this.init_field( event.target, 'image_popup' ) );
+		this.init_field( $preview.find( 'img' ), 'image_popup' );
 
 		$preview.on( 'click', 'i.wponion-image-remove', function() {
 			let $parent   = jQuery( this ).parent(),

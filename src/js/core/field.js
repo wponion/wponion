@@ -307,6 +307,7 @@ export default class extends WPOnion_Module {
 	reload_global_fields() {
 		this.init_field( '.wponion-field-tooltip', 'tooltip' );
 		this.init_field( '.wponion-help', 'tooltip' );
+		this.init_field( '[wponion-img-popup]', 'image_popup' );
 		this.init_field( '[wponion-help]', 'tooltip' );
 	}
 
