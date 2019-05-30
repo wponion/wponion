@@ -40,7 +40,7 @@ require( './modules/quick-edit' ).default;
 require( './modules/page-actions' ).default;
 require( './modules/visual-composer' ).default;
 
-window.wponion.modal          = require( '../vendors/backbone-modal' ).default;
+//window.wponion.modal          = require( '../vendors/backbone-modal' ).default;
 window.wponion.ajaxer         = require( './core/ajaxer' ).WPOnion_Ajaxer;
 window.wponion.ajax           = require( './core/ajaxer' ).default;
 window.wponion.debug          = require( './core/debug' ).default;

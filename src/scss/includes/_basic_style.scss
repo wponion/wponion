@@ -7,7 +7,7 @@
 
 //Chosen Style Fix.
 .chosen-container.chosen-container-single, .chosen-container.chosen-container-multi {
-	width:     auto !important; /* or any value that fits your needs */
+	width:     auto !important;
 	min-width: 200px !important;
 }
 
@@ -64,21 +64,6 @@
 	margin-right: 0 !important;
 }
 
-// WordPress Custom Button Styling
-// 1. button button-primary
-// 2. button button-secondary
-// 3. button button-success
-// 4. button button-danger
-// 5. button button-warning
-// 6. button button-info
-// 7. button button-light
-// 8. button button-dark
-@each $color, $value in $wponionThemes {
-	.button.button-#{$color} {
-		@include wponion_button($value);
-	}
-}
-
 //Drownload Icon Indicator.
 .dropdown {
 	.wponion-submenu-i {
@@ -130,8 +115,8 @@
 				font-family:            dashicons;
 				background-color:       #64bd1f;
 				position:               absolute;
-				right:                  0px;
-				bottom:                 0px;
+				right:                  0;
+				bottom:                 0;
 				border-top-left-radius: 2px;
 				color:                  #fff;
 				line-height:            normal;
@@ -210,7 +195,6 @@
 	border:                 1px solid rgba(0, 0, 0, .15);
 	border-radius:          4px;
 	overflow:               auto;
-	border-radius:          4px;
 	font-family:            Monaco, Menlo, Consolas, "Courier New", monospace !important;
 
 	code {
@@ -262,11 +246,11 @@
 	border-left: 5px solid #eee;
 
 	> p:first-child {
-		margin-top: 0px;
+		margin-top: 0;
 	}
 
 	> p:last-child {
-		margin-bottom: 0px;
+		margin-bottom: 0;
 	}
 
 }
@@ -289,7 +273,6 @@ img[wponion-img-popup] {
 .wponion-element {
 	.wponion-developer-timer {
 		margin:     0;
-		padding:    0;
 		display:    inline-block;
 		width:      auto;
 		font-size:  smaller;
