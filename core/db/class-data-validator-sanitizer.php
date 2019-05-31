@@ -160,7 +160,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 			$parent_field = $field;
 			if ( wponion_is_array( $field['fields'] ) ) {
 				foreach ( $field['fields'] as $_field ) {
-					if ( false === wponion_valid_user_input_field( $field ) ) {
+					if ( false === wponion_valid_user_input_field( $field ) || false === wponion_valid_user_input_field( $_field ) ) {
 						continue;
 					}
 
