@@ -31,6 +31,9 @@ export default class extends Base {
 
 					$lookup = jQuery( $lookup );
 					if( $lookup.length === 1 ) {
+						let $parent = this.element.parent();
+						$parent.find( 'input[name="container-id"]' ).val( $href[ 'container-id' ] );
+						$parent.find( 'input[name="sub-container-id"]' ).val( $href[ 'sub-container-id' ] );
 						this.element.find( 'div.wponion-container-wraps' ).addClass( 'hidden' );
 						$lookup.removeClass( 'hidden' );
 						this.element.find( '.wponion-menu .active' ).removeClass( 'active' );
@@ -39,7 +42,7 @@ export default class extends Base {
 					} else if( false === $elem.hasClass( 'disabled' ) ) {
 						window.location.href = $elem.attr( 'href' );
 					}
-				} else if(false === $elem.hasClass( 'disabled' )) {
+				} else if( false === $elem.hasClass( 'disabled' ) ) {
 					window.location.href = $elem.attr( 'href' );
 				}
 			}

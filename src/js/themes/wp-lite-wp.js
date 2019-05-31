@@ -35,6 +35,7 @@ class WP {
 			if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
 				let $lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
 				if( $lookup.length > 0 ) {
+					this.element.parent().find( 'input[name="container-id"]' ).val( $href[ 'container-id' ] );
 					this.element.find( '.wponion-container-wraps' ).hide();
 					$lookup.show();
 					if( this.element.hasClass( 'wponion-wc-theme' ) ) {
@@ -70,6 +71,9 @@ class WP {
 					if( false === window.wponion._.isUndefined( $href[ 'sub-container-id' ] ) ) {
 						let $lookup = $base_lookup.find( 'div#wponion-tab-' + $href[ 'container-id' ] + '-' + $href[ 'sub-container-id' ] );
 						if( $lookup.length > 0 ) {
+							let $parent = this.element.parent();
+							$parent.find( 'input[name="container-id"]' ).val( $href[ 'container-id' ] );
+							$parent.find( 'input[name="sub-container-id"]' ).val( $href[ 'sub-container-id' ] );
 							this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] + ' .wponion-sub-container-wraps ' )
 								.hide();
 							$lookup.show();
