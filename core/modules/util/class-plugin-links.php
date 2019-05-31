@@ -124,60 +124,78 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
 		}
 
 		/**
-		 * @param $slug
-		 * @param $element
+		 * Returns An Valid Element.
 		 *
-		 * @return \WPOnion\Modules\Util\Plugin_Links
+		 * @param      $element_or_title
+		 * @param bool $href
+		 *
+		 * @return string
 		 */
-		public function action_link( $slug, $element ) {
-			return $this->_store( 'action_link', 'center', $slug, $element );
+		protected function element( $element_or_title, $href = false ) {
+			return ( ! empty( $element_or_title ) && empty( $href ) ) ? $element_or_title : sprintf( '<a href="%1$s">%2$s</a>', esc_attr( $href ), $element_or_title );
 		}
 
 		/**
-		 * @param $slug
-		 * @param $element
+		 * @param string      $slug
+		 * @param string      $element_or_title
+		 * @param string|bool $href
 		 *
 		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
-		public function action_link_before( $slug, $element ) {
-			return $this->_store( 'action_link', 'before', $slug, $element );
+		public function action_link( $slug, $element_or_title, $href = false ) {
+			return $this->_store( 'action_link', 'center', $slug, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
-		 * @param $slug
-		 * @param $element
+		 * @param string      $slug
+		 * @param string      $element_or_title
+		 * @param string|bool $href
 		 *
 		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
-		public function action_link_after( $slug, $element ) {
-			return $this->_store( 'action_link', 'after', $slug, $element );
+		public function action_link_before( $slug, $element_or_title, $href = false ) {
+			return $this->_store( 'action_link', 'before', $slug, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
-		 * @param $element
+		 * @param string      $slug
+		 * @param string      $element_or_title
+		 * @param string|bool $href
 		 *
 		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
-		public function row_link( $element ) {
-			return $this->_store( 'row_links', 'center', false, $element );
+		public function action_link_after( $slug, $element_or_title, $href = false ) {
+			return $this->_store( 'action_link', 'after', $slug, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
-		 * @param $element
+		 * @param string      $element_or_title
+		 * @param string|bool $href
 		 *
 		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
-		public function row_link_before( $element ) {
-			return $this->_store( 'row_links', 'before', false, $element );
+		public function row_link( $element_or_title, $href = false ) {
+			return $this->_store( 'row_links', 'center', false, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
-		 * @param $element
+		 * @param string      $element_or_title
+		 * @param string|bool $href
 		 *
 		 * @return \WPOnion\Modules\Util\Plugin_Links
 		 */
-		public function row_link_after( $element ) {
-			return $this->_store( 'row_links', 'after', false, $element );
+		public function row_link_before( $element_or_title, $href = false ) {
+			return $this->_store( 'row_links', 'before', false, $this->element( $element_or_title, $href ) );
+		}
+
+		/**
+		 * @param string      $element_or_title
+		 * @param string|bool $href
+		 *
+		 * @return \WPOnion\Modules\Util\Plugin_Links
+		 */
+		public function row_link_after( $element_or_title, $href = false ) {
+			return $this->_store( 'row_links', 'after', false, $this->element( $element_or_title, $href ) );
 		}
 	}
 }
