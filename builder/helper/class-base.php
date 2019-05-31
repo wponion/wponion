@@ -120,14 +120,5 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		public function unique() {
 			return $this->unique;
 		}
-
-		/**
-		 * Clones An Instance.
-		 *
-		 * @return \WPO\Helper\Base
-		 */
-		public function _clone() {
-			return clone $this;
-		}
 	}
 }
