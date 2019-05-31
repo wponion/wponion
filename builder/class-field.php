@@ -21,7 +21,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 	 * @since 1.0
 	 */
 	class Field extends Common_Args {
-
 		/**
 		 * Renders HTML Output.
 		 *

@@ -108,7 +108,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			}
 			if ( $container_slug_or_instance instanceof Container ) {
 				$this->containers[] = $container_slug_or_instance;
-				return $this;
+				return $container_slug_or_instance;
 			}
 
 			$return = false;

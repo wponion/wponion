@@ -21,7 +21,9 @@ if ( ! trait_exists( 'Types' ) ) {
 	 * @method \WPO\Fields\checkbox checkbox( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\color_group color_group( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\color_picker color_picker( $id = false, $title = false, $args = array() )
-	 * @method \WPO\Fields\content content( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\content content( $content = null, $markdown = false )
+	 * @method \WPO\Fields\content markdown( $content = null )
+	 * @method \WPO\Fields\content content_markdown( $content = null )
 	 * @method \WPO\Fields\date_picker date_picker( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\dimensions dimensions( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\fieldset fieldset( $id = false, $title = false, $args = array() )
@@ -81,6 +83,10 @@ if ( ! trait_exists( 'Types' ) ) {
 				$instance = wponion_callback( array( $this, 'field' ), $arg );
 
 				switch ( $name ) {
+					case 'content_markdown':
+					case 'markdown':
+						$instance->markdown( true );
+						break;
 					case 'notice_danger':
 					case 'notice_dark':
 					case 'notice_info':
