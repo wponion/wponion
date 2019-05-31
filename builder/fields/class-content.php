@@ -27,17 +27,10 @@ if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 		 * @param bool $markdown
 		 */
 		public function __construct( $content = false, $markdown = false ) {
-			$args = array(
+			parent::__construct( 'content', false, false, array(
 				'markdown' => $markdown,
-			);
-
-			if ( file_exists( $content ) ) {
-				$args['include'] = $content;
-			} else {
-				$args['content'] = $content;
-			}
-
-			parent::__construct( 'content', false, false, $args );
+				'content'  => $content,
+			) );
 		}
 
 		/**
@@ -47,26 +40,6 @@ if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 		 */
 		public function content( $content ) {
 			$this['content'] = $content;
-			return $this;
-		}
-
-		/**
-		 * @param $include
-		 *
-		 * @return $this
-		 */
-		public function field_include( $include ) {
-			$this['include'] = $include;
-			return $this;
-		}
-
-		/**
-		 * @param $callback
-		 *
-		 * @return $this
-		 */
-		public function callback_hook( $callback ) {
-			$this['callback_hook'] = $callback;
 			return $this;
 		}
 
