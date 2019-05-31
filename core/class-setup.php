@@ -181,7 +181,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'fieldset', 'all' );
 			\wponion_register_field( 'font_picker', 'all' );
 			\wponion_register_field( 'gallery', 'all' );
-
 			\wponion_register_field( 'group', 'all' );
 			\wponion_register_field( 'hidden', 'all' );
 			\wponion_register_field( 'icon_picker', 'all' );
@@ -217,6 +216,32 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'iframe', 'all' );
 			\wponion_register_ui_field( 'jambo_content', 'all' );
 			\wponion_register_ui_field( 'notice', 'all' );
+			\wponion_register_ui_field( 'subheading', 'all' );
+			\wponion_register_ui_field( 'wp_list_table', 'all' );
+			\wponion_register_ui_field( 'wp_notice', 'all' );
+			\wponion_register_ui_field( 'faq', 'all' );
+
+			/**
+			 * Field Alias
+			 */
+
+			/**
+			 * Content Field Alias
+			 */
+			\wponion_register_ui_field( 'content_markdown', 'all' );
+			\wponion_register_ui_field( 'markdown', 'all' );
+
+			/**
+			 * WP Notice Fiedl Alias
+			 */
+			\wponion_register_ui_field( 'wp_notice_success', 'all' );
+			\wponion_register_ui_field( 'wp_notice_warning', 'all' );
+			\wponion_register_ui_field( 'wp_notice_error', 'all' );
+			\wponion_register_ui_field( 'wp_notice_info', 'all' );
+
+			/**
+			 * Notice Field Alias
+			 */
 			\wponion_register_ui_field( 'notice_danger', 'all' );
 			\wponion_register_ui_field( 'notice_dark', 'all' );
 			\wponion_register_ui_field( 'notice_info', 'all' );
@@ -225,14 +250,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'notice_secondary', 'all' );
 			\wponion_register_ui_field( 'notice_success', 'all' );
 			\wponion_register_ui_field( 'notice_warning', 'all' );
-			\wponion_register_ui_field( 'subheading', 'all' );
-			\wponion_register_ui_field( 'wp_list_table', 'all' );
-			\wponion_register_ui_field( 'wp_notice', 'all' );
-			\wponion_register_ui_field( 'wp_notice_success', 'all' );
-			\wponion_register_ui_field( 'wp_notice_warning', 'all' );
-			\wponion_register_ui_field( 'wp_notice_error', 'all' );
-			\wponion_register_ui_field( 'wp_notice_info', 'all' );
-			\wponion_register_ui_field( 'faq', 'all' );
+
 
 			do_action( 'wponion_core_fields_registered' );
 		}
@@ -253,6 +271,8 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$remaps['\WPO\Fields\WP_Notice_Warning'] = '\WPO\Fields\WP_Notice';
 			self::$remaps['\WPO\Fields\WP_Notice_Success'] = '\WPO\Fields\WP_Notice';
 			self::$remaps['\WPO\Fields\WP_Notice_Info']    = '\WPO\Fields\WP_Notice';
+			self::$remaps['\WPO\Fields\Markdown']          = '\WPO\Fields\Content';
+			self::$remaps['\WPO\Fields\content_markdown']  = '\WPO\Fields\Content';
 
 			/**
 			 * Customizer Module Fields.

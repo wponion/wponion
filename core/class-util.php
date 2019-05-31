@@ -109,13 +109,13 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		}
 
 		/**
-		 * @param      $content
-		 * @param      $args
-		 * @param bool $localize
+		 * @param string $content
+		 * @param array  $args
+		 * @param bool   $localize
 		 *
 		 * @return array|mixed
 		 */
-		public function tooltip( $content, $args, $localize = true ) {
+		public function tooltip( $content, $args = array(), $localize = true ) {
 			$args = wp_parse_args( $args, array(
 				'content'     => $content,
 				'image'       => false,
@@ -167,7 +167,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		 *
 		 * @return $this|bool|string
 		 */
-		public function inline_ajax( $args ) {
+		public function inline_ajax( $args = array() ) {
 			$args = wp_parse_args( $args, array(
 				'method'      => 'post',
 				'url'         => admin_url( 'admin-ajax.php' ),
@@ -193,13 +193,13 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		}
 
 		/**
-		 * @param      $image_src
-		 * @param      $full_size
-		 * @param bool $element
+		 * @param string|bool $image_src
+		 * @param string|bool $full_size
+		 * @param bool        $element
 		 *
 		 * @return $this
 		 */
-		public function image_popup( $image_src, $full_size, $element = false ) {
+		public function image_popup( $image_src = false, $full_size = false, $element = false ) {
 			if ( false === $element && true !== wponion_is_url( $image_src ) ) {
 				$element   = $image_src;
 				$image_src = false;
