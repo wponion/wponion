@@ -39,7 +39,11 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 			foreach ( $options as $faq ) {
 				echo '<li class="faq">';
 				echo '<div class="faq-title"><h3><i class="dashicons"></i><span class="title-name">' . $faq['heading'] . '</span></h3></div>';
-				echo '<div class="faq-content">' . do_shortcode( wponion_markdown( $faq['content'] ) ) . '</div>';
+				echo '<div class="faq-content">';
+				wpo_field( 'markdown', $faq['content'] )
+					->only_field( true )
+					->render( null, null );
+				echo '</div>';
 				echo '</li>';
 			}
 			echo '</ul>';

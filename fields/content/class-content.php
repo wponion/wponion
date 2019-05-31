@@ -47,7 +47,7 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 				$content = '<div class="wponion-markdown-output">' . wponion_markdown( $content ) . '</div>';
 			}
 
-			echo $content;
+			echo do_shortcode( $content );
 
 			echo $this->after();
 		}
