@@ -106,7 +106,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 			} elseif ( false !== strpos( $_SERVER['SERVER_NAME'], 'Flywheel' ) ) {
 				$host = __( 'Flywheel', 'wponion' );
 			} else {
-				$host = 'DBH: ' . DB_HOST . ', SRV: ' . $_SERVER['SERVER_NAME'];
+				$host = 'DBH - ' . DB_HOST . ', SRV - ' . $_SERVER['SERVER_NAME'];
 			}
 			return $host;
 		}
@@ -254,9 +254,9 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 				$_plugins = array();
 				$_active  = array();
 				foreach ( $plugins as $plugin_path => $plugin ) {
-					$txt = self::get_plugin_info( $plugin );
+					$txt = self::get_plugin_info( $plugin, $plugin_path );
 
-					if ( ! in_array( $plugin_path, $active_plugins ) ) {
+					if ( ! in_array( $plugin_path, $active_plugins, true ) ) {
 						$_plugins[] = $txt;
 					} else {
 						$_active[] = $txt;
@@ -264,7 +264,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 				}
 
 				self::$status[ __( 'Plugins', 'wponion' ) ][ __( 'Active', 'wponion' ) ]    = self::filter( $_active, 'active_plugins' );
-				self::$status[ __( 'Plugins', 'wponion' ) ][ __( 'Installed', 'wponion' ) ] = self::filter( $_active, 'installed_plugins' );
+				self::$status[ __( 'Plugins', 'wponion' ) ][ __( 'Installed', 'wponion' ) ] = self::filter( $_plugins, 'installed_plugins' );
 			}
 
 			if ( is_multisite() ) {
@@ -276,34 +276,22 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 					if ( ! array_key_exists( $plugin_base, $active_plugins ) ) {
 						continue;
 					}
-
 					$plugin     = get_plugin_data( $plugin_path );
-					$_plugins[] = self::get_plugin_info( $plugin );
+					$_plugins[] = self::get_plugin_info( $plugin, $plugin_base );
 				}
 				self::$status[ __( 'Plugins', 'wponion' ) ][ __( 'Active Multisite', 'wponion' ) ] = self::filter( $_plugins, 'active_multisite_plugins' );
 			}
 		}
 
 		/**
-		 * @param $plugin
+		 * @param        $plugin
+		 * @param string $base_file
 		 *
-		 * @return string
 		 * @static
+		 * @return array
 		 */
-		public static function get_plugin_info( $plugin ) {
-			$r = '';
-
-			if ( ! empty( $plugin['Title'] ) ) {
-				$r .= $plugin['Title'];
-			}
-
-			if ( ! empty( $plugin['Author'] ) ) {
-				$r .= ' | By : ' . $plugin['Author'];
-			}
-			if ( ! empty( $plugin['Version'] ) ) {
-				$r .= ' | V : ' . $plugin['Version'];
-			}
-			return $r;
+		public static function get_plugin_info( $plugin, $base_file = '' ) {
+			return array( $base_file => $plugin );
 		}
 
 		/**
@@ -312,11 +300,60 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 		 * @static
 		 */
 		public static function self_info_data() {
+			$main_file = null;
+
+			try {
+				$reflector = new \ReflectionClass( 'WPOnion_Loader' );
+				$main_file = $reflector->getFileName();
+			} catch ( \Exception $exception ) {
+				$main_file = '<span class="dashicons dashicons-no"></span> Unable To Find The Main File Path';
+			}
+
+			$version = array();
+
+			if ( is_array( \WPOnion_Loader::$data ) && ! empty( \WPOnion_Loader::$data ) ) {
+				foreach ( \WPOnion_Loader::$data as $v => $file ) {
+					$version[] = $v . ' : ' . $file;
+				}
+			}
+
 			self::$status[ __( 'WPOnion', 'wponion' ) ] = array(
-				__( 'Version ', 'wponion' )    => WPONION_VERSION,
-				__( 'Loaded Path', 'wponion' ) => WPONION_PATH,
-				__( 'Used By', 'wponion' )     => \WPOnion_Loader::$data,
+				__( 'Loader File ', 'wponion' )     => $main_file,
+				__( 'Loaded Version ', 'wponion' )  => WPONION_VERSION,
+				__( 'Loaded Path', 'wponion' )      => WPONION_PATH,
+				__( 'Avaiable Version', 'wponion' ) => $version,
 			);
+
+			$data      = 'all';
+			$instances = wponion_settings_registry( $data );
+
+			if ( is_array( $instances ) && ! empty( $instances ) ) {
+				self::$status[ __( 'Site Settings', 'wponion' ) ] = array();
+				/**
+				 * @var \WPOnion\Modules\Settings\Settings $instance
+				 */
+				foreach ( $instances as $instance ) {
+					$options = get_option( $instance->unique(), array() );
+					if ( ! empty( $options ) ) {
+						self::$status[ __( 'Site Settings', 'wponion' ) ][ $instance->unique() ] = wp_json_encode( $options );
+					}
+				}
+			}
+
+			$instances = wponion_network_settings_registry( $data );
+
+			if ( is_array( $instances ) && ! empty( $instances ) ) {
+				self::$status[ __( 'Network Settings', 'wponion' ) ] = array();
+				/**
+				 * @var \WPOnion\Modules\Settings\Network $instance
+				 */
+				foreach ( $instances as $instance ) {
+					$options = get_site_option( $instance->unique(), array() );
+					if ( ! empty( $options ) ) {
+						self::$status[ __( 'Network Settings', 'wponion' ) ][ $instance->unique() ] = wp_json_encode( $options );
+					}
+				}
+			}
 		}
 	}
 }
