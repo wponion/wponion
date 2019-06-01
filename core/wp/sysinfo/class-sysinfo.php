@@ -304,8 +304,13 @@ JAVASCRIPT;
 						if ( is_array( $val ) && ! isset( $val[0] ) ) {
 							$return .= self::eol( '<details>', $times );
 							$return .= self::eol( '<summary>' . $key . ' </summary>', $times );
-							$return .= self::eol( '``` ', 1 );
-							$return .= self::eol( self::render_text_array( $val, 1, true ) . '```', $times );
+							$return .= self::eol( self::render_text_array( $val, $times, true ), $times );
+							/*if ( false === $incode ) {
+								$return .= self::eol( '``` ', 1 );
+								$return .= self::eol( self::render_text_array( $val, 1, true ) . '```', $times );
+							} else {
+								$return .= self::eol( self::render_text_array( $val, 1, true ), $times );
+							}*/
 							$return .= '</details>' . self::eol( '' );
 						} else {
 							if ( is_array( $val ) && isset( $val[0] ) && is_array( $val[0] ) ) {
@@ -316,7 +321,7 @@ JAVASCRIPT;
 								$return .= self::render_text_array( $val, $times, $incode ) . ' </details>';
 							} else {
 								if ( true === $incode ) {
-									$return .= $key . ' :  ' . self::render_text_string( $val, $times );
+									$return .= ' * ' . $key . ' :  ' . self::render_text_string( $val, 1 );
 								} else {
 									$return .= '**' . $key . '** :  ' . self::render_text_string( $val, $times );
 								}
