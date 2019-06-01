@@ -783,7 +783,7 @@ ASALocalRun/
 
 # End of https://www.gitignore.io/api/git,node,macos,grunt,eclipse,gitbook,windows,composer,wordpress,sublimetext,phpstorm+all,webstorm+all,visualstudio,visualstudiocode
 
-.github/ISSUE_TEMPLATE
+.github
 .travis.yml
 LICENSE
 src/vendors/node_modules/
