@@ -28,5 +28,6 @@ if ( ! function_exists( 'wponion_setup' ) ) {
 	}
 
 
-	add_action( 'after_setup_theme', 'wponion_setup' );
+	//add_action( 'after_setup_theme', 'wponion_setup' );
+	wponion_setup();
 }

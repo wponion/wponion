@@ -71,7 +71,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 */
 		public static function init() {
 			self::setup_remaps();
-			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), 1 );
+			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), -1 );
 			self::load_required_files();
 		}
 
@@ -250,7 +250,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'notice_secondary', 'all' );
 			\wponion_register_ui_field( 'notice_success', 'all' );
 			\wponion_register_ui_field( 'notice_warning', 'all' );
-
 
 			do_action( 'wponion_core_fields_registered' );
 		}
