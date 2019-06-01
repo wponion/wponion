@@ -27,7 +27,5 @@ if ( ! function_exists( 'wponion_setup' ) ) {
 		require_once WPONION_PATH . 'core/class-setup.php';
 	}
 
-
-	//add_action( 'after_setup_theme', 'wponion_setup' );
-	wponion_setup();
+	add_action( 'after_setup_theme', 'wponion_setup' );
 }

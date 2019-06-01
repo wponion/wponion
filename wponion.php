@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 		 * VSP_Framework_Loader constructor.
 		 */
 		public function __construct() {
-			add_action( 'plugins_loaded', [ &$this, 'load_framework' ], -2 );
+			add_action( 'plugins_loaded', [ &$this, 'load_framework' ], -1 );
 		}
 
 		/**
