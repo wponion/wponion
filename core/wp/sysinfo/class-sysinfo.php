@@ -47,6 +47,9 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Sysinfo' ) ) {
 			self::js();
 		}
 
+		/**
+		 * @static
+		 */
 		public static function js() {
 			echo <<<JAVASCRIPT
 			<script>
@@ -70,12 +73,13 @@ JAVASCRIPT;
 		 * @static
 		 */
 		public static function render_html( $data, $args, $container_arg = false ) {
+			$content  = self::render_text_data( $data );
 			$_content = '<p>';
 			$email    = '<a style="margin-left:10px;" href="javascript:void(0);" class="button button-secondary wponion-system-report-email">' . __( 'Send As Email', 'wponion' ) . '</a>';
 			$_content .= __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ', 'wponion' );
 			$_content .= '</p>';
 			$_content .= '<div id="sysreport" style="display:none;" ><textarea style="width:100%;min-height:250px;"  >';
-			$_content .= self::render_text_data( $data );
+			$_content .= $content;
 			$_content .= '</textarea></div>';
 			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ', 'wponion' ) . '</p>';
 			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
@@ -146,8 +150,9 @@ JAVASCRIPT;
 				) );
 			}
 
-			$ins = new \WPO\Fields\Content( self::render_text_data( $data ), true );
-			echo $ins->render();
+			$ins = wpo_field( 'content', $content, true );
+			echo '<div class="wponion-sysinfo">' . $ins->render() . '</div>';
+
 			return;
 
 			foreach ( $data as $key => $_data ) {
@@ -244,10 +249,23 @@ JAVASCRIPT;
 			return $data;
 		}
 
+		/**
+		 * @param     $data
+		 * @param int $times
+		 *
+		 * @static
+		 * @return string
+		 */
 		protected static function eol( $data, $times = 2 ) {
 			return $data . str_repeat( PHP_EOL, $times );
 		}
 
+		/**
+		 * @param $data
+		 *
+		 * @static
+		 * @return string
+		 */
 		public static function render_text_data( $data ) {
 			$return = '';
 			foreach ( $data as $key => $value ) {
@@ -261,7 +279,15 @@ JAVASCRIPT;
 			return $return;
 		}
 
-		protected static function render_text_array( $value, $times ) {
+		/**
+		 * @param      $value
+		 * @param      $times
+		 * @param bool $incode
+		 *
+		 * @static
+		 * @return string
+		 */
+		protected static function render_text_array( $value, $times, $incode = false ) {
 			$return = '';// self::eol( '', $times );
 			if ( ! empty( $value ) && is_array( $value ) ) {
 				foreach ( $value as $key => $val ) {
@@ -269,7 +295,7 @@ JAVASCRIPT;
 						if ( is_array( $val ) && isset( $val[0] ) ) {
 							$return .= implode( ',', $val );
 						} elseif ( is_array( $val ) && ! isset( $val[0] ) ) {
-							$return .= self::eol( self::render_text_array( $val, $times ), $times );
+							$return .= self::eol( self::render_text_array( $val, $times, $incode ), $times );
 						} else {
 							$val    = ( is_array( $val ) ) ? json_encode( $val ) : self::render_text_string( $val, $times );
 							$return .= self::eol( '* ' . $val, 1 );
@@ -279,17 +305,21 @@ JAVASCRIPT;
 							$return .= self::eol( '<details>', $times );
 							$return .= self::eol( '<summary>' . $key . ' </summary>', $times );
 							$return .= self::eol( '``` ', 1 );
-							$return .= self::eol( self::render_text_array( $val, 1 ) . '```', $times );
+							$return .= self::eol( self::render_text_array( $val, 1, true ) . '```', $times );
 							$return .= '</details>' . self::eol( '' );
 						} else {
 							if ( is_array( $val ) && isset( $val[0] ) && is_array( $val[0] ) ) {
 								$return .= self::eol( '### ' . $key . ' ###', $times );
-								$return .= self::render_text_array( $val, $times );
+								$return .= self::render_text_array( $val, $times, $incode );
 							} elseif ( is_array( $val ) ) {
 								$return .= self::eol( '<details><summary>' . $key . ' : </summary> ', $times );
-								$return .= self::render_text_array( $val, $times ) . ' </details>';
+								$return .= self::render_text_array( $val, $times, $incode ) . ' </details>';
 							} else {
-								$return .= $key . ' : ' . self::render_text_string( $val, $times );
+								if ( true === $incode ) {
+									$return .= $key . ' :  ' . self::render_text_string( $val, $times );
+								} else {
+									$return .= '**' . $key . '** :  ' . self::render_text_string( $val, $times );
+								}
 							}
 						}
 					}
@@ -298,6 +328,13 @@ JAVASCRIPT;
 			return $return;
 		}
 
+		/**
+		 * @param     $value
+		 * @param int $times
+		 *
+		 * @static
+		 * @return string
+		 */
 		protected static function render_text_string( $value, $times = 1 ) {
 			$value = self::render_text_bool( $value );
 			if ( ! is_numeric( $value ) ) {
