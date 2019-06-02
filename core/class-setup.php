@@ -112,6 +112,18 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 */
 		public static function on_wponion_loaded() {
 			\wponion_admin_notices();
+
+			if ( is_admin() ) {
+				if ( file_exists( WP_CONTENT_DIR . '/plugins/wponion/wponion.php' ) ) {
+					wponion_plugin_links( wponion()->file() )
+						->action_link( 'docs', '<a href="https://docs.wponion.com" class="wpo-text-success wpo-font-weight-bold">' . __( 'Documentation' ) . '</a>' )
+						->action_link( 'demo', __( 'Demo' ), 'https://wponion.com/demo' )
+						->row_link( __( 'Support' ), 'https://github.com/wponion' )
+						->row_link( __( 'Homepage' ), 'https://wponion.com' )
+						->row_link( __( 'Rate the plugin ★★★★★' ), 'https://wordpress.org/support/plugin/wponion/reviews/#new-post' );
+				}
+			}
+
 			self::register_core_fields();
 
 			if ( wp_is_plugin_active( 'js_composer/js_composer.php' ) ) {
