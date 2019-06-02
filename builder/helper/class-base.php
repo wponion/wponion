@@ -11,6 +11,8 @@
 
 namespace WPO\Helper;
 
+use WPOnion\Bridge;
+
 if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 	/**
 	 * Class Base
@@ -19,7 +21,7 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Base extends \WPOnion\Bridge implements \JsonSerializable, \Countable, \Serializable {
+	abstract class Base extends Bridge implements \JsonSerializable, \Countable, \Serializable {
 		/**
 		 * Custom Variable Name That Class Uses To Work As Array.
 		 *

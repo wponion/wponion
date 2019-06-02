@@ -78,44 +78,13 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return bool|\WPO\Field
 		 */
 		public function __call( $name, $arguments ) {
-			if ( in_array( $name, array_keys( Field_Types::$all_fields ), true ) ) {
-				$arg      = array_merge( array( $name ), $arguments );
-				$instance = wponion_callback( array( $this, 'field' ), $arg );
-
-				switch ( $name ) {
-					case 'content_markdown':
-					case 'markdown':
-						$instance->markdown( true );
-						break;
-					case 'notice_danger':
-					case 'notice_dark':
-					case 'notice_info':
-					case 'notice_light':
-					case 'notice_primary':
-					case 'notice_secondary':
-					case 'notice_success':
-					case 'notice_warning':
-						$instance->notice_type( $name );
-						break;
-					case 'wp_notice_error':
-						$instance->notice_type( 'error' );
-						break;
-					case 'wp_notice_info':
-						$instance->notice_type( 'info' );
-						break;
-					case 'wp_notice_success':
-						$instance->notice_type( 'success' );
-						break;
-					case 'wp_notice_warning':
-						$instance->notice_type( 'warning' );
-						break;
-					case 'hidden':
-						$instance->type( 'hidden' );
-						break;
-				}
-
+			$args = ( in_array( $name, array_keys( Field_Types::$all_fields ), true ) ) ? array_merge( array( $name ), $arguments ) : false;
+			if ( ! empty( $args ) ) {
+				$instance = wponion_callback( array( $this, 'field' ), $args );
+				self::_field_after_create( $name, $instance );
 				return $instance;
 			}
+			return false;
 		}
 	}
 }

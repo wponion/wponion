@@ -45,10 +45,8 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Field' ) ) {
 		public function fields();
 
 		/**
-		 * Creates A New Field Instance.
-		 * or
-		 * save an existing instance to builder
-		 * or
+		 * Creates A New Field Instance. or
+		 * save an existing instance to builder or
 		 * return an existing instance.
 		 *
 		 * @param string|\WPO\Field $field_type_or_instance
