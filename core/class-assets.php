@@ -70,6 +70,19 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
+			add_action( 'admin_head', array( __CLASS__, 'load_default_styles' ) );
+			add_action( 'wp_head', array( __CLASS__, 'load_default_styles' ) );
+		}
+
+		/**
+		 * Loads Default Style.
+		 *
+		 * @static
+		 */
+		public static function load_default_styles() {
+			if ( file_exists( WPONION_PATH . 'assets/css/wponion-basic.css' ) ) {
+				echo '<style id="wponion_basic_style" type="text/css" media="screen">' . @file_get_contents( WPONION_PATH . 'assets/css/wponion-basic.css' ) . '</style>';
+			}
 		}
 
 		/**
@@ -140,7 +153,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			do_action( 'wponion_register_assets_after' );
 
 			if ( self::$cache_updated ) {
-				set_transient( '_wponion_cdn_cache', self::$cache, MINUTE_IN_SECONDS * 1440 );
+				set_transient( '_wponion_cdn_cache', self::$cache, DAY_IN_SECONDS * 5 );
 			}
 		}
 
