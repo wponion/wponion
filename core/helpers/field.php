@@ -778,7 +778,7 @@ if ( ! function_exists( 'wponion_markdown' ) ) {
 		static $parse_down_instance = false;
 		if ( false === $parse_down_instance ) {
 			if ( ! class_exists( '\Parsedown' ) ) {
-				require_once WPONION_PATH . 'core/vendors/erusev/parsedown.php';
+				require_once wponion()->path( 'core/vendors/erusev/parsedown.php' );
 			}
 			$parse_down_instance = new \Parsedown();
 		}

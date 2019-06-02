@@ -80,18 +80,17 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @throws \Exception
 		 */
 		public static function load_required_files() {
-			if ( file_exists( WPONION_PATH . 'vendor/autoload.php' ) ) {
-				require_once WPONION_PATH . 'vendor/autoload.php';
+			if ( file_exists( wponion()->path( 'vendor/autoload.php' ) ) ) {
+				require_once wponion()->path( 'vendor/autoload.php' );
 			}
 
 			self::init_autoloader();
 
-			require_once WPONION_PATH . 'core/helpers/base.php';
-
-			require_once WPONION_PATH . 'core/class-themes.php';
-			require_once WPONION_PATH . 'core/class-assets.php';
-			require_once WPONION_PATH . 'core/class-core-ajax.php';
-			require_once WPONION_PATH . 'core/class-shortcodes.php';
+			require_once wponion()->path( 'core/helpers/base.php' );
+			require_once wponion()->path( 'core/class-themes.php' );
+			require_once wponion()->path( 'core/class-assets.php' );
+			require_once wponion()->path( 'core/class-core-ajax.php' );
+			require_once wponion()->path( 'core/class-shortcodes.php' );
 
 			/**
 			 * This Hook Fires Before Integrations Files Loads.
@@ -132,36 +131,34 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function init_autoloader() {
-			self::$field_autoloader = new Autoloader( 'WPOnion\Field', WPONION_PATH . 'fields/', array(
+			self::$field_autoloader = new Autoloader( 'WPOnion\Field', wponion()->path( 'fields/' ), array(
 				'prepend' => true,
 			) );
 
-			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', WPONION_PATH . 'module_fields/', array(
+			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module_fields/' ), array(
 				'prepend' => true,
 			) );
 
-			self::$core_autoloader = new Autoloader( 'WPOnion', WPONION_PATH . 'core/', array(
+			self::$core_autoloader = new Autoloader( 'WPOnion', wponion()->path( 'core/' ), array(
 				'exclude' => array( 'WPOnion\Field', 'WPOnion\Module_Fields' ),
 			) );
 
-			self::$builder_autoloader = new Autoloader( 'WPO', WPONION_PATH . 'builder/', array(
+			self::$builder_autoloader = new Autoloader( 'WPO', wponion()->path( 'builder/' ), array(
 				'exclude' => array( 'WPOnion' ),
 				'prepend' => true,
 			) );
 
-			//new Autoloader( 'WPO', WPONION_PATH . 'builder/fields/', array() );
-
-			self::$core_autoloader->map( 'WPOnion\Bridge', WPONION_PATH . '/core/abstract/class-bridge.php' );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module', WPONION_PATH . '/core/abstract/class-module.php' );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB_Cache', WPONION_PATH . '/core/abstract/class-module-db-cache.php' );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB', WPONION_PATH . '/core/abstract/class-module-db.php' );
-			self::$core_autoloader->map( 'WPOnion\Theme_API', WPONION_PATH . '/core/abstract/class-theme-api.php' );
-			self::$core_autoloader->map( 'WPOnion\Addon', WPONION_PATH . '/core/abstract/class-addon.php' );
-			self::$core_autoloader->map( 'WPOnion\Addon_Field', WPONION_PATH . '/core/abstract/class-addon-field.php' );
+			self::$core_autoloader->map( 'WPOnion\Bridge', wponion()->path( 'core/abstract/class-bridge.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Module', wponion()->path( 'core/abstract/class-module.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB_Cache', wponion()->path( 'core/abstract/class-module-db-cache.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB', wponion()->path( 'core/abstract/class-module-db.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Theme_API', wponion()->path( 'core/abstract/class-theme-api.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Addon', wponion()->path( 'core/abstract/class-addon.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Addon_Field', wponion()->path( 'core/abstract/class-addon-field.php' ) );
 
 			//Remap Field & Field Cloner.
-			self::$field_autoloader->map( 'WPOnion\Field\Cloner', WPONION_PATH . '/core/class-field-cloner.php' );
-			self::$field_autoloader->map( 'WPOnion\Field', WPONION_PATH . '/core/abstract/class-field.php' );
+			self::$field_autoloader->map( 'WPOnion\Field\Cloner', wponion()->path( 'core/class-field-cloner.php' ) );
+			self::$field_autoloader->map( 'WPOnion\Field', wponion()->path( 'core/abstract/class-field.php' ) );
 		}
 
 		/**

@@ -16,4 +16,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-return array( 'dashicons' => include WPONION_PATH . '/data/icons/dashicons.php' );
+return array( 'dashicons' => include wponion()->data( 'icons/dashicons.php' ) );

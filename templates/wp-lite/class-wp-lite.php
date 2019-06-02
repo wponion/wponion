@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
-	require_once WPONION_PATH . 'templates/global/class-global-theme.php';
+	require_once wponion()->tpl( 'global/class-global-theme.php' );
 }
 
 if ( ! class_exists( '\WPOnion\Theme\WP_Lite' ) ) {
@@ -32,8 +32,8 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Lite' ) ) {
 		 * Registers Assets With WP.
 		 */
 		public function register_assets() {
-			wp_enqueue_style( 'wponion-' . $this->theme, WPONION_URL . 'templates/global/assets/style.css', array( 'wponion-core' ) );
-			wp_enqueue_script( 'wponion-template-core-' . $this->theme, WPONION_URL . 'templates/global/assets/script.js', array( 'wponion-core' ) );
+			wp_enqueue_style( 'wponion-' . $this->theme, wponion()->tpl_url( 'global/assets/style.css' ), array( 'wponion-core' ) );
+			wp_enqueue_script( 'wponion-template-core-' . $this->theme, wponion()->tpl_url( 'global/assets/script.js' ), array( 'wponion-core' ) );
 		}
 	}
 }

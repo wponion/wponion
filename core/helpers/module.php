@@ -23,55 +23,55 @@ if ( ! function_exists( 'wponion_module_html_class' ) ) {
 }
 
 // Simple Modules Related Functions
-require WPONION_PATH . 'core/helpers/modules/simple-module.php';
+require wponion()->path( 'core/helpers/modules/simple-module.php' );
 
 // admin-bar related functions
-require WPONION_PATH . 'core/helpers/modules/admin-bar.php';
+require wponion()->path( 'core/helpers/modules/admin-bar.php' );
 
 // admin-columns related functions
-require WPONION_PATH . 'core/helpers/modules/admin-columns.php';
+require wponion()->path( 'core/helpers/modules/admin-columns.php' );
 
 // admin-notice related functions
-require WPONION_PATH . 'core/helpers/modules/admin-notice.php';
+require wponion()->path( 'core/helpers/modules/admin-notice.php' );
 
 // admin-page related functions
-require WPONION_PATH . 'core/helpers/modules/admin-page.php';
+require wponion()->path( 'core/helpers/modules/admin-page.php' );
 
 // bulk-quick-edit related functions
-require WPONION_PATH . 'core/helpers/modules/bulk-quick-edit.php';
+require wponion()->path( 'core/helpers/modules/bulk-quick-edit.php' );
 
 // customizer related functions
-require WPONION_PATH . 'core/helpers/modules/customizer.php';
+require wponion()->path( 'core/helpers/modules/customizer.php' );
 
 // dashboard-widgets related functions
-require WPONION_PATH . 'core/helpers/modules/dashboard-widgets.php';
+require wponion()->path( 'core/helpers/modules/dashboard-widgets.php' );
 
 // help-tabs related functions
-require WPONION_PATH . 'core/helpers/modules/help-tabs.php';
+require wponion()->path( 'core/helpers/modules/help-tabs.php' );
 
 // media-fields related functions
-require WPONION_PATH . 'core/helpers/modules/media-fields.php';
+require wponion()->path( 'core/helpers/modules/media-fields.php' );
 
 // metabox related functions
-require WPONION_PATH . 'core/helpers/modules/metabox.php';
+require wponion()->path( 'core/helpers/modules/metabox.php' );
 
 // nav-menu related functions
-require WPONION_PATH . 'core/helpers/modules/nav-menu.php';
+require wponion()->path( 'core/helpers/modules/nav-menu.php' );
 
 // settings related functions
-require WPONION_PATH . 'core/helpers/modules/settings.php';
+require wponion()->path( 'core/helpers/modules/settings.php' );
 
 // taxonomy related functions
-require WPONION_PATH . 'core/helpers/modules/taxonomy.php';
+require wponion()->path( 'core/helpers/modules/taxonomy.php' );
 
 // user_profile related functions
-require WPONION_PATH . 'core/helpers/modules/user_profile.php';
+require wponion()->path( 'core/helpers/modules/user_profile.php' );
 
 // woocommerce related functions
-require WPONION_PATH . 'core/helpers/modules/woocommerce.php';
+require wponion()->path( 'core/helpers/modules/woocommerce.php' );
 
 // wp-pointers related functions
-require WPONION_PATH . 'core/helpers/modules/wp-pointers.php';
+require wponion()->path( 'core/helpers/modules/wp-pointers.php' );
 
 // cpt related functions
-require WPONION_PATH . 'core/helpers/modules/cpt.php';
+require wponion()->path( 'core/helpers/modules/cpt.php' );

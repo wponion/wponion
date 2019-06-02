@@ -80,8 +80,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function load_default_styles() {
-			if ( file_exists( WPONION_PATH . 'assets/css/wponion-basic.css' ) ) {
-				echo '<style id="wponion_basic_style" type="text/css" media="screen">' . @file_get_contents( WPONION_PATH . 'assets/css/wponion-basic.css' ) . '</style>';
+			if ( file_exists( wponion()->assets_path( 'css/wponion-basic.css' ) ) ) {
+				echo '<style id="wponion_basic_style" type="text/css" media="screen">' . @file_get_contents( wponion()->assets_path( 'css/wponion-basic.css' ) ) . '</style>';
 			}
 		}
 
@@ -103,7 +103,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function register_assets() {
-			$v = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
+			$v = ( true === wponion_is_debug() ) ? time() : wponion()->version();
 			do_action( 'wponion_register_assets_before' );
 			wponion_localize();
 
@@ -132,23 +132,23 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			/**
 			 * Registers Local Style.
 			 */
-			self::register( 'style', 'wponion-plugins', WPONION_URL . 'assets/css/wponion-plugins.css', array(), $v, 'all' );
-			self::register( 'style', 'wponion-core', WPONION_URL . 'assets/css/wponion-base.css', array( 'wponion-plugins' ), $v, 'all' );
-			self::register( 'style', 'wponion-colorpicker', WPONION_URL . 'assets/plugins/colorpicker/cs-colorpicker.css', array( 'wp-color-picker' ), $v, 'all' );
+			self::register( 'style', 'wponion-plugins', wponion()->assets( 'css/wponion-plugins.css' ), array(), $v, 'all' );
+			self::register( 'style', 'wponion-core', wponion()->assets( 'css/wponion-base.css' ), array( 'wponion-plugins' ), $v, 'all' );
+			self::register( 'style', 'wponion-colorpicker', wponion()->assets( 'plugins/colorpicker/cs-colorpicker.css' ), array( 'wp-color-picker' ), $v, 'all' );
 
 			/**
 			 * Registers Local Scripts.
 			 */
-			self::register( 'script', 'wponion-plugins', WPONION_URL . 'assets/js/wponion-plugins.js', array(
+			self::register( 'script', 'wponion-plugins', wponion()->assets( 'js/wponion-plugins.js' ), array(
 				'lodash',
 				'wp-util',
 				'backbone',
 			), $v, true );
-			self::register( 'script', 'wponion-customizer', WPONION_URL . 'assets/js/wponion-customizer.js', array( 'wponion-core' ), $v, true );
-			self::register( 'script', 'wponion-postmessage', WPONION_URL . 'assets/js/wponion-postmessage.js', array( 'wponion-customizer' ), $v, true );
-			self::register( 'script', 'wponion-cloner', WPONION_URL . 'assets/js/wponion-cloner.js', array( 'wponion-plugins' ), $v, true );
-			self::register( 'script', 'wponion-core', WPONION_URL . 'assets/js/wponion-core.js', array( 'wponion-plugins' ), $v, true );
-			self::register( 'script', 'wponion-colorpicker', WPONION_URL . 'assets/plugins/colorpicker/wp-color-picker-alpha.js', array( 'wp-color-picker' ), $v, true );
+			self::register( 'script', 'wponion-customizer', wponion()->assets( 'js/wponion-customizer.js' ), array( 'wponion-core' ), $v, true );
+			self::register( 'script', 'wponion-postmessage', wponion()->assets( 'js/wponion-postmessage.js' ), array( 'wponion-customizer' ), $v, true );
+			self::register( 'script', 'wponion-cloner', wponion()->assets( 'js/wponion-cloner.js' ), array( 'wponion-plugins' ), $v, true );
+			self::register( 'script', 'wponion-core', wponion()->assets( 'js/wponion-core.js' ), array( 'wponion-plugins' ), $v, true );
+			self::register( 'script', 'wponion-colorpicker', wponion()->assets( 'plugins/colorpicker/wp-color-picker-alpha.js' ), array( 'wp-color-picker' ), $v, true );
 
 			do_action( 'wponion_register_assets_after' );
 

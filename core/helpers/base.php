@@ -44,7 +44,7 @@ if ( ! function_exists( 'wponion_locate_template' ) ) {
 	 */
 	function wponion_locate_template( $template_name, $template_path = '' ) {
 		$template_path = ( ! $template_path ) ? $template_path = 'wponion/' : $template_path;
-		$default_path  = WPONION_PATH . 'templates/';
+		$default_path  = wponion()->tpl();
 		$template      = locate_template( array( trailingslashit( $template_path ) . $template_name, $template_name ) );
 
 		if ( ! $template ) {
@@ -418,34 +418,34 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 
 
 // WPOnion Assets Related Functions.
-require_once WPONION_PATH . 'core/helpers/addons.php';
+require_once wponion()->path( 'core/helpers/addons.php' );
 
 // WPOnion Assets Related Functions.
-require_once WPONION_PATH . 'core/helpers/util.php';
+require_once wponion()->path( 'core/helpers/util.php' );
 
 // WPOnion Assets Related Functions.
-require_once WPONION_PATH . 'core/helpers/builder.php';
+require_once wponion()->path( 'core/helpers/builder.php' );
 
 // WPOnion Assets Related Functions.
-require_once WPONION_PATH . 'core/helpers/assets.php';
+require_once wponion()->path( 'core/helpers/assets.php' );
 
 // WPOnion Fields Related Functions.
-require_once WPONION_PATH . 'core/helpers/field.php';
+require_once wponion()->path( 'core/helpers/field.php' );
 
 // WPOnion Registry Related Functions.
-require_once WPONION_PATH . 'core/helpers/registry.php';
+require_once wponion()->path( 'core/helpers/registry.php' );
 
 // WPOnion Field Sanitize Related Functions.
-require_once WPONION_PATH . 'core/helpers/sanitize.php';
+require_once wponion()->path( 'core/helpers/sanitize.php' );
 
 // WPOnion Module Related Functions
-require_once WPONION_PATH . 'core/helpers/module.php';
+require_once wponion()->path( 'core/helpers/module.php' );
 
 // WPOnion Module Related Functions
-require_once WPONION_PATH . 'core/helpers/validator.php';
+require_once wponion()->path( 'core/helpers/validator.php' );
 
 // WPOnion Theme Related Functions
-require_once WPONION_PATH . 'core/helpers/theme.php';
+require_once wponion()->path( 'core/helpers/theme.php' );
 
 // WPOnion Alias Functions.
-require_once WPONION_PATH . 'core/helpers/alias.php';
+require_once wponion()->path( 'core/helpers/alias.php' );
