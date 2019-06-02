@@ -175,7 +175,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'background', 'all' );
 			\wponion_register_field( 'button', 'all' );
 			\wponion_register_field( 'checkbox', 'all' );
-			\wponion_register_field( 'color_palette', 'all' );
 			\wponion_register_field( 'color_picker', 'all' );
 			\wponion_register_field( 'date_picker', 'all' );
 			\wponion_register_field( 'fieldset', 'all' );
