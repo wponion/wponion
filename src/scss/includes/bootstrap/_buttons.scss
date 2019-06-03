@@ -1,3 +1,9 @@
+// stylelint-disable selector-no-qualifying-type
+
+//
+// Base styles
+//
+
 .wpo-btn {
 	display:          inline-block;
 	font-family:      $btn-font-family;
@@ -6,7 +12,6 @@
 	text-align:       center;
 	vertical-align:   middle;
 	user-select:      none;
-	text-decoration:  none;
 	background-color: transparent;
 	border:           $btn-border-width solid transparent;
 	@include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-line-height, $btn-border-radius);
@@ -40,9 +45,16 @@
 	}
 }
 
-a.wpo-btn.disabled, fieldset:disabled a.wpo-btn {
+// Future-proof disabling of clicks on `<a>` elements
+a.wpo-btn.disabled,
+fieldset:disabled a.wpo-btn {
 	pointer-events: none;
 }
+
+
+//
+// Alternate buttons
+//
 
 @each $color, $value in $theme-colors {
 	.wpo-btn-#{$color} {
@@ -56,6 +68,12 @@ a.wpo-btn.disabled, fieldset:disabled a.wpo-btn {
 	}
 }
 
+
+//
+// Link buttons
+//
+
+// Make a button look and behave like a link
 .wpo-btn-link {
 	font-weight:     $font-weight-normal;
 	color:           $link-color;
@@ -81,6 +99,11 @@ a.wpo-btn.disabled, fieldset:disabled a.wpo-btn {
 	// No need for an active state here
 }
 
+
+//
+// Button Sizes
+//
+
 .wpo-btn-lg {
 	@include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-line-height-lg, $btn-border-radius-lg);
 }
@@ -89,16 +112,25 @@ a.wpo-btn.disabled, fieldset:disabled a.wpo-btn {
 	@include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $btn-line-height-sm, $btn-border-radius-sm);
 }
 
+
+//
+// Block button
+//
+
 .wpo-btn-block {
 	display: block;
 	width:   100%;
 
+	// Vertically space out multiple block buttons
 	+ .wpo-btn-block {
 		margin-top: $btn-block-spacing-y;
 	}
 }
 
-input[type="submit"], input[type="reset"], input[type="button"] {
+// Specificity overrides
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
 	&.wpo-btn-block {
 		width: 100%;
 	}

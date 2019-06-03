@@ -46,16 +46,19 @@
 	@include wponion_ui_sortable_placeholder();
 }
 
-// WPOnion Search Unmatched
-.wponion-search-unmatched {
-	display: none !important;
-}
+// WPOnion Search Matched / Unmatched
+.wponion-search {
+	// WPOnion Search Unmatched
+	&-unmatched {
+		display: none !important;
+	}
 
-// WPOnion Search matched
-.wponion-search-matched {
-	display:    inline-block !important;
-	width:      100%;
-	min-height: 0 !important;
+	// WPOnion Search matched
+	&-matched {
+		display:    inline-block !important;
+		width:      100%;
+		min-height: 0 !important;
+	}
 }
 
 // WPOnion Row
@@ -178,36 +181,68 @@
 	}
 }
 
+// WPOnion Util Styles
+.wponion-framework {
+	pre {
+		display:                block;
+		padding:                9.5px;
+		font-variant-ligatures: none;
+		cursor:                 pointer;
+		word-break:             normal;
+		margin:                 .5rem 0 .2rem;
+		font-size:              .75rem;
+		line-height:            1.15rem;
+		color:                  #333;
+		white-space:            pre-wrap;
+		word-wrap:              break-word;
+		background-color:       #f8f8f8;
+		border:                 1px solid rgba(0, 0, 0, .15);
+		border-radius:          4px;
+		overflow:               auto;
+		font-family:            Monaco, Menlo, Consolas, "Courier New", monospace !important;
 
-.wponion-framework pre {
-	display:                block;
-	padding:                9.5px;
-	font-variant-ligatures: none;
-	cursor:                 pointer;
-	word-break:             normal;
-	margin:                 .5rem 0 .2rem;
-	font-size:              .75rem;
-	line-height:            1.15rem;
-	color:                  #333;
-	white-space:            pre-wrap;
-	word-wrap:              break-word;
-	background-color:       #f8f8f8;
-	border:                 1px solid rgba(0, 0, 0, .15);
-	border-radius:          4px;
-	overflow:               auto;
-	font-family:            Monaco, Menlo, Consolas, "Courier New", monospace !important;
+		code {
+			padding:     0;
+			color:       inherit;
+			background:  0 0;
+			border:      none;
+			font-family: inherit;
+			display:     inline-block;
+			word-wrap:   unset;
+			word-break:  inherit;
+			white-space: inherit;
+			line-height: inherit;
+		}
+	}
 
 	code {
-		padding:     0;
-		color:       inherit;
-		background:  0 0;
-		border:      none;
-		font-family: inherit;
-		display:     inline-block;
-		word-wrap:   unset;
-		word-break:  inherit;
-		white-space: inherit;
-		line-height: inherit;
+		padding:                2px 3px 1px;
+		font-size:              .75rem;
+		line-height:            .75rem;
+		color:                  #e01e5a;
+		background-color:       #f7f7f9;
+		font-variant-ligatures: none;
+		tab-size:               4;
+		white-space:            normal;
+		border:                 1px solid #e1e1e8;
+		border-radius:          4px;
+		font-family:            Monaco, Menlo, Consolas, "Courier New", monospace;
+	}
+
+	blockquote {
+		padding:     10px 20px;
+		margin:      0 0 20px;
+		font-size:   17.5px;
+		border-left: 5px solid #eee;
+
+		> p:first-child {
+			margin-top: 0;
+		}
+
+		> p:last-child {
+			margin-bottom: 0;
+		}
+
 	}
 }
 
@@ -225,36 +260,6 @@
 	box-shadow:  0 0 3px #d5d5d5 inset;
 }
 
-.wponion-framework code {
-	padding:                2px 3px 1px;
-	font-size:              .75rem;
-	line-height:            .75rem;
-	color:                  #e01e5a;
-	background-color:       #f7f7f9;
-	font-variant-ligatures: none;
-	tab-size:               4;
-	white-space:            normal;
-	border:                 1px solid #e1e1e8;
-	border-radius:          4px;
-	font-family:            Monaco, Menlo, Consolas, "Courier New", monospace;
-}
-
-.wponion-framework blockquote {
-	padding:     10px 20px;
-	margin:      0 0 20px;
-	font-size:   17.5px;
-	border-left: 5px solid #eee;
-
-	> p:first-child {
-		margin-top: 0;
-	}
-
-	> p:last-child {
-		margin-bottom: 0;
-	}
-
-}
-
 .wponion-developer-timer {
 	display:    inline-block;
 	width:      100%;
@@ -270,13 +275,3 @@ img[wponion-img-popup] {
 	border: 1px solid #eee;
 }
 
-.wponion-element {
-	.wponion-developer-timer {
-		margin:     0;
-		display:    inline-block;
-		width:      auto;
-		font-size:  smaller;
-		text-align: center;
-		padding:    0 8px;
-	}
-}

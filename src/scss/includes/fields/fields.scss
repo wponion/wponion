@@ -61,6 +61,15 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 	&.horizontal {
 		@include wponion_field_horizontal();
 	}
+
+	.wponion-developer-timer {
+		margin:     0;
+		display:    inline-block;
+		width:      auto;
+		font-size:  smaller;
+		text-align: center;
+		padding:    0 8px;
+	}
 }
 
 /*============================ OLD STYLE BELOW =====================*/
@@ -94,7 +103,6 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 @import "heading/core";
 @import "jambo_content/core";
 @import "typography/core";
-@import "backup/core";
 @import "color_group/core";
 @import "content/core";
 @import "divider/core";

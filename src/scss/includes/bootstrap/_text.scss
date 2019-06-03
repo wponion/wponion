@@ -1,3 +1,51 @@
+// stylelint-disable declaration-no-important
+
+//
+// Text
+//
+
+.wpo-text-monospace {
+	font-family: $font-family-monospace !important;
+}
+
+// Alignment
+
+.wpo-text-justify {
+	text-align: justify !important;
+}
+
+.wpo-text-wrap {
+	white-space: normal !important;
+}
+
+.wpo-text-nowrap {
+	white-space: nowrap !important;
+}
+
+.wpo-text-truncate {
+	@include text-truncate;
+}
+
+// Responsive alignment
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+	@include media-breakpoint-up($breakpoint) {
+		$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+		.wpo-text#{$infix}-left {
+			text-align: left !important;
+		}
+		.wpo-text#{$infix}-right {
+			text-align: right !important;
+		}
+		.wpo-text#{$infix}-center {
+			text-align: center !important;
+		}
+	}
+}
+
+// Transformation
+
 .wpo-text-lowercase {
 	text-transform: lowercase !important;
 }
@@ -9,6 +57,8 @@
 .wpo-text-capitalize {
 	text-transform: capitalize !important;
 }
+
+// Weight and italics
 
 .wpo-font-weight-light {
 	font-weight: $font-weight-light !important;
@@ -30,9 +80,11 @@
 	font-weight: $font-weight-bolder !important;
 }
 
-.wpo-font-italic {
+.font-italic {
 	font-style: italic !important;
 }
+
+// Contextual colors
 
 .wpo-text-white {
 	color: $white !important;
@@ -58,6 +110,8 @@
 	color: rgba($white, .5) !important;
 }
 
+// Misc
+
 .wpo-text-hide {
 	@include text-hide($ignore-warning: true);
 }
@@ -70,6 +124,8 @@
 	word-break:    break-word !important; // IE & < Edge 18
 	overflow-wrap: break-word !important;
 }
+
+// Reset
 
 .wpo-text-reset {
 	color: inherit !important;
