@@ -13,33 +13,6 @@ if ( ! function_exists( 'wpo_builder' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wpo_container' ) ) {
-	/**
-	 * @param bool $slug
-	 * @param bool $title
-	 * @param bool $icon
-	 *
-	 * @return \WPO\Container
-	 */
-	function wpo_container( $slug = false, $title = false, $icon = false ) {
-		return wponion_container_builder( $slug, $title, $icon );
-	}
-}
-
-if ( ! function_exists( 'wpo_field' ) ) {
-	/**
-	 * @param bool|string|array $type
-	 * @param bool|string|array $id
-	 * @param bool|string|array $title
-	 * @param array             $args
-	 *
-	 * @return false|\WPO\Field
-	 */
-	function wpo_field( $type = false, $id = false, $title = false, $args = array() ) {
-		return wponion_field_builder( $type, $id, $title, $args );
-	}
-}
-
 if ( ! function_exists( 'wpo_is' ) ) {
 	/**
 	 * @param bool   $instance

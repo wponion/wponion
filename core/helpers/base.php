@@ -306,7 +306,7 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 	 * @return bool
 	 */
 	function wponion_is_array( $data ) {
-		return ( $data instanceof \WPO\Field || is_array( $data ) );
+		return ( wpo_is_field( $data ) || is_array( $data ) );
 	}
 }
 
@@ -325,20 +325,20 @@ if ( ! function_exists( 'wponion_parse_args' ) ) {
 		$_new      = $new;
 		$_defaults = $old;
 
-		if ( $new instanceof \WPO\Field ) {
+		if ( wpo_is_field( $new ) ) {
 			$_new = $new->get();
 		}
-		if ( $old instanceof \WPO\Field ) {
+		if ( wpo_is_field( $old ) ) {
 			$_defaults = $old->get();
 		}
 
 		$final = wp_parse_args( $_new, $_defaults );
 
-		if ( $new instanceof \WPO\Field ) {
+		if ( wpo_is_field( $new ) ) {
 			$new->set( $final );
 			return $new;
 		}
-		if ( $old instanceof \WPO\Field ) {
+		if ( wpo_is_field( $old ) ) {
 			$old->set( $final );
 			return $old;
 		}
