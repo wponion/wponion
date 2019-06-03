@@ -227,7 +227,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 * @return string
 		 */
 		protected function find_html_file( $file ) {
-			return wponion_locate_template( $this->theme . '/' . $file, $this->dir );
+			return file_exists( $this->dir . $file ) ? $this->dir . $file : false;
 		}
 
 		/**

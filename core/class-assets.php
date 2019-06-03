@@ -142,7 +142,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			self::register( 'script', 'wponion-plugins', wponion()->assets( 'js/wponion-plugins.js' ), array(
 				'lodash',
 				'wp-util',
-				'backbone',
 			), $v, true );
 			self::register( 'script', 'wponion-customizer', wponion()->assets( 'js/wponion-customizer.js' ), array( 'wponion-core' ), $v, true );
 			self::register( 'script', 'wponion-postmessage', wponion()->assets( 'js/wponion-postmessage.js' ), array( 'wponion-customizer' ), $v, true );

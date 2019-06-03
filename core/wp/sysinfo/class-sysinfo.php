@@ -152,27 +152,6 @@ JAVASCRIPT;
 
 			$ins = wpo_field( 'content', $content, true );
 			echo '<div class="wponion-sysinfo">' . $ins->render() . '</div>';
-
-			return;
-
-			foreach ( $data as $key => $_data ) {
-				if ( isset( $args[ $key ] ) && false === $args[ $key ] || isset( $args[ $key . '_html' ] ) && false === $args[ $key . '_html' ] ) {
-					continue;
-				}
-				echo wponion_add_element( array(
-					'type'    => 'accordion',
-					'heading' => $key,
-					'is_open' => true,
-					'debug'   => false,
-					'fields'  => array(
-						array(
-							'type'    => 'content',
-							'debug'   => false,
-							'content' => self::render_html_table( $_data ),
-						),
-					),
-				) );
-			}
 		}
 
 		/**
@@ -288,7 +267,7 @@ JAVASCRIPT;
 		 * @return string
 		 */
 		protected static function render_text_array( $value, $times, $incode = false ) {
-			$return = '';// self::eol( '', $times );
+			$return = '';
 			if ( ! empty( $value ) && is_array( $value ) ) {
 				foreach ( $value as $key => $val ) {
 					if ( is_numeric( $key ) ) {
@@ -305,12 +284,6 @@ JAVASCRIPT;
 							$return .= self::eol( '<details>', $times );
 							$return .= self::eol( '<summary>' . $key . ' </summary>', $times );
 							$return .= self::eol( self::render_text_array( $val, $times, true ), $times );
-							/*if ( false === $incode ) {
-								$return .= self::eol( '``` ', 1 );
-								$return .= self::eol( self::render_text_array( $val, 1, true ) . '```', $times );
-							} else {
-								$return .= self::eol( self::render_text_array( $val, 1, true ), $times );
-							}*/
 							$return .= '</details>' . self::eol( '' );
 						} else {
 							if ( is_array( $val ) && isset( $val[0] ) && is_array( $val[0] ) ) {

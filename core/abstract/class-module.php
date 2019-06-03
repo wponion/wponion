@@ -108,7 +108,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * Stores Instance In Registry.
 		 */
 		public function save_instance() {
-			wponion_callback( 'wponion_' . $this->module . '_registry', array( &$this ) );
+			if ( function_exists( 'wponion_' . $this->module . '_registry' ) ) {
+				wponion_callback( 'wponion_' . $this->module . '_registry', array( &$this ) );
+			}
 		}
 
 		/**

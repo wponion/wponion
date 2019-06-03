@@ -80,18 +80,11 @@ if ( ! function_exists( 'wponion_validate_bool_val' ) ) {
 		if ( wponion_is_array( $value ) ) {
 			return array_map( 'wponion_validate_bool_val', $value );
 		}
-		switch ( strtolower( $value ) ) {
-			case 'true':
-			case 'TRUE':
-			case '1':
-				$value = true;
-				break;
-
-			case 'false':
-			case 'FALSE':
-			case '0':
-				$value = false;
-				break;
+		if ( in_array( $value, array( true, 'true', 'TRUE', 1, '1' ), true ) ) {
+			$value = true;
+		}
+		if ( in_array( $value, array( false, 'false', 'FALSE', 0, '0' ), true ) ) {
+			$value = false;
 		}
 		return $value;
 	}

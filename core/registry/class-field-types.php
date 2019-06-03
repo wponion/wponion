@@ -168,7 +168,7 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 		 * @return bool
 		 */
 		public static function design_exists( $type ) {
-			return ( self::exists( $type ) && in_array( $type, self::$design_fields ) );
+			return ( self::exists( $type ) && in_array( $type, self::$design_fields, true ) );
 		}
 
 		/**
@@ -202,7 +202,7 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 		 * @return bool
 		 */
 		public static function is_supported( $type, $module ) {
-			return ( isset( self::$module_fields[ $module ] ) && in_array( $type, self::$module_fields[ $module ] ) );
+			return ( isset( self::$module_fields[ $module ] ) && in_array( $type, self::$module_fields[ $module ], true ) );
 		}
 
 		/**

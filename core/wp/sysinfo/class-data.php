@@ -174,7 +174,6 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 				__( 'PHP Post Max Size', 'wponion' )       => ini_get( 'post_max_size' ),
 				__( 'PHP Time Limit', 'wponion' )          => ini_get( 'max_execution_time' ),
 				__( 'PHP Max Input Vars', 'wponion' )      => ini_get( 'max_input_vars' ),
-				__( 'PHP Safe Mode', 'wponion' )           => ini_get( 'safe_mode' ),
 				__( 'PHP Memory Limit', 'wponion' )        => ini_get( 'memory_limit' ),
 				__( 'PHP Upload Max Size', 'wponion' )     => ini_get( 'upload_max_filesize' ),
 				__( 'PHP Upload Max Filesize', 'wponion' ) => ini_get( 'upload_max_filesize' ),

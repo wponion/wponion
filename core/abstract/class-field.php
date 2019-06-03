@@ -14,6 +14,8 @@
 
 namespace WPOnion;
 
+use WPOnion\Registry\Field_Types;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -197,16 +199,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
-		 * Sets A Given Args To Field Array.
-		 *
-		 * @param string $key
-		 * @param mixed  $value
-		 */
-		public function set_field( $key, $value ) {
-			$this->field[ $key ] = $value;
-		}
-
-		/**
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
@@ -219,7 +211,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->debug( __( 'Raw Field Args', 'wponion' ), $this->orginal_field );
 			$this->debug( __( 'Field Args', 'wponion' ), $this->field );
 			$this->debug( __( 'Field Value', 'wponion' ), $this->value );
-			$this->debug( __( 'Unique', 'wponion' ), $this->unique );
+			$this->debug( __( 'Unique', 'wponion' ), $this->unique() );
 			$this->debug( __( 'Module', 'wponion' ), $this->module() );
 			$this->wp_pointer();
 			$this->localize_field();
@@ -274,9 +266,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 					$save[]        = $dep;
 				}
 				if ( ! empty( $save ) ) {
-					wponion_localize()->add( $this->js_field_id(), array(
-						'dependency' => $save,
-					), true, false );
+					wponion_localize()->add( $this->js_field_id(), array( 'dependency' => $save ), true, false );
 				}
 			}
 		}
@@ -318,7 +308,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$_wrap_attr['class'] .= ' horizontal ';
 			}
 
-			if ( \WPOnion\Registry\Field_Types::design_exists( $this->element_type() ) ) {
+			if ( Field_Types::design_exists( $this->element_type() ) ) {
 				$_wrap_attr['class'] .= ' ui-field wponion-ui-field ';
 			}
 
@@ -656,28 +646,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
-		 * Renders Attributes HTML for FIelds sub elements.
-		 *
-		 * @param array $field_attributes
-		 * @param array $user_attributes
-		 *
-		 * @return string
-		 */
-		protected function _sub_attributes( $field_attributes = array(), $user_attributes = array() ) {
-			if ( isset( $field_attributes['class'] ) ) {
-				$field_attributes['class'] = wponion_html_class( $field_attributes['class'] );
-			}
-
-			$user_attrs = $this->parse_args( $user_attributes, $field_attributes );
-
-			if ( ! isset( $user_attrs['data-wponion-jsid'] ) ) {
-				$user_attrs['data-wponion-jsid'] = $this->js_field_id();
-			}
-
-			return wponion_array_to_html_attributes( $user_attrs );
-		}
-
-		/**
 		 * Generates Field Attributes HTML.
 		 *
 		 * @param array $field_attributes
@@ -802,7 +770,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function js_field_id() {
 			if ( ! isset( $this->js_field_id ) ) {
-				$key               = wponion_localize_object_name( 'wponion', 'field', $this->unid() . '_' . $this->unique() . '_' . uniqid( time() ) );
+				$key               = wponion_js_obj_name( 'wponion', 'field', $this->unid() . '_' . $this->unique() . '_' . uniqid( time() ) );
 				$this->js_field_id = sanitize_key( str_replace( array( '-', '_' ), '', $key ) );
 			}
 			return $this->js_field_id;

@@ -25,42 +25,6 @@ if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_locate_template' ) ) {
-	/**
-	 * Locate a template and return the path for inclusion.
-	 *
-	 * This is the load order:
-	 *
-	 * yourtheme/$template_path/$template_name
-	 * yourtheme/$template_name
-	 * $default_path/$template_name
-	 *
-	 * @access public
-	 *
-	 * @param string $template_name Template name.
-	 * @param string $template_path Template path. (default: '').
-	 *
-	 * @return string
-	 */
-	function wponion_locate_template( $template_name, $template_path = '' ) {
-		$template_path = ( ! $template_path ) ? $template_path = 'wponion/' : $template_path;
-		$default_path  = wponion()->tpl();
-		$template      = locate_template( array( trailingslashit( $template_path ) . $template_name, $template_name ) );
-
-		if ( ! $template ) {
-			if ( file_exists( trailingslashit( $template_path ) . $template_name ) ) {
-				$template = trailingslashit( $template_path ) . $template_name;
-			}
-		}
-
-		if ( ! $template ) {
-			$template = $default_path . $template_name;
-		}
-
-		return apply_filters( 'wponion_locate_template', $template, $template_name, $template_path );
-	}
-}
-
 if ( ! function_exists( 'wponion_get_var' ) ) {
 	/**
 	 * Getting POST Var
@@ -100,7 +64,7 @@ if ( ! function_exists( 'wponion_validate_parent_container_ids' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_localize_object_name' ) ) {
+if ( ! function_exists( 'wponion_js_obj_name' ) ) {
 	/**
 	 * Returns a quniue js key.
 	 *
@@ -110,9 +74,8 @@ if ( ! function_exists( 'wponion_localize_object_name' ) ) {
 	 *
 	 * @return string
 	 */
-	function wponion_localize_object_name( $prefix = '', $surfix = '', $inner_content = '' ) {
+	function wponion_js_obj_name( $prefix = '', $surfix = '', $inner_content = '' ) {
 		return $prefix . wponion_hash_string( $inner_content ) . $surfix;
-
 	}
 }
 

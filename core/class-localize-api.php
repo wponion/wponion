@@ -46,7 +46,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 *
 		 * @var array
 		 */
-		private $scripts_check = array( 'wponion-plugins', 'wponion-core', 'wponion-fields' );
+		private $scripts_check = array( 'wponion-plugins', 'wponion-core' );
 
 		/**
 		 * WPOnion_Localize_API constructor.
@@ -89,7 +89,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->text( 'restore', __( 'Restore', 'wponion' ) );
 				$this->text( 'settings_saved', __( 'Settings Updated', 'wponion' ) );
 				$this->text( 'email_sent', __( 'Email Sent', 'wponion' ) );
-				$this->modal_template();
 				self::$core_data = true;
 			}
 		}
@@ -125,10 +124,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return bool|mixed
 		 */
 		public function get( $object_id = '', $default = false ) {
-			if ( isset( $this->js_args[ $object_id ] ) ) {
-				return $this->js_args[ $object_id ];
-			}
-			return $default;
+			return ( isset( $this->js_args[ $object_id ] ) ) ? $this->js_args[ $object_id ] : $default;
 		}
 
 		/**
@@ -147,7 +143,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					$args[ $i ] = $this->handle_js_function( $ar );
 				} elseif ( is_string( $ar ) ) {
 					$re = '/\bfunction[ ]{0,1}(\(((?>[^()]+|(?-2))*)\))(.|)(\{((?>[^{}]+|(?-2))*)\})/';
-					/*'/\bfunction(\(((?>[^()]+|(?-2))*)\))(\{((?>[^{}]+|(?-2))*)\})/';*/
 					preg_match_all( $re, $ar, $matches, PREG_SET_ORDER, 0 );
 
 					if ( wponion_is_array( $matches ) && ! empty( array_filter( $matches ) ) ) {
@@ -181,7 +176,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			if ( ! isset( $this->js_args['wponion_il8n'] ) ) {
 				$this->js_args['wponion_il8n'] = array();
 			}
-
 			$this->js_args['wponion_il8n'][ $key ] = $value;
 			return $this;
 		}
@@ -196,10 +190,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts(), true, false );
 				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
 			}
-
-			/*if ( wponion_is_debug() ) {
-				//$this->add( 'wponion_defined_vars', array_keys( $this->js_args ) );
-			}*/
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 				return $this->print_js_data( $return );
@@ -254,35 +244,17 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return string
 		 */
 		private function print_js_data( $return = false ) {
-			$h = "<script type='text/javascript' id='wponion_field_js_vars'>\n"; // CDATA and type='text/javascript' is not needed for HTML 5
+			$h = "<script type='text/javascript' id='wponion_field_js_vars'>\n /* <![CDATA[ */\n"; // CDATA and type='text/javascript' is not needed for HTML 5
 
-			$h .= "/* <![CDATA[ */\n";
 			foreach ( $this->js_args as $key => $value ) {
 				$h .= wponion_js_vars( $key, $value, false );
 			}
 
-			$h .= "/* ]]> */\n";
-			$h .= "</script>\n";
+			$h .= "/* ]]> */\n </script>\n";
 			if ( false === $return ) {
 				echo $h;
 			}
 			return $h;
-		}
-
-		/**
-		 * Handles Modal Template.
-		 */
-		private function modal_template() {
-			$extra                         = array(
-				'modal' => array(
-					'html'             => include wponion()->tpl( 'wponion-modal-html.php' ),
-					'frame-menu-item'  => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
-					'router-menu-item' => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
-					'page_content'     => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content"><div class="media-frame-title"><h1>{{data.title}}</h1></div><div class="media-frame-router"> <div class="media-router"></div> </div> <div class="media-frame-content">{{data.html}}<div class="media-sidebar"></div></div></div>',
-					'section_content'  => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content wponion-section-modal-content">{{data.html}}<div class="media-sidebar"></div></div>',
-				),
-			);
-			$this->js_args['wponion_core'] = wponion_parse_args( $this->js_args['wponion_core'], $extra );
 		}
 	}
 }

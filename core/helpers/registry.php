@@ -138,12 +138,3 @@ if ( ! function_exists( 'wponion_query' ) ) {
 		return $_instance;
 	}
 }
-
-if ( ! function_exists( 'wponion_field_types' ) ) {
-	/**
-	 * @return string|\WPOnion\Registry\Field_Types
-	 */
-	function wponion_field_types() {
-		return '\WPOnion\Registry\Field_Types';
-	}
-}
