@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return false|\WPO\Field|\WPO\Fields\Accordion|\WPO\Fields\Background|\WPO\Fields\Checkbox|\WPO\Fields\Color_Picker|\WPO\Fields\Date_Picker|\WPO\Fields\Fieldset|\WPO\Fields\Font_Picker|\WPO\Fields\Gallery|\WPO\Fields\Group |\WPO\Fields\Icon_Picker|\WPO\Fields\Image|\WPO\Fields\Image_Select|\WPO\Fields\Key_Value|\WPO\Fields\Oembed|\WPO\Fields\Radio|\WPO\Fields\Select|\WPO\Fields\Sorter|\WPO\Fields\Switcher|\WPO\Fields\Text|\WPO\Fields\Textarea|\WPO\Fields\Typography|\WPO\Fields\Upload|\WPO\Fields\WP_Editor|\WPO\Fields\WP_Link|\WPO\Fields\Color_Group|\WPO\Fields\Link_Color|\WPO\Fields\Input_Group|\WPO\Fields\Spacing|\WPO\Fields\Dimensions|\WPO\Fields\Button_Set|\WPO\Fields\Content|\WPO\Fields\Heading|\WPO\Fields\Iframe|\WPO\Fields\Jambo_Content|\WPO\Fields\Notice |\WPO\Fields\Subheading|\WPO\Fields\WP_Notice
+		 * @return false|\WPO\Field
 		 *
 		 * @todo \WPO\Fields\Button
 		 * @todo \WPO\Fields\WP_List_Table
