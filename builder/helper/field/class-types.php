@@ -4,7 +4,7 @@ namespace WPO\Helper\Field;
 
 use WPOnion\Registry\Field_Types;
 
-if ( ! trait_exists( 'Types' ) ) {
+if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	/**
 	 * Trait Types
 	 *
