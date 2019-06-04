@@ -70,19 +70,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
-			add_action( 'admin_head', array( __CLASS__, 'load_default_styles' ) );
-			add_action( 'wp_head', array( __CLASS__, 'load_default_styles' ) );
-		}
-
-		/**
-		 * Loads Default Style.
-		 *
-		 * @static
-		 */
-		public static function load_default_styles() {
-			if ( file_exists( wponion()->assets_path( 'css/wponion-basic.css' ) ) ) {
-				echo '<style id="wponion_basic_style" type="text/css" media="screen">' . @file_get_contents( wponion()->assets_path( 'css/wponion-basic.css' ) ) . '</style>';
-			}
 		}
 
 		/**
@@ -132,7 +119,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			/**
 			 * Registers Local Style.
 			 */
-			self::register( 'style', 'wponion-plugins', wponion()->assets( 'css/wponion-plugins.css' ), array(), $v, 'all' );
+			self::register( 'style', 'wponion-utility', wponion()->assets( 'css/wponion-utility.css' ), array(), $v, 'all' );
+			self::register( 'style', 'wponion-plugins', wponion()->assets( 'css/wponion-plugins.css' ), array( 'wponion-utility' ), $v, 'all' );
 			self::register( 'style', 'wponion-core', wponion()->assets( 'css/wponion-base.css' ), array( 'wponion-plugins' ), $v, 'all' );
 			self::register( 'style', 'wponion-colorpicker', wponion()->assets( 'plugins/colorpicker/cs-colorpicker.css' ), array( 'wp-color-picker' ), $v, 'all' );
 
@@ -153,6 +141,10 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 
 			if ( self::$cache_updated ) {
 				set_transient( '_wponion_cdn_cache', self::$cache, DAY_IN_SECONDS * 5 );
+			}
+
+			if ( is_admin() ) {
+				wp_enqueue_style( 'wponion-utility' );
 			}
 		}
 
