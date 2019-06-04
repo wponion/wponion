@@ -11,14 +11,14 @@ $files[ 'src/scss/wponion-base.scss' ] = {
 	watch: [ 'src/scss/wponion-base.scss', 'src/scss/includes/*', 'src/scss/includes/fields/*', 'src/scss/includes/fields/*/*', 'src/scss/includes/modules/*', 'src/scss/includes/modules/*/*' ],
 };
 
-$files[ 'src/scss/wponion-basic.scss' ]   = {
+$files[ 'src/scss/wponion-utility.scss' ] = {
 	dist: 'assets/css/',
 	combine_files: true,
 	scss: true,
 	autoprefixer: true,
 	minify: true,
-	rename: 'wponion-basic.css',
-	watch: [ 'src/scss/wponion-basic.scss' ],
+	rename: 'wponion-utility.css',
+	watch: [ 'src/scss/wponion-utility.scss', 'src/scss/includes/bootstrap/*' ],
 };
 $files[ 'src/scss/wponion-plugins.scss' ] = {
 	dist: 'assets/css/',
