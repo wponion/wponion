@@ -1,0 +1,319 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "96916673fee0fcf8958cea1d6baa2bd5",
+    "packages": [
+        {
+            "name": "cebe/markdown",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cebe/markdown.git",
+                "reference": "9bac5e971dd391e2802dca5400bbeacbaea9eb86"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/9bac5e971dd391e2802dca5400bbeacbaea9eb86",
+                "reference": "9bac5e971dd391e2802dca5400bbeacbaea9eb86",
+                "shasum": ""
+            },
+            "require": {
+                "lib-pcre": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "cebe/indent": "*",
+                "facebook/xhprof": "*@dev",
+                "phpunit/phpunit": "4.1.*"
+            },
+            "bin": [
+                "bin/markdown"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "cebe\\markdown\\": ""
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc",
+                    "homepage": "http://cebe.cc/",
+                    "role": "Creator"
+                }
+            ],
+            "description": "A super fast, highly extensible markdown parser for PHP",
+            "homepage": "https://github.com/cebe/markdown#readme",
+            "keywords": [
+                "extensible",
+                "fast",
+                "gfm",
+                "markdown",
+                "markdown-extra"
+            ],
+            "time": "2018-03-26T11:24:36+00:00"
+        },
+        {
+            "name": "michelf/php-markdown",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michelf/php-markdown.git",
+                "reference": "01ab082b355bf188d907b9929cd99b2923053495"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/01ab082b355bf188d907b9929cd99b2923053495",
+                "reference": "01ab082b355bf188d907b9929cd99b2923053495",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Michelf\\": "Michelf/"
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Michel Fortin",
+                    "email": "michel.fortin@michelf.ca",
+                    "homepage": "https://michelf.ca/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "John Gruber",
+                    "homepage": "https://daringfireball.net/"
+                }
+            ],
+            "description": "PHP Markdown",
+            "homepage": "https://michelf.ca/projects/php-markdown/",
+            "keywords": [
+                "markdown"
+            ],
+            "time": "2018-01-15T00:49:33+00:00"
+        },
+        {
+            "name": "scrivo/highlight.php",
+            "version": "v9.15.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/scrivo/highlight.php.git",
+                "reference": "00cf4aa63dd5c214660f628d3082ab231db50f48"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/00cf4aa63dd5c214660f628d3082ab231db50f48",
+                "reference": "00cf4aa63dd5c214660f628d3082ab231db50f48",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.7",
+                "symfony/finder": "^2.8"
+            },
+            "suggest": {
+                "ext-dom": "Needed to make use of the features in the utilities namespace"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Highlight\\": "",
+                    "HighlightUtilities\\": ""
+                },
+                "files": [
+                    "HighlightUtilities/functions.php"
+                ]
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Geert Bergman",
+                    "homepage": "http://www.scrivo.org/",
+                    "role": "Project Author"
+                },
+                {
+                    "name": "Vladimir Jimenez",
+                    "homepage": "https://allejo.io",
+                    "role": "Contributor"
+                },
+                {
+                    "name": "Martin Folkers",
+                    "homepage": "https://twobrain.io",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "Server side syntax highlighter that supports 185 languages. It's a PHP port of highlight.js",
+            "keywords": [
+                "code",
+                "highlight",
+                "highlight.js",
+                "highlight.php",
+                "syntax"
+            ],
+            "time": "2019-03-31T21:09:11+00:00"
+        },
+        {
+            "name": "varunsridharan/php-autoloader",
+            "version": "2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/varunsridharan/php-autoloader.git",
+                "reference": "65d7549b0c0d86abb5ca9af318675689e998f0db"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/varunsridharan/php-autoloader/zipball/65d7549b0c0d86abb5ca9af318675689e998f0db",
+                "reference": "65d7549b0c0d86abb5ca9af318675689e998f0db",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Varunsridharan\\PHP\\": "./src"
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Varun",
+                    "email": "varunsridharan23@gmail.com",
+                    "homepage": "https://varunsridharan.in",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Lightweight PSR-4 PHP Autoloader Class.",
+            "time": "2019-05-14T12:39:57+00:00"
+        },
+        {
+            "name": "varunsridharan/wp-conditional-logic",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/varunsridharan/wp-conditional-logic.git",
+                "reference": "71d2dbe3fa0a05129758cc15795ffdb65a5b1536"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/varunsridharan/wp-conditional-logic/zipball/71d2dbe3fa0a05129758cc15795ffdb65a5b1536",
+                "reference": "71d2dbe3fa0a05129758cc15795ffdb65a5b1536",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Varunsridharan\\WordPress\\": "./src"
+                }
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Varun Sridharan",
+                    "email": "varunsridharan23@gmail.com",
+                    "homepage": "http://varunsridharan.in",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple WordPress Library To Evaluate / Handle Conditional Logic.",
+            "homepage": "https://github.com/varunsridharan/wp-conditional-logic/",
+            "time": "2019-02-08T05:12:02+00:00"
+        },
+        {
+            "name": "varunsridharan/wp-dependencies",
+            "version": "1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/varunsridharan/wp-dependencies.git",
+                "reference": "4bfe9bd18fc0044221c63dea54425a9609091ba4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/varunsridharan/wp-dependencies/zipball/4bfe9bd18fc0044221c63dea54425a9609091ba4",
+                "reference": "4bfe9bd18fc0044221c63dea54425a9609091ba4",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "./src/dependencies.php"
+                ]
+            },
+            "notification-url": "https://repo.packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Varun Sridharan",
+                    "email": "varunsridharan23@gmail.com",
+                    "homepage": "http://varunsridharan.in",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Provides Function To Check if a plugin is active/inactive & function to compare versions.",
+            "homepage": "https://github.com/varunsridharan/wp-dependencies/",
+            "keywords": [
+                "dependencies",
+                "vsp-libs",
+                "wordpress",
+                "wordpress-dependencies",
+                "wordpress-development",
+                "wordpress-library",
+                "wordpress-php-library",
+                "wordpress-plugin",
+                "wordpress-plugin-development",
+                "wordpress-plugin-library",
+                "wordpress-plugins",
+                "wordpress-theme",
+                "wordpress-theme-development",
+                "wordpress-theme-library",
+                "wp",
+                "wp-addon",
+                "wp-dependencies",
+                "wp-library",
+                "wp-plugin",
+                "wp-theme"
+            ],
+            "time": "2019-05-07T05:21:29+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
