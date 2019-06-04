@@ -147,7 +147,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 				$attr['data-tippy'] = $args['content'];
 			}
 
-			if ( false === $this->element ) {
+			if ( empty( $this->element ) ) {
 				return array(
 					'attr' => $attr,
 					'data' => $args,

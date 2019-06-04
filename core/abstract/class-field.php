@@ -504,7 +504,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'content'     => false,
 				'js_field_id' => $this->js_field_id(),
 			) ), 'content' );
-			return wponion_tooltip( false, $data, false, $localize );
+			return wponion_tooltip( $data, false, false, $localize );
 		}
 
 		/**
