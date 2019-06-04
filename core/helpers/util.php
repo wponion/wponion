@@ -56,10 +56,8 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 			$element = $args;
 			$args    = array();
 		}
-
 		unset( $args['content'] );
 		unset( $args['element'] );
-
 		$instance = new \WPOnion\Util( $element, false );
 		return $instance->tooltip( $content, $args, $localize );
 	}
