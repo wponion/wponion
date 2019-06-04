@@ -103,9 +103,9 @@ class WP {
 			this.element.find( '.search-no-result' ).hide();
 
 			if( value.length > 3 ) {
-				this.element.find( '.wponion-submenus' ).addClass( 'wponion-search-unmatched' );
+				this.element.find( '.wponion-submenus' ).parent().addClass( 'wponion-search-unmatched' );
 				this.element.find( '.content-outer-wrap' ).addClass( 'full-width' );
-				$parent_wraps.addClass( 'wponion-search-matched' );
+				//$parent_wraps.addClass( 'wponion-search-matched' );
 				this.element.find( '.wponion-has-callback' ).addClass( 'wponion-search-unmatched' );
 				this.element.find( '.wponion-has-callback' ).removeClass( 'wponion-search-matched' );
 
@@ -119,6 +119,7 @@ class WP {
 							if( this.settings_is_search_matched( jQuery( e ), value ) ) {
 								$element.addClass( 'wponion-search-matched' );
 								$element.removeClass( 'wponion-search-unmatched' );
+								$parent.addClass( 'wponion-search-matched' );
 							}
 						} );
 					} );

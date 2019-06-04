@@ -58,6 +58,20 @@
 		display:    inline-block !important;
 		width:      100%;
 		min-height: 0 !important;
+
+		&.wponion-container-wraps, &.wponion-sub-container-wraps {
+			border-top:    none !important;
+			border-bottom: none !important;
+
+			&:first-child {
+				border-top: inherit;
+			}
+
+			&:last-child {
+				border-top: inherit;
+			}
+
+		}
 	}
 }
 
