@@ -93,7 +93,7 @@ https://demo.wponion.com
 Thanks to all the Contributors who worked on this project to get it done asap
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-<table><tr><td align="center"><a href="https://EnterpriseBranding.io"><img src="https://avatars3.githubusercontent.com/u/6123260?v=4" width="100px;" alt="Enterprise Branding"/><br /><sub><b>Enterprise Branding</b></sub></a><br /><a href="https://github.com/wponion/wponion/commits?author=EnterpriseBranding" title="Documentation">📖</a></td></tr></table>
+<table><tr><td align="center"><a href="https://EnterpriseBranding.io"><img src="https://avatars3.githubusercontent.com/u/6123260?v=4" width="100px;" alt="Enterprise Branding"/><br /><sub><b>Enterprise Branding</b></sub></a><br /><a href="https://github.com/wponion/wponion/commits?author=EnterpriseBranding" title="Documentation">📖</a> <a href="#ideas-EnterpriseBranding" title="Ideas, Planning, & Feedback">🤔</a></td></tr></table>
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
