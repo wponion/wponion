@@ -1,4 +1,3 @@
-import WPOnion_Dependency from './core/dependency';
 import WPOnion_Validator from './core/validation';
 import { createHooks } from '@wordpress/hooks';
 
@@ -38,7 +37,6 @@ require( './modules/media-fields' ).default;
 require( './modules/bulk-edit' ).default;
 require( './modules/quick-edit' ).default;
 require( './modules/page-actions' ).default;
-require( './modules/visual-composer' ).default;
 
 //window.wponion.modal          = require( '../vendors/backbone-modal' ).default;
 window.wponion.ajaxer         = require( './core/ajaxer' ).WPOnion_Ajaxer;

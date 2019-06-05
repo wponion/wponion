@@ -126,10 +126,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			self::register_core_fields();
 
-			if ( wp_is_plugin_active( 'js_composer/js_composer.php' ) ) {
-				Integrations\Page_Builders\Visual_Composer::init();
-			}
-
 			if ( wp_is_plugin_active( 'elementor/elementor.php' ) ) {
 				Integrations\Page_Builders\Elementor::init();
 			}
