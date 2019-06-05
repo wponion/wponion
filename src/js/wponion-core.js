@@ -81,12 +81,6 @@ export default ( ( window, document, wp, $ ) => {
 
 		window.wponion_notice( $wpof_div.find( '.wponion-element-wp_notice, .wponion-element-notice' ) );
 
-		// Triggers Field Debug Data.
-		$( document ).on( 'click', '.wponion-field-debug-code > strong', function() {
-			jQuery( this ).next().slideToggle();
-			jQuery( this ).toggleClass( 'dashicons-arrow-down' ).toggleClass( 'dashicons-arrow-right' );
-		} );
-
 		// Triggers Hook With Widgets.
 		$( document ).on( 'widget-added widget-updated', function( event, $widget ) {
 			window.wponion_field( $widget ).reload();
