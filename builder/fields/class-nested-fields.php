@@ -116,5 +116,14 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 			return $return;
 
 		}
+
+		/**
+		 * @param \WPO\Field $field_instance
+		 *
+		 * @return \WPO\Field
+		 */
+		public function add( $field_instance ) {
+			return $this->field( $field_instance );
+		}
 	}
 }
