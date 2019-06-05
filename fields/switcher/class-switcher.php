@@ -34,6 +34,7 @@ if ( ! class_exists( '\WPOnion\Field\Switcher' ) ) {
 		protected function field_default() {
 			return array(
 				'switch_style' => 'style-8',
+				'switch_width' => false,
 				'switch_size'  => '',
 				'label'        => false,
 				'on'           => __( 'ON', 'wponion' ),
@@ -53,10 +54,11 @@ if ( ! class_exists( '\WPOnion\Field\Switcher' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			$size = ( ! empty( $this->data( 'switch_size' ) ) ) ? 'ckbx-' . $this->data( 'switch_size' ) : '';
+			$width = ( ! empty( $this->data( 'switch_width' ) ) ) ? 'width:' . $this->data( 'switch_width' ) . ';' : '';
+			$size  = ( ! empty( $this->data( 'switch_size' ) ) ) ? 'ckbx-' . $this->data( 'switch_size' ) : '';
 			return '<div data-on="' . $this->data( 'on' ) . '" data-off="' . $this->data( 'off' ) . '" class="ckbx-' . $this->data( 'switch_style' ) . ' ' . $size . '">
 				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
-				<label data-on="' . $this->data( 'on' ) . '" data-off="' . $this->data( 'off' ) . '"  for="' . $attr['id'] . '"></label>
+				<label data-on="' . $this->data( 'on' ) . '" data-off="' . $this->data( 'off' ) . '"  for="' . $attr['id'] . '" style="' . $width . '"></label>
 			</div>
 			';
 		}

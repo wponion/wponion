@@ -80,19 +80,6 @@ if ( ! function_exists( 'wponion_widget_registry' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_field_builder_registry' ) ) {
-	/**
-	 * Returns An Active Instance.
-	 *
-	 * @param $instance
-	 *
-	 * @return \WPO\Field|bool
-	 */
-	function wponion_field_builder_registry( &$instance ) {
-		return wponion_get_registry_instance( 'field_builder', $instance, 'settings' );
-	}
-}
-
 /**
  * Core / Theme Registry
  */
@@ -136,14 +123,5 @@ if ( ! function_exists( 'wponion_query' ) ) {
 			wponion_core_registry( $_instance );
 		}
 		return $_instance;
-	}
-}
-
-if ( ! function_exists( 'wponion_field_types' ) ) {
-	/**
-	 * @return string|\WPOnion\Registry\Field_Types
-	 */
-	function wponion_field_types() {
-		return '\WPOnion\Registry\Field_Types';
 	}
 }

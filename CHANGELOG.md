@@ -4,7 +4,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# 1.0 - 29/05/2019
+# [1.1] - 05/06/2019
+## Added
+* Field **dependency** in nested fields
+* FAQ Field Builder
+* CopyToClipboard Action For `pre` tag inside *`.wponion-framework`* div
+* Option To Set **switcher** field width
+* Image POPUP Util `wpo_image()`
+* New PHP Functions
+  * wpo_help
+  * wpo_tooltip
+  * wpo_icon
+  * wpo_ajax
+  * wpo_image
+* new `wponion_markdown` php function
+* markdown support for `before`, `after`, `desc`,`desc_field` in field arguments
+
+
+## Changed
+* `pre` & `code` HTML tag css updated
+* Updated `Parsedown` library to **1.8.0-beta-7**
+* Redesinged **System Information** Field
+* Bump **sweetalert2** from `8.11.6` to `8.11.7`
+* Bump **tippy.js** from `4.3.1` to `4.3.3`
+
+## Removed
+* `color_palette` Field
+
+---
+
+# [1.0] - 29/05/2019
 ## First Stable Release.
 
 # [Beta : 0.0.10.5] - 20/05/2019
@@ -413,6 +442,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.1]: https://github.com/wponion/wponion/releases/tag/1.1
+[1.0]: https://github.com/wponion/wponion/releases/tag/1.0
 [Beta : 0.0.10.5]: https://github.com/wponion/wponion/releases/tag/0.0.10.5
 [Beta : 0.0.10.4]: https://github.com/wponion/wponion/releases/tag/0.0.10.4
 [Beta : 0.0.10.3]: https://github.com/wponion/wponion/releases/tag/0.0.10.3

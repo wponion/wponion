@@ -9,4 +9,4 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-include WPONION_PATH . 'templates/global/settings.php';
+include wponion()->tpl( 'global/settings.php' );

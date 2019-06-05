@@ -97,7 +97,7 @@ if ( ! function_exists( 'wponion_layouts_field_option' ) ) {
 		if ( ! in_array( $size, array( '75', '100', '125' ), true ) ) {
 			return false;
 		}
-		$url   = WPONION_URL . 'assets/img/layouts/' . $size . '/' . strtolower( $type ) . '/';
+		$url   = wponion()->assets( 'img/layouts/' . $size . '/' . strtolower( $type ) . '/' );
 		$types = array(
 			'body'    => array(
 				'boxed'      => array(

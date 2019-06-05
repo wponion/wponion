@@ -92,7 +92,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		/**
 		 * @param $instance
 		 *
-		 * @return $this|\WPO\Builder|\WPO\Container|\WPO\Field
+		 * @return bool|false|\WPO\Container|\WPO\Field
 		 */
 		public function add( $instance ) {
 			if ( $instance instanceof Container ) {
@@ -101,7 +101,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 			if ( $instance instanceof Field ) {
 				return $this->field( $instance );
 			}
-			return $this;
+			return $instance;
 		}
 
 		/**

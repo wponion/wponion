@@ -65,7 +65,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 * @param bool   $title
 		 * @param array  $args
 		 *
-		 * @return $this|bool|false|mixed|\WPO\Fields\Accordion|\WPO\Fields\Background|\WPO\Fields\Button_Set|\WPO\Fields\Checkbox|\WPO\Fields\Color_Group|\WPO\Fields\Color_Picker|\WPO\Fields\Content|\WPO\Fields\Date_Picker|\WPO\Fields\Dimensions|\WPO\Field|\WPO\Fields\Fieldset|\WPO\Fields\Font_Picker|\WPO\Fields\Gallery|\WPO\Fields\Group|\WPO\Fields\Heading|\WPO\Fields\Icon_Picker|\WPO\Fields\Iframe|\WPO\Fields\Image|\WPO\Fields\Image_Select|\WPO\Fields\Input_Group|\WPO\Fields\Jambo_Content|\WPO\Fields\Key_Value|\WPO\Fields\Link_Color|\WPO\Fields\Notice|\WPO\Fields\Oembed|\WPO\Fields\Radio|\WPO\Fields\Select|\WPO\Fields\Sorter|\WPO\Fields\Spacing|\WPO\Fields\Subheading|\WPO\Fields\Switcher|\WPO\Fields\Text|\WPO\Fields\Textarea|\WPO\Fields\Typography|\WPO\Fields\Upload|\WPO\Fields\WP_Editor|\WPO\Fields\WP_Link|\WPO\Fields\WP_Notice
+		 * @return bool|false|\WPO\Field
 		 */
 		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
 			if ( $this->has_fields() && $this->has_containers() ) {
@@ -74,7 +74,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 
 			if ( $field_type_or_instance instanceof Field ) {
 				$this->fields[] = $field_type_or_instance;
-				return $this;
+				return $field_type_or_instance;
 			}
 
 			$return = false;

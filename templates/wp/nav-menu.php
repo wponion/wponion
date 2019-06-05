@@ -1,3 +1,3 @@
 <?php
 
-include WPONION_PATH . 'templates/global/nav-menu.php';
+include wponion()->tpl( 'global/nav-menu.php' );

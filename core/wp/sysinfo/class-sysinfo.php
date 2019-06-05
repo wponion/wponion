@@ -47,6 +47,9 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Sysinfo' ) ) {
 			self::js();
 		}
 
+		/**
+		 * @static
+		 */
 		public static function js() {
 			echo <<<JAVASCRIPT
 			<script>
@@ -70,12 +73,13 @@ JAVASCRIPT;
 		 * @static
 		 */
 		public static function render_html( $data, $args, $container_arg = false ) {
+			$content  = self::render_text_data( $data );
 			$_content = '<p>';
 			$email    = '<a style="margin-left:10px;" href="javascript:void(0);" class="button button-secondary wponion-system-report-email">' . __( 'Send As Email', 'wponion' ) . '</a>';
 			$_content .= __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ', 'wponion' );
 			$_content .= '</p>';
 			$_content .= '<div id="sysreport" style="display:none;" ><textarea style="width:100%;min-height:250px;"  >';
-			$_content .= self::render_text_data( $data, $args );
+			$_content .= $content;
 			$_content .= '</textarea></div>';
 			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ', 'wponion' ) . '</p>';
 			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
@@ -146,24 +150,8 @@ JAVASCRIPT;
 				) );
 			}
 
-			foreach ( $data as $key => $_data ) {
-				if ( isset( $args[ $key ] ) && false === $args[ $key ] || isset( $args[ $key . '_html' ] ) && false === $args[ $key . '_html' ] ) {
-					continue;
-				}
-				echo wponion_add_element( array(
-					'type'    => 'accordion',
-					'heading' => $key,
-					'is_open' => true,
-					'debug'   => false,
-					'fields'  => array(
-						array(
-							'type'    => 'content',
-							'debug'   => false,
-							'content' => self::render_html_table( $_data ),
-						),
-					),
-				) );
-			}
+			$ins = wpo_field( 'content', $content, true );
+			echo '<div class="wponion-sysinfo">' . $ins->render() . '</div>';
 		}
 
 		/**
@@ -241,74 +229,132 @@ JAVASCRIPT;
 		}
 
 		/**
-		 * @param $data
-		 * @param $args
+		 * @param     $data
+		 * @param int $times
 		 *
-		 * @return string
 		 * @static
+		 * @return string
 		 */
-		protected static function render_text_data( $data, $args ) {
-			$return = PHP_EOL;
-			foreach ( $data as $key => $_data ) {
-				if ( isset( $args[ $key ] ) && false === $args[ $key ] || isset( $args[ $key . '_text' ] ) && false === $args[ $key . '_text' ] ) {
-					continue;
+		protected static function eol( $data, $times = 2 ) {
+			return $data . str_repeat( PHP_EOL, $times );
+		}
+
+		/**
+		 * @param $data
+		 *
+		 * @static
+		 * @return string
+		 */
+		public static function render_text_data( $data ) {
+			$return = '';
+			foreach ( $data as $key => $value ) {
+				if ( is_numeric( $key ) ) {
+				} else {
+					$return .= self::eol( '## ' . $key . ' ##', 1 );
+					$return .= ( is_array( $value ) ) ? self::render_text_array( $value, 2 ) : self::render_text_string( $value );
 				}
-				$return .= '### ' . $key . ' ###';
-				$return .= self::render_text_table( $_data );
+				$return .= self::eol( '' );
 			}
 			return $return;
 		}
 
 		/**
-		 * @param $data
+		 * @param      $value
+		 * @param      $times
+		 * @param bool $incode
 		 *
-		 * @return string
 		 * @static
+		 * @return string
 		 */
-		protected static function render_text_table( $data ) {
-			$return = PHP_EOL;
-
-			foreach ( $data as $key => $val ) {
-				if ( wponion_is_array( $val ) ) {
-					if ( isset( $val[0] ) ) {
-						$return .= $key . ' : ' . wp_json_encode( $val ) . PHP_EOL;
+		protected static function render_text_array( $value, $times, $incode = false ) {
+			$return = '';
+			if ( ! empty( $value ) && is_array( $value ) ) {
+				foreach ( $value as $key => $val ) {
+					if ( is_numeric( $key ) ) {
+						if ( is_array( $val ) && isset( $val[0] ) ) {
+							$return .= implode( ',', $val );
+						} elseif ( is_array( $val ) && ! isset( $val[0] ) ) {
+							$return .= self::eol( self::render_text_array( $val, $times, $incode ), $times );
+						} else {
+							$val    = ( is_array( $val ) ) ? json_encode( $val ) : self::render_text_string( $val, $times );
+							$return .= self::eol( '* ' . $val, 1 );
+						}
 					} else {
-						$return .= '#### ' . $key . ': ####' . PHP_EOL;
-						foreach ( $val as $k => $v ) {
-							$v = ( wponion_is_array( $v ) ) ? wp_json_encode( $v ) : $v;
-
-							$return .= $k . ' : ' . self::render_text_bool( $v ) . PHP_EOL;
+						if ( is_array( $val ) && ! isset( $val[0] ) ) {
+							$return .= self::eol( '<details>', $times );
+							$return .= self::eol( '<summary>' . $key . ' </summary>', $times );
+							$return .= self::eol( self::render_text_array( $val, $times, true ), $times );
+							$return .= '</details>' . self::eol( '' );
+						} else {
+							if ( is_array( $val ) && isset( $val[0] ) && is_array( $val[0] ) ) {
+								$return .= self::eol( '### ' . $key . ' ###', $times );
+								$return .= self::render_text_array( $val, $times, $incode );
+							} elseif ( is_array( $val ) ) {
+								$return .= self::eol( '<details><summary>' . $key . ' : </summary> ', $times );
+								$return .= self::render_text_array( $val, $times, $incode ) . ' </details>';
+							} else {
+								if ( true === $incode ) {
+									$return .= ' * ' . $key . ' :  ' . self::render_text_string( $val, 1 );
+								} else {
+									$return .= '**' . $key . '** :  ' . self::render_text_string( $val, $times );
+								}
+							}
 						}
 					}
-				} else {
-					$return .= $key . ' : ' . self::render_text_bool( $val ) . PHP_EOL;
 				}
 			}
-			return $return . PHP_EOL;
+			return $return;
+		}
+
+		/**
+		 * @param     $value
+		 * @param int $times
+		 *
+		 * @static
+		 * @return string
+		 */
+		protected static function render_text_string( $value, $times = 1 ) {
+			$value = self::render_text_bool( $value );
+			if ( ! is_numeric( $value ) ) {
+				json_decode( $value );
+
+				if ( JSON_ERROR_NONE === json_last_error() ) {
+					return '			
+```json
+' . $value . '
+```
+';
+				}
+			}
+			return self::eol( $value, $times );
 		}
 
 		/**
 		 * @param $data
 		 *
-		 * @return string
+		 * @return string|array
 		 * @static
 		 */
 		protected static function render_text_bool( $data ) {
+			if ( is_array( $data ) ) {
+				return $data;
+			}
+
 			if ( true === $data ) {
 				return '✔';
-			} elseif ( 'yes' === strtolower( $data ) ) {
-				return '✔';
-			} elseif ( 'on' === strtolower( $data ) ) {
+			}
+
+			if ( in_array( $data, array( 'yes', 'on', 1, '1' ), true ) ) {
 				return '✔';
 			}
+
 			if ( false === $data ) {
-				return '❌';
-			} elseif ( 'no' === strtolower( $data ) ) {
-				return '❌';
-			} elseif ( 'off' === strtolower( $data ) ) {
 				return '❌';
 			}
 
+			if ( in_array( $data, array( 'off', 'no', 0, '0' ), true ) ) {
+				return '✔';
+			}
 			return $data;
 		}
 

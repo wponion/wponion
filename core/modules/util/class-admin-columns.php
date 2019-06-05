@@ -142,10 +142,12 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		 * @return mixed
 		 */
 		public function sortable_column( $sort_cols ) {
-			if ( false === $this->already_exists ) {
-				if ( false !== $this->option( 'sortable' ) && true !== $this->option( 'sortable' ) ) {
-					$sort_cols[ $this->slug() ] = $this->option( 'sortable' );
-				}
+			if ( true === $this->already_exists && false === $this->option( 'force_add' ) ) {
+				return $sort_cols;
+			}
+
+			if ( false !== $this->option( 'sortable' ) && true !== $this->option( 'sortable' ) ) {
+				$sort_cols[ $this->slug() ] = $this->option( 'sortable' );
 			}
 			return $sort_cols;
 		}
@@ -157,14 +159,16 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		 * @param $post_id
 		 */
 		public function render_column( $col_name, $post_id ) {
-			if ( false === $this->already_exists ) {
-				$render = $this->option( 'render' );
-				if ( $col_name === $this->slug() ) {
-					if ( wponion_is_callable( $render ) ) {
-						echo wponion_callback( $render, array( $post_id, $col_name, get_post_type( $post_id ) ) );
-					} else {
-						echo $render;
-					}
+			if ( true === $this->already_exists && false === $this->option( 'force_add' ) ) {
+				return;
+			}
+
+			$render = $this->option( 'render' );
+			if ( $col_name === $this->slug() ) {
+				if ( wponion_is_callable( $render ) ) {
+					echo wponion_callback( $render, array( $post_id, $col_name, get_post_type( $post_id ) ) );
+				} else {
+					echo $render;
 				}
 			}
 		}
@@ -226,6 +230,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 				'reorder'   => false,
 				'render'    => false,
 				'sortable'  => false,
+				'force_add' => false,
 			) );
 		}
 

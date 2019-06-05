@@ -4,7 +4,7 @@ namespace WPO\Helper\Field;
 
 use WPOnion\Registry\Field_Types;
 
-if ( ! trait_exists( 'Types' ) ) {
+if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	/**
 	 * Trait Types
 	 *
@@ -16,12 +16,14 @@ if ( ! trait_exists( 'Types' ) ) {
 	 * @method \WPO\Fields\Background background( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Backup backup( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Button button( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Faq faq( $title = false, $args = array() )
 	 * @method \WPO\Fields\Button_Set button_set( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\checkbox checkbox( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\color_group color_group( $id = false, $title = false, $args = array() )
-	 * @method \WPO\Fields\color_palette color_palette( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\color_picker color_picker( $id = false, $title = false, $args = array() )
-	 * @method \WPO\Fields\content content( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\content content( $content = null, $markdown = false )
+	 * @method \WPO\Fields\content markdown( $content = null )
+	 * @method \WPO\Fields\content content_markdown( $content = null )
 	 * @method \WPO\Fields\date_picker date_picker( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\dimensions dimensions( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\fieldset fieldset( $id = false, $title = false, $args = array() )
@@ -76,40 +78,13 @@ if ( ! trait_exists( 'Types' ) ) {
 		 * @return bool|\WPO\Field
 		 */
 		public function __call( $name, $arguments ) {
-			if ( in_array( $name, array_keys( Field_Types::$all_fields ), true ) ) {
-				$arg      = array_merge( array( $name ), $arguments );
-				$instance = wponion_callback( array( $this, 'field' ), $arg );
-
-				switch ( $name ) {
-					case 'notice_danger':
-					case 'notice_dark':
-					case 'notice_info':
-					case 'notice_light':
-					case 'notice_primary':
-					case 'notice_secondary':
-					case 'notice_success':
-					case 'notice_warning':
-						$instance->notice_type( $name );
-						break;
-					case 'wp_notice_error':
-						$instance->notice_type( 'error' );
-						break;
-					case 'wp_notice_info':
-						$instance->notice_type( 'info' );
-						break;
-					case 'wp_notice_success':
-						$instance->notice_type( 'success' );
-						break;
-					case 'wp_notice_warning':
-						$instance->notice_type( 'warning' );
-						break;
-					case 'hidden':
-						$instance->type( 'hidden' );
-						break;
-				}
-
+			$args = ( in_array( $name, array_keys( Field_Types::$all_fields ), true ) ) ? array_merge( array( $name ), $arguments ) : false;
+			if ( ! empty( $args ) ) {
+				$instance = wponion_callback( array( $this, 'field' ), $args );
+				self::_field_after_create( $name, $instance );
 				return $instance;
 			}
+			return false;
 		}
 	}
 }

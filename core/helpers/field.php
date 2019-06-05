@@ -80,18 +80,11 @@ if ( ! function_exists( 'wponion_validate_bool_val' ) ) {
 		if ( wponion_is_array( $value ) ) {
 			return array_map( 'wponion_validate_bool_val', $value );
 		}
-		switch ( strtolower( $value ) ) {
-			case 'true':
-			case 'TRUE':
-			case '1':
-				$value = true;
-				break;
-
-			case 'false':
-			case 'FALSE':
-			case '0':
-				$value = false;
-				break;
+		if ( in_array( $value, array( true, 'true', 'TRUE', 1, '1' ), true ) ) {
+			$value = true;
+		}
+		if ( in_array( $value, array( false, 'false', 'FALSE', 0, '0' ), true ) ) {
+			$value = false;
 		}
 		return $value;
 	}
@@ -763,6 +756,26 @@ if ( ! function_exists( 'wponion_sysinfo' ) ) {
 	 */
 	function wponion_sysinfo( $args ) {
 		\WPOnion\WP\Sysinfo\Sysinfo::get( $args );
+	}
+}
+
+if ( ! function_exists( 'wponion_markdown' ) ) {
+	/**
+	 * Returns A Parsedown Instance or Parsed Content.
+	 *
+	 * @param null $content
+	 *
+	 * @return \Parsedown|string
+	 */
+	function wponion_markdown( $content = null ) {
+		static $parse_down_instance = false;
+		if ( false === $parse_down_instance ) {
+			if ( ! class_exists( '\Parsedown' ) ) {
+				require_once wponion()->path( 'core/vendors/erusev/parsedown.php' );
+			}
+			$parse_down_instance = new \Parsedown();
+		}
+		return ( empty( $content ) ) ? $parse_down_instance : $parse_down_instance->text( $content );
 	}
 }
 

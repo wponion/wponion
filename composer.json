@@ -39,7 +39,7 @@
     "varunsridharan/wp-conditional-logic" : "^1.0"
   },
   "autoload"    : {
-    "files" : [ "wponion.php" ]
+    "files" : [ "index.php" ]
   },
   "conflict"    : {
     "wponion/dev"     : "dev-master",

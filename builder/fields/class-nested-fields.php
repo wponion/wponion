@@ -11,6 +11,7 @@
 
 namespace WPO\Fields;
 
+use WPO\Field;
 use WPO\Helper\Field\Types;
 
 if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
@@ -24,7 +25,7 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 	 * @method get_heading()
 	 * @method get_un_array()
 	 */
-	class Nested_Fields extends \WPO\Field implements \WPO\Helper\Interfaces\Field {
+	class Nested_Fields extends Field implements \WPO\Helper\Interfaces\Field {
 		use Types;
 
 		/**
@@ -86,16 +87,16 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 		 * @param bool              $title
 		 * @param array             $args
 		 *
-		 * @return $this|bool|false|\WPO\Field|\WPO\Fields\Accordion|\WPO\Fields\Background|\WPO\Fields\Button_Set|\WPO\Fields\Checkbox|\WPO\Fields\Color_Group|\WPO\Fields\Color_Picker|\WPO\Fields\Content|\WPO\Fields\Date_Picker|\WPO\Fields\Dimensions|\WPO\Fields\Fieldset|\WPO\Fields\Font_Picker|\WPO\Fields\Gallery|\WPO\Fields\Group|\WPO\Fields\Heading|\WPO\Fields\Icon_Picker|\WPO\Fields\Iframe|\WPO\Fields\Image|\WPO\Fields\Image_Select|\WPO\Fields\Input_Group|\WPO\Fields\Jambo_Content|\WPO\Fields\Key_Value|\WPO\Fields\Link_Color|\WPO\Fields\Notice|\WPO\Fields\Oembed|\WPO\Fields\Radio|\WPO\Fields\Select|\WPO\Fields\Sorter|\WPO\Fields\Spacing|\WPO\Fields\Subheading|\WPO\Fields\Switcher|\WPO\Fields\Text|\WPO\Fields\Textarea|\WPO\Fields\Typography|\WPO\Fields\Upload|\WPO\Fields\WP_Editor|\WPO\Fields\WP_Link|\WPO\Fields\WP_Notice
+		 * @return false|bool|\WPO\Field
 		 */
 		public function field( $field_type_or_instance, $field_id = false, $title = false, $args = array() ) {
 			if ( ! wponion_is_array( $this['fields'] ) ) {
 				$this['fields'] = array();
 			}
 
-			if ( $field_type_or_instance instanceof \WPO\Field ) {
+			if ( $field_type_or_instance instanceof Field ) {
 				$this['fields'][] = $field_type_or_instance;
-				return $this;
+				return $field_type_or_instance;
 			}
 
 			$return = false;
@@ -105,7 +106,7 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 			}
 
 			if ( false === $return ) {
-				$return = \WPO\Field::create( $field_type_or_instance, $field_id, $title, $args );
+				$return = Field::create( $field_type_or_instance, $field_id, $title, $args );
 				if ( $return ) {
 					$this['fields'][] = $return;
 				} else {
@@ -114,6 +115,15 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 			}
 			return $return;
 
+		}
+
+		/**
+		 * @param \WPO\Field $field_instance
+		 *
+		 * @return \WPO\Field
+		 */
+		public function add( $field_instance ) {
+			return $this->field( $field_instance );
 		}
 	}
 }

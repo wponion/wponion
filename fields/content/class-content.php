@@ -29,44 +29,38 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 	class Content extends \WPOnion\Field {
 		protected function output() {
 			echo $this->before();
-			$content = false;
-			if ( $this->has( 'include' ) && false !== $this->data( 'include' ) ) {
-				$this->catch_output( 'start' );
-				require_once $this->data( 'include' );
-				$content = $this->catch_output( 'end' );
-			} elseif ( $this->has( 'content' ) && false !== $this->data( 'content' ) ) {
-				$content = $this->data( 'content' );
-				if ( wponion_is_array( $content ) && is_callable( $content ) ) {
-					$content = call_user_func_array( $content, array( $this ) );
-				} elseif ( is_callable( $content ) ) {
-					$content = call_user_func( $content, $this );
+			$content = $this->data( 'content' );
+
+			if ( ! empty( $this->data( 'content' ) ) ) {
+				if ( wponion_is_callable( $this->data( 'content' ) ) ) {
+					$this->catch_output( 'start' );
+					echo wponion_callback( $this->data( 'content' ) );
+					$content = $this->catch_output( 'end' );
+				} elseif ( file_exists( $this->data( 'content' ) ) ) {
+					$this->catch_output( 'start' );
+					include $this->data( 'content' );
+					$content = $this->catch_output( 'end' );
 				}
-			} elseif ( $this->has( 'callback_hook' ) && false !== $this->data( 'callback_hook' ) ) {
-				$this->catch_output( 'start' );
-				do_action( $this->data( 'callback_hook' ), $this );
-				$content = $this->catch_output( 'end' );
 			}
 
-			if ( $this->has( 'markdown' ) && true === $this->has( 'markdown' ) ) {
-				if ( ! class_exists( '\Parsedown' ) ) {
-					require_once WPONION_PATH . 'core/vendors/erusev/parsedown.php';
-				}
-				$parse_down = new \Parsedown();
-				echo '<div class="wponion-markdown-output">';
-				echo $parse_down->text( $content );
-				echo '</div>';
-			} else {
-				echo $content;
+			if ( $this->has( 'markdown' ) && true === $this->has( 'markdown' ) && ! empty( $content ) ) {
+				$content = '<div class="wponion-markdown-output">' . wponion_markdown( $content ) . '</div>';
 			}
+
+			echo do_shortcode( $content );
+
 			echo $this->after();
 		}
 
+		/**
+		 * Fields Default.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
-				'content'       => false,
-				'callback_hook' => false,
-				'include'       => false,
-				'markdown'      => false,
+				'content'  => false,
+				'markdown' => false,
 			);
 		}
 

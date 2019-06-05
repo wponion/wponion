@@ -4,7 +4,7 @@ Donate link: https://paypal.me/varunsridharan23
 Tags: settings,taxonomy,metabox,user profile,custom fields,guttenberg,network-settings,meta,wplisttable
 Requires at least: 4.0
 Tested up to: 5.2.1
-Stable tag: 1.0
+Stable tag: 1.1
 Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://github.com/wponion/wponion/blob/master/LICENSE
@@ -136,7 +136,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# 1.0 - 29/05/2019
+# [1.1] - 05/06/2019
+## Added
+* Field **dependency** in nested fields
+* FAQ Field Builder
+* CopyToClipboard Action For `pre` tag inside *`.wponion-framework`* div
+* Option To Set **switcher** field width
+* Image POPUP Util `wpo_image()`
+* New PHP Functions
+  * wpo_help
+  * wpo_tooltip
+  * wpo_icon
+  * wpo_ajax
+  * wpo_image
+* new `wponion_markdown` php function
+* markdown support for `before`, `after`, `desc`,`desc_field` in field arguments
+
+
+## Changed
+* `pre` & `code` HTML tag css updated
+* Updated `Parsedown` library to **1.8.0-beta-7**
+* Redesinged **System Information** Field
+* Bump **sweetalert2** from `8.11.6` to `8.11.7`
+* Bump **tippy.js** from `4.3.1` to `4.3.3`
+
+## Removed
+* `color_palette` Field
+
+---
+
+# [1.0] - 29/05/2019
 ## First Stable Release.
 
 # [Beta : 0.0.10.5] - 29/05/2019

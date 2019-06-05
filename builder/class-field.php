@@ -21,7 +21,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 	 * @since 1.0
 	 */
 	class Field extends Common_Args {
-
 		/**
 		 * Renders HTML Output.
 		 *
@@ -42,7 +41,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param bool  $title
 		 * @param array $args
 		 *
-		 * @return false|\WPO\Field|\WPO\Fields\Accordion|\WPO\Fields\Background|\WPO\Fields\Checkbox|\WPO\Fields\Color_Picker|\WPO\Fields\Date_Picker|\WPO\Fields\Fieldset|\WPO\Fields\Font_Picker|\WPO\Fields\Gallery|\WPO\Fields\Group |\WPO\Fields\Icon_Picker|\WPO\Fields\Image|\WPO\Fields\Image_Select|\WPO\Fields\Key_Value|\WPO\Fields\Oembed|\WPO\Fields\Radio|\WPO\Fields\Select|\WPO\Fields\Sorter|\WPO\Fields\Switcher|\WPO\Fields\Text|\WPO\Fields\Textarea|\WPO\Fields\Typography|\WPO\Fields\Upload|\WPO\Fields\WP_Editor|\WPO\Fields\WP_Link|\WPO\Fields\Color_Group|\WPO\Fields\Link_Color|\WPO\Fields\Input_Group|\WPO\Fields\Spacing|\WPO\Fields\Dimensions|\WPO\Fields\Button_Set|\WPO\Fields\Content|\WPO\Fields\Heading|\WPO\Fields\Iframe|\WPO\Fields\Jambo_Content|\WPO\Fields\Notice |\WPO\Fields\Subheading|\WPO\Fields\WP_Notice
+		 * @return false|\WPO\Field
 		 *
 		 * @todo \WPO\Fields\Button
 		 * @todo \WPO\Fields\WP_List_Table
@@ -52,11 +51,53 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
-				$class = class_exists( '\WPO\Fields\\' . $type ) ? '\WPO\Fields\\' . $type : wponion_get_field_class_remap( '\WPO\Fields\\' . $type, false );
-				return ( false !== $class ) ? new $class( $id, $title, $args ) : new Field( $type, $id, $title, $args );
+				$class    = class_exists( '\WPO\Fields\\' . $type ) ? '\WPO\Fields\\' . $type : wponion_get_field_class_remap( '\WPO\Fields\\' . $type, false );
+				$instance = ( false !== $class ) ? new $class( $id, $title, $args ) : new Field( $type, $id, $title, $args );
+				return self::_field_after_create( $type, $instance );
 			}
-
 			return false;
+		}
+
+		/**
+		 * @param                                                   $name
+		 * @param \WPO\Field|\WPO\Fields\Notice|\WPO\Fields\Content $instance
+		 *
+		 * @static
+		 * @return mixed
+		 */
+		protected static function _field_after_create( $name, $instance ) {
+			switch ( $name ) {
+				case 'content_markdown':
+				case 'markdown':
+					$instance->markdown( true );
+					break;
+				case 'notice_danger':
+				case 'notice_dark':
+				case 'notice_info':
+				case 'notice_light':
+				case 'notice_primary':
+				case 'notice_secondary':
+				case 'notice_success':
+				case 'notice_warning':
+					$instance->notice_type( str_replace( 'notice_', '', $name ) );
+					break;
+				case 'wp_notice_error':
+					$instance->notice_type( 'error' );
+					break;
+				case 'wp_notice_info':
+					$instance->notice_type( 'info' );
+					break;
+				case 'wp_notice_success':
+					$instance->notice_type( 'success' );
+					break;
+				case 'wp_notice_warning':
+					$instance->notice_type( 'warning' );
+					break;
+				case 'hidden':
+					$instance->type( 'hidden' );
+					break;
+			}
+			return $instance;
 		}
 
 		/**
@@ -114,7 +155,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		public static function is_valid( $data ) {
 			return ( false === Container::is_valid( $data ) && isset( $data['type'] ) );
 		}
-
 
 		/**
 		 * @param $name

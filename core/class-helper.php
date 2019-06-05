@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_data( $file ) {
-			return include WPONION_PATH . 'data/' . $file . '.php';
+			return include wponion()->data( $file . '.php' );
 		}
 
 		/**

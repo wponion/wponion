@@ -63,21 +63,15 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		 */
 		protected function show_image( $value = '', $preview_show = '' ) {
 			echo '<div class="wponion-preview" ' . $preview_show . '>';
-			echo wponion_icon( 'dashicons dashicons-no-alt wponion-image-remove wponion-help', wponion_array_to_html_attributes( array(
-				'data-tippy-args'   => 'wpo-image-remove',
-				'data-wponion-jsid' => $this->js_field_id(),
-			) ) );
-			$this->localize_field( array(
-				'wpo-image-remove' => array(
-					'content' => __( 'Remove', 'wponion' ),
-					'arrow'   => true,
-				),
-			) );
+			echo wponion_tooltip( __( 'Remove' ), array(
+				'arrow'       => true,
+				'js_field_id' => $this->js_field_id(),
+			), wponion_icon( 'dashicons dashicons-no-alt wponion-image-remove wponion-help' ) );
 			$thumbnail = wp_get_attachment_image_src( $value, 'thumbnail' );
 			$fullsize  = wp_get_attachment_image_src( $value, 'full' );
 			$thumbnail = isset( $thumbnail[0] ) ? $thumbnail[0] : false;
 			$fullsize  = isset( $fullsize[0] ) ? $fullsize[0] : false;
-			echo '<img src="' . $thumbnail . '" data-fullsize="' . $fullsize . '" class="hidden"/>';
+			echo wponion_image_popup( '<img src="' . $thumbnail . '" class="hidden">', $fullsize );
 			echo '</div>';
 		}
 

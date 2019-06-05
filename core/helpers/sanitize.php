@@ -45,11 +45,7 @@ if ( ! function_exists( 'wponion_field_text_sanitize' ) ) {
 	 * @return array|string
 	 */
 	function wponion_field_text_sanitize( $value, $field ) {
-		if ( wponion_is_cloneable( $field ) ) {
-			return wponion_field_cloneable_sanitize( $value, 'sanitize_text_field' );
-		}
-
-		return sanitize_text_field( $value );
+		return ( wponion_is_cloneable( $field ) ) ? wponion_field_cloneable_sanitize( $value, 'sanitize_text_field' ) : sanitize_text_field( $value );
 	}
 }
 
@@ -63,10 +59,7 @@ if ( ! function_exists( 'wponion_field_textarea_sanitize' ) ) {
 	 * @return array|string
 	 */
 	function wponion_field_textarea_sanitize( $value, $field ) {
-		if ( wponion_is_cloneable( $field ) ) {
-			return wponion_field_cloneable_sanitize( $value, 'sanitize_textarea_field' );
-		}
-		return sanitize_textarea_field( $value );
+		return ( wponion_is_cloneable( $field ) ) ? wponion_field_cloneable_sanitize( $value, 'sanitize_textarea_field' ) : sanitize_textarea_field( $value );
 	}
 }
 
@@ -84,10 +77,7 @@ if ( ! function_exists( 'wponion_field_checkbox_sanitize' ) ) {
 			$value = true;
 		}
 
-		if ( empty( $value ) ) {
-			$value = false;
-		}
-		return $value;
+		return ( empty( $value ) ) ? false : $value;
 	}
 }
 
@@ -101,16 +91,10 @@ if ( ! function_exists( 'wponion_field_image_select_sanitize' ) ) {
 	 * @return array|mixed|string
 	 */
 	function wponion_field_image_select_sanitize( $value ) {
-		if ( isset( $value ) && wponion_is_array( $value ) ) {
-			if ( count( $value ) ) {
-				$value = $value;
-			} else {
-				$value = $value[0];
-			}
-		} elseif ( empty( $value ) ) {
-			$value = '';
+		if ( isset( $value ) && wponion_is_array( $value ) && ! count( $value ) ) {
+			$value = $value[0];
 		}
-		return $value;
+		return empty( $value ) ? '' : $value;
 	}
 }
 

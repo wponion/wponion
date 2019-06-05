@@ -9,4 +9,4 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-include WPONION_PATH . 'templates/global/user-profile.php';
+include wponion()->tpl( 'global/user-profile.php' );

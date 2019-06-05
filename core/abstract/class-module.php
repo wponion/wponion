@@ -108,7 +108,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * Stores Instance In Registry.
 		 */
 		public function save_instance() {
-			wponion_callback( 'wponion_' . $this->module . '_registry', array( &$this ) );
+			if ( function_exists( 'wponion_' . $this->module . '_registry' ) ) {
+				wponion_callback( 'wponion_' . $this->module . '_registry', array( &$this ) );
+			}
 		}
 
 		/**
@@ -416,12 +418,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Checks If given array is a valid field array.
 		 *
-		 * @param array|object $option
+		 * @param array|object|\WPO\Field $option
 		 *
 		 * @return bool
 		 */
 		public function valid_field( $option ) {
-			if ( $option instanceof Field ) {
+			if ( wpo_is_field( $option ) ) {
 				return true;
 			} elseif ( wponion_is_array( $option ) ) {
 				return ( isset( $option['type'] ) ) ? true : false;
@@ -522,13 +524,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 */
 		public function container_wrap_class( $container = false, $sub_container = false, $first_container = false ) {
 			$_class   = array( $this->container_wrap_id( $container ), 'row' );
-			$_class[] = ( ( wponion_is_container( $sub_container ) && $sub_container->has_callback() ) || ( wponion_is_container( $container ) && $container->has_callback() ) ) ? 'wponion-has-callback' : '';
-			$_class[] = ( ( wponion_is_container( $sub_container ) && $sub_container->has_fields() ) || ( wponion_is_container( $container ) && $container->has_fields() ) ) ? 'wponion-has-fields' : '';
-			$_class[] = ( wponion_is_container( $container ) && $container->has_containers() ) ? 'wponion-has-containers' : '';
+			$_class[] = ( ( wpo_is_container( $sub_container ) && $sub_container->has_callback() ) || ( wpo_is_container( $container ) && $container->has_callback() ) ) ? 'wponion-has-callback' : '';
+			$_class[] = ( ( wpo_is_container( $sub_container ) && $sub_container->has_fields() ) || ( wpo_is_container( $container ) && $container->has_fields() ) ) ? 'wponion-has-fields' : '';
+			$_class[] = ( wpo_is_container( $container ) && $container->has_containers() ) ? 'wponion-has-containers' : '';
 
-			if ( ! $sub_container && wponion_is_container( $container ) ) {
+			if ( ! $sub_container && wpo_is_container( $container ) ) {
 				$_class[] = ( true === $this->is_tab_active( $container->name(), false ) ) ? ' wponion-container-wraps ' : ' wponion-container-wraps hidden';
-			} elseif ( wponion_is_container( $sub_container ) ) {
+			} elseif ( wpo_is_container( $sub_container ) ) {
 				$_class[] = ( true === $this->is_tab_active( $container->name(), $sub_container->name(), $first_container ) ) ? 'wponion-sub-container-wraps' : 'wponion-sub-container-wraps hidden';
 			} elseif ( ! $sub_container && ! $container ) {
 				$_class[] = 'wponion-container-wraps';
@@ -543,9 +545,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return string
 		 */
 		public function container_wrap_id( $container, $sub_container = false ) {
-			if ( wponion_is_container( $container ) && wponion_is_container( $sub_container ) ) {
+			if ( wpo_is_container( $container ) && wpo_is_container( $sub_container ) ) {
 				return 'wponion-tab-' . $container->name() . '-' . $sub_container->name();
-			} elseif ( wponion_is_container( $container ) ) {
+			} elseif ( wpo_is_container( $container ) ) {
 				return 'wponion-tab-' . $container->name();
 			}
 			return '';

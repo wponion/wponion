@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.0.0\n"
+"Project-Id-Version: WPOnion 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wponion\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-05-29T08:15:05+05:30\n"
+"POT-Creation-Date: 2019-06-03T18:00:28+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -17,7 +17,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #. translators: Added WPOnion
 #: core/modules/class-admin-page.php:527
-#: core/wp/sysinfo/class-data.php:315
+#: core/wp/sysinfo/class-data.php:319
 msgid "WPOnion"
 msgstr ""
 
@@ -41,44 +41,44 @@ msgstr ""
 msgid "A Container Cannot Have Both Field & Containers"
 msgstr ""
 
-#: core/abstract/class-field.php:219
+#: core/abstract/class-field.php:211
 msgid "Raw Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:220
+#: core/abstract/class-field.php:212
 msgid "Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:221
+#: core/abstract/class-field.php:213
 msgid "Field Value"
 msgstr ""
 
-#: core/abstract/class-field.php:222
+#: core/abstract/class-field.php:214
 msgid "Unique"
 msgstr ""
 
-#: core/abstract/class-field.php:223
+#: core/abstract/class-field.php:215
 msgid "Module"
 msgstr ""
 
-#: core/abstract/class-field.php:323
+#: core/abstract/class-field.php:331
 msgid "Field Rendered In"
 msgstr ""
 
-#: core/abstract/class-field.php:323
+#: core/abstract/class-field.php:331
 msgid "Seconds"
 msgstr ""
 
-#: core/abstract/class-field.php:581
+#: core/abstract/class-field.php:589
 msgid "Field Errors"
 msgstr ""
 
 #. translators:
-#: core/class-assets.php:212
+#: core/class-assets.php:224
 msgid "If you are developing offline, please download and install the <a href=\"%s\" target=\"_blank\">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning"
 msgstr ""
 
-#: core/class-assets.php:216
+#: core/class-assets.php:228
 msgid "WPOnion Framework Warning"
 msgstr ""
 
@@ -267,96 +267,96 @@ msgid "Right Sidebar"
 msgstr ""
 
 #. translators: Creates a msg says that <p>requested field type not found</p>
-#: core/helpers/field.php:229
+#: core/helpers/field.php:222
 msgid "%1$s Requested Field Type %2$s  Is Not Registed With WPOnion %3$s"
 msgstr ""
 
-#: core/helpers/field.php:250
+#: core/helpers/field.php:243
 msgid "Callback Arguments"
 msgstr ""
 
 #. translators:
-#: core/helpers/field.php:259
+#: core/helpers/field.php:252
 msgid "<code>%s</code> Field Class Not Found."
 msgstr ""
 
-#: core/helpers/field.php:507
+#: core/helpers/field.php:500
 msgid "Regular"
 msgstr ""
 
-#: core/helpers/field.php:508
+#: core/helpers/field.php:501
 msgid "Italic"
 msgstr ""
 
-#: core/helpers/field.php:509
+#: core/helpers/field.php:502
 msgid "700"
 msgstr ""
 
-#: core/helpers/field.php:510
+#: core/helpers/field.php:503
 msgid "700 Italic"
 msgstr ""
 
-#: core/helpers/field.php:511
+#: core/helpers/field.php:504
 msgid "inherit"
 msgstr ""
 
-#: core/helpers/field.php:514
+#: core/helpers/field.php:507
 msgid "Arial"
 msgstr ""
 
-#: core/helpers/field.php:515
+#: core/helpers/field.php:508
 msgid "Arial Black"
 msgstr ""
 
-#: core/helpers/field.php:516
+#: core/helpers/field.php:509
 msgid "Comic Sans MS"
 msgstr ""
 
-#: core/helpers/field.php:517
+#: core/helpers/field.php:510
 msgid "Impact"
 msgstr ""
 
-#: core/helpers/field.php:518
+#: core/helpers/field.php:511
 msgid "Lucida Sans Unicode"
 msgstr ""
 
-#: core/helpers/field.php:519
+#: core/helpers/field.php:512
 msgid "Tahoma"
 msgstr ""
 
-#: core/helpers/field.php:520
+#: core/helpers/field.php:513
 msgid "Trebuchet MS"
 msgstr ""
 
-#: core/helpers/field.php:521
+#: core/helpers/field.php:514
 msgid "Verdana"
 msgstr ""
 
-#: core/helpers/field.php:522
+#: core/helpers/field.php:515
 msgid "Courier New"
 msgstr ""
 
-#: core/helpers/field.php:523
+#: core/helpers/field.php:516
 msgid "Lucida Console"
 msgstr ""
 
-#: core/helpers/field.php:524
+#: core/helpers/field.php:517
 msgid "Georgia, serif"
 msgstr ""
 
-#: core/helpers/field.php:525
+#: core/helpers/field.php:518
 msgid "Palatino Linotype"
 msgstr ""
 
-#: core/helpers/field.php:526
+#: core/helpers/field.php:519
 msgid "Times New Roman"
 msgstr ""
 
-#: core/helpers/field.php:664
+#: core/helpers/field.php:657
 msgid "Websafe Fonts"
 msgstr ""
 
-#: core/helpers/field.php:674
+#: core/helpers/field.php:667
 msgid "Google Fonts"
 msgstr ""
 
@@ -418,10 +418,10 @@ msgid "No Result Found"
 msgstr ""
 
 #: core/wp/sysinfo/class-data.php:43
-#: core/wp/sysinfo/class-data.php:240
+#: core/wp/sysinfo/class-data.php:239
+#: core/wp/sysinfo/class-data.php:265
 #: core/wp/sysinfo/class-data.php:266
-#: core/wp/sysinfo/class-data.php:267
-#: core/wp/sysinfo/class-data.php:283
+#: core/wp/sysinfo/class-data.php:281
 msgid "Plugins"
 msgstr ""
 
@@ -554,164 +554,174 @@ msgid "PHP Max Input Vars"
 msgstr ""
 
 #: core/wp/sysinfo/class-data.php:177
-msgid "PHP Safe Mode"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:178
 msgid "PHP Memory Limit"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:179
+#: core/wp/sysinfo/class-data.php:178
 msgid "PHP Upload Max Size"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:180
+#: core/wp/sysinfo/class-data.php:179
 msgid "PHP Upload Max Filesize"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:181
+#: core/wp/sysinfo/class-data.php:180
 msgid "PHP Arg Separator"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:182
+#: core/wp/sysinfo/class-data.php:181
 msgid "PHP Allow URL File Open"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:183
+#: core/wp/sysinfo/class-data.php:182
 msgid "DISPLAY ERRORS"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:184
+#: core/wp/sysinfo/class-data.php:183
 msgid "FSOCKOPEN"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:185
+#: core/wp/sysinfo/class-data.php:184
 msgid "cURL"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:186
+#: core/wp/sysinfo/class-data.php:185
 msgid "SOAP Client"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:187
+#: core/wp/sysinfo/class-data.php:186
 msgid "SUHOSIN"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:188
+#: core/wp/sysinfo/class-data.php:187
 msgid "Session"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:189
+#: core/wp/sysinfo/class-data.php:188
 msgid "Session Name"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:190
+#: core/wp/sysinfo/class-data.php:189
 msgid "Cookie Path"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:191
+#: core/wp/sysinfo/class-data.php:190
 msgid "Save Path"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:192
+#: core/wp/sysinfo/class-data.php:191
 msgid "Use Cookies"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:193
+#: core/wp/sysinfo/class-data.php:192
 msgid "Use Only Cookies"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:196
+#: core/wp/sysinfo/class-data.php:195
 msgid "PHP Information"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:207
+#: core/wp/sysinfo/class-data.php:206
 msgid "Theme Name"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:208
+#: core/wp/sysinfo/class-data.php:207
 msgid "Theme Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:209
+#: core/wp/sysinfo/class-data.php:208
 msgid "Theme Author"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:210
+#: core/wp/sysinfo/class-data.php:209
 msgid "Theme Author URI"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:211
+#: core/wp/sysinfo/class-data.php:210
 msgid "Child Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:213
-#: core/wp/sysinfo/class-data.php:222
+#: core/wp/sysinfo/class-data.php:212
+#: core/wp/sysinfo/class-data.php:221
 msgid "Active Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:218
+#: core/wp/sysinfo/class-data.php:217
 msgid "Parent Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:219
+#: core/wp/sysinfo/class-data.php:218
 msgid "Parent Theme Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:220
+#: core/wp/sysinfo/class-data.php:219
 msgid "Parent URI"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:221
+#: core/wp/sysinfo/class-data.php:220
 msgid "Parent Author URI"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:240
+#: core/wp/sysinfo/class-data.php:239
 msgid "Must Use Plugins"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:266
+#: core/wp/sysinfo/class-data.php:265
 #: fields/link-color/class-link-color.php:66
 msgid "Active"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:267
+#: core/wp/sysinfo/class-data.php:266
 msgid "Installed"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:283
+#: core/wp/sysinfo/class-data.php:281
 msgid "Active Multisite"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:316
-msgid "Version "
+#: core/wp/sysinfo/class-data.php:320
+msgid "Loader File"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:317
+#: core/wp/sysinfo/class-data.php:321
+msgid "Loaded Version"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:322
 msgid "Loaded Path"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:318
-msgid "Used By"
+#: core/wp/sysinfo/class-data.php:323
+msgid "Avaiable Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:74
+#: core/wp/sysinfo/class-data.php:330
+#: core/wp/sysinfo/class-data.php:337
+msgid "Site Settings"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:345
+#: core/wp/sysinfo/class-data.php:352
+msgid "Network Settings"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:78
 msgid "Send As Email"
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:75
+#: core/wp/sysinfo/class-sysinfo.php:79
 msgid " The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. "
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:80
+#: core/wp/sysinfo/class-sysinfo.php:84
 msgid " Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. "
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:81
+#: core/wp/sysinfo/class-sysinfo.php:85
 msgid "Copy Report"
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:81
+#: core/wp/sysinfo/class-sysinfo.php:85
 msgid "Get system report"
 msgstr ""
 
@@ -1553,8 +1563,7 @@ msgid "Group #[count]"
 msgstr ""
 
 #: fields/group/class-group.php:224
-#: fields/image/class-image.php:72
-#: fields/image/class-image.php:98
+#: fields/image/class-image.php:92
 msgid "Remove"
 msgstr ""
 
@@ -1573,7 +1582,7 @@ msgstr ""
 msgid "Remove Icon"
 msgstr ""
 
-#: fields/image/class-image.php:97
+#: fields/image/class-image.php:91
 msgid "Select A Image"
 msgstr ""
 
@@ -1648,11 +1657,11 @@ msgstr ""
 msgid "Unit"
 msgstr ""
 
-#: fields/switcher/class-switcher.php:39
+#: fields/switcher/class-switcher.php:40
 msgid "ON"
 msgstr ""
 
-#: fields/switcher/class-switcher.php:40
+#: fields/switcher/class-switcher.php:41
 msgid "OFF"
 msgstr ""
 

@@ -133,9 +133,29 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function dependency( $dependency = null ) {
+		public function dependencies( $dependency = null ) {
 			$this['dependency'] = $dependency;
 			return $this;
+		}
+
+		/**
+		 * Set Field Dependency
+		 *
+		 * @param bool|string $element Element ID
+		 * @param null|string $condition Condition To Compare [ empty , not-empty , == , or , != , > , >= , < , <= , in , any , not-any , ()]
+		 * @param null|string $value Value To Compare With
+		 * @param bool        $merge
+		 *
+		 * @return \WPO\Helper\Field\Array_Args
+		 */
+		public function dependency( $element = false, $condition = null, $value = null, $merge = true ) {
+			return $this->_set_array_handler( 'dependency', array(
+				array(
+					'controller' => $element,
+					'condition'  => $condition,
+					'value'      => $value,
+				),
+			), $merge );
 		}
 
 		/**

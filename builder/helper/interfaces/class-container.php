@@ -52,10 +52,8 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Container' ) ) {
 		public function containers();
 
 		/**
-		 * Creates A New Container Instance.
-		 * or
-		 * save an existing into builder.
-		 * or
+		 * Creates A New Container Instance. or
+		 * save an existing into builder. or
 		 * returns an existing container.
 		 *
 		 * @param string|\WPO\Container $container_slug_or_instance

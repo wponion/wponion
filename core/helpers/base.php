@@ -25,42 +25,6 @@ if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_locate_template' ) ) {
-	/**
-	 * Locate a template and return the path for inclusion.
-	 *
-	 * This is the load order:
-	 *
-	 * yourtheme/$template_path/$template_name
-	 * yourtheme/$template_name
-	 * $default_path/$template_name
-	 *
-	 * @access public
-	 *
-	 * @param string $template_name Template name.
-	 * @param string $template_path Template path. (default: '').
-	 *
-	 * @return string
-	 */
-	function wponion_locate_template( $template_name, $template_path = '' ) {
-		$template_path = ( ! $template_path ) ? $template_path = 'wponion/' : $template_path;
-		$default_path  = WPONION_PATH . 'templates/';
-		$template      = locate_template( array( trailingslashit( $template_path ) . $template_name, $template_name ) );
-
-		if ( ! $template ) {
-			if ( file_exists( trailingslashit( $template_path ) . $template_name ) ) {
-				$template = trailingslashit( $template_path ) . $template_name;
-			}
-		}
-
-		if ( ! $template ) {
-			$template = $default_path . $template_name;
-		}
-
-		return apply_filters( 'wponion_locate_template', $template, $template_name, $template_path );
-	}
-}
-
 if ( ! function_exists( 'wponion_get_var' ) ) {
 	/**
 	 * Getting POST Var
@@ -100,7 +64,7 @@ if ( ! function_exists( 'wponion_validate_parent_container_ids' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_localize_object_name' ) ) {
+if ( ! function_exists( 'wponion_js_obj_name' ) ) {
 	/**
 	 * Returns a quniue js key.
 	 *
@@ -110,9 +74,8 @@ if ( ! function_exists( 'wponion_localize_object_name' ) ) {
 	 *
 	 * @return string
 	 */
-	function wponion_localize_object_name( $prefix = '', $surfix = '', $inner_content = '' ) {
+	function wponion_js_obj_name( $prefix = '', $surfix = '', $inner_content = '' ) {
 		return $prefix . wponion_hash_string( $inner_content ) . $surfix;
-
 	}
 }
 
@@ -343,7 +306,7 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 	 * @return bool
 	 */
 	function wponion_is_array( $data ) {
-		return ( $data instanceof \WPO\Field || is_array( $data ) );
+		return ( wpo_is_field( $data ) || is_array( $data ) );
 	}
 }
 
@@ -362,20 +325,20 @@ if ( ! function_exists( 'wponion_parse_args' ) ) {
 		$_new      = $new;
 		$_defaults = $old;
 
-		if ( $new instanceof \WPO\Field ) {
+		if ( wpo_is_field( $new ) ) {
 			$_new = $new->get();
 		}
-		if ( $old instanceof \WPO\Field ) {
+		if ( wpo_is_field( $old ) ) {
 			$_defaults = $old->get();
 		}
 
 		$final = wp_parse_args( $_new, $_defaults );
 
-		if ( $new instanceof \WPO\Field ) {
+		if ( wpo_is_field( $new ) ) {
 			$new->set( $final );
 			return $new;
 		}
-		if ( $old instanceof \WPO\Field ) {
+		if ( wpo_is_field( $old ) ) {
 			$old->set( $final );
 			return $old;
 		}
@@ -418,34 +381,34 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 
 
 // WPOnion Assets Related Functions.
-require_once WPONION_PATH . 'core/helpers/addons.php';
+require_once wponion()->path( 'core/helpers/addons.php' );
 
 // WPOnion Assets Related Functions.
-require_once WPONION_PATH . 'core/helpers/util.php';
+require_once wponion()->path( 'core/helpers/util.php' );
 
 // WPOnion Assets Related Functions.
-require_once WPONION_PATH . 'core/helpers/builder.php';
+require_once wponion()->path( 'core/helpers/builder.php' );
 
 // WPOnion Assets Related Functions.
-require_once WPONION_PATH . 'core/helpers/assets.php';
+require_once wponion()->path( 'core/helpers/assets.php' );
 
 // WPOnion Fields Related Functions.
-require_once WPONION_PATH . 'core/helpers/field.php';
+require_once wponion()->path( 'core/helpers/field.php' );
 
 // WPOnion Registry Related Functions.
-require_once WPONION_PATH . 'core/helpers/registry.php';
+require_once wponion()->path( 'core/helpers/registry.php' );
 
 // WPOnion Field Sanitize Related Functions.
-require_once WPONION_PATH . 'core/helpers/sanitize.php';
+require_once wponion()->path( 'core/helpers/sanitize.php' );
 
 // WPOnion Module Related Functions
-require_once WPONION_PATH . 'core/helpers/module.php';
+require_once wponion()->path( 'core/helpers/module.php' );
 
 // WPOnion Module Related Functions
-require_once WPONION_PATH . 'core/helpers/validator.php';
+require_once wponion()->path( 'core/helpers/validator.php' );
 
 // WPOnion Theme Related Functions
-require_once WPONION_PATH . 'core/helpers/theme.php';
+require_once wponion()->path( 'core/helpers/theme.php' );
 
 // WPOnion Alias Functions.
-require_once WPONION_PATH . 'core/helpers/alias.php';
+require_once wponion()->path( 'core/helpers/alias.php' );
