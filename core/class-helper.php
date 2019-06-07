@@ -276,6 +276,40 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
+		 * @param               $keys
+		 * @param               $array_or_object
+		 * @param bool|callable $default_value
+		 * @param string        $keys_delimiter
+		 *
+		 * @static
+		 * @return bool
+		 */
+		public static function array_key_isset( $keys, $array_or_object, $default_value = false, $keys_delimiter = '/' ) {
+			if ( ! is_array( $keys ) ) {
+				$keys = explode( $keys_delimiter, (string) $keys );
+			}
+			$array_or_object = ( wponion_is_callable( $array_or_object ) ) ? wponion_callback( $array_or_object ) : $array_or_object;
+			$key_or_property = array_shift( $keys );
+			$is_object       = is_object( $array_or_object );
+
+			if ( null === $key_or_property ) {
+				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+			}
+
+			if ( $is_object && ! property_exists( $array_or_object, $key_or_property ) ) {
+				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+			} elseif ( ! is_array( $array_or_object ) || ! array_key_exists( $key_or_property, $array_or_object ) ) {
+				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+			}
+
+			if ( isset( $keys[0] ) ) {
+				return ( $is_object ) ? self::array_key_isset( $keys, $array_or_object->{$key_or_property}, $default_value ) : self::array_key_isset( $keys, $array_or_object[ $key_or_property ], $default_value );
+			} else {
+				return ( $is_object ) ? isset( $array_or_object->{$key_or_property} ) : isset( $array_or_object[ $key_or_property ] );
+			}
+		}
+
+		/**
 		 * Set (or create if not exists) value for specified key in some array level
 		 *
 		 * @param string       $keys 'a/b/c', or 'a/b/c/' equivalent to: $arr['a']['b']['c'][] = $val;
