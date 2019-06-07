@@ -380,6 +380,9 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 }
 
 
+// WPOnion Database Related Functions.
+require_once wponion()->path( 'core/helpers/db.php' );
+
 // WPOnion Assets Related Functions.
 require_once wponion()->path( 'core/helpers/addons.php' );
 
