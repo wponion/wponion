@@ -160,8 +160,9 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @param $user
 		 */
 		public function render( $user ) {
-			$this->user_id = ( is_object( $user ) ) ? $user->ID : $user;
-			$cache         = $this->get_cache();
+			$id = ( is_object( $user ) ) ? $user->ID : $user;
+			$this->set_id( $id );
+			$cache = $this->get_cache();
 			$this->set_defaults();
 
 			if ( false !== $this->option( 'metabox' ) ) {
@@ -169,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				if ( ! empty( $this->option( 'heading' ) ) ) {
 					echo '<h2>' . $this->option( 'heading' ) . '</h2>';
 				}
-				do_meta_boxes( $screen->id, 'normal', $this->user_id );
+				do_meta_boxes( $screen->id, 'normal', $this->get_id() );
 			} else {
 				$instance = $this->init_theme();
 				$instance->render_user_profile();
@@ -182,14 +183,14 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			return wponion_hash_string( $this->user_id() . '_' . $this->module() . '_' . $this->unique() );
+			return wponion_hash_string( $this->get_id() . '_' . $this->module() . '_' . $this->unique() );
 		}
 
 		/**
 		 * @param $user_id
 		 */
 		public function save( $user_id ) {
-			$this->user_id = $user_id;
+			$this->set_id( $user_id );
 
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->get_db_values();

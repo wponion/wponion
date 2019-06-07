@@ -86,7 +86,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			return wponion_hash_string( $this->post_id() . '_' . $this->module() . '_' . $this->unique() );
+			return wponion_hash_string( $this->get_id() . '_' . $this->module() . '_' . $this->unique() );
 		}
 
 		/**
@@ -101,7 +101,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 			}
 
 			if ( isset( $_POST[ $this->unique ] ) ) {
-				$this->set_post_id( $menu_item_db_id );
+				$this->set_id( $menu_item_db_id );
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique(),
@@ -130,7 +130,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 * @param $item_id
 		 */
 		public function render( $item_id ) {
-			$this->set_post_id( $item_id );
+			$this->set_id( $item_id );
 			$this->get_cache();
 			$this->init_theme()
 				->render_nav_menu();

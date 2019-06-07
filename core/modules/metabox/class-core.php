@@ -89,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 */
 		public function set_db_cache( $data = array() ) {
 			if ( false !== $this->option( 'set_cache' ) && wponion_is_callable( $this->option( 'set_cache' ) ) ) {
-				return wponion_callback( $this->option( 'set_cache' ), array( $data, $this->post_id ) );
+				return wponion_callback( $this->option( 'set_cache' ), array( $data, $this->get_id() ) );
 			}
 			return parent::set_db_cache( $data );
 		}
@@ -99,7 +99,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 */
 		protected function get_db_cache() {
 			if ( false !== $this->option( 'get_cache' ) && wponion_is_callable( $this->option( 'get_cache' ) ) ) {
-				return wponion_callback( $this->option( 'get_cache' ), array( $this->post_id ) );
+				return wponion_callback( $this->option( 'get_cache' ), array( $this->get_id() ) );
 			}
 			return parent::get_db_cache();
 		}
@@ -109,7 +109,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 */
 		public function get_db_values() {
 			if ( false !== $this->option( 'get_db_values' ) && wponion_is_callable( $this->option( 'get_db_values' ) ) ) {
-				return wponion_callback( $this->option( 'get_db_values' ), $this->post_id );
+				return wponion_callback( $this->option( 'get_db_values' ), $this->get_id() );
 			}
 			return parent::get_db_values();
 		}
@@ -121,7 +121,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 */
 		protected function set_db_values( $value = array() ) {
 			if ( false !== $this->option( 'set_db_values' ) && wponion_is_callable( $this->option( 'set_db_values' ) ) ) {
-				return wponion_callback( $this->option( 'set_db_values' ), array( $value, $this->post_id ) );
+				return wponion_callback( $this->option( 'set_db_values' ), array( $value, $this->get_id() ) );
 			}
 			return parent::set_db_values( $value );
 		}

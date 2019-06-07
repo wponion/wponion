@@ -271,7 +271,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		public function add_wc_fields() {
 			global $post, $thepostid;
 			$id = is_object( $post ) ? $post->ID : $thepostid;
-			$this->set_post_id( $id );
+			$this->set_id( $id );
 			/**
 			 * @var \WPO\Container $data
 			 */
@@ -302,7 +302,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		protected function render_page_fields( $page ) {
 			global $post, $thepostid;
 			$id = is_object( $post ) ? $post->ID : $thepostid;
-			$this->set_post_id( $id );
+			$this->set_id( $id );
 			$container = $this->fields->container_exists( $page );
 			if ( wponion_is_builder( $container, 'container' ) ) {
 				$is_var = $this->is_variation( $container );
@@ -408,7 +408,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			} elseif ( $variation instanceof \WP_Post ) {
 				$id = $variation->ID;
 			}
-			$this->set_post_id( $id );
+			$this->set_id( $id );
 			$this->variation_id = $loop;
 			echo $this->render_tab_fields( $this->variation_fields[ $tab ], array( 'wponion-woocommerce-variation' ) );
 			do_action( 'wponion_module_woocommerce_ajax_variation_fields' );
@@ -514,7 +514,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			$fields = ( false === $this->variation_id ) ? $this->fields : $this->variation_fields;
 			$is_var = ( false === $this->variation_id ) ? false : true;
 			if ( false === $this->variation_id ) {
-				$this->set_post_id( $product->get_id() );
+				$this->set_id( $product->get_id() );
 			}
 			$instance = new WC_Product_Metabox_Save_Handler( array(
 				'module'        => &$this,
@@ -540,7 +540,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		public function save_variation_fields( $variation_id, $loop ) {
 			$this->handle_variation_options();
-			$this->set_post_id( $variation_id );
+			$this->set_id( $variation_id );
 			$this->variation_id = true;
 			$this->save_product_data( $loop );
 		}
@@ -576,7 +576,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		protected function get_cache_id() {
 			//return 'wponion_' . wponion_hash_string( $this->post_id() . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
-			return wponion_hash_string( $this->post_id() . '_' . $this->unique() . '_' . $this->module() );
+			return wponion_hash_string( $this->get_id() . '_' . $this->unique() . '_' . $this->module() );
 		}
 	}
 }

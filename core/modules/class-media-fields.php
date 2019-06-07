@@ -74,8 +74,8 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 */
 		public function save_data( $post ) {
 			if ( isset( $_POST[ $this->unique() ] ) ) {
-				$this->post_id = $post['ID'];
-				$instance      = new Data_Validator_Sanitizer( array(
+				$this->set_id( $post['ID'] );
+				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique(),
 					'fields'    => $this->fields,
@@ -113,7 +113,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			return wponion_hash_string( $this->post_id() . '_' . $this->module() . '_' . $this->unique() );
+			return wponion_hash_string( $this->get_id() . '_' . $this->module() . '_' . $this->unique() );
 		}
 
 		/**
@@ -125,12 +125,12 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 * @return array
 		 */
 		public function display_fields( $form, $attachment ) {
-			$this->set_post_id( $attachment->ID );
+			$this->set_id( $attachment->ID );
 			$this->get_cache();
 			$o = '<div class="' . $this->wrap_class() . '">';
 			foreach ( $this->fields->fields() as $field ) {
 				$this->catch_output();
-				echo $this->render_field( $field, $this->post_id );
+				echo $this->render_field( $field, $this->get_id() );
 				$o .= $this->catch_output( 'stop' );
 			}
 
