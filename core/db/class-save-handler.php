@@ -66,7 +66,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler' ) ) {
 		/**
 		 * db_values
 		 *
-		 * @var array
+		 * @var array|\WPOnion\DB\Option
 		 */
 		protected $db_values = array();
 

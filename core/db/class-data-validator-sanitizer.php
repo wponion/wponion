@@ -49,7 +49,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		protected $retain_values;
 
 		/**
-		 * @var
+		 * @var array|\WPOnion\DB\Option
 		 * @access
 		 */
 		protected $db_values;
