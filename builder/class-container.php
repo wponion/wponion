@@ -187,6 +187,16 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		}
 
 		/**
+		 * @param bool $is_grouped
+		 *
+		 * @return \WPO\Container|\WPO\Fields\fieldset
+		 */
+		public function set_group( $is_grouped = true ) {
+			$slug = ( true === $is_grouped ) ? $this->name() : $is_grouped;
+			return ( true === $is_grouped ) ? $this->fieldset( $slug, false, array( 'only_field' => true ) ) : $this;
+		}
+
+		/**
 		 * Checks if Given data is valid container data.
 		 *
 		 * @param $args
