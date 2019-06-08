@@ -73,7 +73,6 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->module_db = 'postmeta';
 			$this->init();
 		}
 

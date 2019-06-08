@@ -33,7 +33,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 */
 		public function __construct( $settings = array(), $fields = null ) {
 			parent::__construct( $settings, $fields );
-			$this->module_db = $this->option( 'module_db' );
 		}
 
 		/**
@@ -139,7 +138,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 				'get_db_values' => false,
 				'set_db_values' => false,
 				'module'        => false,
-				'module_db'     => false,
 			), parent::defaults() );
 		}
 	}

@@ -91,7 +91,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
-				$this->db_values = wponion_get_set_db( $this->module_db, $this->unique, $this->get_id() );
+				$this->db_values = wponion_get_set_db( $this->module_db(), $this->unique(), $this->get_id() );
 			}
 			return $this->db_values;
 		}
@@ -103,7 +103,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		public function set_db_values( $values = array() ) {
 			$this->db_values = $values;
-			wponion_update_db( $this->module_db, $this->unique, $values, $this->get_id() );
+			wponion_update_db( $this->module_db(), $this->unique, $values, $this->get_id() );
 			return $this;
 		}
 
@@ -139,6 +139,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		}
 
 		/**
+		 * Checks and returns module db.
+		 * @return string
+		 */
+		public function module_db() {
+			return ( isset( $this->module_db ) && ! empty( $this->module_db ) ) ? $this->module_db : $this->module();
+		}
+
+		/**
 		 * Returns Unique Cache ID For each instance but only once.
 		 *
 		 * @return string
@@ -155,9 +163,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		protected function get_set_id( $id = false, $method = 'get' ) {
 			$return = false;
-			switch ( strtolower( $this->module_db ) ) {
-				case 'post':
-				case 'postmeta':
+			switch ( strtolower( $this->module ) ) {
+				case 'post_meta':
+				case 'woocoomerce_product':
+				case 'metabox':
+				case 'nav_menu':
+				case 'media_fields':
 					if ( 'set' === $method ) {
 						$this->post_id = $id;
 					}

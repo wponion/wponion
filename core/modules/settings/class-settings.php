@@ -78,7 +78,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->raw_options = $settings;
-			$this->module_db   = 'settings';
 			$this->init();
 		}
 

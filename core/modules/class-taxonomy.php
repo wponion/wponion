@@ -60,7 +60,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->module_db = 'taxonomy';
 			$this->init();
 		}
 
@@ -116,7 +115,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
 				$metabox['module']        = $this->module();
-				$metabox['module_db']     = $this->module_db;
 				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
 			}
 		}

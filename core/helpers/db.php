@@ -56,22 +56,25 @@ if ( ! function_exists( 'wponion_get_set_db' ) ) {
 		$return = null;
 
 		switch ( $module_db ) {
+			case 'dashboard_widget':
+				$return = ( 'get' === $mode ) ? wponion_get_option( $unique ) : wponion_update_option( $unique, $values );
+				break;
 			case 'settings':
 				$return = ( 'get' === $mode ) ? wpo_settings( $unique ) : update_option( $unique, $values );
 				break;
 			case 'network_settings':
 				$return = ( 'get' === $mode ) ? wpo_network_settings( $unique ) : update_site_option( $unique, $values );
 				break;
-			case 'postmeta':
-			case 'post':
+			case 'post_meta':
+			case 'woocoomerce_product':
+			case 'metabox':
+			case 'nav_menu':
+			case 'media_fields':
 				$return = ( 'get' === $mode ) ? wpo_post_meta( $id, $unique ) : update_post_meta( $id, $unique, $values );
 				break;
 			case 'taxonomy':
 			case 'term':
 				$return = ( 'get' === $mode ) ? wpo_term_meta( $id, $unique ) : wponion_update_term_meta( $id, $unique, $values );
-				break;
-			case 'dashboard_widget':
-				$return = ( 'get' === $mode ) ? wponion_get_option( $unique ) : wponion_update_option( $unique, $values );
 				break;
 			case 'user_profile':
 				$return = ( 'get' === $mode ) ? wpo_user_meta( $id, $unique ) : update_user_meta( $id, $unique, $values );

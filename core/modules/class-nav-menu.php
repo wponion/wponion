@@ -53,7 +53,6 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->module_db = 'postmeta';
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 				$this->on_page_load();
 			} else {

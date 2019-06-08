@@ -131,7 +131,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 
 			if ( ! isset( self::$post[ $id ][ $db_key ] ) ) {
 				$options                      = self::check_is_array( get_post_meta( $id, $db_key, true ) );
-				self::$post[ $id ][ $db_key ] = new Option( $options, 'postmeta', $db_key, $id );
+				self::$post[ $id ][ $db_key ] = new Option( $options, 'post_meta', $db_key, $id );
 			}
 
 			return self::get( self::$post[ $id ][ $db_key ], $option_key, $default );

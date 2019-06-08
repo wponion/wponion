@@ -51,7 +51,6 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 */
 		public function __construct( $settings = array(), $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->module_db = 'postmeta';
 			$this->on_init();
 		}
 
