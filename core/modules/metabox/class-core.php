@@ -33,6 +33,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 */
 		public function __construct( $settings = array(), $fields = null ) {
 			parent::__construct( $settings, $fields );
+			$this->module_db = $this->option( 'module_db' );
 		}
 
 		/**
@@ -97,7 +98,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		/**
 		 * @return bool|false|mixed|string
 		 */
-		protected function get_db_cache() {
+		public function get_db_cache() {
 			if ( false !== $this->option( 'get_cache' ) && wponion_is_callable( $this->option( 'get_cache' ) ) ) {
 				return wponion_callback( $this->option( 'get_cache' ), array( $this->get_id() ) );
 			}
@@ -119,7 +120,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 		 *
 		 * @return bool|false|mixed|string|\WPOnion\Modules\Metabox\Metabox
 		 */
-		protected function set_db_values( $value = array() ) {
+		public function set_db_values( $value = array() ) {
 			if ( false !== $this->option( 'set_db_values' ) && wponion_is_callable( $this->option( 'set_db_values' ) ) ) {
 				return wponion_callback( $this->option( 'set_db_values' ), array( $value, $this->get_id() ) );
 			}
@@ -138,6 +139,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Core' ) ) {
 				'get_db_values' => false,
 				'set_db_values' => false,
 				'module'        => false,
+				'module_db'     => false,
 			), parent::defaults() );
 		}
 	}

@@ -88,6 +88,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
 				$metabox['module']        = $this->module();
+				$metabox['module_db']     = $this->module_db;
 				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
 			}
 		}
@@ -162,7 +163,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		public function render( $user ) {
 			$id = ( is_object( $user ) ) ? $user->ID : $user;
 			$this->set_id( $id );
-			$cache = $this->get_cache();
+			$this->get_cache();
 			$this->set_defaults();
 
 			if ( false !== $this->option( 'metabox' ) ) {
