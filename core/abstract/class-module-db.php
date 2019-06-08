@@ -89,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		/**
 		 * @return array|mixed|void
 		 */
-		protected function get_db_values() {
+		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				$this->db_values = wponion_get_set_db( $this->module_db, $this->unique, $this->get_id() );
 			}
@@ -101,7 +101,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		protected function set_db_values( $values = array() ) {
+		public function set_db_values( $values = array() ) {
 			$this->db_values = $values;
 			wponion_update_db( $this->module_db, $this->unique, $values, $this->get_id() );
 			return $this;
@@ -110,7 +110,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		/**
 		 * @return bool|mixed
 		 */
-		protected function get_db_cache() {
+		public function get_db_cache() {
 			self::retrive_db_cache();
 			$cid = $this->get_cache_id();
 			return ( isset( self::$cache[ $cid ] ) && is_array( self::$cache[ $cid ] ) ) ? self::$cache[ $cid ] : array();
@@ -121,7 +121,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		protected function set_db_cache( $values ) {
+		public function set_db_cache( $values ) {
 			$cid                 = $this->get_cache_id();
 			$values              = array_filter( $values );
 			$this->options_cache = $values;
