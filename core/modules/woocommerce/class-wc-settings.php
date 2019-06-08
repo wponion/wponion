@@ -56,6 +56,7 @@ if ( ! class_exists( 'WC_Settings' ) ) {
 			$sections = array( '' => '' );
 			if ( $this->container->has_containers() ) {
 				$sections = array();
+				/* @var \WPO\Container $container */
 				foreach ( $this->container->containers() as $container ) {
 					$sections[ $container->name() ] = $container->title();
 				}

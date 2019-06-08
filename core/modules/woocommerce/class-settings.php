@@ -3,7 +3,7 @@
 namespace WPOnion\Modules\WooCommerce;
 
 use WPOnion\Bridge\Module;
-use WPOnion\DB\WooCommerce_Settings_Save_Handler;
+use WPOnion\DB\WC_Settings_Save_Handler;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -22,7 +22,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 		 * @var string
 		 * @access
 		 */
-		protected $module = 'woocommerce_settings';
+		protected $module = 'wc_settings';
 
 		/**
 		 * Settings constructor.
@@ -50,9 +50,8 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 		 * @return mixed
 		 */
 		public function register_settings( $tabs ) {
-			/**
-			 * @var \WPO\Container $data
-			 */
+			$this->get_cache();
+			/* @var \WPO\Container $data */
 			foreach ( $this->fields->get() as $data ) {
 				if ( wponion_is_builder( $data, 'container' ) ) {
 					new WC_Settings( $data, $this );
@@ -71,13 +70,12 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 		 */
 		public function save_validate( $current_tab, $current_section ) {
 			$this->get_cache();
-			$instance = new WooCommerce_Settings_Save_Handler( array(
+			$instance = new WC_Settings_Save_Handler( array(
 				'module'    => &$this,
 				'unique'    => $this->unique,
 				'fields'    => $this->fields,
 				'db_values' => $this->get_db_values(),
 				'args'      => array(
-					'settings'        => &$this,
 					'current_tab'     => $current_tab,
 					'current_section' => $current_section,
 				),

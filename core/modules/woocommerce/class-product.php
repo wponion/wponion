@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * @var string
 		 * @access protected
 		 */
-		protected $module = 'woocoomerce_product';
+		protected $module = 'wc_product';
 
 		/**
 		 * Stores Product ID.
