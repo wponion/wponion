@@ -40,28 +40,6 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		protected $unique = '';
 
 		/**
-		 * Check's and returns class type.
-		 *
-		 * @param bool $type
-		 *
-		 * @return bool
-		 */
-		public function is( $type = false ) {
-			switch ( $type ) {
-				case 'builder':
-					return ( 'WPO\Builder' === get_class( $this ) );
-					break;
-				case 'container':
-					return ( 'WPO\Container' === get_class( $this ) );
-					break;
-				case 'field':
-					return ( 'WPO\Field' === get_class( $this ) );
-					break;
-			}
-			return false;
-		}
-
-		/**
 		 * Returns Array Accessable Variable.
 		 *
 		 * @return mixed
