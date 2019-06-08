@@ -173,11 +173,10 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 				self::$user_meta[ $id ] = array();
 			}
 
-			if ( ! isset( self::$user_meta[ $id ][ $db_key ] ) ) {
-				$options                           = self::check_is_array( wponion_get_term_meta( $id, $db_key ) );
+			if ( ! isset( self::$user_meta[ $id ][ $db_key ] ) || empty( self::$user_meta[ $id ][ $db_key ] ) ) {
+				$options                           = self::check_is_array( get_user_meta( $id, $db_key, true ) );
 				self::$user_meta[ $id ][ $db_key ] = new Option( $options, 'user_profile', $db_key, $id );
 			}
-
 			return self::get( self::$user_meta[ $id ][ $db_key ], $option_key, $default );
 		}
 	}
