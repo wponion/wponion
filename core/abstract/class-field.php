@@ -87,13 +87,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected $value = array();
 
 		/**
-		 * Value is set to true if not added value any of the core features in WPOnion.
-		 *
-		 * @var bool
-		 */
-		protected $is_external = false;
-
-		/**
 		 * Stores Field Errors.
 		 *
 		 * @var null
@@ -702,7 +695,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function element_class( $field_class = '' ) {
-			return $this->_filter( 'field_html_class', wponion_html_class( $this->data( 'class' ), $field_class, false ) );
+			return apply_filters( 'wponion_' . $this->module() . '_field_html_class', wponion_html_class( $this->data( 'class' ), $field_class, false ) );
 		}
 
 		/**
