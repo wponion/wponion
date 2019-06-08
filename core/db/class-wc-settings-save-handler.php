@@ -18,15 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\DB\WooCommerce_Settings_Save_Handler' ) ) {
+if ( ! class_exists( '\WPOnion\DB\WC_Settings_Save_Handler' ) ) {
 	/**
-	 * Class WooCommerce_Settings_Save_Handler
+	 * Class WC_Settings_Save_Handler
 	 *
 	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WooCommerce_Settings_Save_Handler extends Data_Validator_Sanitizer {
+	class WC_Settings_Save_Handler extends Data_Validator_Sanitizer {
 		/**
 		 * Runs custom loop to work with Settings fields array.
 		 */
