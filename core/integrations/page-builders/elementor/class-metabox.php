@@ -58,7 +58,7 @@ namespace WPOnion\Integrations\Page_Builders\Elementor {
 			 */
 			public function get_db_value() {
 				if ( empty( $this->wpo_values ) ) {
-					self::$wpo_instance->set_post_id( get_the_ID() );
+					self::$wpo_instance->set_id( get_the_ID() );
 					$this->wpo_values = self::$wpo_instance->get_db_values();
 				}
 				return $this->wpo_values;
@@ -109,7 +109,7 @@ namespace WPOnion\Integrations\Page_Builders\Elementor {
 			 */
 			public function get_db_value() {
 				if ( empty( $this->wpo_values ) ) {
-					self::$wpo_instance->set_post_id( get_the_ID() );
+					self::$wpo_instance->set_id( get_the_ID() );
 					$this->wpo_values = self::$wpo_instance->get_db_values();
 				}
 				return $this->wpo_values;
