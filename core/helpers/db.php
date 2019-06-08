@@ -60,13 +60,14 @@ if ( ! function_exists( 'wponion_get_set_db' ) ) {
 				$return = ( 'get' === $mode ) ? wponion_get_option( $unique ) : wponion_update_option( $unique, $values );
 				break;
 			case 'settings':
+			case 'wc_settings':
 				$return = ( 'get' === $mode ) ? wpo_settings( $unique ) : update_option( $unique, $values );
 				break;
 			case 'network_settings':
 				$return = ( 'get' === $mode ) ? wpo_network_settings( $unique ) : update_site_option( $unique, $values );
 				break;
 			case 'post_meta':
-			case 'woocoomerce_product':
+			case 'wc_product':
 			case 'metabox':
 			case 'nav_menu':
 			case 'media_fields':

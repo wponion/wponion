@@ -731,9 +731,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			if ( false !== $this->has( 'name' ) ) {
 				return $this->data( 'name' ) . $extra_name;
 			} elseif ( false !== $this->has( 'un_array' ) && true === $this->data( 'un_array' ) ) {
-				return $this->unique() . $extra_name;
+				return wponion_get_field_unique_html( $this->unique() . '/' . $extra_name );
 			} else {
-				return $this->unique( $this->field_id() ) . $extra_name;
+				return wponion_get_field_unique_html( $this->unique() . '/' . $this->field_id() . '/' . $extra_name );
 			}
 		}
 

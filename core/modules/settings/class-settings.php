@@ -307,7 +307,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function on_settings_page_load() {
 			$this->find_active_menu();
 			$this->settings_menus();
-			//$this->add_action( 'admin_enqueue_scripts', 'load_admin_styles' );
 			$user_menu = $this->option( 'menu' );
 			if ( isset( $user_menu['submenu'] ) && ( true === $user_menu['submenu'] || wponion_is_array( $user_menu['submenu'] ) ) ) {
 				global $submenu_file;

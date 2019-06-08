@@ -16,8 +16,6 @@ namespace WPOnion\Bridge;
 
 use WPO\Builder;
 use WPO\Container;
-use WPO\Field;
-use WPOnion\Bridge;
 use WPOnion\Themes;
 
 if ( ! defined( 'ABSPATH' ) ) {

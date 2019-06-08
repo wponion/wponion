@@ -87,7 +87,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		protected $user_id = false;
 
 		/**
-		 * @return array|mixed|void
+		 * @return array|mixed|\WPOnion\DB\Option
 		 */
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
@@ -165,7 +165,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 			$return = false;
 			switch ( strtolower( $this->module ) ) {
 				case 'post_meta':
-				case 'woocoomerce_product':
+				case 'wc_product':
 				case 'metabox':
 				case 'nav_menu':
 				case 'media_fields':
