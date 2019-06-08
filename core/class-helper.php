@@ -245,31 +245,31 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 *
 		 * @param string       $keys 'a/b/c'
 		 * @param array|object $array_or_object
-		 * @param null|mixed   $default_value
-		 * @param string       $keys_delimiter
+		 * @param null|mixed   $default
+		 * @param string       $delimiter
 		 *
 		 * @return mixed
 		 */
-		public static function array_key_get( $keys, $array_or_object, $default_value = null, $keys_delimiter = '/' ) {
+		public static function array_key_get( $keys, $array_or_object, $default = null, $delimiter = '/' ) {
 			if ( ! is_array( $keys ) ) {
-				$keys = explode( $keys_delimiter, (string) $keys );
+				$keys = explode( $delimiter, (string) $keys );
 			}
 			$array_or_object = ( wponion_is_callable( $array_or_object ) ) ? wponion_callback( $array_or_object ) : $array_or_object;
 			$key_or_property = array_shift( $keys );
 			$is_object       = is_object( $array_or_object );
 
 			if ( null === $key_or_property ) {
-				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
 			}
 
 			if ( $is_object && ! property_exists( $array_or_object, $key_or_property ) ) {
-				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
 			} elseif ( ! is_array( $array_or_object ) || ! array_key_exists( $key_or_property, $array_or_object ) ) {
-				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
 			}
 
 			if ( isset( $keys[0] ) ) {
-				return ( $is_object ) ? self::array_key_get( $keys, $array_or_object->{$key_or_property}, $default_value ) : self::array_key_get( $keys, $array_or_object[ $key_or_property ], $default_value );
+				return ( $is_object ) ? self::array_key_get( $keys, $array_or_object->{$key_or_property}, $default ) : self::array_key_get( $keys, $array_or_object[ $key_or_property ], $default );
 			} else {
 				return ( $is_object ) ? $array_or_object->{$key_or_property} : $array_or_object[ $key_or_property ];
 			}
@@ -278,32 +278,32 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		/**
 		 * @param               $keys
 		 * @param               $array_or_object
-		 * @param bool|callable $default_value
-		 * @param string        $keys_delimiter
+		 * @param bool|callable $default
+		 * @param string        $delimiter
 		 *
 		 * @static
 		 * @return bool
 		 */
-		public static function array_key_isset( $keys, $array_or_object, $default_value = false, $keys_delimiter = '/' ) {
+		public static function array_key_isset( $keys, $array_or_object, $default = false, $delimiter = '/' ) {
 			if ( ! is_array( $keys ) ) {
-				$keys = explode( $keys_delimiter, (string) $keys );
+				$keys = explode( $delimiter, (string) $keys );
 			}
 			$array_or_object = ( wponion_is_callable( $array_or_object ) ) ? wponion_callback( $array_or_object ) : $array_or_object;
 			$key_or_property = array_shift( $keys );
 			$is_object       = is_object( $array_or_object );
 
 			if ( null === $key_or_property ) {
-				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
 			}
 
 			if ( $is_object && ! property_exists( $array_or_object, $key_or_property ) ) {
-				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
 			} elseif ( ! is_array( $array_or_object ) || ! array_key_exists( $key_or_property, $array_or_object ) ) {
-				return ( wponion_is_callable( $default_value ) ) ? wponion_callback( $default_value ) : $default_value;
+				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
 			}
 
 			if ( isset( $keys[0] ) ) {
-				return ( $is_object ) ? self::array_key_isset( $keys, $array_or_object->{$key_or_property}, $default_value ) : self::array_key_isset( $keys, $array_or_object[ $key_or_property ], $default_value );
+				return ( $is_object ) ? self::array_key_isset( $keys, $array_or_object->{$key_or_property}, $default, $delimiter ) : self::array_key_isset( $keys, $array_or_object[ $key_or_property ], $default, $delimiter );
 			} else {
 				return ( $is_object ) ? isset( $array_or_object->{$key_or_property} ) : isset( $array_or_object[ $key_or_property ] );
 			}
@@ -315,13 +315,13 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @param string       $keys 'a/b/c', or 'a/b/c/' equivalent to: $arr['a']['b']['c'][] = $val;
 		 * @param mixed        $value
 		 * @param array|object $array_or_object
-		 * @param string       $keys_delimiter
+		 * @param string       $delimiter
 		 *
 		 * @return array|object
 		 */
-		public static function array_key_set( $keys, $value, &$array_or_object, $keys_delimiter = '/' ) {
+		public static function array_key_set( $keys, $value, &$array_or_object, $delimiter = '/' ) {
 			if ( ! is_array( $keys ) ) {
-				$keys = explode( $keys_delimiter, (string) $keys );
+				$keys = explode( $delimiter, (string) $keys );
 			}
 			$key_or_property = array_shift( $keys );
 			if ( null === $key_or_property ) {
@@ -342,9 +342,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 				}
 				if ( ! array_key_exists( $key_or_property, $array_or_object ) || ! is_array( $array_or_object[ $key_or_property ] ) ) {
 					if ( '' === $key_or_property ) {
-						// this happens when use 'empty keys' like: abc.d.e....i.j..foo.
 						$array_or_object[] = array();
-						// get auto created key (last)
 						end( $array_or_object );
 						$key_or_property = key( $array_or_object );
 					} else {
@@ -353,11 +351,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 				}
 			}
 			if ( isset( $keys[0] ) ) { // not used count() for performance reasons
-				if ( $is_object ) {
-					self::array_key_set( $keys, $value, $array_or_object->{$key_or_property} );
-				} else {
-					self::array_key_set( $keys, $value, $array_or_object[ $key_or_property ] );
-				}
+				return ( $is_object ) ? self::array_key_set( $keys, $value, $array_or_object->{$key_or_property}, $delimiter ) : self::array_key_set( $keys, $value, $array_or_object[ $key_or_property ], $delimiter );
 			} else {
 				if ( $is_object ) {
 					$array_or_object->{$key_or_property} = $value;
@@ -373,13 +367,13 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 *
 		 * @param string       $keys 'a/b/c' -> unset($arr['a']['b']['c']);
 		 * @param array|object $array_or_object
-		 * @param string       $keys_delimiter
+		 * @param string       $delimiter
 		 *
 		 * @return array|object
 		 */
-		public static function array_key_unset( $keys, &$array_or_object, $keys_delimiter = '/' ) {
+		public static function array_key_unset( $keys, &$array_or_object, $delimiter = '/' ) {
 			if ( ! is_array( $keys ) ) {
-				$keys = explode( $keys_delimiter, (string) $keys );
+				$keys = explode( $delimiter, (string) $keys );
 			}
 			$key_or_property = array_shift( $keys );
 			if ( null === $key_or_property || '' === $key_or_property ) {
@@ -396,11 +390,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 				}
 			}
 			if ( isset( $keys[0] ) ) { // not used count() for performance reasons
-				if ( $is_object ) {
-					self::array_key_unset( $keys, $array_or_object->{$key_or_property} );
-				} else {
-					self::array_key_unset( $keys, $array_or_object[ $key_or_property ] );
-				}
+				return ( $is_object ) ? self::array_key_unset( $keys, $array_or_object->{$key_or_property}, $delimiter ) : self::array_key_unset( $keys, $array_or_object[ $key_or_property ], $delimiter );
 			} else {
 				if ( $is_object ) {
 					unset( $array_or_object->{$key_or_property} );
@@ -410,7 +400,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 			}
 			return $array_or_object;
 		}
-
 
 		/**
 		 * Start the WordPress micro-timer.

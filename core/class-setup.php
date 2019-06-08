@@ -139,16 +139,15 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function init_autoloader() {
-			self::$field_autoloader = new Autoloader( 'WPOnion\Field', wponion()->path( 'fields/' ), array(
-				'prepend' => true,
-			) );
+			self::$field_autoloader = new Autoloader( 'WPOnion\Field', wponion()->path( 'fields/' ), array( 'prepend' => true ) );
 
-			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module_fields/' ), array(
-				'prepend' => true,
-			) );
+			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module_fields/' ), array( 'prepend' => true ) );
 
 			self::$core_autoloader = new Autoloader( 'WPOnion', wponion()->path( 'core/' ), array(
-				'exclude' => array( 'WPOnion\Field', 'WPOnion\Module_Fields' ),
+				'exclude' => array(
+					'WPOnion\Field',
+					'WPOnion\Module_Fields',
+				),
 			) );
 
 			self::$builder_autoloader = new Autoloader( 'WPO', wponion()->path( 'builder/' ), array(
@@ -229,23 +228,17 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			 * Field Alias
 			 */
 
-			/**
-			 * Content Field Alias
-			 */
+			/* Content Field Alias */
 			\wponion_register_ui_field( 'content_markdown', 'all' );
 			\wponion_register_ui_field( 'markdown', 'all' );
 
-			/**
-			 * WP Notice Fiedl Alias
-			 */
+			/* WP Notice Fiedl Alias */
 			\wponion_register_ui_field( 'wp_notice_success', 'all' );
 			\wponion_register_ui_field( 'wp_notice_warning', 'all' );
 			\wponion_register_ui_field( 'wp_notice_error', 'all' );
 			\wponion_register_ui_field( 'wp_notice_info', 'all' );
 
-			/**
-			 * Notice Field Alias
-			 */
+			/* Notice Field Alias */
 			\wponion_register_ui_field( 'notice_danger', 'all' );
 			\wponion_register_ui_field( 'notice_dark', 'all' );
 			\wponion_register_ui_field( 'notice_info', 'all' );
@@ -259,54 +252,49 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		}
 
 		private static function setup_remaps() {
-			/**
-			 * WPO Builder Remaps
-			 */
-			self::$remaps['\WPO\Fields\notice_danger']     = '\WPO\Fields\Notice';
-			self::$remaps['\WPO\Fields\notice_dark']       = '\WPO\Fields\Notice';
-			self::$remaps['\WPO\Fields\notice_light']      = '\WPO\Fields\Notice';
-			self::$remaps['\WPO\Fields\notice_primary']    = '\WPO\Fields\Notice';
-			self::$remaps['\WPO\Fields\notice_info']       = '\WPO\Fields\Notice';
-			self::$remaps['\WPO\Fields\notice_secondary']  = '\WPO\Fields\Notice';
-			self::$remaps['\WPO\Fields\notice_success']    = '\WPO\Fields\Notice';
-			self::$remaps['\WPO\Fields\notice_warning']    = '\WPO\Fields\Notice';
-			self::$remaps['\WPO\Fields\WP_Notice_Error']   = '\WPO\Fields\WP_Notice';
-			self::$remaps['\WPO\Fields\WP_Notice_Warning'] = '\WPO\Fields\WP_Notice';
-			self::$remaps['\WPO\Fields\WP_Notice_Success'] = '\WPO\Fields\WP_Notice';
-			self::$remaps['\WPO\Fields\WP_Notice_Info']    = '\WPO\Fields\WP_Notice';
+			$notice              = '\WPO\Fields\Notice';
+			$wpnotice            = '\WPO\Fields\WP_Notice';
+			$customizer_checkbox = '\WPOnion\Module_Fields\Customizer\Checkbox';
+			/* WPO Builder Remaps */
+			self::$remaps['\WPO\Fields\notice_danger']     = $notice;
+			self::$remaps['\WPO\Fields\notice_dark']       = $notice;
+			self::$remaps['\WPO\Fields\notice_light']      = $notice;
+			self::$remaps['\WPO\Fields\notice_primary']    = $notice;
+			self::$remaps['\WPO\Fields\notice_info']       = $notice;
+			self::$remaps['\WPO\Fields\notice_secondary']  = $notice;
+			self::$remaps['\WPO\Fields\notice_success']    = $notice;
+			self::$remaps['\WPO\Fields\notice_warning']    = $notice;
+			self::$remaps['\WPO\Fields\WP_Notice_Error']   = $wpnotice;
+			self::$remaps['\WPO\Fields\WP_Notice_Warning'] = $wpnotice;
+			self::$remaps['\WPO\Fields\WP_Notice_Success'] = $wpnotice;
+			self::$remaps['\WPO\Fields\WP_Notice_Info']    = $wpnotice;
 			self::$remaps['\WPO\Fields\Markdown']          = '\WPO\Fields\Content';
 			self::$remaps['\WPO\Fields\content_markdown']  = '\WPO\Fields\Content';
 
-			/**
-			 * Customizer Module Fields.
-			 */
-			self::$remaps['\WPOnion\Module_Fields\Customizer\radio']        = '\WPOnion\Module_Fields\Customizer\Checkbox';
-			self::$remaps['\WPOnion\Module_Fields\Customizer\input_group']  = '\WPOnion\Module_Fields\Customizer\Checkbox';
-			self::$remaps['\WPOnion\Module_Fields\Customizer\fieldset']     = '\WPOnion\Module_Fields\Customizer\Checkbox';
-			self::$remaps['\WPOnion\Module_Fields\Customizer\accordion']    = '\WPOnion\Module_Fields\Customizer\Checkbox';
-			self::$remaps['\WPOnion\Module_Fields\Customizer\group']        = '\WPOnion\Module_Fields\Customizer\Checkbox';
+			/* Customizer Module Fields. */
+			self::$remaps['\WPOnion\Module_Fields\Customizer\radio']        = $customizer_checkbox;
+			self::$remaps['\WPOnion\Module_Fields\Customizer\input_group']  = $customizer_checkbox;
+			self::$remaps['\WPOnion\Module_Fields\Customizer\fieldset']     = $customizer_checkbox;
+			self::$remaps['\WPOnion\Module_Fields\Customizer\accordion']    = $customizer_checkbox;
+			self::$remaps['\WPOnion\Module_Fields\Customizer\group']        = $customizer_checkbox;
 			self::$remaps['\WPOnion\Module_Fields\Customizer\color_picker'] = '\WPOnion\Module_Fields\Customizer\Button_Set';
 			self::$remaps['\WPOnion\Module_Fields\Customizer\image_select'] = '\WPOnion\Module_Fields\Customizer\Button_Set';
 
-			/**
-			 * WP Notice Remaps.
-			 */
-			self::$remaps['\WPOnion\Field\wp_notice_success'] = '\WPOnion\Field\WP_Notice';
-			self::$remaps['\WPOnion\Field\wp_notice_warning'] = '\WPOnion\Field\WP_Notice';
-			self::$remaps['\WPOnion\Field\wp_notice_error']   = '\WPOnion\Field\WP_Notice';
-			self::$remaps['\WPOnion\Field\wp_notice_info']    = '\WPOnion\Field\WP_Notice';
+			/* WP Notice Remaps. */
+			self::$remaps['\WPOnion\Field\wp_notice_success'] = $wpnotice;
+			self::$remaps['\WPOnion\Field\wp_notice_warning'] = $wpnotice;
+			self::$remaps['\WPOnion\Field\wp_notice_error']   = $wpnotice;
+			self::$remaps['\WPOnion\Field\wp_notice_info']    = $wpnotice;
 
-			/**
-			 * General Notice.
-			 */
-			self::$remaps['\WPOnion\Field\Notice_Warning']   = '\WPOnion\Field\Notice';
-			self::$remaps['\WPOnion\Field\Notice_Primary']   = '\WPOnion\Field\Notice';
-			self::$remaps['\WPOnion\Field\Notice_Secondary'] = '\WPOnion\Field\Notice';
-			self::$remaps['\WPOnion\Field\Notice_Success']   = '\WPOnion\Field\Notice';
-			self::$remaps['\WPOnion\Field\Notice_Dark']      = '\WPOnion\Field\Notice';
-			self::$remaps['\WPOnion\Field\Notice_Info']      = '\WPOnion\Field\Notice';
-			self::$remaps['\WPOnion\Field\Notice_Light']     = '\WPOnion\Field\Notice';
-			self::$remaps['\WPOnion\Field\Notice_Danger']    = '\WPOnion\Field\Notice';
+			/* General Notice. */
+			self::$remaps['\WPOnion\Field\Notice_Warning']   = $notice;
+			self::$remaps['\WPOnion\Field\Notice_Primary']   = $notice;
+			self::$remaps['\WPOnion\Field\Notice_Secondary'] = $notice;
+			self::$remaps['\WPOnion\Field\Notice_Success']   = $notice;
+			self::$remaps['\WPOnion\Field\Notice_Dark']      = $notice;
+			self::$remaps['\WPOnion\Field\Notice_Info']      = $notice;
+			self::$remaps['\WPOnion\Field\Notice_Light']     = $notice;
+			self::$remaps['\WPOnion\Field\Notice_Danger']    = $notice;
 
 			self::$remaps = apply_filters( 'wponion_field_class_remaps', self::$remaps );
 
