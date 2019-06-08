@@ -160,7 +160,7 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					);
 					break;
 			}
-			return $this->_filter( 'background_' . $type, $return );
+			return apply_filters( 'wponion_' . $this->module() . '_background_' . $type, $return, $this->unique(), $this );
 		}
 	}
 }
