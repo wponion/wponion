@@ -51,6 +51,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB_Cache' ) ) {
 		 */
 		protected static $db_key = '_wponion_db_cache';
 
+		/**
+		 * Module_DB_Cache constructor.
+		 */
 		public function __construct() {
 			self::retrive_db_cache();
 			add_action( 'shutdown', array( __CLASS__, 'update_db_cache' ) );
