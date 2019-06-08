@@ -562,8 +562,8 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 *
 		 * @param $post_id
 		 */
-		public function set_post_id( $post_id ) {
-			parent::set_post_id( $post_id );
+		public function set_id( $post_id ) {
+			parent::set_id( $post_id );
 			$this->get_db_values();
 			$this->options_cache = false;
 			$this->get_cache();
