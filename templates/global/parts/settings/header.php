@@ -4,12 +4,12 @@
  */
 $module = $this->settings();
 
-$title              = $module->option( 'framework_title' );
-$desc               = $module->option( 'framework_desc' );
-$is_single_page     = $module->is_single_page();
-$search_placeholder = __( 'Search Option(s)', 'wponion' );
-$is_sticky          = $module->option( 'sticky_header', true );
-$is_sticky          = ( true === $is_sticky ) ? 'header-sticky' : '';
+$title          = $module->option( 'framework_title' );
+$desc           = $module->option( 'framework_desc' );
+$is_single_page = $module->is_single_page();
+$search         = ( true === $module->option( 'search', true ) ) ? __( 'Search Option(s)', 'wponion' ) : $module->option( 'search' );
+$is_sticky      = $module->option( 'sticky_header', true );
+$is_sticky      = ( true === $is_sticky ) ? 'header-sticky' : '';
 ?>
 <header class="<?php echo $is_sticky; ?>">
 
@@ -23,10 +23,10 @@ $is_sticky          = ( true === $is_sticky ) ? 'header-sticky' : '';
 		</div>
 
 		<div class="right col-xs-12 col-sm-12 col-md-6">
-			<?php if ( false !== $is_single_page ) : ?>
+			<?php if ( false !== $is_single_page && false !== $module->option( 'search' ) ) : ?>
 				<div class="action-search">
 					<div class="search-input-wrap">
-						<input type="text" placeholder="<?php echo $search_placeholder; ?>">
+						<input type="text" placeholder="<?php echo $search; ?>">
 					</div>
 				</div>
 			<?php endif; ?>
