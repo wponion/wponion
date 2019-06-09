@@ -52,7 +52,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 
 			while ( count( $containers ) >= $i ) {
 				if ( isset( $containers[ $i ] ) ) {
-					if ( $containers[ $i ] instanceof Container && false === $containers[ $i ]->is_disabled() ) {
+					if ( wpo_is_container( $containers[ $i ] ) && false === $containers[ $i ]->is_disabled() ) {
 						$return = $containers[ $i ];
 						break;
 					}
@@ -106,7 +106,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			if ( $this->has_fields() && $this->has_containers() ) {
 				wp_die( __( 'A Container Cannot Have Both Field & Containers', 'wponion' ) );
 			}
-			if ( $container_slug_or_instance instanceof Container ) {
+			if ( wpo_is_container( $container_slug_or_instance ) ) {
 				$this->containers[] = $container_slug_or_instance;
 				return $container_slug_or_instance;
 			}

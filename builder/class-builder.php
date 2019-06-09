@@ -98,10 +98,10 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		 * @return bool|false|\WPO\Container|\WPO\Field
 		 */
 		public function add( $instance ) {
-			if ( $instance instanceof Container ) {
+			if ( wpo_is_container( $instance ) ) {
 				return $this->container( $instance );
 			}
-			if ( $instance instanceof Field ) {
+			if ( wpo_is_field( $instance ) ) {
 				return $this->field( $instance );
 			}
 			return $instance;
