@@ -13,6 +13,11 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 	 * @since 1.0
 	 */
 	class Option implements \ArrayAccess, \Iterator, \JsonSerializable, \Serializable, \Countable {
+		use \WPOnion\Traits\Json_Serialize;
+		use \WPOnion\Traits\Countable;
+		use \WPOnion\Traits\Serializable;
+		use \WPOnion\Traits\Array_Position;
+
 		/**
 		 * @var bool
 		 * @access
@@ -30,14 +35,6 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * @access
 		 */
 		protected $extra = false;
-
-		/**
-		 * Store Array Position.
-		 *
-		 * @var null
-		 * @access
-		 */
-		protected $position = 0;
 
 		/**
 		 * Stores All Network Options.
@@ -96,20 +93,24 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function get( $option_key, $default = false ) {
-			return Helper::array_key_get( $option_key, $this->options, $default, $this->delimiter );
+		public function get( $option_key = '', $default = false ) {
+			return ( empty( $option_key ) ) ? $this->options : Helper::array_key_get( $option_key, $this->options, $default, $this->delimiter );
 		}
 
 		/**
 		 * Sets An Array.
 		 *
-		 * @param $option_key
-		 * @param $value
+		 * @param mixed $option_key
+		 * @param mixed $value
 		 *
 		 * @return $this
 		 */
-		public function set( $option_key, $value ) {
-			Helper::array_key_set( $option_key, $value, $this->options, $this->delimiter );
+		public function set( $option_key = '', $value = '' ) {
+			if ( ! empty( $option_key ) && empty( $value ) ) {
+				$this->options = $option_key;
+			} else {
+				Helper::array_key_set( $option_key, $value, $this->options, $this->delimiter );
+			}
 			return $this;
 		}
 
@@ -123,25 +124,11 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		}
 
 		/**
-		 * Changes Array Pointer To Next Position.
-		 */
-		public function next() {
-			++$this->position;
-		}
-
-		/**
 		 * @return mixed
 		 */
 		public function current() {
 			$keys = array_keys( $this->options );
 			return $this->options[ $keys[ $this->position ] ];
-		}
-
-		/**
-		 * Changes Array Pointer To 0
-		 */
-		public function rewind() {
-			$this->position = 0;
 		}
 
 		/**
@@ -195,34 +182,6 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 */
 		public function offsetGet( $offset ) {
 			return $this->get( $offset );
-		}
-
-		/**
-		 * @return string
-		 */
-		public function serialize() {
-			return serialize( $this->options );
-		}
-
-		/**
-		 * @param string $serialized
-		 */
-		public function unserialize( $serialized ) {
-			$this->options = unserialize( $serialized );
-		}
-
-		/**
-		 * @return int
-		 */
-		public function count() {
-			return count( $this->options );
-		}
-
-		/**
-		 * @return array|mixed
-		 */
-		public function jsonSerialize() {
-			return $this->options;
 		}
 
 	}

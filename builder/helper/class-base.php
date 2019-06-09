@@ -12,6 +12,9 @@
 namespace WPO\Helper;
 
 use WPOnion\Bridge;
+use WPOnion\Traits\Json_Serialize;
+use WPOnion\Traits\Countable;
+use WPOnion\Traits\Serializable;
 
 if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 	/**
@@ -22,6 +25,10 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 	 * @since 1.0
 	 */
 	abstract class Base extends Bridge implements \JsonSerializable, \Countable, \Serializable {
+		use Json_Serialize;
+		use Countable;
+		use Serializable;
+
 		/**
 		 * Custom Variable Name That Class Uses To Work As Array.
 		 *
@@ -58,38 +65,6 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		public function set( $args ) {
 			$this->{$this->array_var} = $args;
 			return $this;
-		}
-
-		/**
-		 * @return int
-		 */
-		public function count() {
-			return count( $this->get() );
-		}
-
-		/**
-		 * @return mixed
-		 */
-		public function jsonSerialize() {
-			return $this->get();
-		}
-
-		/**
-		 * serialize the data in $this->variable
-		 *
-		 * @return string
-		 */
-		public function serialize() {
-			return serialize( $this->get() );
-		}
-
-		/**
-		 * unserialize and stores the data into $this->variable.
-		 *
-		 * @param string $content
-		 */
-		public function unserialize( $content ) {
-			$this->set( unserialize( $content ) );
 		}
 
 		/**
