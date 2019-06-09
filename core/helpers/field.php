@@ -161,7 +161,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 		$class       = wponion_get_field_class( $field );
 		$base_unique = $unique;
 
-		if ( wponion_is_builder( $field, 'field' ) ) {
+		if ( wpo_is_field( $field ) ) {
 			$field = clone $field;
 		}
 

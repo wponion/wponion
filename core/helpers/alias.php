@@ -15,19 +15,30 @@ if ( ! function_exists( 'wpo_builder' ) ) {
 
 if ( ! function_exists( 'wpo_is' ) ) {
 	/**
-	 * @param bool   $instance
-	 * @param string $type
+	 * @param bool|\WPO\Container|\WPO\Builder|\WPO\Field|\WPOnion\DB\Option $instance
+	 * @param string                                                         $type [builder|field|container|page|section|option]
 	 *
 	 * @return bool
 	 */
 	function wpo_is( $instance = false, $type = 'builder' ) {
-		return wponion_is_builder( $instance, $type );
+		return wponion_is( $instance, $type );
+	}
+}
+
+if ( ! function_exists( 'wpo_is_option' ) ) {
+	/**
+	 * @param bool|\WPOnion\DB\Option $instance
+	 *
+	 * @return bool
+	 */
+	function wpo_is_option( $instance ) {
+		return wpo_is( $instance, 'option' );
 	}
 }
 
 if ( ! function_exists( 'wpo_is_field' ) ) {
 	/**
-	 * @param bool $instance
+	 * @param bool|\WPO\Field $instance
 	 *
 	 * @return bool
 	 */
@@ -38,7 +49,7 @@ if ( ! function_exists( 'wpo_is_field' ) ) {
 
 if ( ! function_exists( 'wpo_is_container' ) ) {
 	/**
-	 * @param bool $instance
+	 * @param bool|\WPO\Container $instance
 	 *
 	 * @return bool|mixed
 	 */
