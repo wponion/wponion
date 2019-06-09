@@ -281,20 +281,20 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$remaps['\WPOnion\Module_Fields\Customizer\image_select'] = '\WPOnion\Module_Fields\Customizer\Button_Set';
 
 			/* WP Notice Remaps. */
-			self::$remaps['\WPOnion\Field\wp_notice_success'] = $wpnotice;
-			self::$remaps['\WPOnion\Field\wp_notice_warning'] = $wpnotice;
-			self::$remaps['\WPOnion\Field\wp_notice_error']   = $wpnotice;
-			self::$remaps['\WPOnion\Field\wp_notice_info']    = $wpnotice;
+			self::$remaps['\WPOnion\Field\wp_notice_success'] = '\WPOnion\Field\WP_Notice';
+			self::$remaps['\WPOnion\Field\wp_notice_warning'] = '\WPOnion\Field\WP_Notice';
+			self::$remaps['\WPOnion\Field\wp_notice_error']   = '\WPOnion\Field\WP_Notice';
+			self::$remaps['\WPOnion\Field\wp_notice_info']    = '\WPOnion\Field\WP_Notice';
 
 			/* General Notice. */
-			self::$remaps['\WPOnion\Field\Notice_Warning']   = $notice;
-			self::$remaps['\WPOnion\Field\Notice_Primary']   = $notice;
-			self::$remaps['\WPOnion\Field\Notice_Secondary'] = $notice;
-			self::$remaps['\WPOnion\Field\Notice_Success']   = $notice;
-			self::$remaps['\WPOnion\Field\Notice_Dark']      = $notice;
-			self::$remaps['\WPOnion\Field\Notice_Info']      = $notice;
-			self::$remaps['\WPOnion\Field\Notice_Light']     = $notice;
-			self::$remaps['\WPOnion\Field\Notice_Danger']    = $notice;
+			self::$remaps['\WPOnion\Field\Notice_Warning']   = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Primary']   = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Secondary'] = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Success']   = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Dark']      = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Info']      = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Light']     = '\WPOnion\Field\Notice';
+			self::$remaps['\WPOnion\Field\Notice_Danger']    = '\WPOnion\Field\Notice';
 
 			self::$remaps = apply_filters( 'wponion_field_class_remaps', self::$remaps );
 
