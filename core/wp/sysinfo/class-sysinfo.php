@@ -96,7 +96,7 @@ JAVASCRIPT;
 				'content' => $_content,
 			) );
 
-			if ( wponion_is_builder( $container_arg, 'container' ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
+			if ( wpo_is_container( $container_arg ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
 				$user    = wp_get_current_user();
 				$emailer = wponion_builder();
 

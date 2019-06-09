@@ -53,7 +53,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 			$this->get_cache();
 			/* @var \WPO\Container $data */
 			foreach ( $this->fields->get() as $data ) {
-				if ( wponion_is_builder( $data, 'container' ) ) {
+				if ( wpo_is_container( $data ) ) {
 					new WC_Settings( $data, $this );
 				}
 			}
