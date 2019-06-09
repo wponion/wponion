@@ -105,11 +105,17 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		}
 
 		/**
-		 * Gets A Unique Slug
+		 * Generates A Unique Slug.
 		 *
-		 * @return array|bool|string
+		 * @param null $slug
+		 *
+		 * @return $this|string
 		 */
-		private function get_slug() {
+		private function get_slug( $slug = null ) {
+			if ( null !== $slug ) {
+				$this->slug = $slug;
+				return $this;
+			}
 			if ( empty( $this->slug ) ) {
 				$this->slug = sanitize_title( 'auto-' . $this->title() );
 			}
@@ -117,72 +123,98 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		}
 
 		/**
-		 * @return string|bool
+		 * @param null $slug
+		 *
+		 * @return string|\WPO\Container
 		 */
-		public function name() {
-			return $this->get_slug();
+		public function name( $slug = null ) {
+			return $this->get_slug( $slug );
 		}
 
 		/**
-		 * @return string|bool
+		 * @param null $slug
+		 *
+		 * @return string|\WPO\Container
 		 */
-		public function slug() {
-			return $this->get_slug();
+		public function slug( $slug = null ) {
+			return $this->get_slug( $slug );
 		}
 
 		/**
-		 * @return string|bool
+		 * @param null $title
+		 *
+		 * @return $this|bool
 		 */
-		public function title() {
+		public function title( $title = null ) {
+			if ( null !== $title ) {
+				$this->title = $title;
+				return $this;
+			}
 			return $this->title;
 		}
 
 		/**
-		 * @return string|bool
+		 * @param null $icon
+		 *
+		 * @return $this|bool|string
 		 */
-		public function icon() {
+		public function icon( $icon = null ) {
+			if ( null !== $icon ) {
+				$this->icon = $icon;
+				return $this;
+			}
 			return $this->icon;
 		}
 
 		/**
-		 * @return callable|bool
+		 * @param null $callback
+		 *
+		 * @return $this|callable|string|array
 		 */
-		public function callback() {
+		public function callback( $callback = null ) {
+			if ( null !== $callback ) {
+				$this->callback = $callback;
+				return $this;
+			}
 			return $this->callback;
 		}
 
 		/**
-		 * @return array
+		 * @param null $href
+		 *
+		 * @return $this|bool
 		 */
-		public function attributes() {
-			return $this->attributes;
-		}
-
-		/**
-		 * @return bool|string
-		 */
-		public function href() {
+		public function href( $href = null ) {
+			if ( null !== $href ) {
+				$this->href = $href;
+				return $this;
+			}
 			return $this->href;
 		}
 
 		/**
-		 * @return array
+		 * @param null $class
+		 *
+		 * @return $this|array
 		 */
-		public function query_args() {
-			return $this->query_args;
-		}
-
-		/**
-		 * @return array|string
-		 */
-		public function container_class() {
+		public function container_class( $class = null ) {
+			if ( null !== $class ) {
+				$this->class = $class;
+				return $this;
+			}
 			return $this->class;
 		}
 
 		/**
-		 * @return bool
+		 * @param null $separator
+		 *
+		 * @return $this|bool
 		 */
-		public function is_separator() {
+		public function is_separator( $separator = null ) {
+			if ( null !== $separator ) {
+				$this->separator = $separator;
+				return $this;
+			}
 			return ( $this->separator );
 		}
 

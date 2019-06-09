@@ -91,7 +91,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 */
 		public function separator( $instance_or_slug = false, $title = false, $icon = false ) {
 			$_container = $this->container( $instance_or_slug, $title, $icon );
-			$_container->set_separator( true );
+			$_container->is_separator( true );
 			return $_container;
 		}
 

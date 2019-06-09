@@ -138,16 +138,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		}
 
 		/**
-		 * @param $slug
-		 *
-		 * @return $this|\WPO\Container
-		 */
-		public function set_slug( $slug ) {
-			$this->slug = $slug;
-			return $this;
-		}
-
-		/**
 		 * @param array $fields
 		 *
 		 * @return $this|\WPO\Container
@@ -176,81 +166,15 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		}
 
 		/**
-		 * @param $slug
+		 * @param null|array|string $attributes
+		 * @param bool              $merge
 		 *
-		 * @return \WPO\Helper\Container\Helper
+		 * @return $this|array
 		 */
-		public function set_name( $slug ) {
-			return $this->set_slug( $slug );
-		}
-
-		/**
-		 * @param $title
-		 *
-		 * @return $this|\WPO\Container
-		 */
-		public function set_title( $title ) {
-			$this->title = $title;
-			return $this;
-		}
-
-		/**
-		 * @param $icon
-		 *
-		 * @return $this|\WPO\Container
-		 */
-		public function set_icon( $icon ) {
-			$this->icon = $icon;
-			return $this;
-		}
-
-		/**
-		 * @param $href
-		 *
-		 * @return $this|\WPO\Container
-		 */
-		public function set_href( $href ) {
-			$this->href = $href;
-			return $this;
-		}
-
-		/**
-		 * @param $separator
-		 *
-		 * @return $this|\WPO\Container
-		 */
-		public function set_separator( $separator ) {
-			$this->separator = $separator;
-			return $this;
-		}
-
-		/**
-		 * @param $callback
-		 *
-		 * @return $this|\WPO\Container
-		 */
-		public function set_callback( $callback ) {
-			$this->callback = $callback;
-			return $this;
-		}
-
-		/**
-		 * @param $class
-		 *
-		 * @return $this|\WPO\Container
-		 */
-		public function set_class( $class ) {
-			$this->class = $class;
-			return $this;
-		}
-
-		/**
-		 * @param null $attributes
-		 * @param bool $merge
-		 *
-		 * @return $this|\WPO\Container
-		 */
-		public function set_attributes( $attributes = null, $merge = true ) {
+		public function attributes( $attributes = null, $merge = true ) {
+			if ( null === $attributes ) {
+				return $this->attributes;
+			}
 			if ( true !== $merge ) {
 				$this->attributes = $attributes;
 			} else {
@@ -266,27 +190,20 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 *
 		 * @return \WPO\Helper\Container\Helper
 		 */
-		public function set_attribute( $key, $value ) {
-			return $this->set_attributes( array( $key => $value ), true );
-		}
-
-		/**
-		 * @param $key
-		 * @param $value
-		 *
-		 * @return \WPO\Helper\Container\Helper
-		 */
 		public function attribute( $key, $value ) {
-			return $this->set_attribute( $key, $value );
+			return $this->attributes( array( $key => $value ), true );
 		}
 
 		/**
 		 * @param null $query_args
 		 * @param bool $merge
 		 *
-		 * @return $this|\WPO\Container
+		 * @return $this|array
 		 */
-		public function set_query_args( $query_args = null, $merge = true ) {
+		public function query_args( $query_args = null, $merge = true ) {
+			if ( null === $query_args ) {
+				return $this->query_args;
+			}
 			if ( false === $merge ) {
 				$this->query_args = $query_args;
 			} else {
@@ -303,18 +220,8 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 *
 		 * @return $this|\WPO\Container
 		 */
-		public function set_query_arg( $key, $value ) {
-			return $this->set_query_args( array( $key => $value ), true );
-		}
-
-		/**
-		 * @param $key
-		 * @param $value
-		 *
-		 * @return $this|\WPO\Container
-		 */
 		public function query_arg( $key, $value ) {
-			return $this->set_query_arg( $key, $value );
+			return $this->query_args( $key, $value );
 		}
 
 		/**
