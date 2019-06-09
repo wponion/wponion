@@ -60,7 +60,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		 */
 		public function __construct( array $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->module_db = 'dashboard_widget';
 			$this->init();
 		}
 

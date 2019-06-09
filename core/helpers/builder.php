@@ -15,19 +15,16 @@ if ( ! function_exists( 'wponion_builder' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_is_builder' ) ) {
+if ( ! function_exists( 'wponion_is' ) ) {
 	/**
 	 * Checks if given builder is a instance of any in below
 	 *
-	 * @param        $builder
-	 * @param string $type
+	 * @param bool|\WPO\Container|\WPO\Builder|\WPO\Field|\WPOnion\DB\Option $builder
+	 * @param string                                                         $type
 	 *
 	 * @return bool
-	 * @see \WPO\Builder
-	 * @see \WPO\Container
-	 * @see \WPO\Field
 	 */
-	function wponion_is_builder( $builder, $type = 'builder' ) {
+	function wponion_is( $builder, $type = 'builder' ) {
 		switch ( strtolower( $type ) ) {
 			case 'builder':
 				return ( $builder instanceof \WPO\Builder );
@@ -39,6 +36,9 @@ if ( ! function_exists( 'wponion_is_builder' ) ) {
 				break;
 			case 'field':
 				return ( $builder instanceof \WPO\Field );
+				break;
+			case 'option':
+				return ( $builder instanceof \WPOnion\DB\Option );
 				break;
 		}
 		return false;

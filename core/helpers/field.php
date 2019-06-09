@@ -161,7 +161,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 		$class       = wponion_get_field_class( $field );
 		$base_unique = $unique;
 
-		if ( wponion_is_builder( $field, 'field' ) ) {
+		if ( wpo_is_field( $field ) ) {
 			$field = clone $field;
 		}
 
@@ -776,6 +776,53 @@ if ( ! function_exists( 'wponion_markdown' ) ) {
 			$parse_down_instance = new \Parsedown();
 		}
 		return ( empty( $content ) ) ? $parse_down_instance : $parse_down_instance->text( $content );
+	}
+}
+
+if ( ! function_exists( 'wponion_get_field_unique_html' ) ) {
+	/**
+	 * Converts PHP Array Into HTML Array
+	 *
+	 * @param $unique
+	 *
+	 * @return mixed|string
+	 * @example PHP : array('base','firstpart','secondpart') To HTML : base[firstpart][secondpart]
+	 */
+	function wponion_get_field_unique_html( $unique ) {
+		$unique = ( ! is_array( $unique ) ) ? explode( '/', $unique ) : $unique;
+		$return = $unique;
+		if ( is_array( $unique ) && ! empty( array_filter( $unique ) ) ) {
+			$unique  = array_filter( $unique );
+			$current = current( $unique );
+			$return  = $current;
+			foreach ( $unique as $id ) {
+				if ( $id !== $current ) {
+					$return .= '[' . $id . ']';
+				}
+			}
+		}
+		return $return;
+	}
+}
+
+if ( ! function_exists( 'wponion_get_field_unique' ) ) {
+	/**
+	 * @param bool                $base_unique
+	 * @param bool|\WPO\Container $container
+	 * @param bool|\WPO\Container $sub_container
+	 * @param array               $extra
+	 * @param bool                $is_array
+	 *
+	 * @return array|bool
+	 */
+	function wponion_get_field_unique( $base_unique = false, $container = false, $sub_container = false, $extra = array(), $is_array = false ) {
+		$extra         = ( ! is_array( $extra ) ) ? array_filter( array( $extra ) ) : array_filter( $extra );
+		$base_unique   = array( $base_unique );
+		$base_unique[] = ( wpo_is_container( $container ) ) ? $container->name() : '';
+		$base_unique[] = ( wpo_is_container( $sub_container ) ) ? $sub_container->name() : '';
+		$base_unique   = array_filter( $base_unique );
+		$base_unique   = array_merge( $base_unique, $extra );
+		return ( false === $is_array ) ? implode( '/', $base_unique ) : $base_unique;
 	}
 }
 

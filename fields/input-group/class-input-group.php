@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 			if ( wponion_is_array( $this->data( 'fields' ) ) ) {
 				echo '<div class=" row">';
 				foreach ( $this->data( 'fields' ) as $id => $data ) {
-					$field_id   = ( $data instanceof \WPO\Field ) ? wponion_field_id( $data ) : false;
+					$field_id   = ( wpo_is_field( $data ) ) ? wponion_field_id( $data ) : false;
 					$field_id   = ( true === is_numeric( $id ) && false === $field_id ) ? wponion_hash_array( $data ) : $id;
 					$field_args = $this->handle_args( 'title', $data, array(
 						'type'       => 'text',

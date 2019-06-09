@@ -90,7 +90,6 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 */
 		public function get_submenu_indicator( $is_active = false ) {
 			return '<i class="wponion-submenu-i dashicons"></i>';
-
 		}
 
 		/**

@@ -11,6 +11,8 @@
 
 namespace WPO\Helper;
 
+use WPOnion\Traits\Array_Position;
+
 if ( ! class_exists( 'WPO\Helper\Array_Helper' ) ) {
 	/**
 	 * Class Array_Helper
@@ -20,13 +22,7 @@ if ( ! class_exists( 'WPO\Helper\Array_Helper' ) ) {
 	 * @since 1.0
 	 */
 	class Array_Helper extends Base implements \ArrayAccess, \Iterator {
-		/**
-		 * Store Array Position.
-		 *
-		 * @var null
-		 * @access
-		 */
-		protected $position = 0;
+		use Array_Position;
 
 		/**
 		 * @param mixed $offset
@@ -76,13 +72,6 @@ if ( ! class_exists( 'WPO\Helper\Array_Helper' ) ) {
 		}
 
 		/**
-		 * Changes To Next Position.
-		 */
-		public function next() {
-			++$this->position;
-		}
-
-		/**
 		 * @return mixed
 		 */
 		public function key() {
@@ -96,13 +85,6 @@ if ( ! class_exists( 'WPO\Helper\Array_Helper' ) ) {
 		public function valid() {
 			$keys = array_keys( $this->{$this->array_var} );
 			return isset( $keys[ $this->position ] );
-		}
-
-		/**
-		 * Sets Position to 0
-		 */
-		public function rewind() {
-			$this->position = 0;
 		}
 	}
 }

@@ -912,6 +912,8 @@ return array(
 	'Comfortaa'                      => array(
 		300 => 'Light 300',
 		400 => 'Regular 400',
+		500 => 'Medium 500',
+		600 => 'Semi-Bold 600',
 		700 => 'Bold 700',
 	),
 	'Coming Soon'                    => array(
@@ -2832,6 +2834,14 @@ return array(
 		700         => 'Bold 700',
 		'400italic' => 'Regular 400 Italic',
 		'700italic' => 'Bold 700 Italic',
+	),
+	'Noto Sans HK'                   => array(
+		100 => 'Thin 100',
+		300 => 'Light 300',
+		400 => 'Regular 400',
+		500 => 'Medium 500',
+		700 => 'Bold 700',
+		900 => 'Black 900',
 	),
 	'Noto Sans JP'                   => array(
 		100 => 'Thin 100',

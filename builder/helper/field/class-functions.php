@@ -68,11 +68,11 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 * @return bool|false|\WPO\Field
 		 */
 		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
-			if ( $this->has_fields() && $this->has_containers() ) {
+			if ( $this->has_containers() ) {
 				wp_die( 'A Container Cannot Have Both Field & Containers', 'wponion' );
 			}
 
-			if ( $field_type_or_instance instanceof Field ) {
+			if ( wpo_is_field( $field_type_or_instance ) ) {
 				$this->fields[] = $field_type_or_instance;
 				return $field_type_or_instance;
 			}

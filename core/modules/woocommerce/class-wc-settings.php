@@ -56,6 +56,7 @@ if ( ! class_exists( 'WC_Settings' ) ) {
 			$sections = array( '' => '' );
 			if ( $this->container->has_containers() ) {
 				$sections = array();
+				/* @var \WPO\Container $container */
 				foreach ( $this->container->containers() as $container ) {
 					$sections[ $container->name() ] = $container->title();
 				}
@@ -79,7 +80,7 @@ if ( ! class_exists( 'WC_Settings' ) ) {
 			$section = ( null === $section ) ? $current_section : $section;
 			if ( ! empty( $section ) ) {
 				$exists = $this->container->container_exists( $section );
-				if ( wponion_is_builder( $exists, 'container' ) ) {
+				if ( wpo_is_container( $exists ) ) {
 					return ( $exists->has_fields() ) ? $exists->fields() : array();
 				}
 			}

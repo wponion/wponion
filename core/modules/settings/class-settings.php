@@ -78,7 +78,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
 			$this->raw_options = $settings;
-			$this->module_db   = 'settings';
 			$this->init();
 		}
 
@@ -129,7 +128,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 * Loads Required Style for the current settings page.
 		 */
 		public function load_admin_styles() {
-			$this->_action( 'page_assets' );
+			do_action( 'wponion_settings_page_assets', $this->unique() );
 		}
 
 		/**
@@ -160,7 +159,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 							}
 						}
 					}
-					$this->_action( 'register_submenu', $menu['menu_slug'], $this );
+					do_action( 'wponion_settings_register_submenu', $menu['menu_slug'], $this->unique(), $this );
 				}
 			}
 		}
@@ -308,7 +307,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		public function on_settings_page_load() {
 			$this->find_active_menu();
 			$this->settings_menus();
-			$this->add_action( 'admin_enqueue_scripts', 'load_admin_styles' );
 			$user_menu = $this->option( 'menu' );
 			if ( isset( $user_menu['submenu'] ) && ( true === $user_menu['submenu'] || wponion_is_array( $user_menu['submenu'] ) ) ) {
 				global $submenu_file;
@@ -319,7 +317,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			}
 
 			$this->init_theme();
-			$this->_action( 'page_onload' );
+			do_action( 'wponion_settings_page_onload', $this->unique() );
 		}
 
 		/**

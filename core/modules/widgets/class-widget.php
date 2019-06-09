@@ -101,10 +101,10 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 			) );
 
 			$instance->run();
-			$errors       = $instance->get_errors();
-			$errors       = ( isset( $errors[ $unique ] ) ) ? $errors[ $unique ] : $errors;
-			$id           = str_replace( array( '[', ']' ), array( '/', '' ), $unique );
-			$this->errors = \WPonion\Helper::array_key_set( $id, $errors, $this->errors );
+			$errors = $instance->get_errors();
+			$errors = ( isset( $errors[ $unique ] ) ) ? $errors[ $unique ] : $errors;
+			$id     = str_replace( array( '[', ']' ), array( '/', '' ), $unique );
+			\WPonion\Helper::array_key_set( $id, $errors, $this->errors );
 			return $instance->get_values();
 		}
 

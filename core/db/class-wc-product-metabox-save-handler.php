@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPOnion\DB\WC_Product_Metabox_Save_Handler' ) ) {
 		 */
 		protected function field_loop( $section ) {
 			$module = $this->module();
-			$fields = ( wponion_is_builder( $section, 'container' ) || wponion_is_builder( $section, 'builder' ) ) ? $section->fields() : $section['fields'];
+			$fields = ( wpo_is_container( $section ) || wpo_is( $section, 'builder' ) ) ? $section->fields() : $section['fields'];
 			foreach ( $fields as $field ) {
 				if ( 'only' === $module->is_variation( $field ) && false === $this->is_variation ) {
 					continue;

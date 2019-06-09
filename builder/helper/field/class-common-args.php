@@ -165,24 +165,17 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		/**
 		 * Field Inline Style.
 		 *
-		 * @param null|array|string $style
-		 * @param bool              $merge
+		 * @param array|string $style
+		 * @param bool         $merge
 		 *
 		 * @return $this
-		 * @example Inline Style As String.
-		 * $field->style('color:red');
-		 * Inline Style As Array
-		 * $field->style(array(
-		 *    'height' => '10px',
-		 *    'width' => '10px',
-		 * ));
+		 * @example Inline Style As String : $field->style('color:red');
+		 * @example Inline Style As Array :  $field->style(array( 'height' => '10px', 'width' => '10px' ));
 		 *
 		 * Output Will be 'height:10px;width:10px;'
 		 * if $merge is set to true then existing style gets appended to new style.
-		 *
-		 *
 		 */
-		public function style( $style = null, $merge = true ) {
+		public function style( $style = '', $merge = true ) {
 			if ( wponion_is_array( $style ) ) {
 				$_style = $style;
 				$style  = '';

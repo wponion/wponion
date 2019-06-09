@@ -61,7 +61,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->module_db = 'postmeta';
 			$this->init();
 		}
 
@@ -208,7 +207,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 */
 		public function render( $post ) {
 			$post_id = ( is_object( $post ) ) ? $post->ID : $post;
-			$this->set_post_id( $post_id );
+			$this->set_id( $post_id );
 			$instance = $this->init_theme();
 			$this->get_cache();
 			$this->get_db_values();
@@ -235,7 +234,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			return wponion_hash_string( $this->post_id() . '_' . $this->metabox_id() . '_' . $this->unique() . '_' . $this->module() );
+			return wponion_hash_string( $this->get_id() . '_' . $this->metabox_id() . '_' . $this->unique() . '_' . $this->module() );
 		}
 
 		/**
@@ -267,7 +266,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 			$data = array(
 				'metabox_id'     => $this->metabox_id(),
 				'unique'         => $this->unique(),
-				'wponion_postid' => $this->post_id,
+				'wponion_postid' => $this->get_id(),
 			);
 
 			echo '<div class="hidden wponion-metabox-secure-data">';
@@ -323,7 +322,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 */
 		public function save_metabox( $post_id ) {
 			if ( isset( $_POST[ $this->unique ] ) ) {
-				$this->set_post_id( $post_id );
+				$this->set_id( $post_id );
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique,

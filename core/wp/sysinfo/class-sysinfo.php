@@ -83,11 +83,13 @@ JAVASCRIPT;
 			$_content .= '</textarea></div>';
 			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ', 'wponion' ) . '</p>';
 			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
-			$_content .= wponion_tooltip( __( 'Email System Info To The Plugin Developer / Author' ), array(
-				//'size'      => 'small',
-				'placement' => 'bottom',
-				'element'   => $email,
-			) );
+			if ( wpo_is_container( $container_arg ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
+				$_content .= wponion_tooltip( __( 'Email System Info To The Plugin Developer / Author' ), array(
+					'placement' => 'bottom',
+					'element'   => $email,
+				) );
+			}
+
 			echo wponion_add_element( array(
 				'type'    => 'wp_notice_info',
 				'large'   => true,
@@ -96,7 +98,7 @@ JAVASCRIPT;
 				'content' => $_content,
 			) );
 
-			if ( wponion_is_builder( $container_arg, 'container' ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
+			if ( wpo_is_container( $container_arg ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
 				$user    = wp_get_current_user();
 				$emailer = wponion_builder();
 

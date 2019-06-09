@@ -49,7 +49,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		protected $retain_values;
 
 		/**
-		 * @var
+		 * @var array|\WPOnion\DB\Option
 		 * @access
 		 */
 		protected $db_values;
@@ -78,6 +78,12 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * @access
 		 */
 		protected $args = array();
+
+		/**
+		 * @var string
+		 * @access
+		 */
+		protected $delimiter = '/';
 
 		/**
 		 * Data_Validator_Sanitizer constructor.
@@ -358,11 +364,11 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * @return $this
 		 */
 		public function error( $message, $type = 'error', $ids = 'global' ) {
-			$this->errors = Helper::array_key_set( $ids, array(
+			Helper::array_key_set( $ids, array(
 				'setting' => 'wponion-errors',
 				'message' => $message,
 				'type'    => $type,
-			), $this->errors, '/' );
+			), $this->errors, $this->delimiter );
 			return $this;
 		}
 

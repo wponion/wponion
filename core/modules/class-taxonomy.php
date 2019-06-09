@@ -60,7 +60,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 */
 		public function __construct( $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->module_db = 'taxonomy';
 			$this->init();
 		}
 
@@ -167,7 +166,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		public function render( $term ) {
 			$this->is_new = ( is_object( $term ) ) ? false : true;
 			$term_id      = ( is_object( $term ) ) ? $term->term_id : false;
-			$this->set_term_id( $term_id );
+			$this->set_id( $term_id );
 			$this->get_cache();
 			$this->get_db_values();
 			$screen = get_current_screen();
@@ -193,7 +192,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 
 			$custom_class = array(
 				'wponion-taxonomy-' . $taxnow,
-				'wponion-taxonomy-' . $taxnow . '-' . $this->term_id,
+				'wponion-taxonomy-' . $taxnow . '-' . $this->get_id(),
 				$is_edit,
 			);
 			return parent::wrap_class( wponion_html_class( $extra_class, $custom_class ) );
@@ -205,7 +204,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			return wponion_hash_string( $this->term_id() . '_' . $this->module() . '_' . $this->unique() );
+			return wponion_hash_string( $this->get_id() . '_' . $this->module() . '_' . $this->unique() );
 		}
 
 		/**
@@ -214,7 +213,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 * @param $term_id
 		 */
 		public function save_taxonomy( $term_id ) {
-			$this->set_term_id( $term_id );
+			$this->set_id( $term_id );
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,

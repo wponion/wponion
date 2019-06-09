@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.2] - 09/06/2019
+## Added
+* Database Option Retrive Handler
+* `wpo_settings` function to retrive settings page options
+* `wpo_network_settings` function to retrive network settings page options
+* `wpo_post_meta` function to retrive post meta options
+* `wpo_user_meta` function to retrive user meta options
+* `wpo_term_meta` function to retrive term meta options
+* Field error support in WC Settings.
+* `wponion_wc_product` To create custom option @ woocommerce product metabox 
+* `wponion_wc_settings` to create custom settings page @ woocommerce settings
+* `set_group` method in container to group its fields under container's slug.
+
+## Removed
+* class-save-handler.php
+* `wponion_is_builder`  function
+
 # [1.1] - 05/06/2019
 ## Added
 * Field **dependency** in nested fields
@@ -442,6 +459,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.2]: https://github.com/wponion/wponion/releases/tag/1.2
 [1.1]: https://github.com/wponion/wponion/releases/tag/1.1
 [1.0]: https://github.com/wponion/wponion/releases/tag/1.0
 [Beta : 0.0.10.5]: https://github.com/wponion/wponion/releases/tag/0.0.10.5

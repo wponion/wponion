@@ -45,7 +45,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				defined( 'WPONION_DOING_AJAX' ) || define( 'WPONION_DOING_AJAX', true );
 				$function = str_replace( '-', '_', sanitize_title( sanitize_text_field( $_REQUEST['wponion-ajax'] ) ) );
 				if ( method_exists( $this, $function ) ) {
-					$this->$function();
+					wponion_callback( array( &$this, $function ) );
 				}
 			}
 			wp_die();
@@ -109,9 +109,9 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 					} else {
 						$_icon = ( is_numeric( $json_title ) ) ? $icons : $json_title;
 						$title = ( is_numeric( $json_title ) ) ? $icons : $icons;
-						$html  = $html . '<div class="wponion-icon-preview-wrap">';
-						$html  = $html . '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
-						$html  = $html . '</div>';
+						$html  .= '<div class="wponion-icon-preview-wrap">';
+						$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
+						$html  .= '</div>';
 					}
 				}
 				$html .= '</div>';
@@ -120,7 +120,6 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			}
 			$html .= '</div>';
 			wp_send_json_success( $html );
-			wp_die();
 		}
 
 		/**
@@ -134,12 +133,12 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				$instance     = wponion_metabox_registry( $unique );
 				$post_id      = sanitize_text_field( $_REQUEST['wponion_postid'] );
 				if ( $instance ) {
-					$instance->set_post_id( $post_id );
+					$instance->set_id( $post_id );
 					$instance->save_metabox( $post_id );
-					$this->_action( 'ajax_before_render' );
+					do_action( 'wponion_metabox_ajax_before_render', $unique );
 					$instance->on_page_load();
 					$instance->render( $post_id );
-					$this->_action( 'ajax_render' );
+					do_action( 'wponion_metabox_ajax_render', $unique );
 				}
 			}
 		}
@@ -153,10 +152,8 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 
 			if ( ! $embed ) {
 				global $wp_embed;
-				$temp                           = $wp_embed->return_false_on_fail;
 				$wp_embed->return_false_on_fail = true; // Do not fallback to make a link.
 				$embed                          = $wp_embed->shortcode( $args, $_REQUEST['value'] );
-				$wp_embed->return_false_on_fail = $temp;
 			}
 			( $embed ) ? wp_send_json_success( $embed ) : wp_send_json_error();
 		}
