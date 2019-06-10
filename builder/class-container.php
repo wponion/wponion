@@ -225,7 +225,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		public function set_group( $is_grouped = true ) {
 			$slug = ( true === $is_grouped ) ? $this->name() : $is_grouped;
-			return ( true === $is_grouped ) ? $this->fieldset( $slug, false, array( 'only_field' => true ) ) : $this;
+			return ( false !== $is_grouped ) ? $this->fieldset( $slug, false, array( 'only_field' => true ) ) : $this;
 		}
 
 		/**
