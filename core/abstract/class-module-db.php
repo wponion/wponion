@@ -102,8 +102,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return $this
 		 */
 		public function set_db_values( $values = array() ) {
-			$this->db_values = $values;
 			wponion_update_db( $this->module_db(), $this->unique, $values, $this->get_id() );
+			if ( wpo_is_option( $this->db_values ) ) {
+				$this->db_values->reload();
+			} else {
+				$this->db_values = $values;
+			}
+
 			return $this;
 		}
 
@@ -140,6 +145,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 
 		/**
 		 * Checks and returns module db.
+		 *
 		 * @return string
 		 */
 		public function module_db() {

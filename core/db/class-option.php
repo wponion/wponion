@@ -54,16 +54,56 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		/**
 		 * Option constructor.
 		 *
-		 * @param array  $options
 		 * @param string $module
 		 * @param string $unique
 		 * @param bool   $extra
 		 */
-		public function __construct( $options, $module, $unique, $extra = false ) {
-			$this->options = $options;
-			$this->module  = $module;
-			$this->unique  = $unique;
-			$this->extra   = $extra;
+		public function __construct( $module, $unique, $extra = false ) {
+			$this->module = $module;
+			$this->unique = $unique;
+			$this->extra  = $extra;
+			$this->load();
+		}
+
+		/**
+		 * Reloads Option Values.
+		 *
+		 * @return $this
+		 */
+		public function reload() {
+			$this->load();
+			return $this;
+		}
+
+		/**
+		 * Loads Values From Database.
+		 */
+		protected function load() {
+			$return = false;
+			switch ( $this->module ) {
+				case 'settings':
+				case 'wc_settings':
+					$return = get_option( $this->unique, true );
+					break;
+				case 'network_settings':
+					$return = get_site_option( $this->unique );
+					break;
+				case 'post_meta':
+				case 'wc_product':
+				case 'metabox':
+				case 'nav_menu':
+				case 'media_fields':
+					$return = get_post_meta( $this->extra, $this->unique, true );
+					break;
+				case 'taxonomy':
+				case 'term':
+					$return = wponion_get_term_meta( $this->extra, $this->unique );
+					break;
+				case 'user_profile':
+					$return = get_user_meta( $this->extra, $this->unique, true );
+					break;
+			}
+			$this->options = ( ! is_array( $return ) ) ? array() : $return;
 		}
 
 		/**

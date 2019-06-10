@@ -57,18 +57,6 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		protected static $user_meta = array();
 
 		/**
-		 * Checks if given value is array or not.
-		 *
-		 * @param $args
-		 *
-		 * @static
-		 * @return array
-		 */
-		protected static function check_is_array( $args ) {
-			return ( ! is_array( $args ) ) ? array() : $args;
-		}
-
-		/**
 		 * @param        $option
 		 * @param string $key
 		 * @param bool   $default
@@ -93,8 +81,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 */
 		public static function settings( $db_key, $option_key = '', $default = false ) {
 			if ( ! isset( self::$settings[ $db_key ] ) ) {
-				$options                   = self::check_is_array( get_option( $db_key, true ) );
-				self::$settings[ $db_key ] = new Option( $options, 'settings', $db_key );
+				self::$settings[ $db_key ] = new Option( 'settings', $db_key );
 			}
 			return self::get( self::$settings[ $db_key ], $option_key, $default );
 		}
@@ -109,8 +96,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 */
 		public static function network_settings( $db_key, $option_key = '', $default = false ) {
 			if ( ! isset( self::$network_options[ $db_key ] ) ) {
-				$options                          = self::check_is_array( get_option( $db_key, true ) );
-				self::$network_options[ $db_key ] = new Option( $options, 'network_settings', $db_key );
+				self::$network_options[ $db_key ] = new Option( 'network_settings', $db_key );
 			}
 			return self::get( self::$network_options[ $db_key ], $option_key, $default );
 		}
@@ -130,8 +116,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 			}
 
 			if ( ! isset( self::$post[ $id ][ $db_key ] ) ) {
-				$options                      = self::check_is_array( get_post_meta( $id, $db_key, true ) );
-				self::$post[ $id ][ $db_key ] = new Option( $options, 'post_meta', $db_key, $id );
+				self::$post[ $id ][ $db_key ] = new Option( 'post_meta', $db_key, $id );
 			}
 
 			return self::get( self::$post[ $id ][ $db_key ], $option_key, $default );
@@ -152,8 +137,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 			}
 
 			if ( ! isset( self::$term[ $id ][ $db_key ] ) ) {
-				$options                      = self::check_is_array( wponion_get_term_meta( $id, $db_key ) );
-				self::$term[ $id ][ $db_key ] = new Option( $options, 'taxonomy', $db_key, $id );
+				self::$term[ $id ][ $db_key ] = new Option( 'taxonomy', $db_key, $id );
 			}
 
 			return self::get( self::$term[ $id ][ $db_key ], $option_key, $default );
@@ -174,8 +158,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 			}
 
 			if ( ! isset( self::$user_meta[ $id ][ $db_key ] ) || empty( self::$user_meta[ $id ][ $db_key ] ) ) {
-				$options                           = self::check_is_array( get_user_meta( $id, $db_key, true ) );
-				self::$user_meta[ $id ][ $db_key ] = new Option( $options, 'user_profile', $db_key, $id );
+				self::$user_meta[ $id ][ $db_key ] = new Option( 'user_profile', $db_key, $id );
 			}
 			return self::get( self::$user_meta[ $id ][ $db_key ], $option_key, $default );
 		}

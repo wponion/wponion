@@ -3,7 +3,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-
 if ( ! function_exists( 'wponion_update_option' ) ) {
 	/**
 	 * Custom Wrapper For update_option & update_site_option.
