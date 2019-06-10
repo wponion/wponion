@@ -217,8 +217,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return $this
 		 */
 		public function reload_values() {
-			$this->db_values = array();
-			$this->get_db_values();
+			if ( wpo_is_option( $this->db_values ) ) {
+				$this->db_values->reload();
+			}
 			return $this;
 		}
 
