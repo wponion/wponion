@@ -202,13 +202,13 @@
 		padding:                9.5px;
 		font-variant-ligatures: none;
 		cursor:                 pointer;
-		word-break:             normal;
 		margin:                 .5rem 0 .2rem;
 		font-size:              .75rem;
 		line-height:            1.15rem;
 		color:                  #333;
 		white-space:            pre-wrap;
 		word-wrap:              break-word;
+		word-break:             break-word;
 		background-color:       #f8f8f8;
 		border:                 1px solid rgba(0, 0, 0, .15);
 		border-radius:          4px;
