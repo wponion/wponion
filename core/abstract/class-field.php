@@ -530,7 +530,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function title_desc() {
-			return ( $this->has( 'desc' ) ) ? '<p class="wponion-desc wponion-title-desc">' . wponion_markdown( $this->data( 'desc' ) ) . '</p>' : '';
+			return ( $this->has( 'desc' ) ) ? '<p class="wponion-desc wponion-title-desc">' . wponion_markdown()->line( $this->data( 'desc' ) ) . '</p>' : '';
 		}
 
 		/**
@@ -539,7 +539,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function field_desc() {
-			return ( $this->has( 'desc_field' ) ) ? '<p class="wponion-desc wponion-field-desc">' . wponion_markdown( $this->data( 'desc_field' ) ) . '</p>' : '';
+			return ( $this->has( 'desc_field' ) ) ? '<p class="wponion-desc wponion-field-desc">' . wponion_markdown()->line( $this->data( 'desc_field' ) ) . '</p>' : '';
 		}
 
 		/**
@@ -548,7 +548,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return bool|mixed|string
 		 */
 		protected function before() {
-			return ( false !== $this->has( 'before' ) && false === $this->has( 'only_field' ) ) ? wponion_markdown( $this->data( 'before' ) ) : '';
+			return ( false !== $this->has( 'before' ) && false === $this->has( 'only_field' ) ) ? wponion_markdown()->line( $this->data( 'before' ) ) : '';
 		}
 
 		/**
@@ -558,7 +558,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function after() {
 			if ( false === $this->has( 'only_field' ) ) {
-				$data = ( false !== $this->has( 'after' ) ) ? wponion_markdown( $this->data( 'after' ) ) : '';
+				$data = ( false !== $this->has( 'after' ) ) ? wponion_markdown()->line( $this->data( 'after' ) ) : '';
 				$data = $data . $this->field_desc();
 				$data = $data . $this->field_error();
 				return $data;
