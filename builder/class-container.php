@@ -285,5 +285,22 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		public function __unset( $name ) {
 			unset( $this->custom_data[ $name ] );
 		}
+
+		/**
+		 * @param bool|string $key
+		 *
+		 * @return array|$this
+		 */
+		public function get( $key = false ) {
+			if ( ! empty( $key ) ) {
+				if ( $this->has_fields() ) {
+					return $this->fields( $key );
+				}
+				if ( $this->has_containers() ) {
+					return $this->containers( $key );
+				}
+			}
+			return $this;
+		}
 	}
 }

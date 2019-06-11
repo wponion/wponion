@@ -188,5 +188,14 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		public function __unset( $name ) {
 			unset( $this->{$this->array_var}[ $name ] );
 		}
+
+		/**
+		 * @param bool $key
+		 *
+		 * @return $this
+		 */
+		public function get( $key = false ) {
+			return $this;
+		}
 	}
 }

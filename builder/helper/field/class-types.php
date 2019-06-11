@@ -84,7 +84,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 				self::_field_after_create( $name, $instance );
 				return $instance;
 			}
-			return false;
+			return ( method_exists( get_parent_class( $this ), '__call' ) ) ? parent::__call( $name, $arguments ) : false;
 		}
 	}
 }

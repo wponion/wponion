@@ -125,5 +125,24 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 		public function add( $field_instance ) {
 			return $this->field( $field_instance );
 		}
+
+
+		/**
+		 * @param bool $key
+		 *
+		 * @return array|\WPO\Field
+		 */
+		public function get( $key = false ) {
+			if ( ! empty( $key ) ) {
+				$key  = explode( '/', $key );
+				$_key = array_shift( $key );
+				if ( $this->has_fields() ) {
+					$field = $this->field_exists( $_key );
+					return ( method_exists( $field, 'get' ) ) ? $field->get( implode( '/', $key ) ) : $field;
+				}
+			}
+
+			return parent::get( $key );
+		}
 	}
 }

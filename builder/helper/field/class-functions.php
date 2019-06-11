@@ -34,9 +34,21 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		/**
 		 * Returns All Fields.
 		 *
-		 * @return array
+		 * @param bool|string $key
+		 *
+		 * @return array|\WPO\Field
 		 */
-		public function fields() {
+		public function fields( $key = false ) {
+			if ( $this->has_fields() ) {
+				if ( false === $key ) {
+					return $this->fields;
+				}
+				$key   = explode( '/', $key );
+				$_key  = array_shift( $key );
+				$field = $this->field_exists( $_key );
+				return ( method_exists( $field, 'get' ) ) ? $field->get( implode( '/', $key ) ) : $field;
+
+			}
 			return ( $this->has_fields() ) ? $this->fields : array();
 		}
 
@@ -45,7 +57,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 *
 		 * @param $field_id
 		 *
-		 * @return bool|mixed
+		 * @return bool|array|\WPO\Field
 		 */
 		public function field_exists( $field_id ) {
 			if ( $this->has_fields() ) {

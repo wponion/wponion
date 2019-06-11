@@ -78,18 +78,21 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		}
 
 		/**
-		 * Returns Args Based on the configs.
+		 * @param bool $get
 		 *
-		 * @return array
+		 * @return array|bool|\WPO\Container|\WPO\Field
 		 */
-		public function get() {
+		public function get( $get = false ) {
+			$return = false;
+
 			if ( $this->has_fields() ) {
-				return $this->fields();
+				$return = $this->fields( $get );
 			}
 			if ( $this->has_containers() ) {
-				return $this->containers();
+				$return = $this->containers( $get );
 			}
-			return array();
+
+			return ( false !== $return ) ? $return : array();
 		}
 
 		/**

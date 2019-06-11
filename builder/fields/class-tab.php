@@ -47,5 +47,18 @@ if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( 'tab', $id, $title, $args );
 		}
+
+		public function get( $key = false ) {
+			if ( ! empty( $key ) ) {
+				$key  = explode( '/', $key );
+				$_key = array_shift( $key );
+				if ( $this->has_containers() ) {
+					$field = $this->container_exists( $_key );
+					return $field;
+				}
+			}
+
+			return parent::get( $key );
+		}
 	}
 }

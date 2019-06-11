@@ -25,9 +25,21 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		/**
 		 * Returns Sub Containers.
 		 *
-		 * @return array|mixed
+		 * @param bool|string $key
+		 *
+		 * @return array|mixed|\WPO\Container
 		 */
-		public function containers() {
+		public function containers( $key = false ) {
+			if ( $this->has_containers() ) {
+				if ( empty( $key ) ) {
+					return $this->containers;
+				}
+				$key  = explode( '/', $key );
+				$_key = array_shift( $key );
+				$container = $this->container_exists( $_key );
+				return $container->get( implode( '/', $key ) );
+
+			}
 			return ( $this->has_containers() ) ? $this->containers : array();
 		}
 
