@@ -73,7 +73,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 			if ( wponion_is_array( $this->value() ) ) {
 				foreach ( $values as $i => $value ) {
 					if ( isset( $value['key'] ) && isset( $value['value'] ) ) {
-						echo $this->key_value( $this->name( '[' . $i . ']' ), $value['key'], $value['value'] );
+						echo $this->key_value( $this->name( $i ), $value['key'], $value['value'] );
 					}
 				}
 			} else {

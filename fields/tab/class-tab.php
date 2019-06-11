@@ -56,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 					$style  = ( $active ) ? 'style="display:block;"' : '';
 
 					$slug    = ( ! empty( $section->name() ) ) ? $section->name() : sanitize_title( $section->name() );
-					$unique  = ( true === $section->get_var( 'un_array' ) ) ? $this->name() : $this->name( '[' . $slug . ']' );
+					$unique  = ( true === $section->get_var( 'un_array' ) ) ? $this->name() : $this->name( $slug );
 					$icon    = ( filter_var( $section->icon(), FILTER_VALIDATE_URL ) ) ? '<img src="' . $section->icon() . '">' : wponion_icon( $section->icon() );
 					$nav     .= '<li class="wponion-tab ' . $menu . '"><a href="" data-tab-name="' . $slug . '">' . $icon . ' ' . $section->title() . '</a></li>';
 					$content .= '<div id="wponion-tab-' . $slug . '" class="wponion-tab-page" ' . $style . '>';

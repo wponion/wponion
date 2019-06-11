@@ -75,7 +75,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				$field['group_count']        = is_numeric( $this->loop_count ) ? $this->loop_count : '';
 			}
 
-			echo $this->sub_field( $field, $value, $this->name( '[' . $this->loop_count . ']' ), false );
+			echo $this->sub_field( $field, $value, $this->name( $this->loop_count ), false );
 		}
 
 		/**

@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPOnion\Field\Metabox' ) ) {
 		 * Final HTML Output
 		 */
 		public function output() {
-			$this->before();
+			echo $this->before();
 			$fields = $this->data( 'fields' );
 			if ( ! $fields instanceof \WPO\Builder ) {
 				$fields = wponion_builder()->set_fields( $fields );
@@ -85,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Field\Metabox' ) ) {
 			$this->metabox_instance = new Core( $options, $fields );
 			$this->metabox_instance->register_metabox();
 			do_meta_boxes( $options['screens'], $options['context'], null );
-			$this->after();
+			echo $this->after();
 		}
 
 		public function field_assets() {
