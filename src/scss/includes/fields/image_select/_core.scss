@@ -14,16 +14,28 @@
 				border-right: none !important;
 
 				&.has-subgroup {
-					display:       block;
-					border-bottom: 1px dashed #ccc;
+					display:        block;
+					border-bottom:  1px dashed #ccc;
+					margin-top:     10px;
+					padding-top:    10px;
+					margin-bottom:  10px;
+					padding-bottom: 10px;
+
+					&:first-child {
+						margin-top:  0;
+						padding-top: 0;
+					}
 
 					&:last-child {
-						border-bottom: none;
+						border-bottom:  none;
+						padding-bottom: 0;
+						margin-bottom:  0;
 					}
 
 					ul {
 						li {
 							display: inline-block;
+							margin:  0;
 						}
 					}
 				}
