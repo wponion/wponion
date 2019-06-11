@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 		 * Tabs HTML Output.
 		 */
 		protected function tab_output() {
-			if ( $this->field instanceof \WPO\Tab && ! empty( $this->field->containers() ) ) {
+			if ( $this->field instanceof \WPO\Fields\Tab && ! empty( $this->field->containers() ) ) {
 
 				echo '<div class="wponion-tab-wrap wponion-tabs-' . $this->data( 'tab_style' ) . '">';
 				$nav     = '<ul class="wponion-tab-menus">';
