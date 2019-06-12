@@ -379,6 +379,22 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_handle_array_merge' ) ) {
+	/**
+	 * @param array|mixed $new_values
+	 * @param array|mixed $old_values
+	 * @param bool        $merge
+	 *
+	 * @return array|object
+	 */
+	function wponion_handle_array_merge( $new_values, $old_values, $merge = false ) {
+		if ( false === $merge ) {
+			return $new_values;
+		}
+		$old_values = ( ! wponion_is_array( $old_values ) ) ? array() : $old_values;
+		return wponion_parse_args( $new_values, $old_values );
+	}
+}
 
 // WPOnion Database Related Functions.
 require_once wponion()->path( 'core/helpers/db.php' );

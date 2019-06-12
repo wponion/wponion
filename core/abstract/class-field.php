@@ -235,6 +235,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'wponion-element',
 				'wponion-element-' . $type,
 				'wponion-field-' . $type,
+				'wponion-element-type-' . $type,
+				'wponion-field-type-' . $type,
 				$has_error,
 			), $extra_class, false );
 		}
@@ -271,14 +273,14 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			if ( wponion_is_debug() ) {
 				wponion_timer( $this->unique() );
 			}
-			$_wrap_attr                      = $this->data( 'wrap_attributes' );
-			$has_title                       = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
-			$is_pseudo                       = ( true === $this->data( 'pseudo' ) ) ? ' wponion-pseudo-field ' : '';
-			$has_dep                         = false;
-			$is_debug                        = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
-			$is_js_validate                  = ( $this->has( 'js_validate' ) ) ? 'wponion-js-validate' : '';
-			$_wrap_attr['data-wponion-jsid'] = $this->js_field_id();
-
+			$_wrap_attr                            = $this->data( 'wrap_attributes' );
+			$has_title                             = ( false === $this->has( 'title' ) ) ? 'wponion-element-no-title wponion-field-no-title' : '';
+			$is_pseudo                             = ( true === $this->data( 'pseudo' ) ) ? ' wponion-pseudo-field ' : '';
+			$has_dep                               = false;
+			$is_debug                              = ( $this->has( 'debug' ) ) ? 'wponion-field-debug' : '';
+			$is_js_validate                        = ( $this->has( 'js_validate' ) ) ? 'wponion-js-validate' : '';
+			$_wrap_attr['data-wponion-jsid']       = $this->js_field_id();
+			$_wrap_attr['data-wponion-field-type'] = $this->data( 'type' );
 			if ( $this->has( 'dependency' ) ) {
 				$has_dep = 'wponion-has-dependency';
 				$this->handle_dependency();
