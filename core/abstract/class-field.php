@@ -641,7 +641,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Field Attributes HTML.
 		 *
 		 * @param array $field_attributes
-		 * @param array $dep_key
 		 *
 		 * @return string
 		 */
@@ -686,7 +685,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			return ( empty( $key ) ) ? $this->field_id() : $key;
 		}
 
-
 		/**
 		 * Returns Fields Class.
 		 *
@@ -727,14 +725,26 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function name( $extra_name = '' ) {
+		protected function raw_name( $extra_name = '' ) {
 			if ( false !== $this->has( 'name' ) ) {
 				return $this->data( 'name' ) . $extra_name;
 			} elseif ( false !== $this->has( 'un_array' ) && true === $this->data( 'un_array' ) ) {
-				return wponion_get_field_unique_html( $this->unique() . '/' . $extra_name );
+				return implode( '/', array_filter( array( $this->unique(), $extra_name ) ) );
 			} else {
-				return wponion_get_field_unique_html( $this->unique() . '/' . $this->field_id() . '/' . $extra_name );
+				return implode( '/', array_filter( array( $this->unique(), $this->field_id(), $extra_name ) ) );
 			}
+		}
+
+		/**
+		 * @param string|bool $extra_name
+		 *
+		 * @return string
+		 */
+		protected function name( $extra_name = '' ) {
+			if ( isset( $this->field['fields'] ) && ! empty( $this->field['fields'] ) || method_exists( $this->field, 'containers' ) ) {
+				return $this->raw_name( $extra_name );
+			}
+			return wponion_get_field_unique_html( $this->raw_name( $extra_name ) );
 		}
 
 		/**
@@ -745,7 +755,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function unique( $extra = '', $unique = false ) {
 			$unique = ( false === $unique ) ? $this->unique : $unique;
-			return ( ! empty( $extra ) ) ? $unique . '[' . $extra . ']' : $unique;
+			return ( ! empty( $extra ) ) ? $unique . '/' . $extra : $unique;
 		}
 
 		/**
@@ -788,9 +798,23 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				if ( $this->has( 'js_validate' ) ) {
 					wponion_localize()->add( $this->js_field_id(), array( 'js_validate' => $this->data( 'js_validate' ) ) );
 				}
+
+				$path     = explode( '/', $this->raw_name() );
+				$new_path = array();
+				if ( ! empty( $path ) ) {
+					$current = current( $path );
+					foreach ( $path as $id ) {
+						$new_path[] = $id;
+						if ( $current === $id ) {
+							$new_path[] = $this->data( 'builder_path' );
+						}
+					}
+				}
+
 				$data       = array(
-					'module' => $this->module(),
-					'unique' => $this->base_unique(),
+					'module'     => $this->module(),
+					'unique'     => $this->base_unique(),
+					'field_path' => implode( '/', $new_path ),
 				);
 				$js_convert = false;
 			}
@@ -949,9 +973,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 */
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
-			$func         = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
-			$field['sub'] = $this->field_id();
-			$_instance    = $func( $field, $value, array(
+			$func                  = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
+			$field['sub']          = $this->field_id();
+			$field['builder_path'] = $this->data( 'builder_path' );
+			$_instance             = $func( $field, $value, array(
 				'unique' => $unqiue,
 				'base'   => $this->base_unique,
 				'module' => $this->module(),

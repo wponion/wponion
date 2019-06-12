@@ -64,6 +64,9 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			//Custom Column Handler.
 			'title_column'    => false,
 			'fieldset_column' => false,
+
+			// Internal
+			'builder_path'    => false,
 		);
 	}
 }
@@ -191,6 +194,9 @@ if ( ! function_exists( 'wponion_field' ) ) {
 				return $registry->get( $uid );
 			}
 
+			if ( ! isset( $field['builder_path'] ) ) {
+				$field['builder_path'] = ( ! empty( $hash ) ) ? $hash : '';
+			}
 			$instance = new $class( $field, $value, $base_unique );
 			if ( method_exists( $registry, 'add' ) ) {
 				$registry->add( $uid, $instance );
