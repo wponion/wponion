@@ -524,15 +524,20 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		/**
 		 * Renders / Creates An First Instance based on the $is_init_field variable value.
 		 *
-		 * @param array $field
-		 * @param bool  $parent_container
-		 * @param bool  $sub_container
-		 * @param bool  $is_init_field
+		 * @param array|\WPO\Field    $field
+		 * @param bool|\WPO\Container $parent_container
+		 * @param bool|\WPO\Container $sub_container
+		 * @param bool                $is_init_field
 		 *
 		 * @return mixed
 		 */
 		public function render_field( $field = array(), $parent_container = false, $sub_container = false, $is_init_field = false ) {
-			return parent::render_field( $field, sanitize_title( $parent_container . '-' . $sub_container ), $is_init_field );
+			$hash = implode( '/', array_filter( array(
+				( wpo_is_container( $parent_container ) ) ? $parent_container->name() : '',
+				( wpo_is_container( $sub_container ) ) ? $sub_container->name() : '',
+			) ) );
+
+			return parent::render_field( $field, $hash, $is_init_field );
 		}
 
 		/**

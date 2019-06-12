@@ -50,7 +50,7 @@ $extra_class = ( true === $has_fields ) ? ' row only-fields ' : '';
 									echo wponion_callback( $sub_container->callback(), array( $sub_container ) );
 								elseif ( $sub_container->has_fields() ) :
 									foreach ( $sub_container->fields() as $field ) :
-										echo $module->render_field( $field, $container->name(), $sub_container->name() );
+										echo $module->render_field( $field, $container, $sub_container );
 									endforeach;
 								endif;
 								?>
@@ -65,7 +65,7 @@ $extra_class = ( true === $has_fields ) ? ' row only-fields ' : '';
 								echo wponion_callback( $container->callback(), array( $container ) );
 							elseif ( $container->has_fields() ) :
 								foreach ( $container->fields() as $field ) :
-									echo $module->render_field( $field, $container->name() );
+									echo $module->render_field( $field, $container );
 								endforeach;
 							endif;
 							?>
