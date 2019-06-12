@@ -175,12 +175,7 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 			if ( null === $attributes ) {
 				return $this->attributes;
 			}
-			if ( true !== $merge ) {
-				$this->attributes = $attributes;
-			} else {
-				$this->attributes = ( ! wponion_is_array( $this->attributes ) ) ? array() : $this->attributes;
-				$this->attributes = $this->parse_args( $attributes, $this->attributes );
-			}
+			$this->attributes = wponion_handle_array_merge( $attributes, $this->attributes, $merge );
 			return $this;
 		}
 
@@ -204,13 +199,8 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 			if ( null === $query_args ) {
 				return $this->query_args;
 			}
-			if ( false === $merge ) {
-				$this->query_args = $query_args;
-			} else {
-				$this->query_args = ( ! wponion_is_array( $this->query_args ) ) ? array() : $this->query_args;
-				$this->query_args = $this->parse_args( $query_args, $this->query_args );
-			}
 
+			$this->query_args = wponion_handle_array_merge( $query_args, $this->query_args, $merge );
 			return $this;
 		}
 

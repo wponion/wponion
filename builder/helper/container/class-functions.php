@@ -58,17 +58,13 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return false|\WPO\Container
 		 */
 		public function first_container() {
-			$containers = $this->containers();
-			$return     = false;
-			$i          = 0;
-
 			/* @var \WPO\Container $container */
 			foreach ( $this->containers() as $key => $container ) {
 				if ( wpo_is_container( $container ) && false === $container->is_disabled() ) {
 					return $container;
 				}
 			}
-			return $return;
+			return false;
 		}
 
 		/**
