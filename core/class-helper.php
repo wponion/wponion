@@ -402,6 +402,55 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
+		 * Inserts a new key/value before the key in the array.
+		 *
+		 * @param string $key The key to insert before.
+		 * @param array  $array An array to insert in to.
+		 * @param string $new_key The key to insert.
+		 * @param mixed  $new_value An value to insert.
+		 *
+		 * @return array|boolean|bool The new array if the key exists, FALSE otherwise.
+		 */
+		public static function array_insert_before( $key, array &$array, $new_key, $new_value ) {
+			if ( array_key_exists( $key, $array ) ) {
+				$new = array();
+				foreach ( $array as $k => $value ) {
+					if ( $k === $key ) {
+						$new[ $new_key ] = $new_value;
+					}
+					$new[ $k ] = $value;
+				}
+				return $new;
+			}
+			return false;
+		}
+
+		/**
+		 * Inserts a new key/value after the key in the array.
+		 *
+		 * @param string $key The key to insert after.
+		 * @param array  $array An array to insert in to.
+		 * @param string $new_key The key to insert.
+		 * @param mixed  $new_value An value to insert.
+		 *
+		 * @return array|mixed The new array if the key exists, FALSE otherwise.
+		 */
+		public static function array_insert_after( $key, array &$array, $new_key, $new_value ) {
+			if ( array_key_exists( $key, $array ) ) {
+				$new = array();
+				foreach ( $array as $k => $value ) {
+					$new[ $k ] = $value;
+					if ( $k === $key ) {
+						$new[ $new_key ] = $new_value;
+					}
+				}
+				return $new;
+			}
+			return false;
+		}
+
+
+		/**
 		 * Start the WordPress micro-timer.
 		 *
 		 * @param string $key Unique Timer Key.
