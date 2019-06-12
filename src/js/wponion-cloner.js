@@ -1,11 +1,7 @@
 ( ( $ ) => {
-	/**
-	 *
-	 * @param options
-	 * @constructor
-	 */
+
 	$.fn.WPOnionCloner = function( options ) {
-		let $options = $.extend( {
+		let $options               = $.extend( {
 			limit: false,
 			add_btn: false,
 			remove_btn: false,
@@ -21,19 +17,10 @@
 			show_animation: false,
 			hide_animation: false,
 		}, options );
-
-		if( typeof $options.add_btn === 'string' ) {
-			$options.add_btn = this.find( $options.add_btn );
-		}
-
-		if( typeof $options.remove_btn === 'string' ) {
-			$options.remove_btn_jquery = this.find( $options.remove_btn );
-		}
-
-		let $_wrap      = $( this ),
-			$add        = $options.add_btn,
-			$remove     = $options.remove_btn_jquery,
-			$removeFunc = function() {
+		$options.add_btn           = ( typeof $options.add_btn === 'string' ) ? this.find( $options.add_btn ) : $options.add_btn;
+		$options.remove_btn_jquery = ( typeof $options.remove_btn === 'string' ) ? this.find( $options.remove_btn ) : $options.remove_btn_jquery;
+		let $_wrap                 = $( this ),
+			$removeFunc            = function() {
 				if( $( this ).hasClass( 'removing' ) ) {
 					return;
 				}
@@ -63,9 +50,9 @@
 				}
 			};
 
-		$remove.on( 'click', $removeFunc );
+		$options.remove_btn_jquery.on( 'click', $removeFunc );
 
-		$add.on( 'click', function() {
+		$options.add_btn.on( 'click', function() {
 			let $limit    = parseInt( $_wrap.attr( 'data-wponion-clone-count' ) ),
 				$template = JSON.parse( JSON.stringify( $options.template ) );
 
@@ -94,13 +81,11 @@
 
 			$_wrap.append( $template );
 
-
 			if( false !== $options.templateAfterRender ) {
 				$options.templateAfterRender( $_wrap, $limit, this );
 			}
 
-			let $_remove = $_wrap.find( $options.remove_btn );
-			$_remove.on( 'click', $removeFunc );
+			$_wrap.find( $options.remove_btn ).on( 'click', $removeFunc );
 		} );
 
 		if( $options.sortable !== false ) {

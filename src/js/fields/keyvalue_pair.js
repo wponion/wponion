@@ -84,4 +84,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_register_field( 'keyvalue_pair', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'key_value', ( $elem ) => new field( $elem ) ) )( window );

@@ -198,7 +198,6 @@ export default ( ( window, document, $, jQuery ) => {
 				if( !data ) {
 					$this.data( 'wpobs.button', ( data = new WPOButton( this, options ) ) );
 				}
-
 				data.setState( option );
 			} );
 		},
@@ -208,7 +207,7 @@ export default ( ( window, document, $, jQuery ) => {
 	 * Returns A Abstract Class Instance.
 	 * @param $elem
 	 * @param $contxt
-	 * @returns {{ajax(*=, *=): *, js_error(*): void, init_field(*=, *=): void, set_args(*): *, js_validate_elem(*=, *): void, js_error_handler(*=): void, id(): *, init_single_field(*=, *=): void, field_debug(): (undefined), handle_args(*=, *=): (*|$data), maybe_js_validate_elem(*=, *=): void, get_field_parent_by_id(*=): (*|jQuery|HTMLElement), option(*=, *=): *, options(): *, js_validator(): void, init(), reload(): *, module(): *, ui_menu_handler(): void, module_init(), set_element(*=): *, set_contxt(*): *, hook: *, element: *, contxt: *}}
+	 * @returns {{reload_global_fields(): void, ajax(*=, *=): *, js_error(*): void, init_field(*=, *=): void, set_args(*): *, js_validate_elem(*=, *): void, js_error_handler(*=): void, id(): *, init_single_field(*=, *=): void, field_debug(): (undefined), handle_args(*=, *=): (*|$data), maybe_js_validate_elem(*=, *=): void, get_field_parent_by_id(*=): (*|jQuery|HTMLElement), option(*=, *=): *, options(): *, js_validator(): void, init(), reload(): *, module(): *, ui_menu_handler(): void, module_init(), set_element(*=): *, set_contxt(*): *, hook: *, element: *, contxt: *}|*}
 	 */
 	window.wponion_field = ( $elem, $contxt = {} ) => new window.wponion.field_abstract( $elem, $contxt );
 
@@ -222,6 +221,7 @@ export default ( ( window, document, $, jQuery ) => {
 	/**
 	 *
 	 * @param $element
+	 * @param $args
 	 * @returns {{}|*}
 	 */
 	window.wponion_dependency = ( $element = false, $args = false ) => new window.wponion.dependency( $element, $args );
@@ -239,15 +239,11 @@ export default ( ( window, document, $, jQuery ) => {
 		} else {
 			if( $elem.find( '.wponion-remove' ).length > 0 ) {
 				$elem.each( function() {
-					let $_el = jQuery( this );
-					jQuery( this ).find( '.wponion-remove' ).tippy( {
+					let $el = jQuery( this );
+					$el.find( '.wponion-remove' ).tippy( {
 						appendTo: () => jQuery( this )[ 0 ],
 					} );
-					jQuery( this ).find( '.wponion-remove' ).on( 'click', function() {
-						$_el.slideUp( 'slow', function() {
-							$_el.remove();
-						} );
-					} );
+					$el.find( '.wponion-remove' ).on( 'click', () => $el.slideUp( 'slow', () => $el.remove() ) );
 				} );
 				return $elem;
 			}
@@ -266,11 +262,7 @@ export default ( ( window, document, $, jQuery ) => {
 						}
 					}, 900 );
 				}
-				setTimeout( () => {
-					$elem.slideUp( 'slow', () => {
-						$elem.remove();
-					} );
-				}, $auto );
+				setTimeout( () => $elem.slideUp( 'slow', () => $elem.remove() ), $auto );
 			}
 		}
 	};

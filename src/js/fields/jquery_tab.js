@@ -28,4 +28,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_register_field( 'jquery_tab', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'tab', ( $elem ) => new field( $elem ) ) )( window );

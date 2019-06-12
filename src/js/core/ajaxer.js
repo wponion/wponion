@@ -239,12 +239,8 @@ export class WPOnion_Ajaxer {
 			this.instance.always( ( data ) => this.onAlways( data ) );
 			return this.instance;
 		} else {
-			let $_arg = parse_args( this.config, this.run_config );
-
-			//let $ex_data  = ( false === window.wponion._.isUndefined( $_arg.data ) ) ? $_arg.data : {};
-			//let $new_data = ( false === window.wponion._.isUndefined( $arg.data ) ) ? $arg.data : {};
+			let $_arg     = parse_args( this.config, this.run_config );
 			$_arg         = parse_args( $arg, $_arg, true );
-			//$_arg.data    = parse_args( $new_data, $ex_data );
 			let $instance = new WPOnion_Ajaxer( $_arg );
 			return $instance.send();
 		}

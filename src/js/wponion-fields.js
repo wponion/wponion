@@ -23,6 +23,7 @@ require( './fields/sorter' );
 require( './fields/typography' );
 require( './fields/oembed' );
 require( './fields/faq' );
+require( './fields/modal' );
 require( './helpers/image_popup' );
 require( './helpers/tooltip' );
 require( './helpers/reload_wp_editor' );

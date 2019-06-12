@@ -108,20 +108,6 @@ export default class WPOnion {
 	}
 
 	/**
-	 * Handles Loading Screen.
-	 * @param $elem
-	 * @param $is_show
-	 * @returns {*}
-	 */
-	static loading_screen( $elem, $is_show = true ) {
-		$elem = to_jquery( $elem ).find( '.page-loader' );
-		if( true === $is_show ) {
-			return $elem.fadeIn( 'slow' );
-		}
-		return $elem.fadeOut( 'slow' );
-	}
-
-	/**
 	 * Checks and Retrives Values from $wponion.settings
 	 * @param $key
 	 * @param $default
@@ -143,27 +129,6 @@ export default class WPOnion {
 		return this.option( 'debug' );
 	}
 
-	/**
-	 * Gather All Field JS Codes.
-	 */
-	static field_debug() {
-		if( WPOnion.is_debug() && window.wponion._.isNull( WPOnion.field_debug_info ) ) {
-			let $vars = WPOnion.windowArgs( 'wponion_defined_vars' ),
-				$json = {},
-				$utxt = WPOnion.txt( 'unmodified_debug' ),
-				$mtxt = WPOnion.txt( 'modified_debug' );
-
-			for( let $key in $vars ) {
-				if( $vars.hasOwnProperty( $key ) && false === window.wponion._.isUndefined( $vars[ $key ] ) ) {
-					let $data                       = WPOnion.windowArgs( $vars[ $key ] );
-					$json[ $vars[ $key ] ]          = {};
-					$json[ $vars[ $key ] ][ $utxt ] = $data.debug_info || $data;
-					$json[ $vars[ $key ] ][ $mtxt ] = {};
-				}
-			}
-			WPOnion.field_debug_info = $json;
-		}
-	}
 
 	/**
 	 * Custom Ajax Wrapper For jQuery.Ajax()

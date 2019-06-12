@@ -52,4 +52,4 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_register_field( 'image_upload', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => w.wponion_register_field( 'image', ( $elem ) => new field( $elem ) ) )( window );

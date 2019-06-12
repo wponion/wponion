@@ -8,15 +8,10 @@ export default class {
 	 * @param $value
 	 */
 	static add( $key, $value ) {
-		if( window.wponion._.isUndefined( this.debug_info ) ) {
-			this.debug_info = {};
+		if( window.wponion._.isUndefined( this.data ) ) {
+			this.data = {};
 		}
-
-		if( window.wponion._.isUndefined( this.debug_info[ $key ] ) ) {
-			this.debug_info[ $key ] = $value;
-		} else {
-			this.debug_info[ $key ] = window.wponion._.merge( $value, this.debug_info[ $key ] );
-		}
+		this.data[ $key ] = ( window.wponion._.isUndefined( this.data[ $key ] ) ) ? $value : window.wponion._.merge( $value, this.data[ $key ] );
 	}
 
 	/**
@@ -26,9 +21,9 @@ export default class {
 	 * @returns {boolean}
 	 */
 	static get( $key, $default = false ) {
-		if( window.wponion._.isUndefined( this.debug_info ) ) {
-			this.debug_info = {};
+		if( window.wponion._.isUndefined( this.data ) ) {
+			this.data = {};
 		}
-		return ( window.wponion._.isUndefined( this.debug_info[ $key ] ) ) ? $default : this.debug_info[ $key ];
+		return ( window.wponion._.isUndefined( this.data[ $key ] ) ) ? $default : this.data[ $key ];
 	}
 }

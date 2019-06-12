@@ -63,5 +63,8 @@ class field extends WPOnion_Field {
 	}
 }
 
-export default ( ( w ) => w.wponion_register_field( 'checkbox_radio', ( $elem ) => new field( $elem ) ) )( window );
+export default ( ( w ) => {
+	w.wponion_register_field( 'checkbox', ( $elem ) => new field( $elem ) );
+	w.wponion_register_field( 'radio', ( $elem ) => new field( $elem ) );
+} )( window );
 

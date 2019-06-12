@@ -54,6 +54,6 @@ export default class WPOnion_Validator {
 			return jQuery( 'form#post' );
 		}
 
-		return ( jQuery( 'form.wponion-form' ).length > 0 ) ? jQuery( 'form.wponion-form' ) : false;
+		return false;
 	}
 }
