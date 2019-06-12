@@ -40,11 +40,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		protected function _set_array_handler( $key = false, $data = null, $merge = true ) {
-			if ( true === $merge ) {
-				$this[ $key ] = ( wponion_is_array( $this[ $key ] ) ) ? $this->parse_args( $data, $this[ $key ] ) : $data;
-			} else {
-				$this[ $key ] = $data;
-			}
+			$this[ $key ] = wponion_handle_array_merge( $data, $this[ $key ], $merge );
 			return $this;
 		}
 

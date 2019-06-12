@@ -101,6 +101,18 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		}
 
 		/**
+		 * @param array|\WPO\Field $field
+		 *
+		 * @return bool|string
+		 */
+		protected function get_field_id( $field ) {
+			if ( isset( $field['id'] ) && ! empty( $field['id'] ) ) {
+				return $field['id'];
+			}
+			return ( wpo_is_field( $field ) ) ? $field->unique() : false;
+		}
+
+		/**
 		 * @param null       $before_field_id
 		 * @param \WPO\Field $new_field
 		 *
