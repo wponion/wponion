@@ -37,5 +37,9 @@ if ( ! class_exists( '\WPOnion\Field\OEmbed' ) ) {
 			$field_data['text_type'] = 'text';
 			return $field_data;
 		}
+
+		protected function js_field_args() {
+			return array( 'nopreview' => wponion()->url( 'assets/img/no-preview.jpg' ) );
+		}
 	}
 }
