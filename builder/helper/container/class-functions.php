@@ -62,14 +62,11 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			$return     = false;
 			$i          = 0;
 
-			while ( count( $containers ) >= $i ) {
-				if ( isset( $containers[ $i ] ) ) {
-					if ( wpo_is_container( $containers[ $i ] ) && false === $containers[ $i ]->is_disabled() ) {
-						$return = $containers[ $i ];
-						break;
-					}
+			/* @var \WPO\Container $container */
+			foreach ( $this->containers() as $key => $container ) {
+				if ( wpo_is_container( $container ) && false === $container->is_disabled() ) {
+					return $container;
 				}
-				$i++;
 			}
 			return $return;
 		}
@@ -84,12 +81,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 */
 		public function container_exists( $container_id ) {
 			if ( $this->has_containers() ) {
-				/* @var $container \WPO\Container */
-				foreach ( $this->containers() as $container ) {
-					if ( $container->name() === $container_id ) {
-						return $container;
-					}
-				}
+				return ( isset( $this->containers[ $container_id ] ) ) ? $this->containers[ $container_id ] : false;
 			}
 			return false;
 		}
@@ -108,9 +100,9 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		}
 
 		/**
-		 * @param bool $container_slug_or_instance
-		 * @param bool $title
-		 * @param bool $icon
+		 * @param bool|\WPO\Container|string $container_slug_or_instance
+		 * @param bool                       $title
+		 * @param bool                       $icon
 		 *
 		 * @return $this|bool|false|\WPO\Container
 		 */
@@ -119,7 +111,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 				wp_die( __( 'A Container Cannot Have Both Field & Containers', 'wponion' ) );
 			}
 			if ( wpo_is_container( $container_slug_or_instance ) ) {
-				$this->containers[] = $container_slug_or_instance;
+				$this->containers[ $container_slug_or_instance->name() ] = $container_slug_or_instance;
 				return $container_slug_or_instance;
 			}
 
@@ -130,8 +122,8 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			}
 
 			if ( false === $return ) {
-				$return             = Container::create( $container_slug_or_instance, $title, $icon );
-				$this->containers[] = $return;
+				$return                              = Container::create( $container_slug_or_instance, $title, $icon );
+				$this->containers[ $return->name() ] = $return;
 			}
 			return $return;
 		}
@@ -143,18 +135,8 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return $this
 		 */
 		public function container_before( $before_container_id, Container $new_container ) {
-			if ( $this->has_fields() ) {
-				$new_arr = array();
-				/* @var \WPO\Container $container */
-				foreach ( $this->containers() as $container ) {
-					if ( $container->name() === $before_container_id ) {
-						$new_arr[] = $new_container;
-						$new_arr[] = $container;
-					} elseif ( $container->name() !== $new_container->name() ) {
-						$new_arr[] = $container;
-					}
-				}
-				$this->containers = $new_arr;
+			if ( $this->has_containers() ) {
+				$this->containers = \WPOnion\Helper::array_insert_before( $before_container_id, $this->containers, $new_container->name(), $new_container );
 			}
 			return $this;
 		}
@@ -166,18 +148,8 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return $this
 		 */
 		public function container_after( $after_container_id, Container $new_container ) {
-			if ( $this->has_fields() ) {
-				$new_arr = array();
-				/* @var \WPO\Container $container */
-				foreach ( $this->containers() as $container ) {
-					if ( $container->name() === $after_container_id ) {
-						$new_arr[] = $container;
-						$new_arr[] = $new_container;
-					} elseif ( $container->name() !== $new_container->name() ) {
-						$new_arr[] = $container;
-					}
-				}
-				$this->containers = $new_arr;
+			if ( $this->has_containers() ) {
+				$this->containers = \WPOnion\Helper::array_insert_after( $after_container_id, $this->containers, $new_container->name(), $new_container );
 			}
 			return $this;
 		}

@@ -101,6 +101,18 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		}
 
 		/**
+		 * @param array|\WPO\Field $field
+		 *
+		 * @return bool|string
+		 */
+		protected function get_field_id( $field ) {
+			if ( isset( $field['id'] ) && ! empty( $field['id'] ) ) {
+				return $field['id'];
+			}
+			return ( wpo_is_field( $field ) ) ? $field->unique() : false;
+		}
+
+		/**
 		 * Field constructor.
 		 *
 		 * @param bool  $type
