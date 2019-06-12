@@ -109,7 +109,6 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 						'db_values'    => $this->db_values,
 					) );
 					$instance->run();
-
 					$this->db_values = $instance->get_values();
 					if ( false === $this->option( 'save' ) ) {
 						update_post_meta( $post_id, $this->unique(), $this->db_values );
@@ -118,15 +117,6 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 					}
 				}
 			}
-		}
-
-		/**
-		 * Returns Database Values of the settings.
-		 *
-		 * @return array|mixed
-		 */
-		protected function get_db_values() {
-			return $this->db_values;
 		}
 
 		/**

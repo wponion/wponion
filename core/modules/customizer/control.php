@@ -139,6 +139,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
 			$this->options['default']       = $this->setting->default;
 			$this->options['__no_instance'] = true;
 			if ( true === $this->link_attr ) {
+				$this->options['attributes']                                = ( ! is_array( $this->options['attributes'] ) ) ? array() : $this->options['attributes'];
 				$this->options['attributes']['data-customize-setting-link'] = $this->settings['default']->id;
 			}
 			return $this->options;
