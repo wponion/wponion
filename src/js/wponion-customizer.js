@@ -32,7 +32,6 @@
 	$wpcc.wponion_field_accordion   = $wpcc.wponion_field_clone;
 	$wpcc.wponion_field_group       = $wpcc.wponion_field_clone;
 	$wpcc.wponion_field_icon_picker = $wpcc.wponion_field_clone;
-	$wpcc.wponion_field_icon_picker = $wpcc.wponion_field_clone;
 
 	/**
 	 * Field Checkbox.
