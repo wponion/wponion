@@ -43,11 +43,10 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 				if ( false === $key ) {
 					return $this->fields;
 				}
-				$key   = explode( '/', $key );
+				$key   = array_filter( explode( '/', $key ) );
 				$_key  = array_shift( $key );
 				$field = $this->field_exists( $_key );
-				return ( method_exists( $field, 'get' ) ) ? $field->get( implode( '/', $key ) ) : $field;
-
+				return ( method_exists( $field, 'get_field' ) ) ? $field->get_field( implode( '/', $key ) ) : $field;
 			}
 			return ( $this->has_fields() ) ? $this->fields : array();
 		}

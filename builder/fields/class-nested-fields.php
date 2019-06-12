@@ -126,23 +126,27 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 			return $this->field( $field_instance );
 		}
 
-
 		/**
 		 * @param bool $key
 		 *
-		 * @return array|\WPO\Field
+		 * @return array|\WPO\Field|\WPO\Container
 		 */
-		public function get( $key = false ) {
+		public function get_field( $key = false ) {
 			if ( ! empty( $key ) ) {
-				$key  = explode( '/', $key );
+				$key  = array_filter( explode( '/', $key ) );
 				$_key = array_shift( $key );
 				if ( $this->has_fields() ) {
 					$field = $this->field_exists( $_key );
+					return ( method_exists( $field, 'get_field' ) ) ? $field->get_field( implode( '/', $key ) ) : $field;
+				}
+
+				if ( method_exists( $this, 'has_containers' ) && $this->has_containers() ) {
+					$field = $this->container_exists( $_key );
 					return ( method_exists( $field, 'get' ) ) ? $field->get( implode( '/', $key ) ) : $field;
 				}
 			}
 
-			return parent::get( $key );
+			return parent::get_field( $key );
 		}
 	}
 }

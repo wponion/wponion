@@ -194,7 +194,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function get( $key = false ) {
+		public function get_field( $key = false ) {
 			return $this;
 		}
 	}

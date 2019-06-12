@@ -34,10 +34,10 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 				if ( empty( $key ) ) {
 					return $this->containers;
 				}
-				$key  = explode( '/', $key );
-				$_key = array_shift( $key );
+				$key       = array_filter( explode( '/', $key ) );
+				$_key      = array_shift( $key );
 				$container = $this->container_exists( $_key );
-				return $container->get( implode( '/', $key ) );
+				return ( method_exists( $container, 'get' ) ) ? $container->get( implode( '/', $key ) ) : $container;
 
 			}
 			return ( $this->has_containers() ) ? $this->containers : array();
