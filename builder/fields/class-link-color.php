@@ -18,11 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 * @method get_color()
-	 * @method get_hover()
-	 * @method get_active()
-	 * @method get_visited()
-	 * @method get_foucs()
 	 */
 	class Link_Color extends Color_Group {
 		/**

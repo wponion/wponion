@@ -18,9 +18,6 @@ if ( ! class_exists( 'WPO\Fields\WP_Notice' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_large()
-	 * @method get_alt()
 	 */
 	class WP_Notice extends Notice {
 		/**

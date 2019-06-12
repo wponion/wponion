@@ -18,21 +18,15 @@ if ( ! class_exists( 'WPO\Fields\Typography' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_font_family()
-	 * @method get_backup_font_family()
-	 * @method get_text_align()
-	 * @method get_direction()
-	 * @method get_element_tag()
-	 * @method get_font_style()
-	 * @method get_font_size()
-	 * @method get_line_height()
-	 * @method get_letter_spacing()
-	 * @method get_color()
-	 * @method get_preview()
-	 * @method get_preview_text()
 	 */
 	class Typography extends \WPO\Field {
+		/**
+		 * Typography constructor.
+		 *
+		 * @param bool  $id
+		 * @param bool  $title
+		 * @param array $args
+		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( 'typography', $id, $title, $args );
 		}

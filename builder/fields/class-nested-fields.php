@@ -21,9 +21,6 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_heading()
-	 * @method get_un_array()
 	 */
 	class Nested_Fields extends Field implements \WPO\Helper\Interfaces\Field {
 		use Types;
@@ -71,12 +68,7 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 		 */
 		public function field_exists( $field_id ) {
 			if ( $this->has_fields() ) {
-				/* @var $field \WPO\Field */
-				foreach ( $this->fields() as $field ) {
-					if ( $field->get_id() === $field_id ) {
-						return $field;
-					}
-				}
+				return ( isset( $this['fields'][ $field_id ] ) ) ? $this['fields'][ $field_id ] : false;
 			}
 			return false;
 		}
@@ -95,7 +87,7 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 			}
 
 			if ( wpo_is_field( $field_type_or_instance ) ) {
-				$this['fields'][] = $field_type_or_instance;
+				$this['fields'][ $this->get_field_id( $field_type_or_instance ) ] = $field_type_or_instance;
 				return $field_type_or_instance;
 			}
 
@@ -108,7 +100,7 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 			if ( false === $return ) {
 				$return = Field::create( $field_type_or_instance, $field_id, $title, $args );
 				if ( $return ) {
-					$this['fields'][] = $return;
+					$this['fields'][ $this->get_field_id( $return ) ] = $return;
 				} else {
 					$return = false;
 				}

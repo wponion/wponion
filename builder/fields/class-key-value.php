@@ -18,13 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_add_button()
-	 * @method get_remove_button()
-	 * @method get_limit()
-	 * @method get_error_msg()
-	 * @method get_key_input()
-	 * @method get_value_input()
 	 */
 	class Key_Value extends \WPO\Field {
 		/**

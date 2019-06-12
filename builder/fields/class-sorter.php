@@ -18,11 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_disabled()
-	 * @method get_enabled()
-	 * @method get_enabled_title()
-	 * @method get_disabled_title()
 	 */
 	class Sorter extends \WPO\Field {
 		/**

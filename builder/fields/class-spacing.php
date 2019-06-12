@@ -18,15 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_top()
-	 * @method get_bottom()
-	 * @method get_left()
-	 * @method get_right()
-	 * @method get_all()
-	 * @method get_unit()
-	 * @method get_unit_options()
-	 * @method get_icons()
 	 */
 	class Spacing extends \WPO\Field {
 		/**

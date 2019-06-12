@@ -18,12 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_add_button()
-	 * @method get_remove_button()
-	 * @method get_icon_tooltip()
-	 * @method get_enabled()
-	 * @method get_disabled()
 	 */
 	class Icon_Picker extends \WPO\Field {
 		/**

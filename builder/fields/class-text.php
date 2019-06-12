@@ -18,11 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Text' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_prefix()
-	 * @method get_surfix()
-	 * @method get_datalist()
-	 * @method get_inputmask()
 	 */
 	class Text extends \WPO\Field {
 		/**

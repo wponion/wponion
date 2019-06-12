@@ -18,11 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Gallery' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 * @method get_add_button()
-	 * @method get_edit_button()
-	 * @method get_size()
-	 * @method get_sort()
-	 * @method get_remove_button()
 	 */
 	class Gallery extends \WPO\Field {
 		/**

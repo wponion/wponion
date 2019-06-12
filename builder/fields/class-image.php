@@ -18,10 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Image' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_frame_title()
-	 * @method get_remove()
-	 * @method get_size()
 	 */
 	class Image extends \WPO\Field {
 		/**

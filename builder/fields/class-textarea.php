@@ -18,9 +18,6 @@ if ( ! class_exists( 'WPO\Fields\Textarea' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_rows()
-	 * @method get_cols()
 	 */
 	class Textarea extends Text {
 		/**
