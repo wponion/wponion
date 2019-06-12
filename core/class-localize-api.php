@@ -153,13 +153,12 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return bool
 		 */
 		public function render_js_args( $return = false ) {
-			if ( ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) || ( wp_script_is( 'wponion-core' ) && wp_script_is( 'wponion-core', 'done' ) ) ) {
+			if ( ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) || ( wp_script_is( 'wponion-core', 'registered' ) ) ) {
 				/* translators: */
 				$js_notice = PHP_EOL . __( 'This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` ', 'wponion' );
 				$js_notice = $js_notice . PHP_EOL . PHP_EOL . __( '**PHP Args:** is the array which is passed to the framework in php ', 'wponion' );
 				$js_notice = $js_notice . PHP_EOL . PHP_EOL . __( '**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it', 'wponion' );
 				$js_notice = sprintf( wponion_markdown( $js_notice ), '<br/>' );
-
 				if ( false === self::$core_data && false === wponion_is_ajax() ) {
 					$this->js_args['wponion_core']['ajaxurl']         = admin_url( 'admin-ajax.php' );
 					$this->js_args['wponion_core']['ajax_action']     = 'wponion-ajax';
