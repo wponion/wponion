@@ -66,7 +66,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 					$title     = $mb->option( 'elementor' );
 					$slug      = str_replace( '-', '', sanitize_title( $title ) );
 					$new_class = 'wpo_' . $slug . '_elementor_taxonomy';
-					$class     = new Class extends Taxonomy {
+					$class     = new class extends Taxonomy {
 					};
 
 					class_alias( get_class( $class ), $new_class );
@@ -74,7 +74,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 					$new_class::$wpo_slug     = $slug;
 					$new_class::$wpo_instance = $mb;
 					$dynamic_tags->register_tag( $new_class );
-					$class_data = new Class extends Taxonomy_Data {
+					$class_data = new class extends Taxonomy_Data {
 					};
 
 					$new_class = $new_class . '_data';
@@ -104,7 +104,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 					$title     = ( true === $mb->option( 'elementor' ) ) ? $mb->option( 'metabox_title' ) : $mb->option( 'elementor' );
 					$slug      = str_replace( '-', '', sanitize_title( $title ) );
 					$new_class = 'wpo_' . $slug . '_elementor_metabox';
-					$class     = new Class extends Metabox {
+					$class     = new class extends Metabox {
 					};
 
 					class_alias( get_class( $class ), $new_class );
