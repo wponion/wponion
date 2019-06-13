@@ -291,18 +291,6 @@ if ( ! function_exists( 'wponion_valid_field' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_noninput_fields' ) ) {
-	/**
-	 * Returns a list of non editable fileds type.
-	 *
-	 * @return array
-	 * @todo check if its required.
-	 */
-	function wponion_noninput_fields() {
-		return apply_filters( 'wponion_non_input_fields', \WPOnion\Registry\Field_Types::get_design() );
-	}
-}
-
 if ( ! function_exists( 'wponion_valid_user_input_field' ) ) {
 	/**
 	 * Checks if field type is a valid user editable field.
@@ -312,7 +300,7 @@ if ( ! function_exists( 'wponion_valid_user_input_field' ) ) {
 	 * @return bool
 	 */
 	function wponion_valid_user_input_field( $field ) {
-		return ( ! in_array( wponion_get_field_type( $field, false ), wponion_noninput_fields(), true ) );
+		return ( ! in_array( wponion_get_field_type( $field, false ), \WPOnion\Registry\Field_Types::get_design(), true ) );
 	}
 }
 
