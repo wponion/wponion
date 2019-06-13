@@ -405,27 +405,14 @@ if ( ! function_exists( 'wponion_validate_select_framework' ) ) {
 	 * Validates And Returns The Selected Framework Name.
 	 * This only used for selectbox.
 	 *
-	 * @param $fld
+	 * @param array|\WPO\Field $fld
 	 *
 	 * @return bool
 	 */
 	function wponion_validate_select_framework( $fld ) {
-		$frameworks = wponion_select_frameworks();
-
-		foreach ( $frameworks as $f ) {
-			if ( isset( $fld[ 'is_' . $f ] ) && ( true === $fld[ 'is_' . $f ] || $f === $fld[ 'is_' . $f ] || true === wponion_is_array( $fld[ 'is_' . $f ] ) ) ) {
+		foreach ( wponion_select_frameworks() as $f ) {
+			if ( isset( $fld[ $f ] ) && ( true === $fld[ $f ] || $f === $fld[ $f ] || true === wponion_is_array( $fld[ $f ] ) ) ) {
 				return $f;
-			} elseif ( isset( $fld[ $f ] ) && ( true === $fld[ $f ] || $f === $fld[ $f ] || true === wponion_is_array( $fld[ $f ] ) ) ) {
-				return $f;
-			}
-		}
-
-		if ( isset( $field['attributes']['class'] ) ) {
-			$class = is_string( $fld['attributes']['class'] ) ? explode( ' ', $fld['attributes']['class'] ) : $fld['attributes']['class'];
-			foreach ( $frameworks as $f ) {
-				if ( in_array( $f, $class, true ) ) {
-					return $f;
-				}
 			}
 		}
 		return false;
