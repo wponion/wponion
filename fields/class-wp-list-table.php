@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 		protected function output() {
 			echo $this->before();
 			echo '<div class="wponion-inner-wp-list-table">';
-			$instance = new \WPOnion\WP_List_Table( $this->data( 'settings' ), $this->data( 'data' ) );
+			$instance = new \WPOnion\WP\WP_List_Table( $this->data( 'settings' ), $this->data( 'data' ) );
 			$instance->prepare_items();
 			$instance->views();
 			$instance->search_box( __( 'Search', 'wponion' ), 'search' );
