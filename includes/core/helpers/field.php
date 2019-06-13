@@ -652,40 +652,35 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 	 * @return mixed|string
 	 */
 	function wponion_fonts_options_html( $google_fonts = true, $websafe_fonts = true, $group = true, $selected = array() ) {
-		static $fonts_html = array();
-
 		$gfonts   = ( true === $google_fonts ) ? 'yes' : 'no';
 		$webfonts = ( true === $websafe_fonts ) ? 'yes' : 'no';
 		$_group   = ( true === $group ) ? 'yes' : 'no';
-		$key      = $gfonts . $webfonts . $_group;
-
+		$key      = 'web_fonts_html/' . $gfonts . $webfonts . $_group;
 		if ( ! wponion_is_array( $selected ) ) {
 			$selected = array( $selected );
 		}
 
-		if ( ! isset( $fonts_html[ $key ] ) ) {
+		if ( ! wponion_has_cache( $key ) ) {
 			$fonts = wponion_get_fonts_array( $google_fonts, $websafe_fonts, $group );
 			$html  = '';
-			foreach ( $fonts as $id => $value ) {
-				if ( wponion_is_array( $value ) ) {
+			foreach ( $fonts as $id => $val ) {
+				if ( wponion_is_array( $val ) ) {
 					$html .= '<optgroup label="' . $id . '">';
-					foreach ( $value as $i => $v ) {
+					foreach ( $val as $i => $v ) {
 						$html .= '<option value="' . $i . '">' . $v . '</option>';
 					}
 					$html .= '</optgroup>';
 				} else {
-					$html .= '<option value="' . $id . '">' . $value . '</option>';
+					$html .= '<option value="' . $id . '">' . $val . '</option>';
 				}
 			}
-			$fonts_html[ $key ] = $html;
+			wponion_set_cache( $key, $html );
 		}
 
-		$html = $fonts_html[ $key ];
-
+		$html = wponion_get_cache( $key );
 		foreach ( $selected as $key ) {
 			$html = str_replace( '<option value="' . $key . '">', '<option value="' . $key . '" selected>', $html );
 		}
-
 		return $html;
 	}
 }
