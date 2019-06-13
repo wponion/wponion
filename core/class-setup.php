@@ -141,7 +141,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		public static function init_autoloader() {
 			self::$field_autoloader = new Autoloader( 'WPOnion\Field', wponion()->path( 'fields/' ), array( 'prepend' => true ) );
 
-			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->inc( 'module-fields/' ), array( 'prepend' => true ) );
+			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module-fields/' ), array( 'prepend' => true ) );
 
 			self::$core_autoloader = new Autoloader( 'WPOnion', wponion()->path( 'core/' ), array(
 				'exclude' => array(
