@@ -28,13 +28,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 	 */
 	class Helper {
 		/**
-		 * gfonts
-		 *
-		 * @var array
-		 */
-		protected static $gfonts = array();
-
-		/**
 		 * Stores Timer Information.
 		 *
 		 * @var array
@@ -42,13 +35,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		protected static $timer = array();
-
-		/**
-		 * Stores Cache.
-		 *
-		 * @var array
-		 */
-		protected static $cache = array();
 
 		/**
 		 * Gets And Returns File information.
@@ -137,50 +123,10 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function google_fonts() {
-			if ( empty( self::$gfonts ) ) {
-				self::$gfonts = self::get_data( 'google_fonts' );
+			if ( empty( Cache::has( 'gfonts' ) ) ) {
+				Cache::set( 'gfonts', self::get_data( 'google_fonts' ) );
 			}
-			return self::$gfonts;
-		}
-
-		/**
-		 * Retrives Cache Data.
-		 *
-		 * @param bool $key
-		 * @param bool $default
-		 *
-		 * @return bool|mixed
-		 * @static
-		 */
-		public static function get_cache( $key = false, $default = false ) {
-			if ( isset( self::$cache[ $key ] ) ) {
-				return self::$cache[ $key ];
-			}
-			return $default;
-		}
-
-		/**
-		 * Stores Cache.
-		 *
-		 * @param bool $key
-		 * @param bool $data
-		 *
-		 * @static
-		 */
-		public static function set_cache( $key = false, $data = false ) {
-			self::$cache[ $key ] = $data;
-		}
-
-		/**
-		 * Checks If Cache Exists.
-		 *
-		 * @param $key
-		 *
-		 * @return bool
-		 * @static
-		 */
-		public static function has_cache( $key ) {
-			return ( isset( self::$cache[ $key ] ) );
+			return Cache::get( 'gfonts', false );
 		}
 
 		/**
@@ -190,7 +136,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_post_types() {
-			if ( false === self::has_cache( 'post_types' ) ) {
+			if ( ! Cache::has( 'post_types' ) ) {
 				$options    = array();
 				$post_types = get_post_types( array( 'show_in_nav_menus' => true ) );
 				if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
@@ -198,9 +144,9 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 						$options [ $post_type ] = ucfirst( $post_type );
 					}
 				}
-				self::set_cache( 'post_types', $options );
+				Cache::set( 'post_types', $post_types );
 			}
-			return self::get_cache( 'post_types', array() );
+			return Cache::get( 'post_types', array() );
 		}
 
 		/**
@@ -210,7 +156,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_currency() {
-			if ( false === self::has_cache( 'currency' ) ) {
+			if ( ! Cache::has( 'currency' ) ) {
 				$data = self::get_data( 'currency' );
 				if ( isset( $data['currency'] ) && ! empty( $data['currency'] ) ) {
 					foreach ( $data['currency'] as $key => $val ) {
@@ -218,10 +164,10 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 							$data['currency'][ $key ] = $data['currency'][ $key ] . ' ( ' . $data['symbol'][ $key ] . ' ) ';
 						}
 					}
-					self::set_cache( 'currency', $data['currency'] );
+					Cache::set( 'currency', $data['currency'] );
 				}
 			}
-			return self::get_cache( 'currency', array() );
+			return Cache::get( 'currency', array() );
 		}
 
 		/**
@@ -231,13 +177,11 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_currency_symbol() {
-			if ( false === self::has_cache( 'currency_symbol' ) ) {
+			if ( ! Cache::has( 'currency_symbol' ) ) {
 				$data = self::get_data( 'currency' );
-				if ( isset( $data['symbol'] ) ) {
-					self::set_cache( 'currency_symbol', $data['symbol'] );
-				}
+				Cache::set( 'currency_symbol', $data['symbol'] );
 			}
-			return self::get_cache( 'currency_symbol', array() );
+			return Cache::get( 'currency_symbol', array() );
 		}
 
 		/**
@@ -278,13 +222,12 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		/**
 		 * @param               $keys
 		 * @param               $array_or_object
-		 * @param bool|callable $default
 		 * @param string        $delimiter
 		 *
 		 * @static
 		 * @return bool
 		 */
-		public static function array_key_isset( $keys, $array_or_object, $default = false, $delimiter = '/' ) {
+		public static function array_key_isset( $keys, $array_or_object, $delimiter = '/' ) {
 			if ( ! is_array( $keys ) ) {
 				$keys = explode( $delimiter, (string) $keys );
 			}
@@ -293,17 +236,17 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 			$is_object       = is_object( $array_or_object );
 
 			if ( null === $key_or_property ) {
-				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
+				return false;
 			}
 
 			if ( $is_object && ! property_exists( $array_or_object, $key_or_property ) ) {
-				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
+				return false;
 			} elseif ( ! is_array( $array_or_object ) || ! array_key_exists( $key_or_property, $array_or_object ) ) {
-				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
+				return false;
 			}
 
 			if ( isset( $keys[0] ) ) {
-				return ( $is_object ) ? self::array_key_isset( $keys, $array_or_object->{$key_or_property}, $default, $delimiter ) : self::array_key_isset( $keys, $array_or_object[ $key_or_property ], $default, $delimiter );
+				return ( $is_object ) ? self::array_key_isset( $keys, $array_or_object->{$key_or_property}, $delimiter ) : self::array_key_isset( $keys, $array_or_object[ $key_or_property ], $delimiter );
 			} else {
 				return ( $is_object ) ? isset( $array_or_object->{$key_or_property} ) : isset( $array_or_object[ $key_or_property ] );
 			}
@@ -448,7 +391,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 			}
 			return false;
 		}
-
 
 		/**
 		 * Start the WordPress micro-timer.
