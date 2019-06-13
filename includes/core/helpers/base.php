@@ -230,28 +230,6 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_highlight_string' ) ) {
-	/**
-	 * Highlights A Code.
-	 *
-	 * @param      $sting
-	 * @param bool $append_pre
-	 *
-	 * @return bool|string|string
-	 * @uses \highlight_string()
-	 *
-	 */
-	function wponion_highlight_string( $sting, $append_pre = true ) {
-		$sting = ( is_array( $sting ) ) ? var_export( $sting, true ) : $sting;
-		$text  = highlight_string( '<?php ' . trim( $sting ), true );  // highlight_string() requires opening PHP tag or otherwise it will not colorize the text
-		$text  = preg_replace( '|^\\<code\\>\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>|', '', trim( $text ), 1 );  // remove prefix
-		$text  = preg_replace( '|\\</code\\>$|', '', $text, 1 );  // remove suffix 1
-		$text  = preg_replace( '|\\</span\\>$|', '', trim( $text ), 1 );  // remove suffix 2
-		$text  = preg_replace( '|^(\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>)(&lt;\\?php&nbsp;)(.*?)(\\</span\\>)|', '$1$3$4', trim( $text ) );  // remove custom added "<?php "
-		return ( true === $append_pre ) ? '<pre class="wponion-debug-pre">' . $text . '</pre>' : $text;
-	}
-}
-
 if ( ! function_exists( 'wponion_is_array' ) ) {
 	/**
 	 * @param $data
