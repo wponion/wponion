@@ -60,15 +60,6 @@ if ( ! class_exists( 'WPOnion' ) ) {
 		}
 
 		/**
-		 * @param string $extra
-		 *
-		 * @return string
-		 */
-		public function inc( $extra = '' ) {
-			return $this->path( 'includes/' . $extra );
-		}
-
-		/**
 		 * Returns Current WPOnion URL.
 		 *
 		 * @param string $extra

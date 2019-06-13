@@ -320,40 +320,40 @@ if ( ! function_exists( 'wponion_handle_array_merge' ) ) {
 }
 
 // WPOnion Cache Related Functions
-require_once wponion()->inc( 'core/helpers/cache.php' );
+require_once wponion()->path( 'core/helpers/cache.php' );
 
 // WPOnion Database Related Functions.
-require_once wponion()->inc( 'core/helpers/db.php' );
+require_once wponion()->path( 'core/helpers/db.php' );
 
 // WPOnion Assets Related Functions.
-require_once wponion()->inc( 'core/helpers/addons.php' );
+require_once wponion()->path( 'core/helpers/addons.php' );
 
 // WPOnion Assets Related Functions.
-require_once wponion()->inc( 'core/helpers/util.php' );
+require_once wponion()->path( 'core/helpers/util.php' );
 
 // WPOnion Assets Related Functions.
-require_once wponion()->inc( 'core/helpers/builder.php' );
+require_once wponion()->path( 'core/helpers/builder.php' );
 
 // WPOnion Assets Related Functions.
-require_once wponion()->inc( 'core/helpers/assets.php' );
+require_once wponion()->path( 'core/helpers/assets.php' );
 
 // WPOnion Fields Related Functions.
-require_once wponion()->inc( 'core/helpers/field.php' );
+require_once wponion()->path( 'core/helpers/field.php' );
 
 // WPOnion Registry Related Functions.
-require_once wponion()->inc( 'core/helpers/registry.php' );
+require_once wponion()->path( 'core/helpers/registry.php' );
 
 // WPOnion Field Sanitize Related Functions.
-require_once wponion()->inc( 'core/helpers/sanitize.php' );
+require_once wponion()->path( 'core/helpers/sanitize.php' );
 
 // WPOnion Module Related Functions
-require_once wponion()->inc( 'core/helpers/module.php' );
+require_once wponion()->path( 'core/helpers/module.php' );
 
 // WPOnion Module Related Functions
-require_once wponion()->inc( 'core/helpers/validator.php' );
+require_once wponion()->path( 'core/helpers/validator.php' );
 
 // WPOnion Theme Related Functions
-require_once wponion()->inc( 'core/helpers/theme.php' );
+require_once wponion()->path( 'core/helpers/theme.php' );
 
 // WPOnion Alias Functions.
-require_once wponion()->inc( 'core/helpers/alias.php' );
+require_once wponion()->path( 'core/helpers/alias.php' );

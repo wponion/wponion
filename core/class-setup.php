@@ -86,11 +86,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			self::init_autoloader();
 
-			require_once wponion()->inc( 'core/helpers/base.php' );
-			require_once wponion()->inc( 'core/class-themes.php' );
-			require_once wponion()->inc( 'core/class-assets.php' );
-			require_once wponion()->inc( 'core/class-core-ajax.php' );
-			require_once wponion()->inc( 'core/class-shortcodes.php' );
+			require_once wponion()->path( 'core/helpers/base.php' );
+			require_once wponion()->path( 'core/class-themes.php' );
+			require_once wponion()->path( 'core/class-assets.php' );
+			require_once wponion()->path( 'core/class-core-ajax.php' );
+			require_once wponion()->path( 'core/class-shortcodes.php' );
 
 			/**
 			 * This Hook Fires Before Integrations Files Loads.
@@ -143,28 +143,28 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->inc( 'module-fields/' ), array( 'prepend' => true ) );
 
-			self::$core_autoloader = new Autoloader( 'WPOnion', wponion()->inc( 'core/' ), array(
+			self::$core_autoloader = new Autoloader( 'WPOnion', wponion()->path( 'core/' ), array(
 				'exclude' => array(
 					'WPOnion\Field',
 					'WPOnion\Module_Fields',
 				),
 			) );
 
-			self::$builder_autoloader = new Autoloader( 'WPO', wponion()->inc( 'builder/' ), array(
+			self::$builder_autoloader = new Autoloader( 'WPO', wponion()->path( 'builder/' ), array(
 				'exclude' => array( 'WPOnion' ),
 				'prepend' => true,
 			) );
 
-			self::$core_autoloader->map( 'WPOnion\Bridge', wponion()->inc( 'core/abstract/class-bridge.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module', wponion()->inc( 'core/abstract/class-module.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB_Cache', wponion()->inc( 'core/abstract/class-module-db-cache.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB', wponion()->inc( 'core/abstract/class-module-db.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Theme_API', wponion()->inc( 'core/abstract/class-theme-api.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Addon', wponion()->inc( 'core/abstract/class-addon.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Addon_Field', wponion()->inc( 'core/abstract/class-addon-field.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge', wponion()->path( 'core/abstract/class-bridge.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Module', wponion()->path( 'core/abstract/class-module.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB_Cache', wponion()->path( 'core/abstract/class-module-db-cache.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB', wponion()->path( 'core/abstract/class-module-db.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Theme_API', wponion()->path( 'core/abstract/class-theme-api.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Addon', wponion()->path( 'core/abstract/class-addon.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Addon_Field', wponion()->path( 'core/abstract/class-addon-field.php' ) );
 
 			//Remap Field & Field Cloner.
-			self::$field_autoloader->map( 'WPOnion\Field', wponion()->inc( 'core/abstract/class-field.php' ) );
+			self::$field_autoloader->map( 'WPOnion\Field', wponion()->path( 'core/abstract/class-field.php' ) );
 		}
 
 		/**
