@@ -12,7 +12,7 @@
  * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
  */
 
-namespace WPOnion;
+namespace WPOnion\WP;
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -21,7 +21,7 @@ if ( ! class_exists( '\WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if ( ! class_exists( '\WPOnion\WP_List_Table' ) ) {
+if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 	/**
 	 * Class WP_List_Table
 	 *
@@ -82,16 +82,14 @@ if ( ! class_exists( '\WPOnion\WP_List_Table' ) ) {
 			$this->table_settings = wp_parse_args( $table_settings, array(
 				/**
 				 * Default Settings.
-				 */
-				'plural'           => '',
+				 */ 'plural'       => '',
 				'singular'         => '',
 				'ajax'             => false,
 				'screen'           => 'post',
 
 				/**
 				 * Custom Settings.
-				 */
-				'no_items'         => __( 'No Items Found', 'wponion' ),
+				 */ 'no_items'     => __( 'No Items Found', 'wponion' ),
 				'columns'          => array(),
 				'sortable'         => array(),
 				'default_callback' => array(),
