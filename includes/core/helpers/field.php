@@ -608,21 +608,19 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 	 * @return mixed
 	 */
 	function wponion_get_fonts_array( $google_fonts = true, $websafe_fonts = true, $group = true ) {
-		static $fonts_array = array();
-
 		$gfonts   = ( true === $google_fonts ) ? 'yes' : 'no';
 		$webfonts = ( true === $websafe_fonts ) ? 'yes' : 'no';
 		$_group   = ( true === $group ) ? 'yes' : 'no';
-		$key      = $gfonts . $webfonts . $_group;
+		$key      = 'web_fonts/' . $gfonts . $webfonts . $_group;
 
-		if ( ! isset( $fonts_array[ $key ] ) ) {
-			$fonts_array[ $key ] = array();
+		if ( ! wponion_has_cache( $key ) ) {
+			$_fonts = array();
 			if ( true === $websafe_fonts ) {
 				$fonts = wponion_websafe_fonts();
 				if ( true === $group ) {
-					$fonts_array[ $key ][ __( 'Websafe Fonts', 'wponion' ) ] = $fonts['fonts'];
+					$_fonts[ __( 'Websafe Fonts', 'wponion' ) ] = $fonts['fonts'];
 				} else {
-					$fonts_array[ $key ] = wponion_parse_args( $fonts_array[ $key ], $fonts['fonts'] );
+					$_fonts = wponion_parse_args( $_fonts, $fonts['fonts'] );
 				}
 			}
 
@@ -630,14 +628,15 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 				$fonts = array_keys( wponion_google_fonts_data() );
 				$fonts = array_combine( $fonts, $fonts );
 				if ( true === $group ) {
-					$fonts_array[ $key ][ __( 'Google Fonts', 'wponion' ) ] = $fonts;
+					$_fonts[ __( 'Google Fonts', 'wponion' ) ] = $fonts;
 				} else {
-					$fonts_array[ $key ] = wponion_parse_args( $fonts, $fonts );
+					$_fonts = $fonts;
 				}
 			}
+			wponion_set_cache( $key, $_fonts );
 		}
 
-		return $fonts_array[ $key ];
+		return wponion_get_cache( $key, array() );
 	}
 }
 
