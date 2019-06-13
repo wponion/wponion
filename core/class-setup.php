@@ -150,7 +150,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				),
 			) );
 
-			self::$builder_autoloader = new Autoloader( 'WPO', wponion()->path( 'builder/' ), array(
+			self::$builder_autoloader = new Autoloader( 'WPO', wponion()->inc( 'builder/' ), array(
 				'exclude' => array( 'WPOnion' ),
 				'prepend' => true,
 			) );
