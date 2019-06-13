@@ -229,8 +229,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			) );
 		}
 
-		$output = '';
-		$class  = ( isset( $field['__instance'] ) ) ? $field['__instance'] : false;
+		$class = ( isset( $field['__instance'] ) ) ? $field['__instance'] : false;
 		if ( false === $class ) {
 			$class = wponion_field( $field, $value, $unique );
 			if ( false === $class ) {
@@ -242,20 +241,17 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 			ob_start();
 			$element = ( is_string( $class ) ) ? new $class( $field, $value, $unique ) : $class;
 			echo $element->final_output();
-			$output .= ob_get_clean();
+			$output = ob_get_clean();
 		} else {
-			$args = '';
 			ob_start();
 			echo '<h2>' . __( 'Callback Arguments', 'wponion' ) . '</h2>';
-			var_dump( func_get_args() );
-			$args .= ob_get_clean();
-
-			$type   = ( isset( $field['type'] ) ) ? $field['type'] : false;
+			echo '<pre>' . print_r( func_get_args(), true ) . '</pre>';
+			$args   = ob_get_clean();
 			$output = wponion_add_element( array(
 				'type'        => 'notice',
 				'notice_type' => 'danger',
 				// translators:
-				'content'     => sprintf( __( '<code>%s</code> Field Class Not Found.', 'wponion' ), $type ) . $args,
+				'content'     => sprintf( __( '<code>%s</code> Field Class Not Found.', 'wponion' ), wponion_get_field_type( $field, false ) ) . $args,
 			) );
 		}
 		return $output;
@@ -300,7 +296,7 @@ if ( ! function_exists( 'wponion_noninput_fields' ) ) {
 	 * Returns a list of non editable fileds type.
 	 *
 	 * @return array
-	 *
+	 * @todo check if its required.
 	 */
 	function wponion_noninput_fields() {
 		return apply_filters( 'wponion_non_input_fields', \WPOnion\Registry\Field_Types::get_design() );
@@ -316,8 +312,7 @@ if ( ! function_exists( 'wponion_valid_user_input_field' ) ) {
 	 * @return bool
 	 */
 	function wponion_valid_user_input_field( $field ) {
-		$field = ( wponion_is_array( $field ) ) ? ( isset( $field['type'] ) ) ? $field['type'] : false : $field;
-		return ( ! in_array( $field, wponion_noninput_fields(), true ) );
+		return ( ! in_array( wponion_get_field_type( $field, false ), wponion_noninput_fields(), true ) );
 	}
 }
 
