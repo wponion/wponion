@@ -164,7 +164,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$core_autoloader->map( 'WPOnion\Addon_Field', wponion()->path( 'core/abstract/class-addon-field.php' ) );
 
 			//Remap Field & Field Cloner.
-			self::$field_autoloader->map( 'WPOnion\Field\Cloner', wponion()->path( 'core/class-field-cloner.php' ) );
 			self::$field_autoloader->map( 'WPOnion\Field', wponion()->path( 'core/abstract/class-field.php' ) );
 		}
 
@@ -209,6 +208,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'dimensions', 'all' );
 			\wponion_register_field( 'button_set', 'all' );
 			\wponion_register_field( 'metabox', 'all' );
+			\wponion_register_field( 'modal', 'all' );
 
 			/**
 			 * Registers UI Field.
