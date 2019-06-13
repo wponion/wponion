@@ -243,8 +243,8 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 
 if ( ! function_exists( 'wponion_parse_args' ) ) {
 	/**
-	 * @param $new
-	 * @param $old
+	 * @param array|\WPO\Field $new
+	 * @param array|\WPO\Field $old
 	 *
 	 * @return array|object
 	 */
@@ -253,17 +253,9 @@ if ( ! function_exists( 'wponion_parse_args' ) ) {
 			return wp_parse_args( $new, $old );
 		}
 
-		$_new      = $new;
-		$_defaults = $old;
-
-		if ( wpo_is_field( $new ) ) {
-			$_new = $new->get();
-		}
-		if ( wpo_is_field( $old ) ) {
-			$_defaults = $old->get();
-		}
-
-		$final = wp_parse_args( $_new, $_defaults );
+		$_new      = ( wpo_is_field( $new ) ) ? $new->get() : $new;
+		$_defaults = ( wpo_is_field( $old ) ) ? $old->get() : $old;
+		$final     = wp_parse_args( $_new, $_defaults );
 
 		if ( wpo_is_field( $new ) ) {
 			$new->set( $final );
