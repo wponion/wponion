@@ -506,7 +506,6 @@ if ( ! function_exists( 'wponion_websafe_fonts' ) ) {
 				'Palatino Linotype'   => __( 'Palatino Linotype', 'wponion' ),
 				'Times New Roman'     => __( 'Times New Roman', 'wponion' ),
 			),
-
 		) );
 	}
 }
@@ -594,27 +593,6 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 			}
 		}
 
-		return $return;
-	}
-}
-
-if ( ! function_exists( 'wponion_extract_font_variant' ) ) {
-	/**
-	 * Checks and extracts font details.
-	 *
-	 * @param $value
-	 *
-	 * @return mixed
-	 */
-	function wponion_extract_font_variant( $value ) {
-		preg_match( '/(\d+)([a-z]+)/', $value, $matches );
-		$return = array();
-		if ( isset( $matches[1] ) ) {
-			$return['weight'] = $matches[1];
-		}
-		if ( isset( $matches[2] ) ) {
-			$return['style'] = $matches[2];
-		}
 		return $return;
 	}
 }
