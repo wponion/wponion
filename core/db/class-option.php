@@ -142,7 +142,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * @return bool
 		 */
 		public function has( $option_key ) {
-			return Helper::array_key_isset( $this->op_key( $option_key ), $this->options, false, $this->delimiter );
+			return Helper::array_key_isset( $this->op_key( $option_key ), $this->options, $this->delimiter );
 		}
 
 		/**
