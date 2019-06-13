@@ -279,6 +279,45 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			}
 			wp_send_json_error();
 		}
+
+		public function modal_popup_fields() {
+			$field_path = ( isset( $_POST['field_path'] ) ) ? $_POST['field_path'] : false;
+			$unique     = ( isset( $_POST['unique'] ) ) ? $_POST['unique'] : false;
+			$module     = ( isset( $_POST['module'] ) ) ? $_POST['module'] : false;
+
+			if ( empty( $field_path ) || empty( $unique ) || empty( $module ) ) {
+				wp_send_json_error();
+			}
+			$field_path = explode( '/', $field_path );
+			$base       = array_shift( $field_path );
+			$field_path = implode( '/', $field_path );
+			if ( empty( $base ) ) {
+				wp_send_json_error();
+			}
+
+			$function     = 'wponion_' . $module;
+			$val_function = 'wpo_' . $module;
+
+			if ( ! function_exists( $function ) || ! function_exists( $val_function ) ) {
+				wp_send_json_error();
+			}
+
+			/**
+			 * @var \WPOnion\Bridge\Module $module
+			 * @var \WPO\Field             $field
+			 * @var \WPOnion\DB\Option     $val_function
+			 */
+			$module = $function( $base );
+			$field  = $module->fields()
+				->get( $field_path );
+			$values = $val_function( $base )->get( $unique . '/' . $field->get_id() );
+			$field->only_field( true );
+
+			if ( ! empty( $field ) ) {
+				echo $field->render( $values, $unique );
+			}
+			exit;
+		}
 	}
 }
 return new Core_Ajax;
