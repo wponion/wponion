@@ -396,6 +396,9 @@ if ( ! function_exists( 'wponion_handle_array_merge' ) ) {
 	}
 }
 
+// WPOnion Cache Related Functions
+require_once wponion()->path( 'core/helpers/cache.php' );
+
 // WPOnion Database Related Functions.
 require_once wponion()->path( 'core/helpers/db.php' );
 
