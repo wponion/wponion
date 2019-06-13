@@ -198,3 +198,51 @@ if ( ! function_exists( 'wponion_layouts_field_option' ) ) {
 		return false;
 	}
 }
+
+if ( ! function_exists( 'wponion_js_obj_name' ) ) {
+	/**
+	 * Returns a quniue js key.
+	 *
+	 * @param string $prefix
+	 * @param string $surfix
+	 * @param string $inner_content
+	 *
+	 * @return string
+	 */
+	function wponion_js_obj_name( $prefix = '', $surfix = '', $inner_content = '' ) {
+		return $prefix . wponion_hash_string( $inner_content ) . $surfix;
+	}
+}
+
+if ( ! function_exists( 'wponion_js_vars' ) ) {
+	/**
+	 * Converts PHP Array into JS JSON String with script tag and returns it.
+	 *
+	 * @param      $object_name
+	 * @param      $l10n
+	 * @param bool $with_script_tag
+	 *
+	 * @return string
+	 */
+	function wponion_js_vars( $object_name, $l10n, $with_script_tag = true ) {
+		foreach ( (array) $l10n as $key => $value ) {
+			if ( ! is_scalar( $value ) ) {
+				continue;
+			}
+			$l10n[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
+		}
+		$script = ( ! empty( $object_name ) ) ? "var $object_name = " . wp_json_encode( $l10n ) . ';' : wp_json_encode( $l10n );
+
+		if ( ! empty( $after ) ) {
+			$script .= "\n$after;";
+		}
+		if ( $with_script_tag ) {
+			$h = "<script type='text/javascript'>\n /* <![CDATA[ */\n";
+			$h = $h . " $script\n";
+			$h = $h . " /* ]]> */\n </script>\n";
+			return $h;
+		}
+		return $script;
+	}
+}
+
