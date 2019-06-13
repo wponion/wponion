@@ -142,9 +142,9 @@ export default class WPOnion {
 		let $defaults = {
 			method: 'post',
 			url: WPOnion.option( 'ajax_url' ),
-			onSuccess: false,
-			onAlways: false,
-			onError: false,
+			success: false,
+			always: false,
+			error: false,
 		};
 
 		if( window.wponion._.isObject( $action ) ) {
@@ -153,7 +153,10 @@ export default class WPOnion {
 			$defaults.url += '&' + WPOnion.option( 'ajax_action_key' ) + '=' + $action;
 		}
 
-		$defaults  = window.wponion._.merge( $defaults, $data );
+		$defaults = window.wponion._.merge( $defaults, $data );
+
+		return wponion_ajax( $defaults );
+
 		$onSuccess = ( window.wponion._.isUndefined( $onSuccess ) || false === $onSuccess ) ? $defaults.onSuccess : $onSuccess;
 		$onAlways  = ( window.wponion._.isUndefined( $onError ) || false === $onError ) ? $defaults.onAlways : $onAlways;
 		$onError   = ( window.wponion._.isUndefined( $onAlways ) || false === $onAlways ) ? $defaults.onError : $onError;

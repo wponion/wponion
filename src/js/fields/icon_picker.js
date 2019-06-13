@@ -79,27 +79,25 @@ class field extends WPOnion_Field {
 				$work.elm.find( 'div.wponion-icon-picker-model-header select' ).on( 'change', function() {
 					swal.enableLoading();
 					let $val = jQuery( this ).val();
-					$wponion.ajax( 'icon_picker', {
-							data: {
-								'wponion-icon-lib': $val,
-								enabled: $args.enabled,
-								disabled: $args.disabled,
-							}
+					$_this.ajax( 'icon_picker', {
+						data: {
+							'wponion-icon-lib': $val,
+							enabled: $args.enabled,
+							disabled: $args.disabled,
 						},
-						( $res ) => {
-							if( $res.success ) {
-								swal.resetValidationMessage();
-								jQuery( $work.elm ).find( '#swal2-content' ).html( $res.data ).show();
-								jQuery( $work.elm ).find( '#swal2-content .wponion-icon-picker-container-scroll' );
-								$work.init( $work.elm, $work.popup );
-							} else {
-								jQuery( $work.elm ).find( '.wponion-icon-picker-container-scroll' ).remove();
-								$work.popup.showValidationMessage( $res.data );
-							}
+						success: ( $res ) => {
+							swal.resetValidationMessage();
+							jQuery( $work.elm ).find( '#swal2-content' ).html( $res ).show();
+							jQuery( $work.elm ).find( '#swal2-content .wponion-icon-picker-container-scroll' );
+							$work.init( $work.elm, $work.popup );
 						},
-						() => $work.popup.showValidationMessage( $wponion.txt( 'unknown_ajax_error' ) ),
-						() => $work.popup.disableLoading()
-					);
+						error: ( $res ) => {
+							$res = ( $res ) ? $res : $wponion.txt( 'unknown_ajax_error' );
+							jQuery( $work.elm ).find( '.wponion-icon-picker-container-scroll' ).remove();
+							$work.popup.showValidationMessage( $res );
+						},
+						always: () => $work.popup.disableLoading(),
+					} ).send();
 				} );
 			}
 		};
@@ -128,7 +126,7 @@ class field extends WPOnion_Field {
 		/**
 		 * Handles Add Button Click Event.
 		 */
-		$add_btn.on( 'click', function() {
+		$add_btn.on( 'click', () => {
 			let $popup = swal.fire( {
 				title: $elem.find( '.wponion-field-title h4' ).html(),
 				animation: false,
@@ -139,25 +137,24 @@ class field extends WPOnion_Field {
 				customClass: 'wponion-icon-picker-model',
 				onBeforeOpen: ( $elem ) => {
 					swal.enableLoading();
-					$_this.ajax( 'icon_picker', {
+					this.ajax( 'icon_picker', {
 						data: {
 							enabled: $args.enabled,
 							disabled: $args.disabled,
 						},
-						onSuccess: ( $res ) => {
-							if( $res.success ) {
-								swal.resetValidationMessage();
-								let $popup_elem = jQuery( $elem );
-								$popup_elem.find( '#swal2-content' ).html( $res.data ).show();
-								$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' );
-								$work.init( $popup_elem, $popup );
-							} else {
-								$popup.showValidationMessage( $res.data );
-							}
+						success: ( $res ) => {
+							swal.resetValidationMessage();
+							let $popup_elem = jQuery( $elem );
+							$popup_elem.find( '#swal2-content' ).html( $res ).show();
+							$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' );
+							$work.init( $popup_elem, $popup );
 						},
-						onError: () => $popup.showValidationMessage( $wponion.txt( 'unknown_ajax_error' ) ),
-						onAlways: () => $popup.disableLoading(),
-					} );
+						error: ( $res ) => {
+							$res = ( $res ) ? $res : $wponion.txt( 'unknown_ajax_error' );
+							$popup.showValidationMessage( $wponion.txt( 'unknown_ajax_error' ) );
+						},
+						always: () => $popup.disableLoading(),
+					} ).send();
 				}
 			} );
 		} );
