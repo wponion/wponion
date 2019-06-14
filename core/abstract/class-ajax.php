@@ -278,5 +278,24 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 			}
 			return false;
 		}
+
+		/**
+		 * Fetchs The Field.
+		 *
+		 * @return array|bool|\WPO\Container|\WPO\Field
+		 */
+		protected function get_field() {
+			$module = $this->get_module();
+			if ( method_exists( $module, 'fields' ) ) {
+				$fields = $module->fields();
+				unset( $module );
+				if ( method_exists( $fields, 'get' ) ) {
+					return $fields->get( $this->field_path() );
+				}
+				$this->error( __( 'Unable To Fetch The Field' ) );
+			}
+			$this->error( __( 'Unable To Find The Field' ) );
+			return false;
+		}
 	}
 }
