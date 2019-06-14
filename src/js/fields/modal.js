@@ -22,11 +22,7 @@ class field extends WPOnion_Field {
 		let $validation    = false;
 		$args.preConfirm   = () => {
 			return new Promise( ( resolve, reject ) => {
-				let $a = $validation.form.valid();
-				if( $a ) {
-					return resolve();
-				}
-				return reject();
+				return ( $validation.form.valid() ) ? resolve() : reject();
 			} ).catch( () => {
 				return false;
 			} );
@@ -36,10 +32,6 @@ class field extends WPOnion_Field {
 			let $hidden   = this.element.find( '.wponion-modal-hidden-data' );
 			window.swal.showLoading();
 			this.ajax( 'modal-popup-fields', {
-				data: {
-					unique: this.option( 'unique' ),
-					field_path: this.option( 'field_path' ),
-				},
 				always: () => window.swal.hideLoading(),
 				success: ( res ) => {
 					let $html = '<form method="post">' + res + '</form>';
@@ -48,15 +40,9 @@ class field extends WPOnion_Field {
 					$mainelem.show();
 					window.wponion_field( $mainelem ).reload();
 				},
-				error: () => {
-					window.swal.fire( {
-						type: 'error',
-						text: window.wponion.core.txt( 'unknown_ajax_error' ),
-					} );
-				},
+				error: ( res ) => wponion_error_swal( res ),
 			} ).send();
 
-			//wponion_field( $mainelem ).reload();
 			$mainelem.on( 'blur change click dblclick error keydown keypress keyup select', () => {
 				let $inputs = $mainelem.find( ':input' ).serializeArray();
 				$hidden.html( '' );
