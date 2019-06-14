@@ -7,20 +7,22 @@ export default ( ( window, document, $, wp ) => {
 				$json.action            = 'wponion-ajax';
 				$json[ 'wponion-ajax' ] = 'sysinfo_emailer';
 				$json.sysinfo           = jQuery( 'div#sysreport > textarea' ).html();
-				return window.wponion_ajax( {
-					data: $json,
-					success: function() {
-						swal.fire( {
-							type: 'success',
-							text: window.wponion.core.txt( 'email_sent' ),
-						} );
-					}, error: function() {
-						swal.fire( {
-							type: 'error',
-							text: window.wponion.core.txt( 'unknown_ajax_error' ),
-						} );
-					},
-				} ).send();
+
+				return new Promise( ( resolve, reject ) => {
+					return window.wponion_ajax( {
+						data: $json,
+						success: () => {
+							swal.fire( { type: 'success', text: window.wponion.core.txt( 'email_sent' ) } );
+							resolve();
+						},
+						error: ( res ) => {
+							wponion_error_swal( res ).fire();
+							reject();
+						},
+					} ).send();
+				} ).catch( () => {
+					return false;
+				} );
 			};
 			swal.fire( $arg );
 		} );
