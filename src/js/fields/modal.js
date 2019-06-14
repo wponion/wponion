@@ -1,4 +1,5 @@
 import WPOnion_Field from '../core/field';
+import WPOnion_Validator from '../core/validation';
 
 class field extends WPOnion_Field {
 	/**
@@ -18,28 +19,42 @@ class field extends WPOnion_Field {
 
 	init_sweatalert() {
 		let $args          = this.option( 'modal_config' );
+		let $validation    = false;
+		$args.preConfirm   = () => {
+			return new Promise( ( resolve, reject ) => {
+				let $a = $validation.form.valid();
+				if( $a ) {
+					return resolve();
+				}
+				return reject();
+			} ).catch( () => {
+				return false;
+			} );
+		};
 		$args.onBeforeOpen = () => {
 			let $mainelem = this.element.find( '#swal2-content' );
 			let $hidden   = this.element.find( '.wponion-modal-hidden-data' );
-			swal.showLoading();
+			window.swal.showLoading();
 			this.ajax( 'modal-popup-fields', {
 				data: {
 					unique: this.option( 'unique' ),
 					field_path: this.option( 'field_path' ),
 				},
-				onAlways: () => swal.hideLoading(),
-				onSuccess: ( res ) => {
-					$mainelem.html( res );
-					wponion_field( $mainelem ).reload();
+				always: () => window.swal.hideLoading(),
+				success: ( res ) => {
+					let $html = '<form method="post">' + res + '</form>';
+					$mainelem.html( jQuery( $html ) );
+					$validation = new WPOnion_Validator( $mainelem.find( '> form' ) );
 					$mainelem.show();
+					window.wponion_field( $mainelem ).reload();
 				},
-				onError: () => {
-					swal.fire( {
+				error: () => {
+					window.swal.fire( {
 						type: 'error',
 						text: window.wponion.core.txt( 'unknown_ajax_error' ),
 					} );
 				},
-			} );
+			} ).send();
 
 			//wponion_field( $mainelem ).reload();
 			$mainelem.on( 'blur change click dblclick error keydown keypress keyup select', () => {
@@ -50,7 +65,6 @@ class field extends WPOnion_Field {
 						$hidden.append( '<input type="hidden" name="' + $inputs[ $i ].name + '" value="' + $inputs[ $i ].value + '">' );
 					}
 				}
-
 			} );
 		};
 		$args              = this.handle_args( $args, 'SweatAlert Modal' );
