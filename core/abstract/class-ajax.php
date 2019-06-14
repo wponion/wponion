@@ -16,11 +16,29 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 	 */
 	abstract class Ajax {
 		/**
+		 * @var bool
+		 * @access
+		 */
+		protected $validate_module = true;
+
+		/**
+		 * @var bool
+		 * @access
+		 */
+		protected $validate_field_path = true;
+
+		/**
 		 * Ajax constructor.
 		 */
 		public function __construct() {
-			$this->validate( 'module', __( 'Unable To Find The Module' ), false, 'REQUEST' );
-			$this->validate( 'field_path', __( 'Unable To Find The Field' ), false, 'REQUEST' );
+
+			if ( $this->validate_module ) {
+				$this->validate( 'module', __( 'Unable To Find The Module' ), false, 'REQUEST' );
+			}
+
+			if ( $this->validate_field_path ) {
+				$this->validate( 'field_path', __( 'Unable To Find The Field' ), false, 'REQUEST' );
+			}
 			$this->run();
 			$this->json_error();
 		}
@@ -296,6 +314,17 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 			}
 			$this->error( __( 'Unable To Find The Field' ) );
 			return false;
+		}
+
+		/**
+		 * Catches Ajax Localizer Output.
+		 *
+		 * @return false|string
+		 */
+		protected function localizer() {
+			wponion_catch_output( true );
+			wponion_localize()->render_js_args();
+			return wponion_catch_output( false );
 		}
 	}
 }
