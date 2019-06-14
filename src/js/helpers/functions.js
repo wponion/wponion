@@ -422,8 +422,8 @@ export default ( ( window, document, $, jQuery ) => {
 
 		return window.swal.mixin( {
 			type: 'error',
-			title: $title,
-			text: $message,
+			title: ( $title ) ? $title : null,
+			text: ( $message ) ? $message : null,
 		} );
 	};
 

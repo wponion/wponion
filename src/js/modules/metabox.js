@@ -39,15 +39,20 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 			jQuery( this ).attr( 'name', jQuery( this ).attr( 'id' ) );
 		} );
 		let $fields = $parent.parent().find( ':input' );
-		let $values = $fields.serialize();
+		let $values = $fields.serializeJSON();
 		$hidden.find( 'input' ).removeAttr( 'name' );
 
-		$wponion.ajax( 'save_metabox', { data: $values }, function( res ) {
-			$base.html( res );
-			$base.unblock();
-			window.wponion_field( $base.find( '.wponion-framework' ) ).reload();
-			window.wponion_theme( $base.find( '.wponion-framework' ) );
-		} );
+		$wponion.ajax( 'save_metabox', {
+			data: $values,
+			success: ( res ) => {
+				$base.html( res );
+				let $elem = $base.find( '.wponion-framework' );
+				window.wponion_field( $elem ).reload();
+				window.wponion_theme( $elem );
+			},
+			always: () => $base.unblock(),
+			error: ( res ) => wponion_error_swal( res ).fire(),
+		} ).send();
 	}
 }
 
