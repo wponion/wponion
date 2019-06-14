@@ -1,5 +1,4 @@
 import WPOnion_Field from '../core/field';
-import $wponion from '../core/core';
 
 /*global swal:true*/
 
@@ -10,7 +9,6 @@ class field extends WPOnion_Field {
 	init() {
 		let $_this      = this,
 			$elem       = $_this.element,
-			$args       = $_this.options(),
 			$input      = $elem.find( '.wponion-icon-picker-input' ),
 			$remove_btn = $elem.find( 'button[data-wponion-iconpicker-remove]' ),
 			$add_btn    = $elem.find( 'button[data-wponion-iconpicker-add]' ),
@@ -25,10 +23,10 @@ class field extends WPOnion_Field {
 			elm: null,
 			//Creates A New Instance for ToolTip.
 			init_tooltip: () => {
-				if( $args.popup_tooltip !== 'false' ) {
-					let $tp      = ( typeof $args.popup_tooltip === 'object' ) ? $args.popup_tooltip : {};
+				if( this.option( 'popup_tooltip' ) !== 'false' ) {
+					let $tp      = ( typeof this.option( 'popup_tooltip' ) === 'object' ) ? this.option( 'popup_tooltip' ) : {};
 					$tp.appendTo = $work.elm[ 0 ];
-					$tp          = $wponion.js_func( $tp );
+					$tp          = window.wponion.core.js_func( $tp );
 					if( $work.elems.length > 0 ) {
 						$work.elems.each( function() {
 							let $ep = window.wponion._.cloneDeep( $tp );
@@ -80,21 +78,15 @@ class field extends WPOnion_Field {
 					swal.enableLoading();
 					let $val = jQuery( this ).val();
 					$_this.ajax( 'icon_picker', {
-						data: {
-							'wponion-icon-lib': $val,
-							enabled: $args.enabled,
-							disabled: $args.disabled,
-						},
+						data: { 'wponion-icon-lib': $val },
 						success: ( $res ) => {
-							swal.resetValidationMessage();
 							jQuery( $work.elm ).find( '#swal2-content' ).html( $res ).show();
 							jQuery( $work.elm ).find( '#swal2-content .wponion-icon-picker-container-scroll' );
 							$work.init( $work.elm, $work.popup );
 						},
 						error: ( $res ) => {
-							$res = ( $res ) ? $res : $wponion.txt( 'unknown_ajax_error' );
 							jQuery( $work.elm ).find( '.wponion-icon-picker-container-scroll' ).remove();
-							$work.popup.showValidationMessage( $res );
+							wponion_error_swal( $res ).fire();
 						},
 						always: () => $work.popup.disableLoading(),
 					} ).send();
@@ -138,20 +130,14 @@ class field extends WPOnion_Field {
 				onBeforeOpen: ( $elem ) => {
 					swal.enableLoading();
 					this.ajax( 'icon_picker', {
-						data: {
-							enabled: $args.enabled,
-							disabled: $args.disabled,
-						},
 						success: ( $res ) => {
-							swal.resetValidationMessage();
 							let $popup_elem = jQuery( $elem );
 							$popup_elem.find( '#swal2-content' ).html( $res ).show();
 							$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' );
 							$work.init( $popup_elem, $popup );
 						},
 						error: ( $res ) => {
-							$res = ( $res ) ? $res : $wponion.txt( 'unknown_ajax_error' );
-							$popup.showValidationMessage( $wponion.txt( 'unknown_ajax_error' ) );
+							wponion_error_swal( $res ).fire( { animation: false } );
 						},
 						always: () => $popup.disableLoading(),
 					} ).send();
