@@ -31,15 +31,10 @@ class WPOnion_Settings_Module extends WPOnion_Module {
 								delete $settings.toast;
 								wponion_swal_toast().fire( $settings );
 							} else {
-								window.swal.fire( window.wponion._.merge( {
-									type: 'success'
-								}, $settings ) );
+								window.swal.fire( window.wponion._.merge( { type: 'success' }, $settings ) );
 							}
 						} else {
-							window.swal.fire( {
-								type: 'success',
-								title: $settings,
-							} );
+							window.swal.fire( { type: 'success', title: $settings, } );
 						}
 
 						let $elm = jQuery( '.wponion-framework' );
@@ -48,9 +43,7 @@ class WPOnion_Settings_Module extends WPOnion_Module {
 						window.wponion_field( $elm ).reload();
 						wponion_dependency( $elm );
 					},
-					error: () => {
-						this.element.parent().submit();
-					}
+					error: () => this.element.parent().submit()
 				} ).send();
 			} );
 		}
