@@ -319,6 +319,32 @@ if ( ! function_exists( 'wponion_handle_array_merge' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_catch_output' ) ) {
+	/**
+	 * @param bool|string $type
+	 *
+	 * @return false|string
+	 */
+	function wponion_catch_output( $type = true ) {
+		$data = false;
+		if ( true === $type ) {
+			ob_start();
+		}
+
+		if ( false === $type ) {
+			$data = ob_get_clean();
+			ob_flush();
+		}
+
+		if ( wponion_is_callable( $type ) ) {
+			wponion_catch_output( true );
+			echo wponion_callback( $type );
+			$data = wponion_catch_output( false );
+		}
+		return $data;
+	}
+}
+
 // WPOnion Cache Related Functions
 require_once wponion()->path( 'core/helpers/cache.php' );
 
