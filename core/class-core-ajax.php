@@ -14,9 +14,6 @@
 
 namespace WPOnion;
 
-use WPOnion\Modules\Settings\Network;
-use WPOnion\Modules\Settings\Settings;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
