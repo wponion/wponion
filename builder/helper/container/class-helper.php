@@ -143,7 +143,13 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * @return $this|\WPO\Container
 		 */
 		public function set_fields( $fields ) {
-			$this->fields = $fields;
+			if ( wponion_is_array( $fields ) && ! empty( $fields ) ) {
+				foreach ( $fields as $field ) {
+					if ( \WPO\Field::is_valid( $field ) ) {
+						$this->field( $field );
+					}
+				}
+			}
 			return $this;
 		}
 
