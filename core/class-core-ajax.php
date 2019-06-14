@@ -44,82 +44,16 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 			if ( isset( $_REQUEST['wponion-ajax'] ) && ! empty( $_REQUEST['wponion-ajax'] ) ) {
 				defined( 'WPONION_DOING_AJAX' ) || define( 'WPONION_DOING_AJAX', true );
 				$function = str_replace( '-', '_', sanitize_title( sanitize_text_field( $_REQUEST['wponion-ajax'] ) ) );
-				if ( method_exists( $this, $function ) ) {
+				if ( class_exists( '\WPOnion\Ajax\\' . strtolower( $function ) ) ) {
+					$class = '\wponion\ajax\\' . strtolower( $function );
+					new $class();
+				} elseif ( method_exists( $this, $function ) ) {
 					wponion_callback( array( &$this, $function ) );
+				} else {
+					do_action( 'wponion_ajax_' . $_REQUEST['wponion-ajax'] );
 				}
 			}
 			wp_die();
-		}
-
-		/**
-		 * Handles Icon Picker Ajax Request.
-		 */
-		public function icon_picker() {
-			$libs     = Icons::icon_list();
-			$enabled  = ( isset( $_REQUEST['enabled'] ) ) ? $_REQUEST['enabled'] : true;
-			$disabled = ( isset( $_REQUEST['disabled'] ) ) ? $_REQUEST['disabled'] : false;
-
-			if ( wponion_is_array( $enabled ) ) {
-				foreach ( $libs as $name => $_n ) {
-					if ( ! in_array( $name, $enabled, true ) ) {
-						unset( $libs[ $name ] );
-					}
-				}
-			} elseif ( is_string( $enabled ) && ( true !== $enabled || false !== $enabled ) ) {
-				if ( isset( $libs[ $enabled ] ) ) {
-					$libs = $libs[ $enabled ];
-				}
-			}
-
-			if ( wponion_is_array( $disabled ) && wponion_is_array( $libs ) ) {
-				foreach ( $libs as $name => $_n ) {
-					if ( in_array( $name, $disabled, true ) ) {
-						unset( $libs[ $name ] );
-					}
-				}
-			}
-
-			$default_lib  = wponion_is_array( $libs ) ? current( array_keys( $libs ) ) : $libs;
-			$selected_lib = ( isset( $_REQUEST['wponion-icon-lib'] ) ) ? $_REQUEST['wponion-icon-lib'] : $default_lib;
-			$selected_lib = ( ! isset( $libs[ $selected_lib ] ) ) ? $default_lib : $selected_lib;
-			$json         = Icons::get( $selected_lib );
-			$html         = '<div class="wponion-icon-picker-model-header">';
-			$html         = $html . '<input type="text" placeholder="' . __( 'Search Icon', 'wponion' ) . '"/>';
-
-			if ( wponion_is_array( $libs ) && count( $libs ) > 1 ) {
-				$html = $html . '<select>';
-				foreach ( $libs as $lib => $ejson ) {
-					$is_selected = ( $lib === $selected_lib ) ? ' selected="selected" ' : '';
-					$html        = $html . '<option value="' . $lib . '" ' . $is_selected . '>' . $ejson . '</option>';
-				}
-				$html .= '</select>';
-			}
-			$html .= '</div>';
-			if ( wponion_is_array( $json ) && ! empty( $json ) ) {
-				$html .= '<div class="wponion-icon-picker-container-scroll"><div class="wponion-icon-picker-container">';
-				foreach ( $json as $json_title => $icons ) {
-					if ( wponion_is_array( $icons ) ) {
-						foreach ( $icons as $key => $icon ) {
-							$_icon = ( is_numeric( $key ) ) ? $icon : $key;
-							$title = ( is_numeric( $key ) ) ? $icon : $icon;
-							$html  .= '<div class="wponion-icon-preview-wrap">';
-							$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
-							$html  .= '</div>';
-						}
-					} else {
-						$_icon = ( is_numeric( $json_title ) ) ? $icons : $json_title;
-						$title = ( is_numeric( $json_title ) ) ? $icons : $icons;
-						$html  .= '<div class="wponion-icon-preview-wrap">';
-						$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
-						$html  .= '</div>';
-					}
-				}
-				$html .= '</div>';
-			} else {
-				wp_send_json_error( __( 'Icon Library Not found', 'wponion' ) );
-			}
-			$html .= '</div>';
-			wp_send_json_success( $html );
 		}
 
 		/**
