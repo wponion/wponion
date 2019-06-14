@@ -78,21 +78,6 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		}
 
 		/**
-		 * Generates Oembed Preview.
-		 */
-		public function oembed_preview() {
-			$args  = array( 'width' => 360 );
-			$embed = wp_oembed_get( $_REQUEST['value'], $args );
-
-			if ( ! $embed ) {
-				global $wp_embed;
-				$wp_embed->return_false_on_fail = true; // Do not fallback to make a link.
-				$embed                          = $wp_embed->shortcode( $args, $_REQUEST['value'] );
-			}
-			( $embed ) ? wp_send_json_success( $embed ) : wp_send_json_error();
-		}
-
-		/**
 		 * Handles Saving Bulk Edit Data.
 		 */
 		public function save_bulk_edit() {
