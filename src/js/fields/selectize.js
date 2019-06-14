@@ -16,23 +16,14 @@ class field extends WPOnion_Field {
 		if( this.option( 'ajax' ) ) {
 			$arg.load = ( query, callback ) => {
 				if( query === undefined ) {
-					if( callback !== undefined ) {
-						return callback();
-					}
-					return false;
+					return ( callback !== undefined ) ? callback() : false;
 				}
 
-				this.ajax( 'ajax-wp-query-data', {
+				this.ajax( 'wp-query-data', {
 					dataType: 'json',
-					data: {
-						s: query,
-						query_args: this.option( 'query_args' ),
-						query_options: this.option( 'query_options' ),
-					},
-					onError: function() {
-						callback();
-					},
-					onSuccess: ( res ) => {
+					data: { s: query },
+					error: () => callback(),
+					success: ( res ) => {
 						let terms = [];
 						let ins   = this.element[ 0 ].selectize;
 						if( res ) {
@@ -45,7 +36,7 @@ class field extends WPOnion_Field {
 						}
 						callback( terms );
 					}
-				} );
+				} ).send();
 			};
 		}
 

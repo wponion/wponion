@@ -22,23 +22,17 @@ class field extends WPOnion_Field {
 							terms.push( { id: id, text: text } );
 						} );
 					}
-					return {
-						results: terms
-					};
+					return { results: terms };
 				},
 				data: ( params ) => {
-					return {
-						q: params.term,
-						query_args: this.option( 'query_args' ),
-						query_options: this.option( 'query_options' ),
-					};
+					return { q: params.term };
 				},
 				transport: ( params, success, failure ) => {
-					return this.ajax( 'ajax-wp-query-data', {
+					return this.ajax( 'wp-query-data', {
 						data: params.data,
-						onSuccess: success,
-						onError: failure,
-					} );
+						success: success,
+						error: failure,
+					} ).send();
 				}
 			};
 		}
