@@ -89,8 +89,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			require_once wponion()->path( 'core/helpers/base.php' );
 			require_once wponion()->path( 'core/class-themes.php' );
 			require_once wponion()->path( 'core/class-assets.php' );
-			require_once wponion()->path( 'core/class-core-ajax.php' );
 			require_once wponion()->path( 'core/class-shortcodes.php' );
+
+			require_once wponion()->path( 'core/class-core-ajax.php' );
 
 			/**
 			 * This Hook Fires Before Integrations Files Loads.
@@ -159,6 +160,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module', wponion()->path( 'core/abstract/class-module.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB_Cache', wponion()->path( 'core/abstract/class-module-db-cache.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB', wponion()->path( 'core/abstract/class-module-db.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Ajax', wponion()->path( 'core/abstract/class-ajax.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Theme_API', wponion()->path( 'core/abstract/class-theme-api.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Addon', wponion()->path( 'core/abstract/class-addon.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Addon_Field', wponion()->path( 'core/abstract/class-addon-field.php' ) );
