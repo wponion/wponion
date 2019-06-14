@@ -404,6 +404,29 @@ export default ( ( window, document, $, jQuery ) => {
 		} );
 	};
 
+	/**
+	 * Creates Swal Error.
+	 * @param $title
+	 * @param $message
+	 * @return {*|Function|Object|void}
+	 */
+	window.wponion_error_swal = ( $title = false, $message = false ) => {
+		if( !window.wponion._.isString( $title ) && window.wponion._.isObject( $title ) ) {
+			$message = ( window.wponion._.isUndefined( $title.message ) ) ? '' : $title.message;
+			$title   = ( window.wponion._.isUndefined( $title.title ) ) ? '' : $title.title;
+		}
+
+		if( !$title ) {
+			$title = window.wponion.core.txt( 'unknown_ajax_error' );
+		}
+
+		return window.swal.mixin( {
+			type: 'error',
+			title: $title,
+			text: $message,
+		} );
+	};
+
 	jQuery( window ).on( 'load', function() {
 
 		jQuery( '.wponion-framework pre' ).tippy( {
