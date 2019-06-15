@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 /**
  * @var \WPOnion\Theme\WC         $this
  * @var \WPO\Field|\WPO\Container $container

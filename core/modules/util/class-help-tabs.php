@@ -1,17 +1,4 @@
 <?php
-/**
- *
- * Project : wponion
- * Date : 07-11-2018
- * Time : 06:56 AM
- * File : help-tabs.php
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @package wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Modules\Util;
 

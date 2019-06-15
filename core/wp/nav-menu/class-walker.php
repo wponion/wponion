@@ -1,19 +1,11 @@
 <?php
-/**
- *
- * Project : wponion
- * Date : 24-11-2018
- * Time : 11:56 AM
- * File : class-wp-nav-menu-walker.php
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @package wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\WP\Nav_Menu;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if ( ! class_exists( '\WPOnion\WP\Nav_Menu\Walker' ) ) {
 	/**
 	 * Class Walker

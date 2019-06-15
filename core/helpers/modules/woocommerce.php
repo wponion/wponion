@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if ( ! function_exists( 'wponion_wc_product_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for User Profile. module.

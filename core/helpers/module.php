@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if ( ! function_exists( 'wponion_module_html_class' ) ) {
 	/**
 	 * @param string $module

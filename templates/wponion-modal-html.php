@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 $title = __( 'Close Panel', 'wponion' );
 return <<<HTML
 <div tabindex="0" class="wponion-wp-modal media-modal wp-core-ui">

@@ -2,6 +2,10 @@
 
 namespace WPO\Helper\Container;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 use WPO\Container;
 use WPO\Helper\Base;
 use WPO\Helper\Interfaces\Field;

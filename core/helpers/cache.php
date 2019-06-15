@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! function_exists( 'wponion_set_cache' ) ) {
 	/**

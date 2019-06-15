@@ -8,6 +8,10 @@ use WPOnion\Traits\Countable;
 use WPOnion\Traits\Json_Serialize;
 use WPOnion\Traits\Serializable;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 	/**
 	 * Class Option

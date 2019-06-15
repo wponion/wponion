@@ -2,6 +2,10 @@
 
 namespace WPO\Helper\Field;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 use WPOnion\Registry\Field_Types;
 
 if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {

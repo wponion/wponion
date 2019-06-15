@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if ( ! function_exists( 'wponion_wp_pointers_registry' ) ) {
 	/**
 	 * @param $instance

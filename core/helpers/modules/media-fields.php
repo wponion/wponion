@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if ( ! function_exists( 'wponion_media_fields_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for widgets module.

@@ -1,17 +1,4 @@
 <?php
-/**
- *
- * Project : wponion
- * Date : 24-11-2018
- * Time : 04:48 PM
- * File : class-network-settings.php
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @package wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Modules\Settings;
 

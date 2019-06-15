@@ -1,13 +1,4 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Integrations\Page_Builders;
 
@@ -94,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 		 */
 		private static function set_metaboxes( $dynamic_tags ) {
 			/**
-			 * @var \WPOnion\Modules\Metabox\Metabox                              $mb
+			 * @var \WPOnion\Modules\Metabox\Metabox                      $mb
 			 * @var \WPOnion\Integrations\Page_Builders\Elementor\Metabox $new_class
 			 */
 			$instances = 'all';

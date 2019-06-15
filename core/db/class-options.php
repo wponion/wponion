@@ -2,6 +2,10 @@
 
 namespace WPOnion\DB;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 	/**
 	 * Class Options

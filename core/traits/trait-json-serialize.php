@@ -2,6 +2,10 @@
 
 namespace WPOnion\Traits;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 if ( ! trait_exists( '\WPOnion\Traits\Json_Serialize' ) ) {
 	/**
 	 * Trait Json_Serialize

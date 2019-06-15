@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: varun
- * Date: 28-11-2018
- * Time: 12:00 PM
- */
 
 namespace WPOnion\Modules;
 
