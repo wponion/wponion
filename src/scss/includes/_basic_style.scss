@@ -289,3 +289,51 @@ img[wponion-img-popup] {
 	border: 1px solid #eee;
 }
 
+
+// WordPress Modal.
+
+.wponion-wp-modal {
+	&.wponion-single-modal-view {
+		.media-frame-menu {
+			display: none;
+		}
+
+		.media-frame-title, .media-frame-router, .media-frame-content, .media-frame-toolbar {
+			left: 0px;
+		}
+	}
+
+	&.wponion-wp-modal- {
+		&small {
+			margin:     auto;
+			box-sizing: border-box;
+			max-width:  750px;
+			max-height: 500px;
+		}
+
+		&medium {
+			margin:     auto;
+			box-sizing: border-box;
+			max-width:  840px;
+			max-height: 660px;
+		}
+
+		&large {
+			margin:     auto;
+			box-sizing: border-box;
+			max-width:  1200px;
+			max-height: 800px;
+		}
+	}
+
+	.wponion-modal-content-container {
+		.media-frame-content {
+			.media-content {
+				display: inline-block;
+				width:   calc(75% - 142px);
+				float:   left;
+				padding: 0 16px;
+			}
+		}
+	}
+}
