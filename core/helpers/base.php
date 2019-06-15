@@ -14,14 +14,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'wponion_ajax_action' ) ) {
+	/**
+	 * @param bool $action
+	 *
+	 * @return bool|mixed
+	 */
+	function wponion_ajax_action( $action = false ) {
+		if ( false === $action ) {
+			return ( isset( $_REQUEST['wponion-ajax'] ) ) ? $_REQUEST['wponion-ajax'] : false;
+		}
+		return ( isset( $_REQUEST['wponion-ajax'] ) && $action === $_REQUEST['wponion-ajax'] ) ? true : false;
+	}
+}
+
 if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	/**
 	 * Checks if current request is ajax.
 	 *
-	 * @return bool
+	 * @param bool|string $action
+	 *
+	 * @return bool|mixed
 	 */
-	function wponion_is_ajax() {
-		return ( isset( $_POST ) && isset( $_POST['action'] ) && 'heartbeat' === $_POST['action'] ) ? true : false;
+	function wponion_is_ajax( $action = false ) {
+		if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
+			if ( false === $action ) {
+				return ( isset( $_REQUEST['action'] ) ) ? $_REQUEST['action'] : false;
+			}
+			return ( isset( $_REQUEST['action'] ) && $action === $_REQUEST['action'] ) ? true : false;
+		}
+		return false;
 	}
 }
 
