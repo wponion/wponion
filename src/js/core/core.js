@@ -2,6 +2,7 @@ import {
 	call_user_func,
 	is_jquery,
 	is_window_arg,
+	window_arg,
 	md5,
 	microtime,
 	rand_md5,
@@ -195,5 +196,20 @@ export default class WPOnion {
 			compiled = compiled || window.wponion._.template( $id, options );
 			return compiled( data );
 		};
+	}
+
+	/**
+	 * Appends Script Data To Existing Thing.
+	 * @param $html
+	 * @return {jQuery}
+	 */
+	static script_tag( $html ) {
+		if( window.wponion._.isObject( $html ) ) {
+			for( let $i in $html ) {
+				if( $html.hasOwnProperty( $i ) ) {
+					window_arg( $i, $html[ $i ] );
+				}
+			}
+		}
 	}
 }
