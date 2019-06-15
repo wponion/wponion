@@ -3,6 +3,7 @@
 namespace WPOnion\Ajax;
 
 use WPOnion\Bridge\Ajax;
+use WPOnion\Field\Modal;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -28,13 +29,18 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 			$values = $module->get_db_values()
 				->get( $unique . '/' . $field->get_id() );
 			$field->only_field( true );
-
-			if ( ! empty( $field ) ) {
-				echo $field->render( $values, $unique );
+			$data = $field->init_field( $values, array(
+				'unique' => $unique,
+				'module' => $this->post( 'module' ),
+			) );
+			if ( $data instanceof Modal ) {
+				$this->json_success( array(
+					'html'   => ( isset( $field['modal_type'] ) && 'wp' === $field['modal_type'] ) ? $data->wp() : $data->swal(),
+					'script' => $this->localizer(),
+				) );
+			} else {
+				$this->json_error( __( 'Modal Field Not Found' ) );
 			}
-
-			$data = wponion_catch_output( false ) . ' ' . $this->localizer();
-			$this->json_success( $data );
 		}
 	}
 }
