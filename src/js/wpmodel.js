@@ -1,3 +1,6 @@
+/**
+ * Events : before_close, after_close, page_open_{page}, section_open_{page}_{section}
+ */
 export default Backbone.View.extend( {
 	// Stores All Templates HTML.
 	templates: {},
@@ -29,9 +32,17 @@ export default Backbone.View.extend( {
 		this.modal_html = $html;
 
 		'use strict';
-		_.bindAll( this, 'render', 'preserveFocus', 'closeModal', 'saveModal', 'doNothing' );
+		_.bindAll( this, 'render', 'preserveFocus', 'closeModal', 'saveModal' );
+	},
+
+	/**
+	 * Opens Modal.
+	 */
+	open: function() {
+		this.trigger( 'before_open' );
 		this.init_templates();
 		this.render();
+		this.trigger( 'open' );
 	},
 
 	/**
@@ -44,6 +55,7 @@ export default Backbone.View.extend( {
 		this.templates.window           = window.wponion.core.template( $modal.html );
 		this.templates.page_content     = window.wponion.core.template( $modal.page_content );
 		this.templates.section_content  = window.wponion.core.template( $modal.section_content );
+		this.trigger( 'template_loaded' );
 	},
 
 	/**
@@ -196,6 +208,7 @@ export default Backbone.View.extend( {
 
 		this.active_page    = $target.attr( 'href' );
 		this.active_section = null;
+		this.trigger( 'page_open_' + this.active_page );
 		this.activate_main_menu( $show_target );
 	},
 
@@ -213,6 +226,7 @@ export default Backbone.View.extend( {
 		$target.addClass( 'active' );
 		$base.find( '.wponion-section-modal-content' ).hide();
 		$base.find( '#' + this.active_page + '_' + this.active_section ).show();
+		this.trigger( 'section_open_'.this.active_page + '_' + this.active_section );
 	},
 
 	/**
@@ -253,11 +267,13 @@ export default Backbone.View.extend( {
 	 */
 	closeModal: function( e ) {
 		'use strict';
+		this.trigger( 'before_close' );
 		e.preventDefault();
 		this.undelegateEvents();
 		jQuery( document ).off( 'focusin' );
 		jQuery( 'body' ).css( { 'overflow': 'auto' } );
 		this.remove();
+		this.trigger( 'after_close' );
 	},
 
 	/**
@@ -269,14 +285,4 @@ export default Backbone.View.extend( {
 		'use strict';
 		this.closeModal( e );
 	},
-
-	/**
-	 * Ensures that events do nothing.
-	 * @param e {object} A jQuery-normalized event object.
-	 * @todo You should probably delete this and add your own handlers.
-	 */
-	doNothing: function( e ) {
-		'use strict';
-		e.preventDefault();
-	}
 } );
