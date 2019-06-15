@@ -13,8 +13,16 @@ class field extends WPOnion_Field {
 				case 'alert':
 					this.init_sweatalert();
 					break;
+				case 'wp':
+					this.init_wp();
+					break;
 			}
 		} );
+	}
+
+
+	init_wp() {
+		let $a = new window.wponion.modal( this.option( 'modal_config' ), this.option( 'modal_html' ) );
 	}
 
 	init_sweatalert() {
