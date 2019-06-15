@@ -8,8 +8,8 @@ export default Backbone.View.extend( {
 	// Registers Events.
 	events: {
 		'click .media-modal-close': 'closeModal',
-		'click #btn-cancel': 'closeModal',
-		'click #btn-ok': 'saveModal',
+		'click button#wponion-close-modal': 'closeModal',
+		'click button#wponion-save-modal': 'saveModal',
 		'click .media-menu a': 'handle_main_menu',
 		'click .media-router a': 'handle_tab_click',
 	},
@@ -28,6 +28,8 @@ export default Backbone.View.extend( {
 	initialize: function( $modal_options = {}, $html = {} ) {
 		this.options    = _.extend( {
 			size: 'small',
+			save_btn_label: 'Save',
+			close_btn_label: 'Close',
 		}, $modal_options );
 		this.modal_html = $html;
 
@@ -84,7 +86,10 @@ export default Backbone.View.extend( {
 	 * Renders Main HTML.
 	 */
 	render: function() {
-		this.$el.attr( 'tabindex', '0' ).append( this.templates.window() );
+		this.$el.attr( 'tabindex', '0' ).append( this.templates.window( {
+			save_btn_label: this.options.save_btn_label,
+			close_btn_label: this.options.close_btn_label
+		} ) );
 		this.$wpomodal = this.$el.find( '.wponion-wp-modal' );
 		if( !window.wponion._.isUndefined( this.modal_html.html ) || !window.wponion._.isUndefined( this.modal_html.sections ) ) {
 			this.render_single();
@@ -282,6 +287,7 @@ export default Backbone.View.extend( {
 	 */
 	saveModal: function( e ) {
 		'use strict';
+		this.trigger( 'save_modal', this.$el );
 		this.closeModal( e );
 	},
 } );

@@ -4,6 +4,7 @@ namespace WPOnion\Ajax;
 
 use WPOnion\Bridge\Ajax;
 use WPOnion\Field\Modal;
+use WPOnion\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -26,9 +27,17 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 			$unique = $this->validate_post( 'unique', __( 'Unique Key Not Found' ) );
 			$module = $this->get_module();
 			$field  = $this->get_field();
-			$values = $module->get_db_values()
-				->get( $unique . '/' . $field->get_id() );
+			$values = $this->post( 'modal_values', false );
 			$field->only_field( true );
+
+			if ( empty( $values ) ) {
+				$values = $module->get_db_values()
+					->get( $unique . '/' . $field->get_id() );
+			} else {
+				$values = ( ! wponion_is_array( $values ) ) ? array() : $values;
+				$values = Helper::array_key_get( $unique . '/' . $field->get_id(), $values );
+			}
+
 			$data = $field->init_field( $values, array(
 				'unique' => $unique,
 				'module' => $this->post( 'module' ),

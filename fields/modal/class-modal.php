@@ -134,6 +134,8 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 
 		/**
 		 * Returns Fields Assets.
+		 *
+		 * @uses \wponion_localize()
 		 */
 		public function field_assets() {
 			wp_enqueue_script( 'backbone' );
@@ -146,10 +148,40 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 * @return array
 		 */
 		protected function js_field_args() {
+			$config = ( empty( $this->data( 'modal_config' ) ) ) ? array() : $this->data( 'modal_config' );
+			$config = $this->parse_args( $this->data( 'modal_config' ), $this->default_modal_config() );
+
 			return array(
 				'modal_type'   => $this->data( 'modal_type' ),
-				'modal_config' => $this->data( 'modal_config' ),
+				'modal_config' => $config,
 				'modal_html'   => $this->field['modal_html'],
+			);
+		}
+
+		/**
+		 * Defaults Modal Config.
+		 *
+		 * @return array
+		 */
+		protected function default_modal_config() {
+			if ( 'wp' === $this->data( 'module_type' ) ) {
+				return array(
+					'size'            => 'default',
+					'save_btn_label'  => __( 'Save' ),
+					'close_btn_label' => __( 'Close' ),
+				);
+			}
+			return array(
+				'showCloseButton'     => true,
+				'reverseButtons'      => true,
+				'showLoaderOnConfirm' => true,
+				'showCancelButton'    => true,
+				'focusConfirm'        => false,
+				'focusCancel'         => false,
+				'allowEscapeKey'      => false,
+				'allowOutsideClick'   => false,
+				'confirmButtonText'   => __( 'Save' ),
+				'cancelButtonText'    => __( 'Cancel' ),
 			);
 		}
 

@@ -424,6 +424,7 @@ export default ( ( window, document, $, jQuery ) => {
 			type: 'error',
 			title: ( $title ) ? $title : null,
 			text: ( $message ) ? $message : null,
+			animation: false,
 		} );
 	};
 

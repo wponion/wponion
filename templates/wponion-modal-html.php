@@ -19,8 +19,8 @@ return <<<HTML
 				<div class="media-toolbar">
 					<div class="media-toolbar-secondary"></div>
 					<div class="media-toolbar-primary search-form">
-						<button type="button" class="button media-button button-primary button-large media-button-select">Select
-						</button>
+						<button type="button" class="button media-button button-primary button-large" id="wponion-save-modal">{{data.save_btn_label}}</button>
+						<button type="button" class="button media-button button-secondary button-large" id="wponion-close-modal">{{data.close_btn_label}}</button>
 					</div>
 				</div>
 			</div>
