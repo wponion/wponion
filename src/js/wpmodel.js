@@ -39,10 +39,10 @@ export default Backbone.View.extend( {
 	 * Opens Modal.
 	 */
 	open: function() {
-		this.trigger( 'before_open' );
+		this.trigger( 'before_open', this.$el );
 		this.init_templates();
 		this.render();
-		this.trigger( 'open' );
+		this.trigger( 'open', this.$el );
 	},
 
 	/**
@@ -55,7 +55,6 @@ export default Backbone.View.extend( {
 		this.templates.window           = window.wponion.core.template( $modal.html );
 		this.templates.page_content     = window.wponion.core.template( $modal.page_content );
 		this.templates.section_content  = window.wponion.core.template( $modal.section_content );
-		this.trigger( 'template_loaded' );
 	},
 
 	/**
@@ -87,7 +86,7 @@ export default Backbone.View.extend( {
 	render: function() {
 		this.$el.attr( 'tabindex', '0' ).append( this.templates.window() );
 		this.$wpomodal = this.$el.find( '.wponion-wp-modal' );
-		if( !window.wponion._.isUndefined( this.modal_html.title ) && !window.wponion._.isUndefined( this.modal_html.html ) ) {
+		if( !window.wponion._.isUndefined( this.modal_html.html ) || !window.wponion._.isUndefined( this.modal_html.sections ) ) {
 			this.render_single();
 		} else {
 			this.render_containers();
@@ -208,7 +207,7 @@ export default Backbone.View.extend( {
 
 		this.active_page    = $target.attr( 'href' );
 		this.active_section = null;
-		this.trigger( 'page_open_' + this.active_page );
+		this.trigger( 'page_open_' + this.active_page, this.$el );
 		this.activate_main_menu( $show_target );
 	},
 
@@ -226,7 +225,7 @@ export default Backbone.View.extend( {
 		$target.addClass( 'active' );
 		$base.find( '.wponion-section-modal-content' ).hide();
 		$base.find( '#' + this.active_page + '_' + this.active_section ).show();
-		this.trigger( 'section_open_'.this.active_page + '_' + this.active_section );
+		this.trigger( 'section_open_' + this.active_page + '_' + this.active_section, this.$el );
 	},
 
 	/**
@@ -267,13 +266,13 @@ export default Backbone.View.extend( {
 	 */
 	closeModal: function( e ) {
 		'use strict';
-		this.trigger( 'before_close' );
+		this.trigger( 'before_close', this.$el );
 		e.preventDefault();
 		this.undelegateEvents();
 		jQuery( document ).off( 'focusin' );
 		jQuery( 'body' ).css( { 'overflow': 'auto' } );
 		this.remove();
-		this.trigger( 'after_close' );
+		this.trigger( 'after_close', this.$el );
 	},
 
 	/**
