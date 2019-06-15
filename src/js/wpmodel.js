@@ -1,36 +1,33 @@
-/* global $wponion:true */
-let $wpo_modal_app = Backbone.View.extend( {
-	/**
-	 * Stores All Modal Template.
-	 */
+export default Backbone.View.extend( {
+	// Stores All Templates HTML.
 	templates: {},
 
+	// Registers Events.
 	events: {
 		'click .media-modal-close': 'closeModal',
 		'click #btn-cancel': 'closeModal',
 		'click #btn-ok': 'saveModal',
-		'click .media-menu a': 'handle_left_menu_click',
+		'click .media-menu a': 'handle_main_menu',
 		'click .media-router a': 'handle_tab_click',
 	},
 
+	// Stores Active Page.
 	active_page: null,
 
+	// Stores Active Section.
 	active_section: null,
 
 	/**
-	 * Inits Modal.
+	 * Inits Modal Class.
+	 * @param $modal_options
+	 * @param $html
 	 */
-	initialize: function( options ) {
-		options = _.extend( {
-			left_menu: false,
-			hide_menu: false,
-			html: false,
-		}, options );
+	initialize: function( $modal_options = {}, $html = {} ) {
+		this.options    = _.extend( {
+			size: 'small',
+		}, $modal_options );
+		this.modal_html = $html;
 
-
-		this.left_menu = options.left_menu;
-		this.html      = options.html;
-		this.hide_menu = options.hide_menu;
 		'use strict';
 		_.bindAll( this, 'render', 'preserveFocus', 'closeModal', 'saveModal', 'doNothing' );
 		this.init_templates();
@@ -41,104 +38,147 @@ let $wpo_modal_app = Backbone.View.extend( {
 	 * Inits Templates.
 	 */
 	init_templates: function() {
-		let $modal                      = $wponion.settings( 'modal' );
-		this.templates.frame_menu_item  = $wponion.template( $modal[ 'frame-menu-item' ] );
-		this.templates.router_menu_item = $wponion.template( $modal[ 'router-menu-item' ] );
-		this.templates.window           = $wponion.template( $modal.html );
-		this.templates.page_content     = $wponion.template( $modal.page_content );
-		this.templates.section_content  = $wponion.template( $modal.section_content );
+		let $modal                      = window.wponion.core.option( 'modal' );
+		this.templates.frame_menu_item  = window.wponion.core.template( $modal.frame_menu_item );
+		this.templates.router_menu_item = window.wponion.core.template( $modal.router_menu_item );
+		this.templates.window           = window.wponion.core.template( $modal.html );
+		this.templates.page_content     = window.wponion.core.template( $modal.page_content );
+		this.templates.section_content  = window.wponion.core.template( $modal.section_content );
 	},
 
 	/**
-	 * Renders HTML.
+	 * Returns Container Defaults.
+	 * @return {{sidebar: boolean, html: boolean, id: boolean, title: boolean}}
+	 */
+	container_defaults: function() {
+		return { id: false, title: false, html: false, sidebar: false };
+	},
+
+	/**
+	 * Activates First Menu.
+	 */
+	activate_main_menu: function( $sub_menu = false ) {
+		if( false === $sub_menu ) {
+			if( this.$el.find( '.media-menu > .media-menu-item.active' ).length === 0 ) {
+				this.$el.find( '.media-menu > .media-menu-item:first-child' ).click();
+			}
+		} else {
+			if( $sub_menu.find( '.media-frame-router .media-router > .active' ).length === 0 ) {
+				$sub_menu.find( '.media-frame-router .media-router > a:first-child' ).click();
+			}
+		}
+	},
+
+	/**
+	 * Renders Main HTML.
 	 */
 	render: function() {
-		'use strict';
-		let $this = this;
-		$this.$el.attr( 'tabindex', '0' ).append( $this.templates.window() );
-
-		if( $this.left_menu ) {
-			_.each( $this.left_menu, function( value, key ) {
-				$this.jQuery( '.media-menu' ).append( $this.templates.frame_menu_item( {
-					url: key,
-					name: value,
-				} ) );
-			} );
+		this.$el.attr( 'tabindex', '0' ).append( this.templates.window() );
+		this.$wpomodal = this.$el.find( '.wponion-wp-modal' );
+		if( !window.wponion._.isUndefined( this.modal_html.title ) && !window.wponion._.isUndefined( this.modal_html.html ) ) {
+			this.render_single();
+		} else {
+			this.render_containers();
+			this.activate_main_menu();
 		}
 
-		if( this.html ) {
-			_.each( $this.html, function( value, key ) {
-				if( typeof value.sections !== 'undefined' ) {
-					let $content = $this.templates.page_content( {
-						id: key,
-						title: value.title,
-						html: value.html,
-					} );
-					$content     = jQuery( $content );
-					$content.find( '.media-sidebar' ).remove();
-
-					_.each( value.sections, function( val, k ) {
-						let $_content = $this.templates.section_content( {
-							id: key + '_' + k,
-							title: val.title,
-							html: val.html,
-						} );
-						let $_menu    = $this.templates.router_menu_item( { url: k, name: val.title } );
-
-						$_content = jQuery( $_content );
-						$_content.find( '.media-sidebar' ).hide();
-						if( typeof val.sidebar !== 'undefined' ) {
-							if( value.sidebar !== false ) {
-								$_content.find( '.media-sidebar' ).append( val.sidebar ).show();
-							}
-						}
-
-						$content.find( '.media-frame-content' ).append( $_content );
-						$content.find( '.media-router' ).append( $_menu );
-					} );
-
-					$this.jQuery( '.wponion-modal-content-container' ).append( $content );
-				} else {
-					let $content = $this.templates.page_content( {
-						id: key,
-						title: value.title,
-						html: value.html,
-					} );
-
-					$content = jQuery( $content );
-					$content.find( '.media-sidebar' ).hide();
-
-					if( typeof value.sidebar !== 'undefined' ) {
-						if( value.sidebar !== false ) {
-							$content.find( '.media-sidebar' ).append( value.sidebar ).show();
-						}
-					}
-
-					$content.find( '.media-frame-router' ).addClass( 'hidden' );
-					$this.jQuery( '.wponion-modal-content-container' ).append( $content );
-				}
-			} );
-		}
-
-		$this.jQuery( '.media-menu a:first-child' ).trigger( 'click' );
-		$this.jQuery( '.wponion-modal-content-container > .wponion-modal-content:not(.hidden) .media-frame-router a:first-child' )
-			 .trigger( 'click' );
-
-
-		if( $this.hide_menu === true ) {
-			$this.jQuery( '.media-frame' ).addClass( 'hide-menu' );
-		}
-
+		this.$wpomodal.addClass( 'wponion-wp-modal-' + this.options.size );
 		jQuery( document ).on( 'focusin', this.preserveFocus );
-		jQuery( 'body' ).css( { 'overflow': 'hidden' } ).append( $this.$el );
-		$this.$el.focus();
+		jQuery( 'body' ).css( { 'overflow': 'hidden' } ).append( this.$el );
+		this.$el.focus();
 	},
 
 	/**
-	 * Handles Left Menu Click Event.
+	 * Renders Single Layout View.
+	 */
+	render_single: function() {
+		this.active_page = this.modal_html.id;
+		this.$wpomodal.addClass( 'wponion-single-modal-view' );
+		this.$el.find( '.media-frame-menu' ).remove();
+		let $_content = this.render_single_content( false, false, this.templates.page_content );
+		this.$el.find( '.wponion-modal-content-container > div' ).removeClass( 'hidden' );
+		if( window.wponion._.isUndefined( this.modal_html.sections ) ) {
+			jQuery( this.$el ).find( '.media-frame' ).addClass( 'hide-router' );
+		} else {
+			this.render_sub_containers( this.modal_html, $_content );
+			this.activate_main_menu( this.$el );
+		}
+	},
+
+	/**
+	 * Renders Single Content.
+	 * @param $container
+	 * @param $appendTo
+	 * @param $template
+	 * @param $parent_id
+	 * @return {n.fn.init|jQuery|HTMLElement}
+	 */
+	render_single_content: function( $container = false, $appendTo = false, $template = false, $parent_id = '' ) {
+		$container    = ( false === $container ) ? this.modal_html : $container;
+		$container    = _.extend( this.container_defaults(), $container );
+		let $_content = jQuery( $template( { id: $parent_id + $container.id, title: $container.title } ) );
+
+		$_content.find( '.media-sidebar' ).addClass( 'hidden' );
+
+		if( !$container.sections ) {
+			$_content.find( '.media-content' ).html( $container.html );
+			if( false !== $container.sidebar && window.wponion._.isString( $container.sidebar ) ) {
+				$_content.find( '.media-sidebar' ).html( $container.sidebar ).removeClass( 'hidden' );
+			}
+		}
+
+		$_content.find( '.media-frame-title' ).addClass( 'hidden' );
+
+		if( false !== $container.title && window.wponion._.isString( $container.title ) ) {
+			$_content.find( '.media-frame-title' ).removeClass( 'hidden' );
+		}
+
+		let $elem = ( $appendTo ) ? $appendTo : this.$el.find( '.wponion-modal-content-container' );
+		$elem.append( $_content );
+		return $_content;
+	},
+
+	/**
+	 * Renders Sub Containers.
+	 * @param $container
+	 * @param $parent_content
+	 */
+	render_sub_containers: function( $container, $parent_content ) {
+		for( let $s in $container.sections ) {
+			if( $container.sections.hasOwnProperty( $s ) ) {
+				let $sub_container = _.extend( this.container_defaults(), $container.sections[ $s ] );
+				this.render_section_menu( $sub_container, $parent_content );
+				this.render_single_content( $sub_container, $parent_content.find( '.media-frame-content' ), this.templates.section_content, $container.id + '_' );
+			}
+		}
+	},
+
+	/**
+	 * Renders Base Containers.
+	 */
+	render_containers: function() {
+		for( let $i in this.modal_html ) {
+			if( this.modal_html.hasOwnProperty( $i ) ) {
+				let $container = _.extend( this.container_defaults(), this.modal_html[ $i ] );
+				this.render_left_menu( $container );
+				if( false !== $container.id ) {
+					let $content = this.render_single_content( $container, false, this.templates.page_content );
+
+					if( !$container.sections ) {
+						$content.find( '.media-frame-router' ).addClass( 'hidden' );
+					} else {
+						this.render_sub_containers( $container, $content );
+					}
+				}
+			}
+		}
+	},
+
+	/**
+	 * Handles Left Menu Click.
 	 * @param e
 	 */
-	handle_left_menu_click: function( e ) {
+	handle_main_menu: function( e ) {
 		e.preventDefault();
 		let $target = jQuery( e.target );
 		jQuery( this.$el ).find( '.media-menu a.active' ).removeClass( 'active' );
@@ -153,21 +193,47 @@ let $wpo_modal_app = Backbone.View.extend( {
 		} else {
 			jQuery( this.$el ).find( '.media-frame' ).removeClass( 'hide-router' );
 		}
+
 		this.active_page    = $target.attr( 'href' );
 		this.active_section = null;
+		this.activate_main_menu( $show_target );
 	},
 
+	/**
+	 * Handles Section Click.
+	 * @param e
+	 */
 	handle_tab_click: function( e ) {
 		e.preventDefault();
 		let $target         = jQuery( e.target );
 		this.active_section = $target.attr( 'href' );
-		//let $page           = jQuery( this.$el ).find( '.media-frame-menu a.active' ).attr( 'href' );
 		let $base           = jQuery( this.$el ).find( '.wponion-modal-content-container > #' + this.active_page );
 
 		$target.parent().find( '.active' ).removeClass( 'active' );
 		$target.addClass( 'active' );
 		$base.find( '.wponion-section-modal-content' ).hide();
 		$base.find( '#' + this.active_page + '_' + this.active_section ).show();
+	},
+
+	/**
+	 * Renders LeftSide Menu.
+	 * @param $p
+	 */
+	render_left_menu( $p ) {
+		if( false === window.wponion._.isUndefined( $p.separator ) && true === $p.separator ) {
+			this.$el.find( '.media-menu' ).append( '<a class="separator"></a>' );
+		} else {
+			this.$el.find( '.media-menu' ).append( this.templates.frame_menu_item( { url: $p.id, name: $p.title } ) );
+		}
+	},
+
+	/**
+	 * Renders Section Menu.
+	 * @param $p
+	 * @param $appendTo
+	 */
+	render_section_menu( $p, $appendTo ) {
+		$appendTo.find( '.media-router' ).append( this.templates.router_menu_item( { url: $p.id, name: $p.title } ) );
 	},
 
 	/**
@@ -213,40 +279,4 @@ let $wpo_modal_app = Backbone.View.extend( {
 		'use strict';
 		e.preventDefault();
 	}
-
 } );
-
-
-class WPO_Modal {
-	constructor( $options ) {
-		this.options    = ( typeof $options === 'undefined' ) ? {} : $options;
-		this.options    = _.extend( {
-			id: false,
-			data: false,
-			className: 'wponion-modal',
-			modal: {},
-			hide_menu: false,
-		}, this.options );
-		let $ex_options = _.extend( {
-			left_menu: this.get_left_menu(),
-			html: this.options.data,
-			hide_menu: this.options.hide_menu,
-		}, this.options.modal );
-		this.instance   = new $wpo_modal_app( $ex_options );
-	}
-
-	get_left_menu() {
-		let $return = false;
-		if( this.options.data ) {
-			$return = {};
-			_.each( this.options.data, function( $data, $key ) {
-				if( typeof $data.menu_title !== 'undefined' ) {
-					$return[ $key ] = $data.menu_title;
-				} else {
-					$return[ $key ] = $data.title;
-				}
-			} );
-		}
-		return $return;
-	}
-}
