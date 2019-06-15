@@ -38,7 +38,7 @@ require( './modules/bulk-edit' ).default;
 require( './modules/quick-edit' ).default;
 require( './modules/page-actions' ).default;
 
-window.wponion.modal          = require( './wpmodel' ).default;
+
 window.wponion.ajaxer         = require( './core/ajaxer' ).WPOnion_Ajaxer;
 window.wponion.ajax           = require( './core/ajaxer' ).default;
 window.wponion.debug          = require( './core/debug' ).default;
@@ -72,6 +72,9 @@ export default ( ( window, document, wp, $ ) => {
 
 	// Window On Load.
 	$( window ).on( 'load', ( () => {
+		if( !window.wponion._.isUndefined( window.Backbone ) ) {
+			window.wponion.modal = require( './wpmodel' ).default;
+		}
 
 		window.wponion.hooks.doAction( 'wponion_before_init' );
 
