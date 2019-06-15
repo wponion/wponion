@@ -148,18 +148,16 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		}
 
 		/**
-		 * @param bool $return
-		 *
-		 * @return bool
+		 * Appens Data To Existing.
 		 */
-		public function render_js_args( $return = false ) {
-			if ( ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) || ( wp_script_is( 'wponion-core', 'registered' ) ) ) {
+		protected function append_data() {
+			if ( ! wponion_is_ajax() || ( wp_script_is( 'wponion-core', 'registered' ) ) ) {
 				/* translators: */
 				$js_notice = PHP_EOL . __( 'This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` ', 'wponion' );
 				$js_notice = $js_notice . PHP_EOL . PHP_EOL . __( '**PHP Args:** is the array which is passed to the framework in php ', 'wponion' );
 				$js_notice = $js_notice . PHP_EOL . PHP_EOL . __( '**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it', 'wponion' );
 				$js_notice = sprintf( wponion_markdown( $js_notice ), '<br/>' );
-				if ( false === self::$core_data && false === wponion_is_ajax() ) {
+				if ( false === self::$core_data && false === wponion_is_ajax( 'heartbeat' ) ) {
 					$this->js_args['wponion_core']['ajaxurl']         = admin_url( 'admin-ajax.php' );
 					$this->js_args['wponion_core']['ajax_action']     = 'wponion-ajax';
 					$this->js_args['wponion_core']['ajax_action_key'] = 'wponion-ajax';
@@ -187,6 +185,25 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts(), true, false );
 				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
 			}
+		}
+
+		/**
+		 * Returns Arguments As Array.
+		 *
+		 * @return array
+		 */
+		public function as_array() {
+			$this->append_data();
+			return array_filter( $this->js_args );
+		}
+
+		/**
+		 * @param bool $return
+		 *
+		 * @return bool
+		 */
+		public function render_js_args( $return = false ) {
+			$this->append_data();
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
 				return $this->print_js_data( $return );
@@ -210,7 +227,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return bool
 		 */
 		private function localize_script( $handle = '' ) {
-			foreach ( $this->js_args as $key => $value ) {
+			foreach ( array_filter( $this->js_args ) as $key => $value ) {
 				$key = str_replace( '-', '_', $key );
 				wp_localize_script( $handle, $key, $value );
 			}
@@ -245,7 +262,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		private function print_js_data( $return = false ) {
 			$h = "<script type='text/javascript' id='wponion_field_js_vars'>\n /* <![CDATA[ */\n"; // CDATA and type='text/javascript' is not needed for HTML 5
 
-			foreach ( $this->js_args as $key => $value ) {
+			foreach ( array_filter( $this->js_args ) as $key => $value ) {
 				$h .= wponion_js_vars( $key, $value, false );
 			}
 
