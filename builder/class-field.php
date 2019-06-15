@@ -34,6 +34,18 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		}
 
 		/**
+		 * Inits This Field.
+		 *
+		 * @param $value
+		 * @param $unique
+		 *
+		 * @return bool|array|\WPO\Field
+		 */
+		public function init_field( $value, $unique ) {
+			return wponion_field( $this, $value, $unique );
+		}
+
+		/**
 		 * Creates A New Field Instance.
 		 *
 		 * @param bool  $type
