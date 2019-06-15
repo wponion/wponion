@@ -319,12 +319,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		/**
 		 * Catches Ajax Localizer Output.
 		 *
-		 * @return false|string
+		 * @return array
 		 */
 		protected function localizer() {
-			wponion_catch_output( true );
-			wponion_localize()->render_js_args();
-			return wponion_catch_output( false );
+			return wponion_localize()->as_array();
 		}
 	}
 }
