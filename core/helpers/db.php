@@ -43,15 +43,15 @@ if ( ! function_exists( 'wponion_get_option' ) ) {
 
 if ( ! function_exists( 'wponion_get_set_db' ) ) {
 	/**
-	 * @param string     $module_db Which module to work
-	 * @param string     $unique DB Unique Slug.
-	 * @param string|int $id Post / User / Term ID
-	 * @param bool|mixed $values
-	 * @param string     $mode --> Get / False
+	 * @param string          $module_db Which module to work
+	 * @param string          $unique DB Unique Slug.
+	 * @param string|bool|int $id Post / User / Term ID
+	 * @param bool|mixed      $values
+	 * @param string          $mode --> Get / False
 	 *
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
-	function wponion_get_set_db( $module_db, $unique, $id, $values = false, $mode = 'get' ) {
+	function wponion_get_set_db( $module_db, $unique, $id = false, $values = false, $mode = 'get' ) {
 		$return = null;
 
 		switch ( $module_db ) {
