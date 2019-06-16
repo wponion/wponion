@@ -496,6 +496,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.3]: https://github.com/wponion/wponion/releases/tag/1.3
 [1.2.1]: https://github.com/wponion/wponion/releases/tag/1.2.1
 [1.2]: https://github.com/wponion/wponion/releases/tag/1.2
 [1.1]: https://github.com/wponion/wponion/releases/tag/1.1
