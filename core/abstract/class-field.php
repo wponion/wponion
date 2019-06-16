@@ -972,7 +972,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'module' => $this->module(),
 			) );
 
-			if ( true === $is_init ) {
+			if ( true === $is_init && ( ! isset( $field['__no_instance'] ) || isset( $field['__no_instance'] ) && false === $field['__no_instance'] ) ) {
 				$field['__instance'] = $_instance;
 				return $field;
 			}
