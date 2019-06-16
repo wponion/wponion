@@ -146,7 +146,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	 * @param string|array     $value
 	 * @param array|string     $unique
 	 *
-	 * @return bool|array|\WPO\Field
+	 * @return bool|array|\WPOnion\Field
 	 */
 	function wponion_field( $field = array(), $value = '', $unique = array() ) {
 		$class       = wponion_get_field_class( $field );
