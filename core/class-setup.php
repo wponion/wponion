@@ -216,6 +216,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'wp_list_table', 'all' );
 			\wponion_register_ui_field( 'wp_notice', 'all' );
 			\wponion_register_ui_field( 'faq', 'all' );
+			\wponion_register_ui_field( 'import_export', 'all' );
 
 			/**
 			 * Field Alias
