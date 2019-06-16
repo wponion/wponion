@@ -428,11 +428,35 @@ export default ( ( window, document, $, jQuery ) => {
 		} );
 	};
 
+	/**
+	 * WPonion Success Swal.
+	 * @param $title
+	 * @param $message
+	 * @return {*}
+	 */
+	window.wponion_success_swal = ( $title = false, $message = false ) => {
+		if( !window.wponion._.isString( $title ) && window.wponion._.isObject( $title ) ) {
+			$message = ( window.wponion._.isUndefined( $title.message ) ) ? '' : $title.message;
+			$title   = ( window.wponion._.isUndefined( $title.title ) ) ? '' : $title.title;
+		}
+
+		if( !$title ) {
+			$title = window.wponion.core.txt( 'success' );
+		}
+
+		return window.swal.mixin( {
+			type: 'success',
+			title: ( $title ) ? $title : null,
+			text: ( $message ) ? $message : null,
+			animation: false,
+		} );
+	};
+
 	jQuery( window ).on( 'load', function() {
 
 		jQuery( '.wponion-framework pre' ).tippy( {
 			theme: 'dark',
-			content: 'Click To Copy',
+			content: window.wponion.core.txt( 'copy_now', 'Click To Copy' ),
 			trigger: 'mouseenter click manual',
 			arrow: true,
 			followCursor: true,
@@ -450,11 +474,11 @@ export default ( ( window, document, $, jQuery ) => {
 			let $ins = jQuery( e.trigger ).tippy_get();
 			/*$ins.show();
 			*/
-			$ins.setContent( '<strong>Copied !</strong>' );
+			$ins.setContent( '<strong>' + window.wponion.core.txt( 'copied', 'Copied' ) + '</strong>' );
 			$ins.show();
 			setTimeout( function() {
 				$ins.hide();
-				$ins.setContent( 'Click To Copy' );
+				$ins.setContent( window.wponion.core.txt( 'copy_now', 'Click To Copy' ) );
 			}, 1000 );
 
 			/*window.wponion_swal_toast().fire( {

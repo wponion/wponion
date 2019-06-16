@@ -156,7 +156,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					$this->text( 'global_json_output', __( 'Global WPOnion JSON Output', 'wponion' ) );
 					$this->text( 'unmodified_debug', __( 'PHP Args', 'wponion' ) );
 					$this->text( 'modified_debug', __( 'JS Args', 'wponion' ) );
-					$this->text( 'unknown_ajax_error', __( 'Unknown Error Occured. Please Try Again.', 'wponion' ) );
+					$this->text( 'unknown_ajax_error', __( 'Unknown Error. Try Again', 'wponion' ) );
 					$this->text( 'click_to_view_debug_info', __( 'Click To View Field Debug Info', 'wponion' ) );
 					$this->text( 'validation_summary', __( 'Please correct the errors highlighted below and try again.', 'wponion' ) );
 					$this->text( 'delete', __( 'Delete', 'wponion' ) );
@@ -164,6 +164,9 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					$this->text( 'restore', __( 'Restore', 'wponion' ) );
 					$this->text( 'settings_saved', __( 'Settings Updated', 'wponion' ) );
 					$this->text( 'email_sent', __( 'Email Sent', 'wponion' ) );
+					$this->text( 'copied', __( 'Copied', 'wponion' ) );
+					$this->text( 'copy_now', __( 'Click To Copy', 'wponion' ) );
+					$this->text( 'success', __( 'Success', 'wponion' ) );
 					$this->modal_template();
 					self::$core_data = true;
 				}
