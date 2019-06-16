@@ -28,6 +28,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		protected $validate_field_path = true;
 
 		/**
+		 * Stores Module.
+		 *
+		 * @var bool
+		 * @access
+		 */
+		protected $module = false;
+
+		/**
 		 * Ajax constructor.
 		 */
 		public function __construct() {
@@ -233,6 +241,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * @param bool $success_title
+		 * @param bool $success_message
+		 */
+		protected function success( $success_title = false, $success_message = false ) {
+			$this->json_success( $this->success_message( $success_title, $success_message ) );
+		}
+
+		/**
 		 * @param string      $key
 		 * @param string|bool $error_title
 		 * @param string|bool $error_message
@@ -276,6 +292,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 * @return bool|mixed|\WPOnion\Bridge\Module
 		 */
 		protected function get_module() {
+			if ( false !== $this->module ) {
+				return $this->module;
+			}
+
 			$module       = $this->post( 'module', false );
 			$function     = 'wponion_' . $module;
 			$val_function = 'wpo_' . $module;
@@ -285,13 +305,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 			}
 
 			try {
-				$module = $function( $this->field_path( true ) );
-				if ( ! is_object( $module ) ) {
+				$this->module = $function( $this->field_path( true ) );
+				if ( ! is_object( $this->module ) ) {
 					throw new \Exception();
 				}
 
-				return $module;
+				return $this->module;
 			} catch ( \Exception $exception ) {
+				$this->module = false;
 				$this->error( __( 'Module Instance Not Found' ), __( 'Module Callback / Registry Function Not Found' ) );
 			}
 			return false;
