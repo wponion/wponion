@@ -2,22 +2,22 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.0\n"
+"Project-Id-Version: WPOnion 1.2.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wponion\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-06-03T18:00:28+05:30\n"
+"POT-Creation-Date: 2019-06-16T08:14:51+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
 
 #. Plugin Name of the plugin
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:527
-#: core/wp/sysinfo/class-data.php:319
+#: core/modules/class-admin-page.php:513
+#: core/wp/sysinfo/class-data.php:306
 msgid "WPOnion"
 msgstr ""
 
@@ -37,1343 +37,1317 @@ msgstr ""
 msgid "https://varunsridharan.in"
 msgstr ""
 
-#: builder/helper/container/class-functions.php:107
+#: builder/helper/container/class-functions.php:102
 msgid "A Container Cannot Have Both Field & Containers"
 msgstr ""
 
-#: core/abstract/class-field.php:211
+#: core/abstract/class-field.php:192
 msgid "Raw Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:212
+#: core/abstract/class-field.php:193
 msgid "Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:213
+#: core/abstract/class-field.php:194
 msgid "Field Value"
 msgstr ""
 
-#: core/abstract/class-field.php:214
+#: core/abstract/class-field.php:195
 msgid "Unique"
 msgstr ""
 
-#: core/abstract/class-field.php:215
+#: core/abstract/class-field.php:196
 msgid "Module"
 msgstr ""
 
-#: core/abstract/class-field.php:331
+#: core/abstract/class-field.php:314
 msgid "Field Rendered In"
 msgstr ""
 
-#: core/abstract/class-field.php:331
+#: core/abstract/class-field.php:314
 msgid "Seconds"
 msgstr ""
 
-#: core/abstract/class-field.php:589
+#: core/abstract/class-field.php:571
 msgid "Field Errors"
 msgstr ""
 
-#. translators:
-#: core/class-assets.php:224
-msgid "If you are developing offline, please download and install the <a href=\"%s\" target=\"_blank\">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning"
-msgstr ""
-
-#: core/class-assets.php:228
-msgid "WPOnion Framework Warning"
-msgstr ""
-
-#: core/class-backup-handler.php:121
-msgid "No Backups Found"
-msgstr ""
-
-#: core/class-core-ajax.php:87
+#: core/ajax/class-icon-picker.php:56
 msgid "Search Icon"
 msgstr ""
 
-#: core/class-core-ajax.php:119
+#: core/ajax/class-icon-picker.php:88
 msgid "Icon Library Not found"
 msgstr ""
 
-#: core/class-core-ajax.php:222
-#: core/class-core-ajax.php:226
-#: core/class-core-ajax.php:231
+#: core/ajax/class-save-settings.php:47
+#: core/ajax/class-save-settings.php:51
+#: core/ajax/class-save-settings.php:56
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: core/class-field-cloner.php:66
-msgid "Add + "
+#. translators:
+#: core/class-assets.php:209
+msgid "If you are developing offline, please download and install the <a href=\"%s\" target=\"_blank\">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning"
 msgstr ""
 
-#: core/class-field-cloner.php:175
-#: fields/key-value/class-key-value.php:101
-#: fields/key-value/class-key-value.php:117
-msgid "Add +"
-msgstr ""
-
-#. translators: Adds Max Count
-#: core/class-field-cloner.php:186
-msgid "You Cannot Add More Than %s"
+#: core/class-assets.php:213
+msgid "WPOnion Framework Warning"
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:62
-msgid " %5$s this debug data is only visible when %1$sWP_DEBUG%2$s or %1$sWPONION_FIELD_DEBUG%2$s is defined %3$strue%4$s "
+#: core/class-localize-api.php:144
+msgid "This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` "
 msgstr ""
 
-#. translators:
-#: core/class-localize-api.php:65
-msgid " %5$s %3$sPHP Args:%4$s is the array which is passed to the framework in php "
+#: core/class-localize-api.php:145
+msgid "**PHP Args:** is the array which is passed to the framework in php "
 msgstr ""
 
-#. translators:
-#: core/class-localize-api.php:68
-msgid "%5$s %3$sJS Args:%4$s is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it"
+#: core/class-localize-api.php:146
+msgid "**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it"
 msgstr ""
 
-#: core/class-localize-api.php:80
+#: core/class-localize-api.php:155
 msgid "As JSON"
 msgstr ""
 
-#: core/class-localize-api.php:81
+#: core/class-localize-api.php:156
 msgid "Global WPOnion JSON Output"
 msgstr ""
 
-#: core/class-localize-api.php:82
+#: core/class-localize-api.php:157
 msgid "PHP Args"
 msgstr ""
 
-#: core/class-localize-api.php:83
+#: core/class-localize-api.php:158
 msgid "JS Args"
 msgstr ""
 
-#: core/class-localize-api.php:84
+#: core/class-localize-api.php:159
 msgid "Unknown Error Occured. Please Try Again."
 msgstr ""
 
-#: core/class-localize-api.php:85
+#: core/class-localize-api.php:160
 msgid "Click To View Field Debug Info"
 msgstr ""
 
-#: core/class-localize-api.php:86
+#: core/class-localize-api.php:161
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
-#: core/class-localize-api.php:87
+#: core/class-localize-api.php:162
 #: fields/accordion/class-accordion.php:47
 msgid "Delete"
 msgstr ""
 
-#: core/class-localize-api.php:88
+#: core/class-localize-api.php:163
 msgid "Processing ..."
 msgstr ""
 
-#: core/class-localize-api.php:89
+#: core/class-localize-api.php:164
 msgid "Restore"
 msgstr ""
 
-#: core/class-localize-api.php:90
-#: core/modules/settings/class-settings.php:297
-#: core/modules/settings/class-settings.php:299
+#: core/class-localize-api.php:165
+#: core/modules/settings/class-settings.php:284
+#: core/modules/settings/class-settings.php:286
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-localize-api.php:91
+#: core/class-localize-api.php:166
 msgid "Email Sent"
 msgstr ""
 
-#: core/class-wp-list-table.php:94
-#: core/class-wp-list-table.php:150
-msgid "No Items Found"
+#: core/helpers/assets.php:92
+#: core/helpers/assets.php:93
+msgid "Boxed"
+msgstr ""
+
+#: core/helpers/assets.php:97
+#: core/helpers/assets.php:98
+msgid "Full Width"
 msgstr ""
 
 #: core/helpers/assets.php:104
 #: core/helpers/assets.php:105
-msgid "Boxed"
+msgid "Fullscreen Header"
 msgstr ""
 
 #: core/helpers/assets.php:109
 #: core/helpers/assets.php:110
-msgid "Full Width"
-msgstr ""
-
-#: core/helpers/assets.php:116
-#: core/helpers/assets.php:117
-msgid "Fullscreen Header"
-msgstr ""
-
-#: core/helpers/assets.php:121
-#: core/helpers/assets.php:122
 msgid "Logo Center Header"
 msgstr ""
 
-#: core/helpers/assets.php:126
-#: core/helpers/assets.php:127
+#: core/helpers/assets.php:114
+#: core/helpers/assets.php:115
 msgid "Logo Left Header"
 msgstr ""
 
-#: core/helpers/assets.php:131
-#: core/helpers/assets.php:132
+#: core/helpers/assets.php:119
+#: core/helpers/assets.php:120
 msgid "Logo Right Header"
 msgstr ""
 
-#: core/helpers/assets.php:136
-#: core/helpers/assets.php:137
+#: core/helpers/assets.php:124
+#: core/helpers/assets.php:125
 msgid "Overlay Header"
 msgstr ""
 
-#: core/helpers/assets.php:141
-#: core/helpers/assets.php:142
+#: core/helpers/assets.php:129
+#: core/helpers/assets.php:130
 msgid "Side Header Left"
 msgstr ""
 
-#: core/helpers/assets.php:146
-#: core/helpers/assets.php:147
+#: core/helpers/assets.php:134
+#: core/helpers/assets.php:135
 msgid "Side Header Right"
+msgstr ""
+
+#: core/helpers/assets.php:139
+#: core/helpers/assets.php:140
+msgid "Slideout Left Header"
+msgstr ""
+
+#: core/helpers/assets.php:144
+#: core/helpers/assets.php:145
+msgid "Slideout Right Header"
 msgstr ""
 
 #: core/helpers/assets.php:151
 #: core/helpers/assets.php:152
-msgid "Slideout Left Header"
+msgid "Dual Sidebar"
 msgstr ""
 
 #: core/helpers/assets.php:156
 #: core/helpers/assets.php:157
-msgid "Slideout Right Header"
-msgstr ""
-
-#: core/helpers/assets.php:163
-#: core/helpers/assets.php:164
-msgid "Dual Sidebar"
-msgstr ""
-
-#: core/helpers/assets.php:168
-#: core/helpers/assets.php:169
 msgid "Dual Sidebar Left"
 msgstr ""
 
-#: core/helpers/assets.php:173
-#: core/helpers/assets.php:174
+#: core/helpers/assets.php:161
+#: core/helpers/assets.php:162
 msgid "Dual Sidebar Right"
 msgstr ""
 
-#: core/helpers/assets.php:178
-#: core/helpers/assets.php:179
+#: core/helpers/assets.php:166
+#: core/helpers/assets.php:167
 msgid "Left Sidebar"
 msgstr ""
 
-#: core/helpers/assets.php:183
-#: core/helpers/assets.php:184
+#: core/helpers/assets.php:171
+#: core/helpers/assets.php:172
 msgid "Right Sidebar"
 msgstr ""
 
 #. translators: Creates a msg says that <p>requested field type not found</p>
-#: core/helpers/field.php:222
+#: core/helpers/field.php:216
 msgid "%1$s Requested Field Type %2$s  Is Not Registed With WPOnion %3$s"
 msgstr ""
 
-#: core/helpers/field.php:243
+#: core/helpers/field.php:235
 msgid "Callback Arguments"
 msgstr ""
 
 #. translators:
-#: core/helpers/field.php:252
+#: core/helpers/field.php:242
 msgid "<code>%s</code> Field Class Not Found."
 msgstr ""
 
-#: core/helpers/field.php:500
+#: core/helpers/field.php:464
 msgid "Regular"
 msgstr ""
 
-#: core/helpers/field.php:501
+#: core/helpers/field.php:465
 msgid "Italic"
 msgstr ""
 
-#: core/helpers/field.php:502
+#: core/helpers/field.php:466
 msgid "700"
 msgstr ""
 
-#: core/helpers/field.php:503
+#: core/helpers/field.php:467
 msgid "700 Italic"
 msgstr ""
 
-#: core/helpers/field.php:504
+#: core/helpers/field.php:468
 msgid "inherit"
 msgstr ""
 
-#: core/helpers/field.php:507
+#: core/helpers/field.php:471
 msgid "Arial"
 msgstr ""
 
-#: core/helpers/field.php:508
+#: core/helpers/field.php:472
 msgid "Arial Black"
 msgstr ""
 
-#: core/helpers/field.php:509
+#: core/helpers/field.php:473
 msgid "Comic Sans MS"
 msgstr ""
 
-#: core/helpers/field.php:510
+#: core/helpers/field.php:474
 msgid "Impact"
 msgstr ""
 
-#: core/helpers/field.php:511
+#: core/helpers/field.php:475
 msgid "Lucida Sans Unicode"
 msgstr ""
 
-#: core/helpers/field.php:512
+#: core/helpers/field.php:476
 msgid "Tahoma"
 msgstr ""
 
-#: core/helpers/field.php:513
+#: core/helpers/field.php:477
 msgid "Trebuchet MS"
 msgstr ""
 
-#: core/helpers/field.php:514
+#: core/helpers/field.php:478
 msgid "Verdana"
 msgstr ""
 
-#: core/helpers/field.php:515
+#: core/helpers/field.php:479
 msgid "Courier New"
 msgstr ""
 
-#: core/helpers/field.php:516
+#: core/helpers/field.php:480
 msgid "Lucida Console"
 msgstr ""
 
-#: core/helpers/field.php:517
+#: core/helpers/field.php:481
 msgid "Georgia, serif"
 msgstr ""
 
-#: core/helpers/field.php:518
+#: core/helpers/field.php:482
 msgid "Palatino Linotype"
 msgstr ""
 
-#: core/helpers/field.php:519
+#: core/helpers/field.php:483
 msgid "Times New Roman"
 msgstr ""
 
-#: core/helpers/field.php:657
+#: core/helpers/field.php:597
 msgid "Websafe Fonts"
 msgstr ""
 
-#: core/helpers/field.php:667
+#: core/helpers/field.php:607
 msgid "Google Fonts"
 msgstr ""
 
-#: core/helpers/validator.php:25
+#: core/helpers/validator.php:15
 msgid "Please Enter A Valid Email"
 msgstr ""
 
-#: core/helpers/validator.php:38
+#: core/helpers/validator.php:28
 msgid "Please Enter A Valid URL"
 msgstr ""
 
-#: core/helpers/validator.php:51
+#: core/helpers/validator.php:41
 msgid "Please Enter A Valid Numeric Value"
 msgstr ""
 
-#: core/helpers/validator.php:64
+#: core/helpers/validator.php:54
 msgid "This Field Is Required"
 msgstr ""
 
-#: core/helpers/validator.php:77
+#: core/helpers/validator.php:67
 msgid "Enter A Valid IP Address"
 msgstr ""
 
-#. translators: Added Field Type.
-#: core/integrations/page-builders/class-visual-composer.php:125
-msgid "Visual Composer Integration For WPOnion Field (%s) Not Found"
-msgstr ""
-
-#: core/integrations/page-builders/elementor/class-base.php:96
+#: core/integrations/page-builders/elementor/class-base.php:87
 msgid "Field"
 msgstr ""
 
-#: core/integrations/page-builders/elementor/class-base.php:208
+#: core/integrations/page-builders/elementor/class-base.php:199
 msgid "WPOnion Field"
 msgstr ""
 
-#: core/modules/class-admin-notice.php:547
+#: core/modules/class-admin-notice.php:541
 msgid "Dismiss this notice."
 msgstr ""
 
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:527
+#: core/modules/class-admin-page.php:513
 msgid "Proudly Powered By %1$s %2$s %3$s "
 msgstr ""
 
 #. translators: Added WPOnionVersion
-#: core/modules/class-admin-page.php:540
+#: core/modules/class-admin-page.php:526
 msgid "WPOnion Version : %s"
 msgstr ""
 
-#: core/modules/metabox/class-metabox.php:293
-#: core/modules/settings/class-settings.php:434
-#: core/modules/settings/class-settings.php:568
+#: core/modules/metabox/class-metabox.php:284
+#: core/modules/settings/class-settings.php:420
+#: core/modules/settings/class-settings.php:559
 msgid "Save Settings"
 msgstr ""
 
-#: core/modules/settings/class-settings.php:577
+#: core/modules/settings/class-settings.php:568
 msgid "No Result Found"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:43
-#: core/wp/sysinfo/class-data.php:239
-#: core/wp/sysinfo/class-data.php:265
-#: core/wp/sysinfo/class-data.php:266
-#: core/wp/sysinfo/class-data.php:281
+#: core/wp/class-wp-list-table.php:81
+#: core/wp/class-wp-list-table.php:137
+msgid "No Items Found"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:30
+#: core/wp/sysinfo/class-data.php:226
+#: core/wp/sysinfo/class-data.php:252
+#: core/wp/sysinfo/class-data.php:253
+#: core/wp/sysinfo/class-data.php:268
 msgid "Plugins"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:87
+#: core/wp/sysinfo/class-data.php:74
 msgid "WP Engine"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:89
+#: core/wp/sysinfo/class-data.php:76
 msgid "Pagely"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:91
+#: core/wp/sysinfo/class-data.php:78
 msgid "ICDSoft"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:93
+#: core/wp/sysinfo/class-data.php:80
 msgid "NetworkSolutions"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:95
+#: core/wp/sysinfo/class-data.php:82
 msgid "iPage"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:97
+#: core/wp/sysinfo/class-data.php:84
 msgid "IPower"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:99
+#: core/wp/sysinfo/class-data.php:86
 msgid "MediaTemple Grid"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:101
+#: core/wp/sysinfo/class-data.php:88
 msgid "Pair Networks"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:103
+#: core/wp/sysinfo/class-data.php:90
 msgid "Rackspace Cloud"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:105
+#: core/wp/sysinfo/class-data.php:92
 msgid "SysFix.eu Power Hosting"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:107
+#: core/wp/sysinfo/class-data.php:94
 msgid "Flywheel"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:135
+#: core/wp/sysinfo/class-data.php:122
 msgid "Host"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:136
+#: core/wp/sysinfo/class-data.php:123
 msgid "PHP Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:137
+#: core/wp/sysinfo/class-data.php:124
 msgid "MySQL Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:138
+#: core/wp/sysinfo/class-data.php:125
 msgid "Server Info"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:139
+#: core/wp/sysinfo/class-data.php:126
 msgid "Default Timezone"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:141
+#: core/wp/sysinfo/class-data.php:128
 msgid "Server Information"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:152
+#: core/wp/sysinfo/class-data.php:139
 msgid "Home URL"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:153
+#: core/wp/sysinfo/class-data.php:140
 msgid "Site URL"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:154
+#: core/wp/sysinfo/class-data.php:141
 msgid "WP Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:155
+#: core/wp/sysinfo/class-data.php:142
 msgid "WP Debug"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:156
+#: core/wp/sysinfo/class-data.php:143
 msgid "WP Language"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:157
+#: core/wp/sysinfo/class-data.php:144
 msgid "WP Multisite"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:158
+#: core/wp/sysinfo/class-data.php:145
 msgid "WP Memory Limit"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:159
+#: core/wp/sysinfo/class-data.php:146
 msgid "WP Table Prefix"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:160
+#: core/wp/sysinfo/class-data.php:147
 msgid "WP Timezone"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:161
+#: core/wp/sysinfo/class-data.php:148
 msgid "Permalink Structure"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:162
+#: core/wp/sysinfo/class-data.php:149
 msgid "Registered Post Stati"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:164
+#: core/wp/sysinfo/class-data.php:151
 msgid "WordPress"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:174
+#: core/wp/sysinfo/class-data.php:161
 msgid "PHP Post Max Size"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:175
+#: core/wp/sysinfo/class-data.php:162
 msgid "PHP Time Limit"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:176
+#: core/wp/sysinfo/class-data.php:163
 msgid "PHP Max Input Vars"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:177
+#: core/wp/sysinfo/class-data.php:164
 msgid "PHP Memory Limit"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:178
+#: core/wp/sysinfo/class-data.php:165
 msgid "PHP Upload Max Size"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:179
+#: core/wp/sysinfo/class-data.php:166
 msgid "PHP Upload Max Filesize"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:180
+#: core/wp/sysinfo/class-data.php:167
 msgid "PHP Arg Separator"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:181
+#: core/wp/sysinfo/class-data.php:168
 msgid "PHP Allow URL File Open"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:182
+#: core/wp/sysinfo/class-data.php:169
 msgid "DISPLAY ERRORS"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:183
+#: core/wp/sysinfo/class-data.php:170
 msgid "FSOCKOPEN"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:184
+#: core/wp/sysinfo/class-data.php:171
 msgid "cURL"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:185
+#: core/wp/sysinfo/class-data.php:172
 msgid "SOAP Client"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:186
+#: core/wp/sysinfo/class-data.php:173
 msgid "SUHOSIN"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:187
+#: core/wp/sysinfo/class-data.php:174
 msgid "Session"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:188
+#: core/wp/sysinfo/class-data.php:175
 msgid "Session Name"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:189
+#: core/wp/sysinfo/class-data.php:176
 msgid "Cookie Path"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:190
+#: core/wp/sysinfo/class-data.php:177
 msgid "Save Path"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:191
+#: core/wp/sysinfo/class-data.php:178
 msgid "Use Cookies"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:192
+#: core/wp/sysinfo/class-data.php:179
 msgid "Use Only Cookies"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:195
+#: core/wp/sysinfo/class-data.php:182
 msgid "PHP Information"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:206
+#: core/wp/sysinfo/class-data.php:193
 msgid "Theme Name"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:207
+#: core/wp/sysinfo/class-data.php:194
 msgid "Theme Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:208
+#: core/wp/sysinfo/class-data.php:195
 msgid "Theme Author"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:209
+#: core/wp/sysinfo/class-data.php:196
 msgid "Theme Author URI"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:210
+#: core/wp/sysinfo/class-data.php:197
 msgid "Child Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:212
-#: core/wp/sysinfo/class-data.php:221
+#: core/wp/sysinfo/class-data.php:199
+#: core/wp/sysinfo/class-data.php:208
 msgid "Active Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:217
+#: core/wp/sysinfo/class-data.php:204
 msgid "Parent Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:218
+#: core/wp/sysinfo/class-data.php:205
 msgid "Parent Theme Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:219
+#: core/wp/sysinfo/class-data.php:206
 msgid "Parent URI"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:220
+#: core/wp/sysinfo/class-data.php:207
 msgid "Parent Author URI"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:239
+#: core/wp/sysinfo/class-data.php:226
 msgid "Must Use Plugins"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:265
-#: fields/link-color/class-link-color.php:66
+#: core/wp/sysinfo/class-data.php:252
+#: fields/link-color/class-link-color.php:52
 msgid "Active"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:266
+#: core/wp/sysinfo/class-data.php:253
 msgid "Installed"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:281
+#: core/wp/sysinfo/class-data.php:268
 msgid "Active Multisite"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:320
+#: core/wp/sysinfo/class-data.php:307
 msgid "Loader File"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:321
+#: core/wp/sysinfo/class-data.php:308
 msgid "Loaded Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:322
+#: core/wp/sysinfo/class-data.php:309
 msgid "Loaded Path"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:323
+#: core/wp/sysinfo/class-data.php:310
 msgid "Avaiable Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:330
-#: core/wp/sysinfo/class-data.php:337
+#: core/wp/sysinfo/class-data.php:317
+#: core/wp/sysinfo/class-data.php:324
 msgid "Site Settings"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:345
-#: core/wp/sysinfo/class-data.php:352
+#: core/wp/sysinfo/class-data.php:332
+#: core/wp/sysinfo/class-data.php:339
 msgid "Network Settings"
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:78
+#: core/wp/sysinfo/class-sysinfo.php:69
 msgid "Send As Email"
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:79
+#: core/wp/sysinfo/class-sysinfo.php:70
 msgid " The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. "
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:84
+#: core/wp/sysinfo/class-sysinfo.php:75
 msgid " Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. "
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:85
+#: core/wp/sysinfo/class-sysinfo.php:76
 msgid "Copy Report"
 msgstr ""
 
-#: core/wp/sysinfo/class-sysinfo.php:85
+#: core/wp/sysinfo/class-sysinfo.php:76
 msgid "Get system report"
 msgstr ""
 
-#: data/currency.php:15
+#: data/currency.php:9
 msgid "United Arab Emirates dirham"
 msgstr ""
 
-#: data/currency.php:16
+#: data/currency.php:10
 msgid "Afghan afghani"
 msgstr ""
 
-#: data/currency.php:17
+#: data/currency.php:11
 msgid "Albanian lek"
 msgstr ""
 
-#: data/currency.php:18
+#: data/currency.php:12
 msgid "Armenian dram"
 msgstr ""
 
-#: data/currency.php:19
+#: data/currency.php:13
 msgid "Netherlands Antillean guilder"
 msgstr ""
 
-#: data/currency.php:20
+#: data/currency.php:14
 msgid "Angolan kwanza"
 msgstr ""
 
-#: data/currency.php:21
+#: data/currency.php:15
 msgid "Argentine peso"
 msgstr ""
 
-#: data/currency.php:22
+#: data/currency.php:16
 msgid "Australian dollar"
 msgstr ""
 
-#: data/currency.php:23
+#: data/currency.php:17
 msgid "Aruban florin"
 msgstr ""
 
-#: data/currency.php:24
+#: data/currency.php:18
 msgid "Azerbaijani manat"
 msgstr ""
 
-#: data/currency.php:25
+#: data/currency.php:19
 msgid "Bosnia and Herzegovina convertible mark"
 msgstr ""
 
-#: data/currency.php:26
+#: data/currency.php:20
 msgid "Barbadian dollar"
 msgstr ""
 
-#: data/currency.php:27
+#: data/currency.php:21
 msgid "Bangladeshi taka"
 msgstr ""
 
-#: data/currency.php:28
+#: data/currency.php:22
 msgid "Bulgarian lev"
 msgstr ""
 
-#: data/currency.php:29
+#: data/currency.php:23
 msgid "Bahraini dinar"
 msgstr ""
 
-#: data/currency.php:30
+#: data/currency.php:24
 msgid "Burundian franc"
 msgstr ""
 
-#: data/currency.php:31
+#: data/currency.php:25
 msgid "Bermudian dollar"
 msgstr ""
 
-#: data/currency.php:32
+#: data/currency.php:26
 msgid "Brunei dollar"
 msgstr ""
 
-#: data/currency.php:33
+#: data/currency.php:27
 msgid "Bolivian boliviano"
 msgstr ""
 
-#: data/currency.php:34
+#: data/currency.php:28
 msgid "Brazilian real"
 msgstr ""
 
-#: data/currency.php:35
+#: data/currency.php:29
 msgid "Bahamian dollar"
 msgstr ""
 
-#: data/currency.php:36
+#: data/currency.php:30
 msgid "Bitcoin"
 msgstr ""
 
-#: data/currency.php:37
+#: data/currency.php:31
 msgid "Bhutanese ngultrum"
 msgstr ""
 
-#: data/currency.php:38
+#: data/currency.php:32
 msgid "Botswana pula"
 msgstr ""
 
-#: data/currency.php:39
+#: data/currency.php:33
 msgid "Belarusian ruble (old)"
 msgstr ""
 
-#: data/currency.php:40
+#: data/currency.php:34
 msgid "Belarusian ruble"
 msgstr ""
 
-#: data/currency.php:41
+#: data/currency.php:35
 msgid "Belize dollar"
 msgstr ""
 
-#: data/currency.php:42
+#: data/currency.php:36
 msgid "Canadian dollar"
 msgstr ""
 
-#: data/currency.php:43
+#: data/currency.php:37
 msgid "Congolese franc"
 msgstr ""
 
-#: data/currency.php:44
+#: data/currency.php:38
 msgid "Swiss franc"
 msgstr ""
 
-#: data/currency.php:45
+#: data/currency.php:39
 msgid "Chilean peso"
 msgstr ""
 
-#: data/currency.php:46
+#: data/currency.php:40
 msgid "Chinese yuan"
 msgstr ""
 
-#: data/currency.php:47
+#: data/currency.php:41
 msgid "Colombian peso"
 msgstr ""
 
-#: data/currency.php:48
+#: data/currency.php:42
 msgid "Costa Rican col&oacute;n"
 msgstr ""
 
-#: data/currency.php:49
+#: data/currency.php:43
 msgid "Cuban convertible peso"
 msgstr ""
 
-#: data/currency.php:50
+#: data/currency.php:44
 msgid "Cuban peso"
 msgstr ""
 
-#: data/currency.php:51
+#: data/currency.php:45
 msgid "Cape Verdean escudo"
 msgstr ""
 
-#: data/currency.php:52
+#: data/currency.php:46
 msgid "Czech koruna"
 msgstr ""
 
-#: data/currency.php:53
+#: data/currency.php:47
 msgid "Djiboutian franc"
 msgstr ""
 
-#: data/currency.php:54
+#: data/currency.php:48
 msgid "Danish krone"
 msgstr ""
 
-#: data/currency.php:55
+#: data/currency.php:49
 msgid "Dominican peso"
 msgstr ""
 
-#: data/currency.php:56
+#: data/currency.php:50
 msgid "Algerian dinar"
 msgstr ""
 
-#: data/currency.php:57
+#: data/currency.php:51
 msgid "Egyptian pound"
 msgstr ""
 
-#: data/currency.php:58
+#: data/currency.php:52
 msgid "Eritrean nakfa"
 msgstr ""
 
-#: data/currency.php:59
+#: data/currency.php:53
 msgid "Ethiopian birr"
 msgstr ""
 
-#: data/currency.php:60
+#: data/currency.php:54
 msgid "Euro"
 msgstr ""
 
-#: data/currency.php:61
+#: data/currency.php:55
 msgid "Fijian dollar"
 msgstr ""
 
-#: data/currency.php:62
+#: data/currency.php:56
 msgid "Falkland Islands pound"
 msgstr ""
 
-#: data/currency.php:63
+#: data/currency.php:57
 msgid "Pound sterling"
 msgstr ""
 
-#: data/currency.php:64
+#: data/currency.php:58
 msgid "Georgian lari"
 msgstr ""
 
-#: data/currency.php:65
+#: data/currency.php:59
 msgid "Guernsey pound"
 msgstr ""
 
-#: data/currency.php:66
+#: data/currency.php:60
 msgid "Ghana cedi"
 msgstr ""
 
-#: data/currency.php:67
+#: data/currency.php:61
 msgid "Gibraltar pound"
 msgstr ""
 
-#: data/currency.php:68
+#: data/currency.php:62
 msgid "Gambian dalasi"
 msgstr ""
 
-#: data/currency.php:69
+#: data/currency.php:63
 msgid "Guinean franc"
 msgstr ""
 
-#: data/currency.php:70
+#: data/currency.php:64
 msgid "Guatemalan quetzal"
 msgstr ""
 
-#: data/currency.php:71
+#: data/currency.php:65
 msgid "Guyanese dollar"
 msgstr ""
 
-#: data/currency.php:72
+#: data/currency.php:66
 msgid "Hong Kong dollar"
 msgstr ""
 
-#: data/currency.php:73
+#: data/currency.php:67
 msgid "Honduran lempira"
 msgstr ""
 
-#: data/currency.php:74
+#: data/currency.php:68
 msgid "Croatian kuna"
 msgstr ""
 
-#: data/currency.php:75
+#: data/currency.php:69
 msgid "Haitian gourde"
 msgstr ""
 
-#: data/currency.php:76
+#: data/currency.php:70
 msgid "Hungarian forint"
 msgstr ""
 
-#: data/currency.php:77
+#: data/currency.php:71
 msgid "Indonesian rupiah"
 msgstr ""
 
-#: data/currency.php:78
+#: data/currency.php:72
 msgid "Israeli new shekel"
 msgstr ""
 
-#: data/currency.php:79
+#: data/currency.php:73
 msgid "Manx pound"
 msgstr ""
 
-#: data/currency.php:80
+#: data/currency.php:74
 msgid "Indian rupee"
 msgstr ""
 
-#: data/currency.php:81
+#: data/currency.php:75
 msgid "Iraqi dinar"
 msgstr ""
 
-#: data/currency.php:82
+#: data/currency.php:76
 msgid "Iranian rial"
 msgstr ""
 
-#: data/currency.php:83
+#: data/currency.php:77
 msgid "Iranian toman"
 msgstr ""
 
-#: data/currency.php:84
+#: data/currency.php:78
 msgid "Icelandic kr&oacute;na"
 msgstr ""
 
-#: data/currency.php:85
+#: data/currency.php:79
 msgid "Jersey pound"
 msgstr ""
 
-#: data/currency.php:86
+#: data/currency.php:80
 msgid "Jamaican dollar"
 msgstr ""
 
-#: data/currency.php:87
+#: data/currency.php:81
 msgid "Jordanian dinar"
 msgstr ""
 
-#: data/currency.php:88
+#: data/currency.php:82
 msgid "Japanese yen"
 msgstr ""
 
-#: data/currency.php:89
+#: data/currency.php:83
 msgid "Kenyan shilling"
 msgstr ""
 
-#: data/currency.php:90
+#: data/currency.php:84
 msgid "Kyrgyzstani som"
 msgstr ""
 
-#: data/currency.php:91
+#: data/currency.php:85
 msgid "Cambodian riel"
 msgstr ""
 
-#: data/currency.php:92
+#: data/currency.php:86
 msgid "Comorian franc"
 msgstr ""
 
-#: data/currency.php:93
+#: data/currency.php:87
 msgid "North Korean won"
 msgstr ""
 
-#: data/currency.php:94
+#: data/currency.php:88
 msgid "South Korean won"
 msgstr ""
 
-#: data/currency.php:95
+#: data/currency.php:89
 msgid "Kuwaiti dinar"
 msgstr ""
 
-#: data/currency.php:96
+#: data/currency.php:90
 msgid "Cayman Islands dollar"
 msgstr ""
 
-#: data/currency.php:97
+#: data/currency.php:91
 msgid "Kazakhstani tenge"
 msgstr ""
 
-#: data/currency.php:98
+#: data/currency.php:92
 msgid "Lao kip"
 msgstr ""
 
-#: data/currency.php:99
+#: data/currency.php:93
 msgid "Lebanese pound"
 msgstr ""
 
-#: data/currency.php:100
+#: data/currency.php:94
 msgid "Sri Lankan rupee"
 msgstr ""
 
-#: data/currency.php:101
+#: data/currency.php:95
 msgid "Liberian dollar"
 msgstr ""
 
-#: data/currency.php:102
+#: data/currency.php:96
 msgid "Lesotho loti"
 msgstr ""
 
-#: data/currency.php:103
+#: data/currency.php:97
 msgid "Libyan dinar"
 msgstr ""
 
-#: data/currency.php:104
+#: data/currency.php:98
 msgid "Moroccan dirham"
 msgstr ""
 
-#: data/currency.php:105
+#: data/currency.php:99
 msgid "Moldovan leu"
 msgstr ""
 
-#: data/currency.php:106
+#: data/currency.php:100
 msgid "Malagasy ariary"
 msgstr ""
 
-#: data/currency.php:107
+#: data/currency.php:101
 msgid "Macedonian denar"
 msgstr ""
 
-#: data/currency.php:108
+#: data/currency.php:102
 msgid "Burmese kyat"
 msgstr ""
 
-#: data/currency.php:109
+#: data/currency.php:103
 msgid "Mongolian t&ouml;gr&ouml;g"
 msgstr ""
 
-#: data/currency.php:110
+#: data/currency.php:104
 msgid "Macanese pataca"
 msgstr ""
 
-#: data/currency.php:111
+#: data/currency.php:105
 msgid "Mauritanian ouguiya"
 msgstr ""
 
-#: data/currency.php:112
+#: data/currency.php:106
 msgid "Mauritian rupee"
 msgstr ""
 
-#: data/currency.php:113
+#: data/currency.php:107
 msgid "Maldivian rufiyaa"
 msgstr ""
 
-#: data/currency.php:114
+#: data/currency.php:108
 msgid "Malawian kwacha"
 msgstr ""
 
-#: data/currency.php:115
+#: data/currency.php:109
 msgid "Mexican peso"
 msgstr ""
 
-#: data/currency.php:116
+#: data/currency.php:110
 msgid "Malaysian ringgit"
 msgstr ""
 
-#: data/currency.php:117
+#: data/currency.php:111
 msgid "Mozambican metical"
 msgstr ""
 
-#: data/currency.php:118
+#: data/currency.php:112
 msgid "Namibian dollar"
 msgstr ""
 
-#: data/currency.php:119
+#: data/currency.php:113
 msgid "Nigerian naira"
 msgstr ""
 
-#: data/currency.php:120
+#: data/currency.php:114
 msgid "Nicaraguan c&oacute;rdoba"
 msgstr ""
 
-#: data/currency.php:121
+#: data/currency.php:115
 msgid "Norwegian krone"
 msgstr ""
 
-#: data/currency.php:122
+#: data/currency.php:116
 msgid "Nepalese rupee"
 msgstr ""
 
-#: data/currency.php:123
+#: data/currency.php:117
 msgid "New Zealand dollar"
 msgstr ""
 
-#: data/currency.php:124
+#: data/currency.php:118
 msgid "Omani rial"
 msgstr ""
 
-#: data/currency.php:125
+#: data/currency.php:119
 msgid "Panamanian balboa"
 msgstr ""
 
-#: data/currency.php:126
+#: data/currency.php:120
 msgid "Peruvian nuevo sol"
 msgstr ""
 
-#: data/currency.php:127
+#: data/currency.php:121
 msgid "Papua New Guinean kina"
 msgstr ""
 
-#: data/currency.php:128
+#: data/currency.php:122
 msgid "Philippine peso"
 msgstr ""
 
-#: data/currency.php:129
+#: data/currency.php:123
 msgid "Pakistani rupee"
 msgstr ""
 
-#: data/currency.php:130
+#: data/currency.php:124
 msgid "Polish z&#x142;oty"
 msgstr ""
 
-#: data/currency.php:131
+#: data/currency.php:125
 msgid "Transnistrian ruble"
 msgstr ""
 
-#: data/currency.php:132
+#: data/currency.php:126
 msgid "Paraguayan guaran&iacute;"
 msgstr ""
 
-#: data/currency.php:133
+#: data/currency.php:127
 msgid "Qatari riyal"
 msgstr ""
 
-#: data/currency.php:134
+#: data/currency.php:128
 msgid "Romanian leu"
 msgstr ""
 
-#: data/currency.php:135
+#: data/currency.php:129
 msgid "Serbian dinar"
 msgstr ""
 
-#: data/currency.php:136
+#: data/currency.php:130
 msgid "Russian ruble"
 msgstr ""
 
-#: data/currency.php:137
+#: data/currency.php:131
 msgid "Rwandan franc"
 msgstr ""
 
-#: data/currency.php:138
+#: data/currency.php:132
 msgid "Saudi riyal"
 msgstr ""
 
-#: data/currency.php:139
+#: data/currency.php:133
 msgid "Solomon Islands dollar"
 msgstr ""
 
-#: data/currency.php:140
+#: data/currency.php:134
 msgid "Seychellois rupee"
 msgstr ""
 
-#: data/currency.php:141
+#: data/currency.php:135
 msgid "Sudanese pound"
 msgstr ""
 
-#: data/currency.php:142
+#: data/currency.php:136
 msgid "Swedish krona"
 msgstr ""
 
-#: data/currency.php:143
+#: data/currency.php:137
 msgid "Singapore dollar"
 msgstr ""
 
-#: data/currency.php:144
+#: data/currency.php:138
 msgid "Saint Helena pound"
 msgstr ""
 
-#: data/currency.php:145
+#: data/currency.php:139
 msgid "Sierra Leonean leone"
 msgstr ""
 
-#: data/currency.php:146
+#: data/currency.php:140
 msgid "Somali shilling"
 msgstr ""
 
-#: data/currency.php:147
+#: data/currency.php:141
 msgid "Surinamese dollar"
 msgstr ""
 
-#: data/currency.php:148
+#: data/currency.php:142
 msgid "South Sudanese pound"
 msgstr ""
 
-#: data/currency.php:149
+#: data/currency.php:143
 msgid "S&atilde;o Tom&eacute; and Pr&iacute;ncipe dobra"
 msgstr ""
 
-#: data/currency.php:150
+#: data/currency.php:144
 msgid "Syrian pound"
 msgstr ""
 
-#: data/currency.php:151
+#: data/currency.php:145
 msgid "Swazi lilangeni"
 msgstr ""
 
-#: data/currency.php:152
+#: data/currency.php:146
 msgid "Thai baht"
 msgstr ""
 
-#: data/currency.php:153
+#: data/currency.php:147
 msgid "Tajikistani somoni"
 msgstr ""
 
-#: data/currency.php:154
+#: data/currency.php:148
 msgid "Turkmenistan manat"
 msgstr ""
 
-#: data/currency.php:155
+#: data/currency.php:149
 msgid "Tunisian dinar"
 msgstr ""
 
-#: data/currency.php:156
+#: data/currency.php:150
 msgid "Tongan pa&#x2bb;anga"
 msgstr ""
 
-#: data/currency.php:157
+#: data/currency.php:151
 msgid "Turkish lira"
 msgstr ""
 
-#: data/currency.php:158
+#: data/currency.php:152
 msgid "Trinidad and Tobago dollar"
 msgstr ""
 
-#: data/currency.php:159
+#: data/currency.php:153
 msgid "New Taiwan dollar"
 msgstr ""
 
-#: data/currency.php:160
+#: data/currency.php:154
 msgid "Tanzanian shilling"
 msgstr ""
 
-#: data/currency.php:161
+#: data/currency.php:155
 msgid "Ukrainian hryvnia"
 msgstr ""
 
-#: data/currency.php:162
+#: data/currency.php:156
 msgid "Ugandan shilling"
 msgstr ""
 
-#: data/currency.php:163
+#: data/currency.php:157
 msgid "United States dollar"
 msgstr ""
 
-#: data/currency.php:164
+#: data/currency.php:158
 msgid "Uruguayan peso"
 msgstr ""
 
-#: data/currency.php:165
+#: data/currency.php:159
 msgid "Uzbekistani som"
 msgstr ""
 
-#: data/currency.php:166
+#: data/currency.php:160
 msgid "Venezuelan bol&iacute;var"
 msgstr ""
 
-#: data/currency.php:167
+#: data/currency.php:161
 msgid "Vietnamese &#x111;&#x1ed3;ng"
 msgstr ""
 
-#: data/currency.php:168
+#: data/currency.php:162
 msgid "Vanuatu vatu"
 msgstr ""
 
-#: data/currency.php:169
+#: data/currency.php:163
 msgid "Samoan t&#x101;l&#x101;"
 msgstr ""
 
-#: data/currency.php:170
+#: data/currency.php:164
 msgid "Central African CFA franc"
 msgstr ""
 
-#: data/currency.php:171
+#: data/currency.php:165
 msgid "East Caribbean dollar"
 msgstr ""
 
-#: data/currency.php:172
+#: data/currency.php:166
 msgid "West African CFA franc"
 msgstr ""
 
-#: data/currency.php:173
+#: data/currency.php:167
 msgid "CFP franc"
 msgstr ""
 
-#: data/currency.php:174
+#: data/currency.php:168
 msgid "Yemeni rial"
 msgstr ""
 
-#: data/currency.php:175
+#: data/currency.php:169
 msgid "South African rand"
 msgstr ""
 
-#: data/currency.php:176
+#: data/currency.php:170
 msgid "Zambian kwacha"
 msgstr ""
 
-#: data/icons/dashicons.php:20
+#: data/icons/dashicons.php:8
 msgid "Dashicons"
 msgstr ""
 
@@ -1500,85 +1474,100 @@ msgstr ""
 msgid "Right Bottom"
 msgstr ""
 
-#: fields/class-wp-list-table.php:37
+#: fields/class-cloner.php:54
+msgid "Add + "
+msgstr ""
+
+#: fields/class-cloner.php:163
+#: fields/key-value/class-key-value.php:90
+#: fields/key-value/class-key-value.php:106
+msgid "Add +"
+msgstr ""
+
+#. translators: Adds Max Count
+#: fields/class-cloner.php:174
+msgid "You Cannot Add More Than %s"
+msgstr ""
+
+#: fields/class-wp-list-table.php:25
 msgid "Search"
 msgstr ""
 
-#: fields/date-picker/class-date-picker.php:40
-#: fields/date-picker/class-date-picker.php:47
+#: fields/date-picker/class-date-picker.php:27
+#: fields/date-picker/class-date-picker.php:34
 msgid "From Date"
 msgstr ""
 
-#: fields/date-picker/class-date-picker.php:57
+#: fields/date-picker/class-date-picker.php:44
 msgid "To Date"
 msgstr ""
 
-#: fields/date-picker/class-date-picker.php:112
+#: fields/date-picker/class-date-picker.php:99
 msgid "Date"
 msgstr ""
 
-#: fields/date-picker/class-date-picker.php:113
+#: fields/date-picker/class-date-picker.php:100
 msgid "Till Date"
 msgstr ""
 
+#: fields/dimensions/class-dimensions.php:32
 #: fields/dimensions/class-dimensions.php:44
-#: fields/dimensions/class-dimensions.php:56
 msgid "Height"
 msgstr ""
 
+#: fields/dimensions/class-dimensions.php:33
 #: fields/dimensions/class-dimensions.php:45
-#: fields/dimensions/class-dimensions.php:57
 msgid "Width"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:71
+#: fields/gallery/class-gallery.php:60
 msgid "Add Gallery"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:83
-#: fields/gallery/class-gallery.php:95
-#: fields/gallery/class-gallery.php:116
+#: fields/gallery/class-gallery.php:72
+#: fields/gallery/class-gallery.php:84
+#: fields/gallery/class-gallery.php:105
 msgid "Edit Gallery"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:115
+#: fields/gallery/class-gallery.php:104
 msgid "Create Gallery"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:119
+#: fields/gallery/class-gallery.php:108
 msgid "Clear Gallery"
 msgstr ""
 
-#: fields/group/class-group.php:111
-#: fields/group/class-group.php:223
+#: fields/group/class-group.php:100
+#: fields/group/class-group.php:212
 msgid "Add New"
 msgstr ""
 
-#: fields/group/class-group.php:140
+#: fields/group/class-group.php:129
 msgid "Remove "
 msgstr ""
 
-#: fields/group/class-group.php:156
+#: fields/group/class-group.php:145
 msgid "Group #[count]"
 msgstr ""
 
-#: fields/group/class-group.php:224
+#: fields/group/class-group.php:213
 #: fields/image/class-image.php:92
 msgid "Remove"
 msgstr ""
 
-#: fields/group/class-group.php:227
-#: fields/key-value/class-key-value.php:123
+#: fields/group/class-group.php:216
+#: fields/key-value/class-key-value.php:112
 msgid "You Can't Add More.."
 msgstr ""
 
-#: fields/icon-picker/class-icon-picker.php:91
-#: fields/icon-picker/class-icon-picker.php:116
+#: fields/icon-picker/class-icon-picker.php:80
+#: fields/icon-picker/class-icon-picker.php:105
 msgid "Add Icon"
 msgstr ""
 
-#: fields/icon-picker/class-icon-picker.php:103
-#: fields/icon-picker/class-icon-picker.php:117
+#: fields/icon-picker/class-icon-picker.php:92
+#: fields/icon-picker/class-icon-picker.php:106
 msgid "Remove Icon"
 msgstr ""
 
@@ -1586,188 +1575,188 @@ msgstr ""
 msgid "Select A Image"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:42
+#: fields/key-value/class-key-value.php:31
 msgid "Key"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:49
+#: fields/key-value/class-key-value.php:38
 msgid "Value"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:118
+#: fields/key-value/class-key-value.php:107
 msgid "-"
 msgstr ""
 
-#: fields/link-color/class-link-color.php:64
+#: fields/link-color/class-link-color.php:50
 msgid "Color"
 msgstr ""
 
-#: fields/link-color/class-link-color.php:65
+#: fields/link-color/class-link-color.php:51
 msgid "Hover"
 msgstr ""
 
-#: fields/link-color/class-link-color.php:67
+#: fields/link-color/class-link-color.php:53
 msgid "Visited"
 msgstr ""
 
-#: fields/link-color/class-link-color.php:68
+#: fields/link-color/class-link-color.php:54
 msgid "Focus"
 msgstr ""
 
-#: fields/notice/class-notice.php:71
-#: fields/wp-notice/class-wp-notice.php:74
+#: fields/notice/class-notice.php:59
+#: fields/wp-notice/class-wp-notice.php:62
 msgid "Hide"
 msgstr ""
 
-#: fields/select/class-select.php:80
+#: fields/select/class-select.php:69
 msgid "Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>"
 msgstr ""
 
-#: fields/sorter/class-sorter.php:112
+#: fields/sorter/class-sorter.php:100
 msgid "Enabled Modules"
 msgstr ""
 
-#: fields/sorter/class-sorter.php:113
+#: fields/sorter/class-sorter.php:101
 msgid "Disabled Modules"
 msgstr ""
 
-#: fields/spacing/spacing.php:57
+#: fields/spacing/spacing.php:45
 msgid "All"
 msgstr ""
 
-#: fields/spacing/spacing.php:100
+#: fields/spacing/spacing.php:88
 msgid "Top"
 msgstr ""
 
-#: fields/spacing/spacing.php:101
+#: fields/spacing/spacing.php:89
 msgid "Bottom"
 msgstr ""
 
-#: fields/spacing/spacing.php:102
-#: fields/typography/class-typography.php:80
+#: fields/spacing/spacing.php:90
+#: fields/typography/class-typography.php:68
 msgid "Left"
 msgstr ""
 
-#: fields/spacing/spacing.php:103
-#: fields/typography/class-typography.php:82
+#: fields/spacing/spacing.php:91
+#: fields/typography/class-typography.php:70
 msgid "Right"
 msgstr ""
 
-#: fields/spacing/spacing.php:104
+#: fields/spacing/spacing.php:92
 msgid "Unit"
 msgstr ""
 
-#: fields/switcher/class-switcher.php:40
+#: fields/switcher/class-switcher.php:29
 msgid "ON"
 msgstr ""
 
-#: fields/switcher/class-switcher.php:41
+#: fields/switcher/class-switcher.php:30
 msgid "OFF"
 msgstr ""
 
-#: fields/typography/class-typography.php:81
+#: fields/typography/class-typography.php:69
 msgid "Center"
 msgstr ""
 
-#: fields/typography/class-typography.php:83
+#: fields/typography/class-typography.php:71
 msgid "Justify"
 msgstr ""
 
-#: fields/typography/class-typography.php:96
+#: fields/typography/class-typography.php:84
 msgid "left to right"
 msgstr ""
 
-#: fields/typography/class-typography.php:97
+#: fields/typography/class-typography.php:85
 msgid "right to left"
 msgstr ""
 
-#: fields/typography/class-typography.php:110
+#: fields/typography/class-typography.php:98
 msgid "normal"
 msgstr ""
 
-#: fields/typography/class-typography.php:111
+#: fields/typography/class-typography.php:99
 msgid "italic"
 msgstr ""
 
-#: fields/typography/class-typography.php:112
+#: fields/typography/class-typography.php:100
 msgid "oblique"
 msgstr ""
 
-#: fields/typography/class-typography.php:170
+#: fields/typography/class-typography.php:158
 msgid "Font Family & Weight"
 msgstr ""
 
-#: fields/typography/class-typography.php:171
+#: fields/typography/class-typography.php:159
 msgid "Backup Font Family"
 msgstr ""
 
-#: fields/typography/class-typography.php:172
+#: fields/typography/class-typography.php:160
 msgid "Text Align"
 msgstr ""
 
-#: fields/typography/class-typography.php:173
+#: fields/typography/class-typography.php:161
 msgid "Text Direction"
 msgstr ""
 
-#: fields/typography/class-typography.php:174
+#: fields/typography/class-typography.php:162
 msgid "Element Tag"
 msgstr ""
 
-#: fields/typography/class-typography.php:175
+#: fields/typography/class-typography.php:163
 msgid "Font Style"
 msgstr ""
 
-#: fields/typography/class-typography.php:176
+#: fields/typography/class-typography.php:164
 msgid "Font Size"
 msgstr ""
 
-#: fields/typography/class-typography.php:177
+#: fields/typography/class-typography.php:165
 msgid "Line Height"
 msgstr ""
 
-#: fields/typography/class-typography.php:178
+#: fields/typography/class-typography.php:166
 msgid "Letter Spacing"
 msgstr ""
 
-#: fields/typography/class-typography.php:179
+#: fields/typography/class-typography.php:167
 msgid "Text Color"
 msgstr ""
 
-#: fields/upload/class-upload.php:36
-#: fields/upload/class-upload.php:49
-#: fields/upload/class-upload.php:57
+#: fields/upload/class-upload.php:24
+#: fields/upload/class-upload.php:37
+#: fields/upload/class-upload.php:45
 msgid "Upload"
 msgstr ""
 
-#: fields/upload/class-upload.php:58
+#: fields/upload/class-upload.php:46
 msgid "Use"
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:58
+#: fields/wp-link/class-wp-link.php:47
 msgid "URL : "
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:65
+#: fields/wp-link/class-wp-link.php:54
 msgid "Title : "
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:76
+#: fields/wp-link/class-wp-link.php:65
 msgid "Example : "
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:86
-#: fields/wp-link/class-wp-link.php:104
+#: fields/wp-link/class-wp-link.php:75
+#: fields/wp-link/class-wp-link.php:93
 msgid "Select URL"
 msgstr ""
 
-#: templates/global/parts/settings/header.php:10
-#: templates/wc/parts/settings/header.php:10
-#: templates/wp-modern/parts/settings/header.php:10
+#: templates/global/parts/settings/header.php:14
+#: templates/wc/parts/settings/header.php:14
+#: templates/wp-modern/parts/settings/header.php:14
 msgid "Search Option(s)"
 msgstr ""
 
-#: templates/wponion-modal-html.php:2
-msgid "Close media panel"
+#: templates/wponion-modal-html.php:6
+msgid "Close Panel"
 msgstr ""
 
 #: wponion.php:65
