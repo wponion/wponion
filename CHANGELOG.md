@@ -3,6 +3,37 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+# [1.3] - 16/06/2019
+## Added
+* Field Arg `builder_path` -- Passes Actual Path For The Field In The Builder
+* Custom Field Argument `nopreview` For **OEmbed** Field which uses it when no preview found for the given url.
+* `array_insert_before` Function
+* `array_insert_after` Function
+* `'wponion-element-type-{type}'`  New HTML Field Element Class
+* `'wponion-field-type-{type}'`  New HTML Field Element Class
+* `data-wponion-field-type` New HTML Field Element Attribute
+* `wponion_catch_output` php function
+* WPOnion Cache Module
+* WPOnion New Ajax Module
+* Modal Field
+
+## Changed
+* Bump [sweetalert2] from 8.11.7 to 8.12.1.
+* Bump [@wordpress/hooks] from 2.3.0 to 2.4.0.
+* Bump [tippy.js] from 4.3.3 to 4.3.4.
+* Builder Now Uses `Nested Array Fetch` Eg : `$builder->get('page1/section1/field1')`
+* Template Files Updated To Pass Current Container & Subcontanier Instead of its slug 
+* Files Reorganized
+ 
+## Removed
+* Backup Handler Fields Related Codes
+* Removed File Header Comments
+* `wponion_highlight_string` function
+* `wponion_extract_font_variant` function
+* `wponion_noninput_fields` function
+
+
 # [1.2.1] - 10/06/2019
 ## Added
 * `reload` method to reload values from database in `\WPOnion\DB\Option`
@@ -48,8 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `pre` & `code` HTML tag css updated
 * Updated `Parsedown` library to **1.8.0-beta-7**
 * Redesinged **System Information** Field
-* Bump **sweetalert2** from `8.11.6` to `8.11.7`
-* Bump **tippy.js** from `4.3.1` to `4.3.3`
+* Bump [sweetalert2] from `8.11.6` to `8.11.7`
+* Bump [tippy.js] from `4.3.1` to `4.3.3`
 
 ## Removed
 * `color_palette` Field
@@ -465,6 +496,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.2.1]: https://github.com/wponion/wponion/releases/tag/1.2.1
 [1.2]: https://github.com/wponion/wponion/releases/tag/1.2
 [1.1]: https://github.com/wponion/wponion/releases/tag/1.1
 [1.0]: https://github.com/wponion/wponion/releases/tag/1.0
@@ -493,3 +525,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [Beta : 0.0.3]: https://github.com/wponion/wponion/releases/tag/0.0.3
 [Beta : 0.0.2]: https://github.com/wponion/wponion/releases/tag/Beta2
 [Beta : 0.0.1]: https://github.com/wponion/wponion/releases/tag/121010072018
+
+[sweetalert2]: https://github.com/sweetalert2/sweetalert2
+[@wordpress/hooks]: https://github.com/WordPress/gutenberg/tree/HEAD/packages/hooks
+[tippy.js]: https://github.com/atomiks/tippyjs
