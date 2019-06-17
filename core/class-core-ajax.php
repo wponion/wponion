@@ -16,6 +16,22 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 	 */
 	class Core_Ajax extends Bridge {
 		/**
+		 * Generates Ajax URL.
+		 *
+		 * @param bool  $action
+		 * @param array $args
+		 *
+		 * @static
+		 * @return string
+		 */
+		public static function url( $action = false, $args = array() ) {
+			$args                 = ( ! is_array( $args ) ) ? array() : $args;
+			$args['action']       = 'wponion-ajax';
+			$args['wponion-ajax'] = $action;
+			return add_query_arg( $args, admin_url( 'admin-ajax.php' ) );
+		}
+
+		/**
 		 * Core_Ajax constructor.
 		 */
 		public function __construct() {
