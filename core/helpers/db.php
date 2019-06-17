@@ -3,6 +3,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! function_exists( 'wponion_wp_db' ) ) {
+	/**
+	 * Returns an active instance of WPOnion_Localize_API.
+	 *
+	 * @return \WPOnion\DB\WP_DB
+	 */
+	function wponion_wp_db() {
+		return wponion_registry( 'wponion-global-wp-db-api', '\WPOnion\DB\WP_DB' );
+	}
+}
+
 if ( ! function_exists( 'wponion_update_option' ) ) {
 	/**
 	 * Custom Wrapper For update_option & update_site_option.
@@ -38,78 +49,6 @@ if ( ! function_exists( 'wponion_get_option' ) ) {
 			return get_site_option( $option_name, $default );
 		}
 		return get_option( $option_name, $default );
-	}
-}
-
-if ( ! function_exists( 'wponion_get_set_db' ) ) {
-	/**
-	 * @param string          $module_db Which module to work
-	 * @param string          $unique DB Unique Slug.
-	 * @param string|bool|int $id Post / User / Term ID
-	 * @param bool|mixed      $values
-	 * @param string          $mode --> Get / False
-	 *
-	 * @return array|bool|\WPOnion\DB\Option
-	 */
-	function wponion_get_set_db( $module_db, $unique, $id = false, $values = false, $mode = 'get' ) {
-		$return = null;
-
-		switch ( $module_db ) {
-			case 'dashboard_widget':
-				$return = ( 'get' === $mode ) ? wponion_get_option( $unique ) : wponion_update_option( $unique, $values );
-				break;
-			case 'settings':
-			case 'wc_settings':
-				$return = ( 'get' === $mode ) ? wpo_settings( $unique ) : update_option( $unique, $values );
-				break;
-			case 'network_settings':
-				$return = ( 'get' === $mode ) ? wpo_network_settings( $unique ) : update_site_option( $unique, $values );
-				break;
-			case 'post_meta':
-			case 'wc_product':
-			case 'metabox':
-			case 'nav_menu':
-			case 'media_fields':
-				$return = ( 'get' === $mode ) ? wpo_post_meta( $id, $unique ) : update_post_meta( $id, $unique, $values );
-				break;
-			case 'taxonomy':
-			case 'term':
-				$return = ( 'get' === $mode ) ? wpo_term_meta( $id, $unique ) : wponion_update_term_meta( $id, $unique, $values );
-				break;
-			case 'user_profile':
-				$return = ( 'get' === $mode ) ? wpo_user_meta( $id, $unique ) : update_user_meta( $id, $unique, $values );
-				break;
-		}
-		return $return;
-	}
-}
-
-if ( ! function_exists( 'wponion_get_db' ) ) {
-	/**
-	 * @param      $module_db
-	 * @param bool $unique
-	 * @param bool $id
-	 *
-	 * @return array|bool|mixed|\WPOnion\DB\Option|null
-	 */
-	function wponion_get_db( $module_db, $unique = false, $id = false ) {
-		return wponion_get_set_db( $module_db, $unique, $id );
-	}
-}
-
-if ( ! function_exists( 'wponion_update_db' ) ) {
-	/**
-	 * Updates Options in Database.
-	 *
-	 * @param string          $module_db DB update module type.
-	 * @param string          $unique update unqiue key.
-	 * @param mixed           $values update values.
-	 * @param string|int|bool $id extra argument to pass (Post ID,Term ID,User ID)
-	 *
-	 * @return array|bool|\WPOnion\DB\Option
-	 */
-	function wponion_update_db( $module_db, $unique, $values, $id ) {
-		return wponion_get_set_db( $module_db, $unique, $id, $values, 'save' );
 	}
 }
 

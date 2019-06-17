@@ -79,7 +79,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
-				$this->db_values = wponion_get_set_db( $this->module_db(), $this->unique(), $this->get_id() );
+				$this->db_values = wponion_wp_db()->get( $this->module_db(), $this->unique(), $this->get_id() );
 			}
 			return $this->db_values;
 		}
@@ -90,7 +90,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return $this
 		 */
 		public function set_db_values( $values = array() ) {
-			wponion_update_db( $this->module_db(), $this->unique, $values, $this->get_id() );
+			wponion_wp_db()->set( $this->module_db(), $this->unique(), $this->get_id(), $values );
 			if ( wpo_is_option( $this->db_values ) ) {
 				$this->db_values->reload();
 			} else {
