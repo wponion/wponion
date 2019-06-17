@@ -239,7 +239,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		protected function set_page_url() {
 			if ( empty( $this->page_url ) ) {
-				$page_url       = $this->menu_instance->menu_url();
+				$page_url       = ( wponion_is_ajax() ) ? wp_get_raw_referer() : $this->menu_instance->menu_url();
 				$this->page_url = array(
 					'full_url' => $page_url,
 					'part'     => str_replace( admin_url(), '', $page_url ),
