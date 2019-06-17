@@ -24,23 +24,21 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		public function output() {
 			echo $this->before();
 
-			if ( ! wponion_is_ajax() ) {
-				$btn = $this->handle_args( 'label', $this->data( 'button' ), array( 'class' => 'button button-secondary' ), array(
-					'type'       => 'button',
-					'only_field' => true,
-				) );
-				echo $this->sub_field( $btn, null, null );
-				echo '<div class="wponion-modal-hidden-data">';
-				switch ( $this->data( 'modal_type' ) ) {
-					case 'swal':
-						echo $this->swal( 'hidden' );
-						break;
-					case 'wp':
-						echo $this->wp();
-						break;
-				}
-				echo '</div>';
+			$btn = $this->handle_args( 'label', $this->data( 'button' ), array( 'class' => 'button button-secondary' ), array(
+				'type'       => 'button',
+				'only_field' => true,
+			) );
+			echo $this->sub_field( $btn, null, null );
+			echo '<div class="wponion-modal-hidden-data">';
+			switch ( $this->data( 'modal_type' ) ) {
+				case 'swal':
+					echo $this->swal( 'hidden' );
+					break;
+				case 'wp':
+					echo $this->wp();
+					break;
 			}
+			echo '</div>';
 			echo $this->after();
 		}
 
@@ -79,27 +77,27 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 			/* @var \WPO\Container|array $container */
 			$builder = $this->data( 'fields' );
 			if ( wpo_is_container( $builder ) ) {
-				if ( wponion_is_ajax() ) {
+				if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$final_output = $this->wp_render_containers( $builder );
 				} else {
 					$html = $this->wp_render_containers( $builder );
 				}
 			} elseif ( wpo_is( $builder ) ) {
 				foreach ( $builder->containers() as $container ) {
-					if ( wponion_is_ajax() ) {
+					if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 						$final_output[] = $this->wp_render_containers( $container );
 					} else {
 						$html .= $this->wp_render_containers( $container );
 					}
 				}
 			} elseif ( wponion_is_array( $builder ) && ! empty( $builder ) ) {
-				if ( wponion_is_ajax() ) {
+				if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$final_output['html'] = $this->wp_render_fields( $builder );
 				} else {
 					$html .= $this->wp_render_fields( $builder );
 				}
 			}
-			return ( wponion_is_ajax() ) ? $final_output : $html;
+			return ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? $final_output : $html;
 		}
 
 		/**
@@ -118,7 +116,7 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				$page['sections'] = array();
 				/* @var \WPO\Container $container */
 				foreach ( $builder->containers() as $container ) {
-					if ( wponion_is_ajax() ) {
+					if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 						$page['sections'][] = array(
 							'id'      => $container->slug(),
 							'title'   => $container->title(),
@@ -131,13 +129,13 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 					}
 				}
 			} elseif ( $builder->has_fields() ) {
-				if ( wponion_is_ajax() ) {
+				if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$page['html'] = $this->wp_render_fields( $builder->fields() );
 				} else {
 					$html .= $this->wp_render_fields( $builder->fields() );
 				}
 			}
-			return ( wponion_is_ajax() ) ? $page : $html;
+			return ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? $page : $html;
 		}
 
 		/**
@@ -150,13 +148,13 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		protected function wp_render_fields( $fields ) {
 			$final_output = '';
 			foreach ( $fields as $field ) {
-				if ( ! wponion_is_ajax() ) {
+				if ( ! wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$field['__no_instance'] = true;
 					$this->sub_field( $field, null, $this->name(), true );
 					$field['type'] = 'hidden';
 					$final_output  .= $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name() );
 				} else {
-					$field['type'] = ( wponion_is_ajax() ) ? $field['type'] : 'hidden';
+					$field['type'] = ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? $field['type'] : 'hidden';
 					$final_output  .= $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name() );
 				}
 			}
