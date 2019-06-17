@@ -38,7 +38,6 @@ if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 		 * @param string          $module_db
 		 * @param string          $unique
 		 * @param bool|string|int $id
-		 * @param mixed           $values
 		 *
 		 * @return array|bool|int|mixed|\WP_Error|\WPOnion\DB\Option
 		 */
@@ -79,7 +78,7 @@ if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 					break;
 				case 'settings':
 				case 'wc_settings':
-					$return = ( 'get' === $mode ) ? wpo_settings( $unique ) : update_option( $unique, $this->handle_values( $values ) );
+					$return = ( 'get' === $mode ) ? wpo_settings( $unique ) : update_option( $unique, $this->handle_values( $values ), false );
 					break;
 				case 'network_settings':
 					$return = ( 'get' === $mode ) ? wpo_network_settings( $unique ) : update_site_option( $unique, $this->handle_values( $values ) );
