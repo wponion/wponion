@@ -120,7 +120,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * @return bool
 		 */
 		public function save() {
-			$instance = wponion_update_db( $this->module, $this->unique, $this->options, $this->extra );
+			$instance = wponion_wp_db()->set( $this->module, $this->unique, $this->extra, $this->options );
 			return ( ! is_wp_error( $instance ) && false !== $instance ) ? true : false;
 		}
 
@@ -246,6 +246,15 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 */
 		public function offsetGet( $offset ) {
 			return $this->get( $offset );
+		}
+
+		/**
+		 * Checks if Class Is Empty
+		 *
+		 * @return bool
+		 */
+		public function is_empty() {
+			return ( empty( $this->get() ) );
 		}
 
 	}
