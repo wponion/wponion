@@ -202,6 +202,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'button_set', 'all' );
 			\wponion_register_field( 'metabox', 'all' );
 			\wponion_register_field( 'modal', 'all' );
+			\wponion_register_field( 'spinner', 'all' );
 
 			/**
 			 * Registers UI Field.

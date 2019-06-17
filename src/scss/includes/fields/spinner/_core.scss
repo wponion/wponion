@@ -1,0 +1,46 @@
+.wponion-element.wponion-element-spinner {
+	.ui-spinner {
+		position: relative;
+		display:  inline-block;
+
+		.wponion-input-group {
+			margin:  0;
+			display: inline-block;
+		}
+
+		input {
+			margin:         0;
+			text-align:     center;
+			padding-top:    5px;
+			padding-bottom: 5px;
+			width:          100px;
+		}
+
+		.ui-spinner-button {
+			color:            #555;
+			background-color: #eee;
+			cursor:           pointer;
+			border:           $element_border;
+			padding:          5px 15px;
+
+			&:hover {
+				background-color: #e3e3e3;
+			}
+
+
+			&.ui-spinner-up {
+				right:       0;
+				text-align:  center;
+				float:       right;
+				border-left: none;
+			}
+
+			&.ui-spinner-down {
+				border-right: none;
+				left:         0;
+				text-align:   center;
+				float:        left;
+			}
+		}
+	}
+}

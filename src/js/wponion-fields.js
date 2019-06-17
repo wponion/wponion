@@ -25,6 +25,7 @@ require( './fields/oembed' );
 require( './fields/faq' );
 require( './fields/modal' );
 require( './fields/import_export' );
+require( './fields/spinner' );
 require( './helpers/image_popup' );
 require( './helpers/tooltip' );
 require( './helpers/reload_wp_editor' );
