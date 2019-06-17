@@ -27,7 +27,7 @@ export default Backbone.View.extend( {
 	 */
 	initialize: function( $modal_options = {}, $html = {} ) {
 		this.options    = _.extend( {
-			size: 'small',
+			size: 'small', // xsmall , small , medium , large , full , default
 			save_btn_label: 'Save',
 			close_btn_label: 'Close',
 		}, $modal_options );
@@ -140,6 +140,7 @@ export default Backbone.View.extend( {
 			$_content.find( '.media-content' ).html( $container.html );
 			if( false !== $container.sidebar && window.wponion._.isString( $container.sidebar ) ) {
 				$_content.find( '.media-sidebar' ).html( $container.sidebar ).removeClass( 'hidden' );
+				$_content.find( '.media-content' ).addClass( 'with-sidebar' );
 			}
 		}
 
@@ -160,6 +161,7 @@ export default Backbone.View.extend( {
 	 * @param $parent_content
 	 */
 	render_sub_containers: function( $container, $parent_content ) {
+		$parent_content.find( '.media-frame-content' ).html( ' ' );
 		for( let $s in $container.sections ) {
 			if( $container.sections.hasOwnProperty( $s ) ) {
 				let $sub_container = _.extend( this.container_defaults(), $container.sections[ $s ] );

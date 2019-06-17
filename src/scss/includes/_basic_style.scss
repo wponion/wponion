@@ -304,6 +304,18 @@ img[wponion-img-popup] {
 	}
 
 	&.wponion-wp-modal- {
+		&default {
+			margin:     auto;
+			box-sizing: border-box;
+		}
+
+		&xsmall {
+			margin:     auto;
+			box-sizing: border-box;
+			max-width:  500px;
+			max-height: 300px;
+		}
+
 		&small {
 			margin:     auto;
 			box-sizing: border-box;
@@ -324,15 +336,43 @@ img[wponion-img-popup] {
 			max-width:  1200px;
 			max-height: 800px;
 		}
+
+		&full {
+			top:        0;
+			bottom:     0;
+			right:      0;
+			left:       0;
+			margin:     auto;
+			box-sizing: border-box;
+			max-width:  100%;
+			max-height: 100%;
+		}
 	}
 
 	.wponion-modal-content-container {
 		.media-frame-content {
 			.media-content {
-				display: inline-block;
-				width:   calc(75% - 142px);
-				float:   left;
-				padding: 0 16px;
+				display:  inline-block;
+				width:    100%;
+				position: relative;
+
+				&.with-sidebar {
+					width: calc(100% - 300px);
+				}
+
+				> .wponion-element {
+					> .row {
+						width:        100%;
+						margin-left:  0 !important;
+						margin-right: 0 !important;
+
+						> div {
+							padding-left:  0;
+							padding-right: 0;
+						}
+					}
+
+				}
 			}
 		}
 	}

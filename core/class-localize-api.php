@@ -273,8 +273,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					'html'             => include wponion()->tpl( 'wponion-modal-html.php' ),
 					'frame_menu_item'  => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
 					'router_menu_item' => '<a href="{{ data.url }}" class="media-menu-item">{{ data.name }}</a>',
-					'page_content'     => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content"><div class="media-frame-title"><h1>{{data.title}}</h1></div><div class="media-frame-router"> <div class="media-router"></div> </div> <div class="media-frame-content"><div class="media-content"></div><div class="media-sidebar"></div></div></div>',
-					'section_content'  => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content wponion-section-modal-content"><div class="media-content"></div><div class="media-sidebar"></div></div>',
+					'page_content'     => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content"><div class="media-frame-title"><h1>{{data.title}}</h1></div><div class="media-frame-router"> <div class="media-router"></div> </div> <div class="media-frame-content"><div class="media-content wponion-framework"></div><div class="media-sidebar"></div></div></div>',
+					'section_content'  => '<div id="{{data.id}}" class="hidden wponion-modal-{{data.id}} wponion-modal-content wponion-section-modal-content"><div class="media-content wponion-framework"></div><div class="media-sidebar"></div></div>',
 				),
 			);
 			$this->js_args['wponion_core'] = wponion_parse_args( $this->js_args['wponion_core'], $extra );
