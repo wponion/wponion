@@ -1,6 +1,7 @@
 /* global swal:true */
 
-const is_jquery = require( 'vsp-js-helper/index' ).is_jquery;
+const is_jquery  = require( 'vsp-js-helper/index' ).is_jquery;
+const parse_args = require( 'vsp-js-helper/index' ).parse_args;
 
 import $wponion from './core';
 import $wponion_debug from './debug';
@@ -305,5 +306,15 @@ export default class extends WPOnion_Module {
 	get_field_parent_by_id( $elem ) {
 		let $ID = $wponion.fieldID( $elem );
 		return jQuery( 'div.wponion-element[data-wponion-jsid="' + $ID + '"]' );
+	}
+
+	/**
+	 * Parses Args.
+	 * @param $args
+	 * @param $defaults
+	 * @return {*}
+	 */
+	parse_args( $args, $defaults ) {
+		return window.wponion._.merge( $defaults, $args );
 	}
 }

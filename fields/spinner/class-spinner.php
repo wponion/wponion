@@ -19,17 +19,19 @@ if ( ! class_exists( '\WPOnion\Field\Spinner' ) ) {
 
 		protected function js_field_args() {
 			return $this->parse_args( array(
-				'max'  => $this->data( 'max' ),
-				'min'  => $this->data( 'min' ),
-				'step' => $this->data( 'step' ),
+				'max'     => $this->data( 'max' ),
+				'min'     => $this->data( 'min' ),
+				'step'    => $this->data( 'step' ),
+				'spinner' => ( ! is_array( $this->data( 'spinner' ) ) ) ? array() : $this->data( 'spinner' ),
 			), parent::js_field_args() );
 		}
 
 		protected function field_default() {
 			return array(
-				'max'  => 100,
-				'min'  => 0,
-				'step' => 1,
+				'max'     => 100,
+				'min'     => 0,
+				'step'    => 1,
+				'spinner' => array(),
 			);
 		}
 	}

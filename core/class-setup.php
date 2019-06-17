@@ -203,6 +203,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'metabox', 'all' );
 			\wponion_register_field( 'modal', 'all' );
 			\wponion_register_field( 'spinner', 'all' );
+			\wponion_register_field( 'range_slider', 'all' );
 
 			/**
 			 * Registers UI Field.
