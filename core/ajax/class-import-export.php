@@ -4,7 +4,6 @@ namespace WPOnion\Ajax;
 
 use WPOnion\Bridge\Ajax;
 use WPOnion\Field\Import_Export\Backup_Handler;
-use WPOnion\Icons;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -70,7 +69,12 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 		protected function backup() {
 			$module = $this->get_module();
 			$status = Backup_Handler::new_backup( $module->unique(), $module->module_db(), false );
-			( $status ) ? $this->success( __( 'Backup Created' ) ) : $this->error( __( 'Backup Creation Failed' ), __( 'Unknown Error Occured While Creating Backup' ) );
+			if ( $status ) {
+				$this->success( __( 'Backup Created' ), false, array(
+					'html' => Backup_Handler::backup_html( $status ),
+				) );
+			}
+			$this->error( __( 'Backup Creation Failed' ), __( 'Unknown Error Occured While Creating Backup' ) );
 		}
 
 		protected function download() {
@@ -106,9 +110,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 			}
 
 			if ( $status ) {
-				$msg           = $this->success_message( __( 'Backup Restored ' ), __( 'Please Reload The Page.' ) );
-				$msg['backup'] = Backup_Handler::get_backup( $backup_id, $module->unique(), $module->module_db(), $module->get_id() );
-				$this->json_success( $msg );
+				$this->success( __( 'Backup Restored ' ), __( 'Please Reload The Page.' ), array(
+					'backup' => Backup_Handler::get_backup( $backup_id, $module->unique(), $module->module_db(), $module->get_id() ),
+				) );
 			}
 			$this->error( __( 'Restore Failed' ), __( 'Restore Will Fail If both database & backup values are same' ) );
 		}

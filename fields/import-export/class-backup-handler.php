@@ -71,7 +71,8 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export\Backup_Handler' ) ) {
 			$backup_id             = current_time( 'timestamp' );
 			$backups               = self::get_backups( $unique, $module, $extra );
 			$backups[ $backup_id ] = ( wpo_is_option( $existing ) ) ? $existing->get() : $existing;
-			return self::save_backup( $backups, $unique, $module, $existing );
+			$status                = self::save_backup( $backups, $unique, $module, $existing );
+			return ( $status ) ? $backup_id : false;
 		}
 
 		/**

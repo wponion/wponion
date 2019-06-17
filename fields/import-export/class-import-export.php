@@ -42,7 +42,7 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 			$import_label     = __( 'Import Backup' );
 			$backups          = __( 'Saved Backups' );
 			$create_backup    = __( 'Create Backup' );
-			$ptag             = __( 'You options have been backed up. You can always restore your options by clicking the **Restore** button below:' );
+			$ptag             = __( 'You options have been backed up. You can always restore your options by clicking the <strong>Restore</strong> button below:' );
 			$list             = Backup_Handler::get_backup_lists( $this->base_unique(), $this->module(), false );
 
 			echo <<<HTML

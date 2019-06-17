@@ -49,7 +49,10 @@ class field extends WPOnion_Field {
 				},
 				button_lock: jQuery( e.currentTarget ),
 				element_lock: this.element.find( '.saved-backup-headers' ),
-				success: ( res ) => wponion_success_swal( res ).fire(),
+				success: ( res ) => {
+					wponion_success_swal( res ).fire();
+					this.element.find( '.saved-backup-headers ul' ).append( res.html );
+				},
 				error: ( res ) => wponion_error_swal( res ).fire(),
 			} ).send();
 		} );

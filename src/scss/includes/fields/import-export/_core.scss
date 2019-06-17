@@ -6,7 +6,9 @@
 			width:         calc(70% - 15px);
 
 			.backup-export-container {
-				margin-top: 10px;
+				margin-top:  20px;
+				padding-top: 20px;
+				border-top:  $element_border;
 			}
 		}
 
