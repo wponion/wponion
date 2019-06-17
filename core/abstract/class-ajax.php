@@ -235,17 +235,19 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 *
 		 * @param string|bool $error_title
 		 * @param string|bool $error_message
+		 * @param array       $args
 		 */
-		protected function error( $error_title = false, $error_message = false ) {
-			$this->validate( false, $error_title, $error_message );
+		protected function error( $error_title = false, $error_message = false, $args = array() ) {
+			$this->json_error( wp_parse_args( $args, $this->error_message( $error_title, $error_message ) ) );
 		}
 
 		/**
-		 * @param bool $success_title
-		 * @param bool $success_message
+		 * @param bool|string $success_title
+		 * @param bool|string $success_message
+		 * @param array       $args
 		 */
-		protected function success( $success_title = false, $success_message = false ) {
-			$this->json_success( $this->success_message( $success_title, $success_message ) );
+		protected function success( $success_title = false, $success_message = false, $args = array() ) {
+			$this->json_success( wp_parse_args( $args, $this->success_message( $success_title, $success_message ) ) );
 		}
 
 		/**
