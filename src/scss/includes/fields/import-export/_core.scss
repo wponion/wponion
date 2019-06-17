@@ -1,7 +1,75 @@
 .wponion-element.wponion-element-import_export {
+	.import-export-base-wrap {
+		.left {
+			padding-right: 15px;
+			display:       inline-block;
+			width:         calc(70% - 15px);
+
+			.backup-export-container {
+				margin-top: 10px;
+			}
+		}
+
+		.right {
+			display:        inline-block;
+			width:          calc(30% - 45px);
+			vertical-align: top;
+			padding:        0 20px;
+
+			.saved-backup-headers {
+				h2 {
+					margin-top:    0;
+					margin-bottom: 10px;
+					display:       inline-block;
+				}
+
+				p {
+					margin:        0;
+					margin-bottom: 10px;
+				}
+
+			}
+
+			ul {
+				padding:       10px;
+				background:    #f6f6f6;
+				border:        1px solid #ccc;
+				border-radius: 5px;
+
+				li {
+					padding: 5px 0;
+					margin:  5px 0;
+
+					&:first-child {
+						margin-top:  0;
+						padding-top: 0;
+					}
+
+					&:last-child {
+						margin-bottom:  0;
+						padding-bottom: 0;
+					}
+
+					.actions {
+						display: none;
+						float:   right;
+					}
+
+					&:hover {
+						.actions {
+							display: inline-block;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	textarea {
 		min-width:  400px;
-		min-height: 200px;
+		min-height: 150px;
+		width:      100%;
+		resize:     none;
 
 		&#backup-export-field {
 			background: #e3e3e3;
@@ -9,7 +77,7 @@
 		}
 	}
 
-	.export-actions {
+	.export-actions, .import-actions {
 		display:    inline-block;
 		width:      100%;
 		margin-top: 10px;
