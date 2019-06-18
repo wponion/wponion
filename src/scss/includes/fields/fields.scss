@@ -10,6 +10,12 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 }
 
 
+.wponion-sub-container-wraps.row, .wponion-container-wraps.row {
+	&.hidden {
+		display: none;
+	}
+}
+
 // Basic WPonion Element Style
 
 .wponion-element {
@@ -41,9 +47,9 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 	.row {
 		> .wponion-element-title {
 			h4 {
-				font-size:    14px;
-				display:      inline-block;
-				margin:       0 5px 0 0;
+				font-size: 14px;
+				display:   inline-block;
+				margin:    0 5px 0 0;
 			}
 		}
 
