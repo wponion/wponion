@@ -30,6 +30,13 @@
 	}
 }
 
+// Hidden Class.
+.wpo-hidden {
+	visibility: hidden;
+	display:    none;
+	z-index:    0;
+}
+
 /** General Common Styles **/
 .wponion-icon {
 	margin-right: 4px;
@@ -291,7 +298,6 @@ img[wponion-img-popup] {
 
 
 // WordPress Modal.
-
 .wponion-wp-modal {
 	&.wponion-single-modal-view {
 		.media-frame-menu {

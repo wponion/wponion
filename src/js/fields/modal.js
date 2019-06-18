@@ -56,7 +56,8 @@ class field extends WPOnion_Field {
 		$hidden.html( '' );
 		for( let $i in $inputs ) {
 			if( $inputs.hasOwnProperty( $i ) ) {
-				$hidden.append( '<input type="hidden" name="' + $inputs[ $i ].name + '" value="' + $inputs[ $i ].value + '">' );
+				let $html = '<textarea class="wpo-hidden" name="' + $inputs[ $i ].name + '">' + $inputs[ $i ].value + '</textarea>';
+				$hidden.append( $html );
 			}
 		}
 	}
