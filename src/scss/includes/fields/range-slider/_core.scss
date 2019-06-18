@@ -1,39 +1,66 @@
 .wponion-element.wponion-element-range_slider {
+	.wponion-range-slider-container {
+		input[type="text"] {
+			width:          55px;
+			margin-left:    15px;
+			text-align:     center;
+			vertical-align: middle;
+		}
 
-	.wponion-range-slider-container input[type="text"] {
-		width:          55px;
-		margin-left:    15px;
-		text-align:     center;
-		vertical-align: middle;
-	}
+		.wponion-input-group {
+			display:        inline-block;
+			vertical-align: middle;
+			margin-left:    15px;
+			margin-right:   0;
+		}
 
-	.wponion-range-slider-container .ui-slider {
-		position:       relative;
-		width:          100%;
-		height:         4px;
-		border:         none;
-		background:     #ddd;
-		border-radius:  2px;
-		display:        inline-block;
-		vertical-align: middle;
-	}
+		.ui-slider {
+			position:       relative;
+			width:          100%;
+			height:         4px;
+			border:         none;
+			background:     #ddd;
+			border-radius:  2px;
+			display:        inline-block;
+			vertical-align: middle;
 
-	.wponion-range-slider-container .ui-slider-range {
-		height:        4px;
-		border:        none;
-		background:    #222;
-		border-radius: 2px;
-	}
+			.ui-slider-range {
+				height:        4px;
+				border:        none;
+				background:    #222;
+				border-radius: 2px;
+			}
 
-	.wponion-range-slider-container .ui-slider-handle {
-		position:      absolute;
-		width:         18px;
-		height:        18px;
-		top:           -7px;
-		margin-left:   -8px;
-		border:        none;
-		background:    #222;
-		border-radius: 2px;
+			.ui-slider-handle {
+				position:      absolute;
+				width:         18px;
+				height:        18px;
+				top:           -7px;
+				margin-left:   -8px;
+				border:        none;
+				background:    #222;
+				border-radius: 2px;
+			}
+
+			&.ui-slider-vertical {
+				height:     100px;
+				background: #222;
+
+				.ui-slider-handle {
+					top: unset;
+				}
+
+				.ui-slider-range {
+					background: #ddd;
+				}
+			}
+
+			&.ui-slider-horizontal {
+
+			}
+
+
+		}
 	}
 
 	.wponion-range-slider-container .ui-state-active,

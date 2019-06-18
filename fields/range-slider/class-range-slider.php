@@ -19,7 +19,7 @@ if ( ! class_exists( '\WPOnion\Field\Range_Slider' ) ) {
 
 		protected function field_default() {
 			return $this->parse_args( array(
-				'slider_width' => '100px',
+				'slider_width' => '90%',
 			), parent::field_default() );
 		}
 
