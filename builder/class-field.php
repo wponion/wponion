@@ -173,7 +173,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @return bool
 		 */
 		public static function is_valid( $data ) {
-			return ( false === Container::is_valid( $data ) && isset( $data['type'] ) );
+			return ( isset( $data['type'] ) || ( isset( $data['type'] ) && isset( $data['fields'] ) ) && false === Container::is_valid( $data ) );
 		}
 
 		/**

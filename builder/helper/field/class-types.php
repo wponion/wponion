@@ -73,6 +73,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 * @method \WPO\Fields\WP_Notice wp_notice_info( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\WP_Notice wp_notice_success( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\WP_Notice wp_notice_warning( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Modal modal( $id = false, $title = false, $args = array() )
 	 */
 	trait Types {
 		/**
