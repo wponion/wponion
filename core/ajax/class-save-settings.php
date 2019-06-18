@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Settings' ) ) {
 				$this->json_error();
 			}
 
-			$to_be_saved     = $_REQUEST[ $option_page ];
+			$to_be_saved     = stripslashes_deep( $_REQUEST[ $option_page ] );
 			$is_network_wide = isset( $_REQUEST['network_wide'] ) && $_REQUEST['network_wide'];
 
 			if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], $option_page . '-options' ) ) {
@@ -73,11 +73,10 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Settings' ) ) {
 				->reload_values();
 			$settings->on_settings_page_load();
 			$settings->render();
-			$form   = wponion_catch_output( false );
-			$script = $this->localizer();
+			$form = wponion_catch_output( false );
 			$this->json_success( array(
 				'form'   => '<div>' . $form . '</div>',
-				'script' => $script,
+				'script' => $this->localizer(),
 			) );
 		}
 	}
