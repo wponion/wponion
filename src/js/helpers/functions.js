@@ -453,40 +453,39 @@ export default ( ( window, document, $, jQuery ) => {
 	};
 
 	jQuery( window ).on( 'load', function() {
+		window.wponion.hooks.addAction( 'wponion_after_setup', 'core', () => {
+			jQuery( '.wponion-framework .wpo-copy' ).tippy( {
+				theme: 'dark',
+				content: window.wponion.core.txt( 'copy_now', 'Click To Copy' ),
+				trigger: 'mouseenter click manual',
+				arrow: true,
+				followCursor: true,
+				hideOnClick: false,
+				placement: 'bottom',
+			} );
 
-		jQuery( '.wponion-framework pre' ).tippy( {
-			theme: 'dark',
-			content: window.wponion.core.txt( 'copy_now', 'Click To Copy' ),
-			trigger: 'mouseenter click manual',
-			arrow: true,
-			followCursor: true,
-			hideOnClick: false,
-			placement: 'bottom',
-		} );
+			let clipboard = new ClipboardJS( '.wponion-framework .wpo-copy', {
+				text: function( trigger ) {
+					return jQuery( trigger ).html();
+				}
+			} );
 
-		let clipboard = new ClipboardJS( '.wponion-framework pre', {
-			text: function( trigger ) {
-				return jQuery( trigger ).html();
-			}
-		} );
+			clipboard.on( 'success', function( e ) {
+				let $ins = jQuery( e.trigger ).tippy_get();
+				$ins.setContent( '<strong>' + window.wponion.core.txt( 'copied', 'Copied' ) + '</strong>' );
+				$ins.show();
+				setTimeout( function() {
+					$ins.hide();
+					$ins.setContent( window.wponion.core.txt( 'copy_now', 'Click To Copy' ) );
+				}, 1000 );
 
-		clipboard.on( 'success', function( e ) {
-			let $ins = jQuery( e.trigger ).tippy_get();
-			/*$ins.show();
-			*/
-			$ins.setContent( '<strong>' + window.wponion.core.txt( 'copied', 'Copied' ) + '</strong>' );
-			$ins.show();
-			setTimeout( function() {
-				$ins.hide();
-				$ins.setContent( window.wponion.core.txt( 'copy_now', 'Click To Copy' ) );
-			}, 1000 );
-
-			/*window.wponion_swal_toast().fire( {
-				title: 'Copied',
-				target: e.trigger,
-				position: 'top-end',
-				customContainerClass: 'position-absolute',
-			} );*/
+				/*window.wponion_swal_toast().fire( {
+					title: 'Copied',
+					target: e.trigger,
+					position: 'top-end',
+					customContainerClass: 'position-absolute',
+				} );*/
+			} );
 		} );
 	} );
 } )( window, document, jQuery, jQuery );

@@ -52,6 +52,8 @@ export default ( ( window, document, wp, $ ) => {
 	// Document On Load.
 	$( () => {
 		window.wponion_setup();
+		window.wponion.hooks.doAction( 'wponion_after_setup' );
+
 		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
 		if( $wpof_div.length > 0 ) {
 			window.wponion.hooks.doAction( 'wponion_before_theme_init', $wpof_div );
