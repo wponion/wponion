@@ -1,0 +1,29 @@
+//BlockUI Overlay Style.
+.blockUI.blockOverlay {
+	@include loader();
+}
+
+//Chosen Style Fix.
+.chosen-container.chosen-container-single, .chosen-container.chosen-container-multi {
+	width:     auto !important;
+	min-width: 200px !important;
+}
+
+// SweatAlert2 Style Fix.
+.swal2-container {
+	z-index: 9999999 !important;
+
+	#swal2-content {
+		.json-view {
+			overflow: scroll;
+		}
+	}
+
+	.wpo-btn {
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}

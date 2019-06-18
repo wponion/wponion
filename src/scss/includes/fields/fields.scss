@@ -1,4 +1,4 @@
-/*============================ New STYLE BELOW =====================*/
+// Field Validation
 p.wponion-error {
 	color:  #dc3232;
 	margin: 2px 0 5px;
@@ -9,15 +9,13 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 	background:   #ffebe8;
 }
 
-.wponion-sub-container-wraps.row, .wponion-container-wraps.row {
-	&.hidden {
-		display: none;
-	}
-}
+
+// Basic WPonion Element Style
 
 .wponion-element {
 	padding: $element_gurtter;
 
+	// Border Top If More Than 1 Element
 	+ .wponion-element {
 		border-top: $element_border;
 	}
@@ -43,10 +41,9 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 	.row {
 		> .wponion-element-title {
 			h4 {
-				margin:       0;
 				font-size:    14px;
 				display:      inline-block;
-				margin-right: 5px;
+				margin:       0 5px 0 0;
 			}
 		}
 
