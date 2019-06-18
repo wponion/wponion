@@ -204,6 +204,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'modal', 'all' );
 			\wponion_register_field( 'spinner', 'all' );
 			\wponion_register_field( 'range_slider', 'all' );
+			\wponion_register_field( 'code_editor', 'all' );
 
 			/**
 			 * Registers UI Field.

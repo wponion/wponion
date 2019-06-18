@@ -27,6 +27,7 @@ require( './fields/modal' );
 require( './fields/import_export' );
 require( './fields/spinner' );
 require( './fields/range-slider' );
+require( './fields/code_editor' );
 require( './helpers/image_popup' );
 require( './helpers/tooltip' );
 require( './helpers/reload_wp_editor' );

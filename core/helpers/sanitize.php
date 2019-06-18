@@ -124,3 +124,14 @@ if ( ! function_exists( 'wponion_field_clean' ) ) {
 		return $value;
 	}
 }
+
+if ( ! function_exists( 'wponion_field_code_editor_sanitize' ) ) {
+	/**
+	 * @param $value
+	 *
+	 * @return string
+	 */
+	function wponion_field_code_editor_sanitize( $value ) {
+		return stripslashes( $value );
+	}
+}
