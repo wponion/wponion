@@ -43,15 +43,24 @@
 			}
 
 			&.ui-slider-vertical {
-				height:     100px;
-				background: #222;
+				height: 100px;
+
+				.ui-slider-range {
+					position: absolute;
+					width:    4px;
+
+					&.ui-slider-range-min {
+						bottom: 0;
+					}
+
+					&.ui-slider-range-max {
+						top:    0px;
+						bottom: unset;
+					}
+				}
 
 				.ui-slider-handle {
 					top: unset;
-				}
-
-				.ui-slider-range {
-					background: #ddd;
 				}
 			}
 
