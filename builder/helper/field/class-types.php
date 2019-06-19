@@ -18,7 +18,6 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 *
 	 * @method \WPO\Fields\Accordion accordion( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Background background( $id = false, $title = false, $args = array() )
-	 * @method \WPO\Fields\Backup backup( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Button button( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Faq faq( $title = false, $args = array() )
 	 * @method \WPO\Fields\Button_Set button_set( $id = false, $title = false, $args = array() )
