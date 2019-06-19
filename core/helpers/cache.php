@@ -53,6 +53,7 @@ if ( ! function_exists( 'wponion_has_cache' ) ) {
 		return \WPOnion\Cache::has( $key );
 	}
 }
+
 if ( ! function_exists( 'wponion_delete_cache' ) ) {
 	/**
 	 * @param string $key
