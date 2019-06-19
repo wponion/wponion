@@ -429,26 +429,7 @@ if ( ! function_exists( 'wponion_backup_fonts' ) ) {
 	 * @return array
 	 */
 	function wponion_backup_fonts() {
-		$fonts                                                         = array();
-		$fonts['Arial, Helvetica, sans-serif']                         = 'Arial, Helvetica, sans-serif';
-		$fonts['"Arial Black", Gadget, sans-serif']                    = '"Arial Black", Gadget, sans-serif';
-		$fonts['"Bookman Old Style", serif']                           = '"Bookman Old Style", serif';
-		$fonts['"Comic Sans MS", cursive']                             = '"Comic Sans MS", cursive';
-		$fonts['Courier, monospace']                                   = 'Courier, monospace';
-		$fonts['Garamond, serif']                                      = 'Garamond, serif';
-		$fonts['Georgia, serif']                                       = 'Georgia, serif';
-		$fonts['Impact, Charcoal, sans-serif']                         = 'Impact, Charcoal, sans-serif';
-		$fonts['"MS Serif", "New York", sans-serif']                   = '"MS Serif", "New York", sans-serif';
-		$fonts['Tahoma,Geneva, sans-serif']                            = 'Tahoma, Geneva, sans-serif';
-		$fonts['"Times New Roman", Times,serif']                       = '"Times New Roman", Times, serif';
-		$fonts['"Lucida Console", Monaco, monospace']                  = '"Lucida Console", Monaco, monospace';
-		$fonts['"MS Sans Serif", Geneva, sans-serif']                  = '"MS Sans Serif", Geneva, sans-serif';
-		$fonts['Verdana, Geneva, sans-serif']                          = 'Verdana, Geneva, sans-serif';
-		$fonts['"Trebuchet MS", Helvetica, sans-serif']                = '"Trebuchet MS", Helvetica, sans-serif';
-		$fonts['"Lucida Sans Unicode", "Lucida Grande", sans-serif']   = '"Lucida Sans Unicode", "Lucida Grande", sans-serif';
-		$fonts['"Palatino Linotype", "Book Antiqua", Palatino, serif'] = '"Palatino Linotype", "Book Antiqua", Palatino, serif';
-
-		return apply_filters( 'wponion_backup_fonts', $fonts );
+		return apply_filters( 'wponion_backup_fonts', \WPOnion\Helper::fonts( 'backup' ) );
 	}
 }
 
@@ -459,30 +440,7 @@ if ( ! function_exists( 'wponion_websafe_fonts' ) ) {
 	 * @return mixed
 	 */
 	function wponion_websafe_fonts() {
-		return apply_filters( 'wponion_websafe_fonts', array(
-			'variants' => array(
-				'regular'   => __( 'Regular', 'wponion' ),
-				'italic'    => __( 'Italic', 'wponion' ),
-				'700'       => __( '700', 'wponion' ),
-				'700italic' => __( '700 Italic', 'wponion' ),
-				'inherit'   => __( 'inherit', 'wponion' ),
-			),
-			'fonts'    => array(
-				'Arial'               => __( 'Arial', 'wponion' ),
-				'Arial Black'         => __( 'Arial Black', 'wponion' ),
-				'Comic Sans MS'       => __( 'Comic Sans MS', 'wponion' ),
-				'Impact'              => __( 'Impact', 'wponion' ),
-				'Lucida Sans Unicode' => __( 'Lucida Sans Unicode', 'wponion' ),
-				'Tahoma'              => __( 'Tahoma', 'wponion' ),
-				'Trebuchet MS'        => __( 'Trebuchet MS', 'wponion' ),
-				'Verdana'             => __( 'Verdana', 'wponion' ),
-				'Courier New'         => __( 'Courier New', 'wponion' ),
-				'Lucida Console'      => __( 'Lucida Console', 'wponion' ),
-				'Georgia, serif'      => __( 'Georgia, serif', 'wponion' ),
-				'Palatino Linotype'   => __( 'Palatino Linotype', 'wponion' ),
-				'Times New Roman'     => __( 'Times New Roman', 'wponion' ),
-			),
-		) );
+		return apply_filters( 'wponion_websafe_fonts', \WPOnion\Helper::fonts( 'websafe' ) );
 	}
 }
 
@@ -493,7 +451,7 @@ if ( ! function_exists( 'wponion_google_fonts' ) ) {
 	 * @return mixed
 	 */
 	function wponion_google_fonts() {
-		return apply_filters( 'wponion_google_fonts', \WPOnion\Helper::google_fonts() );
+		return apply_filters( 'wponion_google_fonts', \WPOnion\Helper::fonts( 'google' ) );
 	}
 }
 

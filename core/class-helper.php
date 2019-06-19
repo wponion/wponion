@@ -105,16 +105,26 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
-		 * Fetch And Returns Google Fonts.
+		 * @param $type [google/websafe/backup]
 		 *
-		 * @return array|mixed
 		 * @static
+		 * @return mixed
 		 */
-		public static function google_fonts() {
-			if ( empty( Cache::has( 'gfonts' ) ) ) {
-				Cache::set( 'gfonts', self::get_data( 'google_fonts' ) );
+		public static function fonts( $type ) {
+			if ( empty( Cache::has( 'fonts/' . $type ) ) ) {
+				switch ( $type ) {
+					case 'google':
+						Cache::set( 'fonts/google', self::get_data( 'fonts/google' ) );
+						break;
+					case 'websafe':
+						Cache::set( 'fonts/websafe', self::get_data( 'fonts/websafe' ) );
+						break;
+					case 'backup':
+						Cache::set( 'fonts/backup', self::get_data( 'fonts/backups' ) );
+						break;
+				}
 			}
-			return Cache::get( 'gfonts', false );
+			return Cache::get( 'fonts/' . $type, false );
 		}
 
 		/**
