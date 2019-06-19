@@ -547,7 +547,9 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 		$_group   = ( true === $group ) ? 'yes' : 'no';
 		$key      = 'web_fonts/' . $gfonts . $webfonts . $_group;
 
-		if ( ! wponion_has_cache( $key ) ) {
+		try {
+			return wponion_get_cache( $key );
+		} catch ( \WPOnion\Cache_Not_Found $exception ) {
 			$_fonts = array();
 			if ( true === $websafe_fonts ) {
 				$fonts = wponion_websafe_fonts();
@@ -568,9 +570,8 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 				}
 			}
 			wponion_set_cache( $key, $_fonts );
+			return $_fonts;
 		}
-
-		return wponion_get_cache( $key, array() );
 	}
 }
 
@@ -590,11 +591,14 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 		$webfonts = ( true === $websafe_fonts ) ? 'yes' : 'no';
 		$_group   = ( true === $group ) ? 'yes' : 'no';
 		$key      = 'web_fonts_html/' . $gfonts . $webfonts . $_group;
+		$html     = '';
 		if ( ! wponion_is_array( $selected ) ) {
 			$selected = array( $selected );
 		}
 
-		if ( ! wponion_has_cache( $key ) ) {
+		try {
+			$html = wponion_get_cache( $key );
+		} catch ( \WPOnion\Cache_Not_Found $exception ) {
 			$fonts = wponion_get_fonts_array( $google_fonts, $websafe_fonts, $group );
 			$html  = '';
 			foreach ( $fonts as $id => $val ) {
@@ -611,7 +615,6 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 			wponion_set_cache( $key, $html );
 		}
 
-		$html = wponion_get_cache( $key );
 		foreach ( $selected as $key ) {
 			$html = str_replace( '<option value="' . $key . '">', '<option value="' . $key . '" selected>', $html );
 		}

@@ -111,20 +111,24 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @return mixed
 		 */
 		public static function fonts( $type ) {
-			if ( empty( Cache::has( 'fonts/' . $type ) ) ) {
+			try {
+				return wponion_get_cache( 'fonts/' . $type );
+			} catch ( Cache_Not_Found $exception ) {
+				$fonts = array();
 				switch ( $type ) {
 					case 'google':
-						Cache::set( 'fonts/google', self::get_data( 'fonts/google' ) );
+						$fonts = self::get_data( 'fonts/google' );
 						break;
 					case 'websafe':
-						Cache::set( 'fonts/websafe', self::get_data( 'fonts/websafe' ) );
+						$fonts = self::get_data( 'fonts/websafe' );
 						break;
 					case 'backup':
-						Cache::set( 'fonts/backup', self::get_data( 'fonts/backups' ) );
+						$fonts = self::get_data( 'fonts/backups' );
 						break;
 				}
+				wponion_set_cache( 'fonts/' . $type, $fonts );
+				return $fonts;
 			}
-			return Cache::get( 'fonts/' . $type, false );
 		}
 
 		/**
@@ -134,17 +138,42 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_post_types() {
-			if ( ! Cache::has( 'post_types' ) ) {
-				$options    = array();
+			try {
+				return wponion_get_cache( 'post_types' );
+			} catch ( Cache_Not_Found $exception ) {
 				$post_types = get_post_types( array( 'show_in_nav_menus' => true ) );
 				if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
-					foreach ( $post_types as $post_type ) {
-						$options [ $post_type ] = ucfirst( $post_type );
+					$post_types = array_map( 'ucfirst', $post_types );
+				}
+				wponion_set_cache( 'post_types', $post_types );
+				return $post_types;
+			}
+		}
+
+		/**
+		 * @param $type
+		 *
+		 * @static
+		 * @return mixed
+		 */
+		public static function get_currencies( $type ) {
+			try {
+				return wponion_get_cache( 'currency/' . $type );
+			} catch ( Cache_Not_Found $exception ) {
+				$data = wp_parse_args( self::get_data( 'currency' ), array(
+					'currency'        => array(),
+					'currency_symbol' => array(),
+				) );
+				foreach ( $data['currency'] as $key => $val ) {
+					if ( isset( $data['symbol'][ $key ] ) ) {
+						$data['currency'][ $key ] = $data['currency'][ $key ] . ' ( ' . $data['symbol'][ $key ] . ' ) ';
 					}
 				}
-				Cache::set( 'post_types', $post_types );
+				wponion_set_cache( 'currency/list', $data['currency'] );
+				wponion_set_cache( 'currency/symbol', $data['symbol'] );
+				$type = ( 'list' === $type ) ? 'currency' : $type;
+				return isset( $data[ $type ] ) ? $data[ $type ] : false;
 			}
-			return Cache::get( 'post_types', array() );
 		}
 
 		/**
@@ -154,18 +183,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_currency() {
-			if ( ! Cache::has( 'currency' ) ) {
-				$data = self::get_data( 'currency' );
-				if ( isset( $data['currency'] ) && ! empty( $data['currency'] ) ) {
-					foreach ( $data['currency'] as $key => $val ) {
-						if ( isset( $data['symbol'][ $key ] ) ) {
-							$data['currency'][ $key ] = $data['currency'][ $key ] . ' ( ' . $data['symbol'][ $key ] . ' ) ';
-						}
-					}
-					Cache::set( 'currency', $data['currency'] );
-				}
-			}
-			return Cache::get( 'currency', array() );
+			return self::get_currencies( 'list' );
 		}
 
 		/**
@@ -175,11 +193,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_currency_symbol() {
-			if ( ! Cache::has( 'currency_symbol' ) ) {
-				$data = self::get_data( 'currency' );
-				Cache::set( 'currency_symbol', $data['symbol'] );
-			}
-			return Cache::get( 'currency_symbol', array() );
+			return self::get_currencies( 'symbol' );
 		}
 
 		/**

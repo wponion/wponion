@@ -23,10 +23,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function add( $icon_name = '', $icon_slug = '', $icons = '' ) {
-			if ( ! wponion_has_cache( 'icons/icon/' . $icon_slug ) && ! wponion_has_cache( 'icons/names/' . $icon_slug ) ) {
-				wponion_set_cache( 'icons/icon/' . $icon_slug, $icons );
-				wponion_set_cache( 'icons/names/' . $icon_slug, $icon_name );
-			}
+			wponion_set_cache( 'icons/icon/' . $icon_slug, $icons );
+			wponion_set_cache( 'icons/names/' . $icon_slug, $icon_name );
 		}
 
 		/**
@@ -38,7 +36,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function get( $icon_name ) {
-			return wponion_get_cache( 'icons/icon/' . $icon_name, array() );
+			return wponion_get_cache_defaults( 'icons/icon/' . $icon_name, array() );
 		}
 
 		/**
@@ -50,7 +48,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function name( $slug ) {
-			return wponion_get_cache( 'icons/names/' . $slug, false );
+			return wponion_get_cache_defaults( 'icons/names/' . $slug, false );
 		}
 
 		/**
@@ -60,7 +58,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function icon_list() {
-			return wponion_get_cache( 'icons/names', array() );
+			return wponion_get_cache_defaults( 'icons/names', array() );
 		}
 
 		/**

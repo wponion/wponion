@@ -6,9 +6,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! class_exists( '\WPOnion\Cache_Not_Found' ) ) {
+	/**
+	 * Class Cache_Not_Found
+	 *
+	 * @package WPOnion
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
+	class Cache_Not_Found extends \Exception {
+	}
+}
+
+
 if ( ! class_exists( '\WPOnion\Cache' ) ) {
 	/**
 	 * Class Cache
+	 *
+	 * Recommended usage example:
+	 *  try {
+	 *      $value = FW_Cache::get('some/key');
+	 *  } catch(\WPOnion\Cache_Not_Found $e) {
+	 *      $value = get_value_from_somewhere();
+	 *
+	 *      FW_Cache::set('some/key', $value);
+	 *
+	 *      // (!) after set, do not do this:
+	 *      $value = FW_Cache::get('some/key');
+	 *      // because there is no guaranty that FW_Cache::set('some/key', $value); succeeded
+	 *      // trust only your $value, cache can do clean-up right after set() and remove the value you tried to set
+	 *  }
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
@@ -95,7 +122,7 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		}
 
 		public static function init() {
-			self::$not_found_value = false;//new FW_Cache_Not_Found_Exception();
+			self::$not_found_value = new Cache_Not_Found();
 
 			/**
 			 * Listen often triggered hooks to clear the memory
@@ -196,18 +223,19 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 
 		/**
 		 * @param string $key
-		 * @param mixed  $default
 		 *
 		 * @static
 		 * @return mixed
+		 * @throws \WPOnion\Cache_Not_Found
 		 */
-		public static function get( $key, $default = false ) {
+		public static function get( $key ) {
 			self::free_memory();
-			$values = Helper::array_key_get( $key, self::$cache, $default );
+			$values = Helper::array_key_get( $key, self::$cache, self::$not_found_value );
 			self::free_memory();
 
 			if ( $values === self::$not_found_value ) {
 				++self::$misses;
+				throw new Cache_Not_Found();
 			} else {
 				++self::$hits;
 			}

@@ -15,15 +15,31 @@ if ( ! function_exists( 'wponion_set_cache' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_get_cache_defaults' ) ) {
+	/**
+	 * @param string     $key
+	 * @param bool|mixed $defaults
+	 *
+	 * @return bool|mixed
+	 */
+	function wponion_get_cache_defaults( $key, $defaults = false ) {
+		try {
+			return wponion_get_cache( $key );
+		} catch ( \WPOnion\Cache_Not_Found $exception ) {
+			return $defaults;
+		}
+	}
+}
+
 if ( ! function_exists( 'wponion_get_cache' ) ) {
 	/**
 	 * @param string $key
-	 * @param mixed  $default
 	 *
 	 * @return mixed
+	 * @throws \WPOnion\Cache_Not_Found
 	 */
-	function wponion_get_cache( $key, $default = false ) {
-		return \WPOnion\Cache::get( $key, $default );
+	function wponion_get_cache( $key ) {
+		return \WPOnion\Cache::get( $key );
 	}
 }
 
