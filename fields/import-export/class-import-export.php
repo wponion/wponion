@@ -10,10 +10,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
+	/**
+	 * Class Import_Export
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @since 1.0
+	 */
 	class Import_Export extends Field {
+		/**
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
+		/**
+		 * @return bool|false|string
+		 */
 		protected function get_db_values() {
 			$data = wponion_wp_db()->get( $this->module, $this->base_unique, false );
 			if ( ! empty( $data ) ) {
@@ -22,6 +35,9 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 			return false;
 		}
 
+		/**
+		 * @return mixed|void
+		 */
 		protected function output() {
 			$values = $this->get_db_values();
 
@@ -81,6 +97,9 @@ HTML;
 
 		}
 
+		/**
+		 * @return array
+		 */
 		protected function js_field_args() {
 			return array(
 				'export_textarea' => $this->js_field_id() . '_backup_export',
@@ -88,6 +107,9 @@ HTML;
 			);
 		}
 
+		/**
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array();
 		}
