@@ -684,27 +684,6 @@ if ( ! function_exists( 'wponion_key_value_to_array' ) ) {
 	}
 }
 
-
-if ( ! function_exists( 'wponion_markdown' ) ) {
-	/**
-	 * Returns A Parsedown Instance or Parsed Content.
-	 *
-	 * @param null $content
-	 *
-	 * @return \Parsedown|string
-	 */
-	function wponion_markdown( $content = null ) {
-		static $parse_down_instance = false;
-		if ( false === $parse_down_instance ) {
-			if ( ! class_exists( '\Parsedown' ) ) {
-				require_once wponion()->path( 'core/vendors/erusev/parsedown.php' );
-			}
-			$parse_down_instance = new \Parsedown();
-		}
-		return ( empty( $content ) ) ? $parse_down_instance : $parse_down_instance->text( $content );
-	}
-}
-
 if ( ! function_exists( 'wponion_get_field_unique_html' ) ) {
 	/**
 	 * Converts PHP Array Into HTML Array
