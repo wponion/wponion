@@ -3,6 +3,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+if ( ! function_exists( 'wponion_sysinfo' ) ) {
+	/**
+	 * Generates HTML Output for loading SysInfo.
+	 *
+	 * @param $args
+	 */
+	function wponion_sysinfo( $args ) {
+		\WPOnion\WP\Sysinfo\Sysinfo::get( $args );
+	}
+}
+
 if ( ! function_exists( 'wponion_module_html_class' ) ) {
 	/**
 	 * @param string $module
