@@ -77,6 +77,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 * @method \WPO\Fields\Spinner spinner( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Range_Slider range_slider( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Code_Editor code_editor( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\WP_List_Table wp_list_table( $id = false, $title = false, $args = array() )
 	 */
 	trait Types {
 		/**
