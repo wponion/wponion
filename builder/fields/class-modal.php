@@ -85,5 +85,16 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 			$this['button'] = $button_label_or_args;
 			return $this;
 		}
+
+
+		/**
+		 * @param $ajax_args
+		 *
+		 * @return $this
+		 */
+		public function ajax_args( $ajax_args ) {
+			$this['ajax_args'] = $ajax_args;
+			return $this;
+		}
 	}
 }

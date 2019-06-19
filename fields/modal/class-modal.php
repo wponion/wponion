@@ -177,13 +177,14 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 * @return array
 		 */
 		protected function js_field_args() {
-			$config = ( empty( $this->data( 'modal_config' ) ) ) ? array() : $this->data( 'modal_config' );
-			$config = $this->parse_args( $config, $this->default_modal_config() );
-
+			$config    = ( empty( $this->data( 'modal_config' ) ) ) ? array() : $this->data( 'modal_config' );
+			$config    = $this->parse_args( $config, $this->default_modal_config() );
+			$ajax_args = ( ! is_array( $this->data( 'ajax_args' ) ) ) ? array() : $this->data( 'ajax_args' );
 			return array(
 				'modal_type'   => $this->data( 'modal_type' ),
 				'modal_config' => $config,
 				'modal_html'   => $this->field['modal_html'],
+				'ajax_args'    => $ajax_args,
 			);
 		}
 
@@ -221,6 +222,7 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 */
 		protected function field_default() {
 			return array(
+				'ajax_args'    => array(),
 				'fields'       => array(),
 				'modal_config' => array(),
 				'modal_type'   => 'swal', // SWAL / WP.

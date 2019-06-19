@@ -71,9 +71,9 @@ class field extends WPOnion_Field {
 	fetch_fields( $success ) {
 		this.element.block( { message: null, overlayCSS: { background: '#fff', opacity: 0.7 } } );
 		this.ajax( 'modal-fields', {
-			data: {
+			data: this.parse_args( this.option( 'ajax_args', {} ), {
 				modal_values: this.element.find( '.wponion-modal-hidden-data :input' ).serializeJSON(),
-			},
+			} ),
 			always: () => this.element.unblock(),
 			success: $success,
 			error: ( res ) => wponion_error_swal( res ).fire()
