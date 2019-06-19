@@ -32,10 +32,10 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 			echo '<div class="wponion-modal-hidden-data">';
 			switch ( $this->data( 'modal_type' ) ) {
 				case 'swal':
-					echo $this->swal( 'hidden' );
+					//echo $this->swal( 'hidden' );
 					break;
 				case 'wp':
-					echo $this->wp();
+					//echo $this->wp();
 					break;
 			}
 			echo '</div>';

@@ -2,6 +2,8 @@
 
 namespace WPOnion\Bridge;
 
+use WPOnion\Helper as Helper;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -82,13 +84,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 			if ( false !== $this->has( $key, $type ) ) {
 				switch ( $type ) {
 					case 'GET':
-						$return = $_GET[ $key ];
+						$return = Helper::array_key_get( $key, $_GET, $default );
 						break;
 					case 'POST':
-						$return = $_POST[ $key ];
+						$return = Helper::array_key_get( $key, $_POST, $default );
 						break;
 					case 'REQUEST':
-						$return = $_REQUEST[ $key ];
+						$return = Helper::array_key_get( $key, $_REQUEST, $default );
 						break;
 					default:
 						$return = $default;
@@ -109,13 +111,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		protected function has( $key = '', $type = 'GET' ) {
 			switch ( $type ) {
 				case 'GET':
-					$has = ( isset( $_GET[ $key ] ) ) ? $_GET[ $key ] : false;
+					$has = Helper::array_key_isset( $key, $_GET );
 					break;
 				case 'POST':
-					$has = ( isset( $_POST[ $key ] ) ) ? $_POST[ $key ] : false;
+					$has = Helper::array_key_isset( $key, $_POST );
 					break;
 				default:
-					$has = ( isset( $_REQUEST[ $key ] ) ) ? $_REQUEST[ $key ] : false;
+					$has = Helper::array_key_isset( $key, $_REQUEST );
 					break;
 			}
 			return $has;

@@ -114,6 +114,10 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					if ( ! wponion_valid_field( $field ) ) {
 						continue;
 					}
+					if ( in_array( wponion_get_field_type( $field, false ), array( 'modal' ), true ) ) {
+						continue;
+					}
+
 					$this->handle_single_field( $field );
 				}
 			}
@@ -138,7 +142,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * @param $field
 		 */
 		protected function go_nested( $field ) {
-			if ( ! in_array( $field['type'], array( 'group' ), true ) ) {
+			if ( ! in_array( $field['type'], array( 'group', 'modal' ), true ) ) {
 				if ( isset( $field['fields'] ) ) {
 					$this->nested_field_loop( $field );
 				}
@@ -159,6 +163,10 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					}
 
 					if ( ! wponion_valid_field( $field ) ) {
+						continue;
+					}
+
+					if ( in_array( wponion_get_field_type( $field, false ), array( 'modal' ), true ) ) {
 						continue;
 					}
 

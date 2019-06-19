@@ -24,19 +24,45 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 		 */
 		public function run() {
 			/* @var \WPO\Field $field */
-			$unique = $this->validate_post( 'unique', __( 'Unique Key Not Found' ) );
-			$module = $this->get_module();
-			$field  = $this->get_field();
-			$values = $this->post( 'modal_values', false );
-			$field->only_field( true );
+			$unique       = $this->validate_post( 'unique', __( 'Unique Key Not Found' ) );
+			$modal_action = $this->validate_post( 'modal_action', __( 'Modal Action Not Found' ) );
+			$module       = $this->get_module();
 
-			if ( empty( $values ) ) {
-				$values = $module->get_db_values()
-					->get( $unique . '/' . $field->get_id() );
-			} else {
-				$values = ( ! wponion_is_array( $values ) ) ? array() : $values;
-				$values = Helper::array_key_get( $unique . '/' . $field->get_id(), $values );
+			switch ( $modal_action ) {
+				case 'featch_fields':
+					$this->fetch_fields();
+					break;
+				case 'save_fields':
+					$this->save_fields();
+					break;
 			}
+
+		}
+
+		public function save_fields() {
+			sleep( 1 );
+			$unique    = $this->post( 'unique' );
+			$field     = $this->get_field();
+			$module    = $this->get_module();
+			$values    = $this->post( $unique . '/' . $field['id'] );
+			$db_values = $module->get_db_values();
+
+			if ( wpo_is_option( $db_values ) ) {
+				$db_values->set( $unique . '/' . $field['id'], $values );
+				$db_values->save();
+				$this->json_success();
+			}
+			$this->json_error();
+		}
+
+		public function fetch_fields() {
+			sleep( 1 );
+			$unique = $this->post( 'unique' );
+			$field  = $this->get_field();
+			$module = $this->get_module();
+			$values = $module->get_db_values()
+				->get( $unique . '/' . $field->get_id() );
+			$field->only_field( true );
 
 			$data = $field->init_field( $values, array(
 				'unique' => $unique,

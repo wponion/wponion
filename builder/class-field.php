@@ -35,7 +35,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param $value
 		 * @param $unique
 		 *
-		 * @return bool|array|\WPO\Field
+		 * @return bool|\WPOnion\Field
 		 */
 		public function init_field( $value, $unique ) {
 			return wponion_field( $this, $value, $unique );

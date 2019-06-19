@@ -51,30 +51,31 @@ class field extends WPOnion_Field {
 	 * @param $element
 	 */
 	convert_form_fields( $element ) {
-		let $hidden = this.element.find( '.wponion-modal-hidden-data' );
-		let $inputs = $element.find( ':input' ).serializeArray();
-		$hidden.html( '' );
-		for( let $i in $inputs ) {
-			if( $inputs.hasOwnProperty( $i ) ) {
-				let $html = '<textarea class="wpo-hidden" name="' + $inputs[ $i ].name + '">' + $inputs[ $i ].value + '</textarea>';
-				$hidden.append( $html );
-			}
-		}
+		let $inputs = $element.find( ':input' ).serializeJSON();
+		this.ajax( 'modal-fields', {
+			element_lock: this.element,
+			blockUI: {
+				message: window.wponion.core.txt( 'saving', 'Saving...' ),
+				overlayCSS: {
+					background: '#fff',
+					opacity: 0.7
+				}
+			},
+			data: this.parse_args( $inputs, {
+				modal_action: 'save_fields'
+			} ),
+		} ).send();
 	}
 
 	/**
 	 * Fetchs Fields From Ajax.
 	 * @param $success
-	 * @param $error
-	 * @param $always
 	 */
 	fetch_fields( $success ) {
-		this.element.block( { message: null, overlayCSS: { background: '#fff', opacity: 0.7 } } );
 		this.ajax( 'modal-fields', {
-			data: this.parse_args( this.option( 'ajax_args', {} ), {
-				modal_values: this.element.find( '.wponion-modal-hidden-data :input' ).serializeJSON(),
-			} ),
-			always: () => this.element.unblock(),
+			element_lock: this.element,
+			blockUI: { message: null, overlayCSS: { background: '#fff', opacity: 0.7 } },
+			data: this.parse_args( this.option( 'ajax_args', {} ), { modal_action: 'featch_fields' } ),
 			success: $success,
 			error: ( res ) => wponion_error_swal( res ).fire()
 		} ).send();

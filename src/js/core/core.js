@@ -143,9 +143,9 @@ export default class WPOnion {
 		let $defaults = {
 			method: 'post',
 			url: WPOnion.option( 'ajax_url' ),
-			success: false,
-			always: false,
-			error: false,
+			success: $onSuccess,
+			always: $onError,
+			error: $onAlways,
 		};
 
 		if( window.wponion._.isObject( $action ) ) {
@@ -157,25 +157,6 @@ export default class WPOnion {
 		$defaults = window.wponion._.merge( $defaults, $data );
 
 		return wponion_ajax( $defaults );
-
-		$onSuccess = ( window.wponion._.isUndefined( $onSuccess ) || false === $onSuccess ) ? $defaults.onSuccess : $onSuccess;
-		$onAlways  = ( window.wponion._.isUndefined( $onError ) || false === $onError ) ? $defaults.onAlways : $onAlways;
-		$onError   = ( window.wponion._.isUndefined( $onAlways ) || false === $onAlways ) ? $defaults.onError : $onError;
-		let $ajax  = jQuery.ajax( $defaults );
-
-
-		if( $onSuccess ) {
-			$ajax.done( ( res ) => call_user_func( $onSuccess, res ) );
-		}
-
-		if( $onError ) {
-			$ajax.fail( ( res ) => call_user_func( $onError, res ) );
-		}
-
-		if( $onAlways ) {
-			$ajax.always( ( res ) => call_user_func( $onAlways, res ) );
-		}
-		return $ajax;
 	}
 
 	/**
