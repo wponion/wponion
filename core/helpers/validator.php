@@ -20,12 +20,12 @@ if ( ! function_exists( 'wponion_is_url' ) ) {
 	/**
 	 * Checks if given value is a url.
 	 *
-	 * @param $content
+	 * @param $value
 	 *
 	 * @return mixed
 	 */
-	function wponion_is_url( $content ) {
-		return ( false === filter_var( $content, FILTER_VALIDATE_URL ) ) ? __( 'Please Enter A Valid URL', 'wponion' ) : true;
+	function wponion_is_url( $value ) {
+		return ( false === filter_var( $value, FILTER_VALIDATE_URL ) ) ? __( 'Please Enter A Valid URL', 'wponion' ) : true;
 	}
 }
 
@@ -65,5 +65,46 @@ if ( ! function_exists( 'wponion_is_ip' ) ) {
 	 */
 	function wponion_is_ip( $value ) {
 		return ( false === filter_var( $value, FILTER_VALIDATE_IP ) ) ? __( 'Enter A Valid IP Address', 'wponion' ) : true;
+	}
+}
+
+if ( ! function_exists( 'wponion_is_regex' ) ) {
+	/**
+	 * Checks if given value is a ip address.
+	 *
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	function wponion_is_regex( $value ) {
+		return ( false === filter_var( $value, FILTER_VALIDATE_REGEXP ) ) ? __( 'Enter A Valid Regex', 'wponion' ) : true;
+	}
+}
+
+
+if ( ! function_exists( 'wponion_is_mac_id' ) ) {
+	/**
+	 * Checks if given value is a ip address.
+	 *
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	function wponion_is_mac_id( $value ) {
+		return ( false === filter_var( $value, FILTER_VALIDATE_MAC ) ) ? __( 'Enter A Valid MAC ID', 'wponion' ) : true;
+	}
+}
+
+
+if ( ! function_exists( 'wponion_is_domain' ) ) {
+	/**
+	 * Checks if given value is a ip address.
+	 *
+	 * @param $value
+	 *
+	 * @return bool|string
+	 */
+	function wponion_is_domain( $value ) {
+		return ( false === filter_var( $value, FILTER_VALIDATE_DOMAIN ) ) ? __( 'Enter A Valid Domain Name', 'wponion' ) : true;
 	}
 }
