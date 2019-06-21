@@ -70,7 +70,7 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 
 		/**
 		 * @param string|\WPO\Field $field_type_or_instance
-		 * @param bool              $field_id
+		 * @param bool|\WPO\Field   $field_id
 		 * @param bool              $title
 		 * @param array             $args
 		 *
@@ -84,6 +84,9 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 			if ( wpo_is_field( $field_type_or_instance ) ) {
 				$this['fields'][ $this->get_field_id( $field_type_or_instance ) ] = $field_type_or_instance;
 				return $field_type_or_instance;
+			} elseif ( wpo_is_field( $field_id ) ) {
+				$this['fields'][ $this->get_field_id( $field_id ) ] = $field_id;
+				return $field_id;
 			}
 
 			$return = false;
