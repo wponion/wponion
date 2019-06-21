@@ -1,5 +1,15 @@
 // WordPress Modal.
 .wponion-wp-modal {
+	* {
+		box-sizing: inherit !important;
+	}
+
+	.wponion-element {
+		label {
+			font-size: inherit;
+		}
+	}
+
 	&.wponion-single-modal-view {
 		.media-frame-menu {
 			display: none;
