@@ -29,14 +29,12 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				'only_field' => true,
 			) );
 			echo $this->sub_field( $btn, null, null );
-			echo '<div class="wponion-modal-hidden-data">';
-			switch ( $this->data( 'modal_type' ) ) {
-				case 'swal':
-					//echo $this->swal( 'hidden' );
-					break;
-				case 'wp':
-					//echo $this->wp();
-					break;
+
+			echo '<div class="wponion-modal-overview-data">';
+			if ( wponion_is_callable( $this->data( 'overview_html' ) ) ) {
+				wponion_callback( $this->data( 'overview_html' ), array( $this->value, &$this ) );
+			} else {
+				echo $this->data( 'overview_html' );
 			}
 			echo '</div>';
 			echo $this->after();
@@ -222,11 +220,12 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'ajax_args'    => array(),
-				'fields'       => array(),
-				'modal_config' => array(),
-				'modal_type'   => 'swal', // SWAL / WP.
-				'button'       => __( 'Open Modal' ),
+				'ajax_args'     => array(),
+				'fields'        => array(),
+				'overview_html' => '',
+				'modal_config'  => array(),
+				'modal_type'    => 'swal', // SWAL / WP.
+				'button'        => __( 'Open Modal' ),
 			);
 		}
 	}

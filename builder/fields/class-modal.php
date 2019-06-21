@@ -96,5 +96,15 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 			$this['ajax_args'] = $ajax_args;
 			return $this;
 		}
+
+		/**
+		 * @param $overview_html
+		 *
+		 * @return $this
+		 */
+		public function overview_html( $overview_html ) {
+			$this['overview_html'] = $overview_html;
+			return $this;
+		}
 	}
 }
