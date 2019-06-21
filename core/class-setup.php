@@ -220,6 +220,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'wp_notice', 'all' );
 			\wponion_register_ui_field( 'faq', 'all' );
 			\wponion_register_ui_field( 'import_export', 'all' );
+			\wponion_register_ui_field( 'options_object', 'all' );
 
 			/**
 			 * Field Alias

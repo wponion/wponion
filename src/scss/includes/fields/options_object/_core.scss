@@ -1,0 +1,14 @@
+.wponion-element.wponion-element-options_object {
+	.json-output {
+		display:    inline-block;
+		max-height: 500px;
+		overflow:   scroll;
+		float:      left;
+		width:      100%;
+
+		.json-view {
+			display: inline-block;
+			width:   100%;
+		}
+	}
+}
