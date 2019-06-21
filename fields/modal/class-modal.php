@@ -30,6 +30,15 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 			) );
 			echo $this->sub_field( $btn, null, null );
 
+			switch ( $this->data( 'modal_type' ) ) {
+				case 'wp':
+					$this->wp();
+					break;
+				case 'swal':
+					$this->swal( true );
+					break;
+			}
+
 			echo '<div class="wponion-modal-overview-data">';
 			if ( wponion_is_callable( $this->data( 'overview_html' ) ) ) {
 				wponion_callback( $this->data( 'overview_html' ), array( $this->value, &$this ) );
@@ -42,22 +51,25 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 
 		/**
 		 * Renders Swal Data.
+		 *
+		 * @param bool $is_init
+		 *
+		 * @return string
 		 */
-		public function swal( $type = false ) {
+		public function swal( $is_init = false ) {
 			$output = '';
-			if ( false === $type ) {
+			if ( false === $is_init ) {
 				$output = '<div class=" wponion-modal-html wponion-modal-field wponion-on-modal">';
 			}
 			$this->catch_output( 'start' );
 			if ( ! empty( $this->data( 'fields' ) ) && is_array( $this->data( 'fields' ) ) ) {
 				foreach ( $this->data( 'fields' ) as $field ) {
-					$field['type'] = ( false !== $type ) ? $type : $field['type'];
-					echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name() );
+					echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), $is_init );
 				}
 			}
 			$html   = $this->catch_output( 'stop' );
 			$output .= $html;
-			if ( false === $type ) {
+			if ( false === $is_init ) {
 				$output .= '</div>';
 			}
 			return $output;
@@ -69,7 +81,6 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 * @return array|string
 		 */
 		public function wp() {
-			$html         = '';
 			$final_output = array();
 			/* @var \WPO\Builder|\WPO\Container|array $builder */
 			/* @var \WPO\Container|array $container */
@@ -78,24 +89,24 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$final_output = $this->wp_render_containers( $builder );
 				} else {
-					$html = $this->wp_render_containers( $builder );
+					$this->wp_render_containers( $builder );
 				}
 			} elseif ( wpo_is( $builder ) ) {
 				foreach ( $builder->containers() as $container ) {
 					if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 						$final_output[] = $this->wp_render_containers( $container );
 					} else {
-						$html .= $this->wp_render_containers( $container );
+						$this->wp_render_containers( $container );
 					}
 				}
 			} elseif ( wponion_is_array( $builder ) && ! empty( $builder ) ) {
 				if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$final_output['html'] = $this->wp_render_fields( $builder );
 				} else {
-					$html .= $this->wp_render_fields( $builder );
+					$this->wp_render_fields( $builder );
 				}
 			}
-			return ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? $final_output : $html;
+			return ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? $final_output : '';
 		}
 
 		/**
@@ -104,7 +115,6 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 * @return array|string
 		 */
 		protected function wp_render_containers( $builder ) {
-			$html = '';
 			$page = array(
 				'id'    => $builder->slug(),
 				'title' => $builder->title(),
@@ -122,18 +132,18 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 							'html'    => ( $container->has_fields() ) ? $this->wp_render_fields( $container->fields() ) : '',
 							'sidebar' => $container->get_var( 'sidebar' ),
 						);
-					} else {
-						$html .= ( $container->has_fields() ) ? $this->wp_render_fields( $container->fields() ) : '';
+					} elseif ( $container->has_fields() ) {
+						$this->wp_render_fields( $container->fields() );
 					}
 				}
 			} elseif ( $builder->has_fields() ) {
 				if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$page['html'] = $this->wp_render_fields( $builder->fields() );
 				} else {
-					$html .= $this->wp_render_fields( $builder->fields() );
+					$this->wp_render_fields( $builder->fields() );
 				}
 			}
-			return ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? $page : $html;
+			return ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? $page : '';
 		}
 
 		/**
@@ -149,11 +159,8 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				if ( ! wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$field['__no_instance'] = true;
 					$this->sub_field( $field, null, $this->name(), true );
-					$field['type'] = 'hidden';
-					$final_output  .= $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name() );
 				} else {
-					$field['type'] = ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? $field['type'] : 'hidden';
-					$final_output  .= $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name() );
+					$final_output .= $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name() );
 				}
 			}
 			return $final_output;

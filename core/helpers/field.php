@@ -664,6 +664,9 @@ if ( ! function_exists( 'wponion_get_field_unique_html' ) ) {
 			$current = current( $unique );
 			$return  = $current;
 			foreach ( $unique as $id ) {
+				if ( '[]' === $id ) {
+					$return .= $id;
+				}
 				if ( $id !== $current ) {
 					$return .= '[' . $id . ']';
 				}
