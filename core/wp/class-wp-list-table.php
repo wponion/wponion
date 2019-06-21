@@ -69,16 +69,13 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		 */
 		public function __construct( $table_settings = array(), $table_contents = array() ) {
 			$this->table_settings = wp_parse_args( $table_settings, array(
-				/**
-				 * Default Settings.
-				 */ 'plural'       => '',
+				// Default Settings
+				'plural'           => '',
 				'singular'         => '',
 				'ajax'             => false,
 				'screen'           => 'post',
-
-				/**
-				 * Custom Settings.
-				 */ 'no_items'     => __( 'No Items Found', 'wponion' ),
+				//Custom Settings.
+				'no_items'         => __( 'No Items Found', 'wponion' ),
 				'columns'          => array(),
 				'sortable'         => array(),
 				'default_callback' => array(),
@@ -86,6 +83,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				'total_items'      => false,
 				'bulk_actions'     => array(),
 				'filter_menus'     => array(),
+				'field'            => false, //Internal Usage Only
 			) );
 			parent::__construct( array(
 				'plural'   => $this->option( 'plural' ),
@@ -253,7 +251,12 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		 */
 		public function column_default( $item, $col_name ) {
 			if ( isset( $this->registered_columns[ $col_name ] ) && isset( $this->columns_callback[ $col_name ] ) && wponion_is_callable( $this->columns_callback[ $col_name ] ) ) {
-				return wponion_callback( $this->columns_callback[ $col_name ], array( $item, $col_name, $this ) );
+				return wponion_callback( $this->columns_callback[ $col_name ], array(
+					$item,
+					$col_name,
+					$this,
+					$this->option( 'field' ),
+				) );
 			} elseif ( isset( $item[ $col_name ] ) ) {
 				if ( is_string( $item[ $col_name ] ) ) {
 					return $item[ $col_name ];

@@ -4,7 +4,6 @@ namespace WPOnion\Ajax;
 
 use WPOnion\Bridge\Ajax;
 use WPOnion\Field\Modal;
-use WPOnion\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -40,7 +39,6 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 		}
 
 		public function save_fields() {
-			sleep( 1 );
 			$unique    = $this->post( 'unique' );
 			$field     = $this->get_field();
 			$module    = $this->get_module();
@@ -56,12 +54,11 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 		}
 
 		public function fetch_fields() {
-			sleep( 1 );
 			$unique = $this->post( 'unique' );
 			$field  = $this->get_field();
 			$module = $this->get_module();
 			$values = $module->get_db_values()
-				->get( $unique . '/' . $field->get_id() );
+				->get( $unique . '/' . $field['id'] );
 			$field->only_field( true );
 
 			$data = $field->init_field( $values, array(

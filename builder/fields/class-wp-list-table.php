@@ -3,6 +3,7 @@
 namespace WPO\Fields;
 
 use WPO\Field;
+use WPO\Helper\Container\Functions as Container_Functions;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -16,7 +17,22 @@ if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_List_Table extends Field {
+	class WP_List_Table extends Nested_Fields {
+		/**
+		 * Sub Containers
+		 *
+		 * @var array
+		 * @access
+		 */
+		protected $containers = array();
+
+		/**
+		 * Loads Required Container_Functions.
+		 *
+		 * @see \WPO\Helper\Container\Functions
+		 */
+		use Container_Functions;
+
 		/**
 		 * WP_List_Table constructor.
 		 *
@@ -48,6 +64,16 @@ if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 		public function data( $data ) {
 			$this['data'] = $data;
 			return $this;
+		}
+
+		public function get_field( $key = false ) {
+			$status = parent::get_field( $key );
+			if ( false === $status ) {
+				$key = explode( '/', $key );
+				array_shift( $key );
+				$key = implode( '/', $key );
+				return parent::get_field( $key );
+			}
 		}
 	}
 }

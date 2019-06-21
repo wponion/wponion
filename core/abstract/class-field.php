@@ -730,7 +730,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function name( $extra_name = '' ) {
+		public function name( $extra_name = '' ) {
 			if ( isset( $this->field['fields'] ) && ! empty( $this->field['fields'] ) || method_exists( $this->field, 'containers' ) ) {
 				return $this->raw_name( $extra_name );
 			}
@@ -743,7 +743,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function unique( $extra = '', $unique = false ) {
+		public function unique( $extra = '', $unique = false ) {
 			$unique = ( false === $unique ) ? $this->unique : $unique;
 			return ( ! empty( $extra ) ) ? $unique . '/' . $extra : $unique;
 		}
@@ -753,7 +753,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return mixed
 		 */
-		protected function base_unique() {
+		public function base_unique() {
 			return $this->base_unique;
 		}
 
@@ -1026,6 +1026,20 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 			$data = wponion_query()->query( $type, $query_args, '' );
 			return ( ! is_array( $data ) ) ? array() : $data;
+		}
+
+		/**
+		 * @param bool $module_instance
+		 *
+		 * @return bool|string|\WPOnion\Bridge\Module
+		 */
+		public function module( $module_instance = false ) {
+			if ( true === $module_instance ) {
+				$module   = parent::module();
+				$function = 'wponion_' . $module;
+				return wponion_callback( $function, array( $this->base_unique() ) );
+			}
+			return parent::module();
 		}
 
 		/**
