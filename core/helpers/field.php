@@ -63,19 +63,21 @@ if ( ! function_exists( 'wponion_validate_bool_val' ) ) {
 	/**
 	 * Checks And Converts Boolean Value Into Proper Bool.
 	 *
-	 * @param $value
+	 * @param string|mixed $value
+	 * @param bool         $is_true
+	 * @param bool         $is_false
 	 *
 	 * @return array|bool
 	 */
-	function wponion_validate_bool_val( $value ) {
+	function wponion_validate_bool_val( $value, $is_true = true, $is_false = false ) {
 		if ( wponion_is_array( $value ) ) {
 			return array_map( 'wponion_validate_bool_val', $value );
 		}
 		if ( in_array( $value, array( true, 'true', 'TRUE', 1, '1' ), true ) ) {
-			$value = true;
+			$value = $is_true;
 		}
 		if ( in_array( $value, array( false, 'false', 'FALSE', 0, '0' ), true ) ) {
-			$value = false;
+			$value = $is_false;
 		}
 		return $value;
 	}

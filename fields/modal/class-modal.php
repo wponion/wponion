@@ -24,7 +24,7 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		public function output() {
 			echo $this->before();
 
-			$btn = $this->handle_args( 'label', $this->data( 'button' ), array( 'class' => 'button button-secondary' ), array(
+			$btn = $this->handle_args( 'label', $this->data( 'modal_button' ), array( 'class' => 'button button-secondary' ), array(
 				'type'       => 'button',
 				'only_field' => true,
 			) );
@@ -225,7 +225,7 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				'overview_html' => '',
 				'modal_config'  => array(),
 				'modal_type'    => 'swal', // SWAL / WP.
-				'button'        => __( 'Open Modal' ),
+				'modal_button'  => __( 'Open Modal' ),
 			);
 		}
 	}

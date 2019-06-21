@@ -81,8 +81,8 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function button( $button_label_or_args ) {
-			$this['button'] = $button_label_or_args;
+		public function modal_button( $button_label_or_args ) {
+			$this['modal_button'] = $button_label_or_args;
 			return $this;
 		}
 
