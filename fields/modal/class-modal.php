@@ -19,6 +19,20 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 	 */
 	class Modal extends Field {
 		/**
+		 * Inits Sub Fields.
+		 */
+		protected function init_subfields() {
+			switch ( $this->data( 'modal_type' ) ) {
+				case 'wp':
+					$this->wp();
+					break;
+				case 'swal':
+					$this->swal( true );
+					break;
+			}
+		}
+
+		/**
 		 * Final HTML Output
 		 */
 		public function output() {
@@ -29,15 +43,6 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				'only_field' => true,
 			) );
 			echo $this->sub_field( $btn, null, null );
-
-			switch ( $this->data( 'modal_type' ) ) {
-				case 'wp':
-					$this->wp();
-					break;
-				case 'swal':
-					$this->swal( true );
-					break;
-			}
 
 			echo '<div class="wponion-modal-overview-data">';
 			if ( wponion_is_callable( $this->data( 'overview_html' ) ) ) {
@@ -64,7 +69,11 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 			$this->catch_output( 'start' );
 			if ( ! empty( $this->data( 'fields' ) ) && is_array( $this->data( 'fields' ) ) ) {
 				foreach ( $this->data( 'fields' ) as $field ) {
-					echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), $is_init );
+					if ( true === $is_init ) {
+						$this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), true );
+					} else {
+						echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), false );
+					}
 				}
 			}
 			$html   = $this->catch_output( 'stop' );
