@@ -101,7 +101,7 @@ export default Backbone.View.extend( {
 		this.$wpomodal.addClass( 'wponion-wp-modal-' + this.options.size );
 		jQuery( document ).on( 'focusin', this.preserveFocus );
 		jQuery( 'body' ).css( { 'overflow': 'hidden' } ).append( this.$el );
-		this.$el.focus();
+		//this.$el.focus();
 	},
 
 	/**
