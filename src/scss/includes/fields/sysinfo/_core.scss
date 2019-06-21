@@ -1,8 +1,12 @@
 .wponion-sysinfo {
+	display: inline-block;
+	width:   100%;
+
 	> .wponion-element {
 		.wponion-markdown-output {
 			display:    inline-block;
 			word-wrap:  break-word;
+			width:      100%;
 			word-break: break-all;
 			padding:    0;
 			border:     $element_border;
@@ -48,8 +52,8 @@
 				display:        block;
 				background:     #32373c;
 				color:          white;
-				padding-top:    20px;
-				padding-bottom: 20px;
+				padding-top:    10px;
+				padding-bottom: 10px;
 			}
 
 			h3 {
