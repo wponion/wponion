@@ -333,7 +333,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 				$fields = $module->fields();
 				unset( $module );
 				if ( method_exists( $fields, 'get' ) ) {
-					return $fields->get( $this->field_path() );
+					$field = $fields->get( $this->field_path() );
+					if ( ! empty( $field ) ) {
+						return $field;
+					};
+					$this->error( __( 'Field Not Found' ) );
 				}
 				$this->error( __( 'Unable To Fetch The Field' ) );
 			}
