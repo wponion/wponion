@@ -70,3 +70,29 @@ if ( ! function_exists( 'wpo_field' ) ) {
 		return WPO\Field::create( $type, $id, $title, $args );
 	}
 }
+
+if ( ! function_exists( 'wponion_builder_export' ) ) {
+	/**
+	 * @param \WPO\Field|\WPO\Container|\WPO\Builder $instance
+	 *
+	 * @return string
+	 */
+	function wponion_builder_export( $instance ) {
+		return base64_encode( serialize( $instance ) );
+	}
+}
+
+if ( ! function_exists( 'wponion_builder_import' ) ) {
+	/**
+	 * @param string $instance
+	 *
+	 * @return \WPO\Field|\WPO\Container|\WPO\Builder|bool
+	 */
+	function wponion_builder_import( $instance ) {
+		$instance = unserialize( base64_decode( $instance ) );
+		if ( wpo_is( $instance ) || wpo_is_field( $instance ) || wpo_is_container( $instance ) ) {
+			return $instance;
+		}
+		return false;
+	}
+}
