@@ -90,7 +90,7 @@ class field extends WPOnion_Field {
 					} finally {
 						state.isFetching = false;
 					}
-				};
+				}
 				$arg.onHidden       = ( tip ) => {
 					state.canFetch = true;
 					tip.setContent( 'Loading...' );
@@ -110,25 +110,21 @@ class field extends WPOnion_Field {
 			$arg = {};
 		}
 
+		$arg.boundary = 'window';
 		if( false === window.wponion._.isUndefined( $arg.followCursor ) && true === $arg.followCursor && window.wponion._.isUndefined( $arg.appendTo ) ) {
-			$arg.appendTo = () => {
-				return document.body;
-			};
+			$arg.appendTo = () => document.body;
 		} else if( window.wponion._.isUndefined( $arg.appendTo ) ) {
+			$arg.appendTo = () => document.body;
 			if( jQuery( 'div.wponion-element[data-wponion-jsid=' + this.id() + ']' ).length > 0 ) {
-				$arg.appendTo = () => {
-					return jQuery( 'div.wponion-element[data-wponion-jsid=' + this.id() + ']' )[ 0 ];
-				};
-			} else {
-				$arg.appendTo = () => {
-					return document.body;
-				};
+				$arg.appendTo = () => jQuery( 'div.wponion-element[data-wponion-jsid=' + this.id() + ']' )[ 0 ];
 			}
 		}
 
+
 		delete $arg.image;
 		delete $arg.icon;
-		this.element.tippy( this.handle_args( $arg, this.tooltipkey ) );
+		console.log( this.handle_args( $arg, this.tooltipkey ) );
+		console.log( this.element.tippy( this.handle_args( $arg, this.tooltipkey ) ) );
 	}
 }
 
