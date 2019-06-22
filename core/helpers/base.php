@@ -87,6 +87,10 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 		$atts = '';
 		if ( ! empty( $attributes ) ) {
 			foreach ( $attributes as $key => $value ) {
+				if ( 'class' === $key && is_array( $value ) ) {
+					$value = wponion_html_class( $value );
+				}
+
 				$value = ( wponion_is_array( $value ) ) ? wp_json_encode( $value ) : $value;
 				$atts  .= ( 'only-key' === $value ) ? ' ' . esc_attr( $key ) : ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
 			}

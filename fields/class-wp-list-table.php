@@ -25,10 +25,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 			$instance          = new \WPOnion\WP\WP_List_Table( $settings, $this->data( 'data' ) );
 			$instance->prepare_items();
 			$instance->views();
-			if ( ( isset( $settings['search'] ) && true === $settings['search'] ) || ! isset( $settings['search'] ) ) {
-				$instance->search_box( __( 'Search', 'wponion' ), 'search' );
-			}
-
+			$instance->search_box( __( 'Search', 'wponion' ), 'search' );
 			$instance->display();
 			echo '</div>';
 			echo $this->after();
