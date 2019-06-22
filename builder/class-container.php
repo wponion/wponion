@@ -31,7 +31,9 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 *
 		 * @see \WPO\Helper\Container\Functions
 		 */
-		use Container_Functions;
+		use Container_Functions {
+			json_serialize as protected json_serialize_base;
+		}
 
 		/**
 		 * Loads Required Field_Functions.
@@ -296,6 +298,39 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 				}
 			}
 			return $this;
+		}
+
+		/**
+		 * @param string     $type
+		 * @param bool|array $data
+		 *
+		 * @return array|bool
+		 */
+		protected function json_serialize( $type, $data = false ) {
+			$return = $this->json_serialize_base( $type, $data );
+
+			switch ( $type ) {
+				case 'get':
+					$defined_vars = array_keys( get_class_vars( static::class ) );
+					foreach ( $defined_vars as $var ) {
+						if ( ! in_array( $var, array( 'containers', 'fields' ), true ) ) {
+							$return[ $var ] = $this->{$var};
+						}
+					}
+					return $return;
+					break;
+				case 'set':
+					$defined_vars = array_keys( get_class_vars( static::class ) );
+					foreach ( $data as $var => $value ) {
+						if ( ! in_array( $var, array( 'containers', 'fields' ), true ) ) {
+							if ( in_array( $var, $defined_vars, true ) ) {
+								$this->{$var} = $data[ $var ];
+							}
+						}
+					}
+					break;
+			}
+			return false;
 		}
 	}
 }

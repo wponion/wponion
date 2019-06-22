@@ -180,5 +180,53 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		public function remove_var( $name ) {
 			unset( $this->custom_data[ $name ] );
 		}
+
+		/**
+		 * @param array $containers
+		 *
+		 * @return $this
+		 */
+		public function set_containers( $containers = array() ) {
+			$this->containers = $containers;
+			return $this;
+		}
+
+		/**
+		 * @param string     $type
+		 * @param bool|array $data
+		 *
+		 * @return array|bool
+		 */
+		protected function json_serialize( $type, $data = false ) {
+			switch ( $type ) {
+				case 'get':
+					if ( $this->has_fields() ) {
+						return array( 'fields' => $this->fields() );
+					}
+					if ( $this->has_containers() ) {
+						return array( 'containers' => $this->containers() );
+					}
+					break;
+				case 'set':
+					if ( isset( $data['fields'] ) ) {
+						$this->set_fields( $data['fields'] );
+					}
+
+					if ( isset( $data['containers'] ) ) {
+						$this->set_containers( $data['containers'] );
+					}
+					break;
+			}
+			return array();
+		}
+
+		/**
+		 * JSON Encodes. Data
+		 *
+		 * @return array
+		 */
+		public function jsonSerialize() {
+			return $this->json_serialize( 'get' );
+		}
 	}
 }
