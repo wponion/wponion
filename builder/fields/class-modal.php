@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use WPO\Field;
+use WPO\Helper\Field\Nested_Fields;
 
 if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 	/**

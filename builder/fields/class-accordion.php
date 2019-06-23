@@ -2,6 +2,8 @@
 
 namespace WPO\Fields;
 
+use WPO\Helper\Field\Nested_Fields;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }

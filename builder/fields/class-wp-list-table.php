@@ -4,6 +4,7 @@ namespace WPO\Fields;
 
 use WPO\Field;
 use WPO\Helper\Container\Functions as Container_Functions;
+use WPO\Helper\Field\Nested_Fields;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;

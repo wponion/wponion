@@ -1,33 +1,22 @@
 <?php
 
-namespace WPO\Fields;
+namespace WPO\Helper\Field;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
 use WPO\Field;
-use WPO\Helper\Field\Types;
 
-if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
+if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 	/**
-	 * Class Nested_Fields
+	 * Class Nested_Base
 	 *
-	 * @package WPO\Fields
+	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Nested_Fields extends Field implements \WPO\Helper\Interfaces\Field {
-		use Types;
-
-		/**
-		 * @param $heading
-		 *
-		 * @return $this
-		 */
-		public function heading( $heading ) {
-			return $this->_set( 'heading', $heading );
-		}
+	class Nested_Base extends Field implements \WPO\Helper\Interfaces\Field {
 
 		/**
 		 * @param bool $un_array
@@ -128,11 +117,6 @@ if ( ! class_exists( 'WPO\Fields\Nested_Fields' ) ) {
 				if ( $this->has_fields() ) {
 					$field = $this->field_exists( $_key );
 					return ( method_exists( $field, 'get_field' ) ) ? $field->get_field( implode( '/', $key ) ) : $field;
-				}
-
-				if ( method_exists( $this, 'has_containers' ) && $this->has_containers() ) {
-					$field = $this->container_exists( $_key );
-					return ( method_exists( $field, 'get' ) ) ? $field->get( implode( '/', $key ) ) : $field;
 				}
 			}
 
