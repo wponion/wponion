@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-use WPO\Helper\Container\Functions as Container_Functions;
+use WPO\Helper\Field\Nested_Base;
 
 if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 	/**
@@ -16,21 +16,7 @@ if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Tab extends Nested_Fields {
-		/**
-		 * Sub Containers
-		 *
-		 * @var array
-		 * @access
-		 */
-		protected $containers = array();
-
-		/**
-		 * Loads Required Container_Functions.
-		 *
-		 * @see \WPO\Helper\Container\Functions
-		 */
-		use Container_Functions;
+	class Tab extends Nested_Base {
 
 		/**
 		 * Accordion constructor.
@@ -41,6 +27,19 @@ if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( 'tab', $id, $title, $args );
+		}
+
+		/**
+		 * @param bool|string $slug
+		 * @param bool|string $title
+		 * @param bool|string $icon
+		 * @param array       $args
+		 *
+		 * @return bool|false|\WPO\Fields\Fieldset
+		 */
+		public function container( $slug = false, $title = false, $icon = '', $args = array() ) {
+			$args['icon'] = $icon;
+			return $this->field( 'fieldset', $slug, $title, $args );
 		}
 	}
 }
