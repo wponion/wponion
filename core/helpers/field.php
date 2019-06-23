@@ -298,12 +298,15 @@ if ( ! function_exists( 'wponion_is_unarrayed' ) ) {
 	/**
 	 * Check if a field is unarrayed.
 	 *
-	 * @param $field
+	 * @param \WPO\Field|\WPO\Container|array $field
 	 *
 	 * @return bool
 	 */
 	function wponion_is_unarrayed( $field ) {
-		return ( isset( $field['un_array'] ) && true === $field['un_array'] ) ? true : false;
+		if ( wponion_is_array( $field ) ) {
+			return ( isset( $field['un_array'] ) && true === $field['un_array'] ) ? true : false;
+		}
+		return ( wpo_is_container( $field ) && true === $field->get_var( 'un_array' ) ) ? true : false;
 	}
 }
 
@@ -666,8 +669,7 @@ if ( ! function_exists( 'wponion_get_field_unique_html' ) ) {
 			foreach ( $unique as $id ) {
 				if ( '[]' === $id ) {
 					$return .= $id;
-				}
-				if ( $id !== $current ) {
+				} elseif ( $id !== $current ) {
 					$return .= '[' . $id . ']';
 				}
 			}
