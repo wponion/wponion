@@ -50,11 +50,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param array $args
 		 *
 		 * @return false|\WPO\Field
-		 *
-		 * @todo \WPO\Fields\Button
-		 * @todo \WPO\Fields\WP_List_Table
-		 *
-		 *
 		 * @static
 		 */
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
