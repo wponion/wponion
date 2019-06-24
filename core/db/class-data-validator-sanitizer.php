@@ -197,10 +197,9 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					$_field['error_id'] = $field['error_id'] . '/' . $_field['id'];
 					$db_val             = $this->db_options( $parent_field );
 					$user_val           = $this->user_options( $parent_field );
-					$_user_val          = ( isset( $user_val[ $_field['id'] ] ) ) ? $user_val[ $_field['id'] ] : $user_val;
-					$_db_val            = ( isset( $db_val[ $_field['id'] ] ) ) ? $db_val[ $_field['id'] ] : $db_val;
+					$_user_val          = ( isset( $user_val[ $_field['id'] ] ) ) ? $user_val[ $_field['id'] ] : false;
+					$_db_val            = ( isset( $db_val[ $_field['id'] ] ) ) ? $db_val[ $_field['id'] ] : false;
 					$value              = $this->handle_field( $_field, $_user_val, $_db_val );
-					//$user_val[ $_field['id'] ] = $value;
 					$this->save_value( $value, $_field );
 					$this->go_nested( $_field );
 				}
