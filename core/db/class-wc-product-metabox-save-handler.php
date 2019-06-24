@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\DB\WC_Product_Metabox_Save_Handler' ) ) {
 					continue;
 				}
 
-				$this->handle_single_field( $field );
+				$this->handle_single_field( $this->field_path( $field ) );
 				$this->go_nested( $field );
 			}
 		}

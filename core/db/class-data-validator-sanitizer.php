@@ -102,6 +102,26 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
+		 * Handles Field Path
+		 *
+		 * @param $field
+		 * @param $parent
+		 *
+		 * @return mixed
+		 */
+		protected function field_path( $field, $parent = array() ) {
+			$parent['field_path'] = ( ! isset( $parent['field_path'] ) ) ? array() : $parent['field_path'];
+			$parent['field_path'] = ( is_string( $parent['field_path'] ) ) ? explode( '/', $parent['field_path'] ) : $parent['field_path'];
+
+			if ( ! isset( $field['field_path'] ) ) {
+				$field['field_path'] = array_filter( wp_parse_args( array(
+					( ! wponion_is_unarrayed( $field ) ) ? $field['id'] : '',
+				), $parent['field_path'] ) );
+			}
+			return $field;
+		}
+
+		/**
 		 * @param \WPO\Container|\WPO\Builder $data
 		 */
 		protected function field_loop( $data ) {
@@ -118,7 +138,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 						continue;
 					}
 
-					$this->handle_single_field( $field );
+					$this->handle_single_field( $this->field_path( $field ) );
 				}
 			}
 		}
@@ -144,7 +164,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		protected function go_nested( $field ) {
 			if ( ! in_array( $field['type'], array( 'group', 'modal' ), true ) ) {
 				if ( isset( $field['fields'] ) ) {
-					$this->nested_field_loop( $field );
+					$this->nested_field_loop( $this->field_path( $field ) );
 				}
 			}
 		}
@@ -173,14 +193,15 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					if ( wponion_is_unarrayed( $field ) ) {
 						$parent_field = $_field;
 					}
-					$_field['error_id']        = $field['error_id'] . '/' . $_field['id'];
-					$db_val                    = $this->db_options( $parent_field );
-					$user_val                  = $this->user_options( $parent_field );
-					$_user_val                 = ( isset( $user_val[ $_field['id'] ] ) ) ? $user_val[ $_field['id'] ] : $user_val;
-					$_db_val                   = ( isset( $db_val[ $_field['id'] ] ) ) ? $db_val[ $_field['id'] ] : $db_val;
-					$value                     = $this->handle_field( $_field, $_user_val, $_db_val );
-					$user_val[ $_field['id'] ] = $value;
-					$this->save_value( $user_val, $parent_field );
+					$_field             = $this->field_path( $_field, $field );
+					$_field['error_id'] = $field['error_id'] . '/' . $_field['id'];
+					$db_val             = $this->db_options( $parent_field );
+					$user_val           = $this->user_options( $parent_field );
+					$_user_val          = ( isset( $user_val[ $_field['id'] ] ) ) ? $user_val[ $_field['id'] ] : $user_val;
+					$_db_val            = ( isset( $db_val[ $_field['id'] ] ) ) ? $db_val[ $_field['id'] ] : $db_val;
+					$value              = $this->handle_field( $_field, $_user_val, $_db_val );
+					//$user_val[ $_field['id'] ] = $value;
+					$this->save_value( $user_val, $_field );
 					$this->go_nested( $_field );
 				}
 			}
@@ -238,10 +259,9 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * @return bool|mixed
 		 */
 		protected function save_value( $value, $field ) {
-			if ( wponion_is_unarrayed( $field ) ) {
-				$this->return_values = array_merge( $this->return_values, $value );
-			} else {
-				$this->return_values[ $field['id'] ] = $value;
+			$path = implode( '/', array_filter( $field['field_path'] ) );
+			if ( ! empty( $path ) ) {
+				\WPOnion\Helper::array_key_set( $path, $value, $this->return_values, '/' );
 			}
 			return true;
 		}
@@ -404,8 +424,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 */
 		protected function _value_options( $field, $value_arr, $default, $variable ) {
 			$value_arr = ( false === $value_arr ) ? $this->{$variable} : $value_arr;
-			$_value    = wponion_get_field_value( $field, $value_arr );
-			return ( $_value ) ? $_value : $default;
+			return \WPOnion\Helper::array_key_get( implode( '/', $field['field_path'] ), $value_arr, $default );
 		}
 	}
 }

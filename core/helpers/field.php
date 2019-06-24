@@ -303,10 +303,7 @@ if ( ! function_exists( 'wponion_is_unarrayed' ) ) {
 	 * @return bool
 	 */
 	function wponion_is_unarrayed( $field ) {
-		if ( wponion_is_array( $field ) ) {
-			return ( isset( $field['un_array'] ) && true === $field['un_array'] ) ? true : false;
-		}
-		return ( wpo_is_container( $field ) && true === $field->get_var( 'un_array' ) ) ? true : false;
+		return ( isset( $field['un_array'] ) && true === $field['un_array'] ) ? true : false;
 	}
 }
 
@@ -355,6 +352,9 @@ if ( ! function_exists( 'wponion_get_field_value' ) ) {
 		$field_id = wponion_field_id( $field );
 
 		if ( wponion_is_unarrayed( $field ) && isset( $field['fields'] ) && wponion_is_array( $field['fields'] ) ) {
+			if ( isset( $value[ $field_id ] ) ) {
+				return $value[ $field_id ];
+			}
 			$return_values = array();
 			foreach ( $field['fields'] as $_field ) {
 				if ( false !== wponion_valid_field( $_field ) ) {

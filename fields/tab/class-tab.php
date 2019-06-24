@@ -35,7 +35,6 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 				$content = '';
 
 				$first = current( $fields );
-				var_dump( $this->value );
 				/**
 				 * @var \WPO\Container $section
 				 * @var \WPO\Field     $field
@@ -54,7 +53,8 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 					if ( $section['fields'] ) {
 						foreach ( $section['fields'] as $field ) {
 							$this->catch_output( 'start' );
-							echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value( $value_slug ) ), $unique );
+							$value = ( false === $this->value( $slug ) ) ? $this->value : $this->value( $slug );
+							echo $this->sub_field( $field, wponion_get_field_value( $field, $value ), $unique );
 							$content .= $this->catch_output( 'stop' );
 						}
 					}
