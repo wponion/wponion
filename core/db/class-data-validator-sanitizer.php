@@ -201,7 +201,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					$_db_val            = ( isset( $db_val[ $_field['id'] ] ) ) ? $db_val[ $_field['id'] ] : $db_val;
 					$value              = $this->handle_field( $_field, $_user_val, $_db_val );
 					//$user_val[ $_field['id'] ] = $value;
-					$this->save_value( $user_val, $_field );
+					$this->save_value( $value, $_field );
 					$this->go_nested( $_field );
 				}
 			}
