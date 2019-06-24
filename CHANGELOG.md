@@ -17,6 +17,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * WPOnion Cache Module
 * WPOnion New Ajax Module
 * Modal Field
+* Import / Export Field.
+* Spinner Field
+* Range Slider Field
+* Code Editor Field
+* `wponion_after_setup` Javascript Hook
+* List Table Field Builder
+* Button Field Builder
+* Import / Export Builder
+* Builder Import / Export `wponion_builder_export` && `wponion_builder_import`
 
 ## Changed
 * Bump [sweetalert2] from 8.11.7 to 8.12.1.
@@ -25,13 +34,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builder Now Uses `Nested Array Fetch` Eg : `$builder->get('page1/section1/field1')`
 * Template Files Updated To Pass Current Container & Subcontanier Instead of its slug 
 * Files Reorganized
- 
+* Core Ajax Handler now has a method to return ajax url.
+* Updated Ajax Abstract Handler 
+* changed `.wponion-framework pre` to `.wponion-framework .wpo-copy`
+* Moved `data/google_fonts.php` to `data/fonts/google.php`
+* moved `websafe fonts` from functions to data file
+* moved `backup fonts` from functions to data file
+* `wponion_is_domain` New Validators
+* `wponion_is_mac_id` New Validators
+* `wponion_is_regex` New Validators
+
 ## Removed
 * Backup Handler Fields Related Codes
 * Removed File Header Comments
-* `wponion_highlight_string` function
-* `wponion_extract_font_variant` function
-* `wponion_noninput_fields` function
+* `wponion_highlight_string` Function
+* `wponion_extract_font_variant` Function
+* `wponion_noninput_fields` Function
+* `wponion_get_set_db` Function
+* `wponion_get_db` Function
+* `wponion_update_db` Function
 
 
 # [1.2.1] - 10/06/2019
