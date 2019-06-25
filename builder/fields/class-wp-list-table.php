@@ -20,21 +20,6 @@ if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 	 */
 	class WP_List_Table extends Nested_Fields {
 		/**
-		 * Sub Containers
-		 *
-		 * @var array
-		 * @access
-		 */
-		protected $containers = array();
-
-		/**
-		 * Loads Required Container_Functions.
-		 *
-		 * @see \WPO\Helper\Container\Functions
-		 */
-		use Container_Functions;
-
-		/**
 		 * WP_List_Table constructor.
 		 *
 		 * @param bool  $id
@@ -67,6 +52,11 @@ if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 			return $this;
 		}
 
+		/**
+		 * @param bool $key
+		 *
+		 * @return array|\WPO\Container|\WPO\Field
+		 */
 		public function get_field( $key = false ) {
 			$status = parent::get_field( $key );
 			if ( false === $status ) {
@@ -75,6 +65,7 @@ if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 				$key = implode( '/', $key );
 				return parent::get_field( $key );
 			}
+			return $status;
 		}
 	}
 }

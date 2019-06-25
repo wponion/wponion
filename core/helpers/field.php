@@ -55,6 +55,7 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 
 			// Internal
 			'builder_path'    => false,
+			'field_path'      => false,
 		);
 	}
 }
