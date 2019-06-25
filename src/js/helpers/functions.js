@@ -224,7 +224,7 @@ export default ( ( window, document, $, jQuery ) => {
 	 * @param $args
 	 * @returns {{}|*}
 	 */
-	window.wponion_dependency = ( $element = false, $args = false ) => new window.wponion.dependency( $element, $args );
+	window.wponion_dependency = ( $element = false, $args = false, $config = {} ) => new window.wponion.dependency( $element, $args, $config );
 
 	/**
 	 * Handles WPOnion Notices.

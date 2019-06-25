@@ -29,6 +29,7 @@ class field extends WPOnion_Field {
 			$instance.on( 'open', ( $elem ) => {
 				window.wponion.core.script_tag( res.script );
 				window.wponion_field( $elem ).reload();
+				window.wponion_dependency( $elem );
 			} );
 
 			$instance.on( 'save_modal', ( $elem ) => this.convert_form_fields( $elem ) );
@@ -107,6 +108,7 @@ class field extends WPOnion_Field {
 				$validation = new WPOnion_Validator( $mainelem.find( '> form' ) );
 				$mainelem.show();
 				window.wponion_field( $mainelem ).reload();
+				window.wponion_dependency( $mainelem );
 			};
 			$args              = this.handle_args( $args, 'SweatAlert Modal' );
 			$args.target       = this.element[ 0 ];
