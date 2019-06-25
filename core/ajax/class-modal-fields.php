@@ -39,14 +39,13 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 		}
 
 		public function save_fields() {
-			$unique    = $this->post( 'unique' );
 			$field     = $this->get_field();
 			$module    = $this->get_module();
-			$values    = $this->post( $unique . '/' . $field['id'] );
+			$field_key = ( wponion_is_unarrayed( $field ) ) ? $this->post( 'unique' ) : $this->post( 'unique' ) . '/' . $field['id'];
+			$values    = $this->post( $field_key );
 			$db_values = $module->get_db_values();
-
 			if ( wpo_is_option( $db_values ) ) {
-				$db_values->set( $unique . '/' . $field['id'], $values );
+				$db_values->set( $field_key, $values );
 				$db_values->save();
 				$this->json_success();
 			}
@@ -54,11 +53,12 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 		}
 
 		public function fetch_fields() {
-			$unique = $this->post( 'unique' );
-			$field  = $this->get_field();
-			$module = $this->get_module();
-			$values = $module->get_db_values()
-				->get( $unique . '/' . $field['id'] );
+			$unique    = $this->post( 'unique' );
+			$field     = $this->get_field();
+			$module    = $this->get_module();
+			$field_key = ( wponion_is_unarrayed( $field ) ) ? $unique : $unique . '/' . $field['id'];
+			$values    = $module->get_db_values()
+				->get( $field_key );
 			$field->only_field( true );
 
 			$data = $field->init_field( $values, array(
