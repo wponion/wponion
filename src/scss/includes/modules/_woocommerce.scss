@@ -1,12 +1,22 @@
 .woocommerce_options_panel {
-	> .wponion-framework.wponion-woocoomerce_product {
+	> .wponion-framework.wponion-wc_product {
 		> .row {
 			margin: 0;
+		}
+
+		.wponion-desc {
+			float:   left;
+			width:   100%;
+			padding: 0;
+		}
+
+		.ui-accordion .ui-accordion-content {
+			padding: 0;
 		}
 	}
 }
 
-.wponion-woocommerce-variation.wponion-framework.wponion-woocoomerce_product {
+.wponion-woocommerce-variation.wponion-framework.wponion-wc_product {
 	display: block;
 	width:   100%;
 	float:   left;
