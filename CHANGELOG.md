@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `wponion_is_domain` New Validators
 * `wponion_is_mac_id` New Validators
 * `wponion_is_regex` New Validators
+* Bumps [sweetalert2] from `8.12.1` to `8.13.0`
 
 ## Removed
 * Backup Handler Fields Related Codes
