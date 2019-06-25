@@ -170,6 +170,21 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
+		 * @param array            $data
+		 * @param array|\WPO\Field $field
+		 *
+		 * @return bool|mixed
+		 */
+		protected function get_db_user_value( $data, $field ) {
+			if ( is_string( $data ) ) {
+				return $data;
+			} elseif ( is_array( $data ) && isset( $data[ $field['id'] ] ) ) {
+				return $data[ $field['id'] ];
+			}
+			return false;
+		}
+
+		/**
 		 * This function is used for nested field loops.
 		 *
 		 * @param $field
@@ -197,10 +212,17 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					$_field['error_id'] = $field['error_id'] . '/' . $_field['id'];
 					$db_val             = $this->db_options( $parent_field );
 					$user_val           = $this->user_options( $parent_field );
-					$_user_val          = ( isset( $user_val[ $_field['id'] ] ) ) ? $user_val[ $_field['id'] ] : false;
-					$_db_val            = ( isset( $db_val[ $_field['id'] ] ) ) ? $db_val[ $_field['id'] ] : false;
+					$_user_val          = $this->get_db_user_value( $user_val, $_field );
+					$_db_val            = $this->get_db_user_value( $db_val, $_field );
 					$value              = $this->handle_field( $_field, $_user_val, $_db_val );
-					$this->save_value( $value, $_field );
+
+					if ( ! wponion_is_unarrayed( $field ) && ! wponion_is_unarrayed( $_field ) && isset( $_field['fields'] ) && isset( $field['fields'] ) ) {
+						$user_val                  = ( ! is_array( $user_val ) ) ? array() : $user_val;
+						$user_val[ $_field['id'] ] = $value;
+						$this->save_value( $user_val, $field );
+					} elseif ( ! isset( $_field['fields'] ) ) {
+						$this->save_value( $value, $_field );
+					}
 					$this->go_nested( $_field );
 				}
 			}
@@ -257,9 +279,14 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 *
 		 * @return bool|mixed
 		 */
-		protected function save_value( $value, $field ) {
+		protected function save_value( $value, $field, $merge = false ) {
 			$path = implode( '/', array_filter( $field['field_path'] ) );
 			if ( ! empty( $path ) ) {
+				if ( wponion_is_unarrayed( $field ) || true === $merge ) {
+					$_values = \WPOnion\Helper::array_key_get( $path, $this->return_values, '/' );
+					$value   = array_merge( $_values, $value );
+				}
+
 				\WPOnion\Helper::array_key_set( $path, $value, $this->return_values, '/' );
 			}
 			return true;
