@@ -789,7 +789,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 					wponion_localize()->add( $this->js_field_id(), array( 'js_validate' => $this->data( 'js_validate' ) ) );
 				}
 
-				$path     = explode( '/', $this->raw_name() );
+				$path     = explode( '/', $this->unique( $this->field_id() ) );
 				$new_path = array();
 				if ( ! empty( $path ) ) {
 					$current = current( $path );
