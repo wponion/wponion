@@ -122,6 +122,23 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
+		 * @param $field
+		 *
+		 * @return bool
+		 */
+		protected function is_valid_field( $field ) {
+			$type   = wponion_get_field_type( $field, false );
+			$return = true;
+			switch ( $type ) {
+				case 'modal':
+					$return = ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? true : false;
+					break;
+			}
+
+			return $return;
+		}
+
+		/**
 		 * @param \WPO\Container|\WPO\Builder $data
 		 */
 		protected function field_loop( $data ) {
@@ -134,7 +151,8 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					if ( ! wponion_valid_field( $field ) ) {
 						continue;
 					}
-					if ( in_array( wponion_get_field_type( $field, false ), array( 'modal' ), true ) ) {
+
+					if ( false === $this->is_valid_field( $field ) ) {
 						continue;
 					}
 
@@ -162,7 +180,10 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * @param $field
 		 */
 		protected function go_nested( $field ) {
-			if ( ! in_array( $field['type'], array( 'group', 'modal' ), true ) ) {
+			if ( ! in_array( $field['type'], array( 'group' ), true ) ) {
+				if ( ! $this->is_valid_field( $field ) ) {
+					return;
+				}
 				if ( isset( $field['fields'] ) ) {
 					$this->nested_field_loop( $this->field_path( $field ) );
 				}
@@ -201,7 +222,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 						continue;
 					}
 
-					if ( in_array( wponion_get_field_type( $field, false ), array( 'modal' ), true ) ) {
+					if ( false === $this->is_valid_field( $field ) ) {
 						continue;
 					}
 
