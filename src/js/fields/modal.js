@@ -33,19 +33,19 @@ class field extends WPOnion_Field {
 				let $parent = $elem.find( '.wponion-modal-content-container' )
 								   .parent();
 				$elem.find( '.wponion-modal-content-container' ).remove();
-				$parent.append( '<form method="post" class="wponion-wp-modal-form"><div class="wponion-modal-content-container"></div></form>' );
+				$parent.append( '<form method="post" class="wponion-wp-modal-form "><div class="wponion-modal-content-container"></div></form>' );
 			} );
 
 			$instance.on( 'open', ( $elem ) => {
 				window.wponion.core.script_tag( res.script );
 				$validation = new WPOnion_Validator( jQuery( '.wponion-wp-modal-form' ) );
-				window.wponion_dependency( $elem );
 				window.wponion_field( $elem ).reload();
+				window.wponion_dependency( $elem );
 			} );
 
 			$instance.on( 'save_modal', ( $elem ) => {
 				if( $validation.form.valid() ) {
-					this.convert_form_fields( $elem );
+					//this.convert_form_fields( $elem );
 					$instance.closeModal();
 				}
 			} );

@@ -1,5 +1,10 @@
 // WordPress Modal.
 .wponion-wp-modal {
+	#wponion-error-messages {
+		display:    none;
+		visibility: hidden;
+	}
+
 	* {
 		box-sizing: inherit !important;
 	}
