@@ -62,17 +62,20 @@ class field extends WPOnion_Field {
 	 * @param $elem
 	 */
 	js_validate_elem( $args, $elem ) {
+		let $key_id   = ( this.element.find( '.sortable-handler' ).length > 0 ) ? 1 : 0;
+		let $value_id = ( this.element.find( '.sortable-handler' ).length > 0 ) ? 2 : 1;
 		if( false === window.wponion._.isObject( $args ) ) {
 			return false;
 		}
+
 		if( true !== window.wponion._.isUndefined( $args.key ) ) {
 			$elem.find( '.wponion-keyvalue-field' ).each( function() {
-				jQuery( this ).find( '> div' ).eq( 0 ).find( ':input' ).rules( 'add', $args.key );
+				jQuery( this ).find( '> div' ).eq( $key_id ).find( ':input' ).rules( 'add', $args.key );
 			} );
 		}
 		if( true !== window.wponion._.isUndefined( $args.value ) ) {
 			$elem.find( '.wponion-keyvalue-field' ).each( function() {
-				jQuery( this ).find( '> div' ).eq( 1 ).find( ':input' ).rules( 'add', $args.value );
+				jQuery( this ).find( '> div' ).eq( $value_id ).find( ':input' ).rules( 'add', $args.value );
 			} );
 		}
 
