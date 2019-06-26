@@ -293,12 +293,11 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
-		 * Saves A Value.
+		 * @param      $value
+		 * @param      $field
+		 * @param bool $merge
 		 *
-		 * @param $value
-		 * @param $field
-		 *
-		 * @return bool|mixed
+		 * @return bool
 		 */
 		protected function save_value( $value, $field, $merge = false ) {
 			$path = implode( '/', array_filter( $field['field_path'] ) );
