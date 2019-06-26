@@ -90,6 +90,8 @@ export default Backbone.View.extend( {
 			save_btn_label: this.options.save_btn_label,
 			close_btn_label: this.options.close_btn_label
 		} ) );
+
+		this.trigger( 'before_render', this.$el );
 		this.$wpomodal = this.$el.find( '.wponion-wp-modal' );
 		if( !window.wponion._.isUndefined( this.modal_html.html ) || !window.wponion._.isUndefined( this.modal_html.sections ) ) {
 			this.render_single();
@@ -274,7 +276,9 @@ export default Backbone.View.extend( {
 	closeModal: function( e ) {
 		'use strict';
 		this.trigger( 'before_close', this.$el );
-		e.preventDefault();
+		if( typeof e !== 'undefined' ) {
+			e.preventDefault();
+		}
 		this.undelegateEvents();
 		jQuery( document ).off( 'focusin' );
 		jQuery( 'body' ).css( { 'overflow': 'auto' } );
@@ -290,6 +294,6 @@ export default Backbone.View.extend( {
 	saveModal: function( e ) {
 		'use strict';
 		this.trigger( 'save_modal', this.$el );
-		this.closeModal( e );
+		//this.closeModal( e );
 	},
 } );

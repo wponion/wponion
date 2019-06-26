@@ -25,14 +25,30 @@ class field extends WPOnion_Field {
 	 */
 	init_wp() {
 		this.fetch_fields( ( res ) => {
-			let $instance = new window.wponion.modal( this.option( 'modal_config' ), res.html );
-			$instance.on( 'open', ( $elem ) => {
-				window.wponion.core.script_tag( res.script );
-				window.wponion_field( $elem ).reload();
-				window.wponion_dependency( $elem );
+			let $instance   = new window.wponion.modal( this.option( 'modal_config' ), res.html );
+			let $validation = false;
+			//<form method="post" class="wponion-wp-modal-form">
+
+			$instance.on( 'before_render', ( $elem ) => {
+				let $parent = $elem.find( '.wponion-modal-content-container' )
+								   .parent();
+				$elem.find( '.wponion-modal-content-container' ).remove();
+				$parent.append( '<form method="post" class="wponion-wp-modal-form"><div class="wponion-modal-content-container"></div></form>' );
 			} );
 
-			$instance.on( 'save_modal', ( $elem ) => this.convert_form_fields( $elem ) );
+			$instance.on( 'open', ( $elem ) => {
+				window.wponion.core.script_tag( res.script );
+				$validation = new WPOnion_Validator( jQuery( '.wponion-wp-modal-form' ) );
+				window.wponion_dependency( $elem );
+				window.wponion_field( $elem ).reload();
+			} );
+
+			$instance.on( 'save_modal', ( $elem ) => {
+				if( $validation.form.valid() ) {
+					this.convert_form_fields( $elem );
+					$instance.closeModal();
+				}
+			} );
 			$instance.open();
 		} );
 	}
