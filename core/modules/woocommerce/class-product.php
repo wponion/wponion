@@ -398,7 +398,6 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			if ( isset( $this->variation_fields[ $tab ] ) && empty( $this->variation_fields[ $tab ] ) ) {
 				return;
 			} else {
-				$this->variation_id = $loop;
 				$this->set_id( false );
 
 				if ( $variation instanceof \WC_Product || $variation instanceof \WC_Product_Variation ) {
@@ -406,7 +405,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 				} elseif ( $variation instanceof \WP_Post ) {
 					$this->set_id( $variation->ID );
 				}
-
+				$this->variation_id = $loop;
 				echo $this->render_tab_fields( $this->variation_fields[ $tab ], array( 'wponion-woocommerce-variation' ) );
 				do_action( 'wponion_module_woocommerce_ajax_variation_fields' );
 			}
@@ -526,7 +525,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			$instance->run( $is_var );
 			$values                              = $instance->get_values();
 			$this->options_cache['field_errors'] = $instance->get_errors();
-			$this->variation_id                  = true;
+			$this->variation_id                  = false;
 			$this->set_db_values( $values );
 			$this->set_db_cache( $this->options_cache );
 			$this->options_cache = false;

@@ -78,7 +78,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return array|mixed|\WPOnion\DB\Option
 		 */
 		public function get_db_values() {
-			$this->db_values = wponion_wp_db()->get( $this->module_db(), $this->unique(), $this->get_id() );
+			if ( empty( $this->db_values ) ) {
+				$this->db_values = wponion_wp_db()->get( $this->module_db(), $this->unique(), $this->get_id() );
+			}
 			return $this->db_values;
 		}
 
