@@ -291,6 +291,25 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Fetchs Builder Path.
+		 *
+		 * @param string|bool $type
+		 *
+		 * @return array|bool
+		 */
+		protected function builder_path( $type = false ) {
+			$builder_path = explode( '/', $this->post( 'builder_path' ) );
+			$builder_path = array_filter( array(
+				'container_id'     => isset( $builder_path[0] ) ? $builder_path[0] : false,
+				'sub_container_id' => isset( $builder_path[1] ) ? $builder_path[1] : false,
+			) );
+			if ( false === $type ) {
+				return $builder_path;
+			}
+			return ( isset( $builder_path[ $type ] ) ) ? $builder_path[ $type ] : false;
+		}
+
+		/**
 		 * Fetches And Returns the module.
 		 *
 		 * @return bool|mixed|\WPOnion\Bridge\Module
