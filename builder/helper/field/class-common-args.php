@@ -396,5 +396,24 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		public function multiple( $is_multiple = true ) {
 			return $this->_set( 'multiple', $is_multiple );
 		}
+
+
+		/**
+		 * @param callable|string|array $callback
+		 *
+		 * @return $this
+		 */
+		public function before_render( $callback ) {
+			return $this->_set( 'before_render', $callback );
+		}
+
+		/**
+		 * @param callable|string|array $callback
+		 *
+		 * @return $this
+		 */
+		public function after_render( $callback ) {
+			return $this->_set( 'after_render', $callback );
+		}
 	}
 }

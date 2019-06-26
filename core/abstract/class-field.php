@@ -183,7 +183,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
-			if ( $this->has( 'only_field' ) ) {
+			$only_field = ( $this->has( 'only_field' ) && true === $this->data( 'only_field' ) ) ? true : false;
+			if ( false !== $this->data( 'before_render' ) && wponion_is_callable( $this->data( 'before_render' ) ) ) {
+				wponion_callback( $this->data( 'before_render' ), array( &$this, $only_field ) );
+			}
+
+			if ( $only_field ) {
 				$this->output();
 			} else {
 				$this->wrapper();
@@ -196,6 +201,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->debug( __( 'Module', 'wponion' ), $this->module() );
 			$this->wp_pointer();
 			$this->localize_field();
+
+			if ( false !== $this->data( 'after_render' ) && wponion_is_callable( $this->data( 'after_render' ) ) ) {
+				wponion_callback( $this->data( 'after_render' ), array( &$this, $this->js_field_id(), $only_field ) );
+			}
 		}
 
 		/**

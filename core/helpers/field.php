@@ -52,7 +52,9 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			//Custom Column Handler.
 			'title_column'    => false,
 			'fieldset_column' => false,
-
+			//Custom Callbacks
+			'before_render'   => false,
+			'after_render'    => false,
 			// Internal
 			'builder_path'    => false,
 			'field_path'      => false,
