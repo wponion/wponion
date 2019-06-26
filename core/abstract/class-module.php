@@ -486,7 +486,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
 				'module' => $this->module(),
 				'unique' => $this->unique(),
-				'base'   => $this->unique(),
+				'base'   => $this->base_unique(),
 				'hash'   => $hash,
 			) );
 		}
