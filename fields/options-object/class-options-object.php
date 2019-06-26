@@ -12,7 +12,15 @@ if ( ! class_exists( '\WPOnion\Field\Options_Object' ) ) {
 
 		protected function js_field_args() {
 			$module = $this->module( true );
-			$values = $module->get_db_values();
+			if ( ! method_exists( $module, 'get_db_values' ) ) {
+				$values = array(
+					'not_found'       => __( 'Filed\'s Module Not Found' ),
+					'module_name'     => $this->module( false ),
+					'module_instance' => $module,
+				);
+			} else {
+				$values = $module->get_db_values();
+			}
 			return array( 'values' => $values );
 		}
 
