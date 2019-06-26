@@ -6,13 +6,14 @@ class field extends WPOnion_Field {
 	 */
 	init() {
 		let $arg = this.option( 'select2', {} );
-		if( window.wponion._.isUndefined( $arg.dropdownParent ) ) {
-			$arg.dropdownParent = this.get_field_parent_by_id( this.element );
-			if( $arg.dropdownParent.length === 0 ) {
-				$arg.dropdownParent = jQuery( 'body' );
+		if( 'wc_product' !== this.module() ) {
+			if( window.wponion._.isUndefined( $arg.dropdownParent ) ) {
+				$arg.dropdownParent = this.get_field_parent_by_id( this.element );
+				if( $arg.dropdownParent.length === 0 ) {
+					$arg.dropdownParent = jQuery( 'body' );
+				}
 			}
 		}
-
 		if( this.option( 'ajax' ) ) {
 			$arg.ajax = {
 				processResults: ( data ) => {

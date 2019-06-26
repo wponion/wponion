@@ -338,7 +338,7 @@ export default ( ( window, document, $, jQuery ) => {
 		} else {
 			window.wponion_field( $argument );
 			if( true === $log_err ) {
-				console.info( 'WPOnion Field Type : ' + $field_type + ' Init Function Not Found', '\nAction Used : wponion_init_' + $module + 'field_' + $field_type );
+				console.debug( 'WPOnion Field Type : ' + $field_type + ' Init Function Not Found', '\nAction Used : wponion_init_' + $module + 'field_' + $field_type );
 			}
 		}
 	};

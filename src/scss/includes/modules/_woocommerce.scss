@@ -1,18 +1,26 @@
-.woocommerce_options_panel {
-	> .wponion-framework.wponion-wc_product {
-		> .row {
-			margin: 0;
+#woocommerce-product-data {
+	.woocommerce_options_panel {
+		> .wponion-framework.wponion-wc_product {
+			> .row {
+				margin: 0;
+			}
 		}
+	}
 
-		.wponion-desc {
-			float:   left;
-			width:   100%;
-			padding: 0;
-		}
+	// Style Fixes.
+	.wponion-desc {
+		float:   left;
+		width:   100%;
+		padding: 0;
+	}
 
-		.ui-accordion .ui-accordion-content {
-			padding: 0;
-		}
+	// Chosen Select
+	.chosen-search {
+		float: left;
+	}
+
+	.ui-accordion .ui-accordion-content {
+		padding: 0;
 	}
 }
 
