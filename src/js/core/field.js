@@ -222,6 +222,7 @@ export default class extends WPOnion_Module {
 			module: this.module(),
 			unique: this.option( 'unique' ),
 			field_path: this.option( 'field_path' ),
+			builder_path: this.option( 'builder_path' ),
 		};
 		$default[ $ajax_key ] = $action;
 		$data.data            = ( false === window.wponion._.isUndefined( $data.data ) ) ? window.wponion._.merge( $default, $data.data ) : $default;

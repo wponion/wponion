@@ -802,9 +802,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				}
 
 				$data       = array(
-					'module'     => $this->module(),
-					'unique'     => $this->unique(),
-					'field_path' => implode( '/', array_filter( $new_path ) ),
+					'module'       => $this->module(),
+					'unique'       => $this->unique(),
+					'field_path'   => implode( '/', array_filter( $new_path ) ),
+					'builder_path' => $this->data( 'builder_path' ),
 				);
 				$js_convert = false;
 			}
