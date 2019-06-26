@@ -393,25 +393,23 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * @param string            $loop
 		 * @param array             $variation_data
 		 * @param array|\WC_Product $variation
-		 *
-		 * @return bool
 		 */
 		public function render_variation_fields_html( $tab = '', $loop = '', $variation_data = array(), $variation = array() ) {
-			wponion_localize();
 			if ( isset( $this->variation_fields[ $tab ] ) && empty( $this->variation_fields[ $tab ] ) ) {
-				return true;
-			}
+				return;
+			} else {
+				$this->variation_id = $loop;
+				$this->set_id( false );
 
-			if ( $variation instanceof \WC_Product || $variation instanceof \WC_Product_Variation ) {
-				$id = $variation->get_id();
-			} elseif ( $variation instanceof \WP_Post ) {
-				$id = $variation->ID;
+				if ( $variation instanceof \WC_Product || $variation instanceof \WC_Product_Variation ) {
+					$this->set_id( $variation->get_id() );
+				} elseif ( $variation instanceof \WP_Post ) {
+					$this->set_id( $variation->ID );
+				}
+
+				echo $this->render_tab_fields( $this->variation_fields[ $tab ], array( 'wponion-woocommerce-variation' ) );
+				do_action( 'wponion_module_woocommerce_ajax_variation_fields' );
 			}
-			$this->set_id( $id );
-			$this->variation_id = $loop;
-			echo $this->render_tab_fields( $this->variation_fields[ $tab ], array( 'wponion-woocommerce-variation' ) );
-			do_action( 'wponion_module_woocommerce_ajax_variation_fields' );
-			return true;
 		}
 
 		/**
@@ -503,6 +501,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		public function variation_variable_attributes( $loop, $variation_data, $variation ) {
 			$this->render_variation_fields_html( 'default', $loop, $variation_data, $variation );
+			wponion_localize()->render_js_args();
 		}
 
 		/**
@@ -513,20 +512,22 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			$fields = ( false === $this->variation_id ) ? $this->fields : $this->variation_fields;
 			$is_var = ( false === $this->variation_id ) ? false : true;
 			if ( false === $this->variation_id ) {
-				$this->set_id( $product->get_id() );
+				$pid = ( $product instanceof \WC_Product && method_exists( $product, 'get_id' ) ) ? $product->get_id() : $product;
+				$this->set_id( $pid );
 			}
 			$instance = new WC_Product_Metabox_Save_Handler( array(
 				'module'        => &$this,
-				'unique'        => $this->unique(),
+				'unique'        => $this->base_unique(),
 				'fields'        => $fields,
 				'posted_values' => $values,
 				'db_values'     => $this->get_db_values(),
 			) );
 
 			$instance->run( $is_var );
-			$values = $instance->get_values();
-			$this->set_db_values( $values );
+			$values                              = $instance->get_values();
 			$this->options_cache['field_errors'] = $instance->get_errors();
+			$this->variation_id                  = true;
+			$this->set_db_values( $values );
 			$this->set_db_cache( $this->options_cache );
 			$this->options_cache = false;
 		}
@@ -540,7 +541,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		public function save_variation_fields( $variation_id, $loop ) {
 			$this->handle_variation_options();
 			$this->set_id( $variation_id );
-			$this->variation_id = true;
+			$this->variation_id = $variation_id;
 			$this->save_product_data( $loop );
 		}
 
@@ -550,10 +551,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * @return string
 		 */
 		public function unique() {
-			if ( false !== $this->variation_id ) {
-				return $this->unique . '[' . $this->variation_id . ']';
-			}
-			return $this->unique;
+			return ( false !== $this->variation_id ) ? $this->unique . '[' . $this->variation_id . ']' : $this->unique;
 		}
 
 		/**
@@ -563,9 +561,13 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		public function set_id( $post_id ) {
 			parent::set_id( $post_id );
-			$this->get_db_values();
+			$this->db_values     = false;
 			$this->options_cache = false;
+			$id                  = $this->variation_id;
+			$this->variation_id  = false;
+			$this->get_db_values();
 			$this->get_cache();
+			$this->variation_id = $id;
 		}
 
 		/**
