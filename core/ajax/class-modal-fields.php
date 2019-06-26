@@ -44,6 +44,20 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 			$field_key = ( wponion_is_unarrayed( $field ) ) ? $this->post( 'unique' ) : $this->post( 'unique' ) . '/' . $field['id'];
 			$values    = $this->post( $field_key );
 			$db_values = $module->get_db_values();
+			$field_id  = explode( '/', $this->post( 'unique' ) );
+
+			if ( wponion_is_unarrayed( $field ) ) {
+				$field['id'] = end( $field_id );
+			} else {
+				array_shift( $field_id );
+				$field['id'] = end( $field_id );
+			}
+
+			$module->set_db_cache( array(
+				'container_id'     => $this->builder_path( 'container_id' ),
+				'sub_container_id' => $this->builder_path( 'sub_container_id' ),
+			) );
+
 			if ( wpo_is_option( $db_values ) ) {
 				$db_values->set( $field_key, $values );
 				$db_values->save();

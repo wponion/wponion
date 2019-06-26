@@ -3,6 +3,7 @@
 namespace WPOnion\DB;
 
 use WPOnion\Bridge;
+use WPOnion\DB\Fields\Modal;
 use WPOnion\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -18,6 +19,11 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 	 * @since 1.0
 	 */
 	class Data_Validator_Sanitizer extends Bridge {
+		/**
+		 * Modal Field Handler.
+		 */
+		use Modal;
+
 		/**
 		 * @var
 		 * @access
@@ -139,6 +145,23 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
+		 * Handles Fields Custom Callback.
+		 *
+		 * @param bool|\WPO\Field|array $field
+		 * @param bool|\WPO\Field|array $parent_field
+		 *
+		 * @return bool
+		 */
+		protected function field_callback( $field, $parent_field = false ) {
+			$type = wponion_get_field_type( $field, false );
+			if ( method_exists( $this, 'field_' . $type ) && is_callable( array( &$this, 'field_' . $type ) ) ) {
+				$this->{'field_' . $type}( $field, $parent_field );
+				return true;
+			}
+			return false;
+		}
+
+		/**
 		 * @param \WPO\Container|\WPO\Builder $data
 		 */
 		protected function field_loop( $data ) {
@@ -156,7 +179,10 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 						continue;
 					}
 
-					$this->handle_single_field( $this->field_path( $field ) );
+					$field = $this->field_path( $field );
+					if ( false === $this->field_callback( $field ) ) {
+						$this->handle_single_field( $field );
+					}
 				}
 			}
 		}
@@ -181,11 +207,10 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 */
 		protected function go_nested( $field ) {
 			if ( ! in_array( $field['type'], array( 'group' ), true ) ) {
-				if ( ! $this->is_valid_field( $field ) ) {
-					return;
-				}
-				if ( isset( $field['fields'] ) ) {
-					$this->nested_field_loop( $this->field_path( $field ) );
+				if ( false === $this->field_callback( $field ) ) {
+					if ( isset( $field['fields'] ) ) {
+						$this->nested_field_loop( $this->field_path( $field ) );
+					}
 				}
 			}
 		}
@@ -223,6 +248,10 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					}
 
 					if ( false === $this->is_valid_field( $field ) ) {
+						continue;
+					}
+
+					if ( true === $this->field_callback( $field, $parent_field ) ) {
 						continue;
 					}
 

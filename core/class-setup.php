@@ -205,6 +205,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'spinner', 'all' );
 			\wponion_register_field( 'range_slider', 'all' );
 			\wponion_register_field( 'code_editor', 'all' );
+			\wponion_register_field( 'wp_list_table', 'all' );
 
 			/**
 			 * Registers UI Field.
@@ -216,7 +217,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'jambo_content', 'all' );
 			\wponion_register_ui_field( 'notice', 'all' );
 			\wponion_register_ui_field( 'subheading', 'all' );
-			\wponion_register_ui_field( 'wp_list_table', 'all' );
 			\wponion_register_ui_field( 'wp_notice', 'all' );
 			\wponion_register_ui_field( 'faq', 'all' );
 			\wponion_register_ui_field( 'import_export', 'all' );
