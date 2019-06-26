@@ -41,7 +41,9 @@ export default class extends WPOnion_Module {
 	 * @param err
 	 */
 	js_error( err ) {
-		err.error.appendTo( this.element.find( '.wponion-fieldset' ) );
+		if( $wponion.fieldID( err.element ) === $wponion.fieldID( this.element ) ) {
+			err.error.appendTo( this.element.find( '.wponion-fieldset' ) );
+		}
 	}
 
 	/**
@@ -81,11 +83,9 @@ export default class extends WPOnion_Module {
 	 * @param $elem
 	 */
 	js_validate_elem( $args, $elem ) {
-		if( WPOnion_Validation.get_form() ) {
-			$elem.find( ':input' ).each( function() {
-				jQuery( this ).rules( 'add', $args );
-			} );
-		}
+		$elem.find( ':input' ).each( function() {
+			jQuery( this ).rules( 'add', $args );
+		} );
 	}
 
 	/**
