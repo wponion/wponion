@@ -2,6 +2,9 @@
 
 namespace WPOnion;
 
+use WPOnion\Background_Process\CDN_Validator;
+use WPOnion\Exception\DB_Cache_Not_Found;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -20,7 +23,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @access
 		 * @static
 		 */
-		protected static $cache_updated = false;
+		protected static $revalidate = false;
 
 		/**
 		 * Checks if error msg is added.
@@ -46,11 +49,59 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		public static $style = array();
 
 		/**
-		 * @var array
+		 * @var \WPOnion\Background_Process\CDN_Validator
 		 * @access
 		 * @static
 		 */
-		protected static $cache = array();
+		protected static $cdn_validator = array();
+
+		/**
+		 * Retrives CDN Cache.
+		 *
+		 * @param bool $key
+		 *
+		 * @static
+		 * @return bool|mixed
+		 */
+		protected static function get_cache( $key = false ) {
+			try {
+				return DB_Cache::get( 'cdn_cache/' . $key );
+			} catch ( DB_Cache_Not_Found $exception ) {
+				return false;
+			}
+		}
+
+		/**
+		 * @static
+		 * @return bool|mixed
+		 */
+		protected static function cdn_last_checked() {
+			try {
+				return DB_Cache::get( 'cdn_last_checked' );
+			} catch ( DB_Cache_Not_Found $exception ) {
+				return false;
+			}
+		}
+
+		/**
+		 * Validates Cache Timeout.
+		 *
+		 * @static
+		 */
+		protected static function validate_timeout() {
+			try {
+				if ( 'reloading' !== self::cdn_last_checked() ) {
+					$is_reload = ( time() - self::cdn_last_checked() );
+					if ( ( $is_reload >= ( DAY_IN_SECONDS * 10 ) ) ) {
+						DB_Cache::remove( 'cdn_last_checked' );
+						DB_Cache::remove( 'cdn_cache' );
+					}
+				}
+			} catch ( DB_Cache_Not_Found $exception ) {
+				DB_Cache::remove( 'cdn_last_checked' );
+				DB_Cache::remove( 'cdn_cache' );
+			}
+		}
 
 		/**
 		 * Inits WPOnion_Assets Class.
@@ -58,8 +109,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function init() {
-			self::$cache = get_transient( '_wponion_cdn_cache' );
-			self::$cache = ( ! is_array( self::$cache ) ) ? array() : self::$cache;
+			self::$cdn_validator = new CDN_Validator();
+			self::validate_timeout();
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
@@ -109,17 +160,13 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			self::cdn( 'wponion-datepicker', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/flatpickr/script.js', array( 'jquery' ), $v, true );
 			self::cdn( 'wponion-datepicker', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/flatpickr/style.css', array(), $v, 'all', false );
 
-			/**
-			 * Registers Local Style.
-			 */
+			// Registers Local Style.
 			self::register( 'style', 'wponion-utility', wponion()->assets( 'css/wponion-utility.css' ), array(), $v, 'all' );
 			self::register( 'style', 'wponion-plugins', wponion()->assets( 'css/wponion-plugins.css' ), array( 'wponion-utility' ), $v, 'all' );
 			self::register( 'style', 'wponion-core', wponion()->assets( 'css/wponion-base.css' ), array( 'wponion-plugins' ), $v, 'all' );
 			self::register( 'style', 'wponion-colorpicker', wponion()->assets( 'plugins/colorpicker/cs-colorpicker.css' ), array( 'wp-color-picker' ), $v, 'all' );
 
-			/**
-			 * Registers Local Scripts.
-			 */
+			// Registers Local Scripts.
 			self::register( 'script', 'wponion-plugins', wponion()->assets( 'js/wponion-plugins.js' ), array(
 				'lodash',
 				'wp-util',
@@ -132,8 +179,10 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 
 			do_action( 'wponion_register_assets_after' );
 
-			if ( self::$cache_updated ) {
-				set_transient( '_wponion_cdn_cache', self::$cache, DAY_IN_SECONDS * 5 );
+			if ( true === self::$revalidate && 'reloading' !== self::cdn_last_checked() ) {
+				DB_Cache::set( 'cdn_last_checked', 'reloading' );
+				self::$cdn_validator->save()
+					->dispatch();
 			}
 
 			if ( is_admin() ) {
@@ -181,43 +230,35 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 */
 		public static function cdn( $key, $url, $dep, $v, $footer_or_media, $script = true ) {
 			$script    = ( true === $script ) ? 'script' : 'style';
-			$cdn_is_up = isset( self::$cache[ $key . '_' . $script ] ) ? self::$cache[ $key . '_' . $script ] : false;
+			$cdn_is_up = self::get_cache( $key . '_' . $script );
+			$is_vendor = defined( 'WPONION_OFF_CDN' ) && true === WPONION_OFF_CDN && class_exists( 'WPOnion_Vendor_Support' );
 
-			if ( defined( 'WPONION_OFF_CDN' ) && true === WPONION_OFF_CDN && class_exists( 'WPOnion_Vendor_Support' ) ) {
-				if ( 'script' === $script ) {
-					$url = \WPOnion_Vendor_Support::script( $key );
-				} else {
-					$url = \WPOnion_Vendor_Support::style( $key );
+			if ( true === $cdn_is_up || true === $is_vendor ) {
+				if ( $is_vendor ) {
+					$url = ( 'script' === $script ) ? \WPOnion_Vendor_Support::script( $key ) : \WPOnion_Vendor_Support::style( $key );
 				}
 				self::register( $script, $key, $url, $dep, $v, $footer_or_media );
-			} elseif ( $cdn_is_up ) {
-				self::register( $script, $key, $url, $dep, $v, $footer_or_media );
-			} else {
-				$cdn_response = @wp_remote_get( $url );
-				if ( is_wp_error( $cdn_response ) || 200 !== wp_remote_retrieve_response_code( $cdn_response ) ) {
-					if ( class_exists( 'WPOnion_Vendor_Support' ) ) {
-						if ( 'script' === $script ) {
-							$url = \WPOnion_Vendor_Support::script( $key );
-						} else {
-							$url = \WPOnion_Vendor_Support::style( $key );
-						}
-						self::register( $script, $key, $url, $dep, $v, $footer_or_media );
-					} else {
-						$msg = __( 'Please wait a few minutes, then try refreshing the page. Unable to load some remotely hosted scripts.', 'redux-framework', 'wponion' );
-						if ( wponion_is_debug() ) {
-							/* translators: */
-							$msg = __( 'If you are developing offline, please download and install the <a href="%s" target="_blank">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning', 'wponion' );
-							$msg = sprintf( $msg, 'https://github.com/wponion/vendor-support' );
-						}
-						if ( false === self::$error_msg && is_admin() ) {
-							wponion_warning_admin_notice( $msg, __( 'WPOnion Framework Warning', 'wponion' ) );
-							self::$error_msg = true;
-						}
+			}
+
+			if ( false === $cdn_is_up && false === $is_vendor ) {
+				self::$cdn_validator->push_to_queue( array(
+					'handle' => $key,
+					'url'    => $url,
+					'type'   => $script,
+				) );
+				self::$revalidate = true;
+
+				if ( false === self::$error_msg && is_admin() ) {
+					$msg = __( 'Please wait a few minutes, then try refreshing the page. Unable to load some remotely hosted scripts.', 'wponion' );
+
+					if ( wponion_is_debug() ) {
+						// translators: Added link tag
+						$msg = __( 'If you are developing offline, please download and install the %1$s WPOnion Vendor Support %2$s plugin/extension to bypass the CDN and avoid this warning', 'wponion' );
+						$msg = sprintf( $msg, '<a href="https://github.com/wponion/vendor-support" target="_blank">', '</a>' );
 					}
-				} else {
-					self::$cache[ $key . '_' . $script ] = true;
-					self::$cache_updated                 = true;
-					self::register( $script, $key, $url, $dep, $v, $footer_or_media );
+
+					wponion_warning_admin_notice( $msg, __( 'WPOnion Framework Warning', 'wponion' ) );
+					self::$error_msg = true;
 				}
 			}
 

@@ -75,8 +75,18 @@ if ( ! class_exists( '\WPOnion\DB_Cache' ) ) {
 		 * @static
 		 */
 		public static function update_db_cache() {
-			self::$cache = array_map( 'array_filter', self::$cache );
+			self::$cache = array_map( array( __CLASS__, 'filter_save' ), self::$cache );
 			update_option( self::$db_key, array_filter( self::$cache ), false );
+		}
+
+		/**
+		 * @param $data
+		 *
+		 * @static
+		 * @return array
+		 */
+		public static function filter_save( $data ) {
+			return ( is_array( $data ) ) ? array_filter( $data ) : $data;
 		}
 
 		/**

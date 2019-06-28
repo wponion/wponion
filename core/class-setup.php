@@ -17,6 +17,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	 * @since 1.0
 	 */
 	final class Setup extends Addons {
+		private static $vendor_libs = array();
 		/**
 		 * @var bool
 		 * @access
@@ -55,20 +56,21 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		private static $remaps = array();
 
 		/**
-		 * Fires Basic Setup Hook.
-		 *
 		 * @static
-		 * @throws \Exception
 		 */
 		public static function init() {
 			self::setup_remaps();
+			self::$vendor_libs = array(
+				'WP_Background_Process' => wponion()->path( 'core/vendors/a5hleyrich/wp-background-processing/wp-background-process.php' ),
+				'WP_Async_Request'      => wponion()->path( 'core/vendors/a5hleyrich/wp-background-processing/wp-async-request.php' ),
+				'Parsedown'             => wponion()->path( 'core/vendors/erusev/parsedown.php' ),
+			);
 			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), -1 );
 			self::load_required_files();
 		}
 
 		/**
 		 * @static
-		 * @throws \Exception
 		 */
 		public static function load_required_files() {
 			if ( file_exists( wponion()->path( 'vendor/autoload.php' ) ) ) {
@@ -131,6 +133,14 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function init_autoloader() {
+			try {
+				spl_autoload_register( array( __CLASS__, 'vendor_loader' ) );
+			} catch ( \Exception $exception ) {
+				foreach ( self::$vendor_libs as $class ) {
+					include $class;
+				}
+			}
+
 			self::$field_autoloader = new Autoloader( 'WPOnion\Field', wponion()->path( 'fields/' ), array( 'prepend' => true ) );
 
 			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module-fields/' ), array( 'prepend' => true ) );
@@ -158,6 +168,19 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			//Remap Field & Field Cloner.
 			self::$field_autoloader->map( 'WPOnion\Field', wponion()->path( 'core/abstract/class-field.php' ) );
+		}
+
+		/**
+		 * Loads Vendor Files.
+		 *
+		 * @param $class
+		 *
+		 * @static
+		 */
+		public static function vendor_loader( $class ) {
+			if ( isset( self::$vendor_libs[ $class ] ) ) {
+				include_once self::$vendor_libs[ $class ];
+			}
 		}
 
 		/**
@@ -249,6 +272,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			do_action( 'wponion_core_fields_registered' );
 		}
 
+		/**
+		 * Setups Remaps.
+		 *
+		 * @static
+		 */
 		private static function setup_remaps() {
 			$notice              = '\WPO\Fields\Notice';
 			$wpnotice            = '\WPO\Fields\WP_Notice';
