@@ -2,6 +2,8 @@
 
 namespace WPOnion;
 
+use WPOnion\Exception\Cache_Not_Found;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }

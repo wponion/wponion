@@ -87,7 +87,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			$this->settings   = $this->set_args( $settings );
 			$this->unique     = ( isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
 			$this->save_instance();
-			parent::__construct();
 		}
 
 		/**

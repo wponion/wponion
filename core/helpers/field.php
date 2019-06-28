@@ -557,7 +557,7 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 
 		try {
 			return wponion_get_cache( $key );
-		} catch ( \WPOnion\Cache_Not_Found $exception ) {
+		} catch ( \WPOnion\Exception\Cache_Not_Found $exception ) {
 			$_fonts = array();
 			if ( true === $websafe_fonts ) {
 				$fonts = wponion_websafe_fonts();
@@ -606,7 +606,7 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 
 		try {
 			$html = wponion_get_cache( $key );
-		} catch ( \WPOnion\Cache_Not_Found $exception ) {
+		} catch ( \WPOnion\Exception\Cache_Not_Found $exception ) {
 			$fonts = wponion_get_fonts_array( $google_fonts, $websafe_fonts, $group );
 			$html  = '';
 			foreach ( $fonts as $id => $val ) {

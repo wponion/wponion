@@ -25,7 +25,7 @@ if ( ! function_exists( 'wponion_get_cache_defaults' ) ) {
 	function wponion_get_cache_defaults( $key, $defaults = false ) {
 		try {
 			return wponion_get_cache( $key );
-		} catch ( \WPOnion\Cache_Not_Found $exception ) {
+		} catch ( \WPOnion\Exception\Cache_Not_Found $exception ) {
 			return $defaults;
 		}
 	}
@@ -36,21 +36,10 @@ if ( ! function_exists( 'wponion_get_cache' ) ) {
 	 * @param string $key
 	 *
 	 * @return mixed
-	 * @throws \WPOnion\Cache_Not_Found
+	 * @throws \WPOnion\Exception\Cache_Not_Found
 	 */
 	function wponion_get_cache( $key ) {
 		return \WPOnion\Cache::get( $key );
-	}
-}
-
-if ( ! function_exists( 'wponion_has_cache' ) ) {
-	/**
-	 * @param string $key
-	 *
-	 * @return mixed
-	 */
-	function wponion_has_cache( $key ) {
-		return \WPOnion\Cache::has( $key );
 	}
 }
 

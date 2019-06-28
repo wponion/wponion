@@ -2,20 +2,10 @@
 
 namespace WPOnion;
 
+use WPOnion\Exception\Cache_Not_Found;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
-}
-
-if ( ! class_exists( '\WPOnion\Cache_Not_Found' ) ) {
-	/**
-	 * Class Cache_Not_Found
-	 *
-	 * @package WPOnion
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
-	 */
-	class Cache_Not_Found extends \Exception {
-	}
 }
 
 
@@ -29,10 +19,10 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 	 *  } catch(\WPOnion\Cache_Not_Found $e) {
 	 *      $value = get_value_from_somewhere();
 	 *
-	 *      FW_Cache::set('some/key', $value);
+	 *      \WPOnion\Cache::set('some/key', $value);
 	 *
 	 *      // (!) after set, do not do this:
-	 *      $value = FW_Cache::get('some/key');
+	 *      $value = \WPOnion\Cache::get('some/key');
 	 *      // because there is no guaranty that FW_Cache::set('some/key', $value); succeeded
 	 *      // trust only your $value, cache can do clean-up right after set() and remove the value you tried to set
 	 *  }
@@ -59,6 +49,10 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		/**
 		 * A special value that is used to detect if value was found in cache
 		 * We can't use null|false because these can be values set by user and we can't treat them as not existing values
+		 *
+		 * @var \WPOnion\Exception\Cache_Not_Found
+		 * @access
+		 * @static
 		 */
 		protected static $not_found_value;
 
@@ -226,7 +220,7 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		 *
 		 * @static
 		 * @return mixed
-		 * @throws \WPOnion\Cache_Not_Found
+		 * @throws \WPOnion\Exception\Cache_Not_Found
 		 */
 		public static function get( $key ) {
 			self::free_memory();
@@ -235,7 +229,9 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 
 			if ( $values === self::$not_found_value ) {
 				++self::$misses;
-				throw new Cache_Not_Found();
+				$not_found = new Cache_Not_Found();
+				$not_found->set_cache_id( $key );
+				throw $not_found;
 			} else {
 				++self::$hits;
 			}
@@ -254,16 +250,6 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 			$return = Helper::array_key_set( $key, $value, self::$cache );
 			self::free_memory();
 			return $return;
-		}
-
-		/**
-		 * @param string $key
-		 *
-		 * @static
-		 * @return bool
-		 */
-		public static function has( $key ) {
-			return Helper::array_key_isset( $key, self::$cache );
 		}
 
 		/**

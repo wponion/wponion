@@ -2,11 +2,8 @@
 
 namespace WPOnion\Bridge;
 
-use WPO\Builder;
-use WPO\Container;
-use WPO\Field;
 use WPOnion\Bridge;
-use WPOnion\Themes;
+use WPOnion\Exception\DB_Cache_Not_Found;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -20,7 +17,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Module_DB extends Module_DB_Cache {
+	class Module_DB extends Bridge {
 		/**
 		 * unique for database.
 		 *
@@ -101,12 +98,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		}
 
 		/**
-		 * @return bool|mixed
+		 * @return array|mixed
 		 */
 		public function get_db_cache() {
-			self::retrive_db_cache();
-			$cid = $this->get_cache_id();
-			return ( isset( self::$cache[ $cid ] ) && is_array( self::$cache[ $cid ] ) ) ? self::$cache[ $cid ] : array();
+			try {
+				return \WPOnion\DB_Cache::get( $this->get_cache_id() );
+			} catch ( DB_Cache_Not_Found $exception ) {
+			}
+
+			return array();
 		}
 
 		/**
@@ -118,7 +118,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 			$cid                 = $this->get_cache_id();
 			$values              = array_filter( $values );
 			$this->options_cache = $values;
-			self::$cache[ $cid ] = $values;
+			\WPOnion\DB_Cache::set( $cid, $values );
 			return $this;
 		}
 

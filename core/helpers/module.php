@@ -25,10 +25,9 @@ if ( ! function_exists( 'wponion_markdown' ) ) {
 	function wponion_markdown( $content = null ) {
 		static $parse_down_instance = false;
 		if ( false === $parse_down_instance ) {
-			if ( ! class_exists( '\Parsedown' ) ) {
-				require_once wponion()->path( 'core/vendors/erusev/parsedown.php' );
+			if ( class_exists( '\Parsedown' ) ) {
+				$parse_down_instance = new \Parsedown();
 			}
-			$parse_down_instance = new \Parsedown();
 		}
 		return ( empty( $content ) ) ? $parse_down_instance : $parse_down_instance->text( $content );
 	}
