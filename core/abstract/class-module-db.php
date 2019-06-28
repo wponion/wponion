@@ -3,6 +3,7 @@
 namespace WPOnion\Bridge;
 
 use WPOnion\Bridge;
+use WPOnion\DB\Cache;
 use WPOnion\Exception\DB_Cache_Not_Found;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -102,7 +103,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		public function get_db_cache() {
 			try {
-				return \WPOnion\DB_Cache::get( $this->get_cache_id() );
+				return Cache::get( $this->get_cache_id() );
 			} catch ( DB_Cache_Not_Found $exception ) {
 			}
 
@@ -118,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 			$cid                 = $this->get_cache_id();
 			$values              = array_filter( $values );
 			$this->options_cache = $values;
-			\WPOnion\DB_Cache::set( $cid, $values );
+			Cache::set( $cid, $values );
 			return $this;
 		}
 

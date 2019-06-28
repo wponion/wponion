@@ -4,6 +4,7 @@ namespace WPOnion;
 
 use WPOnion\Background_Process\CDN_Validator;
 use WPOnion\Exception\DB_Cache_Not_Found;
+use \WPOnion\DB\Cache;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -65,7 +66,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 */
 		protected static function get_cache( $key = false ) {
 			try {
-				return DB_Cache::get( 'cdn_cache/' . $key );
+				return Cache::get( 'cdn_cache/' . $key );
 			} catch ( DB_Cache_Not_Found $exception ) {
 				return false;
 			}
@@ -77,7 +78,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 */
 		protected static function cdn_last_checked() {
 			try {
-				return DB_Cache::get( 'cdn_last_checked' );
+				return Cache::get( 'cdn_last_checked' );
 			} catch ( DB_Cache_Not_Found $exception ) {
 				return false;
 			}
@@ -93,13 +94,13 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				if ( 'reloading' !== self::cdn_last_checked() ) {
 					$is_reload = ( time() - self::cdn_last_checked() );
 					if ( ( $is_reload >= ( DAY_IN_SECONDS * 10 ) ) ) {
-						DB_Cache::remove( 'cdn_last_checked' );
-						DB_Cache::remove( 'cdn_cache' );
+						Cache::remove( 'cdn_last_checked' );
+						Cache::remove( 'cdn_cache' );
 					}
 				}
 			} catch ( DB_Cache_Not_Found $exception ) {
-				DB_Cache::remove( 'cdn_last_checked' );
-				DB_Cache::remove( 'cdn_cache' );
+				Cache::remove( 'cdn_last_checked' );
+				Cache::remove( 'cdn_cache' );
 			}
 		}
 
@@ -180,7 +181,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			do_action( 'wponion_register_assets_after' );
 
 			if ( true === self::$revalidate && 'reloading' !== self::cdn_last_checked() ) {
-				DB_Cache::set( 'cdn_last_checked', 'reloading' );
+				Cache::set( 'cdn_last_checked', 'reloading' );
 				self::$cdn_validator->save()
 					->dispatch();
 			}

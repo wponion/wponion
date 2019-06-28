@@ -1,18 +1,19 @@
 <?php
 
-namespace WPOnion;
+namespace WPOnion\DB;
 
 use WPOnion\Exception\DB_Cache_Not_Found;
+use WPOnion\Helper;
 
-if ( ! class_exists( '\WPOnion\DB_Cache' ) ) {
+if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 	/**
-	 * Class DB_Cache
+	 * Class Cache
 	 *
-	 * @package WPOnion
+	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class DB_Cache {
+	class Cache {
 		/**
 		 * @var
 		 * @access
@@ -131,4 +132,4 @@ if ( ! class_exists( '\WPOnion\DB_Cache' ) ) {
 	}
 }
 
-DB_Cache::init();
+Cache::init();

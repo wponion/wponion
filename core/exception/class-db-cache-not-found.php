@@ -2,7 +2,7 @@
 
 namespace WPOnion\Exception;
 
-use WPOnion\DB_Cache;
+use WPOnion\DB\Cache;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -26,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Exception\DB_Cache_Not_Found' ) ) {
 		 * @return mixed
 		 */
 		public function set( $values ) {
-			return ( false !== $this->cache_id ) ? DB_Cache::set( $this->cache_id, $values ) : false;
+			return ( false !== $this->cache_id ) ? Cache::set( $this->cache_id, $values ) : false;
 		}
 	}
 }
