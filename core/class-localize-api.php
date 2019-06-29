@@ -150,7 +150,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					$this->js_args['wponion_core']['ajax_action']     = 'wponion-ajax';
 					$this->js_args['wponion_core']['ajax_action_key'] = 'wponion-ajax';
 					$this->js_args['wponion_core']['ajax_url']        = admin_url( 'admin-ajax.php?action=wponion-ajax' );
-					$this->js_args['wponion_core']['debug']           = ( true === defined( 'WP_DEBUG' ) || true === defined( 'SCRIPT_DEBUG' ) ) ? true : false;
+					$this->js_args['wponion_core']['debug']           = wponion_is_debug();
 					$this->js_args['wponion_core']['debug_notice']    = $js_notice;
 					$this->text( 'get_json_output', __( 'As JSON', 'wponion' ) );
 					$this->text( 'global_json_output', __( 'Global WPOnion JSON Output', 'wponion' ) );
