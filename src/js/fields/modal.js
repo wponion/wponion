@@ -45,7 +45,7 @@ class field extends WPOnion_Field {
 
 			$instance.on( 'save_modal', ( $elem ) => {
 				if( $validation.form.valid() ) {
-					//this.convert_form_fields( $elem );
+					this.convert_form_fields( $elem );
 					$instance.closeModal();
 				}
 			} );
