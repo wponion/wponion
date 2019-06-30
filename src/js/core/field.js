@@ -231,6 +231,7 @@ export default class extends WPOnion_Module {
 		};
 		$default[ $ajax_key ] = $action;
 		$data.data            = ( false === window.wponion._.isUndefined( $data.data ) ) ? window.wponion._.merge( $default, $data.data ) : $default;
+
 		return $wponion.ajax( $data );
 	}
 

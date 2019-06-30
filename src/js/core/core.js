@@ -8,6 +8,7 @@ import {
 	rand_md5,
 	to_jquery,
 	to_js_func,
+	is_callable,
 } from 'vsp-js-helper/index';
 
 /**
@@ -156,7 +157,48 @@ export default class WPOnion {
 
 		$defaults = window.wponion._.merge( $defaults, $data );
 
+		let $old_success = $defaults.success;
+
+		$defaults.success = ( res ) => {
+			WPOnion.handle_ajax_response( res );
+			if( is_callable( $old_success ) ) {
+				call_user_func( $old_success, res );
+			}
+		};
+
 		return wponion_ajax( $defaults );
+	}
+
+	/**
+	 * Handles Ajax Requests.
+	 * @param res
+	 */
+	static handle_ajax_response( res ) {
+		if( false === window.wponion._.isUndefined( res.wpo_core ) ) {
+			if( false === window.wponion._.isUndefined( res.wpo_core.localizer ) ) {
+				window.wponion.core.script_tag( res.wpo_core.localizer );
+			}
+
+			if( false === window.wponion._.isUndefined( res.wpo_core.scripts ) ) {
+				let $script = jQuery( res.wpo_core.scripts );
+				jQuery.each( $script, function() {
+					let $id = jQuery( this ).attr( 'src' );
+					if( jQuery( document ).find( 'script[src="' + $id + '"]' ).length === 0 ) {
+						jQuery( this ).appendTo( 'body' );
+					}
+				} );
+			}
+
+			if( false === window.wponion._.isUndefined( res.wpo_core.styles ) ) {
+				let $styles = jQuery( res.wpo_core.styles );
+				jQuery.each( $styles, function() {
+					let $id = jQuery( this ).attr( 'href' );
+					if( jQuery( document ).find( 'link[href="' + $id + '"]' ).length === 0 ) {
+						jQuery( this ).appendTo( 'body' );
+					}
+				} );
+			}
+		}
 	}
 
 	/**

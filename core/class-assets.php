@@ -115,6 +115,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
+			add_action( 'wponion_ajax_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 		}
 
 		/**
