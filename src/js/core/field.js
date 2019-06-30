@@ -1,7 +1,6 @@
 /* global swal:true */
 
-const is_jquery  = require( 'vsp-js-helper/index' ).is_jquery;
-const parse_args = require( 'vsp-js-helper/index' ).parse_args;
+const is_jquery = require( 'vsp-js-helper/index' ).is_jquery;
 
 import $wponion from './core';
 import $wponion_debug from './debug';
@@ -25,7 +24,6 @@ export default class extends WPOnion_Module {
 		this.field_debug();
 		this.config = $config;
 		this.init();
-		this.js_error_handler();
 		this.js_validator();
 	}
 
@@ -60,6 +58,7 @@ export default class extends WPOnion_Module {
 	 */
 	js_validator() {
 		if( false === window.wponion._.isUndefined( this.option( 'js_validate', false ) ) ) {
+			this.js_error_handler();
 			if( false !== this.option( 'js_validate', false ) ) {
 				this.maybe_js_validate_elem( this.option( 'js_validate', false ), this.element );
 			}
@@ -97,8 +96,11 @@ export default class extends WPOnion_Module {
 	 * @returns {*|$data}
 	 */
 	handle_args( $arg, $key = false ) {
-		let $args   = $wponion.js_func( $arg ),
-			$exists = $wponion_debug.get( this.id(), { 'php': {}, 'javascript': {} } );
+		let $args = $wponion.js_func( $arg );
+		if( !$wponion.is_debug() ) {
+			return $args;
+		}
+		let $exists = $wponion_debug.get( this.id(), { 'php': {}, 'javascript': {} } );
 		$exists     = window.wponion._.merge( { 'php': {}, 'javascript': {} }, $exists );
 
 		if( false === $key ) {
@@ -114,6 +116,9 @@ export default class extends WPOnion_Module {
 	 * Handles Field Debug POPUP.
 	 */
 	field_debug() {
+		if( !$wponion.is_debug() ) {
+			return;
+		}
 		if( false !== $wponion_debug.get( this.id() ) ) {
 			return;
 		}
@@ -260,29 +265,23 @@ export default class extends WPOnion_Module {
 	reload() {
 		window.wponion.hooks.doAction( 'wponion_before_fields_reload', this );
 
-		jQuery( '.wponion-element[data-wponion-field-type]' ).each( ( i, elem ) => {
-			this.init_field( jQuery( elem ), jQuery( elem ).data( 'wponion-field-type' ) );
+		this.element.find( '.wponion-element:not(.wponion-ui-field)[data-wponion-field-type]' ).each( ( i, elem ) => {
+			elem = jQuery( elem );
+			this.init_single_field( elem.data( 'wponion-field-type' ), elem );
 		} );
 
-		//this.init_field( '.wponion-element-text:not(.wponion-inputmask)', 'text' );
-
-		//this.init_field( '.wponion-element-checkbox', 'checkbox_radio' );
-		//this.init_field( '.wponion-element-radio', 'checkbox_radio' );
-		//this.init_field( '.wponion-element-clone', 'clone_element' );
-		//this.init_field( '.wponion-element-key_value', 'keyvalue_pair' );
-		//this.init_field( '.wponion-element-image', 'image_upload' );
-
 		this.reload_global_fields();
-
 		this.init_field( 'input[data-wponion-inputmask]', 'inputmask' );
 		this.init_field( '.select2', 'select2' );
 		this.init_field( '.chosen', 'chosen' );
 		this.init_field( '.selectize', 'selectize' );
-
 		window.wponion.hooks.doAction( 'wponion_after_fields_reload', this );
 		return this;
 	}
 
+	/**
+	 * Inits Global Field.
+	 */
 	reload_global_fields() {
 		this.init_field( '.wponion-field-tooltip', 'tooltip' );
 		this.init_field( '.wponion-help', 'tooltip' );

@@ -89,23 +89,22 @@ export default ( ( window, document, wp, $ ) => {
 		// Triggers Hook With Widgets.
 		$( document ).on( 'widget-added widget-updated', function( event, $widget ) {
 			window.wponion_field( $widget ).reload();
-			wponion_dependency( $widget );
+			window.wponion_dependency( $widget );
 		} );
 
 		// Triggers When New Menu Item Added.
 		$( document ).on( 'menu-item-added', function( event, $menu ) {
 			window.wponion_field( $menu ).reload();
-			wponion_dependency( $menu );
+			window.wponion_dependency( $menu );
 		} );
 
 		if( $wpof_div.length > 0 ) {
-			new WPOnion_Validator(); // Renders Validation.
+			new WPOnion_Validator();
 
-			// Handles Fields init.
 			window.wponion.hooks.doAction( 'wponion_before_fields_init', $wpof_div );
 			$wpof_div.each( function() {
 				window.wponion_field( $( this ) ).reload();
-				wponion_dependency( $( this ) );
+				window.wponion_dependency( $( this ) );
 			} );
 			window.wponion.hooks.doAction( 'wponion_after_fields_init', $wpof_div );
 		}
