@@ -43,12 +43,6 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 */
 		protected $sub_fields_ids = false;
 
-		/**
-		 * Creates / inits its sub fields.
-		 */
-		protected function init_subfields() {
-			return false;
-		}
 
 		/**
 		 * Renders Single Field HTML.
