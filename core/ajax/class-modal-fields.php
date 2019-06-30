@@ -81,8 +81,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 			) );
 			if ( $data instanceof Modal ) {
 				$this->json_success( array(
-					'html'   => ( isset( $field['modal_type'] ) && 'wp' === $field['modal_type'] ) ? $data->wp() : $data->swal(),
-					'script' => $this->localizer(),
+					'html' => ( isset( $field['modal_type'] ) && 'wp' === $field['modal_type'] ) ? $data->wp() : $data->swal(),
 				) );
 			} else {
 				$this->json_error( __( 'Modal Field Not Found' ) );

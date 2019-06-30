@@ -45,7 +45,6 @@ class WPOnion_Metabox_Module extends WPOnion_Module {
 		$wponion.ajax( 'save_metabox', {
 			data: $values,
 			success: ( res ) => {
-				window.wponion.core.script_tag( res.script );
 				$base.html( res.html );
 				let $elem = $base.find( '.wponion-framework' );
 				window.wponion_field( $elem ).reload();

@@ -22,14 +22,14 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 * Inits Sub Fields.
 		 */
 		protected function init_subfields() {
-			switch ( $this->data( 'modal_type' ) ) {
+			/*switch ( $this->data( 'modal_type' ) ) {
 				case 'wp':
 					$this->wp();
 					break;
 				case 'swal':
 					$this->swal( true );
 					break;
-			}
+			}*/
 		}
 
 		/**
@@ -181,10 +181,12 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 * @uses \wponion_localize()
 		 */
 		public function field_assets() {
-			wp_enqueue_script( 'backbone' );
-			wp_enqueue_media();
-			wp_enqueue_script( 'underscore' );
-			wp_enqueue_style( 'media-views' );
+			if ( 'wp' === $this->data( 'modal_type' ) ) {
+				wp_enqueue_script( 'backbone' );
+				wp_enqueue_media();
+				wp_enqueue_script( 'underscore' );
+				wp_enqueue_style( 'media-views' );
+			}
 		}
 
 		/**

@@ -78,10 +78,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Settings' ) ) {
 			$settings->on_settings_page_load();
 			$settings->render();
 			$form = wponion_catch_output( false );
-			$this->json_success( array(
-				'form'   => '<div>' . $form . '</div>',
-				'script' => $this->localizer(),
-			) );
+			$this->json_success( array( 'form' => '<div>' . $form . '</div>' ) );
 		}
 	}
 }

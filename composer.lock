@@ -26,7 +26,7 @@
                     "Varunsridharan\\PHP\\": "./src"
                 }
             },
-            "notification-url": "https://repo.packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
             ],
@@ -61,7 +61,7 @@
                     "Varunsridharan\\WordPress\\": "./src"
                 }
             },
-            "notification-url": "https://repo.packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
             ],
@@ -79,16 +79,16 @@
         },
         {
             "name": "varunsridharan/wp-dependencies",
-            "version": "1.6",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/wp-dependencies.git",
-                "reference": "4bfe9bd18fc0044221c63dea54425a9609091ba4"
+                "reference": "b1514529480223b8cfae5cbc33c7cc9e4ee7420b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/wp-dependencies/zipball/4bfe9bd18fc0044221c63dea54425a9609091ba4",
-                "reference": "4bfe9bd18fc0044221c63dea54425a9609091ba4",
+                "url": "https://api.github.com/repos/varunsridharan/wp-dependencies/zipball/b1514529480223b8cfae5cbc33c7cc9e4ee7420b",
+                "reference": "b1514529480223b8cfae5cbc33c7cc9e4ee7420b",
                 "shasum": ""
             },
             "type": "library",
@@ -97,7 +97,7 @@
                     "./src/dependencies.php"
                 ]
             },
-            "notification-url": "https://repo.packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-or-later"
             ],
@@ -133,7 +133,7 @@
                 "wp-plugin",
                 "wp-theme"
             ],
-            "time": "2019-05-07T05:21:29+00:00"
+            "time": "2019-06-28T11:21:34+00:00"
         }
     ],
     "packages-dev": [],

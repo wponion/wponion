@@ -44,10 +44,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 				$metabox->on_page_load();
 				$metabox->render( $post_id );
 				do_action( 'wponion_metabox_ajax_render', $unique );
-				$this->json_success( array(
-					'html'   => wponion_catch_output( false ),
-					'script' => $this->localizer(),
-				) );
+				$this->json_success( array( 'html' => wponion_catch_output( false ) ) );
 			}
 
 			$this->error( __( 'Metabox Not Found' ), __( 'Unable To Find The Metabox' ) );

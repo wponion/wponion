@@ -22,7 +22,7 @@ class WPOnion_Settings_Module extends WPOnion_Module {
 					element_lock: jQuery( 'button.wponion-save' ),
 					success: ( response ) => {
 						let $elem = jQuery( response.form );
-						window.wponion.core.script_tag( response.script );
+						window.wponion.core.handle_ajax_response( response );
 						this.element.parent().html( $elem.find( '.wponion-form' ).html() );
 						let $settings = window.wponion._.clone( window.wponion.core.option( 'settings_ajax' ) );
 

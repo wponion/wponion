@@ -37,7 +37,6 @@ class field extends WPOnion_Field {
 			} );
 
 			$instance.on( 'open', ( $elem ) => {
-				window.wponion.core.script_tag( res.script );
 				$validation = new WPOnion_Validator( jQuery( '.wponion-wp-modal-form' ) );
 				window.wponion_field( $elem ).reload();
 				window.wponion_dependency( $elem );
@@ -118,7 +117,6 @@ class field extends WPOnion_Field {
 			};
 			$args.onBeforeOpen = () => {
 				let $mainelem = this.element.find( '#swal2-content' );
-				window.wponion.core.script_tag( res.script );
 				let $html = '<form method="post">' + res.html + '</form>';
 				$mainelem.html( jQuery( $html ) );
 				$validation = new WPOnion_Validator( $mainelem.find( '> form' ) );
