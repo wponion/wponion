@@ -80,7 +80,7 @@ class field extends WPOnion_Field {
 					$_this.ajax( 'icon_picker', {
 						data: { 'wponion-icon-lib': $val },
 						success: ( $res ) => {
-							jQuery( $work.elm ).find( '#swal2-content' ).html( $res ).show();
+							jQuery( $work.elm ).find( '#swal2-content' ).html( $res.html ).show();
 							jQuery( $work.elm ).find( '#swal2-content .wponion-icon-picker-container-scroll' );
 							$work.init( $work.elm, $work.popup );
 						},
@@ -132,7 +132,7 @@ class field extends WPOnion_Field {
 					this.ajax( 'icon_picker', {
 						success: ( $res ) => {
 							let $popup_elem = jQuery( $elem );
-							$popup_elem.find( '#swal2-content' ).html( $res ).show();
+							$popup_elem.find( '#swal2-content' ).html( $res.html ).show();
 							$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' );
 							$work.init( $popup_elem, $popup );
 						},

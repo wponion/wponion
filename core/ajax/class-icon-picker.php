@@ -22,10 +22,9 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 * Runs.
 		 */
 		public function run() {
-			$module = $this->get_module();
-			$fields = $module->fields();
-			$field  = $fields->get( $this->field_path() );
-
+			$module   = $this->get_module();
+			$fields   = $module->fields();
+			$field    = $fields->get( $this->field_path() );
 			$libs     = Icons::icon_list();
 			$enabled  = ( isset( $field['enabled'] ) ) ? $field['enabled'] : true;
 			$disabled = ( isset( $field['disabled'] ) ) ? $field['disabled'] : false;
@@ -88,7 +87,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 				$this->error( __( 'Icon Library Not found', 'wponion' ) );
 			}
 			$html .= '</div>';
-			$this->json_success( $html );
+			$this->json_success( array( 'html' => $html ) );
 		}
 	}
 }
