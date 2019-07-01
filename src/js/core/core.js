@@ -231,6 +231,8 @@ export default class WPOnion {
 			} else {
 				resolve();
 			}
+		} else {
+			resolve();
 		}
 	}
 
