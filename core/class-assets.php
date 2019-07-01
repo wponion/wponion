@@ -152,15 +152,15 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			 * 4. InputMask
 			 * 5. FlatPickr
 			 */
-			self::cdn( 'wponion-inputmask', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/inputmask/jquery.inputmask.bundle.min.js', array( 'jquery' ), $v, true );
-			self::cdn( 'select2', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/select2/select2.full.min.js', array( 'jquery' ), $v, true );
-			self::cdn( 'select2', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/select2/select2.min.css', array(), $v, 'all', false );
-			self::cdn( 'chosen', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/chosen/chosen.jquery.min.js', array( 'jquery' ), $v, true );
-			self::cdn( 'chosen', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/chosen/chosen.min.css', array(), $v, 'all', false );
-			self::cdn( 'selectize', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/selectize/selectize.js', array( 'jquery' ), $v, true );
-			self::cdn( 'selectize', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/selectize/selectize.css', array(), $v, 'all', false );
-			self::cdn( 'wponion-datepicker', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/flatpickr/script.js', array( 'jquery' ), $v, true );
-			self::cdn( 'wponion-datepicker', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.0/vendors/flatpickr/style.css', array(), $v, 'all', false );
+			self::cdn( 'wponion-inputmask', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/inputmask/jquery.inputmask.bundle.min.js', array( 'jquery' ), $v, true );
+			self::cdn( 'select2', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/select2/select2.full.min.js', array( 'jquery' ), $v, true );
+			self::cdn( 'select2', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/select2/select2.min.css', array(), $v, 'all', false );
+			self::cdn( 'chosen', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/chosen/chosen.jquery.min.js', array( 'jquery' ), $v, true );
+			self::cdn( 'chosen', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/chosen/chosen.min.css', array(), $v, 'all', false );
+			self::cdn( 'selectize', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/selectize/selectize.js', array( 'jquery' ), $v, true );
+			self::cdn( 'selectize', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/selectize/selectize.css', array(), $v, 'all', false );
+			self::cdn( 'wponion-datepicker', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/flatpickr/script.js', array( 'jquery' ), $v, true );
+			self::cdn( 'wponion-datepicker', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support@1.2/vendors/flatpickr/style.css', array(), $v, 'all', false );
 
 			// Registers Local Style.
 			self::register( 'style', 'wponion-utility', wponion()->assets( 'css/wponion-utility.css' ), array(), $v, 'all' );
