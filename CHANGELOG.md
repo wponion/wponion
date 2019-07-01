@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.3] - 16/06/2019
+# [1.3.1] - 01/07/2019
+## Fixed
+* Settings Page Ajax Save Error.
+
+# [1.3] - 01/07/2019
 ## Added
 * Field Arg `builder_path` -- Passes Actual Path For The Field In The Builder
 * Custom Field Argument `nopreview` For **OEmbed** Field which uses it when no preview found for the given url.
@@ -518,6 +522,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.3.1]: https://github.com/wponion/wponion/releases/tag/1.3.1
 [1.3]: https://github.com/wponion/wponion/releases/tag/1.3
 [1.2.1]: https://github.com/wponion/wponion/releases/tag/1.2.1
 [1.2]: https://github.com/wponion/wponion/releases/tag/1.2

@@ -217,7 +217,7 @@ export default class WPOnion {
 								$load_script( $srcs[ 0 ] );
 							}
 						} );
-					} else {
+					} else if( is_callable( resolve ) ) {
 						resolve();
 					}
 				};
@@ -228,10 +228,10 @@ export default class WPOnion {
 					}
 				} );
 				$load_script( $srcs[ 0 ] );
-			} else {
+			} else if( is_callable( resolve ) ) {
 				resolve();
 			}
-		} else {
+		} else if( is_callable( resolve ) ) {
 			resolve();
 		}
 	}
