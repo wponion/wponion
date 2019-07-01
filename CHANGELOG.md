@@ -28,9 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Builder Import / Export `wponion_builder_export` && `wponion_builder_import`
 
 ## Changed
-* Bump [sweetalert2] from 8.11.7 to 8.12.1.
-* Bump [@wordpress/hooks] from 2.3.0 to 2.4.0.
-* Bump [tippy.js] from 4.3.3 to 4.3.4.
+* Bump CDN Version From `1.0` to `1.2`
+* Bump [sweetalert2] from `8.11.7` to `8.13.0`.
+* Bump [@wordpress/hooks] from `2.3.0` to `2.4.0`.
+* Bump [tippy.js] from `4.3.3` to `4.3.4`.
 * Builder Now Uses `Nested Array Fetch` Eg : `$builder->get('page1/section1/field1')`
 * Template Files Updated To Pass Current Container & Subcontanier Instead of its slug 
 * Files Reorganized
@@ -43,7 +44,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `wponion_is_domain` New Validators
 * `wponion_is_mac_id` New Validators
 * `wponion_is_regex` New Validators
-* Bumps [sweetalert2] from `8.12.1` to `8.13.0`
 
 ## Removed
 * Backup Handler Fields Related Codes
