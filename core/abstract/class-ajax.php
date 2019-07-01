@@ -394,16 +394,22 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 */
 		protected function assets() {
 			do_action( 'wponion_ajax_enqueue_scripts' );
-			$return = array();
-			wponion_catch_output( true );
-			wp_print_styles();
-			$return['styles'] = wponion_catch_output( false );
+
+			/*wponion_catch_output( true );
+			$styles     = wp_print_styles();
+			$style_html = wponion_catch_output( false );
 
 			wponion_catch_output( true );
-			wp_print_scripts();
-			$return['scripts'] = wponion_catch_output( false );
+			$scripts      = wp_print_scripts();
+			$scripts_html = wponion_catch_output( false );*/
 
-			$return['localizer'] = $this->localizer();
+			$return = array(
+				'localizer' => $this->localizer(),
+				/*'styles_html'  => $style_html,
+				'scripts_html' => $scripts_html,
+				'styles'       => $styles,
+				'scripts'      => $scripts,*/
+			);
 			return $return;
 		}
 	}

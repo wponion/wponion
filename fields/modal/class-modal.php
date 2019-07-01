@@ -18,6 +18,19 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 	 * @since 1.0
 	 */
 	class Modal extends Field {
+		/**
+		 * Inits Sub Fields.
+		 */
+		protected function init_subfields() {
+			switch ( $this->data( 'modal_type' ) ) {
+				case 'wp':
+					$this->wp();
+					break;
+				case 'swal':
+					$this->swal( true );
+					break;
+			}
+		}
 
 		/**
 		 * Final HTML Output

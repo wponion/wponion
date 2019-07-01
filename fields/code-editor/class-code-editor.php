@@ -53,13 +53,16 @@ if ( ! class_exists( '\WPOnion\Field\Code_Editor' ) ) {
 			$version = $this->data( 'version' );
 
 			if ( ! wp_script_is( 'wpo-codemirror' ) ) {
-				wp_enqueue_script( 'wpo-codemirror', $this->cdn_url . $version . '/lib/codemirror.min.js', array( 'wponion-core' ), $version, true );
-				wp_enqueue_script( 'wpo-codemirror-loadmode', $this->cdn_url . $version . '/addon/mode/loadmode.min.js', array( 'wpo-codemirror' ), $version, true );
+				wp_register_script( 'wpo-codemirror', $this->cdn_url . $version . '/lib/codemirror.min.js', array(), $version, true );
+				wp_register_script( 'wpo-codemirror-loadmode', $this->cdn_url . $version . '/addon/mode/loadmode.min.js', array( 'wpo-codemirror' ), $version, true );
 			}
 
 			if ( ! wp_style_is( 'wpo-codemirror' ) ) {
-				wp_enqueue_style( 'wpo-codemirror', $this->cdn_url . $version . '/lib/codemirror.min.css', array(), $version );
+				wp_register_style( 'wpo-codemirror', $this->cdn_url . $version . '/lib/codemirror.min.css', array(), $version );
 			}
+
+			wp_enqueue_style( 'wpo-codemirror' );
+			wp_enqueue_script( 'wpo-codemirror-loadmode' );
 		}
 
 		/**

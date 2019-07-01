@@ -145,7 +145,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				$js_notice = $js_notice . PHP_EOL . PHP_EOL . __( '**PHP Args:** is the array which is passed to the framework in php ', 'wponion' );
 				$js_notice = $js_notice . PHP_EOL . PHP_EOL . __( '**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it', 'wponion' );
 				$js_notice = sprintf( wponion_markdown( $js_notice ), '<br/>' );
-				if ( false === self::$core_data && false === wponion_is_ajax( 'heartbeat' ) ) {
+
+				if ( false === self::$core_data && ! wponion_is_ajax() ) {
 					$this->js_args['wponion_core']['ajaxurl']         = admin_url( 'admin-ajax.php' );
 					$this->js_args['wponion_core']['ajax_action']     = 'wponion-ajax';
 					$this->js_args['wponion_core']['ajax_action_key'] = 'wponion-ajax';

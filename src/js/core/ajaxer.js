@@ -151,7 +151,7 @@ export class WPOnion_Ajaxer {
 		this.handle_response( data );
 		if( false !== this.config.success ) {
 			if( is_callable( this.config.success ) ) {
-				call_user_func_array( this.config.success, [ data ] );
+				call_user_func_array( this.config.success, [ data, this ] );
 			}
 		}
 	}
@@ -165,7 +165,7 @@ export class WPOnion_Ajaxer {
 		this.handle_response( data );
 		if( false !== this.config.error ) {
 			if( is_callable( this.config.error ) ) {
-				call_user_func_array( this.config.error, [ data ] );
+				call_user_func_array( this.config.error, [ data, this ] );
 			}
 		}
 	}
@@ -178,7 +178,7 @@ export class WPOnion_Ajaxer {
 		this.unlock();
 		if( false !== this.config.always ) {
 			if( is_callable( this.config.always ) ) {
-				call_user_func_array( this.config.always, [ data ] );
+				call_user_func_array( this.config.always, [ data, this ] );
 			}
 		}
 	}
