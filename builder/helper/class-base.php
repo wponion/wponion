@@ -1,20 +1,14 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO\Helper;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 use WPOnion\Bridge;
 use WPOnion\Traits\Json_Serialize;
 use WPOnion\Traits\Countable;
-use WPOnion\Traits\Serializable;
 
 if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 	/**
@@ -24,10 +18,9 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Base extends Bridge implements \JsonSerializable, \Countable, \Serializable {
+	abstract class Base extends Bridge implements \JsonSerializable, \Countable {
 		use Json_Serialize;
 		use Countable;
-		use Serializable;
 
 		/**
 		 * Custom Variable Name That Class Uses To Work As Array.
@@ -74,6 +67,13 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 		 */
 		public function unique() {
 			return $this->unique;
+		}
+
+		/**
+		 * @return array
+		 */
+		public function __sleep() {
+			return array_keys( get_class_vars( static::class ) );
 		}
 	}
 }

@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 12-05-2018 / 07:05 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Field;
 
@@ -40,7 +28,7 @@ if ( ! class_exists( '\WPOnion\Field\Metabox' ) ) {
 		 * Final HTML Output
 		 */
 		public function output() {
-			$this->before();
+			echo $this->before();
 			$fields = $this->data( 'fields' );
 			if ( ! $fields instanceof \WPO\Builder ) {
 				$fields = wponion_builder()->set_fields( $fields );
@@ -85,7 +73,7 @@ if ( ! class_exists( '\WPOnion\Field\Metabox' ) ) {
 			$this->metabox_instance = new Core( $options, $fields );
 			$this->metabox_instance->register_metabox();
 			do_meta_boxes( $options['screens'], $options['context'], null );
-			$this->after();
+			echo $this->after();
 		}
 
 		public function field_assets() {

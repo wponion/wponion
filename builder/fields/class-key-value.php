@@ -1,15 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO\Fields;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 	/**
@@ -18,13 +13,6 @@ if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_add_button()
-	 * @method get_remove_button()
-	 * @method get_limit()
-	 * @method get_error_msg()
-	 * @method get_key_input()
-	 * @method get_value_input()
 	 */
 	class Key_Value extends \WPO\Field {
 		/**

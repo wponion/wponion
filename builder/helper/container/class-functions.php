@@ -1,15 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO\Helper\Container;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 use WPO\Container;
 
@@ -25,9 +20,21 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		/**
 		 * Returns Sub Containers.
 		 *
-		 * @return array|mixed
+		 * @param bool|string $key
+		 *
+		 * @return array|mixed|\WPO\Container
 		 */
-		public function containers() {
+		public function containers( $key = false ) {
+			if ( $this->has_containers() ) {
+				if ( empty( $key ) ) {
+					return $this->containers;
+				}
+				$key       = array_filter( explode( '/', $key ) );
+				$_key      = array_shift( $key );
+				$container = $this->container_exists( $_key );
+				return ( method_exists( $container, 'get' ) ) ? $container->get( implode( '/', $key ) ) : $container;
+
+			}
 			return ( $this->has_containers() ) ? $this->containers : array();
 		}
 
@@ -46,20 +53,13 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return false|\WPO\Container
 		 */
 		public function first_container() {
-			$containers = $this->containers();
-			$return     = false;
-			$i          = 0;
-
-			while ( count( $containers ) >= $i ) {
-				if ( isset( $containers[ $i ] ) ) {
-					if ( wpo_is_container( $containers[ $i ] ) && false === $containers[ $i ]->is_disabled() ) {
-						$return = $containers[ $i ];
-						break;
-					}
+			/* @var \WPO\Container $container */
+			foreach ( $this->containers() as $key => $container ) {
+				if ( wpo_is_container( $container ) && false === $container->is_disabled() ) {
+					return $container;
 				}
-				$i++;
 			}
-			return $return;
+			return false;
 		}
 
 		/**
@@ -72,12 +72,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 */
 		public function container_exists( $container_id ) {
 			if ( $this->has_containers() ) {
-				/* @var $container \WPO\Container */
-				foreach ( $this->containers() as $container ) {
-					if ( $container->name() === $container_id ) {
-						return $container;
-					}
-				}
+				return ( isset( $this->containers[ $container_id ] ) ) ? $this->containers[ $container_id ] : false;
 			}
 			return false;
 		}
@@ -96,9 +91,9 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		}
 
 		/**
-		 * @param bool $container_slug_or_instance
-		 * @param bool $title
-		 * @param bool $icon
+		 * @param bool|\WPO\Container|string $container_slug_or_instance
+		 * @param bool                       $title
+		 * @param bool                       $icon
 		 *
 		 * @return $this|bool|false|\WPO\Container
 		 */
@@ -107,7 +102,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 				wp_die( __( 'A Container Cannot Have Both Field & Containers', 'wponion' ) );
 			}
 			if ( wpo_is_container( $container_slug_or_instance ) ) {
-				$this->containers[] = $container_slug_or_instance;
+				$this->containers[ $container_slug_or_instance->name() ] = $container_slug_or_instance;
 				return $container_slug_or_instance;
 			}
 
@@ -118,8 +113,8 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			}
 
 			if ( false === $return ) {
-				$return             = Container::create( $container_slug_or_instance, $title, $icon );
-				$this->containers[] = $return;
+				$return                              = Container::create( $container_slug_or_instance, $title, $icon );
+				$this->containers[ $return->name() ] = $return;
 			}
 			return $return;
 		}
@@ -131,18 +126,8 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return $this
 		 */
 		public function container_before( $before_container_id, Container $new_container ) {
-			if ( $this->has_fields() ) {
-				$new_arr = array();
-				/* @var \WPO\Container $container */
-				foreach ( $this->containers() as $container ) {
-					if ( $container->name() === $before_container_id ) {
-						$new_arr[] = $new_container;
-						$new_arr[] = $container;
-					} elseif ( $container->name() !== $new_container->name() ) {
-						$new_arr[] = $container;
-					}
-				}
-				$this->containers = $new_arr;
+			if ( $this->has_containers() ) {
+				$this->containers = \WPOnion\Helper::array_insert_before( $before_container_id, $this->containers, $new_container->name(), $new_container );
 			}
 			return $this;
 		}
@@ -154,18 +139,8 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return $this
 		 */
 		public function container_after( $after_container_id, Container $new_container ) {
-			if ( $this->has_fields() ) {
-				$new_arr = array();
-				/* @var \WPO\Container $container */
-				foreach ( $this->containers() as $container ) {
-					if ( $container->name() === $after_container_id ) {
-						$new_arr[] = $container;
-						$new_arr[] = $new_container;
-					} elseif ( $container->name() !== $new_container->name() ) {
-						$new_arr[] = $container;
-					}
-				}
-				$this->containers = $new_arr;
+			if ( $this->has_containers() ) {
+				$this->containers = \WPOnion\Helper::array_insert_after( $after_container_id, $this->containers, $new_container->name(), $new_container );
 			}
 			return $this;
 		}
@@ -204,6 +179,54 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 */
 		public function remove_var( $name ) {
 			unset( $this->custom_data[ $name ] );
+		}
+
+		/**
+		 * @param array $containers
+		 *
+		 * @return $this
+		 */
+		public function set_containers( $containers = array() ) {
+			$this->containers = $containers;
+			return $this;
+		}
+
+		/**
+		 * @param string     $type
+		 * @param bool|array $data
+		 *
+		 * @return array|bool
+		 */
+		protected function json_serialize( $type, $data = false ) {
+			switch ( $type ) {
+				case 'get':
+					if ( $this->has_fields() ) {
+						return array( 'fields' => $this->fields() );
+					}
+					if ( $this->has_containers() ) {
+						return array( 'containers' => $this->containers() );
+					}
+					break;
+				case 'set':
+					if ( isset( $data['fields'] ) ) {
+						$this->set_fields( $data['fields'] );
+					}
+
+					if ( isset( $data['containers'] ) ) {
+						$this->set_containers( $data['containers'] );
+					}
+					break;
+			}
+			return array();
+		}
+
+		/**
+		 * JSON Encodes. Data
+		 *
+		 * @return array
+		 */
+		public function jsonSerialize() {
+			return $this->json_serialize( 'get' );
 		}
 	}
 }

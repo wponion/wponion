@@ -1,15 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO\Fields;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 	/**
@@ -18,11 +13,6 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 * @method get_color()
-	 * @method get_hover()
-	 * @method get_active()
-	 * @method get_visited()
-	 * @method get_foucs()
 	 */
 	class Link_Color extends Color_Group {
 		/**

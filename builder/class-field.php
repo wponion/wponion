@@ -1,14 +1,10 @@
 <?php
-/**
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 use WPO\Helper\Field\Common_Args;
 
@@ -34,6 +30,18 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		}
 
 		/**
+		 * Inits This Field.
+		 *
+		 * @param $value
+		 * @param $unique
+		 *
+		 * @return bool|\WPOnion\Field
+		 */
+		public function init_field( $value, $unique ) {
+			return wponion_field( $this, $value, $unique );
+		}
+
+		/**
 		 * Creates A New Field Instance.
 		 *
 		 * @param bool  $type
@@ -42,11 +50,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @param array $args
 		 *
 		 * @return false|\WPO\Field
-		 *
-		 * @todo \WPO\Fields\Button
-		 * @todo \WPO\Fields\WP_List_Table
-		 *
-		 *
 		 * @static
 		 */
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
@@ -98,6 +101,18 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 					break;
 			}
 			return $instance;
+		}
+
+		/**
+		 * @param array|\WPO\Field $field
+		 *
+		 * @return bool|string
+		 */
+		protected function get_field_id( $field ) {
+			if ( isset( $field['id'] ) && ! empty( $field['id'] ) ) {
+				return $field['id'];
+			}
+			return ( wpo_is_field( $field ) ) ? $field->unique() : false;
 		}
 
 		/**
@@ -153,7 +168,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 * @return bool
 		 */
 		public static function is_valid( $data ) {
-			return ( false === Container::is_valid( $data ) && isset( $data['type'] ) );
+			return ( isset( $data['type'] ) || ( isset( $data['type'] ) && isset( $data['fields'] ) ) && false === Container::is_valid( $data ) );
 		}
 
 		/**
@@ -187,6 +202,15 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public function __unset( $name ) {
 			unset( $this->{$this->array_var}[ $name ] );
+		}
+
+		/**
+		 * @param bool $key
+		 *
+		 * @return $this
+		 */
+		public function get_field( $key = false ) {
+			return $this;
 		}
 	}
 }

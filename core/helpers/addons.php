@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 use WPOnion\Setup;
 

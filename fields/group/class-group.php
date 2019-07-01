@@ -1,18 +1,7 @@
 <?php
-/**
- *
- * Initial version created 21-05-2018 / 06:45 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -54,12 +43,6 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 */
 		protected $sub_fields_ids = false;
 
-		/**
-		 * Creates / inits its sub fields.
-		 */
-		protected function init_subfields() {
-			return false;
-		}
 
 		/**
 		 * Renders Single Field HTML.
@@ -75,7 +58,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				$field['group_count']        = is_numeric( $this->loop_count ) ? $this->loop_count : '';
 			}
 
-			echo $this->sub_field( $field, $value, $this->name( '[' . $this->loop_count . ']' ), false );
+			echo $this->sub_field( $field, $value, $this->name( $this->loop_count ), false );
 		}
 
 		/**

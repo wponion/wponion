@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 18-06-2018 / 10:54 AM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Modules\Metabox;
 
@@ -217,15 +205,19 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		/**
 		 * Renders / Creates An First Instance based on the $is_init_field variable value.
 		 *
-		 * @param array $field
-		 * @param bool  $container
-		 * @param bool  $sub_container
-		 * @param bool  $is_init_field
+		 * @param array|\WPO\Field    $field
+		 * @param bool|\WPO\Container $container
+		 * @param bool|\WPO\Container $sub_container
+		 * @param bool                $is_init_field
 		 *
 		 * @return mixed
 		 */
 		public function render_field( $field = array(), $container = false, $sub_container = false, $is_init_field = false ) {
-			return parent::render_field( $field, sanitize_title( $container . '-' . $sub_container ), $is_init_field );
+			$hash = implode( '/', array_filter( array(
+				( wpo_is_container( $container ) ) ? $container->name() : '',
+				( wpo_is_container( $sub_container ) ) ? $sub_container->name() : '',
+			) ) );
+			return parent::render_field( $field, $hash, $is_init_field );
 		}
 
 		/**

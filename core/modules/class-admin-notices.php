@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: varun
- * Date: 28-11-2018
- * Time: 11:05 AM
- */
 
 namespace WPOnion\Modules;
 
@@ -42,10 +36,8 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 			}
 			parent::__construct( null, $settings );
 			$this->on_init();
-			if ( ! empty( $this->db_values ) ) {
-				$this->add_action( 'admin_notices', 'display_notices' );
-				$this->add_action( 'shutdown', 'save_notices' );
-			}
+			$this->add_action( 'admin_notices', 'display_notices' );
+			$this->add_action( 'shutdown', 'save_notices' );
 		}
 
 		/**
@@ -80,9 +72,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 						$this->remove_notice( $index );
 					}
 				}
+				$this->render_script();
+				$this->set_db_option();
 			}
-			$this->render_script();
-			$this->set_db_option();
 		}
 
 		/**

@@ -1,17 +1,4 @@
 <?php
-/**
- *
- * Initial version created 14-05-2018 / 03:09 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -135,5 +122,16 @@ if ( ! function_exists( 'wponion_field_clean' ) ) {
 	 */
 	function wponion_field_clean( $value ) {
 		return $value;
+	}
+}
+
+if ( ! function_exists( 'wponion_field_code_editor_sanitize' ) ) {
+	/**
+	 * @param $value
+	 *
+	 * @return string
+	 */
+	function wponion_field_code_editor_sanitize( $value ) {
+		return stripslashes( $value );
 	}
 }

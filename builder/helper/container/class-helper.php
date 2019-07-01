@@ -2,6 +2,10 @@
 
 namespace WPO\Helper\Container;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 use WPO\Container;
 use WPO\Helper\Base;
 use WPO\Helper\Interfaces\Field;
@@ -143,7 +147,13 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * @return $this|\WPO\Container
 		 */
 		public function set_fields( $fields ) {
-			$this->fields = $fields;
+			if ( wponion_is_array( $fields ) && ! empty( $fields ) ) {
+				foreach ( $fields as $field ) {
+					if ( \WPO\Field::is_valid( $field ) ) {
+						$this->field( $field );
+					}
+				}
+			}
 			return $this;
 		}
 
@@ -175,12 +185,7 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 			if ( null === $attributes ) {
 				return $this->attributes;
 			}
-			if ( true !== $merge ) {
-				$this->attributes = $attributes;
-			} else {
-				$this->attributes = ( ! wponion_is_array( $this->attributes ) ) ? array() : $this->attributes;
-				$this->attributes = $this->parse_args( $attributes, $this->attributes );
-			}
+			$this->attributes = wponion_handle_array_merge( $attributes, $this->attributes, $merge );
 			return $this;
 		}
 
@@ -204,13 +209,8 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 			if ( null === $query_args ) {
 				return $this->query_args;
 			}
-			if ( false === $merge ) {
-				$this->query_args = $query_args;
-			} else {
-				$this->query_args = ( ! wponion_is_array( $this->query_args ) ) ? array() : $this->query_args;
-				$this->query_args = $this->parse_args( $query_args, $this->query_args );
-			}
 
+			$this->query_args = wponion_handle_array_merge( $query_args, $this->query_args, $merge );
 			return $this;
 		}
 

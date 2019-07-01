@@ -1,24 +1,10 @@
 <?php
-/**
- *
- * Initial version created 07-05-2018 / 10:11 AM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package wponion
- * @link http://github.com/wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Bridge;
 
-use WPO\Builder;
-use WPO\Container;
-use WPO\Field;
 use WPOnion\Bridge;
-use WPOnion\Themes;
+use WPOnion\DB\Cache;
+use WPOnion\Exception\DB_Cache_Not_Found;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -32,7 +18,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Module_DB extends Module_DB_Cache {
+	class Module_DB extends Bridge {
 		/**
 		 * unique for database.
 		 *
@@ -91,7 +77,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
-				$this->db_values = wponion_get_set_db( $this->module_db(), $this->unique(), $this->get_id() );
+				$this->db_values = wponion_wp_db()->get( $this->module_db(), $this->unique(), $this->get_id() );
 			}
 			return $this->db_values;
 		}
@@ -102,7 +88,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return $this
 		 */
 		public function set_db_values( $values = array() ) {
-			wponion_update_db( $this->module_db(), $this->unique, $values, $this->get_id() );
+			wponion_wp_db()->set( $this->module_db(), $this->unique(), $this->get_id(), $values );
 			if ( wpo_is_option( $this->db_values ) ) {
 				$this->db_values->reload();
 			} else {
@@ -113,12 +99,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		}
 
 		/**
-		 * @return bool|mixed
+		 * @return array|mixed
 		 */
 		public function get_db_cache() {
-			self::retrive_db_cache();
-			$cid = $this->get_cache_id();
-			return ( isset( self::$cache[ $cid ] ) && is_array( self::$cache[ $cid ] ) ) ? self::$cache[ $cid ] : array();
+			try {
+				return Cache::get( $this->get_cache_id() );
+			} catch ( DB_Cache_Not_Found $exception ) {
+			}
+
+			return array();
 		}
 
 		/**
@@ -130,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 			$cid                 = $this->get_cache_id();
 			$values              = array_filter( $values );
 			$this->options_cache = $values;
-			self::$cache[ $cid ] = $values;
+			Cache::set( $cid, $values );
 			return $this;
 		}
 
@@ -140,6 +129,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return string
 		 */
 		public function unique() {
+			return $this->unique;
+		}
+
+		/**
+		 * Returns Base Unique.
+		 *
+		 * @return string
+		 */
+		public function base_unique() {
 			return $this->unique;
 		}
 

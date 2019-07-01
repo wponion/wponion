@@ -1,13 +1,4 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion;
 
@@ -26,6 +17,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	 * @since 1.0
 	 */
 	final class Setup extends Addons {
+		private static $vendor_libs = array();
 		/**
 		 * @var bool
 		 * @access
@@ -64,20 +56,21 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		private static $remaps = array();
 
 		/**
-		 * Fires Basic Setup Hook.
-		 *
 		 * @static
-		 * @throws \Exception
 		 */
 		public static function init() {
 			self::setup_remaps();
+			self::$vendor_libs = array(
+				'WP_Background_Process' => wponion()->path( 'core/vendors/a5hleyrich/wp-background-processing/wp-background-process.php' ),
+				'WP_Async_Request'      => wponion()->path( 'core/vendors/a5hleyrich/wp-background-processing/wp-async-request.php' ),
+				'Parsedown'             => wponion()->path( 'core/vendors/erusev/parsedown.php' ),
+			);
 			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), -1 );
 			self::load_required_files();
 		}
 
 		/**
 		 * @static
-		 * @throws \Exception
 		 */
 		public static function load_required_files() {
 			if ( file_exists( wponion()->path( 'vendor/autoload.php' ) ) ) {
@@ -89,8 +82,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			require_once wponion()->path( 'core/helpers/base.php' );
 			require_once wponion()->path( 'core/class-themes.php' );
 			require_once wponion()->path( 'core/class-assets.php' );
-			require_once wponion()->path( 'core/class-core-ajax.php' );
 			require_once wponion()->path( 'core/class-shortcodes.php' );
+
+			require_once wponion()->path( 'core/class-core-ajax.php' );
 
 			/**
 			 * This Hook Fires Before Integrations Files Loads.
@@ -139,9 +133,17 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function init_autoloader() {
+			try {
+				spl_autoload_register( array( __CLASS__, 'vendor_loader' ) );
+			} catch ( \Exception $exception ) {
+				foreach ( self::$vendor_libs as $class ) {
+					include $class;
+				}
+			}
+
 			self::$field_autoloader = new Autoloader( 'WPOnion\Field', wponion()->path( 'fields/' ), array( 'prepend' => true ) );
 
-			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module_fields/' ), array( 'prepend' => true ) );
+			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module-fields/' ), array( 'prepend' => true ) );
 
 			self::$core_autoloader = new Autoloader( 'WPOnion', wponion()->path( 'core/' ), array(
 				'exclude' => array(
@@ -159,13 +161,26 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module', wponion()->path( 'core/abstract/class-module.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB_Cache', wponion()->path( 'core/abstract/class-module-db-cache.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB', wponion()->path( 'core/abstract/class-module-db.php' ) );
+			self::$core_autoloader->map( 'WPOnion\Bridge\Ajax', wponion()->path( 'core/abstract/class-ajax.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Theme_API', wponion()->path( 'core/abstract/class-theme-api.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Addon', wponion()->path( 'core/abstract/class-addon.php' ) );
 			self::$core_autoloader->map( 'WPOnion\Addon_Field', wponion()->path( 'core/abstract/class-addon-field.php' ) );
 
 			//Remap Field & Field Cloner.
-			self::$field_autoloader->map( 'WPOnion\Field\Cloner', wponion()->path( 'core/class-field-cloner.php' ) );
 			self::$field_autoloader->map( 'WPOnion\Field', wponion()->path( 'core/abstract/class-field.php' ) );
+		}
+
+		/**
+		 * Loads Vendor Files.
+		 *
+		 * @param $class
+		 *
+		 * @static
+		 */
+		public static function vendor_loader( $class ) {
+			if ( isset( self::$vendor_libs[ $class ] ) ) {
+				include_once self::$vendor_libs[ $class ];
+			}
 		}
 
 		/**
@@ -209,6 +224,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_field( 'dimensions', 'all' );
 			\wponion_register_field( 'button_set', 'all' );
 			\wponion_register_field( 'metabox', 'all' );
+			\wponion_register_field( 'modal', 'all' );
+			\wponion_register_field( 'spinner', 'all' );
+			\wponion_register_field( 'range_slider', 'all' );
+			\wponion_register_field( 'code_editor', 'all' );
+			\wponion_register_field( 'wp_list_table', 'all' );
 
 			/**
 			 * Registers UI Field.
@@ -220,9 +240,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_register_ui_field( 'jambo_content', 'all' );
 			\wponion_register_ui_field( 'notice', 'all' );
 			\wponion_register_ui_field( 'subheading', 'all' );
-			\wponion_register_ui_field( 'wp_list_table', 'all' );
 			\wponion_register_ui_field( 'wp_notice', 'all' );
 			\wponion_register_ui_field( 'faq', 'all' );
+			\wponion_register_ui_field( 'import_export', 'all' );
+			\wponion_register_ui_field( 'options_object', 'all' );
 
 			/**
 			 * Field Alias
@@ -251,6 +272,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			do_action( 'wponion_core_fields_registered' );
 		}
 
+		/**
+		 * Setups Remaps.
+		 *
+		 * @static
+		 */
 		private static function setup_remaps() {
 			$notice              = '\WPO\Fields\Notice';
 			$wpnotice            = '\WPO\Fields\WP_Notice';

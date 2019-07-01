@@ -1,4 +1,38 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
+if ( ! function_exists( 'wponion_sysinfo' ) ) {
+	/**
+	 * Generates HTML Output for loading SysInfo.
+	 *
+	 * @param $args
+	 */
+	function wponion_sysinfo( $args ) {
+		\WPOnion\WP\Sysinfo\Sysinfo::get( $args );
+	}
+}
+
+if ( ! function_exists( 'wponion_markdown' ) ) {
+	/**
+	 * Returns A Parsedown Instance or Parsed Content.
+	 *
+	 * @param null $content
+	 *
+	 * @return \Parsedown|string
+	 */
+	function wponion_markdown( $content = null ) {
+		static $parse_down_instance = false;
+		if ( false === $parse_down_instance ) {
+			if ( class_exists( '\Parsedown' ) ) {
+				$parse_down_instance = new \Parsedown();
+			}
+		}
+		return ( empty( $content ) ) ? $parse_down_instance : $parse_down_instance->text( $content );
+	}
+}
+
 if ( ! function_exists( 'wponion_module_html_class' ) ) {
 	/**
 	 * @param string $module

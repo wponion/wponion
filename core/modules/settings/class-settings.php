@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 06-05-2018 / 07:10 AM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package wponion
- * @link http://github.com/wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Modules\Settings;
 
@@ -251,7 +239,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		 */
 		protected function set_page_url() {
 			if ( empty( $this->page_url ) ) {
-				$page_url       = $this->menu_instance->menu_url();
+				$page_url       = ( wponion_is_ajax() ) ? wp_get_raw_referer() : $this->menu_instance->menu_url();
 				$this->page_url = array(
 					'full_url' => $page_url,
 					'part'     => str_replace( admin_url(), '', $page_url ),
@@ -524,15 +512,20 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 		/**
 		 * Renders / Creates An First Instance based on the $is_init_field variable value.
 		 *
-		 * @param array $field
-		 * @param bool  $parent_container
-		 * @param bool  $sub_container
-		 * @param bool  $is_init_field
+		 * @param array|\WPO\Field    $field
+		 * @param bool|\WPO\Container $parent_container
+		 * @param bool|\WPO\Container $sub_container
+		 * @param bool                $is_init_field
 		 *
 		 * @return mixed
 		 */
 		public function render_field( $field = array(), $parent_container = false, $sub_container = false, $is_init_field = false ) {
-			return parent::render_field( $field, sanitize_title( $parent_container . '-' . $sub_container ), $is_init_field );
+			$hash = implode( '/', array_filter( array(
+				( wpo_is_container( $parent_container ) ) ? $parent_container->name() : '',
+				( wpo_is_container( $sub_container ) ) ? $sub_container->name() : '',
+			) ) );
+
+			return parent::render_field( $field, $hash, $is_init_field );
 		}
 
 		/**

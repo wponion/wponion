@@ -2,6 +2,10 @@
 
 namespace WPO\Helper\Field;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 use WPOnion\Registry\Field_Types;
 
 if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
@@ -14,7 +18,6 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 *
 	 * @method \WPO\Fields\Accordion accordion( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Background background( $id = false, $title = false, $args = array() )
-	 * @method \WPO\Fields\Backup backup( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Button button( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Faq faq( $title = false, $args = array() )
 	 * @method \WPO\Fields\Button_Set button_set( $id = false, $title = false, $args = array() )
@@ -69,6 +72,12 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 * @method \WPO\Fields\WP_Notice wp_notice_info( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\WP_Notice wp_notice_success( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\WP_Notice wp_notice_warning( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Modal modal( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Spinner spinner( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Range_Slider range_slider( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\Code_Editor code_editor( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\WP_List_Table wp_list_table( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Field import_export( $id = false, $title = false, $args = array() )
 	 */
 	trait Types {
 		/**
@@ -84,7 +93,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 				self::_field_after_create( $name, $instance );
 				return $instance;
 			}
-			return false;
+			return ( method_exists( get_parent_class( $this ), '__call' ) ) ? parent::__call( $name, $arguments ) : false;
 		}
 	}
 }

@@ -1,18 +1,10 @@
 <?php
-/**
- *
- * Initial version created 17-07-2018 / 03:50 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! class_exists( '\WPOnion\Icons' ) ) {
 	/**
@@ -24,20 +16,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 	 */
 	class Icons {
 		/**
-		 * icons
-		 *
-		 * @var array
-		 */
-		protected static $icons = array();
-
-		/**
-		 * icon_names
-		 *
-		 * @var array
-		 */
-		protected static $icon_names = array();
-
-		/**
 		 * @param string $icon_name
 		 * @param string $icon_slug
 		 * @param string $icons
@@ -45,10 +23,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function add( $icon_name = '', $icon_slug = '', $icons = '' ) {
-			if ( ! isset( self::$icons[ $icon_slug ] ) && ! isset( self::$icon_names[ $icon_slug ] ) ) {
-				self::$icons[ $icon_slug ]      = $icons;
-				self::$icon_names[ $icon_slug ] = $icon_name;
-			}
+			wponion_set_cache( 'icons/icon/' . $icon_slug, $icons );
+			wponion_set_cache( 'icons/names/' . $icon_slug, $icon_name );
 		}
 
 		/**
@@ -60,10 +36,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function get( $icon_name ) {
-			if ( isset( self::$icons[ $icon_name ] ) ) {
-				return self::$icons[ $icon_name ];
-			}
-			return array();
+			return wponion_get_cache_defaults( 'icons/icon/' . $icon_name, array() );
 		}
 
 		/**
@@ -75,10 +48,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function name( $slug ) {
-			if ( isset( self::$icon_names[ $slug ] ) ) {
-				return self::$icon_names[ $slug ];
-			}
-			return false;
+			return wponion_get_cache_defaults( 'icons/names/' . $slug, false );
 		}
 
 		/**
@@ -88,7 +58,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function icon_list() {
-			return self::$icon_names;
+			return wponion_get_cache_defaults( 'icons/names', array() );
 		}
 
 		/**
@@ -98,8 +68,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 */
 		public static function setup() {
 			do_action( 'wponion_before_icons_setup' );
-			$icons = Helper::get_data( 'icons' );
-			foreach ( $icons as $slug => $key ) {
+			foreach ( Helper::get_data( 'icons' ) as $slug => $key ) {
 				self::add( $key['name'], $slug, $key['icons'] );
 			}
 			do_action( 'wponion_after_icons_setup' );

@@ -1,13 +1,4 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Integrations\Page_Builders;
 
@@ -66,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 					$title     = $mb->option( 'elementor' );
 					$slug      = str_replace( '-', '', sanitize_title( $title ) );
 					$new_class = 'wpo_' . $slug . '_elementor_taxonomy';
-					$class     = new Class extends Taxonomy {
+					$class     = new class extends Taxonomy {
 					};
 
 					class_alias( get_class( $class ), $new_class );
@@ -74,7 +65,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 					$new_class::$wpo_slug     = $slug;
 					$new_class::$wpo_instance = $mb;
 					$dynamic_tags->register_tag( $new_class );
-					$class_data = new Class extends Taxonomy_Data {
+					$class_data = new class extends Taxonomy_Data {
 					};
 
 					$new_class = $new_class . '_data';
@@ -94,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 		 */
 		private static function set_metaboxes( $dynamic_tags ) {
 			/**
-			 * @var \WPOnion\Modules\Metabox\Metabox                              $mb
+			 * @var \WPOnion\Modules\Metabox\Metabox                      $mb
 			 * @var \WPOnion\Integrations\Page_Builders\Elementor\Metabox $new_class
 			 */
 			$instances = 'all';
@@ -104,7 +95,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 					$title     = ( true === $mb->option( 'elementor' ) ) ? $mb->option( 'metabox_title' ) : $mb->option( 'elementor' );
 					$slug      = str_replace( '-', '', sanitize_title( $title ) );
 					$new_class = 'wpo_' . $slug . '_elementor_metabox';
-					$class     = new Class extends Metabox {
+					$class     = new class extends Metabox {
 					};
 
 					class_alias( get_class( $class ), $new_class );
@@ -112,7 +103,7 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 					$new_class::$wpo_slug     = $slug;
 					$new_class::$wpo_instance = $mb;
 					$dynamic_tags->register_tag( $new_class );
-					$class_data = new Class extends Metabox_Data {
+					$class_data = new class extends Metabox_Data {
 					};
 
 					$new_class = $new_class . '_data';

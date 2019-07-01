@@ -1,16 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 if ( ! class_exists( 'WPO\Builder' ) ) {
 	/**
 	 * Class Builder
@@ -78,18 +72,21 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		}
 
 		/**
-		 * Returns Args Based on the configs.
+		 * @param bool $get
 		 *
-		 * @return array
+		 * @return array|bool|\WPO\Container|\WPO\Field
 		 */
-		public function get() {
+		public function get( $get = false ) {
+			$return = false;
+
 			if ( $this->has_fields() ) {
-				return $this->fields();
+				$return = $this->fields( $get );
 			}
 			if ( $this->has_containers() ) {
-				return $this->containers();
+				$return = $this->containers( $get );
 			}
-			return array();
+
+			return ( false !== $return ) ? $return : array();
 		}
 
 		/**

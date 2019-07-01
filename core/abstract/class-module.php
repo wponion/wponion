@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 07-05-2018 / 10:11 AM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package wponion
- * @link http://github.com/wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Bridge;
 
@@ -99,7 +87,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			$this->settings   = $this->set_args( $settings );
 			$this->unique     = ( isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
 			$this->save_instance();
-			parent::__construct();
 		}
 
 		/**
@@ -115,7 +102,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * Inits The Class.
 		 */
 		public function init() {
-			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax() ) {
+			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax( 'heartbeat' ) ) {
 				$this->on_init();
 			}
 		}
@@ -498,7 +485,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
 				'module' => $this->module(),
 				'unique' => $this->unique(),
-				'base'   => $this->unique(),
+				'base'   => $this->base_unique(),
 				'hash'   => $hash,
 			) );
 		}

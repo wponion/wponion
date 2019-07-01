@@ -3,6 +3,14 @@
 namespace WPOnion\DB;
 
 use WPOnion\Helper;
+use WPOnion\Traits\Array_Position;
+use WPOnion\Traits\Countable;
+use WPOnion\Traits\Json_Serialize;
+use WPOnion\Traits\Serializable;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 	/**
@@ -13,10 +21,10 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 	 * @since 1.0
 	 */
 	class Option implements \ArrayAccess, \Iterator, \JsonSerializable, \Serializable, \Countable {
-		use \WPOnion\Traits\Json_Serialize;
-		use \WPOnion\Traits\Countable;
-		use \WPOnion\Traits\Serializable;
-		use \WPOnion\Traits\Array_Position;
+		use Json_Serialize;
+		use Countable;
+		use Serializable;
+		use Array_Position;
 
 		/**
 		 * @var bool
@@ -112,8 +120,24 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * @return bool
 		 */
 		public function save() {
-			$instance = wponion_update_db( $this->module, $this->unique, $this->options, $this->extra );
+			$instance = wponion_wp_db()->set( $this->module, $this->unique, $this->extra, $this->options );
 			return ( ! is_wp_error( $instance ) && false !== $instance ) ? true : false;
+		}
+
+		/**
+		 * Handles Option Key and check if base unique is passed.
+		 *
+		 * @param $key
+		 *
+		 * @return string
+		 */
+		protected function op_key( $key ) {
+			$_key  = explode( $this->delimiter, $key );
+			$first = array_shift( $_key );
+			if ( $first === $this->unique ) {
+				return implode( $this->delimiter, $_key );
+			}
+			return $key;
 		}
 
 		/**
@@ -122,7 +146,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * @return bool
 		 */
 		public function has( $option_key ) {
-			return Helper::array_key_isset( $option_key, $this->options, false, $this->delimiter );
+			return Helper::array_key_isset( $this->op_key( $option_key ), $this->options, $this->delimiter );
 		}
 
 		/**
@@ -134,7 +158,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * @return mixed
 		 */
 		public function get( $option_key = '', $default = false ) {
-			return ( empty( $option_key ) ) ? $this->options : Helper::array_key_get( $option_key, $this->options, $default, $this->delimiter );
+			return ( empty( $option_key ) ) ? $this->options : Helper::array_key_get( $this->op_key( $option_key ), $this->options, $default, $this->delimiter );
 		}
 
 		/**
@@ -149,7 +173,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 			if ( ! empty( $option_key ) && empty( $value ) ) {
 				$this->options = $option_key;
 			} else {
-				Helper::array_key_set( $option_key, $value, $this->options, $this->delimiter );
+				Helper::array_key_set( $this->op_key( $option_key ), $value, $this->options, $this->delimiter );
 			}
 			return $this;
 		}
@@ -160,7 +184,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * @return array|object
 		 */
 		public function delete( $option_key ) {
-			return Helper::array_key_unset( $option_key, $this->options, $this->delimiter );
+			return Helper::array_key_unset( $this->op_key( $option_key ), $this->options, $this->delimiter );
 		}
 
 		/**
@@ -222,6 +246,15 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 */
 		public function offsetGet( $offset ) {
 			return $this->get( $offset );
+		}
+
+		/**
+		 * Checks if Class Is Empty
+		 *
+		 * @return bool
+		 */
+		public function is_empty() {
+			return ( empty( $this->get() ) );
 		}
 
 	}

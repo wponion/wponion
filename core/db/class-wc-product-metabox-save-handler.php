@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 05-07-2018 / 12:08 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\DB;
 
@@ -50,7 +38,7 @@ if ( ! class_exists( '\WPOnion\DB\WC_Product_Metabox_Save_Handler' ) ) {
 					continue;
 				}
 
-				$this->handle_single_field( $field );
+				$this->handle_single_field( $this->field_path( $field ) );
 				$this->go_nested( $field );
 			}
 		}

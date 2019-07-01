@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 28-05-2018 / 02:00 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Modules;
 
@@ -60,17 +48,21 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		/**
 		 * Renders / Creates An First Instance based on the $is_init_field variable value.
 		 *
-		 * @param array $field
-		 * @param bool  $parent_section
-		 * @param bool  $section
+		 * @param array|\WPO\Field    $field
+		 * @param bool|\WPO\Container $parent_section
+		 * @param bool|\WPO\Container $section
 		 *
 		 * @return mixed
 		 */
 		public function render_field( $field = array(), $parent_section = false, $section = false ) {
+			$hash = implode( '/', array_filter( array(
+				( wpo_is_container( $parent_section ) ) ? $parent_section->name() : '',
+				( wpo_is_container( $section ) ) ? $section->name() : '',
+			) ) );
 			return wponion_field( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
 				'module' => $this->module(),
 				'unique' => $this->unique(),
-				'hash'   => sanitize_title( $parent_section . '-' . $section ),
+				'hash'   => $hash,
 			) );
 		}
 
@@ -91,13 +83,13 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 					foreach ( $options->containers() as $section ) {
 						if ( ! $section->has_callback() && $section->has_fields() ) {
 							foreach ( $section->fields() as $field ) {
-								$this->render_field( $field, $options->slug(), $section->slug() );
+								$this->render_field( $field, $options, $section );
 							}
 						}
 					}
 				} elseif ( $options->has_fields() ) {
 					foreach ( $options->fields() as $field ) {
-						$this->render_field( $field, $options->slug(), false );
+						$this->render_field( $field, $options, false );
 					}
 				}
 			}

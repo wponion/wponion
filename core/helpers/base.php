@@ -1,27 +1,38 @@
 <?php
-/**
- *
- * Initial version created 05-05-2018 / 04:37 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
+
+if ( ! function_exists( 'wponion_ajax_action' ) ) {
+	/**
+	 * @param bool $action
+	 *
+	 * @return bool|mixed
+	 */
+	function wponion_ajax_action( $action = false ) {
+		if ( false === $action ) {
+			return ( isset( $_REQUEST['wponion-ajax'] ) ) ? $_REQUEST['wponion-ajax'] : false;
+		}
+		return ( isset( $_REQUEST['wponion-ajax'] ) && $action === $_REQUEST['wponion-ajax'] ) ? true : false;
+	}
 }
 
 if ( ! function_exists( 'wponion_is_ajax' ) ) {
 	/**
 	 * Checks if current request is ajax.
 	 *
-	 * @return bool
+	 * @param bool|string $action
+	 *
+	 * @return bool|mixed
 	 */
-	function wponion_is_ajax() {
-		return ( isset( $_POST ) && isset( $_POST['action'] ) && 'heartbeat' === $_POST['action'] ) ? true : false;
+	function wponion_is_ajax( $action = false ) {
+		if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
+			if ( false === $action ) {
+				return ( isset( $_REQUEST['action'] ) ) ? $_REQUEST['action'] : false;
+			}
+			return ( isset( $_REQUEST['action'] ) && $action === $_REQUEST['action'] ) ? true : false;
+		}
+		return false;
 	}
 }
 
@@ -64,53 +75,6 @@ if ( ! function_exists( 'wponion_validate_parent_container_ids' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_js_obj_name' ) ) {
-	/**
-	 * Returns a quniue js key.
-	 *
-	 * @param string $prefix
-	 * @param string $surfix
-	 * @param string $inner_content
-	 *
-	 * @return string
-	 */
-	function wponion_js_obj_name( $prefix = '', $surfix = '', $inner_content = '' ) {
-		return $prefix . wponion_hash_string( $inner_content ) . $surfix;
-	}
-}
-
-if ( ! function_exists( 'wponion_js_vars' ) ) {
-	/**
-	 * Converts PHP Array into JS JSON String with script tag and returns it.
-	 *
-	 * @param      $object_name
-	 * @param      $l10n
-	 * @param bool $with_script_tag
-	 *
-	 * @return string
-	 */
-	function wponion_js_vars( $object_name, $l10n, $with_script_tag = true ) {
-		foreach ( (array) $l10n as $key => $value ) {
-			if ( ! is_scalar( $value ) ) {
-				continue;
-			}
-			$l10n[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
-		}
-		$script = ( ! empty( $object_name ) ) ? "var $object_name = " . wp_json_encode( $l10n ) . ';' : wp_json_encode( $l10n );
-
-		if ( ! empty( $after ) ) {
-			$script .= "\n$after;";
-		}
-		if ( $with_script_tag ) {
-			$h = "<script type='text/javascript'>\n /* <![CDATA[ */\n";
-			$h = $h . " $script\n";
-			$h = $h . " /* ]]> */\n </script>\n";
-			return $h;
-		}
-		return $script;
-	}
-}
-
 if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 	/**
 	 * Converts PHP Array To HTML Attributes.
@@ -123,6 +87,10 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 		$atts = '';
 		if ( ! empty( $attributes ) ) {
 			foreach ( $attributes as $key => $value ) {
+				if ( 'class' === $key && is_array( $value ) ) {
+					$value = wponion_html_class( $value );
+				}
+
 				$value = ( wponion_is_array( $value ) ) ? wp_json_encode( $value ) : $value;
 				$atts  .= ( 'only-key' === $value ) ? ' ' . esc_attr( $key ) : ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
 			}
@@ -277,28 +245,6 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_highlight_string' ) ) {
-	/**
-	 * Highlights A Code.
-	 *
-	 * @param      $sting
-	 * @param bool $append_pre
-	 *
-	 * @return bool|string|string
-	 * @uses \highlight_string()
-	 *
-	 */
-	function wponion_highlight_string( $sting, $append_pre = true ) {
-		$sting = ( is_array( $sting ) ) ? var_export( $sting, true ) : $sting;
-		$text  = highlight_string( '<?php ' . trim( $sting ), true );  // highlight_string() requires opening PHP tag or otherwise it will not colorize the text
-		$text  = preg_replace( '|^\\<code\\>\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>|', '', trim( $text ), 1 );  // remove prefix
-		$text  = preg_replace( '|\\</code\\>$|', '', $text, 1 );  // remove suffix 1
-		$text  = preg_replace( '|\\</span\\>$|', '', trim( $text ), 1 );  // remove suffix 2
-		$text  = preg_replace( '|^(\\<span style\\="color\\: #[a-fA-F0-9]{0,6}"\\>)(&lt;\\?php&nbsp;)(.*?)(\\</span\\>)|', '$1$3$4', trim( $text ) );  // remove custom added "<?php "
-		return ( true === $append_pre ) ? '<pre class="wponion-debug-pre">' . $text . '</pre>' : $text;
-	}
-}
-
 if ( ! function_exists( 'wponion_is_array' ) ) {
 	/**
 	 * @param $data
@@ -312,8 +258,8 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 
 if ( ! function_exists( 'wponion_parse_args' ) ) {
 	/**
-	 * @param $new
-	 * @param $old
+	 * @param array|\WPO\Field $new
+	 * @param array|\WPO\Field $old
 	 *
 	 * @return array|object
 	 */
@@ -322,17 +268,9 @@ if ( ! function_exists( 'wponion_parse_args' ) ) {
 			return wp_parse_args( $new, $old );
 		}
 
-		$_new      = $new;
-		$_defaults = $old;
-
-		if ( wpo_is_field( $new ) ) {
-			$_new = $new->get();
-		}
-		if ( wpo_is_field( $old ) ) {
-			$_defaults = $old->get();
-		}
-
-		$final = wp_parse_args( $_new, $_defaults );
+		$_new      = ( wpo_is_field( $new ) ) ? $new->get() : $new;
+		$_defaults = ( wpo_is_field( $old ) ) ? $old->get() : $old;
+		$final     = wp_parse_args( $_new, $_defaults );
 
 		if ( wpo_is_field( $new ) ) {
 			$new->set( $final );
@@ -379,6 +317,51 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_handle_array_merge' ) ) {
+	/**
+	 * @param array|mixed $new_values
+	 * @param array|mixed $old_values
+	 * @param bool        $merge
+	 *
+	 * @return array|object
+	 */
+	function wponion_handle_array_merge( $new_values, $old_values, $merge = false ) {
+		if ( false === $merge ) {
+			return $new_values;
+		}
+		$old_values = ( ! wponion_is_array( $old_values ) ) ? array() : $old_values;
+		return wponion_parse_args( $new_values, $old_values );
+	}
+}
+
+if ( ! function_exists( 'wponion_catch_output' ) ) {
+	/**
+	 * @param bool|string $type
+	 *
+	 * @return false|string
+	 */
+	function wponion_catch_output( $type = true ) {
+		$data = false;
+		if ( true === $type ) {
+			ob_start();
+		}
+
+		if ( false === $type ) {
+			$data = ob_get_clean();
+			ob_flush();
+		}
+
+		if ( wponion_is_callable( $type ) ) {
+			wponion_catch_output( true );
+			echo wponion_callback( $type );
+			$data = wponion_catch_output( false );
+		}
+		return $data;
+	}
+}
+
+// WPOnion Cache Related Functions
+require_once wponion()->path( 'core/helpers/cache.php' );
 
 // WPOnion Database Related Functions.
 require_once wponion()->path( 'core/helpers/db.php' );

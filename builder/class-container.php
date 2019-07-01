@@ -1,15 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 use WPO\Helper\Container\Functions as Container_Functions;
 use WPO\Helper\Container\Helper;
@@ -36,7 +31,9 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 *
 		 * @see \WPO\Helper\Container\Functions
 		 */
-		use Container_Functions;
+		use Container_Functions {
+			json_serialize as protected json_serialize_base;
+		}
 
 		/**
 		 * Loads Required Field_Functions.
@@ -225,7 +222,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		public function set_group( $is_grouped = true ) {
 			$slug = ( true === $is_grouped ) ? $this->name() : $is_grouped;
-			return ( true === $is_grouped ) ? $this->fieldset( $slug, false, array( 'only_field' => true ) ) : $this;
+			return ( false !== $is_grouped ) ? $this->fieldset( $slug, false, array( 'only_field' => true ) ) : $this;
 		}
 
 		/**
@@ -284,6 +281,56 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		public function __unset( $name ) {
 			unset( $this->custom_data[ $name ] );
+		}
+
+		/**
+		 * @param bool|string $key
+		 *
+		 * @return array|$this
+		 */
+		public function get( $key = false ) {
+			if ( ! empty( $key ) ) {
+				if ( $this->has_fields() ) {
+					return $this->fields( $key );
+				}
+				if ( $this->has_containers() ) {
+					return $this->containers( $key );
+				}
+			}
+			return $this;
+		}
+
+		/**
+		 * @param string     $type
+		 * @param bool|array $data
+		 *
+		 * @return array|bool
+		 */
+		protected function json_serialize( $type, $data = false ) {
+			$return = $this->json_serialize_base( $type, $data );
+
+			switch ( $type ) {
+				case 'get':
+					$defined_vars = array_keys( get_class_vars( static::class ) );
+					foreach ( $defined_vars as $var ) {
+						if ( ! in_array( $var, array( 'containers', 'fields' ), true ) ) {
+							$return[ $var ] = $this->{$var};
+						}
+					}
+					return $return;
+					break;
+				case 'set':
+					$defined_vars = array_keys( get_class_vars( static::class ) );
+					foreach ( $data as $var => $value ) {
+						if ( ! in_array( $var, array( 'containers', 'fields' ), true ) ) {
+							if ( in_array( $var, $defined_vars, true ) ) {
+								$this->{$var} = $data[ $var ];
+							}
+						}
+					}
+					break;
+			}
+			return false;
 		}
 	}
 }

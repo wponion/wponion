@@ -1,18 +1,8 @@
 <?php
-/**
- *
- * Initial version created 28-05-2018 / 10:02 AM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion;
+
+use WPOnion\Exception\Cache_Not_Found;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -28,13 +18,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 	 */
 	class Helper {
 		/**
-		 * gfonts
-		 *
-		 * @var array
-		 */
-		protected static $gfonts = array();
-
-		/**
 		 * Stores Timer Information.
 		 *
 		 * @var array
@@ -42,13 +25,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		protected static $timer = array();
-
-		/**
-		 * Stores Cache.
-		 *
-		 * @var array
-		 */
-		protected static $cache = array();
 
 		/**
 		 * Gets And Returns File information.
@@ -131,56 +107,30 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
-		 * Fetch And Returns Google Fonts.
+		 * @param $type [google/websafe/backup]
 		 *
-		 * @return array|mixed
 		 * @static
+		 * @return mixed
 		 */
-		public static function google_fonts() {
-			if ( empty( self::$gfonts ) ) {
-				self::$gfonts = self::get_data( 'google_fonts' );
+		public static function fonts( $type ) {
+			try {
+				return wponion_get_cache( 'fonts/' . $type );
+			} catch ( Cache_Not_Found $exception ) {
+				$fonts = array();
+				switch ( $type ) {
+					case 'google':
+						$fonts = self::get_data( 'fonts/google' );
+						break;
+					case 'websafe':
+						$fonts = self::get_data( 'fonts/websafe' );
+						break;
+					case 'backup':
+						$fonts = self::get_data( 'fonts/backups' );
+						break;
+				}
+				wponion_set_cache( 'fonts/' . $type, $fonts );
+				return $fonts;
 			}
-			return self::$gfonts;
-		}
-
-		/**
-		 * Retrives Cache Data.
-		 *
-		 * @param bool $key
-		 * @param bool $default
-		 *
-		 * @return bool|mixed
-		 * @static
-		 */
-		public static function get_cache( $key = false, $default = false ) {
-			if ( isset( self::$cache[ $key ] ) ) {
-				return self::$cache[ $key ];
-			}
-			return $default;
-		}
-
-		/**
-		 * Stores Cache.
-		 *
-		 * @param bool $key
-		 * @param bool $data
-		 *
-		 * @static
-		 */
-		public static function set_cache( $key = false, $data = false ) {
-			self::$cache[ $key ] = $data;
-		}
-
-		/**
-		 * Checks If Cache Exists.
-		 *
-		 * @param $key
-		 *
-		 * @return bool
-		 * @static
-		 */
-		public static function has_cache( $key ) {
-			return ( isset( self::$cache[ $key ] ) );
 		}
 
 		/**
@@ -190,17 +140,42 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_post_types() {
-			if ( false === self::has_cache( 'post_types' ) ) {
-				$options    = array();
+			try {
+				return wponion_get_cache( 'post_types' );
+			} catch ( Cache_Not_Found $exception ) {
 				$post_types = get_post_types( array( 'show_in_nav_menus' => true ) );
 				if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
-					foreach ( $post_types as $post_type ) {
-						$options [ $post_type ] = ucfirst( $post_type );
+					$post_types = array_map( 'ucfirst', $post_types );
+				}
+				wponion_set_cache( 'post_types', $post_types );
+				return $post_types;
+			}
+		}
+
+		/**
+		 * @param $type
+		 *
+		 * @static
+		 * @return mixed
+		 */
+		public static function get_currencies( $type ) {
+			try {
+				return wponion_get_cache( 'currency/' . $type );
+			} catch ( Cache_Not_Found $exception ) {
+				$data = wp_parse_args( self::get_data( 'currency' ), array(
+					'currency'        => array(),
+					'currency_symbol' => array(),
+				) );
+				foreach ( $data['currency'] as $key => $val ) {
+					if ( isset( $data['symbol'][ $key ] ) ) {
+						$data['currency'][ $key ] = $data['currency'][ $key ] . ' ( ' . $data['symbol'][ $key ] . ' ) ';
 					}
 				}
-				self::set_cache( 'post_types', $options );
+				wponion_set_cache( 'currency/list', $data['currency'] );
+				wponion_set_cache( 'currency/symbol', $data['symbol'] );
+				$type = ( 'list' === $type ) ? 'currency' : $type;
+				return isset( $data[ $type ] ) ? $data[ $type ] : false;
 			}
-			return self::get_cache( 'post_types', array() );
 		}
 
 		/**
@@ -210,18 +185,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_currency() {
-			if ( false === self::has_cache( 'currency' ) ) {
-				$data = self::get_data( 'currency' );
-				if ( isset( $data['currency'] ) && ! empty( $data['currency'] ) ) {
-					foreach ( $data['currency'] as $key => $val ) {
-						if ( isset( $data['symbol'][ $key ] ) ) {
-							$data['currency'][ $key ] = $data['currency'][ $key ] . ' ( ' . $data['symbol'][ $key ] . ' ) ';
-						}
-					}
-					self::set_cache( 'currency', $data['currency'] );
-				}
-			}
-			return self::get_cache( 'currency', array() );
+			return self::get_currencies( 'list' );
 		}
 
 		/**
@@ -231,13 +195,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 * @static
 		 */
 		public static function get_currency_symbol() {
-			if ( false === self::has_cache( 'currency_symbol' ) ) {
-				$data = self::get_data( 'currency' );
-				if ( isset( $data['symbol'] ) ) {
-					self::set_cache( 'currency_symbol', $data['symbol'] );
-				}
-			}
-			return self::get_cache( 'currency_symbol', array() );
+			return self::get_currencies( 'symbol' );
 		}
 
 		/**
@@ -278,13 +236,12 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		/**
 		 * @param               $keys
 		 * @param               $array_or_object
-		 * @param bool|callable $default
 		 * @param string        $delimiter
 		 *
 		 * @static
 		 * @return bool
 		 */
-		public static function array_key_isset( $keys, $array_or_object, $default = false, $delimiter = '/' ) {
+		public static function array_key_isset( $keys, $array_or_object, $delimiter = '/' ) {
 			if ( ! is_array( $keys ) ) {
 				$keys = explode( $delimiter, (string) $keys );
 			}
@@ -293,17 +250,17 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 			$is_object       = is_object( $array_or_object );
 
 			if ( null === $key_or_property ) {
-				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
+				return false;
 			}
 
 			if ( $is_object && ! property_exists( $array_or_object, $key_or_property ) ) {
-				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
+				return false;
 			} elseif ( ! is_array( $array_or_object ) || ! array_key_exists( $key_or_property, $array_or_object ) ) {
-				return ( wponion_is_callable( $default ) ) ? wponion_callback( $default ) : $default;
+				return false;
 			}
 
 			if ( isset( $keys[0] ) ) {
-				return ( $is_object ) ? self::array_key_isset( $keys, $array_or_object->{$key_or_property}, $default, $delimiter ) : self::array_key_isset( $keys, $array_or_object[ $key_or_property ], $default, $delimiter );
+				return ( $is_object ) ? self::array_key_isset( $keys, $array_or_object->{$key_or_property}, $delimiter ) : self::array_key_isset( $keys, $array_or_object[ $key_or_property ], $delimiter );
 			} else {
 				return ( $is_object ) ? isset( $array_or_object->{$key_or_property} ) : isset( $array_or_object[ $key_or_property ] );
 			}
@@ -399,6 +356,54 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 				}
 			}
 			return $array_or_object;
+		}
+
+		/**
+		 * Inserts a new key/value before the key in the array.
+		 *
+		 * @param string $key The key to insert before.
+		 * @param array  $array An array to insert in to.
+		 * @param string $new_key The key to insert.
+		 * @param mixed  $new_value An value to insert.
+		 *
+		 * @return array|boolean|bool The new array if the key exists, FALSE otherwise.
+		 */
+		public static function array_insert_before( $key, array &$array, $new_key, $new_value ) {
+			if ( array_key_exists( $key, $array ) ) {
+				$new = array();
+				foreach ( $array as $k => $value ) {
+					if ( $k === $key ) {
+						$new[ $new_key ] = $new_value;
+					}
+					$new[ $k ] = $value;
+				}
+				return $new;
+			}
+			return false;
+		}
+
+		/**
+		 * Inserts a new key/value after the key in the array.
+		 *
+		 * @param string $key The key to insert after.
+		 * @param array  $array An array to insert in to.
+		 * @param string $new_key The key to insert.
+		 * @param mixed  $new_value An value to insert.
+		 *
+		 * @return array|mixed The new array if the key exists, FALSE otherwise.
+		 */
+		public static function array_insert_after( $key, array &$array, $new_key, $new_value ) {
+			if ( array_key_exists( $key, $array ) ) {
+				$new = array();
+				foreach ( $array as $k => $value ) {
+					$new[ $k ] = $value;
+					if ( $k === $key ) {
+						$new[ $new_key ] = $new_value;
+					}
+				}
+				return $new;
+			}
+			return false;
 		}
 
 		/**

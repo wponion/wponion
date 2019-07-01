@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 12-05-2018 / 07:05 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Field;
 
@@ -33,7 +21,7 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 		 * Final HTML Output
 		 */
 		public function output() {
-			$this->before();
+			echo $this->before();
 			$options = $this->data( 'options' );
 			echo '<ul class="faqs-container">';
 			foreach ( $options as $faq ) {
@@ -47,7 +35,7 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 				echo '</li>';
 			}
 			echo '</ul>';
-			$this->after();
+			echo $this->after();
 		}
 
 		public function field_assets() {

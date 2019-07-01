@@ -1,15 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO\Fields;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 	/**
@@ -18,16 +13,6 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_preview()
-	 * @method get_background_repeat()
-	 * @method get_background_attachment()
-	 * @method get_background_position()
-	 * @method get_background_clip()
-	 * @method get_background_origin()
-	 * @method get_background_size()
-	 * @method get_background_color()
-	 * @method get_background_image()
 	 */
 	class Background extends \WPO\Field {
 		/**

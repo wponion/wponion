@@ -2,7 +2,6 @@
 
 namespace WPOnion\Modules\Util;
 
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }

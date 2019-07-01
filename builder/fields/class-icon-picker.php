@@ -1,15 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO\Fields;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 	/**
@@ -18,12 +13,6 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_add_button()
-	 * @method get_remove_button()
-	 * @method get_icon_tooltip()
-	 * @method get_enabled()
-	 * @method get_disabled()
 	 */
 	class Icon_Picker extends \WPO\Field {
 		/**

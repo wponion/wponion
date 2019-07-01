@@ -1,4 +1,7 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! function_exists( 'wpo_builder' ) ) {
 	/**

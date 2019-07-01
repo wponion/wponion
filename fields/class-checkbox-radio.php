@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 15-05-2018 / 06:17 AM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Field;
 
@@ -28,7 +16,6 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 	 */
 	class Checkbox_Radio extends \WPOnion\Field {
 		public function field_assets() {
-			// TODO: Implement field_assets() method.
 		}
 
 		/**
@@ -152,7 +139,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			$attr['id'] = $elem_id;
 
 			if ( isset( $options['tooltip'] ) && wponion_is_array( $options['tooltip'] ) ) {
-				$label_attr                      = $options['tooltip']['attr'];
+				$label_attr                      = array();
 				$label_attr['data-wponion-jsid'] = $this->js_field_id();
 				$label_attr['data-field-jsid']   = $elem_id;
 				$label_attr['class']             = ( 'image_select' !== $this->element_type() ) ? ' wponion-field-tooltip ' : ' wponion-checkbox-radio-tooltip ';
@@ -160,7 +147,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			}
 
 			$wrap_attr['class'] = wponion_html_class( array( 'form-group', 'form-check' ) );
-			$field_attr         = $this->attributes( $attr, $dep_id );
+			$field_attr         = $this->attributes( $attr );
 
 			if ( true === $options['custom_input'] || true === wponion_is_array( $options['custom_input'] ) ) {
 				$name             = $options['key'];
@@ -186,7 +173,8 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			return '<div class="wponion-checker"><label ' . wponion_array_to_html_attributes( $label_attr ) . '>
+			$label_attr['class'] = ( isset( $label_attr['class'] ) ) ? $label_attr['class'] . ' wponion-checker ' : ' wponion-checker ';
+			return '<div ' . wponion_array_to_html_attributes( $label_attr ) . '><label >
 				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />' . $options['label'] . '
 			</label></div>';
 		}

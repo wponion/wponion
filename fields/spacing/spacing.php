@@ -1,16 +1,4 @@
 <?php
-/**
- *
- * Initial version created 28-05-2018 / 10:57 AM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Field;
 
@@ -97,11 +85,11 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 		 */
 		protected function default_title() {
 			return array(
-				'top'    => __( 'Top' , 'wponion'),
-				'bottom' => __( 'Bottom' , 'wponion'),
-				'left'   => __( 'Left' , 'wponion'),
+				'top'    => __( 'Top', 'wponion' ),
+				'bottom' => __( 'Bottom', 'wponion' ),
+				'left'   => __( 'Left', 'wponion' ),
 				'right'  => __( 'Right', 'wponion' ),
-				'unit'   => __( 'Unit' , 'wponion'),
+				'unit'   => __( 'Unit', 'wponion' ),
 			);
 		}
 

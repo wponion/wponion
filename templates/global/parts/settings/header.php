@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 /**
  * @var \WPOnion\Theme\WP_Lite|\WPOnion\Theme\WP $this
  */

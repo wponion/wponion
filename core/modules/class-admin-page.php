@@ -1,18 +1,4 @@
 <?php
-/**
- * Admin Page Class to handle custom admin page creation in wp-admin.
- * Project : wponion
- * Date : 03-11-2018
- * Time : 09:10 AM
- * File : admin-page.php
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @package wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
-
 
 namespace WPOnion\Modules;
 

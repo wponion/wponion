@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 /**
  * @var \WPOnion\Theme\WP_Lite|\WPOnion\Theme\WP $this
  * @var \WPO\Container                           $container
@@ -44,7 +48,7 @@ if ( wponion_is_array( $options ) ) {
 						echo wponion_callback( $sub_container->callback(), array( $sub_container ) );
 					} elseif ( $sub_container->has_fields() ) {
 						foreach ( $sub_container->fields() as $field ) {
-							echo $module->render_field( $field, $container->name(), $sub_container->name() );
+							echo $module->render_field( $field, $container, $sub_container );
 						}
 					}
 					echo '</div>';
@@ -54,7 +58,7 @@ if ( wponion_is_array( $options ) ) {
 					echo wponion_callback( $container->callback(), array( $container ) );
 				elseif ( $container->has_fields() ) :
 					foreach ( $container->fields() as $field ) :
-						echo $module->render_field( $field, $container->name() );
+						echo $module->render_field( $field, $container );
 					endforeach;
 				endif;
 			}

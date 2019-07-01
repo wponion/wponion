@@ -1,15 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO\Fields;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 	/**
@@ -18,11 +13,6 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_disabled()
-	 * @method get_enabled()
-	 * @method get_enabled_title()
-	 * @method get_disabled_title()
 	 */
 	class Sorter extends \WPO\Field {
 		/**

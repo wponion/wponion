@@ -1,15 +1,10 @@
 <?php
-/**
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @link
- * @copyright 2019 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPO\Helper\Field;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 	/**
@@ -400,6 +395,25 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 */
 		public function multiple( $is_multiple = true ) {
 			return $this->_set( 'multiple', $is_multiple );
+		}
+
+
+		/**
+		 * @param callable|string|array $callback
+		 *
+		 * @return $this
+		 */
+		public function before_render( $callback ) {
+			return $this->_set( 'before_render', $callback );
+		}
+
+		/**
+		 * @param callable|string|array $callback
+		 *
+		 * @return $this
+		 */
+		public function after_render( $callback ) {
+			return $this->_set( 'after_render', $callback );
 		}
 	}
 }

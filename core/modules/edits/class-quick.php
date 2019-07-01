@@ -1,16 +1,4 @@
 <?php
-/**
- * Project : wponion
- * Date : 17-11-2018
- * Time : 06:45 AM
- * File : quick_edit.php
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @package wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Modules\Edits;
 
@@ -109,7 +97,6 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 						'db_values'    => $this->db_values,
 					) );
 					$instance->run();
-
 					$this->db_values = $instance->get_values();
 					if ( false === $this->option( 'save' ) ) {
 						update_post_meta( $post_id, $this->unique(), $this->db_values );
@@ -118,15 +105,6 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 					}
 				}
 			}
-		}
-
-		/**
-		 * Returns Database Values of the settings.
-		 *
-		 * @return array|mixed
-		 */
-		protected function get_db_values() {
-			return $this->db_values;
 		}
 
 		/**

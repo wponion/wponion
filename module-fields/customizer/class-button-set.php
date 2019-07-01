@@ -2,6 +2,10 @@
 
 namespace WPOnion\Module_Fields\Customizer;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
+
 use WPOnion\Modules\Customizer\Control as Control;
 
 if ( ! class_exists( '\WPOnion\Module_Fields\Customizer\Button_Set' ) ) {
