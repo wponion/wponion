@@ -1,5 +1,7 @@
 [![WPOnion Framework Screenshot](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)](http://s3.wponion.com/wp.org/v3/banner-1544x500.jpg)
 
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+
 ## So what is WPOnion , exactly?
 
 WPOnion is a simple yet powerful framework that helps developers build custom meta boxes and custom fields in WordPress fast and easily.
@@ -70,8 +72,6 @@ function your-prefix_after_wponion_loaded(){
     //do your stuff here.
 }
 ```
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/settings-modern-theme.jpg)](https://s3.wponion.com/preview/settings-modern-theme.jpg)
-
 
 ## Contribution
 
@@ -85,44 +85,28 @@ In case you come across anything along the way that we haven’t covered, or if 
 
 https://wponion.gitbook.io/docs/
 
+### Screenshots / Demo
+
+https://demo.wponion.com
+
 ## Contributors
 Thanks to all the Contributors who worked on this project to get it done asap
-1. [pixelnx](https://profiles.wordpress.org/pixelnx) -- Created WPOnion Logo
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+<table><tr><td align="center"><a href="https://EnterpriseBranding.io"><img src="https://avatars3.githubusercontent.com/u/6123260?v=4" width="100px;" alt="Enterprise Branding"/><br /><sub><b>Enterprise Branding</b></sub></a><br /><a href="https://github.com/wponion/wponion/commits?author=EnterpriseBranding" title="Documentation">📖</a> <a href="#ideas-EnterpriseBranding" title="Ideas, Planning, & Feedback">🤔</a></td><td align="center"><a href="https://redpandaventures.ltd"><img src="https://avatars1.githubusercontent.com/u/909468?v=4" width="100px;" alt="digitalchild"/><br /><sub><b>digitalchild</b></sub></a><br /><a href="#ideas-digitalchild" title="Ideas, Planning, & Feedback">🤔</a></td></tr></table>
 
----
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-# Screenshots
+## License
+This project is licensed under **MIT**. See the [LICENSE](LICENSE) file for more info.
 
-## Settings Page
+## Backed By
+| [![DigitalOcean][do-image]][do-ref] | [![JetBrains][jb-image]][jb-ref] |  [![Tidio Chat][tidio-image]][tidio-ref] |
+| --- | --- | --- |
 
-#### WP Theme 
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/settings-wp-theme.jpg)](https://s3.wponion.com/preview/settings-wp-theme.jpg)
-
-## Metabox's
-#### Theme 1
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/metabox-1.jpg)](https://s3.wponion.com/preview/metabox-1.jpg)
-#### Theme 2
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/metabox-2.jpg)](https://s3.wponion.com/preview/metabox-2.jpg)
-### Side
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/metabox-side.jpg)](https://s3.wponion.com/preview/metabox-side.jpg)
-
-## Taxonomy
-#### With & Without Metabox Feature
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/taxonomy.jpg)](https://s3.wponion.com/preview/taxonomy.jpg)
-
-## User Profile Fields
-#### With & Without Metabox Feature
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/user-profile-fields.jpg)](https://s3.wponion.com/preview/user-profile-fields.jpg)
-
-## Bulk & Quick Edit
-### Quick Edit
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/quick-edit.jpg)](https://s3.wponion.com/preview/quick-edit.jpg)
-### Bulk Edit 
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/bulk-edit.jpg)](https://s3.wponion.com/preview/bulk-edit.jpg)
-
-## Help Tabs
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/help-tabs.gif)](https://s3.wponion.com/preview/help-tabs.gif)
-
-## Admin Columns & Custom Pages
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/admin-columns.jpg)](https://s3.wponion.com/preview/admin-columns.jpg)
-[![WPOnion Framework Screenshot](https://s3.wponion.com/preview/admin-page-with-tabs.jpg)](https://s3.wponion.com/preview/admin-page-with-tabs.jpg)
+[do-image]: https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/DO_Logo_Horizontal_Blue-small.png
+[jb-image]: https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/phpstorm-small.png?v3
+[tidio-image]: https://vsp.ams3.cdn.digitaloceanspaces.com/cdn/tidiochat-small.png
+[do-ref]: https://s.svarun.in/Ef
+[jb-ref]: https://www.jetbrains.com
+[tidio-ref]: https://tidiochat.com
