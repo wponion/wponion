@@ -32,9 +32,9 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		/**
 		 * scripts_check
 		 *
-		 * @var array
+		 * @var string
 		 */
-		private $scripts_check = array( 'wponion-plugins', 'wponion-core' );
+		private $scripts_check = 'wponion-core';
 
 		/**
 		 * WPOnion_Localize_API constructor.
@@ -46,6 +46,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			$this->add_action( 'wponion_module_woocommerce_ajax_variation_fields', 'render_js_args' );
 			$this->add_action( 'wp_footer', 'render_js_args' );
 			$this->js_args['wponion_core'] = array();
+			$this->js_args['wponion_il8n'] = array();
 		}
 
 		/**
@@ -59,14 +60,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return self
 		 */
 		public function add( $object_id = '', $args = array(), $merge = true, $convert_js_funcion = true ) {
-			if ( true === $convert_js_funcion ) {
-				$args = $this->handle_js_function( $args );
-			}
-			if ( true === $merge && isset( $this->js_args[ $object_id ] ) ) {
-				$this->js_args[ $object_id ] = $this->parse_args( $args, $this->js_args[ $object_id ] );
-			} else {
-				$this->js_args[ $object_id ] = $args;
-			}
+			$arg                         = ( true === $convert_js_funcion ) ? $this->handle_js_function( $args ) : $args;
+			$this->js_args[ $object_id ] = ( true === $merge && isset( $this->js_args[ $object_id ] ) ) ? $this->parse_args( $arg, $this->js_args[ $object_id ] ) : $arg;
 			return $this;
 		}
 
@@ -128,9 +123,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return $this
 		 */
 		public function text( $key = '', $value = '' ) {
-			if ( ! isset( $this->js_args['wponion_il8n'] ) ) {
-				$this->js_args['wponion_il8n'] = array();
-			}
 			$this->js_args['wponion_il8n'][ $key ] = $value;
 			return $this;
 		}
@@ -201,14 +193,14 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				return $this->print_js_data( $return );
 			}
 
-			foreach ( $this->scripts_check as $script ) {
-				if ( true === wp_script_is( $script ) && false === wp_script_is( $script, 'done' ) ) {
-					return $this->localize_script( $script );
+			if ( wp_script_is( $this->scripts_check ) ) {
+				if ( false === wp_script_is( $this->scripts_check, 'done' ) ) {
+					return $this->localize_script( $this->scripts_check );
+				} else {
+					$this->print_js_data( false );
 				}
 			}
-			if ( wp_script_is( 'wponion-core' ) && wp_script_is( 'wponion-core', 'done' ) ) {
-				$this->print_js_data( false );
-			}
+			return false;
 		}
 
 		/**
@@ -220,8 +212,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 */
 		private function localize_script( $handle = '' ) {
 			foreach ( array_filter( $this->js_args ) as $key => $value ) {
-				$key = str_replace( '-', '_', $key );
-				wp_localize_script( $handle, $key, $value );
+				wp_localize_script( $handle, str_replace( '-', '_', $key ), $value );
 			}
 			return true;
 		}
