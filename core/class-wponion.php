@@ -11,32 +11,12 @@ if ( ! class_exists( 'WPOnion' ) ) {
 	 * @since 1.0
 	 */
 	final class WPOnion {
-		/**
-		 * Stores Current WPOnion Instance.
-		 *
-		 * @var bool
-		 * @access
-		 * @static
-		 */
-		protected static $instance = false;
+		use WPOnion\Traits\Self_Instance;
 
 		/**
 		 * WPOnion constructor.
 		 */
 		public function __construct() {
-		}
-
-		/**
-		 * Returns An Static Instance.
-		 *
-		 * @static
-		 * @return bool|\WPOnion
-		 */
-		public static function instance() {
-			if ( false === self::$instance ) {
-				self::$instance = new self();
-			}
-			return self::$instance;
 		}
 
 		/**
