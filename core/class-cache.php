@@ -13,18 +13,15 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 	/**
 	 * Class Cache
 	 *
-	 * Recommended usage example:
+	 * @example Recommended usage example:
 	 *  try {
-	 *      $value = FW_Cache::get('some/key');
+	 *        $value = \WPOnion\Cache::get('some/key');
 	 *  } catch(\WPOnion\Cache_Not_Found $e) {
-	 *      $value = get_value_from_somewhere();
-	 *
-	 *      \WPOnion\Cache::set('some/key', $value);
-	 *
-	 *      // (!) after set, do not do this:
-	 *      $value = \WPOnion\Cache::get('some/key');
-	 *      // because there is no guaranty that FW_Cache::set('some/key', $value); succeeded
-	 *      // trust only your $value, cache can do clean-up right after set() and remove the value you tried to set
+	 *        $val = get_value_from_somewhere();
+	 *        \WPOnion\Cache::set('some/key', $val);
+	 *        $val = \WPOnion\Cache::get('some/key');
+	 *        //because there is no guaranty that \WPOnion\Cache::set('some/key', $value); succeeded
+	 *        //trust only your $value, cache can do clean-up right after set() and remove the value you tried to set
 	 *  }
 	 *
 	 * @package WPOnion
@@ -117,83 +114,72 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 
 		public static function init() {
 			self::$not_found_value = new Cache_Not_Found();
-
-			/**
-			 * Listen often triggered hooks to clear the memory
-			 * instead of tick function https://github.com/ThemeFuse/Unyson/issues/1197
-			 *
-			 * @since 2.4.17
-			 */
-			$clear_cache = array(
-				'query'                     => true,
-				'plugins_loaded'            => true,
-				'wp_get_object_terms'       => true,
-				'created_term'              => true,
-				'wp_upgrade'                => true,
-				'added_option'              => true,
-				'updated_option'            => true,
-				'deleted_option'            => true,
-				'wp_after_admin_bar_render' => true,
-				'http_response'             => true,
-				'oembed_result'             => true,
-				'customize_post_value_set'  => true,
-				'customize_save_after'      => true,
-				'customize_render_panel'    => true,
-				'customize_render_control'  => true,
-				'customize_render_section'  => true,
-				'role_has_cap'              => true,
-				'user_has_cap'              => true,
-				'theme_page_templates'      => true,
-				'pre_get_users'             => true,
-				'request'                   => true,
-				'send_headers'              => true,
-				'updated_usermeta'          => true,
-				'added_usermeta'            => true,
-				'image_memory_limit'        => true,
-				'upload_dir'                => true,
-				'wp_head'                   => true,
-				'wp_footer'                 => true,
-				'wp'                        => true,
-				'wp_init'                   => true,
-				'fw_init'                   => true,
-				'init'                      => true,
-				'updated_postmeta'          => true,
-				'deleted_postmeta'          => true,
-				'setted_transient'          => true,
-				'registered_post_type'      => true,
-				'wp_count_posts'            => true,
-				'wp_count_attachments'      => true,
-				'after_delete_post'         => true,
-				'post_updated'              => true,
-				'wp_insert_post'            => true,
-				'deleted_post'              => true,
-				'clean_post_cache'          => true,
-				'wp_restore_post_revision'  => true,
-				'wp_delete_post_revision'   => true,
-				'get_term'                  => true,
-				'edited_term_taxonomies'    => true,
-				'deleted_term_taxonomy'     => true,
-				'edited_terms'              => true,
-				'clean_term_cache'          => true,
-				'edited_term_taxonomy'      => true,
-				'switch_theme'              => true,
-				'wp_get_update_data'        => true,
-				'clean_user_cache'          => true,
-				'process_text_diff_html'    => true,
+			$clear_cache           = array(
+				'query',
+				'wp_get_object_terms',
+				'created_term',
+				'wp_upgrade',
+				'added_option',
+				'updated_option',
+				'deleted_option',
+				'wp_after_admin_bar_render',
+				'http_response',
+				'oembed_result',
+				'customize_post_value_set',
+				'customize_save_after',
+				'customize_render_panel',
+				'customize_render_control',
+				'customize_render_section',
+				'role_has_cap',
+				'user_has_cap',
+				'theme_page_templates',
+				'pre_get_users',
+				'request',
+				'send_headers',
+				'updated_usermeta',
+				'added_usermeta',
+				'image_memory_limit',
+				'upload_dir',
+				'wp_head',
+				'wp_footer',
+				'wp',
+				'wp_init',
+				'init',
+				'updated_postmeta',
+				'deleted_postmeta',
+				'setted_transient',
+				'registered_post_type',
+				'wp_count_posts',
+				'wp_count_attachments',
+				'after_delete_post',
+				'post_updated',
+				'wp_insert_post',
+				'deleted_post',
+				'clean_post_cache',
+				'wp_restore_post_revision',
+				'wp_delete_post_revision',
+				'get_term',
+				'edited_term_taxonomies',
+				'deleted_term_taxonomy',
+				'edited_terms',
+				'clean_term_cache',
+				'edited_term_taxonomy',
+				'switch_theme',
+				'wp_get_update_data',
+				'clean_user_cache',
+				'process_text_diff_html',
 			);
-			foreach ( $clear_cache as $hook => $tmp ) {
+			$force_flush           = array(
+				'switch_blog',
+				'upgrader_post_install',
+				'upgrader_process_complete',
+				'switch_theme',
+			);
+
+			foreach ( $clear_cache as $hook ) {
 				add_filter( $hook, array( __CLASS__, 'free_memory' ), 1 );
 			}
 
-			/**
-			 * Flush the cache when something major is changed (files or db values)
-			 */
-			$force_flush = array(
-				'switch_blog'               => true,
-				'upgrader_post_install'     => true,
-				'upgrader_process_complete' => true,
-				'switch_theme'              => true,
-			);
 			foreach ( $force_flush as $hook => $tmp ) {
 				add_filter( $hook, array( __CLASS__, 'clear' ), 1 );
 			}
@@ -211,7 +197,6 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 				unset( self::$cache[ $key ] );
 			}
 			++self::$freed;
-			// This method is used in add_filter() so to not break anything return filter value
 			return $dummy;
 		}
 
@@ -271,30 +256,25 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		 */
 		public static function clear( $dummy = null ) {
 			self::$cache = array();
-			// This method is used in add_filter() so to not break anything return filter value
 			return $dummy;
 		}
 
 		/**
 		 * Debug information
-		 * <?php add_action('admin_footer', function(){ FW_Cache::stats(); });
-		 *
-		 * @since 2.4.17
 		 */
 		public static function stats() {
-			echo '<div style="z-index: 10000; position: relative; background: #fff; padding: 15px;">';
-			echo '<p>';
-			echo '<strong>Cache Hits:</strong> ' . self::$hits . '<br />';
-			echo '<strong>Cache Misses:</strong> ' . self::$misses . '<br />';
-			echo '<strong>Cache Freed:</strong> ' . self::$freed . '<br />';
-			echo '<strong>PHP Memory Peak Usage:</strong> ' . memory_get_peak_usage( false ) . '<br />';
-			echo '</p>';
-			echo '<ul>';
+			$cache_data = array();
 			foreach ( self::$cache as $group => $cache ) {
-				echo "<li><strong>Group:</strong> $group - ( " . number_format( strlen( serialize( $cache ) ) / KB_IN_BYTES, 2 ) . 'k )</li>';
+				$cache_data[ $group ] = number_format( strlen( serialize( $cache ) ) / KB_IN_BYTES, 2 ) . 'k';
 			}
-			echo '</ul>';
-			echo '</div>';
+
+			return array(
+				'hits'       => self::$hits,
+				'misses'     => self::$misses,
+				'freed'      => self::$freed,
+				'peak_usage' => memory_get_peak_usage( false ),
+				'cache_data' => $cache_data,
+			);
 		}
 	}
 }
