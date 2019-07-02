@@ -52,28 +52,33 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 			 */
 			$instances = 'all';
 			$taxonomy  = wponion_taxonomy_registry( $instances );
-			foreach ( $taxonomy as $mb ) {
-				if ( false !== $mb->option( 'elementor' ) ) {
-					$title     = $mb->option( 'elementor' );
-					$slug      = str_replace( '-', '', sanitize_title( $title ) );
-					$new_class = 'wpo_' . $slug . '_elementor_taxonomy';
-					$class     = new class extends Taxonomy {
-					};
+			if ( is_array( $taxonomy ) && ! empty( array_filter( $taxonomy ) ) ) {
+				foreach ( $taxonomy as $mb ) {
+					if ( ! $mb instanceof \WPOnion\Modules\Taxonomy ) {
+						continue;
+					}
+					if ( false !== $mb->option( 'elementor' ) ) {
+						$title     = $mb->option( 'elementor' );
+						$slug      = str_replace( '-', '', sanitize_title( $title ) );
+						$new_class = 'wpo_' . $slug . '_elementor_taxonomy';
+						$class     = new class extends Taxonomy {
+						};
 
-					class_alias( get_class( $class ), $new_class );
-					$new_class::$wpo_title    = $title;
-					$new_class::$wpo_slug     = $slug;
-					$new_class::$wpo_instance = $mb;
-					$dynamic_tags->register_tag( $new_class );
-					$class_data = new class extends Taxonomy_Data {
-					};
+						class_alias( get_class( $class ), $new_class );
+						$new_class::$wpo_title    = $title;
+						$new_class::$wpo_slug     = $slug;
+						$new_class::$wpo_instance = $mb;
+						$dynamic_tags->register_tag( $new_class );
+						$class_data = new class extends Taxonomy_Data {
+						};
 
-					$new_class = $new_class . '_data';
-					class_alias( get_class( $class_data ), $new_class );
-					$new_class::$wpo_title    = $title;
-					$new_class::$wpo_slug     = $slug . '-data';
-					$new_class::$wpo_instance = $mb;
-					$dynamic_tags->register_tag( $new_class );
+						$new_class = $new_class . '_data';
+						class_alias( get_class( $class_data ), $new_class );
+						$new_class::$wpo_title    = $title;
+						$new_class::$wpo_slug     = $slug . '-data';
+						$new_class::$wpo_instance = $mb;
+						$dynamic_tags->register_tag( $new_class );
+					}
 				}
 			}
 		}
@@ -90,28 +95,33 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 			 */
 			$instances = 'all';
 			$metaboxes = wponion_metabox_registry( $instances );
-			foreach ( $metaboxes as $mb ) {
-				if ( false !== $mb->option( 'elementor' ) ) {
-					$title     = ( true === $mb->option( 'elementor' ) ) ? $mb->option( 'metabox_title' ) : $mb->option( 'elementor' );
-					$slug      = str_replace( '-', '', sanitize_title( $title ) );
-					$new_class = 'wpo_' . $slug . '_elementor_metabox';
-					$class     = new class extends Metabox {
-					};
+			if ( is_array( $metaboxes ) && ! empty( array_filter( $metaboxes ) ) ) {
+				foreach ( $metaboxes as $mb ) {
+					if ( ! $mb instanceof \WPOnion\Modules\Metabox\Metabox ) {
+						continue;
+					}
+					if ( false !== $mb->option( 'elementor' ) ) {
+						$title     = ( true === $mb->option( 'elementor' ) ) ? $mb->option( 'metabox_title' ) : $mb->option( 'elementor' );
+						$slug      = str_replace( '-', '', sanitize_title( $title ) );
+						$new_class = 'wpo_' . $slug . '_elementor_metabox';
+						$class     = new class extends Metabox {
+						};
 
-					class_alias( get_class( $class ), $new_class );
-					$new_class::$wpo_title    = $title;
-					$new_class::$wpo_slug     = $slug;
-					$new_class::$wpo_instance = $mb;
-					$dynamic_tags->register_tag( $new_class );
-					$class_data = new class extends Metabox_Data {
-					};
+						class_alias( get_class( $class ), $new_class );
+						$new_class::$wpo_title    = $title;
+						$new_class::$wpo_slug     = $slug;
+						$new_class::$wpo_instance = $mb;
+						$dynamic_tags->register_tag( $new_class );
+						$class_data = new class extends Metabox_Data {
+						};
 
-					$new_class = $new_class . '_data';
-					class_alias( get_class( $class_data ), $new_class );
-					$new_class::$wpo_title    = $title;
-					$new_class::$wpo_slug     = $slug . '-data';
-					$new_class::$wpo_instance = $mb;
-					$dynamic_tags->register_tag( $new_class );
+						$new_class = $new_class . '_data';
+						class_alias( get_class( $class_data ), $new_class );
+						$new_class::$wpo_title    = $title;
+						$new_class::$wpo_slug     = $slug . '-data';
+						$new_class::$wpo_instance = $mb;
+						$dynamic_tags->register_tag( $new_class );
+					}
 				}
 			}
 		}
