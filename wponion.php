@@ -1,17 +1,4 @@
 <?php
-/**
- *
- * Project : wponion
- * Date : 26-07-2018
- * Time : 03:38 PM
- * File : wponion.php
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @package wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -68,6 +55,7 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 			}
 
 			if ( ! version_compare( PHP_VERSION, '5.6', '>=' ) ) {
+				// translators: 1. Added PHP Version
 				$msg = sprintf( __( 'WPOnion incompatible with PHP Version %2$s. Please Install/Upgrade PHP To %1$s or Higher ', 'wponion' ), '<strong>5.6</strong>', '<code>' . PHP_VERSION . '</code>' );
 				wp_die( $msg );
 			}
