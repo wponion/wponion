@@ -60,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 						$fonts = self::get_data( 'fonts/backups' );
 						break;
 				}
-				wponion_set_cache( 'fonts/' . $type, $fonts );
+				$exception->set( $fonts );
 				return $fonts;
 			}
 		}
@@ -79,7 +79,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 				if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
 					$post_types = array_map( 'ucfirst', $post_types );
 				}
-				wponion_set_cache( 'post_types', $post_types );
+				$exception->set( $post_types );
 				return $post_types;
 			}
 		}
