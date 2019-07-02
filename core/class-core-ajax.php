@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 					do_action( 'wponion_ajax_' . $action );
 				}
 			}
-			wp_die();
+			wp_send_json_error();
 		}
 
 		/**
