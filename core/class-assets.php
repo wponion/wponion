@@ -80,6 +80,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			try {
 				return Cache::get( 'cdn_last_checked' );
 			} catch ( DB_Cache_Not_Found $exception ) {
+				Cache::remove( 'cdn_last_checked' );
+				Cache::remove( 'cdn_cache' );
 				return false;
 			}
 		}
@@ -90,17 +92,12 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		protected static function validate_timeout() {
-			try {
-				if ( 'reloading' !== self::cdn_last_checked() ) {
-					$is_reload = ( time() - self::cdn_last_checked() );
-					if ( ( $is_reload >= ( DAY_IN_SECONDS * 10 ) ) ) {
-						Cache::remove( 'cdn_last_checked' );
-						Cache::remove( 'cdn_cache' );
-					}
+			if ( 'reloading' !== self::cdn_last_checked() ) {
+				$is_reload = ( time() - self::cdn_last_checked() );
+				if ( ( $is_reload >= ( DAY_IN_SECONDS * 10 ) ) ) {
+					Cache::remove( 'cdn_last_checked' );
+					Cache::remove( 'cdn_cache' );
 				}
-			} catch ( DB_Cache_Not_Found $exception ) {
-				Cache::remove( 'cdn_last_checked' );
-				Cache::remove( 'cdn_cache' );
 			}
 		}
 
@@ -231,7 +228,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function cdn( $key, $url, $dep, $v, $footer_or_media, $script = true ) {
-			$script = ( true === $script ) ? 'script' : 'style';
+			$script    = ( true === $script ) ? 'script' : 'style';
 			$cdn_is_up = self::get_cache( $key . '_' . $script );
 			$is_vendor = defined( 'WPONION_OFF_CDN' ) && true === WPONION_OFF_CDN && class_exists( 'WPOnion_Vendor_Support' );
 
