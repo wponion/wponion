@@ -68,11 +68,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 */
 		public static function init() {
 			self::setup_remaps();
-			self::$vendor_libs = array(
-				'WP_Background_Process' => wponion()->path( 'core/vendors/a5hleyrich/wp-background-processing/wp-background-process.php' ),
-				'WP_Async_Request'      => wponion()->path( 'core/vendors/a5hleyrich/wp-background-processing/wp-async-request.php' ),
-				'Parsedown'             => wponion()->path( 'core/vendors/erusev/parsedown.php' ),
-			);
+			self::$vendor_libs = array( 'Parsedown' => wponion()->path( 'core/vendors/erusev/parsedown.php' ) );
 			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), -1 );
 			self::load_required_files();
 		}
