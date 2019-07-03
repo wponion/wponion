@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 return array(
 	'name'       => __( 'Fontawesome 4', 'wponion' ),
-	'slug'       => 'fontawesome',
+	'slug'       => 'fontawesome4',
 	'assets'     => 'fontawesome4',
 	'css_prefix' => 'fa',
 	'icons'      => array(

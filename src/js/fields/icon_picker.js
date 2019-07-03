@@ -43,11 +43,12 @@ class field extends WPOnion_Field {
 			init: function( $elm, $instance ) {
 				$work.elm   = $elm;
 				$work.popup = $instance;
-				$work.elems = $work.elm.find( 'span.wponion-icon-preview' );
+				$work.elems = $work.elm.find( '.wponion-icon-framework:visible span.wponion-icon-preview' );
 				let $height = $work.elm.find( '.wponion-icon-picker-container-scroll' ).css( 'height' );
 				$work.elm.find( '.wponion-icon-picker-container-scroll' ).css( 'height', $height );
 				$work.select();
 				$work.input();
+				window.wponion_field( $elm.find( '#swal2-content' ) ).reload();
 				$work.elems.on( 'click', function() {
 					let $icon = jQuery( this ).attr( 'data-icon' );
 					$input.val( $icon ).trigger( 'change' );
@@ -61,7 +62,7 @@ class field extends WPOnion_Field {
 			input: function() {
 				$work.elm.find( 'div.wponion-icon-picker-model-header input[type=text]' ).on( 'keyup', function() {
 					let $val = jQuery( this ).val();
-					$work.elems.each( function() {
+					$work.elm.find( '.wponion-icon-framework:visible span.wponion-icon-preview' ).each( function() {
 						if( jQuery( this ).attr( 'data-icon' ).search( new RegExp( $val, 'i' ) ) < 0 ) {
 							jQuery( this ).parent().hide();
 						} else {
@@ -74,23 +75,33 @@ class field extends WPOnion_Field {
 			 * Handles Selectbox in popup.
 			 */
 			select: function() {
-				$work.elm.find( 'div.wponion-icon-picker-model-header select' ).on( 'change', function() {
-					swal.enableLoading();
-					let $val = jQuery( this ).val();
-					$_this.ajax( 'icon_picker', {
-						data: { 'wponion-icon-lib': $val },
-						success: ( $res ) => {
-							jQuery( $work.elm ).find( '#swal2-content' ).html( $res.html ).show();
-							jQuery( $work.elm ).find( '#swal2-content .wponion-icon-picker-container-scroll' );
-							$work.init( $work.elm, $work.popup );
-						},
-						error: ( $res ) => {
-							jQuery( $work.elm ).find( '.wponion-icon-picker-container-scroll' ).remove();
-							wponion_error_swal( $res ).fire();
-						},
-						always: () => $work.popup.disableLoading(),
-					} ).send();
-				} );
+				$work.elm.find( 'div.wponion-icon-picker-model-header select' )
+					 .off( 'change' )
+					 .on( 'change', function() {
+						 let $val          = jQuery( this ).val(),
+							 $swal_content = jQuery( $work.elm ).find( '#swal2-content' );
+						 if( $swal_content.find( '#' + $val ).length > 0 ) {
+							 $swal_content.find( '.wponion-icon-framework' ).hide();
+							 $swal_content.find( '#' + $val ).show();
+						 } else {
+							 swal.enableLoading();
+							 $_this.ajax( 'icon_picker', {
+								 data: { 'wponion-icon-lib': $val, first_load: 'no' },
+								 success: ( $res ) => {
+									 $swal_content.find( '.wponion-icon-picker-container-scroll' ).append( $res.html );
+									 $swal_content.find( '.wponion-icon-framework' ).hide();
+									 $swal_content.find( '#' + $val ).show();
+									 $swal_content.show();
+									 $work.init( $work.elm, $work.popup );
+								 },
+								 error: ( $res ) => {
+									 jQuery( $work.elm ).find( '.wponion-icon-picker-container-scroll' ).remove();
+									 wponion_error_swal( $res ).fire();
+								 },
+								 always: () => $work.popup.disableLoading(),
+							 } ).send();
+						 }
+					 } );
 			}
 		};
 
@@ -125,14 +136,14 @@ class field extends WPOnion_Field {
 				allowOutsideClick: false,
 				showConfirmButton: false,
 				showCloseButton: true,
-				width: '700px',
+				width: '850px',
 				customClass: 'wponion-icon-picker-model',
 				onBeforeOpen: ( $elem ) => {
 					swal.enableLoading();
 					this.ajax( 'icon_picker', {
 						success: ( $res ) => {
 							let $popup_elem = jQuery( $elem );
-							$popup_elem.find( '#swal2-content' ).html( $res.html ).show();
+							$popup_elem.find( '#swal2-content' ).append( $res.html ).show();
 							$popup_elem.find( '#swal2-content .wponion-icon-picker-container-scroll' );
 							$work.init( $popup_elem, $popup );
 						},

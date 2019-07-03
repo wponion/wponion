@@ -111,6 +111,7 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 				),
 				'enabled'       => true,
 				'disabled'      => false,
+				'group_icons'   => false,
 			);
 		}
 

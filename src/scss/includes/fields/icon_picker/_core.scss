@@ -36,6 +36,28 @@
 		padding-top: 10px;
 		text-align:  left !important;
 
+		.wponion-element {
+			border: none !important;
+
+			&.wponion-element-accordion {
+				padding:       0 15px;
+				margin-bottom: 20px;
+
+				&:first-child {
+					margin-top: 10px;
+				}
+
+				.wponion-accordion-title {
+					padding:    10px;
+					text-align: left;
+				}
+
+				.wponion-element-content {
+					padding: 10px 0;
+				}
+			}
+		}
+
 		.wponion-icon-picker-model-header {
 			padding:       0.5em 1.25em;
 			background:    #f5f5f5;
@@ -69,7 +91,8 @@
 			max-height: 500px;
 
 			.wponion-icon-picker-container {
-				padding:    0 1.25em;
+				//padding:    0 1.25em;
+				padding:    0;
 				text-align: center;
 			}
 		}
@@ -81,6 +104,15 @@
 			display:       inline-block;
 			padding:       5px;
 			cursor:        pointer;
+
+			&.group_title {
+				display: block;
+				margin:  0;
+
+				h3 {
+					margin: 5px 0;
+				}
+			}
 
 			.wponion-icon-preview {
 				position:         relative;

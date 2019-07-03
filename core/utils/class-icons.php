@@ -1,14 +1,15 @@
 <?php
 
-namespace WPOnion;
+namespace WPOnion\Utils;
 
-use WPOnion\Utils\Icon;
+
+use WPOnion\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Icons' ) ) {
+if ( ! class_exists( '\WPOnion\Utils\Icons' ) ) {
 	/**
 	 * Class Icons
 	 *

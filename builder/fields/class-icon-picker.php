@@ -104,5 +104,15 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 			$this['disabled'] = $disabled_icon_frameworks;
 			return $this;
 		}
+
+		/**
+		 * @param bool $is_group
+		 *
+		 * @return $this
+		 */
+		public function group_icons( $is_group = true ) {
+			$this['group_icons'] = $is_group;
+			return $this;
+		}
 	}
 }
