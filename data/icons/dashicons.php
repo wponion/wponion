@@ -5,8 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 return array(
-	'name'  => __( 'Dashicons', 'wponion' ),
-	'icons' => array(
+	'name'       => __( 'Dashicons', 'wponion' ),
+	'slug'       => 'dashicons',
+	'assets'     => 'dashicons',
+	'css_prefix' => 'dashicons',
+	'icons'      => array(
 		'dashicons dashicons-menu',
 		'dashicons dashicons-admin-site',
 		'dashicons dashicons-dashboard',
