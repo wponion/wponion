@@ -8,7 +8,7 @@ return array(
 	'name'       => __( 'Foundation', 'wponion' ),
 	'slug'       => 'foundation',
 	'assets'     => 'foundation',
-	'css_prefix' => 'fi-',
+	'css_prefix' => 'fi',
 	'icons'      => array(
 		'General Icons'        => array(
 			'fi-heart',
