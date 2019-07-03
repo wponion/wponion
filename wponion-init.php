@@ -28,6 +28,7 @@ if ( ! function_exists( 'wponion' ) ) {
 	 */
 	function wponion() {
 		if ( ! class_exists( '\WPOnion' ) ) {
+			require_once WPONION_PATH . 'core/traits/trait-self-instance.php';
 			require_once WPONION_PATH . 'core/class-wponion.php';
 		}
 		return WPOnion::instance();
