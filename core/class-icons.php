@@ -17,8 +17,19 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 	 * @since 1.0
 	 */
 	class Icons {
+		/**
+		 * @var array
+		 * @access
+		 * @static
+		 */
 		protected static $icons_instance = array();
-		protected static $icons          = array();
+
+		/**
+		 * @var array
+		 * @access
+		 * @static
+		 */
+		protected static $icons = array();
 
 		/**
 		 * @param $args
