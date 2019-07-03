@@ -53,7 +53,7 @@ if ( ! class_exists( 'WPOnion' ) ) {
 		 *
 		 * @return string
 		 */
-		public function assets( $extra = '', $is_url = false ) {
+		public function assets( $extra = '', $is_url = true ) {
 			return $this->url_path( 'assets/' . $extra, $is_url );
 		}
 
