@@ -2,6 +2,8 @@
 
 namespace WPOnion;
 
+use WPOnion\Utils\Icon;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -15,16 +17,20 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 	 * @since 1.0
 	 */
 	class Icons {
+		protected static $icons_instance = array();
+		protected static $icons          = array();
+
 		/**
-		 * @param string $icon_name
-		 * @param string $icon_slug
-		 * @param string $icons
+		 * @param $args
 		 *
 		 * @static
+		 * @return \WPOnion\Utils\Icon
 		 */
-		public static function add( $icon_name = '', $icon_slug = '', $icons = '' ) {
-			wponion_set_cache( 'icons/icon/' . $icon_slug, $icons );
-			wponion_set_cache( 'icons/names/' . $icon_slug, $icon_name );
+		public static function add( $args ) {
+			$instance                                  = new Icon( $args );
+			self::$icons_instance[ $instance->slug() ] = $instance;
+			self::$icons[ $instance->slug() ]          = $instance->name();
+			return $instance;
 		}
 
 		/**
@@ -32,11 +38,11 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 *
 		 * @param $icon_name
 		 *
-		 * @return array|mixed
+		 * @return array|\WPOnion\Utils\Icon|bool
 		 * @static
 		 */
 		public static function get( $icon_name ) {
-			return wponion_get_cache_defaults( 'icons/icon/' . $icon_name, array() );
+			return isset( self::$icons_instance[ $icon_name ] ) ? self::$icons_instance[ $icon_name ] : false;
 		}
 
 		/**
@@ -48,7 +54,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function name( $slug ) {
-			return wponion_get_cache_defaults( 'icons/names/' . $slug, false );
+			return ( isset( self::$icons[ $slug ] ) ) ? self::$icons[ $slug ] : false;
 		}
 
 		/**
@@ -58,7 +64,7 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function icon_list() {
-			return wponion_get_cache_defaults( 'icons/names', array() );
+			return self::$icons;
 		}
 
 		/**
@@ -68,8 +74,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 */
 		public static function setup() {
 			do_action( 'wponion_before_icons_setup' );
-			foreach ( Helper::get_data( 'icons' ) as $slug => $key ) {
-				self::add( $key['name'], $slug, $key['icons'] );
+			foreach ( Helper::get_data( 'icons' ) as $key ) {
+				self::add( $key );
 			}
 			do_action( 'wponion_after_icons_setup' );
 		}

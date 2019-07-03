@@ -62,24 +62,21 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 				}
 				$html .= '</select>';
 			}
+
 			$html .= '</div>';
-			if ( wponion_is_array( $json ) && ! empty( $json ) ) {
+
+			$this->add_assets = $json->assets( false );
+
+			if ( wponion_is_array( $json->icons() ) && ! empty( $json->icons() ) ) {
 				$html .= '<div class="wponion-icon-picker-container-scroll"><div class="wponion-icon-picker-container">';
-				foreach ( $json as $json_title => $icons ) {
-					if ( wponion_is_array( $icons ) ) {
+				foreach ( $json->icons() as $json_title => $icons ) {
+					if ( ! is_numeric( $json_title ) && wponion_is_array( $icons ) ) {
+						$html .= '<div class="wponion-icon-preview-wrap group_title"><h3>' . $json_title . '</h3></div>';
 						foreach ( $icons as $key => $icon ) {
-							$_icon = ( is_numeric( $key ) ) ? $icon : $key;
-							$title = ( is_numeric( $key ) ) ? $icon : $icon;
-							$html  .= '<div class="wponion-icon-preview-wrap">';
-							$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
-							$html  .= '</div>';
+							$html .= $this->single_icon_html( $key, $icon );
 						}
 					} else {
-						$_icon = ( is_numeric( $json_title ) ) ? $icons : $json_title;
-						$title = ( is_numeric( $json_title ) ) ? $icons : $icons;
-						$html  .= '<div class="wponion-icon-preview-wrap">';
-						$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
-						$html  .= '</div>';
+						$html .= $this->single_icon_html( $json_title, $icons );
 					}
 				}
 				$html .= '</div>';
@@ -88,6 +85,21 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 			}
 			$html .= '</div>';
 			$this->json_success( array( 'html' => $html ) );
+		}
+
+		/**
+		 * @param $key
+		 * @param $icon
+		 *
+		 * @return string
+		 */
+		protected function single_icon_html( $key, $icon ) {
+			$_icon = ( is_numeric( $key ) ) ? $icon : $key;
+			$title = ( is_numeric( $key ) ) ? $icon : $icon;
+			$html  = '<div class="wponion-icon-preview-wrap">';
+			$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
+			$html  .= '</div>';
+			return $html;
 		}
 	}
 }
