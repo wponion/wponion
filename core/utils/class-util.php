@@ -1,12 +1,12 @@
 <?php
 
-namespace WPOnion;
+namespace WPOnion\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Util' ) ) {
+if ( ! class_exists( '\WPOnion\Utils\Util' ) ) {
 	/**
 	 * Class Util
 	 *

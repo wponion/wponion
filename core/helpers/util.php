@@ -37,7 +37,7 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 	 * @param bool  $element
 	 * @param bool  $localize
 	 *
-	 * @return array|string||\WPOnion\Util
+	 * @return array|string||\WPOnion\Utils\Util
 	 */
 	function wponion_tooltip( $content = false, $args = array(), $element = false, $localize = true ) {
 		if ( is_array( $content ) && ! empty( $args ) && is_string( $args ) ) {
@@ -58,7 +58,7 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 		}
 		unset( $args['content'] );
 		unset( $args['element'] );
-		$instance = new \WPOnion\Util( $element, false );
+		$instance = new \WPOnion\Utils\Util( $element, false );
 		return $instance->tooltip( $content, $args, $localize );
 	}
 }
@@ -89,10 +89,10 @@ if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 	 * @param array  $args
 	 * @param string $element
 	 *
-	 * @return string|\WPOnion\Util
+	 * @return string|\WPOnion\Utils\Util
 	 */
 	function wponion_inline_ajax( $args = array(), $element = '' ) {
-		$instance = new \WPOnion\Util( $element, false );
+		$instance = new \WPOnion\Utils\Util( $element, false );
 		return $instance->inline_ajax( $args );
 	}
 }
@@ -103,10 +103,10 @@ if ( ! function_exists( 'wponion_image_popup' ) ) {
 	 * @param bool|string $full_size
 	 * @param bool|string $element
 	 *
-	 * @return string|bool|\WPOnion\Util
+	 * @return string|bool|\WPOnion\Utils\Util
 	 */
 	function wponion_image_popup( $image_src = '', $full_size = false, $element = false ) {
-		$instance = new \WPOnion\Util( $element );
+		$instance = new \WPOnion\Utils\Util( $element );
 		return $instance->image_popup( $image_src, $full_size, $element );
 	}
 }
