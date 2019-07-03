@@ -33,7 +33,7 @@ if ( ! class_exists( '\WPOnion\Theme\WC' ) ) {
 		 */
 		public function register_assets() {
 			wp_enqueue_style( 'wponion-' . $this->theme, $this->url( 'assets/style.css' ), array( 'wponion-core' ) );
-			wp_enqueue_script( 'wponion-template-core-' . $this->theme, wponion()->tpl_url( 'global/assets/script.js' ), array( 'wponion-core' ) );
+			wp_enqueue_script( 'wponion-template-core-' . $this->theme, wponion()->tpl( 'global/assets/script.js', true ), array( 'wponion-core' ) );
 		}
 
 		public function main_menu( $menus ) {

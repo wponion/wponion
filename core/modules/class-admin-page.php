@@ -523,7 +523,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		public function admin_footer_right_text() {
 			if ( empty( $this->option( 'footer_right_text' ) ) ) {
 				/* translators: Added WPOnionVersion  */
-				return sprintf( __( 'WPOnion Version : %s', 'wponion' ), wponion()->version() ) . ' | ' . core_update_footer();
+				return sprintf( __( 'WPOnion Version : %s', 'wponion' ), WPONION_VERSION ) . ' | ' . core_update_footer();
 			}
 			return ( wponion_is_callable( $this->option( 'footer_right_text' ) ) ) ? wponion_callback( $this->option( 'footer_right_text' ) ) : $this->option( 'footer_right_text' );
 		}

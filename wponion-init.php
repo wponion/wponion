@@ -29,7 +29,7 @@ if ( ! function_exists( 'wponion' ) ) {
 	function wponion() {
 		if ( ! class_exists( '\WPOnion' ) ) {
 			require_once WPONION_PATH . 'core/traits/trait-self-instance.php';
-			require_once WPONION_PATH . 'core/class-wponion.php';
+			require_once WPONION_PATH . 'core/setup/class-wponion.php';
 		}
 		return WPOnion::instance();
 	}
@@ -42,8 +42,8 @@ if ( ! function_exists( 'wponion_setup' ) ) {
 	 * Setup's Basic WPOnion.
 	 */
 	function wponion_setup() {
-		require_once wponion()->path( 'core/class-addons.php' );
-		require_once wponion()->path( 'core/class-setup.php' );
+		require_once wponion()->path( 'core/setup/class-addons.php' );
+		require_once wponion()->path( 'core/setup/class-setup.php' );
 	}
 
 	add_action( 'after_setup_theme', 'wponion_setup' );

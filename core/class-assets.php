@@ -47,7 +47,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * @static
 		 */
 		public static function register_assets() {
-			$v = ( true === wponion_is_debug() ) ? time() : wponion()->version();
+			$v = ( true === wponion_is_debug() ) ? time() : WPONION_VERSION;
 			do_action( 'wponion_register_assets_before' );
 			wponion_localize();
 

@@ -14,18 +14,13 @@ if ( ! class_exists( 'WPOnion' ) ) {
 		use WPOnion\Traits\Self_Instance;
 
 		/**
-		 * WPOnion constructor.
-		 */
-		public function __construct() {
-		}
-
-		/**
-		 * Returns WPOnion Version.
+		 * @param $path
+		 * @param $is_url
 		 *
 		 * @return string
 		 */
-		public function version() {
-			return WPONION_VERSION;
+		protected function url_path( $path, $is_url ) {
+			return ( $is_url ) ? $this->url( $path ) : $this->path( $path );
 		}
 
 		/**
@@ -51,72 +46,37 @@ if ( ! class_exists( 'WPOnion' ) ) {
 		}
 
 		/**
-		 * Returns Current WPOnion File.
-		 *
-		 * @return string
-		 */
-		public function file() {
-			return WPONION_FILE;
-		}
-
-		/**
 		 * Returns Current Assets Path As URL.
 		 *
 		 * @param string $extra
+		 * @param bool   $is_url
 		 *
 		 * @return string
 		 */
-		public function assets( $extra = '' ) {
-			return $this->url( 'assets/' . $extra );
-		}
-
-		/**
-		 * Returns Current Assets Path As URL.
-		 *
-		 * @param string $extra
-		 *
-		 * @return string
-		 */
-		public function assets_path( $extra = '' ) {
-			return $this->path( 'assets/' . $extra );
+		public function assets( $extra = '', $is_url = false ) {
+			return $this->url_path( 'assets/' . $extra, $is_url );
 		}
 
 		/**
 		 * Returns Templates Path.
 		 *
-		 * @param $extra
+		 * @param string $extra
+		 * @param bool   $is_url
 		 *
 		 * @return string
 		 */
-		public function tpl( $extra = '' ) {
-			return $this->path( 'templates/' . $extra );
+		public function tpl( $extra = '', $is_url = false ) {
+			return $this->url_path( 'templates/' . $extra, $is_url );
 		}
 
 		/**
-		 * @param $extra
+		 * @param string $extra
+		 * @param bool   $is_url
 		 *
 		 * @return string
 		 */
-		public function tpl_url( $extra = '' ) {
-			return $this->url( 'templates/' . $extra );
-		}
-
-		/**
-		 * @param $extra
-		 *
-		 * @return string
-		 */
-		public function data( $extra = '' ) {
-			return $this->path( 'data/' . $extra );
-		}
-
-		/**
-		 * @param $extra
-		 *
-		 * @return string
-		 */
-		public function data_url( $extra = '' ) {
-			return $this->path( 'data/' . $extra );
+		public function data( $extra = '', $is_url = false ) {
+			return $this->url_path( 'data/' . $extra, $is_url );
 		}
 	}
 }

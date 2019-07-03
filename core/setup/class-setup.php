@@ -106,7 +106,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			\wponion_admin_notices();
 
 			if ( is_admin() && file_exists( WP_CONTENT_DIR . '/plugins/wponion/wponion.php' ) ) {
-				wponion_plugin_links( wponion()->file() )
+				wponion_plugin_links( WPONION_FILE )
 					->action_link( 'docs', '<a href="https://docs.wponion.com">' . __( 'Documentation' ) . '</a>' )
 					->action_link( 'demo', __( 'Demo' ), 'https://wponion.com/demo' )
 					->row_link( __( 'Support' ), 'https://github.com/wponion' )
