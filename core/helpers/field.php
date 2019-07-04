@@ -664,7 +664,7 @@ if ( ! function_exists( 'wponion_get_field_unique_html' ) ) {
 	 */
 	function wponion_get_field_unique_html( $unique ) {
 		$unique = ( ! is_array( $unique ) ) ? explode( '/', $unique ) : $unique;
-		$return = $unique;
+		$return = '';
 		if ( is_array( $unique ) && ! empty( array_filter( $unique ) ) ) {
 			$unique  = array_filter( $unique );
 			$current = current( $unique );

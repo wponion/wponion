@@ -3,7 +3,7 @@
 namespace WPOnion\Ajax;
 
 use WPOnion\Bridge\Ajax;
-use WPOnion\Utils\Icons;
+use WPOnion\Icons;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -93,10 +93,10 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 				$html = '<div class="wponion-icon-picker-model-header">';
 				$html .= '<input type="text" placeholder="' . __( 'Search Icon', 'wponion' ) . '"/>';
 				if ( wponion_is_array( $libs ) && count( $libs ) > 1 ) {
-					$select = wpo_field( 'select', false )
+					$select = wpo_field( 'select' )
 						->options( $libs )
 						->only_field( true );
-					$html   .= $select->render( $selected_lib );
+					$html .= $select->render( $selected_lib );
 				}
 				$html .= '</div>';
 				$html .= '<div class="wponion-icon-picker-container-scroll">';

@@ -68,7 +68,7 @@ if ( ! function_exists( 'wpo_help' ) ) {
 	 * @param bool  $element
 	 * @param bool  $localize
 	 *
-	 * @return array|string|\WPOnion\Utils\Util
+	 * @return array|string|\WPOnion\Util
 	 * @uses \wponion_tooltip()
 	 */
 	function wpo_help( $content = null, $args = array(), $element = false, $localize = true ) {
@@ -83,7 +83,7 @@ if ( ! function_exists( 'wpo_tooltip' ) ) {
 	 * @param bool  $element
 	 * @param bool  $localize
 	 *
-	 * @return array|string|\WPOnion\Utils\Util
+	 * @return array|string|\WPOnion\Util
 	 */
 	function wpo_tooltip( $content = null, $args = array(), $element = false, $localize = true ) {
 		return wpo_help( $content, $args, $element, $localize );
@@ -108,7 +108,7 @@ if ( ! function_exists( 'wpo_ajax' ) ) {
 	 * @param array       $args
 	 * @param bool|string $element
 	 *
-	 * @return string|\WPOnion\Utils\Util
+	 * @return string|\WPOnion\Util
 	 * @uses \wponion_inline_ajax()
 	 */
 	function wpo_ajax( $args = array(), $element = false ) {
@@ -122,7 +122,7 @@ if ( ! function_exists( 'wpo_image' ) ) {
 	 * @param bool|string $full_src
 	 * @param bool|string $element
 	 *
-	 * @return bool|string|\WPOnion\Utils\Util
+	 * @return bool|string|\WPOnion\Util
 	 * @uses \wponion_image_popup()
 	 */
 	function wpo_image( $src = false, $full_src = false, $element = false ) {

@@ -1,12 +1,12 @@
 <?php
 
-namespace WPOnion\Utils;
+namespace WPOnion;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Utils\Icons' ) ) {
+if ( ! class_exists( '\WPOnion\Icons' ) ) {
 	/**
 	 * Class Icons
 	 *
@@ -30,17 +30,17 @@ if ( ! class_exists( '\WPOnion\Utils\Icons' ) ) {
 		protected static $icons = array();
 
 		/**
-		 * @param array|\WPOnion\Utils\Icon $instance_or_args
+		 * @param array|\WPOnion\Icon $instance_or_args
 		 *
 		 * @static
-		 * @return \WPOnion\Utils\Icon
+		 * @return \WPOnion\Icon
 		 */
 		public static function add( $instance_or_args ) {
-			if ( ! $instance_or_args instanceof Icon ) {
-				$instance_or_args = new Icon( $instance_or_args );
+			if ( ! $instance_or_args instanceof \WPOnion\Icon ) {
+				$instance_or_args = new \WPOnion\Icon( $instance_or_args );
 			}
 			self::$instances[ $instance_or_args->slug() ] = $instance_or_args;
-			self::$icons[ $instance_or_args->slug() ]    = $instance_or_args->name();
+			self::$icons[ $instance_or_args->slug() ]     = $instance_or_args->name();
 			return $instance_or_args;
 		}
 
@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPOnion\Utils\Icons' ) ) {
 		 *
 		 * @param $icon_name
 		 *
-		 * @return array|\WPOnion\Utils\Icon|bool
+		 * @return array|\WPOnion\Icon|bool
 		 * @static
 		 */
 		public static function get( $icon_name ) {

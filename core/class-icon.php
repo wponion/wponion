@@ -1,6 +1,6 @@
 <?php
 
-namespace WPOnion\Utils;
+namespace WPOnion;
 
 use WPOnion\Traits\Class_Options;
 
@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-if ( ! class_exists( '\WPOnion\Utils\Icon' ) ) {
+if ( ! class_exists( '\WPOnion\Icon' ) ) {
 	/**
 	 * Class Icon
 	 *
