@@ -1,12 +1,11 @@
 <?php
-/**
- * Last Updated : 04/07/2019 - 09:31:17:am
- */
+/* Last Updated : 04/07/2019 - 02:03:47:pm */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-return array(
+wponion_add_icon_library( array(
 	'name'       => 'Box Icons',
 	'slug'       => 'boxicons',
 	'assets'     => 'boxicons',
@@ -1081,4 +1080,4 @@ return array(
 		'bx bxs-zap',
 		'bx bxs-zoom-in',
 	),
-);
+) )->register();

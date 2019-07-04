@@ -1,12 +1,11 @@
 <?php
-/**
- * Last Updated : 04/07/2019 - 09:31:13:am
- */
+/* Last Updated : 04/07/2019 - 02:03:42:pm */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-return array(
+wponion_add_icon_library( array(
 	'name'       => 'FontAwesome 4',
 	'slug'       => 'fontawesome4',
 	'assets'     => 'fontawesome4',
@@ -690,4 +689,4 @@ return array(
 		'fa fa-wpexplorer',
 		'fa fa-meetup',
 	),
-);
+) )->register();

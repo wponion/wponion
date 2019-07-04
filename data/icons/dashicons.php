@@ -1,12 +1,11 @@
 <?php
-/**
- * Last Updated : 04/07/2019 - 09:31:10:am
- */
+/* Last Updated : 04/07/2019 - 02:03:40:pm */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-return array(
+wponion_add_icon_library( array(
 	'name'       => 'Dashicons',
 	'slug'       => 'dashicons',
 	'assets'     => 'dashicons',
@@ -293,4 +292,4 @@ return array(
 		'dashicons dashicons-share1',
 		'dashicons dashicons-welcome-edit-page',
 	),
-);
+) )->register();

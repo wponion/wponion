@@ -1,12 +1,11 @@
 <?php
-/**
- * Last Updated : 04/07/2019 - 09:31:15:am
- */
+/* Last Updated : 04/07/2019 - 02:03:45:pm */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-return array(
+wponion_add_icon_library( array(
 	'name'       => 'Foundation',
 	'slug'       => 'foundation',
 	'assets'     => 'foundation',
@@ -298,4 +297,4 @@ return array(
 		'fi fi-zoom-in',
 		'fi fi-zoom-out',
 	),
-);
+) )->register();
