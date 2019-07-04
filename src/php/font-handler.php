@@ -67,19 +67,23 @@ foreach ( $fonts as $framework => $data ) {
 			'slug'       => $slug,
 			'assets'     => ( isset( $data['assets'] ) ) ? $data['assets'] : $framework,
 			'css_prefix' => ( isset( $data['prefix'] ) ) ? $data['prefix'] : false,
-			'icons'      => $result,
 		), true );
 		$file_content = preg_replace( '/[0-9]+ \=\>/i', '', $file_content );
+		$result       = preg_replace( '/[0-9]+ \=\>/i', '', var_export( $result, true ) );
+		$result       = '->add(' . $result . ');';
+
+		$file_content = "wponion_add_icon_library($file_content)->register()$result";
+
+
 		file_put_contents( __DIR__ . '/../../data/icons/' . $slug . '.php', <<<PHPCODE
 <?php
-/**
- * Last Updated : $last_updated
- */
+/* Last Updated : $last_updated */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-return $file_content;
+$file_content
 
 PHPCODE
 		);
