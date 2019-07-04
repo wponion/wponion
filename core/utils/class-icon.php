@@ -46,6 +46,16 @@ if ( ! class_exists( '\WPOnion\Utils\Icon' ) ) {
 		}
 
 		/**
+		 * registers With WPOnion Icon Handler.
+		 *
+		 * @return $this
+		 */
+		public function register() {
+			Icons::add( $this );
+			return $this;
+		}
+
+		/**
 		 * @return mixed
 		 */
 		public function slug() {
@@ -86,16 +96,29 @@ if ( ! class_exists( '\WPOnion\Utils\Icon' ) ) {
 		}
 
 		/**
+		 * Returns CSS Prefix.
+		 *
+		 * @return mixed
+		 */
+		public function css_prefix() {
+			return $this->option( 'css_prefix' );
+		}
+
+		/**
 		 * @param string $icon
 		 * @param array  $args
 		 *
 		 * @return $this
 		 */
 		public function add( $icon = '', $args = array() ) {
-			$this->set_option( 'icons/' . $icon, wp_parse_args( $args, array(
-				'title'  => $icon,
-				'search' => array(),
-			) ) );
+			if ( empty( $args ) ) {
+				$this->set_option( 'icons/' . $icon, $icon );
+			} else {
+				$this->set_option( 'icons/' . $icon, wp_parse_args( $args, array(
+					'title'  => $icon,
+					'search' => array(),
+				) ) );
+			}
 			return $this;
 		}
 	}
