@@ -111,14 +111,10 @@ if ( ! class_exists( '\WPOnion\Utils\Icon' ) ) {
 		 * @return $this
 		 */
 		public function add( $icon = '', $args = array() ) {
-			if ( empty( $args ) ) {
-				$this->set_option( 'icons/' . $icon, $icon );
-			} else {
-				$this->set_option( 'icons/' . $icon, wp_parse_args( $args, array(
-					'title'  => $icon,
-					'search' => array(),
-				) ) );
-			}
+			$this->set_option( 'icons/' . $icon, wp_parse_args( $args, array(
+				'title'  => $icon,
+				'search' => array(),
+			) ) );
 			return $this;
 		}
 	}
