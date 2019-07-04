@@ -81,7 +81,6 @@ if ( ! function_exists( 'wponion_is_regex' ) ) {
 	}
 }
 
-
 if ( ! function_exists( 'wponion_is_mac_id' ) ) {
 	/**
 	 * Checks if given value is a ip address.
@@ -95,16 +94,15 @@ if ( ! function_exists( 'wponion_is_mac_id' ) ) {
 	}
 }
 
-
-if ( ! function_exists( 'wponion_is_domain' ) ) {
+if ( ! function_exists( 'wponion_is_valid_html' ) ) {
 	/**
-	 * Checks if given value is a ip address.
+	 * Checks if given string is valid html or not.
 	 *
-	 * @param $value
+	 * @param $string
 	 *
-	 * @return bool|string
+	 * @return bool
 	 */
-	function wponion_is_domain( $value ) {
-		return ( false === filter_var( $value, FILTER_VALIDATE_DOMAIN ) ) ? __( 'Enter A Valid Domain Name', 'wponion' ) : true;
+	function wponion_is_valid_html( $string ) {
+		return strip_tags( $string ) !== $string ? true : false;
 	}
 }

@@ -110,3 +110,14 @@ if ( ! function_exists( 'wponion_image_popup' ) ) {
 		return $instance->image_popup( $image_src, $full_size, $element );
 	}
 }
+
+if ( ! function_exists( 'wponion_add_icon_library' ) ) {
+	/**
+	 * @param $args
+	 *
+	 * @return \WPOnion\Utils\Icon
+	 */
+	function wponion_add_icon_library( $args ) {
+		return new \WPOnion\Utils\Icon( $args );
+	}
+}
