@@ -1,18 +1,16 @@
 <?php
 /**
- * @version: 2.0
- * @package: wponion
  * @copyright: 2018 Varun Sridharan
  * @author: Varun Sridharan <varunsridharan23@gmail.com>
+ * @package: wponion
  * @link: http://github.com/wponion
  * @license: GPL V3 OR Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- * Initial version created 05-05-2018 / 03:38 PM
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '1.3.1' );
+defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '1.3.2' );
 defined( 'WPONION_CDN_VERSION' ) or define( 'WPONION_CDN_VERSION', '1.2' );
 defined( 'WPONION_CDN_URL' ) or define( 'WPONION_CDN_URL', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support' );
 defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', 'WPOnion' );
