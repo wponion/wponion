@@ -1,17 +1,4 @@
 <?php
-/**
- *
- * Project : wponion
- * Date : 26-07-2018
- * Time : 03:38 PM
- * File : wponion.php
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @package wponion
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -26,28 +13,31 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 	 */
 	final class WPOnion_Loader {
 		/**
-		 * Variable to store VSP_Framework_Loader Class instance
+		 * Stores Loader Instance.
 		 *
 		 * @var \WPOnion_Loader
+		 * @static
 		 */
 		public static $_instance = null;
 
 		/**
-		 * Stores the loaded vsp framework information
+		 * Stores Framework Informations.
 		 *
 		 * @var array
+		 * @static
 		 */
 		public static $_loaded = array();
 
 		/**
-		 * data
+		 * Stores Data.
 		 *
 		 * @var array
+		 * @static
 		 */
 		public static $data = array();
 
 		/**
-		 * VSP_Framework_Loader constructor.
+		 * WPOnion_Loader constructor.
 		 */
 		public function __construct() {
 			add_action( 'plugins_loaded', [ &$this, 'load_framework' ], -1 );
@@ -61,13 +51,12 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 			$info           = ( isset( self::$data[ $latest_version ] ) ) ? self::$data[ $latest_version ] : [];
 
 			if ( empty( $info ) ) {
-				$msg = base64_encode( wp_json_encode( self::$data ) );
-				$ms  = __( 'Unable To Load WPOnion Framework. Please Contact The Author', 'wponion' );
-				$ms  = $ms . '<p style="word-break: break-all;"> <strong>' . __( 'ERROR ID : ', 'wponion' ) . '</strong>' . $msg . '</p>';
-				wp_die( $ms );
+				$ms = __( 'Unable To Load WPOnion Framework. Please Contact The Author', 'wponion' );
+				wp_die( $ms . '<p style="word-break: break-all;"> <strong>' . __( 'ERROR ID : ', 'wponion' ) . '</strong>' . base64_encode( wp_json_encode( self::$data ) ) . '</p>' );
 			}
 
 			if ( ! version_compare( PHP_VERSION, '5.6', '>=' ) ) {
+				// translators: 1. Added PHP Version
 				$msg = sprintf( __( 'WPOnion incompatible with PHP Version %2$s. Please Install/Upgrade PHP To %1$s or Higher ', 'wponion' ), '<strong>5.6</strong>', '<code>' . PHP_VERSION . '</code>' );
 				wp_die( $msg );
 			}
@@ -115,8 +104,8 @@ if ( ! function_exists( 'wponion_load' ) ) {
 	 * Adds Passed Plugin path to the list array which later used to compare and
 	 * load the framework from a plugin which has the latest version of framework
 	 *
-	 * @param bool   $version
 	 * @param string $framework_path
+	 * @param bool   $version
 	 */
 	function wponion_load( $framework_path = __DIR__, $version = false ) {
 		WPOnion_Loader::instance()

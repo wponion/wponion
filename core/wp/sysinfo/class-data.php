@@ -305,7 +305,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 
 			self::$status[ __( 'WPOnion', 'wponion' ) ] = array(
 				__( 'Loader File', 'wponion' )      => $main_file,
-				__( 'Loaded Version', 'wponion' )   => wponion()->version(),
+				__( 'Loaded Version', 'wponion' )   => WPONION_VERSION,
 				__( 'Loaded Path', 'wponion' )      => wponion()->path(),
 				__( 'Avaiable Version', 'wponion' ) => $version,
 			);

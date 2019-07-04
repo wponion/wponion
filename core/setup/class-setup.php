@@ -17,7 +17,15 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	 * @since 1.0
 	 */
 	final class Setup extends Addons {
+		/**
+		 * Stores Vendor Related Libs Inside WPOnion.
+		 *
+		 * @var array
+		 * @access
+		 * @static
+		 */
 		private static $vendor_libs = array();
+
 		/**
 		 * @var bool
 		 * @access
@@ -60,11 +68,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 */
 		public static function init() {
 			self::setup_remaps();
-			self::$vendor_libs = array(
-				'WP_Background_Process' => wponion()->path( 'core/vendors/a5hleyrich/wp-background-processing/wp-background-process.php' ),
-				'WP_Async_Request'      => wponion()->path( 'core/vendors/a5hleyrich/wp-background-processing/wp-async-request.php' ),
-				'Parsedown'             => wponion()->path( 'core/vendors/erusev/parsedown.php' ),
-			);
+			self::$vendor_libs = array( 'Parsedown' => wponion()->path( 'core/vendors/erusev/parsedown.php' ) );
 			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), -1 );
 			self::load_required_files();
 		}
@@ -83,15 +87,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			require_once wponion()->path( 'core/class-themes.php' );
 			require_once wponion()->path( 'core/class-assets.php' );
 			require_once wponion()->path( 'core/class-shortcodes.php' );
-
 			require_once wponion()->path( 'core/class-core-ajax.php' );
 
-			/**
-			 * This Hook Fires Before Integrations Files Loads.
-			 */
 			do_action( 'wponion_core_loaded' );
-
-			do_action( 'wponion_integrations_loaded' );
 
 			do_action( 'wponion_before_addons_load' );
 			self::load_addons();
@@ -107,22 +105,22 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		public static function on_wponion_loaded() {
 			\wponion_admin_notices();
 
-			if ( is_admin() ) {
-				if ( file_exists( WP_CONTENT_DIR . '/plugins/wponion/wponion.php' ) ) {
-					wponion_plugin_links( wponion()->file() )
-						->action_link( 'docs', '<a href="https://docs.wponion.com" class="wpo-text-success wpo-font-weight-bold">' . __( 'Documentation' ) . '</a>' )
-						->action_link( 'demo', __( 'Demo' ), 'https://wponion.com/demo' )
-						->row_link( __( 'Support' ), 'https://github.com/wponion' )
-						->row_link( __( 'Homepage' ), 'https://wponion.com' )
-						->row_link( __( 'Rate the plugin ★★★★★' ), 'https://wordpress.org/support/plugin/wponion/reviews/#new-post' );
-				}
+			if ( is_admin() && file_exists( WP_CONTENT_DIR . '/plugins/wponion/wponion.php' ) ) {
+				wponion_plugin_links( WPONION_FILE )
+					->action_link( 'docs', '<a href="https://docs.wponion.com">' . __( 'Documentation' ) . '</a>' )
+					->action_link( 'demo', __( 'Demo' ), 'https://wponion.com/demo' )
+					->row_link( __( 'Support' ), 'https://github.com/wponion' )
+					->row_link( __( 'Homepage' ), 'https://wponion.com' )
+					->row_link( __( 'Rate the plugin ★★★★★' ), 'https://wordpress.org/support/plugin/wponion/reviews/#new-post' );
 			}
 
 			self::register_core_fields();
 
+			do_action( 'wponion_integrations_before_loaded' );
 			if ( wp_is_plugin_active( 'elementor/elementor.php' ) ) {
 				Integrations\Page_Builders\Elementor::init();
 			}
+			do_action( 'wponion_integrations_loaded' );
 
 			do_action( 'wponion_init' );
 		}
@@ -146,10 +144,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module-fields/' ), array( 'prepend' => true ) );
 
 			self::$core_autoloader = new Autoloader( 'WPOnion', wponion()->path( 'core/' ), array(
-				'exclude' => array(
-					'WPOnion\Field',
-					'WPOnion\Module_Fields',
-				),
+				'exclude' => array( 'WPOnion\Field', 'WPOnion\Module_Fields' ),
 			) );
 
 			self::$builder_autoloader = new Autoloader( 'WPO', wponion()->path( 'builder/' ), array(

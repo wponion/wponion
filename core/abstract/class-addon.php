@@ -2,6 +2,8 @@
 
 namespace WPOnion;
 
+use WPOnion\Traits\Self_Instance;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -15,6 +17,8 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 	 * @since 1.0
 	 */
 	abstract class Addon {
+		use Self_Instance;
+
 		/**
 		 * Stores Addon File.
 		 *
@@ -46,14 +50,6 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 		protected $url = false;
 
 		/**
-		 * Stores All Instance.
-		 *
-		 * @var array
-		 * @access
-		 */
-		protected static $instances = array();
-
-		/**
 		 * Stores Version Information.
 		 *
 		 * @var null
@@ -75,18 +71,6 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 			$this->dir     = plugin_dir_path( $file );
 			$this->url     = plugin_dir_url( $file );
 			add_action( 'wponion_register_assets_after', array( &$this, 'register_assets' ) );
-		}
-
-		/**
-		 * Stores And Retrive An Instance.
-		 *
-		 * @return $this|static|\WPOnion\Addon
-		 */
-		public static function instance() {
-			if ( ! isset( self::$instances[ static::class ] ) ) {
-				self::$instances[ static::class ] = new static();
-			}
-			return self::$instances[ static::class ];
 		}
 
 		/**

@@ -78,6 +78,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 			$data = $field->init_field( $values, array(
 				'unique' => $unique,
 				'module' => $this->post( 'module' ),
+				'hash'   => implode( '/', $this->builder_path() ),
 			) );
 			if ( $data instanceof Modal ) {
 				$this->json_success( array(

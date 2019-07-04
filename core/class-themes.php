@@ -25,17 +25,17 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 		/**
 		 * Registers A New Theme.
 		 *
-		 * @param string $theme_name
+		 * @param string $name
 		 * @param array  $supports
 		 * @param string $callback
 		 *
 		 * @return bool
 		 * @static
 		 */
-		public static function register( $theme_name = '', $supports = array(), $callback = '' ) {
-			if ( ! isset( self::$themes[ $theme_name ] ) ) {
-				self::$themes[ $theme_name ] = array(
-					'name'     => $theme_name,
+		public static function register( $name = '', $supports = array(), $callback = '' ) {
+			if ( ! isset( self::$themes[ $name ] ) ) {
+				self::$themes[ $name ] = array(
+					'name'     => $name,
 					'supports' => $supports,
 					'callback' => $callback,
 				);
@@ -54,10 +54,8 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 		 * @static
 		 */
 		public static function is_support( $theme_name = '', $module = '' ) {
-			if ( isset( self::$themes[ $theme_name ] ) ) {
-				if ( isset( self::$themes[ $theme_name ]['supports'][ $module ] ) || in_array( $module, self::$themes[ $theme_name ]['supports'], true ) ) {
-					return true;
-				}
+			if ( isset( self::$themes[ $theme_name ] ) && ( isset( self::$themes[ $theme_name ]['supports'][ $module ] ) || in_array( $module, self::$themes[ $theme_name ]['supports'], true ) ) ) {
+				return true;
 			}
 			return false;
 		}
@@ -106,16 +104,15 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 		/**
 		 * Handles Theme Callback.
 		 *
-		 * @param string $theme_name
+		 * @param string $name
 		 * @param array  $callback_args
 		 *
-		 * @return bool|string|\WPOnion\Theme_API
+		 * @return bool|\WPOnion\Theme_API
 		 * @static
 		 */
-		public static function callback( $theme_name = '', $callback_args = array() ) {
-			if ( isset( self::$themes[ $theme_name ] ) ) {
-				$callback = self::$themes[ $theme_name ]['callback'];
-				return wponion_callback( $callback, $callback_args );
+		public static function callback( $name = '', $callback_args = array() ) {
+			if ( isset( self::$themes[ $name ] ) ) {
+				return wponion_callback( self::$themes[ $name ]['callback'], $callback_args );
 			}
 			return false;
 		}

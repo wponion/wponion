@@ -2,6 +2,8 @@
 
 namespace WPOnion;
 
+use WPOnion\Traits\Self_Instance;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -15,6 +17,8 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 	 * @since 1.0
 	 */
 	class Core_Ajax extends Bridge {
+		use Self_Instance;
+
 		/**
 		 * Generates Ajax URL.
 		 *
@@ -55,7 +59,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 					do_action( 'wponion_ajax_' . $action );
 				}
 			}
-			wp_die();
+			wp_send_json_error();
 		}
 
 		/**
@@ -89,4 +93,4 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		}
 	}
 }
-return new Core_Ajax;
+return Core_Ajax::instance();

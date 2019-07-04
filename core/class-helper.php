@@ -39,74 +39,6 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
-		 * Gets an array of material-design colors.
-		 *
-		 * @static
-		 * @access public
-		 *
-		 * @param string $context Allows us to get subsets of the palette.
-		 *
-		 * @return array
-		 */
-		public static function get_material_design_colors( $context = 'primary' ) {
-			$colors = self::get_data( 'material_colors' );
-			switch ( $context ) {
-				case '50':
-				case '100':
-				case '200':
-				case '300':
-				case '400':
-				case '500':
-				case '600':
-				case '700':
-				case '800':
-				case '900':
-				case 'A100':
-				case 'A200':
-				case 'A400':
-				case 'A700':
-					$key = absint( $context ) / 100;
-					if ( 'A100' === $context ) {
-						$key = 10;
-						unset( $colors['grey'] );
-					} elseif ( 'A200' === $context ) {
-						$key = 11;
-						unset( $colors['grey'] );
-					} elseif ( 'A400' === $context ) {
-						$key = 12;
-						unset( $colors['grey'] );
-					} elseif ( 'A700' === $context ) {
-						$key = 13;
-						unset( $colors['grey'] );
-					}
-					unset( $colors['primary'] );
-					$position_colors = array();
-					foreach ( $colors as $color_family ) {
-						if ( isset( $color_family[ $key ] ) ) {
-							$position_colors[] = $color_family[ $key ];
-						}
-					}
-					return $position_colors;
-				case 'all':
-					unset( $colors['primary'] );
-					$all_colors = array();
-					foreach ( $colors as $color_family ) {
-						foreach ( $color_family as $color ) {
-							$all_colors[] = $color;
-						}
-					}
-					return $all_colors;
-				case 'primary':
-					return $colors['primary'];
-				default:
-					if ( isset( $colors[ $context ] ) ) {
-						return $colors[ $context ];
-					}
-					return $colors['primary'];
-			}
-		}
-
-		/**
 		 * @param $type [google/websafe/backup]
 		 *
 		 * @static
@@ -128,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 						$fonts = self::get_data( 'fonts/backups' );
 						break;
 				}
-				wponion_set_cache( 'fonts/' . $type, $fonts );
+				$exception->set( $fonts );
 				return $fonts;
 			}
 		}
@@ -147,7 +79,7 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 				if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
 					$post_types = array_map( 'ucfirst', $post_types );
 				}
-				wponion_set_cache( 'post_types', $post_types );
+				$exception->set( $post_types );
 				return $post_types;
 			}
 		}

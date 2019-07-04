@@ -193,10 +193,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 				$image_src = false;
 			}
 
-			if ( ! empty( $full_size ) ) {
-				$full_size = "data-fullsize='" . $full_size . "' ";
-			}
-
+			$full_size = ( ! empty( $full_size ) ) ? "data-fullsize='" . $full_size . "' " : ' ';
 			$full_size .= '  wponion-img-popup="wponion-img-popup" ';
 
 			$this->handle_element( $element );

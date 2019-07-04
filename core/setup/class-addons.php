@@ -18,9 +18,7 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 		/**
 		 * Stores All Addons List as
 		 * array(
-		 * 'addon_name' => array(
-		 *    'file' => 'version',
-		 * ),
+		 *    'addon_name' => array( 'file' => 'version' )
 		 * );
 		 *
 		 * @var array

@@ -54,7 +54,11 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 			if ( $type ) {
-				$class    = class_exists( '\WPO\Fields\\' . $type ) ? '\WPO\Fields\\' . $type : wponion_get_field_class_remap( '\WPO\Fields\\' . $type, false );
+				$class = wponion_get_field_class_remap( '\WPO\Fields\\' . $type, false );
+				if ( false === $class ) {
+					$class = class_exists( '\WPO\Fields\\' . $type ) ? '\WPO\Fields\\' . $type : false;
+				}
+
 				$instance = ( false !== $class ) ? new $class( $id, $title, $args ) : new Field( $type, $id, $title, $args );
 				return self::_field_after_create( $type, $instance );
 			}
