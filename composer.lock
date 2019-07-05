@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "e3e27c534bcd52a41f4ba43b81ab92cb",
@@ -43,23 +43,26 @@
         },
         {
             "name": "varunsridharan/wp-conditional-logic",
-            "version": "1.0",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/wp-conditional-logic.git",
-                "reference": "71d2dbe3fa0a05129758cc15795ffdb65a5b1536"
+                "reference": "56a6e973d7804e5594fec51d428f5a8483239bf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/wp-conditional-logic/zipball/71d2dbe3fa0a05129758cc15795ffdb65a5b1536",
-                "reference": "71d2dbe3fa0a05129758cc15795ffdb65a5b1536",
+                "url": "https://api.github.com/repos/varunsridharan/wp-conditional-logic/zipball/56a6e973d7804e5594fec51d428f5a8483239bf4",
+                "reference": "56a6e973d7804e5594fec51d428f5a8483239bf4",
                 "shasum": ""
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Varunsridharan\\WordPress\\": "./src"
-                }
+                },
+                "files": [
+                    "src/functions.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -75,7 +78,7 @@
             ],
             "description": "Simple WordPress Library To Evaluate / Handle Conditional Logic.",
             "homepage": "https://github.com/varunsridharan/wp-conditional-logic/",
-            "time": "2019-02-08T05:12:02+00:00"
+            "time": "2019-05-10T15:23:43+00:00"
         },
         {
             "name": "varunsridharan/wp-dependencies",
