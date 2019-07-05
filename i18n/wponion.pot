@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.2.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wponion\n"
+"Project-Id-Version: WPOnion 1.3.1\n"
+"Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-06-16T08:14:51+05:30\n"
+"POT-Creation-Date: 2019-07-05T19:34:33+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -41,123 +41,272 @@ msgstr ""
 msgid "A Container Cannot Have Both Field & Containers"
 msgstr ""
 
-#: core/abstract/class-field.php:192
+#: core/abstract/class-ajax.php:52
+msgid "Unable To Find The Module"
+msgstr ""
+
+#: core/abstract/class-ajax.php:56
+#: core/abstract/class-ajax.php:383
+msgid "Unable To Find The Field"
+msgstr ""
+
+#: core/abstract/class-ajax.php:347
+msgid "Module Not Found"
+msgstr ""
+
+#: core/abstract/class-ajax.php:347
+#: core/abstract/class-ajax.php:359
+msgid "Module Callback / Registry Function Not Found"
+msgstr ""
+
+#: core/abstract/class-ajax.php:359
+msgid "Module Instance Not Found"
+msgstr ""
+
+#: core/abstract/class-ajax.php:379
+msgid "Field Not Found"
+msgstr ""
+
+#: core/abstract/class-ajax.php:381
+msgid "Unable To Fetch The Field"
+msgstr ""
+
+#: core/abstract/class-field.php:198
 msgid "Raw Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:193
+#: core/abstract/class-field.php:199
 msgid "Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:194
+#: core/abstract/class-field.php:200
 msgid "Field Value"
 msgstr ""
 
-#: core/abstract/class-field.php:195
+#: core/abstract/class-field.php:201
 msgid "Unique"
 msgstr ""
 
-#: core/abstract/class-field.php:196
+#: core/abstract/class-field.php:202
 msgid "Module"
 msgstr ""
 
-#: core/abstract/class-field.php:314
+#: core/abstract/class-field.php:324
 msgid "Field Rendered In"
 msgstr ""
 
-#: core/abstract/class-field.php:314
+#: core/abstract/class-field.php:324
 msgid "Seconds"
 msgstr ""
 
-#: core/abstract/class-field.php:571
+#: core/abstract/class-field.php:581
 msgid "Field Errors"
 msgstr ""
 
-#: core/ajax/class-icon-picker.php:56
-msgid "Search Icon"
-msgstr ""
-
-#: core/ajax/class-icon-picker.php:88
+#: core/ajax/class-icon-picker.php:79
+#: core/ajax/class-icon-picker.php:134
 msgid "Icon Library Not found"
 msgstr ""
 
-#: core/ajax/class-save-settings.php:47
-#: core/ajax/class-save-settings.php:51
-#: core/ajax/class-save-settings.php:56
+#: core/ajax/class-icon-picker.php:94
+msgid "Search Icon"
+msgstr ""
+
+#: core/ajax/class-import-export.php:26
+msgid "Unknown Import / Export Action"
+msgstr ""
+
+#: core/ajax/class-import-export.php:30
+msgid "Invalid Backup To Restore."
+msgstr ""
+
+#: core/ajax/class-import-export.php:57
+msgid "Invalid Backup Content"
+msgstr ""
+
+#: core/ajax/class-import-export.php:57
+msgid "Unable To Decode Provided Backup Content"
+msgstr ""
+
+#: core/ajax/class-import-export.php:64
+msgid "Backup Imported"
+msgstr ""
+
+#: core/ajax/class-import-export.php:66
+msgid "Error !"
+msgstr ""
+
+#: core/ajax/class-import-export.php:66
+msgid "Unable To Import Backup. Please Try Again"
+msgstr ""
+
+#: core/ajax/class-import-export.php:73
+msgid "Backup Created"
+msgstr ""
+
+#: core/ajax/class-import-export.php:77
+msgid "Backup Creation Failed"
+msgstr ""
+
+#: core/ajax/class-import-export.php:77
+msgid "Unknown Error Occured While Creating Backup"
+msgstr ""
+
+#: core/ajax/class-import-export.php:82
+#: core/ajax/class-import-export.php:90
+#: core/ajax/class-import-export.php:95
+#: core/ajax/class-import-export.php:100
+#: core/ajax/class-import-export.php:105
+#: core/ajax/class-import-export.php:109
+msgid "Backup Not Found"
+msgstr ""
+
+#: core/ajax/class-import-export.php:100
+msgid "Deletion Failed"
+msgstr ""
+
+#: core/ajax/class-import-export.php:113
+msgid "Backup Restored "
+msgstr ""
+
+#: core/ajax/class-import-export.php:113
+msgid "Please Reload The Page."
+msgstr ""
+
+#: core/ajax/class-import-export.php:117
+msgid "Restore Failed"
+msgstr ""
+
+#: core/ajax/class-import-export.php:117
+msgid "Restore Will Fail If both database & backup values are same"
+msgstr ""
+
+#: core/ajax/class-modal-fields.php:26
+msgid "Unique Key Not Found"
+msgstr ""
+
+#: core/ajax/class-modal-fields.php:27
+msgid "Modal Action Not Found"
+msgstr ""
+
+#: core/ajax/class-modal-fields.php:88
+msgid "Modal Field Not Found"
+msgstr ""
+
+#: core/ajax/class-save-metabox.php:34
+msgid "Invalid Metabox"
+msgstr ""
+
+#: core/ajax/class-save-metabox.php:35
+msgid "Invalid Post ID"
+msgstr ""
+
+#: core/ajax/class-save-metabox.php:50
+msgid "Metabox Not Found"
+msgstr ""
+
+#: core/ajax/class-save-metabox.php:50
+msgid "Unable To Find The Metabox"
+msgstr ""
+
+#: core/ajax/class-save-settings.php:50
+#: core/ajax/class-save-settings.php:54
+#: core/ajax/class-save-settings.php:59
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#. translators:
-#: core/class-assets.php:209
-msgid "If you are developing offline, please download and install the <a href=\"%s\" target=\"_blank\">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning"
+#: core/ajax/class-save-settings.php:65
+msgid "You can't do that!"
 msgstr ""
 
-#: core/class-assets.php:213
-msgid "WPOnion Framework Warning"
+#: core/ajax/class-sysinfo-emailer.php:36
+msgid "Unknown Error!"
+msgstr ""
+
+#: core/ajax/class-sysinfo-emailer.php:39
+msgid "Developer Email Not Found"
+msgstr ""
+
+#: core/ajax/class-sysinfo-emailer.php:39
+msgid "Unable To Find Plugin's Developer Contact."
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:144
+#: core/class-localize-api.php:136
 msgid "This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` "
 msgstr ""
 
-#: core/class-localize-api.php:145
+#: core/class-localize-api.php:137
 msgid "**PHP Args:** is the array which is passed to the framework in php "
 msgstr ""
 
-#: core/class-localize-api.php:146
+#: core/class-localize-api.php:138
 msgid "**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it"
 msgstr ""
 
-#: core/class-localize-api.php:155
+#: core/class-localize-api.php:148
 msgid "As JSON"
 msgstr ""
 
-#: core/class-localize-api.php:156
+#: core/class-localize-api.php:149
 msgid "Global WPOnion JSON Output"
 msgstr ""
 
-#: core/class-localize-api.php:157
+#: core/class-localize-api.php:150
 msgid "PHP Args"
 msgstr ""
 
-#: core/class-localize-api.php:158
+#: core/class-localize-api.php:151
 msgid "JS Args"
 msgstr ""
 
-#: core/class-localize-api.php:159
-msgid "Unknown Error Occured. Please Try Again."
+#: core/class-localize-api.php:152
+msgid "Unknown Error. Try Again"
 msgstr ""
 
-#: core/class-localize-api.php:160
+#: core/class-localize-api.php:153
 msgid "Click To View Field Debug Info"
 msgstr ""
 
-#: core/class-localize-api.php:161
+#: core/class-localize-api.php:154
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
-#: core/class-localize-api.php:162
-#: fields/accordion/class-accordion.php:47
+#: core/class-localize-api.php:155
+#: fields/accordion/class-accordion.php:37
+#: fields/import-export/class-backup-handler.php:127
 msgid "Delete"
 msgstr ""
 
-#: core/class-localize-api.php:163
+#: core/class-localize-api.php:156
 msgid "Processing ..."
 msgstr ""
 
-#: core/class-localize-api.php:164
+#: core/class-localize-api.php:157
+#: fields/import-export/class-backup-handler.php:126
 msgid "Restore"
 msgstr ""
 
-#: core/class-localize-api.php:165
+#: core/class-localize-api.php:158
 #: core/modules/settings/class-settings.php:284
 #: core/modules/settings/class-settings.php:286
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-localize-api.php:166
+#: core/class-localize-api.php:159
 msgid "Email Sent"
+msgstr ""
+
+#: core/class-localize-api.php:160
+msgid "Copied"
+msgstr ""
+
+#: core/class-localize-api.php:161
+msgid "Click To Copy"
+msgstr ""
+
+#: core/class-localize-api.php:162
+msgid "Success"
 msgstr ""
 
 #: core/helpers/assets.php:92
@@ -241,96 +390,24 @@ msgid "Right Sidebar"
 msgstr ""
 
 #. translators: Creates a msg says that <p>requested field type not found</p>
-#: core/helpers/field.php:216
+#: core/helpers/field.php:221
 msgid "%1$s Requested Field Type %2$s  Is Not Registed With WPOnion %3$s"
 msgstr ""
 
-#: core/helpers/field.php:235
+#: core/helpers/field.php:240
 msgid "Callback Arguments"
 msgstr ""
 
 #. translators:
-#: core/helpers/field.php:242
+#: core/helpers/field.php:247
 msgid "<code>%s</code> Field Class Not Found."
 msgstr ""
 
-#: core/helpers/field.php:464
-msgid "Regular"
-msgstr ""
-
-#: core/helpers/field.php:465
-msgid "Italic"
-msgstr ""
-
-#: core/helpers/field.php:466
-msgid "700"
-msgstr ""
-
-#: core/helpers/field.php:467
-msgid "700 Italic"
-msgstr ""
-
-#: core/helpers/field.php:468
-msgid "inherit"
-msgstr ""
-
-#: core/helpers/field.php:471
-msgid "Arial"
-msgstr ""
-
-#: core/helpers/field.php:472
-msgid "Arial Black"
-msgstr ""
-
-#: core/helpers/field.php:473
-msgid "Comic Sans MS"
-msgstr ""
-
-#: core/helpers/field.php:474
-msgid "Impact"
-msgstr ""
-
-#: core/helpers/field.php:475
-msgid "Lucida Sans Unicode"
-msgstr ""
-
-#: core/helpers/field.php:476
-msgid "Tahoma"
-msgstr ""
-
-#: core/helpers/field.php:477
-msgid "Trebuchet MS"
-msgstr ""
-
-#: core/helpers/field.php:478
-msgid "Verdana"
-msgstr ""
-
-#: core/helpers/field.php:479
-msgid "Courier New"
-msgstr ""
-
-#: core/helpers/field.php:480
-msgid "Lucida Console"
-msgstr ""
-
-#: core/helpers/field.php:481
-msgid "Georgia, serif"
-msgstr ""
-
-#: core/helpers/field.php:482
-msgid "Palatino Linotype"
-msgstr ""
-
-#: core/helpers/field.php:483
-msgid "Times New Roman"
-msgstr ""
-
-#: core/helpers/field.php:597
+#: core/helpers/field.php:565
 msgid "Websafe Fonts"
 msgstr ""
 
-#: core/helpers/field.php:607
+#: core/helpers/field.php:575
 msgid "Google Fonts"
 msgstr ""
 
@@ -352,6 +429,14 @@ msgstr ""
 
 #: core/helpers/validator.php:67
 msgid "Enter A Valid IP Address"
+msgstr ""
+
+#: core/helpers/validator.php:80
+msgid "Enter A Valid Regex"
+msgstr ""
+
+#: core/helpers/validator.php:93
+msgid "Enter A Valid MAC ID"
 msgstr ""
 
 #: core/integrations/page-builders/elementor/class-base.php:87
@@ -386,9 +471,70 @@ msgstr ""
 msgid "No Result Found"
 msgstr ""
 
-#: core/wp/class-wp-list-table.php:81
-#: core/wp/class-wp-list-table.php:137
+#: core/setup/class-setup.php:110
+msgid "Documentation"
+msgstr ""
+
+#: core/setup/class-setup.php:111
+msgid "Demo"
+msgstr ""
+
+#: core/setup/class-setup.php:112
+msgid "Support"
+msgstr ""
+
+#: core/setup/class-setup.php:113
+msgid "Homepage"
+msgstr ""
+
+#: core/setup/class-setup.php:114
+msgid "Rate the plugin ★★★★★"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:80
+#: core/wp/class-wp-list-table.php:139
 msgid "No Items Found"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:282
+#: fields/class-wp-list-table.php:28
+msgid "Search"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:311
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/wp/class-wp-list-table.php:343
+msgid "First page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:349
+msgid "Previous page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:354
+#: core/wp/class-wp-list-table.php:356
+msgid "Current Page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:359
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:364
+msgid "Next page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:370
+msgid "Last page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:445
+msgid "Select All"
 msgstr ""
 
 #: core/wp/sysinfo/class-data.php:30
@@ -697,6 +843,40 @@ msgstr ""
 
 #: core/wp/sysinfo/class-sysinfo.php:76
 msgid "Get system report"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:78
+msgid "Email System Info To The Plugin Developer / Author"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:98
+#: core/wp/sysinfo/class-sysinfo.php:99
+msgid "From Name"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:103
+#: core/wp/sysinfo/class-sysinfo.php:104
+msgid "From Email"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:109
+msgid "Subject"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:114
+msgid "Message"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:117
+msgid "System Information Will Be Attached With Your Message"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:134
+msgid "Reg : [%s] System Information "
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:141
+msgid "Send Sys Info Via Email"
 msgstr ""
 
 #: data/currency.php:9
@@ -1347,11 +1527,83 @@ msgstr ""
 msgid "Zambian kwacha"
 msgstr ""
 
-#: data/icons/dashicons.php:8
-msgid "Dashicons"
+#: data/fonts/websafe.php:9
+msgid "Regular"
 msgstr ""
 
-#: fields/accordion/class-accordion.php:91
+#: data/fonts/websafe.php:10
+msgid "Italic"
+msgstr ""
+
+#: data/fonts/websafe.php:11
+msgid "700"
+msgstr ""
+
+#: data/fonts/websafe.php:12
+msgid "700 Italic"
+msgstr ""
+
+#: data/fonts/websafe.php:13
+msgid "inherit"
+msgstr ""
+
+#: data/fonts/websafe.php:16
+msgid "Arial"
+msgstr ""
+
+#: data/fonts/websafe.php:17
+msgid "Arial Black"
+msgstr ""
+
+#: data/fonts/websafe.php:18
+msgid "Comic Sans MS"
+msgstr ""
+
+#: data/fonts/websafe.php:19
+msgid "Impact"
+msgstr ""
+
+#: data/fonts/websafe.php:20
+msgid "Lucida Sans Unicode"
+msgstr ""
+
+#: data/fonts/websafe.php:21
+msgid "Tahoma"
+msgstr ""
+
+#: data/fonts/websafe.php:22
+msgid "Trebuchet MS"
+msgstr ""
+
+#: data/fonts/websafe.php:23
+msgid "Verdana"
+msgstr ""
+
+#: data/fonts/websafe.php:24
+msgid "Courier New"
+msgstr ""
+
+#: data/fonts/websafe.php:25
+msgid "Lucida Console"
+msgstr ""
+
+#: data/fonts/websafe.php:26
+msgid "Georgia, serif"
+msgstr ""
+
+#: data/fonts/websafe.php:27
+msgid "Palatino Linotype"
+msgstr ""
+
+#: data/fonts/websafe.php:28
+msgid "Times New Roman"
+msgstr ""
+
+#: data/icons/fontawesome5.php:8
+msgid "Fontawesome 5"
+msgstr ""
+
+#: fields/accordion/class-accordion.php:81
 msgid "Accordion"
 msgstr ""
 
@@ -1489,10 +1741,6 @@ msgstr ""
 msgid "You Cannot Add More Than %s"
 msgstr ""
 
-#: fields/class-wp-list-table.php:25
-msgid "Search"
-msgstr ""
-
 #: fields/date-picker/class-date-picker.php:27
 #: fields/date-picker/class-date-picker.php:34
 msgid "From Date"
@@ -1538,25 +1786,26 @@ msgstr ""
 msgid "Clear Gallery"
 msgstr ""
 
-#: fields/group/class-group.php:100
-#: fields/group/class-group.php:212
+#: fields/group/class-group.php:94
+#: fields/group/class-group.php:206
 msgid "Add New"
 msgstr ""
 
-#: fields/group/class-group.php:129
+#: fields/group/class-group.php:123
 msgid "Remove "
 msgstr ""
 
-#: fields/group/class-group.php:145
+#: fields/group/class-group.php:139
 msgid "Group #[count]"
 msgstr ""
 
-#: fields/group/class-group.php:213
+#: fields/group/class-group.php:207
+#: fields/image/class-image.php:66
 #: fields/image/class-image.php:92
 msgid "Remove"
 msgstr ""
 
-#: fields/group/class-group.php:216
+#: fields/group/class-group.php:210
 #: fields/key-value/class-key-value.php:112
 msgid "You Can't Add More.."
 msgstr ""
@@ -1573,6 +1822,38 @@ msgstr ""
 
 #: fields/image/class-image.php:91
 msgid "Select A Image"
+msgstr ""
+
+#: fields/import-export/class-backup-handler.php:91
+msgid "No Backups Found"
+msgstr ""
+
+#: fields/import-export/class-backup-handler.php:125
+msgid "Download"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:50
+msgid "%s Module Is Not Yet Supported In Import / Export Field"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:57
+msgid "Download Backup"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:58
+msgid "Import Backup"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:59
+msgid "Saved Backups"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:60
+msgid "Create Backup"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:61
+msgid "You options have been backed up. You can always restore your options by clicking the <strong>Restore</strong> button below:"
 msgstr ""
 
 #: fields/key-value/class-key-value.php:31
@@ -1603,9 +1884,30 @@ msgstr ""
 msgid "Focus"
 msgstr ""
 
+#: fields/modal/class-modal.php:216
+#: fields/modal/class-modal.php:229
+msgid "Save"
+msgstr ""
+
+#: fields/modal/class-modal.php:217
+msgid "Close"
+msgstr ""
+
+#: fields/modal/class-modal.php:230
+msgid "Cancel"
+msgstr ""
+
+#: fields/modal/class-modal.php:246
+msgid "Open Modal"
+msgstr ""
+
 #: fields/notice/class-notice.php:59
 #: fields/wp-notice/class-wp-notice.php:62
 msgid "Hide"
+msgstr ""
+
+#: fields/options-object/class-options-object.php:17
+msgid "Filed's Module Not Found"
 msgstr ""
 
 #: fields/select/class-select.php:69
@@ -1759,14 +2061,15 @@ msgstr ""
 msgid "Close Panel"
 msgstr ""
 
-#: wponion.php:65
+#: wponion.php:54
 msgid "Unable To Load WPOnion Framework. Please Contact The Author"
 msgstr ""
 
-#: wponion.php:66
+#: wponion.php:55
 msgid "ERROR ID : "
 msgstr ""
 
-#: wponion.php:71
+#. translators: 1. Added PHP Version
+#: wponion.php:60
 msgid "WPOnion incompatible with PHP Version %2$s. Please Install/Upgrade PHP To %1$s or Higher "
 msgstr ""

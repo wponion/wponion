@@ -31,8 +31,8 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 		protected $validate_field_path = false;
 
 		public function run() {
-			$unique  = sanitize_text_field( $this->validate_post( 'unique', __( 'Invalid Metabox' ) ) );
-			$post_id = sanitize_text_field( $this->validate_post( 'wponion_postid', __( 'Invalid Post ID' ) ) );
+			$unique  = sanitize_text_field( $this->validate_post( 'unique', __( 'Invalid Metabox', 'wponion' ) ) );
+			$post_id = sanitize_text_field( $this->validate_post( 'wponion_postid', __( 'Invalid Post ID', 'wponion' ) ) );
 			$metabox = wponion_metabox_registry( $unique );
 
 			if ( $metabox instanceof Metabox ) {
@@ -47,7 +47,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 				$this->json_success( array( 'html' => wponion_catch_output( false ) ) );
 			}
 
-			$this->error( __( 'Metabox Not Found' ), __( 'Unable To Find The Metabox' ) );
+			$this->error( __( 'Metabox Not Found', 'wponion' ), __( 'Unable To Find The Metabox', 'wponion' ) );
 		}
 	}
 }

@@ -23,11 +23,11 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 		 */
 		public function run() {
 			$this->get_module();
-			$action = $this->validate_post( 'import_export_action', __( 'Unknown Import / Export Action' ) );
+			$action = $this->validate_post( 'import_export_action', __( 'Unknown Import / Export Action', 'wponion' ) );
 
 			switch ( $action ) {
 				case 'import':
-					$content = $this->validate_post( 'import_content', __( 'Invalid Backup To Restore.' ) );
+					$content = $this->validate_post( 'import_content', __( 'Invalid Backup To Restore.', 'wponion' ) );
 					$this->import( $content );
 					break;
 				case 'backup':
@@ -54,32 +54,32 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 			$content = json_decode( stripslashes( $content ), true );
 
 			if ( ! empty( json_last_error() ) ) {
-				$this->error( __( 'Invalid Backup Content' ), __( 'Unable To Decode Provided Backup Content' ) );
+				$this->error( __( 'Invalid Backup Content', 'wponion' ), __( 'Unable To Decode Provided Backup Content', 'wponion' ) );
 			}
 
 			$module = $this->get_module();
 			$status = wponion_wp_db()->set( $module->module_db(), $module->unique(), $module->get_id(), $content );
 
 			if ( $status ) {
-				$this->success( __( 'Backup Imported' ) );
+				$this->success( __( 'Backup Imported', 'wponion' ) );
 			}
-			$this->error( __( 'Error !' ), __( 'Unable To Import Backup. Please Try Again' ) );
+			$this->error( __( 'Error !', 'wponion' ), __( 'Unable To Import Backup. Please Try Again', 'wponion' ) );
 		}
 
 		protected function backup() {
 			$module = $this->get_module();
 			$status = Backup_Handler::new_backup( $module->unique(), $module->module_db(), false );
 			if ( $status ) {
-				$this->success( __( 'Backup Created' ), false, array(
+				$this->success( __( 'Backup Created', 'wponion' ), false, array(
 					'html' => Backup_Handler::backup_html( $status ),
 				) );
 			}
-			$this->error( __( 'Backup Creation Failed' ), __( 'Unknown Error Occured While Creating Backup' ) );
+			$this->error( __( 'Backup Creation Failed', 'wponion' ), __( 'Unknown Error Occured While Creating Backup', 'wponion' ) );
 		}
 
 		protected function download() {
 			$module    = $this->get_module();
-			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found' ) );
+			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found', 'wponion' ) );
 			$status    = Backup_Handler::get_backup( $backup_id, $module->unique(), $module->module_db(), $module->get_id() );
 			if ( ! empty( $status ) ) {
 				$this->json_success( array(
@@ -87,34 +87,34 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 					'file_name' => strtolower( sanitize_file_name( $module->unique() . '-' . Backup_Handler::backup_name( $backup_id ) . '.json' ) ),
 				) );
 			}
-			$this->error( __( 'Backup Not Found' ) );
+			$this->error( __( 'Backup Not Found', 'wponion' ) );
 		}
 
 		protected function delete() {
 			$module    = $this->get_module();
-			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found' ) );
+			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found', 'wponion' ) );
 			$status    = Backup_Handler::delete_backup( $backup_id, $module->unique(), $module->module_db(), $module->get_id() );
 			if ( $status ) {
 				$this->json_success();
 			}
-			$this->error( __( 'Deletion Failed' ), __( 'Backup Not Found' ) );
+			$this->error( __( 'Deletion Failed', 'wponion' ), __( 'Backup Not Found', 'wponion' ) );
 		}
 
 		protected function restore() {
 			$module    = $this->get_module();
-			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found' ) );
+			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found', 'wponion' ) );
 			$status    = Backup_Handler::restore_backup( $backup_id, $module->unique(), $module->module_db(), $module->get_id() );
 
 			if ( 'not_found' === $status ) {
-				$this->error( __( 'Backup Not Found' ) );
+				$this->error( __( 'Backup Not Found', 'wponion' ) );
 			}
 
 			if ( $status ) {
-				$this->success( __( 'Backup Restored ' ), __( 'Please Reload The Page.' ), array(
+				$this->success( __( 'Backup Restored ', 'wponion' ), __( 'Please Reload The Page.', 'wponion' ), array(
 					'backup' => Backup_Handler::get_backup( $backup_id, $module->unique(), $module->module_db(), $module->get_id() ),
 				) );
 			}
-			$this->error( __( 'Restore Failed' ), __( 'Restore Will Fail If both database & backup values are same' ) );
+			$this->error( __( 'Restore Failed', 'wponion' ), __( 'Restore Will Fail If both database & backup values are same', 'wponion' ) );
 		}
 	}
 }

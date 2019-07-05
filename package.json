@@ -4,8 +4,6 @@
   "description": "WPOnion Simple & Light Weight Framework For WordPress.",
   "main": "",
   "scripts": {
-    "makepot": "wp-cli i18n make-pot . i18n/wponion.pot --exclude=\"assets/,src/,node_modules/,vendor/\"",
-    "updateicons": "php ./src/php/font-handler.php"
   },
   "keywords": [
     "wordpress",

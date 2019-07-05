@@ -14,7 +14,7 @@ if ( ! class_exists( '\WPOnion\Field\Options_Object' ) ) {
 			$module = $this->module( true );
 			if ( ! method_exists( $module, 'get_db_values' ) ) {
 				$values = array(
-					'not_found'       => __( 'Filed\'s Module Not Found' ),
+					'not_found'       => __( 'Filed\'s Module Not Found', 'wponion' ),
 					'module_name'     => $this->module( false ),
 					'module_instance' => $module,
 				);

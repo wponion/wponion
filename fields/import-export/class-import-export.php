@@ -47,18 +47,18 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 					'large'   => true,
 					'debug'   => false,
 					'type'    => 'wp_notice_error',
-					'content' => sprintf( __( '%s Module Is Not Yet Supported In Import / Export Field' ), $this->module() ),
+					'content' => sprintf( __( '%s Module Is Not Yet Supported In Import / Export Field', 'wponion' ), $this->module() ),
 				), false, false );
 				return;
 			}
 
 			$backup_import_id = $this->js_field_id() . '_backup_import';
 			$backup_export_id = $this->js_field_id() . '_backup_export';
-			$download_label   = __( 'Download Backup' );
-			$import_label     = __( 'Import Backup' );
-			$backups          = __( 'Saved Backups' );
-			$create_backup    = __( 'Create Backup' );
-			$ptag             = __( 'You options have been backed up. You can always restore your options by clicking the <strong>Restore</strong> button below:' );
+			$download_label   = __( 'Download Backup', 'wponion' );
+			$import_label     = __( 'Import Backup', 'wponion' );
+			$backups          = __( 'Saved Backups', 'wponion' );
+			$create_backup    = __( 'Create Backup', 'wponion' );
+			$ptag             = __( 'You options have been backed up. You can always restore your options by clicking the <strong>Restore</strong> button below:', 'wponion' );
 			$list             = Backup_Handler::get_backup_lists( $this->base_unique(), $this->module(), false );
 
 			echo <<<HTML

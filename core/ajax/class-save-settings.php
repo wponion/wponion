@@ -62,7 +62,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Settings' ) ) {
 				$whitelist_options = apply_filters( 'whitelist_options', array() );
 				$options           = $whitelist_options[ $option_page ];
 				if ( empty( $options[0] ) || $options[0] !== $option_page ) {
-					$this->json_error( __( 'You can\'t do that!' ) );
+					$this->json_error( __( 'You can\'t do that!', 'wponion' ) );
 				}
 
 				if ( $is_network_wide ) {

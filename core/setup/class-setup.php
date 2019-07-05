@@ -107,11 +107,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			if ( is_admin() && file_exists( WP_CONTENT_DIR . '/plugins/wponion/wponion.php' ) ) {
 				wponion_plugin_links( WPONION_FILE )
-					->action_link( 'docs', '<a href="https://docs.wponion.com">' . __( 'Documentation' ) . '</a>' )
-					->action_link( 'demo', __( 'Demo' ), 'https://wponion.com/demo' )
-					->row_link( __( 'Support' ), 'https://github.com/wponion' )
-					->row_link( __( 'Homepage' ), 'https://wponion.com' )
-					->row_link( __( 'Rate the plugin ★★★★★' ), 'https://wordpress.org/support/plugin/wponion/reviews/#new-post' );
+					->action_link( 'docs', '<a href="https://docs.wponion.com">' . __( 'Documentation', 'wponion' ) . '</a>' )
+					->action_link( 'demo', __( 'Demo', 'wponion' ), 'https://wponion.com/demo' )
+					->row_link( __( 'Support', 'wponion' ), 'https://github.com/wponion' )
+					->row_link( __( 'Homepage', 'wponion' ), 'https://wponion.com' )
+					->row_link( __( 'Rate the plugin ★★★★★', 'wponion' ), 'https://wordpress.org/support/plugin/wponion/reviews/#new-post' );
 			}
 
 			self::register_core_fields();
