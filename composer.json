@@ -36,8 +36,7 @@
   "require"     : {
     "varunsridharan/php-autoloader"       : "^2.0",
     "varunsridharan/wp-dependencies"      : "^1.0",
-    "varunsridharan/wp-conditional-logic" : "^1.0",
-    "varunsridharan/wp-cli-textdomain"    : "^1.1"
+    "varunsridharan/wp-conditional-logic" : "^1.0"
   },
   "scripts"     : {
     "makepot"        : "makepot ./wp-pot.json",
@@ -46,7 +45,7 @@
     "build"          : [ "@update-icons", "@makepot", "@add-textdomain" ]
   },
   "require-dev" : {
-    "wp-cli/wp-cli-bundle" : ">=1"
+    "varunsridharan/wp-cli-textdomain" : "^1.1"
   },
   "autoload"    : {
     "files" : [ "index.php" ]
