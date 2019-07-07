@@ -336,8 +336,8 @@ export default ( ( window, document, $, jQuery ) => {
 		if( window.wponion.hooks.hasAction( 'wponion_init_' + $module + 'field_' + $field_type ) ) {
 			window.wponion.hooks.doAction( 'wponion_init_' + $module + 'field_' + $field_type, $argument );
 		} else {
+			window.wponion_field( $argument );
 			if( window.wponion.core.is_debug() ) {
-				window.wponion_field( $argument );
 				if( true === $log_err ) {
 					console.debug( 'WPOnion Field Type : ' + $field_type + ' Init Function Not Found', '\nAction Used : wponion_init_' + $module + 'field_' + $field_type );
 				}
