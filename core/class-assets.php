@@ -61,6 +61,10 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 					'src'     => 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css',
 					'version' => '4.7.0',
 				),
+				'icofont'      => array(
+					'src'     => 'https://icofont.com/icofont/icofont.min.css',
+					'version' => '1.0.1',
+				),
 				'fontawesome5' => array(
 					'src'     => 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.9.0/css/all.min.css',
 					'version' => '5.9.0',

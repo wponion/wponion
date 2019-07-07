@@ -92,7 +92,7 @@ if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 					break;
 				case 'taxonomy':
 				case 'term':
-					$return = ( 'get' === $mode ) ? wpo_term_meta( $id, $unique ) : wponion_update_term_meta( $id, $unique, $this->handle_values( $values ) );
+					$return = ( 'get' === $mode ) ? wpo_taxonomy( $id, $unique ) : wponion_update_term_meta( $id, $unique, $this->handle_values( $values ) );
 					break;
 				case 'user_profile':
 					$return = ( 'get' === $mode ) ? wpo_user_meta( $id, $unique ) : update_user_meta( $id, $unique, $this->handle_values( $values ) );

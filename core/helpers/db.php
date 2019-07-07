@@ -114,7 +114,7 @@ if ( ! function_exists( 'wpo_user_meta' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wpo_term_meta' ) ) {
+if ( ! function_exists( 'wpo_taxonomy' ) ) {
 	/**
 	 * Featches & Returns Saved WPOnion Settings.
 	 *
@@ -125,7 +125,7 @@ if ( ! function_exists( 'wpo_term_meta' ) ) {
 	 *
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
-	function wpo_term_meta( $post_id, $unique, $option_key = false, $default = false ) {
+	function wpo_taxonomy( $post_id, $unique, $option_key = false, $default = false ) {
 		return \WPOnion\DB\Options::term_meta( $post_id, $unique, $option_key, $default );
 	}
 }
