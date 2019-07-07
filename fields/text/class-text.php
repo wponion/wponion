@@ -140,7 +140,7 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 */
 		public function handle_field_args( $field_data = array() ) {
 			if ( false !== $field_data['inputmask'] ) {
-				$field_data['wrap_class']                           = ( false !== $field_data['wrap_class'] ) ? '' : $field_data['wrap_class'];
+				$field_data['wrap_class']                           = ( false !== $field_data['wrap_class'] ) ? $field_data['wrap_class'] : '';
 				$field_data['wrap_class']                           = $field_data['wrap_class'] . ' ' . ' wponion-inputmask ';
 				$field_data['attributes']['data-wponion-inputmask'] = 'yes';
 			}
