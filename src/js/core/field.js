@@ -266,7 +266,7 @@ export default class extends WPOnion_Module {
 	reload() {
 		window.wponion.hooks.doAction( 'wponion_before_fields_reload', this );
 
-		this.element.find( '.wponion-element:not(.wponion-ui-field)[data-wponion-field-type]' ).each( ( i, elem ) => {
+		this.element.find( '.wponion-element[data-wponion-field-type]' ).each( ( i, elem ) => {
 			elem = jQuery( elem );
 			this.init_single_field( elem.data( 'wponion-field-type' ), elem );
 		} );

@@ -21,6 +21,11 @@ $fonts = array(
 		'prefix' => array( 'dashicons' ),
 		'src'    => 'https://developer.wordpress.org/wp-includes/css/dashicons.min.css',
 	),
+	'icofont'      => array(
+		'name'   => 'Icofont',
+		'prefix' => array( 'icofont' ),
+		'src'    => 'https://icofont.com/icofont/icofont.min.css',
+	),
 	'fontawesome4' => array(
 		'name'   => 'FontAwesome 4',
 		'prefix' => array( 'fa' ),
