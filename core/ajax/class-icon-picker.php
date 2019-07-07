@@ -37,14 +37,16 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 */
 		protected function enabled_icons( $libs, $field ) {
 			$enabled = $this->field_config( 'enabled', true, $field );
+			if ( true === $enabled ) {
+				return $libs;
+			}
+			$enabled = ( ! is_array( $enabled ) ) ? array( $enabled ) : $enabled;
 			if ( wponion_is_array( $enabled ) ) {
 				foreach ( $libs as $name => $_n ) {
 					if ( ! in_array( $name, $enabled, true ) ) {
 						unset( $libs[ $name ] );
 					}
 				}
-			} elseif ( is_string( $enabled ) && ( true !== $enabled || false !== $enabled ) && isset( $libs[ $enabled ] ) ) {
-				$libs = $libs[ $enabled ];
 			}
 			return $libs;
 		}
@@ -74,7 +76,6 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 			$field = $this->get_field();
 			$libs  = $this->disabled_icons( $this->enabled_icons( Icons::icon_list(), $field ), $field );
 			$libs  = ( ! wponion_is_array( $libs ) ) ? array() : $libs;
-
 			if ( empty( $libs ) ) {
 				$this->error( __( 'Icon Library Not found', 'wponion' ) );
 			}
@@ -96,7 +97,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 					$select = wpo_field( 'select' )
 						->options( $libs )
 						->only_field( true );
-					$html .= $select->render( $selected_lib );
+					$html   .= $select->render( $selected_lib );
 				}
 				$html .= '</div>';
 				$html .= '<div class="wponion-icon-picker-container-scroll">';
