@@ -26,8 +26,8 @@ class field extends WPOnion_Field {
 					success: ( res ) => {
 						let terms = [];
 						let ins   = this.element[ 0 ].selectize;
-						if( res ) {
-							jQuery.each( res, function( id, text ) {
+						if( res.results ) {
+							jQuery.each( res.results, function( id, text ) {
 								let data                        = {};
 								data[ ins.settings.valueField ] = id;
 								data[ ins.settings.labelField ] = text;

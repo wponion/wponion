@@ -18,8 +18,8 @@ class field extends WPOnion_Field {
 			$arg.ajax = {
 				processResults: ( data ) => {
 					let terms = [];
-					if( data ) {
-						jQuery.each( data, function( id, text ) {
+					if( data.results ) {
+						jQuery.each( data.results, function( id, text ) {
 							terms.push( { id: id, text: text } );
 						} );
 					}
