@@ -895,22 +895,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		protected function handle_args( $key, $value, $defaults = array(), $force_defaults = array() ) {
-			if ( wponion_is_array( $value ) ) {
-				$defaults = $this->parse_args( $value, $defaults );
-			} elseif ( wponion_is_array( $defaults ) ) {
-				$defaults[ $key ] = $value;
-			} else {
-				return $value;
-			}
-
-			foreach ( $force_defaults as $_key => $val ) {
-				if ( ! isset( $defaults[ $_key ] ) ) {
-					$defaults[ $_key ] = '';
-				}
-				$defaults[ $_key ] = $this->handle_args( $_key, $val, $defaults[ $_key ] );
-			}
-
-			return $defaults;
+			return wponion_handle_string_args_with_defaults( $key, $value, $defaults, $force_defaults );
 		}
 
 		/**

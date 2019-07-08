@@ -63,7 +63,7 @@ class field extends WPOnion_Field {
 				$work.elm.find( 'div.wponion-icon-picker-model-header input[type=text]' ).on( 'keyup', function() {
 					let $val = jQuery( this ).val();
 					$work.elm.find( '.wponion-icon-framework:visible span.wponion-icon-preview' ).each( function() {
-						if( jQuery( this ).attr( 'data-icon' ).search( new RegExp( $val, 'i' ) ) < 0 ) {
+						if( jQuery( this ).attr( 'data-search' ).search( new RegExp( $val, 'i' ) ) < 0 ) {
 							jQuery( this ).parent().hide();
 						} else {
 							jQuery( this ).parent().show();

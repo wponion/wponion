@@ -98,6 +98,20 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 			require_once WPONION_PATH . 'data/icons.php';
 			do_action( 'wponion_after_icons_setup' );
 		}
+
+		/**
+		 * Retuns Icons Defaults.
+		 *
+		 * @static
+		 * @return array
+		 */
+		public static function icon_defaults() {
+			return array(
+				'title'  => false,
+				'icon'   => false,
+				'search' => array(),
+			);
+		}
 	}
 }
 

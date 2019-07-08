@@ -73,9 +73,11 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 * Runs.
 		 */
 		public function run() {
+			wponion_timer( 'icon_render' );
 			$field = $this->get_field();
 			$libs  = $this->disabled_icons( $this->enabled_icons( Icons::icon_list(), $field ), $field );
 			$libs  = ( ! wponion_is_array( $libs ) ) ? array() : $libs;
+
 			if ( empty( $libs ) ) {
 				$this->error( __( 'Icon Library Not found', 'wponion' ) );
 			}
@@ -87,8 +89,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 			$selected_lib     = ( ! isset( $libs[ $selected_lib ] ) ) ? $default_lib : $selected_lib;
 			$json             = Icons::get( $selected_lib );
 			$this->add_assets = $json->assets( false );
-
-			$html = '';
+			$html             = '';
 
 			if ( 'no' !== $is_first_load ) {
 				$html = '<div class="wponion-icon-picker-model-header">';
@@ -109,7 +110,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 					if ( ! is_numeric( $json_title ) && wponion_is_array( $icons ) ) {
 						$group = '';
 						foreach ( $icons as $key => $icon ) {
-							$group .= $this->single_icon_html( $key, $icon );
+							$group .= $this->single_icon_html( $icon );
 						}
 
 						if ( true === $group_icons ) {
@@ -128,16 +129,21 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 						$html .= $group;
 						$html .= '</div>';*/
 					} else {
-						$html .= $this->single_icon_html( $json_title, $icons );
+						$html .= $this->single_icon_html( $icons );
 					}
 				}
 				$html .= '</div></div>';
 			} else {
 				$this->error( __( 'Icon Library Not found', 'wponion' ) );
 			}
-			$html .= '</div>';
-			$html .= '</div>';
-			$this->json_success( array( 'html' => $html ) );
+			if ( 'no' !== $is_first_load ) {
+				$html .= '</div>';
+
+			}
+			$this->json_success( array(
+				'html'  => $html,
+				'timer' => wponion_timer( 'icon_render', true ),
+			) );
 		}
 
 		/**
@@ -146,12 +152,15 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function single_icon_html( $key, $icon ) {
-			$_icon = ( is_numeric( $key ) ) ? $icon : $key;
-			$title = ( is_numeric( $key ) ) ? $icon : $icon;
-			$html  = '<div class="wponion-icon-preview-wrap">';
-			$html  .= '<span data-icon="' . $_icon . '" title="' . $title . '" class="wponion-icon-preview">' . wponion_icon( $_icon ) . '</span>';
-			$html  .= '</div>';
+		protected function single_icon_html( $icon ) {
+			$icon      = wponion_handle_string_args_with_defaults( 'icon', $icon, Icons::icon_defaults() );
+			$title     = ( empty( $icon['title'] ) ) ? $icon['icon'] : $icon['title'];
+			$search    = ( ! is_array( $icon['search'] ) ) ? $icon['search'] : $icon['search'];
+			$search    = ( is_array( $search ) ) ? implode( ' ', $search ) : $search;
+			$icon_html = wponion_icon( $icon['icon'] );
+			$html      = <<<HTML
+<div class="wponion-icon-preview-wrap"> <span data-icon="{$icon['icon']}" data-search="{$icon['icon']} $search" title="$title" class="wponion-icon-preview">$icon_html</span> </div>
+HTML;
 			return $html;
 		}
 	}
