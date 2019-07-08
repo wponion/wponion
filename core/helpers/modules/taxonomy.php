@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\taxonomy;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -29,7 +32,7 @@ if ( ! function_exists( 'wponion_taxonomy' ) ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_taxonomy_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\taxonomy( $instance_id_or_args, $fields );
+		return new taxonomy( $instance_id_or_args, $fields );
 	}
 }
 

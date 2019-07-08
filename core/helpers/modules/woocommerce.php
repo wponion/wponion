@@ -1,4 +1,8 @@
 <?php
+
+use WPOnion\Modules\WooCommerce\Product;
+use WPOnion\Modules\WooCommerce\Settings;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -41,7 +45,7 @@ if ( ! function_exists( 'wponion_wc_product' ) ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_wc_product_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\WooCommerce\Product( $instance_id_or_args, $fields );
+		return new Product( $instance_id_or_args, $fields );
 	}
 }
 
@@ -58,7 +62,7 @@ if ( ! function_exists( 'wponion_wc_settings' ) ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_wc_settings_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\WooCommerce\Settings( $instance_id_or_args, $fields );
+		return new Settings( $instance_id_or_args, $fields );
 	}
 }
 

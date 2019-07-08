@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\Util\Help_Tabs;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -27,6 +30,6 @@ if ( ! function_exists( 'wponion_help_tabs' ) ) {
 	 * @return \WPOnion\Modules\Util\Help_Tabs
 	 */
 	function wponion_help_tabs( $page, $help_tabs = array(), $help_sidebar = '' ) {
-		return new \WPOnion\Modules\Util\Help_Tabs( $page, $help_tabs, $help_sidebar );
+		return new Help_Tabs( $page, $help_tabs, $help_sidebar );
 	}
 }

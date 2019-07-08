@@ -2,6 +2,7 @@
 
 namespace WPOnion\Bridge;
 
+use Exception;
 use WPOnion\Helper as Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -350,11 +351,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 			try {
 				$this->module = $function( $this->field_path( true ) );
 				if ( ! is_object( $this->module ) ) {
-					throw new \Exception();
+					throw new Exception();
 				}
 
 				return $this->module;
-			} catch ( \Exception $exception ) {
+			} catch ( Exception $exception ) {
 				$this->module = false;
 				$this->error( __( 'Module Instance Not Found', 'wponion' ), __( 'Module Callback / Registry Function Not Found', 'wponion' ) );
 			}

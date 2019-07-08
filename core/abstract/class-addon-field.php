@@ -14,7 +14,7 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Addon_Field extends \WPOnion\Addon {
+	abstract class Addon_Field extends Addon {
 		/**
 		 * @var null
 		 * @access

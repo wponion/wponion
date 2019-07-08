@@ -36,8 +36,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @return \WPOnion\Icon
 		 */
 		public static function add( $instance_or_args ) {
-			if ( ! $instance_or_args instanceof \WPOnion\Icon ) {
-				$instance_or_args = new \WPOnion\Icon( $instance_or_args );
+			if ( ! $instance_or_args instanceof Icon ) {
+				$instance_or_args = new Icon( $instance_or_args );
 			}
 			self::$instances[ $instance_or_args->slug() ] = $instance_or_args;
 			self::$icons[ $instance_or_args->slug() ]     = $instance_or_args->name();

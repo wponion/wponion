@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+use JsonSerializable;
 use WPOnion\Bridge;
 use WPOnion\Traits\Json_Serialize;
 use WPOnion\Traits\Countable;
@@ -18,7 +19,7 @@ if ( ! class_exists( 'WPO\Helper\Base' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Base extends Bridge implements \JsonSerializable, \Countable {
+	abstract class Base extends Bridge implements JsonSerializable, \Countable {
 		use Json_Serialize;
 		use Countable;
 

@@ -1,4 +1,8 @@
 <?php
+
+use WPOnion\Modules\Util\WP_Pointers;
+use WPOnion\WP\Pointers\Pointer;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -24,7 +28,7 @@ if ( ! function_exists( 'wponion_wp_pointers' ) ) {
 		if ( false !== wponion_wp_pointers_registry( $pointer_id_or_instance_id ) ) {
 			return wponion_wp_pointers_registry( $pointer_id_or_instance_id );
 		}
-		return new \WPOnion\Modules\Util\WP_Pointers( $pointer_id_or_instance_id );
+		return new WP_Pointers( $pointer_id_or_instance_id );
 	}
 }
 
@@ -39,7 +43,7 @@ if ( ! function_exists( 'wponion_wp_pointer' ) ) {
 	 * @return \WPOnion\WP\Pointers\Pointer
 	 */
 	function wponion_wp_pointer( $selector = false, $title = false, $text = false, $args = array(), $pointer_instance = false ) {
-		return new \WPOnion\WP\Pointers\Pointer( $selector, $title, $text, $args, $pointer_instance );
+		return new Pointer( $selector, $title, $text, $args, $pointer_instance );
 	}
 }
 

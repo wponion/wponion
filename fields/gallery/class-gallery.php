@@ -20,8 +20,6 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			$add_show = ( ! empty( $this->value() ) ) ? 'style="display:none;"' : false;
-
 			echo '<input type="hidden" id="image_id" value="' . $this->value() . '" name="' . $this->name() . '"/>';
 			$ex_class = ( true === $this->data( 'sort' ) ) ? 'gallery-sortable' : 'gallery-non-sortable';
 			echo '<div class="wponion-image-preview ' . $ex_class . '" id="wponion-image-preview' . $this->js_field_id() . '">';
@@ -61,9 +59,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 					'class'       => 'button button-primary',
 				), array(
 					'only_field' => true,
-					'attributes' => array(
-						'data-wponion-gallery-add' => 'yes',
-					),
+					'attributes' => array( 'data-wponion-gallery-add' => 'yes' ),
 				) );
 			} elseif ( 'edit' === $type ) {
 				$button = $this->handle_args( 'label', $this->data( 'edit_button' ), array(
@@ -73,9 +69,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 					'class'       => 'button button-secondary',
 				), array(
 					'only_field' => true,
-					'attributes' => array(
-						'data-wponion-gallery-edit' => 'yes',
-					),
+					'attributes' => array( 'data-wponion-gallery-edit' => 'yes' ),
 				) );
 			} elseif ( 'clear' === $type ) {
 				$button = $this->handle_args( 'label', $this->data( 'remove_button' ), array(
@@ -85,9 +79,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 					'class'       => 'button button-secondary',
 				), array(
 					'only_field' => true,
-					'attributes' => array(
-						'data-wponion-gallery-clear' => 'yes',
-					),
+					'attributes' => array( 'data-wponion-gallery-clear' => 'yes' ),
 				) );
 			}
 
@@ -118,9 +110,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			$this->catch_output( 'start' );
 			$this->show_image( false, null );
 			$html = $this->catch_output( 'stop' );
-			return array(
-				'html_template' => $html,
-			);
+			return array( 'html_template' => $html );
 		}
 
 		/**
@@ -130,7 +120,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 */
 		public function field_assets() {
 			wp_enqueue_media();
-			if ( $this->has( 'sort' ) && true == $this->data( 'sort' ) ) {
+			if ( $this->has( 'sort' ) && true === $this->data( 'sort' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
 		}

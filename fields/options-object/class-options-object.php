@@ -1,12 +1,14 @@
 <?php
 
 namespace WPOnion\Field;
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
 if ( ! class_exists( '\WPOnion\Field\Options_Object' ) ) {
-	class Options_Object extends \WPOnion\Field {
+	class Options_Object extends Field {
 		public function field_assets() {
 		}
 

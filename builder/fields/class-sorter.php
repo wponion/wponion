@@ -2,6 +2,8 @@
 
 namespace WPO\Fields;
 
+use WPO\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Sorter extends \WPO\Field {
+	class Sorter extends Field {
 		/**
 		 * Select constructor.
 		 *

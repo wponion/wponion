@@ -1,5 +1,8 @@
 <?php
 
+use WPOnion\Modules\CPT\Post_Type;
+use WPOnion\Modules\CPT\Taxonomy;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -12,7 +15,7 @@ if ( ! function_exists( 'wponion_register_post_type' ) ) {
 	 * @return \WPOnion\Modules\CPT\Post_Type
 	 */
 	function wponion_register_post_type( $post_type, $post_type_args_or_label = null ) {
-		return new \WPOnion\Modules\CPT\Post_Type( $post_type, $post_type_args_or_label );
+		return new Post_Type( $post_type, $post_type_args_or_label );
 	}
 }
 
@@ -25,6 +28,6 @@ if ( ! function_exists( 'wponion_register_taxonomy' ) ) {
 	 * @return \WPOnion\Modules\CPT\Taxonomy
 	 */
 	function wponion_register_taxonomy( $taxonomy, $object_types = array(), $args = array() ) {
-		return new \WPOnion\Modules\CPT\Taxonomy( $taxonomy, $object_types, $args );
+		return new Taxonomy( $taxonomy, $object_types, $args );
 	}
 }

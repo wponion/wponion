@@ -2,6 +2,8 @@
 
 namespace WPOnion\Field;
 
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Key_Value extends \WPOnion\Field {
+	class Key_Value extends Field {
 		/**
 		 * Renders Key Value Pair HTML.
 		 *

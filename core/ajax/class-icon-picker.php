@@ -113,9 +113,10 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 						}
 
 						if ( true === $group_icons ) {
-							$acc = wpo_field( 'accordion', sanitize_title( $json_title ) )
-								->heading( $json_title )
-								->open( true );
+							/* @var \WPO\Fields\Accordion $acc */
+							$acc = wpo_field( 'accordion', sanitize_title( $json_title ) );
+							$acc->open();
+							$acc->heading( $json_title );
 							$acc->content( $group );
 							$html .= $acc->render( false, false );
 						} else {

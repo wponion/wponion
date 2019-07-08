@@ -2,6 +2,8 @@
 
 namespace WPOnion;
 
+use WPOnion_Vendor_Support;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -216,11 +218,11 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			foreach ( $data as $key => $src ) {
 				$is_cdn_off = ( defined( 'WPONION_OFF_CDN' ) && true === WPONION_OFF_CDN );
 				$url        = WPONION_CDN_URL . '@' . WPONION_CDN_VERSION . $src['src'];
-				if ( ( $is_cdn_off && class_exists( 'WPOnion_Vendor_Support' ) ) || ! $is_cdn_off && class_exists( 'WPOnion_Vendor_Support' ) ) {
+				if ( ( $is_cdn_off && class_exists( '\WPOnion_Vendor_Support' ) ) || ! $is_cdn_off && class_exists( '\WPOnion_Vendor_Support' ) ) {
 					if ( 'script' === $type ) {
-						$url = \WPOnion_Vendor_Support::script( $key );
+						$url = WPOnion_Vendor_Support::script( $key );
 					} else {
-						$url = \WPOnion_Vendor_Support::style( $key );
+						$url = WPOnion_Vendor_Support::style( $key );
 					}
 				}
 				$src['src'] = $url;

@@ -2,8 +2,6 @@
 
 namespace WPOnion\Field;
 
-use WPOnion\Field;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }

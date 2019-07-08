@@ -47,6 +47,7 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 					'large'   => true,
 					'debug'   => false,
 					'type'    => 'wp_notice_error',
+					// translators: Added Module Name.
 					'content' => sprintf( __( '%s Module Is Not Yet Supported In Import / Export Field', 'wponion' ), $this->module() ),
 				), false, false );
 				return;

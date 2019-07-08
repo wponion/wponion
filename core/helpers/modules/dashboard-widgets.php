@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\Widgets\Dashboard;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -29,6 +32,6 @@ if ( ! function_exists( 'wponion_dashboard_widgets' ) ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_dashboard_widgets_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\Widgets\Dashboard( $instance_id_or_args, $fields );
+		return new Dashboard( $instance_id_or_args, $fields );
 	}
 }

@@ -3,10 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-/**
- * @var $this \WPOnion\Theme\WC
- */
-
+/* @var $this \WPOnion\Theme\WC */
 $module = $this->settings();
 ?>
 

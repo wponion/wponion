@@ -3,9 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-/**
- * @var $this \WPOnion\Theme\WP_Modern
- */
+/* @var $this \WPOnion\Theme\WP_Modern */
 $module = $this->settings();
 $colors = $this->color_scheme( $module->option( 'color_scheme', array() ) );
 

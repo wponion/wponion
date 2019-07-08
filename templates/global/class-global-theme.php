@@ -2,6 +2,8 @@
 
 namespace WPOnion\Theme;
 
+use WPOnion\Theme_API;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	abstract class Global_Theme extends \WPOnion\Theme_API {
+	abstract class Global_Theme extends Theme_API {
 		/**
 		 * @param $menus
 		 *
@@ -41,8 +43,7 @@ if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
 					( true === $menu['is_disabled'] ) ? ' disabled ' : '',
 				) );
 				$attr          = wponion_array_to_html_attributes( $attr );
-
-				$return .= '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+				$return        .= '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
 			}
 			return $return . '</nav>';
 		}
@@ -76,11 +77,11 @@ if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
 						( true === $menu['is_disabled'] || true === $menus[ $parent_slug ]['is_disabled'] ) ? 'disabled ' : '',
 					) );
 					$attr          = wponion_array_to_html_attributes( $attr );
-
-					$return .= '<li><a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a> | </li>';
+					$return        .= '<li><a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a> | </li>';
 				}
-				return $return . '</ul></div>';
+				$return .= '</ul></div>';
 			}
+			return $return;
 		}
 	}
 }

@@ -18,7 +18,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP extends \WPOnion\Theme\Global_Theme {
+	class WP extends Global_Theme {
 		/**
 		 * WP constructor.
 		 *

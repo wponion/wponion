@@ -3,9 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-/**
- * @var $this \WPOnion\Theme\WC
- */
+/* @var $this \WPOnion\Theme\WC */
 $metabox = $this->metabox();
 echo '<div class="' . $metabox->wrap_class() . '">';
 echo '<div class="wponion-metabox-inside-wrap">';

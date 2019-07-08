@@ -131,6 +131,7 @@ JAVASCRIPT;
 					} elseif ( 'from_email' === $field['id'] ) {
 						$value = $user->user_email;
 					} elseif ( 'subject' === $field['id'] ) {
+						/* translators: Added Home URL.*/
 						$value = sprintf( __( 'Reg : [%s] System Information ', 'wponion' ), home_url() );
 					}
 					$html .= $field->render( $value, 'wponion_sysinfo' );

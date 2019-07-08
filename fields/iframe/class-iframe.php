@@ -14,6 +14,9 @@
  */
 
 namespace WPOnion\Field;
+
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -25,7 +28,7 @@ if ( ! class_exists( '\WPOnion\Field\Iframe' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Iframe extends \WPOnion\Field {
+	class Iframe extends Field {
 		/**
 		 * Final HTML Output
 		 */

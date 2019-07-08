@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Elementor\Controls_Manager;
+use Elementor\Core\DynamicTags\Data_Tag;
 
 if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 	/**
@@ -98,7 +99,7 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 		protected function is_supported( $field ) {
 			$fields = array( 'text', 'textarea', 'color_picker', 'wp_editor', 'icon_picker' );
 
-			if ( $this instanceof \Elementor\Core\DynamicTags\Data_Tag ) {
+			if ( $this instanceof Data_Tag ) {
 				$fields = array( 'image_select', 'image', 'upload', 'oembed' );
 			}
 

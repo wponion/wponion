@@ -2,10 +2,12 @@
 
 namespace WPOnion\Modules\WooCommerce;
 
+use WC_Product;
+use WC_Product_Variation;
+use WP_Post;
 use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\WC_Product_Metabox_Save_Handler;
-use WPOnion\DB\Data_Validator_Sanitizer;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -400,9 +402,9 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			} else {
 				$this->set_id( false );
 
-				if ( $variation instanceof \WC_Product || $variation instanceof \WC_Product_Variation ) {
+				if ( $variation instanceof WC_Product || $variation instanceof WC_Product_Variation ) {
 					$this->set_id( $variation->get_id() );
-				} elseif ( $variation instanceof \WP_Post ) {
+				} elseif ( $variation instanceof WP_Post ) {
 					$this->set_id( $variation->ID );
 				}
 				$this->variation_id = $loop;
@@ -511,7 +513,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			$fields = ( false === $this->variation_id ) ? $this->fields : $this->variation_fields;
 			$is_var = ( false === $this->variation_id ) ? false : true;
 			if ( false === $this->variation_id ) {
-				$pid = ( $product instanceof \WC_Product && method_exists( $product, 'get_id' ) ) ? $product->get_id() : $product;
+				$pid = ( $product instanceof WC_Product && method_exists( $product, 'get_id' ) ) ? $product->get_id() : $product;
 				$this->set_id( $pid );
 			}
 			$instance = new WC_Product_Metabox_Save_Handler( array(

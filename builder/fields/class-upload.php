@@ -2,6 +2,8 @@
 
 namespace WPO\Fields;
 
+use WPO\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( 'WPO\Fields\Upload' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Upload extends \WPO\Field {
+	class Upload extends Field {
 		/**
 		 * Upload constructor.
 		 *

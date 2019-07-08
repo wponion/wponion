@@ -25,9 +25,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 			echo $this->before();
 			if ( wponion_is_array( $this->data( 'options' ) ) ) {
 				foreach ( $this->data( 'options' ) as $slug => $option ) {
-					$field_args = $this->handle_args( 'title', $option, array(
-						'rgba' => $this->data( 'rgba' ),
-					), array(
+					$field_args = $this->handle_args( 'title', $option, array( 'rgba' => $this->data( 'rgba' ) ), array(
 						'id'   => $slug,
 						'type' => 'color_picker',
 					) );

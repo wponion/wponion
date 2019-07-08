@@ -332,11 +332,11 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 			$path = implode( '/', array_filter( $field['field_path'] ) );
 			if ( ! empty( $path ) ) {
 				if ( wponion_is_unarrayed( $field ) || true === $merge ) {
-					$_values = \WPOnion\Helper::array_key_get( $path, $this->return_values, '/' );
+					$_values = Helper::array_key_get( $path, $this->return_values, '/' );
 					$value   = array_merge( $_values, $value );
 				}
 
-				\WPOnion\Helper::array_key_set( $path, $value, $this->return_values, '/' );
+				Helper::array_key_set( $path, $value, $this->return_values, '/' );
 			}
 			return true;
 		}
@@ -499,7 +499,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 */
 		protected function _value_options( $field, $value_arr, $default, $variable ) {
 			$value_arr = ( false === $value_arr ) ? $this->{$variable} : $value_arr;
-			return \WPOnion\Helper::array_key_get( implode( '/', $field['field_path'] ), $value_arr, $default );
+			return Helper::array_key_get( implode( '/', $field['field_path'] ), $value_arr, $default );
 		}
 	}
 }

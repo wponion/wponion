@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\User_Profile;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -29,6 +32,6 @@ if ( ! function_exists( 'wponion_user_profile' ) ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_user_profile_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\User_Profile( $instance_id_or_args, $fields );
+		return new User_Profile( $instance_id_or_args, $fields );
 	}
 }

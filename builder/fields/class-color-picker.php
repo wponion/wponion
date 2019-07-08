@@ -2,6 +2,8 @@
 
 namespace WPO\Fields;
 
+use WPO\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -18,7 +20,7 @@ if ( ! class_exists( 'WPO\Fields\Color_Picker' ) ) {
 	 * @method get_size()
 	 * @method get_layout()
 	 */
-	class Color_Picker extends \WPO\Field {
+	class Color_Picker extends Field {
 		/**
 		 * Color_Group constructor.
 		 *

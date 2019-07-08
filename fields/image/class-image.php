@@ -13,6 +13,8 @@
  */
 
 namespace WPOnion\Field;
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -25,7 +27,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Image extends \WPOnion\Field {
+	class Image extends Field {
 		/**
 		 * Final HTML Output
 		 */

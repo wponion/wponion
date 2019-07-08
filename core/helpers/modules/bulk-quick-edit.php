@@ -1,4 +1,8 @@
 <?php
+
+use WPOnion\Modules\Edits\Bulk;
+use WPOnion\Modules\Edits\Quick;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -40,7 +44,7 @@ if ( ! function_exists( 'wponion_quick_edit' ) ) {
 		if ( is_string( $settings ) && empty( $fields ) ) {
 			return wponion_quick_edit_registry( $settings );
 		}
-		return new \WPOnion\Modules\Edits\Quick( $settings, $fields );
+		return new Quick( $settings, $fields );
 	}
 }
 
@@ -55,7 +59,7 @@ if ( ! function_exists( 'wponion_bulk_edit' ) ) {
 		if ( is_string( $settings ) && empty( $fields ) ) {
 			return wponion_bulk_edit_registry( $settings );
 		}
-		return new \WPOnion\Modules\Edits\Bulk( $settings, $fields );
+		return new Bulk( $settings, $fields );
 	}
 }
 

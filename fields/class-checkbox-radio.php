@@ -2,6 +2,8 @@
 
 namespace WPOnion\Field;
 
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Checkbox_Radio extends \WPOnion\Field {
+	class Checkbox_Radio extends Field {
 		public function field_assets() {
 		}
 
@@ -71,7 +73,6 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 		/**
 		 * @param $id
 		 * @param $value
-		 * @param $unique
 		 * @param $field_args
 		 *
 		 * @return mixed
@@ -120,19 +121,19 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 
 			if ( 'single' === $in_group ) {
 				$attr['name'] = $this->name();
-				$dep_id       = false;
+				//$dep_id       = false;
 				if ( 'switcher' === $this->element_type() ) {
 					$attr['value'] = true;
 				} elseif ( 'checkbox' === $this->element_type() && empty( $this->data( 'options' ) ) ) {
 					$attr['value'] = ( $this->data( 'id' ) !== $options['key'] ) ? $options['key'] : true;
 				} else {
-					$dep_id        = $options['key'];
+					//$dep_id        = $options['key'];
 					$attr['value'] = $options['key'];
 				}
 			} else {
 				$is_checkbox  = ( 'radio' !== $this->element_type() ) ? '[]' : '';
 				$attr['name'] = $this->name( $is_checkbox );
-				$dep_id       = $options['key'];
+				//$dep_id       = $options['key'];
 			}
 
 			$elem_id    = sanitize_title( $attr['name'] . '_' . $options['key'] );

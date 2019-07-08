@@ -1,4 +1,12 @@
 <?php
+
+use WPO\Container;
+use WPO\Helper\Base;
+use WPOnion\Exception\Cache_Not_Found;
+use WPOnion\Helper;
+use WPOnion\Registry\Field_Types;
+use WPOnion\Setup;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -96,7 +104,7 @@ if ( ! function_exists( 'wponion_get_field_class_remap' ) ) {
 	 * @return bool|mixed
 	 */
 	function wponion_get_field_class_remap( $class, $default = false ) {
-		return \WPOnion\Setup::remap( $class, $default );
+		return Setup::remap( $class, $default );
 	}
 }
 
@@ -262,7 +270,7 @@ if ( ! function_exists( 'wponion_get_field_type' ) ) {
 	 */
 	function wponion_get_field_type( $field, $check = true ) {
 		if ( is_string( $field ) && $check ) {
-			return ( \WPOnion\Registry\Field_Types::exists( $field ) ) ? $field : false;
+			return ( Field_Types::exists( $field ) ) ? $field : false;
 		} elseif ( wponion_is_array( $field ) ) {
 			$type = isset( $field['type'] ) ? $field['type'] : false;
 			return wponion_get_field_type( $type, $check );
@@ -293,7 +301,7 @@ if ( ! function_exists( 'wponion_valid_user_input_field' ) ) {
 	 * @return bool
 	 */
 	function wponion_valid_user_input_field( $field ) {
-		return ( ! in_array( wponion_get_field_type( $field, false ), \WPOnion\Registry\Field_Types::get_design(), true ) );
+		return ( ! in_array( wponion_get_field_type( $field, false ), Field_Types::get_design(), true ) );
 	}
 }
 
@@ -437,7 +445,7 @@ if ( ! function_exists( 'wponion_backup_fonts' ) ) {
 	 * @return array
 	 */
 	function wponion_backup_fonts() {
-		return apply_filters( 'wponion_backup_fonts', \WPOnion\Helper::fonts( 'backup' ) );
+		return apply_filters( 'wponion_backup_fonts', Helper::fonts( 'backup' ) );
 	}
 }
 
@@ -448,7 +456,7 @@ if ( ! function_exists( 'wponion_websafe_fonts' ) ) {
 	 * @return mixed
 	 */
 	function wponion_websafe_fonts() {
-		return apply_filters( 'wponion_websafe_fonts', \WPOnion\Helper::fonts( 'websafe' ) );
+		return apply_filters( 'wponion_websafe_fonts', Helper::fonts( 'websafe' ) );
 	}
 }
 
@@ -459,7 +467,7 @@ if ( ! function_exists( 'wponion_google_fonts' ) ) {
 	 * @return mixed
 	 */
 	function wponion_google_fonts() {
-		return apply_filters( 'wponion_google_fonts', \WPOnion\Helper::fonts( 'google' ) );
+		return apply_filters( 'wponion_google_fonts', Helper::fonts( 'google' ) );
 	}
 }
 
@@ -502,14 +510,14 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 	function wponion_fields_all_ids_defaults( $fields = array(), $parent_id = true ) {
 		$return = array();
 
-		if ( $fields instanceof \WPO\Helper\Base && $fields->has_containers() && ! $fields->has_callback() ) {
+		if ( $fields instanceof Base && $fields->has_containers() && ! $fields->has_callback() ) {
 			foreach ( $fields->containers() as $container ) {
 				/* @var $container WPO\Container */
 				if ( $container->has_fields() && ! $container->has_callback() ) {
 					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $container, $parent_id . '_' . $container->name() ) );
 				}
 			}
-		} elseif ( $fields instanceof \WPO\Helper\Base && $fields->has_fields() && ! $fields->has_callback() ) {
+		} elseif ( $fields instanceof Base && $fields->has_fields() && ! $fields->has_callback() ) {
 			foreach ( $fields->fields() as $field ) {
 				/* @var $field WPO\Field */
 				if ( ! empty( $field['id'] ) ) {
@@ -527,7 +535,7 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 			}
 		} elseif ( wponion_is_array( $fields ) ) {
 			foreach ( $fields as $data ) {
-				if ( $data instanceof \WPO\Container ) {
+				if ( $data instanceof Container ) {
 					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $data, $parent_id . '_' . $data->name() ) );
 				} elseif ( $data instanceof WPO\Field || isset( $data['id'] ) && isset( $data['type'] ) ) {
 					$return[ $data['id'] ] = isset( $data['default'] ) ? $data['default'] : null;
@@ -557,7 +565,7 @@ if ( ! function_exists( 'wponion_get_fonts_array' ) ) {
 
 		try {
 			return wponion_get_cache( $key );
-		} catch ( \WPOnion\Exception\Cache_Not_Found $exception ) {
+		} catch ( Cache_Not_Found $exception ) {
 			$_fonts = array();
 			if ( true === $websafe_fonts ) {
 				$fonts = wponion_websafe_fonts();
@@ -599,14 +607,13 @@ if ( ! function_exists( 'wponion_fonts_options_html' ) ) {
 		$webfonts = ( true === $websafe_fonts ) ? 'yes' : 'no';
 		$_group   = ( true === $group ) ? 'yes' : 'no';
 		$key      = 'web_fonts_html/' . $gfonts . $webfonts . $_group;
-		$html     = '';
 		if ( ! wponion_is_array( $selected ) ) {
 			$selected = array( $selected );
 		}
 
 		try {
 			$html = wponion_get_cache( $key );
-		} catch ( \WPOnion\Exception\Cache_Not_Found $exception ) {
+		} catch ( Cache_Not_Found $exception ) {
 			$fonts = wponion_get_fonts_array( $google_fonts, $websafe_fonts, $group );
 			$html  = '';
 			foreach ( $fonts as $id => $val ) {
@@ -717,7 +724,7 @@ if ( ! function_exists( 'wponion_register_field' ) ) {
 	 * @uses \WPOnion\Registry\Field_Types
 	 */
 	function wponion_register_field( $field_type = '', $supports = array(), $args = array() ) {
-		\WPOnion\Registry\Field_Types::add( $field_type, $supports, $args );
+		Field_Types::add( $field_type, $supports, $args );
 	}
 }
 
@@ -728,7 +735,7 @@ if ( ! function_exists( 'wponion_deregister_field' ) ) {
 	 * @param string $field_type
 	 */
 	function wponion_deregister_field( $field_type = '' ) {
-		\WPOnion\Registry\Field_Types::remove( $field_type );
+		Field_Types::remove( $field_type );
 	}
 }
 
@@ -756,7 +763,7 @@ if ( ! function_exists( 'wponion_field_add_support' ) ) {
 	 * @param $support
 	 */
 	function wponion_field_add_support( $type, $support ) {
-		\WPOnion\Registry\Field_Types::add_support( $type, $support );
+		Field_Types::add_support( $type, $support );
 	}
 }
 
@@ -768,6 +775,6 @@ if ( ! function_exists( 'wponion_field_remove_support' ) ) {
 	 * @param $support
 	 */
 	function wponion_field_remove_support( $type, $support ) {
-		\WPOnion\Registry\Field_Types::remove_support( $type, $support );
+		Field_Types::remove_support( $type, $support );
 	}
 }

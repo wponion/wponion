@@ -2,6 +2,7 @@
 
 namespace WPOnion\Field;
 
+use WPO\Builder;
 use WPOnion\Field;
 use WPOnion\Modules\Metabox\Core;
 
@@ -30,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\Metabox' ) ) {
 		public function output() {
 			echo $this->before();
 			$fields = $this->data( 'fields' );
-			if ( ! $fields instanceof \WPO\Builder ) {
+			if ( ! $fields instanceof Builder ) {
 				$fields = wponion_builder()->set_fields( $fields );
 			}
 

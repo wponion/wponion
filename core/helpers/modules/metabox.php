@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\Metabox\metabox;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -31,6 +34,6 @@ if ( ! function_exists( 'wponion_metabox' ) ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_metabox_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\Metabox\metabox( $instance_id_or_args, $fields );
+		return new metabox( $instance_id_or_args, $fields );
 	}
 }

@@ -1,4 +1,8 @@
 <?php
+
+use WPOnion\Bridge;
+use WPOnion\Registry\Holder;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -27,7 +31,7 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 				$class = '\WPOnion\Registry\Fields';
 				break;
 		}
-		return \WPOnion\Registry\Holder::registry( $type, $class );
+		return Holder::registry( $type, $class );
 	}
 }
 
@@ -42,7 +46,7 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	 * @return bool
 	 */
 	function wponion_get_registry_instance( $module, &$instance, $registry_type = 'core' ) {
-		if ( $instance instanceof \WPOnion\Bridge ) {
+		if ( $instance instanceof Bridge ) {
 			$_registry = wponion_registry( $registry_type );
 			$_registry->add( $module, $instance );
 		} elseif ( is_string( $instance ) ) {

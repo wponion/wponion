@@ -308,6 +308,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				$this->screen->render_screen_reader_content( 'heading_pagination' );
 			}
 
+			/* translators: added Total Items Count */
 			$output = '<span class="displaying-num">' . sprintf( _n( '%s item', '%s items', $total_items, 'wponion' ), number_format_i18n( $total_items ) ) . '</span>';
 
 			$current              = $this->get_pagenum();
@@ -356,7 +357,8 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				$html_current_page = sprintf( "%s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>", '<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page', 'wponion' ) . '</label>', $current, strlen( $total_pages ) );
 			}
 			$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
-			$page_links[]     = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging', 'wponion' ), $html_current_page, $html_total_pages ) . $total_pages_after;
+			/* translators: 1. Current Page Number 2. Total Pages */
+			$page_links[] = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging', 'wponion' ), $html_current_page, $html_total_pages ) . $total_pages_after;
 
 			if ( $disable_next ) {
 				$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
@@ -498,9 +500,7 @@ HTML;
 		 * @since 3.1.0
 		 */
 		public function display() {
-			$args     = array(
-				'class' => $this->get_table_classes(),
-			);
+			$args     = array( 'class' => $this->get_table_classes() );
 			$singular = $this->_args['singular'];
 			$tbody    = ( $singular ) ? ' data-wp-list="list:' . $singular . '"' : '';
 			$this->display_tablenav( 'top' );

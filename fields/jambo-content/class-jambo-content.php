@@ -14,7 +14,7 @@ if ( ! class_exists( '\WPOnion\Field\Jambo_Content' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Jambo_Content extends \WPOnion\Field\Heading {
+	class Jambo_Content extends Heading {
 		/**
 		 * Final HTML Output
 		 */

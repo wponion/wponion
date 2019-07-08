@@ -2,6 +2,8 @@
 
 namespace WPO\Fields;
 
+use WPO\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -20,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\Date_Picker' ) ) {
 	 * @method get_date()
 	 * @method get_to_date()
 	 */
-	class Date_Picker extends \WPO\Field {
+	class Date_Picker extends Field {
 		/**
 		 * Date_Picker constructor.
 		 *

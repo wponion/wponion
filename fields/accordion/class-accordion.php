@@ -1,18 +1,8 @@
 <?php
-/**
- *
- * Initial version created 21-05-2018 / 04:38 PM
- *
- * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @version 1.0
- * @since 1.0
- * @package
- * @link
- * @copyright 2018 Varun Sridharan
- * @license GPLV3 Or Greater (https://www.gnu.org/licenses/gpl-3.0.txt)
- */
 
 namespace WPOnion\Field;
+
+use WPOnion\Field;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -26,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Field\Accordion' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Accordion extends \WPOnion\Field {
+	class Accordion extends Field {
 
 		/**
 		 * Renders Fields HTML.

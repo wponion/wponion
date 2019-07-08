@@ -3,7 +3,6 @@
 namespace WPOnion\Field;
 
 use WPOnion\Field;
-use WPOnion\Modules\Metabox\Core;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;

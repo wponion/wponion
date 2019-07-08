@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+use ArrayAccess;
+use Iterator;
 use WPOnion\Traits\Array_Position;
 
 if ( ! class_exists( 'WPO\Helper\Array_Helper' ) ) {
@@ -16,7 +18,7 @@ if ( ! class_exists( 'WPO\Helper\Array_Helper' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Array_Helper extends Base implements \ArrayAccess, \Iterator {
+	class Array_Helper extends Base implements ArrayAccess, Iterator {
 		use Array_Position;
 
 		/**

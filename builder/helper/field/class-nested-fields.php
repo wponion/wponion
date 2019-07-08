@@ -6,8 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-use WPO\Field;
-
 if ( ! class_exists( '\WPO\Helper\Field\Nested_Fields' ) ) {
 	/**
 	 * Class Nested_Fields

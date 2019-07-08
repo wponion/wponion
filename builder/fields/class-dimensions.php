@@ -2,6 +2,8 @@
 
 namespace WPO\Fields;
 
+use WPO\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -20,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\Dimensions' ) ) {
 	 * @method get_unit_options()
 	 * @method get_icons()
 	 */
-	class Dimensions extends \WPO\Field {
+	class Dimensions extends Field {
 		/**
 		 * Date_Picker constructor.
 		 *

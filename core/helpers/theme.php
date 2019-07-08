@@ -1,4 +1,11 @@
 <?php
+
+use WPOnion\Theme\WC;
+use WPOnion\Theme\WP_Lite;
+use WPOnion\Theme\WP_Modern;
+use WPOnion\Theme\WP;
+use WPOnion\Themes;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -13,7 +20,7 @@ if ( ! function_exists( 'wponion_wp_modern_theme_init' ) ) {
 		if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 			require_once wponion()->tpl( 'wp-modern/class-wp-modern.php' );
 		}
-		return new WPOnion\Theme\WP_Modern( $data );
+		return new WP_Modern( $data );
 	}
 }
 
@@ -27,7 +34,7 @@ if ( ! function_exists( 'wponion_wp_lite_theme_init' ) ) {
 		if ( ! class_exists( '\WPOnion\Theme\WP_Lite' ) ) {
 			require_once wponion()->tpl( 'wp-lite/class-wp-lite.php' );
 		}
-		return new WPOnion\Theme\WP_Lite( $data );
+		return new WP_Lite( $data );
 	}
 }
 
@@ -41,7 +48,7 @@ if ( ! function_exists( 'wponion_wp_theme_init' ) ) {
 		if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 			require_once wponion()->tpl( 'wp/class-wp.php' );
 		}
-		return new WPOnion\Theme\WP( $data );
+		return new WP( $data );
 	}
 }
 
@@ -56,7 +63,7 @@ if ( ! function_exists( 'wponion_wc_theme_init' ) ) {
 		if ( ! class_exists( '\WPOnion\Theme\WC' ) ) {
 			require_once wponion()->tpl( 'wc/class-wc.php' );
 		}
-		return new WPOnion\Theme\WC( $data );
+		return new WC( $data );
 	}
 }
 
@@ -83,6 +90,6 @@ if ( ! function_exists( 'wponion_add_theme' ) ) {
 	 * @return bool
 	 */
 	function wponion_add_theme( $theme_name = '', $supported_modules = array(), $callback = null ) {
-		return \WPOnion\Themes::register( $theme_name, $supported_modules, $callback );
+		return Themes::register( $theme_name, $supported_modules, $callback );
 	}
 }

@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\DB\Options;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -63,7 +66,7 @@ if ( ! function_exists( 'wpo_settings' ) ) {
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
 	function wpo_settings( $unique, $option_key = false, $default = false ) {
-		return \WPOnion\DB\Options::settings( $unique, $option_key, $default );
+		return Options::settings( $unique, $option_key, $default );
 	}
 }
 
@@ -78,7 +81,7 @@ if ( ! function_exists( 'wpo_network_settings' ) ) {
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
 	function wpo_network_settings( $unique, $option_key = false, $default = false ) {
-		return \WPOnion\DB\Options::network_settings( $unique, $option_key, $default );
+		return Options::network_settings( $unique, $option_key, $default );
 	}
 }
 
@@ -94,7 +97,7 @@ if ( ! function_exists( 'wpo_post_meta' ) ) {
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
 	function wpo_post_meta( $post_id, $unique, $option_key = false, $default = false ) {
-		return \WPOnion\DB\Options::post_meta( $post_id, $unique, $option_key, $default );
+		return Options::post_meta( $post_id, $unique, $option_key, $default );
 	}
 }
 
@@ -126,7 +129,7 @@ if ( ! function_exists( 'wpo_user_meta' ) ) {
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
 	function wpo_user_meta( $post_id, $unique, $option_key = false, $default = false ) {
-		return \WPOnion\DB\Options::user_meta( $post_id, $unique, $option_key, $default );
+		return Options::user_meta( $post_id, $unique, $option_key, $default );
 	}
 }
 
@@ -142,7 +145,7 @@ if ( ! function_exists( 'wpo_term_meta' ) ) {
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
 	function wpo_term_meta( $post_id, $unique, $option_key = false, $default = false ) {
-		return \WPOnion\DB\Options::term_meta( $post_id, $unique, $option_key, $default );
+		return Options::term_meta( $post_id, $unique, $option_key, $default );
 	}
 }
 

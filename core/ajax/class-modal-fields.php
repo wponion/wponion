@@ -23,9 +23,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 		 */
 		public function run() {
 			/* @var \WPO\Field $field */
-			$unique       = $this->validate_post( 'unique', __( 'Unique Key Not Found', 'wponion' ) );
+			$this->validate_post( 'unique', __( 'Unique Key Not Found', 'wponion' ) );
 			$modal_action = $this->validate_post( 'modal_action', __( 'Modal Action Not Found', 'wponion' ) );
-			$module       = $this->get_module();
+			$this->get_module();
 
 			switch ( $modal_action ) {
 				case 'featch_fields':

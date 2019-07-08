@@ -2,6 +2,8 @@
 
 namespace WPO\Fields;
 
+use WPO\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -16,7 +18,7 @@ if ( ! class_exists( 'WPO\Fields\Color_Group' ) ) {
 	 *
 	 * @method get_rgba()
 	 */
-	class Color_Group extends \WPO\Field {
+	class Color_Group extends Field {
 		/**
 		 * Color_Group constructor.
 		 *

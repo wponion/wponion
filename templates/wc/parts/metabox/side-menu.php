@@ -3,9 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-/**
- * @var $this \WPOnion\Theme\WC
- */
+/* @var $this \WPOnion\Theme\WC */
 $metabox = $this->metabox();
 if ( ! empty( $metabox->metabox_menus() ) ) {
 	?>

@@ -2,6 +2,8 @@
 
 namespace WPOnion\WP\Nav_Menu;
 
+use Walker_Nav_Menu_Edit;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( '\WPOnion\WP\Nav_Menu\Walker' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Walker extends \Walker_Nav_Menu_Edit {
+	class Walker extends Walker_Nav_Menu_Edit {
 		/**
 		 * @param string $output
 		 * @param object $item

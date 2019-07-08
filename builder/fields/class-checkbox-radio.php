@@ -2,6 +2,8 @@
 
 namespace WPO\Fields;
 
+use WPO\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -16,7 +18,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 	 *
 	 * @method get_label()
 	 */
-	class Checkbox_Radio extends \WPO\Field {
+	class Checkbox_Radio extends Field {
 		/**
 		 * @var string
 		 * @access
