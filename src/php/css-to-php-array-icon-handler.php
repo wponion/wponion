@@ -1,21 +1,13 @@
 <?php
-error_reporting( E_ALL );
-set_time_limit( 0 );
-define( 'ABSPATH', '' );
-define( 'WPONION_URL', '' );
-
-function add_action() {
-}
-
-function wponion() {
-	return \WPOnion::instance();
-}
-
+include __DIR__ . '/icon-extractor-util.php';
 include __DIR__ . '/../../core/traits/trait-self-instance.php';
 include __DIR__ . '/../../core/setup/class-wponion.php';
 include __DIR__ . '/../../core/class-assets.php';
 
-$fonts = array(
+$single_icon_file = file_get_contents( __DIR__ . '/icon-file.txt' );
+$icon_function    = file_get_contents( __DIR__ . '/single-icon.txt' );
+$last_updated     = date( 'd/m/Y - h:i:s:a' );
+$icons            = array(
 	'dashicons'    => array(
 		'name'   => 'Dashicons',
 		'prefix' => array( 'dashicons' ),
@@ -42,10 +34,18 @@ $fonts = array(
 		'src'    => \WPOnion\Assets::$icon_libs['boxicons']['src'],
 	),
 );
+$icons_main_file  = <<<PHP
+<?php
+/* Last Updated : $last_updated */
 
-foreach ( $fonts as $framework => $data ) {
-	$css          = file_get_contents( $data['src'] );
-	$last_updated = date( 'd/m/Y - h:i:s:a' );
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+PHP;
+
+foreach ( $icons as $framework => $data ) {
+	$css = file_get_contents( $data['src'] );
 	if ( ! empty( $css ) ) {
 		$result         = array();
 		$parser_matches = array();
@@ -59,7 +59,6 @@ foreach ( $fonts as $framework => $data ) {
 				$is_with_pseudo_element = is_numeric( strpos( $selector, ':' ) );
 				$has_content_for_pseudo = is_numeric( strpos( $value, 'content' ) );
 				$selector_is_icon       = $is_correct_prefix && $is_with_pseudo_element && $has_content_for_pseudo;
-
 				if ( $selector_is_icon ) {
 					$icon     = explode( ':', ltrim( $selector, '.' ) );
 					$result[] = $prefix . ' ' . $icon[0];
@@ -67,27 +66,31 @@ foreach ( $fonts as $framework => $data ) {
 			}
 		}
 
-		$slug         = ( isset( $data['slug'] ) ) ? $data['slug'] : $framework;
-		$file_content = var_export( array(
-			'name'       => $data['name'],
-			'slug'       => $slug,
-			'assets'     => ( isset( $data['assets'] ) ) ? $data['assets'] : $framework,
-			'css_prefix' => ( isset( $data['prefix'] ) ) ? $data['prefix'] : false,
-			'icons'      => $result,
-		), true );
-		$file_content = preg_replace( '/[0-9]+ \=\>/i', '', $file_content );
+		$slug = ( isset( $data['slug'] ) ) ? $data['slug'] : $framework;
+		$code = str_replace( array( '[last_updated]', '[results]', '[name]', '[slug]' ), array(
+			$last_updated,
+			strip_array_keys( $result ),
+			$data['name'],
+			$slug,
+		), $single_icon_file );
+		save_icon_file( $code, $slug . '.php' );
 
-		file_put_contents( __DIR__ . '/../../data/icons/' . $slug . '.php', <<<PHPCODE
-<?php
-/* Last Updated : $last_updated */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
-
-wponion_add_icon_library($file_content)->register();
-
-PHPCODE
-		);
+		$assets          = ( isset( $data['assets'] ) ) ? $data['assets'] : $framework;
+		$assets          = ( is_array( $assets ) ) ? strip_array_keys( $assets ) : "'$assets'";
+		$prefix          = ( isset( $data['prefix'] ) ) ? $data['prefix'] : '';
+		$prefix          = ( is_array( $prefix ) ) ? strip_array_keys( $prefix ) : "'$prefix'";
+		$icons_main_file .= PHP_EOL . str_replace( array(
+				'[name]',
+				'[slug]',
+				'[assets]',
+				'[css_prefix]',
+			), array(
+				$data['name'],
+				$slug,
+				$assets,
+				$prefix,
+			), $icon_function );
 	}
 }
+
+save_main_icon_file( $icons_main_file );
