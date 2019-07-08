@@ -107,9 +107,9 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 */
 		public static function icon_defaults() {
 			return array(
-				'title'  => false,
-				'icon'   => false,
-				'search' => array(),
+				'title' => false,
+				'css'   => false,
+				'terms' => array(),
 			);
 		}
 	}
