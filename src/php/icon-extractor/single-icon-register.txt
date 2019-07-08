@@ -1,8 +1,8 @@
-require_once WPONION_PATH . '/data/icons/[slug].php';
+
 wponion_add_icon_library( array(
 	'name'       => __( '[name]' ),
 	'slug'       => '[slug]',
 	'assets'     => [assets],
 	'css_prefix' => [css_prefix],
-	'icons'      => 'wponion_icons_[slug]_list',
+	'icons'      => 'wponion_icon_[slug]',
 ) )->register();
