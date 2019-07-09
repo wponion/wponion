@@ -108,7 +108,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function on_wponion_loaded() {
-			wponion_admin_notices();
+			if ( is_admin() || wponion_is_ajax() ) {
+				wponion_admin_notices();
+			}
 
 			if ( is_admin() && file_exists( WP_CONTENT_DIR . '/plugins/wponion/wponion.php' ) ) {
 				wponion_plugin_links( WPONION_FILE )
