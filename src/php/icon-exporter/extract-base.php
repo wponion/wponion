@@ -22,13 +22,13 @@ abstract class Icon_Export_Base {
 		$search  = array( '[name]', '[slug]', '[assets]', '[css_prefix]' );
 		$replace = array( $lib['name'], $slug, $assets, $prefix );
 
-		Icon_Exporter::$icons_register_functions .= str_replace( $search, $replace, self::register_code() );
+		Icon_Exporter::$icons_register_functions .= str_replace( $search, $replace, static::register_code() );
 	}
 
 	public static function icon_callback_function( $slug, $lib ) {
 		$search                         = array( '[file]', '[name]', '[slug]' );
 		$replace                        = array( $slug . '.json', $lib['name'], $slug );
-		Icon_Exporter::$icons_callbacks .= str_replace( $search, $replace, self::icon_callback_code() );
+		Icon_Exporter::$icons_callbacks .= str_replace( $search, $replace, static::icon_callback_code() );
 	}
 
 	public static function register_code() {

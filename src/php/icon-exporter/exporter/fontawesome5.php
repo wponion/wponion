@@ -25,20 +25,20 @@ class FontAwesome5 extends Icon_Export_Base {
 			$icon_arg['terms'] = ( is_array( $icon_arg['terms'] ) ) ? implode( ' ', $icon_arg['terms'] ) : $icon_arg['terms'];
 			if ( is_array( $icon['styles'] ) && ! empty( $icon['styles'] ) ) {
 				foreach ( $icon['styles'] as $style ) {
-					if ( isset( self::$styles[ $style ] ) ) {
+					if ( isset( static::$styles[ $style ] ) ) {
 						$_ico = $icon_arg;
-						$key  = self::$styles[ $style ] . ' fa-' . $_ico['css'];
+						$key  = static::$styles[ $style ] . ' fa-' . $_ico['css'];
 						unset( $_ico['css'] );
 						$_ico = array_filter( $_ico );
 
-						if ( ! isset( $result[ self::$groups[ $style ] ] ) ) {
-							$result[ self::$groups[ $style ] ] = array();
+						if ( ! isset( $result[ static::$groups[ $style ] ] ) ) {
+							$result[ static::$groups[ $style ] ] = array();
 						}
 
 						if ( count( $_ico ) === 1 ) {
-							$result[ self::$groups[ $style ] ][ $key ] = ( isset( $_ico['title'] ) ) ? $_ico['title'] : $key;
+							$result[ static::$groups[ $style ] ][ $key ] = ( isset( $_ico['title'] ) ) ? $_ico['title'] : $key;
 						} else {
-							$result[ self::$groups[ $style ] ][ $key ] = $_ico;
+							$result[ static::$groups[ $style ] ][ $key ] = $_ico;
 						}
 					}
 				}
@@ -56,13 +56,13 @@ class FontAwesome5 extends Icon_Export_Base {
 			$icons = spyc_load( $css );
 
 			if ( is_array( $icons ) ) {
-				self::$result = self::extract_icons( $icons );
+				static::$result = static::extract_icons( $icons );
 			}
 
-			$slug = self::slug( $framework, $data );
-			self::save_json( $slug, self::$result );
-			self::icon_register_function( $slug, $data, $framework );
-			self::icon_callback_function( $slug, $data );
+			$slug = static::slug( $framework, $data );
+			static::save_json( $slug, static::$result );
+			static::icon_register_function( $slug, $data, $framework );
+			static::icon_callback_function( $slug, $data );
 		} else {
 			wpo_log( 'Failed - Exporting : ' . $framework );
 		}

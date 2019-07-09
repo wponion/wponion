@@ -13,7 +13,7 @@ class CSS_Exporter extends Icon_Export_Base {
 			if ( ! empty( $css ) ) {
 				wpo_log( 'Exporting : ' . $framework );
 				$result  = array();
-				$matches = self::match_css( $css );
+				$matches = static::match_css( $css );
 
 				foreach ( $data['prefix'] as $prefix ) {
 					foreach ( $matches[0] as $i => $x ) {
@@ -28,10 +28,10 @@ class CSS_Exporter extends Icon_Export_Base {
 					}
 				}
 
-				$slug = self::slug( $framework, $data );
-				self::save_json( $slug, $result );
-				self::icon_register_function( $slug, $data, $framework );
-				self::icon_callback_function( $slug, $data );
+				$slug = static::slug( $framework, $data );
+				static::save_json( $slug, $result );
+				static::icon_register_function( $slug, $data, $framework );
+				static::icon_callback_function( $slug, $data );
 			} else {
 				wpo_log( 'Failed - Exporting : ' . $framework );
 			}

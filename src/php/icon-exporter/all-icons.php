@@ -16,13 +16,13 @@ class Icon_Exporter {
 	}
 
 	public static function init() {
-		self::$icon_defaults      = array(
+		static::$icon_defaults      = array(
 			'title' => false,
 			'css'   => false,
 			'terms' => array(),
 		);
-		self::$exclude_css_prefix = array( 'icofont' );
-		self::$libs               = array(
+		static::$exclude_css_prefix = array( 'icofont' );
+		static::$libs               = array(
 			'css'             => array(
 				'dashicons'    => array(
 					'name'   => 'Dashicons',
@@ -61,7 +61,7 @@ class Icon_Exporter {
 				'src'    => __DIR__ . '/../../fonts/fontawesome-pro/icons-5.9.0.yml',
 			),
 		);
-		self::init_export();
+		static::init_export();
 	}
 
 	public static function init_export() {
@@ -70,7 +70,7 @@ class Icon_Exporter {
 		require_once WPONION_PATH . '/src/php/icon-exporter/exporter/css.php';
 		require_once WPONION_PATH . '/src/php/icon-exporter/exporter/fontawesome5.php';
 		require_once WPONION_PATH . '/src/php/icon-exporter/exporter/fontawesome5pro.php';
-		self::save_file();
+		static::save_file();
 	}
 
 	public static function save_file() {
@@ -87,8 +87,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 PHP;
 
-		$icons_php .= self::$icons_register_functions;
-		$icons_php .= self::$icons_callbacks;
+		$icons_php .= static::$icons_register_functions;
+		$icons_php .= static::$icons_callbacks;
 		file_put_contents( WPONION_PATH . '/data/icons.php', $icons_php );
 	}
 }
