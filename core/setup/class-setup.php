@@ -4,6 +4,7 @@ namespace WPOnion;
 
 use Exception;
 use Varunsridharan\PHP\Autoloader;
+use WPOnion\Integrations\Page_Builders\Elementor;
 use function wponion_admin_notices;
 use function wponion_register_field;
 use function wponion_register_ui_field;
@@ -122,7 +123,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			do_action( 'wponion_integrations_before_loaded' );
 			if ( wp_is_plugin_active( 'elementor/elementor.php' ) ) {
-				Integrations\Page_Builders\Elementor::init();
+				if ( is_version_gte( 'php', '7.0' ) ) {
+					Integrations\Page_Builders\Elementor::init();
+				} else {
+					wponion_error_admin_notice( __( 'WPOnion Elementor Integration Requires PHP Version 7.0 or Greater' ) );
+				}
 			}
 			do_action( 'wponion_integrations_loaded' );
 
