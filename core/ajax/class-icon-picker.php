@@ -252,10 +252,13 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 			if ( is_array( $search ) ) {
 				$search = implode( ' ', $search );
 			}
-
+//data-search="{$icon['css']} $search"
 			$icon_html = wponion_icon( $icon['css'] );
 			$html      = <<<HTML
-<div class="wponion-icon-preview-wrap"> <span data-icon="{$icon['css']}" data-search="{$icon['css']} $search" title="$title" class="wponion-icon-preview">$icon_html</span> </div>
+<div class="wponion-icon-preview-wrap"> 
+	<span data-icon="{$icon['css']}" title="$title" class="wponion-icon-preview">$icon_html</span>
+	<span class="hidden wpo-icon-terms" style="display: none !important; visibility: hidden !important;">{$icon['css']} $search</span>
+ </div>
 HTML;
 			return $html;
 		}

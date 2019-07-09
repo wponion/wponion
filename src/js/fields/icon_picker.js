@@ -62,13 +62,26 @@ class field extends WPOnion_Field {
 			input: function() {
 				$work.elm.find( 'div.wponion-icon-picker-model-header input[type=text]' ).on( 'keyup', function() {
 					let $val = jQuery( this ).val();
-					$work.elm.find( '.wponion-icon-framework:visible span.wponion-icon-preview' ).each( function() {
+					if( '' === $val ) {
+						$work.elm.find( '.wponion-icon-framework:visible .wponion-icon-preview-wrap' ).show();
+					} else {
+						$work.elm.find( '.wponion-icon-framework:visible .wponion-icon-preview-wrap' ).hide();
+						$work.elm.find( '.wponion-icon-framework:visible .wponion-icon-preview-wrap .wpo-icon-terms' )
+							 .each( function() {
+								 let $stauts = jQuery( this ).text()
+															 .match( new RegExp( '.*?' + $val + '.*?', 'i' ) );
+								 if( $stauts ) {
+									 jQuery( this ).parent().show();
+								 }
+							 } );
+					}
+					/*$work.elm.find( '.wponion-icon-framework:visible span.wponion-icon-preview' ).each( function() {
 						if( jQuery( this ).attr( 'data-search' ).search( new RegExp( $val, 'i' ) ) < 0 ) {
 							jQuery( this ).parent().hide();
 						} else {
 							jQuery( this ).parent().show();
 						}
-					} );
+					} );*/
 				} );
 			},
 			/**
