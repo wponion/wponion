@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "WPOnion Simple & Light Weight Framework For WordPress.",
   "main": "",
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [
     "wordpress",
     "wordpress-plugin",

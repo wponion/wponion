@@ -39,10 +39,11 @@
     "varunsridharan/wp-conditional-logic" : "^1.0"
   },
   "scripts"     : {
-    "makepot"        : "makepot ./wp-pot.json",
-    "add-textdomain" : "add-textdomain -i wponion ./",
-    "update-icons"   : "php ./src/php/icon-extractor/all-extractor.php",
-    "build"          : [ "@update-icons", "@makepot", "@add-textdomain" ]
+    "makepot"             : "makepot ./wp-pot.json",
+    "add-textdomain"      : "add-textdomain -i wponion ./",
+    "update-icons"        : "php ./src/php/icon-extractor/all-extractor.php",
+    "update-google-fonts" : "php ./src/php/google-fonts.php",
+    "build"               : [ "@update-icons", "@update-google-fonts", "@makepot", "@add-textdomain" ]
   },
   "require-dev" : {
     "varunsridharan/wp-cli-textdomain" : "^1.1",
