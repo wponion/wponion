@@ -1,4 +1,5 @@
 <?php
+$fa_free   = array( 'fas', 'fab' );
 $fa_groups = array(
 	'brands'  => 'Brands',
 	'solid'   => 'Solid',
@@ -63,9 +64,15 @@ foreach ( $libs['yml-fa'] as $framework => $lib ) {
 		save_icon_json( $result, $slug );
 
 		//Single Icon File Save Handler.
-		$search               = array( '[last_updated]', '[file]', '[name]', '[slug]' );
-		$replace              = array( $current_time, $slug . '.json', $lib['name'], $slug );
-		$icons_functions_code .= str_replace( $search, $replace, $icon_function );
+		$search  = array( '[last_updated]', '[file]', '[name]', '[slug]' );
+		$replace = array( $current_time, $slug . '.json', $lib['name'], $slug );
+
+		if ( 'fontawesome5pro' === $framework ) {
+			$icons_functions_code .= file_get_contents( __DIR__ . '/icon-function-fontawesome5pro.txt' );
+		} else {
+			$icons_functions_code .= str_replace( $search, $replace, $icon_function );
+		}
+
 
 		/**
 		 * Single Icon reg Functions.
