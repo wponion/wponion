@@ -124,7 +124,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			do_action( 'wponion_integrations_before_loaded' );
 			if ( wp_is_plugin_active( 'elementor/elementor.php' ) ) {
 				if ( is_version_gte( 'php', '7.0' ) ) {
-					Integrations\Page_Builders\Elementor::init();
+					Elementor::init();
 				} else {
 					wponion_error_admin_notice( __( 'WPOnion Elementor Integration Requires PHP Version 7.0 or Greater' ) );
 				}
@@ -200,6 +200,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_field( 'checkbox', 'all' );
 			wponion_register_field( 'color_picker', 'all' );
 			wponion_register_field( 'date_picker', 'all' );
+			wponion_register_field( 'time_picker', 'all' );
 			wponion_register_field( 'fieldset', 'all' );
 			wponion_register_field( 'font_picker', 'all' );
 			wponion_register_field( 'gallery', 'all' );
@@ -300,6 +301,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$remaps['\WPO\Fields\WP_Notice_Info']    = $wpnotice;
 			self::$remaps['\WPO\Fields\Markdown']          = '\WPO\Fields\Content';
 			self::$remaps['\WPO\Fields\content_markdown']  = '\WPO\Fields\Content';
+			self::$remaps['\WPO\Fields\Time_Picker']       = '\WPO\Fields\Date_Picker';
 
 			/* Customizer Module Fields. */
 			self::$remaps['\WPOnion\Module_Fields\Customizer\radio']        = $customizer_checkbox;

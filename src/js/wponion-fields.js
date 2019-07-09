@@ -14,6 +14,7 @@ require( './fields/checkbox_radio' );
 require( './fields/keyvalue_pair' );
 require( './fields/color_picker' );
 require( './fields/date_picker' );
+require( './fields/time-picker' );
 require( './fields/gallery' );
 require( './fields/upload' );
 require( './fields/image_upload' );
