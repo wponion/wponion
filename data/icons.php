@@ -1,5 +1,5 @@
 <?php
-/* Last Updated : 08/07/2019 - 07:25:07:pm */
+/* Last Updated : 09/07/2019 - 07:15:40:am */
 
 use WPOnion\Helper as h;
 
@@ -143,7 +143,19 @@ if ( ! function_exists( 'wponion_icon_fontawesome5pro' ) ) {
 	 * @return array
 	 */
 	function wponion_icon_fontawesome5pro() {
-		return h::read_json_file( WPONION_PATH . 'data/json/icons/fontawesome5pro.json', true );
+		$free_fonts = ( function_exists( 'wponion_icon_fontawesome5' ) ) ? wponion_icon_fontawesome5() : array();
+		$paid_fonts = h::read_json_file( WPONION_PATH . 'data/json/icons/fontawesome5pro.json', true );
+
+		if ( ! empty( $free_fonts ) ) {
+			foreach ( $free_fonts as $group => $icons ) {
+				if ( isset( $paid_fonts[ $group ] ) ) {
+					$paid_fonts[ $group ] = wp_parse_args( $paid_fonts[ $group ], $icons );
+				} else {
+					$paid_fonts[ $group ] = $icons;
+				}
+			}
+		}
+		return $paid_fonts;
 	}
 }
 
