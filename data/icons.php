@@ -1,5 +1,5 @@
 <?php
-/* Last Updated : 09/07/2019 - 07:02:42:pm */
+/* Last Updated : 09/07/2019 - 10:08:57:pm */
 
 use WPOnion\Helper as Helper;
 
@@ -35,6 +35,16 @@ wponion_add_icon_library( array(
 		'fa',
 	),
 	'icons'      => 'wponion_icon_fontawesome4',
+) )->register();
+
+wponion_add_icon_library( array(
+	'name'       => __( 'Material Design Icons' ),
+	'slug'       => 'materialdesignicons',
+	'assets'     => 'materialdesignicons',
+	'css_prefix' => array(
+		'mdi',
+	),
+	'icons'      => 'wponion_icon_materialdesignicons',
 ) )->register();
 
 wponion_add_icon_library( array(
@@ -111,6 +121,17 @@ if ( ! function_exists( 'wponion_icon_fontawesome4' ) ) {
 	 */
 	function wponion_icon_fontawesome4() {
 		return Helper::read_json_file( WPONION_PATH . 'data/json/icons/fontawesome4.json', true );
+	}
+}
+
+if ( ! function_exists( 'wponion_icon_materialdesignicons' ) ) {
+	/**
+	 * Returns Icons List For Material Design Icons Library
+	 *
+	 * @return array
+	 */
+	function wponion_icon_materialdesignicons() {
+		return Helper::read_json_file( WPONION_PATH . 'data/json/icons/materialdesignicons.json', true );
 	}
 }
 

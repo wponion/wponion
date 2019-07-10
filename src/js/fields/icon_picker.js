@@ -97,7 +97,8 @@ class field extends WPOnion_Field {
 							 $swal_content.find( '.wponion-icon-framework' ).hide();
 							 $swal_content.find( '#' + $val ).show();
 						 } else {
-							 swal.enableLoading();
+							 //swal.enableLoading();
+							 $swal_content.block( { message: null, overlayCSS: { background: '#000', opacity: 0.4 } } );
 							 $_this.ajax( 'icon_picker', {
 								 data: { 'wponion-icon-lib': $val, first_load: 'no' },
 								 success: ( $res ) => {
@@ -111,7 +112,10 @@ class field extends WPOnion_Field {
 									 jQuery( $work.elm ).find( '.wponion-icon-picker-container-scroll' ).remove();
 									 wponion_error_swal( $res ).fire();
 								 },
-								 always: () => $work.popup.disableLoading(),
+								 always: () => {
+									 // $work.popup.disableLoading();
+									 $swal_content.unblock();
+								 },
 							 } ).send();
 						 }
 					 } );
