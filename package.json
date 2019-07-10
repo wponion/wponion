@@ -16,7 +16,7 @@
     "@wordpress/hooks": "^2.4.0",
     "bootstrap": "^4.1.1",
     "css-checkbox-library": "^1.4.0",
-    "easy-gulp-tasker": "^1.0.9",
+    "easy-gulp-tasker": "^1.0.10",
     "flexboxgrid2": "^7.2.1",
     "popper.js": "^1.15.0",
     "jquery-serializejson": "^2.9.0",
