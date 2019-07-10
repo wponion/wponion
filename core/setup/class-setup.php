@@ -128,7 +128,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				if ( is_version_gte( 'php', '7.0' ) ) {
 					Elementor::init();
 				} else {
-					wponion_error_admin_notice( __( 'WPOnion Elementor Integration Requires PHP Version 7.0 or Greater' ) );
+					wponion_error_admin_notice( __( 'WPOnion Elementor Integration Requires PHP Version 7.0 or Greater', 'wponion' ) );
 				}
 			}
 			do_action( 'wponion_integrations_loaded' );

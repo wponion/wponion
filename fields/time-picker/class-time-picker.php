@@ -35,7 +35,7 @@ if ( ! class_exists( '\WPOnion\Field\Time_Picker' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'time'     => __( 'Time' ),
+				'time'     => __( 'Time', 'wponion' ),
 				'settings' => array(),
 				'theme'    => 'default',
 			);
