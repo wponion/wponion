@@ -1,4 +1,10 @@
 <?php
+
+use WPO\Builder;
+use WPO\Container;
+use WPO\Field;
+use WPOnion\DB\Option;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -26,18 +32,18 @@ if ( ! function_exists( 'wponion_is' ) ) {
 	function wponion_is( $builder, $type = 'builder' ) {
 		switch ( strtolower( $type ) ) {
 			case 'builder':
-				return ( $builder instanceof \WPO\Builder );
+				return ( $builder instanceof Builder );
 				break;
 			case 'container':
 			case 'page':
 			case 'section':
-				return ( $builder instanceof \WPO\Container );
+				return ( $builder instanceof Container );
 				break;
 			case 'field':
-				return ( $builder instanceof \WPO\Field );
+				return ( $builder instanceof Field );
 				break;
 			case 'option':
-				return ( $builder instanceof \WPOnion\DB\Option );
+				return ( $builder instanceof Option );
 				break;
 		}
 		return false;
@@ -53,7 +59,7 @@ if ( ! function_exists( 'wpo_container' ) ) {
 	 * @return \WPO\Container
 	 */
 	function wpo_container( $slug = false, $title = false, $icon = false ) {
-		return new \WPO\Container( $slug, $title, $icon );
+		return new Container( $slug, $title, $icon );
 	}
 }
 

@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\Media_Fields;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -27,6 +30,6 @@ if ( ! function_exists( 'wponion_media_fields' ) ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_media_fields_registry( $instance_id_or_args );
 		}
-		return new \WPOnion\Modules\Media_Fields( $instance_id_or_args, $fields );
+		return new Media_Fields( $instance_id_or_args, $fields );
 	}
 }

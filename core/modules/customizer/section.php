@@ -2,6 +2,8 @@
 
 namespace WPOnion\Modules\Customizer;
 
+use WP_Customize_Section;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer\Section' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Section extends \WP_Customize_Section {
+	class Section extends WP_Customize_Section {
 		/**
 		 * @var string
 		 * @access

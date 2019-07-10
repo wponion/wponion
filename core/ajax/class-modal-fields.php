@@ -23,9 +23,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 		 */
 		public function run() {
 			/* @var \WPO\Field $field */
-			$unique       = $this->validate_post( 'unique', __( 'Unique Key Not Found' ) );
-			$modal_action = $this->validate_post( 'modal_action', __( 'Modal Action Not Found' ) );
-			$module       = $this->get_module();
+			$this->validate_post( 'unique', __( 'Unique Key Not Found', 'wponion' ) );
+			$modal_action = $this->validate_post( 'modal_action', __( 'Modal Action Not Found', 'wponion' ) );
+			$this->get_module();
 
 			switch ( $modal_action ) {
 				case 'featch_fields':
@@ -85,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 					'html' => ( isset( $field['modal_type'] ) && 'wp' === $field['modal_type'] ) ? $data->wp() : $data->swal(),
 				) );
 			} else {
-				$this->json_error( __( 'Modal Field Not Found' ) );
+				$this->json_error( __( 'Modal Field Not Found', 'wponion' ) );
 			}
 		}
 	}

@@ -3,7 +3,6 @@
 namespace WPOnion\Field;
 
 use WPOnion\Field;
-use WPOnion\Modules\Metabox\Core;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -213,8 +212,8 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 			if ( 'wp' === $this->data( 'module_type' ) ) {
 				return array(
 					'size'            => 'default',
-					'save_btn_label'  => __( 'Save' ),
-					'close_btn_label' => __( 'Close' ),
+					'save_btn_label'  => __( 'Save', 'wponion' ),
+					'close_btn_label' => __( 'Close', 'wponion' ),
 				);
 			}
 			return array(
@@ -226,8 +225,8 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				'focusCancel'         => false,
 				'allowEscapeKey'      => false,
 				'allowOutsideClick'   => false,
-				'confirmButtonText'   => __( 'Save' ),
-				'cancelButtonText'    => __( 'Cancel' ),
+				'confirmButtonText'   => __( 'Save', 'wponion' ),
+				'cancelButtonText'    => __( 'Cancel', 'wponion' ),
 			);
 		}
 
@@ -243,7 +242,7 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				'overview_html' => '',
 				'modal_config'  => array(),
 				'modal_type'    => 'swal', // SWAL / WP.
-				'modal_button'  => __( 'Open Modal' ),
+				'modal_button'  => __( 'Open Modal', 'wponion' ),
 			);
 		}
 	}

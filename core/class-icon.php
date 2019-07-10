@@ -75,7 +75,8 @@ if ( ! class_exists( '\WPOnion\Icon' ) ) {
 		 * @return array
 		 */
 		public function icons() {
-			return $this->option( 'icons', array() );
+			$call = $this->option( 'icons', array() );
+			return wponion_is_callable( $call ) ? wponion_callback( $call ) : $call;
 		}
 
 		/**
@@ -102,20 +103,6 @@ if ( ! class_exists( '\WPOnion\Icon' ) ) {
 		 */
 		public function css_prefix() {
 			return $this->option( 'css_prefix' );
-		}
-
-		/**
-		 * @param string $icon
-		 * @param array  $args
-		 *
-		 * @return $this
-		 */
-		public function add( $icon = '', $args = array() ) {
-			$this->set_option( 'icons/' . $icon, wp_parse_args( $args, array(
-				'title'  => $icon,
-				'search' => array(),
-			) ) );
-			return $this;
 		}
 	}
 }

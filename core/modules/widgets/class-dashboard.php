@@ -79,7 +79,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		 */
 		public function on_page_load() {
 			$this->init_theme();
-			$cache = $this->get_cache();
+			$this->get_cache();
 			$this->set_defaults();
 		}
 

@@ -131,7 +131,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * Appens Data To Existing.
 		 */
 		protected function append_data() {
-			if ( ! wponion_is_ajax() || ( wp_script_is( 'wponion-core', 'registered' ) ) ) {
+			if ( wp_script_is( 'wponion-core' ) && ! wponion_is_ajax() ) {
 				/* translators: */
 				$js_notice = PHP_EOL . __( 'This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` ', 'wponion' );
 				$js_notice = $js_notice . PHP_EOL . PHP_EOL . __( '**PHP Args:** is the array which is passed to the framework in php ', 'wponion' );
@@ -168,6 +168,10 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			if ( defined( 'WPONION_ADD_FONT_DATA' ) && true === WPONION_ADD_FONT_DATA ) {
 				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts(), true, false );
 				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
+			}
+
+			if ( wponion_is_debug() ) {
+				$this->add( 'wponion_js_variables', array_keys( $this->js_args ), false, false );
 			}
 		}
 

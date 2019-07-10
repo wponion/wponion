@@ -13,6 +13,6 @@ if ( ! class_exists( '\WPOnion\Field\Subheading' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Subheading extends \WPOnion\Field\Heading {
+	class Subheading extends Heading {
 	}
 }

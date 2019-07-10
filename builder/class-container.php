@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
+use Error;
+use Exception;
 use WPO\Helper\Container\Functions as Container_Functions;
 use WPO\Helper\Container\Helper;
 use WPO\Helper\Field\Functions as Field_Functions;
@@ -62,7 +64,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 					if ( method_exists( $this, 'set_' . $key ) ) {
 						try {
 							$this->{'set_' . $key}( $val );
-						} catch ( \Exception $exception ) {
+						} catch ( Exception $exception ) {
 
 						}
 					}
@@ -246,7 +248,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 			if ( ! in_array( $name, $defined_vars, true ) ) {
 				$this->custom_data[ $name ] = $value;
 			} else {
-				throw new \Error( 'WPOnion Container\'s Core Variables Cannot Me Modified' );
+				throw new Error( 'WPOnion Container\'s Core Variables Cannot Me Modified' );
 			}
 		}
 

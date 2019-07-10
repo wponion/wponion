@@ -15,7 +15,9 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 	 * @since 1.0
 	 */
 	class Spacing extends Input_Group {
-
+		/**
+		 * @return string
+		 */
 		protected function field_wrap_class() {
 			return 'wponion-element-input_group';
 		}
@@ -31,11 +33,10 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 			if ( false === $this->data( 'all' ) ) {
 				foreach ( $this->field_slugs() as $slug ) {
 					if ( false !== $this->data( $slug ) ) {
-						$defaults = array(
+						$defaults        = array(
 							'prefix'      => $icons[ $slug ],
 							'placeholder' => $titles[ $slug ],
 						);
-
 						$fields[ $slug ] = ( true === $this->data( $slug ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( $slug ), $defaults );
 					}
 				}
@@ -66,7 +67,6 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 		}
 
 		public function field_assets() {
-			// TODO: Implement field_assets() method.
 		}
 
 		/**

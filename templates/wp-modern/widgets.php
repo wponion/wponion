@@ -3,9 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-/**
- * @var \WPOnion\Theme\WP_Modern $this
- */
+/* @var \WPOnion\Theme\WP_Modern $this */
 $widget = $this->widgets();
 $fields = $widget->fields();
 ?>

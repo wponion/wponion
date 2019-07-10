@@ -1,4 +1,9 @@
 <?php
+
+use WPOnion\Helper;
+use WPOnion\Icon;
+use WPOnion\Util;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -12,7 +17,7 @@ if ( ! function_exists( 'wponion_timer' ) ) {
 	 * @return bool|string
 	 */
 	function wponion_timer( $key = '', $stop = false, $precision = 3 ) {
-		return ( false === $stop ) ? \WPOnion\Helper::timer_start( $key ) : \WPOnion\Helper::timer_stop( $key, $precision );
+		return ( false === $stop ) ? Helper::timer_start( $key ) : Helper::timer_stop( $key, $precision );
 	}
 }
 
@@ -58,7 +63,7 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 		}
 		unset( $args['content'] );
 		unset( $args['element'] );
-		$instance = new \WPOnion\Util( $element, false );
+		$instance = new Util( $element, false );
 		return $instance->tooltip( $content, $args, $localize );
 	}
 }
@@ -92,7 +97,7 @@ if ( ! function_exists( 'wponion_inline_ajax' ) ) {
 	 * @return string|\WPOnion\Util
 	 */
 	function wponion_inline_ajax( $args = array(), $element = '' ) {
-		$instance = new \WPOnion\Util( $element, false );
+		$instance = new Util( $element, false );
 		return $instance->inline_ajax( $args );
 	}
 }
@@ -106,7 +111,7 @@ if ( ! function_exists( 'wponion_image_popup' ) ) {
 	 * @return string|bool|\WPOnion\Util
 	 */
 	function wponion_image_popup( $image_src = '', $full_size = false, $element = false ) {
-		$instance = new \WPOnion\Util( $element );
+		$instance = new Util( $element );
 		return $instance->image_popup( $image_src, $full_size, $element );
 	}
 }
@@ -118,6 +123,6 @@ if ( ! function_exists( 'wponion_add_icon_library' ) ) {
 	 * @return \WPOnion\Icon
 	 */
 	function wponion_add_icon_library( $args ) {
-		return new \WPOnion\Icon( $args );
+		return new Icon( $args );
 	}
 }

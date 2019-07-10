@@ -75,7 +75,7 @@ JAVASCRIPT;
 			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ', 'wponion' ) . '</p>';
 			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
 			if ( wpo_is_container( $container_arg ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
-				$_content .= wponion_tooltip( __( 'Email System Info To The Plugin Developer / Author' ), array(
+				$_content .= wponion_tooltip( __( 'Email System Info To The Plugin Developer / Author', 'wponion' ), array(
 					'placement' => 'bottom',
 					'element'   => $email,
 				) );
@@ -95,26 +95,26 @@ JAVASCRIPT;
 
 				$emailer->hidden( 'developer' );
 
-				$emailer->text( 'from_name', __( 'From Name' ) )
-					->placeholder( __( 'From Name' ) )
+				$emailer->text( 'from_name', __( 'From Name', 'wponion' ) )
+					->placeholder( __( 'From Name', 'wponion' ) )
 					->style( 'width:100%;padding:10px;' )
 					->debug( false )
 					->horizontal( true );
-				$emailer->text( 'from_email', __( 'From Email' ) )
-					->placeholder( __( 'From Email' ) )
-					->style( 'width:100%;padding:10px;' )
-					->debug( false )
-					->horizontal( true );
-
-				$emailer->text( 'subject', __( 'Subject' ) )
+				$emailer->text( 'from_email', __( 'From Email', 'wponion' ) )
+					->placeholder( __( 'From Email', 'wponion' ) )
 					->style( 'width:100%;padding:10px;' )
 					->debug( false )
 					->horizontal( true );
 
-				$emailer->textarea( 'message', __( 'Message' ) )
+				$emailer->text( 'subject', __( 'Subject', 'wponion' ) )
+					->style( 'width:100%;padding:10px;' )
+					->debug( false )
+					->horizontal( true );
+
+				$emailer->textarea( 'message', __( 'Message', 'wponion' ) )
 					->style( 'width:100%;' )
 					->rows( 10 )
-					->desc_field( __( 'System Information Will Be Attached With Your Message' ) )
+					->desc_field( __( 'System Information Will Be Attached With Your Message', 'wponion' ) )
 					->debug( false )
 					->horizontal( true );
 				$html = '<div class="wponion-framework" id="wponion-sysinfo-popup-emailer">';
@@ -131,14 +131,15 @@ JAVASCRIPT;
 					} elseif ( 'from_email' === $field['id'] ) {
 						$value = $user->user_email;
 					} elseif ( 'subject' === $field['id'] ) {
-						$value = sprintf( __( 'Reg : [%s] System Information ' ), home_url() );
+						/* translators: Added Home URL.*/
+						$value = sprintf( __( 'Reg : [%s] System Information ', 'wponion' ), home_url() );
 					}
 					$html .= $field->render( $value, 'wponion_sysinfo' );
 				}
 				$html .= '</div>';
 
 				wponion_localize()->add( 'wponionsysinfo', array(
-					'title' => __( 'Send Sys Info Via Email' ),
+					'title' => __( 'Send Sys Info Via Email', 'wponion' ),
 					'html'  => $html,
 				) );
 			}

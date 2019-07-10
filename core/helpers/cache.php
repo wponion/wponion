@@ -1,4 +1,8 @@
 <?php
+
+use WPOnion\Cache;
+use WPOnion\Exception\Cache_Not_Found;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -11,7 +15,7 @@ if ( ! function_exists( 'wponion_set_cache' ) ) {
 	 * @return mixed
 	 */
 	function wponion_set_cache( $key, $value ) {
-		return \WPOnion\Cache::set( $key, $value );
+		return Cache::set( $key, $value );
 	}
 }
 
@@ -25,7 +29,7 @@ if ( ! function_exists( 'wponion_get_cache_defaults' ) ) {
 	function wponion_get_cache_defaults( $key, $defaults = false ) {
 		try {
 			return wponion_get_cache( $key );
-		} catch ( \WPOnion\Exception\Cache_Not_Found $exception ) {
+		} catch ( Cache_Not_Found $exception ) {
 			return $defaults;
 		}
 	}
@@ -39,7 +43,7 @@ if ( ! function_exists( 'wponion_get_cache' ) ) {
 	 * @throws \WPOnion\Exception\Cache_Not_Found
 	 */
 	function wponion_get_cache( $key ) {
-		return \WPOnion\Cache::get( $key );
+		return Cache::get( $key );
 	}
 }
 
@@ -48,7 +52,7 @@ if ( ! function_exists( 'wponion_delete_cache' ) ) {
 	 * @param string $key
 	 */
 	function wponion_delete_cache( $key ) {
-		\WPOnion\Cache::remove( $key );
+		Cache::remove( $key );
 	}
 }
 

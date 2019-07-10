@@ -28,6 +28,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 * @method \WPO\Fields\content markdown( $content = null )
 	 * @method \WPO\Fields\content content_markdown( $content = null )
 	 * @method \WPO\Fields\date_picker date_picker( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\date_picker time_picker( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\dimensions dimensions( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\fieldset fieldset( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\font_picker font_picker( $id = false, $title = false, $args = array() )

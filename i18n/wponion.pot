@@ -2,22 +2,22 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.2.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wponion\n"
+"Project-Id-Version: WPOnion 1.3.1\n"
+"Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-06-16T08:14:51+05:30\n"
+"POT-Creation-Date: 2019-07-10T08:01:41+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
 
 #. Plugin Name of the plugin
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:513
-#: core/wp/sysinfo/class-data.php:306
+#: core/modules/class-admin-page.php:514
+#: core/wp/sysinfo/class-data.php:310
 msgid "WPOnion"
 msgstr ""
 
@@ -41,123 +41,272 @@ msgstr ""
 msgid "A Container Cannot Have Both Field & Containers"
 msgstr ""
 
-#: core/abstract/class-field.php:192
+#: core/abstract/class-ajax.php:53
+msgid "Unable To Find The Module"
+msgstr ""
+
+#: core/abstract/class-ajax.php:57
+#: core/abstract/class-ajax.php:384
+msgid "Unable To Find The Field"
+msgstr ""
+
+#: core/abstract/class-ajax.php:348
+msgid "Module Not Found"
+msgstr ""
+
+#: core/abstract/class-ajax.php:348
+#: core/abstract/class-ajax.php:360
+msgid "Module Callback / Registry Function Not Found"
+msgstr ""
+
+#: core/abstract/class-ajax.php:360
+msgid "Module Instance Not Found"
+msgstr ""
+
+#: core/abstract/class-ajax.php:380
+msgid "Field Not Found"
+msgstr ""
+
+#: core/abstract/class-ajax.php:382
+msgid "Unable To Fetch The Field"
+msgstr ""
+
+#: core/abstract/class-field.php:198
 msgid "Raw Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:193
+#: core/abstract/class-field.php:199
 msgid "Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:194
+#: core/abstract/class-field.php:200
 msgid "Field Value"
 msgstr ""
 
-#: core/abstract/class-field.php:195
+#: core/abstract/class-field.php:201
 msgid "Unique"
 msgstr ""
 
-#: core/abstract/class-field.php:196
+#: core/abstract/class-field.php:202
 msgid "Module"
 msgstr ""
 
-#: core/abstract/class-field.php:314
+#: core/abstract/class-field.php:324
 msgid "Field Rendered In"
 msgstr ""
 
-#: core/abstract/class-field.php:314
+#: core/abstract/class-field.php:324
 msgid "Seconds"
 msgstr ""
 
-#: core/abstract/class-field.php:571
+#: core/abstract/class-field.php:581
 msgid "Field Errors"
 msgstr ""
 
-#: core/ajax/class-icon-picker.php:56
+#: core/ajax/class-icon-picker.php:82
 msgid "Search Icon"
 msgstr ""
 
-#: core/ajax/class-icon-picker.php:88
+#: core/ajax/class-icon-picker.php:120
+#: core/ajax/class-icon-picker.php:130
 msgid "Icon Library Not found"
 msgstr ""
 
-#: core/ajax/class-save-settings.php:47
-#: core/ajax/class-save-settings.php:51
-#: core/ajax/class-save-settings.php:56
+#: core/ajax/class-import-export.php:26
+msgid "Unknown Import / Export Action"
+msgstr ""
+
+#: core/ajax/class-import-export.php:30
+msgid "Invalid Backup To Restore."
+msgstr ""
+
+#: core/ajax/class-import-export.php:57
+msgid "Invalid Backup Content"
+msgstr ""
+
+#: core/ajax/class-import-export.php:57
+msgid "Unable To Decode Provided Backup Content"
+msgstr ""
+
+#: core/ajax/class-import-export.php:64
+msgid "Backup Imported"
+msgstr ""
+
+#: core/ajax/class-import-export.php:66
+msgid "Error !"
+msgstr ""
+
+#: core/ajax/class-import-export.php:66
+msgid "Unable To Import Backup. Please Try Again"
+msgstr ""
+
+#: core/ajax/class-import-export.php:73
+msgid "Backup Created"
+msgstr ""
+
+#: core/ajax/class-import-export.php:77
+msgid "Backup Creation Failed"
+msgstr ""
+
+#: core/ajax/class-import-export.php:77
+msgid "Unknown Error Occured While Creating Backup"
+msgstr ""
+
+#: core/ajax/class-import-export.php:82
+#: core/ajax/class-import-export.php:90
+#: core/ajax/class-import-export.php:95
+#: core/ajax/class-import-export.php:100
+#: core/ajax/class-import-export.php:105
+#: core/ajax/class-import-export.php:109
+msgid "Backup Not Found"
+msgstr ""
+
+#: core/ajax/class-import-export.php:100
+msgid "Deletion Failed"
+msgstr ""
+
+#: core/ajax/class-import-export.php:113
+msgid "Backup Restored "
+msgstr ""
+
+#: core/ajax/class-import-export.php:113
+msgid "Please Reload The Page."
+msgstr ""
+
+#: core/ajax/class-import-export.php:117
+msgid "Restore Failed"
+msgstr ""
+
+#: core/ajax/class-import-export.php:117
+msgid "Restore Will Fail If both database & backup values are same"
+msgstr ""
+
+#: core/ajax/class-modal-fields.php:26
+msgid "Unique Key Not Found"
+msgstr ""
+
+#: core/ajax/class-modal-fields.php:27
+msgid "Modal Action Not Found"
+msgstr ""
+
+#: core/ajax/class-modal-fields.php:88
+msgid "Modal Field Not Found"
+msgstr ""
+
+#: core/ajax/class-save-metabox.php:34
+msgid "Invalid Metabox"
+msgstr ""
+
+#: core/ajax/class-save-metabox.php:35
+msgid "Invalid Post ID"
+msgstr ""
+
+#: core/ajax/class-save-metabox.php:50
+msgid "Metabox Not Found"
+msgstr ""
+
+#: core/ajax/class-save-metabox.php:50
+msgid "Unable To Find The Metabox"
+msgstr ""
+
+#: core/ajax/class-save-settings.php:49
+#: core/ajax/class-save-settings.php:53
+#: core/ajax/class-save-settings.php:58
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#. translators:
-#: core/class-assets.php:209
-msgid "If you are developing offline, please download and install the <a href=\"%s\" target=\"_blank\">WPOnion Vendor Support</a> plugin/extension to bypass the CDN and avoid this warning"
+#: core/ajax/class-save-settings.php:64
+msgid "You can't do that!"
 msgstr ""
 
-#: core/class-assets.php:213
-msgid "WPOnion Framework Warning"
+#: core/ajax/class-sysinfo-emailer.php:33
+msgid "Unknown Error!"
+msgstr ""
+
+#: core/ajax/class-sysinfo-emailer.php:36
+msgid "Developer Email Not Found"
+msgstr ""
+
+#: core/ajax/class-sysinfo-emailer.php:36
+msgid "Unable To Find Plugin's Developer Contact."
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:144
+#: core/class-localize-api.php:136
 msgid "This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` "
 msgstr ""
 
-#: core/class-localize-api.php:145
+#: core/class-localize-api.php:137
 msgid "**PHP Args:** is the array which is passed to the framework in php "
 msgstr ""
 
-#: core/class-localize-api.php:146
+#: core/class-localize-api.php:138
 msgid "**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it"
 msgstr ""
 
-#: core/class-localize-api.php:155
+#: core/class-localize-api.php:148
 msgid "As JSON"
 msgstr ""
 
-#: core/class-localize-api.php:156
+#: core/class-localize-api.php:149
 msgid "Global WPOnion JSON Output"
 msgstr ""
 
-#: core/class-localize-api.php:157
+#: core/class-localize-api.php:150
 msgid "PHP Args"
 msgstr ""
 
-#: core/class-localize-api.php:158
+#: core/class-localize-api.php:151
 msgid "JS Args"
 msgstr ""
 
-#: core/class-localize-api.php:159
-msgid "Unknown Error Occured. Please Try Again."
+#: core/class-localize-api.php:152
+msgid "Unknown Error. Try Again"
 msgstr ""
 
-#: core/class-localize-api.php:160
+#: core/class-localize-api.php:153
 msgid "Click To View Field Debug Info"
 msgstr ""
 
-#: core/class-localize-api.php:161
+#: core/class-localize-api.php:154
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
-#: core/class-localize-api.php:162
-#: fields/accordion/class-accordion.php:47
+#: core/class-localize-api.php:155
+#: fields/accordion/class-accordion.php:27
+#: fields/import-export/class-backup-handler.php:127
 msgid "Delete"
 msgstr ""
 
-#: core/class-localize-api.php:163
+#: core/class-localize-api.php:156
 msgid "Processing ..."
 msgstr ""
 
-#: core/class-localize-api.php:164
+#: core/class-localize-api.php:157
+#: fields/import-export/class-backup-handler.php:126
 msgid "Restore"
 msgstr ""
 
-#: core/class-localize-api.php:165
+#: core/class-localize-api.php:158
 #: core/modules/settings/class-settings.php:284
 #: core/modules/settings/class-settings.php:286
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-localize-api.php:166
+#: core/class-localize-api.php:159
 msgid "Email Sent"
+msgstr ""
+
+#: core/class-localize-api.php:160
+msgid "Copied"
+msgstr ""
+
+#: core/class-localize-api.php:161
+msgid "Click To Copy"
+msgstr ""
+
+#: core/class-localize-api.php:162
+msgid "Success"
 msgstr ""
 
 #: core/helpers/assets.php:92
@@ -241,96 +390,24 @@ msgid "Right Sidebar"
 msgstr ""
 
 #. translators: Creates a msg says that <p>requested field type not found</p>
-#: core/helpers/field.php:216
+#: core/helpers/field.php:229
 msgid "%1$s Requested Field Type %2$s  Is Not Registed With WPOnion %3$s"
 msgstr ""
 
-#: core/helpers/field.php:235
+#: core/helpers/field.php:248
 msgid "Callback Arguments"
 msgstr ""
 
 #. translators:
-#: core/helpers/field.php:242
+#: core/helpers/field.php:255
 msgid "<code>%s</code> Field Class Not Found."
 msgstr ""
 
-#: core/helpers/field.php:464
-msgid "Regular"
-msgstr ""
-
-#: core/helpers/field.php:465
-msgid "Italic"
-msgstr ""
-
-#: core/helpers/field.php:466
-msgid "700"
-msgstr ""
-
-#: core/helpers/field.php:467
-msgid "700 Italic"
-msgstr ""
-
-#: core/helpers/field.php:468
-msgid "inherit"
-msgstr ""
-
-#: core/helpers/field.php:471
-msgid "Arial"
-msgstr ""
-
-#: core/helpers/field.php:472
-msgid "Arial Black"
-msgstr ""
-
-#: core/helpers/field.php:473
-msgid "Comic Sans MS"
-msgstr ""
-
-#: core/helpers/field.php:474
-msgid "Impact"
-msgstr ""
-
-#: core/helpers/field.php:475
-msgid "Lucida Sans Unicode"
-msgstr ""
-
-#: core/helpers/field.php:476
-msgid "Tahoma"
-msgstr ""
-
-#: core/helpers/field.php:477
-msgid "Trebuchet MS"
-msgstr ""
-
-#: core/helpers/field.php:478
-msgid "Verdana"
-msgstr ""
-
-#: core/helpers/field.php:479
-msgid "Courier New"
-msgstr ""
-
-#: core/helpers/field.php:480
-msgid "Lucida Console"
-msgstr ""
-
-#: core/helpers/field.php:481
-msgid "Georgia, serif"
-msgstr ""
-
-#: core/helpers/field.php:482
-msgid "Palatino Linotype"
-msgstr ""
-
-#: core/helpers/field.php:483
-msgid "Times New Roman"
-msgstr ""
-
-#: core/helpers/field.php:597
+#: core/helpers/field.php:573
 msgid "Websafe Fonts"
 msgstr ""
 
-#: core/helpers/field.php:607
+#: core/helpers/field.php:583
 msgid "Google Fonts"
 msgstr ""
 
@@ -354,11 +431,19 @@ msgstr ""
 msgid "Enter A Valid IP Address"
 msgstr ""
 
-#: core/integrations/page-builders/elementor/class-base.php:87
+#: core/helpers/validator.php:80
+msgid "Enter A Valid Regex"
+msgstr ""
+
+#: core/helpers/validator.php:93
+msgid "Enter A Valid MAC ID"
+msgstr ""
+
+#: core/integrations/page-builders/elementor/class-base.php:88
 msgid "Field"
 msgstr ""
 
-#: core/integrations/page-builders/elementor/class-base.php:199
+#: core/integrations/page-builders/elementor/class-base.php:200
 msgid "WPOnion Field"
 msgstr ""
 
@@ -367,12 +452,12 @@ msgid "Dismiss this notice."
 msgstr ""
 
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:513
+#: core/modules/class-admin-page.php:514
 msgid "Proudly Powered By %1$s %2$s %3$s "
 msgstr ""
 
 #. translators: Added WPOnionVersion
-#: core/modules/class-admin-page.php:526
+#: core/modules/class-admin-page.php:527
 msgid "WPOnion Version : %s"
 msgstr ""
 
@@ -386,295 +471,358 @@ msgstr ""
 msgid "No Result Found"
 msgstr ""
 
-#: core/wp/class-wp-list-table.php:81
-#: core/wp/class-wp-list-table.php:137
+#: core/setup/class-setup.php:117
+msgid "Documentation"
+msgstr ""
+
+#: core/setup/class-setup.php:118
+msgid "Demo"
+msgstr ""
+
+#: core/setup/class-setup.php:119
+msgid "Support"
+msgstr ""
+
+#: core/setup/class-setup.php:120
+msgid "Homepage"
+msgstr ""
+
+#: core/setup/class-setup.php:121
+msgid "Rate the plugin ★★★★★"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:80
+#: core/wp/class-wp-list-table.php:139
 msgid "No Items Found"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:30
-#: core/wp/sysinfo/class-data.php:226
-#: core/wp/sysinfo/class-data.php:252
-#: core/wp/sysinfo/class-data.php:253
-#: core/wp/sysinfo/class-data.php:268
+#: core/wp/class-wp-list-table.php:282
+#: fields/class-wp-list-table.php:30
+msgid "Search"
+msgstr ""
+
+#. translators: added Total Items Count
+#: core/wp/class-wp-list-table.php:312
+msgid "%s item"
+msgid_plural "%s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/wp/class-wp-list-table.php:344
+msgid "First page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:350
+msgid "Previous page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:355
+#: core/wp/class-wp-list-table.php:357
+msgid "Current Page"
+msgstr ""
+
+#. translators: 1. Current Page Number 2. Total Pages
+#: core/wp/class-wp-list-table.php:361
+msgctxt "paging"
+msgid "%1$s of %2$s"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:366
+msgid "Next page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:372
+msgid "Last page"
+msgstr ""
+
+#: core/wp/class-wp-list-table.php:447
+msgid "Select All"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:39
+#: core/wp/sysinfo/class-data.php:230
+#: core/wp/sysinfo/class-data.php:256
+#: core/wp/sysinfo/class-data.php:257
+#: core/wp/sysinfo/class-data.php:272
 msgid "Plugins"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:74
+#: core/wp/sysinfo/class-data.php:83
 msgid "WP Engine"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:76
+#: core/wp/sysinfo/class-data.php:85
 msgid "Pagely"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:78
+#: core/wp/sysinfo/class-data.php:87
 msgid "ICDSoft"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:80
+#: core/wp/sysinfo/class-data.php:89
 msgid "NetworkSolutions"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:82
+#: core/wp/sysinfo/class-data.php:91
 msgid "iPage"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:84
+#: core/wp/sysinfo/class-data.php:93
 msgid "IPower"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:86
+#: core/wp/sysinfo/class-data.php:95
 msgid "MediaTemple Grid"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:88
+#: core/wp/sysinfo/class-data.php:97
 msgid "Pair Networks"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:90
+#: core/wp/sysinfo/class-data.php:99
 msgid "Rackspace Cloud"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:92
+#: core/wp/sysinfo/class-data.php:101
 msgid "SysFix.eu Power Hosting"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:94
+#: core/wp/sysinfo/class-data.php:103
 msgid "Flywheel"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:122
-msgid "Host"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:123
-msgid "PHP Version"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:124
-msgid "MySQL Version"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:125
-msgid "Server Info"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:126
-msgid "Default Timezone"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:128
+#: core/wp/sysinfo/class-data.php:130
 msgid "Server Information"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:139
-msgid "Home URL"
+#: core/wp/sysinfo/class-data.php:131
+msgid "Host"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:140
-msgid "Site URL"
+#: core/wp/sysinfo/class-data.php:132
+msgid "PHP Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:141
-msgid "WP Version"
+#: core/wp/sysinfo/class-data.php:133
+msgid "MySQL Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:142
-msgid "WP Debug"
+#: core/wp/sysinfo/class-data.php:134
+msgid "Server Info"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:143
-msgid "WP Language"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:144
-msgid "WP Multisite"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:145
-msgid "WP Memory Limit"
+#: core/wp/sysinfo/class-data.php:135
+msgid "Default Timezone"
 msgstr ""
 
 #: core/wp/sysinfo/class-data.php:146
-msgid "WP Table Prefix"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:147
-msgid "WP Timezone"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:148
-msgid "Permalink Structure"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:149
-msgid "Registered Post Stati"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:151
 msgid "WordPress"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:161
-msgid "PHP Post Max Size"
+#: core/wp/sysinfo/class-data.php:147
+msgid "Home URL"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:162
-msgid "PHP Time Limit"
+#: core/wp/sysinfo/class-data.php:148
+msgid "Site URL"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:163
-msgid "PHP Max Input Vars"
+#: core/wp/sysinfo/class-data.php:149
+msgid "WP Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:164
-msgid "PHP Memory Limit"
+#: core/wp/sysinfo/class-data.php:150
+msgid "WP Debug"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:165
-msgid "PHP Upload Max Size"
+#: core/wp/sysinfo/class-data.php:151
+msgid "WP Language"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:166
-msgid "PHP Upload Max Filesize"
+#: core/wp/sysinfo/class-data.php:152
+msgid "WP Multisite"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:153
+msgid "WP Memory Limit"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:154
+msgid "WP Table Prefix"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:155
+msgid "WP Timezone"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:156
+msgid "Permalink Structure"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:157
+msgid "Registered Post Stati"
 msgstr ""
 
 #: core/wp/sysinfo/class-data.php:167
-msgid "PHP Arg Separator"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:168
-msgid "PHP Allow URL File Open"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:169
-msgid "DISPLAY ERRORS"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:170
-msgid "FSOCKOPEN"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:171
-msgid "cURL"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:172
-msgid "SOAP Client"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:173
-msgid "SUHOSIN"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:174
-msgid "Session"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:175
-msgid "Session Name"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:176
-msgid "Cookie Path"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:177
-msgid "Save Path"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:178
-msgid "Use Cookies"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:179
-msgid "Use Only Cookies"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:182
 msgid "PHP Information"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:193
-msgid "Theme Name"
+#: core/wp/sysinfo/class-data.php:168
+msgid "PHP Post Max Size"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:194
-msgid "Theme Version"
+#: core/wp/sysinfo/class-data.php:169
+msgid "PHP Time Limit"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:195
-msgid "Theme Author"
+#: core/wp/sysinfo/class-data.php:170
+msgid "PHP Max Input Vars"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:196
-msgid "Theme Author URI"
+#: core/wp/sysinfo/class-data.php:171
+msgid "PHP Memory Limit"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:172
+msgid "PHP Upload Max Size"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:173
+msgid "PHP Upload Max Filesize"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:174
+msgid "PHP Arg Separator"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:175
+msgid "PHP Allow URL File Open"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:176
+msgid "DISPLAY ERRORS"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:177
+msgid "FSOCKOPEN"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:178
+msgid "cURL"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:179
+msgid "SOAP Client"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:180
+msgid "SUHOSIN"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:181
+msgid "Session"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:182
+msgid "Session Name"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:183
+msgid "Cookie Path"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:184
+msgid "Save Path"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:185
+msgid "Use Cookies"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:186
+msgid "Use Only Cookies"
 msgstr ""
 
 #: core/wp/sysinfo/class-data.php:197
-msgid "Child Theme"
-msgstr ""
-
-#: core/wp/sysinfo/class-data.php:199
-#: core/wp/sysinfo/class-data.php:208
+#: core/wp/sysinfo/class-data.php:212
 msgid "Active Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:204
+#: core/wp/sysinfo/class-data.php:198
+msgid "Theme Name"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:199
+msgid "Theme Version"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:200
+msgid "Theme Author"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:201
+msgid "Theme Author URI"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:202
+msgid "Child Theme"
+msgstr ""
+
+#: core/wp/sysinfo/class-data.php:208
 msgid "Parent Theme"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:205
+#: core/wp/sysinfo/class-data.php:209
 msgid "Parent Theme Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:206
+#: core/wp/sysinfo/class-data.php:210
 msgid "Parent URI"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:207
+#: core/wp/sysinfo/class-data.php:211
 msgid "Parent Author URI"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:226
+#: core/wp/sysinfo/class-data.php:230
 msgid "Must Use Plugins"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:252
+#: core/wp/sysinfo/class-data.php:256
 #: fields/link-color/class-link-color.php:52
 msgid "Active"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:253
+#: core/wp/sysinfo/class-data.php:257
 msgid "Installed"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:268
+#: core/wp/sysinfo/class-data.php:272
 msgid "Active Multisite"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:307
+#: core/wp/sysinfo/class-data.php:311
 msgid "Loader File"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:308
+#: core/wp/sysinfo/class-data.php:312
 msgid "Loaded Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:309
+#: core/wp/sysinfo/class-data.php:313
 msgid "Loaded Path"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:310
+#: core/wp/sysinfo/class-data.php:314
 msgid "Avaiable Version"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:317
-#: core/wp/sysinfo/class-data.php:324
+#: core/wp/sysinfo/class-data.php:321
+#: core/wp/sysinfo/class-data.php:326
 msgid "Site Settings"
 msgstr ""
 
-#: core/wp/sysinfo/class-data.php:332
+#: core/wp/sysinfo/class-data.php:334
 #: core/wp/sysinfo/class-data.php:339
 msgid "Network Settings"
 msgstr ""
@@ -697,6 +845,41 @@ msgstr ""
 
 #: core/wp/sysinfo/class-sysinfo.php:76
 msgid "Get system report"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:78
+msgid "Email System Info To The Plugin Developer / Author"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:98
+#: core/wp/sysinfo/class-sysinfo.php:99
+msgid "From Name"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:103
+#: core/wp/sysinfo/class-sysinfo.php:104
+msgid "From Email"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:109
+msgid "Subject"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:114
+msgid "Message"
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:117
+msgid "System Information Will Be Attached With Your Message"
+msgstr ""
+
+#. translators: Added Home URL.
+#: core/wp/sysinfo/class-sysinfo.php:135
+msgid "Reg : [%s] System Information "
+msgstr ""
+
+#: core/wp/sysinfo/class-sysinfo.php:142
+msgid "Send Sys Info Via Email"
 msgstr ""
 
 #: data/currency.php:9
@@ -1347,130 +1530,198 @@ msgstr ""
 msgid "Zambian kwacha"
 msgstr ""
 
-#: data/icons/dashicons.php:8
-msgid "Dashicons"
+#: data/fonts/websafe.php:9
+msgid "Regular"
 msgstr ""
 
-#: fields/accordion/class-accordion.php:91
+#: data/fonts/websafe.php:10
+msgid "Italic"
+msgstr ""
+
+#: data/fonts/websafe.php:11
+msgid "700"
+msgstr ""
+
+#: data/fonts/websafe.php:12
+msgid "700 Italic"
+msgstr ""
+
+#: data/fonts/websafe.php:13
+msgid "inherit"
+msgstr ""
+
+#: data/fonts/websafe.php:16
+msgid "Arial"
+msgstr ""
+
+#: data/fonts/websafe.php:17
+msgid "Arial Black"
+msgstr ""
+
+#: data/fonts/websafe.php:18
+msgid "Comic Sans MS"
+msgstr ""
+
+#: data/fonts/websafe.php:19
+msgid "Impact"
+msgstr ""
+
+#: data/fonts/websafe.php:20
+msgid "Lucida Sans Unicode"
+msgstr ""
+
+#: data/fonts/websafe.php:21
+msgid "Tahoma"
+msgstr ""
+
+#: data/fonts/websafe.php:22
+msgid "Trebuchet MS"
+msgstr ""
+
+#: data/fonts/websafe.php:23
+msgid "Verdana"
+msgstr ""
+
+#: data/fonts/websafe.php:24
+msgid "Courier New"
+msgstr ""
+
+#: data/fonts/websafe.php:25
+msgid "Lucida Console"
+msgstr ""
+
+#: data/fonts/websafe.php:26
+msgid "Georgia, serif"
+msgstr ""
+
+#: data/fonts/websafe.php:27
+msgid "Palatino Linotype"
+msgstr ""
+
+#: data/fonts/websafe.php:28
+msgid "Times New Roman"
+msgstr ""
+
+#: fields/accordion/class-accordion.php:71
 msgid "Accordion"
 msgstr ""
 
-#: fields/background/class-background.php:36
+#: fields/background/class-background.php:26
 msgid "Background Color"
 msgstr ""
 
-#: fields/background/class-background.php:46
+#: fields/background/class-background.php:36
 msgid "Repeat"
 msgstr ""
 
-#: fields/background/class-background.php:47
+#: fields/background/class-background.php:37
 msgid "Attachment"
 msgstr ""
 
-#: fields/background/class-background.php:48
+#: fields/background/class-background.php:38
 msgid "Position"
 msgstr ""
 
-#: fields/background/class-background.php:49
+#: fields/background/class-background.php:39
 msgid "Clip"
 msgstr ""
 
-#: fields/background/class-background.php:50
+#: fields/background/class-background.php:40
 msgid "Origin"
 msgstr ""
 
-#: fields/background/class-background.php:51
+#: fields/background/class-background.php:41
 msgid "Size"
 msgstr ""
 
-#: fields/background/class-background.php:70
+#: fields/background/class-background.php:60
 msgid "Background Image"
 msgstr ""
 
-#: fields/background/class-background.php:119
+#: fields/background/class-background.php:109
 msgid "No Repeat"
 msgstr ""
 
-#: fields/background/class-background.php:120
+#: fields/background/class-background.php:110
 msgid "Repeat All"
 msgstr ""
 
-#: fields/background/class-background.php:121
+#: fields/background/class-background.php:111
 msgid "Repeat Horizontally"
 msgstr ""
 
-#: fields/background/class-background.php:122
+#: fields/background/class-background.php:112
 msgid "Repeat Vertically"
 msgstr ""
 
-#: fields/background/class-background.php:123
-#: fields/background/class-background.php:129
-#: fields/background/class-background.php:137
-#: fields/background/class-background.php:146
+#: fields/background/class-background.php:113
+#: fields/background/class-background.php:119
+#: fields/background/class-background.php:127
+#: fields/background/class-background.php:136
 msgid "Inherit"
 msgstr ""
 
-#: fields/background/class-background.php:130
+#: fields/background/class-background.php:120
 msgid "Border Box"
 msgstr ""
 
-#: fields/background/class-background.php:131
+#: fields/background/class-background.php:121
 msgid "Content Box"
 msgstr ""
 
-#: fields/background/class-background.php:132
+#: fields/background/class-background.php:122
 msgid "Padding Box"
 msgstr ""
 
-#: fields/background/class-background.php:138
+#: fields/background/class-background.php:128
 msgid "Cover"
 msgstr ""
 
-#: fields/background/class-background.php:139
+#: fields/background/class-background.php:129
 msgid "Contain"
 msgstr ""
 
-#: fields/background/class-background.php:144
+#: fields/background/class-background.php:134
 msgid "Fixed"
 msgstr ""
 
-#: fields/background/class-background.php:145
+#: fields/background/class-background.php:135
 msgid "Scroll"
 msgstr ""
 
-#: fields/background/class-background.php:151
+#: fields/background/class-background.php:141
 msgid "Left Top"
 msgstr ""
 
-#: fields/background/class-background.php:152
+#: fields/background/class-background.php:142
 msgid "Left center"
 msgstr ""
 
-#: fields/background/class-background.php:153
+#: fields/background/class-background.php:143
 msgid "Left Bottom"
 msgstr ""
 
-#: fields/background/class-background.php:154
+#: fields/background/class-background.php:144
 msgid "Center Top"
 msgstr ""
 
-#: fields/background/class-background.php:155
+#: fields/background/class-background.php:145
 msgid "Center Center"
 msgstr ""
 
-#: fields/background/class-background.php:156
+#: fields/background/class-background.php:146
 msgid "Center Bottom"
 msgstr ""
 
-#: fields/background/class-background.php:157
+#: fields/background/class-background.php:147
 msgid "Right Top"
 msgstr ""
 
-#: fields/background/class-background.php:158
+#: fields/background/class-background.php:148
 msgid "Right center"
 msgstr ""
 
-#: fields/background/class-background.php:159
+#: fields/background/class-background.php:149
 msgid "Right Bottom"
 msgstr ""
 
@@ -1479,8 +1730,8 @@ msgid "Add + "
 msgstr ""
 
 #: fields/class-cloner.php:163
-#: fields/key-value/class-key-value.php:90
-#: fields/key-value/class-key-value.php:106
+#: fields/key-value/class-key-value.php:92
+#: fields/key-value/class-key-value.php:108
 msgid "Add +"
 msgstr ""
 
@@ -1489,24 +1740,20 @@ msgstr ""
 msgid "You Cannot Add More Than %s"
 msgstr ""
 
-#: fields/class-wp-list-table.php:25
-msgid "Search"
-msgstr ""
-
-#: fields/date-picker/class-date-picker.php:27
-#: fields/date-picker/class-date-picker.php:34
+#: fields/date-picker/class-date-picker.php:29
+#: fields/date-picker/class-date-picker.php:36
 msgid "From Date"
 msgstr ""
 
-#: fields/date-picker/class-date-picker.php:44
+#: fields/date-picker/class-date-picker.php:46
 msgid "To Date"
 msgstr ""
 
-#: fields/date-picker/class-date-picker.php:99
+#: fields/date-picker/class-date-picker.php:101
 msgid "Date"
 msgstr ""
 
-#: fields/date-picker/class-date-picker.php:100
+#: fields/date-picker/class-date-picker.php:102
 msgid "Till Date"
 msgstr ""
 
@@ -1520,70 +1767,104 @@ msgstr ""
 msgid "Width"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:60
+#: fields/gallery/class-gallery.php:58
 msgid "Add Gallery"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:72
-#: fields/gallery/class-gallery.php:84
-#: fields/gallery/class-gallery.php:105
+#: fields/gallery/class-gallery.php:68
+#: fields/gallery/class-gallery.php:78
+#: fields/gallery/class-gallery.php:97
 msgid "Edit Gallery"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:104
+#: fields/gallery/class-gallery.php:96
 msgid "Create Gallery"
 msgstr ""
 
-#: fields/gallery/class-gallery.php:108
+#: fields/gallery/class-gallery.php:100
 msgid "Clear Gallery"
 msgstr ""
 
-#: fields/group/class-group.php:100
-#: fields/group/class-group.php:212
+#: fields/group/class-group.php:94
+#: fields/group/class-group.php:206
 msgid "Add New"
 msgstr ""
 
-#: fields/group/class-group.php:129
+#: fields/group/class-group.php:123
 msgid "Remove "
 msgstr ""
 
-#: fields/group/class-group.php:145
+#: fields/group/class-group.php:139
 msgid "Group #[count]"
 msgstr ""
 
-#: fields/group/class-group.php:213
-#: fields/image/class-image.php:92
+#: fields/group/class-group.php:207
+#: fields/image/class-image.php:68
+#: fields/image/class-image.php:94
 msgid "Remove"
 msgstr ""
 
-#: fields/group/class-group.php:216
-#: fields/key-value/class-key-value.php:112
+#: fields/group/class-group.php:210
+#: fields/key-value/class-key-value.php:114
 msgid "You Can't Add More.."
 msgstr ""
 
-#: fields/icon-picker/class-icon-picker.php:80
-#: fields/icon-picker/class-icon-picker.php:105
+#: fields/icon-picker/class-icon-picker.php:82
+#: fields/icon-picker/class-icon-picker.php:107
 msgid "Add Icon"
 msgstr ""
 
-#: fields/icon-picker/class-icon-picker.php:92
-#: fields/icon-picker/class-icon-picker.php:106
+#: fields/icon-picker/class-icon-picker.php:94
+#: fields/icon-picker/class-icon-picker.php:108
 msgid "Remove Icon"
 msgstr ""
 
-#: fields/image/class-image.php:91
+#: fields/image/class-image.php:93
 msgid "Select A Image"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:31
+#: fields/import-export/class-backup-handler.php:91
+msgid "No Backups Found"
+msgstr ""
+
+#: fields/import-export/class-backup-handler.php:125
+msgid "Download"
+msgstr ""
+
+#. translators: Added Module Name.
+#: fields/import-export/class-import-export.php:51
+msgid "%s Module Is Not Yet Supported In Import / Export Field"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:58
+msgid "Download Backup"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:59
+msgid "Import Backup"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:60
+msgid "Saved Backups"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:61
+msgid "Create Backup"
+msgstr ""
+
+#: fields/import-export/class-import-export.php:62
+msgid "You options have been backed up. You can always restore your options by clicking the <strong>Restore</strong> button below:"
+msgstr ""
+
+#: fields/key-value/class-key-value.php:33
 msgid "Key"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:38
+#: fields/key-value/class-key-value.php:40
 msgid "Value"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:107
+#: fields/key-value/class-key-value.php:109
 msgid "-"
 msgstr ""
 
@@ -1603,24 +1884,45 @@ msgstr ""
 msgid "Focus"
 msgstr ""
 
+#: fields/modal/class-modal.php:215
+#: fields/modal/class-modal.php:228
+msgid "Save"
+msgstr ""
+
+#: fields/modal/class-modal.php:216
+msgid "Close"
+msgstr ""
+
+#: fields/modal/class-modal.php:229
+msgid "Cancel"
+msgstr ""
+
+#: fields/modal/class-modal.php:245
+msgid "Open Modal"
+msgstr ""
+
 #: fields/notice/class-notice.php:59
 #: fields/wp-notice/class-wp-notice.php:62
 msgid "Hide"
 msgstr ""
 
-#: fields/select/class-select.php:69
+#: fields/options-object/class-options-object.php:19
+msgid "Filed's Module Not Found"
+msgstr ""
+
+#: fields/select/class-select.php:71
 msgid "Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>"
 msgstr ""
 
-#: fields/sorter/class-sorter.php:100
+#: fields/sorter/class-sorter.php:102
 msgid "Enabled Modules"
 msgstr ""
 
-#: fields/sorter/class-sorter.php:101
+#: fields/sorter/class-sorter.php:103
 msgid "Disabled Modules"
 msgstr ""
 
-#: fields/spacing/spacing.php:45
+#: fields/spacing/spacing.php:46
 msgid "All"
 msgstr ""
 
@@ -1633,12 +1935,12 @@ msgid "Bottom"
 msgstr ""
 
 #: fields/spacing/spacing.php:90
-#: fields/typography/class-typography.php:68
+#: fields/typography/class-typography.php:71
 msgid "Left"
 msgstr ""
 
 #: fields/spacing/spacing.php:91
-#: fields/typography/class-typography.php:70
+#: fields/typography/class-typography.php:73
 msgid "Right"
 msgstr ""
 
@@ -1654,104 +1956,104 @@ msgstr ""
 msgid "OFF"
 msgstr ""
 
-#: fields/typography/class-typography.php:69
+#: fields/typography/class-typography.php:72
 msgid "Center"
 msgstr ""
 
-#: fields/typography/class-typography.php:71
+#: fields/typography/class-typography.php:74
 msgid "Justify"
 msgstr ""
 
-#: fields/typography/class-typography.php:84
+#: fields/typography/class-typography.php:87
 msgid "left to right"
 msgstr ""
 
-#: fields/typography/class-typography.php:85
+#: fields/typography/class-typography.php:88
 msgid "right to left"
 msgstr ""
 
-#: fields/typography/class-typography.php:98
+#: fields/typography/class-typography.php:101
 msgid "normal"
 msgstr ""
 
-#: fields/typography/class-typography.php:99
+#: fields/typography/class-typography.php:102
 msgid "italic"
 msgstr ""
 
-#: fields/typography/class-typography.php:100
+#: fields/typography/class-typography.php:103
 msgid "oblique"
 msgstr ""
 
-#: fields/typography/class-typography.php:158
+#: fields/typography/class-typography.php:161
 msgid "Font Family & Weight"
 msgstr ""
 
-#: fields/typography/class-typography.php:159
+#: fields/typography/class-typography.php:162
 msgid "Backup Font Family"
 msgstr ""
 
-#: fields/typography/class-typography.php:160
+#: fields/typography/class-typography.php:163
 msgid "Text Align"
 msgstr ""
 
-#: fields/typography/class-typography.php:161
+#: fields/typography/class-typography.php:164
 msgid "Text Direction"
 msgstr ""
 
-#: fields/typography/class-typography.php:162
+#: fields/typography/class-typography.php:165
 msgid "Element Tag"
 msgstr ""
 
-#: fields/typography/class-typography.php:163
+#: fields/typography/class-typography.php:166
 msgid "Font Style"
 msgstr ""
 
-#: fields/typography/class-typography.php:164
+#: fields/typography/class-typography.php:167
 msgid "Font Size"
 msgstr ""
 
-#: fields/typography/class-typography.php:165
+#: fields/typography/class-typography.php:168
 msgid "Line Height"
 msgstr ""
 
-#: fields/typography/class-typography.php:166
+#: fields/typography/class-typography.php:169
 msgid "Letter Spacing"
 msgstr ""
 
-#: fields/typography/class-typography.php:167
+#: fields/typography/class-typography.php:170
 msgid "Text Color"
 msgstr ""
 
-#: fields/upload/class-upload.php:24
-#: fields/upload/class-upload.php:37
-#: fields/upload/class-upload.php:45
+#: fields/upload/class-upload.php:26
+#: fields/upload/class-upload.php:39
+#: fields/upload/class-upload.php:47
 msgid "Upload"
 msgstr ""
 
-#: fields/upload/class-upload.php:46
+#: fields/upload/class-upload.php:48
 msgid "Use"
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:47
+#: fields/wp-link/class-wp-link.php:49
 msgid "URL : "
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:54
+#: fields/wp-link/class-wp-link.php:56
 msgid "Title : "
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:65
+#: fields/wp-link/class-wp-link.php:67
 msgid "Example : "
 msgstr ""
 
-#: fields/wp-link/class-wp-link.php:75
-#: fields/wp-link/class-wp-link.php:93
+#: fields/wp-link/class-wp-link.php:77
+#: fields/wp-link/class-wp-link.php:95
 msgid "Select URL"
 msgstr ""
 
-#: templates/global/parts/settings/header.php:14
-#: templates/wc/parts/settings/header.php:14
-#: templates/wp-modern/parts/settings/header.php:14
+#: templates/global/parts/settings/header.php:11
+#: templates/wc/parts/settings/header.php:11
+#: templates/wp-modern/parts/settings/header.php:11
 msgid "Search Option(s)"
 msgstr ""
 
@@ -1759,14 +2061,15 @@ msgstr ""
 msgid "Close Panel"
 msgstr ""
 
-#: wponion.php:65
+#: wponion.php:54
 msgid "Unable To Load WPOnion Framework. Please Contact The Author"
 msgstr ""
 
-#: wponion.php:66
+#: wponion.php:55
 msgid "ERROR ID : "
 msgstr ""
 
-#: wponion.php:71
+#. translators: 1. Added PHP Version
+#: wponion.php:60
 msgid "WPOnion incompatible with PHP Version %2$s. Please Install/Upgrade PHP To %1$s or Higher "
 msgstr ""

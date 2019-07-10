@@ -1,12 +1,14 @@
 <?php
 
 namespace WPOnion\Field;
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
 if ( ! class_exists( '\WPOnion\Field\Options_Object' ) ) {
-	class Options_Object extends \WPOnion\Field {
+	class Options_Object extends Field {
 		public function field_assets() {
 		}
 
@@ -14,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Field\Options_Object' ) ) {
 			$module = $this->module( true );
 			if ( ! method_exists( $module, 'get_db_values' ) ) {
 				$values = array(
-					'not_found'       => __( 'Filed\'s Module Not Found' ),
+					'not_found'       => __( 'Filed\'s Module Not Found', 'wponion' ),
 					'module_name'     => $this->module( false ),
 					'module_instance' => $module,
 				);

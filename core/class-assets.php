@@ -2,6 +2,8 @@
 
 namespace WPOnion;
 
+use WPOnion_Vendor_Support;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -57,19 +59,27 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 */
 		public static function init() {
 			self::$icon_libs   = array(
-				'fontawesome4' => array(
+				'materialdesignicons' => array(
+					'src'     => 'https://cdn.materialdesignicons.com/3.7.95/css/materialdesignicons.min.css',
+					'version' => '3.7.95',
+				),
+				'fontawesome4'        => array(
 					'src'     => 'https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css',
 					'version' => '4.7.0',
 				),
-				'fontawesome5' => array(
+				'icofont'             => array(
+					'src'     => 'https://icofont.com/icofont/icofont.min.css',
+					'version' => '1.0.1',
+				),
+				'fontawesome5'        => array(
 					'src'     => 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.9.0/css/all.min.css',
 					'version' => '5.9.0',
 				),
-				'foundation'   => array(
+				'foundation'          => array(
 					'src'     => 'https://cdn.jsdelivr.net/npm/foundation-icons@1.0.1/foundation-icons.css',
 					'version' => '1.0.1',
 				),
-				'boxicons'     => array(
+				'boxicons'            => array(
 					'src'     => 'https://cdn.jsdelivr.net/npm/boxicons@2.0.2/css/boxicons.min.css',
 					'version' => '2.0.2',
 				),
@@ -212,11 +222,11 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			foreach ( $data as $key => $src ) {
 				$is_cdn_off = ( defined( 'WPONION_OFF_CDN' ) && true === WPONION_OFF_CDN );
 				$url        = WPONION_CDN_URL . '@' . WPONION_CDN_VERSION . $src['src'];
-				if ( ( $is_cdn_off && class_exists( 'WPOnion_Vendor_Support' ) ) || ! $is_cdn_off && class_exists( 'WPOnion_Vendor_Support' ) ) {
+				if ( ( $is_cdn_off && class_exists( '\WPOnion_Vendor_Support' ) ) || ! $is_cdn_off && class_exists( '\WPOnion_Vendor_Support' ) ) {
 					if ( 'script' === $type ) {
-						$url = \WPOnion_Vendor_Support::script( $key );
+						$url = WPOnion_Vendor_Support::script( $key );
 					} else {
-						$url = \WPOnion_Vendor_Support::style( $key );
+						$url = WPOnion_Vendor_Support::style( $key );
 					}
 				}
 				$src['src'] = $url;

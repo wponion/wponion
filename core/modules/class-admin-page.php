@@ -3,6 +3,7 @@
 namespace WPOnion\Modules;
 
 use WPOnion\Bridge\Module;
+use WPOnion\Field;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -429,7 +430,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			}
 
 			if ( wponion_is_debug() ) {
-				$fields = \WPOnion\Field::$total_fields;
+				$fields = Field::$total_fields;
 				$timer  = get_num_queries() . ' queries in ' . wponion_timer( 'wpo-admin-page', true ) . ' seconds';
 				$timer  .= ( ! empty( $fields ) ) ? ' for ' . $fields . ' fields' : '';
 				$timer  .= '<br/> WPOnion is currently set to developer mode';

@@ -2,6 +2,7 @@
 
 namespace WPOnion\Bridge;
 
+use Exception;
 use WPOnion\Helper as Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -49,11 +50,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		public function __construct() {
 
 			if ( $this->validate_module ) {
-				$this->validate( 'module', __( 'Unable To Find The Module' ), false, 'REQUEST' );
+				$this->validate( 'module', __( 'Unable To Find The Module', 'wponion' ), false, 'REQUEST' );
 			}
 
 			if ( $this->validate_field_path ) {
-				$this->validate( 'field_path', __( 'Unable To Find The Field' ), false, 'REQUEST' );
+				$this->validate( 'field_path', __( 'Unable To Find The Field', 'wponion' ), false, 'REQUEST' );
 			}
 			$this->run();
 			$this->json_error();
@@ -344,19 +345,19 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 			$val_function = 'wpo_' . $module;
 
 			if ( ! function_exists( $function ) || ! function_exists( $val_function ) ) {
-				$this->error( __( 'Module Not Found' ), __( 'Module Callback / Registry Function Not Found' ) );
+				$this->error( __( 'Module Not Found', 'wponion' ), __( 'Module Callback / Registry Function Not Found', 'wponion' ) );
 			}
 
 			try {
 				$this->module = $function( $this->field_path( true ) );
 				if ( ! is_object( $this->module ) ) {
-					throw new \Exception();
+					throw new Exception();
 				}
 
 				return $this->module;
-			} catch ( \Exception $exception ) {
+			} catch ( Exception $exception ) {
 				$this->module = false;
-				$this->error( __( 'Module Instance Not Found' ), __( 'Module Callback / Registry Function Not Found' ) );
+				$this->error( __( 'Module Instance Not Found', 'wponion' ), __( 'Module Callback / Registry Function Not Found', 'wponion' ) );
 			}
 			return false;
 		}
@@ -376,11 +377,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 					if ( ! empty( $field ) ) {
 						return $field;
 					};
-					$this->error( __( 'Field Not Found' ) );
+					$this->error( __( 'Field Not Found', 'wponion' ) );
 				}
-				$this->error( __( 'Unable To Fetch The Field' ) );
+				$this->error( __( 'Unable To Fetch The Field', 'wponion' ) );
 			}
-			$this->error( __( 'Unable To Find The Field' ) );
+			$this->error( __( 'Unable To Find The Field', 'wponion' ) );
 			return false;
 		}
 

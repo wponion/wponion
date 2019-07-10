@@ -308,7 +308,8 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				$this->screen->render_screen_reader_content( 'heading_pagination' );
 			}
 
-			$output = '<span class="displaying-num">' . sprintf( _n( '%s item', '%s items', $total_items ), number_format_i18n( $total_items ) ) . '</span>';
+			/* translators: added Total Items Count */
+			$output = '<span class="displaying-num">' . sprintf( _n( '%s item', '%s items', $total_items, 'wponion' ), number_format_i18n( $total_items ) ) . '</span>';
 
 			$current              = $this->get_pagenum();
 			$removable_query_args = wp_removable_query_args();
@@ -340,34 +341,35 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 			if ( $disable_first ) {
 				$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&laquo;</span>';
 			} else {
-				$page_links[] = sprintf( "<a class='first-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>", esc_url( remove_query_arg( 'paged', $current_url ) ), __( 'First page' ), '&laquo;' );
+				$page_links[] = sprintf( "<a class='first-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>", esc_url( remove_query_arg( 'paged', $current_url ) ), __( 'First page', 'wponion' ), '&laquo;' );
 			}
 
 			if ( $disable_prev ) {
 				$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&lsaquo;</span>';
 			} else {
-				$page_links[] = sprintf( "<a class='prev-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>", esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ), __( 'Previous page' ), '&lsaquo;' );
+				$page_links[] = sprintf( "<a class='prev-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>", esc_url( add_query_arg( 'paged', max( 1, $current - 1 ), $current_url ) ), __( 'Previous page', 'wponion' ), '&lsaquo;' );
 			}
 
 			if ( 'bottom' === $which ) {
 				$html_current_page  = $current;
-				$total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
+				$total_pages_before = '<span class="screen-reader-text">' . __( 'Current Page', 'wponion' ) . '</span><span id="table-paging" class="paging-input"><span class="tablenav-paging-text">';
 			} else {
-				$html_current_page = sprintf( "%s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>", '<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page' ) . '</label>', $current, strlen( $total_pages ) );
+				$html_current_page = sprintf( "%s<input class='current-page' id='current-page-selector' type='text' name='paged' value='%s' size='%d' aria-describedby='table-paging' /><span class='tablenav-paging-text'>", '<label for="current-page-selector" class="screen-reader-text">' . __( 'Current Page', 'wponion' ) . '</label>', $current, strlen( $total_pages ) );
 			}
 			$html_total_pages = sprintf( "<span class='total-pages'>%s</span>", number_format_i18n( $total_pages ) );
-			$page_links[]     = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging' ), $html_current_page, $html_total_pages ) . $total_pages_after;
+			/* translators: 1. Current Page Number 2. Total Pages */
+			$page_links[] = $total_pages_before . sprintf( _x( '%1$s of %2$s', 'paging', 'wponion' ), $html_current_page, $html_total_pages ) . $total_pages_after;
 
 			if ( $disable_next ) {
 				$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&rsaquo;</span>';
 			} else {
-				$page_links[] = sprintf( "<a class='next-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>", esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ), __( 'Next page' ), '&rsaquo;' );
+				$page_links[] = sprintf( "<a class='next-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>", esc_url( add_query_arg( 'paged', min( $total_pages, $current + 1 ), $current_url ) ), __( 'Next page', 'wponion' ), '&rsaquo;' );
 			}
 
 			if ( $disable_last ) {
 				$page_links[] = '<span class="tablenav-pages-navspan button disabled" aria-hidden="true">&raquo;</span>';
 			} else {
-				$page_links[] = sprintf( "<a class='last-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>", esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ), __( 'Last page' ), '&raquo;' );
+				$page_links[] = sprintf( "<a class='last-page button' href='%s'><span class='screen-reader-text'>%s</span><span aria-hidden='true'>%s</span></a>", esc_url( add_query_arg( 'paged', $total_pages, $current_url ) ), __( 'Last page', 'wponion' ), '&raquo;' );
 			}
 
 			$pagination_links_class = 'pagination-links';
@@ -442,7 +444,7 @@ HTML;
 
 			if ( ! empty( $columns['cb'] ) ) {
 				static $cb_counter = 1;
-				$columns['cb'] = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All' ) . '</label>' . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
+				$columns['cb'] = '<label class="screen-reader-text" for="cb-select-all-' . $cb_counter . '">' . __( 'Select All', 'wponion' ) . '</label>' . '<input id="cb-select-all-' . $cb_counter . '" type="checkbox" />';
 				$cb_counter++;
 			}
 
@@ -498,9 +500,7 @@ HTML;
 		 * @since 3.1.0
 		 */
 		public function display() {
-			$args     = array(
-				'class' => $this->get_table_classes(),
-			);
+			$args     = array( 'class' => $this->get_table_classes() );
 			$singular = $this->_args['singular'];
 			$tbody    = ( $singular ) ? ' data-wp-list="list:' . $singular . '"' : '';
 			$this->display_tablenav( 'top' );

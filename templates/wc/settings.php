@@ -3,9 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-/**
- * @var $this \WPOnion\Theme\WC
- */
+/* @var $this \WPOnion\Theme\WC */
 $module = $this->settings();
 $desc   = $module->option( 'framework_desc' );
 echo '<div class="' . $module->wrap_class() . '">';
@@ -24,8 +22,6 @@ if ( ! empty( $metabox->settings_menus() ) ) {
 	</div>
 	<?php
 }
-
-
 $this->load_file( 'parts/settings/content.php' );
 echo '</div></div>';
 $this->load_file( 'parts/settings/footer.php' );

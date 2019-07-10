@@ -4,6 +4,47 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.3.3] - 10/07/2019
+## Added
+* Custom Callback Option For `option_label` && `option_key` in ***query_args***
+* Added Below Listed Icon Frameworks Builtin
+    - [Box Icons]
+    - [Dashicons]
+    - [FontAwesome 4]
+    - [FontAwesome 5]
+    - [FontAwesome 5 Pro]
+    - [Foundation]
+    - [IcoFont]
+    - [Material Design Icons]
+* Standalone Time Picker Field [#45](https://github.com/wponion/wponion/issues/45)
+
+## Fixed
+* Customizer Field Errors Fixed
+* Icon Picker Issue With Taxonomy & Metabox Module
+* Select2 & Selectize Ajax Data Loding Issue With Taxonomy & Metabox 
+* Field Wrap Class Issue When Inputmask Active
+* Elementor Integration Dynamic Class [#67](https://github.com/wponion/wponion/issues/67)
+* Select2/Selectize/Chosen Issue in Metabox  [#73](https://github.com/wponion/wponion/issues/73)
+* Improved Icon Picker Field.
+
+## Changed
+* Bump [varunsridharan/wp-conditional-logic] from `1.0` to `1.1`
+* Bump [sweetalert2] from `8.13.0` to `8.13.4` 
+* Bump [easy-gulp-tasker] from 1.0.8 to 1.0.10 
+
+# [1.3.2] - 04/07/2019
+## Added
+* Top icons Libs Added
+
+## Fixed
+* Elementor - [Invalid Argument Bug Fixed](https://github.com/wponion/wponion/issues/62)
+* Improved WPO Builder Performance
+* All Icons Format
+
+## Removed
+* `\WPOnion\Helper::get_material_design_colors()`
+* CDN Status Validator
+
 # [1.3.1] - 01/07/2019
 ## Fixed
 * Settings Page Ajax Save Error.
@@ -522,6 +563,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.3.2]: https://github.com/wponion/wponion/releases/tag/1.3.2
 [1.3.1]: https://github.com/wponion/wponion/releases/tag/1.3.1
 [1.3]: https://github.com/wponion/wponion/releases/tag/1.3
 [1.2.1]: https://github.com/wponion/wponion/releases/tag/1.2.1
@@ -555,5 +597,15 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [Beta : 0.0.1]: https://github.com/wponion/wponion/releases/tag/121010072018
 
 [sweetalert2]: https://github.com/sweetalert2/sweetalert2
+[easy-gulp-tasker]: https://github.com/varunsridharan/easy-gulp-tasker
 [@wordpress/hooks]: https://github.com/WordPress/gutenberg/tree/HEAD/packages/hooks
 [tippy.js]: https://github.com/atomiks/tippyjs
+[varunsridharan/wp-conditional-logic]: https://github.com/varunsridharan/wp-conditional-logic
+[Box Icons]: https://boxicons.com/
+[Dashicons]: https://developer.wordpress.org/resource/dashicons/#palmtree
+[FontAwesome 4]: https://fontawesome.com/v4.7.0/
+[FontAwesome 5]: https://fontawesome.com/
+[FontAwesome 5 Pro]: https://fontawesome.com/
+[Foundation]: https://zurb.com/playground/foundation-icon-fonts-3
+[IcoFont]: https://icofont.com/
+[Material Design Icons]: https://materialdesignicons.com/

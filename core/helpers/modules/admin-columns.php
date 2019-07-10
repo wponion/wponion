@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\Util\Admin_Columns;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -30,6 +33,6 @@ if ( ! function_exists( 'wponion_admin_columns' ) ) {
 		if ( is_string( $post_types ) && empty( $title_or_arguments ) && empty( $render_callback ) ) {
 			return wponion_admin_columns_registry( $post_types );
 		}
-		return new \WPOnion\Modules\Util\Admin_Columns( $post_types, $title_or_arguments, $render_callback );
+		return new Admin_Columns( $post_types, $title_or_arguments, $render_callback );
 	}
 }

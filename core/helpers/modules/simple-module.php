@@ -1,4 +1,9 @@
 <?php
+
+use WPOnion\Modules\Util\Endpoint;
+use WPOnion\Modules\Util\Page_Actions;
+use WPOnion\Modules\Util\Plugin_Links;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -10,7 +15,7 @@ if ( ! function_exists( 'wponion_plugin_links' ) ) {
 	 * @return \WPOnion\Modules\Util\Plugin_Links
 	 */
 	function wponion_plugin_links( $plugin_file ) {
-		return new \WPOnion\Modules\Util\Plugin_Links( $plugin_file );
+		return new Plugin_Links( $plugin_file );
 	}
 }
 
@@ -21,7 +26,7 @@ if ( ! function_exists( 'wponion_endpoint' ) ) {
 	 * @return \WPOnion\Modules\Util\Endpoint
 	 */
 	function wponion_endpoint( $slug ) {
-		return new \WPOnion\Modules\Util\Endpoint( $slug );
+		return new Endpoint( $slug );
 	}
 }
 
@@ -31,6 +36,6 @@ if ( ! function_exists( 'wponion_page_actions' ) ) {
 	 * @param array $buttons
 	 */
 	function wponion_page_actions( $post_type, $buttons = array() ) {
-		\WPOnion\Modules\Util\Page_Actions::add( $post_type, $buttons );
+		Page_Actions::add( $post_type, $buttons );
 	}
 }

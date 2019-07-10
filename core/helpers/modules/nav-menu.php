@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\Nav_Menu;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -25,6 +28,6 @@ if ( ! function_exists( 'wponion_nav_menu' ) ) {
 		if ( is_string( $settings ) && empty( $fields ) ) {
 			return wponion_nav_menu_registry( $settings );
 		}
-		return new \WPOnion\Modules\Nav_Menu( $settings, $fields );
+		return new Nav_Menu( $settings, $fields );
 	}
 }

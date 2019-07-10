@@ -334,6 +334,48 @@ if ( ! function_exists( 'wponion_handle_array_merge' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_handle_string_args_with_defaults' ) ) {
+	/**
+	 * @param string|array $key
+	 * @param mixed        $value
+	 * @param array        $defaults
+	 * @param array        $force_defaults
+	 *
+	 * @return array|object
+	 * @example  {
+	 *    wponion_handle_string_args_with_defaults('title','yourtitle',array(
+	 *        'arg2'=>false,
+	 *        'title'=>false,
+	 *    ),array( 'force_arg'=>false ) );
+	 *    return: array(
+	 *            'title' => 'yourtitle',
+	 *            'arg2' =>false,
+	 *            'force_arg'=>false
+	 *        );
+	 * }
+	 *
+	 */
+	function wponion_handle_string_args_with_defaults( $key, $value, $defaults = array(), $force_defaults = array() ) {
+		if ( wponion_is_array( $value ) ) {
+			$defaults = wponion_parse_args( $value, $defaults );
+		} elseif ( wponion_is_array( $defaults ) ) {
+			$defaults[ $key ] = $value;
+		} else {
+			return $value;
+		}
+
+		foreach ( $force_defaults as $_key => $val ) {
+			if ( ! isset( $defaults[ $_key ] ) ) {
+				$defaults[ $_key ] = '';
+			}
+			$defaults[ $_key ] = wponion_handle_string_args_with_defaults( $_key, $val, $defaults[ $_key ] );
+		}
+
+		return $defaults;
+	}
+}
+
+
 if ( ! function_exists( 'wponion_catch_output' ) ) {
 	/**
 	 * @param bool|string $type

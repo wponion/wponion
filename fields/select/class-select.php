@@ -2,6 +2,8 @@
 
 namespace WPOnion\Field;
 
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -13,7 +15,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Select extends \WPOnion\Field {
+	class Select extends Field {
 		/**
 		 * select_framework
 		 *

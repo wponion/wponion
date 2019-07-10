@@ -15,11 +15,11 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Taxonomy' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method \WPOnion\Modules\CPT\Taxonomy show_tagcloud( $show_tagcloud )
-	 * @method \WPOnion\Modules\CPT\Taxonomy show_in_quick_edit( $show_in_quick_edit )
-	 * @method \WPOnion\Modules\CPT\Taxonomy show_admin_column( $show_admin_column )
-	 * @method \WPOnion\Modules\CPT\Taxonomy update_count_callback( $update_count_callback )
-	 * @method \WPOnion\Modules\CPT\Taxonomy sort( $sort )
+	 * @method Taxonomy show_tagcloud( $show_tagcloud )
+	 * @method Taxonomy show_in_quick_edit( $show_in_quick_edit )
+	 * @method Taxonomy show_admin_column( $show_admin_column )
+	 * @method Taxonomy update_count_callback( $update_count_callback )
+	 * @method Taxonomy sort( $sort )
 	 */
 	class Taxonomy extends Common {
 		/**
@@ -49,7 +49,6 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Taxonomy' ) ) {
 		 */
 		public function __construct( $taxonomy = false, $object_type = array(), $args = array() ) {
 			$this->taxonomy = $taxonomy;
-			$labels         = array();
 			if ( is_string( $taxonomy ) && is_array( $object_type ) && isset( $object_type['object_type'] ) ) {
 				$this->object_type = $object_type['object_type'];
 				unset( $object_type['object_type'] );

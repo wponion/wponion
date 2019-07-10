@@ -2,6 +2,7 @@
 
 namespace WPOnion;
 
+use stdClass;
 use WPOnion\Exception\Cache_Not_Found;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,6 +37,29 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		 */
 		public static function get_data( $file ) {
 			return include wponion()->data( $file . '.php' );
+		}
+
+		/**
+		 * Reads JSON file and returns its content
+		 *
+		 * @param string $file File Path
+		 * @param bool   $as_array
+		 *
+		 * @static
+		 * @return array|object
+		 */
+		public static function read_json_file( $file, $as_array = false ) {
+			if ( file_exists( $file ) ) {
+				$content = file_get_contents( $file );
+				if ( ! empty( $content ) ) {
+					$content = json_decode( $content, $as_array );
+					if ( $as_array ) {
+						return ( is_array( $content ) ) ? $content : array();
+					}
+					return ( is_object( $content ) ) ? $content : new stdClass();
+				}
+			}
+			return ( $as_array ) ? array() : new stdClass();
 		}
 
 		/**

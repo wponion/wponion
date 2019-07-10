@@ -29,7 +29,7 @@ if ( ! class_exists( '\WPOnion\Module_Fields\Customizer\Button_Set' ) ) {
 		 * @return mixed
 		 */
 		protected function el_value() {
-			return array_filter( $this->value() );
+			return is_array( $this->value() ) ? array_filter( $this->value() ) : $this->value();
 		}
 
 		/**

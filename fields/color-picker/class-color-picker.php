@@ -15,7 +15,6 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 	 * @since 1.0
 	 */
 	class Color_Picker extends Checkbox_Radio {
-
 		/**
 		 * Final HTML Output
 		 */

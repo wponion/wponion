@@ -5,6 +5,7 @@ namespace WPOnion\Modules\Widgets;
 use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
+use WPonion\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -91,7 +92,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 			$errors = $instance->get_errors();
 			$errors = ( isset( $errors[ $unique ] ) ) ? $errors[ $unique ] : $errors;
 			$id     = str_replace( array( '[', ']' ), array( '/', '' ), $unique );
-			\WPonion\Helper::array_key_set( $id, $errors, $this->errors );
+			Helper::array_key_set( $id, $errors, $this->errors );
 			return $instance->get_values();
 		}
 

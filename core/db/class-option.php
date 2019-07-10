@@ -2,6 +2,9 @@
 
 namespace WPOnion\DB;
 
+use ArrayAccess;
+use Iterator;
+use JsonSerializable;
 use WPOnion\Helper;
 use WPOnion\Traits\Array_Position;
 use WPOnion\Traits\Countable;
@@ -20,7 +23,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Option implements \ArrayAccess, \Iterator, \JsonSerializable, \Serializable, \Countable {
+	class Option implements ArrayAccess, Iterator, JsonSerializable, \Serializable, \Countable {
 		use Json_Serialize;
 		use Countable;
 		use Serializable;

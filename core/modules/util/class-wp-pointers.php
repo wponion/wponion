@@ -145,7 +145,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		public function maybe_add_pointers( $single_pointer_id = false ) {
 			$dismissed = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
 			if ( false === $single_pointer_id || $single_pointer_id instanceof \WP_Screen ) {
-				self::__reset();
+				self::_reset();
 				$pointers = $this->pointers_data();
 				$diff     = array_diff_key( $pointers, array_combine( $dismissed, $dismissed ) );
 
@@ -244,7 +244,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		 *
 		 * @static
 		 */
-		public static function __reset() {
+		public static function _reset() {
 			if ( ! empty( self::$reset ) ) {
 				static $in_reset = false;
 				if ( true === $in_reset ) {
@@ -287,7 +287,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 				self::$reset[ $this->unique() ] = array();
 			}
 
-			if ( in_array( $user, array( 'me', 'current', false, null ) ) ) {
+			if ( in_array( $user, array( 'me', 'current', false, null ), true ) ) {
 				$user = get_current_user_id();
 			}
 

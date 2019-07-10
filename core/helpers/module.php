@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\WP\Sysinfo\Sysinfo;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -10,7 +13,7 @@ if ( ! function_exists( 'wponion_sysinfo' ) ) {
 	 * @param $args
 	 */
 	function wponion_sysinfo( $args ) {
-		\WPOnion\WP\Sysinfo\Sysinfo::get( $args );
+		Sysinfo::get( $args );
 	}
 }
 

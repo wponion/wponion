@@ -2,12 +2,9 @@
 
 namespace WPOnion\Modules\CPT;
 
-use WPOnion\Bridge\Module;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
-
 
 if ( ! class_exists( '\WPOnion\Modules\CPT\Common' ) ) {
 	/**

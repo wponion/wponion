@@ -1,6 +1,9 @@
 <?php
 
 namespace WPOnion\Field;
+
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -12,7 +15,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Typography extends \WPOnion\Field {
+	class Typography extends Field {
 		protected function output() {
 			echo $this->before();
 

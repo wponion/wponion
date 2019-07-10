@@ -229,19 +229,25 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @return mixed|bool
 		 */
 		private function option_data( $key, $default, $data ) {
-			preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)]@', $key, $matches, PREG_SET_ORDER, 0 );
+			$matches = wponion_is_callable( $key ) ? wponion_callback( $key, array( $data ) ) : false;
 
-			if ( ! empty( $matches ) ) {
-				foreach ( $matches as $match ) {
-					if ( isset( $match[1] ) && ! empty( $match[1] ) ) {
-						$_data = $this->_single_option_data( $data, $match[1], $default );
-						$key   = str_replace( $match[0], $_data, $key );
+			if ( ! empty( $matches ) && is_string( $matches ) ) {
+				return $matches;
+			} elseif ( empty( $matches ) && ! wponion_is_callable( $key ) ) {
+				preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)]@', $key, $matches, PREG_SET_ORDER, 0 );
+
+				if ( ! empty( $matches ) ) {
+					foreach ( $matches as $match ) {
+						if ( isset( $match[1] ) && ! empty( $match[1] ) ) {
+							$_data = $this->_single_option_data( $data, $match[1], $default );
+							$key   = str_replace( $match[0], $_data, $key );
+						}
 					}
+					return $key;
 				}
-				return $key;
-			} else {
-				return $this->_single_option_data( $data, $key, $default );
 			}
+
+			return $this->_single_option_data( $data, $key, $default );
 		}
 
 		/**

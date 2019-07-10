@@ -2,6 +2,10 @@
 
 namespace WPOnion\WP\Sysinfo;
 
+use Exception;
+use ReflectionClass;
+use WPOnion_Loader;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -15,6 +19,11 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 	 * @since 1.0
 	 */
 	class Data {
+		/**
+		 * @var array
+		 * @access
+		 * @static
+		 */
 		public static $status = array();
 
 		/**
@@ -118,14 +127,13 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 		 */
 		public static function server_information() {
 			global $wpdb;
-			$data                                                  = array(
+			self::$status[ __( 'Server Information', 'wponion' ) ] = self::filter( array(
 				__( 'Host', 'wponion' )             => self::get_host(),
 				__( 'PHP Version', 'wponion' )      => PHP_VERSION,
-				__( 'MySQL Version', 'wponion' )    => ( $wpdb->use_mysqli ) ? @mysqli_get_server_info( $wpdb->dbh ) : @mysql_get_server_info(),
+				__( 'MySQL Version', 'wponion' )    => $wpdb->db_version(),
 				__( 'Server Info', 'wponion' )      => isset( $_SERVER['SERVER_SOFTWARE'] ) ? $_SERVER['SERVER_SOFTWARE'] : '',
 				__( 'Default Timezone', 'wponion' ) => date_default_timezone_get(),
-			);
-			self::$status[ __( 'Server Information', 'wponion' ) ] = self::filter( $data, 'server_info' );
+			), 'server_info' );
 		}
 
 		/**
@@ -135,7 +143,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 		 */
 		public static function wordpress_information() {
 			global $wpdb;
-			$data                                         = array(
+			self::$status[ __( 'WordPress', 'wponion' ) ] = self::filter( array(
 				__( 'Home URL', 'wponion' )              => home_url(),
 				__( 'Site URL', 'wponion' )              => site_url(),
 				__( 'WP Version', 'wponion' )            => get_bloginfo( 'version' ),
@@ -147,8 +155,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 				__( 'WP Timezone', 'wponion' )           => get_option( 'timezone_string' ) . ', GMT : ' . get_option( 'gmt_offset' ),
 				__( 'Permalink Structure', 'wponion' )   => get_option( 'permalink_structure' ),
 				__( 'Registered Post Stati', 'wponion' ) => array_keys( get_post_stati() ),
-			);
-			self::$status[ __( 'WordPress', 'wponion' ) ] = self::filter( $data, 'wordpress' );
+			), 'wordpress' );
 		}
 
 		/**
@@ -157,7 +164,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 		 * @static
 		 */
 		public static function php_information() {
-			$data = array(
+			self::$status[ __( 'PHP Information', 'wponion' ) ] = self::filter( array(
 				__( 'PHP Post Max Size', 'wponion' )       => ini_get( 'post_max_size' ),
 				__( 'PHP Time Limit', 'wponion' )          => ini_get( 'max_execution_time' ),
 				__( 'PHP Max Input Vars', 'wponion' )      => ini_get( 'max_input_vars' ),
@@ -177,9 +184,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 				__( 'Save Path', 'wponion' )               => esc_html( ini_get( 'session.save_path' ) ),
 				__( 'Use Cookies', 'wponion' )             => ini_get( 'session.use_cookies' ),
 				__( 'Use Only Cookies', 'wponion' )        => ini_get( 'session.use_only_cookies' ),
-			);
-
-			self::$status[ __( 'PHP Information', 'wponion' ) ] = self::filter( $data, 'php_info' );
+			), 'php_info' );
 		}
 
 		/**
@@ -189,14 +194,13 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 		 */
 		public static function active_theme() {
 			$active_theme                                    = wp_get_theme();
-			$data                                            = array(
+			self::$status[ __( 'Active Theme', 'wponion' ) ] = self::filter( array(
 				__( 'Theme Name', 'wponion' )       => $active_theme->{'Name'},
 				__( 'Theme Version', 'wponion' )    => $active_theme->{'Version'},
 				__( 'Theme Author', 'wponion' )     => $active_theme->get( 'Author' ),
 				__( 'Theme Author URI', 'wponion' ) => $active_theme->get( 'AuthorURI' ),
 				__( 'Child Theme', 'wponion' )      => is_child_theme(),
-			);
-			self::$status[ __( 'Active Theme', 'wponion' ) ] = self::filter( $data, 'active_theme' );
+			), 'active_theme' );
 
 			if ( is_child_theme() ) {
 				$parent_theme                                    = wp_get_theme( $active_theme->{'Template'} );
@@ -289,16 +293,16 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 			$main_file = null;
 
 			try {
-				$reflector = new \ReflectionClass( 'WPOnion_Loader' );
+				$reflector = new ReflectionClass( 'WPOnion_Loader' );
 				$main_file = $reflector->getFileName();
-			} catch ( \Exception $exception ) {
+			} catch ( Exception $exception ) {
 				$main_file = '<span class="dashicons dashicons-no"></span> Unable To Find The Main File Path';
 			}
 
 			$version = array();
 
-			if ( is_array( \WPOnion_Loader::$data ) && ! empty( \WPOnion_Loader::$data ) ) {
-				foreach ( \WPOnion_Loader::$data as $v => $file ) {
+			if ( is_array( WPOnion_Loader::$data ) && ! empty( WPOnion_Loader::$data ) ) {
+				foreach ( WPOnion_Loader::$data as $v => $file ) {
 					$version[] = $v . ' : ' . $file;
 				}
 			}
@@ -315,9 +319,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 
 			if ( is_array( $instances ) && ! empty( $instances ) ) {
 				self::$status[ __( 'Site Settings', 'wponion' ) ] = array();
-				/**
-				 * @var \WPOnion\Modules\Settings\Settings $instance
-				 */
+				/* @var \WPOnion\Modules\Settings\Settings $instance */
 				foreach ( $instances as $instance ) {
 					$options = get_option( $instance->unique(), array() );
 					if ( ! empty( $options ) ) {
@@ -330,9 +332,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 
 			if ( is_array( $instances ) && ! empty( $instances ) ) {
 				self::$status[ __( 'Network Settings', 'wponion' ) ] = array();
-				/**
-				 * @var \WPOnion\Modules\Settings\Network $instance
-				 */
+				/* @var \WPOnion\Modules\Settings\Network $instance */
 				foreach ( $instances as $instance ) {
 					$options = get_site_option( $instance->unique(), array() );
 					if ( ! empty( $options ) ) {

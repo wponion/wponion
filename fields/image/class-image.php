@@ -13,6 +13,8 @@
  */
 
 namespace WPOnion\Field;
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -25,7 +27,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Image extends \WPOnion\Field {
+	class Image extends Field {
 		/**
 		 * Final HTML Output
 		 */
@@ -63,7 +65,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		 */
 		protected function show_image( $value = '', $preview_show = '' ) {
 			echo '<div class="wponion-preview" ' . $preview_show . '>';
-			echo wponion_tooltip( __( 'Remove' ), array(
+			echo wponion_tooltip( __( 'Remove', 'wponion' ), array(
 				'arrow'       => true,
 				'js_field_id' => $this->js_field_id(),
 			), wponion_icon( 'dashicons dashicons-no-alt wponion-image-remove wponion-help' ) );

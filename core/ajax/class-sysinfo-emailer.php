@@ -3,9 +3,6 @@
 namespace WPOnion\Ajax;
 
 use WPOnion\Bridge\Ajax;
-use WPOnion\Modules\Metabox\Metabox;
-use WPOnion\Modules\Settings\Network;
-use WPOnion\Modules\Settings\Settings;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -33,10 +30,10 @@ if ( ! class_exists( '\WPOnion\Ajax\Sysinfo_Emailer' ) ) {
 		protected $validate_field_path = false;
 
 		public function run() {
-			$data = $this->validate_post( 'wponion_sysinfo', __( 'Unknown Error!' ) );
+			$data = $this->validate_post( 'wponion_sysinfo', __( 'Unknown Error!', 'wponion' ) );
 
 			if ( isset( $data['developer'] ) && ( empty( $data['developer'] ) || true !== wponion_is_email( $data['developer'] ) ) ) {
-				$this->error( __( 'Developer Email Not Found' ), __( 'Unable To Find Plugin\'s Developer Contact.' ) );
+				$this->error( __( 'Developer Email Not Found', 'wponion' ), __( 'Unable To Find Plugin\'s Developer Contact.', 'wponion' ) );
 			}
 
 			$headers = array(

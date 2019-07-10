@@ -2,6 +2,8 @@
 
 namespace WPOnion\Theme;
 
+use WPOnion\Theme_API;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Modern extends \WPOnion\Theme_API {
+	class WP_Modern extends Theme_API {
 		private static $themes = array();
 
 		/**

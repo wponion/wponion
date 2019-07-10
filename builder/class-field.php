@@ -103,6 +103,9 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 				case 'hidden':
 					$instance->type( 'hidden' );
 					break;
+				case 'time_picker':
+					$instance->type( 'time_picker' );
+					break;
 			}
 			return $instance;
 		}

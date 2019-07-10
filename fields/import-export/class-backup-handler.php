@@ -122,9 +122,9 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export\Backup_Handler' ) ) {
 		 * @return string
 		 */
 		public static function backup_html( $time ) {
-			$download     = __( 'Download' );
-			$restore      = __( 'Restore' );
-			$delete       = __( 'Delete' );
+			$download     = __( 'Download', 'wponion' );
+			$restore      = __( 'Restore', 'wponion' );
+			$delete       = __( 'Delete', 'wponion' );
 			$show_date    = self::backup_name( $time );
 			$download_url = Core_Ajax::url( 'import_export_action', array(
 				'import_export_action' => 'download',

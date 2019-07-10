@@ -15,17 +15,17 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Post_Type' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 *
-	 * @method \WPOnion\Modules\CPT\Post_Type exclude_from_search( $exclude_from_search )
-	 * @method \WPOnion\Modules\CPT\Post_Type publicly_queryable( $publicly_queryable )
-	 * @method \WPOnion\Modules\CPT\Post_Type show_in_menu( $show_in_menu )
-	 * @method \WPOnion\Modules\CPT\Post_Type show_in_admin_bar( $show_in_admin_bar )
-	 * @method \WPOnion\Modules\CPT\Post_Type menu_position( $menu_position )
-	 * @method \WPOnion\Modules\CPT\Post_Type menu_icon( $menu_icon )
-	 * @method \WPOnion\Modules\CPT\Post_Type capability_type( $capability_type )
-	 * @method \WPOnion\Modules\CPT\Post_Type has_archive( $has_archive )
-	 * @method \WPOnion\Modules\CPT\Post_Type permalink_epmask( $permalink_epmask )
-	 * @method \WPOnion\Modules\CPT\Post_Type can_export( $can_export )
-	 * @method \WPOnion\Modules\CPT\Post_Type delete_with_user( $delete_with_user )
+	 * @method Post_Type exclude_from_search( $exclude_from_search )
+	 * @method Post_Type publicly_queryable( $publicly_queryable )
+	 * @method Post_Type show_in_menu( $show_in_menu )
+	 * @method Post_Type show_in_admin_bar( $show_in_admin_bar )
+	 * @method Post_Type menu_position( $menu_position )
+	 * @method Post_Type menu_icon( $menu_icon )
+	 * @method Post_Type capability_type( $capability_type )
+	 * @method Post_Type has_archive( $has_archive )
+	 * @method Post_Type permalink_epmask( $permalink_epmask )
+	 * @method Post_Type can_export( $can_export )
+	 * @method Post_Type delete_with_user( $delete_with_user )
 	 */
 	class Post_Type extends Common {
 		/**
@@ -137,7 +137,7 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Post_Type' ) ) {
 		 * @return \WPOnion\Modules\CPT\Post_Type
 		 */
 		public function taxonomies( $taxonomies, $merge = true ) {
-			$taxonomies = ( $taxonomies instanceof \WPOnion\Modules\CPT\Taxonomy ) ? $taxonomies->taxonomy() : $taxonomies;
+			$taxonomies = ( $taxonomies instanceof Taxonomy ) ? $taxonomies->taxonomy() : $taxonomies;
 			return $this->_merge( 'taxonomies', $taxonomies, $merge );
 		}
 

@@ -2,6 +2,8 @@
 
 namespace WPOnion\Field;
 
+use WPOnion\Field;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -14,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Field\Heading' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Heading extends \WPOnion\Field {
+	class Heading extends Field {
 		/**
 		 * Final HTML Output
 		 */
@@ -30,7 +32,6 @@ if ( ! class_exists( '\WPOnion\Field\Heading' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			// TODO: Implement field_assets() method.
 		}
 
 		/**

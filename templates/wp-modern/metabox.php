@@ -3,10 +3,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-/**
- * @var $this \WPOnion\Theme\WP_Modern
- */
-
+/* @var $this \WPOnion\Theme\WP_Modern */
 $metabox = $this->metabox();
 $colors  = $this->color_scheme( $metabox->option( 'color_scheme', array() ) );
 

@@ -47,7 +47,6 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 		}
 
 		public function field_assets() {
-			// TODO: Implement field_assets() method.
 		}
 
 		/**

@@ -2,6 +2,7 @@
 
 namespace WPOnion\WP\Pointers;
 
+use JsonSerializable;
 use WPOnion\Bridge\Module;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -16,7 +17,7 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Pointer extends Module implements \JsonSerializable {
+	class Pointer extends Module implements JsonSerializable {
 		/**
 		 * @var null
 		 * @access
@@ -395,14 +396,14 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 			$pages    = $this->pages();
 			$is_valid = true;
 
-			if ( ! empty( $types ) && is_array( $types ) && ( ! in_array( $post, $types ) && ! isset( $types[ $post ] ) ) ) {
+			if ( ! empty( $types ) && is_array( $types ) && ( ! in_array( $post, $types, true ) && ! isset( $types[ $post ] ) ) ) {
 				$is_valid = false;
 			} elseif ( ! empty( $types ) && is_string( $types ) && $types !== $post ) {
 				$is_valid = false;
 			}
 
 			if ( $is_valid && ! empty( $pages ) ) {
-				if ( is_array( $pages ) && ( ! in_array( $pagenow, $pages ) && ! isset( $pages[ $pagenow ] ) ) ) {
+				if ( is_array( $pages ) && ( ! in_array( $pagenow, $pages, true ) && ! isset( $pages[ $pagenow ] ) ) ) {
 					$is_valid = false;
 				} elseif ( is_string( $pages ) && $pagenow !== $pages ) {
 					$is_valid = false;

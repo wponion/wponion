@@ -7,7 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @var \WPOnion\Theme\WP_Modern  $this
  * @var \WPOnion\Modules\Taxonomy $taxonomy
  * @var \WPO\Builder              $fields
- *
  */
 $taxonomy = $this->taxonomy();
 $fields   = $taxonomy->fields();

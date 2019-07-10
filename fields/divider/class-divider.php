@@ -26,7 +26,6 @@ if ( ! class_exists( '\WPOnion\Field\Divider' ) ) {
 		}
 
 		public function field_assets() {
-			// TODO: Implement field_assets() method.
 		}
 
 		/**
@@ -35,9 +34,7 @@ if ( ! class_exists( '\WPOnion\Field\Divider' ) ) {
 		 * @return mixed;
 		 */
 		protected function field_default() {
-			return array(
-				'text' => false,
-			);
+			return array( 'text' => false );
 		}
 	}
 }

@@ -36,8 +36,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @return \WPOnion\Icon
 		 */
 		public static function add( $instance_or_args ) {
-			if ( ! $instance_or_args instanceof \WPOnion\Icon ) {
-				$instance_or_args = new \WPOnion\Icon( $instance_or_args );
+			if ( ! $instance_or_args instanceof Icon ) {
+				$instance_or_args = new Icon( $instance_or_args );
 			}
 			self::$instances[ $instance_or_args->slug() ] = $instance_or_args;
 			self::$icons[ $instance_or_args->slug() ]     = $instance_or_args->name();
@@ -97,6 +97,20 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 			do_action( 'wponion_before_icons_setup' );
 			require_once WPONION_PATH . 'data/icons.php';
 			do_action( 'wponion_after_icons_setup' );
+		}
+
+		/**
+		 * Retuns Icons Defaults.
+		 *
+		 * @static
+		 * @return array
+		 */
+		public static function icon_defaults() {
+			return array(
+				'title' => false,
+				'css'   => false,
+				'terms' => array(),
+			);
 		}
 	}
 }
