@@ -24,27 +24,32 @@ class Icon_Exporter {
 		static::$exclude_css_prefix = array( 'icofont' );
 		static::$libs               = array(
 			'css'             => array(
-				'dashicons'    => array(
+				'dashicons'           => array(
 					'name'   => 'Dashicons',
 					'prefix' => array( 'dashicons' ),
 					'src'    => 'https://developer.wordpress.org/wp-includes/css/dashicons.min.css',
 				),
-				'icofont'      => array(
+				'icofont'             => array(
 					'name'   => 'Icofont',
 					'prefix' => array( 'icofont' ),
 					'src'    => Assets::$icon_libs['icofont']['src'],
 				),
-				'fontawesome4' => array(
+				'fontawesome4'        => array(
 					'name'   => 'FontAwesome 4',
 					'prefix' => array( 'fa' ),
 					'src'    => Assets::$icon_libs['fontawesome4']['src'],
 				),
-				'foundation'   => array(
+				'materialdesignicons' => array(
+					'name'   => 'Material Design Icons',
+					'prefix' => array( 'mdi' ),
+					'src'    => Assets::$icon_libs['materialdesignicons']['src'],
+				),
+				'foundation'          => array(
 					'name'   => 'Foundation',
 					'prefix' => array( 'fi' ),
 					'src'    => Assets::$icon_libs['foundation']['src'],
 				),
-				'boxicons'     => array(
+				'boxicons'            => array(
 					'name'   => 'Box Icons',
 					'prefix' => array( 'bx' ),
 					'src'    => Assets::$icon_libs['boxicons']['src'],

@@ -1,8 +1,0 @@
-
-wponion_add_icon_library( array(
-	'name'       => __( '[name]' ),
-	'slug'       => '[slug]',
-	'assets'     => [assets],
-	'css_prefix' => [css_prefix],
-	'icons'      => 'wponion_icon_[slug]',
-) )->register();
