@@ -13,7 +13,7 @@ class field extends WPOnion_Field {
 			this.element.parent().addClass( 'selectize-default' );
 		}
 
-		if( false !== this.option( 'ajax' ) ) {
+		if( window.wponion._.isObject( this.option( 'ajax' ) ) ) {
 			$arg.load = ( query, callback ) => {
 				if( query === undefined ) {
 					return ( callback !== undefined ) ? callback() : false;

@@ -15,7 +15,7 @@ class field extends WPOnion_Field {
 			$arg.dropdownParent = jQuery( 'body' );
 		}
 
-		if( false !== this.option( 'ajax' ) ) {
+		if( window.wponion._.isObject( this.option( 'ajax' ) ) ) {
 			$arg.ajax = {
 				processResults: ( data ) => {
 					let terms = [];
