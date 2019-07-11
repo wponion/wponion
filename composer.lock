@@ -504,16 +504,16 @@
         },
         {
             "name": "varunsridharan/wp-cli-textdomain",
-            "version": "1.3",
+            "version": "1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/wp-cli-textdomain.git",
-                "reference": "b0e20ad3d09c72de5448a90d52b7706e4f0cb257"
+                "reference": "23f1eade6dc4fa18caf4534780804bd9cda05f4b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/wp-cli-textdomain/zipball/b0e20ad3d09c72de5448a90d52b7706e4f0cb257",
-                "reference": "b0e20ad3d09c72de5448a90d52b7706e4f0cb257",
+                "url": "https://api.github.com/repos/varunsridharan/wp-cli-textdomain/zipball/23f1eade6dc4fa18caf4534780804bd9cda05f4b",
+                "reference": "23f1eade6dc4fa18caf4534780804bd9cda05f4b",
                 "shasum": ""
             },
             "require": {
@@ -538,7 +538,7 @@
             ],
             "description": "Simple Library Which Provides Option To Render TextDomains",
             "homepage": "https://github.com/varunsridharan/wp-cli-text-domain/",
-            "time": "2019-07-05T13:34:44+00:00"
+            "time": "2019-07-10T10:43:56+00:00"
         },
         {
             "name": "wp-cli/i18n-command",
