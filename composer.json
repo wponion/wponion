@@ -43,7 +43,7 @@
     "add-textdomain"      : "add-textdomain -i wponion ./",
     "update-icons"        : "php ./src/php/icon-exporter/all-icons.php",
     "update-google-fonts" : "php ./src/php/google-fonts.php",
-    "build"               : [ "@update-icons", "@update-google-fonts", "@makepot", "@add-textdomain" ]
+    "build"               : [ "@update-icons", "@update-google-fonts", "@add-textdomain", "@makepot" ]
   },
   "require-dev" : {
     "varunsridharan/wp-cli-textdomain" : "^1.1",

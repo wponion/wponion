@@ -9,10 +9,6 @@
 	min-width: 200px !important;
 }
 
-// Select2 Style Fix.
-.select2-container {
-	z-index: 99999999999999999 !important
-}
 
 // SweatAlert2 Style Fix.
 .swal2-container {
@@ -20,6 +16,7 @@
 
 	.swal2-content {
 		z-index: 2;
+
 		#swal2-content {
 			.json-view {
 				overflow: scroll;

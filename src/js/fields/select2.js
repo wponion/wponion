@@ -7,6 +7,14 @@ class field extends WPOnion_Field {
 	init() {
 		let $arg = this.option( 'select2', {} );
 
+		if( ( false === window.wponion._.isUndefined( window.swal ) && window.swal.isVisible() ) || jQuery( '.wponion-wp-modal' ).length > 0 ) {
+			$arg.dropdownParent = this.get_field_parent_by_id( this.element );
+		}
+
+		if( window.wponion._.isUndefined( $arg.dropdownParent ) || false === window.wponion._.isUndefined( $arg.dropdownParent ) && $arg.dropdownParent.length === 0 ) {
+			$arg.dropdownParent = jQuery( 'body' );
+		}
+
 		if( this.option( 'ajax' ) ) {
 			$arg.ajax = {
 				processResults: ( data ) => {
