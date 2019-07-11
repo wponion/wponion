@@ -168,6 +168,11 @@ export default class WPOnion {
 				if( is_callable( $old_success ) ) {
 					call_user_func( $old_success, res, instance );
 				}
+			} ).catch( () => {
+				instance.unlock();
+				if( is_callable( $old_success ) ) {
+					call_user_func( $old_success, res, instance );
+				}
 			} );
 		};
 		$defaults.always  = ( res, instance ) => {
@@ -177,7 +182,7 @@ export default class WPOnion {
 			}
 		};
 
-		return wponion_ajax( $defaults );
+		return window.wponion_ajax( $defaults );
 	}
 
 	/**

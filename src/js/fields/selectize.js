@@ -13,7 +13,7 @@ class field extends WPOnion_Field {
 			this.element.parent().addClass( 'selectize-default' );
 		}
 
-		if( this.option( 'ajax' ) ) {
+		if( false !== this.option( 'ajax' ) ) {
 			$arg.load = ( query, callback ) => {
 				if( query === undefined ) {
 					return ( callback !== undefined ) ? callback() : false;
@@ -21,7 +21,7 @@ class field extends WPOnion_Field {
 
 				this.ajax( 'wp-query-data', {
 					dataType: 'json',
-					data: { s: query },
+					data: this.parse_args( { s: query }, this.option( 'ajax' ) ),
 					error: () => callback(),
 					success: ( res ) => {
 						let terms = [];

@@ -139,9 +139,10 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		 */
 		protected function js_field_args() {
 			return array(
-				'ajax'          => $this->data( 'ajax' ),
-				'query_args'    => ( true === $this->data( 'ajax' ) ) ? $this->data( 'query_args' ) : array(),
-				'query_options' => ( true === $this->data( 'ajax' ) ) ? $this->data( 'options' ) : array(),
+				'ajax' => ( true === $this->data( 'ajax' ) ) ? array(
+					'query_args'  => ( is_array( $this->data( 'query_args' ) ) && ! empty( $this->data( 'query_args' ) ) ) ? $this->data( 'query_args' ) : array(),
+					'option_type' => ( ! empty( $this->data( 'options' ) ) ) ? $this->data( 'options' ) : false,
+				) : false,
 			);
 		}
 

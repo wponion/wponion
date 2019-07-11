@@ -15,7 +15,7 @@ class field extends WPOnion_Field {
 			$arg.dropdownParent = jQuery( 'body' );
 		}
 
-		if( this.option( 'ajax' ) ) {
+		if( false !== this.option( 'ajax' ) ) {
 			$arg.ajax = {
 				processResults: ( data ) => {
 					let terms = [];
@@ -31,7 +31,7 @@ class field extends WPOnion_Field {
 				},
 				transport: ( params, success, failure ) => {
 					return this.ajax( 'wp-query-data', {
-						data: params.data,
+						data: this.parse_args( params.data, this.option( 'ajax' ) ),
 						success: success,
 						error: failure,
 					} ).send();
