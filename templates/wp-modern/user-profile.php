@@ -15,7 +15,7 @@ $fields       = $user_profile->fields();
 	<h2><?php echo $user_profile->option( 'heading' ); ?></h2>
 <?php } ?>
 
-<div class="<?php echo $user_profile->wrap_class(); ?>">
+<div id="<?php echo $taxonomy->instance_id(); ?>" class="<?php echo $user_profile->wrap_class(); ?>">
 	<?php
 	foreach ( $fields->get() as $field ) {
 		echo $user_profile->render_field( $field );

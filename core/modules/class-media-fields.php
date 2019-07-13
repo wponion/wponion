@@ -113,7 +113,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		public function display_fields( $form, $attachment ) {
 			$this->set_id( $attachment->ID );
 			$this->get_cache();
-			$o = '<div class="' . $this->wrap_class() . '">';
+			$o = '<div id="' . $this->instance_id() . '" class="' . $this->wrap_class() . '">';
 			foreach ( $this->fields->fields() as $field ) {
 				$this->catch_output();
 				echo $this->render_field( $field, $this->get_id() );

@@ -589,6 +589,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Returns Unique Instance ID.
+		 *
+		 * @return string
+		 */
+		public function instance_id() {
+			return sanitize_title( implode( '_', array_filter( array( $this->unique(), $this->get_id() ) ) ) );
+		}
+
+		/**
 		 * Unsets Global Args.
 		 */
 		protected function _unset_globals() {
