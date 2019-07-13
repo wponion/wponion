@@ -152,6 +152,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 						$this->current_theme = $return->uid();
 					}
 				} else {
+					$this->set_option( 'theme', wponion_default_theme() );
 					$return = Themes::callback( wponion_default_theme(), $theme_args );
 					if ( $return ) {
 						$this->current_theme = $return->uid();
