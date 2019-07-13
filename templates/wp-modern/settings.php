@@ -11,7 +11,7 @@ if ( ! empty( $colors ) ) {
 	echo '<style>' . $this->render_color_scheme_css( $colors ) . '</style>';
 }
 
-echo '<div id="' . $module->instance_id() . '" class="' . $module->wrap_class() . '">';
+echo '<div ' . $module->wrap_attributes() . '>';
 
 $this->load_file( 'parts/settings/header.php' );
 $this->load_file( 'parts/settings/content.php' );

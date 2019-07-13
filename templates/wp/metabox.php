@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* @var $this \WPOnion\Theme\WP */
 $metabox = $this->metabox();
-echo '<div id="' . $nav_menu->instance_id() . '" class="' . $metabox->wrap_class() . '">';
+echo '<div ' . $metabox->wrap_attributes() . '>';
 echo '<div class="wponion-metabox-inside-wrap">';
 echo '<div class="content-outer-wrap">';
 $this->load_file( 'parts/metabox/header.php' );

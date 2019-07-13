@@ -11,7 +11,7 @@ if ( ! empty( $colors ) ) {
 	echo '<style>' . $this->render_color_scheme_css( $colors, '#' . $metabox->metabox_id() ) . '</style>';
 }
 
-echo '<div id="' . $metabox->instance_id() . '" class="' . $metabox->wrap_class() . '">';
+echo '<div ' . $metabox->wrap_attributes() . '>';
 echo '<div class="wponion-metabox-inside-wrap">';
 echo '<div class="content-outer-wrap">';
 $this->load_file( 'parts/metabox/side-menu.php' );

@@ -594,7 +594,33 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return string
 		 */
 		public function instance_id() {
-			return sanitize_title( implode( '_', array_filter( array( $this->unique(), $this->get_id() ) ) ) );
+			return sanitize_title( implode( '_', array_filter( array(
+				$this->module(),
+				$this->unique(),
+				$this->get_id(),
+			) ) ) );
+		}
+
+		/**
+		 * @param string $extra_class
+		 * @param array  $extra_attributes
+		 *
+		 * @return array
+		 */
+		public function wrap_attributes( $extra_class = '', $extra_attributes = array() ) {
+			wponion_localize()->add( 'wponion_module_args', array(
+				$this->instance_id() => array(
+					'theme'     => $this->option( 'theme' ),
+					'unique'    => $this->unique(),
+					'module'    => $this->module(),
+					'module-id' => $this->get_id(),
+				),
+			), true, false );
+			return wponion_array_to_html_attributes( $this->parse_args( $extra_attributes, array(
+				'id'                => $this->instance_id(),
+				'class'             => $this->wrap_class( $extra_class ),
+				'data-wponion-jsid' => $this->instance_id(),
+			) ) );
 		}
 
 		/**
