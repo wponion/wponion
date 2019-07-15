@@ -1,116 +1,158 @@
-import WPOnion_Validator from './core/validation';
+/**
+ * 3rd Party Library
+ */
 import { createHooks } from '@wordpress/hooks';
-
-// VSP JS Helper Global.
-window.vsp_js_helper = require( 'vsp-js-helper/index' ).default;
-
-require( './helpers/functions' );
-
-// WPOnion Core Source.
-window.wponion = window.wponion || Object.create( {
-	/**
-	 * Lodash noConflict Variable.
-	 */
-	_: window.lodash.noConflict(),
-
-	/**
-	 * Curated collection of useful JavaScript snippets.
-	 * @see https://www.npmjs.com/package/vsp-js-helper
-	 */
-	helper: window.vsp_js_helper,
-
-	/**
-	 * A lightweight & efficient EventManager for JavaScript.
-	 * @see https://www.npmjs.com/package/@wordpress/hooks
-	 */
-	hooks: createHooks(),
-} );
+import vsp_js_helper from 'vsp-js-helper/index';
 
 /**
- * WPonion Modules.
+ * WPOnion Helpers
  */
-require( './helpers/system-info' ).default;
-require( './modules/settings' ).default;
-require( './modules/metabox' ).default;
-require( './modules/wp-pointers' ).default;
-require( './modules/media-fields' ).default;
-require( './modules/bulk-edit' ).default;
-require( './modules/quick-edit' ).default;
-require( './modules/page-actions' ).default;
+import register_events from './core/global-events';
+import instance_handler from './core/instance-handler';
+import {
+	module_functions,
+	wponion_module_settings,
+	wponion_module_bulk_edit,
+	wponion_module_media_fields,
+	wponion_module_metabox,
+	wponion_module_page_actions,
+	wponion_module_quick_edit,
+	wponion_module_wp_pointers,
+	wponion_module_system_info,
+} from './core/module-handler';
+import { wponion_register_themes, wponion_theme_init } from './core/themes';
+import { wponion_register_fields } from './core/fields';
 
+/**
+ * WPOnion Functions
+ */
+import jquery_functions from './core/functions/jquery';
+import core_functions from './core/functions/core';
+import themes_functions from './core/functions/themes';
+import fields_functions from './core/functions/fields';
+import plugins_functions from './core/functions/plugins';
+import utilites_functions from './core/functions/utilites';
 
-window.wponion.ajaxer         = require( './core/ajaxer' ).WPOnion_Ajaxer;
-window.wponion.ajax           = require( './core/ajaxer' ).default;
-window.wponion.debug          = require( './core/debug' ).default;
-window.wponion.core           = require( './core/core' ).default;
-window.wponion.field_abstract = require( './core/field' ).default;
-window.wponion.dependency     = require( './core/dependency' ).default;
+/**
+ * WPOnion Plugins
+ */
+import wpo_button from './core/plugins/wpo-buttons';
+import { init_ajaxer, WPOnion_Ajaxer } from './core/plugins/ajaxer';
+import WPOnion_Validator from './core/plugins/validator';
 
-require( './wponion-fields' );
+/**
+ * WPOnion Core Classes
+ */
+import WPOnion_Core from './core/class/core';
+import WPOnion_Debug from './core/class/debug';
+import WPOnion_Base from './core/class/base';
+import WPOnion_Theme_Base from './core/class/theme-base';
+import WPOnion_Module_Base from './core/class/module-base';
+import WPOnion_Field_Base from './core/class/field-base';
+import WPOnion_Field from './core/class/field';
+import WPOnion_Dependency from './core/class/dependency';
 
-export default ( ( window, document, wp, $ ) => {
-	// Document On Load.
+( ( window, document, wp, $ ) => {
+
+	if( typeof window.wponion === 'undefined' ) {
+		// Register Core Related Functions
+		core_functions();
+
+		// Register WPOnion Themes Related Functions
+		themes_functions();
+
+		// Register WPOnion Fields Related Functions
+		fields_functions();
+
+		// Register WPOnion Module Related Functions.
+		module_functions();
+
+		// Register WPOnion Addons Related Functions
+		plugins_functions();
+
+		// Register WPOnion Utilites Related Functions
+		utilites_functions();
+
+		/**
+		 * Extends jQuery Functions list With
+		 * Functions Provided by WPOnion
+		 */
+		$.fn = $.extend( $.fn, jquery_functions );
+
+		window.wpo_core                  = WPOnion_Core;
+		window.wponion                   = {};
+		window.wponion.instances         = {};
+		window.wponion.plugins           = {};
+		window.wponion.class             = {};
+		window.wponion._                 = window.lodash.noConflict();
+		window.wponion.hooks             = createHooks();
+		window.wponion.helper            = vsp_js_helper;
+		window.wponion.instances.module  = new instance_handler();
+		window.wponion.instances.fields  = new instance_handler();
+		window.wponion.instances.global  = new instance_handler();
+		window.wponion.plugins.bs_button = wpo_button;
+		window.wponion.plugins.ajaxer    = WPOnion_Ajaxer;
+		window.wponion.plugins.validator = WPOnion_Validator;
+		window.wponion.class.base        = WPOnion_Base;
+		window.wponion.class.theme_base  = WPOnion_Theme_Base;
+		window.wponion.class.module_base = WPOnion_Module_Base;
+		window.wponion.class.field_debug = new WPOnion_Debug();
+		window.wponion.class.field_base  = WPOnion_Field_Base;
+		window.wponion.class.field       = WPOnion_Field;
+		window.wponion.class.dependency  = WPOnion_Dependency;
+	}
+
 	$( () => {
-		window.wponion_setup();
-		window.wponion.hooks.doAction( 'wponion_after_setup' );
-
-		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
-		if( $wpof_div.length > 0 ) {
-			window.wponion.hooks.doAction( 'wponion_before_theme_init', $wpof_div );
-			$wpof_div.each( function() {
-				window.wponion_theme( $( this ) );
-			} );
-			window.wponion.hooks.doAction( 'wponion_after_theme_init', $wpof_div );
-		}
-
-		$( '#woocommerce-product-data' ).on( 'woocommerce_variations_loaded', function() {
-			window.wponion_field( '.wponion-framework.wponion-woocommerce-variation' ).reload();
-		} );
-
-		$( '#variable_product_options' ).on( 'woocommerce_variations_added', function() {
-			window.wponion_field( '.wponion-framework.wponion-woocommerce-variation' ).reload();
-		} );
-	} );
-
-	// Window On Load.
-	$( window ).on( 'load', ( () => {
-		if( !window.wponion._.isUndefined( window.Backbone ) ) {
-			window.wponion.modal = require( './wpmodel' ).default;
-		}
-
 		window.wponion.hooks.doAction( 'wponion_before_init' );
 
-		window.wponion_field( 'body' ).reload_global_fields();
+		// Register Core Fields
+		wponion_register_fields();
 
-		let $wpof_div = $( '.wponion-framework:not(.wponion-module-quick_edit-framework)' );
+		// Register Core Themes
+		wponion_register_themes();
 
-		window.wponion_notice( $wpof_div.find( '.wponion-element-wp_notice, .wponion-element-notice' ) );
+		// Register Required Events
+		register_events();
 
-		// Triggers Hook With Widgets.
-		$( document ).on( 'widget-added widget-updated', function( event, $widget ) {
-			window.wponion_field( $widget ).reload();
-			window.wponion_dependency( $widget );
-		} );
+		// Init Ajaxer
+		init_ajaxer();
 
-		// Triggers When New Menu Item Added.
-		$( document ).on( 'menu-item-added', function( event, $menu ) {
-			window.wponion_field( $menu ).reload();
-			window.wponion_dependency( $menu );
-		} );
+		// Init Javascript Validation
+		window.wponion_validator();
 
-		if( $wpof_div.length > 0 ) {
-			new WPOnion_Validator();
+		// INIT All Basic Fields
+		window.wponion_field_reload_all();
 
-			window.wponion.hooks.doAction( 'wponion_before_fields_init', $wpof_div );
-			$wpof_div.each( function() {
-				window.wponion_field( $( this ) ).reload();
-				window.wponion_dependency( $( this ) );
-			} );
-			window.wponion.hooks.doAction( 'wponion_after_fields_init', $wpof_div );
-		}
+		// Init Themes
+		wponion_theme_init();
+
+		// Init Settings Module
+		wponion_module_settings();
+
+		// Inits Bulk Edit Module.
+		wponion_module_bulk_edit();
+
+		// Inits Media Fields Module.
+		wponion_module_media_fields();
+
+		// Inits Metabox Module.
+		wponion_module_metabox();
+
+		// Inits Page Actions Module.
+		wponion_module_page_actions();
+
+		// Inits Quick Edit Module.
+		wponion_module_quick_edit();
+
+		// Inits WPPointers Module.
+		wponion_module_wp_pointers();
+
+		// Inits System Info Module.
+		wponion_module_system_info();
+
 		window.wponion.hooks.doAction( 'wponion_init' );
-	} ) );
+	} );
 
-	window.wponion.hooks.doAction( 'wponion_loaded' );
-} )( window, document, wp, jQuery );
-
+	/*$( window ).on( 'load', () => {
+	} );*/
+} )( window, document, window.wp, jQuery );

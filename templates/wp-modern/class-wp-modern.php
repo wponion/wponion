@@ -184,7 +184,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 		 */
 		public function register_assets() {
 			wp_enqueue_style( 'wponion-wp-modern', $this->url( 'assets/style.css' ), array( 'wponion-core' ) );
-			wp_enqueue_script( 'wponion-wp-modern', $this->url( 'assets/script.js' ), array( 'wponion-core' ) );
+			//wp_enqueue_script( 'wponion-wp-modern', $this->url( 'assets/script.js' ), array( 'wponion-core' ) );
 		}
 
 		/**

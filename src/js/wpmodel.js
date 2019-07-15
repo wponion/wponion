@@ -51,12 +51,12 @@ export default Backbone.View.extend( {
 	 * Inits Templates.
 	 */
 	init_templates: function() {
-		let $modal                      = window.wponion.core.option( 'modal' );
-		this.templates.frame_menu_item  = window.wponion.core.template( $modal.frame_menu_item );
-		this.templates.router_menu_item = window.wponion.core.template( $modal.router_menu_item );
-		this.templates.window           = window.wponion.core.template( $modal.html );
-		this.templates.page_content     = window.wponion.core.template( $modal.page_content );
-		this.templates.section_content  = window.wponion.core.template( $modal.section_content );
+		let $modal                      = window.wpo_core.option( 'modal' );
+		this.templates.frame_menu_item  = window.wpo_core.template( $modal.frame_menu_item );
+		this.templates.router_menu_item = window.wpo_core.template( $modal.router_menu_item );
+		this.templates.window           = window.wpo_core.template( $modal.html );
+		this.templates.page_content     = window.wpo_core.template( $modal.page_content );
+		this.templates.section_content  = window.wpo_core.template( $modal.section_content );
 	},
 
 	/**

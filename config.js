@@ -1,7 +1,7 @@
 let $files = {};
 
 // wponion-base.scss
-$files[ 'src/scss/wponion-base.scss' ] = {
+$files[ 'src/scss/wponion-base.scss' ]    = {
 	dist: 'assets/css/',
 	combine_files: true,
 	scss: true,
@@ -10,7 +10,6 @@ $files[ 'src/scss/wponion-base.scss' ] = {
 	rename: 'wponion-base.css',
 	watch: [ 'src/scss/wponion-base.scss', 'src/scss/includes/*', 'src/scss/includes/fields/*', 'src/scss/includes/fields/*/*', 'src/scss/includes/modules/*', 'src/scss/includes/modules/*/*' ],
 };
-
 $files[ 'src/scss/wponion-utility.scss' ] = {
 	dist: 'assets/css/',
 	combine_files: true,
@@ -29,26 +28,37 @@ $files[ 'src/scss/wponion-plugins.scss' ] = {
 };
 
 // Javascripts
-$files[ 'src/js/wponion-plugins.js' ]    = {
+$files[ 'src/js/wponion-plugins.js' ] = {
 	dist: 'assets/js',
 	watch: [ './src/vendors/*/*.js', 'src/js/wponion-plugins.js' ],
 	combine_files: true,
 	uglify: true,
 	rename: 'wponion-plugins.js',
 };
+/*$files[ 'src/js/wponion-core.js' ]       = [
+	{
+		dist: 'assets/js',
+		watch: [ 'src/js/wponion-core.js', 'src/js/core/!*', 'src/js/core/!*!/!*', 'src/js/core/!*!/!*!/!*', 'src/js/core/!*!/!*!/!*!/!*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
+		webpack: 'webpack_dev_eval',
+		//webpack: true,
+		sourcemaps: false,
+		rename: 'wponion-core.js',
+	},
+	{
+		dist: 'assets/js',
+		watch: [ 'assets/js/wponion-core.js' ],
+		//webpack: 'webpack_dev_eval',
+		webpack: true,
+		sourcemaps: false,
+		rename: 'wponion-core.min.js',
+	}
+];*/
+
 $files[ 'src/js/wponion-core.js' ]       = {
 	dist: 'assets/js',
-	watch: [
-		'src/js/wponion-core.js',
-		'src/js/core/*',
-		'src/js/fields/*',
-		'src/js/helpers/*',
-		'src/js/modules/*',
-		'src/js/modules/*/*',
-		'src/vendors/backbone-modal.js',
-		'src/js/wpmodel.js' ],
-	//webpack: 'webpack_dev_eval',
-	webpack: true,
+	watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/core/*/*', 'src/js/core/*/*/*', 'src/js/core/*/*/*/*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
+	webpack: 'webpack_dev_eval',
+	//webpack: true,
 	sourcemaps: false,
 	rename: 'wponion-core.js',
 };
@@ -137,7 +147,6 @@ module.exports = {
 			inline: 'wponion-inline',
 		},
 		webpack_dev_eval: {
-			devtool: 'eval',
 			mode: 'development',
 			target: 'node',
 			externals: {
