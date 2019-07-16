@@ -71,22 +71,17 @@ export default function() {
 
 	/**
 	 * Reloads / Inits Local Fields.
-	 * @param $element
+	 * @param $elem
 	 */
-	window.wponion_field_reload = function( $element ) {
-		$element = $element || jQuery( '.wponion-framework' );
-		window.wponion.hooks.doAction( 'wponion_before_fields_reload', $element );
-		$element.find( '.wponion-element[data-wponion-field-type]' ).each( function() {
+	window.wponion_field_reload = function( $elem ) {
+		$elem = $elem || jQuery( '.wponion-framework' );
+		window.wponion.hooks.doAction( 'wponion_before_fields_reload', $elem );
+		window.wponion_get_fields( $elem, '.wponion-element[data-wponion-field-type]' ).each( function() {
 			if( !jQuery( this ).hasClass( 'wponion-field-inited' ) ) {
-				if( jQuery( this ).hasClass( 'wponion-has-nested-fields' ) ) {
-					window.wponion_field_reload( jQuery( this ) );
-					window.wponion_init_field( jQuery( this ).data( 'wponion-field-type' ), jQuery( this ) );
-				} else {
-					window.wponion_init_field( jQuery( this ).data( 'wponion-field-type' ), jQuery( this ) );
-				}
+				window.wponion_init_field( jQuery( this ).data( 'wponion-field-type' ), jQuery( this ) );
 			}
 		} );
-		window.wponion.hooks.doAction( 'wponion_after_fields_reload', $element );
+		window.wponion.hooks.doAction( 'wponion_after_fields_reload', $elem );
 	};
 
 	/**
@@ -102,8 +97,8 @@ export default function() {
 			'.selectize': 'selectize',
 			'.wponion-field-tooltip': 'tooltip',
 			'.wponion-help': 'tooltip',
-			'[wponion-img-popup]': 'tooltip',
-			'[wponion-help]': 'tooltip'
+			'[wponion-help]': 'tooltip',
+			'[wponion-img-popup]': 'image_popup',
 		};
 
 		for( let $key in $element_to_check ) {
