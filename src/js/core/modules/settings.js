@@ -5,6 +5,7 @@ import WPOnion_Module from '../class/module-base';
  * Handle WPOnion Settings
  */
 export default class extends WPOnion_Module {
+
 	/**
 	 * Inits Module.
 	 */
@@ -42,7 +43,7 @@ export default class extends WPOnion_Module {
 						window.wponion_validator();
 						window.wponion_field_reload_all( $elm );
 						window.wponion_init_theme( $elm );
-						//window.wponion_dependency( $elm );
+						window.wponion_dependency( $elm );
 					},
 					error: () => this.element.parent().submit()
 				} ).send();
