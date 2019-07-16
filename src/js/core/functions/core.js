@@ -21,36 +21,13 @@ export default function() {
 	 * @returns {*}
 	 */
 	window.wponion_notice = ( $elem ) => {
+		$elem = $elem || jQuery( 'body' ).find( '.wponion-element-wp_notice, .wponion-element-notice' );
 		if( $elem.length > 1 ) {
-			$elem.each( function() {
-				window.wponion_notice( jQuery( this ) );
+			$elem.each( ( i, e ) => {
+				window.wponion_notice( jQuery( e ) );
 			} );
 		} else {
-			if( $elem.find( '.wponion-remove' ).length > 0 ) {
-				$elem.each( function() {
-					let $el = jQuery( this );
-					$el.find( '.wponion-remove' ).tippy( { appendTo: () => jQuery( this )[ 0 ] } );
-					$el.find( '.wponion-remove' ).on( 'click', () => $el.slideUp( 'slow', () => $el.remove() ) );
-				} );
-				return $elem;
-			}
-
-			let $auto = $elem.attr( 'data-autoclose' );
-			if( $auto ) {
-				$auto     = parseInt( $auto );
-				let $left = $auto / 1000;
-				if( $elem.find( '.wpo-counter' ).length === 1 ) {
-					let $runner = setInterval( function() {
-						$elem.find( '.wpo-counter' ).html( $left );
-						$left -= 1;
-						if( $left < 0 ) {
-							clearInterval( $runner );
-							$elem.find( '.wpo-counter' ).html( '0' );
-						}
-					}, 900 );
-				}
-				setTimeout( () => $elem.slideUp( 'slow', () => $elem.remove() ), $auto );
-			}
+			window.wponion_init_field( 'global_notice', $elem );
 		}
 	};
 
@@ -75,13 +52,73 @@ export default function() {
 		$find_selector = $find_selector || '.wponion-element';
 		if( true === $nested_elements ) {
 			return $element.find( $find_selector );
-		} else if( $element.closest( '.wponion-field-group' ).length >= 1 || $element.hasClass( 'wponion-field-group' ) ) {
+		} else if( $element.closest( '.wponion-has-nested-fields' ).length >= 1 || $element.hasClass( 'wponion-has-nested-fields' ) ) {
 			return $element.find( $find_selector );
 		} else {
 			return $element.find( $find_selector ).filter( function( index, element ) {
-				return !( jQuery( element ).closest( '.wponion-field-group', jQuery( element ) ) ).length;
+				element = jQuery( element );
+
+
+				if( element.hasClass( 'wponion-has-nested-fields' ) && element.parents( '.wponion-element' ).length === 0 ) {
+					return true;
+				} else if( element.hasClass( 'wponion-has-nested-fields' ) && element.parents( '.wponion-element' ).length >= 1 ) {
+					return false;
+				}
+
+				return !( element.closest( '.wponion-has-nested-fields', element ) ).length;
+
 			} );
 		}
+	};
+
+	/**
+	 * Triggers All Module instance for current page.
+	 * @param $element
+	 */
+	window.wponion_init_all = ( $element ) => {
+		$element = $element || jQuery( 'body' );
+
+		// Reloads Global Fields.
+		window.wponion_field_reload_global( $element );
+
+		// Inits Bulk Edit Module.
+		window.wponion_module_bulk_edit();
+
+		// Inits Media Fields Module.
+		window.wponion_module_media_fields();
+
+		// Inits Quick Edit Module.
+		window.wponion_module_quick_edit();
+
+		// Inits WPPointers Module.
+		window.wponion_module_wp_pointers();
+
+		// Inits System Info Module.
+		window.wponion_module_system_info();
+
+		// Inits Page Actions Module.
+		window.wponion_module_page_actions();
+
+		$element.find( 'div.postbox.wponion-metabox' ).each( function() {
+			// Inits Metabox Module.
+			window.wponion_module_metabox( jQuery( this ) );
+		} );
+
+		$element.find( '.wponion-framework' ).each( function() {
+			let $elem = jQuery( this );
+
+			// Reloads General Fields.
+			window.wponion_field_reload( $elem );
+
+			// Init WPOnion Theme
+			window.wponion_init_theme( $elem );
+
+			// Init Settings Module
+			window.wponion_module_settings( $elem );
+
+			// Inits Dependency Module.
+			window.wponion_dependency( $elem );
+		} );
 	};
 }
 
