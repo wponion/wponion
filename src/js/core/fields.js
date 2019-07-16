@@ -30,6 +30,7 @@ import wpo_upload from './fields/upload';
 import wpo_wp_link from './fields/wp_links';
 import wpo_image_popup from './fields/common/image_popup';
 import wpo_tooltip from './fields/common/tooltip';
+import wpo_group from './fields/group';
 
 export function wponion_register_fields() {
 	/**
@@ -73,4 +74,5 @@ export function wponion_register_fields() {
 	window.wponion_register_field( 'typography', wpo_typography );
 	window.wponion_register_field( 'upload', wpo_upload );
 	window.wponion_register_field( 'wp_link', wpo_wp_link );
+	window.wponion_register_field( 'group', wpo_group );
 }
