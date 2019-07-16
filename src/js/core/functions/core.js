@@ -62,5 +62,26 @@ export default function() {
 	 * @return {{}|*}
 	 */
 	window.wponion_dependency = ( $element = false, $args = false, $config = {} ) => new window.wponion.class.dependency( $element, $args, $config );
+
+	/**
+	 * Fetch Files from the given element.
+	 * @param $element
+	 * @param $find_selector
+	 * @param $nested_elements
+	 * @return {jQuery}
+	 */
+	window.wponion_get_fields = ( $element, $find_selector = false, $nested_elements = false ) => {
+		$element       = $element || jQuery( '.wponion-framework' );
+		$find_selector = $find_selector || '.wponion-element';
+		if( true === $nested_elements ) {
+			return $element.find( $find_selector );
+		} else if( $element.closest( '.wponion-field-group' ).length >= 1 || $element.hasClass( 'wponion-field-group' ) ) {
+			return $element.find( $find_selector );
+		} else {
+			return $element.find( $find_selector ).filter( function( index, element ) {
+				return !( jQuery( element ).closest( '.wponion-field-group', jQuery( element ) ) ).length;
+			} );
+		}
+	};
 }
 
