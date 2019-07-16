@@ -1,7 +1,10 @@
 import WPOnion_Field_Base from './field-base';
 
 export default class WPOnion_Field extends WPOnion_Field_Base {
-
+	/**
+	 * @param $selector
+	 * @param $args
+	 */
 	constructor( $selector, $args = {} ) {
 		super( $selector, $args );
 
@@ -10,6 +13,11 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 			this.js_validator();
 			this.dependency();
 		}
+		this.init();
+		this.element.addClass( 'wponion-field-inited' );
+	}
+
+	init() {
 	}
 
 	/**
@@ -140,12 +148,31 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 						rules.createRule( $field, $condition, $value ).include( this.element );
 					}
 				}
+				//console.log( this.id(), this.option( 'dependency' ), this.element );
 				window.wponion.class.field_debug.add( this.id(), {
 					'Dependency': $dep,
 					'Nestable Dependency': config.nestable
 				} );
 
 			} );
+		}
+	}
+
+	/**
+	 * Inits A Single Field Type
+	 * @uses init_single_field.
+	 * @param $elem
+	 * @param $type
+	 */
+	init_field( $elem, $type ) {
+		if( !window.wponion.helper.is_jquery( $elem ) ) {
+			$elem = this.element.find( $elem );
+		}
+
+		if( $elem.length > 1 ) {
+			$elem.each( ( i, e ) => window.wponion_init_field( $type, jQuery( e ) ) );
+		} else if( $elem.length === 1 ) {
+			window.wponion_init_field( $type, $elem );
 		}
 	}
 }
