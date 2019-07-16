@@ -121,6 +121,7 @@ export default class extends WPOnion_Field {
 
 		delete $arg.image;
 		delete $arg.icon;
+		console.log( this.element, this.handle_args( $arg, this.tooltipkey ) );
 		this.element.tippy( this.handle_args( $arg, this.tooltipkey ) );
 	}
 }

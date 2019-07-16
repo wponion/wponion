@@ -28,7 +28,7 @@ export default class extends WPOnion_Field {
 			template: this.option( 'clone_template' ),
 			templateAfterRender: ( $e ) => {
 				this.element.trigger( 'change' );
-				window.wponion_fields_init( $e.find( '> div.wponion-field-clone:last-child' ) ).all();
+				window.wponion_field_reload_all( $e.find( '> div.wponion-field-clone:last-child' ) );
 			},
 			onRemoveAfter: () => this.element.trigger( 'change' ),
 			sortable: $sort,

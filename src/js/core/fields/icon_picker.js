@@ -48,7 +48,7 @@ export default class extends WPOnion_Field {
 				$work.elm.find( '.wponion-icon-picker-container-scroll' ).css( 'height', $height );
 				$work.select();
 				$work.input();
-				window.wponion_fields_init( $elm.find( '#swal2-content' ) ).all();
+				window.wponion_field_reload_all( $elm.find( '#swal2-content' ) );
 				$work.elems.on( 'click', function() {
 					let $icon = jQuery( this ).attr( 'data-icon' );
 					$input.val( $icon ).trigger( 'change' );

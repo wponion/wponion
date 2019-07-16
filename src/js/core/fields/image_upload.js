@@ -46,8 +46,8 @@ export default class extends WPOnion_Field {
 			$this.media_instance.open();
 		} );
 
-		$preview.find( '.wponion-image-remove' ).on( 'click', () => $input.val( '' ).trigger( 'change' ) );
+		//$preview.find( '.wponion-image-remove' ).on( 'click', () => $input.val( '' ).trigger( 'change' ) );
 
-		this.init_field( $preview.find( 'img' ), 'image_popup' );
+		//this.init_field( $preview.find( 'img' ), 'image_popup' );
 	}
 }

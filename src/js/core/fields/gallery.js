@@ -52,6 +52,7 @@ export default class extends WPOnion_Field {
 						$tmp.find( 'img' ).attr( 'data-fullsize', item.url ).attr( 'src', thumb ).removeClass( 'hide' );
 						$preview.append( $tmp );
 						$this.init_field( '.wponion-help', 'tooltip' );
+						$this.init_field( 'img', 'image_popup' );
 						return item.id;
 					} );
 					let $e;

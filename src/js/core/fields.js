@@ -31,6 +31,8 @@ import wpo_wp_link from './fields/wp_links';
 import wpo_image_popup from './fields/common/image_popup';
 import wpo_tooltip from './fields/common/tooltip';
 import wpo_group from './fields/group';
+import wpo_global_notice from './fields/common/global-notice';
+import wpo_modal from './fields/modal';
 
 export function wponion_register_fields() {
 	/**
@@ -42,6 +44,7 @@ export function wponion_register_fields() {
 	window.wponion_register_field( 'inputmask', wpo_inputmask );
 	window.wponion_register_field( 'image_popup', wpo_image_popup );
 	window.wponion_register_field( 'tooltip', wpo_tooltip );
+	window.wponion_register_field( 'global_notice', wpo_global_notice );
 
 
 	/**
@@ -57,7 +60,7 @@ export function wponion_register_fields() {
 	window.wponion_register_field( 'date_picker', wpo_date_picker );
 	window.wponion_register_field( 'faq', wpo_faq );
 	window.wponion_register_field( 'fieldset', wpo_fieldset );
-	window.wponion_register_field( 'font_selector', wpo_font_selector );
+	window.wponion_register_field( 'font_picker', wpo_font_selector );
 	window.wponion_register_field( 'gallery', wpo_gallery );
 	window.wponion_register_field( 'icon_picker', wpo_icon_picker );
 	window.wponion_register_field( 'image_select', wpo_image_select );
@@ -75,4 +78,5 @@ export function wponion_register_fields() {
 	window.wponion_register_field( 'upload', wpo_upload );
 	window.wponion_register_field( 'wp_link', wpo_wp_link );
 	window.wponion_register_field( 'group', wpo_group );
+	window.wponion_register_field( 'modal', wpo_modal );
 }
