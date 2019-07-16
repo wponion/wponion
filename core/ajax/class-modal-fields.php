@@ -52,7 +52,6 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 				array_shift( $field_id );
 				$field['id'] = end( $field_id );
 			}
-
 			$module->set_db_cache( array(
 				'container_id'     => $this->builder_path( 'container_id' ),
 				'sub_container_id' => $this->builder_path( 'sub_container_id' ),
