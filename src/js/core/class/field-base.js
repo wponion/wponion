@@ -4,11 +4,6 @@ export default class WPOnion_Field_Base extends WPOnion_Base {
 	constructor( $selector, $args = {} ) {
 		super( $selector, $args );
 		this._args = false;
-		this.init();
-	}
-
-	init() {
-		//console.log( 'Main Init' );
 	}
 
 	/**
