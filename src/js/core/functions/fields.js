@@ -77,7 +77,14 @@ export default function() {
 		$element = $element || jQuery( '.wponion-framework' );
 		window.wponion.hooks.doAction( 'wponion_before_fields_reload', $element );
 		$element.find( '.wponion-element[data-wponion-field-type]' ).each( function() {
-			window.wponion_init_field( jQuery( this ).data( 'wponion-field-type' ), jQuery( this ) );
+			if( !jQuery( this ).hasClass( 'wponion-field-inited' ) ) {
+				if( jQuery( this ).hasClass( 'wponion-has-nested-fields' ) ) {
+					window.wponion_field_reload( jQuery( this ) );
+					window.wponion_init_field( jQuery( this ).data( 'wponion-field-type' ), jQuery( this ) );
+				} else {
+					window.wponion_init_field( jQuery( this ).data( 'wponion-field-type' ), jQuery( this ) );
+				}
+			}
 		} );
 		window.wponion.hooks.doAction( 'wponion_after_fields_reload', $element );
 	};
