@@ -4,24 +4,14 @@ import WPOnion_Module_Metabox from './modules/metabox';
 import WPOnion_Module_Quick_Edit from './modules/quick-edit';
 import wponion_module_wp_pointers from './modules/wp-pointers';
 import wponion_module_system_info from './modules/system-info';
+import { is_jquery } from 'vsp-js-helper/index';
 
 /**
  * Inits Settings Module.
  */
-let wponion_module_settings = function() {
-	let $settings = jQuery( '.wponion-framework.wponion-module-settings' );
-	if( $settings.length > 1 ) {
-		$settings.each( function() {
-			if( WPO_Module.is_valid( jQuery( this ) ) ) {
-				new WPOnion_Module_Settings( jQuery( this ) );
-				window.wponion_dependency( jQuery( this ) );
-			}
-		} );
-	} else {
-		if( WPO_Module.is_valid( $settings ) ) {
-			new WPOnion_Module_Settings( $settings );
-			window.wponion_dependency( $settings );
-		}
+let wponion_module_settings = function( $element ) {
+	if( is_jquery( $element ) && WPO_Module.is_valid( $element ) && $element.hasClass( 'wponion-module-settings' ) ) {
+		new WPOnion_Module_Settings( $element );
 	}
 };
 
@@ -60,11 +50,15 @@ let wponion_module_media_fields = function() {
 	const fix_media_ui = () => {
 		let $table  = jQuery( '.compat-attachment-fields' ),
 			$fields = $table.find( '.wponion-framework' );
+
 		$fields.each( function() {
 			jQuery( this ).parent().parent().remove();
 			$table.before( jQuery( this ).parent().html() );
 		} );
-		window.wponion_fields_init( $table.parent().find( '.wponion-framework' ) ).all();
+
+		$table.parent().find( '.wponion-framework' ).each( function() {
+			window.wponion_field_reload_all( jQuery( this ) );
+		} );
 	};
 
 	if( jQuery( '.compat-attachment-fields' ).length > 0 && jQuery( 'body' ).hasClass( 'post-type-attachment' ) ) {
@@ -82,16 +76,10 @@ let wponion_module_media_fields = function() {
 /**
  * Inits Metabox Module.
  */
-let wponion_module_metabox = function() {
-	let $settings = jQuery( 'div.postbox.wponion-metabox' );
-	if( $settings.length > 1 ) {
-		$settings.each( function() {
-			new WPOnion_Module_Metabox( jQuery( this ) );
-			window.wponion_dependency( jQuery( this ) );
-		} );
-	} else {
-		new WPOnion_Module_Metabox( $settings );
-		window.wponion_dependency( $settings );
+let wponion_module_metabox = function( $element ) {
+	$element = $element || jQuery( 'div.postbox.wponion-metabox' );
+	if( $element.hasClass( 'wponion-metabox' ) ) {
+		new WPOnion_Module_Metabox( $element );
 	}
 };
 
@@ -142,6 +130,7 @@ let module_functions = function() {
 	window.wponion_module_wp_pointers  = wponion_module_wp_pointers;
 	window.wponion_module_system_info  = wponion_module_system_info;
 };
+
 export {
 	module_functions,
 	wponion_module_settings,
@@ -153,3 +142,4 @@ export {
 	wponion_module_wp_pointers,
 	wponion_module_system_info,
 };
+

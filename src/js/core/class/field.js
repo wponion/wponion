@@ -12,9 +12,20 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 			this.field_debug();
 			this.js_validator();
 			this.dependency();
+			this.maybe_init_subfields();
 		}
+
 		this.init();
 		this.element.addClass( 'wponion-field-inited' );
+	}
+
+	/**
+	 * Validate if its a nested element and if it is then it triggers field reload.
+	 */
+	maybe_init_subfields() {
+		if( this.element.hasClass( 'wponion-has-nested-fields' ) ) {
+			window.wponion_field_reload( this.element );
+		}
 	}
 
 	init() {

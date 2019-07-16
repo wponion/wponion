@@ -11,6 +11,11 @@ export default class WPOnion_Base {
 	constructor( $selector, $args = {} ) {
 		this.elem = to_jquery( $selector );
 		this.args = window.wponion._.isObject( $args ) ? $args : {};
+		this.base_init();
+	}
+
+	base_init() {
+
 	}
 
 	/**

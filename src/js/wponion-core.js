@@ -8,19 +8,9 @@ import vsp_js_helper from 'vsp-js-helper/index';
  * WPOnion Helpers
  */
 import register_events from './core/global-events';
-import instance_handler from './core/instance-handler';
-import {
-	module_functions,
-	wponion_module_settings,
-	wponion_module_bulk_edit,
-	wponion_module_media_fields,
-	wponion_module_metabox,
-	wponion_module_page_actions,
-	wponion_module_quick_edit,
-	wponion_module_wp_pointers,
-	wponion_module_system_info,
-} from './core/module-handler';
-import { wponion_register_themes, wponion_theme_init } from './core/themes';
+//import instance_handler from './core/instance-handler';
+import { module_functions } from './core/module-handler';
+import { wponion_register_themes } from './core/themes';
 import { wponion_register_fields } from './core/fields';
 
 /**
@@ -79,17 +69,17 @@ import WPOnion_Dependency from './core/class/dependency';
 		 */
 		$.fn = $.extend( $.fn, jquery_functions );
 
-		window.wpo_core                  = WPOnion_Core;
-		window.wponion                   = {};
-		window.wponion.instances         = {};
-		window.wponion.plugins           = {};
-		window.wponion.class             = {};
-		window.wponion._                 = window.lodash.noConflict();
-		window.wponion.hooks             = createHooks();
-		window.wponion.helper            = vsp_js_helper;
-		window.wponion.instances.module  = new instance_handler();
+		window.wpo_core          = WPOnion_Core;
+		window.wponion           = {};
+		window.wponion.instances = {};
+		window.wponion.plugins   = {};
+		window.wponion.class     = {};
+		window.wponion._         = window.lodash.noConflict();
+		window.wponion.hooks     = createHooks();
+		window.wponion.helper    = vsp_js_helper;
+		/*window.wponion.instances.module  = new instance_handler();
 		window.wponion.instances.fields  = new instance_handler();
-		window.wponion.instances.global  = new instance_handler();
+		window.wponion.instances.global  = new instance_handler();*/
 		window.wponion.plugins.bs_button = wpo_button;
 		window.wponion.plugins.ajaxer    = WPOnion_Ajaxer;
 		window.wponion.plugins.validator = WPOnion_Validator;
@@ -111,6 +101,9 @@ import WPOnion_Dependency from './core/class/dependency';
 		// Register Core Themes
 		wponion_register_themes();
 
+		// Inits Notices.
+		window.wponion_notice();
+
 		// Register Required Events
 		register_events();
 
@@ -120,39 +113,15 @@ import WPOnion_Dependency from './core/class/dependency';
 		// Init Javascript Validation
 		window.wponion_validator();
 
-		// INIT All Basic Fields
-		window.wponion_field_reload_all();
-
-		// Init Themes
-		wponion_theme_init();
-
-		// Init Settings Module
-		wponion_module_settings();
-
-		// Inits Bulk Edit Module.
-		wponion_module_bulk_edit();
-
-		// Inits Media Fields Module.
-		wponion_module_media_fields();
-
-		// Inits Metabox Module.
-		wponion_module_metabox();
-
-		// Inits Page Actions Module.
-		wponion_module_page_actions();
-
-		// Inits Quick Edit Module.
-		wponion_module_quick_edit();
-
-		// Inits WPPointers Module.
-		wponion_module_wp_pointers();
-
-		// Inits System Info Module.
-		wponion_module_system_info();
+		// Inits All Modules.
+		window.wponion_init_all();
 
 		window.wponion.hooks.doAction( 'wponion_init' );
 	} );
 
-	/*$( window ).on( 'load', () => {
-	} );*/
+	$( window ).on( 'load', () => {
+		if( !window.wponion._.isUndefined( window.Backbone ) ) {
+			window.wponion.plugins.wpmodal = require( './core/plugins/wpmodel' ).default;
+		}
+	} );
 } )( window, document, window.wp, jQuery );

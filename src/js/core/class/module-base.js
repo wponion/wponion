@@ -7,6 +7,9 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 		this.module_init();
 	}
 
+	module_init() {
+	}
+
 	/**
 	 * Fetchs And Returns An Arg.
 	 * @param $element

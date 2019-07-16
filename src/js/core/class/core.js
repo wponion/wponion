@@ -133,11 +133,13 @@ $core.ajax = ( $action = '', $data = {}, $onSuccess = false, $onError = false, $
 
 	$defaults = window.wponion._.merge( $defaults, $data );
 
-	let $old_success = $defaults.success;
-	let $old_always  = $defaults.always;
+	let $old_success = $defaults.success,
+		$old_always  = $defaults.always,
+		$old_error   = $defaults.error;
 
 	$defaults.success = ( res, instance ) => {
 		return new Promise( ( resolve ) => {
+			instance.lock();
 			return window.wpo_core.handle_ajax_response( res, resolve );
 		} ).then( () => {
 			instance.unlock();
@@ -151,8 +153,13 @@ $core.ajax = ( $action = '', $data = {}, $onSuccess = false, $onError = false, $
 			}
 		} );
 	};
+	$defaults.error   = ( res, instance ) => {
+		instance.unlock();
+		if( is_callable( $old_error ) ) {
+			call_user_func( $old_error, res, instance );
+		}
+	};
 	$defaults.always  = ( res, instance ) => {
-		instance.lock();
 		if( is_callable( $old_always ) ) {
 			call_user_func( $old_always, res, instance );
 		}
