@@ -142,5 +142,21 @@ export default {
 				}
 			}, 300 );
 		}
-	}
+	},
+
+	/**
+	 * Adds Bootstrap Button Element
+	 */
+	wponion_button: function Plugin( option ) {
+		return this.each( function() {
+			var $this   = jQuery( this );
+			var data    = $this.data( 'wpobs.button' );
+			var options = typeof option === 'object' && option;
+
+			if( !data ) {
+				$this.data( 'wpobs.button', ( data = new window.wponion.plugins.bs_button( this, options ) ) );
+			}
+			data.setState( option );
+		} );
+	},
 };
