@@ -1,4 +1,4 @@
-import { parse_args } from 'vsp-js-helper/index';
+import { parse_args, to_jquery } from 'vsp-js-helper/index';
 
 export default function() {
 	/**
@@ -7,22 +7,24 @@ export default function() {
 	 * @returns {{addAction, removeAction, applyFilters, removeFilter, addFilter, doAction}}
 	 */
 	window.wponion_init_theme = ( $element ) => {
-		let $args = parse_args( window.wponion.class.module_base.arg( $element, false ), {
-			theme: '',
-			module: '',
-			unique: ','
-		} );
+		$element = to_jquery( $element );
+		if( $element ) {
+			let $args = parse_args( window.wponion.class.module_base.arg( $element, false ), {
+				theme: '',
+				module: '',
+				unique: ','
+			} );
+			if( !window.wponion._.isEmpty( $args.theme ) ) {
+				window.wponion.hooks.doAction( 'wponion_before_theme_init', $element, $args.module, $args.unique, $args.theme );
 
-		if( !window.wponion._.isEmpty( $args.theme ) ) {
-			window.wponion.hooks.doAction( 'wponion_before_theme_init', $element, $args.module, $args.unique, $args.theme );
+				window.wponion.hooks.doAction( `wponion_before_${$args.theme}_theme_init`, $element, $args.module, $args.unique, $args.theme );
+				window.wponion.hooks.doAction( `wponion_${$args.theme}_theme_init`, $element, $args.module, $args.unique, $args.theme );
+				window.wponion.hooks.doAction( `wponion_after_${$args.theme}_theme_init`, $element, $args.module, $args.unique, $args.theme );
 
-			window.wponion.hooks.doAction( `wponion_before_${$args.theme}_theme_init`, $element, $args.module, $args.unique, $args.theme );
-			window.wponion.hooks.doAction( `wponion_${$args.theme}_theme_init`, $element, $args.module, $args.unique, $args.theme );
-			window.wponion.hooks.doAction( `wponion_after_${$args.theme}_theme_init`, $element, $args.module, $args.unique, $args.theme );
-
-			window.wponion.hooks.doAction( 'wponion_after_theme_init', $element, $args.module, $args.unique, $args.theme );
-		} else {
-			window.wponion.hooks.doAction( 'wponion_theme_init', $element, $args.module, $args.unique, $args.theme );
+				window.wponion.hooks.doAction( 'wponion_after_theme_init', $element, $args.module, $args.unique, $args.theme );
+			} else {
+				window.wponion.hooks.doAction( 'wponion_theme_init', $element, $args.module, $args.unique, $args.theme );
+			}
 		}
 	};
 
