@@ -2,6 +2,10 @@ import WPOnion_Base from './base';
 import { to_jquery } from 'vsp-js-helper/index';
 
 export default class WPOnion_Module_Base extends WPOnion_Base {
+	constructor( $selector, $args = {} ) {
+		super( $selector, $args );
+		this.module_init();
+	}
 
 	/**
 	 * Fetchs And Returns An Arg.
