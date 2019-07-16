@@ -50,8 +50,13 @@ if ( ! class_exists( '\WPOnion\Shortcodes' ) ) {
 		 */
 		public function tooltip( $args, $content ) {
 			$args = empty( $args ) ? array() : $args;
+			$args = shortcode_atts( array(
+				'content' => false,
+				'theme'   => false,
+			), $args, 'wpo_tooltip' );
 			if ( isset( $args['content'] ) ) {
 				$args['element'] = '<span>' . $content . '</span>';
+				var_dump( $args );
 				return wponion_tooltip( $args );
 			}
 			return $content;
