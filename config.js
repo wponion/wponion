@@ -57,8 +57,8 @@ $files[ 'src/js/wponion-plugins.js' ] = {
 $files[ 'src/js/wponion-core.js' ]       = {
 	dist: 'assets/js',
 	watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/core/*/*', 'src/js/core/*/*/*', 'src/js/core/*/*/*/*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
-	webpack: 'webpack_dev_eval',
-	//webpack: true,
+	//webpack: 'webpack_dev_eval',
+	webpack: true,
 	sourcemaps: false,
 	rename: 'wponion-core.js',
 };
