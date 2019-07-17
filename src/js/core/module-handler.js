@@ -4,6 +4,7 @@ import WPOnion_Module_Metabox from './modules/metabox';
 import WPOnion_Module_Quick_Edit from './modules/quick-edit';
 import wponion_module_wp_pointers from './modules/wp-pointers';
 import wponion_module_system_info from './modules/system-info';
+import wponion_module_customizer from './modules/customizer';
 import { is_jquery } from 'vsp-js-helper/index';
 
 /**
@@ -129,6 +130,7 @@ let module_functions = function() {
 	window.wponion_module_quick_edit   = wponion_module_quick_edit;
 	window.wponion_module_wp_pointers  = wponion_module_wp_pointers;
 	window.wponion_module_system_info  = wponion_module_system_info;
+	window.wponion_module_customizer   = wponion_module_customizer;
 };
 
 export {
@@ -141,6 +143,7 @@ export {
 	wponion_module_quick_edit,
 	wponion_module_wp_pointers,
 	wponion_module_system_info,
+	wponion_module_customizer,
 };
 
 

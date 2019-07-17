@@ -9650,7 +9650,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!***************************************!*\
   !*** ./src/js/core/module-handler.js ***!
   \***************************************/
-/*! exports provided: module_functions, wponion_module_settings, wponion_module_bulk_edit, wponion_module_media_fields, wponion_module_metabox, wponion_module_page_actions, wponion_module_quick_edit, wponion_module_wp_pointers, wponion_module_system_info */
+/*! exports provided: module_functions, wponion_module_settings, wponion_module_bulk_edit, wponion_module_media_fields, wponion_module_metabox, wponion_module_page_actions, wponion_module_quick_edit, wponion_module_wp_pointers, wponion_module_system_info, wponion_module_customizer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9672,7 +9672,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_system_info__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/system-info */ "./src/js/core/modules/system-info.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "wponion_module_system_info", function() { return _modules_system_info__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var vsp_js_helper_index__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vsp-js-helper/index */ "./node_modules/vsp-js-helper/index.js");
+/* harmony import */ var _modules_customizer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/customizer */ "./src/js/core/modules/customizer.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "wponion_module_customizer", function() { return _modules_customizer__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+
+/* harmony import */ var vsp_js_helper_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vsp-js-helper/index */ "./node_modules/vsp-js-helper/index.js");
+
 
 
 
@@ -9685,7 +9689,7 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var wponion_module_settings = function wponion_module_settings($element) {
-  if (Object(vsp_js_helper_index__WEBPACK_IMPORTED_MODULE_6__["is_jquery"])($element) && _class_module_base__WEBPACK_IMPORTED_MODULE_0__["default"].is_valid($element) && $element.hasClass('wponion-module-settings')) {
+  if (Object(vsp_js_helper_index__WEBPACK_IMPORTED_MODULE_7__["is_jquery"])($element) && _class_module_base__WEBPACK_IMPORTED_MODULE_0__["default"].is_valid($element) && $element.hasClass('wponion-module-settings')) {
     new _modules_settings__WEBPACK_IMPORTED_MODULE_1__["default"]($element);
   }
 };
@@ -9814,9 +9818,115 @@ var module_functions = function module_functions() {
   window.wponion_module_quick_edit = wponion_module_quick_edit;
   window.wponion_module_wp_pointers = _modules_wp_pointers__WEBPACK_IMPORTED_MODULE_4__["default"];
   window.wponion_module_system_info = _modules_system_info__WEBPACK_IMPORTED_MODULE_5__["default"];
+  window.wponion_module_customizer = _modules_customizer__WEBPACK_IMPORTED_MODULE_6__["default"];
 };
 
 
+
+/***/ }),
+
+/***/ "./src/js/core/modules/customizer.js":
+/*!*******************************************!*\
+  !*** ./src/js/core/modules/customizer.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  if (window.wponion._.isUndefined(window.wp.customize)) {
+    return false;
+  }
+
+  var $wpcc = window.wp.customize.controlConstructor,
+      $wpc = window.wp.customize.Control,
+      $wpoch = {
+    values: function values($values) {
+      jQuery.each($values, function ($k, $vs) {
+        jQuery.each($vs, function ($e, $ep) {
+          $values = $ep;
+        });
+      });
+      return $values;
+    },
+    save: function save($instance) {
+      var $value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+
+      if (window.wponion._.isUndefined($value)) {
+        $value = $wpoch.values($instance.container.find(':input').serializeJSON());
+      }
+
+      $instance.setting.set($value);
+    }
+  }; // Field Clone.
+
+  $wpcc.wponion_field_clone = $wpc.extend({
+    ready: function ready() {
+      var _this = this;
+
+      this.container.on('change', function () {
+        return $wpoch.save(_this);
+      });
+      this.container.on('wponion_field_updated', function () {
+        return $wpoch.save(_this);
+      });
+    }
+  });
+  $wpcc.wponion_field_fieldset = $wpcc.wponion_field_clone;
+  $wpcc.wponion_field_accordion = $wpcc.wponion_field_clone;
+  $wpcc.wponion_field_group = $wpcc.wponion_field_clone;
+  $wpcc.wponion_field_icon_picker = $wpcc.wponion_field_clone; // Field Checkbox.
+
+  $wpcc.wponion_field_checkbox = $wpc.extend({
+    ready: function ready() {
+      var _this2 = this;
+
+      this.container.on('change', function () {
+        return $wpoch.save(_this2);
+      });
+    }
+  });
+  $wpcc.wponion_field_radio = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_button_set = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_color_picker = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_input_group = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_font_picker = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_date_picker = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_image_select = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_image = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_gallery = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_wp_link = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_background = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_color_group = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_link_color = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_spacing = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_dimensions = $wpcc.wponion_field_checkbox;
+  $wpcc.wponion_field_upload = $wpcc.wponion_field_checkbox; // Field Sorter.
+
+  $wpcc.wponion_field_sorter = $wpc.extend({
+    ready: function ready() {
+      var _this3 = this;
+
+      this.container.on('wponion_field_updated', function () {
+        return $wpoch.save(_this3);
+      });
+    }
+  }); // Key Value Pair.
+
+  $wpcc.wponion_field_key_value = $wpc.extend({
+    ready: function ready() {
+      var _this4 = this;
+
+      this.container.on('change', ':input', function () {
+        return $wpoch.save(_this4);
+      });
+      this.container.on('wponion_field_updated', function () {
+        return $wpoch.save(_this4);
+      });
+    }
+  });
+});
 
 /***/ }),
 
@@ -11874,8 +11984,10 @@ __webpack_require__.r(__webpack_exports__);
     window.wponion["class"].field_base = _core_class_field_base__WEBPACK_IMPORTED_MODULE_20__["default"];
     window.wponion["class"].field = _core_class_field__WEBPACK_IMPORTED_MODULE_21__["default"];
     window.wponion["class"].dependency = _core_class_dependency__WEBPACK_IMPORTED_MODULE_22__["default"];
-  }
+  } // Reloads Customizer Related Fields.
 
+
+  window.wponion_module_customizer();
   $(function () {
     window.wponion.hooks.doAction('wponion_before_init'); // Register Core Fields
 

@@ -92,6 +92,9 @@ import WPOnion_Dependency from './core/class/dependency';
 		window.wponion.class.dependency  = WPOnion_Dependency;
 	}
 
+	// Reloads Customizer Related Fields.
+	window.wponion_module_customizer();
+
 	$( () => {
 		window.wponion.hooks.doAction( 'wponion_before_init' );
 
