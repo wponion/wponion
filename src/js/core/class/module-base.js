@@ -18,13 +18,14 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 	 * @return {boolean|*}
 	 */
 	static arg( $element, $option_key = false, $default = false ) {
-		let $jsid       = window.wpo_core.jsid( $element );
-		let $window_arg = window.wpo_core.windowArgs( 'wponion_module_args', {} );
-		if( !window.wponion._.isUndefined( $window_arg[ $jsid ] ) ) {
-			if( !window.wponion._.isEmpty( $option_key ) ) {
-				return ( !window.wponion._.isUndefined( $window_arg[ $jsid ][ $option_key ] ) ) ? $window_arg[ $jsid ][ $option_key ] : $default;
+		let $jsid    = window.wpo_core.jsid( $element );
+		let $windarg = window.wpo_core.windowArgs( 'wponion_module_args', {} );
+		if( !window.wponion._.isUndefined( $jsid ) && !window.wponion._.isUndefined( $windarg[ $jsid ] ) && window.wponion._.isObject( $windarg[ $jsid ] ) ) {
+			if( !window.wponion._.isEmpty( $option_key ) && !window.wponion._.isUndefined( $windarg[ $jsid ][ $option_key ] ) ) {
+				return $windarg[ $jsid ][ $option_key ];
+			} else if( false === $option_key ) {
+				return $windarg[ $jsid ];
 			}
-			return $window_arg[ $jsid ];
 		}
 		return $default;
 	}
