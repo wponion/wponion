@@ -33,7 +33,7 @@ if ( ! class_exists( '\WPOnion\Ajax\WP_Query_Data' ) ) {
 		 * Runs Ajax.
 		 */
 		public function run() {
-			$options    = $this->validate_post( 'option_type', __( 'Invalid Option Type' ) );
+			$options    = $this->validate_post( 'option_type', __( 'Invalid Option Type', 'wponion' ) );
 			$query_args = $this->post( 'query_args', array() );
 			$search     = $this->post( 'q', '' );
 			$search     = $this->post( 's', $search );

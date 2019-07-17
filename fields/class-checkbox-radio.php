@@ -67,7 +67,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			} elseif ( 'switcher' === $this->element_type() ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			} else {
-				echo '<p class="wpo-text-danger">' . __( 'No Options Found.' ) . '</p>';
+				echo '<p class="wpo-text-danger">' . __( 'No Options Found.', 'wponion' ) . '</p>';
 			}
 
 			echo $this->catch_output( 'stop' );

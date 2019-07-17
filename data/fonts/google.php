@@ -1310,6 +1310,16 @@
   array (
     400 => 'Regular 400',
   ),
+  'Darker Grotesque' => 
+  array (
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
+  ),
   'David Libre' => 
   array (
     400 => 'Regular 400',
