@@ -1,3 +1,5 @@
+import WPOnion_Cloner from '../plugins/wpo-cloner';
+
 /**
  * jQuery Functions.
  */
@@ -159,4 +161,9 @@ export default {
 			data.setState( option );
 		} );
 	},
+
+	/**
+	 * Adds WPOnion Cloner Script.
+	 */
+	WPOnionCloner: WPOnion_Cloner,
 };

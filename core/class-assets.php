@@ -121,10 +121,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 					'src'  => wponion()->assets( 'js/wponion-core.js' ),
 					'deps' => array( 'wponion-plugins' ),
 				),
-				'wponion-cloner'      => array(
-					'src'  => wponion()->assets( 'js/wponion-cloner.js' ),
-					'deps' => array( 'wponion-plugins' ),
-				),
 				'wponion-customizer'  => array(
 					'src'  => wponion()->assets( 'js/wponion-customizer.js' ),
 					'deps' => array( 'wponion-core' ),

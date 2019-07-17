@@ -217,7 +217,6 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			wp_enqueue_script( 'wponion-cloner' );
 			wp_enqueue_script( 'jquery-ui-sortable' );
 			parent::field_assets();
 		}

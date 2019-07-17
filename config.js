@@ -49,13 +49,6 @@ $files[ 'src/js/wponion-customizer.js' ] = {
 	webpack: true,
 	rename: 'wponion-customizer.js',
 };
-$files[ 'src/js/wponion-cloner.js' ]     = {
-	dist: 'assets/js',
-	babel: true,
-	uglify: true,
-	watch: true,
-	rename: 'wponion-cloner.js',
-};
 
 // Plugins.
 $files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {

@@ -193,7 +193,6 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 */
 		public function field_assets() {
 			$sort = $this->data( 'clone' );
-			wp_enqueue_script( 'wponion-cloner' );
 			if ( false !== $sort['sort'] ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
