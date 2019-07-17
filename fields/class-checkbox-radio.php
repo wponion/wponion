@@ -29,6 +29,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			return array(
 				'options' => array(),
 				'label'   => false,
+				'inline'  => false,
 			);
 		}
 
@@ -37,12 +38,13 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			$options = $this->data( 'options' );
-			$options = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
+			$is_inline = ( true === $this->data( 'inline' ) ) ? 'wpo-inline-list' : '';
+			$options   = $this->data( 'options' );
+			$options   = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$this->catch_output( 'start' );
 
 			if ( wponion_is_array( $options ) && ! empty( $options ) ) {
-				echo '<ul>';
+				echo '<ul class="' . $is_inline . '">';
 				foreach ( $options as $option_key => $option ) {
 					if ( ! wponion_is_array( $option ) || wponion_is_array( $option ) && ( isset( $option['label'] ) || isset( $option['custom_input'] ) ) ) {
 						echo '<li>' . $this->render_element( $this->handle_options( $option_key, $option ) ) . '</li>';
@@ -60,10 +62,12 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 					}
 				}
 				echo '</ul>';
-			} elseif ( 'checkbox' === $this->element_type() && empty( $options ) ) {
+			} elseif ( 'checkbox' === $this->element_type() && empty( $options ) && empty( $this->data( 'query_args' ) ) ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
 			} elseif ( 'switcher' === $this->element_type() ) {
 				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
+			} else {
+				echo '<p class="wpo-text-danger">' . __( 'No Options Found.' ) . '</p>';
 			}
 
 			echo $this->catch_output( 'stop' );

@@ -14,9 +14,10 @@
 		}
 
 		> ul {
-			overflow-y: auto;
-			max-height: 305px;
-			margin:     0;
+			overflow-y:     auto;
+			max-height:     300px;
+			margin:         0;
+			padding-bottom: 10px;
 
 			> li {
 				&.has-subgroup {
@@ -35,9 +36,12 @@
 				}
 
 				.wponion-checkbox-radio-header {
-					font-size:     14px;
-					margin:        0;
-					margin-bottom: 15px;
+					font-size: 14px;
+					margin:    0 0 15px;
+				}
+
+				&:last-child {
+					margin-bottom: 0;
 				}
 			}
 		}

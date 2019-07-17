@@ -62,6 +62,14 @@ export default class WPOnion_Field_Base extends WPOnion_Base {
 		return ( false === window.wponion._.isUndefined( $args[ $key ] ) ) ? $args[ $key ] : $default;
 	}
 
+	/**
+	 * Returns Actual Field ID.
+	 * @return {*}
+	 */
+	field_id() {
+		return this.option( 'field_id' );
+	}
+
 
 	/**
 	 * Returns WPOnion JS Field ID

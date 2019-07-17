@@ -4108,6 +4108,16 @@ function (_WPOnion_Base) {
       return false === window.wponion._.isUndefined($args[$key]) ? $args[$key] : $default;
     }
     /**
+     * Returns Actual Field ID.
+     * @return {*}
+     */
+
+  }, {
+    key: "field_id",
+    value: function field_id() {
+      return this.option('field_id');
+    }
+    /**
      * Returns WPOnion JS Field ID
      * @returns {*}
      */
@@ -6766,6 +6776,7 @@ function (_WPOnion_Field) {
           parent: jQuery(this)
         });
       });
+      this.update_groups_title();
       this.bind_events_for_title();
       this.element.find('.wponion-group-remove').tippy({
         appendTo: function appendTo() {
@@ -6774,8 +6785,10 @@ function (_WPOnion_Field) {
       });
       this.element.on('click', '.wponion-group-remove', function () {
         jQuery(this).parent().parent().find('> .wponion-accordion-content .row > .wponion-group-action > button').click();
+        $this.update_groups_title();
+        $this.element.trigger('change');
+        $this.element.trigger('wponion_field_updated');
       });
-      this.update_groups_title();
       $group_wrap.WPOnionCloner({
         add_btn: $add,
         limit: parseInt($limit),
@@ -6785,13 +6798,10 @@ function (_WPOnion_Field) {
         onRemove: function onRemove($elem) {
           $elem.parent().parent().parent().parent().slideUp(function () {
             jQuery(this).remove();
+            $this.update_groups_title();
+            $this.element.trigger('change');
+            $this.element.trigger('wponion_field_updated');
           });
-
-          _this.update_groups_title();
-
-          _this.element.trigger('change');
-
-          _this.element.trigger('wponion_field_updated');
         },
         templateAfterRender: function templateAfterRender() {
           var $data = $group_wrap.find('> .wponion-accordion-wrap:last-child');
@@ -6857,17 +6867,16 @@ function (_WPOnion_Field) {
       var $elem = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       $elem = false === $elem ? this.element.find('> .row > .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap') : $elem;
       $elem.each(function (i, e) {
-        var $data = jQuery(e);
-
-        var $mached = _this2.option('matched_heading_fields');
+        var $data = jQuery(e),
+            $mached = _this2.option('matched_heading_fields');
 
         for (var $key in $mached) {
           if ($mached.hasOwnProperty($key)) {
-            var _$elem = $data.find(':input[data-depend-id="' + $mached[$key] + '"]');
+            var _$elem = $data.find(':input[data-depend-id="' + _this2.field_id() + '_' + $mached[$key] + '"]');
 
             if (_$elem.length > 0) {
-              _$elem.on('change, blur', function () {
-                return _this2.update_groups_title();
+              _$elem.on('change', function () {
+                _this2.update_groups_title();
               });
             }
           }
@@ -6892,6 +6901,8 @@ function (_WPOnion_Field) {
 
         var $heading = _this3.option('heading');
 
+        console.log(_this3.option('heading'));
+
         if (false !== _this3.option('heading_counter')) {
           $heading = window.wponion._.replace($heading, '[count]', $limit);
         }
@@ -6900,13 +6911,15 @@ function (_WPOnion_Field) {
 
         for (var $key in $mached) {
           if ($mached.hasOwnProperty($key)) {
-            var _$elem2 = $data.find(':input[data-depend-id="' + $mached[$key] + '"]');
+            var _$elem2 = $data.find(':input[data-depend-id="' + _this3.field_id() + '_' + $mached[$key] + '"]');
 
             if (_$elem2.length > 0) {
               $heading = window.wponion._.replace($heading, $mached[$key], _$elem2.val());
             }
           }
         }
+
+        console.log($mached, $heading);
 
         if ($heading === '') {
           $heading = window.wponion._.replace(_this3.option('default_heading'), '[count]', $limit);
@@ -9116,9 +9129,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
     $element = $element || jQuery('body');
     var $element_to_check = {
       'input[data-wponion-inputmask]': 'inputmask',
-      '.select2': 'select2',
-      '.chosen': 'chosen',
-      '.selectize': 'selectize',
+      '.wpo-select2': 'select2',
+      '.wpo-chosen': 'chosen',
+      '.wpo-selectize': 'selectize',
       '.wponion-field-tooltip': 'tooltip',
       '.wponion-help': 'tooltip',
       '[wponion-help]': 'tooltip',

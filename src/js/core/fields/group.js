@@ -18,18 +18,21 @@ export default class extends WPOnion_Field {
 		} );
 
 
+		this.update_groups_title();
+
 		this.bind_events_for_title();
+
 		this.element.find( '.wponion-group-remove' ).tippy( {
 			appendTo: () => this.get_field_parent_by_id( this.element )[ 0 ],
 		} );
+
 		this.element.on( 'click', '.wponion-group-remove', function() {
-			jQuery( this )
-				.parent()
-				.parent()
-				.find( '> .wponion-accordion-content .row > .wponion-group-action > button' )
-				.click();
+			jQuery( this ).parent().parent()
+						  .find( '> .wponion-accordion-content .row > .wponion-group-action > button' ).click();
+			$this.update_groups_title();
+			$this.element.trigger( 'change' );
+			$this.element.trigger( 'wponion_field_updated' );
 		} );
-		this.update_groups_title();
 
 		$group_wrap.WPOnionCloner( {
 			add_btn: $add,
@@ -40,10 +43,10 @@ export default class extends WPOnion_Field {
 			onRemove: ( $elem ) => {
 				$elem.parent().parent().parent().parent().slideUp( function() {
 					jQuery( this ).remove();
+					$this.update_groups_title();
+					$this.element.trigger( 'change' );
+					$this.element.trigger( 'wponion_field_updated' );
 				} );
-				this.update_groups_title();
-				this.element.trigger( 'change' );
-				this.element.trigger( 'wponion_field_updated' );
 			},
 			templateAfterRender: () => {
 				let $data = $group_wrap.find( '> .wponion-accordion-wrap:last-child' );
@@ -102,14 +105,15 @@ export default class extends WPOnion_Field {
 	bind_events_for_title( $elem = false ) {
 		$elem = ( false === $elem ) ? this.element.find( '> .row > .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
 		$elem.each( ( i, e ) => {
-			let $data = jQuery( e );
-
-			let $mached = this.option( 'matched_heading_fields' );
+			let $data   = jQuery( e ),
+				$mached = this.option( 'matched_heading_fields' );
 			for( let $key in $mached ) {
 				if( $mached.hasOwnProperty( $key ) ) {
-					let $elem = $data.find( ':input[data-depend-id="' + $mached[ $key ] + '"]' );
+					let $elem = $data.find( ':input[data-depend-id="' + this.field_id() + '_' + $mached[ $key ] + '"]' );
 					if( $elem.length > 0 ) {
-						$elem.on( 'change, blur', () => this.update_groups_title() );
+						$elem.on( 'change', () => {
+							this.update_groups_title();
+						} );
 					}
 				}
 			}
@@ -127,6 +131,7 @@ export default class extends WPOnion_Field {
 		$elem.each( ( i, e ) => {
 			let $data    = jQuery( e );
 			let $heading = this.option( 'heading' );
+			console.log( this.option( 'heading' ) );
 			if( false !== this.option( 'heading_counter' ) ) {
 				$heading = window.wponion._.replace( $heading, '[count]', $limit );
 			}
@@ -134,12 +139,13 @@ export default class extends WPOnion_Field {
 			let $mached = this.option( 'matched_heading_fields' );
 			for( let $key in $mached ) {
 				if( $mached.hasOwnProperty( $key ) ) {
-					let $elem = $data.find( ':input[data-depend-id="' + $mached[ $key ] + '"]' );
+					let $elem = $data.find( ':input[data-depend-id="' + this.field_id() + '_' + $mached[ $key ] + '"]' );
 					if( $elem.length > 0 ) {
 						$heading = window.wponion._.replace( $heading, $mached[ $key ], $elem.val() );
 					}
 				}
 			}
+			console.log( $mached, $heading );
 
 			if( $heading === '' ) {
 				$heading = window.wponion._.replace( this.option( 'default_heading' ), '[count]', $limit );

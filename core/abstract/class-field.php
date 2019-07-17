@@ -814,6 +814,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				}
 
 				$data       = array(
+					'field_id'     => $this->field_id(),
 					'module'       => $this->module(),
 					'unique'       => $this->unique(),
 					'field_path'   => implode( '/', array_filter( $new_path ) ),

@@ -424,13 +424,13 @@ if ( ! function_exists( 'wponion_select_classes' ) ) {
 		if ( false !== $framework ) {
 			switch ( $framework ) {
 				case 'select2':
-					$return = ( is_rtl() ) ? 'select2 select2-rtl' : 'select2';
+					$return = ( is_rtl() ) ? 'wpo-select2 select2-rtl' : 'select2';
 					break;
 				case 'chosen':
-					$return = ( is_rtl() ) ? 'chosen chosen-rtl' : 'chosen';
+					$return = ( is_rtl() ) ? 'wpo-chosen chosen-rtl' : 'chosen';
 					break;
 				case 'selectize':
-					$return = 'selectize';
+					$return = 'wpo-selectize';
 					break;
 			}
 		}

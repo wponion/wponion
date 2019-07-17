@@ -267,3 +267,12 @@ img[wponion-img-popup] {
 	border: 1px solid #eee;
 }
 
+
+.wpo-inline-list {
+	> li {
+		display:        inline-block;
+		vertical-align: middle;
+		margin-right:   5px;
+		margin-bottom:  0;
+	}
+}

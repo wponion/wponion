@@ -92,9 +92,9 @@ export default function() {
 		$element              = $element || jQuery( 'body' );
 		let $element_to_check = {
 			'input[data-wponion-inputmask]': 'inputmask',
-			'.select2': 'select2',
-			'.chosen': 'chosen',
-			'.selectize': 'selectize',
+			'.wpo-select2': 'select2',
+			'.wpo-chosen': 'chosen',
+			'.wpo-selectize': 'selectize',
 			'.wponion-field-tooltip': 'tooltip',
 			'.wponion-help': 'tooltip',
 			'[wponion-help]': 'tooltip',
