@@ -36,7 +36,7 @@ let wponion_module_bulk_edit = function() {
 			async: false,
 			cache: false,
 			data: $final_args
-		} );
+		} ).send();
 	} );
 };
 
@@ -142,4 +142,5 @@ export {
 	wponion_module_wp_pointers,
 	wponion_module_system_info,
 };
+
 
