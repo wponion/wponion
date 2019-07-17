@@ -18,26 +18,17 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 	 * @since 1.0
 	 */
 	class Icon_Picker extends Ajax {
-		/**
-		 * @param string $config_key
-		 * @param bool   $default
-		 * @param bool   $field
-		 *
-		 * @return bool|mixed
-		 */
-		protected function field_config( $config_key = '', $default = false, $field = false ) {
-			return ( isset( $field[ $config_key ] ) ) ? $field[ $config_key ] : $default;
-		}
+		protected $validate_field_path = false;
+		protected $validate_module     = false;
 
 		/**
-		 * @param array                              $libs
-		 * @param \WPO\Field|\WPO\Fields\Icon_Picker $field
+		 * @param array $libs
 		 *
 		 * @return mixed
 		 */
-		protected function enabled_icons( $libs, $field ) {
-			$enabled = $this->field_config( 'enabled', true, $field );
-			if ( true === $enabled ) {
+		protected function enabled_icons( $libs ) {
+			$enabled = $this->request( 'enabled', true );
+			if ( wponion_validate_bool_val( $enabled ) ) {
 				return $libs;
 			}
 			$enabled = ( ! is_array( $enabled ) ) ? array( $enabled ) : $enabled;
@@ -52,13 +43,16 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		}
 
 		/**
-		 * @param array                              $libs
-		 * @param \WPO\Fields\Icon_Picker|\WPO\Field $field
+		 * @param array $libs
 		 *
 		 * @return array
 		 */
-		protected function disabled_icons( $libs, $field ) {
-			$disabled = $this->field_config( 'disabled', false, $field );
+		protected function disabled_icons( $libs ) {
+			$disabled = $this->request( 'disabled', true );
+			if ( is_string( $disabled ) ) {
+				$disabled = array( $disabled );
+			}
+
 			if ( wponion_is_array( $disabled ) && wponion_is_array( $libs ) ) {
 				foreach ( $libs as $name => $_n ) {
 					if ( in_array( $name, $disabled, true ) ) {
@@ -112,15 +106,14 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 */
 		public function run() {
 			wponion_timer( 'icon_render' );
-			$field = $this->get_field();
-			$libs  = $this->disabled_icons( $this->enabled_icons( Icons::icon_list(), $field ), $field );
-			$libs  = ( ! wponion_is_array( $libs ) ) ? array() : $libs;
+			$libs = $this->disabled_icons( $this->enabled_icons( Icons::icon_list() ) );
+			$libs = ( ! wponion_is_array( $libs ) ) ? array() : $libs;
 
 			if ( empty( $libs ) ) {
 				$this->error( __( 'Icon Library Not found', 'wponion' ) );
 			}
 
-			$group_icons   = $this->field_config( 'group_icons', false, $field );
+			$group_icons   = $this->request( 'group_icons', false );
 			$default_lib   = wponion_is_array( $libs ) ? current( array_keys( $libs ) ) : $libs;
 			$is_first_load = $this->request( 'first_load', false );
 			$selected_lib  = $this->request( 'wponion-icon-lib', $default_lib );
@@ -252,7 +245,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 			if ( is_array( $search ) ) {
 				$search = implode( ' ', $search );
 			}
-//data-search="{$icon['css']} $search"
+			//data-search="{$icon['css']} $search"
 			$icon_html = wponion_icon( $icon['css'] );
 			$html      = <<<HTML
 <div class="wponion-icon-preview-wrap"> 

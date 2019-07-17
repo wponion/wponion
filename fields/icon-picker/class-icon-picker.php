@@ -61,6 +61,7 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 				'popup_tooltip' => $tooltip,
 				'enabled'       => $this->data( 'enabled' ),
 				'disabled'      => $this->data( 'disabled' ),
+				'group_icons'   => $this->data( 'group_icons' ),
 			);
 		}
 

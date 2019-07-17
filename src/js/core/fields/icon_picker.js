@@ -12,7 +12,8 @@ export default class extends WPOnion_Field {
 			$input      = $elem.find( '.wponion-icon-picker-input' ),
 			$remove_btn = $elem.find( 'button[data-wponion-iconpicker-remove]' ),
 			$add_btn    = $elem.find( 'button[data-wponion-iconpicker-add]' ),
-			$preview    = $elem.find( 'span.wponion-icon-preview' );
+			$preview    = $elem.find( 'span.wponion-icon-preview' ),
+			$args       = $_this.options();
 
 		let $work = {
 			//Stores POPUP Information.
@@ -92,7 +93,13 @@ export default class extends WPOnion_Field {
 						 } else {
 							 $swal_content.block( { message: null, overlayCSS: { background: '#000', opacity: 0.4 } } );
 							 $_this.ajax( 'icon_picker', {
-								 data: { 'wponion-icon-lib': $val, first_load: 'no' },
+								 data: {
+									 'wponion-icon-lib': $val,
+									 first_load: 'no',
+									 enabled: $args.enabled,
+									 disabled: $args.disabled,
+									 group_icons: $args.group_icons,
+								 },
 								 success: ( $res ) => {
 									 $swal_content.find( '.wponion-icon-picker-container-scroll' ).append( $res.html );
 									 $swal_content.find( '.wponion-icon-framework' ).hide();
@@ -147,6 +154,11 @@ export default class extends WPOnion_Field {
 				onBeforeOpen: ( $elem ) => {
 					swal.enableLoading();
 					this.ajax( 'icon_picker', {
+						data: {
+							enabled: $args.enabled,
+							disabled: $args.disabled,
+							group_icons: $args.group_icons,
+						},
 						success: ( $res ) => {
 							let $popup_elem = jQuery( $elem );
 							$popup_elem.find( '#swal2-content' ).append( $res.html ).show();
