@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "WPOnion Simple & Light Weight Framework For WordPress.",
   "main": "",
-  "scripts": {},
+  "scripts": {
+    "postinstall": "gulp single --file \"src/js/wponion-plugins.js\" "
+  },
   "keywords": [
     "wordpress",
     "wordpress-plugin",
