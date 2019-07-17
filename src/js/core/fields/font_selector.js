@@ -39,7 +39,6 @@ export default class extends WPOnion_Field {
 		this.element.find( 'select.wponion-font-selector' ).on( 'change', ( e ) => {
 			let $val  = jQuery( e.currentTarget ).val(),
 				$html = null;
-			console.log( $val );
 
 			if( false === window.wponion._.isUndefined( this.websafe.fonts [ $val ] ) ) {
 				$html = this.build_options( this.websafe.variants );
