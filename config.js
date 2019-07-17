@@ -8,16 +8,16 @@ $files[ 'src/scss/wponion-base.scss' ]    = {
 	autoprefixer: true,
 	minify: true,
 	rename: 'wponion-base.css',
-	watch: [ 'src/scss/wponion-base.scss', 'src/scss/includes/*', 'src/scss/includes/fields/*', 'src/scss/includes/fields/*/*', 'src/scss/includes/modules/*', 'src/scss/includes/modules/*/*' ],
-};
-$files[ 'src/scss/wponion-utility.scss' ] = {
-	dist: 'assets/css/',
-	combine_files: true,
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	rename: 'wponion-utility.css',
-	watch: [ 'src/scss/wponion-utility.scss', 'src/scss/includes/bootstrap/*' ],
+	watch: [
+		'src/scss/themes/*',
+		'src/scss/themes/*/*',
+		'src/scss/wponion-base.scss',
+		'src/scss/includes/*',
+		'src/scss/includes/fields/*',
+		'src/scss/includes/fields/*/*',
+		'src/scss/includes/modules/*',
+		'src/scss/includes/modules/*/*'
+	],
 };
 $files[ 'src/scss/wponion-plugins.scss' ] = {
 	dist: 'assets/css/',
@@ -28,37 +28,18 @@ $files[ 'src/scss/wponion-plugins.scss' ] = {
 };
 
 // Javascripts
-$files[ 'src/js/wponion-plugins.js' ] = {
+$files[ 'src/js/wponion-plugins.js' ]    = {
 	dist: 'assets/js',
 	watch: [ './src/vendors/*/*.js', 'src/js/wponion-plugins.js' ],
 	combine_files: true,
 	uglify: true,
 	rename: 'wponion-plugins.js',
 };
-/*$files[ 'src/js/wponion-core.js' ]       = [
-	{
-		dist: 'assets/js',
-		watch: [ 'src/js/wponion-core.js', 'src/js/core/!*', 'src/js/core/!*!/!*', 'src/js/core/!*!/!*!/!*', 'src/js/core/!*!/!*!/!*!/!*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
-		webpack: 'webpack_dev_eval',
-		//webpack: true,
-		sourcemaps: false,
-		rename: 'wponion-core.js',
-	},
-	{
-		dist: 'assets/js',
-		watch: [ 'assets/js/wponion-core.js' ],
-		//webpack: 'webpack_dev_eval',
-		webpack: true,
-		sourcemaps: false,
-		rename: 'wponion-core.min.js',
-	}
-];*/
-
 $files[ 'src/js/wponion-core.js' ]       = {
 	dist: 'assets/js',
 	watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/core/*/*', 'src/js/core/*/*/*', 'src/js/core/*/*/*/*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
-	//webpack: 'webpack_dev_eval',
-	webpack: true,
+	webpack: 'webpack_development',
+	//webpack: true,
 	sourcemaps: false,
 	rename: 'wponion-core.js',
 };
@@ -85,59 +66,6 @@ $files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {
 	rename: 'cs-colorpicker.css',
 };
 
-// Themes
-// WP & WP Lite Theme
-$files[ 'src/js/themes/wp-lite-wp.js' ]           = {
-	watch: true,
-	babel: true,
-	uglify: true,
-	rename: 'script.js',
-	dist: 'templates/global/assets/',
-};
-$files[ 'src/scss/themes/wp-lite-wp/style.scss' ] = {
-	watch: true,
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	rename: 'style.css',
-	dist: 'templates/global/assets/',
-};
-
-// WP Modern
-$files[ 'src/js/themes/wp-modern.js' ]           = {
-	watch: true,
-	babel: true,
-	uglify: true,
-	rename: 'script.js',
-	dist: 'templates/wp-modern/assets/',
-};
-$files[ 'src/scss/themes/wp-modern/style.scss' ] = {
-	watch: true,
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	rename: 'style.css',
-	dist: 'templates/wp-modern/assets/',
-};
-
-// WP Modern
-$files[ 'src/js/themes/wc.js' ]           = {
-	watch: true,
-	babel: true,
-	uglify: true,
-	rename: 'script.js',
-	dist: 'templates/wc/assets/',
-};
-$files[ 'src/scss/themes/wc/style.scss' ] = {
-	watch: true,
-	scss: true,
-	autoprefixer: true,
-	minify: true,
-	rename: 'style.css',
-	dist: 'templates/wc/assets/',
-};
-
-
 module.exports = {
 	files: $files,
 	config: {
@@ -145,6 +73,31 @@ module.exports = {
 			append: 'wponion-append',
 			prepend: 'wponion-prepend',
 			inline: 'wponion-inline',
+		},
+		webpack_development: {
+			mode: 'development',
+			target: 'node',
+			externals: {
+				jquery: 'jQuery'
+			},
+			output: {
+				filename: '[name].js',
+			},
+			module: {
+				rules: [
+					{
+						test: /\.js$/,
+						loader: 'babel-loader',
+						options: {
+							presets: [ '@babel/env' ]
+						}
+					}
+				]
+			},
+			devtool: 'none',
+			optimization: {
+				runtimeChunk: false
+			}
 		},
 		webpack_dev_eval: {
 			mode: 'development',

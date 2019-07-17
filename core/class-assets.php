@@ -135,11 +135,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				),
 			);
 			self::$styles      = array(
-				'wponion-utility'     => array( 'src' => wponion()->assets( 'css/wponion-utility.css' ) ),
-				'wponion-plugins'     => array(
-					'src'  => wponion()->assets( 'css/wponion-plugins.css' ),
-					'deps' => array( 'wponion-utility' ),
-				),
+				'wponion-plugins'     => array( 'src' => wponion()->assets( 'css/wponion-plugins.css' ) ),
 				'wponion-core'        => array(
 					'src'  => wponion()->assets( 'css/wponion-base.css' ),
 					'deps' => array( 'wponion-plugins' ),

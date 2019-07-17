@@ -8955,7 +8955,7 @@ __webpack_require__.r(__webpack_exports__);
       // Inits Metabox Module.
       window.wponion_module_metabox(jQuery(this));
     });
-    $element.find('.wponion-framework').each(function () {
+    $element.find('.wponion-framework:not(.wponion-quick_edit)').each(function () {
       var $elem = jQuery(this); // Reloads General Fields.
 
       window.wponion_field_reload($elem); // Init WPOnion Theme
@@ -9598,13 +9598,29 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   // Triggers When Variation is loaded
-  jQuery('#woocommerce-product-data').on('woocommerce_variations_loaded', function () {}); // Triggers When A Variation is updated
+  jQuery('#woocommerce-product-data').on('woocommerce_variations_loaded', function () {
+    jQuery('body').find('.wponion-framework.wponion-woocommerce-variation').each(function () {
+      window.wponion_field_reload_all(jQuery(this));
+      window.wponion_dependency(jQuery(this));
+    });
+  }); // Triggers When A Variation is updated
 
-  jQuery('#variable_product_options').on('woocommerce_variations_added', function () {}); // Triggers When A Widget is updated
+  jQuery('#variable_product_options').on('woocommerce_variations_added', function () {
+    jQuery('body').find('.wponion-framework.wponion-woocommerce-variation').each(function () {
+      window.wponion_field_reload_all(jQuery(this));
+      window.wponion_dependency(jQuery(this));
+    });
+  }); // Triggers When A Widget is updated
 
-  jQuery(document).on('widget-added widget-updated', function (event, $widget) {}); // Triggers When New Menu Item Added.
+  jQuery(document).on('widget-added widget-updated', function (event, $widget) {
+    window.wponion_field_reload_all($widget);
+    window.wponion_dependency($widget);
+  }); // Triggers When New Menu Item Added.
 
-  jQuery(document).on('menu-item-added', function (event, $menu) {});
+  jQuery(document).on('menu-item-added', function (event, $menu) {
+    window.wponion_field_reload_all($menu);
+    window.wponion_dependency($menu);
+  });
 });
 
 /***/ }),
@@ -9674,7 +9690,7 @@ var wponion_module_bulk_edit = function wponion_module_bulk_edit() {
       async: false,
       cache: false,
       data: $final_args
-    });
+    }).send();
   });
 };
 /**
@@ -9952,14 +9968,15 @@ function (_WPOnion_Module) {
      */
     value: function module_init() {
       this.post_id = this.get_arg('post_id', false);
-      this.values = window.wpo_core.fieldArgs(window.wpo_core.fieldID(this.element) + '_' + this.post_id, false);
+      this.values = window.wpo_core.fieldArgs(this.element.attr('data-wpo-quick-edit-id') + '_' + this.post_id, false);
 
-      if (this.values.html) {
+      if (!window.wponion._.isUndefined(this.values) && !window.wponion._.isUndefined(this.values.html)) {
         this.values.html = jQuery(this.values.html);
-        this.element.parent().html(this.values.html.find('> div'));
+        this.element.html(this.values.html.find('> div'));
       }
 
       window.wponion_field_reload_all(this.element);
+      window.wponion_dependency(this.element);
     }
   }]);
 
