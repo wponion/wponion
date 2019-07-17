@@ -105,12 +105,17 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 					'src'  => '/vendors/flatpickr/script.js',
 					'deps' => array( 'jquery' ),
 				),
+				'wponion-pickr'      => array(
+					'src'  => '/vendors/pickr/pickr.es5.min.js',
+					'deps' => array( 'jquery' ),
+				),
 			);
 			self::$cdn_styles  = array(
 				'select2'            => array( 'src' => '/vendors/select2/select2.min.css' ),
 				'chosen'             => array( 'src' => '/vendors/chosen/chosen.min.css' ),
 				'selectize'          => array( 'src' => '/vendors/selectize/selectize.css' ),
 				'wponion-datepicker' => array( 'src' => '/vendors/flatpickr/style.css' ),
+				'wponion-pickr'      => array( 'src' => '/vendors/pickr/pickr.css' ),
 			);
 			self::$scripts     = array(
 				'wponion-plugins'     => array(

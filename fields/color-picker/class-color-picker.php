@@ -23,14 +23,14 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 				echo $this->before();
 
 				$attributes = array(
-					'type'       => 'text',
-					'name'       => $this->name(),
-					'data-alpha' => $this->has( 'rgba' ),
-					'value'      => $this->value(),
-					'class'      => 'wponion-color-picker-element',
+					'type'  => 'hidden',
+					'name'  => $this->name(),
+					'value' => $this->value(),
+					'class' => 'wponion-color-picker-element',
 				);
 
 				echo '<input ' . $this->attributes( $attributes ) . '/>';
+				echo '<div class="wponion-color-picker-element hidden" ></div>';
 				echo $this->after();
 			} else {
 				echo '<div class=" colors-wrapper ' . $this->data( 'layout' ) . ' ">';
@@ -40,13 +40,17 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 			}
 		}
 
+		protected function js_field_args() {
+			return array( 'settings' => $this->data( 'settings' ) );
+		}
+
 		/**
 		 * Loads the required plugins assets.
 		 *
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			wponion_load_asset( 'wponion-colorpicker' );
+			wponion_load_asset( 'wponion-pickr' );
 		}
 
 		/**
@@ -56,7 +60,9 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(
-				'rgba'     => true,
+				'settings' => array(
+					'theme' => 'classic',
+				),
 				'layout'   => 'round with-margin',
 				'multiple' => false,
 				'size'     => 25,

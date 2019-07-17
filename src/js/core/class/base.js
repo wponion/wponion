@@ -61,6 +61,6 @@ export default class WPOnion_Base {
 	 * @return {JS_Parse_Args}
 	 */
 	parse_args( $args, $defaults, $is_deep = false ) {
-		return parse_args( $defaults, $args, $is_deep );
+		return parse_args( $args, $defaults, $is_deep );
 	}
 }
