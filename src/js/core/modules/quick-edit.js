@@ -9,13 +9,13 @@ export default class extends WPOnion_Module {
 	 */
 	module_init() {
 		this.post_id = this.get_arg( 'post_id', false );
-		this.values  = window.wpo_core.fieldArgs( window.wpo_core.fieldID( this.element ) + '_' + this.post_id, false );
+		this.values  = window.wpo_core.fieldArgs( this.element.attr( 'data-wpo-quick-edit-id' ) + '_' + this.post_id, false );
 
-		if( this.values.html ) {
+		if( !window.wponion._.isUndefined( this.values ) && !window.wponion._.isUndefined( this.values.html ) ) {
 			this.values.html = jQuery( this.values.html );
-			this.element.parent().html( this.values.html.find( '> div' ) );
+			this.element.html( this.values.html.find( '> div' ) );
 		}
-
 		window.wponion_field_reload_all( this.element );
+		window.wponion_dependency( this.element );
 	}
 }
