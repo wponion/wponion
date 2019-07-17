@@ -8,11 +8,9 @@ export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 			this.settings_init_search_input();
 		}
 
-		if( 'metabox' === this.module ) {
-			if( 'wp' === this.theme || 'wc' === this.theme ) {
-				this.settings_main_menu();
-				this.settings_submenu();
-			}
+		if( 'metabox' === this.module && 'wp' === this.theme || 'wc' === this.theme ) {
+			this.settings_main_menu();
+			this.settings_submenu();
 		}
 	}
 
