@@ -1,6 +1,5 @@
 let $files = {};
 
-// wponion-base.scss
 $files[ 'src/scss/wponion-base.scss' ]    = {
 	dist: 'assets/css/',
 	combine_files: true,
@@ -27,37 +26,31 @@ $files[ 'src/scss/wponion-plugins.scss' ] = {
 	watch: [ 'src/scss/wponion-plugins.scss', 'src/vendors/json-view/json-view.scss' ]
 };
 
-// Javascripts
-$files[ 'src/js/wponion-plugins.js' ]    = {
+$files[ 'src/js/wponion-plugins.js' ] = {
 	dist: 'assets/js',
 	watch: [ './src/vendors/*/*.js', 'src/js/wponion-plugins.js' ],
 	combine_files: true,
 	uglify: true,
 	rename: 'wponion-plugins.js',
 };
-$files[ 'src/js/wponion-core.js' ]       = {
-	dist: 'assets/js',
-	watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/core/*/*', 'src/js/core/*/*/*', 'src/js/core/*/*/*/*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
-	webpack: 'webpack_development',
-	//webpack: true,
-	sourcemaps: false,
-	rename: 'wponion-core.js',
-};
-$files[ 'src/js/wponion-customizer.js' ] = {
-	dist: 'assets/js',
-	watch: true,
-	webpack: true,
-	rename: 'wponion-customizer.js',
-};
-
-// Plugins.
-$files[ 'src/vendors/colorpicker/cs-colorpicker.css' ] = {
-	dist: 'assets/plugins/colorpicker/',
-	watch: [ 'src/vendors/colorpicker/cs-colorpicker.css' ],
-	autoprefixer: true,
-	minify: true,
-	rename: 'cs-colorpicker.css',
-};
+$files[ 'src/js/wponion-core.js' ]    = [
+	{
+		dist: 'assets/js',
+		watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/core/*/*', 'src/js/core/*/*/*', 'src/js/core/*/*/*/*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
+		webpack: 'webpack_development',
+		//webpack: true,
+		sourcemaps: false,
+		rename: 'wponion-core.js',
+	},
+	{
+		dist: 'assets/js',
+		watch: [ 'assets/js/wponion-core.js' ],
+		//webpack: 'webpack_development',
+		webpack: true,
+		sourcemaps: false,
+		rename: 'wponion-core.min.js',
+	}
+];
 
 module.exports = {
 	files: $files,
