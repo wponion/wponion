@@ -4,6 +4,11 @@
 			.disabled {
 				opacity: 0.5;
 			}
+			a {
+				&:focus {
+					box-shadow: none;
+				}
+			}
 		}
 
 		&.wponion-module-settings {

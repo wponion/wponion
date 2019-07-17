@@ -41,6 +41,10 @@ $metabox_menu_width: 200px;
 				text-align:      left;
 				line-height:     33px;
 
+				&:focus {
+					box-shadow: none;
+				}
+
 				&.wpo-tab-active {
 					display:       block;
 					background:    #ffffff;
@@ -74,6 +78,12 @@ $metabox_menu_width: 200px;
 			ul {
 				margin:  0;
 				padding: 0 5px;
+
+				a {
+					&:focus {
+						box-shadow: none;
+					}
+				}
 			}
 		}
 
@@ -156,7 +166,14 @@ $metabox_menu_width: 200px;
 			}
 
 			.content-wrap {
-				position: relative;
+				position:  relative;
+				padding:   0 !important;
+				max-width: 100% !important;
+				width:     100% !important;
+
+				> .row {
+					margin: 0 !important;
+				}
 
 				.search-no-result {
 					display:    none;
@@ -235,6 +252,8 @@ $metabox_menu_width: 200px;
 			display:   inline-block;
 
 			.content-wrap {
+
+
 				&.only-fields {
 					padding: 0;
 					margin:  0;

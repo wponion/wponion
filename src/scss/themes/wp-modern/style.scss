@@ -320,7 +320,14 @@ $metabox_menu_width: 200px;
 			}
 
 			.content-wrap {
-				position: relative;
+				position:  relative;
+				padding:   0 !important;
+				max-width: 100% !important;
+				width:     100% !important;
+
+				> .row {
+					margin: 0 !important;
+				}
 
 				.search-no-result {
 					display:    none;
