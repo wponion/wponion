@@ -125,7 +125,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		 */
 		public function render_quick_edit_html() {
 			echo '<fieldset class="wponion-quick-edit-fieldset ' . $this->option( 'wrap_class' ) . '">';
-			echo '<div ' . $this->wrap_attributes( '', array( 'data-wpo-quick-edit-id' => $this->unique ) ) . '" >';
+			echo '<div ' . $this->wrap_attributes( '', array( 'data-wpo-quick-edit-id' => $this->unique ) ) . '>';
 			/* @var $field \WPO\Field */
 			foreach ( $this->fields->fields() as $field ) {
 				$field['__no_instance'] = true;
