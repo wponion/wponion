@@ -32,8 +32,6 @@ if ( ! class_exists( '\WPOnion\Theme\WP' ) ) {
 		 * Registers Assets With WP.
 		 */
 		public function register_assets() {
-			wp_enqueue_style( 'wponion-' . $this->theme, wponion()->tpl( 'global/assets/style.css', true ), array( 'wponion-core' ) );
-			//wp_enqueue_script( 'wponion-template-core-' . $this->theme, wponion()->tpl( 'global/assets/script.js', true ), array( 'wponion-core' ) );
 		}
 	}
 }
