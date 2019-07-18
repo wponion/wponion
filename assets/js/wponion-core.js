@@ -4613,7 +4613,7 @@ function (_WPOnion_Base) {
     value: function has_args($elem) {
       var $id = window.wpo_core.jsid($elem),
           $args = window.wpo_core.windowArgs('wponion_module_args', {});
-      return false === window.wponion._.isUndefined($args[$id]);
+      return false === window.wponion._.isUndefined($id) && false === window.wponion._.isUndefined($args[$id]);
     }
     /**
      * Validates if given html element is a wponion module instance.
@@ -4778,7 +4778,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fields_image_upload__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./fields/image_upload */ "./src/js/core/fields/image_upload.js");
 /* harmony import */ var _fields_import_export__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./fields/import_export */ "./src/js/core/fields/import_export.js");
 /* harmony import */ var _fields_common_inputmask__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./fields/common/inputmask */ "./src/js/core/fields/common/inputmask.js");
-/* harmony import */ var _fields_jquery_tab__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./fields/jquery_tab */ "./src/js/core/fields/jquery_tab.js");
+/* harmony import */ var _fields_tab__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./fields/tab */ "./src/js/core/fields/tab.js");
 /* harmony import */ var _fields_keyvalue_pair__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./fields/keyvalue_pair */ "./src/js/core/fields/keyvalue_pair.js");
 /* harmony import */ var _fields_oembed__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./fields/oembed */ "./src/js/core/fields/oembed.js");
 /* harmony import */ var _fields_options_object__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./fields/options_object */ "./src/js/core/fields/options_object.js");
@@ -4862,7 +4862,7 @@ function wponion_register_fields() {
   window.wponion_register_field('image_select', _fields_image_select__WEBPACK_IMPORTED_MODULE_13__["default"]);
   window.wponion_register_field('image', _fields_image_upload__WEBPACK_IMPORTED_MODULE_14__["default"]);
   window.wponion_register_field('import_export', _fields_import_export__WEBPACK_IMPORTED_MODULE_15__["default"]);
-  window.wponion_register_field('tab', _fields_jquery_tab__WEBPACK_IMPORTED_MODULE_17__["default"]);
+  window.wponion_register_field('tab', _fields_tab__WEBPACK_IMPORTED_MODULE_17__["default"]);
   window.wponion_register_field('key_value', _fields_keyvalue_pair__WEBPACK_IMPORTED_MODULE_18__["default"]);
   window.wponion_register_field('oembed', _fields_oembed__WEBPACK_IMPORTED_MODULE_19__["default"]);
   window.wponion_register_field('options_object', _fields_options_object__WEBPACK_IMPORTED_MODULE_20__["default"]);
@@ -7651,83 +7651,6 @@ function (_WPOnion_Field) {
 
 /***/ }),
 
-/***/ "./src/js/core/fields/jquery_tab.js":
-/*!******************************************!*\
-  !*** ./src/js/core/fields/jquery_tab.js ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
-/* harmony import */ var _class_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../class/field */ "./src/js/core/class/field.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-var _default =
-/*#__PURE__*/
-function (_WPOnion_Field) {
-  _inherits(_default, _WPOnion_Field);
-
-  function _default() {
-    _classCallCheck(this, _default);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
-  }
-
-  _createClass(_default, [{
-    key: "init",
-
-    /**
-     * Inits Field.
-     */
-    value: function init() {
-      var $elem = this.element,
-          $this_elem = $elem.find('> .row > .wponion-fieldset > .wponion-tab-wrap ');
-      $this_elem.find('> ul.wponion-tab-menus li a').on('click', function (e) {
-        e.preventDefault();
-        var $elem = jQuery(this);
-        $elem.parent().parent().find('.wponion-tab-current').removeClass('wponion-tab-current');
-        $elem.parent().addClass('wponion-tab-current');
-        $elem.find('.wponion-tab-page').hide();
-        $elem.find('.wponion-tab-page').removeClass('wponion-tab-current');
-        var $tab = $elem.attr('data-tab-name');
-        $elem.find('div#wponion-tab-' + $tab).addClass('wponion-tab-current').show();
-      });
-
-      if ($this_elem.find('> ul.wponion-tab-menus li.current').length > 0) {
-        $this_elem.find('> ul.wponion-tab-menus li.current a').trigger('click');
-      } else {
-        $this_elem.find('> ul.wponion-tab-menus li:first-child a').trigger('click');
-      }
-    }
-  }]);
-
-  return _default;
-}(_class_field__WEBPACK_IMPORTED_MODULE_0__["default"]);
-
-
-
-/***/ }),
-
 /***/ "./src/js/core/fields/keyvalue_pair.js":
 /*!*********************************************!*\
   !*** ./src/js/core/fields/keyvalue_pair.js ***!
@@ -8465,6 +8388,83 @@ function (_WPOnion_Field) {
       };
 
       $elem_init.spinner($options);
+    }
+  }]);
+
+  return _default;
+}(_class_field__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/core/fields/tab.js":
+/*!***********************************!*\
+  !*** ./src/js/core/fields/tab.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var _class_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../class/field */ "./src/js/core/class/field.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_WPOnion_Field) {
+  _inherits(_default, _WPOnion_Field);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "init",
+
+    /**
+     * Inits Field.
+     */
+    value: function init() {
+      var $this_elem = this.element.find('> .row > .wponion-fieldset > .wponion-tab-wrap ');
+      $this_elem.find('> ul.wponion-tab-menus li a').on('click', function (e) {
+        e.preventDefault();
+        var $elem = jQuery(this);
+        $elem.parent().parent().find('.wponion-tab-current').removeClass('wponion-tab-current');
+        $elem.parent().addClass('wponion-tab-current');
+        $elem.find('.wponion-tab-page').hide();
+        $elem.find('.wponion-tab-page').removeClass('wponion-tab-current');
+        var $tab = $elem.attr('data-tab-name');
+        $this_elem.find('> .wponion-tab-pages > div').hide().removeClass('wponion-tab-current');
+        $elem.parent().parent().parent().find('> .wponion-tab-pages > div#wponion-tab-' + $tab).addClass('wponion-tab-current').show();
+      });
+
+      if ($this_elem.find('> ul.wponion-tab-menus li.current').length > 0) {
+        $this_elem.find('> ul.wponion-tab-menus li.current a').trigger('click');
+      } else {
+        $this_elem.find('> ul.wponion-tab-menus li:first-child a').trigger('click');
+      }
     }
   }]);
 
