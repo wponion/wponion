@@ -43,4 +43,7 @@ export default class extends WPOnion_Field {
 		this.element.removeClass( 'form-control' ).selectize( this.handle_args( $arg, 'selectize' ) );
 		return this;
 	}
+
+	maybe_add_inited_class() {
+	}
 }

@@ -118,32 +118,20 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				'wponion-pickr'      => array( 'src' => '/vendors/pickr/pickr.css' ),
 			);
 			self::$scripts     = array(
-				'wponion-plugins'     => array(
+				'wponion-plugins' => array(
 					'src'  => wponion()->assets( 'js/wponion-plugins.js' ),
 					'deps' => array( 'lodash', 'wp-util' ),
 				),
-				'wponion-core'        => array(
+				'wponion-core'    => array(
 					'src'  => wponion()->assets( 'js/wponion-core.js' ),
 					'deps' => array( 'wponion-plugins' ),
 				),
-				'wponion-customizer'  => array(
-					'src'  => wponion()->assets( 'js/wponion-customizer.js' ),
-					'deps' => array( 'wponion-core' ),
-				),
-				'wponion-colorpicker' => array(
-					'src'  => wponion()->assets( 'plugins/colorpicker/wp-color-picker-alpha.js' ),
-					'deps' => array( 'wp-color-picker' ),
-				),
 			);
 			self::$styles      = array(
-				'wponion-plugins'     => array( 'src' => wponion()->assets( 'css/wponion-plugins.css' ) ),
-				'wponion-core'        => array(
+				'wponion-plugins' => array( 'src' => wponion()->assets( 'css/wponion-plugins.css' ) ),
+				'wponion-core'    => array(
 					'src'  => wponion()->assets( 'css/wponion-base.css' ),
 					'deps' => array( 'wponion-plugins' ),
-				),
-				'wponion-colorpicker' => array(
-					'src'  => wponion()->assets( 'plugins/colorpicker/cs-colorpicker.css' ),
-					'deps' => array( 'wp-color-picker' ),
 				),
 			);
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );

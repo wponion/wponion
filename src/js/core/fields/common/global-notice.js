@@ -30,4 +30,7 @@ export default class extends WPOnion_Field_Base {
 			setTimeout( () => this.element.slideUp( 'slow', () => this.element.remove() ), $auto );
 		}
 	}
+
+	maybe_add_inited_class() {
+	}
 }

@@ -12,4 +12,7 @@ export default class extends WPOnion_Field {
 			}
 		}
 	}
+
+	maybe_add_inited_class() {
+	}
 }

@@ -6,7 +6,7 @@ export default class extends WPOnion_Field {
 	 */
 	init() {
 		if( this.element.find( 'input.wponion-color-picker-element' ).length > 0 ) {
-			let $args       = this.parse_args( this.option( 'settings' ), {
+			let $args      = this.parse_args( this.option( 'settings' ), {
 				theme: 'classic',
 				comparison: false,
 				components: {
@@ -25,32 +25,34 @@ export default class extends WPOnion_Field {
 					}
 				}
 			} );
-			$args.el        = this.element.find( 'div.wponion-color-picker-element' )[ 0 ];
-			$args.appClass  = 'wpo-color-picker';
-			let $instance   = new Pickr( this.handle_args( $args, 'colorpicker' ) );
-			let $save_color = ( $color, $instance ) => {
-				let $value = $color.toHEXA().toString();
-				if( !window.wponion._.isUndefined( $instance._representation ) ) {
-					switch( $instance._representation ) {
-						case 'HEXA':
-							$value = $color.toHEXA().toString();
-							break;
-						case 'RGBA':
-							$value = $color.toRGBA().toString();
-							break;
-						case 'HSLA':
-							$value = $color.toHSLA().toString();
-							break;
-						case 'HSVA':
-							$value = $color.toHSVA().toString();
-							break;
-						case 'CMYK':
-							$value = $color.toCMYK().toString();
-							break;
+			$args.el       = this.element.find( 'div.wponion-color-picker-element' )[ 0 ];
+			$args.appClass = 'wpo-color-picker';
+
+			console.log( this.element, $args.el );
+			let $instance   = new Pickr( this.handle_args( $args, 'colorpicker' ) ),
+				$save_color = ( $color, $instance ) => {
+					let $value = $color.toHEXA().toString();
+					if( !window.wponion._.isUndefined( $instance._representation ) ) {
+						switch( $instance._representation ) {
+							case 'HEXA':
+								$value = $color.toHEXA().toString();
+								break;
+							case 'RGBA':
+								$value = $color.toRGBA().toString();
+								break;
+							case 'HSLA':
+								$value = $color.toHSLA().toString();
+								break;
+							case 'HSVA':
+								$value = $color.toHSVA().toString();
+								break;
+							case 'CMYK':
+								$value = $color.toCMYK().toString();
+								break;
+						}
 					}
-				}
-				this.element.find( 'input.wponion-color-picker-element' ).val( $value );
-			};
+					this.element.find( 'input.wponion-color-picker-element' ).val( $value );
+				};
 
 
 			$instance.on( 'save', $save_color );

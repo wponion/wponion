@@ -1,4 +1,22 @@
 .wponion-element.wponion-element-color_picker {
+	input.wponion-color-picker-element {
+		display:        inline-block;
+		height:         auto;
+		padding:        1px 10px;
+		margin-bottom:  0;
+		vertical-align: middle;
+
+		& + .pickr {
+			display:        inline-block;
+			vertical-align: middle;
+		}
+
+		&[type=text] + .pickr {
+			margin-left: 10px;
+		}
+	}
+
+
 	.wp-picker-container {
 		&.wp-picker-active {
 			display: inline-block;
@@ -83,7 +101,11 @@
 	}*/
 }
 
-.wpo-color-picker, .wpo-color-picker * {
-	-webkit-box-sizing: border-box;
-	box-sizing:         border-box
+.wpo-color-picker {
+	&, & * {
+		-webkit-box-sizing: border-box;
+		box-sizing:         border-box
+	}
+
+	border: $element_border;
 }

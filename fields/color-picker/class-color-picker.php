@@ -23,14 +23,14 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 				echo $this->before();
 
 				$attributes = array(
-					'type'  => 'hidden',
+					'type'  => 'text',
 					'name'  => $this->name(),
 					'value' => $this->value(),
 					'class' => 'wponion-color-picker-element',
 				);
 
 				echo '<input ' . $this->attributes( $attributes ) . '/>';
-				echo '<div class="wponion-color-picker-element hidden" ></div>';
+				echo '<div class="wponion-color-picker-element" ></div>';
 				echo $this->after();
 			} else {
 				echo '<div class=" colors-wrapper ' . $this->data( 'layout' ) . ' ">';
@@ -61,7 +61,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		protected function field_default() {
 			return $this->parse_args( array(
 				'settings' => array(
-					'theme' => 'classic',
+					'theme' => 'nano',
 				),
 				'layout'   => 'round with-margin',
 				'multiple' => false,

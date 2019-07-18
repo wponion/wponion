@@ -9,4 +9,7 @@ export default class extends WPOnion_Field {
 			this.element.chosen( this.handle_args( this.option( 'chosen', {} ), 'chosen' ) );
 		}
 	}
+
+	maybe_add_inited_class() {
+	}
 }

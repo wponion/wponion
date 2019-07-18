@@ -42,4 +42,7 @@ export default class extends WPOnion_Field {
 		this.element.select2( this.handle_args( $arg, 'select2' ) );
 		return this;
 	}
+
+	maybe_add_inited_class() {
+	}
 }

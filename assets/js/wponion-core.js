@@ -4240,16 +4240,21 @@ function (_WPOnion_Field_Base) {
 
     _this.init();
 
-    _this.element.addClass('wponion-field-inited');
+    _this.maybe_add_inited_class();
 
     return _this;
   }
-  /**
-   * Validate if its a nested element and if it is then it triggers field reload.
-   */
-
 
   _createClass(WPOnion_Field, [{
+    key: "maybe_add_inited_class",
+    value: function maybe_add_inited_class() {
+      this.element.addClass('wponion-field-inited');
+    }
+    /**
+     * Validate if its a nested element and if it is then it triggers field reload.
+     */
+
+  }, {
     key: "maybe_init_subfields",
     value: function maybe_init_subfields() {
       if (this.element.hasClass('wponion-has-nested-fields')) {
@@ -5439,9 +5444,10 @@ function (_WPOnion_Field) {
         });
         $args.el = this.element.find('div.wponion-color-picker-element')[0];
         $args.appClass = 'wpo-color-picker';
-        var $instance = new Pickr(this.handle_args($args, 'colorpicker'));
+        console.log(this.element, $args.el);
 
-        var $save_color = function $save_color($color, $instance) {
+        var $instance = new Pickr(this.handle_args($args, 'colorpicker')),
+            $save_color = function $save_color($color, $instance) {
           var $value = $color.toHEXA().toString();
 
           if (!window.wponion._.isUndefined($instance._representation)) {
@@ -5543,6 +5549,9 @@ function (_WPOnion_Field) {
         this.element.chosen(this.handle_args(this.option('chosen', {}), 'chosen'));
       }
     }
+  }, {
+    key: "maybe_add_inited_class",
+    value: function maybe_add_inited_class() {}
   }]);
 
   return _default;
@@ -5648,6 +5657,9 @@ function (_WPOnion_Field_Base) {
         }, $auto);
       }
     }
+  }, {
+    key: "maybe_add_inited_class",
+    value: function maybe_add_inited_class() {}
   }]);
 
   return _default;
@@ -5722,6 +5734,9 @@ function (_WPOnion_Field) {
         });
       });
     }
+  }, {
+    key: "maybe_add_inited_class",
+    value: function maybe_add_inited_class() {}
   }]);
 
   return _default;
@@ -5788,6 +5803,9 @@ function (_WPOnion_Field) {
         }
       }
     }
+  }, {
+    key: "maybe_add_inited_class",
+    value: function maybe_add_inited_class() {}
   }]);
 
   return _default;
@@ -5894,6 +5912,9 @@ function (_WPOnion_Field) {
       this.element.select2(this.handle_args($arg, 'select2'));
       return this;
     }
+  }, {
+    key: "maybe_add_inited_class",
+    value: function maybe_add_inited_class() {}
   }]);
 
   return _default;
@@ -5998,6 +6019,9 @@ function (_WPOnion_Field) {
       this.element.removeClass('form-control').selectize(this.handle_args($arg, 'selectize'));
       return this;
     }
+  }, {
+    key: "maybe_add_inited_class",
+    value: function maybe_add_inited_class() {}
   }]);
 
   return _default;
@@ -6242,6 +6266,9 @@ function (_WPOnion_Field) {
       delete $arg.icon;
       this.element.tippy(this.handle_args($arg, this.tooltipkey));
     }
+  }, {
+    key: "maybe_add_inited_class",
+    value: function maybe_add_inited_class() {}
   }]);
 
   return _default;

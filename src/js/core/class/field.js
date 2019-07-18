@@ -16,6 +16,10 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 		}
 
 		this.init();
+		this.maybe_add_inited_class();
+	}
+
+	maybe_add_inited_class() {
 		this.element.addClass( 'wponion-field-inited' );
 	}
 
