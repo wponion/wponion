@@ -38,7 +38,7 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 	static has_args( $elem ) {
 		let $id   = window.wpo_core.jsid( $elem ),
 			$args = window.wpo_core.windowArgs( 'wponion_module_args', {} );
-		return ( false === window.wponion._.isUndefined( $args[ $id ] ) );
+		return ( false === window.wponion._.isUndefined( $id ) && false === window.wponion._.isUndefined( $args[ $id ] ) );
 	}
 
 	/**
