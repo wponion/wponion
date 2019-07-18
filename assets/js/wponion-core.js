@@ -5423,31 +5423,7 @@ function (_WPOnion_Field) {
       var _this = this;
 
       if (this.element.find('input.wponion-color-picker-element').length > 0) {
-        var $args = this.parse_args(this.option('settings'), {
-          theme: 'classic',
-          comparison: false,
-          components: {
-            preview: true,
-            opacity: true,
-            hue: true,
-            interaction: {
-              hex: true,
-              rgba: true,
-              hsla: true,
-              hsva: true,
-              cmyk: true,
-              input: false,
-              clear: false,
-              save: false
-            }
-          }
-        });
-        $args.el = this.element.find('div.wponion-color-picker-element')[0];
-        $args.appClass = 'wpo-color-picker';
-        console.log(this.element, $args.el);
-
-        var $instance = new Pickr(this.handle_args($args, 'colorpicker')),
-            $save_color = function $save_color($color, $instance) {
+        var $save_color = function $save_color($color, $instance) {
           var $value = $color.toHEXA().toString();
 
           if (!window.wponion._.isUndefined($instance._representation)) {
@@ -5475,8 +5451,30 @@ function (_WPOnion_Field) {
           }
 
           _this.element.find('input.wponion-color-picker-element').val($value);
-        };
+        },
+            $args = this.parse_args(this.option('settings'), {
+          theme: 'classic',
+          comparison: false,
+          components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+            interaction: {
+              hex: true,
+              rgba: true,
+              hsla: true,
+              hsva: true,
+              cmyk: true,
+              input: false,
+              clear: false,
+              save: false
+            }
+          }
+        });
 
+        $args.el = this.element.find('div.wponion-color-picker-element')[0];
+        $args.appClass = 'wpo-color-picker';
+        var $instance = new Pickr(this.handle_args($args, 'colorpicker'));
         $instance.on('save', $save_color);
         $instance.on('change', $save_color);
         $instance.on('swatchselect', $save_color);

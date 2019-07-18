@@ -6,31 +6,7 @@ export default class extends WPOnion_Field {
 	 */
 	init() {
 		if( this.element.find( 'input.wponion-color-picker-element' ).length > 0 ) {
-			let $args      = this.parse_args( this.option( 'settings' ), {
-				theme: 'classic',
-				comparison: false,
-				components: {
-					preview: true,
-					opacity: true,
-					hue: true,
-					interaction: {
-						hex: true,
-						rgba: true,
-						hsla: true,
-						hsva: true,
-						cmyk: true,
-						input: false,
-						clear: false,
-						save: false
-					}
-				}
-			} );
-			$args.el       = this.element.find( 'div.wponion-color-picker-element' )[ 0 ];
-			$args.appClass = 'wpo-color-picker';
-
-			console.log( this.element, $args.el );
-			let $instance   = new Pickr( this.handle_args( $args, 'colorpicker' ) ),
-				$save_color = ( $color, $instance ) => {
+			let $save_color = ( $color, $instance ) => {
 					let $value = $color.toHEXA().toString();
 					if( !window.wponion._.isUndefined( $instance._representation ) ) {
 						switch( $instance._representation ) {
@@ -52,8 +28,31 @@ export default class extends WPOnion_Field {
 						}
 					}
 					this.element.find( 'input.wponion-color-picker-element' ).val( $value );
-				};
+				},
+				$args       = this.parse_args( this.option( 'settings' ), {
+					theme: 'classic',
+					comparison: false,
+					components: {
+						preview: true,
+						opacity: true,
+						hue: true,
+						interaction: {
+							hex: true,
+							rgba: true,
+							hsla: true,
+							hsva: true,
+							cmyk: true,
+							input: false,
+							clear: false,
+							save: false
+						}
+					}
+				} );
 
+			$args.el       = this.element.find( 'div.wponion-color-picker-element' )[ 0 ];
+			$args.appClass = 'wpo-color-picker';
+
+			let $instance = new Pickr( this.handle_args( $args, 'colorpicker' ) );
 
 			$instance.on( 'save', $save_color );
 			$instance.on( 'change', $save_color );
@@ -63,8 +62,6 @@ export default class extends WPOnion_Field {
 					this.element.find( '.pickr' ).hide();
 				}
 			} );
-
-
 		}
 	}
 }
