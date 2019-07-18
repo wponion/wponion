@@ -49,7 +49,7 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 					$unique     = ( wponion_is_unarrayed( $section ) ) ? $this->name() : $this->name( $slug );
 					$value_slug = ( ! wponion_is_unarrayed( $section ) ) ? $slug : '';
 					$icon       = ( filter_var( $section['icon'], FILTER_VALIDATE_URL ) ) ? '<img src="' . $section['icon'] . '">' : wponion_icon( $section['icon'] );
-					$nav        .= '<li class="wponion-tab ' . $menu . '"><a href="" data-tab-name="' . $slug . '">' . $icon . ' ' . $section['title'] . '</a></li>';
+					$nav        .= '<li class="wponion-tab ' . $menu . '"><a href="" class="wponion-tab-a" data-tab-name="' . $slug . '">' . $icon . ' ' . $section['title'] . '</a></li>';
 					$content    .= '<div id="wponion-tab-' . $slug . '" class="wponion-tab-page" ' . $style . '>';
 
 					if ( $section['fields'] ) {

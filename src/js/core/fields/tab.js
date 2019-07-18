@@ -5,9 +5,7 @@ export default class extends WPOnion_Field {
 	 * Inits Field.
 	 */
 	init() {
-		let $elem      = this.element,
-			$this_elem = $elem.find( '> .row > .wponion-fieldset > .wponion-tab-wrap ' );
-
+		let $this_elem = this.element.find( '> .row > .wponion-fieldset > .wponion-tab-wrap ' );
 		$this_elem.find( '> ul.wponion-tab-menus li a' ).on( 'click', function( e ) {
 			e.preventDefault();
 			let $elem = jQuery( this );
@@ -16,7 +14,13 @@ export default class extends WPOnion_Field {
 			$elem.find( '.wponion-tab-page' ).hide();
 			$elem.find( '.wponion-tab-page' ).removeClass( 'wponion-tab-current' );
 			let $tab = $elem.attr( 'data-tab-name' );
-			$elem.find( 'div#wponion-tab-' + $tab ).addClass( 'wponion-tab-current' ).show();
+			$this_elem.find( '> .wponion-tab-pages > div' ).hide().removeClass( 'wponion-tab-current' );
+			$elem.parent()
+				 .parent()
+				 .parent()
+				 .find( '> .wponion-tab-pages > div#wponion-tab-' + $tab )
+				 .addClass( 'wponion-tab-current' )
+				 .show();
 		} );
 
 		if( $this_elem.find( '> ul.wponion-tab-menus li.current' ).length > 0 ) {

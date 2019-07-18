@@ -59,7 +59,7 @@
 						}
 					}
 
-					&.wponion-tab-disabled .wponion-tab-a, &.wponion-tab-current .wponion-tab-a, &.wponion-tabs-loading .wponion-tab-a {
+					&.wponion-tab-disabled > a, &.wponion-tab-current > a, &.wponion-tabs-loading > a {
 						cursor: default;
 					}
 				}
@@ -82,12 +82,11 @@
 
 		&.wponion-tabs-style1 {
 			.wponion-tab-menus {
-				.wponion-tab-a {
+				li > a {
 					float:           left;
 					padding:         .5em 1em;
 					text-decoration: none;
 				}
-
 			}
 		}
 

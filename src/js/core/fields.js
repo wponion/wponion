@@ -15,7 +15,7 @@ import wpo_image_select from './fields/image_select';
 import wpo_image from './fields/image_upload';
 import wpo_import_export from './fields/import_export';
 import wpo_inputmask from './fields/common/inputmask';
-import wpo_tab from './fields/jquery_tab';
+import wpo_tab from './fields/tab';
 import wpo_key_value from './fields/keyvalue_pair';
 import wpo_oembed from './fields/oembed';
 import wpo_options_object from './fields/options_object';
