@@ -1,140 +1,155 @@
 .wponion-element-tab {
-	.wponion-tab-menus {
-		margin-bottom: -1px;
+	.wponion-tab-wrap {
+		&.wponion-tabs-style1, &.wponion-tabs-style2 {
+			border:           $element_border;
+			position:         relative;
+			background-color: #F7F7F7;
+			padding-top:      10px;
 
-		li {
-			margin:  0;
-			display: inline-block;
-		}
-
-		.wponion-tab-current {
-			border:              1px solid $element_border_color;
-			border-bottom-color: transparent;
-			background:          #fcfcfc;
-		}
-
-		a {
-			display:         block;
-			padding:         3px 5px 5px;
-			text-decoration: none;
-
-			&:active, &:focus {
-				outline:    none;
-				box-shadow: none;
-			}
-		}
-
-		i, img {
-			vertical-align: middle;
-			margin-right:   .3em;
-		}
-
-		i {
-			width:     16px;
-			height:    16px;
-			font-size: 16px;
-		}
-
-		img {
-			width:   12px;
-			height:  12px;
-			display: inline-block;
-		}
-	}
-
-	.wponion-tab-current a {
-		color: #333;
-	}
-
-	.wponion-tab-page {
-		padding:    10px 0px;
-		border:     1px solid $element_border_color;
-		background: #fcfcfc;
-		display:    none;
-	}
-
-	.wponion-tabs-box {
-		.wponion-tab-menus {
-			li {
-				background:   #ebebeb;
-				border:       1px solid $element_border_color;
-				margin-right: 5px;
-
-				&:hover {
-					background: #fff;
-				}
+			.wponion-tab-menus:after, &:after {
+				clear: both;
 			}
 
-			a {
-				color: #777;
-			}
-
-			.wponion-tab-current {
-				border-bottom-color: transparent;
-				background:          #f5f5f5;
-
-				&:hover {
-					background: #f5f5f5;
-				}
-
-				a {
-					color: #555;
-				}
-			}
-		}
-
-		.wponion-tab-page {
-			background: #f5f5f5;
-			border:     1px solid $element_border_color;
-		}
-
-		/*.rwmb-clone {
-            background-color: transparent;
-        }*/
-	}
-
-	.wponion-tabs-left {
-		margin:  -6px -12px -12px;
-		display: flex;
-
-		.wponion-tab-menus {
-			margin:       0 -1px 0 0;
-			border-right: 1px solid $element_border_color;
-			z-index:      9;
-			padding:      0 !important;
-
-			li {
+			.wponion-tab-menus:after {
+				content: ' ';
 				display: block;
-				padding: 0;
+			}
 
-				&:first-child {
-					border-top: none;
+			.wponion-tab-menus {
+				margin: 0 0 0 10px;
+
+				li {
+					list-style:          none;
+					float:               left;
+					position:            relative;
+					top:                 0;
+					margin:              1px .2em 0 0;
+					border-bottom-width: 0;
+					padding:             0;
+					white-space:         nowrap;
+
+					a {
+						display:         block;
+						text-decoration: none;
+						font-size:       14px;
+						line-height:     18px;
+						padding:         10px 20px !important;
+						margin:          0 0 -1px;
+						border:          1px solid transparent;
+						border-top:      2px solid #f7f7f7;
+
+						&:focus {
+							-webkit-box-shadow: none;
+							box-shadow:         none;
+						}
+					}
+
+					&.wponion-tab-current {
+						margin-bottom:       -1px;
+						padding-bottom:      1px;
+						border-bottom-width: 1px;
+
+						a {
+							z-index:             50 !important;
+							background-color:    #FFF;
+							border:              1px solid #E1E1E1;
+							border-bottom-color: #FFF;
+							border-top:          2px solid #2EA2CC;
+							margin:              0 0 -1px;
+						}
+					}
+
+					&.wponion-tab-disabled .wponion-tab-a, &.wponion-tab-current .wponion-tab-a, &.wponion-tabs-loading .wponion-tab-a {
+						cursor: default;
+					}
 				}
 			}
 
-			a {
-				padding: 5px 20px 8px 10px;
+			.wponion-tab-page {
+				display:    none;
+				border:     none;
+				border-top: 1px solid #E1E1E1;
+				margin:     0;
+				background: #fff;
+
+				h3 {
+					border-bottom: 1px solid #e9e9e9;
+					/*padding-bottom: 20px;*/
+					/*margin-bottom: 20px*/
+				}
 			}
 		}
 
-		.wponion-tab-current {
-			border-width:        1px 0 1px 0;
-			border-bottom-color: $element_border_color;
-			box-shadow:          0 1px 0 rgba(0, 0, 0, 0.02), 0 1px 0 rgba(0, 0, 0, 0.02);
-			margin-right:        -1px;
+		&.wponion-tabs-style1 {
+			.wponion-tab-menus {
+				.wponion-tab-a {
+					float:           left;
+					padding:         .5em 1em;
+					text-decoration: none;
+				}
+
+			}
 		}
 
-		.wponion-tab-pages {
-			flex:        1;
-			border-left: 1px solid $element_border_color;
-			z-index:     1;
-		}
+		&.wponion-tabs-style2 {
+			display:     inline-block;
+			width:       100%;
+			padding-top: 0;
 
-		.wponion-tab-page {
-			padding:    10px 5px;
-			background: #fcfcfc;
-			border:     none;
+			&:after {
+				content: ' ';
+				display: block;
+			}
+
+			.wponion-tab-page {
+				min-height:  200px;
+				border:      none;
+				border-left: 1px solid #E1E1E1;
+				float:       left;
+				width:       calc(100% - 166px);
+			}
+
+			.wponion-tab-menus {
+				float:    left;
+				width:    165px;
+				margin:   10px 0 0;
+				position: relative;
+				z-index:  10;
+
+				li {
+					clear:               left;
+					width:               100%;
+					border-bottom-width: 1px !important;
+					border-right-width:  0 !important;
+					margin:              0 -1px 0.2em 0;
+
+					&.wponion-tab-current {
+						padding-bottom:     0;
+						padding-right:      .1em;
+						border-right-width: 1px;
+					}
+
+					a {
+						padding:         10px 0 10px 10px !important;
+						border-top:      none;
+						float:           left;
+						/*padding: .5em 1em;*/
+						text-decoration: none;
+						width:           153px;
+					}
+
+					&.wponion-tab-current a {
+						z-index:            50 !important;
+						background-color:   #FFF;
+						border:             1px solid #E1E1E1;
+						border-right-color: #FFF;
+						border-left:        2px solid #2EA2CC;
+						margin:             0 -1px 0 0;
+						width:              153px;
+						padding:            10px 0 10px 10px !important;
+					}
+				}
+			}
 		}
 	}
-
 }
