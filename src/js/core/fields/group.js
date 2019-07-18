@@ -7,9 +7,7 @@ export default class extends WPOnion_Field {
 	init() {
 		let $this       = this,
 			$add        = this.element.find( '> .row > .wponion-fieldset > button[data-wponion-group-add]' ),
-			$group_wrap = this.element.find( '> .row > .wponion-fieldset > .wponion-group-wrap' ),
-			$limit      = $this.option( 'limit' ),
-			$error_msg  = $this.option( 'error_msg' );
+			$group_wrap = this.element.find( '> .row > .wponion-fieldset > .wponion-group-wrap' );
 
 		this.init_field( $group_wrap, 'accordion' );
 
@@ -36,7 +34,7 @@ export default class extends WPOnion_Field {
 
 		$group_wrap.WPOnionCloner( {
 			add_btn: $add,
-			limit: parseInt( $limit ),
+			limit: parseInt( this.option( 'limit' ) ),
 			clone_elem: '> .wponion-fieldset > .wponion-accordion-wrap',
 			remove_btn: '.wponion-group-action > button',
 			template: this.option( 'group_template' ),
@@ -88,9 +86,9 @@ export default class extends WPOnion_Field {
 				}
 
 			},
-			onLimitReached: function() {
+			onLimitReached: () => {
 				if( $add.parent().find( 'div.alert' ).length === 0 ) {
-					$add.before( jQuery( $error_msg ).hide() );
+					$add.before( jQuery( this.option( 'error_msg', '' ) ).hide() );
 					$add.parent().find( 'div.alert' ).slideDown();
 					window.wponion_notice( $add.parent().find( 'div.alert, div.notice' ) );
 				}
@@ -111,9 +109,7 @@ export default class extends WPOnion_Field {
 				if( $mached.hasOwnProperty( $key ) ) {
 					let $elem = $data.find( ':input[data-depend-id="' + this.field_id() + '_' + $mached[ $key ] + '"]' );
 					if( $elem.length > 0 ) {
-						$elem.on( 'change', () => {
-							this.update_groups_title();
-						} );
+						$elem.on( 'change', () => this.update_groups_title() );
 					}
 				}
 			}
@@ -129,14 +125,14 @@ export default class extends WPOnion_Field {
 		$elem      = ( false === $elem ) ? this.element.find( '> .row > .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
 
 		$elem.each( ( i, e ) => {
-			let $data    = jQuery( e );
-			let $heading = this.option( 'heading' );
-			console.log( this.option( 'heading' ) );
+			let $data    = jQuery( e ),
+				$heading = this.option( 'heading' ),
+				$mached  = this.option( 'matched_heading_fields' );
+
 			if( false !== this.option( 'heading_counter' ) ) {
 				$heading = window.wponion._.replace( $heading, '[count]', $limit );
 			}
 
-			let $mached = this.option( 'matched_heading_fields' );
 			for( let $key in $mached ) {
 				if( $mached.hasOwnProperty( $key ) ) {
 					let $elem = $data.find( ':input[data-depend-id="' + this.field_id() + '_' + $mached[ $key ] + '"]' );
@@ -145,15 +141,13 @@ export default class extends WPOnion_Field {
 					}
 				}
 			}
-			console.log( $mached, $heading );
 
-			if( $heading === '' ) {
+			if( window.wponion._.isEmpty( $heading ) ) {
 				$heading = window.wponion._.replace( this.option( 'default_heading' ), '[count]', $limit );
 			}
 
 			$data.find( '> .wponion-accordion-title span.heading' ).html( $heading );
 			$limit++;
 		} );
-
 	}
 }

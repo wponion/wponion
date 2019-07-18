@@ -1,5 +1,4 @@
 import WPOnion_Module from '../class/module-base';
-//import WPOnion_Validator from '../core/validation';
 
 /**
  * Handle WPOnion Settings
@@ -11,7 +10,6 @@ export default class extends WPOnion_Module {
 	 */
 	module_init() {
 		this.ui_menu_handler();
-
 		if( this.element.hasClass( 'wponion-ajax-save' ) ) {
 			this.element.on( 'click', 'button.wponion-save', ( e ) => {
 				e.preventDefault();

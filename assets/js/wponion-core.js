@@ -6853,9 +6853,7 @@ function (_WPOnion_Field) {
 
       var $this = this,
           $add = this.element.find('> .row > .wponion-fieldset > button[data-wponion-group-add]'),
-          $group_wrap = this.element.find('> .row > .wponion-fieldset > .wponion-group-wrap'),
-          $limit = $this.option('limit'),
-          $error_msg = $this.option('error_msg');
+          $group_wrap = this.element.find('> .row > .wponion-fieldset > .wponion-group-wrap');
       this.init_field($group_wrap, 'accordion');
       $group_wrap.find('> .wponion-accordion-wrap').each(function () {
         window.wponion_dependency(jQuery(this), {
@@ -6878,7 +6876,7 @@ function (_WPOnion_Field) {
       });
       $group_wrap.WPOnionCloner({
         add_btn: $add,
-        limit: parseInt($limit),
+        limit: parseInt(this.option('limit')),
         clone_elem: '> .wponion-fieldset > .wponion-accordion-wrap',
         remove_btn: '.wponion-group-action > button',
         template: this.option('group_template'),
@@ -6934,7 +6932,7 @@ function (_WPOnion_Field) {
         },
         onLimitReached: function onLimitReached() {
           if ($add.parent().find('div.alert').length === 0) {
-            $add.before(jQuery($error_msg).hide());
+            $add.before(jQuery(_this.option('error_msg', '')).hide());
             $add.parent().find('div.alert').slideDown();
             window.wponion_notice($add.parent().find('div.alert, div.notice'));
           }
@@ -6963,7 +6961,7 @@ function (_WPOnion_Field) {
 
             if (_$elem.length > 0) {
               _$elem.on('change', function () {
-                _this2.update_groups_title();
+                return _this2.update_groups_title();
               });
             }
           }
@@ -6984,17 +6982,13 @@ function (_WPOnion_Field) {
       var $limit = 1;
       $elem = false === $elem ? this.element.find('> .row > .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap') : $elem;
       $elem.each(function (i, e) {
-        var $data = jQuery(e);
-
-        var $heading = _this3.option('heading');
-
-        console.log(_this3.option('heading'));
+        var $data = jQuery(e),
+            $heading = _this3.option('heading'),
+            $mached = _this3.option('matched_heading_fields');
 
         if (false !== _this3.option('heading_counter')) {
           $heading = window.wponion._.replace($heading, '[count]', $limit);
         }
-
-        var $mached = _this3.option('matched_heading_fields');
 
         for (var $key in $mached) {
           if ($mached.hasOwnProperty($key)) {
@@ -7006,9 +7000,7 @@ function (_WPOnion_Field) {
           }
         }
 
-        console.log($mached, $heading);
-
-        if ($heading === '') {
+        if (window.wponion._.isEmpty($heading)) {
           $heading = window.wponion._.replace(_this3.option('default_heading'), '[count]', $limit);
         }
 
@@ -9776,7 +9768,9 @@ __webpack_require__.r(__webpack_exports__);
  */
 
 var wponion_module_settings = function wponion_module_settings($element) {
-  if (Object(vsp_js_helper_index__WEBPACK_IMPORTED_MODULE_7__["is_jquery"])($element) && _class_module_base__WEBPACK_IMPORTED_MODULE_0__["default"].is_valid($element) && $element.hasClass('wponion-module-settings')) {
+  $element = Object(vsp_js_helper_index__WEBPACK_IMPORTED_MODULE_7__["to_jquery"])($element);
+
+  if (_class_module_base__WEBPACK_IMPORTED_MODULE_0__["default"].is_valid($element) && $element.hasClass('wponion-module-settings')) {
     new _modules_settings__WEBPACK_IMPORTED_MODULE_1__["default"]($element);
   }
 };
@@ -10234,7 +10228,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
- //import WPOnion_Validator from '../core/validation';
 
 /**
  * Handle WPOnion Settings

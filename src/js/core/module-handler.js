@@ -5,13 +5,14 @@ import WPOnion_Module_Quick_Edit from './modules/quick-edit';
 import wponion_module_wp_pointers from './modules/wp-pointers';
 import wponion_module_system_info from './modules/system-info';
 import wponion_module_customizer from './modules/customizer';
-import { is_jquery } from 'vsp-js-helper/index';
+import { to_jquery } from 'vsp-js-helper/index';
 
 /**
  * Inits Settings Module.
  */
 let wponion_module_settings = function( $element ) {
-	if( is_jquery( $element ) && WPO_Module.is_valid( $element ) && $element.hasClass( 'wponion-module-settings' ) ) {
+	$element = to_jquery( $element );
+	if( WPO_Module.is_valid( $element ) && $element.hasClass( 'wponion-module-settings' ) ) {
 		new WPOnion_Module_Settings( $element );
 	}
 };
