@@ -63,8 +63,7 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 					$content .= '</div>';
 				}
 				$nav .= '</ul>';
-				echo $nav;
-				echo '<div class="wponion-tab-pages">' . $content . '</div>';
+				echo $nav . $content;
 				echo '</div>';
 			}
 		}

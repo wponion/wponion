@@ -65,19 +65,17 @@
 				}
 			}
 
-			> .wponion-tab-pages {
-				.wponion-tab-page {
-					display:    none;
-					border:     none;
-					border-top: 1px solid #E1E1E1;
-					margin:     0;
-					background: #fff;
+			> .wponion-tab-page {
+				display:    none;
+				border:     none;
+				border-top: 1px solid #E1E1E1;
+				margin:     0;
+				background: #fff;
 
-					h3 {
-						border-bottom: 1px solid #e9e9e9;
-						/*padding-bottom: 20px;*/
-						/*margin-bottom: 20px*/
-					}
+				h3 {
+					border-bottom: 1px solid #e9e9e9;
+					/*padding-bottom: 20px;*/
+					/*margin-bottom: 20px*/
 				}
 			}
 		}
@@ -93,26 +91,17 @@
 		}
 
 		&.wponion-tabs-style2 {
-			display:     inline-block;
 			width:       100%;
 			padding-top: 0;
+			display:     flex;
 
 			&:after {
 				content: ' ';
 				display: block;
 			}
 
-			> .wponion-tab-pages {
-				> .wponion-tab-page {
-					min-height:  200px;
-					border:      none;
-					border-left: 1px solid #E1E1E1;
-					float:       left;
-					width:       calc(100% - 166px);
-				}
-			}
-
 			> .wponion-tab-menus {
+				flex:     0.1;
 				float:    left;
 				width:    165px;
 				margin:   10px 0 0;
@@ -153,6 +142,16 @@
 					}
 				}
 			}
+
+			> .wponion-tab-page {
+				flex:        1;
+				min-height:  200px;
+				border:      none;
+				border-left: 1px solid #E1E1E1;
+				float:       left;
+				width:       calc(100% - 166px);
+			}
+
 		}
 	}
 }
