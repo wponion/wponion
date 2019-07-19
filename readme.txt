@@ -4,7 +4,7 @@ Donate link: https://paypal.me/varunsridharan23
 Tags: settings,taxonomy,metabox,user profile,custom fields,guttenberg,network-settings,meta,wplisttable,custom post type,custom taxonomy,admin notice,admin bar,customizer,quick edit,bulk edit
 Requires at least: 4.0
 Tested up to: 5.2.1
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://github.com/wponion/wponion/blob/master/LICENSE
