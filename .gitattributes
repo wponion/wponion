@@ -16,3 +16,4 @@ package-lock.json export-ignore
 package.json export-ignore
 composer.lock export-ignore
 .all-contributorsrc export-ignore
+wp-pot.json export-ignore
