@@ -228,6 +228,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function default_wrap_class( $extra_class = array() ) {
 			$type      = $this->data( 'type' );
+			$is_nested = ( isset( $this->field['fields'] ) && ! empty( $this->field['fields'] ) ) ? true : false;
 			$has_error = ( $this->has_errors() ) ? ' wponion-element-has-error ' : '';
 			return wponion_html_class( array(
 				'wponion-element',
@@ -235,6 +236,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				'wponion-field-' . $type,
 				'wponion-element-type-' . $type,
 				'wponion-field-type-' . $type,
+				( $is_nested ) ? 'wponion-has-nested-fields' : '',
 				$has_error,
 			), $extra_class, false );
 		}
@@ -812,6 +814,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				}
 
 				$data       = array(
+					'field_id'     => $this->field_id(),
 					'module'       => $this->module(),
 					'unique'       => $this->unique(),
 					'field_path'   => implode( '/', array_filter( $new_path ) ),

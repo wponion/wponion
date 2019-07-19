@@ -8,7 +8,7 @@ $widget = $this->widgets();
 $fields = $widget->fields();
 ?>
 
-<div class="<?php echo $widget->wrap_class( '' ); ?>">
+<div <?php echo $widget->wrap_attributes(); ?>>
 	<?php
 	if ( ! empty( $fields->get() ) ) {
 		foreach ( $fields->get() as $field ) {

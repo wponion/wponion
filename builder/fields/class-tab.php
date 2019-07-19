@@ -41,5 +41,17 @@ if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 			$args['icon'] = $icon;
 			return $this->field( 'fieldset', $slug, $title, $args );
 		}
+
+		/**
+		 * Updated Tab Style.
+		 *
+		 * @param $style
+		 *
+		 * @return $this
+		 */
+		public function tab_style( $style ) {
+			$this['tab_style'] = $style;
+			return $this;
+		}
 	}
 }

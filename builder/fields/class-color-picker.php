@@ -33,12 +33,12 @@ if ( ! class_exists( 'WPO\Fields\Color_Picker' ) ) {
 		}
 
 		/**
-		 * @param bool $is_rgba
+		 * @param bool|array $settings
 		 *
 		 * @return $this
 		 */
-		public function rgba( $is_rgba = true ) {
-			$this['rgba'] = $is_rgba;
+		public function settings( $settings = array() ) {
+			$this['settings'] = $settings;
 			return $this;
 		}
 

@@ -123,7 +123,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		 * Loads Required Styles.
 		 */
 		public function load_styles() {
-			wponion_load_core_assets( array( 'wponion-customizer', 'wponion-postmessags' ) );
+			wponion_load_core_assets();
 			$this->outer_sections_css();
 		}
 

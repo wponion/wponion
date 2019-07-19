@@ -101,22 +101,6 @@ if ( ! function_exists( 'wpo_post_meta' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wpo_metabox' ) ) {
-	/**
-	 * Featches & Returns Saved WPOnion Settings.
-	 *
-	 * @param string|int  $post_id
-	 * @param string      $unique
-	 * @param bool|string $option_key
-	 * @param bool|mixed  $default
-	 *
-	 * @return array|bool|\WPOnion\DB\Option
-	 */
-	function wpo_metabox( $post_id, $unique, $option_key = false, $default = false ) {
-		return wpo_post_meta( $post_id, $unique, $option_key, $default );
-	}
-}
-
 if ( ! function_exists( 'wpo_user_meta' ) ) {
 	/**
 	 * Featches & Returns Saved WPOnion Settings.
@@ -146,21 +130,5 @@ if ( ! function_exists( 'wpo_term_meta' ) ) {
 	 */
 	function wpo_term_meta( $post_id, $unique, $option_key = false, $default = false ) {
 		return Options::term_meta( $post_id, $unique, $option_key, $default );
-	}
-}
-
-if ( ! function_exists( 'wpo_taxonomy' ) ) {
-	/**
-	 * Featches & Returns Saved WPOnion Settings.
-	 *
-	 * @param string|int  $post_id
-	 * @param string      $unique
-	 * @param bool|string $option_key
-	 * @param bool|mixed  $default
-	 *
-	 * @return array|bool|\WPOnion\DB\Option
-	 */
-	function wpo_taxonomy( $post_id, $unique, $option_key = false, $default = false ) {
-		return wpo_term_meta( $post_id, $unique, $option_key, $default );
 	}
 }

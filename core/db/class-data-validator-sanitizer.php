@@ -247,11 +247,11 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 						continue;
 					}
 
-					if ( false === $this->is_valid_field( $field ) ) {
+					if ( false === $this->is_valid_field( $_field ) ) {
 						continue;
 					}
 
-					if ( true === $this->field_callback( $field, $parent_field ) ) {
+					if ( true === $this->field_callback( $_field, $parent_field ) ) {
 						continue;
 					}
 

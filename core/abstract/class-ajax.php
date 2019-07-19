@@ -331,6 +331,40 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Validates & Returns Proper Value function
+		 *
+		 * @param $module
+		 *
+		 * @return string
+		 */
+		protected function get_value_function_name( $module ) {
+			$return = 'wpo_' . $module;
+			switch ( $module ) {
+				case 'taxonomy':
+					$return = 'wpo_term_meta';
+					break;
+				case 'metabox':
+				case 'nav_menu':
+				case 'media_fields':
+				case 'wc_product':
+				case 'bulk_edit':
+				case 'quick_edit':
+					$return = 'wpo_post_meta';
+					break;
+				case 'user_profile':
+					$return = 'wpo_user_meta';
+					break;
+				case 'customizer':
+				case 'wc_settings':
+				case 'dashboard_widgets':
+				case 'widget':
+					$return = 'wpo_settings';
+					break;
+			}
+			return $return;
+		}
+
+		/**
 		 * Fetches And Returns the module.
 		 *
 		 * @return bool|mixed|\WPOnion\Bridge\Module
@@ -340,11 +374,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 				return $this->module;
 			}
 
-			$module       = $this->post( 'module', false );
-			$function     = 'wponion_' . $module;
-			$val_function = 'wpo_' . $module;
+			$module   = $this->post( 'module', false );
+			$function = 'wponion_' . $module;
 
-			if ( ! function_exists( $function ) || ! function_exists( $val_function ) ) {
+			if ( ! function_exists( $function ) || ! function_exists( $this->get_value_function_name( $module ) ) ) {
 				$this->error( __( 'Module Not Found', 'wponion' ), __( 'Module Callback / Registry Function Not Found', 'wponion' ) );
 			}
 

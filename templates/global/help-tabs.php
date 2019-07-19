@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $help_tabs = $this->help_tabs();
 ?>
 
-<div class="<?php echo $help_tabs->wrap_class(); ?>">
+<div <?php echo $help_tabs->wrap_attributes(); ?>>
 	<?php
 	foreach ( $help_tabs->current_tabs['fields'] as $field ) {
 		echo $help_tabs->render_field( $field );

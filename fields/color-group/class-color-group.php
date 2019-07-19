@@ -25,9 +25,12 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 			echo $this->before();
 			if ( wponion_is_array( $this->data( 'options' ) ) ) {
 				foreach ( $this->data( 'options' ) as $slug => $option ) {
-					$field_args = $this->handle_args( 'title', $option, array( 'rgba' => $this->data( 'rgba' ) ), array(
-						'id'   => $slug,
-						'type' => 'color_picker',
+					$field_args = $this->handle_args( 'title', $option, array(
+						'settings' => $this->data( 'settings' ),
+					), array(
+						'id'         => $slug,
+						'type'       => 'color_picker',
+						'wrap_class' => 'col-xs-12 col-md-3',
 					) );
 
 					if ( isset( $field_args['label'] ) ) {
@@ -35,7 +38,6 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 						$field_args['title'] = $title;
 						unset( $field_args['label'] );
 					}
-
 					echo $this->sub_field( $field_args, $this->value( $slug ), $this->name() );
 				}
 			}
@@ -48,7 +50,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			wponion_load_asset( 'wponion-colorpicker' );
+			wponion_load_asset( 'wponion-pickr' );
 		}
 
 		/**
@@ -58,8 +60,8 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'rgba'    => true,
-				'options' => array(),
+				'settings' => array(),
+				'options'  => array(),
 			);
 		}
 	}

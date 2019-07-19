@@ -12,7 +12,7 @@ $taxonomy = $this->taxonomy();
 $fields   = $taxonomy->fields();
 ?>
 
-<div class="<?php echo $taxonomy->wrap_class(); ?>">
+<div <?php echo $taxonomy->wrap_attributes(); ?>>
 	<?php
 	foreach ( $fields->get() as $field ) {
 		echo $taxonomy->render_field( $field );

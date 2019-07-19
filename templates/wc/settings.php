@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /* @var $this \WPOnion\Theme\WC */
 $module = $this->settings();
 $desc   = $module->option( 'framework_desc' );
-echo '<div class="' . $module->wrap_class() . '">';
+echo '<div ' . $module->wrap_attributes() . '>';
 
 $this->load_file( 'parts/settings/header.php' );
 echo '<div class="postbox ">';

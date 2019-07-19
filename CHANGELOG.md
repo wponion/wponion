@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.3.4] - 19/07/2019
+## Added
+* Auto Generate Unique Instance ID For each module instance
+* `inline` argument to show checkbox / radio in a single line
+* New ColorPicker Library [#77](https://github.com/wponion/wponion/issues/77)
+* New Tab Styles
+
+## Changed
+* Updated Vendor Support Version
+* Combined all javascript files into `wponion-core.js`
+* Combined all css files into `wponion-core.css`
+* Core & Fields Javascript Fully Redeveloped from ground
+* Bump [varunsridharan/wp-cli-textdomain] from `1.3` to `1.4`
+* Bump [sweetalert2] from `8.13.4` to `8.13.6`
+
+## Removed
+* `clipboard.min.js`
+* WP Color Picker Source
+
 # [1.3.3] - 10/07/2019
 ## Added
 * Custom Callback Option For `option_label` && `option_key` in ***query_args***
@@ -563,6 +582,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.3.4]: https://github.com/wponion/wponion/releases/tag/1.3.4
+[1.3.3]: https://github.com/wponion/wponion/releases/tag/1.3.3
 [1.3.2]: https://github.com/wponion/wponion/releases/tag/1.3.2
 [1.3.1]: https://github.com/wponion/wponion/releases/tag/1.3.1
 [1.3]: https://github.com/wponion/wponion/releases/tag/1.3
@@ -601,6 +622,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [@wordpress/hooks]: https://github.com/WordPress/gutenberg/tree/HEAD/packages/hooks
 [tippy.js]: https://github.com/atomiks/tippyjs
 [varunsridharan/wp-conditional-logic]: https://github.com/varunsridharan/wp-conditional-logic
+[varunsridharan/wp-cli-textdomain]: https://github.com/varunsridharan/wp-cli-textdomain
 [Box Icons]: https://boxicons.com/
 [Dashicons]: https://developer.wordpress.org/resource/dashicons/#palmtree
 [FontAwesome 4]: https://fontawesome.com/v4.7.0/

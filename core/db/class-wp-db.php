@@ -69,7 +69,7 @@ if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 		public function get_set( $module_db, $unique, $id = false, $values = false, $mode = 'get' ) {
 			$return = false;
 			switch ( $module_db ) {
-				case 'dashboard_widget':
+				case 'dashboard_widgets':
 					if ( $this->is_get( $mode ) ) {
 						return wponion_get_option( $unique );
 					}

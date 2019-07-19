@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.3.1\n"
+"Project-Id-Version: WPOnion 1.3.3\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-07-10T08:01:41+05:30\n"
+"POT-Creation-Date: 2019-07-17T15:11:14+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -46,28 +46,28 @@ msgid "Unable To Find The Module"
 msgstr ""
 
 #: core/abstract/class-ajax.php:57
-#: core/abstract/class-ajax.php:384
+#: core/abstract/class-ajax.php:417
 msgid "Unable To Find The Field"
 msgstr ""
 
-#: core/abstract/class-ajax.php:348
+#: core/abstract/class-ajax.php:381
 msgid "Module Not Found"
 msgstr ""
 
-#: core/abstract/class-ajax.php:348
-#: core/abstract/class-ajax.php:360
+#: core/abstract/class-ajax.php:381
+#: core/abstract/class-ajax.php:393
 msgid "Module Callback / Registry Function Not Found"
 msgstr ""
 
-#: core/abstract/class-ajax.php:360
+#: core/abstract/class-ajax.php:393
 msgid "Module Instance Not Found"
 msgstr ""
 
-#: core/abstract/class-ajax.php:380
+#: core/abstract/class-ajax.php:413
 msgid "Field Not Found"
 msgstr ""
 
-#: core/abstract/class-ajax.php:382
+#: core/abstract/class-ajax.php:415
 msgid "Unable To Fetch The Field"
 msgstr ""
 
@@ -91,24 +91,24 @@ msgstr ""
 msgid "Module"
 msgstr ""
 
-#: core/abstract/class-field.php:324
+#: core/abstract/class-field.php:326
 msgid "Field Rendered In"
 msgstr ""
 
-#: core/abstract/class-field.php:324
+#: core/abstract/class-field.php:326
 msgid "Seconds"
 msgstr ""
 
-#: core/abstract/class-field.php:581
+#: core/abstract/class-field.php:583
 msgid "Field Errors"
 msgstr ""
 
-#: core/ajax/class-icon-picker.php:82
+#: core/ajax/class-icon-picker.php:76
 msgid "Search Icon"
 msgstr ""
 
-#: core/ajax/class-icon-picker.php:120
-#: core/ajax/class-icon-picker.php:130
+#: core/ajax/class-icon-picker.php:113
+#: core/ajax/class-icon-picker.php:123
 msgid "Icon Library Not found"
 msgstr ""
 
@@ -189,7 +189,7 @@ msgstr ""
 msgid "Modal Action Not Found"
 msgstr ""
 
-#: core/ajax/class-modal-fields.php:88
+#: core/ajax/class-modal-fields.php:87
 msgid "Modal Field Not Found"
 msgstr ""
 
@@ -229,6 +229,10 @@ msgstr ""
 
 #: core/ajax/class-sysinfo-emailer.php:36
 msgid "Unable To Find Plugin's Developer Contact."
+msgstr ""
+
+#: core/ajax/class-wp-query-data.php:36
+msgid "Invalid Option Type"
 msgstr ""
 
 #. translators:
@@ -489,6 +493,10 @@ msgstr ""
 
 #: core/setup/class-setup.php:121
 msgid "Rate the plugin ★★★★★"
+msgstr ""
+
+#: core/setup/class-setup.php:131
+msgid "WPOnion Elementor Integration Requires PHP Version 7.0 or Greater"
 msgstr ""
 
 #: core/wp/class-wp-list-table.php:80
@@ -1602,6 +1610,38 @@ msgstr ""
 msgid "Times New Roman"
 msgstr ""
 
+#: data/icons.php:11
+msgid "Dashicons"
+msgstr ""
+
+#: data/icons.php:21
+msgid "Icofont"
+msgstr ""
+
+#: data/icons.php:31
+msgid "FontAwesome 4"
+msgstr ""
+
+#: data/icons.php:41
+msgid "Material Design Icons"
+msgstr ""
+
+#: data/icons.php:51
+msgid "Foundation"
+msgstr ""
+
+#: data/icons.php:61
+msgid "Box Icons"
+msgstr ""
+
+#: data/icons.php:71
+msgid "FontAwesome 5"
+msgstr ""
+
+#: data/icons.php:82
+msgid "FontAwesome 5 Pro"
+msgstr ""
+
 #: fields/accordion/class-accordion.php:71
 msgid "Accordion"
 msgstr ""
@@ -1725,6 +1765,10 @@ msgstr ""
 msgid "Right Bottom"
 msgstr ""
 
+#: fields/class-checkbox-radio.php:70
+msgid "No Options Found."
+msgstr ""
+
 #: fields/class-cloner.php:54
 msgid "Add + "
 msgstr ""
@@ -1799,8 +1843,8 @@ msgid "Group #[count]"
 msgstr ""
 
 #: fields/group/class-group.php:207
-#: fields/image/class-image.php:68
-#: fields/image/class-image.php:94
+#: fields/image/class-image.php:69
+#: fields/image/class-image.php:95
 msgid "Remove"
 msgstr ""
 
@@ -1809,17 +1853,17 @@ msgstr ""
 msgid "You Can't Add More.."
 msgstr ""
 
-#: fields/icon-picker/class-icon-picker.php:82
-#: fields/icon-picker/class-icon-picker.php:107
+#: fields/icon-picker/class-icon-picker.php:83
+#: fields/icon-picker/class-icon-picker.php:108
 msgid "Add Icon"
 msgstr ""
 
-#: fields/icon-picker/class-icon-picker.php:94
-#: fields/icon-picker/class-icon-picker.php:108
+#: fields/icon-picker/class-icon-picker.php:95
+#: fields/icon-picker/class-icon-picker.php:109
 msgid "Remove Icon"
 msgstr ""
 
-#: fields/image/class-image.php:93
+#: fields/image/class-image.php:94
 msgid "Select A Image"
 msgstr ""
 
@@ -1954,6 +1998,10 @@ msgstr ""
 
 #: fields/switcher/class-switcher.php:30
 msgid "OFF"
+msgstr ""
+
+#: fields/time-picker/class-time-picker.php:38
+msgid "Time"
 msgstr ""
 
 #: fields/typography/class-typography.php:72

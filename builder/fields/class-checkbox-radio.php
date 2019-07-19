@@ -53,6 +53,16 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 		}
 
 		/**
+		 * @param $is_inline
+		 *
+		 * @return $this
+		 */
+		public function inline( $is_inline = false ) {
+			$this['inline'] = $is_inline;
+			return $this;
+		}
+
+		/**
 		 * @param string $option_group
 		 *
 		 * @return $this

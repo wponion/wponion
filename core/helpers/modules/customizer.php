@@ -26,7 +26,7 @@ if ( ! function_exists( 'wponion_customizer' ) ) {
 	 *
 	 * @return \WPOnion\Modules\customizer
 	 */
-	function wponion_customizer( $instance_id_or_args, $fields ) {
+	function wponion_customizer( $instance_id_or_args = array(), $fields = array() ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_customizer_registry( $instance_id_or_args );
 		}

@@ -152,6 +152,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 						$this->current_theme = $return->uid();
 					}
 				} else {
+					$this->set_option( 'theme', wponion_default_theme() );
 					$return = Themes::callback( wponion_default_theme(), $theme_args );
 					if ( $return ) {
 						$this->current_theme = $return->uid();
@@ -586,6 +587,41 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					$this->db_values[ $field['id'] ] = $field['default'];
 				}
 			}
+		}
+
+		/**
+		 * Returns Unique Instance ID.
+		 *
+		 * @return string
+		 */
+		public function instance_id() {
+			return sanitize_title( implode( '_', array_filter( array(
+				$this->module(),
+				$this->unique(),
+				$this->get_id(),
+			) ) ) );
+		}
+
+		/**
+		 * @param string $extra_class
+		 * @param array  $extra_attributes
+		 *
+		 * @return array
+		 */
+		public function wrap_attributes( $extra_class = '', $extra_attributes = array() ) {
+			wponion_localize()->add( 'wponion_module_args', array(
+				$this->instance_id() => array(
+					'theme'     => $this->option( 'theme' ),
+					'unique'    => $this->unique(),
+					'module'    => $this->module(),
+					'module-id' => $this->get_id(),
+				),
+			), true, false );
+			return wponion_array_to_html_attributes( $this->parse_args( $extra_attributes, array(
+				'id'                => $this->instance_id(),
+				'class'             => $this->wrap_class( $extra_class ),
+				'data-wponion-jsid' => $this->instance_id(),
+			) ) );
 		}
 
 		/**
