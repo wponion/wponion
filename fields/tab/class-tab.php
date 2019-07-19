@@ -75,10 +75,7 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 		 * @return array
 		 */
 		protected function field_default() {
-			return array(
-				'sections'  => array(),
-				'tab_style' => 'style1', #box,left
-			);
+			return array( 'tab_style' => 'style1' );
 		}
 	}
 }
