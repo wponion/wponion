@@ -34,15 +34,17 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		 * @param array|\WPO\Builder $fields
 		 */
 		public function __construct( $args, $fields = array() ) {
-			$this->settings = $this->set_args( $args );
-			$this->fields   = $fields;
-			if ( did_action( 'admin_init' ) ) {
-				$this->register();
-			} else {
-				add_action( 'admin_init', array( &$this, 'register' ) );
+			if ( is_admin() ) {
+				$this->settings = $this->set_args( $args );
+				$this->fields   = $fields;
+				if ( did_action( 'admin_init' ) ) {
+					$this->register();
+				} else {
+					add_action( 'admin_init', array( &$this, 'register' ) );
+				}
+				$this->module = 'wp_importer';
+				$this->unique = $this->option( 'id' );
 			}
-			$this->module = 'wp_importer';
-			$this->unique = $this->option( 'id' );
 		}
 
 		/**
