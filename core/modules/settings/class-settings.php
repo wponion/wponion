@@ -416,7 +416,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				'extra_js'      => array(),
 				'option_name'   => '_wponion',
 				'theme'         => 'wp_modern',
-				'template_path' => false,
 				'save_button'   => __( 'Save Settings', 'wponion' ),
 			);
 		}
