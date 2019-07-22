@@ -86,7 +86,7 @@ export default Backbone.View.extend( {
 	 * Renders Main HTML.
 	 */
 	render: function() {
-		this.$el.attr( 'tabindex', '0' ).append( this.templates.window( {
+		this.$el.append( this.templates.window( {
 			save_btn_label: this.options.save_btn_label,
 			close_btn_label: this.options.close_btn_label
 		} ) );

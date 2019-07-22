@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $title = __( 'Close Panel', 'wponion' );
 return <<<HTML
-<div tabindex="0" class="wponion-wp-modal media-modal wp-core-ui">
+<div class="wponion-wp-modal media-modal wp-core-ui">
 
 	<button type="button" class="media-modal-close">
 		<span class="media-modal-icon"><span class="screen-reader-text">{$title}</span></span>
