@@ -375,6 +375,45 @@ if ( ! function_exists( 'wponion_handle_string_args_with_defaults' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_ajax_args' ) ) {
+	/**
+	 * Generates Default WPOnion Ajax Args.
+	 *
+	 * @param bool $with_scripts
+	 *
+	 * @return array
+	 */
+	function wponion_ajax_args( $with_scripts = false ) {
+		$return              = array();
+		$return['localizer'] = wponion_localize()->as_array();
+
+		if ( false !== $with_scripts ) {
+
+			do_action( 'wponion_ajax_enqueue_scripts' );
+
+			if ( is_array( $with_scripts ) ) {
+				foreach ( $with_scripts as $asset ) {
+					wponion_load_asset( $asset );
+				}
+			} elseif ( true !== $with_scripts ) {
+				wponion_load_asset( $with_scripts );
+			}
+
+			wponion_catch_output( true );
+			$styles     = wp_print_styles();
+			$style_html = wponion_catch_output( false );
+			wponion_catch_output( true );
+			$scripts                = wp_print_scripts();
+			$scripts_html           = wponion_catch_output( false );
+			$return['styles_html']  = $style_html;
+			$return['scripts_html'] = $scripts_html;
+			$return['styles']       = $styles;
+			$return['scripts']      = $scripts;
+		}
+		return array( 'wpo_core' => $return );
+	}
+}
+
 
 if ( ! function_exists( 'wponion_catch_output' ) ) {
 	/**
