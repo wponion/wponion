@@ -41,7 +41,6 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 			$is_inline = ( true === $this->data( 'inline' ) ) ? 'wpo-inline-list' : '';
 			$options   = $this->data( 'options' );
 			$options   = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
-			$this->catch_output( 'start' );
 
 			if ( wponion_is_array( $options ) && ! empty( $options ) ) {
 				echo '<ul class="' . $is_inline . '">';
@@ -70,7 +69,6 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 				echo '<p class="wpo-text-danger">' . __( 'No Options Found.', 'wponion' ) . '</p>';
 			}
 
-			echo $this->catch_output( 'stop' );
 			echo $this->after();
 		}
 
