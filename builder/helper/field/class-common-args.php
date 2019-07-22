@@ -331,6 +331,24 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		}
 
 		/**
+		 * @param null $title_column
+		 *
+		 * @return \WPO\Helper\Field\Common_Args
+		 */
+		public function title_column( $title_column = null ) {
+			return $this->_set( 'title_column', $title_column );
+		}
+
+		/**
+		 * @param null $fieldset_column
+		 *
+		 * @return \WPO\Helper\Field\Common_Args
+		 */
+		public function fieldset_column( $fieldset_column = null ) {
+			return $this->_set( 'fieldset_column', $fieldset_column );
+		}
+
+		/**
 		 * Set Field Wrap ID.
 		 *
 		 * @param $wrap_id
