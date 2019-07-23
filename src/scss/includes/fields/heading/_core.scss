@@ -1,15 +1,25 @@
-.wponion-element.wponion-element-heading {
-	font-size:        1.5em;
-	font-weight:      bold;
-	color:            #23282d;
-	background-color: #f5f5f5;
-}
+.wponion-element {
+	&.wponion-element-heading, &.wponion-element-subheading {
+		color:       #23282d;
+		font-weight: bold;
 
-.wponion-element.wponion-element-subheading {
-	font-size:        14px;
-	font-weight:      bold;
-	padding-top:      17px;
-	padding-bottom:   17px;
-	color:            #23282d;
-	background-color: #f7f7f7 !important;
+		&.wponion-desc {
+			margin-bottom: 0;
+			font-size:     12px;
+		}
+	}
+
+	&.wponion-element-heading {
+		font-size:        1.5em;
+		background-color: #f5f5f5;
+	}
+
+	&.wponion-element-subheading {
+		font-size:        14px;
+		/*padding-top:      17px;
+		padding-bottom:   17px;*/
+		color:            #23282d;
+		background-color: #f7f7f7 !important;
+	}
+
 }
