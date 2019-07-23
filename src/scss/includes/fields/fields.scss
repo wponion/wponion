@@ -26,6 +26,11 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 		border-top: $element_border;
 	}
 
+	&[class^='col-xs-'] + .wponion-element[class^='col-xs-'] {
+		border-left: $element_border;
+	}
+
+
 	&.wponion-search-matched {
 		width:      100% !important;
 		max-width:  100% !important;
