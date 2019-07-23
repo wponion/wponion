@@ -4276,10 +4276,10 @@ function (_WPOnion_Field_Base) {
       if (!window.wpo_core.is_debug()) {
         return;
       }
+      /*if( false !== window.wponion.class.field_debug.get( this.id() ) ) {
+      	return;
+      }*/
 
-      if (false !== window.wponion["class"].field_debug.get(this.id())) {
-        return;
-      }
 
       var $info = this.option('debug_info');
 
@@ -10260,46 +10260,50 @@ function (_WPOnion_Module) {
       if (this.element.hasClass('wponion-ajax-save')) {
         this.element.on('click', 'button.wponion-save', function (e) {
           e.preventDefault();
-          var $data = jQuery('form.wponion-form').serializeJSON();
-          $data.action = 'wponion-ajax';
-          $data['wponion-ajax'] = 'save_settings';
-          window.wponion_ajax({
-            data: $data,
-            element_lock: jQuery('button.wponion-save'),
-            success: function success(response) {
-              var $elem = jQuery(response.form),
-                  $settings = window.wponion._.clone(window.wpo_core.option('settings_ajax'));
+          var validator = jQuery('form.wponion-form').validate();
 
-              window.wpo_core.handle_ajax_response(response);
+          if (validator.form()) {
+            var $data = jQuery('form.wponion-form').serializeJSON();
+            $data.action = 'wponion-ajax';
+            $data['wponion-ajax'] = 'save_settings';
+            window.wponion_ajax({
+              data: $data,
+              element_lock: jQuery('button.wponion-save'),
+              success: function success(response) {
+                var $elem = jQuery(response.form),
+                    $settings = window.wponion._.clone(window.wpo_core.option('settings_ajax'));
 
-              _this.element.parent().html($elem.find('.wponion-form').html());
+                window.wpo_core.handle_ajax_response(response);
 
-              if (window.wponion._.isObject($settings)) {
-                if (false === window.wponion._.isUndefined($settings.toast)) {
-                  delete $settings.toast;
-                  window.wponion_swal_toast().fire($settings);
+                _this.element.parent().html($elem.find('.wponion-form').html());
+
+                if (window.wponion._.isObject($settings)) {
+                  if (false === window.wponion._.isUndefined($settings.toast)) {
+                    delete $settings.toast;
+                    window.wponion_swal_toast().fire($settings);
+                  } else {
+                    window.swal.fire(window.wponion._.merge({
+                      type: 'success'
+                    }, $settings));
+                  }
                 } else {
-                  window.swal.fire(window.wponion._.merge({
-                    type: 'success'
-                  }, $settings));
+                  window.swal.fire({
+                    type: 'success',
+                    title: $settings
+                  });
                 }
-              } else {
-                window.swal.fire({
-                  type: 'success',
-                  title: $settings
-                });
-              }
 
-              var $elm = jQuery('.wponion-framework');
-              window.wponion_validator();
-              window.wponion_field_reload_all($elm);
-              window.wponion_init_theme($elm);
-              window.wponion_dependency($elm);
-            },
-            error: function error() {
-              return _this.element.parent().submit();
-            }
-          }).send();
+                var $elm = jQuery('.wponion-framework');
+                window.wponion_validator();
+                window.wponion_field_reload_all($elm);
+                window.wponion_init_theme($elm);
+                window.wponion_dependency($elm);
+              },
+              error: function error() {
+                return _this.element.parent().submit();
+              }
+            }).send();
+          }
         });
       }
     }

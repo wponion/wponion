@@ -43,9 +43,9 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 			return;
 		}
 
-		if( false !== window.wponion.class.field_debug.get( this.id() ) ) {
+		/*if( false !== window.wponion.class.field_debug.get( this.id() ) ) {
 			return;
-		}
+		}*/
 
 		let $info = this.option( 'debug_info' );
 
