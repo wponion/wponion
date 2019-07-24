@@ -445,7 +445,12 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 			$pagination = wponion_catch_output( false );
 
 			if ( 'top' === $which && ( false !== $this->option( 'search' ) || ! empty( $action_html ) ) ) {
-				$nounce = wp_nonce_field( 'bulk-' . $this->_args['plural'] );
+				wponion_catch_output( true );
+				if ( isset( $_REQUEST['page'] ) && ! empty( $_REQUEST['page'] ) ) {
+					echo '<input type="hidden" name="page" value="' . $_REQUEST['page'] . '"/>';
+				}
+				wp_nonce_field( 'bulk-' . $this->_args['plural'] );
+				$nounce = wponion_catch_output( false );
 			}
 
 			if ( ! empty( $action_html ) || ! empty( $extra_tablenav ) || ! empty( $pagination ) ) {
