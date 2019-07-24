@@ -10936,8 +10936,6 @@ function () {
    * Helper Class For WPOnion JS Field Validation.
    */
   function WPOnion_Validator() {
-    var _this = this;
-
     var form = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
     _classCallCheck(this, WPOnion_Validator);
@@ -10946,11 +10944,8 @@ function () {
     this.rules = {
       invalidHandler: function invalidHandler() {
         jQuery('#publish').removeClass('button-primary-disabled');
-        jQuery('#ajax-loading').attr('style', '');
-
-        _this.form.siblings('#wponion-error-messages').remove();
-
-        _this.form.before('<div id="wponion-error-messages" class="error"><p>' + window.wpo_core.txt('validation_summary') + '</p></div>');
+        jQuery('#ajax-loading').attr('style', ''); //this.form.siblings( '#wponion-error-messages' ).remove();
+        //this.form.before( '<div id="wponion-error-messages" class="error"><p>' + window.wpo_core.txt( 'validation_summary' ) + '</p></div>' );
       },
       ignore: '.wponion-dependent,.wponion-validation-ignore',
       errorPlacement: function errorPlacement(error, element) {
