@@ -419,7 +419,6 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 			echo $this->_pagination;
 		}
 
-
 		/**
 		 * Extra controls to be displayed between bulk actions and pagination
 		 *
@@ -430,10 +429,12 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		 */
 		protected function extra_tablenav( $which ) {
 			if ( wponion_is_callable( $this->option( 'extra_tablenav' ) ) ) {
-				echo wponion_callback( $this->option( 'extra_tablenav' ) );
+				echo wponion_callback( $this->option( 'extra_tablenav' ), array(
+					$which,
+					$this,
+				) );
 			}
 		}
-
 
 		/**
 		 * Generate the table navigation above or below the table
