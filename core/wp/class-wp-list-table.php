@@ -161,6 +161,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 							$callback = $value['callback'];
 							$title    = ( isset( $value['title'] ) ) ? $value['title'] : null;
 							$sortable = ( isset( $value['sortable'] ) ) ? $value['sortable'] : false;
+							$slug     = ( ! is_numeric( $key ) ) ? $key : $slug;
 						} else {
 							$title    = $key;
 							$callback = $value;
@@ -170,13 +171,14 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 						$title = $value;
 					}
 
-					if ( false === $title ) {
-						$title = $slug;
-						$slug  = sanitize_title( $title );
-					} elseif ( false === $slug ) {
-						$slug = sanitize_title( $title );
+					if ( false === $slug ) {
+						if ( false === $title ) {
+							$title = $slug;
+							$slug  = sanitize_title( $title );
+						} elseif ( false === $slug ) {
+							$slug = sanitize_title( $title );
+						}
 					}
-
 					$this->registered_columns[ $slug ] = $title;
 					$this->columns_callback[ $slug ]   = $callback;
 					if ( false !== $sortable ) {
