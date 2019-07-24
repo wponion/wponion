@@ -260,11 +260,14 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 					$this,
 					$this->option( 'field' ),
 				) );
-			} elseif ( isset( $item[ $col_name ] ) ) {
-				if ( is_string( $item[ $col_name ] ) ) {
-					return $item[ $col_name ];
+			} elseif ( is_array( $item ) && isset( $item[ $col_name ] ) ) {
+				return ( is_string( $item[ $col_name ] ) ) ? $item[ $col_name ] : print_r( $item[ $col_name ], true );
+			} elseif ( is_object( $item ) ) {
+				$data = ( isset( $item->{$col_name} ) ) ? $item->{$col_name} : false;
+				if ( false === $data && wponion_is_callable( array( $item, $col_name ) ) ) {
+					$data = wponion_callback( array( $item, $col_name ) );
 				}
-				return print_r( $item[ $col_name ], true );
+				return ( is_string( $data ) ) ? $data : print_r( $data, true );
 			}
 			return print_r( $item, true );
 		}
