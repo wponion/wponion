@@ -36,4 +36,15 @@
 	.wpo-badge-#{$color} {
 		@include badge-variant($value);
 	}
+
+	.wpo-badge-outline-#{$color} {
+		border:     1px solid $value;
+		color:      $value;
+		background: transparent;
+	}
+	.wpo-badge-plain-#{$color} {
+		border:     1px solid $value;
+		color:      $value;
+		background: transparent;
+	}
 }
