@@ -101,6 +101,18 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		}
 
 		/**
+		 * Generate row actions div
+		 *
+		 * @param string[] $actions An array of action links.
+		 * @param bool     $always_visible Whether the actions should be always visible.
+		 *
+		 * @return string
+		 */
+		public function row_actions( $actions, $always_visible = false ) {
+			return parent::row_actions( $actions, $always_visible );
+		}
+
+		/**
 		 * @param string $key
 		 * @param bool   $default
 		 *
