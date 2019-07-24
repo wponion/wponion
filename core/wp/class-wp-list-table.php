@@ -273,6 +273,31 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		}
 
 		/**
+		 * Renders Column Checkbox.
+		 *
+		 * @param object $item
+		 *
+		 * @return string
+		 */
+		public function column_cb( $item ) {
+			$col_name = 'cb';
+			if ( isset( $this->registered_columns[ $col_name ] ) && isset( $this->columns_callback[ $col_name ] ) && wponion_is_callable( $this->columns_callback[ $col_name ] ) ) {
+				return wponion_callback( $this->columns_callback[ $col_name ], array(
+					$item,
+					$col_name,
+					$this,
+					$this->option( 'field' ),
+				) );
+			} else {
+				$id = ( is_array( $item ) && isset( $item['id'] ) ) ? $item['id'] : false;
+				if ( false === $item && is_object( $item ) && wponion_is_callable( array( $item, 'id' ) ) ) {
+					$id = wponion_callback( $item, 'id' );
+				}
+				return '<input id="cb-select-' . $id . '" type="checkbox" name="ids[]" value="' . $id . '"/>';
+			}
+		}
+
+		/**
 		 * General Overrides To Make sure it works good.
 		 */
 
