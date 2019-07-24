@@ -83,6 +83,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				'default_callback' => array(),
 				'per_page'         => 10,
 				'total_items'      => false,
+				'extra_tablenav'   => false,
 				'bulk_actions'     => array(),
 				'filter_menus'     => array(),
 				'field'            => false, //Internal Usage Only
@@ -417,6 +418,22 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 
 			echo $this->_pagination;
 		}
+
+
+		/**
+		 * Extra controls to be displayed between bulk actions and pagination
+		 *
+		 * @param string $which
+		 *
+		 * @since 3.1.0
+		 *
+		 */
+		protected function extra_tablenav( $which ) {
+			if ( wponion_is_callable( $this->option( 'extra_tablenav' ) ) ) {
+				echo wponion_callback( $this->option( 'extra_tablenav' ) );
+			}
+		}
+
 
 		/**
 		 * Generate the table navigation above or below the table
