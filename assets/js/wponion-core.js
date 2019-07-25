@@ -11126,10 +11126,10 @@ __webpack_require__.r(__webpack_exports__);
    * Opens Modal.
    */
   open: function open() {
-    this.trigger('before_open', this.$el);
+    this.trigger('before_open', this.$el, this);
     this.init_templates();
     this.render();
-    this.trigger('open', this.$el);
+    this.trigger('open', this.$el, this);
   },
 
   /**
@@ -11182,7 +11182,7 @@ __webpack_require__.r(__webpack_exports__);
       save_btn_label: this.options.save_btn_label,
       close_btn_label: this.options.close_btn_label
     }));
-    this.trigger('before_render', this.$el);
+    this.trigger('before_render', this.$el, this);
     this.$wpomodal = this.$el.find('.wponion-wp-modal');
 
     if (!window.wponion._.isUndefined(this.modal_html.html) || !window.wponion._.isUndefined(this.modal_html.sections)) {
@@ -11320,7 +11320,7 @@ __webpack_require__.r(__webpack_exports__);
 
     this.active_page = $target.attr('href');
     this.active_section = null;
-    this.trigger('page_open_' + this.active_page, this.$el);
+    this.trigger('page_open_' + this.active_page, this.$el, this);
     this.activate_main_menu($show_target);
   },
 
@@ -11337,7 +11337,7 @@ __webpack_require__.r(__webpack_exports__);
     $target.addClass('active');
     $base.find('.wponion-section-modal-content').hide();
     $base.find('#' + this.active_page + '_' + this.active_section).show();
-    this.trigger('section_open_' + this.active_page + '_' + this.active_section, this.$el);
+    this.trigger('section_open_' + this.active_page + '_' + this.active_section, this.$el, this);
   },
 
   /**
@@ -11386,7 +11386,7 @@ __webpack_require__.r(__webpack_exports__);
   closeModal: function closeModal(e) {
     'use strict';
 
-    this.trigger('before_close', this.$el);
+    this.trigger('before_close', this.$el, this);
 
     if (typeof e !== 'undefined') {
       e.preventDefault();
@@ -11398,7 +11398,7 @@ __webpack_require__.r(__webpack_exports__);
       'overflow': 'auto'
     });
     this.remove();
-    this.trigger('after_close', this.$el);
+    this.trigger('after_close', this.$el, this);
   },
 
   /**
@@ -11409,7 +11409,7 @@ __webpack_require__.r(__webpack_exports__);
   saveModal: function saveModal(e) {
     'use strict';
 
-    this.trigger('save_modal', this.$el); //this.closeModal( e );
+    this.trigger('save_modal', this.$el, this); //this.closeModal( e );
   }
 }));
 

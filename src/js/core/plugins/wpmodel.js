@@ -41,10 +41,10 @@ export default Backbone.View.extend( {
 	 * Opens Modal.
 	 */
 	open: function() {
-		this.trigger( 'before_open', this.$el );
+		this.trigger( 'before_open', this.$el, this );
 		this.init_templates();
 		this.render();
-		this.trigger( 'open', this.$el );
+		this.trigger( 'open', this.$el, this );
 	},
 
 	/**
@@ -91,7 +91,7 @@ export default Backbone.View.extend( {
 			close_btn_label: this.options.close_btn_label
 		} ) );
 
-		this.trigger( 'before_render', this.$el );
+		this.trigger( 'before_render', this.$el, this );
 		this.$wpomodal = this.$el.find( '.wponion-wp-modal' );
 		if( !window.wponion._.isUndefined( this.modal_html.html ) || !window.wponion._.isUndefined( this.modal_html.sections ) ) {
 			this.render_single();
@@ -216,7 +216,7 @@ export default Backbone.View.extend( {
 
 		this.active_page    = $target.attr( 'href' );
 		this.active_section = null;
-		this.trigger( 'page_open_' + this.active_page, this.$el );
+		this.trigger( 'page_open_' + this.active_page, this.$el, this );
 		this.activate_main_menu( $show_target );
 	},
 
@@ -234,7 +234,7 @@ export default Backbone.View.extend( {
 		$target.addClass( 'active' );
 		$base.find( '.wponion-section-modal-content' ).hide();
 		$base.find( '#' + this.active_page + '_' + this.active_section ).show();
-		this.trigger( 'section_open_' + this.active_page + '_' + this.active_section, this.$el );
+		this.trigger( 'section_open_' + this.active_page + '_' + this.active_section, this.$el, this );
 	},
 
 	/**
@@ -275,7 +275,7 @@ export default Backbone.View.extend( {
 	 */
 	closeModal: function( e ) {
 		'use strict';
-		this.trigger( 'before_close', this.$el );
+		this.trigger( 'before_close', this.$el, this );
 		if( typeof e !== 'undefined' ) {
 			e.preventDefault();
 		}
@@ -283,7 +283,7 @@ export default Backbone.View.extend( {
 		jQuery( document ).off( 'focusin' );
 		jQuery( 'body' ).css( { 'overflow': 'auto' } );
 		this.remove();
-		this.trigger( 'after_close', this.$el );
+		this.trigger( 'after_close', this.$el, this );
 	},
 
 	/**
@@ -293,7 +293,7 @@ export default Backbone.View.extend( {
 	 */
 	saveModal: function( e ) {
 		'use strict';
-		this.trigger( 'save_modal', this.$el );
+		this.trigger( 'save_modal', this.$el, this );
 		//this.closeModal( e );
 	},
 } );
