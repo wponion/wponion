@@ -9446,6 +9446,10 @@ __webpack_require__.r(__webpack_exports__);
     return new window.wponion.plugins.ajaxer($args);
   };
   /**
+   * SweetAlert Functions.
+   */
+
+  /**
    * Creates A Swal With BootStrap Button Class.
    * @returns {*|Function|Object|void}
    */
@@ -9537,6 +9541,70 @@ __webpack_require__.r(__webpack_exports__);
       animation: false
     }));
   };
+  /**
+   * Creates Swal Toast Error.
+   * @param $title
+   * @param $message
+   * @param $args
+   * @return {*|Function|Object|void}
+   */
+
+
+  window.wponion_error_toast = function () {
+    var $title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var $message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var $args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    if (!window.wponion._.isString($title) && window.wponion._.isObject($title)) {
+      $message = window.wponion._.isUndefined($title.message) ? '' : $title.message;
+      $title = window.wponion._.isUndefined($title.title) ? '' : $title.title;
+    }
+
+    if (!$title) {
+      $title = window.wpo_core.txt('unknown_ajax_error');
+    }
+
+    return window.wponion_swal_toast(window.wponion._.merge($args, {
+      type: 'error',
+      title: $title ? $title : null,
+      text: $message ? $message : null,
+      animation: false
+    }));
+  };
+  /**
+   * WPonion Success Swal.
+   * @param $title
+   * @param $message
+   * @param $args
+   * @return {*}
+   */
+
+
+  window.wponion_success_toast = function () {
+    var $title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    var $message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    var $args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+    if (!window.wponion._.isString($title) && window.wponion._.isObject($title)) {
+      $message = window.wponion._.isUndefined($title.message) ? '' : $title.message;
+      $title = window.wponion._.isUndefined($title.title) ? '' : $title.title;
+    }
+
+    if (!$title) {
+      $title = window.wpo_core.txt('success');
+    }
+
+    return window.wponion_swal_toast(window.wponion._.merge($args, {
+      type: 'success',
+      title: $title ? $title : null,
+      text: $message ? $message : null,
+      animation: false
+    }));
+  };
+  /**
+   * jQuery Validator Functions.
+   */
+
   /**
    * Returns A New Instance of jQuery Validator.
    * @param $form

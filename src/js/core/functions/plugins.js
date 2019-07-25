@@ -7,6 +7,10 @@ export default function() {
 	window.wponion_ajax = ( $args ) => new window.wponion.plugins.ajaxer( $args );
 
 	/**
+	 * SweetAlert Functions.
+	 */
+
+	/**
 	 * Creates A Swal With BootStrap Button Class.
 	 * @returns {*|Function|Object|void}
 	 */
@@ -78,6 +82,61 @@ export default function() {
 			animation: false,
 		} ) );
 	};
+
+	/**
+	 * Creates Swal Toast Error.
+	 * @param $title
+	 * @param $message
+	 * @param $args
+	 * @return {*|Function|Object|void}
+	 */
+	window.wponion_error_toast = ( $title = false, $message = false, $args = {} ) => {
+		if( !window.wponion._.isString( $title ) && window.wponion._.isObject( $title ) ) {
+			$message = ( window.wponion._.isUndefined( $title.message ) ) ? '' : $title.message;
+			$title   = ( window.wponion._.isUndefined( $title.title ) ) ? '' : $title.title;
+		}
+
+		if( !$title ) {
+			$title = window.wpo_core.txt( 'unknown_ajax_error' );
+		}
+
+		return window.wponion_swal_toast( window.wponion._.merge( $args, {
+			type: 'error',
+			title: ( $title ) ? $title : null,
+			text: ( $message ) ? $message : null,
+			animation: false,
+		} ) );
+	};
+
+	/**
+	 * WPonion Success Swal.
+	 * @param $title
+	 * @param $message
+	 * @param $args
+	 * @return {*}
+	 */
+	window.wponion_success_toast = ( $title = false, $message = false, $args = {} ) => {
+		if( !window.wponion._.isString( $title ) && window.wponion._.isObject( $title ) ) {
+			$message = ( window.wponion._.isUndefined( $title.message ) ) ? '' : $title.message;
+			$title   = ( window.wponion._.isUndefined( $title.title ) ) ? '' : $title.title;
+		}
+
+		if( !$title ) {
+			$title = window.wpo_core.txt( 'success' );
+		}
+
+		return window.wponion_swal_toast( window.wponion._.merge( $args, {
+			type: 'success',
+			title: ( $title ) ? $title : null,
+			text: ( $message ) ? $message : null,
+			animation: false,
+		} ) );
+	};
+
+
+	/**
+	 * jQuery Validator Functions.
+	 */
 
 	/**
 	 * Returns A New Instance of jQuery Validator.
