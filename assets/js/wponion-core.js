@@ -10864,11 +10864,11 @@ function init_ajaxer() {
     if (false === window.wponion._.isUndefined($elem.attr('data-wponion-inline-ajax'))) {
       var $fid1 = $elem.attr('data-wponion-inline-ajax');
       var $fid2 = $elem.attr('id');
-      var $js_id = $wponion.jsid($elem);
+      var $js_id = window.wpo_core.jsid($elem);
       var $_args = [];
-      $_args.push($wponion.fieldArgs($js_id, false));
-      $_args.push($wponion.fieldArgs($fid1, false));
-      $_args.push($wponion.fieldArgs($fid2, false));
+      $_args.push(window.wpo_core.fieldArgs($js_id, false));
+      $_args.push(window.wpo_core.fieldArgs($fid1, false));
+      $_args.push(window.wpo_core.fieldArgs($fid2, false));
 
       for (var $k in $_args) {
         if ($_args.hasOwnProperty($k) && false !== $_args[$k] && window.wponion._.isObject($_args[$k])) {

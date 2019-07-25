@@ -310,11 +310,11 @@ export function init_ajaxer() {
 		if( false === window.wponion._.isUndefined( $elem.attr( 'data-wponion-inline-ajax' ) ) ) {
 			let $fid1  = $elem.attr( 'data-wponion-inline-ajax' );
 			let $fid2  = $elem.attr( 'id' );
-			let $js_id = $wponion.jsid( $elem );
+			let $js_id = window.wpo_core.jsid( $elem );
 			let $_args = [];
-			$_args.push( $wponion.fieldArgs( $js_id, false ) );
-			$_args.push( $wponion.fieldArgs( $fid1, false ) );
-			$_args.push( $wponion.fieldArgs( $fid2, false ) );
+			$_args.push( window.wpo_core.fieldArgs( $js_id, false ) );
+			$_args.push( window.wpo_core.fieldArgs( $fid1, false ) );
+			$_args.push( window.wpo_core.fieldArgs( $fid2, false ) );
 
 			for( let $k in $_args ) {
 				if( $_args.hasOwnProperty( $k ) && false !== $_args[ $k ] && window.wponion._.isObject( $_args[ $k ] ) ) {
