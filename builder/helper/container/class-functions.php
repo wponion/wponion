@@ -78,6 +78,21 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		}
 
 		/**
+		 * Checks If Conntainer Exists and removes it.
+		 *
+		 * @param $container_id
+		 *
+		 * @return bool
+		 */
+		public function remove_container( $container_id ) {
+			if ( $this->has_containers() ) {
+				unset( $this->containers[ $container_id ] );
+				return true;
+			}
+			return false;
+		}
+
+		/**
 		 * @param bool $instance_or_slug
 		 * @param bool $title
 		 * @param bool $icon
