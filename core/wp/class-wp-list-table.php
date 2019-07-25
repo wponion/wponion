@@ -305,7 +305,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				) );
 			} else {
 				$id = ( is_array( $item ) && isset( $item['id'] ) ) ? $item['id'] : false;
-				if ( false === $item && is_object( $item ) && wponion_is_callable( array( $item, 'id' ) ) ) {
+				if ( false === $id && is_object( $item ) && wponion_is_callable( array( $item, 'id' ) ) ) {
 					$id = wponion_callback( $item, 'id' );
 				}
 				return '<input id="cb-select-' . $id . '" type="checkbox" name="ids[]" value="' . $id . '"/>';
