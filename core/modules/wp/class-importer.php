@@ -231,8 +231,8 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		 */
 		public function handle_upload() {
 			if ( isset( $_POST['local_file'] ) && ! empty( $_POST['local_file'] ) ) {
-				if ( file_exists( ABSPATH . $_POST['file_url'] ) ) {
-					$this->set_option( 'file_url', esc_attr( $_POST['file_url'] ) );
+				if ( file_exists( ABSPATH . $_POST['local_file'] ) ) {
+					$this->set_option( 'file_url', esc_attr( $_POST['local_file'] ) );
 				} else {
 					$this->importer_error( __( 'Given Local File Not Found!' ) );
 					return false;
@@ -295,11 +295,11 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 
 			wponion_catch_output( true );
 			foreach ( $fields as $field ) {
-				$default = null;
 				if ( ( wponion_is_array( $field ) && 'import' === wponion_field_id( $field ) ) || 'import' === $field ) {
 					$field = ( wponion_is_array( $field ) ) ? $field : array();
 					/* translators: Added Max File Size */
 					$field['id']         = 'import';
+					$field['name']       = 'import';
 					$field['type']       = ( ! isset( $field['type'] ) ) ? 'text' : $field['type'];
 					$field['text_type']  = 'file';
 					$field['desc_field'] = str_replace( '[max_file_size]', $this->upload_size(), $field['desc_field'] );
@@ -307,14 +307,14 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 				} elseif ( ( wponion_is_array( $field ) && 'local_file' === wponion_field_id( $field ) ) || 'local_file' === $field ) {
 					$field           = ( wponion_is_array( $field ) ) ? $field : array();
 					$field['type']   = ( ! isset( $field['type'] ) ) ? 'text' : $field['type'];
-					$field['id']     = 'file_path';
+					$field['id']     = 'local_file';
+					$field['name']   = 'local_file';
 					$field['prefix'] = ABSPATH;
-				} else {
-					$default = ( isset( $field['default'] ) ) ? $field['default'] : null;
 				}
 				echo $this->render_field( $field, false, false );
 			}
-			return wponion_catch_output( false );
+			$html = wponion_catch_output( false );
+			return '<div class="wponion-importer-fields"><div class="wponion-row row">' . $html . '</div></div>';
 		}
 
 		/**
@@ -366,14 +366,13 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 			$title         = esc_html( $this->option( 'name' ) );
 			$wrap          = $this->wrap_attributes();
 			echo <<<HTML
-<form enctype="multipart/form-data" id="import-upload-form" method="post" action="$form_url" >
+<form enctype="multipart/form-data" class="wponion-form" id="import-upload-form" method="post" action="$form_url" >
 	<input type="hidden" name="action" value="save" />
 	<input type="hidden" name="max_file_size" value="$max_file_size" />
 
 	<div class="wrap wponion-module-importer">
 		<h1>$icon<span>$title</span></h1>
 		<div $wrap>
-			<div class="wponion-row row">
 HTML;
 		}
 
@@ -381,7 +380,7 @@ HTML;
 		 * Renders Footer.
 		 */
 		protected function footer() {
-			echo '</div></div></div></form>';
+			echo '</div></div></form>';
 		}
 
 		/**

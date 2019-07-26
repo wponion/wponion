@@ -1,7 +1,9 @@
 .wponion-framework.wponion-module-wp_importer {
-	display:    block;
-	width:      100%;
-	background: white;
-	border:     1px solid #ccc;
-	margin:     20px 0;
+	.wponion-importer-fields {
+		display:    block;
+		width:      100%;
+		background: white;
+		border:     1px solid #ccc;
+		margin:     20px 0;
+	}
 }
