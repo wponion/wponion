@@ -377,7 +377,7 @@ if ( ! function_exists( 'wponion_get_field_value' ) ) {
 		if ( isset( $value[ $field_id ] ) ) {
 			return $value[ $field_id ];
 		}
-		return false;
+		return ( wponion_is_array( $field ) && isset( $field['default'] ) ) ? $field['default'] : null;
 	}
 }
 
