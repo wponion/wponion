@@ -2,7 +2,6 @@
  * Global Utilites
  */
 @import "./wponion-utility";
-
 // Basic Core Styles
 @import "includes/mixins";
 @import "includes/variables";
@@ -19,6 +18,7 @@
 @import "includes/modules/woocommerce";
 @import "includes/modules/quick_edit";
 @import "includes/modules/nav_menu";
+@import "includes/modules/wp_importer";
 /**
  * Themes
  */
