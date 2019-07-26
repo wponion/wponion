@@ -30,20 +30,18 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		/**
 		 * Importer constructor.
 		 *
-		 * @param array              $args
-		 * @param array|\WPO\Builder $fields
+		 * @param array $args
 		 */
-		public function __construct( $args, $fields = array() ) {
+		public function __construct( $args ) {
 			if ( is_admin() ) {
 				$this->settings = $this->set_args( $args );
-				$this->fields   = $fields;
+				$this->module   = 'wp_importer';
+				$this->unique   = $this->option( 'id' );
 				if ( did_action( 'admin_init' ) ) {
 					$this->register();
 				} else {
 					add_action( 'admin_init', array( &$this, 'register' ) );
 				}
-				$this->module = 'wp_importer';
-				$this->unique = $this->option( 'id' );
 			}
 		}
 
@@ -62,7 +60,14 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		 * On Importer Load.
 		 */
 		public function on_importer_load() {
-			add_action( 'admin_enqueue_scripts', 'wponion_load_core_assets' );
+			add_action( 'admin_enqueue_scripts', array( &$this, 'load_assets' ) );
+		}
+
+		/**
+		 * Simple Hook To Load WPOnion Assets.
+		 */
+		public function load_assets() {
+			wponion_load_core_assets();
 		}
 
 		/**
@@ -97,21 +102,11 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		 * @param $step
 		 */
 		protected function greet( $step ) {
-			if ( ! $this->is_writeable() ) {
-				return;
+			if ( $this->is_writeable() ) {
+				$fields = $this->render_fields( $step );
+				$button = $this->submit_button( $step );
+				echo $fields . ' ' . $button;
 			}
-
-			$form_url      = esc_attr( wp_nonce_url( $this->step_url( 1 ), 'import-upload' ) );
-			$max_file_size = esc_attr( $this->upload_size( true ) );
-			$fields        = $this->render_fields( $step );
-			$button        = $this->submit_button( $step );
-			echo <<<HTML
-<form enctype="multipart/form-data" id="import-upload-form" method="post" action="$form_url" >
-	<input type="hidden" name="action" value="save" />
-	<input type="hidden" name="max_file_size" value="$max_file_size" />
-	$fields $button
-</form>
-HTML;
 		}
 
 		/**
@@ -141,15 +136,12 @@ HTML;
 		 * @return string
 		 */
 		protected function submit_button( $step ) {
-			if ( 0 === $step ) {
-				return wpo_field( 'button', 'submitbutton', ' ', array(
-					'button_type' => 'submit',
-					'label'       => __( 'Upload File & Import' ),
-					'class'       => 'wpo-btn wpo-btn-primary wpo-btn-sm',
-				) )->render( false, false );
-			}
-			return '';
-
+			return ( 0 === $step ) ? $this->render_field( wpo_field( 'button', 'submitbutton', array(
+				'button_type' => 'submit',
+				'wrap_id'     => 'wponion-wp-importer-submit-btn',
+				'label'       => __( 'Upload File & Import' ),
+				'class'       => 'wpo-btn wpo-btn-primary wpo-btn-sm',
+			) ), false, false ) : '';
 		}
 
 		/**
@@ -285,6 +277,7 @@ HTML;
 		 */
 		protected function render_fields( $step ) {
 			$fields = false;
+			$this->get_fields();
 			if ( wponion_is_array( $this->fields ) && isset( $this->fields[ $step ] ) ) {
 				$fields = $this->fields[ $step ];
 			} elseif ( wpo_is( $this->fields ) && $this->fields->container_exists( 'page-' . $step ) ) {
@@ -319,8 +312,7 @@ HTML;
 				} else {
 					$default = ( isset( $field['default'] ) ) ? $field['default'] : null;
 				}
-
-				echo wponion_add_element( $field, $default, false );
+				echo $this->render_field( $field, false, false );
 			}
 			return wponion_catch_output( false );
 		}
@@ -368,16 +360,28 @@ HTML;
 		 * Renders Header.
 		 */
 		protected function header() {
-			$icon  = ( ! empty( $this->option( 'icon' ) ) ) ? wponion_icon( $this->option( 'icon' ) ) : '';
-			$title = esc_html( $this->option( 'name' ) );
-			echo '<div class="wrap wponion-module-importer"><h1>' . $icon . ' <span>' . $title . '</span></h1><div ' . $this->wrap_attributes() . '>';
+			$form_url      = esc_attr( wp_nonce_url( $this->step_url( 1 ), 'import-upload' ) );
+			$max_file_size = esc_attr( $this->upload_size( true ) );
+			$icon          = ( ! empty( $this->option( 'icon' ) ) ) ? wponion_icon( $this->option( 'icon' ) ) : '';
+			$title         = esc_html( $this->option( 'name' ) );
+			$wrap          = $this->wrap_attributes();
+			echo <<<HTML
+<form enctype="multipart/form-data" id="import-upload-form" method="post" action="$form_url" >
+	<input type="hidden" name="action" value="save" />
+	<input type="hidden" name="max_file_size" value="$max_file_size" />
+
+	<div class="wrap wponion-module-importer">
+		<h1>$icon<span>$title</span></h1>
+		<div $wrap>
+			<div class="wponion-row row">
+HTML;
 		}
 
 		/**
 		 * Renders Footer.
 		 */
 		protected function footer() {
-			echo '</div></div>';
+			echo '</div></div></div></form>';
 		}
 
 		/**
@@ -445,6 +449,22 @@ HTML;
 		 * @return mixed
 		 */
 		abstract protected function after_import();
+
+		/**
+		 * Function which returns all importer fields.
+		 *
+		 * @return \WPO\Builder|array
+		 */
+		abstract protected function importer_fields();
+
+		/**
+		 * Fetches Fields.
+		 */
+		protected function get_fields() {
+			if ( empty( $this->fields ) ) {
+				$this->fields = $this->importer_fields();
+			}
+		}
 
 		public function on_init() {
 		}
