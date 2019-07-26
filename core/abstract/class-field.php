@@ -429,6 +429,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 						}
 					}
 					break;
+				case 'wp_importer':
+					$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3';
+					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9';
+					break;
 				default:
 					$return['title']    = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2';
 					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10';
@@ -438,7 +442,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12';
 			}
 
-			return apply_filters( 'wponion_field_column_css_class', $return, $this );
+			return apply_filters( 'wponion_field_column_css_class', $return, $this->module(), $this );
 		}
 
 		/**
