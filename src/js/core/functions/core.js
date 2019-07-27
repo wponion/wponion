@@ -21,11 +21,19 @@ export default function() {
 	 * @returns {*}
 	 */
 	window.wponion_notice = ( $elem ) => {
-		$elem = $elem || jQuery( 'body' ).find( '.wponion-element-wp_notice, .wponion-element-notice' );
+		let $find_key = '.wponion-element-wp_notice, .wponion-element-notice';
+
+		if( false === window.wponion._.isUndefined( $elem ) ) {
+			if( !$elem.hasClass( '.wponion-element-wp_notice' ) && !$elem.hasClass( 'wponion-element-notice' ) ) {
+				window.wponion_notice( $elem.find( $find_key ) );
+				return;
+			}
+		} else {
+			$elem = jQuery( 'body' ).find( $find_key );
+		}
+
 		if( $elem.length > 1 ) {
-			$elem.each( ( i, e ) => {
-				window.wponion_notice( jQuery( e ) );
-			} );
+			$elem.each( ( i, e ) => window.wponion_notice( jQuery( e ) ) );
 		} else {
 			window.wponion_init_field( 'global_notice', $elem );
 		}

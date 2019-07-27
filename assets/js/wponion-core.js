@@ -8965,11 +8965,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
   window.wponion_notice = function ($elem) {
-    $elem = $elem || jQuery('body').find('.wponion-element-wp_notice, .wponion-element-notice');
+    var $find_key = '.wponion-element-wp_notice, .wponion-element-notice';
+
+    if (false === window.wponion._.isUndefined($elem)) {
+      if (!$elem.hasClass('.wponion-element-wp_notice') && !$elem.hasClass('wponion-element-notice')) {
+        window.wponion_notice($elem.find($find_key));
+        return;
+      }
+    } else {
+      $elem = jQuery('body').find($find_key);
+    }
 
     if ($elem.length > 1) {
       $elem.each(function (i, e) {
-        window.wponion_notice(jQuery(e));
+        return window.wponion_notice(jQuery(e));
       });
     } else {
       window.wponion_init_field('global_notice', $elem);
