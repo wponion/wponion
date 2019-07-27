@@ -37,7 +37,7 @@ if ( ! class_exists( '\WPOnion\Ajax\WP_Query_Data' ) ) {
 			$query_args = $this->post( 'query_args', array() );
 			$search     = $this->post( 'q', '' );
 			$search     = $this->post( 's', $search );
-			$data       = ( wponion_is_callable( $options ) ) ? wponion_callback( $options ) : wponion_query()->query( $options, $query_args, $search );
+			$data       = ( wponion_is_callable( $options ) ) ? wponion_callback( $options ) : wponion_query()->query( $options, stripslashes_deep( $query_args ), $search );
 			$this->json_success( array( 'results' => $data ) );
 		}
 	}
