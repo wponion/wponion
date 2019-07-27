@@ -128,5 +128,31 @@ export default function() {
 			window.wponion_dependency( $elem );
 		} );
 	};
+
+	/**
+	 * Simple Debouncer.
+	 * @param callback
+	 * @param threshold
+	 * @param immediate
+	 * @return {Function}
+	 */
+	window.wponion_debounce = ( callback, threshold, immediate ) => {
+		let timeout;
+		return function() {
+			var context = this, args = arguments,
+				later                = () => {
+					timeout = null;
+					if( !immediate ) {
+						callback.apply( context, args );
+					}
+				},
+				callNow              = ( immediate && !timeout );
+			clearTimeout( timeout );
+			timeout = setTimeout( later, threshold );
+			if( callNow ) {
+				callback.apply( context, args );
+			}
+		};
+	};
 }
 

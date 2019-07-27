@@ -11,7 +11,7 @@ export default class extends WPOnion_Module {
 	module_init() {
 		this.ui_menu_handler();
 		if( this.element.hasClass( 'wponion-ajax-save' ) ) {
-			this.element.on( 'click', 'button.wponion-save', ( e ) => {
+			jQuery( 'body' ).on( 'click', 'button.wponion-save', ( e ) => {
 				e.preventDefault();
 				var validator = jQuery( 'form.wponion-form' ).validate();
 

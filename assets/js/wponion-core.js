@@ -4796,6 +4796,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fields_group__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./fields/group */ "./src/js/core/fields/group.js");
 /* harmony import */ var _fields_common_global_notice__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./fields/common/global-notice */ "./src/js/core/fields/common/global-notice.js");
 /* harmony import */ var _fields_modal__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./fields/modal */ "./src/js/core/fields/modal.js");
+/* harmony import */ var _fields_wp_editor__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./fields/wp-editor */ "./src/js/core/fields/wp-editor.js");
+
 
 
 
@@ -4875,6 +4877,7 @@ function wponion_register_fields() {
   window.wponion_register_field('wp_link', _fields_wp_links__WEBPACK_IMPORTED_MODULE_29__["default"]);
   window.wponion_register_field('group', _fields_group__WEBPACK_IMPORTED_MODULE_32__["default"]);
   window.wponion_register_field('modal', _fields_modal__WEBPACK_IMPORTED_MODULE_34__["default"]);
+  window.wponion_register_field('wp_editor', _fields_wp_editor__WEBPACK_IMPORTED_MODULE_35__["default"]);
 }
 
 /***/ }),
@@ -8821,6 +8824,124 @@ function (_WPOnion_Field) {
 
 /***/ }),
 
+/***/ "./src/js/core/fields/wp-editor.js":
+/*!*****************************************!*\
+  !*** ./src/js/core/fields/wp-editor.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var _class_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../class/field */ "./src/js/core/class/field.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_WPOnion_Field) {
+  _inherits(_default, _WPOnion_Field);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "init",
+
+    /**
+     * Inits Field.
+     */
+    value: function init() {
+      if (typeof window.wp.editor === 'undefined' || typeof window.tinyMCEPreInit === 'undefined' || typeof window.tinyMCEPreInit.mceInit['wpeditor_' + this.id()] === 'undefined') {
+        return;
+      }
+
+      var $editor = this.element.find('.wponion-wp-editor'),
+          $textarea = this.element.find('textarea'),
+          $has_wp_editor = this.element.find('.wp-editor-wrap').length || this.element.find('.mce-container').length,
+          settings = {
+        tinymce: window.tinyMCEPreInit.mceInit['wpeditor_' + this.id()],
+        quicktags: window.tinyMCEPreInit.qtInit['wpeditor_' + this.id()]
+      },
+          wpEditor = wp.oldEditor ? wp.oldEditor : wp.editor;
+
+      if ($has_wp_editor) {
+        $editor.empty();
+        $editor.append($textarea);
+        $textarea.css('display', '');
+      }
+
+      if (wpEditor && wpEditor.hasOwnProperty('autop')) {
+        wp.editor.autop = wpEditor.autop;
+        wp.editor.removep = wpEditor.removep;
+        wp.editor.initialize = wpEditor.initialize;
+      }
+
+      settings.tinymce = this.parse_args(settings.tinymce, {
+        selector: $textarea.attr('id'),
+        setup: function setup(editor) {
+          editor.on('change', window.wponion_debounce(function () {
+            editor.save();
+            $textarea.trigger('change');
+          }, 250));
+        }
+      }); // Override editor tinymce settings
+
+      if (this.option('tinymce') === false) {
+        settings.tinymce = false;
+        $editor.addClass('wponion-no-tinymce');
+      } // Override editor quicktags settings
+
+
+      if (this.option('quicktags') === false) {
+        settings.quicktags = false;
+        $editor.addClass('wponion-no-quicktags');
+      }
+
+      window.wp.editor.initialize($textarea.attr('id'), settings);
+
+      if (this.option('media_buttons')) {
+        var $editor_buttons = $editor.find('.wp-media-buttons');
+
+        if ($editor_buttons.length) {
+          $editor_buttons.find('.wponion-shortcode-button').data('editor-id', $textarea.attr('id'));
+        } else {
+          var $media_buttons = jQuery(this.option('media_buttons_html'));
+          $media_buttons.find('.wponion-shortcode-button').data('editor-id', $textarea.attr('id'));
+          $editor.prepend($media_buttons);
+        }
+      }
+    }
+  }]);
+
+  return _default;
+}(_class_field__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
 /***/ "./src/js/core/fields/wp_links.js":
 /*!****************************************!*\
   !*** ./src/js/core/fields/wp_links.js ***!
@@ -9069,6 +9190,37 @@ __webpack_require__.r(__webpack_exports__);
 
       window.wponion_dependency($elem);
     });
+  };
+  /**
+   * Simple Debouncer.
+   * @param callback
+   * @param threshold
+   * @param immediate
+   * @return {Function}
+   */
+
+
+  window.wponion_debounce = function (callback, threshold, immediate) {
+    var timeout;
+    return function () {
+      var context = this,
+          args = arguments,
+          later = function later() {
+        timeout = null;
+
+        if (!immediate) {
+          callback.apply(context, args);
+        }
+      },
+          callNow = immediate && !timeout;
+
+      clearTimeout(timeout);
+      timeout = setTimeout(later, threshold);
+
+      if (callNow) {
+        callback.apply(context, args);
+      }
+    };
   };
 });
 
@@ -10335,7 +10487,7 @@ function (_WPOnion_Module) {
       this.ui_menu_handler();
 
       if (this.element.hasClass('wponion-ajax-save')) {
-        this.element.on('click', 'button.wponion-save', function (e) {
+        jQuery('body').on('click', 'button.wponion-save', function (e) {
           e.preventDefault();
           var validator = jQuery('form.wponion-form').validate();
 

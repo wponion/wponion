@@ -1,0 +1,48 @@
+.wponion-element.wponion-element-wp_editor {
+	.wponion-wp-editor {
+		float: left;
+		width: 100%;
+	}
+
+	.mce-toolbar-grp {
+		border: none;
+	}
+
+	.mce-btn.mce-active button,
+	.mce-btn.mce-active:hover button,
+	.mce-btn.mce-active i,
+	.mce-btn.mce-active:hover i {
+		color: #23282d;
+	}
+
+	.wp-media-buttons {
+		position: relative;
+		z-index:  2;
+	}
+
+	.wp-editor-tabs {
+		position: relative;
+		z-index:  1;
+	}
+
+	.wponion-no-tinymce {
+		border: 1px solid #e5e5e5;
+	}
+
+	.wponion-no-quicktags .wp-media-buttons {
+		float:   none;
+		display: block;
+	}
+
+	.wponion-no-quicktags .mce-tinymce {
+		box-shadow: none;
+		border:     1px solid #e5e5e5;
+	}
+
+	textarea {
+		width:      100%;
+		max-width:  100%;
+		margin:     0;
+		box-shadow: none;
+	}
+}

@@ -441,6 +441,18 @@ if ( ! function_exists( 'wponion_catch_output' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_wp_editor_api' ) ) {
+	/**
+	 * Checks if editor api exists.
+	 *
+	 * @return bool
+	 */
+	function wponion_wp_editor_api() {
+		return is_version_gte( 'wordpress', '>=' );
+	}
+}
+
+
 // WPOnion Cache Related Functions
 require_once wponion()->path( 'core/helpers/cache.php' );
 

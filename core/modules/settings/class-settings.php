@@ -410,13 +410,13 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 			}
 
 			return array(
-				'menu'          => $menu,
-				'ajax'          => false,
-				'extra_css'     => array(),
-				'extra_js'      => array(),
-				'option_name'   => '_wponion',
-				'theme'         => 'wp_modern',
-				'save_button'   => __( 'Save Settings', 'wponion' ),
+				'menu'        => $menu,
+				'ajax'        => false,
+				'extra_css'   => array(),
+				'extra_js'    => array(),
+				'option_name' => '_wponion',
+				'theme'       => 'wp_modern',
+				'save_button' => __( 'Save Settings', 'wponion' ),
 			);
 		}
 
