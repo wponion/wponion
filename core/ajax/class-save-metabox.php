@@ -31,9 +31,10 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 		protected $validate_field_path = false;
 
 		public function run() {
-			$unique  = sanitize_text_field( $this->validate_post( 'unique', __( 'Invalid Metabox', 'wponion' ) ) );
-			$post_id = sanitize_text_field( $this->validate_post( 'wponion_postid', __( 'Invalid Post ID', 'wponion' ) ) );
-			$metabox = wponion_metabox_registry( $unique );
+			$this->add_assets = true;
+			$unique           = sanitize_text_field( $this->validate_post( 'unique', __( 'Invalid Metabox', 'wponion' ) ) );
+			$post_id          = sanitize_text_field( $this->validate_post( 'wponion_postid', __( 'Invalid Post ID', 'wponion' ) ) );
+			$metabox          = wponion_metabox_registry( $unique );
 
 			if ( $metabox instanceof Metabox ) {
 				wponion_catch_output( true );

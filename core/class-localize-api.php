@@ -45,8 +45,54 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			$this->add_action( 'wponion_metabox_ajax_render', 'render_js_args' );
 			$this->add_action( 'wponion_module_woocommerce_ajax_variation_fields', 'render_js_args' );
 			$this->add_action( 'wp_footer', 'render_js_args' );
+			$this->add_action( 'before_wp_tiny_mce', 'copy_wpeditor_args' );
+			$this->add_action( 'quicktags_settings', 'copy_quicktags_settings', 9999, 2 );
 			$this->js_args['wponion_core'] = array();
 			$this->js_args['wponion_il8n'] = array();
+		}
+
+		/**
+		 * Save QuickTags Settings.
+		 *
+		 * @param $settings
+		 * @param $editor_id
+		 */
+		public function copy_quicktags_settings( $settings, $editor_id ) {
+			$this->save_wpeditor_quicktags_settings( $editor_id, $settings, 'wponion_wp_quick_tags' );
+			return $settings;
+		}
+
+		/**
+		 * Moves Args.
+		 *
+		 * @param $args
+		 */
+		public function copy_wpeditor_args( $args ) {
+			if ( ! empty( $args ) && is_array( $args ) ) {
+				foreach ( $args as $key => $val ) {
+					$this->save_wpeditor_quicktags_settings( $key, $val );
+				}
+			}
+			$this->render_js_args();
+		}
+
+		/**
+		 * Saves Args.
+		 *
+		 * @param        $editor_id
+		 * @param        $args
+		 * @param string $type
+		 */
+		private function save_wpeditor_quicktags_settings( $editor_id, $args, $type = 'wponion_wp_editor' ) {
+			if ( 0 === strpos( $editor_id, 'wpeditor_' ) ) {
+				foreach ( $args as $key => $val ) {
+					$decoded = json_decode( wponion_fix_json_string( $val ), true );
+					if ( ! empty( $decoded ) ) {
+						$args[ $key ] = $decoded;
+					}
+				}
+				$this->add( $type, array( $editor_id => $args ), true, true );
+			}
 		}
 
 		/**
@@ -204,6 +250,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					$this->print_js_data( false );
 				}
 			}
+			$this->js_args = array();
 			return false;
 		}
 

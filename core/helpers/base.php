@@ -384,11 +384,9 @@ if ( ! function_exists( 'wponion_ajax_args' ) ) {
 	 * @return array
 	 */
 	function wponion_ajax_args( $with_scripts = false ) {
-		$return              = array();
-		$return['localizer'] = wponion_localize()->as_array();
+		$return = array();
 
 		if ( false !== $with_scripts ) {
-
 			do_action( 'wponion_ajax_enqueue_scripts' );
 
 			if ( is_array( $with_scripts ) ) {
@@ -410,6 +408,7 @@ if ( ! function_exists( 'wponion_ajax_args' ) ) {
 			$return['styles']       = $styles;
 			$return['scripts']      = $scripts;
 		}
+		$return['localizer'] = wponion_localize()->as_array();
 		return array( 'wpo_core' => $return );
 	}
 }
@@ -449,6 +448,19 @@ if ( ! function_exists( 'wponion_wp_editor_api' ) ) {
 	 */
 	function wponion_wp_editor_api() {
 		return is_version_gte( 'wordpress', '>=' );
+	}
+}
+
+if ( ! function_exists( 'wponion_fix_json_string' ) ) {
+	/**
+	 * Validates & Fixes JSON String that dose not have quotes in the KEY.
+	 *
+	 * @param $string
+	 *
+	 * @return string|string[]|null
+	 */
+	function wponion_fix_json_string( $string ) {
+		return preg_replace( '/(?<!")([a-zA-Z0-9_]+)(?!")(?=:)/i', '"$1"', $string );
 	}
 }
 

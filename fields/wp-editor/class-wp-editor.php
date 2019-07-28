@@ -45,6 +45,13 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 			if ( wponion_wp_editor_api() && function_exists( 'wp_enqueue_editor' ) ) {
 				wp_enqueue_editor();
 				$this->setup_wp_editor_settings();
+
+				if ( wponion_is_ajax() && class_exists( '\_WP_Editors' ) ) {
+					wponion_localize();
+					wponion_catch_output( true );
+					\_WP_Editors::editor_js();
+					$none = wponion_catch_output( false );
+				}
 			}
 		}
 
