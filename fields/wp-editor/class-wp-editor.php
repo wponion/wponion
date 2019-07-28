@@ -38,7 +38,6 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 			echo $this->after();
 		}
 
-
 		/**
 		 * @return mixed|void
 		 */
@@ -50,23 +49,61 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 		}
 
 		/**
+		 * Handles WPEditor Default Args.
+		 *
+		 * @param array $data
+		 *
+		 * @return array|void
+		 */
+		public function handle_field_args( $data = array() ) {
+			$defaults = array(
+				'wpautop'          => true,
+				'media_buttons'    => true,
+				'textarea_rows'    => 10,
+				'editor_css'       => '',
+				'editor_class'     => '',
+				'editor_height'    => '',
+				'teeny'            => false,
+				'dfw'              => false,
+				'tinymce'          => true,
+				'quicktags'        => true,
+				'drag_drop_upload' => false,
+			);
+			if ( isset( $data['settings'] ) ) {
+				$data['settings'] = $this->parse_args( $data['settings'], $defaults );
+			} else {
+				$data['settings'] = $defaults;
+			}
+			return $data;
+		}
+
+		/**
 		 * Generate WPEditor Settings.
 		 */
 		public function setup_wp_editor_settings() {
 			$id = 'wpeditor_' . $this->js_field_id();
 			if ( wponion_wp_editor_api() && class_exists( '_WP_Editors' ) ) {
-				$defaults = apply_filters( 'wponion_wp_editor', array(
-					'quicktags' => true,
-					'tinymce'   => array( 'wp_skip_init' => true ),
-				), $this->field_id(), $this );
-				$setup    = _WP_Editors::parse_settings( $id, $defaults );
+				$settings = ( ! is_array( $this->data( 'settings' ) ) ) ? array() : $this->data( 'settings' );
+
+				if ( isset( $settings['tinymce'] ) && ( is_array( $settings['tinymce'] ) || true === $settings['tinymce'] ) ) {
+					$settings['tinymce']                 = ( ! is_array( $settings['tinymce'] ) ) ? array() : $settings['tinymce'];
+					$settings['tinymce']['wp_skip_init'] = true;
+				}
+				$this->field['settings'] = $settings;
+				$defaults                = apply_filters( 'wponion_wp_editor', $settings, $this->field_id(), $this );
+				$setup                   = _WP_Editors::parse_settings( $id, $defaults );
 				_WP_Editors::editor_settings( $id, $setup );
 			}
 		}
 
+		/**
+		 * Fields JS Args.
+		 *
+		 * @return array
+		 */
 		protected function js_field_args() {
 			$media_buttons = '';
-			if ( wponion_wp_editor_api() && function_exists( 'wp_enqueue_editor' ) ) {
+			if ( wponion_wp_editor_api() && function_exists( 'wp_enqueue_editor' ) && isset( $this->field['settings']['media_buttons'] ) && false !== $this->field['settings']['media_buttons'] ) {
 				wponion_catch_output( true );
 				echo '<div class="wp-media-buttons">';
 				do_action( 'media_buttons' );
@@ -75,9 +112,9 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 			}
 			return array(
 				'media_buttons_html' => $media_buttons,
-				'tinymce'            => $this->data( 'tinymce' ),
-				'quicktags'          => $this->data( 'quicktags' ),
-				'media_buttons'      => $this->data( 'media_buttons' ),
+				'tinymce'            => ( isset( $this->field['settings']['tinymce'] ) ) ? $this->field['settings']['tinymce'] : true,
+				'quicktags'          => ( isset( $this->field['settings']['quicktags'] ) ) ? $this->field['settings']['quicktags'] : true,
+				'media_buttons'      => ( isset( $this->field['settings']['media_buttons'] ) ) ? $this->field['settings']['media_buttons'] : true,
 			);
 		}
 
@@ -86,13 +123,9 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'tinymce'       => true,
-				'quicktags'     => true,
-				'media_buttons' => true,
-				'height'        => '',
-				'settings'      => array(),
-				'in_group'      => false,
-				'group_count'   => false,
+				'settings'    => array(),
+				'in_group'    => false,
+				'group_count' => false,
 			);
 		}
 	}
