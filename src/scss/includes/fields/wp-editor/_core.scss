@@ -4,15 +4,20 @@
 		width: 100%;
 	}
 
+	.mce-tinymce {
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+	}
+
 	.mce-toolbar-grp {
 		border: none;
 	}
 
-	.mce-btn.mce-active button,
-	.mce-btn.mce-active:hover button,
-	.mce-btn.mce-active i,
-	.mce-btn.mce-active:hover i {
-		color: #23282d;
+	.mce-btn {
+		.mce-active {
+			& button, &:hover button, & i, &:hover i {
+				color: #23282d;
+			}
+		}
 	}
 
 	.wp-media-buttons {
