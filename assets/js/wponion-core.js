@@ -5483,7 +5483,7 @@ function (_WPOnion_Field) {
         $instance.on('swatchselect', $save_color);
         $instance.on('init', function () {
           if (!window.wponion._.isUndefined($args.inline) && true === $args.inline) {
-            _this.element.find('.pickr').hide();
+            _this.element.find('.wponion-color-picker-element').hide();
           }
         });
       }

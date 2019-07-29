@@ -59,7 +59,7 @@ export default class extends WPOnion_Field {
 			$instance.on( 'swatchselect', $save_color );
 			$instance.on( 'init', () => {
 				if( !window.wponion._.isUndefined( $args.inline ) && true === $args.inline ) {
-					this.element.find( '.pickr' ).hide();
+					this.element.find( '.wponion-color-picker-element' ).hide();
 				}
 			} );
 		}
