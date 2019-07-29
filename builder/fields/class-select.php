@@ -58,5 +58,25 @@ if ( ! class_exists( 'WPO\Fields\Select' ) ) {
 			$this[ $framework ] = $options;
 			return $this;
 		}
+
+		/**
+		 * @param $prefix
+		 *
+		 * @return $this
+		 */
+		public function prefix( $prefix ) {
+			$this['prefix'] = $prefix;
+			return $this;
+		}
+
+		/**
+		 * @param $surfix
+		 *
+		 * @return $this
+		 */
+		public function surfix( $surfix ) {
+			$this['surfix'] = $surfix;
+			return $this;
+		}
 	}
 }
