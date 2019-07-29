@@ -5484,6 +5484,8 @@ function (_WPOnion_Field) {
         $instance.on('init', function () {
           if (!window.wponion._.isUndefined($args.inline) && true === $args.inline) {
             _this.element.find('.wponion-color-picker-element').hide();
+
+            _this.element.find('.pickr').hide();
           }
         });
       }
