@@ -4312,6 +4312,7 @@ function (_WPOnion_Field_Base) {
               $notice_txt = "<p class=\"wponion-field-debug-notice\">".concat(window.wpo_core.option('debug_notice'), "</p>"),
               $elem = jQuery("<div id=\"".concat($d, "\" class=\"wponion-field-debug-popup\"><div id=\"").concat($d, "\" ></div>").concat($notice_txt, "</div>")),
               $data = window.wponion["class"].field_debug.get(_this2.id());
+          console.log($data);
           window.swal.fire({
             html: $elem,
             showConfirmButton: true,
@@ -4547,7 +4548,7 @@ function (_WPOnion_Base) {
     value: function ui_menu_handler() {
       var _this2 = this;
 
-      var $main = this.element.find('. wponion-container-wraps:not(.hidden)');
+      var $main = this.element.find('.wponion-container-wraps:not(.hidden)');
 
       if ($main.hasClass('wponion-has-containers')) {
         this.hide_element_non_ui($main.find('.wponion-sub-container-wraps:not(.hidden)'));
@@ -8429,7 +8430,7 @@ function (_WPOnion_Field) {
         step: 1
       }), 'Spinner');
       var $input = this.element.find('input[type=text]'),
-          $elem_init = this.element.find('.wponion-input-group').length > 0 ? this.element.find('.wponion-input-group') : $input;
+          $elem_init = this.element.find('.wponion-input-group-wrap').length > 0 ? this.element.find('.wponion-input-group-wrap') : $input;
 
       $options.spin = function (event, ui) {
         return $input.val(ui.value).trigger('change');

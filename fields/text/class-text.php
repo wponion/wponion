@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 * Renders Element HTML.
 		 */
 		public function element_html() {
-			echo '<input ' . $this->_input_attributes() . '/>';
+			return '<input ' . $this->_input_attributes() . '/>';
 		}
 
 		/**
@@ -48,33 +48,7 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-
-			if ( false !== $this->has_prefix_surfix() ) {
-				echo '<div class="wponion-input-group">';
-			}
-
-			if ( false !== $this->has( 'prefix' ) ) {
-				echo '<div class="input-group-icon input-group-icon-before">' . $this->data( 'prefix' ) . '</div>';
-			}
-
-			if ( false !== $this->has_prefix_surfix() ) {
-				echo '<div  class="input-group-area">';
-			}
-
-			$this->element_html();
-
-			if ( false !== $this->has_prefix_surfix() ) {
-				echo '</div>';
-			}
-
-			if ( false !== $this->has( 'surfix' ) ) {
-				echo '<div class="input-group-icon input-group-icon-after">' . $this->data( 'surfix' ) . '</div>';
-			}
-
-			if ( false !== $this->has_prefix_surfix() ) {
-				echo '</div>';
-			}
-
+			echo wponion_input_group_html( $this->data( 'prefix' ), $this->data( 'surfix' ), $this->element_html() );
 			echo $this->datalist();
 			echo $this->after();
 		}

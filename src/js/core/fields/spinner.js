@@ -8,7 +8,7 @@ export default class extends WPOnion_Field {
 			step: 1,
 		} ), 'Spinner' );
 		let $input     = this.element.find( 'input[type=text]' ),
-			$elem_init = ( this.element.find( '.wponion-input-group' ).length > 0 ) ? this.element.find( '.wponion-input-group' ) : $input;
+			$elem_init = ( this.element.find( '.wponion-input-group-wrap' ).length > 0 ) ? this.element.find( '.wponion-input-group-wrap' ) : $input;
 		$options.spin  = ( event, ui ) => $input.val( ui.value ).trigger( 'change' );
 		$elem_init.spinner( $options );
 	}

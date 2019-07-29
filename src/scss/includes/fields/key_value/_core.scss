@@ -6,7 +6,6 @@
 		border:         $element_border;
 		display:        inline-block;
 
-
 		.wponion-keyvalue-field {
 			margin-bottom: 17px;
 
@@ -28,10 +27,14 @@
 				padding:        5px 0px;
 			}
 
-			.wponion-input-group {
+			.wponion-input-group-wrap {
 				display:        inline-block;
 				margin-right:   15px;
 				vertical-align: middle;
+
+				+ button {
+					vertical-align: middle;
+				}
 			}
 		}
 
@@ -56,7 +59,7 @@
 				left:          0px;
 			}
 
-			.wponion-input-group {
+			.wponion-input-group-wrap {
 				display:       block;
 				margin-bottom: 10px !important;
 

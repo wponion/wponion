@@ -67,7 +67,7 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 	 * Internal UI Menu Handler.
 	 */
 	ui_menu_handler() {
-		let $main = this.element.find( '. wponion-container-wraps:not(.hidden)' );
+		let $main = this.element.find( '.wponion-container-wraps:not(.hidden)' );
 		if( $main.hasClass( 'wponion-has-containers' ) ) {
 			this.hide_element_non_ui( $main.find( '.wponion-sub-container-wraps:not(.hidden)' ) );
 		} else {

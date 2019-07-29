@@ -18,7 +18,7 @@ if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 		 * Renders Element Html.
 		 */
 		public function element_html() {
-			echo '<textarea ' . $this->_input_attributes() . '>' . $this->value() . '</textarea>';
+			return '<textarea ' . $this->_input_attributes() . '>' . $this->value() . '</textarea>';
 		}
 
 		/**

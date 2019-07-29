@@ -7,13 +7,6 @@
 			vertical-align: middle;
 		}
 
-		.wponion-input-group {
-			display:        inline-block;
-			vertical-align: middle;
-			margin-left:    15px;
-			margin-right:   0;
-		}
-
 		.ui-slider {
 			position:       relative;
 			width:          100%;
@@ -70,6 +63,18 @@
 
 
 		}
+
+		.wponion-input-group-wrap {
+			display:        inline-block;
+			vertical-align: middle;
+			margin-left:    15px;
+			margin-right:   0;
+
+			input {
+				margin: 0;
+			}
+		}
+
 	}
 
 	.wponion-range-slider-container .ui-state-active,

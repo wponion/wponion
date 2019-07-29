@@ -1,0 +1,57 @@
+.wponion-element.wponion-element-select {
+	select {
+
+	}
+}
+
+.wponion-input-group-wrap {
+	select {
+		flex:      0 0 auto !important;
+		width:     auto !important;
+		min-width: 150px !important;
+		padding:   5px !important;
+		margin:    0 1px !important;
+		height:    auto;
+	}
+
+	.select2-container {
+		border-radius: 0;
+
+		.select2-selection {
+			height:        auto;
+			padding:       4px 0;
+			border-radius: 0;
+		}
+
+		.select2-selection__arrow {
+			height: auto;
+			bottom: 0;
+			top:    1px;
+		}
+	}
+
+	.chosen-container {
+		.chosen-single {
+			border-radius: 0;
+			padding:       6px 8px;
+			height:        auto;
+			box-shadow:    none;
+
+			b {
+				margin-top: 6px;
+			}
+		}
+	}
+
+	.selectize-control {
+		.selectize-input {
+			min-width:     150px;
+			height:        auto;
+			padding:       9px;
+			margin:        0;
+			border-radius: 0;
+			overflow:      unset;
+			box-shadow:    none;
+		}
+	}
+}

@@ -11,8 +11,10 @@ $files[ 'src/scss/wponion-base.scss' ]    = {
 		'src/scss/themes/*',
 		'src/scss/themes/*/*',
 		'src/scss/wponion-base.scss',
+		'src/scss/wponion-utility.scss',
 		'src/scss/includes/*',
 		'src/scss/includes/fields/*',
+		'src/scss/includes/bootstrap/*',
 		'src/scss/includes/fields/*/*',
 		'src/scss/includes/modules/*',
 		'src/scss/includes/modules/*/*'

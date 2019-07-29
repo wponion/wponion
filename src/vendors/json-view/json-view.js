@@ -63,6 +63,9 @@
 		var genBlock = function( val, level ) {
 			switch( $.type( val ) ) {
 				case 'object':
+					if( typeof val.jquery !== 'undefined' ) {
+						return '[jQuery Object]';
+					}
 					if( !level ) {
 						level = 0;
 					}
@@ -210,6 +213,7 @@
 				case 'boolean':
 					return span( val ? 'true' : 'false', 'bool' );
 				default:
+					console.log()
 					console.log( "Unknown Format In JSON View : " + $.type( val ) );
 					break;
 			}

@@ -76,6 +76,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 					$notice_txt = `<p class="wponion-field-debug-notice">${window.wpo_core.option( 'debug_notice' )}</p>`,
 					$elem       = jQuery( `<div id="${$d}" class="wponion-field-debug-popup"><div id="${$d}" ></div>${$notice_txt}</div>` ),
 					$data       = window.wponion.class.field_debug.get( this.id() );
+				console.log( $data );
 				window.swal.fire( {
 					html: $elem,
 					showConfirmButton: true,
