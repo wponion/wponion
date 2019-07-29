@@ -15,13 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `.wpo-badge-plain-danger` Badge Style
 * Option To Remove A Field From Builder
 * Added `wponion_success_toast` function in js
-* Bump [sweetalert2] from `8.13.6` to `8.14.0`
 
 ## Fixed
 * Settings Page Javascript Validation When Ajax Enabled
 
 ## Changed
 * `subheading` And `heading` Fields Description Style.
+* Bump [sweetalert2] from `8.13.6` to `8.14.0`
+* Bump [@simonwep/pickr] from `1.2.2` to `1.2.4`
+* Bump [select2] from `4.0.7` to `4.0.8`
 
 ## Removed
 * `template_path` argument in metabox
@@ -655,3 +657,4 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [Foundation]: https://zurb.com/playground/foundation-icon-fonts-3
 [IcoFont]: https://icofont.com/
 [Material Design Icons]: https://materialdesignicons.com/
+[@simonwep/pickr]: https://github.com/Simonwep/pickr
