@@ -27,7 +27,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 				$ids = explode( ',', $this->value() );
 				if ( ! empty( $ids ) ) {
 					foreach ( $ids as $image ) {
-						$this->show_image( $image );
+						echo $this->show_image( $image );
 					}
 				}
 			}
@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 			echo $this->button( 'edit' );
 			echo $this->button( 'clear' );
 			echo '</div>';
-			$this->style();
+			echo $this->style();
 			echo $this->after();
 		}
 
@@ -107,10 +107,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 * @return array
 		 */
 		protected function js_field_args() {
-			$this->catch_output( 'start' );
-			$this->show_image( false, null );
-			$html = $this->catch_output( 'stop' );
-			return array( 'html_template' => $html );
+			return array( 'html_template' => $this->show_image( false, null ) );
 		}
 
 		/**

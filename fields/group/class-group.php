@@ -48,6 +48,8 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 * Renders Single Field HTML.
 		 *
 		 * @param $field
+		 *
+		 * @return string
 		 */
 		protected function render_single_field( $field ) {
 			$value = ( false === $this->is_js_sample ) ? wponion_get_field_value( $field, $this->loop_value ) : null;
@@ -58,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				$field['group_count']        = is_numeric( $this->loop_count ) ? $this->loop_count : '';
 			}
 
-			echo $this->sub_field( $field, $value, $this->name( $this->loop_count ), false );
+			return $this->sub_field( $field, $value, $this->name( $this->loop_count ), false );
 		}
 
 		/**
@@ -77,7 +79,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 					$this->loop_count       = $this->loop_count + 1;
 					$this->loop_value       = $value;
 					$this->field['heading'] = $this->get_accordion_title( $value, $default_title );
-					$this->render_fields();
+					echo $this->render_fields();
 				}
 			}
 			echo '</div>';
@@ -98,10 +100,8 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 			$this->loop_value       = array();
 			$this->loop_count       = '{wponionCloneID}';
 			$this->field['heading'] = $default_title;
-			$this->catch_output( 'start' );
-			$this->render_fields();
-			$template           = $this->catch_output( 'stop' );
-			$this->is_js_sample = false;
+			$template               = $this->render_fields();
+			$this->is_js_sample     = false;
 			echo $this->after();
 
 			$this->localize_field( array( 'group_template' => $template ) );
@@ -109,20 +109,21 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 
 		/**
 		 * After Accordion Callback
+		 *
+		 * @return string
 		 */
 		protected function after_accordion() {
-			echo '<div class="wponion-group-action col-xs-12">';
-			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
+			$return = '<div class="wponion-group-action col-xs-12">';
+			$return .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
 				'class'       => array( 'button button-secondary' ),
 				'type'        => 'button',
-				'attributes'  => array(
-					'data-wponion-jsid' => $this->js_field_id(),
-				),
+				'attributes'  => array( 'data-wponion-jsid' => $this->js_field_id() ),
 				'only_field'  => true,
 				'button_type' => 'button',
 				'label'       => __( 'Remove ', 'wponion' ),
 			) ), false, $this->unique() );
-			echo '</div>';
+			$return .= '</div>';
+			return $return;
 		}
 
 		/**

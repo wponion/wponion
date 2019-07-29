@@ -44,15 +44,18 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 			echo wponion_icon( 'dashicons dashicons-plus wponion-add' );
 			echo '</div>';
 
-			$this->show_image( $this->value(), $preview_show );
+			echo $this->show_image( $this->value(), $preview_show );
 
 			echo '</div>';
-			$this->style();
+			echo $this->style();
 			echo $this->after();
 		}
 
+		/**
+		 * @return string
+		 */
 		protected function style() {
-			echo '<style>
+			return '<style>
 #wponion-image-preview' . $this->js_field_id() . ' .wponion-preview,
 #wponion-image-preview' . $this->js_field_id() . ' .wponion-preview img {width:' . $this->data( 'size' ) . 'px;}
 </style>';
@@ -63,10 +66,12 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		 *
 		 * @param string $value
 		 * @param string $preview_show
+		 *
+		 * @return string
 		 */
 		protected function show_image( $value = '', $preview_show = '' ) {
-			echo '<div class="wponion-preview" ' . $preview_show . '>';
-			echo wponion_tooltip( __( 'Remove', 'wponion' ), array(
+			$return    = '<div class="wponion-preview" ' . $preview_show . '>';
+			$return    .= wponion_tooltip( __( 'Remove', 'wponion' ), array(
 				'arrow'       => true,
 				'js_field_id' => $this->js_field_id(),
 			), wponion_icon( 'dashicons dashicons-no-alt wponion-image-remove wponion-help' ) );
@@ -74,8 +79,9 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 			$fullsize  = wp_get_attachment_image_src( $value, 'full' );
 			$thumbnail = isset( $thumbnail[0] ) ? $thumbnail[0] : false;
 			$fullsize  = isset( $fullsize[0] ) ? $fullsize[0] : false;
-			echo wponion_image_popup( '<img src="' . $thumbnail . '" class="hidden">', $fullsize );
-			echo '</div>';
+			$return    .= wponion_image_popup( '<img src="' . $thumbnail . '" class="hidden">', $fullsize );
+			$return    .= '</div>';
+			return $return;
 		}
 
 		protected function js_field_args() {

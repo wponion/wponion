@@ -293,7 +293,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 				return '';
 			}
 
-			wponion_catch_output( true );
+			$html = '';
 			foreach ( $fields as $field ) {
 				if ( ( wponion_is_array( $field ) && 'import' === wponion_field_id( $field ) ) || 'import' === $field ) {
 					$field = ( wponion_is_array( $field ) ) ? $field : array();
@@ -311,9 +311,8 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 					$field['name']   = 'local_file';
 					$field['prefix'] = ABSPATH;
 				}
-				echo $this->render_field( $field, false, false );
+				$html .= $this->render_field( $field, false, false );
 			}
-			$html = wponion_catch_output( false );
 			return '<div class="wponion-importer-fields"><div class="wponion-row row">' . $html . '</div></div>';
 		}
 
