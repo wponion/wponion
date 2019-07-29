@@ -1,5 +1,6 @@
 import WPOnion_Base from './base';
 import { to_jquery } from 'vsp-js-helper/index';
+import WPOnion_Theme_Base from "./theme-base";
 
 export default class WPOnion_Module_Base extends WPOnion_Base {
 	constructor( $selector, $args = {} ) {
@@ -52,9 +53,27 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 	}
 
 	/**
+	 * @param $container
+	 */
+	hide_element_non_ui( $container ) {
+		if( WPOnion_Theme_Base.has_only_uifields( $container ) ) {
+			this.element.find( 'button.wponion-save' ).hide();
+		} else {
+			this.element.find( 'button.wponion-save' ).show();
+		}
+	}
+
+	/**
 	 * Internal UI Menu Handler.
 	 */
 	ui_menu_handler() {
+		let $main = this.element.find( '. wponion-container-wraps:not(.hidden)' );
+		if( $main.hasClass( 'wponion-has-containers' ) ) {
+			this.hide_element_non_ui( $main.find( '.wponion-sub-container-wraps:not(.hidden)' ) );
+		} else {
+			this.hide_element_non_ui( $main );
+		}
+
 		this.element.find( '.wponion-menu > ul a' ).on( 'click', ( e ) => {
 			e.preventDefault();
 			let $elem = jQuery( e.currentTarget );
@@ -69,7 +88,6 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 					$elem.addClass( 'open' );
 					$elem.parent().find( '> ul' ).slideToggle();
 				}
-
 			} else {
 				let $href = window.wponion.helper.url_params( $elem.attr( 'href' ) );
 				if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
@@ -88,6 +106,7 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 						this.element.find( '.wponion-menu .active' ).removeClass( 'active' );
 						$elem.addClass( 'active' );
 						$elem.parent().parent().parent().find( '> a' ).addClass( 'active' );
+						this.hide_element_non_ui( $lookup );
 					} else if( false === $elem.hasClass( 'disabled' ) ) {
 						window.location.href = $elem.attr( 'href' );
 					}

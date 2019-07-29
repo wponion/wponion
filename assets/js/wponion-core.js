@@ -4472,6 +4472,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return WPOnion_Module_Base; });
 /* harmony import */ var _base__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./base */ "./src/js/core/class/base.js");
 /* harmony import */ var vsp_js_helper_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vsp-js-helper/index */ "./node_modules/vsp-js-helper/index.js");
+/* harmony import */ var _theme_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./theme-base */ "./src/js/core/class/theme-base.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4489,6 +4490,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -4524,13 +4526,34 @@ function (_WPOnion_Base) {
      */
 
   }, {
-    key: "ui_menu_handler",
+    key: "hide_element_non_ui",
 
+    /**
+     * @param $container
+     */
+    value: function hide_element_non_ui($container) {
+      if (_theme_base__WEBPACK_IMPORTED_MODULE_2__["default"].has_only_uifields($container)) {
+        this.element.find('button.wponion-save').hide();
+      } else {
+        this.element.find('button.wponion-save').show();
+      }
+    }
     /**
      * Internal UI Menu Handler.
      */
+
+  }, {
+    key: "ui_menu_handler",
     value: function ui_menu_handler() {
       var _this2 = this;
+
+      var $main = this.element.find('. wponion-container-wraps:not(.hidden)');
+
+      if ($main.hasClass('wponion-has-containers')) {
+        this.hide_element_non_ui($main.find('.wponion-sub-container-wraps:not(.hidden)'));
+      } else {
+        this.hide_element_non_ui($main);
+      }
 
       this.element.find('.wponion-menu > ul a').on('click', function (e) {
         e.preventDefault();
@@ -4575,6 +4598,8 @@ function (_WPOnion_Base) {
 
               $elem.addClass('active');
               $elem.parent().parent().parent().find('> a').addClass('active');
+
+              _this2.hide_element_non_ui($lookup);
             } else if (false === $elem.hasClass('disabled')) {
               window.location.href = $elem.attr('href');
             }
@@ -4717,6 +4742,11 @@ function (_WPOnion_Base) {
     value: function is_search_matched($title, $search) {
       return $title.text().match(new RegExp('.*?' + $search + '.*?', 'i'));
     }
+    /**
+     * @param $container
+     * @return {boolean}
+     */
+
   }, {
     key: "unique",
     get: function get() {
@@ -4741,6 +4771,18 @@ function (_WPOnion_Base) {
     key: "theme",
     get: function get() {
       return this.get_arg('theme', false);
+    }
+  }], [{
+    key: "has_only_uifields",
+    value: function has_only_uifields($container) {
+      var $element = $container.find('.wponion-element').length;
+      var $ui_element = $container.find('.wponion-ui-field').length;
+
+      if ($element === $ui_element || $element === 0 && $ui_element > 0) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }]);
 
@@ -5477,6 +5519,7 @@ function (_WPOnion_Field) {
 
         $args.el = this.element.find('div.wponion-color-picker-element')[0];
         $args.appClass = 'wpo-color-picker';
+        $args["default"] = this.element.find('input.wponion-color-picker-element').val() || '#fff';
         var $instance = new Pickr(this.handle_args($args, 'colorpicker'));
         $instance.on('save', $save_color);
         $instance.on('change', $save_color);
@@ -12031,6 +12074,14 @@ function (_WPOnion_Theme_Base) {
     key: "init",
     value: function init() {
       if ('settings' === this.module) {
+        var $main = this.element.find('.wponion-container-wraps:not(.hidden)');
+
+        if ($main.hasClass('wponion-has-containers')) {
+          this.hide_element_non_ui($main.find('.wponion-sub-container-wraps:not(.hidden)'));
+        } else {
+          this.hide_element_non_ui($main);
+        }
+
         this.settings_main_menu();
         this.settings_submenu();
         this.settings_init_search_input();
@@ -12072,10 +12123,14 @@ function (_WPOnion_Theme_Base) {
               $elem.addClass('nav-tab-active');
             }
 
-            if ($lookup.find('.wponion-submenus a.current').length === 0) {
-              $lookup.find('.wponion-submenus li:first-child a').click();
+            if ($lookup.find('.wponion-submenus').length > 0) {
+              if ($lookup.find('.wponion-submenus a.current').length === 0) {
+                $lookup.find('.wponion-submenus li:first-child a').click();
+              } else {
+                $lookup.find('.wponion-submenus a.current').click();
+              }
             } else {
-              $lookup.find('.wponion-submenus a.current').click();
+              _this.hide_element_non_ui($lookup);
             }
           } else if (false === $elem.hasClass('disabled')) {
             window.location.href = $elem.attr('href');
@@ -12115,6 +12170,8 @@ function (_WPOnion_Theme_Base) {
                 $base_lookup.find('.wponion-submenus a.current').removeClass('current');
                 $elem.addClass('current');
                 $found = true;
+
+                _this2.hide_element_non_ui($lookup);
               }
             }
           }
@@ -12175,6 +12232,21 @@ function (_WPOnion_Theme_Base) {
           _this3.element.find('.content-outer-wrap').removeClass('full-width');
         }
       });
+    }
+    /**
+     * @param $container
+     */
+
+  }, {
+    key: "hide_element_non_ui",
+    value: function hide_element_non_ui($container) {
+      if (_class_theme_base__WEBPACK_IMPORTED_MODULE_0__["default"].has_only_uifields($container)) {
+        this.element.find('.action-buttons').hide();
+        this.element.find('footer').hide();
+      } else {
+        this.element.find('.action-buttons').show();
+        this.element.find('footer').show();
+      }
     }
   }]);
 

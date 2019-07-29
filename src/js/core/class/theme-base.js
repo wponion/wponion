@@ -48,4 +48,19 @@ export default class WPOnion_Theme_Base extends WPOnion_Base {
 	is_search_matched( $title, $search ) {
 		return $title.text().match( new RegExp( '.*?' + $search + '.*?', 'i' ) );
 	}
+
+	/**
+	 * @param $container
+	 * @return {boolean}
+	 */
+	static has_only_uifields( $container ) {
+		let $element    = $container.find( '.wponion-element' ).length;
+		let $ui_element = $container.find( '.wponion-ui-field' ).length;
+
+		if( $element === $ui_element || $element === 0 && $ui_element > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

@@ -3,6 +3,12 @@ import WPOnion_Theme_Base from '../class/theme-base';
 export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 	init() {
 		if( 'settings' === this.module ) {
+			let $main = this.element.find( '.wponion-container-wraps:not(.hidden)' );
+			if( $main.hasClass( 'wponion-has-containers' ) ) {
+				this.hide_element_non_ui( $main.find( '.wponion-sub-container-wraps:not(.hidden)' ) );
+			} else {
+				this.hide_element_non_ui( $main );
+			}
 			this.settings_main_menu();
 			this.settings_submenu();
 			this.settings_init_search_input();
@@ -34,10 +40,15 @@ export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 						this.element.find( 'nav.nav-tab-wrapper a.nav-tab-active' ).removeClass( 'nav-tab-active' );
 						$elem.addClass( 'nav-tab-active' );
 					}
-					if( $lookup.find( '.wponion-submenus a.current' ).length === 0 ) {
-						$lookup.find( '.wponion-submenus li:first-child a' ).click();
+
+					if( $lookup.find( '.wponion-submenus' ).length > 0 ) {
+						if( $lookup.find( '.wponion-submenus a.current' ).length === 0 ) {
+							$lookup.find( '.wponion-submenus li:first-child a' ).click();
+						} else {
+							$lookup.find( '.wponion-submenus a.current' ).click();
+						}
 					} else {
-						$lookup.find( '.wponion-submenus a.current' ).click();
+						this.hide_element_non_ui( $lookup );
 					}
 				} else if( false === $elem.hasClass( 'disabled' ) ) {
 					window.location.href = $elem.attr( 'href' );
@@ -70,6 +81,7 @@ export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 							$base_lookup.find( '.wponion-submenus a.current' ).removeClass( 'current' );
 							$elem.addClass( 'current' );
 							$found = true;
+							this.hide_element_non_ui( $lookup );
 						}
 					}
 				}
@@ -121,5 +133,18 @@ export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 				this.element.find( '.content-outer-wrap' ).removeClass( 'full-width' );
 			}
 		} );
+	}
+
+	/**
+	 * @param $container
+	 */
+	hide_element_non_ui( $container ) {
+		if( WPOnion_Theme_Base.has_only_uifields( $container ) ) {
+			this.element.find( '.action-buttons' ).hide();
+			this.element.find( 'footer' ).hide();
+		} else {
+			this.element.find( '.action-buttons' ).show();
+			this.element.find( 'footer' ).show();
+		}
 	}
 }
