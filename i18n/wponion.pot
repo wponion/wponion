@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.3.3\n"
+"Project-Id-Version: WPOnion 1.3.4\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-07-17T15:11:14+05:30\n"
+"POT-Creation-Date: 2019-07-31T07:26:29+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "https://varunsridharan.in"
 msgstr ""
 
-#: builder/helper/container/class-functions.php:102
+#: builder/helper/container/class-functions.php:117
 msgid "A Container Cannot Have Both Field & Containers"
 msgstr ""
 
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Seconds"
 msgstr ""
 
-#: core/abstract/class-field.php:583
+#: core/abstract/class-field.php:587
 msgid "Field Errors"
 msgstr ""
 
@@ -193,29 +193,29 @@ msgstr ""
 msgid "Modal Field Not Found"
 msgstr ""
 
-#: core/ajax/class-save-metabox.php:34
+#: core/ajax/class-save-metabox.php:35
 msgid "Invalid Metabox"
 msgstr ""
 
-#: core/ajax/class-save-metabox.php:35
+#: core/ajax/class-save-metabox.php:36
 msgid "Invalid Post ID"
 msgstr ""
 
-#: core/ajax/class-save-metabox.php:50
+#: core/ajax/class-save-metabox.php:51
 msgid "Metabox Not Found"
 msgstr ""
 
-#: core/ajax/class-save-metabox.php:50
+#: core/ajax/class-save-metabox.php:51
 msgid "Unable To Find The Metabox"
 msgstr ""
 
-#: core/ajax/class-save-settings.php:49
-#: core/ajax/class-save-settings.php:53
-#: core/ajax/class-save-settings.php:58
+#: core/ajax/class-save-settings.php:50
+#: core/ajax/class-save-settings.php:54
+#: core/ajax/class-save-settings.php:59
 msgid "Cheatin&#8217; uh?"
 msgstr ""
 
-#: core/ajax/class-save-settings.php:64
+#: core/ajax/class-save-settings.php:65
 msgid "You can't do that!"
 msgstr ""
 
@@ -236,80 +236,80 @@ msgid "Invalid Option Type"
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:136
+#: core/class-localize-api.php:182
 msgid "This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` "
 msgstr ""
 
-#: core/class-localize-api.php:137
+#: core/class-localize-api.php:183
 msgid "**PHP Args:** is the array which is passed to the framework in php "
 msgstr ""
 
-#: core/class-localize-api.php:138
+#: core/class-localize-api.php:184
 msgid "**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it"
 msgstr ""
 
-#: core/class-localize-api.php:148
+#: core/class-localize-api.php:194
 msgid "As JSON"
 msgstr ""
 
-#: core/class-localize-api.php:149
+#: core/class-localize-api.php:195
 msgid "Global WPOnion JSON Output"
 msgstr ""
 
-#: core/class-localize-api.php:150
+#: core/class-localize-api.php:196
 msgid "PHP Args"
 msgstr ""
 
-#: core/class-localize-api.php:151
+#: core/class-localize-api.php:197
 msgid "JS Args"
 msgstr ""
 
-#: core/class-localize-api.php:152
+#: core/class-localize-api.php:198
 msgid "Unknown Error. Try Again"
 msgstr ""
 
-#: core/class-localize-api.php:153
+#: core/class-localize-api.php:199
 msgid "Click To View Field Debug Info"
 msgstr ""
 
-#: core/class-localize-api.php:154
+#: core/class-localize-api.php:200
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
-#: core/class-localize-api.php:155
-#: fields/accordion/class-accordion.php:27
+#: core/class-localize-api.php:201
+#: fields/accordion/class-accordion.php:28
 #: fields/import-export/class-backup-handler.php:127
 msgid "Delete"
 msgstr ""
 
-#: core/class-localize-api.php:156
+#: core/class-localize-api.php:202
 msgid "Processing ..."
 msgstr ""
 
-#: core/class-localize-api.php:157
+#: core/class-localize-api.php:203
 #: fields/import-export/class-backup-handler.php:126
 msgid "Restore"
 msgstr ""
 
-#: core/class-localize-api.php:158
+#: core/class-localize-api.php:204
 #: core/modules/settings/class-settings.php:284
 #: core/modules/settings/class-settings.php:286
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-localize-api.php:159
+#: core/class-localize-api.php:205
 msgid "Email Sent"
 msgstr ""
 
-#: core/class-localize-api.php:160
+#: core/class-localize-api.php:206
 msgid "Copied"
 msgstr ""
 
-#: core/class-localize-api.php:161
+#: core/class-localize-api.php:207
 msgid "Click To Copy"
 msgstr ""
 
-#: core/class-localize-api.php:162
+#: core/class-localize-api.php:208
 msgid "Success"
 msgstr ""
 
@@ -465,14 +465,42 @@ msgstr ""
 msgid "WPOnion Version : %s"
 msgstr ""
 
-#: core/modules/metabox/class-metabox.php:284
-#: core/modules/settings/class-settings.php:420
-#: core/modules/settings/class-settings.php:559
+#: core/modules/metabox/class-metabox.php:283
+#: core/modules/settings/class-settings.php:419
+#: core/modules/settings/class-settings.php:558
 msgid "Save Settings"
 msgstr ""
 
-#: core/modules/settings/class-settings.php:568
+#: core/modules/settings/class-settings.php:567
 msgid "No Result Found"
+msgstr ""
+
+#: core/modules/wp/class-importer.php:142
+msgid "Upload File & Import"
+msgstr ""
+
+#: core/modules/wp/class-importer.php:154
+msgid "The file does not exist, please try again."
+msgstr ""
+
+#: core/modules/wp/class-importer.php:237
+msgid "Given Local File Not Found!"
+msgstr ""
+
+#: core/modules/wp/class-importer.php:258
+msgid "Sorry, there has been an error."
+msgstr ""
+
+#: core/modules/wp/class-importer.php:328
+msgid "Before you can upload your import file, you will need to fix the following error:"
+msgstr ""
+
+#: core/modules/wp/class-importer.php:389
+msgid "Import completed"
+msgstr ""
+
+#: core/modules/wp/class-importer.php:398
+msgid "Import Errors - "
 msgstr ""
 
 #: core/setup/class-setup.php:117
@@ -500,50 +528,50 @@ msgid "WPOnion Elementor Integration Requires PHP Version 7.0 or Greater"
 msgstr ""
 
 #: core/wp/class-wp-list-table.php:80
-#: core/wp/class-wp-list-table.php:139
+#: core/wp/class-wp-list-table.php:152
 msgid "No Items Found"
 msgstr ""
 
-#: core/wp/class-wp-list-table.php:282
+#: core/wp/class-wp-list-table.php:325
 #: fields/class-wp-list-table.php:30
 msgid "Search"
 msgstr ""
 
 #. translators: added Total Items Count
-#: core/wp/class-wp-list-table.php:312
+#: core/wp/class-wp-list-table.php:355
 msgid "%s item"
 msgid_plural "%s items"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/wp/class-wp-list-table.php:344
+#: core/wp/class-wp-list-table.php:387
 msgid "First page"
 msgstr ""
 
-#: core/wp/class-wp-list-table.php:350
+#: core/wp/class-wp-list-table.php:393
 msgid "Previous page"
 msgstr ""
 
-#: core/wp/class-wp-list-table.php:355
-#: core/wp/class-wp-list-table.php:357
+#: core/wp/class-wp-list-table.php:398
+#: core/wp/class-wp-list-table.php:400
 msgid "Current Page"
 msgstr ""
 
 #. translators: 1. Current Page Number 2. Total Pages
-#: core/wp/class-wp-list-table.php:361
+#: core/wp/class-wp-list-table.php:404
 msgctxt "paging"
 msgid "%1$s of %2$s"
 msgstr ""
 
-#: core/wp/class-wp-list-table.php:366
+#: core/wp/class-wp-list-table.php:409
 msgid "Next page"
 msgstr ""
 
-#: core/wp/class-wp-list-table.php:372
+#: core/wp/class-wp-list-table.php:415
 msgid "Last page"
 msgstr ""
 
-#: core/wp/class-wp-list-table.php:447
+#: core/wp/class-wp-list-table.php:512
 msgid "Select All"
 msgstr ""
 
@@ -1642,7 +1670,7 @@ msgstr ""
 msgid "FontAwesome 5 Pro"
 msgstr ""
 
-#: fields/accordion/class-accordion.php:71
+#: fields/accordion/class-accordion.php:76
 msgid "Accordion"
 msgstr ""
 
@@ -1765,7 +1793,7 @@ msgstr ""
 msgid "Right Bottom"
 msgstr ""
 
-#: fields/class-checkbox-radio.php:70
+#: fields/class-checkbox-radio.php:69
 msgid "No Options Found."
 msgstr ""
 
@@ -1773,14 +1801,14 @@ msgstr ""
 msgid "Add + "
 msgstr ""
 
-#: fields/class-cloner.php:163
-#: fields/key-value/class-key-value.php:92
-#: fields/key-value/class-key-value.php:108
+#: fields/class-cloner.php:166
+#: fields/key-value/class-key-value.php:93
+#: fields/key-value/class-key-value.php:109
 msgid "Add +"
 msgstr ""
 
 #. translators: Adds Max Count
-#: fields/class-cloner.php:174
+#: fields/class-cloner.php:177
 msgid "You Cannot Add More Than %s"
 msgstr ""
 
@@ -1829,8 +1857,8 @@ msgstr ""
 msgid "Clear Gallery"
 msgstr ""
 
-#: fields/group/class-group.php:94
-#: fields/group/class-group.php:206
+#: fields/group/class-group.php:96
+#: fields/group/class-group.php:207
 msgid "Add New"
 msgstr ""
 
@@ -1838,18 +1866,18 @@ msgstr ""
 msgid "Remove "
 msgstr ""
 
-#: fields/group/class-group.php:139
+#: fields/group/class-group.php:140
 msgid "Group #[count]"
 msgstr ""
 
-#: fields/group/class-group.php:207
-#: fields/image/class-image.php:69
-#: fields/image/class-image.php:95
+#: fields/group/class-group.php:208
+#: fields/image/class-image.php:74
+#: fields/image/class-image.php:101
 msgid "Remove"
 msgstr ""
 
-#: fields/group/class-group.php:210
-#: fields/key-value/class-key-value.php:114
+#: fields/group/class-group.php:211
+#: fields/key-value/class-key-value.php:115
 msgid "You Can't Add More.."
 msgstr ""
 
@@ -1863,7 +1891,7 @@ msgstr ""
 msgid "Remove Icon"
 msgstr ""
 
-#: fields/image/class-image.php:94
+#: fields/image/class-image.php:100
 msgid "Select A Image"
 msgstr ""
 
@@ -1900,15 +1928,15 @@ msgstr ""
 msgid "You options have been backed up. You can always restore your options by clicking the <strong>Restore</strong> button below:"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:33
+#: fields/key-value/class-key-value.php:35
 msgid "Key"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:40
+#: fields/key-value/class-key-value.php:42
 msgid "Value"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:109
+#: fields/key-value/class-key-value.php:110
 msgid "-"
 msgstr ""
 
@@ -1928,20 +1956,20 @@ msgstr ""
 msgid "Focus"
 msgstr ""
 
-#: fields/modal/class-modal.php:215
-#: fields/modal/class-modal.php:228
+#: fields/modal/class-modal.php:214
+#: fields/modal/class-modal.php:227
 msgid "Save"
 msgstr ""
 
-#: fields/modal/class-modal.php:216
+#: fields/modal/class-modal.php:215
 msgid "Close"
 msgstr ""
 
-#: fields/modal/class-modal.php:229
+#: fields/modal/class-modal.php:228
 msgid "Cancel"
 msgstr ""
 
-#: fields/modal/class-modal.php:245
+#: fields/modal/class-modal.php:244
 msgid "Open Modal"
 msgstr ""
 
@@ -1954,7 +1982,7 @@ msgstr ""
 msgid "Filed's Module Not Found"
 msgstr ""
 
-#: fields/select/class-select.php:71
+#: fields/select/class-select.php:73
 msgid "Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>"
 msgstr ""
 

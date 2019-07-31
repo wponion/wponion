@@ -139,7 +139,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 			return ( 0 === $step ) ? $this->render_field( wpo_field( 'button', 'submitbutton', array(
 				'button_type' => 'submit',
 				'wrap_id'     => 'wponion-wp-importer-submit-btn',
-				'label'       => __( 'Upload File & Import' ),
+				'label'       => __( 'Upload File & Import', 'wponion' ),
 				'class'       => 'wpo-btn wpo-btn-primary wpo-btn-sm',
 			) ), false, false ) : '';
 		}
@@ -151,7 +151,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		 */
 		public function start_importer( $file ) {
 			if ( ! is_file( $file ) ) {
-				$this->importer_error( __( 'The file does not exist, please try again.' ) );
+				$this->importer_error( __( 'The file does not exist, please try again.', 'wponion' ) );
 			}
 
 			$this->_import_start();
@@ -169,7 +169,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 					}
 					// @codingStandardsIgnoreEnd
 				} else {
-					$this->importer_error( __( 'The CSV is invalid.', 'vsp-framework' ) );
+					$this->importer_error( __( 'The CSV is invalid.', 'vsp-framework', 'wponion' ) );
 				}
 				fclose( $handle );
 			}
@@ -234,7 +234,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 				if ( file_exists( ABSPATH . $_POST['local_file'] ) ) {
 					$this->set_option( 'file_url', esc_attr( $_POST['local_file'] ) );
 				} else {
-					$this->importer_error( __( 'Given Local File Not Found!' ) );
+					$this->importer_error( __( 'Given Local File Not Found!', 'wponion' ) );
 					return false;
 				}
 			} else {
@@ -255,7 +255,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		 */
 		protected function importer_error( $message = '' ) {
 			$message = esc_html( $message );
-			$title   = __( 'Sorry, there has been an error.' );
+			$title   = __( 'Sorry, there has been an error.', 'wponion' );
 			echo "<div class='error settings-error'><p class=\"wpo-text-danger\"><strong>$title</strong> <br/> $message</p></div>";
 			$this->footer();
 			die();
@@ -325,7 +325,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 			$upload_dir = wp_upload_dir();
 			if ( ! empty( $upload_dir['error'] ) ) {
 				$wp_error = esc_html( $upload_dir['error'] );
-				$error    = esc_html( __( 'Before you can upload your import file, you will need to fix the following error:' ) );
+				$error    = esc_html( __( 'Before you can upload your import file, you will need to fix the following error:', 'wponion' ) );
 				echo "<div class=\"error\"><p class=\"wpo-text-danger\">$error</p><p>$wp_error</p></div>";
 				return false;
 			}
@@ -386,7 +386,7 @@ HTML;
 		 * Renders success message to show after import is finished
 		 */
 		protected function show_success() {
-			echo '<div class="updated settings-error"><p>' . esc_html( __( 'Import completed' ) ) . '</p></div>';
+			echo '<div class="updated settings-error"><p>' . esc_html( __( 'Import completed', 'wponion' ) ) . '</p></div>';
 		}
 
 		/**
@@ -395,7 +395,7 @@ HTML;
 		protected function show_errors() {
 			if ( ! empty( array_filter( $this->errors ) ) ) {
 				echo '<div class="error settings-error">';
-				echo '<p><strong>' . esc_html( __( 'Import Errors - ' ) ) . '</strong> </p > ';
+				echo '<p><strong>' . esc_html( __( 'Import Errors - ', 'wponion' ) ) . '</strong> </p > ';
 				echo '<p>' . implode( ' <br/> ', $this->errors ) . ' </p > ';
 				echo '</div > ';
 			}
