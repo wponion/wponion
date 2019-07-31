@@ -4,7 +4,7 @@ Donate link: https://paypal.me/varunsridharan23
 Tags: settings,taxonomy,metabox,user profile,custom fields,guttenberg,network-settings,meta,wplisttable,custom post type,custom taxonomy,admin notice,admin bar,customizer,quick edit,bulk edit
 Requires at least: 4.0
 Tested up to: 5.2.1
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 Requires PHP: 7.0
 License: GPLv3 or later
 License URI: https://github.com/wponion/wponion/blob/master/LICENSE
@@ -44,6 +44,8 @@ The framework lets you define custom meta boxes and custom fields via arrays and
 24. WooCommerce Product Metabox
 25. WooCommerce Settings Page
 26. Conditional Logic Shortcode [<code>logic</code> | <code>logic_1</code> | <code>logic_2</code> | <code>logic_3</code> | <code>wp_logic</code> | <code>wpo_logic</code>]
+27. WP Importer Integration
+28. Elementor Integration
 
 ## Themes
 1. WP
@@ -52,16 +54,15 @@ The framework lets you define custom meta boxes and custom fields via arrays and
 4. Modern
 
 ## Addons
-1. <a href="https://github.com/wponion/icon-dropins">Icon Dropins</a>
-2. <a href="https://github.com/wponion/vendor-support ">vendor-support</a>
+1. <a href="https://github.com/wponion/vendor-support ">vendor-support</a>
 
 ## Plugin Demo
-<a href="https://wponion.com/demo/">https://wponion.com/demo/</a>
+<a href="https://demo.wponion/">https://demo.wponion.com/</a>
 
 ## Github URL 
 <a href="https://github.com/wponion/">https://github.com/wponion/</a>
 
-## WPOnion DOCS
+## WPOnion Docs
 <a href="https://docs.wponion.com">https://docs.wponion.com</a>
 
 ## Demo Plugin Source
