@@ -83,6 +83,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				'default_callback' => array(),
 				'per_page'         => 10,
 				'total_items'      => false,
+				'extra_tablenav'   => false,
 				'bulk_actions'     => array(),
 				'filter_menus'     => array(),
 				'field'            => false, //Internal Usage Only
@@ -97,6 +98,18 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 			) );
 			$this->table_data = $table_contents;
 			$this->handle_columns();
+		}
+
+		/**
+		 * Generate row actions div
+		 *
+		 * @param string[] $actions An array of action links.
+		 * @param bool     $always_visible Whether the actions should be always visible.
+		 *
+		 * @return string
+		 */
+		public function row_actions( $actions, $always_visible = false ) {
+			return parent::row_actions( $actions, $always_visible );
 		}
 
 		/**
@@ -161,6 +174,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 							$callback = $value['callback'];
 							$title    = ( isset( $value['title'] ) ) ? $value['title'] : null;
 							$sortable = ( isset( $value['sortable'] ) ) ? $value['sortable'] : false;
+							$slug     = ( ! is_numeric( $key ) ) ? $key : $slug;
 						} else {
 							$title    = $key;
 							$callback = $value;
@@ -170,13 +184,14 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 						$title = $value;
 					}
 
-					if ( false === $title ) {
-						$title = $slug;
-						$slug  = sanitize_title( $title );
-					} elseif ( false === $slug ) {
-						$slug = sanitize_title( $title );
+					if ( false === $slug ) {
+						if ( false === $title ) {
+							$title = $slug;
+							$slug  = sanitize_title( $title );
+						} elseif ( false === $slug ) {
+							$slug = sanitize_title( $title );
+						}
 					}
-
 					$this->registered_columns[ $slug ] = $title;
 					$this->columns_callback[ $slug ]   = $callback;
 					if ( false !== $sortable ) {
@@ -260,13 +275,41 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 					$this,
 					$this->option( 'field' ),
 				) );
-			} elseif ( isset( $item[ $col_name ] ) ) {
-				if ( is_string( $item[ $col_name ] ) ) {
-					return $item[ $col_name ];
+			} elseif ( is_array( $item ) && isset( $item[ $col_name ] ) ) {
+				return ( is_string( $item[ $col_name ] ) ) ? $item[ $col_name ] : print_r( $item[ $col_name ], true );
+			} elseif ( is_object( $item ) ) {
+				$data = ( isset( $item->{$col_name} ) ) ? $item->{$col_name} : false;
+				if ( false === $data && wponion_is_callable( array( $item, $col_name ) ) ) {
+					$data = wponion_callback( array( $item, $col_name ) );
 				}
-				return print_r( $item[ $col_name ], true );
+				return ( is_string( $data ) ) ? $data : print_r( $data, true );
 			}
 			return print_r( $item, true );
+		}
+
+		/**
+		 * Renders Column Checkbox.
+		 *
+		 * @param object $item
+		 *
+		 * @return string
+		 */
+		public function column_cb( $item ) {
+			$col_name = 'cb';
+			if ( isset( $this->registered_columns[ $col_name ] ) && isset( $this->columns_callback[ $col_name ] ) && wponion_is_callable( $this->columns_callback[ $col_name ] ) ) {
+				return wponion_callback( $this->columns_callback[ $col_name ], array(
+					$item,
+					$col_name,
+					$this,
+					$this->option( 'field' ),
+				) );
+			} else {
+				$id = ( is_array( $item ) && isset( $item['id'] ) ) ? $item['id'] : false;
+				if ( false === $id && is_object( $item ) && wponion_is_callable( array( $item, 'id' ) ) ) {
+					$id = wponion_callback( array( $item, 'id' ) );
+				}
+				return '<input id="cb-select-' . $id . '" type="checkbox" name="ids[]" value="' . $id . '"/>';
+			}
 		}
 
 		/**
@@ -389,6 +432,23 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		}
 
 		/**
+		 * Extra controls to be displayed between bulk actions and pagination
+		 *
+		 * @param string $which
+		 *
+		 * @since 3.1.0
+		 *
+		 */
+		protected function extra_tablenav( $which ) {
+			if ( wponion_is_callable( $this->option( 'extra_tablenav' ) ) ) {
+				echo wponion_callback( $this->option( 'extra_tablenav' ), array(
+					$which,
+					$this,
+				) );
+			}
+		}
+
+		/**
 		 * Generate the table navigation above or below the table
 		 *
 		 * @param string $which
@@ -415,7 +475,12 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 			$pagination = wponion_catch_output( false );
 
 			if ( 'top' === $which && ( false !== $this->option( 'search' ) || ! empty( $action_html ) ) ) {
-				$nounce = wp_nonce_field( 'bulk-' . $this->_args['plural'] );
+				wponion_catch_output( true );
+				if ( isset( $_REQUEST['page'] ) && ! empty( $_REQUEST['page'] ) ) {
+					echo '<input type="hidden" name="page" value="' . $_REQUEST['page'] . '"/>';
+				}
+				wp_nonce_field( 'bulk-' . $this->_args['plural'] );
+				$nounce = wponion_catch_output( false );
 			}
 
 			if ( ! empty( $action_html ) || ! empty( $extra_tablenav ) || ! empty( $pagination ) ) {

@@ -192,7 +192,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 			if ( ! is_array( $data ) ) {
 				return $data;
 			}
-			return wp_parse_args( array( 'wpo_core' => $this->assets() ), $data );
+			return wp_parse_args( wponion_ajax_args( $this->add_assets ), $data );
 		}
 
 		/**
@@ -425,40 +425,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 */
 		protected function localizer() {
 			return wponion_localize()->as_array();
-		}
-
-		/**
-		 * Renders Assets Via Ajax.
-		 *
-		 * @return array
-		 */
-		protected function assets() {
-			do_action( 'wponion_ajax_enqueue_scripts' );
-
-			$return              = array();
-			$return['localizer'] = $this->localizer();
-
-			if ( false !== $this->add_assets ) {
-				if ( is_array( $this->add_assets ) ) {
-					foreach ( $this->add_assets as $asset ) {
-						wponion_load_asset( $asset );
-					}
-				} elseif ( true !== $this->add_assets ) {
-					wponion_load_asset( $this->add_assets );
-				}
-
-				wponion_catch_output( true );
-				$styles     = wp_print_styles();
-				$style_html = wponion_catch_output( false );
-				wponion_catch_output( true );
-				$scripts                = wp_print_scripts();
-				$scripts_html           = wponion_catch_output( false );
-				$return['styles_html']  = $style_html;
-				$return['scripts_html'] = $scripts_html;
-				$return['styles']       = $styles;
-				$return['scripts']      = $scripts;
-			}
-			return $return;
 		}
 	}
 }

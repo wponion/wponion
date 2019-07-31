@@ -690,6 +690,10 @@
   array (
     400 => 'Regular 400',
   ),
+  'Beth Ellen' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Bevan' => 
   array (
     400 => 'Regular 400',
@@ -753,6 +757,17 @@
   'Black Ops One' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Blinker' => 
+  array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
   ),
   'Bokor' => 
   array (
@@ -1242,6 +1257,25 @@
     400 => 'Regular 400',
     '400italic' => 'Regular 400 Italic',
   ),
+  'Crimson Pro' => 
+  array (
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
+    '200italic' => 'Extra Light 200 Italic',
+    '300italic' => 'Light 300 Italic',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
+    '700italic' => 'Bold 700 Italic',
+    '800italic' => 'Extra Bold 800 Italic',
+    '900italic' => 'Black 900 Italic',
+  ),
   'Crimson Text' => 
   array (
     400 => 'Regular 400',
@@ -1566,6 +1600,8 @@
   'Enriqueta' => 
   array (
     400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
     700 => 'Bold 700',
   ),
   'Erica One' => 
@@ -1657,6 +1693,13 @@
     400 => 'Regular 400',
     '400italic' => 'Regular 400 Italic',
   ),
+  'Farro' => 
+  array (
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    700 => 'Bold 700',
+  ),
   'Farsan' => 
   array (
     400 => 'Regular 400',
@@ -1711,6 +1754,14 @@
   'Finger Paint' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Fira Code' => 
+  array (
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
   ),
   'Fira Mono' => 
   array (
@@ -1996,6 +2047,27 @@
   'Great Vibes' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Grenze' => 
+  array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
+    '100italic' => 'Thin 100 Italic',
+    '200italic' => 'Extra Light 200 Italic',
+    '300italic' => 'Light 300 Italic',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
+    '700italic' => 'Bold 700 Italic',
+    '800italic' => 'Extra Bold 800 Italic',
+    '900italic' => 'Black 900 Italic',
   ),
   'Griffy' => 
   array (
@@ -2606,6 +2678,8 @@
   array (
     300 => 'Light 300',
     400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
     700 => 'Bold 700',
   ),
   'Kristi' => 
@@ -2644,6 +2718,10 @@
     400 => 'Regular 400',
   ),
   'La Belle Aurore' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Lacquer' => 
   array (
     400 => 'Regular 400',
   ),
@@ -2743,6 +2821,16 @@
     700 => 'Bold 700',
     '400italic' => 'Regular 400 Italic',
   ),
+  'Libre Caslon Display' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Libre Caslon Text' => 
+  array (
+    400 => 'Regular 400',
+    700 => 'Bold 700',
+    '400italic' => 'Regular 400 Italic',
+  ),
   'Libre Franklin' => 
   array (
     100 => 'Thin 100',
@@ -2798,6 +2886,10 @@
     '600italic' => 'Semi-Bold 600 Italic',
     '700italic' => 'Bold 700 Italic',
   ),
+  'Liu Jian Mao Cao' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Lobster' => 
   array (
     400 => 'Regular 400',
@@ -2827,6 +2919,10 @@
     300 => 'Light 300',
     400 => 'Regular 400',
     900 => 'Black 900',
+  ),
+  'Long Cang' => 
+  array (
+    400 => 'Regular 400',
   ),
   'Lora' => 
   array (
@@ -2879,6 +2975,10 @@
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
     900 => 'Black 900',
+  ),
+  'Ma Shan Zheng' => 
+  array (
+    400 => 'Regular 400',
   ),
   'Macondo' => 
   array (
@@ -4120,6 +4220,7 @@
     300 => 'Light 300',
     400 => 'Regular 400',
     500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
     700 => 'Bold 700',
   ),
   'Quintessential' => 
@@ -4223,6 +4324,26 @@
   'Ravi Prakash' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Red Hat Display' => 
+  array (
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    700 => 'Bold 700',
+    900 => 'Black 900',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '700italic' => 'Bold 700 Italic',
+    '900italic' => 'Black 900 Italic',
+  ),
+  'Red Hat Text' => 
+  array (
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    700 => 'Bold 700',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '700italic' => 'Bold 700 Italic',
   ),
   'Redressed' => 
   array (
@@ -4470,6 +4591,10 @@
     800 => 'Extra Bold 800',
     900 => 'Black 900',
   ),
+  'Saira Stencil One' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Salsa' => 
   array (
     400 => 'Regular 400',
@@ -4654,6 +4779,10 @@
     900 => 'Black 900',
     '400italic' => 'Regular 400 Italic',
     '900italic' => 'Black 900 Italic',
+  ),
+  'Single Day' => 
+  array (
+    400 => 'Regular 400',
   ),
   'Sintony' => 
   array (
@@ -5319,6 +5448,10 @@
     400 => 'Regular 400',
   ),
   'Zeyada' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Zhi Mang Xing' => 
   array (
     400 => 'Regular 400',
   ),

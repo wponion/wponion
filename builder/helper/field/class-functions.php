@@ -61,6 +61,21 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		}
 
 		/**
+		 * Removes A Field Which Has Given ID.
+		 *
+		 * @param $field_id
+		 *
+		 * @return bool
+		 */
+		public function remove_field( $field_id ) {
+			if ( $this->field_exists( $field_id ) ) {
+				unset( $this->fields[ $field_id ] );
+				return true;
+			}
+			return false;
+		}
+
+		/**
 		 * @param bool|\WPO\Field|array $field_type_or_instance
 		 * @param string                $field_id
 		 * @param bool                  $title

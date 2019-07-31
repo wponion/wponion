@@ -65,18 +65,17 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 			if ( false === $is_init ) {
 				$output = '<div class=" wponion-modal-html wponion-modal-field wponion-on-modal">';
 			}
-			$this->catch_output( 'start' );
+
 			if ( ! empty( $this->data( 'fields' ) ) && is_array( $this->data( 'fields' ) ) ) {
 				foreach ( $this->data( 'fields' ) as $field ) {
 					if ( true === $is_init ) {
 						$this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), true );
 					} else {
-						echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), false );
+						$output .= $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), false );
 					}
 				}
 			}
-			$html   = $this->catch_output( 'stop' );
-			$output .= $html;
+
 			if ( false === $is_init ) {
 				$output .= '</div>';
 			}

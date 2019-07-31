@@ -23,25 +23,27 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 * @param string $name
 		 * @param string $key
 		 * @param string $value
+		 *
+		 * @return string
 		 */
 		protected function key_value( $name = '', $key = '', $value = '' ) {
-			echo '<div class="wponion-keyvalue-field">';
-			echo '<div class="sortable-handler">' . wponion_icon( 'dashicons dashicons-menu' ) . '</div>';
-			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
+			$return = '<div class="wponion-keyvalue-field">';
+			$return .= '<div class="sortable-handler">' . wponion_icon( 'dashicons dashicons-menu' ) . '</div>';
+			$return .= $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
 				'id'         => 'key',
 				'type'       => 'text',
 				'prefix'     => __( 'Key', 'wponion' ),
 				'only_field' => true,
 			) ), $key, $name );
 
-			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'value_input' ), array(
+			$return .= $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'value_input' ), array(
 				'id'         => 'value',
 				'type'       => 'text',
 				'prefix'     => __( 'Value', 'wponion' ),
 				'only_field' => true,
 			) ), $value, $name );
 
-			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
+			$return .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
 				'type'       => 'button',
 				'label'      => '-',
 				'only_field' => true,
@@ -49,7 +51,8 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 				'class'      => 'button button-secondary',
 			) ), false, $this->unique() );
 
-			echo '</div>';
+			$return .= '</div>';
+			return $return;
 		}
 
 		/**
@@ -72,9 +75,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 			}
 			echo '</div>';
 
-			$this->catch_output( 'start' );
-			echo $this->key_value( $this->name( '[{wponionCloneID}]' ) );
-			$template = $this->catch_output( 'stop' );
+			$template = $this->key_value( $this->name( '[{wponionCloneID}]' ) );
 
 			$error_notice = $this->handle_args( 'content', $this->data( 'error_msg' ), array(
 				'type' => 'notice_danger',

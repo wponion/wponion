@@ -42,25 +42,27 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 				'class' => array( 'form-control' ),
 			) );
 
-			echo '<select ' . $attr . '>';
+			$element = '<select ' . $attr . '>';
 			if ( $this->has( 'options_html' ) && ! empty( $this->data( 'options_html' ) ) ) {
-				echo $this->data( 'options_html' );
+				$element .= $this->data( 'options_html' );
 			} else {
 				foreach ( $options as $key => $option ) {
 					if ( wponion_is_array( $option ) && isset( $option['label'] ) ) {
-						echo $this->sel_option( $this->handle_options( $key, $option ) );
+						$element .= $this->sel_option( $this->handle_options( $key, $option ) );
 					} elseif ( wponion_is_array( $option ) && ! isset( $option['label'] ) ) {
-						echo '<optgroup label="' . $key . '">';
+						$element .= '<optgroup label="' . $key . '">';
 						foreach ( $option as $k => $v ) {
-							echo $this->sel_option( $this->handle_options( $k, $v ) );
+							$element .= $this->sel_option( $this->handle_options( $k, $v ) );
 						}
-						echo '</optgroup>';
+						$element .= '</optgroup>';
 					} else {
-						echo $this->sel_option( $this->handle_options( $key, $option ) );
+						$element .= $this->sel_option( $this->handle_options( $key, $option ) );
 					}
 				}
 			}
-			echo '</select>';
+			$element .= '</select>';
+
+			echo wponion_input_group_html( $this->data( 'prefix' ), $this->data( 'surfix' ), $element );
 
 			if ( false === $this->select_framework && true === $this->data( 'ajax' ) ) {
 				echo wponion_add_element( array(
@@ -131,6 +133,8 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 				'options'  => array(),
 				'multiple' => false,
 				'ajax'     => false,
+				'prefix'   => '',
+				'surfix'   => '',
 			);
 		}
 

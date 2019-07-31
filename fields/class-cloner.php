@@ -64,40 +64,43 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 *
 		 * @param $value
 		 * @param $extra_unique
+		 *
+		 * @return string
 		 */
 		protected function clone_single_element( $value, $extra_unique ) {
-			$sort = $this->data( 'clone' );
-			echo '<div class="wponion-field-clone" data-wponion-jsid="' . $this->js_field_id() . '">';
+			$sort   = $this->data( 'clone' );
+			$return = '<div class="wponion-field-clone" data-wponion-jsid="' . $this->js_field_id() . '">';
 			if ( false !== $sort['sort'] ) {
 				echo '<div class="wponion-field-clone-sorter">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
 			}
 			$args          = $this->get_clone_attrs();
 			$args['name']  = $this->name( $extra_unique );
 			$args['value'] = $value;
-			echo wponion_add_element( $args, $value, $this->unique() );
-			echo '<div class="wponion-clone-action">' . $this->clone_btn( 'remove' ) . '</div> ';
-			echo '</div>';
+			$return        .= wponion_add_element( $args, $value, $this->unique() );
+			$return        .= '<div class="wponion-clone-action">' . $this->clone_btn( 'remove' ) . '</div> ';
+			$return        .= '</div>';
+			return $return;
 		}
 
 		/**
 		 * Handles Cloneable Fields.
+		 *
+		 * @return string
 		 */
 		protected function _clone_fields() {
 			$values = $this->value();
 			$count  = ( empty( $values ) ) ? 0 : count( $values );
-			echo '<div class="wponion-clone-wrap" data-wponion-clone-count="' . $count . '" data-wponion-jsid="' . $this->js_field_id() . '">';
+			$return = '<div class="wponion-clone-wrap" data-wponion-clone-count="' . $count . '" data-wponion-jsid="' . $this->js_field_id() . '">';
 
 			if ( wponion_is_array( $values ) ) {
 				foreach ( $values as $value_id => $value ) {
 					echo $this->clone_single_element( $value, '[' . $value_id . ']' );
 				}
 			}
-
-			$this->catch_output( 'start' );
-			echo $this->clone_single_element( null, '[{wponionCloneID}]' );
-			$this->localize_field( array( 'clone_template' => $this->catch_output( 'stop' ) ) );
-			echo '</div>';
-			echo '<div class="wponion-clone-actions">' . $this->clone_btn() . '</div> ';
+			$this->localize_field( array( 'clone_template' => $this->clone_single_element( null, '[{wponionCloneID}]' ) ) );
+			$return .= '</div>';
+			$return .= '<div class="wponion-clone-actions">' . $this->clone_btn() . '</div> ';
+			return $return;
 		}
 
 		/**

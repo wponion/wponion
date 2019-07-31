@@ -377,7 +377,7 @@ if ( ! function_exists( 'wponion_get_field_value' ) ) {
 		if ( isset( $value[ $field_id ] ) ) {
 			return $value[ $field_id ];
 		}
-		return false;
+		return ( wponion_is_array( $field ) && isset( $field['default'] ) ) ? $field['default'] : null;
 	}
 }
 
@@ -706,6 +706,48 @@ if ( ! function_exists( 'wponion_get_field_unique' ) ) {
 		$base_unique   = array_filter( $base_unique );
 		$base_unique   = array_merge( $base_unique, $extra );
 		return ( false === $is_array ) ? implode( '/', $base_unique ) : $base_unique;
+	}
+}
+
+if ( ! function_exists( 'wponion_input_group_html' ) ) {
+	/**
+	 * Generates WPOnion Prefix / Surfix HTMl.
+	 *
+	 * @param string|bool|array $prepend
+	 * @param string|bool|array $append
+	 * @param string|bool       $element
+	 * @param string            $size - Options [input-group-sm | input-group-default | input-group-lg ]
+	 *
+	 * @return string
+	 */
+	function wponion_input_group_html( $prepend = false, $append = false, $element = false, $size = 'input-group-sm' ) {
+		$prepend      = ( ! wponion_is_array( $prepend ) ) ? array( $prepend ) : $prepend;
+		$append       = ( ! wponion_is_array( $append ) ) ? array( $append ) : $append;
+		$prepend      = array_filter( $prepend );
+		$append       = array_filter( $append );
+		$is_empty     = ( ! empty( $prepend ) || ! empty( $append ) );
+		$base_start   = ( $is_empty ) ? '<div class="wponion-input-group-wrap"><div class="input-group ' . $size . '">' : '';
+		$base_end     = ( $is_empty ) ? '</div></div>' : '';
+		$prepend_html = '';
+		$append_html  = '';
+
+		if ( ! empty( $prepend ) ) {
+			$prepend_html = ' <div class="input-group-prepend">';
+			foreach ( $prepend as $value ) {
+				$prepend_html .= '<span class="input-group-text">' . $value . '</span>';
+			}
+			$prepend_html .= '</div>';
+		}
+
+		if ( ! empty( $append ) ) {
+			$append_html .= ' <div class="input-group-append">';
+			foreach ( $append as $value ) {
+				$append_html .= '<span class="input-group-text">' . $value . '</span>';
+			}
+			$append_html .= '</div>';
+		}
+
+		return $base_start . $prepend_html . $element . $append_html . $base_end;
 	}
 }
 

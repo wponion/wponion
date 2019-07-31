@@ -29,10 +29,11 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 		 * Tabs HTML Output.
 		 */
 		protected function tab_output() {
+			$return = '';
 			$fields = $this->field['fields'];
 			if ( ! empty( $fields ) && wponion_is_array( $fields ) ) {
 
-				echo '<div class="wponion-tab-wrap wponion-tabs-' . $this->data( 'tab_style' ) . '">';
+				$return  .= '<div class="wponion-tab-wrap wponion-tabs-' . $this->data( 'tab_style' ) . '">';
 				$nav     = '<ul class="wponion-tab-menus">';
 				$content = '';
 
@@ -54,18 +55,17 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 
 					if ( $section['fields'] ) {
 						foreach ( $section['fields'] as $field ) {
-							$this->catch_output( 'start' );
-							$value = ( false === $this->value( $slug ) ) ? $this->value : $this->value( $slug );
-							echo $this->sub_field( $field, wponion_get_field_value( $field, $value ), $unique );
-							$content .= $this->catch_output( 'stop' );
+							$value   = ( false === $this->value( $slug ) ) ? $this->value : $this->value( $slug );
+							$content .= $this->sub_field( $field, wponion_get_field_value( $field, $value ), $unique );
 						}
 					}
 					$content .= '</div>';
 				}
-				$nav .= '</ul>';
-				echo $nav . $content;
-				echo '</div>';
+				$nav    .= '</ul>';
+				$return .= $nav . $content;
+				$return .= '</div>';
 			}
+			return $return;
 		}
 
 		public function field_assets() {

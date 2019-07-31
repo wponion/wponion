@@ -48,7 +48,9 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		 */
 		public function __construct( array $settings = array(), Builder $fields = null ) {
 			parent::__construct( $fields, $settings );
-			$this->init();
+			if ( ! empty( $this->settings ) && false === wponion_is_ajax( 'heartbeat' ) ) {
+				$this->on_init();
+			}
 		}
 
 		/**
@@ -71,7 +73,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		 * Load The Required Assets.
 		 */
 		public function load_assets() {
-			wponion_load_asset( 'wponion-core' );
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**
@@ -90,22 +92,24 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 			$this->get_db_values();
 			$default = array();
 
-			foreach ( $this->fields->fields() as $field ) {
-				if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
-					continue;
-				}
+			if ( wpo_is( $this->fields ) || wpo_is_container( $this->fields ) ) {
+				foreach ( $this->fields->fields() as $field ) {
+					if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
+						continue;
+					}
 
-				if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
-					$default[ $field['id'] ] = $field['default'];
-					if ( wponion_is_unarrayed( $field ) ) {
-						$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
-					} else {
-						$this->db_values[ $field['id'] ] = $field['default'];
+					if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
+						$default[ $field['id'] ] = $field['default'];
+						if ( wponion_is_unarrayed( $field ) ) {
+							$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
+						} else {
+							$this->db_values[ $field['id'] ] = $field['default'];
+						}
 					}
 				}
-			}
-			if ( ! empty( $default ) ) {
-				$this->set_db_values( $this->db_values );
+				if ( ! empty( $default ) ) {
+					$this->set_db_values( $this->db_values );
+				}
 			}
 		}
 
@@ -116,9 +120,10 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 			$widget_render = array( &$this, 'render_widget' );
 
 			if ( false !== $this->option( 'widget_id' ) && false !== $this->option( 'widget_name' ) ) {
-				$wid   = $this->option( 'widget_id' );
-				$wname = $this->option( 'widget_name' );
-				wp_add_dashboard_widget( $wid, $wname, $widget_render, array( &$this, 'save_widget' ) );
+				$wid         = $this->option( 'widget_id' );
+				$wname       = $this->option( 'widget_name' );
+				$save_widget = ( ! empty( $this->fields() ) ) ? array( &$this, 'save_widget' ) : false;
+				wp_add_dashboard_widget( $wid, $wname, $widget_render, $save_widget );
 			}
 		}
 
@@ -171,6 +176,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 				'widget_name' => false,
 				'callback'    => false,
 				'network'     => false,
+				'assets'      => false,
 			) );
 		}
 	}

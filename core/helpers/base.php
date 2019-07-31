@@ -375,6 +375,44 @@ if ( ! function_exists( 'wponion_handle_string_args_with_defaults' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_ajax_args' ) ) {
+	/**
+	 * Generates Default WPOnion Ajax Args.
+	 *
+	 * @param bool $with_scripts
+	 *
+	 * @return array
+	 */
+	function wponion_ajax_args( $with_scripts = false ) {
+		$return = array();
+
+		if ( false !== $with_scripts ) {
+			do_action( 'wponion_ajax_enqueue_scripts' );
+
+			if ( is_array( $with_scripts ) ) {
+				foreach ( $with_scripts as $asset ) {
+					wponion_load_asset( $asset );
+				}
+			} elseif ( true !== $with_scripts ) {
+				wponion_load_asset( $with_scripts );
+			}
+
+			wponion_catch_output( true );
+			$styles     = wp_print_styles();
+			$style_html = wponion_catch_output( false );
+			wponion_catch_output( true );
+			$scripts                = wp_print_scripts();
+			$scripts_html           = wponion_catch_output( false );
+			$return['styles_html']  = $style_html;
+			$return['scripts_html'] = $scripts_html;
+			$return['styles']       = $styles;
+			$return['scripts']      = $scripts;
+		}
+		$return['localizer'] = wponion_localize()->as_array();
+		return array( 'wpo_core' => $return );
+	}
+}
+
 
 if ( ! function_exists( 'wponion_catch_output' ) ) {
 	/**
@@ -401,6 +439,31 @@ if ( ! function_exists( 'wponion_catch_output' ) ) {
 		return $data;
 	}
 }
+
+if ( ! function_exists( 'wponion_wp_editor_api' ) ) {
+	/**
+	 * Checks if editor api exists.
+	 *
+	 * @return bool
+	 */
+	function wponion_wp_editor_api() {
+		return is_version_gte( 'wordpress', '>=' );
+	}
+}
+
+if ( ! function_exists( 'wponion_fix_json_string' ) ) {
+	/**
+	 * Validates & Fixes JSON String that dose not have quotes in the KEY.
+	 *
+	 * @param $string
+	 *
+	 * @return string|string[]|null
+	 */
+	function wponion_fix_json_string( $string ) {
+		return preg_replace( '/(?<!")([a-zA-Z0-9_]+)(?!")(?=:)/i', '"$1"', $string );
+	}
+}
+
 
 // WPOnion Cache Related Functions
 require_once wponion()->path( 'core/helpers/cache.php' );

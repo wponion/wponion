@@ -32,8 +32,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Settings' ) ) {
 		protected $validate_field_path = false;
 
 		public function run() {
-			$option_page = $_REQUEST['option_page'];
-			$settings    = wponion_settings( $option_page );
+			$this->add_assets = true;
+			$option_page      = $_REQUEST['option_page'];
+			$settings         = wponion_settings( $option_page );
 
 			if ( ! $settings instanceof Settings && ! $settings instanceof Network ) {
 				$this->json_error();

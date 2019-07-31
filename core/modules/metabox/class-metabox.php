@@ -147,7 +147,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 				'context'       => 'normal',
 				'priority'      => null,
 				'theme'         => 'wp_modern',
-				'template_path' => false,
 				'theme_color'   => 'false',
 				'ajax'          => true,
 			) );

@@ -15,8 +15,6 @@ if ( ! class_exists( 'WPO\Fields\Color_Group' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_rgba()
 	 */
 	class Color_Group extends Field {
 		/**
@@ -31,12 +29,12 @@ if ( ! class_exists( 'WPO\Fields\Color_Group' ) ) {
 		}
 
 		/**
-		 * @param bool $is_rgba
+		 * @param array $settings
 		 *
 		 * @return $this
 		 */
-		public function rgba( $is_rgba = true ) {
-			$this['rgba'] = $is_rgba;
+		public function settings( $settings = array() ) {
+			$this['settings'] = $settings;
 			return $this;
 		}
 	}

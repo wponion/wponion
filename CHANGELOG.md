@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.3.5] - 29/07/2019
+## Added
+* WordPress Importer Integration
+* WPO Metabox Builder
+* `title_column` && `fieldset_column` Function in Field Builder
+* `wponion_ajax_args` which returns common ajax arguments functions.
+* `column_cb` predefined in WPListTable
+* `.wpo-badge-outline-danger` Badge Style
+* `.wpo-badge-plain-danger` Badge Style
+* Option To Remove A Field From Builder
+* Added `wponion_success_toast` function in js
+
+## Fixed
+* Settings Page Javascript Validation When Ajax Enabled
+
+## Changed
+* `subheading` And `heading` Fields Description Style.
+* Bump [sweetalert2] from `8.13.6` to `8.14.0`
+* Bump [@simonwep/pickr] from `1.2.2` to `1.2.4`
+* Bump [select2] from `4.0.7` to `4.0.8`
+
+## Removed
+* `template_path` argument in metabox
+* `tabindex` in WPModal
+
 # [1.3.4] - 19/07/2019
 ## Added
 * Auto Generate Unique Instance ID For each module instance
@@ -582,6 +607,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.3.5]: https://github.com/wponion/wponion/releases/tag/1.3.5
 [1.3.4]: https://github.com/wponion/wponion/releases/tag/1.3.4
 [1.3.3]: https://github.com/wponion/wponion/releases/tag/1.3.3
 [1.3.2]: https://github.com/wponion/wponion/releases/tag/1.3.2
@@ -631,3 +657,4 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [Foundation]: https://zurb.com/playground/foundation-icon-fonts-3
 [IcoFont]: https://icofont.com/
 [Material Design Icons]: https://materialdesignicons.com/
+[@simonwep/pickr]: https://github.com/Simonwep/pickr
