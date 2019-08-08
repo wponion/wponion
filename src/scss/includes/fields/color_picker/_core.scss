@@ -1,5 +1,5 @@
 .wponion-element.wponion-element-color_picker {
-	input.wponion-color-picker-element {
+	/*input.wponion-color-picker-element {
 		display:        inline-block;
 		height:         auto;
 		padding:        1px 10px;
@@ -14,7 +14,7 @@
 		&[type=text] + .pickr {
 			margin-left: 10px;
 		}
-	}
+	}*/
 
 
 	.wp-picker-container {
@@ -96,16 +96,36 @@
 		}
 	}
 
-	/*.pickr {
+	.colorpickerwrap {
+		position: relative;
+		display:  inline-block;
 
-	}*/
+		input {
+			width: 100%;
+		}
+
+		.pickr {
+			position:   absolute;
+			margin:     0;
+			right:      0;
+			padding:    5px;
+			background: transparent;
+			top:        0;
+
+			button {
+				vertical-align: top;
+			}
+		}
+	}
 }
 
 .wpo-color-picker {
+	box-shadow: 0 0 10px 0 #00000029;
+
 	&, & * {
 		-webkit-box-sizing: border-box;
 		box-sizing:         border-box
 	}
 
-	border: $element_border;
+	border:     $element_border;
 }

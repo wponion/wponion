@@ -26,11 +26,15 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 					'type'  => 'text',
 					'name'  => $this->name(),
 					'value' => $this->value(),
-					'class' => 'wponion-color-picker-element',
+					'class' => 'wponion-color-picker-element wponion-form-control',
 				);
 
+				//wponion-form-control
+				echo '<div class="colorpickerwrap">';
 				echo '<input ' . $this->attributes( $attributes ) . '/>';
 				echo '<div class="wponion-color-picker-element" ></div>';
+				echo '</div>';
+				//echo wponion_input_group_html( '', '<div class="wponion-color-picker-element" ></div>', '<input ' . $this->attributes( $attributes ) . '/>' );
 				echo $this->after();
 			} else {
 				echo '<div class=" colors-wrapper ' . $this->data( 'layout' ) . ' ">';

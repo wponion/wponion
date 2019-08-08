@@ -5521,7 +5521,8 @@ function (_WPOnion_Field) {
         $args.el = this.element.find('div.wponion-color-picker-element')[0];
         $args.appClass = 'wpo-color-picker';
         $args["default"] = this.element.find('input.wponion-color-picker-element').val() || '#fff';
-        var $instance = new Pickr(this.handle_args($args, 'colorpicker'));
+        var $instance = new Pickr(this.handle_args($args, 'colorpicker')),
+            $input = this.element.find('input.wponion-color-picker-element');
         $instance.on('save', $save_color);
         $instance.on('change', $save_color);
         $instance.on('swatchselect', $save_color);
@@ -5531,6 +5532,12 @@ function (_WPOnion_Field) {
 
             _this.element.find('.pickr').hide();
           }
+        });
+        $input.on('click', function () {
+          return $instance.show();
+        });
+        $input.on('blur', function () {
+          $instance.setColor($input.val());
         });
       }
     }

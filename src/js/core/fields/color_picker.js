@@ -53,7 +53,8 @@ export default class extends WPOnion_Field {
 			$args.appClass = 'wpo-color-picker';
 			$args.default  = this.element.find( 'input.wponion-color-picker-element' ).val() || '#fff';
 
-			let $instance = new Pickr( this.handle_args( $args, 'colorpicker' ) );
+			let $instance = new Pickr( this.handle_args( $args, 'colorpicker' ) ),
+				$input    = this.element.find( 'input.wponion-color-picker-element' );
 
 			$instance.on( 'save', $save_color );
 			$instance.on( 'change', $save_color );
@@ -63,6 +64,11 @@ export default class extends WPOnion_Field {
 					this.element.find( '.wponion-color-picker-element' ).hide();
 					this.element.find( '.pickr' ).hide();
 				}
+			} );
+
+			$input.on( 'click', () => $instance.show() );
+			$input.on( 'blur', function() {
+				$instance.setColor( $input.val() );
 			} );
 		}
 	}
