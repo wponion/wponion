@@ -4,7 +4,7 @@
   "description": "WPOnion Simple & Light Weight Framework For WordPress.",
   "main": "",
   "scripts": {
-    "postinstall": "gulp single --file \"src/js/wponion-plugins.js\" "
+    "postinstall": "gulp single --file \"src/js/wponion-plugins.js\" && gulp single --file \"src/js/wponion-core.js\" && gulp single --file \"src/scss/wponion-plugins.scss\" && gulp single --file \"src/scss/wponion-base.scss\""
   },
   "keywords": [
     "wordpress",
