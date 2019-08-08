@@ -15,7 +15,7 @@
   "author": "varunsridharan",
   "license": "GPLV3",
   "devDependencies": {
-    "@wordpress/hooks": "^2.4.0",
+    "@wordpress/hooks": "^2.5.0",
     "bootstrap": "^4.1.1",
     "css-checkbox-library": "^1.4.0",
     "easy-gulp-tasker": "^1.0.10",
@@ -23,8 +23,8 @@
     "popper.js": "^1.15.0",
     "jquery-serializejson": "^2.9.0",
     "jquery-validation": "^1.18.0",
-    "sweetalert2": "^8.14.0",
-    "tippy.js": "^4.3.4",
+    "sweetalert2": "^8.15.2",
+    "tippy.js": "^4.3.5",
     "vsp-js-helper": "^1.0.32",
     "wordpress-js-ports": "^1.0.6"
   }
