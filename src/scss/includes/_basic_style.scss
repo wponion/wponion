@@ -175,6 +175,12 @@
 
 // WPOnion Util Styles
 .wponion-framework {
+	:disabled {
+		cursor:     not-allowed;
+		background: #fff;
+		color:      #00000047;
+	}
+
 	pre {
 		display:                block;
 		padding:                9.5px;

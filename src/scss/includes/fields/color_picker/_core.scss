@@ -100,20 +100,26 @@
 		position: relative;
 		display:  inline-block;
 
-		input {
+		input.wponion-color-picker-element {
 			width: 100%;
-		}
 
-		.pickr {
-			position:   absolute;
-			margin:     0;
-			right:      0;
-			padding:    5px;
-			background: transparent;
-			top:        0;
+			&:not(.hidden) + .pickr {
+				position:   absolute;
+				margin:     0;
+				right:      0;
+				padding:    5px 2px;
+				background: transparent;
+				top:        0;
 
-			button {
-				vertical-align: top;
+				button {
+					vertical-align: top;
+					width:          1.8em;
+					height:         1.8em;
+
+					&:focus {
+						box-shadow: none;
+					}
+				}
 			}
 		}
 	}

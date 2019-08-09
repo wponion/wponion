@@ -8,10 +8,28 @@
 			display: inline-block;
 		}
 
+		.wponion-input-group-wrap {
+			display: inline-block;
+
+			.input-group-prepend {
+				> .input-group-text:first-child {
+					border-top-left-radius:    0;
+					border-bottom-left-radius: 0;
+				}
+			}
+
+			.input-group-append{
+				> .input-group-text:last-child {
+					border-top-right-radius:    0;
+					border-bottom-right-radius: 0;
+				}
+			}
+		}
+
 		input {
 			margin:     0;
 			text-align: center;
-			padding:    9px 0;
+			padding:    5px 0;
 			width:      100px;
 		}
 

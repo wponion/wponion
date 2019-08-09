@@ -6,6 +6,8 @@ export default class extends WPOnion_Field {
 	 */
 	init() {
 		if( this.element.find( 'input.wponion-color-picker-element' ).length > 0 ) {
+			let $data       = this.option( 'settings', {} );
+			$data           = ( !window.wponion._.isObject( $data ) ) ? {} : $data;
 			let $save_color = ( $color, $instance ) => {
 					let $value = $color.toHEXA().toString();
 					if( !window.wponion._.isUndefined( $instance._representation ) ) {
@@ -29,7 +31,7 @@ export default class extends WPOnion_Field {
 					}
 					this.element.find( 'input.wponion-color-picker-element' ).val( $value );
 				},
-				$args       = this.parse_args( this.option( 'settings' ), {
+				$args       = this.parse_args( $data, {
 					theme: 'classic',
 					comparison: false,
 					components: {

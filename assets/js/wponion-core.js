@@ -5469,6 +5469,9 @@ function (_WPOnion_Field) {
       var _this = this;
 
       if (this.element.find('input.wponion-color-picker-element').length > 0) {
+        var $data = this.option('settings', {});
+        $data = !window.wponion._.isObject($data) ? {} : $data;
+
         var $save_color = function $save_color($color, $instance) {
           var $value = $color.toHEXA().toString();
 
@@ -5498,7 +5501,7 @@ function (_WPOnion_Field) {
 
           _this.element.find('input.wponion-color-picker-element').val($value);
         },
-            $args = this.parse_args(this.option('settings'), {
+            $args = this.parse_args($data, {
           theme: 'classic',
           comparison: false,
           components: {

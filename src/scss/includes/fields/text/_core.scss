@@ -1,4 +1,11 @@
 .wponion-framework {
+	input, textarea {
+		&:disabled {
+			background: #0f0f0f12;
+			color:      #18181847;
+		}
+	}
+
 	input[type="text"], input[type="password"], input[type="checkbox"], input[type="color"], input[type="date"],
 	input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"],
 	input[type="number"], input[type="search"], input[type="radio"], input[type="tel"], input[type="text"],
@@ -23,10 +30,13 @@
 		padding:   7px;
 		min-width: 100px;
 	}
+
+	input[type="text"] {
+		padding: 5px;
+	}
 }
 
 .wponion-element.wponion-element-text {
 	input {
-		min-width: 250px;
 	}
 }
