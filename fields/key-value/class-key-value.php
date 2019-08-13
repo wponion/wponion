@@ -59,7 +59,6 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 * Final HTML Output
 		 */
 		protected function output() {
-			var_dump( $this->value );
 			echo $this->before();
 			$values = ( wponion_is_array( $this->value() ) ) ? $this->value() : array();
 			$values = array_filter( $values );
