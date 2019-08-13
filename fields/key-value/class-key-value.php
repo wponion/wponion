@@ -59,6 +59,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 * Final HTML Output
 		 */
 		protected function output() {
+			var_dump( $this->value );
 			echo $this->before();
 			$values = ( wponion_is_array( $this->value() ) ) ? $this->value() : array();
 			$values = array_filter( $values );
@@ -71,11 +72,11 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 					}
 				}
 			} else {
-				echo $this->key_value( $this->name( '[1]' ), '', '' );
+				echo $this->key_value( $this->name( '1' ), '', '' );
 			}
 			echo '</div>';
 
-			$template = $this->key_value( $this->name( '[{wponionCloneID}]' ) );
+			$template = $this->key_value( $this->name( '{wponionCloneID}' ) );
 
 			$error_notice = $this->handle_args( 'content', $this->data( 'error_msg' ), array(
 				'type' => 'notice_danger',
