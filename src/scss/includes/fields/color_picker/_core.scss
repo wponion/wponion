@@ -97,30 +97,34 @@
 	}
 
 	.colorpickerwrap {
-		position: relative;
-		display:  inline-block;
+		position:   relative;
+		display:    inline-block;
+		text-align: center;
+
+
+		span.input-group-text {
+			padding: .10rem .2rem;
+		}
+
+		.cpickr-bg {
+			padding:    0.7rem;
+			background: white;
+			border:     1px solid #ddd;
+		}
+
+		.pickr {
+			position:   absolute;
+			visibility: hidden;
+			top:        0;
+			left:       0;
+			right:      0;
+			bottom:     0;
+			width:      auto;
+			z-index:    -1;
+		}
 
 		input.wponion-color-picker-element {
-			width: 100%;
-
-			&:not(.hidden) + .pickr {
-				position:   absolute;
-				margin:     0;
-				right:      0;
-				padding:    5px 2px;
-				background: transparent;
-				top:        0;
-
-				button {
-					vertical-align: top;
-					width:          1.8em;
-					height:         1.8em;
-
-					&:focus {
-						box-shadow: none;
-					}
-				}
-			}
+			text-align: left;
 		}
 	}
 }

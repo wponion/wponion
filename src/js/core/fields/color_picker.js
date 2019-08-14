@@ -30,6 +30,7 @@ export default class extends WPOnion_Field {
 						}
 					}
 					this.element.find( 'input.wponion-color-picker-element' ).val( $value );
+					this.element.find( 'span.cpickr-bg' ).css( 'background-color', $value );
 				},
 				$args       = this.parse_args( $data, {
 					theme: 'classic',
@@ -69,6 +70,7 @@ export default class extends WPOnion_Field {
 			} );
 
 			$input.on( 'click', () => $instance.show() );
+			this.element.find( '.cpickr-bg' ).on( 'click', () => $instance.show() );
 			$input.on( 'blur', function() {
 				$instance.setColor( $input.val() );
 			} );

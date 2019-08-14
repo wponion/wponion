@@ -5503,6 +5503,8 @@ function (_WPOnion_Field) {
           }
 
           _this.element.find('input.wponion-color-picker-element').val($value);
+
+          _this.element.find('span.cpickr-bg').css('background-color', $value);
         },
             $args = this.parse_args($data, {
           theme: 'classic',
@@ -5540,6 +5542,9 @@ function (_WPOnion_Field) {
           }
         });
         $input.on('click', function () {
+          return $instance.show();
+        });
+        this.element.find('.cpickr-bg').on('click', function () {
           return $instance.show();
         });
         $input.on('blur', function () {
