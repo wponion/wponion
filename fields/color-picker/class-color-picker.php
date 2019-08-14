@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 
 				//wponion-form-control
 				echo '<div class="colorpickerwrap">';
-				echo wponion_input_group_html( '<span class="cpickr-bg"></span>', '', '<input ' . $this->attributes( $attributes ) . '/>' );
+				echo wponion_input_group_html( '<span class="cpickr-bg" style="background-color: ' . $this->value . '"></span>', '', '<input ' . $this->attributes( $attributes ) . '/>' );
 				echo '<div class="wponion-color-picker-element" ></div>';
 				echo '</div>';
 				//echo wponion_input_group_html( '', '<div class="wponion-color-picker-element" ></div>', '<input ' . $this->attributes( $attributes ) . '/>' );

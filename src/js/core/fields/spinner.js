@@ -10,6 +10,7 @@ export default class extends WPOnion_Field {
 		let $input     = this.element.find( 'input[type=text]' ),
 			$elem_init = ( this.element.find( '.wponion-input-group-wrap' ).length > 0 ) ? this.element.find( '.wponion-input-group-wrap' ) : $input;
 		$options.spin  = ( event, ui ) => $input.val( ui.value ).trigger( 'change' );
-		$elem_init.spinner( $options );
+		let instance   = $elem_init.spinner( $options );
+		instance.spinner( 'value', $input.val() );
 	}
 }
