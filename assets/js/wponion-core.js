@@ -4840,6 +4840,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fields_common_global_notice__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./fields/common/global-notice */ "./src/js/core/fields/common/global-notice.js");
 /* harmony import */ var _fields_modal__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./fields/modal */ "./src/js/core/fields/modal.js");
 /* harmony import */ var _fields_wp_editor__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./fields/wp-editor */ "./src/js/core/fields/wp-editor.js");
+/* harmony import */ var _fields_visual_editor__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./fields/visual-editor */ "./src/js/core/fields/visual-editor.js");
+
 
 
 
@@ -4921,6 +4923,7 @@ function wponion_register_fields() {
   window.wponion_register_field('group', _fields_group__WEBPACK_IMPORTED_MODULE_32__["default"]);
   window.wponion_register_field('modal', _fields_modal__WEBPACK_IMPORTED_MODULE_34__["default"]);
   window.wponion_register_field('wp_editor', _fields_wp_editor__WEBPACK_IMPORTED_MODULE_35__["default"]);
+  window.wponion_register_field('visual_editor', _fields_visual_editor__WEBPACK_IMPORTED_MODULE_36__["default"]);
 }
 
 /***/ }),
@@ -7496,8 +7499,10 @@ function (_WPOnion_Field) {
           $input.val(attachment.id).trigger('change');
         });
         $this.media_instance.open();
-      }); //$preview.find( '.wponion-image-remove' ).on( 'click', () => $input.val( '' ).trigger( 'change' ) );
-      //this.init_field( $preview.find( 'img' ), 'image_popup' );
+      });
+      $preview.find('.wponion-image-remove').on('click', function () {
+        return $input.val('').trigger('change');
+      }); //this.init_field( $preview.find( 'img' ), 'image_popup' );
     }
   }]);
 
@@ -8870,6 +8875,111 @@ function (_WPOnion_Field) {
         });
         wp_media_frame.open();
       });
+    }
+  }]);
+
+  return _default;
+}(_class_field__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/core/fields/visual-editor.js":
+/*!*********************************************!*\
+  !*** ./src/js/core/fields/visual-editor.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var _class_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../class/field */ "./src/js/core/class/field.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_WPOnion_Field) {
+  _inherits(_default, _WPOnion_Field);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      this.element.find('div#box-controls input[type=checkbox]').on('change', function (e) {
+        var $elm = jQuery(e.currentTarget);
+
+        if ($elm.prop('checked')) {
+          jQuery('.wpo-css-builder-field-bottom').attr('readonly', 'readonly');
+          jQuery('.wpo-css-builder-field-left').attr('readonly', 'readonly');
+          jQuery('.wpo-css-builder-field-right').attr('readonly', 'readonly');
+          jQuery('.wpo-css-builder-field-bottom-right').attr('readonly', 'readonly');
+          jQuery('.wpo-css-builder-field-bottom-left').attr('readonly', 'readonly');
+          jQuery('.wpo-css-builder-field-top-left').attr('readonly', 'readonly');
+
+          _this.update_bind(true);
+        } else {
+          jQuery('.wpo-css-builder-field-bottom').removeAttr('readonly');
+          jQuery('.wpo-css-builder-field-left').removeAttr('readonly');
+          jQuery('.wpo-css-builder-field-right').removeAttr('readonly');
+          jQuery('.wpo-css-builder-field-bottom-right').removeAttr('readonly');
+          jQuery('.wpo-css-builder-field-bottom-left').removeAttr('readonly');
+          jQuery('.wpo-css-builder-field-top-left').removeAttr('readonly');
+
+          _this.update_bind(false);
+        }
+      });
+    }
+  }, {
+    key: "update_bind",
+    value: function update_bind($status) {
+      var _this2 = this;
+
+      if (true === $status) {
+        jQuery('.wpo-css-builder-field-padding-top').on('keyup', function (e) {
+          _this2.element.find('.wpo-padding:not(.wpo-css-builder-field-padding-top)').val(jQuery(e.currentTarget).val());
+        });
+        jQuery('.wpo-css-builder-field-border-top').on('keyup', function (e) {
+          _this2.element.find('.wpo-border:not(.wpo-css-builder-field-border-top)').val(jQuery(e.currentTarget).val());
+        });
+        jQuery('.wpo-css-builder-field-margin-top').on('keyup', function (e) {
+          _this2.element.find('.wpo-margin:not(.wpo-css-builder-field-margin-top)').val(jQuery(e.currentTarget).val());
+        });
+        jQuery('.wpo-css-builder-field-border-top-right-radius').on('keyup', function (e) {
+          _this2.element.find('.wpo-border-radius:not(.wpo-css-builder-field-border-top-right-radius)').val(jQuery(e.currentTarget).val());
+        });
+      } else {
+        jQuery('.wpo-css-builder-field-padding-top').off('keyup');
+        jQuery('.wpo-css-builder-field-border-top').off('keyup');
+        jQuery('.wpo-css-builder-field-margin-top').off('keyup');
+        jQuery('.wpo-css-builder-field-border-top-right-radius').off('keyup');
+      }
     }
   }]);
 

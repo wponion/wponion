@@ -34,6 +34,7 @@ import wpo_group from './fields/group';
 import wpo_global_notice from './fields/common/global-notice';
 import wpo_modal from './fields/modal';
 import wpo_editor from './fields/wp-editor';
+import wpo_visual_editor from './fields/visual-editor';
 
 export function wponion_register_fields() {
 	/**
@@ -81,4 +82,5 @@ export function wponion_register_fields() {
 	window.wponion_register_field( 'group', wpo_group );
 	window.wponion_register_field( 'modal', wpo_modal );
 	window.wponion_register_field( 'wp_editor', wpo_editor );
+	window.wponion_register_field( 'visual_editor', wpo_visual_editor );
 }

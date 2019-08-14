@@ -236,6 +236,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_field( 'range_slider', 'all' );
 			wponion_register_field( 'code_editor', 'all' );
 			wponion_register_field( 'wp_list_table', 'all' );
+			wponion_register_field( 'visual_editor', 'all' );
 
 			/**
 			 * Registers UI Field.
