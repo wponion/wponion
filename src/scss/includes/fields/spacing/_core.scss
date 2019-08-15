@@ -5,7 +5,7 @@
 				margin-left:  -10px;
 				margin-right: -10px;
 
-				> div {
+				> div:not(.hidden) {
 					width:          auto !important;
 					display:        inline-block !important;
 					flex-basis:     auto !important;
@@ -20,6 +20,11 @@
 
 					.wponion-input-group {
 						margin-right: 0;
+					}
+
+					button {
+						vertical-align: baseline !important;
+						padding:        0 5px 1px !important;
 					}
 				}
 			}

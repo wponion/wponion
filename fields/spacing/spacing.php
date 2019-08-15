@@ -30,23 +30,42 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 			$icons  = $this->default_icons();
 			$titles = $this->default_title();
 
+			$button = wpo_field( 'button', array(
+				'id'          => 'showcasebutton',
+				'button_type' => 'button',
+				'class'       => 'button button-secondary',
+			) )->horizontal( true );
+
+			$fields[] = $button;
+
+			$is_all_hidden = ( empty( $this->value( 'all' ) ) ) ? 'hidden' : '';
+			if ( empty( $this->value( 'all' ) ) ) {
+				$this->value['showcasebutton'] = '<i class="dashicons dashicons-editor-expand"></i>';
+			} else {
+				$this->value['showcasebutton'] = '<i class="dashicons dashicons-editor-contract"></i>';
+			}
+
 			if ( false === $this->data( 'all' ) ) {
 				foreach ( $this->field_slugs() as $slug ) {
 					if ( false !== $this->data( $slug ) ) {
-						$defaults        = array(
+						$defaults                      = array(
 							'prefix'      => $icons[ $slug ],
 							'placeholder' => $titles[ $slug ],
 						);
-						$fields[ $slug ] = ( true === $this->data( $slug ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( $slug ), $defaults );
+						$fields[ $slug ]               = ( true === $this->data( $slug ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( $slug ), $defaults );
+						$fields[ $slug ]['wrap_class'] = ( isset( $fields[ $slug ]['wrap_class'] ) ) ? $fields[ $slug ]['wrap_class'] : array();
+						$fields[ $slug ]['wrap_class'] = wponion_html_class( $fields[ $slug ]['wrap_class'], 'wponion-spacing-input wponion-spacing-input-' . $slug );
 					}
 				}
-			} else {
-				$defaults      = array(
-					'prefix'      => $icons['all'],
-					'placeholder' => __( 'All', 'wponion' ),
-				);
-				$fields['all'] = ( true === $this->data( 'all' ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( 'all' ), $defaults );
 			}
+
+			$defaults                    = array(
+				'prefix'      => $icons['all'],
+				'placeholder' => __( 'All', 'wponion' ),
+			);
+			$fields['all']               = ( true === $this->data( 'all' ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( 'all' ), $defaults );
+			$fields['all']['wrap_class'] = ( isset( $fields['all']['wrap_class'] ) ) ? $fields['all']['wrap_class'] : array();
+			$fields['all']['wrap_class'] = wponion_html_class( $fields['all']['wrap_class'], 'wponion-spacing-input wponion-spacing-input-all ' . $is_all_hidden );
 
 			if ( false !== $this->data( 'unit' ) ) {
 				if ( true === $this->data( 'unit' ) ) {
