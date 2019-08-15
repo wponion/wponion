@@ -52,12 +52,12 @@ export default class extends WPOnion_Field {
 					}
 				} );
 
-			$args.el       = this.element.find( 'div.wponion-color-picker-element' )[ 0 ];
 			$args.appClass = 'wpo-color-picker';
 			$args.default  = this.element.find( 'input.wponion-color-picker-element' ).val() || '#fff';
-
-			let $instance = new Pickr( this.handle_args( $args, 'colorpicker' ) ),
-				$input    = this.element.find( 'input.wponion-color-picker-element' );
+			$args          = this.handle_args( $args, 'colorpicker' );
+			$args.el       = this.element.find( 'div.wponion-color-picker-element' )[ 0 ];
+			let $instance  = new Pickr( $args ),
+				$input     = this.element.find( 'input.wponion-color-picker-element' );
 
 			$instance.on( 'save', $save_color );
 			$instance.on( 'change', $save_color );
