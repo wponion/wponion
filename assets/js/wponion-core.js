@@ -4997,8 +4997,8 @@ function (_WPOnion_Field) {
           animate: 150,
           heightStyle: 'content',
           icons: {
-            'header': 'dashicons dashicons-arrow-right',
-            'activeHeader': 'dashicons dashicons-arrow-down'
+            'header': 'wpoic-right-small',
+            'activeHeader': 'wpoic-down-small'
           }
         });
 
@@ -8551,7 +8551,7 @@ function (_WPOnion_Field) {
 
           _this.element.find('.wponion-spacing-input-all').removeClass('hidden');
 
-          _this.element.find('button > i').attr('class', 'dashicons dashicons-editor-expand');
+          _this.element.find('button > i').attr('class', 'wpoic-expand');
 
           _this.element.find('.wponion-spacing-input').find('input').val('');
         } else {
@@ -8559,7 +8559,7 @@ function (_WPOnion_Field) {
 
           _this.element.find('.wponion-spacing-input-all').addClass('hidden');
 
-          _this.element.find('button > i').attr('class', 'dashicons dashicons-editor-contract');
+          _this.element.find('button > i').attr('class', 'wpoic-collapse');
 
           _this.element.find('.wponion-spacing-input:not(.wponion-spacing-input-all)').find('input').val(_this.element.find('.wponion-spacing-input-all').find('input').val());
 

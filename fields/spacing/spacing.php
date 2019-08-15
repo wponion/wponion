@@ -40,9 +40,9 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 
 			$is_all_hidden = ( empty( $this->value( 'all' ) ) ) ? 'hidden' : '';
 			if ( empty( $this->value( 'all' ) ) ) {
-				$this->value['showcasebutton'] = '<i class="dashicons dashicons-editor-expand"></i>';
+				$this->value['showcasebutton'] = '<i class="wpoic-expand"></i>';
 			} else {
-				$this->value['showcasebutton'] = '<i class="dashicons dashicons-editor-contract"></i>';
+				$this->value['showcasebutton'] = '<i class="wpoic-collapse"></i>';
 			}
 
 			if ( false === $this->data( 'all' ) ) {

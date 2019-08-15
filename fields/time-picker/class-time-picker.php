@@ -21,7 +21,7 @@ if ( ! class_exists( '\WPOnion\Field\Time_Picker' ) ) {
 			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'time' ), array(
 				'id'         => $this->field_id(),
 				'type'       => 'text',
-				'prefix'     => '<i class="dashicons dashicons-clock"></i>',
+				'prefix'     => '<i class="wpoic-clock"></i>',
 				'only_field' => true,
 			) ), $this->value(), $this->unique() );
 

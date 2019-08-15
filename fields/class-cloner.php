@@ -160,16 +160,15 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 */
 		public function handle_field_args( $data = array() ) {
 			$defaults = array(
-				'animations'    => array(
+				'animations'  => array(
 					'show' => false,
 					'hide' => false,
 				),
-				'sort'          => true,
-				'toast_error'   => false,
-				'error_msg'     => null,
-				'limit'         => null,
-				'add_button'    => __( 'Add +', 'wponion' ),
-				'remove_button' => wponion_icon( 'dashicons dashicons-trash' ),
+				'sort'        => true,
+				'toast_error' => false,
+				'error_msg'   => null,
+				'limit'       => null,
+				'add_button'  => __( 'Add +', 'wponion' ),
 			);
 
 			if ( ! wponion_is_array( $data['clone'] ) ) {
@@ -188,7 +187,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			$data['clone']['error_msg'] = wponion_add_element( $data['clone']['error_msg'], false, false );
 
 			if ( true === $data['clone']['sort'] ) {
-				$data['clone']['sort'] = 'dashicons dashicons-menu';
+				$data['clone']['sort'] = 'wpoic-menu';
 			}
 
 			return $data;
@@ -226,7 +225,6 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					'animations'  => $this->data( 'clone' )['animations'],
 					'add_button'  => $this->data( 'clone' )['add_button'],
 					'sort'        => $this->data( 'clone' )['sort'],
-					//'remove_button' => '<i class="dashicons dashicons-trash"></i>',
 					'limit'       => $this->data( 'clone' )['limit'],
 					'error_msg'   => $this->data( 'clone' )['error_msg'],
 					'toast_error' => $this->data( 'clone' )['toast_error'],

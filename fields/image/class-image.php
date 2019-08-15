@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 			echo '<div class="wponion-image-preview" id="wponion-image-preview' . $this->js_field_id() . '">';
 
 			echo '<div class="wponion-preview-add" ' . $add_show . '>';
-			echo wponion_icon( 'dashicons dashicons-plus wponion-add' );
+			echo wponion_icon( 'wpoic-plus wponion-add' );
 			echo '</div>';
 
 			echo $this->show_image( $this->value(), $preview_show );
@@ -74,7 +74,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 			$return    .= wponion_tooltip( __( 'Remove', 'wponion' ), array(
 				'arrow'       => true,
 				'js_field_id' => $this->js_field_id(),
-			), wponion_icon( 'dashicons dashicons-no-alt wponion-image-remove wponion-help' ) );
+			), wponion_icon( 'wpoic-no wponion-image-remove wponion-help' ) );
 			$thumbnail = wp_get_attachment_image_src( $value, 'thumbnail' );
 			$fullsize  = wp_get_attachment_image_src( $value, 'full' );
 			$thumbnail = isset( $thumbnail[0] ) ? $thumbnail[0] : false;

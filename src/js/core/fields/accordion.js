@@ -15,8 +15,8 @@ export default class extends WPOnion_Field {
 				animate: 150,
 				heightStyle: 'content',
 				icons: {
-					'header': 'dashicons dashicons-arrow-right',
-					'activeHeader': 'dashicons dashicons-arrow-down'
+					'header': 'wpoic-right-small',
+					'activeHeader': 'wpoic-down-small'
 				}
 			} );
 
