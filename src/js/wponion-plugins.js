@@ -9,3 +9,4 @@
 } )( window, document, wp, jQuery );
 //@wponion-inline ../../node_modules/jquery-validation/dist/jquery.validate.js
 //@wponion-prepend ../../node_modules/jquery-validation/dist/additional-methods.js
+//@wponion-inline ../vendors/randomcolor.js

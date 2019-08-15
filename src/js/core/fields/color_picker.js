@@ -40,17 +40,33 @@ export default class extends WPOnion_Field {
 						opacity: true,
 						hue: true,
 						interaction: {
-							hex: true,
-							rgba: true,
-							hsla: true,
-							hsva: true,
-							cmyk: true,
+							hex: false,
+							rgba: false,
+							hsla: false,
+							hsva: false,
+							cmyk: false,
 							input: false,
 							clear: false,
 							save: false
 						}
 					}
 				} );
+
+
+			if( !window.wponion._.isUndefined( $args.swatches ) && true === $args.swatches ) {
+				$args.swatches = window.randomColor( {
+					count: 14,
+					hue: this.element.find( 'input.wponion-color-picker-element' ).val(),
+					luminosity: 'random',
+				} );
+			} else if( window.wponion._.isUndefined( $args.swatches ) ) {
+				$args.swatches = window.randomColor( {
+					count: 14,
+					hue: this.element.find( 'input.wponion-color-picker-element' ).val(),
+					luminosity: 'random',
+				} );
+			}
+
 
 			$args.appClass = 'wpo-color-picker';
 			$args.default  = this.element.find( 'input.wponion-color-picker-element' ).val() || '#fff';
