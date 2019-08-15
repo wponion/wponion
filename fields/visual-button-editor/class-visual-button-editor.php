@@ -97,7 +97,7 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				->clone_settings( array( 'add_button' => __( 'Add Text Shadow (+)' ) ) );
 
 			$tab->subheading( __( 'Box Shadow' ) );
-			$tab->css_shadow( 'box_shadow' )
+			$tab->css_shadow( 'box_shadow', __( 'WOWOWOWO' ) )
 				->box_shadow()
 				->_clone( true )
 				->clone_settings( array( 'add_button' => __( 'Add Box Shadow (+)' ) ) );
