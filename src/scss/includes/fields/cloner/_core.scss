@@ -1,47 +1,39 @@
 .wponion-element.wponion-element-clone {
 	.wponion-clone-wrap {
-		padding:    5px;
-		background: #f8f8f8;
-		border:     1px solid #ccc;
-		display:    inline-block;
-		min-width:  200px;
 
 		.wponion-field-clone {
+			position:       relative;
+			padding-bottom: 20px;
+
+			> .wponion-element {
+				border:     $element_border;
+				background: #fafafa;
+			}
+
 			.wponion-element {
-				padding:        5px 5px !important;
-				display:        inline-block;
-				vertical-align: middle;
+			}
+
+			&:hover {
+				.wponion-clone-action {
+					visibility: visible;
+				}
 			}
 
 			.wponion-clone-action {
-				display:        inline-block;
-				vertical-align: middle;
-				margin-left:    5px;
-				padding-top:    5px;
-				padding-bottom: 5px;
-			}
+				padding:  5px 10px;
+				display:  inline-block;
+				position: absolute;
+				top:      4px;
+				right:    4px;
 
-			&:first-child {
-				.wponion-element {
-					padding-top: 5px !important;
-				}
-			}
+				> button, a {
 
-			&:last-child {
-				.wponion-element {
-					padding-bottom: 5px !important;
-				}
-
-				.wponion-clone-action {
-					padding-top: 5px !important;
 				}
 			}
 		}
 
 		.wponion-field-clone + .wponion-field-clone {
-			//border-top: 1px solid #dadada;
-			//padding: 10px 0;
-			margin: 5px 0;
+
 		}
 
 		.wponion-field-clone-sorter {
@@ -51,9 +43,6 @@
 			cursor:         move;
 			margin-top:     0px;
 		}
-
-		//padding: 10px;
-		//border:  1px solid #dadada;
 	}
 
 	.wponion-clone-actions {

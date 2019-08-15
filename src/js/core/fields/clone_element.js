@@ -11,8 +11,8 @@ export default class extends WPOnion_Field {
 			//$is_toast   = ( $arg.toast_error !== undefined ) ? $arg.toast_error : true,
 			$sort    = ( $arg.sort !== false ) ? {
 				items: '.wponion-field-clone',
-				handle: '.wponion-field-clone-sorter',
-				placeholder: 'wponion-cloner-placeholder',
+				handle: '> .wponion-element',
+				placeholder: 'wponion-accordion-placeholder',
 				start: ( event, ui ) => ui.item.css( 'background-color', '#eeee' ),
 				stop: ( event, ui ) => {
 					this.element.trigger( 'change' );
