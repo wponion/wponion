@@ -1,0 +1,19 @@
+.wponion-element.wponion-element-css_shadow {
+	.wponion-element {
+		padding: 0;
+		display: inline-block;
+		border:  none;
+		margin:  0;
+
+		&:last-child {
+			margin-right: 0;
+		}
+
+		&.wponion-element-spinner {
+			input[type="text"] {
+				min-width: 10px;
+				width:     50px;
+			}
+		}
+	}
+}
