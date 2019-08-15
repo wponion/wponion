@@ -24,13 +24,13 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function h_shadow() {
-			return wpo_field( 'spinner', 'h-shadow', __( 'Horizontal Offset' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'h-shadow', __( 'Horizontal Offset' ), array( 'surfix' => 'px' ) )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
 
 		protected function v_shadow() {
-			return wpo_field( 'spinner', 'v-shadow', __( 'Vertical Offset' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'v-shadow', __( 'Vertical Offset' ), array( 'surfix' => 'px' ) )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
@@ -39,7 +39,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function blur() {
-			return wpo_field( 'spinner', 'blur', __( 'Blur' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'blur', __( 'Blur' ), array( 'surfix' => 'px' ) )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
@@ -48,7 +48,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function spread() {
-			return wpo_field( 'spinner', 'spread', __( 'Spread' ) )
+			return wpo_field( 'number', 'spread', __( 'Spread' ) )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
@@ -105,6 +105,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 				echo $this->sub_field( $this->handle_args( 'label', $this->data( 'hover' ), array(
 					'label'      => __( 'Enable Hover' ),
 					'horizontal' => true,
+					'id'         => $this->js_field_id() . 'enableHover',
+					'name'       => '',
 					'type'       => 'switcher',
 				), array( 'wrap_id' => 'enable_hover' ) ), $i_checked, null );
 

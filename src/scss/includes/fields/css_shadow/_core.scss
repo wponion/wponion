@@ -1,5 +1,18 @@
 .wponion-element.wponion-element-css_shadow {
-	.wponion-element {
+
+	#enable_hover {
+		padding:    15px 0;
+		border:     none;
+		margin-top: 20px;
+		border-top: $element_border;
+	}
+
+	input[type="number"] {
+		width:     100px;
+		min-width: 100px;
+	}
+
+	.wponion-element:not(#enable_hover) {
 		padding: 0;
 		display: inline-block;
 		border:  none;
