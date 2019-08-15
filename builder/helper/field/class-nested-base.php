@@ -58,10 +58,10 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		}
 
 		/**
-		 * @param string|\WPO\Field $field_type_or_instance
-		 * @param bool|\WPO\Field   $field_id
-		 * @param bool              $title
-		 * @param array             $args
+		 * @param string|array|\WPO\Field $field_type_or_instance
+		 * @param bool|\WPO\Field         $field_id
+		 * @param bool                    $title
+		 * @param array                   $args
 		 *
 		 * @return false|bool|\WPO\Field
 		 */

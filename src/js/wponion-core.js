@@ -29,6 +29,7 @@ import utilites_functions from './core/functions/utilites';
 import wpo_button from './core/plugins/wpo-buttons';
 import { init_ajaxer, WPOnion_Ajaxer } from './core/plugins/ajaxer';
 import WPOnion_Validator from './core/plugins/validator';
+import WPOnion_Object_Path from './core/plugins/object-path';
 
 /**
  * WPOnion Core Classes
@@ -69,14 +70,15 @@ import WPOnion_Dependency from './core/class/dependency';
 		 */
 		$.fn = $.extend( $.fn, jquery_functions );
 
-		window.wpo_core          = WPOnion_Core;
-		window.wponion           = {};
-		window.wponion.instances = {};
-		window.wponion.plugins   = {};
-		window.wponion.class     = {};
-		window.wponion._         = window.lodash.noConflict();
-		window.wponion.hooks     = createHooks();
-		window.wponion.helper    = vsp_js_helper;
+		window.wpo_core            = WPOnion_Core;
+		window.wponion             = {};
+		window.wponion.instances   = {};
+		window.wponion.plugins     = {};
+		window.wponion.class       = {};
+		window.wponion._           = window.lodash.noConflict();
+		window.wponion.hooks       = createHooks();
+		window.wponion.helper      = vsp_js_helper;
+		window.wponion.object_path = WPOnion_Object_Path;
 		/*window.wponion.instances.module  = new instance_handler();
 		window.wponion.instances.fields  = new instance_handler();
 		window.wponion.instances.global  = new instance_handler();*/

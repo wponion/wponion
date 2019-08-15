@@ -30,6 +30,7 @@ export default class extends WPOnion_Field {
 						}
 					}
 					this.element.find( 'input.wponion-color-picker-element' ).val( $value );
+					this.element.find( 'input.wponion-color-picker-element' ).trigger( 'change' );
 					this.element.find( 'span.cpickr-bg' ).css( 'background-color', $value );
 				},
 				$args       = this.parse_args( $data, {

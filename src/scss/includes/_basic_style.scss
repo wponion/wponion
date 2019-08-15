@@ -1,6 +1,12 @@
 @import "./library_fixes";
 @import "./wp_modal";
 
+.button {
+	.dashicons {
+		line-height: 26px;
+	}
+}
+
 // Hidden Class.
 .wpo-hidden {
 	visibility: hidden;

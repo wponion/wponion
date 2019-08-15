@@ -237,6 +237,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_field( 'code_editor', 'all' );
 			wponion_register_field( 'wp_list_table', 'all' );
 			wponion_register_field( 'visual_editor', 'all' );
+			wponion_register_field( 'visual_button_editor', 'all' );
+			wponion_register_field( 'css_shadow', 'all' );
+			wponion_register_field( 'number', 'all' );
 
 			/**
 			 * Registers UI Field.

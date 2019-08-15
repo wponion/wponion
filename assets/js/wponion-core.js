@@ -4841,6 +4841,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fields_modal__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./fields/modal */ "./src/js/core/fields/modal.js");
 /* harmony import */ var _fields_wp_editor__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./fields/wp-editor */ "./src/js/core/fields/wp-editor.js");
 /* harmony import */ var _fields_visual_editor__WEBPACK_IMPORTED_MODULE_36__ = __webpack_require__(/*! ./fields/visual-editor */ "./src/js/core/fields/visual-editor.js");
+/* harmony import */ var _fields_visual_button_editor__WEBPACK_IMPORTED_MODULE_37__ = __webpack_require__(/*! ./fields/visual-button-editor */ "./src/js/core/fields/visual-button-editor.js");
+/* harmony import */ var _fields_spacing__WEBPACK_IMPORTED_MODULE_38__ = __webpack_require__(/*! ./fields/spacing */ "./src/js/core/fields/spacing.js");
+/* harmony import */ var _fields_css_shadow__WEBPACK_IMPORTED_MODULE_39__ = __webpack_require__(/*! ./fields/css-shadow */ "./src/js/core/fields/css-shadow.js");
+
+
+
 
 
 
@@ -4924,6 +4930,9 @@ function wponion_register_fields() {
   window.wponion_register_field('modal', _fields_modal__WEBPACK_IMPORTED_MODULE_34__["default"]);
   window.wponion_register_field('wp_editor', _fields_wp_editor__WEBPACK_IMPORTED_MODULE_35__["default"]);
   window.wponion_register_field('visual_editor', _fields_visual_editor__WEBPACK_IMPORTED_MODULE_36__["default"]);
+  window.wponion_register_field('visual_button_editor', _fields_visual_button_editor__WEBPACK_IMPORTED_MODULE_37__["default"]);
+  window.wponion_register_field('spacing', _fields_spacing__WEBPACK_IMPORTED_MODULE_38__["default"]);
+  window.wponion_register_field('css_shadow', _fields_css_shadow__WEBPACK_IMPORTED_MODULE_39__["default"]);
 }
 
 /***/ }),
@@ -5290,8 +5299,8 @@ function (_WPOnion_Field) {
       //$is_toast   = ( $arg.toast_error !== undefined ) ? $arg.toast_error : true,
       $sort = $arg.sort !== false ? {
         items: '.wponion-field-clone',
-        handle: '.wponion-field-clone-sorter',
-        placeholder: 'wponion-cloner-placeholder',
+        handle: '> .wponion-element',
+        placeholder: 'wponion-accordion-placeholder',
         start: function start(event, ui) {
           return ui.item.css('background-color', '#eeee');
         },
@@ -5504,6 +5513,8 @@ function (_WPOnion_Field) {
 
           _this.element.find('input.wponion-color-picker-element').val($value);
 
+          _this.element.find('input.wponion-color-picker-element').trigger('change');
+
           _this.element.find('span.cpickr-bg').css('background-color', $value);
         },
             $args = this.parse_args($data, {
@@ -5514,11 +5525,11 @@ function (_WPOnion_Field) {
             opacity: true,
             hue: true,
             interaction: {
-              hex: true,
-              rgba: true,
-              hsla: true,
-              hsva: true,
-              cmyk: true,
+              hex: false,
+              rgba: false,
+              hsla: false,
+              hsva: false,
+              cmyk: false,
               input: false,
               clear: false,
               save: false
@@ -5526,10 +5537,25 @@ function (_WPOnion_Field) {
           }
         });
 
-        $args.el = this.element.find('div.wponion-color-picker-element')[0];
+        if (!window.wponion._.isUndefined($args.swatches) && true === $args.swatches) {
+          $args.swatches = window.randomColor({
+            count: 14,
+            hue: this.element.find('input.wponion-color-picker-element').val(),
+            luminosity: 'random'
+          });
+        } else if (window.wponion._.isUndefined($args.swatches)) {
+          $args.swatches = window.randomColor({
+            count: 14,
+            hue: this.element.find('input.wponion-color-picker-element').val(),
+            luminosity: 'random'
+          });
+        }
+
         $args.appClass = 'wpo-color-picker';
         $args["default"] = this.element.find('input.wponion-color-picker-element').val() || '#fff';
-        var $instance = new Pickr(this.handle_args($args, 'colorpicker')),
+        $args = this.handle_args($args, 'colorpicker');
+        $args.el = this.element.find('div.wponion-color-picker-element')[0];
+        var $instance = new Pickr($args),
             $input = this.element.find('input.wponion-color-picker-element');
         $instance.on('save', $save_color);
         $instance.on('change', $save_color);
@@ -6334,6 +6360,79 @@ function (_WPOnion_Field) {
   }, {
     key: "maybe_add_inited_class",
     value: function maybe_add_inited_class() {}
+  }]);
+
+  return _default;
+}(_class_field__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/core/fields/css-shadow.js":
+/*!******************************************!*\
+  !*** ./src/js/core/fields/css-shadow.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var _class_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../class/field */ "./src/js/core/class/field.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_WPOnion_Field) {
+  _inherits(_default, _WPOnion_Field);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "init",
+
+    /**
+     * Inits Field.
+     */
+    value: function init() {
+      var _this = this;
+
+      //this.element.find( '.hover-effect .wponion-field-title h4' ).append( ' | <small>Hover</small>' );
+      this.element.find('div#enable_hover').on('click', 'input[type=checkbox]', function (e) {
+        var $elem = jQuery(e.currentTarget);
+
+        if ($elem.prop('checked')) {
+          _this.element.find('div.hover-effect').slideDown();
+        } else {
+          _this.element.find('div.hover-effect').slideUp();
+
+          _this.element.find('div.hover-effect :input').val('').trigger('change');
+        }
+      });
+    }
   }]);
 
   return _default;
@@ -8399,6 +8498,84 @@ function (_WPOnion_Field) {
 
 /***/ }),
 
+/***/ "./src/js/core/fields/spacing.js":
+/*!***************************************!*\
+  !*** ./src/js/core/fields/spacing.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var _class_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../class/field */ "./src/js/core/class/field.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_WPOnion_Field) {
+  _inherits(_default, _WPOnion_Field);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      this.element.find('button').on('click', function () {
+        if (_this.element.find('.wponion-spacing-input-all').is(':hidden')) {
+          _this.element.find('.wponion-spacing-input').addClass('hidden');
+
+          _this.element.find('.wponion-spacing-input-all').removeClass('hidden');
+
+          _this.element.find('button > i').attr('class', 'dashicons dashicons-editor-expand');
+
+          _this.element.find('.wponion-spacing-input').find('input').val('');
+        } else {
+          _this.element.find('.wponion-spacing-input').removeClass('hidden');
+
+          _this.element.find('.wponion-spacing-input-all').addClass('hidden');
+
+          _this.element.find('button > i').attr('class', 'dashicons dashicons-editor-contract');
+
+          _this.element.find('.wponion-spacing-input:not(.wponion-spacing-input-all)').find('input').val(_this.element.find('.wponion-spacing-input-all').find('input').val());
+
+          _this.element.find('.wponion-spacing-input-all').find('input').val('');
+        }
+      });
+    }
+  }]);
+
+  return _default;
+}(_class_field__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
 /***/ "./src/js/core/fields/spinner.js":
 /*!***************************************!*\
   !*** ./src/js/core/fields/spinner.js ***!
@@ -8456,7 +8633,8 @@ function (_WPOnion_Field) {
         return $input.val(ui.value).trigger('change');
       };
 
-      $elem_init.spinner($options);
+      var instance = $elem_init.spinner($options);
+      instance.spinner('value', $input.val());
     }
   }]);
 
@@ -8880,6 +9058,172 @@ function (_WPOnion_Field) {
         });
         wp_media_frame.open();
       });
+    }
+  }]);
+
+  return _default;
+}(_class_field__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/core/fields/visual-button-editor.js":
+/*!****************************************************!*\
+  !*** ./src/js/core/fields/visual-button-editor.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
+/* harmony import */ var _class_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../class/field */ "./src/js/core/class/field.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var _default =
+/*#__PURE__*/
+function (_WPOnion_Field) {
+  _inherits(_default, _WPOnion_Field);
+
+  function _default() {
+    _classCallCheck(this, _default);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(_default).apply(this, arguments));
+  }
+
+  _createClass(_default, [{
+    key: "init",
+    value: function init() {
+      var _this = this;
+
+      var $button = this.element.find('.button-editor-preview > button');
+      this.css_id = 'button#' + $button.attr('id');
+      this.normal = '';
+      this.hover = '';
+      this.focus = '';
+      this.active = '';
+      this.element.find('div#button-label input').on('keyup', function (e) {
+        $button.find('span.button-label').html(jQuery(e.currentTarget).val());
+      });
+      this.element.find('div#button-icon input').on('change', function (e) {
+        $button.find('span.button-icon').html('<i class="' + jQuery(e.currentTarget).val() + '"></i>');
+      });
+      this.element.find('div#button-css-builder').on('change', ':input', window.wponion_debounce(function () {
+        return _this.generate_css();
+      }));
+      this.element.find('div#wponion-tab-colors').on('change', ':input', window.wponion_debounce(function () {
+        return _this.generate_css();
+      }));
+    }
+  }, {
+    key: "generate_css",
+    value: function generate_css() {
+      /**
+       * CSS Builder
+       * @type {jQuery|*|string}
+       */
+      var $builder = this.element.find('div#button-css-builder :input').serializeJSON();
+      var $bdata = window.wponion.object_path.get($builder, this.option('field_path') + '/css_editor');
+
+      if (window.wponion._.isObject($bdata)) {
+        for (var $key in $bdata) {
+          if ($bdata.hasOwnProperty($key)) {
+            if ('border-style' === $key && window.wponion._.isEmpty($bdata[$key])) {
+              $bdata[$key] = 'solid';
+            }
+
+            if (!window.wponion._.isEmpty($bdata[$key])) {
+              this.normal += ' ' + $key + ' : ' + $bdata[$key] + '; ';
+            }
+          }
+        }
+      }
+      /**
+       * CSS Colors
+       * @type {jQuery|*|string}
+       */
+
+
+      var $css = this.element.find('div#wponion-tab-colors :input').serializeJSON();
+      var $data = window.wponion.object_path.get($css, this.option('field_path'));
+
+      if (window.wponion._.isObject($data)) {
+        if (!window.wponion._.isUndefined($data.background_color)) {
+          for (var _$key in $data.background_color) {
+            if ($data.background_color.hasOwnProperty(_$key)) {
+              if (!window.wponion._.isEmpty($data.background_color[_$key])) {
+                this[_$key] += 'background:' + $data.background_color[_$key] + ';';
+              }
+            }
+          }
+        }
+
+        if (!window.wponion._.isUndefined($data.text_color)) {
+          for (var _$key2 in $data.text_color) {
+            if ($data.text_color.hasOwnProperty(_$key2)) {
+              if (!window.wponion._.isEmpty($data.text_color[_$key2])) {
+                this[_$key2] += 'color:' + $data.text_color[_$key2] + ';';
+              }
+            }
+          }
+        }
+
+        if (!window.wponion._.isUndefined($data.box_shadow)) {
+          for (var _$key3 in $data.box_shadow) {
+            var $shadow = [];
+
+            if ($data.box_shadow.hasOwnProperty(_$key3)) {
+              if (!window.wponion._.isEmpty($data.box_shadow[_$key3])) {
+                var bxsh = [];
+                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3]['h-shadow']) ? $data.box_shadow[_$key3]['h-shadow'] : '0');
+                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3]['v-shadow']) ? $data.box_shadow[_$key3]['v-shadow'] : '0');
+                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3].blur) ? $data.box_shadow[_$key3].blur : '0');
+                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3].spread) ? $data.box_shadow[_$key3].spread : '0');
+                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3].color) ? $data.box_shadow[_$key3].color : '0');
+                console.log(bxsh);
+                $shadow.push(bxsh.join(' '));
+              }
+            }
+
+            console.log($shadow);
+            this.normal += 'box-shadow:' + $shadow.join(',') + ';';
+          }
+        }
+      }
+
+      this.save_css();
+    }
+  }, {
+    key: "save_css",
+    value: function save_css() {
+      var $css = this.css_id + '{' + this.normal + '}';
+      $css += this.css_id + ':hover {' + this.hover + '}';
+      $css += this.css_id + ':active {' + this.active + '}';
+      $css += this.css_id + ':focus {' + this.focus + '}';
+      this.normal = '';
+      this.hover = '';
+      this.active = '';
+      this.focus = '';
+      this.element.find('.button-editor-preview > style').html($css);
     }
   }]);
 
@@ -11317,6 +11661,142 @@ function init_ajaxer() {
 
 /***/ }),
 
+/***/ "./src/js/core/plugins/object-path.js":
+/*!********************************************!*\
+  !*** ./src/js/core/plugins/object-path.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var ObjectPath = {
+  isObj: function isObj(value) {
+    return value !== null && (_typeof(value) === 'object' || typeof value === 'function');
+  },
+  getPathSegments: function getPathSegments(path) {
+    var path_spiltter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '.';
+    var pathArray = path.split(path_spiltter);
+    var parts = [];
+
+    for (var i = 0; i < pathArray.length; i++) {
+      var p = pathArray[i];
+
+      while (p[p.length - 1] === '\\' && pathArray[i + 1] !== undefined) {
+        p = p.slice(0, -1) + path_spiltter;
+        p += pathArray[++i];
+      }
+
+      parts.push(p);
+    }
+
+    return parts;
+  },
+  get: function get(object, path, value) {
+    var path_spiltter = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '/';
+
+    if (!ObjectPath.isObj(object) || typeof path !== 'string') {
+      return value === undefined ? object : value;
+    }
+
+    var pathArray = ObjectPath.getPathSegments(path, path_spiltter);
+
+    for (var i = 0; i < pathArray.length; i++) {
+      if (!Object.prototype.propertyIsEnumerable.call(object, pathArray[i])) {
+        return value;
+      }
+
+      object = object[pathArray[i]];
+
+      if (object === undefined || object === null) {
+        if (i !== pathArray.length - 1) {
+          return value;
+        }
+
+        break;
+      }
+    }
+
+    return object;
+  },
+  set: function set(object, path, value) {
+    var path_spiltter = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '/';
+
+    if (!ObjectPath.isObj(object) || typeof path !== 'string') {
+      return object;
+    }
+
+    var root = object;
+    var pathArray = ObjectPath.getPathSegments(path, path_spiltter);
+
+    for (var i = 0; i < pathArray.length; i++) {
+      var p = pathArray[i];
+
+      if (!ObjectPath.isObj(object[p])) {
+        object[p] = {};
+      }
+
+      if (i === pathArray.length - 1) {
+        object[p] = value;
+      }
+
+      object = object[p];
+    }
+
+    return root;
+  },
+  "delete": function _delete(object, path) {
+    var path_spiltter = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '/';
+
+    if (!ObjectPath.isObj(object) || typeof path !== 'string') {
+      return;
+    }
+
+    var pathArray = ObjectPath.getPathSegments(path, path_spiltter);
+
+    for (var i = 0; i < pathArray.length; i++) {
+      var p = pathArray[i];
+
+      if (i === pathArray.length - 1) {
+        delete object[p];
+        return;
+      }
+
+      object = object[p];
+
+      if (!ObjectPath.isObj(object)) {
+        return;
+      }
+    }
+  },
+  has: function has(object, path, path_spiltter) {
+    if (!ObjectPath.isObj(object) || typeof path !== 'string') {
+      return false;
+    }
+
+    var pathArray = ObjectPath.getPathSegments(path, path_spiltter);
+
+    for (var i = 0; i < pathArray.length; i++) {
+      if (ObjectPath.isObj(object)) {
+        if (!(pathArray[i] in object)) {
+          return false;
+        }
+
+        object = object[pathArray[i]];
+      } else {
+        return false;
+      }
+    }
+
+    return true;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = (ObjectPath);
+
+/***/ }),
+
 /***/ "./src/js/core/plugins/validator.js":
 /*!******************************************!*\
   !*** ./src/js/core/plugins/validator.js ***!
@@ -12407,14 +12887,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_plugins_wpo_buttons__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./core/plugins/wpo-buttons */ "./src/js/core/plugins/wpo-buttons.js");
 /* harmony import */ var _core_plugins_ajaxer__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./core/plugins/ajaxer */ "./src/js/core/plugins/ajaxer.js");
 /* harmony import */ var _core_plugins_validator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./core/plugins/validator */ "./src/js/core/plugins/validator.js");
-/* harmony import */ var _core_class_core__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./core/class/core */ "./src/js/core/class/core.js");
-/* harmony import */ var _core_class_debug__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./core/class/debug */ "./src/js/core/class/debug.js");
-/* harmony import */ var _core_class_base__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./core/class/base */ "./src/js/core/class/base.js");
-/* harmony import */ var _core_class_theme_base__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./core/class/theme-base */ "./src/js/core/class/theme-base.js");
-/* harmony import */ var _core_class_module_base__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./core/class/module-base */ "./src/js/core/class/module-base.js");
-/* harmony import */ var _core_class_field_base__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./core/class/field-base */ "./src/js/core/class/field-base.js");
-/* harmony import */ var _core_class_field__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./core/class/field */ "./src/js/core/class/field.js");
-/* harmony import */ var _core_class_dependency__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./core/class/dependency */ "./src/js/core/class/dependency.js");
+/* harmony import */ var _core_plugins_object_path__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./core/plugins/object-path */ "./src/js/core/plugins/object-path.js");
+/* harmony import */ var _core_class_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./core/class/core */ "./src/js/core/class/core.js");
+/* harmony import */ var _core_class_debug__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./core/class/debug */ "./src/js/core/class/debug.js");
+/* harmony import */ var _core_class_base__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./core/class/base */ "./src/js/core/class/base.js");
+/* harmony import */ var _core_class_theme_base__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./core/class/theme-base */ "./src/js/core/class/theme-base.js");
+/* harmony import */ var _core_class_module_base__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./core/class/module-base */ "./src/js/core/class/module-base.js");
+/* harmony import */ var _core_class_field_base__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./core/class/field-base */ "./src/js/core/class/field-base.js");
+/* harmony import */ var _core_class_field__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./core/class/field */ "./src/js/core/class/field.js");
+/* harmony import */ var _core_class_dependency__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./core/class/dependency */ "./src/js/core/class/dependency.js");
 /**
  * 3rd Party Library
  */
@@ -12442,6 +12923,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * WPOnion Plugins
  */
+
 
 
 
@@ -12479,7 +12961,7 @@ __webpack_require__.r(__webpack_exports__);
      */
 
     $.fn = $.extend($.fn, _core_functions_jquery__WEBPACK_IMPORTED_MODULE_6__["default"]);
-    window.wpo_core = _core_class_core__WEBPACK_IMPORTED_MODULE_15__["default"];
+    window.wpo_core = _core_class_core__WEBPACK_IMPORTED_MODULE_16__["default"];
     window.wponion = {};
     window.wponion.instances = {};
     window.wponion.plugins = {};
@@ -12487,6 +12969,7 @@ __webpack_require__.r(__webpack_exports__);
     window.wponion._ = window.lodash.noConflict();
     window.wponion.hooks = Object(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__["createHooks"])();
     window.wponion.helper = vsp_js_helper_index__WEBPACK_IMPORTED_MODULE_1__["default"];
+    window.wponion.object_path = _core_plugins_object_path__WEBPACK_IMPORTED_MODULE_15__["default"];
     /*window.wponion.instances.module  = new instance_handler();
     window.wponion.instances.fields  = new instance_handler();
     window.wponion.instances.global  = new instance_handler();*/
@@ -12494,13 +12977,13 @@ __webpack_require__.r(__webpack_exports__);
     window.wponion.plugins.bs_button = _core_plugins_wpo_buttons__WEBPACK_IMPORTED_MODULE_12__["default"];
     window.wponion.plugins.ajaxer = _core_plugins_ajaxer__WEBPACK_IMPORTED_MODULE_13__["WPOnion_Ajaxer"];
     window.wponion.plugins.validator = _core_plugins_validator__WEBPACK_IMPORTED_MODULE_14__["default"];
-    window.wponion["class"].base = _core_class_base__WEBPACK_IMPORTED_MODULE_17__["default"];
-    window.wponion["class"].theme_base = _core_class_theme_base__WEBPACK_IMPORTED_MODULE_18__["default"];
-    window.wponion["class"].module_base = _core_class_module_base__WEBPACK_IMPORTED_MODULE_19__["default"];
-    window.wponion["class"].field_debug = new _core_class_debug__WEBPACK_IMPORTED_MODULE_16__["default"]();
-    window.wponion["class"].field_base = _core_class_field_base__WEBPACK_IMPORTED_MODULE_20__["default"];
-    window.wponion["class"].field = _core_class_field__WEBPACK_IMPORTED_MODULE_21__["default"];
-    window.wponion["class"].dependency = _core_class_dependency__WEBPACK_IMPORTED_MODULE_22__["default"];
+    window.wponion["class"].base = _core_class_base__WEBPACK_IMPORTED_MODULE_18__["default"];
+    window.wponion["class"].theme_base = _core_class_theme_base__WEBPACK_IMPORTED_MODULE_19__["default"];
+    window.wponion["class"].module_base = _core_class_module_base__WEBPACK_IMPORTED_MODULE_20__["default"];
+    window.wponion["class"].field_debug = new _core_class_debug__WEBPACK_IMPORTED_MODULE_17__["default"]();
+    window.wponion["class"].field_base = _core_class_field_base__WEBPACK_IMPORTED_MODULE_21__["default"];
+    window.wponion["class"].field = _core_class_field__WEBPACK_IMPORTED_MODULE_22__["default"];
+    window.wponion["class"].dependency = _core_class_dependency__WEBPACK_IMPORTED_MODULE_23__["default"];
   } // Reloads Customizer Related Fields.
 
 
