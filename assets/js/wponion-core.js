@@ -5299,7 +5299,7 @@ function (_WPOnion_Field) {
       //$is_toast   = ( $arg.toast_error !== undefined ) ? $arg.toast_error : true,
       $sort = $arg.sort !== false ? {
         items: '.wponion-field-clone',
-        handle: '> .wponion-element',
+        handle: '> .wponion-clone-action .cloner-sort',
         placeholder: 'wponion-accordion-placeholder',
         start: function start(event, ui) {
           return ui.item.css('background-color', '#eeee');
@@ -5314,7 +5314,7 @@ function (_WPOnion_Field) {
         add_btn: $add_btn,
         limit: $arg.limit !== undefined ? $arg.limit : false,
         clone_elem: '.wponion-field-clone',
-        remove_btn: '.wponion-clone-action > .wponion-remove',
+        remove_btn: '.wponion-clone-action > .cloner-remove',
         template: this.option('clone_template'),
         templateAfterRender: function templateAfterRender($e) {
           _this.element.trigger('change');

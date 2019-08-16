@@ -48,7 +48,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function spread() {
-			return wpo_field( 'number', 'spread', __( 'Spread' ) )
+			return wpo_field( 'number', 'spread', __( 'Spread' ), array( 'surfix' => 'px' ) )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
@@ -77,6 +77,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		protected function output() {
 			echo $this->before();
 
+			echo '<div class="row">';
+
 			//H Shadow
 			echo $this->sub_field( $this->h_shadow(), $this->value( 'h-shadow' ), $this->name() );
 
@@ -99,9 +101,12 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 				echo $this->sub_field( $this->shadow_type(), $this->value( 'inset' ), $this->name() );
 			}
 
+			echo '</div>';
+
 			if ( $this->data( 'hover' ) ) {
 				$val       = ( ! is_array( $this->value( 'hover' ) ) ) ? array() : $this->value( 'hover' );
 				$i_checked = ( ! empty( array_filter( $val ) ) ) ? true : false;
+				echo '<div class="row">';
 				echo $this->sub_field( $this->handle_args( 'label', $this->data( 'hover' ), array(
 					'label'      => __( 'Enable Hover' ),
 					'horizontal' => true,
@@ -109,6 +114,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 					'name'       => '',
 					'type'       => 'switcher',
 				), array( 'wrap_id' => 'enable_hover' ) ), $i_checked, null );
+				echo '</div>';
+				echo '<div class="row">';
 
 				$hover = wpo_field( 'fieldset', 'hover' )->only_field( true );
 				$hover->field( $this->h_shadow() );
@@ -127,6 +134,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 				$is_show = ( false === $i_checked ) ? 'display:none;' : '';
 				echo '<div class="hover-effect" style="' . $is_show . '">';
 				echo $this->sub_field( $hover, $this->value( 'hover' ), $this->name() );
+				echo '</div>';
 				echo '</div>';
 			}
 

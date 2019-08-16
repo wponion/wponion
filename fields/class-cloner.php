@@ -60,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 
 			}
 
-			return '<a href="#" onclick="return false;" class="dashicons wponion-remove "></a>';
+			return wponion_icon( ' wpoic-no-circle-dark wponion-remove' );
 		}
 
 		/**
@@ -81,7 +81,10 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			$args['value']           = $value;
 			$args['fieldset_column'] = 'col-xs-12';
 			$args['name']            = $this->unique( $this->field_id() . '/' . $extra_unique . '/' );
-			$return                  .= '<div class="wponion-clone-action">' . $this->clone_btn( 'remove' ) . '</div> ';
+			$return                  .= '<div class="wponion-clone-action">';
+			$return                  .= '<div class="cloner-sort">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
+			$return                  .= '<div class="cloner-remove">' . $this->clone_btn( 'remove' ) . '</div>';
+			$return                  .= '</div> ';
 			$return                  .= $this->sub_field( $args, $value, $this->field_id() . '/' . $extra_unique . '/' );
 			$return                  .= '</div>';
 			return $return;

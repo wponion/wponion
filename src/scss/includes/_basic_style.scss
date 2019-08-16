@@ -137,15 +137,15 @@
 	}
 }
 
+.wponion-icon {
+	text-decoration: none;
+}
+
 // WPOnion Remove CSS
 .wponion-remove {
 	font-size: 16px;
 	color:     #AAAAAA;
 	cursor:    pointer;
-
-	&:before {
-		content: "\f153";
-	}
 
 	&:hover {
 		color: #CC0000;
