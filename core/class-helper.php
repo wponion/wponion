@@ -40,6 +40,22 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
+		 * Returns Internal Array Data.
+		 *
+		 * @static
+		 * @return array
+		 */
+		public static function get_internal_options() {
+			try {
+				return wponion_get_cache( 'internal-options' );
+			} catch ( Cache_Not_Found $exception ) {
+				$options = self::get_data( 'internal-options' );
+				$exception->set( $options );
+				return $options;
+			}
+		}
+
+		/**
 		 * Reads JSON file and returns its content
 		 *
 		 * @param string $file File Path

@@ -139,11 +139,7 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 				'left'         => true,
 				'right'        => true,
 				'unit'         => true,
-				'unit_options' => array(
-					'px' => 'px',
-					'%'  => '%',
-					'em' => 'em',
-				),
+				'unit_options' => wponion_internal_options_data( 'css-units' ),
 				'all'          => false,
 				'icons'        => $this->default_icons(),
 			);
