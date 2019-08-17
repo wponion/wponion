@@ -8867,9 +8867,7 @@ function (_WPOnion_Field) {
             $align = $el.find('.wponion-element-align select').val(),
             $fontSize = $el.find('.wponion-element-size input').val(),
             $lineHeight = $el.find('.wponion-element-line-height input').val(),
-            //$backUPFont        = $el.find( '.wponion-element-backup-font select' ).val(),
-        //$direction         = $el.find( '.wponion-element-direction select' ).val(),
-        $letterSpacing = $el.find('.wponion-element-letter-spacing input').val(),
+            $letterSpacing = $el.find('.wponion-element-letter-spacing input').val(),
             href = 'https://fonts.googleapis.com/css?family=' + $font + ':' + $font_weight_style.weight,
             html = '<link href="' + href + '" class="wpsf-font-preview-' + $this.id() + '" rel="stylesheet" type="text/css" />';
 

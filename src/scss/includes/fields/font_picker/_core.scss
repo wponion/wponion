@@ -1,6 +1,7 @@
 .wponion-element.wponion-element-font_picker {
 	.wponion-font-select-container {
 		margin-right: 15px;
+		display:      inline-block;
 
 		&:last-child {
 			margin-right: 0;
@@ -59,7 +60,8 @@
 				width:   100%;
 				display: block;
 			}
-			&:last-child{
+
+			&:last-child {
 				margin-bottom: 0;
 			}
 		}

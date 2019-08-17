@@ -1,50 +1,30 @@
 .wponion-element.wponion-element-typography {
 	.wponion-fieldset {
 		.wponion-element {
-			padding-left:  0;
-			padding-right: 0;
-		}
+			border: none;
 
-		.wponion-typography-config-panel {
-			display: block;
-			border:  $element_border;
-			padding: 15px;
-
-			.wponion-typography-font_picker, .wponion-typography-font_alignments, .wponion-typography-font_sizes {
-				> div {
-					display:       inline-block;
-					width:         auto;
-					padding:       0;
-					margin-right:  15px;
-					border-top:    none;
-					border-bottom: none;
+			&.wponion-element-select {
+				select {
+					width: 100%;
 				}
-			}
-
-			.wponion-typography-font_alignments, .wponion-typography-font_sizes {
-				display:     inline-block;
-				padding-top: 15px;
-
-				> div {
-					padding-top:    0;
-					padding-bottom: 0;
-					width:          auto;
-				}
-			}
-
-			> .wponion-element {
-				display: inline-block;
-				padding: 0;
 			}
 		}
 
-		.wponion-font-preview {
-			padding:          10px;
-			border:           1px solid #e6e6e6;
-			color:            #7b7b7b;
-			margin-top:       20px;
-			background-color: #fff;
-			font-size:        16px;
+		#fontsize-and-color {
+			input {
+				width: 100px;
+			}
+		}
+
+		.previewtxt-wrap {
+			> div {
+				padding: 0 16px;
+			}
+
+			.previewtxt {
+				padding:    15px;
+				background: #f9f9f9;
+			}
 		}
 	}
 }

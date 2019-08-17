@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 			echo $this->before();
 			$this->select_framework = wponion_validate_select_framework( $this->field );
 
-			echo '<div class="row">';
+			//echo '<div class="row">';
 			echo '<div class="wponion-font-select-container">';
 			echo $this->sub_field( $this->font_select(), $this->value( 'font' ), $this->name() );
 			echo '</div>';
@@ -46,7 +46,7 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 			echo '<div class="wponion-font-select-container">';
 			echo $this->sub_field( $this->variant_select(), $this->value( 'variant' ), $this->name() );
 			echo '</div>';
-			echo '</div>';
+			//echo '</div>';
 
 			echo $this->after();
 		}
