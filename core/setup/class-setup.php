@@ -240,6 +240,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_field( 'visual_button_editor', 'all' );
 			wponion_register_field( 'css_shadow', 'all' );
 			wponion_register_field( 'number', 'all' );
+			wponion_register_field( 'css_unit', 'all' );
 
 			/**
 			 * Registers UI Field.

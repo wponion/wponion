@@ -80,6 +80,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 * @method \WPO\Fields\Code_Editor code_editor( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\WP_List_Table wp_list_table( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Field import_export( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\CSS_Unit css_unit( $id = false, $title = false, $args = array() )
 	 */
 	trait Types {
 		/**
