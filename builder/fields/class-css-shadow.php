@@ -53,5 +53,35 @@ if ( ! class_exists( 'WPO\Fields\CSS_Shadow' ) ) {
 		public function box_shadow() {
 			return $this->shadow_type( 'box' );
 		}
+
+		/**
+		 * Show or hide Preview
+		 *
+		 * @param bool|string $show
+		 *
+		 * @return $this
+		 */
+		public function preview( $show = true ) {
+			$this['preview'] = $show;
+			return $this;
+		}
+
+		/**
+		 * @return $this
+		 */
+		public function hide_preview() {
+			$this['preview'] = false;
+			return $this;
+		}
+
+		/**
+		 * @param string $text
+		 *
+		 * @return $this
+		 */
+		public function preview_text( $text ) {
+			$this['preview'] = $text;
+			return $this;
+		}
 	}
 }

@@ -24,13 +24,15 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function h_shadow() {
-			return wpo_field( 'number', 'h-shadow', __( 'Horizontal Offset' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'h-shadow', __( 'Horizontal Length' ), array( 'surfix' => 'px' ) )
+				->attribute( 'data-css-id', 'h-shadow' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
 
 		protected function v_shadow() {
-			return wpo_field( 'number', 'v-shadow', __( 'Vertical Offset' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'v-shadow', __( 'Vertical Length' ), array( 'surfix' => 'px' ) )
+				->attribute( 'data-css-id', 'v-shadow' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
@@ -39,7 +41,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function blur() {
-			return wpo_field( 'number', 'blur', __( 'Blur' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'blur', __( 'Blur Radius' ), array( 'surfix' => 'px' ) )
+				->attribute( 'data-css-id', 'blur' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
@@ -48,7 +51,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function spread() {
-			return wpo_field( 'number', 'spread', __( 'Spread' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'spread', __( 'Spread Radius' ), array( 'surfix' => 'px' ) )
+				->attribute( 'data-css-id', 'spread' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
@@ -58,6 +62,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 */
 		protected function color() {
 			return wpo_field( 'color_picker', 'color', __( 'Shadow Color' ) )
+				->attribute( 'data-css-id', 'color' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
@@ -67,6 +72,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 */
 		protected function shadow_type() {
 			return wpo_field( 'switcher', 'inset', __( 'Inset ?' ) )
+				->attribute( 'data-css-id', 'inset' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-1' );
 		}
@@ -77,7 +83,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		protected function output() {
 			echo $this->before();
 
-			echo '<div class="row">';
+			echo '<div class="row wponion-row">';
 
 			//H Shadow
 			echo $this->sub_field( $this->h_shadow(), $this->value( 'h-shadow' ), $this->name() );
@@ -103,42 +109,22 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 
 			echo '</div>';
 
-			if ( $this->data( 'hover' ) ) {
-				$val       = ( ! is_array( $this->value( 'hover' ) ) ) ? array() : $this->value( 'hover' );
-				$i_checked = ( ! empty( array_filter( $val ) ) ) ? true : false;
-				echo '<div class="row">';
-				echo $this->sub_field( $this->handle_args( 'label', $this->data( 'hover' ), array(
-					'label'      => __( 'Enable Hover' ),
-					'horizontal' => true,
-					'id'         => $this->js_field_id() . 'enableHover',
-					'name'       => '',
-					'type'       => 'switcher',
-				), array( 'wrap_id' => 'enable_hover' ) ), $i_checked, null );
-				echo '</div>';
-				echo '<div class="row">';
-
-				$hover = wpo_field( 'fieldset', 'hover' )->only_field( true );
-				$hover->field( $this->h_shadow() );
-				$hover->field( $this->v_shadow() );
-				$hover->field( $this->blur() );
-
-				if ( 'box' === $this->data( 'shadow_type' ) ) {
-					$hover->field( $this->spread() );
-				}
-
-				$hover->field( $this->color() );
-
-				if ( 'box' === $this->data( 'shadow_type' ) ) {
-					$hover->field( $this->shadow_type() );
-				}
-				$is_show = ( false === $i_checked ) ? 'display:none;' : '';
-				echo '<div class="hover-effect" style="' . $is_show . '">';
-				echo $this->sub_field( $hover, $this->value( 'hover' ), $this->name() );
+			if ( $this->data( 'preview' ) ) {
+				$type  = $this->data( 'shadow_type' );
+				$class = ( 'box' === $type ) ? 'box-shadow' : '';
+				echo '<div class="row wponion-row">';
+				echo '<div class="col-xs-12 col-md-6 css-shadow-preview ' . $class . '">';
+				$text = ( true === $this->data( 'preview' ) ) ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' : $this->data( 'preview' );
+				echo '<p>' . $text . '</p>';
 				echo '</div>';
 				echo '</div>';
 			}
 
 			echo $this->after();
+		}
+
+		protected function js_field_args() {
+			return array( 'shadow_type' => $this->data( 'shadow_type' ) );
 		}
 
 		/**
@@ -147,7 +133,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		protected function field_default() {
 			return array(
 				'shadow_type' => 'text',
-				'hover'       => __( 'Enable Hover' ),
+				'preview'     => true,
 			);
 		}
 
