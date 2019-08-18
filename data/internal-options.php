@@ -118,5 +118,23 @@ $return['backup_font_family']    = array(
 	'unset'        => 'unset',
 	'none'         => 'none',
 );
+$return['font_weight']           = array(
+	'normal'  => 'normal',
+	'bold'    => 'bold',
+	'bolder'  => 'bolder',
+	'lighter' => 'lighter',
+	'100'     => '100',
+	'200'     => '200',
+	'300'     => '300',
+	'400'     => '400',
+	'500'     => '500',
+	'600'     => '600',
+	'700'     => '700',
+	'800'     => '800',
+	'900'     => '900',
+	'inherit' => 'inherit',
+	'initial' => 'initial',
+	'unset'   => 'unset',
+);
 
 return $return;

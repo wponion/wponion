@@ -8854,47 +8854,70 @@ function (_WPOnion_Field) {
      * Inits Field.
      */
     value: function init() {
-      this.font_weight_style = false;
-      var $el = this.element;
-      var $preview = this.element.find('.wponion-font-preview');
-      var $this = this;
-      this.element.find(':input').on('change', function () {
-        var $font_field = $el.find('.wponion-element-font_picker'),
-            $font = $font_field.find('.wponion-font-selector').val(),
-            $font_weight_style = $this.font_style($font_field.find('.wponion-variant-selector').val()),
-            $tag = $el.find('.wponion-element-tag select').val(),
-            $color = $el.find('.wponion-field-color_picker input.wp-color-picker').val(),
-            $align = $el.find('.wponion-element-align select').val(),
-            $fontSize = $el.find('.wponion-element-size input').val(),
-            $lineHeight = $el.find('.wponion-element-line-height input').val(),
-            $letterSpacing = $el.find('.wponion-element-letter-spacing input').val(),
-            href = 'https://fonts.googleapis.com/css?family=' + $font + ':' + $font_weight_style.weight,
-            html = '<link href="' + href + '" class="wpsf-font-preview-' + $this.id() + '" rel="stylesheet" type="text/css" />';
+      var _this = this;
 
-        if (jQuery('.wponion-font-preview-' + $this.id()).length > 0) {
-          jQuery('.wponion-font-preview-' + $this.id()).attr('href', href);
-        } else {
-          jQuery('head').append(html);
-        }
+      this.css = {};
+      this.element.find('select[data-css-property]').on('change', function (e) {
+        var $elem = jQuery(e.currentTarget);
 
-        if ($fontSize === '' || $fontSize === undefined) {
-          $fontSize = '18px';
-        }
+        _this.add($elem.attr('data-css-property'), $elem.val());
 
-        if ($letterSpacing === '' || $letterSpacing === undefined) {
-          $letterSpacing = '1px';
-        }
-
-        if ($lineHeight === '' || $lineHeight === undefined) {
-          $lineHeight = '20px';
-        }
-
-        var $_attrs = ' font-family:' + $font + '; ' + ' font-weight:' + $font_weight_style.weight + '; ' + ' font-style:' + $font_weight_style.style + '; ' + ' text-align:' + $align + '; ' + ' color: ' + $color + ';' + ' font-size:' + Object(vsp_js_helper_parts_css_units__WEBPACK_IMPORTED_MODULE_1__["default"])($fontSize) + '; ' + ' letter-spacing:' + Object(vsp_js_helper_parts_css_units__WEBPACK_IMPORTED_MODULE_1__["default"])($letterSpacing) + '; ' + ' line-height:' + Object(vsp_js_helper_parts_css_units__WEBPACK_IMPORTED_MODULE_1__["default"])($lineHeight) + '; ';
-        var $text = $preview.text();
-        $preview.html('');
-        $preview.append(jQuery('<' + $tag + '>' + $text + '</' + $tag + ' >'));
-        $preview.find($tag).attr('style', $_attrs);
+        _this.update_preview();
       });
+      this.element.find('input[data-css-property]').on('change', function (e) {
+        var $elem = jQuery(e.currentTarget);
+
+        _this.add($elem.attr('data-css-property'), $elem.val());
+
+        _this.update_preview();
+      });
+      this.element.find('.wponion-element-css_unit').on('change', ':input', function (e) {
+        var $main = jQuery(e.currentTarget),
+            $parent = $main.parent(),
+            $main_parent = $main.parent().parent().parent(),
+            $pxinput = $parent.find('input'),
+            $select = $parent.find('select');
+
+        if ('0' === $pxinput.val()) {
+          _this.add($main_parent.attr('data-css-property'), '');
+        } else if (window.wponion._.isEmpty($pxinput.val())) {
+          _this.add($main_parent.attr('data-css-property'), '');
+        } else {
+          _this.add($main_parent.attr('data-css-property'), $pxinput.val() + $select.val());
+        }
+
+        _this.update_preview();
+      });
+    }
+  }, {
+    key: "add",
+    value: function add($key, $value) {
+      this.css[$key] = $value;
+      /*if( window.wponion._.isEmpty( $value ) && false === window.wponion._.isUndefined( this.css[ $key ] ) ) {
+      	delete this.css[ $key ];
+      } else {
+      		}*/
+    }
+  }, {
+    key: "update_preview",
+    value: function update_preview() {
+      var $style = [];
+      var $preview = this.element.find('div.previewtxt');
+
+      for (var $key in this.css) {
+        if (this.css.hasOwnProperty($key)) {
+          if (window.wponion._.isEmpty(this.css[$key])) {
+            $preview.css($key, '');
+          } else if ('backup-font' === $key) {
+            $style.push('font-family:' + this.css[$key] + ';');
+            $preview.css('font-family:', this.css[$key]);
+          } else {
+            //$style.push( $key + ':' + this.css[ $key ] + ';' );
+            $preview.css($key, this.css[$key]);
+          }
+        }
+      } //this.element.find( 'div.previewtxt' ).attr( 'style', $style.join( ' ' ) );
+
     }
     /**
      * Returns Proper Valid Font Styles.

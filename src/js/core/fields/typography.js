@@ -6,60 +6,67 @@ export default class extends WPOnion_Field {
 	 * Inits Field.
 	 */
 	init() {
-		this.font_weight_style = false;
-		let $el                = this.element;
-		let $preview           = this.element.find( '.wponion-font-preview' );
-		let $this              = this;
-		this.element.find( ':input' ).on( 'change', function() {
-			let
-				$font_field        = $el.find( '.wponion-element-font_picker' ),
-				$font              = $font_field.find( '.wponion-font-selector' ).val(),
-				$font_weight_style = $this.font_style( $font_field.find( '.wponion-variant-selector' ).val() ),
-				$tag               = $el.find( '.wponion-element-tag select' ).val(),
-				$color             = $el.find( '.wponion-field-color_picker input.wp-color-picker' ).val(),
-				$align             = $el.find( '.wponion-element-align select' ).val(),
-				$fontSize          = $el.find( '.wponion-element-size input' ).val(),
-				$lineHeight        = $el.find( '.wponion-element-line-height input' ).val(),
-				$letterSpacing     = $el.find( '.wponion-element-letter-spacing input' ).val(),
-				href               = 'https://fonts.googleapis.com/css?family=' + $font + ':' + $font_weight_style.weight,
-				html               = '<link href="' + href + '" class="wpsf-font-preview-' + $this.id() + '" rel="stylesheet" type="text/css" />';
+		this.css = {};
 
-			if( jQuery( '.wponion-font-preview-' + $this.id() ).length > 0 ) {
-				jQuery( '.wponion-font-preview-' + $this.id() ).attr( 'href', href );
+		this.element.find( 'select[data-css-property]' ).on( 'change', ( e ) => {
+			let $elem = jQuery( e.currentTarget );
+			this.add( $elem.attr( 'data-css-property' ), $elem.val() );
+			this.update_preview();
+		} );
+
+		this.element.find( 'input[data-css-property]' ).on( 'change', ( e ) => {
+			let $elem = jQuery( e.currentTarget );
+			this.add( $elem.attr( 'data-css-property' ), $elem.val() );
+			this.update_preview();
+		} );
+
+		this.element.find( '.wponion-element-css_unit' ).on( 'change', ':input', ( e ) => {
+			let $main        = jQuery( e.currentTarget ),
+				$parent      = $main.parent(),
+				$main_parent = $main.parent().parent().parent(),
+				$pxinput     = $parent.find( 'input' ),
+				$select      = $parent.find( 'select' );
+
+			if( '0' === $pxinput.val() ) {
+				this.add( $main_parent.attr( 'data-css-property' ), '' );
+			} else if( window.wponion._.isEmpty( $pxinput.val() ) ) {
+				this.add( $main_parent.attr( 'data-css-property' ), '' );
 			} else {
-				jQuery( 'head' ).append( html );
+				this.add( $main_parent.attr( 'data-css-property' ), $pxinput.val() + $select.val() );
 			}
-
-			if( $fontSize === '' || $fontSize === undefined ) {
-				$fontSize = '18px';
-			}
-
-			if( $letterSpacing === '' || $letterSpacing === undefined ) {
-				$letterSpacing = '1px';
-			}
-
-			if( $lineHeight === '' || $lineHeight === undefined ) {
-				$lineHeight = '20px';
-			}
-
-
-			let $_attrs = ' font-family:' + $font + '; ' +
-				' font-weight:' + $font_weight_style.weight + '; ' +
-				' font-style:' + $font_weight_style.style + '; ' +
-				' text-align:' + $align + '; ' +
-				' color: ' + $color + ';' +
-				' font-size:' + css_units( $fontSize ) + '; ' +
-				' letter-spacing:' + css_units( $letterSpacing ) + '; ' +
-				' line-height:' + css_units( $lineHeight ) + '; ';
-
-
-			let $text = $preview.text();
-			$preview.html( '' );
-			$preview.append( jQuery( '<' + $tag + '>' + $text + '</' + $tag + ' >' ) );
-			$preview.find( $tag ).attr( 'style', $_attrs );
-
+			this.update_preview();
 		} );
 	}
+
+	add( $key, $value ) {
+		this.css[ $key ] = $value;
+		/*if( window.wponion._.isEmpty( $value ) && false === window.wponion._.isUndefined( this.css[ $key ] ) ) {
+			delete this.css[ $key ];
+		} else {
+
+		}*/
+	}
+
+	update_preview() {
+		let $style   = [];
+		let $preview = this.element.find( 'div.previewtxt' );
+
+		for( let $key in this.css ) {
+			if( this.css.hasOwnProperty( $key ) ) {
+				if( window.wponion._.isEmpty( this.css[ $key ] ) ) {
+					$preview.css( $key, '' );
+				} else if( 'backup-font' === $key ) {
+					$style.push( 'font-family:' + this.css[ $key ] + ';' );
+					$preview.css( 'font-family:', this.css[ $key ] );
+				} else {
+					//$style.push( $key + ':' + this.css[ $key ] + ';' );
+					$preview.css( $key, this.css[ $key ] );
+				}
+			}
+		}
+		//this.element.find( 'div.previewtxt' ).attr( 'style', $style.join( ' ' ) );
+	}
+
 
 	/**
 	 * Returns Proper Valid Font Styles.
