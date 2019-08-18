@@ -53,22 +53,6 @@ export default class extends WPOnion_Field {
 					}
 				} );
 
-
-			if( !window.wponion._.isUndefined( $args.swatches ) && true === $args.swatches ) {
-				$args.swatches = window.randomColor( {
-					count: 14,
-					hue: this.element.find( 'input.wponion-color-picker-element' ).val(),
-					luminosity: 'random',
-				} );
-			} else if( window.wponion._.isUndefined( $args.swatches ) ) {
-				$args.swatches = window.randomColor( {
-					count: 14,
-					hue: this.element.find( 'input.wponion-color-picker-element' ).val(),
-					luminosity: 'random',
-				} );
-			}
-
-
 			$args.appClass = 'wpo-color-picker';
 			$args.default  = this.element.find( 'input.wponion-color-picker-element' ).val() || '#fff';
 			$args          = this.handle_args( $args, 'colorpicker' );
