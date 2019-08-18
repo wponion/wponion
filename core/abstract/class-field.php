@@ -438,7 +438,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10';
 					break;
 			}
-			if ( false === $this->has( 'title' ) ) {
+			if ( false === $this->has( 'title' ) || true === $this->data( 'hide_title' ) ) {
 				$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12';
 			}
 

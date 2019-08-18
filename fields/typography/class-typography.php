@@ -280,22 +280,22 @@ HTML;
 		}
 
 		protected function generate_preview_css() {
-			//var_dump( $this->value );
 			$return = array();
-			foreach ( $this->value as $key => $val ) {
-				if ( ! empty( $val ) ) {
-					$key = str_replace( '_', '-', $key );
-					$key = ( 'text-direction' === $key ) ? 'direction' : $key;
-					$key = ( 'backup-font' === $key ) ? 'font-family' : $key;
+			if ( is_array( $this->value ) && ! empty( $this->value ) ) {
+				foreach ( $this->value as $key => $val ) {
+					if ( ! empty( $val ) ) {
+						$key = str_replace( '_', '-', $key );
+						$key = ( 'text-direction' === $key ) ? 'direction' : $key;
+						$key = ( 'backup-font' === $key ) ? 'font-family' : $key;
 
-					if ( ! is_array( $val ) ) {
-						$return[] = $key . ':' . $val . ';';
-					} elseif ( in_array( $key, array( 'font-size', 'line-height', 'letter-spacing' ), true ) ) {
-						$return[] = $key . ':' . $val['css_value'] . $val['unit'] . ';';
+						if ( ! is_array( $val ) ) {
+							$return[] = $key . ':' . $val . ';';
+						} elseif ( in_array( $key, array( 'font-size', 'line-height', 'letter-spacing' ), true ) ) {
+							$return[] = $key . ':' . $val['css_value'] . $val['unit'] . ';';
+						}
 					}
 				}
 			}
-			//var_dump( $return );
 			return implode( ' ', $return );
 		}
 

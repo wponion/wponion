@@ -38,19 +38,19 @@
 			margin-bottom: 0;
 
 
-			.wponion-element {
+			> .wponion-element {
 				border-bottom: none;
 				border-top:    none;
 			}
 
 			&:last-child {
-				.wponion-element {
+				> .wponion-element {
 					border-bottom: $element_border;
 				}
 			}
 
 			&:first-child {
-				.wponion-element {
+				> .wponion-element {
 					border-top: $element_border;
 				}
 			}
@@ -130,5 +130,11 @@
 	.wponion-clone-actions {
 		padding-top: 5px;
 		margin-top:  5px;
+	}
+
+	&.horizontal {
+		.wponion-field-clone {
+			margin-left: 35px;
+		}
 	}
 }

@@ -60,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 
 			}
 
-			return wponion_icon( ' wpoic-no-circle-dark wponion-remove' );
+			return wponion_icon( '  wpoic-no wponion-remove' );
 		}
 
 		/**
