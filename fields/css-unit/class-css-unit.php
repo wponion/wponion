@@ -27,7 +27,7 @@ if ( ! class_exists( '\WPOnion\Field\CSS_Unit' ) ) {
 				'type'       => 'number',
 				'id'         => 'css_value',
 				'only_field' => true,
-			) ), $this->value( 'length' ), $this->name() );
+			) ), $this->value( 'css_value' ), $this->name() );
 
 			$units_field = $this->sub_field( $this->handle_args( 'prefix', $this->data( 'unit' ), array(
 				'options' => wponion_internal_options_data( 'css-units' ),
@@ -35,7 +35,7 @@ if ( ! class_exists( '\WPOnion\Field\CSS_Unit' ) ) {
 				'type'       => 'select',
 				'id'         => 'unit',
 				'only_field' => true,
-			) ), $this->value( 'length' ), $this->name() );
+			) ), $this->value( 'unit' ), $this->name() );
 
 			echo $number_field . $units_field;
 
