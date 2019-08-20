@@ -9139,115 +9139,277 @@ function (_WPOnion_Field) {
     value: function init() {
       var _this = this;
 
-      var $button = this.element.find('.button-editor-preview > button');
-      this.css_id = 'button#' + $button.attr('id');
-      this.normal = '';
-      this.hover = '';
-      this.focus = '';
-      this.active = '';
-      this.element.find('div#button-label input').on('keyup', function (e) {
-        $button.find('span.button-label').html(jQuery(e.currentTarget).val());
+      this.button_id = this.id() + 'buttonpreview';
+      this.hover = this.element.find('style.hover');
+      this.focus = this.element.find('style.focus');
+      this.normal = this.element.find('style.normal');
+      this.preview = this.element.find('.button-editor-preview > button'); // Basic Config.
+
+      this.button_label = this.element.find('div#button-label');
+      this.button_icon = this.element.find('div#button-icon'); // Padding / Margin / Border Radius.
+
+      this.button_margin = this.element.find('div#button-margin');
+      this.button_padding = this.element.find('div#button-padding');
+      this.button_border_radius = this.element.find('div#button-border-radius'); // Normal Background / Color
+
+      this.button_background_normal = this.element.find('div#button-normal-background');
+      this.button_color_normal = this.element.find('div#button-normal-color');
+      this.button_text_shadow_normal = this.element.find('div#button-normal-text-shadow');
+      this.button_box_shadow_normal = this.element.find('div#button-normal-box-shadow'); // Hover Background / Color / Text Shadow / Box Shadow
+
+      this.button_background_hover = this.element.find('div#button-hover-background');
+      this.button_color_hover = this.element.find('div#button-hover-color');
+      this.button_text_shadow_hover = this.element.find('div#button-hover-text-shadow');
+      this.button_box_shadow_hover = this.element.find('div#button-hover-box-shadow'); // Focus Background / Color
+
+      this.button_background_focus = this.element.find('div#button-focus-background');
+      this.button_color_focus = this.element.find('div#button-focus-color');
+      this.button_text_shadow_focus = this.element.find('div#button-focus-text-shadow');
+      this.button_box_shadow_focus = this.element.find('div#button-focus-box-shadow');
+      this.button_label.on('keyup', ':input', function () {
+        return _this.update_button_label();
       });
-      this.element.find('div#button-icon input').on('change', function (e) {
-        $button.find('span.button-icon').html('<i class="' + jQuery(e.currentTarget).val() + '"></i>');
+      this.button_icon.on('keyup change', ':input', function () {
+        return _this.update_button_icon();
       });
-      this.element.find('div#button-css-builder').on('change', ':input', window.wponion_debounce(function () {
-        return _this.generate_css();
-      }));
-      this.element.find('div#wponion-tab-colors').on('change', ':input', window.wponion_debounce(function () {
-        return _this.generate_css();
-      }));
+      /**
+       * Basic
+       */
+
+      this.preview_update_event(this.button_margin, 'update_button_margin');
+      this.preview_update_event(this.button_padding, 'update_button_padding');
+      this.preview_update_event(this.button_border_radius, 'update_button_border_radius');
+      /**
+       * Normal State
+       */
+
+      this.preview_update_event(this.button_background_normal, 'update_button_background', 'normal');
+      this.preview_update_event(this.button_color_normal, 'update_button_color', 'normal');
+      this.preview_update_event(this.button_text_shadow_normal, 'update_button_text_shadow', 'normal');
+      this.preview_update_event(this.button_box_shadow_normal, 'update_button_box_shadow', 'normal');
+      /**
+       * Hover State
+       */
+
+      this.preview_update_event(this.button_background_hover, 'update_button_background', 'hover');
+      this.preview_update_event(this.button_color_hover, 'update_button_color', 'hover');
+      this.preview_update_event(this.button_text_shadow_hover, 'update_button_text_shadow', 'hover');
+      this.preview_update_event(this.button_box_shadow_hover, 'update_button_box_shadow', 'hover');
+      /**
+       * Focus State
+       */
+
+      this.preview_update_event(this.button_background_focus, 'update_button_background', 'focus');
+      this.preview_update_event(this.button_color_focus, 'update_button_color', 'focus');
+      this.preview_update_event(this.button_text_shadow_focus, 'update_button_text_shadow', 'focus');
+      this.preview_update_event(this.button_box_shadow_focus, 'update_button_box_shadow', 'focus');
     }
   }, {
-    key: "generate_css",
-    value: function generate_css() {
-      /**
-       * CSS Builder
-       * @type {jQuery|*|string}
-       */
-      var $builder = this.element.find('div#button-css-builder :input').serializeJSON();
-      var $bdata = window.wponion.object_path.get($builder, this.option('field_path') + '/css_editor');
+    key: "preview_update_event",
+    value: function preview_update_event(elem, callback) {
+      var _this2 = this;
 
-      if (window.wponion._.isObject($bdata)) {
-        for (var $key in $bdata) {
-          if ($bdata.hasOwnProperty($key)) {
-            if ('border-style' === $key && window.wponion._.isEmpty($bdata[$key])) {
-              $bdata[$key] = 'solid';
-            }
+      var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+      elem.on('change keyup', ':input', function () {
+        _this2[callback](type);
 
-            if (!window.wponion._.isEmpty($bdata[$key])) {
-              this.normal += ' ' + $key + ' : ' + $bdata[$key] + '; ';
-            }
-          }
-        }
-      }
-      /**
-       * CSS Colors
-       * @type {jQuery|*|string}
-       */
-
-
-      var $css = this.element.find('div#wponion-tab-colors :input').serializeJSON();
-      var $data = window.wponion.object_path.get($css, this.option('field_path'));
-
-      if (window.wponion._.isObject($data)) {
-        if (!window.wponion._.isUndefined($data.background_color)) {
-          for (var _$key in $data.background_color) {
-            if ($data.background_color.hasOwnProperty(_$key)) {
-              if (!window.wponion._.isEmpty($data.background_color[_$key])) {
-                this[_$key] += 'background:' + $data.background_color[_$key] + ';';
-              }
-            }
-          }
-        }
-
-        if (!window.wponion._.isUndefined($data.text_color)) {
-          for (var _$key2 in $data.text_color) {
-            if ($data.text_color.hasOwnProperty(_$key2)) {
-              if (!window.wponion._.isEmpty($data.text_color[_$key2])) {
-                this[_$key2] += 'color:' + $data.text_color[_$key2] + ';';
-              }
-            }
-          }
-        }
-
-        if (!window.wponion._.isUndefined($data.box_shadow)) {
-          for (var _$key3 in $data.box_shadow) {
-            var $shadow = [];
-
-            if ($data.box_shadow.hasOwnProperty(_$key3)) {
-              if (!window.wponion._.isEmpty($data.box_shadow[_$key3])) {
-                var bxsh = [];
-                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3]['h-shadow']) ? $data.box_shadow[_$key3]['h-shadow'] : '0');
-                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3]['v-shadow']) ? $data.box_shadow[_$key3]['v-shadow'] : '0');
-                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3].blur) ? $data.box_shadow[_$key3].blur : '0');
-                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3].spread) ? $data.box_shadow[_$key3].spread : '0');
-                bxsh.push(!window.wponion._.isEmpty($data.box_shadow[_$key3].color) ? $data.box_shadow[_$key3].color : '0');
-                console.log(bxsh);
-                $shadow.push(bxsh.join(' '));
-              }
-            }
-
-            console.log($shadow);
-            this.normal += 'box-shadow:' + $shadow.join(',') + ';';
-          }
-        }
-      }
-
-      this.save_css();
+        _this2.update_preview(type);
+      });
     }
+  }, {
+    key: "get_spacing_values",
+    value: function get_spacing_values($element_to_search, $type) {
+      var $all = $element_to_search.find('.wponion-spacing-input-all :input').val(),
+          $is = window.wponion._.isEmpty($all),
+          $c = {
+        top: $is ? $element_to_search.find('.wponion-spacing-input-top :input').val() : $all,
+        right: $is ? $element_to_search.find('.wponion-spacing-input-right :input').val() : $all,
+        bottom: $is ? $element_to_search.find('.wponion-spacing-input-bottom :input').val() : $all,
+        left: $is ? $element_to_search.find('.wponion-spacing-input-left :input').val() : $all
+      },
+          $unit = $element_to_search.find('select').val();
+
+      for (var $key in $c) {
+        if ($c.hasOwnProperty($key)) {
+          if (window.wponion._.isEmpty($c[$key]) && window.wponion._.isUndefined($c[$key])) {
+            $c[$type + '-' + $key] = '';
+            delete $c[$key];
+          } else {
+            $c[$type + '-' + $key] = $c[$key] + $unit;
+            delete $c[$key];
+          }
+        }
+      }
+
+      return $c;
+    }
+  }, {
+    key: "get_css_shadow_values",
+    value: function get_css_shadow_values($values, $type) {
+      var $shadow = [];
+
+      for (var $key in $values) {
+        if ($values.hasOwnProperty($key)) {
+          if (!window.wponion._.isEmpty($values[$key])) {
+            var bxsh = [];
+            bxsh.push(!window.wponion._.isEmpty($values[$key]['h-shadow']) ? $values[$key]['h-shadow'] + 'px' : '0');
+            bxsh.push(!window.wponion._.isEmpty($values[$key]['v-shadow']) ? $values[$key]['v-shadow'] + 'px' : '0');
+            bxsh.push(!window.wponion._.isEmpty($values[$key].blur) ? $values[$key].blur + 'px' : '0');
+
+            if ('box' === $type) {
+              bxsh.push(!window.wponion._.isEmpty($values[$key].spread) ? $values[$key].spread + 'px' : '0');
+            }
+
+            bxsh.push(!window.wponion._.isEmpty($values[$key].color) ? $values[$key].color : 'transparent');
+
+            if ('box' === $type) {
+              bxsh.push(!window.wponion._.isUndefined($values[$key].inset) ? 'inset' : '');
+            }
+
+            $shadow.push(bxsh.join(' '));
+          }
+        }
+      }
+
+      return $shadow;
+    }
+    /**
+     * General Field Live Preview.
+     */
+
+  }, {
+    key: "update_button_label",
+    value: function update_button_label() {
+      this.preview.find('.button-label').html(this.button_label.find('input').val());
+    }
+  }, {
+    key: "update_button_icon",
+    value: function update_button_icon() {
+      this.preview.find('.button-icon').html('<i class="' + this.button_icon.find('input').val() + '"></i>');
+    }
+  }, {
+    key: "update_button_margin",
+    value: function update_button_margin() {
+      this.save_css(this.get_spacing_values(this.button_margin, 'margin'));
+    }
+  }, {
+    key: "update_button_padding",
+    value: function update_button_padding() {
+      this.save_css(this.get_spacing_values(this.button_padding, 'padding'));
+    }
+  }, {
+    key: "update_button_border_radius",
+    value: function update_button_border_radius() {
+      var $all = this.button_border_radius.find('.wponion-spacing-input-all :input').val();
+      this.save_css({
+        'border-radius': $all + 'px'
+      });
+    }
+    /**
+     * Normal Field live Preview.
+     */
+
+  }, {
+    key: "update_button_background",
+    value: function update_button_background() {
+      var $type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'normal';
+      var $background = !window.wponion._.isUndefined(this['button_background_' + $type]) ? this['button_background_' + $type] : false;
+
+      if (false !== $background) {
+        $background = $background.find('input').val();
+        this.save_css({
+          background: $background
+        }, $type);
+      }
+    }
+  }, {
+    key: "update_button_color",
+    value: function update_button_color() {
+      var $type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'normal';
+      var $color = !window.wponion._.isUndefined(this['button_color_' + $type]) ? this['button_color_' + $type] : false;
+
+      if (false !== $color) {
+        $color = $color.find('input').val();
+        this.save_css({
+          color: $color
+        }, $type);
+      }
+    }
+  }, {
+    key: "update_button_text_shadow",
+    value: function update_button_text_shadow() {
+      var $type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'normal';
+      var $shadow = [],
+          $data = !window.wponion._.isUndefined(this['button_text_shadow_' + $type]) ? this['button_text_shadow_' + $type] : false;
+
+      if (false !== $data) {
+        $data = $data.find(':input').serializeJSON();
+        $data = window.wponion.object_path.get($data, this.option('field_path'));
+
+        if (false === window.wponion._.isUndefined($data[$type].text_shadow)) {
+          $shadow = this.get_css_shadow_values($data[$type].text_shadow, 'text');
+        }
+
+        this.save_css({
+          'text-shadow': $shadow.join(',')
+        }, $type);
+      }
+    }
+  }, {
+    key: "update_button_box_shadow",
+    value: function update_button_box_shadow() {
+      var $type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'normal';
+      var $shadow = [],
+          $data = !window.wponion._.isUndefined(this['button_box_shadow_' + $type]) ? this['button_box_shadow_' + $type] : false;
+
+      if (false !== $data) {
+        $data = $data.find(':input').serializeJSON();
+        $data = window.wponion.object_path.get($data, this.option('field_path'));
+
+        if (false === window.wponion._.isUndefined($data[$type].box_shadow)) {
+          $shadow = this.get_css_shadow_values($data[$type].box_shadow, 'box');
+        }
+
+        this.save_css({
+          'box-shadow': $shadow.join(',')
+        }, $type);
+      }
+    }
+    /**
+     * Common Functions
+     */
+
   }, {
     key: "save_css",
-    value: function save_css() {
-      var $css = this.css_id + '{' + this.normal + '}';
-      $css += this.css_id + ':hover {' + this.hover + '}';
-      $css += this.css_id + ':active {' + this.active + '}';
-      $css += this.css_id + ':focus {' + this.focus + '}';
-      this.normal = '';
-      this.hover = '';
-      this.active = '';
-      this.focus = '';
-      this.element.find('.button-editor-preview > style').html($css);
+    value: function save_css($css) {
+      var $type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'normal';
+
+      for (var $key in $css) {
+        if ($css.hasOwnProperty($key)) {
+          var $val = window.wponion._.isEmpty($css[$key]) ? '' : $css[$key];
+
+          if ('hover' === $type) {
+            this.hover.css($key, $val);
+          } else if ('focus' === $type) {
+            this.focus.css($key, $val);
+          } else {
+            this.normal.css($key, $val);
+          }
+        }
+      }
+    }
+  }, {
+    key: "update_preview",
+    value: function update_preview() {
+      var $type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'normal';
+
+      if ('hover' === $type) {
+        this.hover.html('button#' + this.button_id + ':hover{' + this.hover.attr('style') + '}');
+      } else if ('focus' === $type) {
+        this.focus.html('button#' + this.button_id + ':focus{' + this.focus.attr('style') + '}');
+      } else {
+        this.normal.html('button#' + this.button_id + '{' + this.normal.attr('style') + '}');
+      }
     }
   }]);
 

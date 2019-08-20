@@ -5,8 +5,13 @@ namespace WPOnion\Field;
 use WPOnion\Field;
 
 if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
+	/**
+	 * Class Visual_Button_Editor
+	 *
+	 * @package WPOnion\Field
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 */
 	class Visual_Button_Editor extends Field {
-
 		/**
 		 * @param \WPO\Fields\Fieldset $tab
 		 */
@@ -91,11 +96,15 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 					'id'         => 'border-radius',
 					'desc_field' => __( '`border-radius` property defines the radius of the element\'s corners' ),
 					'type'       => 'spacing',
+					'all'        => array(
+						'surfix'      => 'px',
+						'placeholder' => '20',
+					),
+					'unit'       => false,
 					'wrap_id'    => 'button-border-radius',
 				) ) );
 			}
 		}
-
 
 		/**
 		 * @param \WPO\Fields\Fieldset $tab
@@ -120,14 +129,16 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 
 		/**
 		 * @param \WPO\Fields\Fieldset $tab
+		 * @param string               $css_action
 		 */
-		protected function normal( $tab ) {
+		protected function css_actions( $tab, $css_action ) {
 			if ( false !== $this->data( 'background' ) ) {
 				$tab->field( $this->handle_args( 'title', $this->data( 'background' ), array(
 					'title' => __( 'Background' ),
 				), array(
-					'id'   => 'background',
-					'type' => 'color_picker',
+					'id'      => 'background',
+					'type'    => 'color_picker',
+					'wrap_id' => 'button-' . $css_action . '-background',
 				) ) );
 			}
 
@@ -135,22 +146,24 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				$tab->field( $this->handle_args( 'title', $this->data( 'text_color' ), array(
 					'title' => __( 'Text Color' ),
 				), array(
-					'id'   => 'text_color',
-					'type' => 'color_picker',
+					'id'      => 'text_color',
+					'type'    => 'color_picker',
+					'wrap_id' => 'button-' . $css_action . '-color',
 				) ) );
 			}
 
 			if ( false !== $this->data( 'text_shadow' ) ) {
 				$data      = $this->data( 'text_shadow' );
 				$is_single = ( is_array( $data ) && isset( $data['multiple'] ) && false === $data['multiple'] ) ? false : true;
-
 				$tab->field( $this->handle_args( 'title', $this->data( 'text_shadow' ), array(
-					'title' => __( 'Text Shadow' ),
+					'title'      => __( 'Text Shadow' ),
+					'desc_field' => $css_action,
 				), array(
 					'id'         => 'text_shadow',
 					'type'       => 'css_shadow',
 					'clone'      => $is_single,
 					'horizontal' => ( $is_single ) ? true : false,
+					'wrap_id'    => 'button-' . $css_action . '-text-shadow',
 					'preview'    => false,
 				) ) );
 			}
@@ -158,7 +171,6 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 			if ( false !== $this->data( 'box_shadow' ) ) {
 				$data      = $this->data( 'box_shadow' );
 				$is_single = ( is_array( $data ) && isset( $data['multiple'] ) && false === $data['multiple'] ) ? false : true;
-
 				$tab->field( $this->handle_args( 'title', $this->data( 'box_shadow' ), array(
 					'title' => __( 'Box Shadow' ),
 				), array(
@@ -167,116 +179,31 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 					'type'        => 'css_shadow',
 					'horizontal'  => ( $is_single ) ? true : false,
 					'clone'       => $is_single,
+					'wrap_id'     => 'button-' . $css_action . '-box-shadow',
 					'preview'     => false,
 				) ) );
 			}
+		}
+
+		/**
+		 * @param \WPO\Fields\Fieldset $tab
+		 */
+		protected function normal( $tab ) {
+			$this->css_actions( $tab, 'normal' );
 		}
 
 		/**
 		 * @param \WPO\Fields\Fieldset $tab
 		 */
 		protected function hover( $tab ) {
-			if ( false !== $this->data( 'background' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'background' ), array(
-					'title' => __( 'Background' ),
-				), array(
-					'id'   => 'background',
-					'type' => 'color_picker',
-				) ) );
-			}
-
-			if ( false !== $this->data( 'text_color' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'text_color' ), array(
-					'title' => __( 'Text Color' ),
-				), array(
-					'id'   => 'text_color',
-					'type' => 'color_picker',
-				) ) );
-			}
-
-			if ( false !== $this->data( 'text_shadow' ) ) {
-				$data      = $this->data( 'text_shadow' );
-				$is_single = ( is_array( $data ) && isset( $data['multiple'] ) && false === $data['multiple'] ) ? false : true;
-
-				$tab->field( $this->handle_args( 'title', $this->data( 'text_shadow' ), array(
-					'title' => __( 'Text Shadow' ),
-				), array(
-					'id'         => 'text_shadow',
-					'type'       => 'css_shadow',
-					'clone'      => $is_single,
-					'horizontal' => ( $is_single ) ? true : false,
-					'preview'    => false,
-				) ) );
-			}
-
-			if ( false !== $this->data( 'box_shadow' ) ) {
-				$data      = $this->data( 'box_shadow' );
-				$is_single = ( is_array( $data ) && isset( $data['multiple'] ) && false === $data['multiple'] ) ? false : true;
-
-				$tab->field( $this->handle_args( 'title', $this->data( 'box_shadow' ), array(
-					'title' => __( 'Box Shadow' ),
-				), array(
-					'id'          => 'box_shadow',
-					'shadow_type' => 'box',
-					'type'        => 'css_shadow',
-					'horizontal'  => ( $is_single ) ? true : false,
-					'clone'       => $is_single,
-					'preview'     => false,
-				) ) );
-			}
+			$this->css_actions( $tab, 'hover' );
 		}
 
 		/**
 		 * @param \WPO\Fields\Fieldset $tab
 		 */
 		protected function focus( $tab ) {
-			if ( false !== $this->data( 'background' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'background' ), array(
-					'title' => __( 'Background' ),
-				), array(
-					'id'   => 'background',
-					'type' => 'color_picker',
-				) ) );
-			}
-
-			if ( false !== $this->data( 'text_color' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'text_color' ), array(
-					'title' => __( 'Text Color' ),
-				), array(
-					'id'   => 'text_color',
-					'type' => 'color_picker',
-				) ) );
-			}
-
-			if ( false !== $this->data( 'text_shadow' ) ) {
-				$data      = $this->data( 'text_shadow' );
-				$is_single = ( is_array( $data ) && isset( $data['multiple'] ) && false === $data['multiple'] ) ? false : true;
-
-				$tab->field( $this->handle_args( 'title', $this->data( 'text_shadow' ), array(
-					'title' => __( 'Text Shadow' ),
-				), array(
-					'id'         => 'text_shadow',
-					'type'       => 'css_shadow',
-					'horizontal' => ( $is_single ) ? true : false,
-					'clone'      => $is_single,
-					'preview'    => false,
-				) ) );
-			}
-
-			if ( false !== $this->data( 'box_shadow' ) ) {
-				$data      = $this->data( 'box_shadow' );
-				$is_single = ( is_array( $data ) && isset( $data['multiple'] ) && false === $data['multiple'] ) ? false : true;
-				$tab->field( $this->handle_args( 'title', $this->data( 'box_shadow' ), array(
-					'title' => __( 'Box Shadow' ),
-				), array(
-					'id'          => 'box_shadow',
-					'shadow_type' => 'box',
-					'type'        => 'css_shadow',
-					'clone'       => $is_single,
-					'horizontal'  => ( $is_single ) ? true : false,
-					'preview'     => false,
-				) ) );
-			}
+			$this->css_actions( $tab, 'focus' );
 		}
 
 		protected function field_wrap_class() {
@@ -311,13 +238,15 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 
 		protected function output() {
 			echo $this->before();
-			echo $this->sub_field( $this->tab_field(), $this->value(), $this->name() );
+			echo $this->sub_field( $this->tab_field(), $this->value(), $this->unique( $this->field_id() ) );
 
 			echo '<div class="button-editor-preview" id="' . $this->js_field_id() . 'buttonpreview">';
 			echo '<button type="button" id="' . $this->js_field_id() . 'buttonpreview"><span class="button-icon"></span><span class="button-label">' . __( 'Preview' ) . '</span></button>';
 			echo '<style></style>';
 			echo '</div>';
-
+			echo '<style class="hidden hover"></style>
+<style class="hidden focus"></style>
+<style class="hidden normal">a</style>';
 			echo $this->after();
 		}
 
