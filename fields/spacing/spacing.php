@@ -36,8 +36,9 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 				'class'       => 'button button-secondary',
 			) )->horizontal( true );
 
-			$fields[] = $button;
-
+			if ( false === $this->data( 'all' ) ) {
+				$fields[] = $button;
+			}
 			$is_all_hidden = ( empty( $this->value( 'all' ) ) ) ? 'hidden' : '';
 			if ( empty( $this->value( 'all' ) ) ) {
 				$this->value['showcasebutton'] = '<i class="wpoic-expand"></i>';
@@ -57,6 +58,10 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 						$fields[ $slug ]['wrap_class'] = wponion_html_class( $fields[ $slug ]['wrap_class'], 'wponion-spacing-input wponion-spacing-input-' . $slug );
 					}
 				}
+			}
+
+			if ( false !== $this->data( 'all' ) ) {
+				$is_all_hidden = '';
 			}
 
 			$defaults                    = array(
