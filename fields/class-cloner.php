@@ -85,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			$return                  .= '<div class="cloner-sort">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
 			$return                  .= '<div class="cloner-remove">' . $this->clone_btn( 'remove' ) . '</div>';
 			$return                  .= '</div> ';
-			$return                  .= $this->sub_field( $args, $value, $this->field_id() . '/' . $extra_unique . '/' );
+			$return                  .= $this->sub_field( $args, $value, $this->unique( $this->field_id() . '/' . $extra_unique . '/' ) );
 			$return                  .= '</div>';
 			return $return;
 		}
