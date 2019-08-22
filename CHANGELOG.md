@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.3.6] - 22/08/2019
+## Added
+* Label Support for Switcher Field
+* Visual Editor Field -> CSS Basic Props like (Margin,Padding,Border,Border-Radius)
+* CSS Shadow Field
+* Number Field
+* CSS Unit Field
+* WPOnion's Custom Icon Pack
+* JAVASCRIPT Hook : `wponion_register_after_core_fields`
+* JAVASCRIPT Hook : `wponion_register_after_core_themes`
+
+## Fixed
+* Color Picker Field Saving & Showing Value
+* Saving & Showing Values In WP Link Field
+* Saving & Showing Values In Key Value Field
+* Cloner Field Issue with CSS & Field Rendering
+* Updated Spacing Field With Propr FlexGrid2 CSS
+
+## Changed
+* Typogryphay Field Fully Redeveloped
+* Option To Disbale Variants in FontPicker
+* Option To have Empty Select in Select field `empty_option => true`
+* Bump [@wordpress/hooks] from `2.4.0` to `2.5.0`
+* Bump [sweetalert2] from `8.14.0` to `8.16.0`
+* Bump [tippy.js] from `4.3.4` to `4.3.5`
+* Bump [easy-gulp-tasker] from `1.0.10` to `1.0.12`
+* Bump [wordpress-js-ports] from `1.0.6` to `1.0.8`
+
+
 # [1.3.5] - 29/07/2019
 ## Added
 * WordPress Importer Integration
@@ -607,6 +636,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.3.6]: https://github.com/wponion/wponion/releases/tag/1.3.6
 [1.3.5]: https://github.com/wponion/wponion/releases/tag/1.3.5
 [1.3.4]: https://github.com/wponion/wponion/releases/tag/1.3.4
 [1.3.3]: https://github.com/wponion/wponion/releases/tag/1.3.3
