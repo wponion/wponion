@@ -35,10 +35,10 @@ $files[ 'src/js/wponion-plugins.js' ] = {
 	uglify: true,
 	rename: 'wponion-plugins.js',
 };
-$files[ 'src/js/wponion-core.js' ]    = [
+/*$files[ 'src/js/wponion-core.js' ]    = [
 	{
 		dist: 'assets/js',
-		watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/core/*/*', 'src/js/core/*/*/*', 'src/js/core/*/*/*/*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
+		watch: [ 'src/js/wponion-core.js', 'src/js/core/!*', 'src/js/core/!*!/!*', 'src/js/core/!*!/!*!/!*', 'src/js/core/!*!/!*!/!*!/!*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
 		webpack: 'webpack_development',
 		//webpack: true,
 		sourcemaps: false,
@@ -52,7 +52,16 @@ $files[ 'src/js/wponion-core.js' ]    = [
 		sourcemaps: false,
 		rename: 'wponion-core.min.js',
 	}
-];
+];*/
+
+$files[ 'src/js/wponion-core.js' ] = {
+	dist: 'assets/js',
+	watch: [ 'src/js/wponion-core.js', 'src/js/core/*', 'src/js/core/*/*', 'src/js/core/*/*/*', 'src/js/core/*/*/*/*', 'src/vendors/backbone-modal.js', 'src/js/wpmodel.js' ],
+	webpack: 'webpack_prod',
+	//webpack: true,
+	sourcemaps: false,
+	rename: 'wponion-core.js',
+};
 
 module.exports = {
 	files: $files,
@@ -87,23 +96,39 @@ module.exports = {
 				runtimeChunk: false
 			}
 		},
-		webpack_dev_eval: {
-			mode: 'development',
+		webpack_prod: {
+			mode: 'production',
 			target: 'node',
-			externals: {
-				jquery: 'jQuery'
-			},
-			output: {
-				filename: '[name].js',
-			},
+			externals: { jquery: 'jQuery' },
+			output: { filename: '[name].js', pathinfo: false },
 			module: {
 				rules: [
 					{
 						test: /\.js$/,
 						loader: 'babel-loader',
-						options: {
-							presets: [ '@babel/env' ]
-						}
+						options: { presets: [ '@babel/env' ] }
+					}
+				]
+			},
+			devtool: 'none',
+			optimization: {
+				removeAvailableModules: false,
+				removeEmptyChunks: false,
+				splitChunks: false,
+				runtimeChunk: false
+			}
+		},
+		webpack_dev_eval: {
+			mode: 'development',
+			target: 'node',
+			externals: { jquery: 'jQuery' },
+			output: { filename: '[name].js' },
+			module: {
+				rules: [
+					{
+						test: /\.js$/,
+						loader: 'babel-loader',
+						options: { presets: [ '@babel/env' ] }
 					}
 				]
 			},
