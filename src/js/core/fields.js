@@ -35,7 +35,6 @@ import wpo_global_notice from './fields/common/global-notice';
 import wpo_modal from './fields/modal';
 import wpo_editor from './fields/wp-editor';
 import wpo_visual_editor from './fields/visual-editor';
-import wpo_visual_button_editor from './fields/visual-button-editor';
 import wpo_spacing from './fields/spacing';
 import wpo_css_shadow from './fields/css-shadow';
 
@@ -86,7 +85,6 @@ export function wponion_register_fields() {
 	window.wponion_register_field( 'modal', wpo_modal );
 	window.wponion_register_field( 'wp_editor', wpo_editor );
 	window.wponion_register_field( 'visual_editor', wpo_visual_editor );
-	window.wponion_register_field( 'visual_button_editor', wpo_visual_button_editor );
 	window.wponion_register_field( 'spacing', wpo_spacing );
 	window.wponion_register_field( 'css_shadow', wpo_css_shadow );
 }
