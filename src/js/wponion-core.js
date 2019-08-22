@@ -103,8 +103,12 @@ import WPOnion_Dependency from './core/class/dependency';
 		// Register Core Fields
 		wponion_register_fields();
 
+		window.wponion.hooks.doAction( 'wponion_register_after_core_fields' );
+
 		// Register Core Themes
 		wponion_register_themes();
+
+		window.wponion.hooks.doAction( 'wponion_register_after_core_themes' );
 
 		// Inits Notices.
 		window.wponion_notice();
