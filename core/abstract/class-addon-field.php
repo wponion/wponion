@@ -77,7 +77,7 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 				return;
 			}
 
-			if ( ! empty( $this->field_class_file ) ) {
+			if ( ! empty( $this->class_file ) ) {
 				require_once $this->dir( $this->class_file );
 			} else {
 				$this->load_field_class( $class, $field_type, $module );
