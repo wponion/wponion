@@ -1,0 +1,17 @@
+name: PHP Documentation Generator
+
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  apigen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking Out Repo Data
+        uses: actions/checkout@v1
+      - name: PHP Docs Generator
+        uses: varunsridharan/action-apigen@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}ā
