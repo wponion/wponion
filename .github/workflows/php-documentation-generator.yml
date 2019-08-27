@@ -13,5 +13,7 @@ jobs:
         uses: actions/checkout@v1
       - name: PHP Docs Generator
         uses: varunsridharan/action-apigen@master
+        with:
+          before_cmd: composer install --no-dev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}ā
