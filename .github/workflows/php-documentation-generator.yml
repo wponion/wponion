@@ -3,7 +3,7 @@ name: PHP Documentation Generator
 on:
   push:
     branches:
-      - 'development/*'
+      - refs/heads/development
 
 jobs:
   apigen:
