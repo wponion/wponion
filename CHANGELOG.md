@@ -3,7 +3,6 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
-
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # [1.3.6] - 22/08/2019
@@ -30,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Option To have Empty Select in Select field `empty_option => true`
 * Bump [@wordpress/hooks] from `2.4.0` to `2.5.0`
 * Bump [sweetalert2] from `8.14.0` to `8.16.0`
-* Bump [tippy.js] from `4.3.4` to `4.3.5`
+* Bump [tippy.js] from `4.3.4` to `4.35`
 * Bump [easy-gulp-tasker] from `1.0.10` to `1.0.12`
 * Bump [wordpress-js-ports] from `1.0.6` to `1.0.8`
 
