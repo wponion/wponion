@@ -32,7 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Bump [easy-gulp-tasker] from `1.0.10` to `1.0.12`
 * Bump [wordpress-js-ports] from `1.0.6` to `1.0.8`
 
-
 # [1.3.5] - 29/07/2019
 ## Added
 * WordPress Importer Integration
@@ -172,7 +171,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `wponion_get_set_db` Function
 * `wponion_get_db` Function
 * `wponion_update_db` Function
-
 
 # [1.2.1] - 10/06/2019
 ## Added
