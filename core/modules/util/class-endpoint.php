@@ -142,28 +142,43 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 		 * Adds Custom Rewrite Rules.
 		 *
 		 * @param string $path
+		 * @param array  $rewrite_regex Custom Rewrite URL's Regext eg : array('customKey' => 'your regex here')
+		 * @param array  $tag_regex Custom Rewrite Tag's Regext eg : array('customKey' => 'your regex here')
 		 * @param string $after This can either be 'top' or 'bottom'. 'top' will take precedence over WordPress's existing rules, where 'bottom' will check all other rules match first.
 		 *
 		 * @return $this
 		 */
-		public function add_rewrite_rule( $path = '', $after = 'top' ) {
-			$uri     = '^' . preg_replace( $this->parameter_pattern, $this->value_pattern_replace, $path );
-			$url     = 'index.php?';
-			$_url    = array();
-			$matches = [];
-			if ( preg_match_all( $this->parameter_pattern, $path, $matches ) ) {
-				foreach ( $matches[1] as $id => $param ) {
-					$param                   = ( empty( $this->prefix ) ) ? $param : $this->prefix . '_' . $param;
-					$this->rules_queryvars[] = $param;
-					$_url[]                  = "{$param}=\$matches[" . ( $id + 1 ) . ']';
-					$this->add_tag( '%' . $param . '%', '(.+)' );
+		public function add_rewrite_rule( $path = '', $rewrite_regex = array(), $tag_regex = array(), $after = 'top' ) {
+			$url_matches = array();
+			$uri         = '^' . $path;
+			$_url        = array();
+			$matches     = [];
+
+			preg_match_all( '/{([\w\d]+)}/', $path, $url_matches );
+
+			if ( ! empty( $url_matches ) && isset( $url_matches[1] ) ) {
+				foreach ( $url_matches[1] as $data ) {
+					$key   = '{' . $data . '}';
+					$regex = ( isset( $rewrite_regex[ $data ] ) && ! empty( $rewrite_regex[ $data ] ) ) ? $rewrite_regex[ $data ] : $this->value_pattern_replace;
+					$uri   = str_replace( $key, $regex, $uri );
 				}
+
+				if ( preg_match_all( $this->parameter_pattern, $path, $matches ) ) {
+					foreach ( $matches[1] as $id => $param ) {
+						$key                     = ( empty( $this->prefix ) ) ? $param : $this->prefix . '_' . $param;
+						$this->rules_queryvars[] = $key;
+						$_url[]                  = "{$key}=\$matches[" . ( $id + 1 ) . ']';
+						$_regex                  = ( isset( $tag_regex[ $param ] ) && ! empty( $tag_regex[ $param ] ) ) ? $tag_regex[ $param ] : '(.+)';
+						$this->add_tag( '%' . $key . '%', $_regex );
+					}
+				}
+
+				$this->rules[] = array(
+					'regex'   => $uri . '/?',
+					'replace' => 'index.php?' . implode( '&', $_url ),
+					'type'    => $after,
+				);
 			}
-			$this->rules[] = array(
-				'regex'   => $uri . '/?',
-				'replace' => $url . '' . implode( '&', $_url ),
-				'type'    => $after,
-			);
 			return $this;
 		}
 
