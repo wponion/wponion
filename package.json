@@ -26,6 +26,6 @@
     "sweetalert2": "^8.16.4",
     "tippy.js": "^4.3.5",
     "vsp-js-helper": "^1.0.32",
-    "wordpress-js-ports": "^1.0.8"
+    "wordpress-js-ports": "^1.0.9"
   }
 }
