@@ -292,6 +292,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$has_dep,
 				$is_debug,
 				$is_js_validate,
+				( false !== $this->data( 'badge' ) ) ? 'wponion-has-badge' : '',
 				wponion_html_class( $this->field_wrap_class() ),
 			) ) );
 
@@ -317,7 +318,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$_wrap_attr       = wponion_array_to_html_attributes( $_wrap_attr );
 			$this->_handle_column_data();
 
-			echo '<div ' . $_wrap_attr . '><div class="row">';
+			echo '<div ' . $_wrap_attr . '>';
+			echo $this->badge();
+			echo '<div class="row">';
 			echo $this->title();
 			echo $this->field_wrapper( true );
 			echo $this->output();
@@ -326,6 +329,30 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				echo '<div class="wponion-developer-timer">' . __( 'Field Rendered In', 'wponion' ) . ' ' . wponion_timer( $this->unique(), true ) . ' ' . __( 'Seconds', 'wponion' ) . '</div>';
 			}
 			echo '</div></div>';
+		}
+
+		/**
+		 * Generates Badge HTML.
+		 *
+		 * @return string
+		 */
+		protected function badge() {
+			if ( false !== $this->data( 'badge' ) ) {
+				$badge = $this->handle_args( 'content', $this->data( 'badge' ), array(
+					'type'      => 'success',
+					'placement' => 'top-left',
+					'content'   => null,
+					'pointer'   => false,
+					'outline'   => false,
+				) );
+
+				$container = 'wpo-badge-container wpo-badge-' . $badge['placement'] . ' wpo-badge-type-' . $badge['type'];
+				$class     = 'wpo-badge';
+				$class     .= ( true === $badge['outline'] ) ? ' wpo-badge-outline wpo-badge-outline-' . $badge['type'] . ' ' : ' wpo-badge-' . $badge['type'] . ' ';
+				$class     .= ( true === $badge['pointer'] ) ? ' wpo-badge-pill ' : '';
+				return '<div class="' . $container . '"><div class="' . $class . '" >' . $badge['content'] . '</div></div>';
+			}
+			return '';
 		}
 
 		/**

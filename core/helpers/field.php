@@ -44,6 +44,7 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			'after'           => null,
 			'horizontal'      => false,
 			'only_field'      => false,
+			'badge'           => false,
 			'dependency'      => array(), # dependency for showing and hiding fields
 			//Cloner Related.
 			'clone'           => false,

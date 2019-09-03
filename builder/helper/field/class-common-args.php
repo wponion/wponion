@@ -433,5 +433,14 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		public function after_render( $callback ) {
 			return $this->_set( 'after_render', $callback );
 		}
+
+		/**
+		 * @param string|array $badge
+		 *
+		 * @return $this
+		 */
+		public function badge( $badge ) {
+			return $this->_set( 'badge', $badge );
+		}
 	}
 }
