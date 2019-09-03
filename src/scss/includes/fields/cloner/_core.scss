@@ -21,9 +21,10 @@
 				text-align:   center;
 				background:   #f0f0f0;
 				visibility:   hidden;
+				height:       calc(100% - 12px);
 
 				> div.cloner-sort {
-					margin-bottom: 25px;
+					margin-bottom: 12px;
 					cursor:        move;
 				}
 			}
