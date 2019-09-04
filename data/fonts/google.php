@@ -1,4 +1,7 @@
-<?php if ( ! defined( "ABSPATH") ) { die; } return array (
+<?php
+// Last Updated : 2019-09-01 05:31:26:am
+if ( ! defined( "ABSPATH") ) { die; } 
+return array (
   'ABeeZee' => 
   array (
     400 => 'Regular 400',
@@ -1062,6 +1065,10 @@
   array (
     400 => 'Regular 400',
   ),
+  'Chilanka' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Chivo' => 
   array (
     300 => 'Light 300',
@@ -1947,6 +1954,12 @@
   array (
     400 => 'Regular 400',
   ),
+  'Gayathri' => 
+  array (
+    100 => 'Thin 100',
+    400 => 'Regular 400',
+    700 => 'Bold 700',
+  ),
   'Gentium Basic' => 
   array (
     400 => 'Regular 400',
@@ -2149,6 +2162,18 @@
   'Henny Penny' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Hepta Slab' => 
+  array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
   ),
   'Herr Von Muellerhoff' => 
   array (
@@ -2791,6 +2816,34 @@
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
   ),
+  'Lexend Deca' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Lexend Exa' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Lexend Giga' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Lexend Mega' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Lexend Peta' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Lexend Tera' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Lexend Zetta' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Libre Barcode 128' => 
   array (
     400 => 'Regular 400',
@@ -2889,6 +2942,25 @@
   'Liu Jian Mao Cao' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Livvic' => 
+  array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    900 => 'Black 900',
+    '100italic' => 'Thin 100 Italic',
+    '200italic' => 'Extra Light 200 Italic',
+    '300italic' => 'Light 300 Italic',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
+    '700italic' => 'Bold 700 Italic',
+    '900italic' => 'Black 900 Italic',
   ),
   'Lobster' => 
   array (
@@ -3046,6 +3118,12 @@
   'Mandali' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Manjari' => 
+  array (
+    100 => 'Thin 100',
+    400 => 'Regular 400',
+    700 => 'Bold 700',
   ),
   'Manuale' => 
   array (
@@ -4865,6 +4943,13 @@
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
     900 => 'Black 900',
+    '200italic' => 'Extra Light 200 Italic',
+    '300italic' => 'Light 300 Italic',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
+    '700italic' => 'Bold 700 Italic',
+    '900italic' => 'Black 900 Italic',
   ),
   'Source Sans Pro' => 
   array (
@@ -5473,4 +5558,4 @@
     400 => 'Regular 400',
     700 => 'Bold 700',
   ),
-);
+) ;

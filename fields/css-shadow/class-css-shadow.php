@@ -24,14 +24,14 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function h_shadow() {
-			return wpo_field( 'number', 'h-shadow', __( 'Horizontal Length' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'h-shadow', __( 'Horizontal Length', 'wponion' ), array( 'surfix' => 'px' ) )
 				->attribute( 'data-css-id', 'h-shadow' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
 
 		protected function v_shadow() {
-			return wpo_field( 'number', 'v-shadow', __( 'Vertical Length' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'v-shadow', __( 'Vertical Length', 'wponion' ), array( 'surfix' => 'px' ) )
 				->attribute( 'data-css-id', 'v-shadow' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function blur() {
-			return wpo_field( 'number', 'blur', __( 'Blur Radius' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'blur', __( 'Blur Radius', 'wponion' ), array( 'surfix' => 'px' ) )
 				->attribute( 'data-css-id', 'blur' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
@@ -51,7 +51,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function spread() {
-			return wpo_field( 'number', 'spread', __( 'Spread Radius' ), array( 'surfix' => 'px' ) )
+			return wpo_field( 'number', 'spread', __( 'Spread Radius', 'wponion' ), array( 'surfix' => 'px' ) )
 				->attribute( 'data-css-id', 'spread' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
@@ -61,7 +61,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function color() {
-			return wpo_field( 'color_picker', 'color', __( 'Shadow Color' ) )
+			return wpo_field( 'color_picker', 'color', __( 'Shadow Color', 'wponion' ) )
 				->attribute( 'data-css-id', 'color' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-2' );
@@ -71,7 +71,7 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		protected function shadow_type() {
-			return wpo_field( 'switcher', 'inset', __( 'Inset ?' ) )
+			return wpo_field( 'switcher', 'inset', __( 'Inset ?', 'wponion' ) )
 				->attribute( 'data-css-id', 'inset' )
 				->horizontal( true )
 				->wrap_class( 'col-xs-12 col-md-1' );

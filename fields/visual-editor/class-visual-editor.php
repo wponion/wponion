@@ -23,10 +23,10 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Editor' ) ) {
 			echo '<div class="css-builder-main-wrap">';
 			echo '<div class="css-editor-left">';
 
-			$margin_title         = __( 'Margin' );
-			$border_title         = __( 'Border' );
-			$padding_title        = __( 'Padding' );
-			$border_radius_title  = __( 'Radius' );
+			$margin_title         = __( 'Margin', 'wponion' );
+			$border_title         = __( 'Border', 'wponion' );
+			$padding_title        = __( 'Padding', 'wponion' );
+			$border_radius_title  = __( 'Radius', 'wponion' );
 			$margin_fields        = $this->css_fields();
 			$padding_fields       = $this->css_fields( 'padding' );
 			$border_fields        = $this->css_fields( 'border' );
@@ -143,7 +143,7 @@ HTML;
 			 */
 			if ( false !== $this->data( 'border-color' ) ) {
 				$args = $this->handle_args( 'title', $this->data( 'border-color' ), array(
-					'title'    => __( 'Border Color' ),
+					'title'    => __( 'Border Color', 'wponion' ),
 					'settings' => array( 'theme' => 'nano' ),
 				), array(
 					'type' => 'color_picker',
@@ -157,7 +157,7 @@ HTML;
 			 */
 			if ( false !== $this->data( 'background-color' ) ) {
 				$args = $this->handle_args( 'title', $this->data( 'background-color' ), array(
-					'title'    => __( 'Border Color' ),
+					'title'    => __( 'Border Color', 'wponion' ),
 					'settings' => array( 'theme' => 'nano' ),
 				), array(
 					'type' => 'color_picker',
@@ -171,24 +171,24 @@ HTML;
 			 */
 			if ( false !== $this->data( 'border-style' ) ) {
 				$args = $this->handle_args( 'title', $this->data( 'border-style' ), array(
-					'title'                 => __( 'Border Style' ),
+					'title'                 => __( 'Border Style', 'wponion' ),
 					'type'                  => 'select',
 					'style'                 => 'width:250px;',
 					$this->select_framework => $this->data( $this->select_framework ),
 					'options'               => array(
-						''        => __( 'Theme Defaults' ),
-						'solid'   => __( 'Solid' ),
-						'dotted'  => __( 'Dotted' ),
-						'dashed'  => __( 'Dashed' ),
-						'none'    => __( 'None' ),
-						'hidden'  => __( 'Hidden' ),
-						'double'  => __( 'Double' ),
-						'groove'  => __( 'Groove' ),
-						'ridge'   => __( 'Ridge' ),
-						'inset'   => __( 'Inset' ),
-						'outset'  => __( 'Outset' ),
-						'initial' => __( 'Initial' ),
-						'inherit' => __( 'Inherit' ),
+						''        => __( 'Theme Defaults', 'wponion' ),
+						'solid'   => __( 'Solid', 'wponion' ),
+						'dotted'  => __( 'Dotted', 'wponion' ),
+						'dashed'  => __( 'Dashed', 'wponion' ),
+						'none'    => __( 'None', 'wponion' ),
+						'hidden'  => __( 'Hidden', 'wponion' ),
+						'double'  => __( 'Double', 'wponion' ),
+						'groove'  => __( 'Groove', 'wponion' ),
+						'ridge'   => __( 'Ridge', 'wponion' ),
+						'inset'   => __( 'Inset', 'wponion' ),
+						'outset'  => __( 'Outset', 'wponion' ),
+						'initial' => __( 'Initial', 'wponion' ),
+						'inherit' => __( 'Inherit', 'wponion' ),
 					),
 				), array( 'id' => 'border-style' ) );
 				$html .= $this->sub_field( $args, $this->value( 'border-style' ), $this->name() );
@@ -199,7 +199,7 @@ HTML;
 			 */
 			if ( false !== $this->data( 'background-image' ) ) {
 				$args = $this->handle_args( 'title', $this->data( 'background-image' ), array(
-					'title' => __( 'Background Image' ),
+					'title' => __( 'Background Image', 'wponion' ),
 					'type'  => 'image',
 				), array( 'id' => 'background-image' ) );
 				$html .= $this->sub_field( $args, $this->value( 'background-image' ), $this->name() );
@@ -210,16 +210,16 @@ HTML;
 			 */
 			if ( false !== $this->data( 'background-style' ) ) {
 				$args = $this->handle_args( 'title', $this->data( 'background-style' ), array(
-					'title'                 => __( 'Background Style' ),
+					'title'                 => __( 'Background Style', 'wponion' ),
 					'type'                  => 'select',
 					'style'                 => 'width:250px;',
 					$this->select_framework => $this->data( $this->select_framework ),
 					'options'               => array(
-						''          => __( 'Theme Defaults' ),
-						'cover'     => __( 'Cover' ),
-						'contain'   => __( 'Contain' ),
-						'no-repeat' => __( 'No Repeat' ),
-						'repeat'    => __( 'Repeat' ),
+						''          => __( 'Theme Defaults', 'wponion' ),
+						'cover'     => __( 'Cover', 'wponion' ),
+						'contain'   => __( 'Contain', 'wponion' ),
+						'no-repeat' => __( 'No Repeat', 'wponion' ),
+						'repeat'    => __( 'Repeat', 'wponion' ),
 					),
 				), array( 'id' => 'background-style' ) );
 				$html .= $this->sub_field( $args, $this->value( 'background-style' ), $this->name() );
@@ -227,8 +227,8 @@ HTML;
 
 			if ( false !== $this->data( 'box-controls' ) ) {
 				$args = $this->handle_args( 'title', $this->data( 'box-controls' ), array(
-					'title'   => __( 'Box Controls' ),
-					'label'   => __( 'Simplify controls' ),
+					'title'   => __( 'Box Controls', 'wponion' ),
+					'label'   => __( 'Simplify controls', 'wponion' ),
 					'type'    => 'switcher',
 					'name'    => '/',
 					'wrap_id' => 'box-controls',
@@ -258,12 +258,12 @@ HTML;
 
 		protected function field_default() {
 			return array(
-				'background-color' => __( 'Background Color' ),
-				'border-style'     => __( 'Border Style' ),
-				'border-color'     => __( 'Border Color' ),
-				'background-image' => __( 'Background Image' ),
-				'background-style' => __( 'Background Style' ),
-				'box-controls'     => __( 'Box Controls' ),
+				'background-color' => __( 'Background Color', 'wponion' ),
+				'border-style'     => __( 'Border Style', 'wponion' ),
+				'border-color'     => __( 'Border Color', 'wponion' ),
+				'background-image' => __( 'Background Image', 'wponion' ),
+				'background-style' => __( 'Background Style', 'wponion' ),
+				'box-controls'     => __( 'Box Controls', 'wponion' ),
 			);
 		}
 	}

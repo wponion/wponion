@@ -24,7 +24,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 
 			// Font Family.
 			if ( false !== $this->data( 'font_family' ) ) {
-				$field = $this->handle_args( 'title', $this->data( 'font_family' ), array( 'title' => __( 'Font Family & Weight' ) ), array(
+				$field = $this->handle_args( 'title', $this->data( 'font_family' ), array( 'title' => __( 'Font Family & Weight', 'wponion' ) ), array(
 					'id'           => 'font_family',
 					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-4',
 					'type'         => 'font_picker',
@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 
 			// Backup Font Family.
 			if ( false !== $this->data( 'backup_font' ) ) {
-				$field = $this->handle_args( 'title', $this->data( 'backup_font' ), array( 'title' => __( 'Backup Font Family' ) ), array(
+				$field = $this->handle_args( 'title', $this->data( 'backup_font' ), array( 'title' => __( 'Backup Font Family', 'wponion' ) ), array(
 					'id'           => 'backup_font',
 					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
 					'attributes'   => array( 'data-css-property' => 'backup-font' ),
@@ -56,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Font Style
 			if ( false !== $this->data( 'font_weight' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'font_weight' ), array(
-					'title'   => __( 'Font Weight' ),
+					'title'   => __( 'Font Weight', 'wponion' ),
 					'options' => wponion_internal_options_data( 'font_weight' ),
 				), array(
 					'id'         => 'font_weight',
@@ -71,7 +71,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Font Style
 			if ( false !== $this->data( 'font_style' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'font_style' ), array(
-					'title'   => __( 'Font Style' ),
+					'title'   => __( 'Font Style', 'wponion' ),
 					'options' => wponion_internal_options_data( 'font_style' ),
 				), array(
 					'id'           => 'font_style',
@@ -87,7 +87,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Text Align
 			if ( false !== $this->data( 'text_align' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'text_align' ), array(
-					'title'   => __( 'Text Align' ),
+					'title'   => __( 'Text Align', 'wponion' ),
 					'options' => wponion_internal_options_data( 'text-align' ),
 				), array(
 					'id'           => 'text_align',
@@ -103,7 +103,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Writing Mode
 			if ( false !== $this->data( 'writing_mode' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'writing_mode' ), array(
-					'title'   => __( 'Writing Mode' ),
+					'title'   => __( 'Writing Mode', 'wponion' ),
 					'options' => wponion_internal_options_data( 'writing_mode' ),
 				), array(
 					'id'           => 'writing_mode',
@@ -119,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Text Orientation
 			if ( false !== $this->data( 'text_orientation' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'text_orientation' ), array(
-					'title'   => __( 'Text Orientation' ),
+					'title'   => __( 'Text Orientation', 'wponion' ),
 					'options' => wponion_internal_options_data( 'text_orientation' ),
 				), array(
 					'id'           => 'text_orientation',
@@ -138,7 +138,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Text Direction
 			if ( false !== $this->data( 'text_direction' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'text_direction' ), array(
-					'title'   => __( 'Text Direction' ),
+					'title'   => __( 'Text Direction', 'wponion' ),
 					'options' => wponion_internal_options_data( 'text_direction' ),
 				), array(
 					'id'           => 'text_direction',
@@ -154,7 +154,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Text Transform
 			if ( false !== $this->data( 'text_transform' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'text_transform' ), array(
-					'title'   => __( 'Text Transform' ),
+					'title'   => __( 'Text Transform', 'wponion' ),
 					'options' => wponion_internal_options_data( 'text_transform' ),
 				), array(
 					'id'           => 'text_transform',
@@ -170,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Text Decoration Line
 			if ( false !== $this->data( 'text_decoration_line' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'text_decoration_line' ), array(
-					'title'   => __( 'Text Decoration Line' ),
+					'title'   => __( 'Text Decoration Line', 'wponion' ),
 					'options' => wponion_internal_options_data( 'text_decoration_line' ),
 				), array(
 					'id'           => 'text_decoration_line',
@@ -186,7 +186,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			// Text Decoration Style
 			if ( false !== $this->data( 'text_decoration_style' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'text_decoration_style' ), array(
-					'title'   => __( 'Text Decoration Style' ),
+					'title'   => __( 'Text Decoration Style', 'wponion' ),
 					'options' => wponion_internal_options_data( 'text_decoration_style' ),
 				), array(
 					'id'           => 'text_decoration_style',
@@ -201,7 +201,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 
 			// Text Decoration Color
 			if ( false !== $this->data( 'text_decoration_color' ) ) {
-				$field = $this->handle_args( 'title', $this->data( 'text_decoration_color' ), array( 'title' => __( 'Text Decoration Color' ) ), array(
+				$field = $this->handle_args( 'title', $this->data( 'text_decoration_color' ), array( 'title' => __( 'Text Decoration Color', 'wponion' ) ), array(
 					'id'         => 'text_decoration_color',
 					'type'       => 'color_picker',
 					'attributes' => array( 'data-css-property' => 'text-decoration-color' ),
@@ -216,7 +216,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 
 			// Font Size
 			if ( false !== $this->data( 'font_size' ) ) {
-				$field = $this->handle_args( 'title', $this->data( 'font_size' ), array( 'title' => __( 'Font Size' ) ), array(
+				$field = $this->handle_args( 'title', $this->data( 'font_size' ), array( 'title' => __( 'Font Size', 'wponion' ) ), array(
 					'id'              => 'font_size',
 					'wrap_attributes' => array( 'data-css-property' => 'font-size' ),
 					'type'            => 'css_unit',
@@ -228,7 +228,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 
 			// Line Height
 			if ( false !== $this->data( 'line_height' ) ) {
-				$field = $this->handle_args( 'title', $this->data( 'line_height' ), array( 'title' => __( 'Line Height' ) ), array(
+				$field = $this->handle_args( 'title', $this->data( 'line_height' ), array( 'title' => __( 'Line Height', 'wponion' ) ), array(
 					'id'              => 'line_height',
 					'type'            => 'css_unit',
 					'wrap_attributes' => array( 'data-css-property' => 'line-height' ),
@@ -240,7 +240,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 
 			// Letter Spacing
 			if ( false !== $this->data( 'letter_spacing' ) ) {
-				$field = $this->handle_args( 'title', $this->data( 'letter_spacing' ), array( 'title' => __( 'Letter Spacing' ) ), array(
+				$field = $this->handle_args( 'title', $this->data( 'letter_spacing' ), array( 'title' => __( 'Letter Spacing', 'wponion' ) ), array(
 					'id'              => 'letter_spacing',
 					'type'            => 'css_unit',
 					'wrap_attributes' => array( 'data-css-property' => 'letter-spacing' ),
@@ -252,7 +252,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 
 			// Color
 			if ( false !== $this->data( 'color' ) ) {
-				$field = $this->handle_args( 'title', $this->data( 'color' ), array( 'title' => __( 'Text Color' ) ), array(
+				$field = $this->handle_args( 'title', $this->data( 'color' ), array( 'title' => __( 'Text Color', 'wponion' ) ), array(
 					'id'         => 'color',
 					'type'       => 'color_picker',
 					'attributes' => array( 'data-css-property' => 'color' ),
@@ -309,20 +309,20 @@ HTML;
 				'preview'               => 'Then came the night of the first falling star.<br />0123456789',
 				'font_family'           => __( 'Font Family & Weight', 'wponion' ),
 				'backup_font'           => __( 'Backup Font Family', 'wponion' ),
-				'text_align'            => __( 'Text align' ),
-				'writing_mode'          => __( 'Writing Mode' ),
-				'text_orientation'      => __( 'Text Orientation' ),
-				'text_direction'        => __( 'Text Direction' ),
-				'text_transform'        => __( 'Text Transform' ),
-				'text_decoration_line'  => __( 'Text Decoration Line' ),
-				'text_decoration_style' => __( 'Text Decoration Style' ),
-				'text_decoration_color' => __( 'Text Decoration Color' ),
-				'font_weight'           => __( 'Font Weight' ),
-				'font_size'             => __( 'Font Size' ),
-				'font_style'            => __( 'Font Style' ),
-				'line_height'           => __( 'Line Height' ),
-				'letter_spacing'        => __( 'Letter Spacing' ),
-				'color'                 => __( 'Text Color' ),
+				'text_align'            => __( 'Text align', 'wponion' ),
+				'writing_mode'          => __( 'Writing Mode', 'wponion' ),
+				'text_orientation'      => __( 'Text Orientation', 'wponion' ),
+				'text_direction'        => __( 'Text Direction', 'wponion' ),
+				'text_transform'        => __( 'Text Transform', 'wponion' ),
+				'text_decoration_line'  => __( 'Text Decoration Line', 'wponion' ),
+				'text_decoration_style' => __( 'Text Decoration Style', 'wponion' ),
+				'text_decoration_color' => __( 'Text Decoration Color', 'wponion' ),
+				'font_weight'           => __( 'Font Weight', 'wponion' ),
+				'font_size'             => __( 'Font Size', 'wponion' ),
+				'font_style'            => __( 'Font Style', 'wponion' ),
+				'line_height'           => __( 'Line Height', 'wponion' ),
+				'letter_spacing'        => __( 'Letter Spacing', 'wponion' ),
+				'color'                 => __( 'Text Color', 'wponion' ),
 			);
 		}
 
