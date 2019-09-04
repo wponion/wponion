@@ -565,12 +565,29 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Generates Multiple Description.
+		 *
+		 * @param $desc
+		 * @param $css_class
+		 *
+		 * @return string
+		 */
+		protected function description_render( $desc, $css_class ) {
+			$desc   = ( ! is_array( $desc ) ) ? array( $desc ) : $desc;
+			$return = '';
+			foreach ( array_filter( $desc ) as $c ) {
+				$return .= '<p class="wponion-desc ' . $css_class . '">' . wponion_markdown()->line( $c ) . '</p>';
+			}
+			return $return;
+		}
+
+		/**
 		 * Generates Title Description HTML.
 		 *
 		 * @return string
 		 */
 		protected function title_desc() {
-			return ( $this->has( 'desc' ) ) ? '<p class="wponion-desc wponion-title-desc">' . wponion_markdown()->line( $this->data( 'desc' ) ) . '</p>' : '';
+			return ( $this->has( 'desc' ) ) ? $this->description_render( $this->data( 'desc' ), 'wponion-title-desc' ) : '';
 		}
 
 		/**
@@ -579,7 +596,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function field_desc() {
-			return ( $this->has( 'desc_field' ) ) ? '<p class="wponion-desc wponion-field-desc">' . wponion_markdown()->line( $this->data( 'desc_field' ) ) . '</p>' : '';
+			return ( $this->has( 'desc_field' ) ) ? $this->description_render( $this->data( 'desc_field' ), 'wponion-field-desc' ) : '';
 		}
 
 		/**

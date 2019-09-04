@@ -42,11 +42,23 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 	}
 
 	.wponion-desc {
-		margin-bottom: 8px;
+		margin-bottom: 0;
 		font-size:     13px;
 		font-style:    italic;
 		color:         #666;
-		margin-top:    8px;
+		margin-top:    10px;
+
+		+ .wponion-desc {
+			margin-top: 5px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 
 	.row {
