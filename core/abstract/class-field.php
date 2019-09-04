@@ -337,22 +337,29 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function badge() {
+			$html = '';
 			if ( false !== $this->data( 'badge' ) ) {
-				$badge = $this->handle_args( 'content', $this->data( 'badge' ), array(
-					'type'      => 'success',
-					'placement' => 'top-left',
-					'content'   => null,
-					'pointer'   => false,
-					'outline'   => false,
-				) );
+				$badges = $this->data( 'badge' );
+				if ( is_string( $badges ) || is_array( $badges ) && ! isset( $badges[0] ) ) {
+					$badges = array( $badges );
+				}
+				foreach ( $badges as $badge ) {
+					$badge = $this->handle_args( 'content', $badge, array(
+						'type'      => 'success',
+						'placement' => 'top-left',
+						'content'   => null,
+						'pointer'   => false,
+						'outline'   => false,
+					) );
 
-				$container = 'wpo-badge-container wpo-badge-' . $badge['placement'] . ' wpo-badge-type-' . $badge['type'];
-				$class     = 'wpo-badge';
-				$class     .= ( true === $badge['outline'] ) ? ' wpo-badge-outline wpo-badge-outline-' . $badge['type'] . ' ' : ' wpo-badge-' . $badge['type'] . ' ';
-				$class     .= ( true === $badge['pointer'] ) ? ' wpo-badge-pill ' : '';
-				return '<div class="' . $container . '"><div class="' . $class . '" >' . $badge['content'] . '</div></div>';
+					$container = 'wpo-badge-container wpo-badge-' . $badge['placement'] . ' wpo-badge-type-' . $badge['type'];
+					$class     = 'wpo-badge';
+					$class     .= ( true === $badge['outline'] ) ? ' wpo-badge-outline wpo-badge-outline-' . $badge['type'] . ' ' : ' wpo-badge-' . $badge['type'] . ' ';
+					$class     .= ( true === $badge['pointer'] ) ? ' wpo-badge-pill ' : '';
+					$html      .= '<div class="' . $container . '"><div class="' . $class . '" >' . $badge['content'] . '</div></div>';
+				}
 			}
-			return '';
+			return $html;
 		}
 
 		/**
