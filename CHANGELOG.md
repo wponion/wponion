@@ -15,9 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * WPOnion's Custom Icon Pack
 * JAVASCRIPT Hook : `wponion_register_after_core_fields`
 * JAVASCRIPT Hook : `wponion_register_after_core_themes`
-* Field Badge Option
-
-![WPOnion Field Badge Option](https://raw.githubusercontent.com/wponion/s3/master/changelog/1567560560-117.jpg)
+* Field Badge Option ![WPOnion Field Badge Option](https://s3.wponion.com/changelog/1567560560-117.jpg)
+* Multiple Field Description ![WPOnion Multiple Field Description](https://s3.wponion.com/changelog/1567574576-170.jpg)
 
 ## Fixed
 * Color Picker Field Saving & Showing Value
