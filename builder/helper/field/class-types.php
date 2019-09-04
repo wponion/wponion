@@ -23,6 +23,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 * @method \WPO\Fields\Button_Set button_set( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\checkbox checkbox( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\color_group color_group( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\css_shadow css_shadow( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\color_picker color_picker( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\content content( $content = null, $markdown = false )
 	 * @method \WPO\Fields\content markdown( $content = null )
@@ -79,6 +80,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 * @method \WPO\Fields\Code_Editor code_editor( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\WP_List_Table wp_list_table( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Field import_export( $id = false, $title = false, $args = array() )
+	 * @method \WPO\Fields\CSS_Unit css_unit( $id = false, $title = false, $args = array() )
 	 */
 	trait Types {
 		/**

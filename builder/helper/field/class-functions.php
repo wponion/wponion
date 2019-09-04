@@ -76,10 +76,10 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		}
 
 		/**
-		 * @param bool|\WPO\Field|array $field_type_or_instance
-		 * @param string                $field_id
-		 * @param bool                  $title
-		 * @param array                 $args
+		 * @param bool|array|\WPO\Field|array $field_type_or_instance
+		 * @param string                      $field_id
+		 * @param bool                        $title
+		 * @param array                       $args
 		 *
 		 * @return bool|false|\WPO\Field
 		 */

@@ -46,6 +46,10 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 			if ( $this->has( 'options_html' ) && ! empty( $this->data( 'options_html' ) ) ) {
 				$element .= $this->data( 'options_html' );
 			} else {
+				if ( true === $this->data( 'empty_option' ) ) {
+					$element .= '<option value=""></option>';
+				}
+
 				foreach ( $options as $key => $option ) {
 					if ( wponion_is_array( $option ) && isset( $option['label'] ) ) {
 						$element .= $this->sel_option( $this->handle_options( $key, $option ) );
@@ -130,11 +134,12 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'options'  => array(),
-				'multiple' => false,
-				'ajax'     => false,
-				'prefix'   => '',
-				'surfix'   => '',
+				'options'      => array(),
+				'multiple'     => false,
+				'empty_option' => false,
+				'ajax'         => false,
+				'prefix'       => '',
+				'surfix'       => '',
 			);
 		}
 

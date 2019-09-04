@@ -38,15 +38,17 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 			echo $this->before();
 			$this->select_framework = wponion_validate_select_framework( $this->field );
 
-			echo '<div class="row">';
-			echo '<div class="wponion-font-select-container col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">';
+			//echo '<div class="row">';
+			echo '<div class="wponion-font-select-container">';
 			echo $this->sub_field( $this->font_select(), $this->value( 'font' ), $this->name() );
 			echo '</div>';
 
-			echo '<div class="wponion-font-select-container col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-4">';
-			echo $this->sub_field( $this->variant_select(), $this->value( 'variant' ), $this->name() );
-			echo '</div>';
-			echo '</div>';
+			if ( false !== $this->data( 'variant' ) ) {
+				echo '<div class="wponion-font-select-container">';
+				echo $this->sub_field( $this->variant_select(), $this->value( 'variant' ), $this->name() );
+				echo '</div>';
+			}
+			//echo '</div>';
 
 			echo $this->after();
 		}
@@ -99,6 +101,7 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 				'google_fonts'  => true,
 				'websafe_fonts' => true,
 				'group'         => true,
+				'variant'       => true,
 			);
 		}
 

@@ -296,7 +296,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 				$reflector = new ReflectionClass( 'WPOnion_Loader' );
 				$main_file = $reflector->getFileName();
 			} catch ( Exception $exception ) {
-				$main_file = '<span class="dashicons dashicons-no"></span> Unable To Find The Main File Path';
+				$main_file = '<span class="wpoic-no"></span> Unable To Find The Main File Path';
 			}
 
 			$version = array();

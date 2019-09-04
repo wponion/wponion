@@ -109,11 +109,11 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		/**
 		 * Default Icons Are :
 		 * array(
-		 *    'top'    => '<i class="dashicons dashicons-arrow-up-alt"></i>',
-		 *    'bottom' => '<i class="dashicons dashicons-arrow-down-alt"></i>',
-		 *    'left'   => '<i class="dashicons dashicons-arrow-left-alt"></i>',
-		 *    'right'  => '<i class="dashicons dashicons-arrow-right-alt"></i>',
-		 *    'all'    => '<i class="dashicons dashicons-move"></i>',
+		 *    'top'    => '<i class="wpoic-up"></i>',
+		 *    'bottom' => '<i class="wpoic-down"></i>',
+		 *    'left'   => '<i class="wpoic-left"></i>',
+		 *    'right'  => '<i class="wpoic-right"></i>',
+		 *    'all'    => '<i class="wpoic-move"></i>',
 		 * )
 		 *
 		 * @param $icons

@@ -60,7 +60,9 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'settings' => array(),
+				'settings' => array(
+					'theme' => 'monolith',
+				),
 				'options'  => array(),
 			);
 		}

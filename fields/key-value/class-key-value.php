@@ -28,7 +28,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function key_value( $name = '', $key = '', $value = '' ) {
 			$return = '<div class="wponion-keyvalue-field">';
-			$return .= '<div class="sortable-handler">' . wponion_icon( 'dashicons dashicons-menu' ) . '</div>';
+			$return .= '<div class="sortable-handler">' . wponion_icon( 'wpoic-menu' ) . '</div>';
 			$return .= $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
 				'id'         => 'key',
 				'type'       => 'text',
@@ -71,11 +71,11 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 					}
 				}
 			} else {
-				echo $this->key_value( $this->name( '[1]' ), '', '' );
+				echo $this->key_value( $this->name( '1' ), '', '' );
 			}
 			echo '</div>';
 
-			$template = $this->key_value( $this->name( '[{wponionCloneID}]' ) );
+			$template = $this->key_value( $this->name( '{wponionCloneID}' ) );
 
 			$error_notice = $this->handle_args( 'content', $this->data( 'error_msg' ), array(
 				'type' => 'notice_danger',

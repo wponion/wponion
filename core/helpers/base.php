@@ -503,3 +503,6 @@ require_once wponion()->path( 'core/helpers/theme.php' );
 
 // WPOnion Alias Functions.
 require_once wponion()->path( 'core/helpers/alias.php' );
+
+// WPOnion Internal Functions.
+require_once wponion()->path( 'core/helpers/internal.php' );

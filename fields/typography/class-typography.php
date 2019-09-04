@@ -19,157 +19,310 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 		protected function output() {
 			echo $this->before();
 
-			echo '<div class="wponion-typography-config-panel">';
-			echo '<div class="wponion-typography-font_picker">';
+			echo '<div id="fontfields" class="row"><div class="col-xs-12 col-sm-10">';
+			echo '<div class="row">';
+
+			// Font Family.
 			if ( false !== $this->data( 'font_family' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'font_family' ), array(
-					'horizontal' => true,
-				), array(
-					'id'   => 'font_family',
-					'type' => 'font_picker',
-				) ), $this->value( 'font_family' ), $this->unique() );
+				$field = $this->handle_args( 'title', $this->data( 'font_family' ), array( 'title' => __( 'Font Family & Weight', 'wponion' ) ), array(
+					'id'           => 'font_family',
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-4',
+					'type'         => 'font_picker',
+					'horizontal'   => true,
+					'empty_option' => true,
+					'variant'      => false,
+					'attributes'   => array( 'data-css-property' => 'font-family-set' ),
+				) );
+				echo $this->sub_field( $field, $this->value( 'font_family' ), $this->name() );
 			}
 
-			if ( false !== $this->data( 'backup_font_family' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'backup_font_family' ), array(
-					'horizontal' => true,
-					'options'    => wponion_backup_fonts(),
-				), array(
-					'id'         => 'backup_font_family',
-					'type'       => 'select',
-					'wrap_class' => 'wponion-element-backup-font',
-				) ), $this->value( 'backup_font_family' ), $this->unique() );
+			// Backup Font Family.
+			if ( false !== $this->data( 'backup_font' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'backup_font' ), array( 'title' => __( 'Backup Font Family', 'wponion' ) ), array(
+					'id'           => 'backup_font',
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'attributes'   => array( 'data-css-property' => 'backup-font' ),
+					'type'         => 'select',
+					'empty_option' => true,
+					'options'      => wponion_internal_options_data( 'backup_font_family' ),
+					'horizontal'   => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'backup_font' ), $this->name() );
 			}
+
 			echo '</div>';
+			echo '<div class="row">';
 
-			echo '<div class="wponion-typography-font_alignments">';
-			if ( false !== $this->data( 'element_tag' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'element_tag' ), array(
-					'horizontal' => true,
-					'options'    => array(
-						'h1'   => 'h1',
-						'h2'   => 'h2',
-						'h3'   => 'h3',
-						'h4'   => 'h4',
-						'h5'   => 'h5',
-						'h6'   => 'h6',
-						'div'  => 'div',
-						'span' => 'span',
-						'p'    => 'p',
-					),
+			// Font Style
+			if ( false !== $this->data( 'font_weight' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'font_weight' ), array(
+					'title'   => __( 'Font Weight', 'wponion' ),
+					'options' => wponion_internal_options_data( 'font_weight' ),
 				), array(
-					'id'         => 'element_tag',
+					'id'         => 'font_weight',
+					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
 					'type'       => 'select',
-					'wrap_class' => 'wponion-element-tag',
-				) ), $this->value( 'element_tag' ), $this->unique() );
+					'attributes' => array( 'data-css-property' => 'font-weight' ),
+					'horizontal' => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'font_weight' ), $this->name() );
 			}
 
-			if ( false !== $this->data( 'text_align' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'text_align' ), array(
-					'horizontal' => true,
-					'options'    => array(
-						'left'    => __( 'Left', 'wponion' ),
-						'center'  => __( 'Center', 'wponion' ),
-						'right'   => __( 'Right', 'wponion' ),
-						'justify' => __( 'Justify', 'wponion' ),
-					),
-				), array(
-					'id'         => 'text_align',
-					'type'       => 'select',
-					'wrap_class' => 'wponion-element-align',
-				) ), $this->value( 'text_align' ), $this->unique() );
-			}
-
-			if ( false !== $this->data( 'direction' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'direction' ), array(
-					'horizontal' => true,
-					'options'    => array(
-						'ltr' => __( 'left to right', 'wponion' ),
-						'rtl' => __( 'right to left', 'wponion' ),
-					),
-				), array(
-					'id'         => 'direction',
-					'wrap_class' => 'wponion-element-direction',
-					'type'       => 'select',
-				) ), $this->value( 'direction' ), $this->unique() );
-			}
-
+			// Font Style
 			if ( false !== $this->data( 'font_style' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'font_style' ), array(
-					'horizontal' => true,
-					'options'    => array(
-						'normal'  => __( 'normal', 'wponion' ),
-						'italic'  => __( 'italic', 'wponion' ),
-						'oblique' => __( 'oblique', 'wponion' ),
-					),
+				$field = $this->handle_args( 'title', $this->data( 'font_style' ), array(
+					'title'   => __( 'Font Style', 'wponion' ),
+					'options' => wponion_internal_options_data( 'font_style' ),
 				), array(
-					'id'         => 'font_style',
-					'wrap_class' => 'wponion-element-style',
-					'type'       => 'select',
-				) ), $this->value( 'font_style' ), $this->unique() );
+					'id'           => 'font_style',
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'type'         => 'select',
+					'empty_option' => true,
+					'attributes'   => array( 'data-css-property' => 'font-style' ),
+					'horizontal'   => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'font_style' ), $this->name() );
 			}
-			echo '</div>';
 
-			echo '<div class="wponion-typography-font_sizes">';
+			// Text Align
+			if ( false !== $this->data( 'text_align' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'text_align' ), array(
+					'title'   => __( 'Text Align', 'wponion' ),
+					'options' => wponion_internal_options_data( 'text-align' ),
+				), array(
+					'id'           => 'text_align',
+					'type'         => 'select',
+					'empty_option' => true,
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'attributes'   => array( 'data-css-property' => 'text-align' ),
+					'horizontal'   => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'text_align' ), $this->name() );
+			}
+
+			// Writing Mode
+			if ( false !== $this->data( 'writing_mode' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'writing_mode' ), array(
+					'title'   => __( 'Writing Mode', 'wponion' ),
+					'options' => wponion_internal_options_data( 'writing_mode' ),
+				), array(
+					'id'           => 'writing_mode',
+					'type'         => 'select',
+					'empty_option' => true,
+					'attributes'   => array( 'data-css-property' => 'writing-mode' ),
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'   => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'writing_mode' ), $this->name() );
+			}
+
+			// Text Orientation
+			if ( false !== $this->data( 'text_orientation' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'text_orientation' ), array(
+					'title'   => __( 'Text Orientation', 'wponion' ),
+					'options' => wponion_internal_options_data( 'text_orientation' ),
+				), array(
+					'id'           => 'text_orientation',
+					'type'         => 'select',
+					'attributes'   => array( 'data-css-property' => 'text-orientation' ),
+					'horizontal'   => true,
+					'empty_option' => true,
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+				) );
+				echo $this->sub_field( $field, $this->value( 'text_orientation' ), $this->name() );
+			}
+
+			//echo '</div>';
+			//echo '<div class="row">';
+
+			// Text Direction
+			if ( false !== $this->data( 'text_direction' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'text_direction' ), array(
+					'title'   => __( 'Text Direction', 'wponion' ),
+					'options' => wponion_internal_options_data( 'text_direction' ),
+				), array(
+					'id'           => 'text_direction',
+					'type'         => 'select',
+					'empty_option' => true,
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'attributes'   => array( 'data-css-property' => 'direction' ),
+					'horizontal'   => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'text_direction' ), $this->name() );
+			}
+
+			// Text Transform
+			if ( false !== $this->data( 'text_transform' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'text_transform' ), array(
+					'title'   => __( 'Text Transform', 'wponion' ),
+					'options' => wponion_internal_options_data( 'text_transform' ),
+				), array(
+					'id'           => 'text_transform',
+					'type'         => 'select',
+					'empty_option' => true,
+					'attributes'   => array( 'data-css-property' => 'text-transform' ),
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'   => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'text_transform' ), $this->name() );
+			}
+
+			// Text Decoration Line
+			if ( false !== $this->data( 'text_decoration_line' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'text_decoration_line' ), array(
+					'title'   => __( 'Text Decoration Line', 'wponion' ),
+					'options' => wponion_internal_options_data( 'text_decoration_line' ),
+				), array(
+					'id'           => 'text_decoration_line',
+					'type'         => 'select',
+					'empty_option' => true,
+					'attributes'   => array( 'data-css-property' => 'text-decoration-line' ),
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'   => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'text_decoration_line' ), $this->name() );
+			}
+
+			// Text Decoration Style
+			if ( false !== $this->data( 'text_decoration_style' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'text_decoration_style' ), array(
+					'title'   => __( 'Text Decoration Style', 'wponion' ),
+					'options' => wponion_internal_options_data( 'text_decoration_style' ),
+				), array(
+					'id'           => 'text_decoration_style',
+					'attributes'   => array( 'data-css-property' => 'text-decoration-style' ),
+					'type'         => 'select',
+					'empty_option' => true,
+					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'   => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'text_decoration_style' ), $this->name() );
+			}
+
+			// Text Decoration Color
+			if ( false !== $this->data( 'text_decoration_color' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'text_decoration_color' ), array( 'title' => __( 'Text Decoration Color', 'wponion' ) ), array(
+					'id'         => 'text_decoration_color',
+					'type'       => 'color_picker',
+					'attributes' => array( 'data-css-property' => 'text-decoration-color' ),
+					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal' => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'text_decoration_color' ), $this->name() );
+			}
+
+			echo '</div>';
+			echo '<div class="row" id="fontsize-and-color">';
+
+			// Font Size
 			if ( false !== $this->data( 'font_size' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'font_size' ), array( 'horizontal' => true ), array(
-					'id'         => 'font_size',
-					'type'       => 'text',
-					'wrap_class' => 'wponion-element-size',
-				) ), $this->value( 'font_size' ), $this->unique() );
+				$field = $this->handle_args( 'title', $this->data( 'font_size' ), array( 'title' => __( 'Font Size', 'wponion' ) ), array(
+					'id'              => 'font_size',
+					'wrap_attributes' => array( 'data-css-property' => 'font-size' ),
+					'type'            => 'css_unit',
+					'wrap_class'      => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'      => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'font_size' ), $this->name() );
 			}
 
-			if ( false !== $this->data( 'letter_spacing' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'letter_spacing' ), array( 'horizontal' => true ), array(
-					'id'         => 'letter_spacing',
-					'type'       => 'text',
-					'wrap_class' => 'wponion-element-letter-spacing',
-				) ), $this->value( 'letter_spacing' ), $this->unique() );
-			}
-
+			// Line Height
 			if ( false !== $this->data( 'line_height' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'line_height' ), array( 'horizontal' => true ), array(
-					'id'         => 'line_height',
-					'type'       => 'text',
-					'wrap_class' => 'wponion-element-line-height',
-				) ), $this->value( 'line_height' ), $this->unique() );
+				$field = $this->handle_args( 'title', $this->data( 'line_height' ), array( 'title' => __( 'Line Height', 'wponion' ) ), array(
+					'id'              => 'line_height',
+					'type'            => 'css_unit',
+					'wrap_attributes' => array( 'data-css-property' => 'line-height' ),
+					'wrap_class'      => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'      => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'line_height' ), $this->name() );
 			}
-			echo '</div>';
 
+			// Letter Spacing
+			if ( false !== $this->data( 'letter_spacing' ) ) {
+				$field = $this->handle_args( 'title', $this->data( 'letter_spacing' ), array( 'title' => __( 'Letter Spacing', 'wponion' ) ), array(
+					'id'              => 'letter_spacing',
+					'type'            => 'css_unit',
+					'wrap_attributes' => array( 'data-css-property' => 'letter-spacing' ),
+					'wrap_class'      => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal'      => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'letter_spacing' ), $this->name() );
+			}
+
+			// Color
 			if ( false !== $this->data( 'color' ) ) {
-				echo $this->sub_field( $this->handle_args( 'wrap_tooltip', $this->data( 'color' ), array( 'horizontal' => true ), array(
+				$field = $this->handle_args( 'title', $this->data( 'color' ), array( 'title' => __( 'Text Color', 'wponion' ) ), array(
 					'id'         => 'color',
 					'type'       => 'color_picker',
-					'wrap_class' => 'wponion-element-text-color',
-				) ), $this->value( 'color' ), $this->unique() );
+					'attributes' => array( 'data-css-property' => 'color' ),
+					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'horizontal' => true,
+				) );
+				echo $this->sub_field( $field, $this->value( 'color' ), $this->name() );
 			}
-
+			echo '</div>';
+			echo '</div>';
 			echo '</div>';
 
-			/**
-			 * Font Preview
-			 */
 			if ( false !== $this->data( 'preview' ) ) {
-				echo '<div id="preview-' . $this->js_field_id() . '" style="font-family:;" class="wponion-font-preview" contenteditable="true">' . $this->data( 'preview_text' ) . '</div>';
+				$txt   = $this->data( 'preview' );
+				$style = $this->generate_preview_css();
+				echo <<<HTML
+<div class="row previewtxt-wrap">
+<div class="col-xs-12"><div class="previewtxt" style="$style">$txt</div></div>
+</div>
+HTML;
+
 			}
 
 			echo $this->after();
 		}
 
+		protected function generate_preview_css() {
+			$return = array();
+			if ( is_array( $this->value ) && ! empty( $this->value ) ) {
+				foreach ( $this->value as $key => $val ) {
+					if ( ! empty( $val ) ) {
+						$key = str_replace( '_', '-', $key );
+						$key = ( 'text-direction' === $key ) ? 'direction' : $key;
+						$key = ( 'backup-font' === $key ) ? 'font-family' : $key;
+
+						if ( ! is_array( $val ) ) {
+							$return[] = $key . ':' . $val . ';';
+						} elseif ( in_array( $key, array( 'font-size', 'line-height', 'letter-spacing' ), true ) ) {
+							$return[] = $key . ':' . $val['css_value'] . $val['unit'] . ';';
+						}
+					}
+				}
+			}
+			return implode( ' ', $return );
+		}
+
+		/**
+		 * Field Defaults.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
-				'font_family'        => __( 'Font Family & Weight', 'wponion' ),
-				'backup_font_family' => __( 'Backup Font Family', 'wponion' ),
-				'text_align'         => __( 'Text Align', 'wponion' ),
-				'direction'          => __( 'Text Direction', 'wponion' ),
-				'element_tag'        => __( 'Element Tag', 'wponion' ),
-				'font_style'         => __( 'Font Style', 'wponion' ),
-				'font_size'          => __( 'Font Size', 'wponion' ),
-				'line_height'        => __( 'Line Height', 'wponion' ),
-				'letter_spacing'     => __( 'Letter Spacing', 'wponion' ),
-				'color'              => __( 'Text Color', 'wponion' ),
-				'preview'            => true,
-				'preview_text'       => 'Lorem ipsum dolor sit amet, pro ad sanctus admodum, vim at insolens appellantur. Eum veri adipiscing an, probo nonumy an vis.',
+				'preview'               => 'Then came the night of the first falling star.<br />0123456789',
+				'font_family'           => __( 'Font Family & Weight', 'wponion' ),
+				'backup_font'           => __( 'Backup Font Family', 'wponion' ),
+				'text_align'            => __( 'Text align', 'wponion' ),
+				'writing_mode'          => __( 'Writing Mode', 'wponion' ),
+				'text_orientation'      => __( 'Text Orientation', 'wponion' ),
+				'text_direction'        => __( 'Text Direction', 'wponion' ),
+				'text_transform'        => __( 'Text Transform', 'wponion' ),
+				'text_decoration_line'  => __( 'Text Decoration Line', 'wponion' ),
+				'text_decoration_style' => __( 'Text Decoration Style', 'wponion' ),
+				'text_decoration_color' => __( 'Text Decoration Color', 'wponion' ),
+				'font_weight'           => __( 'Font Weight', 'wponion' ),
+				'font_size'             => __( 'Font Size', 'wponion' ),
+				'font_style'            => __( 'Font Style', 'wponion' ),
+				'line_height'           => __( 'Line Height', 'wponion' ),
+				'letter_spacing'        => __( 'Letter Spacing', 'wponion' ),
+				'color'                 => __( 'Text Color', 'wponion' ),
 			);
 		}
 

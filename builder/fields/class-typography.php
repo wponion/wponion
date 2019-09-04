@@ -29,6 +29,16 @@ if ( ! class_exists( 'WPO\Fields\Typography' ) ) {
 		}
 
 		/**
+		 * @param $preview
+		 *
+		 * @return $this
+		 */
+		public function preview( $preview ) {
+			$this['preview'] = $preview;
+			return $this;
+		}
+
+		/**
 		 * @param $font_family
 		 *
 		 * @return $this
@@ -39,12 +49,12 @@ if ( ! class_exists( 'WPO\Fields\Typography' ) ) {
 		}
 
 		/**
-		 * @param $backup_font_family
+		 * @param $backup_font
 		 *
 		 * @return $this
 		 */
-		public function backup_font_family( $backup_font_family ) {
-			$this['backup_font_family'] = $backup_font_family;
+		public function backup_font( $backup_font ) {
+			$this['backup_font'] = $backup_font;
 			return $this;
 		}
 
@@ -59,32 +69,82 @@ if ( ! class_exists( 'WPO\Fields\Typography' ) ) {
 		}
 
 		/**
-		 * @param $direction
+		 * @param $writing_mode
 		 *
 		 * @return $this
 		 */
-		public function direction( $direction ) {
-			$this['direction'] = $direction;
+		public function writing_mode( $writing_mode ) {
+			$this['writing_mode'] = $writing_mode;
 			return $this;
 		}
 
 		/**
-		 * @param $element_tag
+		 * @param $text_orientation
 		 *
 		 * @return $this
 		 */
-		public function element_tag( $element_tag ) {
-			$this['element_tag'] = $element_tag;
+		public function text_orientation( $text_orientation ) {
+			$this['text_orientation'] = $text_orientation;
 			return $this;
 		}
 
 		/**
-		 * @param $font_style
+		 * @param $text_direction
 		 *
 		 * @return $this
 		 */
-		public function font_style( $font_style ) {
-			$this['font_style'] = $font_style;
+		public function text_direction( $text_direction ) {
+			$this['text_direction'] = $text_direction;
+			return $this;
+		}
+
+		/**
+		 * @param $text_transform
+		 *
+		 * @return $this
+		 */
+		public function text_transform( $text_transform ) {
+			$this['text_transform'] = $text_transform;
+			return $this;
+		}
+
+		/**
+		 * @param $text_decoration_line
+		 *
+		 * @return $this
+		 */
+		public function text_decoration_line( $text_decoration_line ) {
+			$this['text_decoration_line'] = $text_decoration_line;
+			return $this;
+		}
+
+		/**
+		 * @param $text_decoration_style
+		 *
+		 * @return $this
+		 */
+		public function text_decoration_style( $text_decoration_style ) {
+			$this['text_decoration_style'] = $text_decoration_style;
+			return $this;
+		}
+
+		/**
+		 * @param $text_decoration_color
+		 *
+		 * @return $this
+		 */
+		public function text_decoration_color( $text_decoration_color ) {
+			$this['text_decoration_color'] = $text_decoration_color;
+			return $this;
+		}
+
+		/**
+		 * @param $font_weight
+		 *
+		 * @return $this
+		 */
+		public function font_weight( $font_weight ) {
+			$this['font_weight'] = $font_weight;
 			return $this;
 		}
 
@@ -95,6 +155,16 @@ if ( ! class_exists( 'WPO\Fields\Typography' ) ) {
 		 */
 		public function font_size( $font_size ) {
 			$this['font_size'] = $font_size;
+			return $this;
+		}
+
+		/**
+		 * @param $font_style
+		 *
+		 * @return $this
+		 */
+		public function font_style( $font_style ) {
+			$this['font_style'] = $font_style;
 			return $this;
 		}
 
@@ -125,26 +195,6 @@ if ( ! class_exists( 'WPO\Fields\Typography' ) ) {
 		 */
 		public function color( $color ) {
 			$this['color'] = $color;
-			return $this;
-		}
-
-		/**
-		 * @param $preview
-		 *
-		 * @return $this
-		 */
-		public function preview( $preview ) {
-			$this['preview'] = $preview;
-			return $this;
-		}
-
-		/**
-		 * @param $preview_text
-		 *
-		 * @return $this
-		 */
-		public function preview_text( $preview_text ) {
-			$this['preview_text'] = $preview_text;
 			return $this;
 		}
 	}

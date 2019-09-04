@@ -292,6 +292,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$has_dep,
 				$is_debug,
 				$is_js_validate,
+				( false !== $this->data( 'badge' ) ) ? 'wponion-has-badge' : '',
 				wponion_html_class( $this->field_wrap_class() ),
 			) ) );
 
@@ -317,7 +318,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$_wrap_attr       = wponion_array_to_html_attributes( $_wrap_attr );
 			$this->_handle_column_data();
 
-			echo '<div ' . $_wrap_attr . '><div class="row">';
+			echo '<div ' . $_wrap_attr . '>';
+			echo $this->badge();
+			echo '<div class="row">';
 			echo $this->title();
 			echo $this->field_wrapper( true );
 			echo $this->output();
@@ -326,6 +329,37 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				echo '<div class="wponion-developer-timer">' . __( 'Field Rendered In', 'wponion' ) . ' ' . wponion_timer( $this->unique(), true ) . ' ' . __( 'Seconds', 'wponion' ) . '</div>';
 			}
 			echo '</div></div>';
+		}
+
+		/**
+		 * Generates Badge HTML.
+		 *
+		 * @return string
+		 */
+		protected function badge() {
+			$html = '';
+			if ( false !== $this->data( 'badge' ) ) {
+				$badges = $this->data( 'badge' );
+				if ( is_string( $badges ) || is_array( $badges ) && ! isset( $badges[0] ) ) {
+					$badges = array( $badges );
+				}
+				foreach ( $badges as $badge ) {
+					$badge = $this->handle_args( 'content', $badge, array(
+						'type'      => 'success',
+						'placement' => 'top-left',
+						'content'   => null,
+						'pointer'   => false,
+						'outline'   => false,
+					) );
+
+					$container = 'wpo-badge-container wpo-badge-' . $badge['placement'] . ' wpo-badge-type-' . $badge['type'];
+					$class     = 'wpo-badge';
+					$class     .= ( true === $badge['outline'] ) ? ' wpo-badge-outline wpo-badge-outline-' . $badge['type'] . ' ' : ' wpo-badge-' . $badge['type'] . ' ';
+					$class     .= ( true === $badge['pointer'] ) ? ' wpo-badge-pill ' : '';
+					$html      .= '<div class="' . $container . '"><div class="' . $class . '" >' . $badge['content'] . '</div></div>';
+				}
+			}
+			return $html;
 		}
 
 		/**
@@ -438,7 +472,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10';
 					break;
 			}
-			if ( false === $this->has( 'title' ) ) {
+			if ( false === $this->has( 'title' ) || true === $this->data( 'hide_title' ) ) {
 				$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12';
 			}
 
@@ -482,7 +516,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function field_help() {
 			$html = '';
 			if ( $this->has( 'help' ) ) {
-				$data                              = $this->tooltip_data( $this->data( 'help' ), array( 'icon' => 'dashicons dashicons-editor-help' ) );
+				$data                              = $this->tooltip_data( $this->data( 'help' ), array( 'icon' => ' wpoic-help-circle' ) );
 				$data['attr']['data-wponion-jsid'] = $this->js_field_id();
 				$span_attr                         = wponion_array_to_html_attributes( $data['attr'] );
 				$html                              = '<span ' . $span_attr . '><span class="' . $data['data']['icon'] . '"></span></span>';
@@ -531,12 +565,29 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Generates Multiple Description.
+		 *
+		 * @param $desc
+		 * @param $css_class
+		 *
+		 * @return string
+		 */
+		protected function description_render( $desc, $css_class ) {
+			$desc   = ( ! is_array( $desc ) ) ? array( $desc ) : $desc;
+			$return = '';
+			foreach ( array_filter( $desc ) as $c ) {
+				$return .= '<p class="wponion-desc ' . $css_class . '">' . wponion_markdown()->line( $c ) . '</p>';
+			}
+			return $return;
+		}
+
+		/**
 		 * Generates Title Description HTML.
 		 *
 		 * @return string
 		 */
 		protected function title_desc() {
-			return ( $this->has( 'desc' ) ) ? '<p class="wponion-desc wponion-title-desc">' . wponion_markdown()->line( $this->data( 'desc' ) ) . '</p>' : '';
+			return ( $this->has( 'desc' ) ) ? $this->description_render( $this->data( 'desc' ), 'wponion-title-desc' ) : '';
 		}
 
 		/**
@@ -545,7 +596,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function field_desc() {
-			return ( $this->has( 'desc_field' ) ) ? '<p class="wponion-desc wponion-field-desc">' . wponion_markdown()->line( $this->data( 'desc_field' ) ) . '</p>' : '';
+			return ( $this->has( 'desc_field' ) ) ? $this->description_render( $this->data( 'desc_field' ), 'wponion-field-desc' ) : '';
 		}
 
 		/**

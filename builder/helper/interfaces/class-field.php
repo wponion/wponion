@@ -44,10 +44,10 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Field' ) ) {
 		 * save an existing instance to builder or
 		 * return an existing instance.
 		 *
-		 * @param string|\WPO\Field $field_type_or_instance
-		 * @param mixed             $field_id
-		 * @param mixed             $title
-		 * @param array|bool        $args
+		 * @param string|array|\WPO\Field $field_type_or_instance
+		 * @param mixed                   $field_id
+		 * @param mixed                   $title
+		 * @param array|bool              $args
 		 *
 		 * @return bool|\WPO\Field
 		 */
