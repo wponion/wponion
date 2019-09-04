@@ -14,7 +14,6 @@ wp-pot.json
 .wporgignore
 .all-contributorsrc
 .wordpress-org
-src/
 node_modules/
 vendor/bin/
 vendor/*/*/composer.json
