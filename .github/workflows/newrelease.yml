@@ -2,8 +2,8 @@ name: New Release
 
 on:
   push:
-    branches:
-    - refs/tags/*
+    tags:
+    - "*"
 
 jobs:
   build:
