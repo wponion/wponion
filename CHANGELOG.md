@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * WPOnion's Custom Icon Pack
 * JAVASCRIPT Hook : `wponion_register_after_core_fields`
 * JAVASCRIPT Hook : `wponion_register_after_core_themes`
+* Field Badge Option
+
+![WPOnion Field Badge Option](https://raw.githubusercontent.com/wponion/s3/master/changelog/1567560560-117.jpg)
 
 ## Fixed
 * Color Picker Field Saving & Showing Value
@@ -28,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Option To Disbale Variants in FontPicker
 * Option To have Empty Select in Select field `empty_option => true`
 * Bump [@wordpress/hooks] from `2.4.0` to `2.6.0`
-* Bump [sweetalert2] from `8.14.0` to `8.16.4`
+* Bump [sweetalert2] from `8.14.0` to `8.17.1`
 * Bump [tippy.js] from `4.3.4` to `4.35`
 * Bump [easy-gulp-tasker] from `1.0.10` to `1.0.15`
 * Bump [wordpress-js-ports] from `1.0.6` to `1.0.9`
