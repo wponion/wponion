@@ -6,7 +6,7 @@ on:
     - refs/tags/*
 
 jobs:
-  tag:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Checking Out WPOnion Data
