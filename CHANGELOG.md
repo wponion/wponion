@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # [1.3.7] - 26/09/2019
+## Added
+* `wponion_ajax_shutdown_error` New action in wponion ajax request.
+* `wponion_ajax_shutdown` New action in wponion ajax request.
+* `wponion_ajax_shutdown_success` New action in wponion ajax request.
+
 ## Fixed
 * Ajax Assets Loading
 * Settings Page Menu Loading issue after saving settings
