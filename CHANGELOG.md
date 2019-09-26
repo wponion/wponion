@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * `wponion_ajax_shutdown_success` New action in wponion ajax request.
 
 ## Fixed
-* Ajax Assets Loading
+* Ajax Assets Loading [#105](https://github.com/wponion/wponion/issues/105)
 * Settings Page Menu Loading issue after saving settings
 
 ## Changed
