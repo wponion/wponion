@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.3.7] - 26/09/2019
+## Added
+* `wponion_ajax_shutdown_error` New action in wponion ajax request.
+* `wponion_ajax_shutdown` New action in wponion ajax request.
+* `wponion_ajax_shutdown_success` New action in wponion ajax request.
+
+## Fixed
+* Ajax Assets Loading [#105](https://github.com/wponion/wponion/issues/105)
+* Settings Page Menu Loading issue after saving settings
+
+## Changed
+* Bump [sweetalert2] from `8.17.1` to `8.17.6`
+
+## Removed
+* WPOnion Removed From WordPress.org Refer : [#106](https://github.com/wponion/wponion/issues/106)
+
 # [1.3.6] - 22/08/2019
 ## Added
 * Label Support for Switcher Field
@@ -637,6 +653,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.3.7]: https://github.com/wponion/wponion/releases/tag/1.3.7
 [1.3.6]: https://github.com/wponion/wponion/releases/tag/1.3.6
 [1.3.5]: https://github.com/wponion/wponion/releases/tag/1.3.5
 [1.3.4]: https://github.com/wponion/wponion/releases/tag/1.3.4

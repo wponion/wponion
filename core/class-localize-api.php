@@ -56,6 +56,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 *
 		 * @param $settings
 		 * @param $editor_id
+		 *
+		 * @return mixed
 		 */
 		public function copy_quicktags_settings( $settings, $editor_id ) {
 			$this->save_wpeditor_quicktags_settings( $editor_id, $settings, 'wponion_wp_quick_tags' );

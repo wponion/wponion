@@ -333,7 +333,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				);
 				$_cache_v = wponion_validate_parent_container_ids( $_cache );
 				$_url_v   = wponion_validate_parent_container_ids( $_url );
-
 				if ( false !== $_cache_v ) {
 					$default                                 = $this->validate_container_sub_container( $_cache_v['container_id'], $_cache_v['sub_container_id'] );
 					$this->options_cache['sub_container_id'] = false;
@@ -365,6 +364,17 @@ if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
 				return isset( $this->active_menu['container_id'] ) ? $this->active_menu['container_id'] : false;
 			}
 			return isset( $this->active_menu['sub_container_id'] ) ? $this->active_menu['sub_container_id'] : false;
+		}
+
+		/**
+		 * Reloads Active Cache.
+		 *
+		 * @return void|\WPOnion\Bridge\Module
+		 */
+		public function reload_cache() {
+			$this->active_menu = false;
+			parent::reload_cache();
+			return $this;
 		}
 
 		/**

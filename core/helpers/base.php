@@ -397,16 +397,29 @@ if ( ! function_exists( 'wponion_ajax_args' ) ) {
 				wponion_load_asset( $with_scripts );
 			}
 
-			wponion_catch_output( true );
-			$styles     = wp_print_styles();
-			$style_html = wponion_catch_output( false );
-			wponion_catch_output( true );
-			$scripts                = wp_print_scripts();
-			$scripts_html           = wponion_catch_output( false );
-			$return['styles_html']  = $style_html;
-			$return['scripts_html'] = $scripts_html;
-			$return['styles']       = $styles;
-			$return['scripts']      = $scripts;
+			$styles_data  = array();
+			$scripts_data = array();
+
+			if ( ! empty( wp_styles()->queue ) && is_array( wp_styles()->queue ) ) {
+				foreach ( wp_styles()->queue as $handle ) {
+					wponion_catch_output( true );
+					wp_styles()->do_item( $handle );
+					$styles_data[ $handle ] = wponion_catch_output( false );
+				}
+			}
+
+			if ( ! empty( wp_scripts()->queue ) && is_array( wp_scripts()->queue ) ) {
+				foreach ( wp_scripts()->queue as $handle ) {
+					wponion_catch_output( true );
+					wp_scripts()->do_item( $handle );
+					$scripts_data[ $handle ] = wponion_catch_output( false );
+				}
+			}
+
+			$return['scripts']      = $scripts_data;
+			$return['styles']       = $styles_data;
+			$return['scripts_html'] = implode( ' ', $scripts_data );
+			$return['styles_html']  = implode( ' ', $styles_data );
 		}
 		$return['localizer'] = wponion_localize()->as_array();
 		return array( 'wpo_core' => $return );

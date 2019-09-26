@@ -56,7 +56,6 @@ if ( ! class_exists( '\WPOnion\Shortcodes' ) ) {
 			), $args, 'wpo_tooltip' );
 			if ( isset( $args['content'] ) ) {
 				$args['element'] = '<span>' . $content . '</span>';
-				var_dump( $args );
 				return wponion_tooltip( $args );
 			}
 			return $content;

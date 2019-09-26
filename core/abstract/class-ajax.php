@@ -200,6 +200,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 * @param null  $status_code
 		 */
 		protected function json_error( $data = null, $status_code = null ) {
+			do_action( 'wponion_ajax_shutdown_error' );
+			do_action( 'wponion_ajax_shutdown' );
 			wp_send_json_error( $this->wpo_json_data( $data ), $status_code );
 		}
 
@@ -208,6 +210,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 * @param null  $status_code
 		 */
 		protected function json_success( $data = null, $status_code = null ) {
+			do_action( 'wponion_ajax_shutdown_success' );
+			do_action( 'wponion_ajax_shutdown' );
 			wp_send_json_success( $this->wpo_json_data( $data ), $status_code );
 		}
 
