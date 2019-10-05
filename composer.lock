@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "varunsridharan/php-autoloader",
-            "version": "2.4",
+            "version": "2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/php-autoloader.git",
-                "reference": "65d7549b0c0d86abb5ca9af318675689e998f0db"
+                "reference": "ec9df2b2bfdf5f23c56654c22c288bbefea00ca7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/php-autoloader/zipball/65d7549b0c0d86abb5ca9af318675689e998f0db",
-                "reference": "65d7549b0c0d86abb5ca9af318675689e998f0db",
+                "url": "https://api.github.com/repos/varunsridharan/php-autoloader/zipball/ec9df2b2bfdf5f23c56654c22c288bbefea00ca7",
+                "reference": "ec9df2b2bfdf5f23c56654c22c288bbefea00ca7",
                 "shasum": ""
             },
             "type": "library",
@@ -39,7 +39,7 @@
                 }
             ],
             "description": "Lightweight PSR-4 PHP Autoloader Class.",
-            "time": "2019-05-14T12:39:57+00:00"
+            "time": "2019-10-04T09:42:21+00:00"
         },
         {
             "name": "varunsridharan/wp-conditional-logic",
