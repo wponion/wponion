@@ -39,15 +39,17 @@
     "varunsridharan/wp-conditional-logic" : "^1.0"
   },
   "scripts"     : {
+    "classmaps"           : "classmap-generator \"builder/,core/,fields/,module-fields/,templates/\" ./wponion-classmaps.php",
     "makepot"             : "makepot ./wp-pot.json",
     "add-textdomain"      : "add-textdomain -i wponion ./",
     "update-icons"        : "php ./src/php/icon-exporter/all-icons.php",
     "update-google-fonts" : "php ./src/php/google-fonts.php",
-    "build"               : [ "@update-icons", "@update-google-fonts", "@add-textdomain", "@makepot" ]
+    "build"               : [ "@classmaps", "@update-icons", "@update-google-fonts", "@add-textdomain", "@makepot" ]
   },
   "require-dev" : {
-    "varunsridharan/wp-cli-textdomain" : "^1.1",
-    "mustangostang/spyc"               : "*"
+    "varunsridharan/wp-cli-textdomain"      : "^1.1",
+    "mustangostang/spyc"                    : "*",
+    "varunsridharan/php-classmap-generator" : "*"
   },
   "autoload"    : {
     "files" : [ "index.php" ]
