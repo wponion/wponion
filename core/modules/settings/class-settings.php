@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( '\WPOnion\Modules\Settings' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 	/**
 	 * Class Settings
 	 *
