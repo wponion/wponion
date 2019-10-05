@@ -31,6 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\Dimensions' ) ) {
 			return array(
 				'height' => __( 'Height', 'wponion' ),
 				'width'  => __( 'Width', 'wponion' ),
+				'all'    => '<i class="wpoic-move"></i>',
 			);
 		}
 

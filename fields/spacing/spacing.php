@@ -50,8 +50,8 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 				foreach ( $this->field_slugs() as $slug ) {
 					if ( false !== $this->data( $slug ) ) {
 						$defaults                      = array(
-							'prefix'      => $icons[ $slug ],
-							'placeholder' => $titles[ $slug ],
+							'prefix'      => isset( $icons[ $slug ] ) ? $icons[ $slug ] : false,
+							'placeholder' => isset( $titles[ $slug ] ) ? $titles[ $slug ] : false,
 						);
 						$fields[ $slug ]               = ( true === $this->data( $slug ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( $slug ), $defaults );
 						$fields[ $slug ]['wrap_class'] = ( isset( $fields[ $slug ]['wrap_class'] ) ) ? $fields[ $slug ]['wrap_class'] : array();
@@ -65,7 +65,7 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 			}
 
 			$defaults                    = array(
-				'prefix'      => $icons['all'],
+				'prefix'      => isset( $icons['all'] ) ? $icons['all'] : false,
 				'placeholder' => __( 'All', 'wponion' ),
 			);
 			$fields['all']               = ( true === $this->data( 'all' ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( 'all' ), $defaults );
