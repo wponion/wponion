@@ -20,21 +20,13 @@ export default function() {
 	 * @param $elem
 	 * @returns {*}
 	 */
-	window.wponion_notice = ( $elem ) => {
+	window.wponion_notice = ( $elem = false ) => {
 		let $find_key = '.wponion-element-wp_notice, .wponion-element-notice';
-
-		if( false === window.wponion._.isUndefined( $elem ) ) {
-			if( !$elem.hasClass( '.wponion-element-wp_notice' ) && !$elem.hasClass( 'wponion-element-notice' ) ) {
-				window.wponion_notice( $elem.find( $find_key ) );
-				return;
-			}
-		} else {
-			$elem = jQuery( 'body' ).find( $find_key );
-		}
+		$elem         = ( false === window.wponion._.isEmpty( $elem ) ) ? $elem : jQuery( 'body' ).find( $find_key );
 
 		if( $elem.length > 1 ) {
 			$elem.each( ( i, e ) => window.wponion_notice( jQuery( e ) ) );
-		} else {
+		} else if( !$elem.hasClass( '.wponion-element-wp_notice' ) && !$elem.hasClass( 'wponion-element-notice' ) ) {
 			window.wponion_init_field( 'global_notice', $elem );
 		}
 	};

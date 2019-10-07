@@ -3,6 +3,7 @@
  */
 import { createHooks } from '@wordpress/hooks';
 import vsp_js_helper from 'vsp-js-helper/index';
+import tippy from "tippy.js";
 
 /**
  * WPOnion Helpers
@@ -45,6 +46,7 @@ import WPOnion_Dependency from './core/class/dependency';
 
 ( ( window, document, wp, $ ) => {
 
+
 	if( typeof window.wponion === 'undefined' ) {
 		// Register Core Related Functions
 		core_functions();
@@ -70,6 +72,7 @@ import WPOnion_Dependency from './core/class/dependency';
 		 */
 		$.fn = $.extend( $.fn, jquery_functions );
 
+		window.tippy               = tippy;
 		window.wpo_core            = WPOnion_Core;
 		window.wponion             = {};
 		window.wponion.instances   = {};
