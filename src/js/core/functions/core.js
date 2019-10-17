@@ -26,7 +26,7 @@ export default function() {
 
 		if( $elem.length > 1 ) {
 			$elem.each( ( i, e ) => window.wponion_notice( jQuery( e ) ) );
-		} else if( !$elem.hasClass( '.wponion-element-wp_notice' ) && !$elem.hasClass( 'wponion-element-notice' ) ) {
+		} else {
 			window.wponion_init_field( 'global_notice', $elem );
 		}
 	};
