@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.3.8] - 26/10/2019
+## Added
+* Autoloader With Pre Generated Classmpas
+
+## Changed
+* Bump [tippy.js] from `4.3.5` to `5.0.1`
+* Bump [mustangostang/spyc] from `0.6.2` to `0.6.3`
+* Bump [varunsridharan/php-autoloader] from `2.4` to `2.6`
+* Bump [sweetalert2] from `8.17.6` to `8.18.0` 
+* Bump [popper.js] from `1.15.0` to `1.16.0`
+
+## Removed
+* Removed All Button in Dimensions field.
+
+
 # [1.3.7] - 26/09/2019
 ## Added
 * `wponion_ajax_shutdown_error` New action in wponion ajax request.
@@ -706,3 +721,6 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [IcoFont]: https://icofont.com/
 [Material Design Icons]: https://materialdesignicons.com/
 [@simonwep/pickr]: https://github.com/Simonwep/pickr
+[mustangostang/spyc]: https://github.com/mustangostang/spyc
+[varunsridharan/php-autoloader]: https://github.com/varunsridharan/php-autoloader
+[popper.js]: https://popper.js.org

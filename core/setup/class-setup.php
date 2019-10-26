@@ -60,6 +60,13 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		private static $builder_autoloader = false;
 
 		/**
+		 * @var bool
+		 * @access
+		 * @static
+		 */
+		private static $theme_autoloader = false;
+
+		/**
 		 * Stores Remaps Class.
 		 *
 		 * @var array
@@ -150,30 +157,31 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				}
 			}
 
-			self::$field_autoloader = new Autoloader( 'WPOnion\Field', wponion()->path( 'fields/' ), array( 'prepend' => true ) );
-
-			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields', wponion()->path( 'module-fields/' ), array( 'prepend' => true ) );
-
-			self::$core_autoloader = new Autoloader( 'WPOnion', wponion()->path( 'core/' ), array(
-				'exclude' => array( 'WPOnion\Field', 'WPOnion\Module_Fields' ),
+			self::$theme_autoloader = new Autoloader( 'WPOnion\Theme\\', wponion()->path( 'templates/' ), array(
+				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+				'prepend'  => true,
 			) );
 
-			self::$builder_autoloader = new Autoloader( 'WPO', wponion()->path( 'builder/' ), array(
-				'exclude' => array( 'WPOnion' ),
-				'prepend' => true,
+			self::$field_autoloader = new Autoloader( 'WPOnion\Field\\', wponion()->path( 'fields/' ), array(
+				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+				'prepend'  => true,
 			) );
 
-			self::$core_autoloader->map( 'WPOnion\Bridge', wponion()->path( 'core/abstract/class-bridge.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module', wponion()->path( 'core/abstract/class-module.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB_Cache', wponion()->path( 'core/abstract/class-module-db-cache.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Module_DB', wponion()->path( 'core/abstract/class-module-db.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Bridge\Ajax', wponion()->path( 'core/abstract/class-ajax.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Theme_API', wponion()->path( 'core/abstract/class-theme-api.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Addon', wponion()->path( 'core/abstract/class-addon.php' ) );
-			self::$core_autoloader->map( 'WPOnion\Addon_Field', wponion()->path( 'core/abstract/class-addon-field.php' ) );
+			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields\\', wponion()->path( 'module-fields/' ), array(
+				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+				'prepend'  => true,
+			) );
 
-			//Remap Field & Field Cloner.
-			self::$field_autoloader->map( 'WPOnion\Field', wponion()->path( 'core/abstract/class-field.php' ) );
+			self::$core_autoloader = new Autoloader( 'WPOnion\\', wponion()->path( 'core/' ), array(
+				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+				'exclude'  => array( 'WPOnion\Field\\', 'WPOnion\Module_Fields\\' ),
+			) );
+
+			self::$builder_autoloader = new Autoloader( 'WPO\\', wponion()->path( 'builder/' ), array(
+				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+				'exclude'  => array( 'WPOnion\\' ),
+				'prepend'  => true,
+			) );
 		}
 
 		/**
