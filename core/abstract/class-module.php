@@ -232,7 +232,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function defaults() {
 			return array(
 				'option_name' => false,
-				'save_type'   => 'all', # Options : all / split
+				'save_type'   => 'all', # Options : combine/all / container / section / fields
 			);
 		}
 

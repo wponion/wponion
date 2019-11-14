@@ -4,6 +4,8 @@ namespace WPOnion\Bridge;
 
 use WPOnion\Bridge;
 use WPOnion\DB\Cache;
+use WPOnion\DB\Multi_Save\Get;
+use WPOnion\DB\Multi_Save\Save;
 use WPOnion\Exception\DB_Cache_Not_Found;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -77,7 +79,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
-				$this->db_values = wponion_wp_db()->get( $this->module_db(), $this->unique(), $this->get_id() );
+				$instance        = new Get( $this->option( 'save_type' ), $this );
+				$this->db_values = $instance->run();
 			}
 			return $this->db_values;
 		}
@@ -88,7 +91,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return $this
 		 */
 		public function set_db_values( $values = array() ) {
-			wponion_wp_db()->set( $this->module_db(), $this->unique(), $this->get_id(), $values );
+			$instance = new Save( $this->option( 'save_type' ), $values, $this );
+			$instance->run();
 			if ( wpo_is_option( $this->db_values ) ) {
 				$this->db_values->reload();
 			} else {
