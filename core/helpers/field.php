@@ -499,7 +499,7 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
+if ( ! function_exists( 'wponion_extract_all_fields_ids_defaults' ) ) {
 	/**
 	 * Extracts all fileds ids and returns it.
 	 *
@@ -508,14 +508,14 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 	 *
 	 * @return array
 	 */
-	function wponion_fields_all_ids_defaults( $fields = array(), $parent_id = true ) {
+	function wponion_extract_all_fields_ids_defaults( $fields = array(), $parent_id = true ) {
 		$return = array();
 
 		if ( $fields instanceof Base && $fields->has_containers() && ! $fields->has_callback() ) {
 			foreach ( $fields->containers() as $container ) {
 				/* @var $container WPO\Container */
 				if ( $container->has_fields() && ! $container->has_callback() ) {
-					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $container, $parent_id . '_' . $container->name() ) );
+					$return = wponion_parse_args( $return, wponion_extract_all_fields_ids_defaults( $container, $parent_id . '_' . $container->name() ) );
 				}
 			}
 		} elseif ( $fields instanceof Base && $fields->has_fields() && ! $fields->has_callback() ) {
@@ -524,7 +524,7 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 				if ( ! empty( $field['id'] ) ) {
 					$nested = array();
 					if ( ! empty( $field['fields'] ) && wponion_is_array( $field['fields'] ) ) {
-						$nested = wponion_fields_all_ids_defaults( $field, $parent_id . '_' . $field['id'] );
+						$nested = wponion_extract_all_fields_ids_defaults( $field, $parent_id . '_' . $field['id'] );
 					}
 
 					$return[ $parent_id . '_' . $field['id'] ] = isset( $field['default'] ) ? $field['default'] : null;
@@ -537,7 +537,7 @@ if ( ! function_exists( 'wponion_fields_all_ids_defaults' ) ) {
 		} elseif ( wponion_is_array( $fields ) ) {
 			foreach ( $fields as $data ) {
 				if ( $data instanceof Container ) {
-					$return = wponion_parse_args( $return, wponion_fields_all_ids_defaults( $data, $parent_id . '_' . $data->name() ) );
+					$return = wponion_parse_args( $return, wponion_extract_all_fields_ids_defaults( $data, $parent_id . '_' . $data->name() ) );
 				} elseif ( $data instanceof WPO\Field || isset( $data['id'] ) && isset( $data['type'] ) ) {
 					$return[ $data['id'] ] = isset( $data['default'] ) ? $data['default'] : null;
 				}
