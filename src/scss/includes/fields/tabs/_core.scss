@@ -112,7 +112,7 @@
 					clear:               left;
 					width:               100%;
 					border-bottom-width: 1px !important;
-					border-right-width:  0 !important;
+					border-right-width:  1px !important;
 					margin:              0 -1px 0.2em 0;
 
 					&.wponion-tab-current {
@@ -122,12 +122,14 @@
 					}
 
 					> a {
-						padding:         10px 0 10px 10px !important;
-						border-top:      none;
+						padding:         10px 0 10px 8px !important;
+						border-top:      1px solid transparent;
 						float:           left;
 						/*padding: .5em 1em;*/
 						text-decoration: none;
-						width:           153px;
+						min-width:       155px;
+						width:           auto;
+						border-left:     2px solid transparent;
 					}
 
 					&.wponion-tab-current > a {
@@ -137,8 +139,7 @@
 						border-right-color: #FFF;
 						border-left:        2px solid #2EA2CC;
 						margin:             0 -1px 0 0;
-						width:              153px;
-						padding:            10px 0 10px 10px !important;
+						padding:            10px 0 10px 8px !important;
 					}
 				}
 			}
