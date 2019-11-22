@@ -24,7 +24,7 @@
     "jquery-serializejson": "^2.9.0",
     "jquery-validation": "^1.18.0",
     "sweetalert2": "^9.3.17",
-    "tippy.js": "^5.1.0",
+    "tippy.js": "^5.1.1",
     "vsp-js-helper": "^1.0.32",
     "wordpress-js-ports": "^1.0.9"
   }
