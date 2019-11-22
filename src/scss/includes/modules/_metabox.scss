@@ -5,6 +5,11 @@
 		padding: 0;
 		margin:  0 !important;
 
+		.wponion-accordion-content {
+			padding-left:  0 !important;
+			padding-right: 0 !important;
+		}
+
 		.ajax-container {
 			display:    block;
 			max-width:  100%;
