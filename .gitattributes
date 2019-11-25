@@ -3,3 +3,4 @@
 .wordpress-org/ export-ignore
 .all-contributorsrc export-ignore
 .gitattributes export-ignore
+.wporgignore
