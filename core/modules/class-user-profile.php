@@ -69,7 +69,11 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$metabox['context']       = 'normal';
 				$metabox['option_name']   = $this->unique();
 				$metabox['theme']         = $this->option( 'theme' );
-				$metabox['screens']       = array( 'profile', 'user-edit', 'user-edit-network' );
+				$metabox['screens']       = array(
+					'profile_' . $this->unique(),
+					'user-edit_' . $this->unique(),
+					'user-edit-network_' . $this->unique(),
+				);
 				$metabox['set_cache']     = array( $this, 'set_cache' );
 				$metabox['get_cache']     = array( $this, 'get_db_cache' );
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
@@ -157,7 +161,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				if ( ! empty( $this->option( 'heading' ) ) ) {
 					echo '<h2>' . $this->option( 'heading' ) . '</h2>';
 				}
-				do_meta_boxes( $screen->id, 'normal', $this->get_id() );
+				do_meta_boxes( $screen->id . '_' . $this->unique(), 'normal', $this->get_id() );
 			} else {
 				$instance = $this->init_theme();
 				$instance->render_user_profile();

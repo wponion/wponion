@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.3.5\n"
+"Project-Id-Version: WPOnion 1.3.9\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-09-04T11:00:26+05:30\n"
+"POT-Creation-Date: 2019-11-25T10:47:36+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -46,28 +46,28 @@ msgid "Unable To Find The Module"
 msgstr ""
 
 #: core/abstract/class-ajax.php:57
-#: core/abstract/class-ajax.php:417
+#: core/abstract/class-ajax.php:421
 msgid "Unable To Find The Field"
 msgstr ""
 
-#: core/abstract/class-ajax.php:381
+#: core/abstract/class-ajax.php:385
 msgid "Module Not Found"
 msgstr ""
 
-#: core/abstract/class-ajax.php:381
-#: core/abstract/class-ajax.php:393
+#: core/abstract/class-ajax.php:385
+#: core/abstract/class-ajax.php:397
 msgid "Module Callback / Registry Function Not Found"
 msgstr ""
 
-#: core/abstract/class-ajax.php:393
+#: core/abstract/class-ajax.php:397
 msgid "Module Instance Not Found"
 msgstr ""
 
-#: core/abstract/class-ajax.php:413
+#: core/abstract/class-ajax.php:417
 msgid "Field Not Found"
 msgstr ""
 
-#: core/abstract/class-ajax.php:415
+#: core/abstract/class-ajax.php:419
 msgid "Unable To Fetch The Field"
 msgstr ""
 
@@ -236,80 +236,80 @@ msgid "Invalid Option Type"
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:182
+#: core/class-localize-api.php:184
 msgid "This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` "
 msgstr ""
 
-#: core/class-localize-api.php:183
+#: core/class-localize-api.php:185
 msgid "**PHP Args:** is the array which is passed to the framework in php "
 msgstr ""
 
-#: core/class-localize-api.php:184
+#: core/class-localize-api.php:186
 msgid "**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it"
 msgstr ""
 
-#: core/class-localize-api.php:194
+#: core/class-localize-api.php:196
 msgid "As JSON"
 msgstr ""
 
-#: core/class-localize-api.php:195
+#: core/class-localize-api.php:197
 msgid "Global WPOnion JSON Output"
 msgstr ""
 
-#: core/class-localize-api.php:196
+#: core/class-localize-api.php:198
 msgid "PHP Args"
 msgstr ""
 
-#: core/class-localize-api.php:197
+#: core/class-localize-api.php:199
 msgid "JS Args"
 msgstr ""
 
-#: core/class-localize-api.php:198
+#: core/class-localize-api.php:200
 msgid "Unknown Error. Try Again"
 msgstr ""
 
-#: core/class-localize-api.php:199
+#: core/class-localize-api.php:201
 msgid "Click To View Field Debug Info"
 msgstr ""
 
-#: core/class-localize-api.php:200
+#: core/class-localize-api.php:202
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
-#: core/class-localize-api.php:201
+#: core/class-localize-api.php:203
 #: fields/accordion/class-accordion.php:28
 #: fields/import-export/class-backup-handler.php:127
 msgid "Delete"
 msgstr ""
 
-#: core/class-localize-api.php:202
+#: core/class-localize-api.php:204
 msgid "Processing ..."
 msgstr ""
 
-#: core/class-localize-api.php:203
+#: core/class-localize-api.php:205
 #: fields/import-export/class-backup-handler.php:126
 msgid "Restore"
 msgstr ""
 
-#: core/class-localize-api.php:204
+#: core/class-localize-api.php:206
 #: core/modules/settings/class-settings.php:284
 #: core/modules/settings/class-settings.php:286
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-localize-api.php:205
+#: core/class-localize-api.php:207
 msgid "Email Sent"
 msgstr ""
 
-#: core/class-localize-api.php:206
+#: core/class-localize-api.php:208
 msgid "Copied"
 msgstr ""
 
-#: core/class-localize-api.php:207
+#: core/class-localize-api.php:209
 msgid "Click To Copy"
 msgstr ""
 
-#: core/class-localize-api.php:208
+#: core/class-localize-api.php:210
 msgid "Success"
 msgstr ""
 
@@ -466,12 +466,12 @@ msgid "WPOnion Version : %s"
 msgstr ""
 
 #: core/modules/metabox/class-metabox.php:283
-#: core/modules/settings/class-settings.php:419
-#: core/modules/settings/class-settings.php:558
+#: core/modules/settings/class-settings.php:429
+#: core/modules/settings/class-settings.php:568
 msgid "Save Settings"
 msgstr ""
 
-#: core/modules/settings/class-settings.php:567
+#: core/modules/settings/class-settings.php:577
 msgid "No Result Found"
 msgstr ""
 
@@ -503,27 +503,27 @@ msgstr ""
 msgid "Import Errors - "
 msgstr ""
 
-#: core/setup/class-setup.php:117
+#: core/setup/class-setup.php:124
 msgid "Documentation"
 msgstr ""
 
-#: core/setup/class-setup.php:118
+#: core/setup/class-setup.php:125
 msgid "Demo"
 msgstr ""
 
-#: core/setup/class-setup.php:119
+#: core/setup/class-setup.php:126
 msgid "Support"
 msgstr ""
 
-#: core/setup/class-setup.php:120
+#: core/setup/class-setup.php:127
 msgid "Homepage"
 msgstr ""
 
-#: core/setup/class-setup.php:121
+#: core/setup/class-setup.php:128
 msgid "Rate the plugin ★★★★★"
 msgstr ""
 
-#: core/setup/class-setup.php:131
+#: core/setup/class-setup.php:138
 msgid "WPOnion Elementor Integration Requires PHP Version 7.0 or Greater"
 msgstr ""
 
@@ -1861,13 +1861,13 @@ msgstr ""
 msgid "Till Date"
 msgstr ""
 
-#: fields/dimensions/class-dimensions.php:32
-#: fields/dimensions/class-dimensions.php:44
+#: fields/dimensions/class-dimensions.php:72
+#: fields/dimensions/class-dimensions.php:84
 msgid "Height"
 msgstr ""
 
-#: fields/dimensions/class-dimensions.php:33
-#: fields/dimensions/class-dimensions.php:45
+#: fields/dimensions/class-dimensions.php:73
+#: fields/dimensions/class-dimensions.php:85
 msgid "Width"
 msgstr ""
 

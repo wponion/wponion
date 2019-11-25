@@ -28,13 +28,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected $current_theme = false;
 
 		/**
-		 * Stores Fields MD5.
-		 *
-		 * @var bool
-		 */
-		protected $fields_md5 = false;
-
-		/**
 		 * Store All Settings Menu.
 		 *
 		 * @var array
@@ -105,18 +98,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax( 'heartbeat' ) ) {
 				$this->on_init();
 			}
-		}
-
-		/**
-		 * Generated A Unique ID For each Options Array And stores it.
-		 *
-		 * @return bool|string
-		 */
-		protected function fields_md5() {
-			if ( false === $this->fields_md5 ) {
-				$this->fields_md5 = wponion_hash_array( wponion_fields_all_ids_defaults( $this->fields->get() ) );
-			}
-			return $this->fields_md5;
 		}
 
 		/**
@@ -249,7 +230,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return array( 'option_name' => false );
+			return array(
+				'option_name' => false,
+				'save_type'   => 'all', # Options : combine/all / container / section / fields
+			);
 		}
 
 		/**
@@ -629,7 +613,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 */
 		protected function _unset_globals() {
 			unset( $this->current_theme );
-			unset( $this->fields_md5 );
 			unset( $this->menus );
 			unset( $this->fields );
 			unset( $this->raw_options );

@@ -5,6 +5,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.3.9] - 25/11/2019
+## Added
+* `__toString` Function to `\WPOnion\DB\Option` Class.
+* Split Save Feature Added
+
+## Fixed
+* Tab Field CSS Flicker Issue
+* Multiple Custom Metabox in same page Render Issue
+
+## Changed
+* renamed `wpo_taxonomy` to `wpo_term_meta`
+* renamed function `wponion_fields_all_ids_defaults` to `wponion_extract_all_fields_ids_defaults`
+* Bump [sweetalert2] from `8.18.6` to `9.4.0`
+* Bump [tippy.js] from `5.1.0` to `5.1.1`
+* WPOnion Core Assets CDN Version To `1.3.8`
+* Updated Fontawesome icons list
+
+## Removed
+* Code Clean Up
+
+
 # [1.3.8] - 26/10/2019
 ## Added
 * Autoloader With Pre Generated Classmpas
@@ -668,6 +689,8 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.3.9]: https://github.com/wponion/wponion/releases/tag/1.3.9
+[1.3.8]: https://github.com/wponion/wponion/releases/tag/1.3.8
 [1.3.7]: https://github.com/wponion/wponion/releases/tag/1.3.7
 [1.3.6]: https://github.com/wponion/wponion/releases/tag/1.3.6
 [1.3.5]: https://github.com/wponion/wponion/releases/tag/1.3.5

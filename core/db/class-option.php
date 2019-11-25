@@ -114,7 +114,17 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 					$return = get_user_meta( $this->extra, $this->unique, true );
 					break;
 			}
-			$this->options = ( ! is_array( $return ) ) ? array() : $return;
+			///$this->options = ( ! is_array( $return ) || ! empty( $return ) ) ? array() : $return;
+			$this->options = $return;
+		}
+
+		/**
+		 * Returns As A String.
+		 *
+		 * @return array|string
+		 */
+		public function __toString() {
+			return ( is_string( $this->options ) ) ? $this->options : '';
 		}
 
 		/**

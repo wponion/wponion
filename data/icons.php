@@ -1,5 +1,5 @@
 <?php
-/* Last Updated : 04/09/2019 - 11:00:23:am */
+/* Last Updated : 25/11/2019 - 10:47:33:am */
 
 use WPOnion\Helper as Helper;
 
@@ -11,9 +11,9 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Dashicons', 'wponion' ),
 	'slug'       => 'dashicons',
 	'assets'     => 'dashicons',
-	'css_prefix' => array(
-		'dashicons',
-	),
+	'css_prefix' => array (
+   'dashicons',
+),
 	'icons'      => 'wponion_icon_dashicons',
 ) )->register();
 
@@ -21,9 +21,9 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Icofont', 'wponion' ),
 	'slug'       => 'icofont',
 	'assets'     => 'icofont',
-	'css_prefix' => array(
-		'icofont',
-	),
+	'css_prefix' => array (
+   'icofont',
+),
 	'icons'      => 'wponion_icon_icofont',
 ) )->register();
 
@@ -31,9 +31,9 @@ wponion_add_icon_library( array(
 	'name'       => __( 'FontAwesome 4', 'wponion' ),
 	'slug'       => 'fontawesome4',
 	'assets'     => 'fontawesome4',
-	'css_prefix' => array(
-		'fa',
-	),
+	'css_prefix' => array (
+   'fa',
+),
 	'icons'      => 'wponion_icon_fontawesome4',
 ) )->register();
 
@@ -41,9 +41,9 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Material Design Icons', 'wponion' ),
 	'slug'       => 'materialdesignicons',
 	'assets'     => 'materialdesignicons',
-	'css_prefix' => array(
-		'mdi',
-	),
+	'css_prefix' => array (
+   'mdi',
+),
 	'icons'      => 'wponion_icon_materialdesignicons',
 ) )->register();
 
@@ -51,9 +51,9 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Foundation', 'wponion' ),
 	'slug'       => 'foundation',
 	'assets'     => 'foundation',
-	'css_prefix' => array(
-		'fi',
-	),
+	'css_prefix' => array (
+   'fi',
+),
 	'icons'      => 'wponion_icon_foundation',
 ) )->register();
 
@@ -61,9 +61,9 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Box Icons', 'wponion' ),
 	'slug'       => 'boxicons',
 	'assets'     => 'boxicons',
-	'css_prefix' => array(
-		'bx',
-	),
+	'css_prefix' => array (
+   'bx',
+),
 	'icons'      => 'wponion_icon_boxicons',
 ) )->register();
 
@@ -71,10 +71,10 @@ wponion_add_icon_library( array(
 	'name'       => __( 'FontAwesome 5', 'wponion' ),
 	'slug'       => 'fontawesome5',
 	'assets'     => 'fontawesome5',
-	'css_prefix' => array(
-		'fas',
-		'fab',
-	),
+	'css_prefix' => array (
+   'fas',
+   'fab',
+),
 	'icons'      => 'wponion_icon_fontawesome5',
 ) )->register();
 
@@ -82,12 +82,12 @@ wponion_add_icon_library( array(
 	'name'       => __( 'FontAwesome 5 Pro', 'wponion' ),
 	'slug'       => 'fontawesome5pro',
 	'assets'     => 'fontawesome5pro',
-	'css_prefix' => array(
-		'fas',
-		'far',
-		'fal',
-		'fab',
-	),
+	'css_prefix' => array (
+   'fas',
+   'far',
+   'fal',
+   'fab',
+),
 	'icons'      => 'wponion_icon_fontawesome5pro',
 ) )->register();
 
