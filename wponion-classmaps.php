@@ -1,7 +1,7 @@
 <?php
 /**
- * Last Updated: Fri 25-Oct-2019 / 10:11:00:am
- * Total Class:  239
+ * Last Updated: Mon 25-Nov-2019 / 10:47:21:am
+ * Total Class:  242
  * Namespace: 
  */
 
@@ -110,6 +110,9 @@ return array (
   'WPOnion\\DB\\WC_Settings_Save_Handler' => 'db/class-wc-settings-save-handler.php',
   'WPOnion\\DB\\WP_DB' => 'db/class-wp-db.php',
   'WPOnion\\DB\\Fields\\Modal' => 'db/fields/trait-modal.php',
+  'WPOnion\\DB\\Multi_Save\\Base' => 'db/multi-save/class-base.php',
+  'WPOnion\\DB\\Multi_Save\\Get' => 'db/multi-save/get.php',
+  'WPOnion\\DB\\Multi_Save\\Save' => 'db/multi-save/save.php',
   'WPOnion\\Exception\\Cache_Not_Found' => 'exception/class-cache-not-found.php',
   'WPOnion\\Exception\\DB_Cache_Not_Found' => 'exception/class-db-cache-not-found.php',
   'WPOnion\\Integrations\\Page_Builders\\Elementor' => 'integrations/page-builders/class-elementor.php',
