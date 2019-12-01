@@ -371,7 +371,14 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				}
 			}
 			$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
+			/**
+			 * WordPres `esc_url` changes & to &#038 in url even if single & exists so to over come it.
+			 * added a manuall str_replace.
+			 * Check Github Issue @ https://github.com/wponion/wponion/issues/161
+			 */
 			$this->menu_url = menu_page_url( $_slug, false );
+			$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), $this->menu_url );
+
 			if ( wponion_is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
 				wponion_callback( $this->submenu(), $this );
 			} elseif ( wponion_is_array( $this->submenu() ) ) {
