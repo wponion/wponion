@@ -103,9 +103,9 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 	 */
 	js_error( err ) {
 		//console.log( this.element, err );
-		//if( window.wpo_core.jsid( err.element ) === window.wpo_core.jsid( this.element ) ) {
-		err.error.appendTo( this.element.find( '.wponion-fieldset' ) );
-		//}
+		if( window.wpo_core.jsid( err.element ) === window.wpo_core.jsid( this.element ) ) {
+			err.error.appendTo( this.element.find( '.wponion-fieldset' ) );
+		}
 	}
 
 	/**
