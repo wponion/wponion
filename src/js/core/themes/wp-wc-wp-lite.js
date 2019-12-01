@@ -48,6 +48,7 @@ export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 							$lookup.find( '.wponion-submenus a.current' ).click();
 						}
 					} else {
+						console.log( $lookup );
 						this.hide_element_non_ui( $lookup );
 					}
 				} else if( false === $elem.hasClass( 'disabled' ) ) {
@@ -142,9 +143,11 @@ export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 		if( WPOnion_Theme_Base.has_only_uifields( $container ) ) {
 			this.element.find( '.action-buttons' ).hide();
 			this.element.find( 'footer' ).hide();
+			this.element.find( 'button.wponion-save' ).hide();
 		} else {
 			this.element.find( '.action-buttons' ).show();
 			this.element.find( 'footer' ).show();
+			this.element.find( 'button.wponion-save' ).show();
 		}
 	}
 }
