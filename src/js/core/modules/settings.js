@@ -34,10 +34,10 @@ export default class extends WPOnion_Module {
 									delete $settings.toast;
 									window.wponion_swal_toast().fire( $settings );
 								} else {
-									window.swal.fire( window.wponion._.merge( { type: 'success' }, $settings ) );
+									window.swal.fire( window.wponion._.merge( { icon: 'success' }, $settings ) );
 								}
 							} else {
-								window.swal.fire( { type: 'success', title: $settings, } );
+								window.swal.fire( { icon: 'success', title: $settings, } );
 							}
 
 							let $elm = jQuery( '.wponion-framework' );

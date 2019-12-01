@@ -11,7 +11,7 @@ export default function() {
 				return window.wponion_ajax( {
 					data: $json,
 					success: () => {
-						window.swal.fire( { type: 'success', text: window.wpo_core.txt( 'email_sent' ) } );
+						window.swal.fire( { icon: 'success', text: window.wpo_core.txt( 'email_sent' ) } );
 						resolve();
 					},
 					error: ( res ) => {

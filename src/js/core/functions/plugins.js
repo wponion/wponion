@@ -27,7 +27,7 @@ export default function() {
 	 */
 	window.wponion_swal_toast = ( $args = {} ) => window.swal.mixin( window.wponion._.merge( $args, {
 		toast: true,
-		type: 'success',
+		icon: 'success',
 		position: 'top-end',
 		showConfirmButton: false,
 		timer: 3000
@@ -51,7 +51,7 @@ export default function() {
 		}
 
 		return window.swal.mixin( window.wponion._.merge( $args, {
-			type: 'error',
+			icon: 'error',
 			title: ( $title ) ? $title : null,
 			text: ( $message ) ? $message : null,
 			animation: false,
@@ -76,7 +76,7 @@ export default function() {
 		}
 
 		return window.swal.mixin( window.wponion._.merge( $args, {
-			type: 'success',
+			icon: 'success',
 			title: ( $title ) ? $title : null,
 			text: ( $message ) ? $message : null,
 			animation: false,
@@ -101,7 +101,7 @@ export default function() {
 		}
 
 		return window.wponion_swal_toast( window.wponion._.merge( $args, {
-			type: 'error',
+			icon: 'error',
 			title: ( $title ) ? $title : null,
 			text: ( $message ) ? $message : null,
 			animation: false,
@@ -126,7 +126,7 @@ export default function() {
 		}
 
 		return window.wponion_swal_toast( window.wponion._.merge( $args, {
-			type: 'success',
+			icon: 'success',
 			title: ( $title ) ? $title : null,
 			text: ( $message ) ? $message : null,
 			animation: false,

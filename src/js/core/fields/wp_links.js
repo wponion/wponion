@@ -13,7 +13,7 @@ export default class extends WPOnion_Field {
 			$textarea.val( '' );
 			if( !window.wpLink ) {
 				swal.fire( {
-					type: 'error',
+					icon: 'error',
 					title: window.wpo_core.txt( 'wp_link_error_title', 'WP Link JS Lib Not Found' ),
 				} );
 			}
