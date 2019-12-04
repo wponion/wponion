@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.4.0] - 04/12/2019
+## Added
+
+## Fixed
+* Fixed Issue [#161](https://github.com/wponion/wponion/issues/161)
+* Fixed Issue [#162](https://github.com/wponion/wponion/issues/162)
+* Javascript Validation issue in nested fields like (Fieldset / Accordion / Group)
+
+## Changed
+* Bump [tippy.js] from `5.1.1` to `5.1.2`
+* Bump [bootstrap] from `4.3.1` to `4.4.1`
+* Bump [sweetalert2] from `9.4.0` to `9.4.3`
+* Updated Sweetalert2 Config.
+
 # [1.3.9] - 25/11/2019
 ## Added
 * `__toString` Function to `\WPOnion\DB\Option` Class.
@@ -689,6 +703,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.4.0]: https://github.com/wponion/wponion/releases/tag/1.4.0
 [1.3.9]: https://github.com/wponion/wponion/releases/tag/1.3.9
 [1.3.8]: https://github.com/wponion/wponion/releases/tag/1.3.8
 [1.3.7]: https://github.com/wponion/wponion/releases/tag/1.3.7
@@ -747,3 +762,4 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [mustangostang/spyc]: https://github.com/mustangostang/spyc
 [varunsridharan/php-autoloader]: https://github.com/varunsridharan/php-autoloader
 [popper.js]: https://popper.js.org
+[bootstrap]: https://getbootstrap.com
