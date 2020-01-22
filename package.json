@@ -20,7 +20,7 @@
     "css-checkbox-library": "^1.4.0",
     "easy-gulp-tasker": "^1.0.15",
     "flexboxgrid2": "^7.2.1",
-    "popper.js": "^1.16.0",
+    "popper.js": "^1.16.1",
     "jquery-serializejson": "^2.9.0",
     "jquery-validation": "^1.18.0",
     "sweetalert2": "^9.4.3",
