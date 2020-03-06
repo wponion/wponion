@@ -1,4 +1,9 @@
 .wponion-framework {
+	input {
+		line-height: 1;
+		border-radius: 0;
+	}
+
 	input, textarea {
 		&:disabled {
 			background: #0f0f0f12;

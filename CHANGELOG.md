@@ -6,7 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # [1.4.0] - 04/12/2019
-## Added
 
 ## Fixed
 * Fixed Issue [#161](https://github.com/wponion/wponion/issues/161)

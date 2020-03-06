@@ -69,12 +69,14 @@ export default class extends WPOnion_Field {
 		if( $arg ) {
 			$arg.ignoreAttributes = false;
 			if( $arg.image !== undefined && $arg.image !== false ) {
-				let $image          = $arg.image;
-				$arg.interactive    = true;
-				$arg.content        = 'Loading...';
+				let $image        = $arg.image;
+				$arg.interactive  = true;
+				$arg.allowHTML    = true;
+				$arg.flipOnUpdate = true;
+				$arg.content      = 'Loading...';
 				//$arg.html           = '#wpotpimg';
-				$arg.updateDuration = 2000;
-				$arg.onShow         = async function( tip ) {
+				//$arg.updateDuration = 2000;
+				$arg.onShow        = async function( tip ) {
 					if( state.isFetching || !state.canFetch ) {
 						return;
 					}
@@ -94,11 +96,11 @@ export default class extends WPOnion_Field {
 						state.isFetching = false;
 					}
 				}
-				$arg.onHidden       = ( tip ) => {
+				$arg.onHidden      = ( tip ) => {
 					state.canFetch = true;
 					tip.setContent( 'Loading...' );
 				};
-				$arg.popperOptions  = {
+				$arg.popperOptions = {
 					modifiers: {
 						preventOverflow: { enabled: false },
 						hide: { enabled: false }
@@ -109,6 +111,10 @@ export default class extends WPOnion_Field {
 			$arg = {};
 		}
 
+		/**
+		 * @todo check and remove https://github.com/atomiks/tippyjs/blob/master/MIGRATION_GUIDE.md#if-you-were-using-boundary
+		 * @type {string}
+		 */
 		$arg.boundary = 'window';
 		if( false === window.wponion._.isUndefined( $arg.followCursor ) && true === $arg.followCursor && window.wponion._.isUndefined( $arg.appendTo ) ) {
 			$arg.appendTo = () => document.body;
