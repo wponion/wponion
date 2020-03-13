@@ -120,7 +120,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				'attributes'  => array( 'data-wponion-jsid' => $this->js_field_id() ),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => __( 'Remove ', 'wponion' ),
+				'label'       => sprintf( 'Remove %s', wpo_icon( 'wpo-ic-delete' ) ),//__( 'Remove ', 'wponion' ),
 			) ), false, $this->unique() );
 			$return .= '</div>';
 			return $return;
@@ -204,8 +204,8 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(
-				'add_button'    => __( 'Add New', 'wponion' ),
-				'remove_button' => __( 'Remove', 'wponion' ),
+				'add_button'    => sprintf( __( 'Add New %s', 'wponion' ), wpo_icon( 'wpo-ic-plus-circle' ) ),
+				'remove_button' => sprintf( 'Remove %s', wpo_icon( 'wpo-ic-delete' ) ),
 				'limit'         => false,
 				'heading'       => false,
 				'error_msg'     => __( 'You Can\'t Add More..', 'wponion' ),

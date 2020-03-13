@@ -155,12 +155,17 @@
 /** Element Style **/
 .wponion-element.wponion-element-icon_picker {
 	.wponion-icon-preview {
-		margin-left: 10px;
+		margin-right: 10px;
+		margin-left:  0;
+		/*+ .wponion-icon-preview */
 	}
 
-	button {
-		margin-right: 5px;
-		margin-left:  10px;
+	.wponion-icon-picker-input:not(.hidden) {
+		margin-right: 10px;
+	}
+
+	button + button {
+		margin-left: 10px;
 	}
 }
 

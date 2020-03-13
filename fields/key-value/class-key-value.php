@@ -28,7 +28,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function key_value( $name = '', $key = '', $value = '' ) {
 			$return = '<div class="wponion-keyvalue-field">';
-			$return .= '<div class="sortable-handler">' . wponion_icon( 'wpoic-menu' ) . '</div>';
+			$return .= '<div class="sortable-handler">' . wponion_icon( 'wpo-ic-th-menu' ) . '</div>';
 			$return .= $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
 				'id'         => 'key',
 				'type'       => 'text',
@@ -106,8 +106,10 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'add_button'    => __( 'Add +', 'wponion' ),
-				'remove_button' => __( '-', 'wponion' ),
+				'add_button'    => sprintf( __( 'Add %s' ), wpo_icon( 'wpo-ic-plus-circle' ) ),
+				//__( 'Add +', 'wponion' ),
+				'remove_button' => wpo_icon( 'wpo-ic-delete' ),
+				#__( '-', 'wponion' ),
 				'key_input'     => array(),
 				'value_input'   => array(),
 				'limit'         => false,

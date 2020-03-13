@@ -516,7 +516,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function field_help() {
 			$html = '';
 			if ( $this->has( 'help' ) ) {
-				$data                              = $this->tooltip_data( $this->data( 'help' ), array( 'icon' => ' wpoic-help-circle' ) );
+				$data                              = $this->tooltip_data( $this->data( 'help' ), array( 'icon' => '  wpo-ic-help' ) );
 				$data['attr']['data-wponion-jsid'] = $this->js_field_id();
 				$span_attr                         = wponion_array_to_html_attributes( $data['attr'] );
 				$html                              = '<span ' . $span_attr . '><span class="' . $data['data']['icon'] . '"></span></span>';

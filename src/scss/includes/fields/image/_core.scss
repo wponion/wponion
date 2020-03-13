@@ -1,6 +1,6 @@
 .wponion-image-preview {
 	position: relative;
-	display:  inline-block;
+	/*display:  inline-block;*/
 	width:    100%;
 
 	.wponion-preview {
@@ -88,4 +88,13 @@
 }
 
 .wponion-element.wponion-element-image {
+	.wponion-preview-add {
+		margin: 0;
+	}
+
+	.wponion-image-preview {
+		.wponion-preview {
+			margin: 0;
+		}
+	}
 }
