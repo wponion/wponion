@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 				echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'date' ), array(
 					'id'         => $this->field_id(),
 					'type'       => 'text',
-					'prefix'     => wpo_icon( 'wpo-ic-calendar' ),
+					'prefix'     => wpo_icon( 'wpoic-calendar' ),
 					'only_field' => true,
 				) ), $this->value(), $this->unique() );
 			}

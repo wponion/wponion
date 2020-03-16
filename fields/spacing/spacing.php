@@ -124,11 +124,11 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 		 */
 		protected function default_icons() {
 			return array(
-				'top'    => '<i class="wpoic-up"></i>',
-				'bottom' => '<i class="wpoic-down"></i>',
-				'left'   => '<i class="wpoic-left"></i>',
-				'right'  => '<i class="wpoic-right"></i>',
-				'all'    => '<i class="wpoic-move"></i>',
+				'top'    => '<i class="wpoic-arrow-up"></i>',
+				'bottom' => '<i class="wpoic-arrow-down"></i>',
+				'left'   => '<i class="wpoic-arrow-left"></i>',
+				'right'  => '<i class="wpoic-arrow-right"></i>',
+				'all'    => '<i class="wpoic-all"></i>',
 			);
 		}
 
