@@ -441,6 +441,10 @@ if ( ! function_exists( 'wponion_catch_output' ) ) {
 
 		if ( false === $type ) {
 			$data = ob_get_clean();
+			/**
+			 * @internal
+			 * ob_fulush commneted because of wp_list_table layout issue when using 2 tables next to each other
+			 */
 			//ob_flush();
 		}
 
