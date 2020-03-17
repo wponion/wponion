@@ -163,7 +163,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 				ob_start();
 			} else {
 				$data = ob_get_clean();
-				ob_flush();
+				//ob_flush();
 			}
 			return $data;
 		}

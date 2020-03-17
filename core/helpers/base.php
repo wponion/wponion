@@ -236,7 +236,7 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 				$args = ( ! wponion_is_array( $args ) ) ? array( $args ) : $args;
 				echo call_user_func_array( 'do_action', wponion_parse_args( array( $callback ), $args ) );
 				$data = ob_get_clean();
-				ob_flush();
+				//ob_flush();
 			}
 		} catch ( Exception $exception ) {
 			$data = false;
