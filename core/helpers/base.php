@@ -441,7 +441,7 @@ if ( ! function_exists( 'wponion_catch_output' ) ) {
 
 		if ( false === $type ) {
 			$data = ob_get_clean();
-			ob_flush();
+			//ob_flush();
 		}
 
 		if ( wponion_is_callable( $type ) ) {
