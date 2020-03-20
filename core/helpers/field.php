@@ -722,15 +722,17 @@ if ( ! function_exists( 'wponion_input_group_html' ) ) {
 	 * @return string
 	 */
 	function wponion_input_group_html( $prepend = false, $append = false, $element = false, $size = 'input-group-sm' ) {
-		$prepend      = ( ! wponion_is_array( $prepend ) ) ? array( $prepend ) : $prepend;
-		$append       = ( ! wponion_is_array( $append ) ) ? array( $append ) : $append;
-		$prepend      = array_filter( $prepend );
-		$append       = array_filter( $append );
-		$is_empty     = ( ! empty( $prepend ) || ! empty( $append ) );
-		$base_start   = ( $is_empty ) ? '<div class="wponion-input-group-wrap"><div class="input-group ' . $size . '">' : '';
-		$base_end     = ( $is_empty ) ? '</div></div>' : '';
-		$prepend_html = '';
-		$append_html  = '';
+		$prepend            = ( ! wponion_is_array( $prepend ) ) ? array( $prepend ) : $prepend;
+		$append             = ( ! wponion_is_array( $append ) ) ? array( $append ) : $append;
+		$prepend            = array_filter( $prepend );
+		$append             = array_filter( $append );
+		$is_empty           = ( ! empty( $prepend ) || ! empty( $append ) );
+		$wrap_prepend_class = ( ! empty( $prepend ) ) ? ' input-group-has-prepend ' : '';
+		$wrap_append_class  = ( ! empty( $append ) ) ? ' input-group-has-append ' : '';
+		$base_start         = ( $is_empty ) ? '<div class="wponion-input-group-wrap ' . $wrap_append_class . ' ' . $wrap_prepend_class . '"><div class="input-group ' . $size . '">' : '';
+		$base_end           = ( $is_empty ) ? '</div></div>' : '';
+		$prepend_html       = '';
+		$append_html        = '';
 
 		if ( ! empty( $prepend ) ) {
 			$prepend_html = ' <div class="input-group-prepend">';
