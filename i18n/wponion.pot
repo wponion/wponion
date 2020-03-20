@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.4.0\n"
+"Project-Id-Version: WPOnion 1.4.1\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-03-20T05:45:20+00:00\n"
+"POT-Creation-Date: 2020-03-20T08:23:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
 
 #. Plugin Name of the plugin
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:622
+#: core/modules/class-admin-page.php:545
 #: core/wp/sysinfo/class-data.php:310
 msgid "WPOnion"
 msgstr ""
@@ -456,12 +456,12 @@ msgid "Dismiss this notice."
 msgstr ""
 
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:622
+#: core/modules/class-admin-page.php:545
 msgid "Proudly Powered By %1$s %2$s %3$s "
 msgstr ""
 
 #. translators: Added WPOnionVersion
-#: core/modules/class-admin-page.php:635
+#: core/modules/class-admin-page.php:558
 msgid "WPOnion Version : %s"
 msgstr ""
 
