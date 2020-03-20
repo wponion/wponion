@@ -31,6 +31,10 @@
 			> div {
 				padding: 0;
 				height:  auto;
+
+				&.wpo-btn {
+					margin: 0;
+				}
 			}
 
 			&:first-child > div {
@@ -49,7 +53,6 @@
 				border-top-right-radius:    3px;
 				border-bottom-right-radius: 3px;
 			}
-
 
 			+ li {
 				margin-left: -1px;
