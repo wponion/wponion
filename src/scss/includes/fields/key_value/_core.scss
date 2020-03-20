@@ -36,6 +36,12 @@
 					vertical-align: middle;
 				}
 			}
+
+			&.ui-sortable-helper {
+				> .button {
+					display: none;
+				}
+			}
 		}
 
 		margin-bottom:  15px;
