@@ -21,7 +21,9 @@ export default class extends WPOnion_Field {
 		this.element.find( ':input' ).each( ( i, e ) => {
 			let $e = jQuery( e );
 			if( !$e.is( ':checked' ) ) {
-				$e.parent().parent().removeClass( this.option( 'active' ) ).addClass( this.option( 'inactive' ) );
+				//$e.parent().parent().removeClass( this.option( 'active' ) ).addClass( this.option( 'inactive' ) );
+				$e.parent().parent().removeAttr( 'class' );
+				$e.parent().parent().attr( 'class', 'wponion-checker wponion-button-group ' + this.option( 'inactive' ) );
 			}
 		} );
 	}
@@ -33,7 +35,10 @@ export default class extends WPOnion_Field {
 		this.element.find( ':input' ).each( ( i, e ) => {
 			let $e = jQuery( e );
 			if( $e.is( ':checked' ) ) {
-				$e.parent().parent().addClass( this.option( 'active' ) ).removeClass( this.option( 'inactive' ) );
+				//$e.parent().parent().addClass( this.option( 'active' ) ).removeClass( this.option( 'inactive' ) );
+				$e.parent().parent().removeAttr( 'class' );
+				$e.parent().parent().attr( 'class', 'wponion-checker wponion-button-group ' + this.option( 'active' ) );
+
 			}
 		} );
 	}
