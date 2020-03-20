@@ -100,15 +100,31 @@ $wpoic-window-close-o: "\f2d4";
 [class^="wpoic-"], [class*=" wpoic-"] {
 	/* use !important to prevent issues with browser extensions that change fonts */
 	font-family: '#{$icomoon-font-family}' !important;
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
+	//speak: none;
+	//font-style: normal;
+	//font-weight: normal;
+	//font-variant: normal;
+	//text-transform: none;
+	//line-height: 1;
 
 	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
+	//-webkit-font-smoothing: antialiased;
+	//-moz-osx-font-smoothing: grayscale;
+
+	//font-family:             "wponion";
+	font-style:              normal;
+	font-weight:             normal;
+	speak:                   none;
+	display:                 inline-block;
+	text-decoration:         inherit;
+	width:                   1em;
+	margin-right:            .2em;
+	text-align:              center;
+	font-variant:            normal;
+	text-transform:          none;
+	line-height:             1em;
+	margin-left:             .2em;
+	-webkit-font-smoothing:  antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
 
