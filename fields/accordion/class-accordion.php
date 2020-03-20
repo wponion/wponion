@@ -25,7 +25,7 @@ if ( ! class_exists( '\WPOnion\Field\Accordion' ) ) {
 		protected function render_fields() {
 			$is_open = ( true === $this->data( 'is_open' ) ) ? 'is_open' : '';
 			$return  = '<div class="wponion-accordion-wrap ' . $is_open . '">';
-			$return  .= '<h4 class="wponion-accordion-title"> <span class="heading">' . $this->data( 'heading' ) . '</span><a title="' . __( 'Delete', 'wponion' ) . '" class="wponion-remove wponion-group-remove dashicons"></a></h4>';
+			$return  .= '<h4 class="wponion-accordion-title"> <span class="heading">' . $this->data( 'heading' ) . '</span><a title="' . __( 'Delete', 'wponion' ) . '" class="wponion-remove wponion-group-remove wpoic wpoic-delete"></a></h4>';
 			$return  .= '<div class="wponion-accordion-content">';
 			$return  .= '<div class="wponion-row row">';
 			foreach ( $this->data( 'fields' ) as $field_id => $field ) {
