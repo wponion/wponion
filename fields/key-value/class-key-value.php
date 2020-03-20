@@ -106,7 +106,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'add_button'    => sprintf( __( 'Add %s' ), wpo_icon( 'wpoic-plus-circle' ) ),
+				'add_button'    => sprintf( __( 'Add %s', 'wponion' ), wpo_icon( 'wpoic-plus-circle' ) ),
 				//__( 'Add +', 'wponion' ),
 				'remove_button' => wpo_icon( 'wpoic-delete' ),
 				#__( '-', 'wponion' ),

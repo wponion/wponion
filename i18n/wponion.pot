@@ -1,22 +1,22 @@
-# Copyright (C) 2019 varunsridharan
+# Copyright (C) 2020 varunsridharan
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.3.9\n"
+"Project-Id-Version: WPOnion 1.4.0\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-12-04T07:53:57+05:30\n"
+"POT-Creation-Date: 2020-03-20T05:45:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
 
 #. Plugin Name of the plugin
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:521
+#: core/modules/class-admin-page.php:622
 #: core/wp/sysinfo/class-data.php:310
 msgid "WPOnion"
 msgstr ""
@@ -456,12 +456,12 @@ msgid "Dismiss this notice."
 msgstr ""
 
 #. translators: Added WPOnion
-#: core/modules/class-admin-page.php:521
+#: core/modules/class-admin-page.php:622
 msgid "Proudly Powered By %1$s %2$s %3$s "
 msgstr ""
 
 #. translators: Added WPOnionVersion
-#: core/modules/class-admin-page.php:534
+#: core/modules/class-admin-page.php:635
 msgid "WPOnion Version : %s"
 msgstr ""
 
@@ -1806,17 +1806,12 @@ msgid "No Options Found."
 msgstr ""
 
 #: fields/class-cloner.php:58
-msgid "Add + "
-msgstr ""
-
-#: fields/class-cloner.php:174
-#: fields/key-value/class-key-value.php:93
-#: fields/key-value/class-key-value.php:109
-msgid "Add +"
+#: fields/class-cloner.php:176
+msgid "Add %s "
 msgstr ""
 
 #. translators: Adds Max Count
-#: fields/class-cloner.php:184
+#: fields/class-cloner.php:186
 msgid "You Cannot Add More Than %s"
 msgstr ""
 
@@ -1861,13 +1856,13 @@ msgstr ""
 msgid "Till Date"
 msgstr ""
 
-#: fields/dimensions/class-dimensions.php:72
-#: fields/dimensions/class-dimensions.php:84
+#: fields/dimensions/class-dimensions.php:73
+#: fields/dimensions/class-dimensions.php:85
 msgid "Height"
 msgstr ""
 
-#: fields/dimensions/class-dimensions.php:73
-#: fields/dimensions/class-dimensions.php:85
+#: fields/dimensions/class-dimensions.php:74
+#: fields/dimensions/class-dimensions.php:86
 msgid "Width"
 msgstr ""
 
@@ -1890,26 +1885,19 @@ msgid "Clear Gallery"
 msgstr ""
 
 #: fields/group/class-group.php:96
-#: fields/group/class-group.php:207
 msgid "Add New"
-msgstr ""
-
-#: fields/group/class-group.php:123
-msgid "Remove "
 msgstr ""
 
 #: fields/group/class-group.php:140
 msgid "Group #[count]"
 msgstr ""
 
-#: fields/group/class-group.php:208
-#: fields/image/class-image.php:74
-#: fields/image/class-image.php:101
-msgid "Remove"
+#: fields/group/class-group.php:207
+msgid "Add New %s"
 msgstr ""
 
 #: fields/group/class-group.php:211
-#: fields/key-value/class-key-value.php:115
+#: fields/key-value/class-key-value.php:117
 msgid "You Can't Add More.."
 msgstr ""
 
@@ -1921,6 +1909,11 @@ msgstr ""
 #: fields/icon-picker/class-icon-picker.php:95
 #: fields/icon-picker/class-icon-picker.php:109
 msgid "Remove Icon"
+msgstr ""
+
+#: fields/image/class-image.php:74
+#: fields/image/class-image.php:101
+msgid "Remove"
 msgstr ""
 
 #: fields/image/class-image.php:100
@@ -1968,8 +1961,12 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: fields/key-value/class-key-value.php:110
-msgid "-"
+#: fields/key-value/class-key-value.php:93
+msgid "Add +"
+msgstr ""
+
+#: fields/key-value/class-key-value.php:109
+msgid "Add %s"
 msgstr ""
 
 #: fields/link-color/class-link-color.php:50
@@ -2026,27 +2023,27 @@ msgstr ""
 msgid "Disabled Modules"
 msgstr ""
 
-#: fields/spacing/spacing.php:69
+#: fields/spacing/spacing.php:72
 msgid "All"
 msgstr ""
 
-#: fields/spacing/spacing.php:112
+#: fields/spacing/spacing.php:116
 msgid "Top"
 msgstr ""
 
-#: fields/spacing/spacing.php:113
+#: fields/spacing/spacing.php:117
 msgid "Bottom"
 msgstr ""
 
-#: fields/spacing/spacing.php:114
+#: fields/spacing/spacing.php:118
 msgid "Left"
 msgstr ""
 
-#: fields/spacing/spacing.php:115
+#: fields/spacing/spacing.php:119
 msgid "Right"
 msgstr ""
 
-#: fields/spacing/spacing.php:116
+#: fields/spacing/spacing.php:120
 msgid "Unit"
 msgstr ""
 
