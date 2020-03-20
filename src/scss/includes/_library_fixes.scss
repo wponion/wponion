@@ -32,3 +32,17 @@
 		}
 	}
 }
+
+.wponion-input-group-wrap {
+	&.input-group-has-append {
+		textarea, input {
+			border-right: none !important;
+		}
+	}
+
+	&.input-group-has-prepend {
+		textarea {
+			border-left: none;
+		}
+	}
+}
