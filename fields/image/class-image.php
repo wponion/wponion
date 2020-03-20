@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 			$preview_show = ( empty( $this->value() ) ) ? 'style="display:none;"' : false;
 
 			echo '<input type="hidden" id="image_id" value="' . $this->value() . '" name="' . $this->name() . '"/>';
-			echo '<div class="wponion-image-preview" id="wponion-image-preview' . $this->js_field_id() . '">';
+			echo '<div class="wponion-image-preview" id="wponion-image-preview-' . $this->js_field_id() . '">';
 
 			echo '<div class="wponion-preview-add" ' . $add_show . '>';
 			echo wponion_icon( 'wpoic-plus wponion-add' );

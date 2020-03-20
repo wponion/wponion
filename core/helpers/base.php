@@ -236,7 +236,7 @@ if ( ! function_exists( 'wponion_callback' ) ) {
 				$args = ( ! wponion_is_array( $args ) ) ? array( $args ) : $args;
 				echo call_user_func_array( 'do_action', wponion_parse_args( array( $callback ), $args ) );
 				$data = ob_get_clean();
-				ob_flush();
+				//ob_flush();
 			}
 		} catch ( Exception $exception ) {
 			$data = false;
@@ -441,7 +441,11 @@ if ( ! function_exists( 'wponion_catch_output' ) ) {
 
 		if ( false === $type ) {
 			$data = ob_get_clean();
-			ob_flush();
+			/**
+			 * @internal
+			 * ob_fulush commneted because of wp_list_table layout issue when using 2 tables next to each other
+			 */
+			//ob_flush();
 		}
 
 		if ( wponion_is_callable( $type ) ) {

@@ -37,7 +37,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 				if ( isset( $settings['inline'] ) && true === $settings['inline'] ) {
 					echo $input;
 				} else {
-					echo wponion_input_group_html( '<span class="cpickr-bg" style="background-color: ' . $this->value . '"></span>', '', $input );
+					echo wponion_input_group_html( '<span class="cpickr-bg " style="background-color: ' . $this->value . '"></span>', '', $input );
 				}
 				echo '<div class="wponion-color-picker-element" ></div>';
 				echo '</div>';
@@ -103,7 +103,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
 			$attr['value'] = ( is_numeric( $options['key'] ) ) ? $options['label'] : $options['key'];
 			return '
-			<label ' . wponion_array_to_html_attributes( $label_attr ) . ' style="width:' . absint( $this->data( 'size' ) ) . 'px; height:' . absint( $this->data( 'size' ) ) . 'px;"> 
+			<label ' . wponion_array_to_html_attributes( $label_attr ) . ' style="width:' . absint( $this->data( 'size' ) ) . 'px; height:' . absint( $this->data( 'size' ) ) . 'px;">
 				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '   /><span class="color-palette-color" style="background:' . $attr['value'] . '">' . $attr['value'] . '</span>
 			</label>';
 		}

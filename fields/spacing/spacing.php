@@ -39,23 +39,26 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 			if ( false === $this->data( 'all' ) ) {
 				$fields[] = $button;
 			}
-			$is_all_hidden = ( empty( $this->value( 'all' ) ) ) ? 'hidden' : '';
+
+			$is_all_hidden  = ( empty( $this->value( 'all' ) ) ) ? 'hidden' : '';
+			$is_rest_hidden = ( empty( $this->value( 'all' ) ) ) ? '' : 'hidden';
 			if ( empty( $this->value( 'all' ) ) ) {
-				$this->value['showcasebutton'] = '<i class="wpoic-expand"></i>';
-			} else {
 				$this->value['showcasebutton'] = '<i class="wpoic-collapse"></i>';
+			} else {
+				$this->value['showcasebutton'] = '<i class="wpoic-expand"></i>';
 			}
 
 			if ( false === $this->data( 'all' ) ) {
 				foreach ( $this->field_slugs() as $slug ) {
 					if ( false !== $this->data( $slug ) ) {
 						$defaults                      = array(
+							'type'        => 'number',
 							'prefix'      => isset( $icons[ $slug ] ) ? $icons[ $slug ] : false,
 							'placeholder' => isset( $titles[ $slug ] ) ? $titles[ $slug ] : false,
 						);
 						$fields[ $slug ]               = ( true === $this->data( $slug ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( $slug ), $defaults );
 						$fields[ $slug ]['wrap_class'] = ( isset( $fields[ $slug ]['wrap_class'] ) ) ? $fields[ $slug ]['wrap_class'] : array();
-						$fields[ $slug ]['wrap_class'] = wponion_html_class( $fields[ $slug ]['wrap_class'], 'wponion-spacing-input wponion-spacing-input-' . $slug );
+						$fields[ $slug ]['wrap_class'] = wponion_html_class( $fields[ $slug ]['wrap_class'], 'wponion-spacing-input wponion-spacing-input-' . $slug . ' ' . $is_rest_hidden );
 					}
 				}
 			}
@@ -67,6 +70,7 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 			$defaults                    = array(
 				'prefix'      => isset( $icons['all'] ) ? $icons['all'] : false,
 				'placeholder' => __( 'All', 'wponion' ),
+				'type'        => 'number',
 			);
 			$fields['all']               = ( true === $this->data( 'all' ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( 'all' ), $defaults );
 			$fields['all']['wrap_class'] = ( isset( $fields['all']['wrap_class'] ) ) ? $fields['all']['wrap_class'] : array();
@@ -124,11 +128,11 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 		 */
 		protected function default_icons() {
 			return array(
-				'top'    => '<i class="wpoic-up"></i>',
-				'bottom' => '<i class="wpoic-down"></i>',
-				'left'   => '<i class="wpoic-left"></i>',
-				'right'  => '<i class="wpoic-right"></i>',
-				'all'    => '<i class="wpoic-move"></i>',
+				'top'    => '<i class="wpoic-arrow-up"></i>',
+				'bottom' => '<i class="wpoic-arrow-down"></i>',
+				'left'   => '<i class="wpoic-arrow-left"></i>',
+				'right'  => '<i class="wpoic-arrow-right"></i>',
+				'all'    => '<i class="wpoic-all"></i>',
 			);
 		}
 

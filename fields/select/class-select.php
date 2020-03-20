@@ -39,7 +39,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 			$options = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 			$attr    = $this->attributes( array(
 				'name'  => ( true === $this->has( 'multiple' ) ) ? $this->name( '[]' ) : $this->name(),
-				'class' => array( 'form-control' ),
+				'class' => array( 'form-control wponion-select-control' ),
 			) );
 
 			$element = '<select ' . $attr . '>';

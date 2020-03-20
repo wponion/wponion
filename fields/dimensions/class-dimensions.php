@@ -34,6 +34,7 @@ if ( ! class_exists( '\WPOnion\Field\Dimensions' ) ) {
 				foreach ( $this->field_slugs() as $slug ) {
 					if ( false !== $this->data( $slug ) ) {
 						$defaults                      = array(
+							'type'        => 'number',
 							'prefix'      => isset( $icons[ $slug ] ) ? $icons[ $slug ] : false,
 							'placeholder' => isset( $titles[ $slug ] ) ? $titles[ $slug ] : false,
 						);

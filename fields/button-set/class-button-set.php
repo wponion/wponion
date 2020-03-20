@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPOnion\Field\Button_Set' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			return '<div class="wponion-checker wponion-button-group button ' . $this->data( 'inactive' ) . ' ' . $this->data( 'size' ) . '"><label ' . wponion_array_to_html_attributes( $label_attr ) . '>
+			return '<div class="wponion-checker wponion-button-group ' . $this->data( 'inactive' ) . ' ' . $this->data( 'size' ) . '"><label ' . wponion_array_to_html_attributes( $label_attr ) . '>
 				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />' . $options['label'] . '
 			</label></div>';
 		}
@@ -53,8 +53,8 @@ if ( ! class_exists( '\WPOnion\Field\Button_Set' ) ) {
 			return $this->parse_args( array(
 				'multiple' => false,
 				'size'     => false,
-				'active'   => 'button-primary',
-				'inactive' => 'button-secondary',
+				'active'   => 'button button-primary',
+				'inactive' => 'button button-secondary',
 			), parent::field_default() );
 		}
 	}

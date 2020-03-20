@@ -5,6 +5,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.4.1] - 20/03/2020
+## Fixed
+* Removed `ob_flush();` because of nested output buffering issue
+* Field `button_set` now works well with `wpo-btn-{status}` css class
+* Fixed Some Field's CSS Issue
+
+
+## Changed
+* Bump [popper.js] from `1.16.0` to `2.1.1`
+* Bump [@wordpress/hooks] from `2.6.0` to `2.7.0`
+* Bump [sweetalert2] from `9.4.3` to `9.10.3`
+* Bump [tippy.js] from `5.1.2` to `6.1.0`
+* Bump [acorn] from `5.7.3` to `5.7.4`
+* WPOnion Core Assets CDN Version To `1.3.9`
+* Migrated WPOnion To New Icon Set.
+
+## Added
+* Brand New [WPOnion Icon Fonts](https://icons.wponion.com)
+
+## Removed
+* Old WPOnion Icon Fonts.
+
 # [1.4.0] - 04/12/2019
 
 ## Fixed
@@ -702,6 +724,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 
 ---
 
+[1.4.1]: https://github.com/wponion/wponion/releases/tag/1.4.1
 [1.4.0]: https://github.com/wponion/wponion/releases/tag/1.4.0
 [1.3.9]: https://github.com/wponion/wponion/releases/tag/1.3.9
 [1.3.8]: https://github.com/wponion/wponion/releases/tag/1.3.8
@@ -762,3 +785,4 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [varunsridharan/php-autoloader]: https://github.com/varunsridharan/php-autoloader
 [popper.js]: https://popper.js.org
 [bootstrap]: https://getbootstrap.com
+[acrom]:https://www.npmjs.com/package/acorn
