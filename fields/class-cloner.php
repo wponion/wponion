@@ -55,12 +55,12 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					),
 					'only_field'  => true,
 					'button_type' => 'button',
-					'label'       => __( 'Add + ', 'wponion' ),
+					'label'       => sprintf( __( 'Add %s ', 'wponion' ), wponion_icon( 'wpoic-plus-circle' ) ),
 				) ), null, null );
 
 			}
 
-			return wponion_icon( '  wpoic-no wponion-remove' );
+			return wponion_icon( '  wpoic-delete wponion-remove' );
 		}
 
 		/**
@@ -83,9 +83,11 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			$args['name']            = $this->unique( $this->field_id() . '/' . $extra_unique . '/' );
 			$return                  .= '<div class="wponion-clone-action">';
 			$return                  .= '<div class="cloner-sort">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
-			$return                  .= '<div class="cloner-remove">' . $this->clone_btn( 'remove' ) . '</div>';
-			$return                  .= '</div> ';
+			$return                  .= '<div class="cloner-remove">' . $this->clone_btn( 'delete' ) . '</div>';
+			$return                  .= '</div>';
+			$return                  .= '<div class="wponion-clone-content">';
 			$return                  .= $this->sub_field( $args, $value, $this->unique( $this->field_id() . '/' . $extra_unique . '/' ) );
+			$return                  .= '</div>';
 			$return                  .= '</div>';
 			return $return;
 		}
@@ -171,7 +173,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 				'toast_error' => false,
 				'error_msg'   => null,
 				'limit'       => null,
-				'add_button'  => __( 'Add +', 'wponion' ),
+				'add_button'  => sprintf( __( 'Add %s ', 'wponion' ), wponion_icon( 'wpoic-plus-circle' ) ),
 			);
 
 			if ( ! wponion_is_array( $data['clone'] ) ) {

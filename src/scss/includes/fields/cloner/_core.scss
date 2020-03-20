@@ -1,10 +1,13 @@
+$cloner_action_width: 20px;
+
 .wponion-element.wponion-element-clone {
-
-
 	.wponion-clone-wrap {
+		float: left;
+		width: 100%;
+
 		.wponion-field-clone {
 			position:      relative;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 
 			&:hover {
 				.wponion-clone-action {
@@ -13,124 +16,57 @@
 			}
 
 			> .wponion-clone-action {
-				border:       $element_border;
-				border-right: none;
-				position:     absolute;
-				left:         -36px;
-				padding:      5px;
-				text-align:   center;
-				background:   #f0f0f0;
-				visibility:   hidden;
-				height:       calc(100% - 12px);
+				border:         $element_border;
+				border-right:   none;
+				padding:        5px;
+				text-align:     center;
+				background:     #f0f0f0;
+				//visibility:     hidden;
+				display:        inline-block;
+				vertical-align: top;
+				width:          $cloner_action_width;
 
 				> div.cloner-sort {
 					margin-bottom: 12px;
 					cursor:        move;
 				}
-			}
 
-			> .wponion-element {
-				border: $element_border;
-			}
-		}
-
-
-		.wponion-field-clone {
-			margin-bottom: 0;
-
-
-			> .wponion-element {
-				border-bottom: none;
-				border-top:    none;
-			}
-
-			&:last-child {
-				> .wponion-element {
-					border-bottom: $element_border;
-				}
-			}
-
-			&:first-child {
-				> .wponion-element {
-					border-top: $element_border;
-				}
-			}
-		}
-
-		/*.wponion-field-clone {
-			position:      relative;
-			margin-bottom: 20px;
-
-			> .wponion-clone-action {
-				padding:    5px;
-				border:     $element_border;
-				background: #f9f9f9;
-				text-align: center;
-
-				.cloner-sort, .cloner-remove {
-					display:        inline-block;
-					margin-right:   5px;
-					vertical-align: top;
-
-					&:last-child {
-						margin-right: 0;
+				> div.cloner-remove, > div.cloner-sort {
+					> i {
+						margin: 0;
 					}
 				}
 			}
 
-			> .wponion-element {
-				border:     $element_border;
-				border-top: none;
-			}
-		}*/
-
-		/*.wponion-field-clone {
-			position:       relative;
-			padding-bottom: 20px;
-
-			> .wponion-element {
-				border:     $element_border;
-				background: #fcfcfc;
+			> .wponion-clone-content {
+				// Calc Flow = action-width + action-left-padding + action-right-padding + action-right-border + action-left-border (25+10+2)
+				width:   calc(100% - 38px);
+				display: inline-block;
+				border:  $element_border;
+				//border-bottom: none;
+				//border-top:    none;
 			}
 
-			.wponion-element {
-			}
-
-			&:hover {
-				.wponion-clone-action {
-					visibility: visible;
+			&:last-child {
+				> .wponion-clone-content {
+					border-bottom: $element_border;
+					margin-bottom: 0;
 				}
 			}
 
-			.wponion-clone-action {
-				padding:  5px 10px;
-				display:  inline-block;
-				position: absolute;
-				top:      4px;
-				right:    4px;
-
-				> button, a {
-
+			&:first-child {
+				> .wponion-clone-content {
+					border-top: $element_border;
 				}
 			}
 		}
-
-		.wponion-field-clone + .wponion-field-clone {
-
-		}
-
-		.wponion-field-clone-sorter {
-			display:        inline-block;
-			vertical-align: middle;
-			margin-right:   10px;
-			cursor:         move;
-			margin-top:     0px;
-		}*/
 	}
 
 	.wponion-clone-actions {
-		padding-top: 5px;
-		margin-top:  5px;
+		display:     inline-block;
+		width:       100%;
+		padding-top: 10px;
+		margin-top:  10px;
 	}
 
 	&.horizontal {
