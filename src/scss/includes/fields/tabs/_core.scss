@@ -119,12 +119,12 @@
 						padding-bottom:     0;
 						padding-right:      .1em;
 						border-right-width: 1px;
+						margin-bottom:      0.2em;
 					}
 
 					> a {
-						padding:         10px 0 10px 8px !important;
-						border-top:      1px solid transparent;
-						float:           left;
+						padding:         10px 10px 10px 8px !important;
+						border:          1px solid transparent;
 						/*padding: .5em 1em;*/
 						text-decoration: none;
 						min-width:       155px;
@@ -139,7 +139,6 @@
 						border-right-color: #FFF;
 						border-left:        2px solid #2EA2CC;
 						margin:             0 -1px 0 0;
-						padding:            10px 0 10px 8px !important;
 					}
 				}
 			}
