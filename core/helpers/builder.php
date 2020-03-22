@@ -34,6 +34,8 @@ if ( ! function_exists( 'wponion_is' ) ) {
 			case 'builder':
 				return ( $builder instanceof Builder );
 				break;
+			case 'dependency_builder':
+				return ( $builder instanceof \WPO\Helper\Dependency\Builder );
 			case 'container':
 			case 'page':
 			case 'section':

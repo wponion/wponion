@@ -46,7 +46,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 	 * @method mixed get_dependency
 	 * @method mixed get_wrap_attributes
 	 */
-	class Common_Args extends Array_Args {
+	class Common_Args extends Dependency {
 		/**
 		 * Updates Field Type.
 		 *

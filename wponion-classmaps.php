@@ -1,7 +1,7 @@
 <?php
 /**
- * Last Updated: Fri 20-Mar-2020 / 08:23:46:am
- * Total Class:  242
+ * Last Updated: Sun 22-Mar-2020 / 06:57:14:am
+ * Total Class:  246
  * Namespace: 
  */
 
@@ -64,8 +64,10 @@ return array (
   'WPO\\Helper\\Base' => 'helper/class-base.php',
   'WPO\\Helper\\Container\\Functions' => 'helper/container/class-functions.php',
   'WPO\\Helper\\Container\\Helper' => 'helper/container/class-helper.php',
+  'WPO\\Helper\\Dependency\\Builder' => 'helper/dependency/class-builder.php',
   'WPO\\Helper\\Field\\Array_Args' => 'helper/field/class-array-args.php',
   'WPO\\Helper\\Field\\Common_Args' => 'helper/field/class-common-args.php',
+  'WPO\\Helper\\Field\\Dependency' => 'helper/field/class-dependency.php',
   'WPO\\Helper\\Field\\Functions' => 'helper/field/class-functions.php',
   'WPO\\Helper\\Field\\Helper' => 'helper/field/class-helper.php',
   'WPO\\Helper\\Field\\Nested_Base' => 'helper/field/class-nested-base.php',
@@ -168,12 +170,14 @@ return array (
   'WPOnion\\Addons' => 'setup/class-addons.php',
   'WPOnion\\Setup' => 'setup/class-setup.php',
   'WPOnion' => 'setup/class-wponion.php',
+  'WPOnion\\Traits\\Array_Access' => 'traits/trait-array-access.php',
   'WPOnion\\Traits\\Array_Position' => 'traits/trait-array-position.php',
   'WPOnion\\Traits\\Class_Options' => 'traits/trait-class-options.php',
   'WPOnion\\Traits\\Countable' => 'traits/trait-countable.php',
   'WPOnion\\Traits\\Json_Serialize' => 'traits/trait-json-serialize.php',
   'WPOnion\\Traits\\Self_Instance' => 'traits/trait-self-instance.php',
   'WPOnion\\Traits\\Serializable' => 'traits/trait-serializable.php',
+  'WPOnion\\Traits\\Array_Iterator' => 'traits/traits-array-iterator.php',
   'Parsedown' => 'vendors/erusev/parsedown.php',
   'WPOnion\\WP\\Widget' => 'wp/class-widget.php',
   'WPOnion\\WP\\WP_List_Table' => 'wp/class-wp-list-table.php',

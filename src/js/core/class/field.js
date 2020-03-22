@@ -43,9 +43,9 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 			return;
 		}
 
-		/*if( false !== window.wponion.class.field_debug.get( this.id() ) ) {
+		if( false !== window.wponion.class.field_debug.get( this.id() ) ) {
 			return;
-		}*/
+		}
 
 		let $info = this.option( 'debug_info' );
 
@@ -76,7 +76,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 					$notice_txt = `<p class="wponion-field-debug-notice">${window.wpo_core.option( 'debug_notice' )}</p>`,
 					$elem       = jQuery( `<div id="${$d}" class="wponion-field-debug-popup"><div id="${$d}" ></div>${$notice_txt}</div>` ),
 					$data       = window.wponion.class.field_debug.get( this.id() );
-				console.log( $data );
+
 				window.swal.fire( {
 					html: $elem,
 					showConfirmButton: true,
@@ -146,30 +146,47 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 
 	dependency() {
 		if( this.element.hasClass( 'wponion-has-dependency' ) ) {
-			this.element.on( 'wponion_add_dependency', ( event, rules, config ) => {
-				let $dep = this.option( 'dependency' );
-				for( let $key in $dep ) {
-					if( $dep.hasOwnProperty( $key ) ) {
-						let $controller = $dep[ $key ].controller,
-							$condition  = $dep[ $key ].condition,
-							$value      = $dep[ $key ].value,
-							$field      = '[data-depend-id="' + $controller + '"]';
+			this.element.on( 'wponion_add_dependency', ( event, config ) => {
+				let $dep                = this.option( 'dependency' ),
+					$all_rules_instance = {},
+					$rules_instance     = false,
+					$settings           = ( !window.wponion._.isUndefined( $dep.settings ) ) ? $dep.settings : {};
+				$settings               = this.handle_args( $settings, 'dependency_settings' );
 
-						if( false !== config.nestable ) {
-							let $INPUT = config.parent.find( $field );
-							if( $INPUT.length > 0 ) {
-								$field = '[data-wponion-jsid="' + window.wpo_core.jsid( $INPUT ) + '"]:input';
+				if( !window.wponion._.isUndefined( $dep.rules ) ) {
+					for( let $key in $dep.rules ) {
+						if( $dep.rules.hasOwnProperty( $key ) ) {
+							let $rules                  = {};
+							$all_rules_instance[ $key ] = {};
+							for( let $i in $dep.rules[ $key ] ) {
+								if( $dep.rules[ $key ].hasOwnProperty( $i ) ) {
+									let $field_id = '[data-depend-id="' + $i + '"]';
+									if( false !== config.nestable ) {
+										let $INPUT = config.parent.find( $field_id );
+										if( $INPUT.length > 0 ) {
+											$field_id = '[data-wponion-jsid="' + window.wpo_core.jsid( $INPUT ) + '"]:input';
+										}
+									}
+									$rules[ $field_id ]                      = $dep.rules[ $key ][ $i ];
+									$all_rules_instance[ $key ][ $field_id ] = $dep.rules[ $key ][ $i ];
+								}
+							}
+
+							if( false === $rules_instance ) {
+								$rules_instance = this.element.WPOnion_dependsOn( $rules, $settings );
+							} else {
+								$rules_instance.or( $rules );
 							}
 						}
-						rules.createRule( $field, $condition, $value ).include( this.element );
 					}
 				}
-				//console.log( this.id(), this.option( 'dependency' ), this.element );
-				window.wponion.class.field_debug.add( this.id(), {
-					'Dependency': $dep,
-					'Nestable Dependency': config.nestable
-				} );
 
+				window.wponion.class.field_debug.add( this.id(), {
+					'Dependency': {
+						'Rules': $all_rules_instance,
+						'Nested': config.nestable,
+					}
+				} );
 			} );
 		}
 	}

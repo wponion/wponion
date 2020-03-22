@@ -11,11 +11,6 @@ export default class extends WPOnion_Field {
 
 		this.init_field( $group_wrap, 'accordion' );
 
-		$group_wrap.find( '> .wponion-accordion-wrap' ).each( function() {
-			window.wponion_dependency( jQuery( this ), { nestable: true, parent: jQuery( this ) } );
-		} );
-
-
 		this.update_groups_title();
 
 		this.bind_events_for_title();
@@ -59,7 +54,7 @@ export default class extends WPOnion_Field {
 
 				window.wponion_field_reload_all( $data );
 
-				window.wponion_dependency( $group_wrap.find( '> .wponion-accordion-wrap:last-child' ), { nestable: true } );
+				//window.wponion_dependency( $group_wrap.find( '> .wponion-accordion-wrap:last-child' ), { nestable: true } );
 
 				$data.find( '.wponion-group-remove' ).tippy( {
 					appendTo: () => this.get_field_parent_by_id( this.element )[ 0 ],

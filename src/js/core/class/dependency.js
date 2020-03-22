@@ -4,10 +4,9 @@ export default class WPOnion_Dependency {
 	 * @param $element
 	 * @param param
 	 * @param $config
+	 * @todo need to find a way to add " wponion-dependent " class to html element when its hidden
 	 */
 	constructor( $element = false, param = {}, $config = {} ) {
-
-		this.rules = jQuery.deps.createRuleset();
 		this.param = window.wponion._.merge( { nestable: false, parent: false }, param );
 		this.conf  = {
 			nestable: this.param.nestable,
@@ -15,20 +14,6 @@ export default class WPOnion_Dependency {
 		};
 
 		window.wponion_get_fields( $element, '.wponion-has-dependency' )
-			  .each( ( e, elem ) => jQuery( elem ).trigger( 'wponion_add_dependency', [ this.rules, this.conf ] ) );
-
-		jQuery.deps.enable( $element, this.rules, window.wponion._.merge( {
-			show: ( el ) => {
-				el.slideDown();
-				el.find( ':input' ).removeClass( 'wponion-dependent' );
-			},
-			hide: ( el ) => {
-				el.slideUp();
-				el.find( ':input' ).addClass( 'wponion-dependent' );
-			},
-			log: false,
-			checkTargets: false,
-		}, $config ) );
-
+			  .each( ( e, elem ) => jQuery( elem ).trigger( 'wponion_add_dependency', [ this.conf ] ) );
 	}
 }

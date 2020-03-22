@@ -1,6 +1,6 @@
 //@wponion-inline ../../node_modules/jquery-serializejson/jquery.serializejson.min.js
 ( function( window, document, wp, $ ) {
-//@wponion-inline ../vendors/jquery-interdependencies/jquery-interdependencies.js
+//@wponion-inline ../../node_modules/@wponion/dependon/dist/wponion-dependsOn.js
 //@wponion-inline ../vendors/json-view/json-view.js
 //@wponion-inline ../vendors/blockUI/blockUI.js
 //@wponion-append ../../node_modules/@popperjs/core/dist/umd/popper.js

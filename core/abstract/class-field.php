@@ -246,22 +246,50 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function handle_dependency() {
 			$dependency = $this->data( 'dependency' );
-			$save       = array();
-			if ( wponion_is_array( $dependency ) && ! empty( array_filter( $dependency ) ) ) {
-				foreach ( $dependency as $dep ) {
-					$parent = false;
-					if ( 0 === strpos( $dep['controller'], '.' ) || 0 === strpos( $dep['controller'], '<' ) ) {
-						$dep['controller'] = trim( trim( $dep['controller'], '.' ), '<' );
-						$parent            = true;
-					} elseif ( ! empty( $this->data( 'sub' ) ) ) {
-						$dep['controller'] = $this->data( 'sub' ) . '_' . $dep['controller'];
-						$parent            = false;
+			if ( wponion_is_array( $dependency['rules'] ) && ! empty( array_filter( $dependency ) ) ) {
+				/**
+				 * @var \WPO\Helper\Dependency\Builder $group
+				 */
+				foreach ( $dependency['rules'] as $group_key => $group ) {
+					if ( wpo_is( $group, 'dependency_builder' ) ) {
+						$rules = $group->get();
+
+						foreach ( $rules as $rule_key => $rule ) {
+							$field_id = $rule_key;
+							$parent   = false;
+							if ( 0 === strpos( $rule_key, '../' ) ) {
+								$uniques                  = explode( '/', $this->unique() );
+								$uniques                  = array_reverse( $uniques );
+								$base_unique              = $this->base_unique();
+								$rule_key_info            = pathinfo( $rule_key );
+								$rule_key_info['dirname'] = explode( '/', $rule_key_info['dirname'] );
+								$field_id                 = $rule_key_info['basename'];
+
+								if ( ! empty( $rule_key_info['dirname'] ) && is_array( $rule_key_info['dirname'] ) ) {
+									$total_paths = count( array_filter( $rule_key_info['dirname'] ) );
+									foreach ( $uniques as $ukey => $unique ) {
+										if ( $ukey === $total_paths && $unique !== $base_unique ) {
+											$field_id = $unique . '_' . $field_id;
+										}
+									}
+								}
+								$parent = true;
+							} elseif ( ! empty( $this->data( 'sub' ) ) ) {
+								$field_id = $this->data( 'sub' ) . '_' . $rule_key;
+								$parent   = false;
+							}
+
+							if ( $field_id !== $rule_key ) {
+								$rules[ $field_id ] = $rules[ $rule_key ];
+								unset( $rules[ $rule_key ] );
+							}
+							$rules[ $field_id ]['wpo_has_parent'] = $parent;
+						}
+						$dependency['rules'][ $group_key ] = $rules;
 					}
-					$dep['parent'] = $parent;
-					$save[]        = $dep;
 				}
-				if ( ! empty( $save ) ) {
-					wponion_localize()->add( $this->js_field_id(), array( 'dependency' => $save ), true, false );
+				if ( ! empty( $dependency['rules'] ) ) {
+					wponion_localize()->add( $this->js_field_id(), array( 'dependency' => $dependency ), true, true );
 				}
 			}
 		}
@@ -1017,8 +1045,10 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 */
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
-			$func                  = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
-			$field['sub']          = $this->field_id();
+			$func = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
+			if ( ! isset( $field['sub'] ) ) {
+				$field['sub'] = ( isset( $this->field['sub'] ) ) ? $this->field['sub'] . '_' . $this->field_id() : $this->field_id();
+			}
 			$field['builder_path'] = $this->data( 'builder_path' );
 			$_instance             = $func( $field, $value, array(
 				'unique' => $unqiue,
