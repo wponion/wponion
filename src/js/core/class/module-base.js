@@ -1,6 +1,6 @@
 import WPOnion_Base from './base';
 import { to_jquery } from 'vsp-js-helper/index';
-import WPOnion_Theme_Base from "./theme-base";
+import WPOnion_Theme_Base from './theme-base';
 
 export default class WPOnion_Module_Base extends WPOnion_Base {
 	constructor( $selector, $args = {} ) {
