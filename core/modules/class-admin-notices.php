@@ -148,10 +148,12 @@ JAVASCRIPT;
 		 * @param $notice_id
 		 */
 		public function remove( $notice_id ) {
-			foreach ( $this->db_values as $index => $notice ) {
-				/* @var $notice \WPOnion\Modules\Admin_Notice */
-				if ( $notice->id() === $notice_id ) {
-					$this->remove_notice( $index );
+			if ( ! empty( $this->db_values ) && is_array( $this->db_values ) ) {
+				foreach ( $this->db_values as $index => $notice ) {
+					/* @var $notice \WPOnion\Modules\Admin_Notice */
+					if ( $notice->id() === $notice_id ) {
+						$this->remove_notice( $index );
+					}
 				}
 			}
 			$this->set_db_option();
