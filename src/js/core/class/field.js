@@ -146,6 +146,15 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 
 	dependency() {
 		if( this.element.hasClass( 'wponion-has-dependency' ) ) {
+			let $wordpress_fileld = window.wponion.hooks.applyFilters( 'wponion_dependency_global_fields_map', {
+				'post_format': 'input[name=post_format]',
+				'page_template': 'select#page_template',
+				'menu_order': 'input#menu_order',
+				'parent_id': 'select#parent_id',
+				'post_status': 'select#post_status',
+				'visibility': 'input[name=visibility]'
+			} );
+
 			this.element.on( 'wponion_add_dependency', ( event, config ) => {
 				let $dep                = this.option( 'dependency' ),
 					$all_rules_instance = {},
@@ -160,7 +169,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 							$all_rules_instance[ $key ] = {};
 							for( let $i in $dep.rules[ $key ] ) {
 								if( $dep.rules[ $key ].hasOwnProperty( $i ) ) {
-									let $field_id = '[data-depend-id="' + $i + '"]';
+									let $field_id = ( !window.wponion._.isUndefined( $wordpress_fileld[ $i ] ) ) ? $wordpress_fileld[ $i ] : '[data-depend-id="' + $i + '"]';
 									if( false !== config.nestable ) {
 										let $INPUT = config.parent.find( $field_id );
 										if( $INPUT.length > 0 ) {
