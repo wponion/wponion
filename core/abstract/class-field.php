@@ -256,7 +256,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 						foreach ( $rules as $rule_key => $rule ) {
 							$field_id = $rule_key;
-							$parent   = false;
 							if ( 0 === strpos( $rule_key, '../' ) ) {
 								$uniques                  = explode( '/', $this->unique() );
 								$uniques                  = array_reverse( $uniques );
@@ -273,17 +272,14 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 										}
 									}
 								}
-								$parent = true;
 							} elseif ( ! empty( $this->data( 'sub' ) ) ) {
 								$field_id = $this->data( 'sub' ) . '_' . $rule_key;
-								$parent   = false;
 							}
 
 							if ( $field_id !== $rule_key ) {
 								$rules[ $field_id ] = $rules[ $rule_key ];
 								unset( $rules[ $rule_key ] );
 							}
-							$rules[ $field_id ]['wpo_has_parent'] = $parent;
 						}
 						$dependency['rules'][ $group_key ] = $rules;
 					}
