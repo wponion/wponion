@@ -9,14 +9,22 @@ export default class extends WPOnion_Module {
 	 * Inits Module.
 	 */
 	module_init() {
+		this.form          = jQuery( 'form.wponion-form' );
+		this.form_modified = false;
+
 		this.ui_menu_handler();
+		this.enable_shortcut_key_handler();
+
+		//window.onbeforeunload = () => ( this.form_modified ) ? true : undefined;
+		//this.element.on( 'change keypress', ':input', () => this.form_modified = true );
+
 		if( this.element.hasClass( 'wponion-ajax-save' ) ) {
 			jQuery( 'body' ).on( 'click', 'button.wponion-save', ( e ) => {
 				e.preventDefault();
-				var validator = jQuery( 'form.wponion-form' ).validate();
+				let validator = this.form.validate();
 
 				if( validator.form() ) {
-					let $data               = jQuery( 'form.wponion-form' ).serializeJSON();
+					let $data               = this.form.serializeJSON();
 					$data.action            = 'wponion-ajax';
 					$data[ 'wponion-ajax' ] = 'save_settings';
 					window.wponion_ajax( {
@@ -51,5 +59,20 @@ export default class extends WPOnion_Module {
 				}
 			} );
 		}
+
+	}
+
+	/**
+	 * Triggers Settings Save
+	 * When CTRL+S is clicked
+	 */
+	enable_shortcut_key_handler() {
+		jQuery( document ).keydown( function( event ) {
+			if( ( event.ctrlKey || event.metaKey ) && event.which === 83 ) {
+				jQuery( 'button.wponion-save' ).trigger( 'click' );
+				event.preventDefault();
+				return false;
+			}
+		} );
 	}
 }
