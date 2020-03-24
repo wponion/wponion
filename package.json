@@ -13,7 +13,7 @@
     "wordpress-options-framework"
   ],
   "author": "varunsridharan",
-  "license": "GPLV3",
+  "license": "MIT",
   "devDependencies": {
     "@wordpress/hooks": "^2.7.0",
     "bootstrap": "^4.4.1",
