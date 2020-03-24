@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.4.1\n"
+"Project-Id-Version: WPOnion 1.4.2\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-03-20T08:23:54+00:00\n"
+"POT-Creation-Date: 2020-03-24T07:21:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -26,7 +26,7 @@ msgid "https://github.com/wponion/"
 msgstr ""
 
 #. Description of the plugin
-msgid "Powerfull,Reliable & Lightweight Options Framework."
+msgid "~ Lightweight, Flexible & Rapid WP Development Framework ~"
 msgstr ""
 
 #. Author of the plugin
@@ -91,15 +91,15 @@ msgstr ""
 msgid "Module"
 msgstr ""
 
-#: core/abstract/class-field.php:329
+#: core/abstract/class-field.php:353
 msgid "Field Rendered In"
 msgstr ""
 
-#: core/abstract/class-field.php:329
+#: core/abstract/class-field.php:353
 msgid "Seconds"
 msgstr ""
 
-#: core/abstract/class-field.php:638
+#: core/abstract/class-field.php:662
 msgid "Field Errors"
 msgstr ""
 
@@ -504,26 +504,18 @@ msgid "Import Errors - "
 msgstr ""
 
 #: core/setup/class-setup.php:124
-msgid "Documentation"
+msgid "📚 Documentation"
 msgstr ""
 
 #: core/setup/class-setup.php:125
-msgid "Demo"
+msgid "🔍 Demo"
 msgstr ""
 
 #: core/setup/class-setup.php:126
-msgid "Support"
+msgid "💬 Slack Community"
 msgstr ""
 
-#: core/setup/class-setup.php:127
-msgid "Homepage"
-msgstr ""
-
-#: core/setup/class-setup.php:128
-msgid "Rate the plugin ★★★★★"
-msgstr ""
-
-#: core/setup/class-setup.php:138
+#: core/setup/class-setup.php:136
 msgid "WPOnion Elementor Integration Requires PHP Version 7.0 or Greater"
 msgstr ""
 

@@ -120,7 +120,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 				'attributes'  => array( 'data-wponion-jsid' => $this->js_field_id() ),
 				'only_field'  => true,
 				'button_type' => 'button',
-				'label'       => sprintf( 'Remove %s', wpo_icon( 'wpoic-delete' ) ),//__( 'Remove ', 'wponion' ),
+				'label'       => sprintf( 'Remove %s', wpo_icon( 'wpoic-delete' ) ),
 			) ), false, $this->unique() );
 			$return .= '</div>';
 			return $return;

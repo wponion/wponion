@@ -5,12 +5,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.4.2] - 24/03/2020
+## Added
+* Array Access Trait For `ArrayAccess`
+* Array Iterator Trait For `Iterator`
+* New Field Dependency Plugin [WPOnion_DependOn]
+* Fieldset & Accordion dependency support
+* Shortcut Key Press (`CTRL + S`) to save settings
+
+## Fixed
+* TAB Field CSS Fixes.
+
+## Changed
+*Bump [sweetalert2] from `9.10.3` to `9.10.5`
+
+## Removed
+* Removed Group Field dependency support due to nested issues
+
 # [1.4.1] - 20/03/2020
 ## Fixed
 * Removed `ob_flush();` because of nested output buffering issue
 * Field `button_set` now works well with `wpo-btn-{status}` css class
 * Fixed Some Field's CSS Issue
-
 
 ## Changed
 * Bump [popper.js] from `1.16.0` to `2.1.1`
@@ -786,3 +802,5 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [popper.js]: https://popper.js.org
 [bootstrap]: https://getbootstrap.com
 [acrom]:https://www.npmjs.com/package/acorn
+[WPOnion_DependOn Demo]:https://dependson.wponion.com
+[WPOnion_DependOn]:https://github.com/wponion/dependsOn
