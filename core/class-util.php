@@ -124,7 +124,8 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 				$args['content'] = false;
 			}
 
-			$attr = array( 'wponion-help' => 'wponion-help' );
+			$args['content'] = ( ! empty( $args['content'] ) ) ? wponion_markdown()->line( $args['content'] ) : $args['content'];
+			$attr            = array( 'wponion-help' => 'wponion-help' );
 
 			if ( false !== $localize ) {
 				$localize                        = ( true === $localize ) ? 'wponion-help' : $localize;
