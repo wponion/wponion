@@ -1,5 +1,5 @@
 <?php
-// Last Updated : 2020-03-15 05:35:39:am
+// Last Updated : 2020-03-22 05:36:01:am
 if ( ! defined( "ABSPATH") ) { die; } 
 return array (
   'ABeeZee' => 
@@ -546,10 +546,6 @@ return array (
     '600italic' => 'Semi-Bold 600 Italic',
     '700italic' => 'Bold 700 Italic',
   ),
-  'Baloo' => 
-  array (
-    400 => 'Regular 400',
-  ),
   'Baloo 2' => 
   array (
     400 => 'Regular 400',
@@ -557,10 +553,6 @@ return array (
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
-  ),
-  'Baloo Bhai' => 
-  array (
-    400 => 'Regular 400',
   ),
   'Baloo Bhai 2' => 
   array (
@@ -570,14 +562,6 @@ return array (
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
   ),
-  'Baloo Bhaijaan' => 
-  array (
-    400 => 'Regular 400',
-  ),
-  'Baloo Bhaina' => 
-  array (
-    400 => 'Regular 400',
-  ),
   'Baloo Bhaina 2' => 
   array (
     400 => 'Regular 400',
@@ -585,10 +569,6 @@ return array (
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
-  ),
-  'Baloo Chettan' => 
-  array (
-    400 => 'Regular 400',
   ),
   'Baloo Chettan 2' => 
   array (
@@ -598,10 +578,6 @@ return array (
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
   ),
-  'Baloo Da' => 
-  array (
-    400 => 'Regular 400',
-  ),
   'Baloo Da 2' => 
   array (
     400 => 'Regular 400',
@@ -609,10 +585,6 @@ return array (
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
-  ),
-  'Baloo Paaji' => 
-  array (
-    400 => 'Regular 400',
   ),
   'Baloo Paaji 2' => 
   array (
@@ -622,10 +594,6 @@ return array (
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
   ),
-  'Baloo Tamma' => 
-  array (
-    400 => 'Regular 400',
-  ),
   'Baloo Tamma 2' => 
   array (
     400 => 'Regular 400',
@@ -634,10 +602,6 @@ return array (
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
   ),
-  'Baloo Tammudu' => 
-  array (
-    400 => 'Regular 400',
-  ),
   'Baloo Tammudu 2' => 
   array (
     400 => 'Regular 400',
@@ -645,10 +609,6 @@ return array (
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
-  ),
-  'Baloo Thambi' => 
-  array (
-    400 => 'Regular 400',
   ),
   'Baloo Thambi 2' => 
   array (
@@ -3258,8 +3218,12 @@ return array (
   'Lora' => 
   array (
     400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
     700 => 'Bold 700',
     '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
     '700italic' => 'Bold 700 Italic',
   ),
   'Love Ya Like A Sister' => 

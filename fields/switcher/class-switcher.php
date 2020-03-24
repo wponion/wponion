@@ -48,7 +48,7 @@ if ( ! class_exists( '\WPOnion\Field\Switcher' ) ) {
 			return '<div class="wponion-switcher-labels-container"><div data-on="' . $this->data( 'on' ) . '" data-off="' . $this->data( 'off' ) . '" class="ckbx-' . $this->data( 'switch_style' ) . ' ' . $size . '">
 				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
 				<label data-on="' . $this->data( 'on' ) . '" data-off="' . $this->data( 'off' ) . '"  for="' . $attr['id'] . '" style="' . $width . '"></label>
-			
+
 			</div>
 			<label for="' . $attr['id'] . '" >' . $options['label'] . '</label>
 			</div>
