@@ -7,6 +7,8 @@ $wpoic-collapse:                       "\e906";
 $wpoic-expand:                         "\e900";
 $wpoic-clock:                          "\e901";
 $wpoic-time:                           "\e901";
+$wpoic-info-with-circle:               "\e902";
+$wpoic-info:                           "\e903";
 $wpoic-menu:                           "\e904";
 $wpoic-live_help:                      "\e905";
 $wpoic-remove_circledo_not_disturb_on: "\e90a";
@@ -46,11 +48,14 @@ $wpoic-arrow-right-small:              "\f054";
 $wpoic-plus-circle:                    "\f055";
 $wpoic-minus-circle:                   "\f056";
 $wpoic-check-circle:                   "\f058";
+$wpoic-question-circle:                "\f059";
 $wpoic-check-circle-o:                 "\f05d";
 $wpoic-arrow-left:                     "\f060";
 $wpoic-arrow-right:                    "\f061";
 $wpoic-arrow-up:                       "\f062";
 $wpoic-arrow-down:                     "\f063";
+$wpoic-exclamation-triangle:           "\f071";
+$wpoic-warning:                        "\f071";
 $wpoic-calendar:                       "\f073";
 $wpoic-arrow-up-small:                 "\f077";
 $wpoic-arrow-down-small:               "\f078";
@@ -62,6 +67,7 @@ $wpoic-facebook:                       "\f09a";
 $wpoic-facebook-f:                     "\f09a";
 $wpoic-github:                         "\f09b";
 $wpoic-caret-down:                     "\f0d7";
+$wpoic-caret-up:                       "\f0d8";
 $wpoic-caret-left:                     "\f0d9";
 $wpoic-caret-right:                    "\f0da";
 $wpoic-envelope:                       "\f0e0";
@@ -85,12 +91,12 @@ $wpoic-window-close-o:                 "\f2d4";
 
 @font-face {
 	font-family:  '#{$icomoon-font-family}';
-	src:          url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?hzoxd');
-	src:          url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?hzoxd#iefix') format('embedded-opentype'),
-				  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff2?hzoxd') format('woff2'),
-				  url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?hzoxd') format('truetype'),
-				  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?hzoxd') format('woff'),
-				  url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?hzoxd##{$icomoon-font-family}') format('svg');
+	src:          url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?66mq8m');
+	src:          url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?66mq8m#iefix') format('embedded-opentype'),
+				  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff2?66mq8m') format('woff2'),
+				  url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?66mq8m') format('truetype'),
+				  url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?66mq8m') format('woff'),
+				  url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?66mq8m##{$icomoon-font-family}') format('svg');
 	font-weight:  normal;
 	font-style:   normal;
 	font-display: block;
@@ -158,6 +164,18 @@ $wpoic-window-close-o:                 "\f2d4";
 .wpoic-time {
 	&:before {
 		content: $wpoic-time;
+	}
+}
+
+.wpoic-info-with-circle {
+	&:before {
+		content: $wpoic-info-with-circle;
+	}
+}
+
+.wpoic-info {
+	&:before {
+		content: $wpoic-info;
 	}
 }
 
@@ -395,6 +413,12 @@ $wpoic-window-close-o:                 "\f2d4";
 	}
 }
 
+.wpoic-question-circle {
+	&:before {
+		content: $wpoic-question-circle;
+	}
+}
+
 .wpoic-check-circle-o {
 	&:before {
 		content: $wpoic-check-circle-o;
@@ -422,6 +446,18 @@ $wpoic-window-close-o:                 "\f2d4";
 .wpoic-arrow-down {
 	&:before {
 		content: $wpoic-arrow-down;
+	}
+}
+
+.wpoic-exclamation-triangle {
+	&:before {
+		content: $wpoic-exclamation-triangle;
+	}
+}
+
+.wpoic-warning {
+	&:before {
+		content: $wpoic-warning;
 	}
 }
 
@@ -488,6 +524,12 @@ $wpoic-window-close-o:                 "\f2d4";
 .wpoic-caret-down {
 	&:before {
 		content: $wpoic-caret-down;
+	}
+}
+
+.wpoic-caret-up {
+	&:before {
+		content: $wpoic-caret-up;
 	}
 }
 
