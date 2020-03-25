@@ -46,3 +46,13 @@
 		}
 	}
 }
+
+.wponion-framework {
+	.table {
+		border-collapse: collapse;
+
+		*, ::after, ::before, &::after, &::before {
+			box-sizing: border-box;
+		}
+	}
+}
