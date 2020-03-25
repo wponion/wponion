@@ -54,6 +54,8 @@ export default class WPOnion_Theme_Base extends WPOnion_Base {
 	 * @return {boolean}
 	 */
 	static has_only_uifields( $container ) {
-		return ( $container.find( '.wponion-element' ).length === 0 && $container.find( '.wponion-ui-field' ).length > 0 );
+		let $element    = $container.find( '.wponion-element' ).length;
+		let $ui_element = $container.find( '.wponion-ui-field' ).length;
+		return ( $element === $ui_element || $element === 0 && $ui_element > 0 );
 	}
 }
