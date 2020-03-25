@@ -54,5 +54,62 @@
 		*, ::after, ::before, &::after, &::before {
 			box-sizing: border-box;
 		}
+
+		th {
+			:not(.sortable) {
+				font-weight: normal;
+			}
+
+			&.sortable {
+				a {
+					padding: 0;
+				}
+
+				&.asc, &.desc {
+					span.sorting-indicator {
+						visibility:  visible;
+						font-family: 'wponion';
+
+						&:before {
+							font-family: 'wponion';
+							font-size:   15px;
+							left:        0;
+							top:         -2px;
+						}
+					}
+				}
+
+				&.desc {
+					span.sorting-indicator {
+						&:before {
+							content: "\f0d8";
+						}
+					}
+				}
+
+				&.asc {
+					span.sorting-indicator {
+						&:before {
+							content: "\f0d7";
+						}
+					}
+				}
+
+			}
+		}
+
+		&.table-dark {
+			th.sortable a, th.sorted a {
+				padding:         0;
+				color:           #fff;
+				text-decoration: underline;
+
+				span {
+					&:before {
+						color: #fff;
+					}
+				}
+			}
+		}
 	}
 }
