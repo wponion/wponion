@@ -635,6 +635,7 @@ HTML;
 
 			if ( $this->is_bs_style() ) {
 				return wponion_html_class( wp_parse_args( $class, array(
+					'wp-list-table',
 					'table',
 					'table-striped',
 					$this->_args['plural'],
