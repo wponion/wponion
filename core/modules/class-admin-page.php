@@ -360,12 +360,10 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			$this->menu_slug( $_slug );
 			$menu_title = $this->get_menu_title();
 			$page_title = $this->get_page_title();
+			$render     = array( &$this, 'render' );
 
 			if ( false === $this->submenu() || wponion_is_array( $this->submenu() ) ) {
-				$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $_slug, array(
-					&$this,
-					'render',
-				), $this->icon(), $this->position() );
+				$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $_slug, $render, $this->icon(), $this->position() );
 			} else {
 				switch ( $this->submenu() ) {
 					case 'management':
@@ -379,18 +377,12 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 								$menu_title,
 								$this->capability(),
 								$_slug,
-								array(
-									&$this,
-									'render',
-								),
+								$render,
 							) );
 						}
 						break;
 					default:
-						$this->page_slug = add_submenu_page( $this->submenu(), $page_title, $menu_title, $this->capability(), $_slug, array(
-							&$this,
-							'render',
-						) );
+						$this->page_slug = add_submenu_page( $this->submenu(), $page_title, $menu_title, $this->capability(), $_slug, $render );
 						break;
 				}
 			}
