@@ -70,26 +70,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		 * @param array $table_contents
 		 */
 		public function __construct( $table_settings = array(), $table_contents = array() ) {
-			$this->table_settings = wp_parse_args( $table_settings, array(
-				// Default Settings
-				'plural'           => '',
-				'singular'         => '',
-				'ajax'             => false,
-				'screen'           => 'post',
-				//Custom Settings.
-				'no_items'         => __( 'No Items Found', 'wponion' ),
-				'columns'          => array(),
-				'sortable'         => array(),
-				'default_callback' => array(),
-				'per_page'         => 10,
-				'total_items'      => false,
-				'extra_tablenav'   => false,
-				'bulk_actions'     => array(),
-				'filter_menus'     => array(),
-				'field'            => false, //Internal Usage Only
-				// Additional Settings
-				'search'           => true,
-			) );
+			$this->table_settings = wp_parse_args( $table_settings, $this->default_args() );
 			parent::__construct( array(
 				'plural'   => $this->option( 'plural' ),
 				'singular' => $this->option( 'singular' ),
@@ -101,15 +82,64 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		}
 
 		/**
-		 * Generate row actions div
-		 *
-		 * @param string[] $actions An array of action links.
-		 * @param bool     $always_visible Whether the actions should be always visible.
-		 *
-		 * @return string
+		 * Custom Functions.
 		 */
-		public function row_actions( $actions, $always_visible = false ) {
-			return parent::row_actions( $actions, $always_visible );
+
+		/**
+		 * Table's Default Args.
+		 *
+		 * @return array
+		 */
+		protected function default_args() {
+			return array(
+				// Default Settings
+				'plural'           => '', // String
+				'singular'         => '', // String
+				'ajax'             => false, // Boolean
+				'screen'           => 'post', // String
+
+				//Custom Settings.
+				'no_items'         => __( 'No Items Found', 'wponion' ), // String
+				'columns'          => array(), // Array
+				'sortable'         => array(), // Array eg array( array('data-key'=>array('url-key',true)) )
+				'default_callback' => array(), // Array / String but as a callback function
+				'per_page'         => 10, // Numeric
+				'total_items'      => false, // Numeric / Callback
+				'extra_tablenav'   => false, // HTML / Callback
+				'bulk_actions'     => array(), // Array
+				'filter_menus'     => array(), // Array
+				'field'            => false, //Internal Usage Only
+				'table_style'      => 'wordpress', // Possible Values bootstrap,wordpress
+
+				// Additional Settings
+				'search'           => true,
+				'html_class'       => array(
+					'table'   => '',
+					'thead'   => '',
+					'tfoot'   => '',
+					'content' => false, // Callback.
+				),
+				'tablenav_top'     => true,
+				'tablenav_bottom'  => true,
+			);
+		}
+
+		/**
+		 * Checks if current table style is set to wordpress.
+		 *
+		 * @return bool
+		 */
+		protected function is_wp_style() {
+			return ( 'wordpress' === $this->option( 'table_style' ) );
+		}
+
+		/**
+		 * checks if current table style is set to bootstrap
+		 *
+		 * @return bool
+		 */
+		protected function is_bs_style() {
+			return ( 'bootstrap' === $this->option( 'table_style' ) );
 		}
 
 		/**
@@ -123,33 +153,16 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		}
 
 		/**
-		 * Get an associative array ( option_name => option_title ) with the list
-		 * of bulk actions available on this table.
+		 * Fetch And Returns HTML Class.
 		 *
-		 * @return array
-		 */
-		protected function get_bulk_actions() {
-			return $this->option( 'bulk_actions' );
-		}
-
-		/**
-		 * Get an associative array ( id => link ) with the list
-		 * of views available on this table.
+		 * @param string      $key Possible Values table,thead,tfoot
+		 * @param string|bool $default default value.
 		 *
-		 * @return array
+		 * @return bool|mixed
 		 */
-		protected function get_views() {
-			if ( wponion_is_callable( $this->option( 'filter_menus' ) ) ) {
-				return wponion_callback( $this->option( 'filter_menus' ), $this );
-			}
-			return $this->option( 'filter_menus' );
-		}
-
-		/**
-		 * Message to be displayed when there are no items
-		 */
-		public function no_items() {
-			echo $this->option( 'no_items', __( 'No Items Found', 'wponion' ) );
+		protected function get_html_classes( $key = 'table', $default = false ) {
+			$data = $this->option( 'html_class' );
+			return isset( $data[ $key ] ) ? $data[ $key ] : $default;
 		}
 
 		/**
@@ -207,6 +220,42 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 					}
 				}
 			}
+		}
+
+
+		/**
+		 * Basic Override Functions.
+		 * Below Functions are required to run.
+		 */
+
+		/**
+		 * Get an associative array ( option_name => option_title ) with the list
+		 * of bulk actions available on this table.
+		 *
+		 * @return array
+		 */
+		protected function get_bulk_actions() {
+			return $this->option( 'bulk_actions' );
+		}
+
+		/**
+		 * Get an associative array ( id => link ) with the list
+		 * of views available on this table.
+		 *
+		 * @return array
+		 */
+		protected function get_views() {
+			if ( wponion_is_callable( $this->option( 'filter_menus' ) ) ) {
+				return wponion_callback( $this->option( 'filter_menus' ), $this );
+			}
+			return $this->option( 'filter_menus' );
+		}
+
+		/**
+		 * Message to be displayed when there are no items
+		 */
+		public function no_items() {
+			echo $this->option( 'no_items', __( 'No Items Found', 'wponion' ) );
 		}
 
 		/**
@@ -315,6 +364,24 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		/**
 		 * General Overrides To Make sure it works good.
 		 */
+
+		/**
+		 * Generates content for a single row of the table
+		 *
+		 * @param object $item The current item
+		 *
+		 * @since 3.1.0
+		 */
+		public function single_row( $item ) {
+			$class      = $this->get_html_classes( 'content' );
+			$html_class = ( wponion_is_callable( $class ) ) ? wponion_callback( $class, array(
+				$item,
+				&$this,
+			) ) : $class;
+			echo '<tr class="' . wponion_html_class( $html_class ) . '">';
+			$this->single_row_columns( $item );
+			echo '</tr>';
+		}
 
 		/**
 		 * @param bool   $text
@@ -499,7 +566,6 @@ HTML;
 		 * @since 3.1.0
 		 *
 		 * @staticvar int $cb_counter
-		 *
 		 */
 		public function print_column_headers( $with_id = true ) {
 			list( $columns, $hidden, $sortable, $primary ) = $this->get_column_info();
@@ -556,7 +622,26 @@ HTML;
 		 *
 		 */
 		protected function get_table_classes() {
-			return array( 'wp-list-table', 'widefat', 'fixed', 'striped', $this->_args['plural'] );
+			$class = wponion_html_class( $this->get_html_classes( 'table' ), array(), false );
+
+			if ( $this->is_wp_style() ) {
+				return wponion_html_class( wp_parse_args( $class, array(
+					'wp-list-table',
+					'widefat',
+					'striped',
+					$this->_args['plural'],
+				) ) );
+			}
+
+			if ( $this->is_bs_style() ) {
+				return wponion_html_class( wp_parse_args( $class, array(
+					'table',
+					'table-striped',
+					$this->_args['plural'],
+				) ) );
+			}
+
+			return wponion_html_class( wp_parse_args( $class, array( $this->_args['plural'] ) ) );
 		}
 
 		/**
@@ -568,17 +653,41 @@ HTML;
 			$args     = array( 'class' => $this->get_table_classes() );
 			$singular = $this->_args['singular'];
 			$tbody    = ( $singular ) ? ' data-wp-list="list:' . $singular . '"' : '';
-			$this->display_tablenav( 'top' );
-			$this->screen->render_screen_reader_content( 'heading_list' );
 
-			echo '<table ' . wponion_array_to_html_attributes( $args ) . '> <thead><tr>';
-			$this->print_column_headers();
-			echo '</tr></thead><tbody id="the-list" ' . $tbody . '>';
+			if ( true === $this->option( 'tablenav_top' ) ) {
+				$this->display_tablenav( 'top' );
+			}
+
+			$this->screen->render_screen_reader_content( 'heading_list' );
+			$this->render_table_html();
+			if ( true === $this->option( 'tablenav_bottom' ) ) {
+				$this->display_tablenav( 'bottom' );
+			}
+		}
+
+		/**
+		 * Renders Table's HTML.
+		 */
+		protected function render_table_html() {
+			echo '<table class="' . $this->get_table_classes() . '">';
+
+			if ( true ) {
+				echo '<thead class="' . $this->get_html_classes( 'thead' ) . '"><tr>';
+				$this->print_column_headers();
+				echo '</tr></thead>';
+			}
+
+			echo '<tbody>';
 			$this->display_rows_or_placeholder();
-			echo '</tbody> <tfoot><tr>';
-			$this->print_column_headers( false );
-			echo '</tr></tfoot> </table>';
-			$this->display_tablenav( 'bottom' );
+			echo '</tbody>';
+
+			if ( true ) {
+				echo '<tfoot class="' . $this->get_html_classes( 'tfoot' ) . '"><tr>';
+				$this->print_column_headers( false );
+				echo '</tr></tfoot>';
+			}
+
+			echo '</table>';
 		}
 	}
 }
