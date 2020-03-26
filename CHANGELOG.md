@@ -5,6 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.4.3] - 26/03/2020
+## Added
+* WPOnion Icon Library
+* Bootstrap Style WP-List Table
+* Added Markdown for tooltips.
+
+## Changed
+*Bump [sweetalert2] from `9.10.5` to `9.10.6`
+
 # [1.4.2] - 24/03/2020
 ## Added
 * Array Access Trait For `ArrayAccess`
@@ -739,7 +748,14 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
-
+[1.4.9]: https://github.com/wponion/wponion/releases/tag/1.4.9
+[1.4.8]: https://github.com/wponion/wponion/releases/tag/1.4.8
+[1.4.7]: https://github.com/wponion/wponion/releases/tag/1.4.7
+[1.4.6]: https://github.com/wponion/wponion/releases/tag/1.4.6
+[1.4.5]: https://github.com/wponion/wponion/releases/tag/1.4.5
+[1.4.4]: https://github.com/wponion/wponion/releases/tag/1.4.4
+[1.4.3]: https://github.com/wponion/wponion/releases/tag/1.4.3
+[1.4.2]: https://github.com/wponion/wponion/releases/tag/1.4.2
 [1.4.1]: https://github.com/wponion/wponion/releases/tag/1.4.1
 [1.4.0]: https://github.com/wponion/wponion/releases/tag/1.4.0
 [1.3.9]: https://github.com/wponion/wponion/releases/tag/1.3.9

@@ -558,6 +558,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		protected function tooltip_data( $main_data = array(), $extra_args = array(), $localize = true ) {
 			$data = $this->handle_data( $main_data, $this->parse_args( $extra_args, array(
 				'content'     => false,
+				'allowHTML'   => true,
 				'js_field_id' => $this->js_field_id(),
 			) ), 'content' );
 			return wponion_tooltip( $data, false, false, $localize );
