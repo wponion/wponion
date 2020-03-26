@@ -27,6 +27,7 @@
     "tippy.js": "^6.1.0",
     "vsp-js-helper": "^1.0.32",
     "wordpress-js-ports": "^1.0.9",
-    "@wponion/dependon": "^2.0.5"
+    "@wponion/dependon": "^2.0.5",
+    "@wponion/icons": "^1.0.0"
   }
 }
