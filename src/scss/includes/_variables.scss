@@ -22,6 +22,13 @@ $wponionThemes: map-merge((
 	"light": $light,
 	"dark": $dark
 ), $wponionThemes);
+$breakpoints: (
+  'xs':  ( max-width:  575px ),
+  'sm':  ( max-width:  767px ),
+  'md':  ( max-width:  991px ),
+  'lg':  ( max-width:  1199px ),
+  'xl':  ( min-width: 1200px ),
+) !default;
 
 $wponion_metabox_menu_color: #e14d43;
 $wponion_metabox_a_color: #fff;

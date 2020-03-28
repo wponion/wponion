@@ -2,9 +2,24 @@
 	.wponion-fieldset {
 		.wponion-checker {
 			margin-bottom: 5px;
+			@include respond-to('xs', 'sm', 'md') {
+				margin-bottom: $element_gurtter;
+			}
 
 			input {
 				margin-right: 10px;
+				@include respond-to('xs', 'sm', 'md') {
+					width:  1.25rem;
+					height: 1.25rem;
+
+					&:checked {
+						&:before {
+							width:  1.55rem;
+							height: 1.55rem;
+							margin: -0.1875rem -0.3125rem;
+						}
+					}
+				}
 			}
 
 			ul {

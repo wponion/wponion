@@ -32,6 +32,13 @@
 	}
 
 	.wponion-modules {
+		@include respond-to('xs', 'sm') {
+			margin-bottom: $element_gurtter;
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+
 		> .wponion-element-subheading {
 			border: 1px dashed #ddd;
 

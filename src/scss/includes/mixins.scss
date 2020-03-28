@@ -41,7 +41,7 @@
 			flex:          0 0 100% !important;
 			max-width:     100% !important;
 			width:         100% !important;
-			margin-bottom: 10px;
+			margin-bottom: $element_gurtter;
 			margin-right:  0;
 		}
 
@@ -109,4 +109,16 @@
 		}
 	}
 
+}
+
+@mixin respond-to($break_points...) {
+	@each $breakpoint in $break_points {
+		@if map-has-key($breakpoints, $breakpoint) {
+			@media #{inspect(map-get($breakpoints, $breakpoint))} {
+				@content;
+			}
+		} @else {
+			@warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`.Available breakpoints are: #{map-keys($breakpoints)}.";
+		}
+	}
 }

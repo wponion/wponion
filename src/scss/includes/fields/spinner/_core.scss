@@ -18,7 +18,7 @@
 				}
 			}
 
-			.input-group-append{
+			.input-group-append {
 				> .input-group-text:last-child {
 					border-top-right-radius:    0;
 					border-bottom-right-radius: 0;
@@ -39,6 +39,10 @@
 			cursor:           pointer;
 			border:           $element_border;
 			padding:          5px 10px;
+
+			@include respond-to('xs', 'sm') {
+				padding: 10px;
+			}
 
 			&:hover {
 				background-color: #e3e3e3;

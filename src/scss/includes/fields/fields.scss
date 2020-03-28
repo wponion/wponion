@@ -63,6 +63,11 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 
 	.row {
 		> .wponion-element-title {
+
+			@include respond-to('xs', 'sm') {
+				margin-bottom: $element_gurtter;
+			}
+
 			h4 {
 				font-size: 14px;
 				display:   inline-block;

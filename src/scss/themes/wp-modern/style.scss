@@ -1,11 +1,11 @@
 @import "../../includes/variables";
 
-$metabox_menu_color: #e14d43;
-$metabox_a_color: #fff;
-$metabox_header_bg: #26292c;
-$metabox_a_bg: $metabox_header_bg;
+$metabox_menu_color:    #e14d43;
+$metabox_a_color:       #fff;
+$metabox_header_bg:     #26292c;
+$metabox_a_bg:          $metabox_header_bg;
 $metabox_menu_bg_color: #32373C;
-$metabox_menu_width: 200px;
+$metabox_menu_width:    200px;
 
 .wponion-menu {
 	background: $metabox_a_bg;
@@ -305,6 +305,12 @@ $metabox_menu_width: 200px;
 				display:        table-cell;
 				vertical-align: top;
 
+				@include respond-to('xs', 'sm') {
+					width:     100%;
+					max-width: 100%;
+					display:   block;
+				}
+
 				& + .content-wrap {
 					max-width:      calc(100% - 30px);
 					width:          calc(100% - 30px);
@@ -312,6 +318,12 @@ $metabox_menu_width: 200px;
 					vertical-align: top;
 					padding-left:   15px;
 					padding-right:  15px;
+
+					@include respond-to('xs', 'sm') {
+						width:     100%;
+						max-width: 100%;
+						display:   block;
+					}
 				}
 
 				.wponion-menu-bg {
