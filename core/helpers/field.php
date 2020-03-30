@@ -35,6 +35,7 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			//Field Related.
 			'type'            => false, # Type of the field,
 			'style'           => false,
+			'css'             => false,
 			'placeholder'     => false,
 			'disabled'        => false,
 			'attributes'      => array(), # attributes of field. supporting only html standard attributes

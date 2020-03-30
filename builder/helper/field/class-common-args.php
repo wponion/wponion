@@ -185,6 +185,17 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		}
 
 		/**
+		 * Field Custom CSS Style.
+		 *
+		 * @param null $css
+		 *
+		 * @return $this
+		 */
+		public function css( $css = null ) {
+			return $this->_set( 'css', $css );
+		}
+
+		/**
 		 * Field Placeholder.
 		 *
 		 * @param null $placeholder

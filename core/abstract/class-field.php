@@ -3,6 +3,7 @@
 namespace WPOnion;
 
 use WPOnion\Registry\Field_Types;
+use WPOnion\Utils\CSS_Parser;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -202,6 +203,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$this->debug( __( 'Module', 'wponion' ), $this->module() );
 			$this->wp_pointer();
 			$this->localize_field();
+			$this->field_custom_css();
 
 			if ( false !== $this->data( 'after_render' ) && wponion_is_callable( $this->data( 'after_render' ) ) ) {
 				wponion_callback( $this->data( 'after_render' ), array( &$this, $this->js_field_id(), $only_field ) );
@@ -471,8 +473,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function get_default_column_class() {
 			$return             = array();
-			$return['title']    = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2';
-			$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10';
+			$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3';
+			$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9';
 			switch ( $this->module() ) {
 				case 'taxonomy':
 					$return['title']    = 'col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3';
@@ -492,8 +494,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9';
 					break;
 				default:
-					$return['title']    = 'col-xs-12 col-sm-12 col-md-2 col-lg-2 col-xl-2';
-					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10';
+					$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3';
+					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9';
 					break;
 			}
 			if ( false === $this->has( 'title' ) || true === $this->data( 'hide_title' ) ) {
@@ -1121,6 +1123,16 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				return wponion_callback( $function, array( $this->base_unique() ) );
 			}
 			return parent::module();
+		}
+
+		/**
+		 * Compiles And Add CSS Code To WPonion localize.
+		 */
+		public function field_custom_css() {
+			if ( ! empty( $this->data( 'css' ) ) ) {
+				$css = CSS_Parser::parse( $this->data( 'css' ), 'div[data-wponion-jsid="' . $this->js_field_id() . '"]' );
+				wponion_localize()->css( 'fields', $css, false );
+			}
 		}
 
 		/**
