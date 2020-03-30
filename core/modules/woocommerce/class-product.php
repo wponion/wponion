@@ -502,7 +502,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		public function variation_variable_attributes( $loop, $variation_data, $variation ) {
 			$this->render_variation_fields_html( 'default', $loop, $variation_data, $variation );
-			wponion_localize()->render_js_args();
+			wponion_localize()->render_css_js_args();
 		}
 
 		/**
