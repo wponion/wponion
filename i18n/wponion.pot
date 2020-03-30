@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.4.3\n"
+"Project-Id-Version: WPOnion 1.4.4\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-03-26T05:00:04+00:00\n"
+"POT-Creation-Date: 2020-03-30T06:44:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -71,35 +71,35 @@ msgstr ""
 msgid "Unable To Fetch The Field"
 msgstr ""
 
-#: core/abstract/class-field.php:198
+#: core/abstract/class-field.php:199
 msgid "Raw Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:199
+#: core/abstract/class-field.php:200
 msgid "Field Args"
 msgstr ""
 
-#: core/abstract/class-field.php:200
+#: core/abstract/class-field.php:201
 msgid "Field Value"
 msgstr ""
 
-#: core/abstract/class-field.php:201
+#: core/abstract/class-field.php:202
 msgid "Unique"
 msgstr ""
 
-#: core/abstract/class-field.php:202
+#: core/abstract/class-field.php:203
 msgid "Module"
 msgstr ""
 
-#: core/abstract/class-field.php:353
+#: core/abstract/class-field.php:355
 msgid "Field Rendered In"
 msgstr ""
 
-#: core/abstract/class-field.php:353
+#: core/abstract/class-field.php:355
 msgid "Seconds"
 msgstr ""
 
-#: core/abstract/class-field.php:663
+#: core/abstract/class-field.php:665
 msgid "Field Errors"
 msgstr ""
 
@@ -236,80 +236,80 @@ msgid "Invalid Option Type"
 msgstr ""
 
 #. translators:
-#: core/class-localize-api.php:184
+#: core/class-localize-api.php:218
 msgid "This debug data is only visible when `WP_DEBUG` or `WPONION_FIELD_DEBUG` is defined `true` "
 msgstr ""
 
-#: core/class-localize-api.php:185
+#: core/class-localize-api.php:219
 msgid "**PHP Args:** is the array which is passed to the framework in php "
 msgstr ""
 
-#: core/class-localize-api.php:186
+#: core/class-localize-api.php:220
 msgid "**JS Args:** is the array which is used by the JS plugins in this framework. for each plugin it shows the plugin name and its array passed to it"
 msgstr ""
 
-#: core/class-localize-api.php:196
+#: core/class-localize-api.php:230
 msgid "As JSON"
 msgstr ""
 
-#: core/class-localize-api.php:197
+#: core/class-localize-api.php:231
 msgid "Global WPOnion JSON Output"
 msgstr ""
 
-#: core/class-localize-api.php:198
+#: core/class-localize-api.php:232
 msgid "PHP Args"
 msgstr ""
 
-#: core/class-localize-api.php:199
+#: core/class-localize-api.php:233
 msgid "JS Args"
 msgstr ""
 
-#: core/class-localize-api.php:200
+#: core/class-localize-api.php:234
 msgid "Unknown Error. Try Again"
 msgstr ""
 
-#: core/class-localize-api.php:201
+#: core/class-localize-api.php:235
 msgid "Click To View Field Debug Info"
 msgstr ""
 
-#: core/class-localize-api.php:202
+#: core/class-localize-api.php:236
 msgid "Please correct the errors highlighted below and try again."
 msgstr ""
 
-#: core/class-localize-api.php:203
+#: core/class-localize-api.php:237
 #: fields/accordion/class-accordion.php:28
 #: fields/import-export/class-backup-handler.php:127
 msgid "Delete"
 msgstr ""
 
-#: core/class-localize-api.php:204
+#: core/class-localize-api.php:238
 msgid "Processing ..."
 msgstr ""
 
-#: core/class-localize-api.php:205
+#: core/class-localize-api.php:239
 #: fields/import-export/class-backup-handler.php:126
 msgid "Restore"
 msgstr ""
 
-#: core/class-localize-api.php:206
+#: core/class-localize-api.php:240
 #: core/modules/settings/class-settings.php:284
 #: core/modules/settings/class-settings.php:286
 msgid "Settings Updated"
 msgstr ""
 
-#: core/class-localize-api.php:207
+#: core/class-localize-api.php:241
 msgid "Email Sent"
 msgstr ""
 
-#: core/class-localize-api.php:208
+#: core/class-localize-api.php:242
 msgid "Copied"
 msgstr ""
 
-#: core/class-localize-api.php:209
+#: core/class-localize-api.php:243
 msgid "Click To Copy"
 msgstr ""
 
-#: core/class-localize-api.php:210
+#: core/class-localize-api.php:244
 msgid "Success"
 msgstr ""
 
@@ -394,24 +394,24 @@ msgid "Right Sidebar"
 msgstr ""
 
 #. translators: Creates a msg says that <p>requested field type not found</p>
-#: core/helpers/field.php:230
+#: core/helpers/field.php:231
 msgid "%1$s Requested Field Type %2$s  Is Not Registed With WPOnion %3$s"
 msgstr ""
 
-#: core/helpers/field.php:249
+#: core/helpers/field.php:250
 msgid "Callback Arguments"
 msgstr ""
 
 #. translators:
-#: core/helpers/field.php:256
+#: core/helpers/field.php:257
 msgid "<code>%s</code> Field Class Not Found."
 msgstr ""
 
-#: core/helpers/field.php:574
+#: core/helpers/field.php:575
 msgid "Websafe Fonts"
 msgstr ""
 
-#: core/helpers/field.php:584
+#: core/helpers/field.php:585
 msgid "Google Fonts"
 msgstr ""
 

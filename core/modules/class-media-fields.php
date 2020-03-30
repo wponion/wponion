@@ -121,7 +121,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 			}
 
 			$this->catch_output();
-			wponion_localize()->render_js_args();
+			wponion_localize()->render_css_js_args();
 			$script = $this->catch_output( 'stop' );
 			$form[] = array(
 				'input' => 'html',

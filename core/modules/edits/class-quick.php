@@ -176,7 +176,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 				$this->db_values = array();
 
 				if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
-					wponion_localize()->render_js_args();
+					wponion_localize()->render_css_js_args();
 				}
 			}
 		}

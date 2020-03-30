@@ -1,7 +1,7 @@
 <?php
 /**
- * Last Updated: Thu 26-Mar-2020 / 04:59:58:am
- * Total Class:  246
+ * Last Updated: Mon 30-Mar-2020 / 06:44:46:am
+ * Total Class:  247
  * Namespace: 
  */
 
@@ -178,6 +178,7 @@ return array (
   'WPOnion\\Traits\\Self_Instance' => 'traits/trait-self-instance.php',
   'WPOnion\\Traits\\Serializable' => 'traits/trait-serializable.php',
   'WPOnion\\Traits\\Array_Iterator' => 'traits/traits-array-iterator.php',
+  'WPOnion\\Utils\\CSS_Parser' => 'utils/class-css-parser.php',
   'Parsedown' => 'vendors/erusev/parsedown.php',
   'WPOnion\\WP\\Widget' => 'wp/class-widget.php',
   'WPOnion\\WP\\WP_List_Table' => 'wp/class-wp-list-table.php',

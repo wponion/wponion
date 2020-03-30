@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.4.4] - 30/03/2020
+## Added
+* Option to set custom css style per field `$field->css('font-size:12px;')`
+
+## Fixed
+* Responsive Field styles.
+
+## Changed
+* Column Layout changed for all field types
+* Bump [sweetalert2] from `9.10.6` to `9.10.7`
+
+
 # [1.4.3] - 26/03/2020
 ## Added
 * WPOnion Icon Library
