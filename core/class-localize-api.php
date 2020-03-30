@@ -2,6 +2,8 @@
 
 namespace WPOnion;
 
+use WPOnion\Utils\CSS_Parser;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
@@ -15,6 +17,13 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 	 * @since 1.0
 	 */
 	class Localize_API extends Bridge {
+		/**
+		 * Stores CSS Args.
+		 *
+		 * @var array
+		 */
+		private $css_args = array();
+
 		/**
 		 * js_args
 		 *
@@ -37,14 +46,21 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		private $scripts_check = 'wponion-core';
 
 		/**
+		 * styles_check
+		 *
+		 * @var string
+		 */
+		private $styles_check = 'wponion-core';
+
+		/**
 		 * WPOnion_Localize_API constructor.
 		 */
 		public function __construct() {
-			$this->add_action( 'admin_footer', 'render_js_args' );
-			$this->add_action( 'customize_controls_print_footer_scripts', 'render_js_args', 9999999999999 );
-			$this->add_action( 'wponion_metabox_ajax_render', 'render_js_args' );
-			$this->add_action( 'wponion_module_woocommerce_ajax_variation_fields', 'render_js_args' );
-			$this->add_action( 'wp_footer', 'render_js_args' );
+			$this->add_action( 'admin_footer', 'render_css_js_args' );
+			$this->add_action( 'customize_controls_print_footer_scripts', 'render_css_js_args', 9999999999999 );
+			$this->add_action( 'wponion_metabox_ajax_render', 'render_css_js_args' );
+			$this->add_action( 'wponion_module_woocommerce_ajax_variation_fields', 'render_css_js_args' );
+			$this->add_action( 'wp_footer', 'render_css_js_args' );
 			$this->add_action( 'before_wp_tiny_mce', 'copy_wpeditor_args' );
 			$this->add_action( 'quicktags_settings', 'copy_quicktags_settings', 9999, 2 );
 			$this->js_args['wponion_core'] = array();
@@ -75,7 +91,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 					$this->save_wpeditor_quicktags_settings( $key, $val );
 				}
 			}
-			$this->render_js_args();
+			$this->render_css_js_args();
 		}
 
 		/**
@@ -110,6 +126,24 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		public function add( $object_id = '', $args = array(), $merge = true, $convert_js_funcion = true ) {
 			$arg                         = ( true === $convert_js_funcion ) ? $this->handle_js_function( $args ) : $args;
 			$this->js_args[ $object_id ] = ( true === $merge && isset( $this->js_args[ $object_id ] ) ) ? $this->parse_args( $arg, $this->js_args[ $object_id ] ) : $arg;
+			return $this;
+		}
+
+		/**
+		 * Stores CSS Informations.
+		 *
+		 * @param string $object_id object id
+		 * @param string $css css source code.
+		 * @param bool   $compile set true to compile nested css.
+		 *
+		 * @return $this
+		 */
+		public function css( $object_id, $css, $compile = true ) {
+			if ( ! isset( $this->css_args[ $object_id ] ) ) {
+				$this->css_args[ $object_id ] = array();
+			}
+
+			$this->css_args[ $object_id ][] = ( true === $compile ) ? CSS_Parser::parse( $css ) : $css;
 			return $this;
 		}
 
@@ -236,23 +270,27 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		/**
 		 * @param bool $return
 		 *
-		 * @return bool
+		 * @return bool|string
 		 */
-		public function render_js_args( $return = false ) {
+		public function render_css_js_args( $return = false ) {
 			$this->append_data();
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
-				return $this->print_js_data( $return );
+				return $this->print_js_data( $return ) . ' ' . $this->print_css_data();
 			}
+
+			echo $this->print_css_data();
 
 			if ( wp_script_is( $this->scripts_check ) ) {
 				if ( false === wp_script_is( $this->scripts_check, 'done' ) ) {
-					return $this->localize_script( $this->scripts_check );
+					$this->localize_script( $this->scripts_check );
 				} else {
 					$this->print_js_data( false );
 				}
 			}
-			$this->js_args = array();
+
+			$this->js_args  = array();
+			$this->css_args = array();
 			return false;
 		}
 
@@ -280,7 +318,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			return $this;
 		}
 
-
 		/**
 		 * @return array
 		 */
@@ -307,6 +344,26 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				echo $h;
 			}
 			return $h;
+		}
+
+		/**
+		 * Outputs Raw HTML of js info.
+		 *
+		 * @param bool $return
+		 *
+		 * @return string
+		 */
+		private function print_css_data() {
+			if ( ! empty( $this->css_args ) ) {
+				foreach ( $this->css_args as $module => $css_codes ) {
+					if ( ! empty( $this->css_args[ $module ] ) ) {
+						$this->css_args[ $module ] = ( is_array( $css_codes ) ) ? implode( ' ', $css_codes ) : $css_codes;
+						$this->css_args[ $module ] = sprintf( "<style id='wponion-%s-inline-css'>\n%s\n</style>\n", esc_attr( $module ), $this->css_args[ $module ] );
+					}
+				}
+			}
+
+			return implode( ' ', array_filter( $this->css_args ) );
 		}
 
 		/**
