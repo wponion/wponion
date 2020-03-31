@@ -10,18 +10,19 @@ export default class extends WPOnion_Module {
 	 */
 	module_init() {
 		this.form          = jQuery( 'form.wponion-form' );
-		this.form_modified = false;
-
+		this.save_progress = false;
 		this.ui_menu_handler();
 		this.enable_shortcut_key_handler();
-
-		//window.onbeforeunload = () => ( this.form_modified ) ? true : undefined;
-		//this.element.on( 'change keypress', ':input', () => this.form_modified = true );
 
 		if( this.element.hasClass( 'wponion-ajax-save' ) ) {
 			jQuery( 'body' ).on( 'click', 'button.wponion-save', ( e ) => {
 				e.preventDefault();
-				let validator = this.form.validate();
+				if( this.save_progress ) {
+					return;
+				}
+
+				this.save_progress = true;
+				let validator      = this.form.validate();
 
 				if( validator.form() ) {
 					let $data               = this.form.serializeJSON();
@@ -54,12 +55,12 @@ export default class extends WPOnion_Module {
 							window.wponion_init_theme( $elm );
 							window.wponion_dependency( $elm );
 						},
-						error: () => this.element.parent().submit()
+						error: () => this.element.parent().submit(),
+						always: () => this.save_progress = false,
 					} ).send();
 				}
 			} );
 		}
-
 	}
 
 	/**
