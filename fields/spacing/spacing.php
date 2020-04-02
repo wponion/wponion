@@ -132,7 +132,7 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 				'bottom' => '<i class="wpoic-arrow-down"></i>',
 				'left'   => '<i class="wpoic-arrow-left"></i>',
 				'right'  => '<i class="wpoic-arrow-right"></i>',
-				'all'    => '<i class="wpoic-all"></i>',
+				'all'    => '<i class="wpoic-all-direction"></i>',
 			);
 		}
 

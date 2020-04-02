@@ -66,7 +66,7 @@ JAVASCRIPT;
 		public static function render_html( $data, $args, $container_arg = false ) {
 			$content  = self::render_text_data( $data );
 			$_content = '<p>';
-			$email    = '<a style="margin-left:10px;" href="javascript:void(0);" class="button button-secondary wponion-system-report-email">' . __( 'Send As Email', 'wponion' ) . '</a>';
+			$email    = '<a style="margin-left:10px;" href="javascript:void(0);" class="button button-secondary wponion-system-report-email">' . wpo_icon( 'wpoic-envelope' ) . ' ' . __( 'Send As Email', 'wponion' ) . '</a>';
 			$_content .= __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ', 'wponion' );
 			$_content .= '</p>';
 			$_content .= '<div id="sysreport" style="display:none;" ><textarea style="width:100%;min-height:250px;"  >';
@@ -239,7 +239,7 @@ JAVASCRIPT;
 				json_decode( $value );
 
 				if ( JSON_ERROR_NONE === json_last_error() ) {
-					return '			
+					return '
 ```json
 ' . $value . '
 ```

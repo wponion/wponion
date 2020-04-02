@@ -55,10 +55,10 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 
 			$backup_import_id = $this->js_field_id() . '_backup_import';
 			$backup_export_id = $this->js_field_id() . '_backup_export';
-			$download_label   = __( 'Download Backup', 'wponion' );
-			$import_label     = __( 'Import Backup', 'wponion' );
+			$download_label   = wpo_icon( 'wpoic-download' ) . ' ' . __( 'Download Backup', 'wponion' );
+			$import_label     = wpo_icon( 'wpoic-upload' ) . ' ' . __( 'Import Backup', 'wponion' );
 			$backups          = __( 'Saved Backups', 'wponion' );
-			$create_backup    = __( 'Create Backup', 'wponion' );
+			$create_backup    = wpo_icon( 'wpoic-database' ) . ' ' . __( 'Create Backup', 'wponion' );
 			$ptag             = __( 'You options have been backed up. You can always restore your options by clicking the <strong>Restore</strong> button below:', 'wponion' );
 			$list             = Backup_Handler::get_backup_lists( $this->base_unique(), $this->module(), false );
 
@@ -83,7 +83,7 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="right">
 		<div class="saved-backup-headers">
 			<h2>$backups</h2>
