@@ -5,6 +5,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.4.5] - 02/04/2020
+
+## Fixed
+* Multiple Ajax Request when using CTRL+S
+* Warning When Direct CSS Added `$field->parse('color:red');` fixed.
+* Updated WPOnion to use `wp_nav_menu_item_custom_fields` hook instead of custom walker if wordpress version is 5.4 =>
+
+## Changed
+* Bump [sweetalert2] from `9.10.7` to `9.10.8`
+* Bump [WPOnion Icons] from `1.0.0' to `1.0.1`
+* **button** Field type changed to UI
+* **modal** Field type changed to UI
+* **wp_list_table** Field type changed to UI
+
 # [1.4.4] - 30/03/2020
 ## Added
 * Option to set custom css style per field `$field->css('font-size:12px;')`
@@ -15,7 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Changed
 * Column Layout changed for all field types
 * Bump [sweetalert2] from `9.10.6` to `9.10.7`
-
 
 # [1.4.3] - 26/03/2020
 ## Added
@@ -59,7 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Migrated WPOnion To New Icon Set.
 
 ## Added
-* Brand New [WPOnion Icon Fonts](https://icons.wponion.com)
+* Brand New [WPOnion Icons]
 
 ## Removed
 * Old WPOnion Icon Fonts.
@@ -832,3 +845,4 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [acrom]:https://www.npmjs.com/package/acorn
 [WPOnion_DependOn Demo]:https://dependson.wponion.com
 [WPOnion_DependOn]:https://github.com/wponion/dependsOn
+[WPOnion Icons]:https://icons.wponion.com
