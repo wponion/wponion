@@ -73,7 +73,7 @@ JAVASCRIPT;
 			$_content .= $content;
 			$_content .= '</textarea></div>';
 			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ', 'wponion' ) . '</p>';
-			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
+			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . wpo_icon( 'wpoic-file-text' ) . ' ' . __( 'Get system report', 'wponion' ) . '</a>';
 			if ( wpo_is_container( $container_arg ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
 				$_content .= wponion_tooltip( __( 'Email System Info To The Plugin Developer / Author', 'wponion' ), array(
 					'placement' => 'bottom',
