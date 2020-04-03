@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set( 'Asia/Kolkata' );
 set_time_limit( 0 );
 error_reporting( E_ALL );
 define( 'ABSPATH', '' );
