@@ -204,7 +204,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_field( 'clone', 'all' );
 			wponion_register_field( 'accordion', 'all' );
 			wponion_register_field( 'background', 'all' );
-			wponion_register_field( 'button', 'all' );
 			wponion_register_field( 'checkbox', 'all' );
 			wponion_register_field( 'color_picker', 'all' );
 			wponion_register_field( 'date_picker', 'all' );
@@ -237,11 +236,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_field( 'dimensions', 'all' );
 			wponion_register_field( 'button_set', 'all' );
 			wponion_register_field( 'metabox', 'all' );
-			wponion_register_field( 'modal', 'all' );
 			wponion_register_field( 'spinner', 'all' );
 			wponion_register_field( 'range_slider', 'all' );
 			wponion_register_field( 'code_editor', 'all' );
-			wponion_register_field( 'wp_list_table', 'all' );
 			wponion_register_field( 'visual_editor', 'all' );
 			wponion_register_field( 'visual_button_editor', 'all' );
 			wponion_register_field( 'css_shadow', 'all' );
@@ -252,7 +249,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			 * Registers UI Field.
 			 */
 			wponion_register_ui_field( 'divider', 'all' );
+			wponion_register_ui_field( 'button', 'all' );
 			wponion_register_ui_field( 'content', 'all' );
+			wponion_register_ui_field( 'wp_list_table', 'all' );
+			wponion_register_ui_field( 'modal', 'all' );
 			wponion_register_ui_field( 'heading', 'all' );
 			wponion_register_ui_field( 'iframe', 'all' );
 			wponion_register_ui_field( 'jambo_content', 'all' );

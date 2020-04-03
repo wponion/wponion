@@ -61,6 +61,11 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		 */
 		protected $sortable_columns = array();
 
+		/**
+		 * Stores Pagination Info.
+		 *
+		 * @var string
+		 */
 		protected $_pagination = '';
 
 		/**
@@ -115,12 +120,12 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				'search'           => true,
 				'html_class'       => array(
 					'table'   => '',
-					'thead'   => '',
-					'tfoot'   => '',
 					'content' => false, // Callback.
 				),
 				'tablenav_top'     => true,
 				'tablenav_bottom'  => true,
+				'table_head'       => true, // true / false or even with array of custom attributes
+				'table_foot'       => true, // true / false or even with array of custom attributes
 			);
 		}
 
@@ -508,10 +513,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		 */
 		protected function extra_tablenav( $which ) {
 			if ( wponion_is_callable( $this->option( 'extra_tablenav' ) ) ) {
-				echo wponion_callback( $this->option( 'extra_tablenav' ), array(
-					$which,
-					$this,
-				) );
+				echo wponion_callback( $this->option( 'extra_tablenav' ), array( $which, $this ) );
 			}
 		}
 
@@ -627,6 +629,7 @@ HTML;
 			if ( $this->is_wp_style() ) {
 				return wponion_html_class( wp_parse_args( $class, array(
 					'wp-list-table',
+					'fixed',
 					'widefat',
 					'striped',
 					$this->_args['plural'],
@@ -651,10 +654,6 @@ HTML;
 		 * @since 3.1.0
 		 */
 		public function display() {
-			$args     = array( 'class' => $this->get_table_classes() );
-			$singular = $this->_args['singular'];
-			$tbody    = ( $singular ) ? ' data-wp-list="list:' . $singular . '"' : '';
-
 			if ( true === $this->option( 'tablenav_top' ) ) {
 				$this->display_tablenav( 'top' );
 			}
@@ -667,28 +666,63 @@ HTML;
 		}
 
 		/**
+		 * Converts Table Component Arguments into proper html attribute array.
+		 *
+		 * @param       $user_vals
+		 * @param array $default_attr
+		 *
+		 * @return array|object
+		 */
+		protected function args_to_table_attr( $user_vals, $default_attr = array() ) {
+			$user_vals             = ( true === $user_vals ) ? array() : $user_vals;
+			$default_attr['class'] = ( isset( $default_attr['class'] ) ) ? $default_attr['class'] : array();
+
+			if ( isset( $user_vals['class'] ) ) {
+				$default_attr['class'] = wponion_html_class( $user_vals['class'], $default_attr['class'], true );
+			}
+
+			$attrs          = wponion_parse_args( $user_vals, $default_attr );
+			$attrs['class'] = wponion_html_class( $attrs['class'] );
+			return $attrs;
+		}
+
+		/**
 		 * Renders Table's HTML.
 		 */
 		protected function render_table_html() {
+			$singular = $this->_args['singular'];
+			$tbody    = ( $singular ) ? ' data-wp-list="list:' . $singular . '"' : '';
+
 			echo '<table class="' . $this->get_table_classes() . '">';
 
-			if ( true ) {
-				echo '<thead class="' . $this->get_html_classes( 'thead' ) . '"><tr>';
-				$this->print_column_headers();
-				echo '</tr></thead>';
+			if ( false !== $this->option( 'table_head' ) ) {
+				$this->table_head_foot( 'head' );
 			}
 
-			echo '<tbody>';
+			echo '<tbody id="the-list" ' . $tbody . '>';
 			$this->display_rows_or_placeholder();
 			echo '</tbody>';
 
-			if ( true ) {
-				echo '<tfoot class="' . $this->get_html_classes( 'tfoot' ) . '"><tr>';
-				$this->print_column_headers( false );
-				echo '</tr></tfoot>';
+			if ( false !== $this->option( 'table_foot' ) ) {
+				$this->table_head_foot( 'foot' );
 			}
 
 			echo '</table>';
+		}
+
+		/**
+		 * Generates Table Head / Foot.
+		 *
+		 * @param $type
+		 */
+		protected function table_head_foot( $type ) {
+			$is_foot = ( 'foot' === $type ) ? true : false;
+			$args    = $this->args_to_table_attr( $this->option( 'table_' . $type ), array(
+				'class' => $this->get_html_classes( 't' . $type ),
+			) );
+			echo '<t' . $type . ' ' . wponion_array_to_html_attributes( $args ) . '><tr>';
+			$this->print_column_headers( $is_foot );
+			echo '</tr></t' . $type . '>';
 		}
 	}
 }

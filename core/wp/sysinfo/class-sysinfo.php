@@ -66,14 +66,14 @@ JAVASCRIPT;
 		public static function render_html( $data, $args, $container_arg = false ) {
 			$content  = self::render_text_data( $data );
 			$_content = '<p>';
-			$email    = '<a style="margin-left:10px;" href="javascript:void(0);" class="button button-secondary wponion-system-report-email">' . __( 'Send As Email', 'wponion' ) . '</a>';
+			$email    = '<a style="margin-left:10px;" href="javascript:void(0);" class="button button-secondary wponion-system-report-email">' . wpo_icon( 'wpoic-envelope' ) . ' ' . __( 'Send As Email', 'wponion' ) . '</a>';
 			$_content .= __( ' The system information shown below can also be copied and pasted into support requests such as on the WordPress.org forums, or to your theme and plugin developers. ', 'wponion' );
 			$_content .= '</p>';
 			$_content .= '<div id="sysreport" style="display:none;" ><textarea style="width:100%;min-height:250px;"  >';
 			$_content .= $content;
 			$_content .= '</textarea></div>';
 			$_content .= '<p>' . __( ' Some information may be filtered out from the list you are about to copy, this is information that may be considered private, and is not meant to be shared in a public forum. ', 'wponion' ) . '</p>';
-			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . __( 'Get system report', 'wponion' ) . '</a>';
+			$_content .= '<a href="javascript:void(0);" data-another-text="' . __( 'Copy Report', 'wponion' ) . '" class="button button-primary wponion-debug-report">' . wpo_icon( 'wpoic-file-text' ) . ' ' . __( 'Get system report', 'wponion' ) . '</a>';
 			if ( wpo_is_container( $container_arg ) && ! empty( $container_arg->get_var( 'developer' ) ) ) {
 				$_content .= wponion_tooltip( __( 'Email System Info To The Plugin Developer / Author', 'wponion' ), array(
 					'placement' => 'bottom',
@@ -239,7 +239,7 @@ JAVASCRIPT;
 				json_decode( $value );
 
 				if ( JSON_ERROR_NONE === json_last_error() ) {
-					return '			
+					return '
 ```json
 ' . $value . '
 ```

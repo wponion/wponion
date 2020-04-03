@@ -65,7 +65,7 @@ if ( ! class_exists( '\WPOnion\Utils\CSS_Parser' ) ) {
 		}
 
 		/**
-		 * @param string      $block
+		 * @param array       $block
 		 * @param string|bool $global_id Global Elemnt ID to wrap everything under it.
 		 *
 		 * @return string
@@ -75,8 +75,10 @@ if ( ! class_exists( '\WPOnion\Utils\CSS_Parser' ) ) {
 			if ( is_array( $block ) ) {
 				foreach ( $block as $selector ) {
 					if ( isset( $selector['css'] ) ) {
-						$parent_selector = self::parent_selectors( $block, $selector['nest_level'], $global_id );
-						$local_selector  = $selector['name'] . ' { ' . $selector['css'] . ' }';
+						$level           = ( isset( $selector['nest_level'] ) ) ? $selector['nest_level'] : 0;
+						$parent_selector = self::parent_selectors( $block, $level, $global_id );
+						$local_selector  = isset( $selector['name'] ) ? $selector['name'] : '';
+						$local_selector  .= ' { ' . $selector['css'] . ' }';
 						$css[]           = ( ! empty( $parent_selector ) ) ? $parent_selector . $local_selector : $local_selector;
 					}
 				}
@@ -94,7 +96,7 @@ if ( ! class_exists( '\WPOnion\Utils\CSS_Parser' ) ) {
 		protected static function parent_selectors( $block, $nest_level, $global_id ) {
 			$all_parents = array( $global_id );
 			foreach ( $block as $selector ) {
-				if ( $selector['nest_level'] < $nest_level ) {
+				if ( isset( $selector['nest_level'] ) && $selector['nest_level'] < $nest_level ) {
 					$all_parents[] = $selector['name'];
 				}
 			}

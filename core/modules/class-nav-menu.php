@@ -58,7 +58,8 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 * On Page Load.
 		 */
 		public function on_page_load() {
-			if ( ! has_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, 'change_nav_walker' ) ) ) {
+			$iswp_less = is_version_lt( 'wordpress', '5.4' );
+			if ( $iswp_less && ! has_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, 'change_nav_walker' ) ) ) {
 				add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, 'change_nav_walker' ) );
 			}
 			$this->add_action( 'admin_enqueue_scripts', 'load_assets' );
