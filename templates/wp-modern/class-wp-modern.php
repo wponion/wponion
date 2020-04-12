@@ -211,7 +211,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 					$attr['class'] = wponion_html_class( $attr['class'], array(
 						wponion_html_class( $menu['class'] ),
 						( ! empty( $men['icon'] ) ) ? 'menu-with-icon' : '',
-						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'menu-internal-href' : '',
+						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'wpo-internal-href' : '',
 						( true === $menu['is_active'] ) ? 'active' : '',
 						( true === $menu['is_disabled'] || true === $menus[ $menu_slug ]['is_disabled'] ) ? 'disabled ' : '',
 					) );
@@ -258,7 +258,7 @@ if ( ! class_exists( '\WPOnion\Theme\WP_Modern' ) ) {
 							wponion_html_class( $menu['class'] ),
 							'menu-tab',
 							( ! empty( $men['icon'] ) ) ? 'menu-with-icon' : '',
-							( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'menu-internal-href' : '',
+							( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'wpo-internal-href' : '',
 							( true === $menu['is_active'] ) ? 'active menu-show-child open' : '',
 							( true === $menu['is_disabled'] ) ? 'disabled ' : '',
 						) );
@@ -422,7 +422,7 @@ $prefix .wponion-framework.wponion-wp_modern-theme .wponion-menu ul a.active{
 }
 
 /* Main Menu Hover */
-$prefix .wponion-framework.wponion-wp_modern-theme .wponion-menu ul a:hover, 
+$prefix .wponion-framework.wponion-wp_modern-theme .wponion-menu ul a:hover,
 $prefix .wponion-framework.wponion-wp_modern-theme .wponion-menu ul li:hover > a{
 	background:$menu_hover_background;
 	color:$menu_hover_color;

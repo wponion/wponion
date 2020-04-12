@@ -23,73 +23,77 @@ export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 	settings_main_menu() {
 		let $elem = ( this.element.hasClass( 'wponion-wc-theme' ) ) ? '.main-navigation nav a' : '.main-navigation .nav-tab-wrapper a';
 		this.element.find( $elem ).on( 'click', ( e ) => {
-			e.preventDefault();
 			let $elem = jQuery( e.currentTarget );
-			let $href = window.wponion.helper.url_params( $elem.attr( 'href' ) );
 
-			if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
-				let $lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
-				if( $lookup.length > 0 ) {
-					this.element.parent().find( 'input[name="container-id"]' ).val( $href[ 'container-id' ] );
-					this.element.find( '.wponion-container-wraps' ).hide();
-					$lookup.show();
-					if( this.element.hasClass( 'wponion-wc-theme' ) ) {
-						this.element.find( 'nav a.wpo-tab-active' ).removeClass( 'wpo-tab-active' );
-						$elem.addClass( 'wpo-tab-active' );
-					} else {
-						this.element.find( 'nav.nav-tab-wrapper a.nav-tab-active' ).removeClass( 'nav-tab-active' );
-						$elem.addClass( 'nav-tab-active' );
-					}
+			if( $elem.hasClass( 'wpo-internal-href' ) && !e.ctrlKey && e.which !== 2 && e.which !== 3 ) {
+				let $href = window.wponion.helper.url_params( $elem.attr( 'href' ) );
 
-					if( $lookup.find( '.wponion-submenus' ).length > 0 ) {
-						if( $lookup.find( '.wponion-submenus a.current' ).length === 0 ) {
-							$lookup.find( '.wponion-submenus li:first-child a' ).click();
+				if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
+					let $lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
+					if( $lookup.length > 0 ) {
+						e.preventDefault();
+						this.element.parent().find( 'input[name="container-id"]' ).val( $href[ 'container-id' ] );
+						this.element.find( '.wponion-container-wraps' ).hide();
+						$lookup.show();
+						if( this.element.hasClass( 'wponion-wc-theme' ) ) {
+							this.element.find( 'nav a.wpo-tab-active' ).removeClass( 'wpo-tab-active' );
+							$elem.addClass( 'wpo-tab-active' );
 						} else {
-							$lookup.find( '.wponion-submenus a.current' ).click();
+							this.element.find( 'nav.nav-tab-wrapper a.nav-tab-active' ).removeClass( 'nav-tab-active' );
+							$elem.addClass( 'nav-tab-active' );
 						}
-					} else {
-						console.log( $lookup );
-						this.hide_element_non_ui( $lookup );
+
+						if( $lookup.find( '.wponion-submenus' ).length > 0 ) {
+							if( $lookup.find( '.wponion-submenus a.current' ).length === 0 ) {
+								$lookup.find( '.wponion-submenus li:first-child a' ).click();
+							} else {
+								$lookup.find( '.wponion-submenus a.current' ).click();
+							}
+						} else {
+							this.hide_element_non_ui( $lookup );
+						}
+					} else if( false === $elem.hasClass( 'disabled' ) ) {
+						//window.location.href = $elem.attr( 'href' );
 					}
 				} else if( false === $elem.hasClass( 'disabled' ) ) {
-					window.location.href = $elem.attr( 'href' );
+					//window.location.href = $elem.attr( 'href' );
 				}
-			} else if( false === $elem.hasClass( 'disabled' ) ) {
-				window.location.href = $elem.attr( 'href' );
 			}
 		} );
 	}
 
 	settings_submenu() {
 		this.element.find( '.wponion-submenus a' ).on( 'click', ( e ) => {
-			e.preventDefault();
-			let $found = false,
-				$elem  = jQuery( e.currentTarget ),
-				$href  = window.wponion.helper.url_params( $elem.attr( 'href' ) );
+			let $elem = jQuery( e.currentTarget );
+			if( $elem.hasClass( 'wpo-internal-href' ) && !e.ctrlKey && e.which !== 2 && e.which !== 3 ) {
+				let $found = false,
+					$href  = window.wponion.helper.url_params( $elem.attr( 'href' ) );
 
-			if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
-				let $base_lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
-				if( $base_lookup.length > 0 ) {
-					if( false === window.wponion._.isUndefined( $href[ 'sub-container-id' ] ) ) {
-						let $lookup = $base_lookup.find( 'div#wponion-tab-' + $href[ 'container-id' ] + '-' + $href[ 'sub-container-id' ] );
-						if( $lookup.length > 0 ) {
-							let $parent = this.element.parent();
-							$parent.find( 'input[name="container-id"]' ).val( $href[ 'container-id' ] );
-							$parent.find( 'input[name="sub-container-id"]' ).val( $href[ 'sub-container-id' ] );
-							this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] + ' .wponion-sub-container-wraps ' )
-								.hide();
-							$lookup.show();
-							$base_lookup.find( '.wponion-submenus a.current' ).removeClass( 'current' );
-							$elem.addClass( 'current' );
-							$found = true;
-							this.hide_element_non_ui( $lookup );
+				if( false === window.wponion._.isUndefined( $href[ 'container-id' ] ) ) {
+					let $base_lookup = this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] );
+					if( $base_lookup.length > 0 ) {
+						if( false === window.wponion._.isUndefined( $href[ 'sub-container-id' ] ) ) {
+							let $lookup = $base_lookup.find( 'div#wponion-tab-' + $href[ 'container-id' ] + '-' + $href[ 'sub-container-id' ] );
+							if( $lookup.length > 0 ) {
+								e.preventDefault();
+								let $parent = this.element.parent();
+								$parent.find( 'input[name="container-id"]' ).val( $href[ 'container-id' ] );
+								$parent.find( 'input[name="sub-container-id"]' ).val( $href[ 'sub-container-id' ] );
+								this.element.find( 'div#wponion-tab-' + $href[ 'container-id' ] + ' .wponion-sub-container-wraps ' )
+									.hide();
+								$lookup.show();
+								$base_lookup.find( '.wponion-submenus a.current' ).removeClass( 'current' );
+								$elem.addClass( 'current' );
+								$found = true;
+								this.hide_element_non_ui( $lookup );
+							}
 						}
 					}
 				}
-			}
 
-			if( false === $found && false === $elem.hasClass( 'disabled' ) ) {
-				window.location.href = $elem.attr( 'href' );
+				if( false === $found && false === $elem.hasClass( 'disabled' ) ) {
+					//window.location.href = $elem.attr( 'href' );
+				}
 			}
 		} );
 	}
