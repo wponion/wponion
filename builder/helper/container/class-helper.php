@@ -221,7 +221,7 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * @return $this|\WPO\Container
 		 */
 		public function query_arg( $key, $value ) {
-			return $this->query_args( $key, $value );
+			return $this->query_args( array( $key => $value ) );
 		}
 
 		/**
