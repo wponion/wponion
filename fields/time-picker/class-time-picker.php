@@ -15,6 +15,11 @@ if ( ! class_exists( '\WPOnion\Field\Time_Picker' ) ) {
 	 */
 	class Time_Picker extends Date_Picker {
 
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 
@@ -29,7 +34,7 @@ if ( ! class_exists( '\WPOnion\Field\Time_Picker' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

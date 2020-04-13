@@ -17,17 +17,25 @@ if ( ! class_exists( '\WPOnion\Field\Hidden' ) ) {
 	 * @since 1.0
 	 */
 	class Hidden extends Field {
+
 		/**
+		 * Checks & Updat fields args based on field config.
+		 *
 		 * @param array $data
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $data = array() ) {
+		protected function handle_field_args( $data = array() ) {
 			$data['only_field'] = true;
 			return $data;
 		}
 
-		public function output() {
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
+		protected function output() {
 			if ( ! empty( $this->data( 'fields' ) ) ) {
 				foreach ( $this->data( 'fields' ) as $field ) {
 					$field['type'] = 'hidden';
@@ -45,9 +53,19 @@ if ( ! class_exists( '\WPOnion\Field\Hidden' ) ) {
 			}
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
+		/**
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array( 'fields' => array() );
 		}

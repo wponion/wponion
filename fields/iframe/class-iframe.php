@@ -29,10 +29,13 @@ if ( ! class_exists( '\WPOnion\Field\Iframe' ) ) {
 	 * @since 1.0
 	 */
 	class Iframe extends Field {
+
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
-		public function output() {
+		protected function output() {
 			echo $this->before();
 
 			if ( false !== $this->data( 'heading' ) ) {
@@ -53,16 +56,15 @@ if ( ! class_exists( '\WPOnion\Field\Iframe' ) ) {
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */
 		public function field_assets() {
-			// TODO: Implement field_assets() method.
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

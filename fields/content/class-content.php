@@ -17,6 +17,12 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 	 * @since 1.0
 	 */
 	class Content extends Field {
+
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 			$content = $this->data( 'content' );
@@ -43,7 +49,7 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 		}
 
 		/**
-		 * Fields Default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */
@@ -54,6 +60,11 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 			);
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 	}

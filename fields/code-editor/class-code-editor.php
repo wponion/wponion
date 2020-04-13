@@ -23,6 +23,11 @@ if ( ! class_exists( '\WPOnion\Field\Code_Editor' ) ) {
 		 */
 		protected $cdn_url = 'https://cdn.jsdelivr.net/npm/codemirror@';
 
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 			echo '<textarea ' . $this->_input_attributes() . '>' . $this->value() . '</textarea>';
@@ -42,6 +47,11 @@ if ( ! class_exists( '\WPOnion\Field\Code_Editor' ) ) {
 			);
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			// Do not loads CodeMirror in revslider page.
 			if ( in_array( wponion_get_var( 'page' ), array( 'revslider' ), true ) ) {
@@ -64,7 +74,7 @@ if ( ! class_exists( '\WPOnion\Field\Code_Editor' ) ) {
 		}
 
 		/**
-		 * Stores Field Defaults.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

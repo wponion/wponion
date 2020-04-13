@@ -11,8 +11,11 @@ if ( ! class_exists( '\WPOnion\Field\Button_Set' ) ) {
 	 * @since 1.0
 	 */
 	class Button_Set extends Checkbox_Radio {
+
 		/**
-		 * Renders HTML.
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			$this->field['type'] = ( true === $this->data( 'multiple' ) ) ? 'checkbox' : 'radio';
@@ -47,7 +50,9 @@ if ( ! class_exists( '\WPOnion\Field\Button_Set' ) ) {
 		}
 
 		/**
-		 * @return array
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(

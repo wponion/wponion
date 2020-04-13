@@ -18,7 +18,10 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 	 * @since 1.0
 	 */
 	class Import_Export extends Field {
+
 		/**
+		 * Handles Fields Assets.
+		 *
 		 * @return mixed|void
 		 */
 		public function field_assets() {
@@ -36,6 +39,8 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 		}
 
 		/**
+		 * Generates Final HTML Output.
+		 *
 		 * @return mixed|void
 		 */
 		protected function output() {
@@ -109,6 +114,8 @@ HTML;
 		}
 
 		/**
+		 * Returns Field's Default Value.
+		 *
 		 * @return array|mixed
 		 */
 		protected function field_default() {

@@ -19,7 +19,9 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 	class Input_Group extends Field {
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -46,11 +48,16 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

@@ -15,8 +15,9 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 	 * @since 1.0
 	 */
 	class Link_Color extends Color_Group {
+
 		/**
-		 * Returns Custom Field Group Class.
+		 * Field's Custom Wrap Class.
 		 *
 		 * @return string
 		 */
@@ -25,7 +26,9 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			$options = array();
@@ -56,7 +59,7 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

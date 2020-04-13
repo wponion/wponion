@@ -26,9 +26,11 @@ if ( ! class_exists( '\WPOnion\Field\Metabox' ) ) {
 		protected $metabox_instance = false;
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
-		public function output() {
+		protected function output() {
 			echo $this->before();
 			$fields = $this->data( 'fields' );
 			if ( ! $fields instanceof Builder ) {
@@ -76,15 +78,20 @@ if ( ! class_exists( '\WPOnion\Field\Metabox' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_script( 'post' );
 			wp_enqueue_style( 'post' );
 		}
 
 		/**
-		 * Final HTML Output;
+		 * Returns Field's Default Value.
 		 *
-		 * @return mixed;
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array(

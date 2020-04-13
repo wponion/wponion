@@ -17,10 +17,13 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 	 * @since 1.0
 	 */
 	class FAQ extends Field {
+
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
-		public function output() {
+		protected function output() {
 			echo $this->before();
 			$options = $this->data( 'options' );
 			echo '<ul class="faqs-container">';
@@ -38,13 +41,18 @@ if ( ! class_exists( '\WPOnion\Field\FAQ' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
 		/**
-		 * Final HTML Output;
+		 * Returns Field's Default Value.
 		 *
-		 * @return mixed;
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array(

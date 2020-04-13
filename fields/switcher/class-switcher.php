@@ -15,8 +15,9 @@ if ( ! class_exists( '\WPOnion\Field\Switcher' ) ) {
 	 * @since 1.0
 	 */
 	class Switcher extends Checkbox_Radio {
+
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

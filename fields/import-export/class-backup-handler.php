@@ -2,6 +2,7 @@
 
 namespace WPOnion\Field\Import_Export;
 
+use Exception;
 use WPOnion\Core_Ajax;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -67,12 +68,16 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export\Backup_Handler' ) ) {
 		 * @static
 		 */
 		public static function new_backup( $unique, $module, $extra = false ) {
-			$existing              = self::get_from_db( $unique, $module, $extra );
-			$backup_id             = current_time( 'timestamp' );
-			$backups               = self::get_backups( $unique, $module, $extra );
-			$backups[ $backup_id ] = ( wpo_is_option( $existing ) ) ? $existing->get() : $existing;
-			$status                = self::save_backup( $backups, $unique, $module, $existing );
-			return ( $status ) ? $backup_id : false;
+			try {
+				$existing              = self::get_from_db( $unique, $module, $extra );
+				$backup_id             = current_time( 'timestamp' );
+				$backups               = self::get_backups( $unique, $module, $extra );
+				$backups[ $backup_id ] = ( wpo_is_option( $existing ) ) ? $existing->get() : $existing;
+				$status                = self::save_backup( $backups, $unique, $module, $existing );
+				return ( $status ) ? $backup_id : false;
+			} catch ( Exception $exception ) {
+				return false;
+			}
 		}
 
 		/**
@@ -108,9 +113,13 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export\Backup_Handler' ) ) {
 		 * @return string
 		 */
 		public static function backup_name( $time ) {
-			$date_format = get_option( 'date_format' );
-			$time_format = get_option( 'time_format' );
-			return date_i18n( $date_format . ' - ' . $time_format, $time );
+			try {
+				$date_format = get_option( 'date_format' );
+				$time_format = get_option( 'time_format' );
+				return date_i18n( $date_format . ' - ' . $time_format, $time );
+			} catch ( Exception $exception ) {
+				return '';
+			}
 		}
 
 		/**
@@ -199,16 +208,8 @@ HTML;
 				return false;
 			}
 
-			if ( wponion_is_array( $backup_id ) ) {
-				$backup = $backup_id;
-			} else {
-				$backup = self::get_backup( $backup_id, $unique, $module, $extra );
-			}
-
-			if ( ! empty( $backup ) ) {
-				return wponion_wp_db()->set( $module, $unique, $extra, $backup );
-			}
-			return 'not_found';
+			$backup = ( wponion_is_array( $backup_id ) ) ? $backup_id : self::get_backup( $backup_id, $unique, $module, $extra );
+			return ( ! empty( $backup ) ) ? wponion_wp_db()->set( $module, $unique, $extra, $backup ) : 'not_found';
 		}
 	}
 }

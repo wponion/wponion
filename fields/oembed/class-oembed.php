@@ -14,22 +14,39 @@ if ( ! class_exists( '\WPOnion\Field\OEmbed' ) ) {
 	 * @since 1.0
 	 */
 	class OEmbed extends Text {
-
+		/**
+		 * @return string
+		 */
 		protected function after() {
 			echo '<div class="wponion-oembed-preview" data-wponion-jsid="' . $this->js_field_id() . '"></div>';
 			return parent::after();
 		}
 
-		public function handle_field_args( $field_data = array() ) {
-			$field_data              = parent::handle_field_args( $field_data );
-			$field_data['text_type'] = 'text';
-			return $field_data;
+		/**
+		 * Checks & Updat fields args based on field config.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
+		protected function handle_field_args( $data = array() ) {
+			$data              = parent::handle_field_args( $data );
+			$data['text_type'] = 'text';
+			return $data;
 		}
 
+		/**
+		 * @return array
+		 */
 		protected function js_field_args() {
 			return array( 'nopreview' => wponion()->url( 'assets/img/no-preview.jpg' ) );
 		}
 
+		/**
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return $this->parse_args( array(
 				'oembed_width'  => '500px',

@@ -18,7 +18,10 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 	 * @since 1.0
 	 */
 	class WP_Editor extends Field {
+
 		/**
+		 * Generates Final HTML Output.
+		 *
 		 * @return mixed|void
 		 */
 		protected function output() {
@@ -39,6 +42,8 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 		}
 
 		/**
+		 * Handles Fields Assets.
+		 *
 		 * @return mixed|void
 		 */
 		public function field_assets() {
@@ -56,13 +61,13 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 		}
 
 		/**
-		 * Handles WPEditor Default Args.
+		 * Checks & Updat fields args based on field config.
 		 *
 		 * @param array $data
 		 *
-		 * @return array|void
+		 * @return array
 		 */
-		public function handle_field_args( $data = array() ) {
+		protected function handle_field_args( $data = array() ) {
 			$defaults = array(
 				'wpautop'          => true,
 				'media_buttons'    => true,
@@ -126,7 +131,9 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 		}
 
 		/**
-		 * @return mixed
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array(

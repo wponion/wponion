@@ -15,21 +15,22 @@ if ( ! class_exists( '\WPOnion\Field\Number' ) ) {
 	 * @since 1.0
 	 */
 	class Number extends Text {
+
 		/**
-		 * checks and updated fields args based on field config.
+		 * Checks & Updat fields args based on field config.
 		 *
-		 * @param array $field_data
+		 * @param array $data
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $field_data = array() ) {
-			$field_data['text_type'] = 'number';
-			$field_data['type']      = 'text';
-			return parent::handle_field_args( $field_data );
+		protected function handle_field_args( $data = array() ) {
+			$data['text_type'] = 'number';
+			$data['type']      = 'text';
+			return parent::handle_field_args( $data );
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

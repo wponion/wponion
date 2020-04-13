@@ -18,6 +18,11 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 	 */
 	class WP_List_Table extends Field {
 
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 			echo '<div class="wponion-inner-wp-list-table">';
@@ -54,6 +59,11 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 			return parent::sub_field( $field, $value, $unqiue, $is_init );
 		}
 
+		/**
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'settings'   => array(),
@@ -62,6 +72,11 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 			);
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 	}

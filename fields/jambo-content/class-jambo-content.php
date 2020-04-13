@@ -15,10 +15,13 @@ if ( ! class_exists( '\WPOnion\Field\Jambo_Content' ) ) {
 	 * @since 1.0
 	 */
 	class Jambo_Content extends Heading {
+
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
-		public function output() {
+		protected function output() {
 			echo $this->before();
 			echo '<div class="jumbotron">' . $this->data( 'content' ) . '</div>';
 			echo $this->after();

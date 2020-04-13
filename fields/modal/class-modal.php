@@ -32,9 +32,11 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
-		public function output() {
+		protected function output() {
 			echo $this->before();
 
 			$btn = $this->handle_args( 'label', $this->data( 'modal_button' ), array( 'class' => 'button button-secondary' ), array(
@@ -174,9 +176,9 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		}
 
 		/**
-		 * Returns Fields Assets.
+		 * Handles Fields Assets.
 		 *
-		 * @uses \wponion_localize()
+		 * @return mixed|void
 		 */
 		public function field_assets() {
 			if ( 'wp' === $this->data( 'modal_type' ) ) {
@@ -230,9 +232,9 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		}
 
 		/**
-		 * Final HTML Output;
+		 * Returns Field's Default Value.
 		 *
-		 * @return mixed;
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array(

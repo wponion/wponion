@@ -23,7 +23,14 @@ if ( ! class_exists( '\WPOnion\Field\WP_Notice' ) ) {
 		 */
 		protected $notice_type = 'success';
 
-		public function handle_field_args( $data = array() ) {
+		/**
+		 * Checks & Updat fields args based on field config.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
+		protected function handle_field_args( $data = array() ) {
 			if ( isset( $data['type'] ) && ! empty( $data['type'] ) && 'wp_notice' !== $data['type'] ) {
 				$this->notice_type   = str_replace( 'wp_notice_', '', $data['type'] );
 				$data['notice_type'] = $this->notice_type;
@@ -39,9 +46,11 @@ if ( ! class_exists( '\WPOnion\Field\WP_Notice' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
-		public function output() {
+		protected function output() {
 			echo $this->before();
 			$auto_close = ( false === $this->data( 'autoclose' ) ) ? '' : ' data-autoclose="' . intval( $this->data( 'autoclose' ) ) . '" ';
 
@@ -66,9 +75,9 @@ if ( ! class_exists( '\WPOnion\Field\WP_Notice' ) ) {
 		}
 
 		/**
-		 * Final HTML Output;
+		 * Returns Field's Default Value.
 		 *
-		 * @return mixed;
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(

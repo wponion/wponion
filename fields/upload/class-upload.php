@@ -18,6 +18,11 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 	 */
 	class Upload extends Field {
 
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 			echo '<input type="text" name="' . $this->name() . '" value="' . $this->value() . '"/>';
@@ -31,7 +36,9 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 		}
 
 		/**
-		 * @return mixed
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array(
@@ -40,6 +47,9 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 			);
 		}
 
+		/**
+		 * @return array
+		 */
 		protected function js_field_args() {
 			return array(
 				'settings' => $this->parse_args( $this->data( 'settings' ), array(
@@ -50,6 +60,11 @@ if ( ! class_exists( '\WPOnion\Field\Upload' ) ) {
 			);
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_media();
 		}

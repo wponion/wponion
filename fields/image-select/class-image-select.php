@@ -25,10 +25,11 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 	 * @since 1.0
 	 */
 	class Image_Select extends checkbox_radio {
+
 		/**
-		 * Final HTML Output;
+		 * Generates Final HTML Output.
 		 *
-		 * @return mixed;
+		 * @return mixed|void
 		 */
 		protected function output() {
 			$this->field['type'] = ( true === $this->field['multiple'] ) ? 'checkbox' : 'radio';
@@ -57,6 +58,11 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 		}
 
 
+		/**
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return $this->parse_args( parent::field_default(), array( 'multiple' => false ) );
 		}
