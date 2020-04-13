@@ -13,38 +13,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method mixed get_id
-	 * @method mixed get_title
-	 * @method mixed get_help
-	 * @method mixed get_default
-	 * @method mixed get_desc
-	 * @method mixed get_desc_field
-	 * @method mixed get_name
-	 * @method mixed get_js_validate
-	 * @method mixed get_type
-	 * @method mixed get_style
-	 * @method mixed get_placeholder
-	 * @method mixed get_disabled
-	 * @method mixed get_class
-	 * @method mixed get_before
-	 * @method mixed get_after
-	 * @method mixed get_horizontal
-	 * @method mixed get_only_field
-	 * @method mixed get_clone
-	 * @method mixed get_clone_settings
-	 * @method mixed get_debug
-	 * @method mixed get_query_args
-	 * @method mixed get_wp_pointer
-	 * @method mixed get_wrap_tooltip
-	 * @method mixed get_wrap_class
-	 * @method mixed get_wrap_id
-	 * @method bool get_multiple
-	 * @method mixed get_sanitize
-	 * @method mixed get_validate
-	 * @method mixed get_attributes
-	 * @method mixed get_dependency
-	 * @method mixed get_wrap_attributes
 	 */
 	class Common_Args extends Dependency {
 		/**

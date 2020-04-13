@@ -15,8 +15,6 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_label()
 	 */
 	class Checkbox_Radio extends Field {
 		/**

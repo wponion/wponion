@@ -15,12 +15,6 @@ if ( ! class_exists( 'WPO\Fields\Date_Picker' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_range()
-	 * @method get_settings()
-	 * @method get_theme()
-	 * @method get_date()
-	 * @method get_to_date()
 	 */
 	class Date_Picker extends Field {
 		/**

@@ -15,8 +15,6 @@ if ( ! class_exists( 'WPO\Fields\Accordion' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_is_open()
 	 */
 	class Accordion extends Nested_Fields {
 		/**
