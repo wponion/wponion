@@ -18,6 +18,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 	 */
 	final class Assets {
 		/**
+		 * Stores Icon Library Data.
+		 *
 		 * @var array
 		 * @access
 		 * @static
@@ -25,6 +27,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		public static $icon_libs = array();
 
 		/**
+		 * Stores All Javascript's File Data.
+		 *
 		 * @var array
 		 * @access
 		 * @static
@@ -32,6 +36,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		public static $scripts = array();
 
 		/**
+		 * Stores All Stylesheets File Data.
+		 *
 		 * @var array
 		 * @access
 		 * @static
@@ -39,6 +45,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		public static $styles = array();
 
 		/**
+		 * Stores CDN Info for each css file.
+		 *
 		 * @var array
 		 * @access
 		 * @static
@@ -46,6 +54,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		public static $cdn_styles = array();
 
 		/**
+		 * Stores CDN Info for each css file
+		 *
 		 * @var array
 		 * @access
 		 * @static
@@ -149,7 +159,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 			do_action( 'wponion_register_assets_before' );
 			wponion_localize();
 
-			if ( is_version_lte( 'wordpress', '5.0' ) ) {
+			if ( is_version_lte( 'wordpress', '5.0' ) ) { //phpcs:ignore WordPress.WP.CapitalPDangit.Misspelled
 				wp_register_script( 'lodash', 'https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js', array(), '4.17.11', true );
 			}
 
@@ -163,6 +173,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		}
 
 		/**
+		 * Validate & Registers Assets with WordPress.
+		 *
 		 * @param $type
 		 * @param $data
 		 *
@@ -175,6 +187,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		}
 
 		/**
+		 * Registers Assets with WordPress.
+		 *
 		 * @param $type
 		 * @param $src
 		 * @param $key
@@ -198,6 +212,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		}
 
 		/**
+		 * Fetches CDN Url. if WPOnion Vendor Support is not installed.
+		 *
 		 * @param $type
 		 * @param $data
 		 *

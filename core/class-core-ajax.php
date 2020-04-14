@@ -39,6 +39,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		 * Core_Ajax constructor.
 		 */
 		public function __construct() {
+			/** @uses handle_ajax_request */
 			add_action( 'wp_ajax_wponion-ajax', array( &$this, 'handle_ajax_request' ) );
 		}
 

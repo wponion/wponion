@@ -16,6 +16,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 	 */
 	class Icons {
 		/**
+		 * Stores All Icon's Class Instance.
+		 *
 		 * @var array
 		 * @access
 		 * @static
@@ -23,6 +25,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		protected static $instances = array();
 
 		/**
+		 * Stores All Icon's Info.
+		 *
 		 * @var array
 		 * @access
 		 * @static
@@ -30,6 +34,8 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		protected static $icons = array();
 
 		/**
+		 * Adds Icon's Instance.
+		 *
 		 * @param array|\WPOnion\Icon $instance_or_args
 		 *
 		 * @static

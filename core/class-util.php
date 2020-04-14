@@ -43,6 +43,8 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		}
 
 		/**
+		 * Returns Final Element.
+		 *
 		 * @return bool|string
 		 */
 		public function element() {
@@ -97,6 +99,8 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		}
 
 		/**
+		 * Handles Element's ToolTip.
+		 *
 		 * @param string $content
 		 * @param array  $args
 		 * @param bool   $localize
@@ -152,6 +156,8 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		}
 
 		/**
+		 * Handles Element's Inline Ajax.
+		 *
 		 * @param $args
 		 *
 		 * @return $this|bool|string
@@ -182,6 +188,8 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		}
 
 		/**
+		 * Handles Element's Image Popup.
+		 *
 		 * @param string|bool $image_src
 		 * @param string|bool $full_size
 		 * @param bool        $element

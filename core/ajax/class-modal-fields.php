@@ -19,7 +19,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 	 */
 	class Modal_Fields extends Ajax {
 		/**
-		 * Runs.
+		 * Runs Ajax Request.
 		 */
 		public function run() {
 			/* @var \WPO\Field $field */
@@ -38,6 +38,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 
 		}
 
+		/**
+		 * Saves Modal Fields.
+		 */
 		public function save_fields() {
 			$field     = $this->get_field();
 			$module    = $this->get_module();
@@ -65,6 +68,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 			$this->json_error();
 		}
 
+		/**
+		 * Fetches Fields Data For Current Modal.
+		 */
 		public function fetch_fields() {
 			$unique    = $this->post( 'unique' );
 			$field     = $this->get_field();

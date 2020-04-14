@@ -56,6 +56,8 @@ if ( ! class_exists( '\WPOnion\Icon' ) ) {
 		}
 
 		/**
+		 * Returns Icon's Slug.
+		 *
 		 * @return mixed
 		 */
 		public function slug() {
@@ -63,6 +65,8 @@ if ( ! class_exists( '\WPOnion\Icon' ) ) {
 		}
 
 		/**
+		 * Returns Icon's Name.
+		 *
 		 * @return mixed
 		 */
 		public function name() {
@@ -80,6 +84,8 @@ if ( ! class_exists( '\WPOnion\Icon' ) ) {
 		}
 
 		/**
+		 * Load's Icons Assets if there.
+		 *
 		 * @param bool $is_load
 		 *
 		 * @return mixed

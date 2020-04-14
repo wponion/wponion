@@ -25,12 +25,16 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		use Modal;
 
 		/**
+		 * Stores Unique ID.
+		 *
 		 * @var
 		 * @access
 		 */
 		protected $unique;
 
 		/**
+		 * Stores Field's / Containers / Both.
+		 *
 		 * @var \WPO\Builder
 		 * @access
 		 */
@@ -43,18 +47,24 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		protected $retain_values;
 
 		/**
+		 * Fetches & Stores values that are stored in DB.
+		 *
 		 * @var array|\WPOnion\DB\Option
 		 * @access
 		 */
 		protected $db_values;
 
 		/**
+		 * Stores $_GET / $_POST Values.
+		 *
 		 * @var
 		 * @access
 		 */
 		protected $posted_values;
 
 		/**
+		 * Stores Returnable Values.
+		 *
 		 * @var
 		 * @access
 		 */
@@ -68,12 +78,16 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		protected $errors = array();
 
 		/**
+		 * Custom Arguments On how this handler work.
+		 *
 		 * @var array
 		 * @access
 		 */
 		protected $args = array();
 
 		/**
+		 * How array delimiter works with.
+		 *
 		 * @var string
 		 * @access
 		 */
@@ -128,6 +142,8 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
+		 * Checks if a field is valid or not.
+		 *
 		 * @param $field
 		 *
 		 * @return bool
@@ -162,6 +178,8 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
+		 * Runs each field into a loop.
+		 *
 		 * @param \WPO\Container|\WPO\Builder $data
 		 */
 		protected function field_loop( $data ) {
@@ -216,6 +234,8 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
+		 * Fetches Value from database.
+		 *
 		 * @param array            $data
 		 * @param array|\WPO\Field $field
 		 *
@@ -322,9 +342,11 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
-		 * @param      $value
-		 * @param      $field
-		 * @param bool $merge
+		 * Saves Final Field Value.
+		 *
+		 * @param mixed $value
+		 * @param array $field
+		 * @param bool  $merge
 		 *
 		 * @return bool
 		 */
@@ -342,6 +364,8 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		}
 
 		/**
+		 * sanitize a field value.
+		 *
 		 * @param $field
 		 * @param $value
 		 *
@@ -466,34 +490,36 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		/**
 		 * This returns value from db array.
 		 *
-		 * @param string $field
-		 * @param bool   $value_arr
-		 * @param bool   $default
+		 * @param array $field
+		 * @param bool  $value_arr
+		 * @param bool  $default
 		 *
 		 * @return bool|mixed
 		 */
-		protected function db_options( $field = '', $value_arr = false, $default = false ) {
+		protected function db_options( $field, $value_arr = false, $default = false ) {
 			return $this->_value_options( $field, $value_arr, $default, 'db_values' );
 		}
 
 		/**
 		 * This returns value from User array.
 		 *
-		 * @param string $field
-		 * @param bool   $value_arr
-		 * @param bool   $default
+		 * @param array $field
+		 * @param bool  $value_arr
+		 * @param bool  $default
 		 *
 		 * @return bool|mixed
 		 */
-		protected function user_options( $field = '', $value_arr = false, $default = false ) {
+		protected function user_options( $field, $value_arr = false, $default = false ) {
 			return $this->_value_options( $field, $value_arr, $default, 'posted_values' );
 		}
 
 		/**
-		 * @param $field
-		 * @param $value_arr
-		 * @param $default
-		 * @param $variable
+		 * _value_options.
+		 *
+		 * @param array $field
+		 * @param mixed $value_arr
+		 * @param mixed $default
+		 * @param mixed $variable
 		 *
 		 * @return bool|mixed
 		 */

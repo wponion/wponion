@@ -17,6 +17,9 @@ if ( ! class_exists( '\WPOnion\Ajax\OEmbed_Preview' ) ) {
 	 * @since 1.0
 	 */
 	class OEmbed_Preview extends Ajax {
+		/**
+		 * Runs Ajax Request.
+		 */
 		public function run() {
 			/* @var \WP_Embed $wp_embed */
 			$field = $this->get_field();

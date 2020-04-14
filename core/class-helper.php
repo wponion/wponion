@@ -79,7 +79,9 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
-		 * @param $type [google/websafe/backup]
+		 * Fetches Bundled Font Info.
+		 *
+		 * @param string $type [google/websafe/backup]
 		 *
 		 * @static
 		 * @return mixed
@@ -125,7 +127,9 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
-		 * @param $type
+		 * Fetches All Currencies List.
+		 *
+		 * @param string $type [list,symbol]
 		 *
 		 * @static
 		 * @return mixed
@@ -206,6 +210,8 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 		}
 
 		/**
+		 * Recursively Checks if a key's isset in array
+		 *
 		 * @param               $keys
 		 * @param               $array_or_object
 		 * @param string        $delimiter

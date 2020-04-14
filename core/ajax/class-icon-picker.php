@@ -22,6 +22,8 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		protected $validate_module     = false;
 
 		/**
+		 * Returns A List of enabled icons.
+		 *
 		 * @param array $libs
 		 *
 		 * @return mixed
@@ -43,6 +45,8 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		}
 
 		/**
+		 * Returns A List of disabled icons.
+		 *
 		 * @param array $libs
 		 *
 		 * @return array
@@ -102,7 +106,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		}
 
 		/**
-		 * Runs.
+		 * Runs Ajax Request.
 		 */
 		public function run() {
 			wponion_timer( 'icon_render' );
@@ -173,6 +177,8 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		}
 
 		/**
+		 * Loops Each Icon Framework and regenerates HTML.
+		 *
 		 * @param string|int   $key
 		 * @param string|array $data
 		 * @param bool         $is_group
@@ -229,6 +235,8 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		}
 
 		/**
+		 * Generates Single Icon's HTML.
+		 *
 		 * @param $icon
 		 *
 		 * @return string
@@ -248,7 +256,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 			//data-search="{$icon['css']} $search"
 			$icon_html = wponion_icon( $icon['css'] );
 			$html      = <<<HTML
-<div class="wponion-icon-preview-wrap"> 
+<div class="wponion-icon-preview-wrap">
 	<span data-icon="{$icon['css']}" title="$title" class="wponion-icon-preview">$icon_html</span>
 	<span class="hidden wpo-icon-terms" style="display: none !important; visibility: hidden !important;">{$icon['css']} $search</span>
  </div>

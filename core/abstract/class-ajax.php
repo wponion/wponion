@@ -19,12 +19,16 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 	 */
 	abstract class Ajax {
 		/**
+		 * If set to true then ajax requests will requires module data to be present.
+		 *
 		 * @var bool
 		 * @access
 		 */
 		protected $validate_module = true;
 
 		/**
+		 * If set to true then ajax requests will requires field path data to be present.
+		 *
 		 * @var bool
 		 * @access
 		 */
@@ -39,6 +43,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		protected $module = false;
 
 		/**
+		 * If set to true then wponion will add all assets to be loaded data in ajax response.
+		 *
 		 * @var bool
 		 * @access
 		 */
@@ -131,6 +137,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Checks if given key exists in $_GET
+		 *
 		 * @param string $key
 		 *
 		 * @return bool
@@ -140,6 +148,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Checks if given key exists in $_POST
+		 *
 		 * @param string $key
 		 *
 		 * @return bool
@@ -149,6 +159,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Checks if given key exists in $_REQUEST
+		 *
 		 * @param string $key
 		 *
 		 * @return bool
@@ -196,6 +208,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Sends JSON Error Response.
+		 *
 		 * @param mixed $data
 		 * @param null  $status_code
 		 */
@@ -206,6 +220,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Sends JSON Success Response.
+		 *
 		 * @param mixed $data
 		 * @param null  $status_code
 		 */
@@ -216,6 +232,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Returns Error Message.
+		 *
 		 * @param bool|string $error_title
 		 * @param bool|string $error_message
 		 *
@@ -229,6 +247,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Returns Success Message.
+		 *
 		 * @param bool|string $success_title
 		 * @param bool|string $success_message
 		 *
@@ -242,6 +262,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Validate Current Ajax Request with required data.
+		 *
 		 * @param string      $key
 		 * @param string|bool $error_title
 		 * @param string|bool $error_message
@@ -269,6 +291,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Sends WP Success.
+		 *
 		 * @param bool|string $success_title
 		 * @param bool|string $success_message
 		 * @param array       $args
@@ -278,6 +302,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Validate's $_POST Request.
+		 *
 		 * @param string      $key
 		 * @param string|bool $error_title
 		 * @param string|bool $error_message
@@ -289,6 +315,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		}
 
 		/**
+		 * Validates $_GET Request.
+		 *
 		 * @param string      $key
 		 * @param string|bool $error_title
 		 * @param string|bool $error_message

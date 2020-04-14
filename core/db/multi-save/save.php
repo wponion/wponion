@@ -22,6 +22,11 @@ if ( ! class_exists( '\WPOnion\DB\Multi_Save\Save' ) ) {
 		 */
 		protected $values = false;
 
+		/**
+		 * Stores Data that needs to be saved in DB.
+		 *
+		 * @var array
+		 */
 		protected $final_save_values = array();
 
 		/**

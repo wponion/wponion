@@ -29,6 +29,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Sysinfo_Emailer' ) ) {
 		 */
 		protected $validate_field_path = false;
 
+		/**
+		 * Runs Ajax Request.
+		 */
 		public function run() {
 			$data = $this->validate_post( 'wponion_sysinfo', __( 'Unknown Error!', 'wponion' ) );
 

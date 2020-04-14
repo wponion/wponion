@@ -820,6 +820,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Return's Field's Name.
+		 *
 		 * @param string|bool $extra_name
 		 *
 		 * @return string
@@ -832,6 +834,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Returns Fields Unique ID.
+		 *
 		 * @param string $extra
 		 * @param bool   $unique
 		 *
@@ -972,6 +976,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Handles Fields Arguments.
+		 *
 		 * @param       $key
 		 * @param       $value
 		 * @param array $defaults
@@ -1087,9 +1093,13 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Checks and provides proper data with the help of WPOnion Query & WP_Query
+		 *
 		 * @param string $type
 		 *
 		 * @return array
+		 * @uses \WPONion\DB\Query
+		 * @uses \WP_Query
 		 */
 		protected function element_data( $type = '' ) {
 			$is_ajax    = ( isset( $this->field['ajax'] ) && true === $this->field['ajax'] );
@@ -1112,6 +1122,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Returns Module name or module instance.
+		 *
 		 * @param bool $module_instance
 		 *
 		 * @return bool|string|\WPOnion\Bridge\Module

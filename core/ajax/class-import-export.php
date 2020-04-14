@@ -19,7 +19,7 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 	 */
 	class Import_Export extends Ajax {
 		/**
-		 * Runs.
+		 * Runs Ajax Request.
 		 */
 		public function run() {
 			$this->get_module();
@@ -66,6 +66,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 			$this->error( __( 'Error !', 'wponion' ), __( 'Unable To Import Backup. Please Try Again', 'wponion' ) );
 		}
 
+		/**
+		 * Handles Backup Creation.
+		 */
 		protected function backup() {
 			$module = $this->get_module();
 			$status = Backup_Handler::new_backup( $module->unique(), $module->module_db(), false );
@@ -77,6 +80,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 			$this->error( __( 'Backup Creation Failed', 'wponion' ), __( 'Unknown Error Occured While Creating Backup', 'wponion' ) );
 		}
 
+		/**
+		 * Handles Backup Download.
+		 */
 		protected function download() {
 			$module    = $this->get_module();
 			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found', 'wponion' ) );
@@ -90,6 +96,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 			$this->error( __( 'Backup Not Found', 'wponion' ) );
 		}
 
+		/**
+		 * Handles Backup Deletion.
+		 */
 		protected function delete() {
 			$module    = $this->get_module();
 			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found', 'wponion' ) );
@@ -100,6 +109,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 			$this->error( __( 'Deletion Failed', 'wponion' ), __( 'Backup Not Found', 'wponion' ) );
 		}
 
+		/**
+		 * Handles Backup Restore.
+		 */
 		protected function restore() {
 			$module    = $this->get_module();
 			$backup_id = $this->validate_post( 'backup_id', __( 'Backup Not Found', 'wponion' ) );

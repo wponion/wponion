@@ -56,12 +56,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected $raw_fields = array();
 
 		/**
+		 * PHP Magic Function.
+		 *
 		 * @param $name
 		 * @param $arguments
 		 *
 		 * @return bool
 		 */
-		public function __call( $name, $arguments ) {
+		public function __call( $name, $arguments ) { //phpcs:ignore
 			return ( isset( $this->{$name} ) ) ? $this->{$name} : false;
 		}
 
@@ -119,6 +121,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Triggers Theme's Instance & Stores It.
+		 *
 		 * @return \WPOnion\Theme_API
 		 */
 		protected function init_theme() {
@@ -353,6 +357,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Checks if container is active.
+		 *
 		 * @param $is_container
 		 *
 		 * @return null
@@ -362,6 +368,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * returns current page's part url.
+		 *
 		 * @param bool $part_url
 		 *
 		 * @return null
@@ -519,6 +527,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			return '';
 		}
 
+		/**
+		 * Handles Field's Default Value For Each Module.
+		 */
 		protected function get_defaults() {
 			/**
 			 * @var $options \WPO\Container
@@ -585,7 +596,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param string $extra_class
 		 * @param array  $extra_attributes
 		 *
-		 * @return array
+		 * @return string
 		 */
 		public function wrap_attributes( $extra_class = '', $extra_attributes = array() ) {
 			wponion_localize()->add( 'wponion_module_args', array(
