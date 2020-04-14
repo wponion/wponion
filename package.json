@@ -23,7 +23,7 @@
     "@popperjs/core": "^2.3.1",
     "jquery-serializejson": "^2.9.0",
     "jquery-validation": "^1.18.0",
-    "sweetalert2": "^9.10.11",
+    "sweetalert2": "^9.10.12",
     "tippy.js": "^6.1.1",
     "vsp-js-helper": "^1.0.32",
     "wordpress-js-ports": "^1.0.9",
