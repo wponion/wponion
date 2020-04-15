@@ -206,8 +206,9 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(
-				/** translators: 1. Added Icon. */
+				// translators: 1. Added Icon.
 				'add_button'    => sprintf( __( 'Add New %s', 'wponion' ), wpo_icon( 'wpoic-plus-circle' ) ),
+				// translators: 1. Remove Icon
 				'remove_button' => sprintf( 'Remove %s', wpo_icon( 'wpoic-delete' ) ),
 				'limit'         => false,
 				'heading'       => false,

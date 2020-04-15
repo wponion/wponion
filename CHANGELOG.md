@@ -6,7 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # [1.4.5.2] - 14/04/2019
-## Added
 
 ## Changed
 * Improved Settings Page / Metabox Menu Navtion Easy.
@@ -800,6 +799,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [1.4.8]: https://github.com/wponion/wponion/releases/tag/1.4.8
 [1.4.7]: https://github.com/wponion/wponion/releases/tag/1.4.7
 [1.4.6]: https://github.com/wponion/wponion/releases/tag/1.4.6
+[1.4.5.2]: https://github.com/wponion/wponion/releases/tag/1.4.5.2
 [1.4.5.1]: https://github.com/wponion/wponion/releases/tag/1.4.5.1
 [1.4.5]: https://github.com/wponion/wponion/releases/tag/1.4.5
 [1.4.4]: https://github.com/wponion/wponion/releases/tag/1.4.4

@@ -60,6 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					),
 					'only_field'  => true,
 					'button_type' => 'button',
+					// translators: 1. Add Icon
 					'label'       => sprintf( __( 'Add %s ', 'wponion' ), wponion_icon( 'wpoic-plus-circle' ) ),
 				) ), null, null );
 
