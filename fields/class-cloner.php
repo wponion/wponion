@@ -23,6 +23,11 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 */
 		protected $actual_type = null;
 
+		/**
+		 * Field's Custom Wrap Class.
+		 *
+		 * @return string
+		 */
 		protected function field_wrap_class() {
 			return 'wponion-has-nested-fields';
 		}
@@ -55,6 +60,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 					),
 					'only_field'  => true,
 					'button_type' => 'button',
+					// translators: 1. Add Icon
 					'label'       => sprintf( __( 'Add %s ', 'wponion' ), wponion_icon( 'wpoic-plus-circle' ) ),
 				) ), null, null );
 
@@ -157,13 +163,13 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		}
 
 		/**
-		 * Handles Fields Default args.
+		 * Checks & Updat fields args based on field config.
 		 *
 		 * @param array $data
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $data = array() ) {
+		protected function handle_field_args( $data = array() ) {
 			$defaults = array(
 				'animations'  => array(
 					'show' => false,
@@ -211,7 +217,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		}
 
 		/**
-		 * Returns Fields Default Value.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

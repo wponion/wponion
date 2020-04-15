@@ -15,8 +15,11 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 	 * @since 1.0
 	 */
 	class Color_Picker extends Checkbox_Radio {
+
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			if ( empty( $this->data( 'options' ) ) ) {
@@ -56,7 +59,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */
@@ -65,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

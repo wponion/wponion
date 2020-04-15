@@ -17,17 +17,20 @@ if ( ! class_exists( '\WPOnion\Field\Heading' ) ) {
 	 * @since 1.0
 	 */
 	class Heading extends Field {
+
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
-		public function output() {
+		protected function output() {
 			echo $this->before();
 			echo $this->data( 'content' );
 			echo $this->after();
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */
@@ -35,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Heading' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

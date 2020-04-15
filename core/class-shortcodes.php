@@ -62,6 +62,8 @@ if ( ! class_exists( '\WPOnion\Shortcodes' ) ) {
 		}
 
 		/**
+		 * Generates WPOnion if Condition Shortcode.
+		 *
 		 * @param $args
 		 * @param $content
 		 *

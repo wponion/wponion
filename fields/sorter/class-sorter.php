@@ -17,6 +17,12 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 	 * @since 1.0
 	 */
 	class Sorter extends Field {
+
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 			$value = $this->get_element_values();
@@ -96,6 +102,11 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 			return $saved;
 		}
 
+		/**
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'options'        => array(),
@@ -104,6 +115,11 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 			);
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 			wp_enqueue_script( 'jquery-ui-sortable' );
 		}

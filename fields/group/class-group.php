@@ -64,7 +64,9 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -198,13 +200,15 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return $this->parse_args( array(
+				// translators: 1. Added Icon.
 				'add_button'    => sprintf( __( 'Add New %s', 'wponion' ), wpo_icon( 'wpoic-plus-circle' ) ),
+				// translators: 1. Remove Icon
 				'remove_button' => sprintf( 'Remove %s', wpo_icon( 'wpoic-delete' ) ),
 				'limit'         => false,
 				'heading'       => false,
@@ -213,7 +217,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */

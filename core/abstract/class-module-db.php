@@ -201,6 +201,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		}
 
 		/**
+		 * Sets WordPress Related ID.
+		 *
 		 * @param $id
 		 *
 		 * @return string|bool

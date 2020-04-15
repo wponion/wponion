@@ -268,6 +268,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		}
 
 		/**
+		 * Renders CSS / JS Arguments an simple alternative to wp_add_inline_style() && wp_add_inline_script()
+		 *
 		 * @param bool $return
 		 *
 		 * @return bool|string
@@ -319,6 +321,8 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		}
 
 		/**
+		 * Returns All JS Args.
+		 *
 		 * @return array
 		 */
 		public function get_js_args() {
@@ -348,8 +352,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 
 		/**
 		 * Outputs Raw HTML of js info.
-		 *
-		 * @param bool $return
 		 *
 		 * @return string
 		 */

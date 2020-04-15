@@ -3,7 +3,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '1.4.5.1' );
+
+defined( 'WPONION_VERSION' ) or define( 'WPONION_VERSION', '1.4.5.2' );
 defined( 'WPONION_CDN_VERSION' ) or define( 'WPONION_CDN_VERSION', '1.3.9' );
 defined( 'WPONION_CDN_URL' ) or define( 'WPONION_CDN_URL', 'https://cdn.jsdelivr.net/gh/wponion/vendor-support' );
 defined( 'WPONION_NAME' ) or define( 'WPONION_NAME', 'WPOnion' );
@@ -15,7 +16,7 @@ if ( ! function_exists( 'wponion' ) ) {
 	/**
 	 * Returns An WPOnion Instance.
 	 *
-	 * @return bool|\WPOnion
+	 * @return \WPOnion
 	 */
 	function wponion() {
 		if ( ! class_exists( '\WPOnion' ) ) {

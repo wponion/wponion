@@ -16,18 +16,24 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 	 */
 	abstract class Addon_Field extends Addon {
 		/**
-		 * @var null
+		 * Field Type.
+		 *
+		 * @var string
 		 * @access
 		 */
 		protected $type = null;
 
 		/**
-		 * @var null
+		 * An Array/string modules that this field supports.
+		 *
+		 * @var string
 		 * @access
 		 */
 		protected $supports = null;
 
 		/**
+		 * Additional Arguments.
+		 *
 		 * @var array
 		 * @access
 		 */

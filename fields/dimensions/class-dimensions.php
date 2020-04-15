@@ -15,7 +15,10 @@ if ( ! class_exists( '\WPOnion\Field\Dimensions' ) ) {
 	 * @since 1.0
 	 */
 	class Dimensions extends Input_Group {
+
 		/**
+		 * Field's Custom Wrap Class.
+		 *
 		 * @return string
 		 */
 		protected function field_wrap_class() {
@@ -23,7 +26,9 @@ if ( ! class_exists( '\WPOnion\Field\Dimensions' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			$fields = array();
@@ -95,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Field\Dimensions' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

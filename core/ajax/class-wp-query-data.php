@@ -30,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Ajax\WP_Query_Data' ) ) {
 		protected $validate_field_path = false;
 
 		/**
-		 * Runs Ajax.
+		 * Runs Ajax Request.
 		 */
 		public function run() {
 			$options    = $this->validate_post( 'option_type', __( 'Invalid Option Type', 'wponion' ) );

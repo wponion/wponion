@@ -206,10 +206,18 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 			$this->css_actions( $tab, 'focus' );
 		}
 
+		/**
+		 * Field's Custom Wrap Class.
+		 *
+		 * @return string
+		 */
 		protected function field_wrap_class() {
 			return 'wponion-has-nested-fields';
 		}
 
+		/**
+		 * @return \WPO\Fields\Tab
+		 */
 		protected function tab_field() {
 			/**
 			 * @var \WPO\Fields\Tab $field
@@ -236,6 +244,11 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 			return $field;
 		}
 
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 			echo $this->sub_field( $this->tab_field(), $this->value(), $this->unique( $this->field_id() ) );
@@ -250,6 +263,11 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'label'           => __( 'Button Label', 'wponion' ),
@@ -270,6 +288,11 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 			);
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 	}

@@ -15,7 +15,10 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 	 * @since 1.0
 	 */
 	class Spacing extends Input_Group {
+
 		/**
+		 * Field's Custom Wrap Class.
+		 *
 		 * @return string
 		 */
 		protected function field_wrap_class() {
@@ -23,7 +26,9 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			$fields = array();
@@ -94,6 +99,11 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 			echo parent::output();
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
@@ -137,7 +147,7 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

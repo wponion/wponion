@@ -16,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 	 */
 	class Themes {
 		/**
-		 * themes
+		 * Stores All Theme's Info.
 		 *
 		 * @var array
 		 */

@@ -16,6 +16,12 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 	 * @since 1.0
 	 */
 	class Typography extends Field {
+
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 
@@ -300,7 +306,7 @@ HTML;
 		}
 
 		/**
-		 * Field Defaults.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */
@@ -326,6 +332,11 @@ HTML;
 			);
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 

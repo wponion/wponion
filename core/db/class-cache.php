@@ -15,6 +15,8 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 	 */
 	class Cache {
 		/**
+		 * Stores Cache Not Found Value.
+		 *
 		 * @var
 		 * @access
 		 * @static
@@ -22,6 +24,8 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		protected static $not_found_value;
 
 		/**
+		 * Stores Cache Database Key.
+		 *
 		 * @var string
 		 * @access
 		 * @static
@@ -29,25 +33,13 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		protected static $db_key = '_wponion_db_cache';
 
 		/**
+		 * Stores Current Database Cache.
+		 *
 		 * @var array
 		 * @access
 		 * @static
 		 */
 		protected static $cache = false;
-
-		/**
-		 * @var bool
-		 * @access
-		 * @static
-		 */
-		protected static $cache_unique_key = false;
-
-		/**
-		 * @var bool
-		 * @access
-		 * @static
-		 */
-		protected static $cache_not_found = false;
 
 		/**
 		 * Retrives DB Cache.
@@ -62,7 +54,7 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		}
 
 		/**
-		 * @return void
+		 * Inits Cache System.
 		 */
 		public static function init() {
 			self::$not_found_value = new DB_Cache_Not_Found();
@@ -81,17 +73,22 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		}
 
 		/**
+		 * Runs array_filter & return it if its array.
+		 *
 		 * @param $data
 		 *
 		 * @static
 		 * @return array
+		 * @uses \array_filter()
 		 */
 		public static function filter_save( $data ) {
 			return ( is_array( $data ) ) ? array_filter( $data ) : $data;
 		}
 
 		/**
-		 * @param string $key
+		 * Fetches Cached Data.
+		 *
+		 * @param string $key cache_id.
 		 *
 		 * @static
 		 * @return mixed
@@ -110,8 +107,10 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		}
 
 		/**
-		 * @param string $key
-		 * @param mixed  $value
+		 * Set A New Cache Data.
+		 *
+		 * @param string $key cache_id.
+		 * @param mixed  $value catch_data.
 		 *
 		 * @static
 		 * @return array|object
@@ -122,6 +121,8 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		}
 
 		/**
+		 * Removes A Cached Data.
+		 *
 		 * @param string $key
 		 *
 		 * @static

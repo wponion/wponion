@@ -30,6 +30,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 		 */
 		protected $validate_field_path = false;
 
+		/**
+		 * Runs Ajax Request.
+		 */
 		public function run() {
 			$this->add_assets = true;
 			$unique           = sanitize_text_field( $this->validate_post( 'unique', __( 'Invalid Metabox', 'wponion' ) ) );

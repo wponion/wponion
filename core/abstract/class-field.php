@@ -144,7 +144,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return array
 		 */
-		public function _handle_field_args( $data ) {
+		protected function _handle_field_args( $data ) {
 			if ( isset( $data['class'] ) ) {
 				$data['attributes']          = ( isset( $data['attributes'] ) ) ? $data['attributes'] : array();
 				$data['attributes']['class'] = isset( $data['attributes']['class'] ) ? $data['attributes']['class'] : array();
@@ -170,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return bool|mixed
 		 */
-		public function data( $key = '', $value = null ) {
+		protected function data( $key = '', $value = null ) {
 			if ( isset( $this->field[ $key ] ) ) {
 				if ( null === $value ) {
 					return $this->field[ $key ];
@@ -406,7 +406,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return string
 		 */
-		private function wrap_id() {
+		protected function wrap_id() {
 			$attrs = $this->data( 'wrap_attributes' );
 			if ( isset( $attrs['id'] ) && ! empty( $attrs['id'] ) ) {
 				return $attrs['id'];
@@ -820,6 +820,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Return's Field's Name.
+		 *
 		 * @param string|bool $extra_name
 		 *
 		 * @return string
@@ -832,6 +834,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Returns Fields Unique ID.
+		 *
 		 * @param string $extra
 		 * @param bool   $unique
 		 *
@@ -868,7 +872,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @param null $data
 		 * @param bool $js_convert
 		 */
-		public function localize_field( $data = null, $js_convert = true ) {
+		protected function localize_field( $data = null, $js_convert = true ) {
 			if ( null === $data ) {
 				$data = $this->js_field_args();
 				if ( ! empty( $data ) ) {
@@ -972,6 +976,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Handles Fields Arguments.
+		 *
 		 * @param       $key
 		 * @param       $value
 		 * @param array $defaults
@@ -1072,7 +1078,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return string
 		 */
-		public function checked( $helper = '', $current = '', $type = 'checked', $echo = false ) {
+		protected function checked( $helper = '', $current = '', $type = 'checked', $echo = false ) {
 			if ( wponion_is_array( $helper ) && in_array( $current, $helper, false ) ) {
 				$result = ' ' . $type . '="' . $type . '"';
 			} elseif ( wponion_validate_bool_val( $helper ) === wponion_validate_bool_val( $current ) ) {
@@ -1087,11 +1093,15 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Checks and provides proper data with the help of WPOnion Query & WP_Query
+		 *
 		 * @param string $type
 		 *
 		 * @return array
+		 * @uses \WPONion\DB\Query
+		 * @uses \WP_Query
 		 */
-		public function element_data( $type = '' ) {
+		protected function element_data( $type = '' ) {
 			$is_ajax    = ( isset( $this->field['ajax'] ) && true === $this->field['ajax'] );
 			$query_args = array();
 
@@ -1112,6 +1122,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
+		 * Returns Module name or module instance.
+		 *
 		 * @param bool $module_instance
 		 *
 		 * @return bool|string|\WPOnion\Bridge\Module
@@ -1128,7 +1140,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		/**
 		 * Compiles And Add CSS Code To WPonion localize.
 		 */
-		public function field_custom_css() {
+		protected function field_custom_css() {
 			if ( ! empty( $this->data( 'css' ) ) ) {
 				$css = CSS_Parser::parse( $this->data( 'css' ), 'div[data-wponion-jsid="' . $this->js_field_id() . '"]' );
 				wponion_localize()->css( 'fields', $css, false );
@@ -1157,7 +1169,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $data = array() ) {
+		protected function handle_field_args( $data = array() ) {
 			return $data;
 		}
 

@@ -18,6 +18,11 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Editor' ) ) {
 	 */
 	class Visual_Editor extends Field {
 
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 			echo '<div class="css-builder-main-wrap">';
@@ -38,7 +43,7 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Editor' ) ) {
 		<div class="css-builder-layer-padding"> <span class="css-builder-heading">$padding_title</span> $padding_fields	</div>
 		<div class="css-builder-layer-border"> <span class="css-builder-heading">$border_title</span> $border_fields	</div>
 		<div class="css-builder-layer-border-radius"> <span class="css-builder-heading">$border_radius_title</span> $border_radius_fields	</div>
-		
+
 	</div>
 </div>
 HTML;
@@ -240,22 +245,30 @@ HTML;
 		}
 
 		/**
+		 * Checks & Updat fields args based on field config.
+		 *
 		 * @param array $data
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $data = array() ) {
+		protected function handle_field_args( $data = array() ) {
 			$this->select_framework = wponion_validate_select_framework( $data );
 			return $data;
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
-		protected function js_field_args() {
-			return parent::js_field_args();
-		}
-
+		/**
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'background-color' => __( 'Background Color', 'wponion' ),

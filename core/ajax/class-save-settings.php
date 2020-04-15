@@ -31,6 +31,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Settings' ) ) {
 		 */
 		protected $validate_field_path = false;
 
+		/**
+		 * Runs Ajax Request.
+		 */
 		public function run() {
 			$this->add_assets = true;
 			$option_page      = $_REQUEST['option_page'];

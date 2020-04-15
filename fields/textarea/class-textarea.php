@@ -22,26 +22,26 @@ if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 		}
 
 		/**
-		 * Handles fields args based on config.
+		 * Checks & Updat fields args based on field config.
 		 *
-		 * @param array $field_data
+		 * @param array $data
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $field_data = array() ) {
-			$field_data = parent::handle_field_args( $field_data );
-			if ( isset( $field_data['rows'] ) ) {
-				$field_data['attributes']['rows'] = $field_data['rows'];
+		protected function handle_field_args( $data = array() ) {
+			$data = parent::handle_field_args( $data );
+			if ( isset( $data['rows'] ) ) {
+				$data['attributes']['rows'] = $data['rows'];
 			}
-			if ( isset( $field_data['cols'] ) ) {
-				$field_data['attributes']['cols'] = $field_data['cols'];
+			if ( isset( $data['cols'] ) ) {
+				$data['attributes']['cols'] = $data['cols'];
 			}
 
-			return $field_data;
+			return $data;
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

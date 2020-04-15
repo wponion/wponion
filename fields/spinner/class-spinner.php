@@ -14,18 +14,23 @@ if ( ! class_exists( '\WPOnion\Field\Spinner' ) ) {
 	 * @since 1.0
 	 */
 	class Spinner extends Text {
+
 		/**
-		 * @param array $field_data
+		 * Checks & Updat fields args based on field config.
+		 *
+		 * @param array $data
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $field_data = array() ) {
-			$field_data['text_type'] = 'text';
-			return parent::handle_field_args( $field_data );
+		protected function handle_field_args( $data = array() ) {
+			$data['text_type'] = 'text';
+			return parent::handle_field_args( $data );
 		}
 
 		/**
-		 * Enqueue Assets.
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
 		 */
 		public function field_assets() {
 			wp_enqueue_script( 'jquery-ui-spinner' );
@@ -44,7 +49,9 @@ if ( ! class_exists( '\WPOnion\Field\Spinner' ) ) {
 		}
 
 		/**
-		 * @return array
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array(

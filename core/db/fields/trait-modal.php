@@ -15,6 +15,8 @@ if ( ! trait_exists( '\WPOnion\DB\Fields\Modal' ) ) {
 	 */
 	trait Modal {
 		/**
+		 * Handles Modal Field
+		 *
 		 * @param      $field
 		 * @param bool $parent_field
 		 */
@@ -42,6 +44,8 @@ if ( ! trait_exists( '\WPOnion\DB\Fields\Modal' ) ) {
 		}
 
 		/**
+		 * Handles SWAL Modal field.
+		 *
 		 * @param \WPO\Fields\Modal|array $field
 		 */
 		public function modal_swal_handle( $field ) {
@@ -51,6 +55,8 @@ if ( ! trait_exists( '\WPOnion\DB\Fields\Modal' ) ) {
 		}
 
 		/**
+		 * Handles WP Modal Field.
+		 *
 		 * @param \WPO\Fields\Modal|array $field
 		 */
 		public function modal_wp_handle( $field ) {
@@ -71,6 +77,8 @@ if ( ! trait_exists( '\WPOnion\DB\Fields\Modal' ) ) {
 		}
 
 		/**
+		 * Renders WP Modal Containers.
+		 *
 		 * @param \WPO\Container|\WPO\Builder $builder
 		 * @param bool                        $modal_field
 		 */

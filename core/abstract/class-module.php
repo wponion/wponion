@@ -56,12 +56,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected $raw_fields = array();
 
 		/**
+		 * PHP Magic Function.
+		 *
 		 * @param $name
 		 * @param $arguments
 		 *
 		 * @return bool
 		 */
-		public function __call( $name, $arguments ) {
+		public function __call( $name, $arguments ) { //phpcs:ignore
 			return ( isset( $this->{$name} ) ) ? $this->{$name} : false;
 		}
 
@@ -119,6 +121,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Triggers Theme's Instance & Stores It.
+		 *
 		 * @return \WPOnion\Theme_API
 		 */
 		protected function init_theme() {
@@ -304,17 +308,17 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			$is_active     = false;
 
 			if ( false === $container ) {
+				$is_active = ( $name === $this->active( true ) ) ? true : $is_active;
+				$part_href = $menu->href();
 				if ( true === $internal_href ) {
 					$href      = add_query_arg( array( 'container-id' => $name ), $this->page_url() );
 					$part_href = add_query_arg( array( 'container-id' => $name ), $this->page_url( true ) );
-				} else {
-					$part_href = $menu->href();
-				}
-
-				if ( $name === $this->active( true ) ) {
-					$is_active = true;
 				}
 			} elseif ( true === $is_child && false !== $container ) {
+				$part_href      = $menu->href();
+				$is_main_active = ( $name === $this->active( false ) && $container === $this->active( true ) );
+				$is_sub_active  = ( $container !== $this->active( true ) && ( 'submeu' === $this->option( 'is_single_page' ) && $name === $first_container ) );
+
 				if ( true === $internal_href ) {
 					$query_args = array(
 						'container-id'     => $container,
@@ -322,12 +326,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 					);
 					$href       = add_query_arg( $query_args, $this->page_url() );
 					$part_href  = add_query_arg( $query_args, $this->page_url( true ) );
-				} else {
-					$part_href = $menu->href();
 				}
-
-				$is_main_active = ( $name === $this->active( false ) && $container === $this->active( true ) );
-				$is_sub_active  = ( $container !== $this->active( true ) && ( 'submeu' === $this->option( 'is_single_page' ) && $name === $first_container ) );
 
 				if ( 'metabox' === $this->module() && $is_main_active || $is_sub_active ) {
 					$is_active = true;
@@ -358,6 +357,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * Checks if container is active.
+		 *
 		 * @param $is_container
 		 *
 		 * @return null
@@ -367,6 +368,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
+		 * returns current page's part url.
+		 *
 		 * @param bool $part_url
 		 *
 		 * @return null
@@ -524,6 +527,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			return '';
 		}
 
+		/**
+		 * Handles Field's Default Value For Each Module.
+		 */
 		protected function get_defaults() {
 			/**
 			 * @var $options \WPO\Container
@@ -590,7 +596,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * @param string $extra_class
 		 * @param array  $extra_attributes
 		 *
-		 * @return array
+		 * @return string
 		 */
 		public function wrap_attributes( $extra_class = '', $extra_attributes = array() ) {
 			wponion_localize()->add( 'wponion_module_args', array(

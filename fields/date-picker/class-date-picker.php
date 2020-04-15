@@ -17,8 +17,11 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 	 * @since 1.0
 	 */
 	class Date_Picker extends Field {
+
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -63,12 +66,17 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Field's Custom Wrap Class.
+		 *
+		 * @return string
+		 */
 		protected function field_wrap_class() {
 			return ( $this->has( 'range' ) && true === $this->data( 'range' ) ) ? ' wponion-datepicker-range ' : '';
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */
@@ -89,7 +97,7 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

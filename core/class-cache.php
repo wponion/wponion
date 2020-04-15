@@ -30,6 +30,8 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 	 */
 	final class Cache {
 		/**
+		 * Stores Cached Data.
+		 *
 		 * @var array
 		 * @access
 		 * @static
@@ -112,6 +114,11 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 			return memory_get_usage( false ) >= self::get_memory_limit() - self::$min_free_memory;
 		}
 
+		/**
+		 * Inits Cache System.
+		 *
+		 * @static
+		 */
 		public static function init() {
 			self::$not_found_value = new Cache_Not_Found();
 			$clear_cache           = array(
@@ -186,6 +193,8 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		}
 
 		/**
+		 * Clear's Up Memory for smooth process.
+		 *
 		 * @param mixed $dummy
 		 *
 		 * @return mixed
@@ -201,7 +210,9 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		}
 
 		/**
-		 * @param string $key
+		 * Fetches a cached data.
+		 *
+		 * @param string $key cache_id
 		 *
 		 * @static
 		 * @return mixed
@@ -224,8 +235,10 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		}
 
 		/**
-		 * @param string $key
-		 * @param mixed  $value
+		 * Sets a cache data.
+		 *
+		 * @param string $key cache_id.
+		 * @param mixed  $value cache_data.
 		 *
 		 * @static
 		 * @return array|object
@@ -238,7 +251,9 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		}
 
 		/**
-		 * @param string $key
+		 * Removes a cached data.
+		 *
+		 * @param string $key cache_id
 		 *
 		 * @static
 		 */

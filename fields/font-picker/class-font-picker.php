@@ -32,7 +32,9 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -92,7 +94,7 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */
@@ -115,7 +117,7 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */

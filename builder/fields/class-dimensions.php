@@ -15,12 +15,6 @@ if ( ! class_exists( 'WPO\Fields\Dimensions' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method get_width()
-	 * @method get_height()
-	 * @method get_unit()
-	 * @method get_unit_options()
-	 * @method get_icons()
 	 */
 	class Dimensions extends Field {
 		/**

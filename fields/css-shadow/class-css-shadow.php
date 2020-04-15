@@ -14,6 +14,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 	class CSS_Shadow extends Field {
 
 		/**
+		 * Field's Custom Wrap Class.
+		 *
 		 * @return string
 		 */
 		protected function field_wrap_class() {
@@ -30,6 +32,9 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 				->wrap_class( 'col-xs-12 col-md-2' );
 		}
 
+		/**
+		 * @return false|\WPO\Field
+		 */
 		protected function v_shadow() {
 			return wpo_field( 'number', 'v-shadow', __( 'Vertical Length', 'wponion' ), array( 'surfix' => 'px' ) )
 				->attribute( 'data-css-id', 'v-shadow' )
@@ -78,6 +83,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		}
 
 		/**
+		 * Generates Final HTML Output.
+		 *
 		 * @return mixed|void
 		 */
 		protected function output() {
@@ -123,11 +130,16 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * @return array
+		 */
 		protected function js_field_args() {
 			return array( 'shadow_type' => $this->data( 'shadow_type' ) );
 		}
 
 		/**
+		 * Returns Field's Default Value.
+		 *
 		 * @return array|mixed
 		 */
 		protected function field_default() {
@@ -138,6 +150,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		}
 
 		/**
+		 * Handles Fields Assets.
+		 *
 		 * @return mixed|void
 		 */
 		public function field_assets() {

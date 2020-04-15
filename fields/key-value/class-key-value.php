@@ -56,7 +56,9 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -100,16 +102,15 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array(
+				// translators: 1. Add Icon
 				'add_button'    => sprintf( __( 'Add %s', 'wponion' ), wpo_icon( 'wpoic-plus-circle' ) ),
-				//__( 'Add +', 'wponion' ),
 				'remove_button' => wpo_icon( 'wpoic-delete' ),
-				#__( '-', 'wponion' ),
 				'key_input'     => array(),
 				'value_input'   => array(),
 				'limit'         => false,
@@ -119,7 +120,7 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */

@@ -24,7 +24,9 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		protected $select_framework = null;
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -103,13 +105,13 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		}
 
 		/**
-		 * checks and updated fields args based on field config.
+		 * Checks & Updat fields args based on field config.
 		 *
 		 * @param array $data
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $data = array() ) {
+		protected function handle_field_args( $data = array() ) {
 			if ( true === $data['multiple'] ) {
 				$data['attributes']['multiple'] = 'multiple';
 			}
@@ -128,7 +130,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */
@@ -156,7 +158,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */

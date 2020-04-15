@@ -17,21 +17,29 @@ if ( ! class_exists( '\WPOnion\Field\Divider' ) ) {
 	 * @since 1.0
 	 */
 	class Divider extends Field {
+
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
-		public function output() {
+		protected function output() {
 			$text = ( false !== $this->data( 'text' ) ) ? ' data-content="' . $this->data( 'text' ) . '" ' : '';
 			echo '<hr class="hr-text" ' . $text . '/>';
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
 		/**
-		 * Final HTML Output;
+		 * Returns Field's Default Value.
 		 *
-		 * @return mixed;
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array( 'text' => false );

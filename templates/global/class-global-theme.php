@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
 					wponion_html_class( $menu['class'] ),
 					'nav-tab',
 					( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
-					( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
+					( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'wpo-internal-href' : '',
 					( true === $menu['is_active'] ) ? 'nav-tab-active' : '',
 					( true === $menu['is_disabled'] ) ? ' disabled ' : '',
 				) );
@@ -72,7 +72,7 @@ if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
 					$attr['class'] = wponion_html_class( $attr['class'], array(
 						wponion_html_class( $menu['class'] ),
 						( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
-						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'nav-internal-href' : '',
+						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'wpo-internal-href' : '',
 						( true === $menu['is_active'] ) ? 'current' : '',
 						( true === $menu['is_disabled'] || true === $menus[ $parent_slug ]['is_disabled'] ) ? 'disabled ' : '',
 					) );

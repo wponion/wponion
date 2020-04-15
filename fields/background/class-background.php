@@ -17,6 +17,12 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 	 * @since 1.0
 	 */
 	class Background extends Field {
+
+		/**
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
+		 */
 		protected function output() {
 			echo $this->before();
 
@@ -69,6 +75,11 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 			echo $this->after();
 		}
 
+		/**
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
+		 */
 		protected function field_default() {
 			return array(
 				'background-repeat'     => true,
@@ -86,10 +97,22 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 			);
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
-		public function handle_field_args( $data = array() ) {
+		/**
+		 * Checks & Updat fields args based on field config.
+		 *
+		 * @param array $data
+		 *
+		 * @return array
+		 */
+		protected function handle_field_args( $data = array() ) {
 			$this->select_framework = wponion_validate_select_framework( $data );
 			return $data;
 		}

@@ -40,6 +40,7 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 		 * WPOnion_Loader constructor.
 		 */
 		public function __construct() {
+			/** @uses load_framework */
 			add_action( 'plugins_loaded', [ &$this, 'load_framework' ], -1 );
 		}
 

@@ -19,7 +19,9 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 	class Color_Group extends Field {
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -45,7 +47,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */
@@ -54,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */

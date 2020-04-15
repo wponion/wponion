@@ -13,11 +13,6 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
-	 *
-	 * @method multiple()
-	 * @method get_size()
-	 * @method get_active()
-	 * @method get_inactive()
 	 */
 	class Button_Set extends Checkbox_Radio {
 		/**

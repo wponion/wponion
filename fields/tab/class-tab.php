@@ -16,7 +16,10 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 	 * @since 1.0
 	 */
 	class Tab extends Field {
+
 		/**
+		 * Generates Final HTML Output.
+		 *
 		 * @return mixed|void
 		 */
 		protected function output() {
@@ -68,11 +71,18 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 			return $return;
 		}
 
+		/**
+		 * Handles Fields Assets.
+		 *
+		 * @return mixed|void
+		 */
 		public function field_assets() {
 		}
 
 		/**
-		 * @return array
+		 * Returns Field's Default Value.
+		 *
+		 * @return array|mixed
 		 */
 		protected function field_default() {
 			return array( 'tab_style' => 'style1' );

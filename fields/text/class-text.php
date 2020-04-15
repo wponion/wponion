@@ -44,7 +44,9 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		}
 
 		/**
-		 * Final HTML Output
+		 * Generates Final HTML Output.
+		 *
+		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -108,28 +110,28 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		}
 
 		/**
-		 * checks and updated fields args based on field config.
+		 * Checks & Updat fields args based on field config.
 		 *
-		 * @param array $field_data
+		 * @param array $data
 		 *
 		 * @return array
 		 */
-		public function handle_field_args( $field_data = array() ) {
-			if ( false !== $field_data['inputmask'] ) {
-				$field_data['wrap_class']                           = ( false !== $field_data['wrap_class'] ) ? $field_data['wrap_class'] : '';
-				$field_data['wrap_class']                           = $field_data['wrap_class'] . ' ' . ' wponion-inputmask ';
-				$field_data['attributes']['data-wponion-inputmask'] = 'yes';
+		protected function handle_field_args( $data = array() ) {
+			if ( false !== $data['inputmask'] ) {
+				$data['wrap_class']                           = ( false !== $data['wrap_class'] ) ? $data['wrap_class'] : '';
+				$data['wrap_class']                           = $data['wrap_class'] . ' ' . ' wponion-inputmask ';
+				$data['attributes']['data-wponion-inputmask'] = 'yes';
 			}
 
-			if ( false !== $field_data['placeholder'] ) {
-				$field_data['attributes']['placeholder'] = $field_data['placeholder'];
+			if ( false !== $data['placeholder'] ) {
+				$data['attributes']['placeholder'] = $data['placeholder'];
 			}
 
-			return $field_data;
+			return $data;
 		}
 
 		/**
-		 * Loads the required plugins assets.
+		 * Handles Fields Assets.
 		 *
 		 * @return mixed|void
 		 */
@@ -140,7 +142,7 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		}
 
 		/**
-		 * Returns all fields default.
+		 * Returns Field's Default Value.
 		 *
 		 * @return array|mixed
 		 */
