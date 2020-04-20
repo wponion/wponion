@@ -26,14 +26,14 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 		protected function output() {
 			echo $this->before();
 
-			echo '<div class="row">';
+			echo '<div class="wpo-row">';
 
 			if ( false !== $this->data( 'background-color' ) ) {
 				$title = ( true === $this->data( 'background-color' ) ) ? __( 'Background Color', 'wponion' ) : $this->data( 'background-color' );
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
 					'type'       => 'color_picker',
 					'id'         => 'color',
-					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal' => true,
 				) ), $this->value( 'color' ), $this->name() );
 			}
@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 						'options'               => $this->get_options( $id ),
 						'id'                    => $title,
 						'style'                 => 'width:100%;',
-						'wrap_class'            => 'col-xs-12 col-sm-12 col-md-3',
+						'wrap_class'            => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 						'horizontal'            => true,
 						$this->select_framework => $this->data( $this->select_framework ),
 					) ), $this->value( $id ), $this->name() );
@@ -67,7 +67,7 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
 					'type'       => 'upload',
 					'id'         => 'image',
-					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal' => true,
 				) ), $this->value( 'image' ), $this->name() );
 			}

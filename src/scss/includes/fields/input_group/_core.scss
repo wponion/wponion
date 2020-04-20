@@ -1,6 +1,6 @@
 .wponion-element.wponion-element-input_group {
 	.wponion-fieldset {
-		> .row {
+		> .wpo-row {
 			> .wponion-element {
 				border: none;
 			}
@@ -10,9 +10,9 @@
 
 .wponion-framework.wponion-module-customizer {
 	.wponion-element.wponion-element-input_group {
-		> .row {
+		> .wpo-row {
 			> .wponion-fieldset {
-				> .row {
+				> .wpo-row {
 					margin: 0;
 				}
 			}

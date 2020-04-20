@@ -10,7 +10,7 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 }
 
 
-.wponion-sub-container-wraps.row, .wponion-container-wraps.row {
+.wponion-sub-container-wraps.wpo-row, .wponion-container-wraps.wpo-row {
 	&.hidden {
 		display: none;
 	}
@@ -26,7 +26,7 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 		border-top: $element_border;
 	}
 
-	/*&[class^='col-xs-'] + .wponion-element[class^='col-xs-'] {
+	/*&[class^='wpo-col-xs-'] + .wponion-element[class^='wpo-col-xs-'] {
 		border-left: $element_border;
 	}*/
 
@@ -61,10 +61,10 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 		}
 	}
 
-	.row {
+	.wpo-row {
 		> .wponion-element-title {
 
-			@include respond-to('xs', 'sm') {
+			@include wponion_respond_to('xs', 'sm') {
 				margin-bottom: $element_gurtter;
 			}
 

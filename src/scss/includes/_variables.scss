@@ -22,7 +22,7 @@ $wponionThemes: map-merge((
 	"light": $light,
 	"dark": $dark
 ), $wponionThemes);
-$breakpoints: (
+$wpo_breakpoints: (
   'xs':  ( max-width:  575px ),
   'sm':  ( max-width:  767px ),
   'md':  ( max-width:  991px ),

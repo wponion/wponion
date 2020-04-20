@@ -115,7 +115,7 @@ if ( ! class_exists( '\WPOnion\Field\Group' ) ) {
 		 * @return string
 		 */
 		protected function after_accordion() {
-			$return = '<div class="wponion-group-action col-xs-12">';
+			$return = '<div class="wponion-group-action wpo-col-xs-12">';
 			$return .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
 				'class'       => array( 'button button-secondary' ),
 				'type'        => 'button',

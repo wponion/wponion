@@ -5,7 +5,7 @@
 		visibility: hidden;
 	}
 
-	.wponion-element *, .wponion-row *, .wponion-framework .row {
+	.wponion-element *, .wponion-row *, .wponion-framework .wpo-row {
 		box-sizing: border-box !important;
 	}
 
@@ -83,7 +83,7 @@
 				}
 
 				> .wponion-element {
-					> .row {
+					> .wpo-row {
 						width:        100%;
 						margin-left:  0 !important;
 						margin-right: 0 !important;

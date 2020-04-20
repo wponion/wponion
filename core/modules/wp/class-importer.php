@@ -313,7 +313,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 				}
 				$html .= $this->render_field( $field, false, false );
 			}
-			return '<div class="wponion-importer-fields"><div class="wponion-row row">' . $html . '</div></div>';
+			return '<div class="wponion-importer-fields"><div class="wponion-row wpo-row">' . $html . '</div></div>';
 		}
 
 		/**

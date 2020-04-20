@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $metabox     = $this->metabox();
 $fields      = $metabox->fields();
 $has_fields  = $fields->has_fields();
-$extra_class = ( true === $has_fields ) ? ' row only-fields ' : '';
+$extra_class = ( true === $has_fields ) ? ' wpo-row only-fields ' : '';
 ?>
 
 

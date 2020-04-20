@@ -290,12 +290,12 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 	 * @param array $matches
 	 * $matches = array(
 	 *    array(
-	 *        0 => 'col-xs-12', // Full Column Class
+	 *        0 => 'wpo-col-xs-12', // Full Column Class
 	 *        1 => 'xs', // Device Class
 	 *        2 => '12' // Column Count
 	 *    ),
 	 *    array(
-	 *        0 => 'col-xs-12', // Full Column Class
+	 *        0 => 'wpo-col-xs-12', // Full Column Class
 	 *        1 => 'xs', // Device Class
 	 *        2 => '12' // Column Count
 	 *    ),
@@ -309,7 +309,7 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 			foreach ( $matches as $class ) {
 				if ( ! empty( array_filter( $class ) ) ) {
 					$count    = ( isset( $class[2] ) && '12' !== $class[2] ) ? '-' . ( 12 - $class[2] ) : null;
-					$return[] = 'col-' . $class[1] . $count;
+					$return[] = 'wpo-col-' . $class[1] . $count;
 				}
 			}
 		}

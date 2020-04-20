@@ -250,7 +250,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		protected function render_tab_fields( $fields, $extra_wrap_class = array() ) {
 			$wrap_class = $this->wrap_class( wponion_html_class( $extra_wrap_class, array( 'wponion-wc-metabox-fields' ) ) );
-			echo '<div class="' . $wrap_class . '"><div class="row">';
+			echo '<div class="' . $wrap_class . '"><div class="wpo-row">';
 			foreach ( $fields as $field ) {
 				$is_var = $this->is_variation( $field );
 				if ( 'only' === $is_var && false === $this->variation_id ) {

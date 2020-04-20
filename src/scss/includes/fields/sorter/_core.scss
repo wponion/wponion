@@ -32,7 +32,7 @@
 	}
 
 	.wponion-modules {
-		@include respond-to('xs', 'sm') {
+		@include wponion_respond_to('xs', 'sm') {
 			margin-bottom: $element_gurtter;
 			&:last-child {
 				margin-bottom: 0;

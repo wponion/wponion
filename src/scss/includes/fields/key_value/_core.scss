@@ -6,7 +6,7 @@
 		border:         $element_border;
 		display:        inline-block;
 
-		@include respond-to('xs') {
+		@include wponion_respond_to('xs') {
 			padding: 0;
 			border:  none;
 		}
@@ -31,7 +31,7 @@
 				color:          #666;
 				padding:        5px 0px;
 
-				@include respond-to('xs', 'sm') {
+				@include wponion_respond_to('xs', 'sm') {
 					margin-right: 5px;
 					display:      none;
 				}
@@ -42,7 +42,7 @@
 				margin-right:   15px;
 				vertical-align: middle;
 
-				@include respond-to('xs', 'sm') {
+				@include wponion_respond_to('xs', 'sm') {
 					margin-right:   5px;
 					min-width:      100px;
 					max-width:      40% !important;

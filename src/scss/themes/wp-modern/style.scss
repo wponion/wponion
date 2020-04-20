@@ -239,7 +239,7 @@ $metabox_menu_width:    200px;
 				}
 			}
 
-			.row {
+			.wpo-row {
 				margin-left:  0;
 				margin-right: 0;
 			}
@@ -305,7 +305,7 @@ $metabox_menu_width:    200px;
 				display:        table-cell;
 				vertical-align: top;
 
-				@include respond-to('xs', 'sm') {
+				@include wponion_respond_to('xs', 'sm') {
 					width:     100%;
 					max-width: 100%;
 					display:   block;
@@ -319,7 +319,7 @@ $metabox_menu_width:    200px;
 					padding-left:   15px;
 					padding-right:  15px;
 
-					@include respond-to('xs', 'sm') {
+					@include wponion_respond_to('xs', 'sm') {
 						width:     100%;
 						max-width: 100%;
 						display:   block;
@@ -337,7 +337,7 @@ $metabox_menu_width:    200px;
 				max-width: 100% !important;
 				width:     100% !important;
 
-				> .row {
+				> .wpo-row {
 					margin: 0 !important;
 				}
 
@@ -379,7 +379,7 @@ $metabox_menu_width:    200px;
 			border-bottom-right-radius: 5px;
 			border-bottom-left-radius:  5px;
 
-			.row {
+			.wpo-row {
 				margin: 0;
 			}
 

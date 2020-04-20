@@ -141,7 +141,7 @@ HTML;
 		}
 
 		protected function right_side_fields() {
-			$html = '<div class="row">';
+			$html = '<div class="wpo-row">';
 
 			/**
 			 * Border Color

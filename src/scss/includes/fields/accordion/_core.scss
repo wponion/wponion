@@ -94,9 +94,9 @@
 
 .wponion-framework.wponion-module-customizer {
 	.wponion-element.wponion-element-accordion, .wponion-element.wponion-element-group {
-		> .row {
+		> .wpo-row {
 			> .wponion-fieldset {
-				> .row {
+				> .wpo-row {
 					margin: 0;
 				}
 			}

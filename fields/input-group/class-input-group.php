@@ -26,14 +26,14 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 		protected function output() {
 			echo $this->before();
 			if ( wponion_is_array( $this->data( 'fields' ) ) ) {
-				echo '<div class=" row">';
+				echo '<div class=" wpo-row">';
 				foreach ( $this->data( 'fields' ) as $id => $data ) {
 					$field_id   = ( wpo_is_field( $data ) ) ? wponion_field_id( $data ) : false;
 					$field_id   = ( true === is_numeric( $id ) && false === $field_id ) ? wponion_hash_array( $data ) : $id;
 					$field_args = $this->handle_args( 'title', $data, array(
 						'type'       => 'text',
 						'horizontal' => true,
-						'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+						'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 						'id'         => $field_id,
 					) );
 

@@ -40,7 +40,7 @@
 			border:           $element_border;
 			padding:          5px 10px;
 
-			@include respond-to('xs', 'sm') {
+			@include wponion_respond_to('xs', 'sm') {
 				padding: 10px;
 			}
 

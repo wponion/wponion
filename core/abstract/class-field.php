@@ -323,7 +323,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			) ) );
 
 			if ( false === self::has_column_css( $_wrap_attr['class'] ) ) {
-				$_wrap_attr['class'] .= ' col-xs-12 ';
+				$_wrap_attr['class'] .= ' wpo-col-xs-12 ';
 			}
 
 			if ( $this->has( 'horizontal' ) && true === $this->data( 'horizontal' ) ) {
@@ -346,7 +346,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 			echo '<div ' . $_wrap_attr . '>';
 			echo $this->badge();
-			echo '<div class="row">';
+			echo '<div class="wpo-row">';
 			echo $this->title();
 			echo $this->field_wrapper( true );
 			echo $this->output();
@@ -473,33 +473,33 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function get_default_column_class() {
 			$return             = array();
-			$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3';
-			$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9';
+			$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
+			$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
 			switch ( $this->module() ) {
 				case 'taxonomy':
-					$return['title']    = 'col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3';
-					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9';
+					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3 wpo-col-lg-3 wpo-col-xl-3';
+					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-9 wpo-col-lg-9 wpo-col-xl-9';
 					break;
 				case 'metabox':
 					$screen = get_current_screen();
 					if ( $screen ) {
 						if ( in_array( $screen->base, array( 'term', 'edit-tags' ), true ) ) {
-							$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4';
-							$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8';
+							$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-4';
+							$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-8';
 						}
 					}
 					break;
 				case 'wp_importer':
-					$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3';
-					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9';
+					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
+					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
 					break;
 				default:
-					$return['title']    = 'col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3';
-					$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-9';
+					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
+					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
 					break;
 			}
 			if ( false === $this->has( 'title' ) || true === $this->data( 'hide_title' ) ) {
-				$return['fieldset'] = 'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12';
+				$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-12 wpo-col-lg-12 wpo-col-xl-12';
 			}
 
 			return apply_filters( 'wponion_field_column_css_class', $return, $this->module(), $this );

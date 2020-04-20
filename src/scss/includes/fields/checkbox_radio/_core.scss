@@ -2,13 +2,13 @@
 	.wponion-fieldset {
 		.wponion-checker {
 			margin-bottom: 5px;
-			@include respond-to('xs', 'sm', 'md') {
+			@include wponion_respond_to('xs', 'sm', 'md') {
 				margin-bottom: $element_gurtter;
 			}
 
 			input {
 				margin-right: 10px;
-				@include respond-to('xs', 'sm', 'md') {
+				@include wponion_respond_to('xs', 'sm', 'md') {
 					width:  1.25rem;
 					height: 1.25rem;
 

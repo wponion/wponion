@@ -2,7 +2,8 @@
 @import "../../../node_modules/bootstrap/scss/variables";
 @import "../../../node_modules/bootstrap/scss/mixins";
 @import "../../../node_modules/bootstrap/scss/mixins/breakpoints";
-@import "../../../node_modules/flexboxgrid2/flexboxgrid2.min";
+//@import "../../../node_modules/flexboxgrid2/flexboxgrid2.min";
+@import "../../../node_modules/@wponion/flexboxgrid2/src/flexboxgrid2";
 
 .wponion-framework {
 	@import "../../../node_modules/bootstrap/scss/jumbotron";

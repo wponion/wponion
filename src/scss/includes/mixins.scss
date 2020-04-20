@@ -36,7 +36,7 @@
 }
 
 @mixin wponion_field_horizontal() {
-	> .row {
+	> .wpo-row {
 		> .wponion-field-title {
 			flex:          0 0 100% !important;
 			max-width:     100% !important;
@@ -111,10 +111,10 @@
 
 }
 
-@mixin respond-to($break_points...) {
+@mixin wponion_respond_to($break_points...) {
 	@each $breakpoint in $break_points {
-		@if map-has-key($breakpoints, $breakpoint) {
-			@media #{inspect(map-get($breakpoints, $breakpoint))} {
+		@if map-has-key($wpo_breakpoints, $breakpoint) {
+			@media #{inspect(map-get($wpo_breakpoints, $breakpoint))} {
 				@content;
 			}
 		} @else {

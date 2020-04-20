@@ -1,7 +1,7 @@
 #woocommerce-product-data {
 	.woocommerce_options_panel {
 		> .wponion-framework.wponion-wc_product {
-			> .row {
+			> .wpo-row {
 				margin: 0;
 			}
 		}
@@ -32,7 +32,7 @@
 	width:   100%;
 	float:   left;
 
-	> .row {
+	> .wpo-row {
 		> .wponion-element {
 			border: none;
 			@include wponion_field_horizontal();
@@ -41,7 +41,7 @@
 }
 
 .wponion-framework.wponion-woocommerce_settings {
-	> .row {
+	> .wpo-row {
 		margin-left:  -12px;
 		margin-right: -12px;
 	}

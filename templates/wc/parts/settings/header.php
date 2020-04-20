@@ -15,9 +15,9 @@ $is_sticky   = ( true === $is_sticky ) ? 'header-sticky' : '';
 
 <header class="<?php echo $is_sticky; ?>">
 
-	<div class="inner-container row middle-xs">
+	<div class="inner-container wpo-row wpo-middle-xs">
 
-		<div class="left col-xs-12 col-sm-12 col-md-6">
+		<div class="left wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-6">
 			<?php
 			echo ( ! empty( $title ) ) ? '<h1>' . $title . '</h1>' : '';
 			echo ( ! empty( $desc ) ) ? '<p>' . $desc . '</p>' : '';
@@ -25,7 +25,7 @@ $is_sticky   = ( true === $is_sticky ) ? 'header-sticky' : '';
 		</div>
 
 
-		<div class="right col-xs-12 col-sm-12 col-md-6">
+		<div class="right wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-6">
 			<?php if ( false !== $single_page && false !== $search ) : ?>
 				<div class="action-search">
 					<div class="search-input-wrap">
