@@ -62,7 +62,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 		}
 
 		if( false !== $found ) {
-			$found.find( '> .row > .wponion-field-title > h4' ).tippy( {
+			$found.find( '> .wpo-row > .wponion-field-title > h4' ).tippy( {
 				content: window.wpo_core.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ),
 				arrow: true,
 				arrowType: 'round',
@@ -72,7 +72,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 				appendTo: this.get_field_parent_by_id( this.element )[ 0 ],
 			} );
 
-			$found.find( '> .row > .wponion-field-title > h4' ).on( 'click', () => {
+			$found.find( '> .wpo-row > .wponion-field-title > h4' ).on( 'click', () => {
 				let $d          = this.id() + 'debugINFO',
 					$notice_txt = `<p class="wponion-field-debug-notice">${window.wpo_core.option( 'debug_notice' )}</p>`,
 					$elem       = jQuery( `<div id="${$d}" class="wponion-field-debug-popup"><div id="${$d}" ></div>${$notice_txt}</div>` ),
@@ -115,7 +115,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 	 * @param element
 	 */
 	js_error_handler( element = this.element ) {
-		element.on( 'wponion_js_validation_message', '> .row > .wponion-fieldset :input', ( e, data ) => this.js_error( data ) );
+		element.on( 'wponion_js_validation_message', '> .wpo-row > .wponion-fieldset :input', ( e, data ) => this.js_error( data ) );
 	}
 
 	/**

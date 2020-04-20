@@ -6,8 +6,8 @@ export default class extends WPOnion_Field {
 	 */
 	init() {
 		let $this       = this,
-			$add        = this.element.find( '> .row > .wponion-fieldset > button[data-wponion-group-add]' ),
-			$group_wrap = this.element.find( '> .row > .wponion-fieldset > .wponion-group-wrap' );
+			$add        = this.element.find( '> .wpo-row > .wponion-fieldset > button[data-wponion-group-add]' ),
+			$group_wrap = this.element.find( '> .wpo-row > .wponion-fieldset > .wponion-group-wrap' );
 
 		this.init_field( $group_wrap, 'accordion' );
 
@@ -21,7 +21,7 @@ export default class extends WPOnion_Field {
 
 		this.element.on( 'click', '.wponion-group-remove', function() {
 			jQuery( this ).parent().parent()
-						  .find( '> .wponion-accordion-content .row > .wponion-group-action > button' ).click();
+						  .find( '> .wponion-accordion-content .wpo-row > .wponion-group-action > button' ).click();
 			$this.update_groups_title();
 			$this.element.trigger( 'change' );
 			$this.element.trigger( 'wponion_field_updated' );
@@ -96,7 +96,7 @@ export default class extends WPOnion_Field {
 	 * @param $elem
 	 */
 	bind_events_for_title( $elem = false ) {
-		$elem = ( false === $elem ) ? this.element.find( '> .row > .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
+		$elem = ( false === $elem ) ? this.element.find( '> .wpo-row > .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
 		$elem.each( ( i, e ) => {
 			let $data   = jQuery( e ),
 				$mached = this.option( 'matched_heading_fields' );
@@ -117,7 +117,7 @@ export default class extends WPOnion_Field {
 	 */
 	update_groups_title( $elem = false ) {
 		let $limit = 1;
-		$elem      = ( false === $elem ) ? this.element.find( '> .row > .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
+		$elem      = ( false === $elem ) ? this.element.find( '> .wpo-row > .wponion-fieldset > .wponion-group-wrap > .wponion-accordion-wrap' ) : $elem;
 
 		$elem.each( ( i, e ) => {
 			let $data    = jQuery( e ),

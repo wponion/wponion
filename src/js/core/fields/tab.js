@@ -5,7 +5,7 @@ export default class extends WPOnion_Field {
 	 * Inits Field.
 	 */
 	init() {
-		let $wrap      = this.element.find( '> .row > .wponion-fieldset > .wponion-tab-wrap' ),
+		let $wrap      = this.element.find( '> .wpo-row > .wponion-fieldset > .wponion-tab-wrap' ),
 			$menu_wrap = $wrap.find( '> ul.wponion-tab-menus' ),
 			$tab_pages = $wrap ;
 

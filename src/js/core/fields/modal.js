@@ -5,7 +5,7 @@ export default class extends WPOnion_Field {
 	 * Inits Field.
 	 */
 	init() {
-		this.element.find( '>  .row > .wponion-fieldset > button[type="button"]' ).on( 'click', () => {
+		this.element.find( '>  .wpo-row > .wponion-fieldset > button[type="button"]' ).on( 'click', () => {
 			switch( this.option( 'modal_type' ) ) {
 				case 'swal':
 				case 'sweetalert':

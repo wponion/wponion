@@ -34,7 +34,7 @@ export default class extends WPOnion_Field {
 	js_error( err ) {
 		let $elem = window.wpo_core.IDtoElement( err.element, this.element );
 		if( $elem ) {
-			err.error.appendTo( $elem.find( '> .row > .wponion-fieldset' ) );
+			err.error.appendTo( $elem.find( '> .wpo-row > .wponion-fieldset' ) );
 		}
 	}
 }
