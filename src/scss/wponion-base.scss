@@ -1,14 +1,20 @@
 /**
  * Global Utilites
  */
-@import "./wponion-icon-fonts";
-@import "./wponion-utility";
-// Basic Core Styles
-@import "includes/mixins";
+
+// Mixins & Variables.
+@import "includes/mixins/wponion";
+@import "includes/mixins/bootstrap";
 @import "includes/variables";
+
+// Utility Styles.
+@import "./wponion-utility";
+@import "./wponion-icon-fonts";
+
+// Basic Core Styles
 @import "includes/basic_style";
-@import "includes/wponion-bootstrap";
 @import "includes/fields/fields";
+
 //Core Fields Styles
 @import "includes/modules/customizer";
 @import "includes/modules/metabox";
@@ -26,4 +32,3 @@
 @import "./themes/wc/style";
 @import "./themes/wp-lite-wp/style";
 @import "./themes/wp-modern/style";
-
