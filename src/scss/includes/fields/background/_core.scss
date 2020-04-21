@@ -1,4 +1,4 @@
-.wponion-element.wponion-element-background {
+.wponion-element-background {
 	> .wpo-row {
 		> .wponion-fieldset {
 			> div {
@@ -15,7 +15,7 @@
 
 .wponion-metabox {
 	&.wponion-metabox-side {
-		.wponion-element.wponion-element-background {
+		.wponion-element-background {
 			.wponion-element {
 				margin-right: 0;
 				width:        100%;
@@ -37,7 +37,7 @@
 
 
 .wponion-framework.wponion-module-customizer {
-	.wponion-element.wponion-element-background {
+	.wponion-element-background {
 		.wponion-element {
 			width:      100%;
 			flex-basis: 100%;

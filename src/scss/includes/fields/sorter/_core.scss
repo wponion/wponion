@@ -1,4 +1,4 @@
-.wponion-element.wponion-element-sorter {
+.wponion-element-sorter {
 	.ui-sortable-placeholder {
 		height: 20px;
 		@include wponion_ui_sortable_placeholder();
@@ -61,7 +61,7 @@
 }
 
 .wponion-framework.wponion-module-customizer {
-	.wponion-element.wponion-element-sorter {
+	.wponion-element-sorter {
 		.wponion-modules {
 			width:         100%;
 			flex-basis:    100%;

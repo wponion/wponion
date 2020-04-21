@@ -4,7 +4,7 @@ p.wponion-error {
 	margin: 2px 0 5px;
 }
 
-input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error {
+input.wponion-error, textarea.wponion-error, select.wponion-error {
 	border-color: #dc3232;
 	background:   #ffebe8;
 }
@@ -29,7 +29,6 @@ input.wponion-error.wponion-error, textarea.wponion-error, select.wponion-error 
 	/*&[class^='wpo-col-xs-'] + .wponion-element[class^='wpo-col-xs-'] {
 		border-left: $element_border;
 	}*/
-
 
 	&.wponion-search-matched {
 		width:      100% !important;

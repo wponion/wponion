@@ -1,4 +1,4 @@
-.wponion-element.wponion-element-checkbox, .wponion-element.wponion-element-radio, .wponion-element.wponion-field-image_select, .wponion-element.wponion-element-color_palette {
+.wponion-element-checkbox, .wponion-element-radio, .wponion-field-image_select, .wponion-element-color_palette {
 	.wponion-fieldset {
 		.wponion-checker {
 			margin-bottom: 5px;
@@ -65,7 +65,7 @@
 
 /* Customizer Style */
 .wponion-module-customizer {
-	.wponion-element.wponion-element-checkbox, .wponion-element.wponion-element-radio {
+	.wponion-element-checkbox, .wponion-element-radio {
 		.wponion-checker {
 			display:      inline-block;
 			width:        100%;
