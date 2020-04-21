@@ -114,7 +114,7 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 				'bulk_actions'     => array(), // Array
 				'filter_menus'     => array(), // Array
 				'field'            => false, //Internal Usage Only
-				'table_style'      => 'wordpress', // Possible Values bootstrap,wordpress
+				'table_style'      => 'wordpress', // Possible Values wponion,wordpress
 
 				// Additional Settings
 				'search'           => true,
@@ -139,12 +139,12 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 		}
 
 		/**
-		 * checks if current table style is set to bootstrap
+		 * checks if current table style is set to wponion
 		 *
 		 * @return bool
 		 */
-		protected function is_bs_style() {
-			return ( 'bootstrap' === $this->option( 'table_style' ) );
+		protected function is_wpo_style() {
+			return ( 'wponion' === $this->option( 'table_style' ) );
 		}
 
 		/**
@@ -636,11 +636,11 @@ HTML;
 				) ) );
 			}
 
-			if ( $this->is_bs_style() ) {
+			if ( $this->is_wpo_style() ) {
 				return wponion_html_class( wp_parse_args( $class, array(
 					'wp-list-table',
-					'table',
-					'table-striped',
+					'wpo-table',
+					'wpo-table-striped',
 					$this->_args['plural'],
 				) ) );
 			}
