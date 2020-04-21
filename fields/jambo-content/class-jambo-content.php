@@ -23,7 +23,7 @@ if ( ! class_exists( '\WPOnion\Field\Jambo_Content' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			echo '<div class="jumbotron">' . $this->data( 'content' ) . '</div>';
+			echo '<div class="wpo-jumbotron">' . $this->data( 'content' ) . '</div>';
 			echo $this->after();
 		}
 	}
