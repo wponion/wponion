@@ -22,21 +22,18 @@
 		text-decoration: none;
 	}
 
-	&:focus,
-	&.focus {
+	&:focus, &.focus {
 		outline:    0;
 		box-shadow: $btn-focus-box-shadow;
 	}
 
 	// Disabled comes first so active can properly restyle
-	&.disabled,
-	&:disabled {
+	&.disabled, &:disabled {
 		opacity: $btn-disabled-opacity;
 		@include box-shadow(none);
 	}
 
-	&:not(:disabled):not(.disabled):active,
-	&:not(:disabled):not(.disabled).active {
+	&:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active {
 		@include box-shadow($btn-active-box-shadow);
 
 		&:focus {
@@ -46,8 +43,7 @@
 }
 
 // Future-proof disabling of clicks on `<a>` elements
-a.wpo-btn.disabled,
-fieldset:disabled a.wpo-btn {
+a.wpo-btn.disabled, fieldset:disabled a.wpo-btn {
 	pointer-events: none;
 }
 
@@ -84,14 +80,12 @@ fieldset:disabled a.wpo-btn {
 		text-decoration: $link-hover-decoration;
 	}
 
-	&:focus,
-	&.focus {
+	&:focus, &.focus {
 		text-decoration: $link-hover-decoration;
 		box-shadow:      none;
 	}
 
-	&:disabled,
-	&.disabled {
+	&:disabled, &.disabled {
 		color:          $btn-link-disabled-color;
 		pointer-events: none;
 	}
@@ -128,9 +122,7 @@ fieldset:disabled a.wpo-btn {
 }
 
 // Specificity overrides
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
+input[type="submit"], input[type="reset"], input[type="button"] {
 	&.wpo-btn-block {
 		width: 100%;
 	}

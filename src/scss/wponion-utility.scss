@@ -1,3 +1,7 @@
+// WPOnion Flexboxgrid2
+@import "../../node_modules/@wponion/flexboxgrid2/src/flexboxgrid2";
+
+// WPOnion Bootstrap
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
 @import "../../node_modules/bootstrap/scss/mixins";
@@ -9,3 +13,6 @@
 @import "./includes/bootstrap/background";
 @import "./includes/bootstrap/spinner";
 @import "./includes/bootstrap/input-group";
+@import "./includes/bootstrap/table";
+@import "./includes/bootstrap/jumbotron";
+@import "./includes/bootstrap/alert";
