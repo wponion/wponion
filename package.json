@@ -29,6 +29,6 @@
     "wordpress-js-ports": "^1.0.9",
     "@wponion/dependon": "^2.0.5",
     "@wponion/icons": "^1.0.2",
-    "@wponion/flexboxgrid2": "^1.0.1"
+    "@wponion/flexboxgrid2": "^1.0.2"
   }
 }
