@@ -1,0 +1,22 @@
+// SweatAlert2 Style Fix.
+.swal2-container {
+	z-index: 9999999 !important;
+
+	.swal2-content {
+		z-index: 2;
+
+		#swal2-content {
+			.json-view {
+				overflow: scroll;
+			}
+		}
+	}
+
+	.wpo-btn {
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
