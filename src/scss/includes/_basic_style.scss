@@ -1,4 +1,7 @@
-@import "./library_fixes";
+@import "library-fixes/blockui";
+@import "library-fixes/chosen";
+@import "library-fixes/sweetalert2";
+@import "library-fixes/bootstrap";
 @import "./wp_modal";
 
 .button {
@@ -16,7 +19,8 @@
 
 /** General Common Styles **/
 .wponion-icon {
-	margin-right: 4px;
+	margin-right:    4px;
+	text-decoration: none;
 
 	&.dashicons {
 		vertical-align: middle;
@@ -137,10 +141,6 @@
 	}
 }
 
-.wponion-icon {
-	text-decoration: none;
-}
-
 // WPOnion Remove CSS
 .wponion-remove {
 	font-size: 16px;
@@ -153,7 +153,7 @@
 }
 
 // Alerts & Notice Styling.
-.alert {
+.wpo-alert {
 	.wponion-remove {
 		float:          right;
 		vertical-align: middle;
@@ -278,7 +278,6 @@ img[wponion-img-popup] {
 	cursor: pointer;
 	border: 1px solid #eee;
 }
-
 
 .wpo-inline-list {
 	> li {
