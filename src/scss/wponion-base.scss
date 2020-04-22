@@ -1,4 +1,16 @@
 /**
+ * WPOnion Plugin's CSS
+ */
+
+@import "../vendors/json-view/json-view";
+@import "../vendors/tippy";
+
+.wponion-element-switcher {
+	//@wponion-inline ../../node_modules/css-checkbox-library/dist/css/checkboxes.min.css
+}
+
+
+/**
  * Global Utilites
  */
 
@@ -32,3 +44,4 @@
 @import "./themes/wc/style";
 @import "./themes/wp-lite-wp/style";
 @import "./themes/wp-modern/style";
+

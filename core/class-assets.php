@@ -138,11 +138,8 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 				),
 			);
 			self::$styles      = array(
-				'wponion-plugins' => array( 'src' => wponion()->assets( 'css/wponion-plugins.css' ) ),
-				'wponion-core'    => array(
-					'src'  => wponion()->assets( 'css/wponion-base.css' ),
-					'deps' => array( 'wponion-plugins' ),
-				),
+				//'wponion-plugins' => array( 'src' => wponion()->assets( 'css/wponion-plugins.css' ) ),
+				'wponion-core' => array( 'src' => wponion()->assets( 'css/wponion-base.css' ) ),
 			);
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );

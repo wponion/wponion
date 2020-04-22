@@ -21,13 +21,13 @@ $files[ 'src/scss/wponion-base.scss' ]    = {
 		'src/scss/includes/modules/*/*'
 	],
 };
-$files[ 'src/scss/wponion-plugins.scss' ] = {
+/*$files[ 'src/scss/wponion-plugins.scss' ] = {
 	dist: 'assets/css/',
 	combine_files: true,
 	scss: true,
 	minify: true,
 	watch: [ 'src/scss/wponion-plugins.scss', 'src/vendors/json-view/json-view.scss' ]
-};
+};*/
 
 $files[ 'src/js/wponion-plugins.js' ] = {
 	dist: 'assets/js',
