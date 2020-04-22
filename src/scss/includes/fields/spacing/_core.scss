@@ -6,13 +6,10 @@
 				margin-right: -10px;
 
 				> div:not(.hidden) {
-					width:          auto !important;
-					display:        inline-block !important;
-					flex-basis:     auto !important;
-					padding-top:    0;
-					padding-bottom: 0;
-					padding-left:   10px;
-					padding-right:  10px;
+					width:      auto !important;
+					display:    inline-block !important;
+					flex-basis: auto !important;
+					padding:    0 10px;
 
 					.clear {
 						display: none !important;

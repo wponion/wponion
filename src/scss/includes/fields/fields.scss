@@ -9,7 +9,6 @@ input.wponion-error, textarea.wponion-error, select.wponion-error {
 	background:   #ffebe8;
 }
 
-
 .wponion-sub-container-wraps.wpo-row, .wponion-container-wraps.wpo-row {
 	&.hidden {
 		display: none;
@@ -17,7 +16,6 @@ input.wponion-error, textarea.wponion-error, select.wponion-error {
 }
 
 // Basic WPonion Element Style
-
 .wponion-element {
 	padding: $element_gurtter;
 
@@ -25,10 +23,6 @@ input.wponion-error, textarea.wponion-error, select.wponion-error {
 	+ .wponion-element {
 		border-top: $element_border;
 	}
-
-	/*&[class^='wpo-col-xs-'] + .wponion-element[class^='wpo-col-xs-'] {
-		border-left: $element_border;
-	}*/
 
 	&.wponion-search-matched {
 		width:      100% !important;

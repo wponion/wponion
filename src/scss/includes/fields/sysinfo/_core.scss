@@ -22,12 +22,10 @@
 
 				&:nth-child(even) {
 					background: #f3f3f3;
-
 				}
 
 				&:nth-child(odd) {
 				}
-
 			}
 
 			> pre {
@@ -68,7 +66,6 @@
 
 				&:nth-child(even) {
 					background: #f3f3f3;
-
 				}
 
 				&:nth-child(odd) {
@@ -85,9 +82,8 @@
 					margin:     0;
 
 					li {
-						margin:        0;
-						margin-bottom: 5px;
-						padding:       0;
+						margin:  0 0 5px;
+						padding: 0;
 
 						&:first-child {
 							margin-top: 5px;
@@ -111,7 +107,6 @@
 					display:      block;
 					min-width:    400px;
 				}
-
 			}
 		}
 	}
