@@ -60,13 +60,19 @@
 }
 
 @mixin wponion_respond_to($break_points...) {
+	$points: null;
 	@each $breakpoint in $break_points {
 		@if map-has-key($wpo_breakpoints, $breakpoint) {
-			@media #{inspect(map-get($wpo_breakpoints, $breakpoint))} {
-				@content;
+			@if ($points) {
+				$points: $points + ', #{inspect(map-get($wpo_breakpoints, $breakpoint))}'
+			} @else {
+				$points: inspect(map-get($wpo_breakpoints, $breakpoint))
 			}
 		} @else {
 			@warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`.Available breakpoints are: #{map-keys($breakpoints)}.";
 		}
+	}
+	@media #{$points}{
+		@content
 	}
 }
