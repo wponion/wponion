@@ -25,7 +25,7 @@ if ( ! class_exists( '\WPOnion\Field\Fieldset' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			echo ( true !== $this->data( 'only_field' ) ) ? '<div class="wponion-fieldset-wrap row">' : '';
+			echo ( true !== $this->data( 'only_field' ) ) ? '<div class="wponion-fieldset-wrap wpo-row">' : '';
 			if ( $this->has( 'fields' ) ) {
 				if ( $this->has( 'heading' ) ) {
 					echo $this->sub_field( array(

@@ -25,14 +25,14 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 		protected function output() {
 			echo $this->before();
 
-			echo '<div id="fontfields" class="row"><div class="col-xs-12 col-sm-10">';
-			echo '<div class="row">';
+			echo '<div id="fontfields" class="wpo-row"><div class="wpo-col-xs-12 wpo-col-sm-10">';
+			echo '<div class="wpo-row">';
 
 			// Font Family.
 			if ( false !== $this->data( 'font_family' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'font_family' ), array( 'title' => __( 'Font Family & Weight', 'wponion' ) ), array(
 					'id'           => 'font_family',
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-4',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4',
 					'type'         => 'font_picker',
 					'horizontal'   => true,
 					'empty_option' => true,
@@ -46,7 +46,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			if ( false !== $this->data( 'backup_font' ) ) {
 				$field = $this->handle_args( 'title', $this->data( 'backup_font' ), array( 'title' => __( 'Backup Font Family', 'wponion' ) ), array(
 					'id'           => 'backup_font',
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'attributes'   => array( 'data-css-property' => 'backup-font' ),
 					'type'         => 'select',
 					'empty_option' => true,
@@ -57,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 			}
 
 			echo '</div>';
-			echo '<div class="row">';
+			echo '<div class="wpo-row">';
 
 			// Font Style
 			if ( false !== $this->data( 'font_weight' ) ) {
@@ -66,7 +66,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'options' => wponion_internal_options_data( 'font_weight' ),
 				), array(
 					'id'         => 'font_weight',
-					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'type'       => 'select',
 					'attributes' => array( 'data-css-property' => 'font-weight' ),
 					'horizontal' => true,
@@ -81,7 +81,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'options' => wponion_internal_options_data( 'font_style' ),
 				), array(
 					'id'           => 'font_style',
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'type'         => 'select',
 					'empty_option' => true,
 					'attributes'   => array( 'data-css-property' => 'font-style' ),
@@ -99,7 +99,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'id'           => 'text_align',
 					'type'         => 'select',
 					'empty_option' => true,
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'attributes'   => array( 'data-css-property' => 'text-align' ),
 					'horizontal'   => true,
 				) );
@@ -116,7 +116,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'type'         => 'select',
 					'empty_option' => true,
 					'attributes'   => array( 'data-css-property' => 'writing-mode' ),
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal'   => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'writing_mode' ), $this->name() );
@@ -133,13 +133,13 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'attributes'   => array( 'data-css-property' => 'text-orientation' ),
 					'horizontal'   => true,
 					'empty_option' => true,
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				) );
 				echo $this->sub_field( $field, $this->value( 'text_orientation' ), $this->name() );
 			}
 
 			//echo '</div>';
-			//echo '<div class="row">';
+			//echo '<div class="wpo-row">';
 
 			// Text Direction
 			if ( false !== $this->data( 'text_direction' ) ) {
@@ -150,7 +150,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'id'           => 'text_direction',
 					'type'         => 'select',
 					'empty_option' => true,
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'attributes'   => array( 'data-css-property' => 'direction' ),
 					'horizontal'   => true,
 				) );
@@ -167,7 +167,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'type'         => 'select',
 					'empty_option' => true,
 					'attributes'   => array( 'data-css-property' => 'text-transform' ),
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal'   => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'text_transform' ), $this->name() );
@@ -183,7 +183,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'type'         => 'select',
 					'empty_option' => true,
 					'attributes'   => array( 'data-css-property' => 'text-decoration-line' ),
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal'   => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'text_decoration_line' ), $this->name() );
@@ -199,7 +199,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'attributes'   => array( 'data-css-property' => 'text-decoration-style' ),
 					'type'         => 'select',
 					'empty_option' => true,
-					'wrap_class'   => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal'   => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'text_decoration_style' ), $this->name() );
@@ -211,14 +211,14 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'id'         => 'text_decoration_color',
 					'type'       => 'color_picker',
 					'attributes' => array( 'data-css-property' => 'text-decoration-color' ),
-					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal' => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'text_decoration_color' ), $this->name() );
 			}
 
 			echo '</div>';
-			echo '<div class="row" id="fontsize-and-color">';
+			echo '<div class="wpo-row" id="fontsize-and-color">';
 
 			// Font Size
 			if ( false !== $this->data( 'font_size' ) ) {
@@ -226,7 +226,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'id'              => 'font_size',
 					'wrap_attributes' => array( 'data-css-property' => 'font-size' ),
 					'type'            => 'css_unit',
-					'wrap_class'      => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'      => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal'      => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'font_size' ), $this->name() );
@@ -238,7 +238,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'id'              => 'line_height',
 					'type'            => 'css_unit',
 					'wrap_attributes' => array( 'data-css-property' => 'line-height' ),
-					'wrap_class'      => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'      => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal'      => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'line_height' ), $this->name() );
@@ -250,7 +250,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'id'              => 'letter_spacing',
 					'type'            => 'css_unit',
 					'wrap_attributes' => array( 'data-css-property' => 'letter-spacing' ),
-					'wrap_class'      => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class'      => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal'      => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'letter_spacing' ), $this->name() );
@@ -262,7 +262,7 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 					'id'         => 'color',
 					'type'       => 'color_picker',
 					'attributes' => array( 'data-css-property' => 'color' ),
-					'wrap_class' => 'col-xs-12 col-sm-12 col-md-3',
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal' => true,
 				) );
 				echo $this->sub_field( $field, $this->value( 'color' ), $this->name() );
@@ -275,8 +275,8 @@ if ( ! class_exists( '\WPOnion\Field\Typography' ) ) {
 				$txt   = $this->data( 'preview' );
 				$style = $this->generate_preview_css();
 				echo <<<HTML
-<div class="row previewtxt-wrap">
-<div class="col-xs-12"><div class="previewtxt" style="$style">$txt</div></div>
+<div class="wpo-row previewtxt-wrap">
+<div class="wpo-col-xs-12"><div class="previewtxt" style="$style">$txt</div></div>
 </div>
 HTML;
 

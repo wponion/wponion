@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $module      = $this->settings();
 $fields      = $module->fields();
 $has_fields  = $fields->has_fields();
-$extra_class = ( true === $has_fields ) ? ' row only-fields ' : '';
+$extra_class = ( true === $has_fields ) ? ' wpo-row only-fields ' : '';
 ?>
 
 <div class="content-outer-wrap">

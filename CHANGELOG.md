@@ -5,7 +5,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.4.5.2] - 14/04/2019
+# [1.4.5.3] - 22/04/2020
+
+## Fixed
+*  Bootstrap Style issue with Porto Theme #221 
+
+## Changed
+* Bump [@wordpress/hooks] from `2.7.0` to `2.8.0`
+* Bump [WPOnion Icons] from `1.0.0' to `1.0.3`
+* Bump [tippy.js] from `6.1.1` to `6.2.0`
+* Bump [@wponion/flexboxgrid2 ]from `1.0.1` to `1.0.2`
+* Bump [@popperjs/core] from `2.3.2` to `2.3.3`
+* Moved Alerts CSS From normal to wpo- prefixed
+* Moved Jumbotron css from normal to wpo- prefixed
+* Moved table css from normal to wpo- prefixed
+* Combined Multiple media query for the same style into 1.
+
+## Removed
+* `.wponion-element` prefix for each element's style remvoed to reduce css file size
+* `wponion-plugins.css` file combined to `wponion-base.css` and removed.
+
+# [1.4.5.2] - 14/04/2020
 
 ## Changed
 * Improved Settings Page / Metabox Menu Navtion Easy.
@@ -799,6 +819,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [1.4.8]: https://github.com/wponion/wponion/releases/tag/1.4.8
 [1.4.7]: https://github.com/wponion/wponion/releases/tag/1.4.7
 [1.4.6]: https://github.com/wponion/wponion/releases/tag/1.4.6
+[1.4.5.3]: https://github.com/wponion/wponion/releases/tag/1.4.5.3
 [1.4.5.2]: https://github.com/wponion/wponion/releases/tag/1.4.5.2
 [1.4.5.1]: https://github.com/wponion/wponion/releases/tag/1.4.5.1
 [1.4.5]: https://github.com/wponion/wponion/releases/tag/1.4.5

@@ -13,7 +13,7 @@ $module  = $this->metabox();
 $menus   = $module->metabox_menus();
 $options = $module->fields()
 	->get();
-echo '<div class="content-wrap col-xs-12">';
+echo '<div class="content-wrap wpo-col-xs-12">';
 if ( wponion_is_array( $options ) ) {
 	foreach ( $options as $container ) {
 		if ( $module->valid_field( $container ) ) {

@@ -1,5 +1,5 @@
 <?php
-// Last Updated : 2020-04-12 05:34:40:am
+// Last Updated : 2020-04-19 05:34:26:am
 if ( ! defined( "ABSPATH") ) { die; } 
 return array (
   'ABeeZee' => 
@@ -3356,6 +3356,16 @@ return array (
     100 => 'Thin 100',
     400 => 'Regular 400',
     700 => 'Bold 700',
+  ),
+  'Manrope' => 
+  array (
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
   ),
   'Mansalva' => 
   array (

@@ -85,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			}
 			$args                    = $this->get_clone_attrs();
 			$args['value']           = $value;
-			$args['fieldset_column'] = 'col-xs-12';
+			$args['fieldset_column'] = 'wpo-col-xs-12';
 			$args['name']            = $this->unique( $this->field_id() . '/' . $extra_unique . '/' );
 			$return                  .= '<div class="wponion-clone-action">';
 			$return                  .= '<div class="cloner-sort">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';

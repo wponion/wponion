@@ -51,7 +51,7 @@ if ( ! class_exists( '\WPOnion\Field\Notice' ) ) {
 		protected function output() {
 			echo $this->before();
 			$auto_close = ( false === $this->data( 'autoclose' ) ) ? '' : ' data-autoclose="' . intval( $this->data( 'autoclose' ) ) . '" ';
-			echo '<div class="alert alert-' . $this->data( 'notice_type' ) . '" ' . $auto_close . '>';
+			echo '<div class="wpo-alert wpo-alert-' . $this->data( 'notice_type' ) . '" ' . $auto_close . '>';
 			$content = $this->data( 'content' );
 			$content = str_replace( array(
 				'[count]',

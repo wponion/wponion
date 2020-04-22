@@ -16,7 +16,7 @@ echo '</div>';
 
 $_fields = $module->fields();
 $options = $_fields->get();
-echo '<div class="main-content col-xs-12">';
+echo '<div class="main-content wpo-col-xs-12">';
 if ( wponion_is_array( $options ) ) {
 	if ( $_fields->has_fields() ) {
 		echo '<div class="' . $module->container_wrap_class() . '">';

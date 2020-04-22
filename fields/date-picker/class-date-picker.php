@@ -32,12 +32,12 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 					$date = __( 'From Date', 'wponion' );
 				}
 
-				echo '<div class="date-range-container row">';
+				echo '<div class="date-range-container wpo-row">';
 				echo $this->sub_field( $this->handle_args( 'title', $date, array(
 					'id'         => 'from',
 					'type'       => 'text',
 					'title'      => __( 'From Date', 'wponion' ),
-					'wrap_class' => 'col-xs-12 col-sm-12 col-md-2',
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-2',
 					'horizontal' => true,
 					'attributes' => array(
 						'data-wponion-datepicker-from-date' => true,
@@ -47,7 +47,7 @@ if ( ! class_exists( '\WPOnion\Field\Date_Picker' ) ) {
 					'id'         => 'to',
 					'type'       => 'text',
 					'title'      => __( 'To Date', 'wponion' ),
-					'wrap_class' => 'col-xs-12 col-sm-12 col-md-2',
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-2',
 					'horizontal' => true,
 					'attributes' => array(
 						'data-wponion-datepicker-to-date' => true,

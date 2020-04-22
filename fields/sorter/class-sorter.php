@@ -27,9 +27,9 @@ if ( ! class_exists( '\WPOnion\Field\Sorter' ) ) {
 			echo $this->before();
 			$value = $this->get_element_values();
 
-			$wrap_class = ( ! empty( $value['enabled'] ) && ! empty( $value['disabled'] ) ) ? 'col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6' : 'col-xs-12 col-sm-12 col-md-6';
+			$wrap_class = ( ! empty( $value['enabled'] ) && ! empty( $value['disabled'] ) ) ? 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-6 wpo-col-lg-6 wpo-col-xl-6' : 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-6';
 
-			echo '<div class="row">';
+			echo '<div class="wpo-row">';
 			if ( false !== $value['enabled'] && is_array( $value['enabled'] ) ) {
 				echo '<div class="wponion-modules ' . $wrap_class . '">';
 				if ( ! empty( $this->field ['enabled_title'] ) ) {

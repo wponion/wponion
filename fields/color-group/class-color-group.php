@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 					), array(
 						'id'         => $slug,
 						'type'       => 'color_picker',
-						'wrap_class' => 'col-xs-12 col-md-3',
+						'wrap_class' => 'wpo-col-xs-12 wpo-col-md-3',
 					) );
 
 					if ( isset( $field_args['label'] ) ) {
