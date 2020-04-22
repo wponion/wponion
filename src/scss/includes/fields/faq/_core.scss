@@ -1,6 +1,6 @@
 .wponion-element-faq.wponion-element {
 	.faqs-container {
-		margin: 0;
+		margin:     0;
 		$lightgrey: #dddddd;
 
 		.faq {
@@ -9,11 +9,11 @@
 			.faq-title {
 				position:      relative;
 				display:       block;
-				margin-bottom: 0px;
+				margin-bottom: 0;
 
 				h3 {
 					font-size:   17px;
-					margin:      0px;
+					margin:      0;
 					cursor:      pointer;
 					font-weight: normal;
 				}
