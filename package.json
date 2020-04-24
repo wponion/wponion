@@ -17,7 +17,7 @@
   "devDependencies": {
     "@wordpress/hooks": "^2.8.0",
     "bootstrap": "^4.4.1",
-    "css-checkbox-library": "^1.4.0",
+    "css-checkbox-library": "^1.4.2",
     "easy-gulp-tasker": "^1.0.15",
     "@popperjs/core": "^2.3.3",
     "jquery-serializejson": "^2.9.0",
