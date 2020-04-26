@@ -34,7 +34,8 @@
 
 	> .wpo-row {
 		> .wponion-element {
-			border: none;
+			border:  none;
+			padding: 8px;
 			@include wponion_field_horizontal();
 		}
 	}

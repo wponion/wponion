@@ -62,12 +62,15 @@
 			position:    absolute;
 			text-indent: 0;
 			color:       #bbb;
-			margin:      0 !important;
+			margin:      auto 0 !important;
 			width:       30px;
 			text-align:  center;
 			left:        0;
-			margin-top:  1px;
+			right:       0;
+			top:         0;
+			bottom:      0;
 			font-size:   16px;
+			height:      16px;
 		}
 
 		.ui-sortable-helper {
@@ -104,4 +107,8 @@
 
 		}
 	}
+}
+
+.wponion-framework.wponion-module-wc_product {
+
 }
