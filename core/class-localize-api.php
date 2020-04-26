@@ -46,13 +46,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		private $scripts_check = 'wponion-core';
 
 		/**
-		 * styles_check
-		 *
-		 * @var string
-		 */
-		private $styles_check = 'wponion-core';
-
-		/**
 		 * WPOnion_Localize_API constructor.
 		 */
 		public function __construct() {
@@ -278,7 +271,9 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 			$this->append_data();
 
 			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
-				return $this->print_js_data( $return ) . ' ' . $this->print_css_data();
+				$return = $this->print_js_data( $return ) . ' ' . $this->print_css_data();
+				$this->clear();
+				return $return;
 			}
 
 			echo $this->print_css_data();
@@ -291,8 +286,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				}
 			}
 
-			$this->js_args  = array();
-			$this->css_args = array();
+			$this->clear();
 			return false;
 		}
 
@@ -311,12 +305,13 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		}
 
 		/**
-		 * Clears JS Args.
+		 * Clears JS & CSS Args.
 		 *
 		 * @return $this
 		 */
 		public function clear() {
-			$this->js_args = array();
+			$this->js_args  = array();
+			$this->css_args = array();
 			return $this;
 		}
 
@@ -356,6 +351,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return string
 		 */
 		private function print_css_data() {
+			console( $this->css_args );
 			if ( ! empty( $this->css_args ) ) {
 				foreach ( $this->css_args as $module => $css_codes ) {
 					if ( ! empty( $this->css_args[ $module ] ) ) {
