@@ -8,45 +8,4 @@
 			margin-right:   10px;
 		}
 	}
-
-	.ckbx-style-9 {
-		&:before {
-			content: attr(data-on);
-		}
-
-		&::after {
-			content: attr(data-off);
-		}
-
-		text-align: justify !important;
-	}
-
-	.ckbx-style-14 {
-		label {
-			text-align: justify !important;
-
-			&:before {
-				content: attr(data-off);
-			}
-
-			&::after {
-				content: attr(data-on);
-			}
-		}
-
-		&.ckbx-fat {
-			width: 155px !important;
-
-			label {
-				&:before {
-					left:  80%;
-					width: 80%;
-				}
-
-				&:after {
-					width: 80%;
-				}
-			}
-		}
-	}
 }

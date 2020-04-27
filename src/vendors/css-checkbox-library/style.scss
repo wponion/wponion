@@ -1,2 +1,33 @@
-$checkbox: 'wpo-cb';
+$checkbox: 'wpock';
 @import "../../../node_modules/css-checkbox-library/src/scss/checkboxes";
+
+.#{$checkbox} {
+	&-style-14 {
+		label {
+			text-align: justify !important;
+
+			&:before {
+				content: attr(data-off);
+			}
+
+			&::after {
+				content: attr(data-on);
+			}
+		}
+
+		&.#{$checkbox}-wide {
+			width: 155px !important;
+
+			label {
+				&:before {
+					left:  80%;
+					width: 80%;
+				}
+
+				&:after {
+					width: 80%;
+				}
+			}
+		}
+	}
+}
