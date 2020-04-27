@@ -4,7 +4,13 @@
   "description": "~ Lightweight, Flexible & Rapid WP Development Framework ~",
   "main": "",
   "scripts": {
-    "postinstall": "gulp single --file \"src/js/wponion-plugins.js\" && gulp single --file \"src/js/wponion-core.js\" && gulp single --file \"src/scss/wponion-base.scss\" && gulp copy"
+    "css-checkbox-lib": "gulp single --file \"src/vendor/css-checkbox-library/style.scss\" ",
+    "wponion-base.scss": "gulp single --file \"src/scss/wponion-base.scss\"",
+    "wponion-plugins.js": "gulp single --file \"src/js/wponion-plugins.js\"",
+    "wponion-core.js": "gulp single --file \"src/js/wponion-core.js\"",
+    "wponion-compile-js": "npm run wponion-plugins.js && npm run wponion-core.js",
+    "wponion-compile-css": "npm run css-checkbox-lib && npm run wponion-base.scss",
+    "postinstall": "npm run wponion-compile-js && npm run wponion-compile-css && gulp copy"
   },
   "keywords": [
     "wordpress",
