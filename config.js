@@ -1,6 +1,6 @@
 let $files = {};
 
-$files[ 'src/scss/wponion-base.scss' ]    = {
+$files[ 'src/scss/wponion-base.scss' ]                  = {
 	dist: 'assets/css/',
 	combine_files: true,
 	scss: true,
@@ -18,9 +18,19 @@ $files[ 'src/scss/wponion-base.scss' ]    = {
 		'src/scss/includes/bootstrap/*',
 		'src/scss/includes/fields/*/*',
 		'src/scss/includes/modules/*',
-		'src/scss/includes/modules/*/*'
+		'src/scss/includes/modules/*/*',
+		'src/vendors/css-checkbox-library/*.css',
+		'src/vendors/tippy.scss'
 	],
 };
+$files[ 'src/vendors/css-checkbox-library/style.scss' ] = {
+	dist: 'src/vendors/css-checkbox-library/',
+	combine_files: true,
+	scss: true,
+	minify: true,
+	watch: true,
+};
+
 /*$files[ 'src/scss/wponion-plugins.scss' ] = {
 	dist: 'assets/css/',
 	combine_files: true,
