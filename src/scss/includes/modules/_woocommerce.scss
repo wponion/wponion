@@ -1,6 +1,6 @@
 #woocommerce-product-data {
 	.woocommerce_options_panel {
-		> .wponion-framework.wponion-wc_product {
+		> .wponion-wc_product {
 			> .wpo-row {
 				margin: 0;
 
@@ -24,14 +24,11 @@
 	}
 
 	.ui-accordion .ui-accordion-content {
-		padding-left:   0;
-		padding-right:  0;
-		padding-top:    0;
-		padding-bottom: 5px;
+		padding: 0 0 5px;
 	}
 }
 
-.wponion-woocommerce-variation.wponion-framework.wponion-wc_product {
+.wponion-woocommerce-variation.wponion-wc_product {
 	display: block;
 	width:   100%;
 	float:   left;
@@ -45,7 +42,7 @@
 	}
 }
 
-.wponion-framework.wponion-woocommerce_settings {
+.wponion-woocommerce_settings {
 	> .wpo-row {
 		margin-left:  -12px;
 		margin-right: -12px;

@@ -3,7 +3,7 @@ body.wp-customizer {
 		z-index: 9999999;
 	}
 
-	.wponion-framework.wponion-module-customizer {
+	.wponion-module-customizer {
 		> .wponion-element {
 			> .wpo-row {
 				.wponion-field-title, .wponion-fieldset {
@@ -78,7 +78,7 @@ body.wp-customizer {
 			border-bottom:  none;
 		}
 
-		> .wponion-framework.wponion-module-customizer {
+		> .wponion-module-customizer {
 			> .wponion-element {
 				padding: 0;
 			}
@@ -86,6 +86,6 @@ body.wp-customizer {
 	}
 
 	.swal2-container, .tippy-popper {
-		z-index: 9999999999999999999999999999999999999999999 !important;
+		z-index: 9999999999 !important;
 	}
 }
