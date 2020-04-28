@@ -118,7 +118,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * Loads Required Assets.
 		 */
 		public function load_style_script() {
-			wponion_load_core_assets();
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**

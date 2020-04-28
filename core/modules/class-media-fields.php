@@ -91,6 +91,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 */
 		public function load_assets() {
 			wponion_load_core_assets();
+			wponion_load_asset( $this->option( 'assets' ) );
 		}
 
 		/**

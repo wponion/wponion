@@ -124,6 +124,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 		 */
 		public function load_styles() {
 			wponion_load_core_assets();
+			wponion_load_asset( $this->option( 'assets' ) );
 			$this->outer_sections_css();
 		}
 

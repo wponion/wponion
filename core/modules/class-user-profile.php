@@ -142,7 +142,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				wp_enqueue_script( 'post' );
 				wp_enqueue_style( 'post' );
 			}
-			wponion_load_core_assets( 'wponion-userprofile' );
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**

@@ -51,7 +51,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 		 * @static
 		 */
 		public static function load_assets() {
-			wponion_load_core_assets( 'wponion-widgets' );
+			wponion_load_core_assets();
 		}
 
 		/**

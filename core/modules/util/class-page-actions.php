@@ -58,6 +58,9 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Page_Actions' ) ) {
 			add_action( 'admin_footer', array( __CLASS__, 'validate_current_post_type' ) );
 		}
 
+		/**
+		 * @static
+		 */
 		public static function validate_current_post_type() {
 			$current_screen = get_current_screen();
 			$taxonomy       = isset( $current_screen->taxonomy ) ? $current_screen->taxonomy : false;
@@ -83,6 +86,12 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Page_Actions' ) ) {
 			}
 		}
 
+		/**
+		 * @param $data
+		 *
+		 * @static
+		 * @return array
+		 */
 		protected static function generate_buttons( $data ) {
 			$output = array();
 			if ( is_array( $data ) ) {

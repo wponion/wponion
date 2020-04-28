@@ -236,6 +236,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		protected function defaults() {
 			return array(
 				'option_name' => false,
+				'assets'      => false,
 				'save_type'   => 'all', # Options : combine/all / container / section / fields
 			);
 		}

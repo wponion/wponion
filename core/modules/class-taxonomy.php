@@ -130,7 +130,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				wp_enqueue_script( 'post' );
 				wp_enqueue_style( 'post' );
 			}
-			wponion_load_core_assets( 'wponion-taxonomy' );
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**

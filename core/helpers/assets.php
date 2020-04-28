@@ -11,14 +11,7 @@ if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 	 */
 	function wponion_load_core_assets( $extra = array() ) {
 		wponion_load_asset( 'wponion-core' );
-
-		if ( wponion_is_array( $extra ) ) {
-			foreach ( $extra as $slug ) {
-				wponion_load_asset( $slug );
-			}
-		} elseif ( is_string( $extra ) ) {
-			wponion_load_asset( $extra );
-		}
+		wponion_load_asset( $extra );
 	}
 }
 
@@ -32,6 +25,9 @@ if ( ! function_exists( 'wponion_load_asset' ) ) {
 	 * @return bool
 	 */
 	function wponion_load_asset( $key = '', ...$callback_arguments ) {
+		if ( empty( $key ) ) {
+			return false;
+		}
 		if ( is_string( $key ) ) {
 			if ( wp_style_is( $key, 'registered' ) && false === wp_style_is( $key ) ) {
 				wp_enqueue_style( $key );

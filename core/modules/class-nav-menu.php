@@ -109,6 +109,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public function load_assets() {
 			wponion_load_core_assets();
+			wponion_load_asset( $this->option( 'assets' ) );
 		}
 
 		/**

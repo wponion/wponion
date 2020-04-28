@@ -112,7 +112,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 * Loads Core Styles and Scripts.
 		 */
 		public function load_style_script() {
-			wponion_load_core_assets( 'wponion-metabox' );
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**

@@ -81,16 +81,15 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 			$menu['render']    = array( &$this, 'render' );
 			$menu['assets'][]  = 'wponion_load_core_assets';
 
-			if ( wponion_is_array( $this->option( 'extra_js' ) ) ) {
-				$menu['assets'] = $this->parse_args( $menu['assets'], $this->option( 'extra_js' ) );
-			} else {
-				$menu['assets'][] = $this->option( 'extra_js' );
-			}
-
-			if ( wponion_is_array( $this->option( 'extra_css' ) ) ) {
-				$menu['assets'] = $this->parse_args( $menu['assets'], $this->option( 'extra_css' ) );
-			} else {
-				$menu['assets'][] = $this->option( 'extra_css' );
+			if ( wponion_is_array( $this->option( 'assets' ) ) ) {
+				$asset = $this->option( 'assets' );
+				if ( wponion_is_callable( $asset ) ) {
+					$menu['assets'][] = $asset;
+				} else {
+					$menu['assets'] = $this->parse_args( $menu['assets'], $this->option( 'assets' ) );
+				}
+			} elseif ( ! empty( $this->option( 'assets' ) ) ) {
+				$menu['assets'][] = $this->option( 'assets' );
 			}
 
 			$menu['assets'][] = array( $this, 'load_admin_styles' );
@@ -422,8 +421,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 			return array(
 				'menu'        => $menu,
 				'ajax'        => false,
-				'extra_css'   => array(),
-				'extra_js'    => array(),
 				'option_name' => '_wponion',
 				'theme'       => 'wp_modern',
 				'save_button' => __( 'Save Settings', 'wponion' ),
