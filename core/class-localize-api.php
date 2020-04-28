@@ -351,7 +351,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @return string
 		 */
 		private function print_css_data() {
-			console( $this->css_args );
 			if ( ! empty( $this->css_args ) ) {
 				foreach ( $this->css_args as $module => $css_codes ) {
 					if ( ! empty( $this->css_args[ $module ] ) ) {
