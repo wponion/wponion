@@ -6,7 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die;
 }
 
-
 if ( ! class_exists( '\WPOnion\DB\Multi_Save\Save' ) ) {
 	/**
 	 * Class Save
@@ -93,11 +92,11 @@ if ( ! class_exists( '\WPOnion\DB\Multi_Save\Save' ) ) {
 						}
 					}
 				}
-			}
 
-			if ( ! empty( $this->final_save_values ) ) {
-				foreach ( $this->final_save_values as $db_key => $values ) {
-					wponion_wp_db()->set( $instance->module_db(), $db_key, $instance->get_id(), $values );
+				if ( ! empty( $this->final_save_values ) ) {
+					foreach ( $this->final_save_values as $db_key => $values ) {
+						wponion_wp_db()->set( $instance->module_db(), $db_key, $instance->get_id(), $values );
+					}
 				}
 			}
 		}
