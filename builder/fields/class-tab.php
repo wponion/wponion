@@ -39,7 +39,7 @@ if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 		 */
 		public function container( $slug = false, $title = false, $icon = '', $args = array() ) {
 			$args['icon'] = $icon;
-			return $this->field( 'fieldset', $slug, $title, $args );
+			return $this->add_field( 'fieldset', $slug, $title, $args );
 		}
 
 		/**

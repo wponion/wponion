@@ -98,7 +98,7 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 				return $this->container( $instance );
 			}
 			if ( wpo_is_field( $instance ) ) {
-				return $this->field( $instance );
+				return $this->add_field( $instance );
 			}
 			return $instance;
 		}
