@@ -20,6 +20,9 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 		this.maybe_add_inited_class();
 	}
 
+	/**
+	 * Adds Field Inited class
+	 */
 	maybe_add_inited_class() {
 		this.element.addClass( 'wponion-field-inited' );
 	}
@@ -76,7 +79,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 				let $d          = this.id() + 'debugINFO',
 					$notice_txt = `<p class="wponion-field-debug-notice">${window.wpo_core.option( 'debug_notice' )}</p>`,
 					$elem       = jQuery( `<div id="${$d}" class="wponion-field-debug-popup"><div id="${$d}" ></div>${$notice_txt}</div>` ),
-					$data       = window.wponion.class.field_debug.get( this.id() );
+					$data       = window.wponion.class.field_debug.get( this.id(), {} );
 
 				window.swal.fire( {
 					html: $elem,
