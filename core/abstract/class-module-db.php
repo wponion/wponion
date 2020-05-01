@@ -91,8 +91,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @return $this
 		 */
 		public function set_db_values( $values = array() ) {
+			do_action( "wponion_{$this->module()}_db_save_before", $values, $this->unique(), $this );
 			$instance = new Save( $this->option( 'save_type' ), $values, $this );
 			$instance->run();
+			do_action( "wponion_{$this->module()}_db_save_after", $values, $this->unique(), $this );
 			if ( wpo_is_option( $this->db_values ) ) {
 				$this->db_values->reload();
 			} else {
