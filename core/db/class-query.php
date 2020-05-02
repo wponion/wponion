@@ -57,18 +57,20 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			$def_value        = 'name';
 			$is_all           = false;
 			$_q_type          = 'cpt';
+			$result_callback  = false;
 
 			if ( ! empty( $search ) ) {
 				$this->query_args['s'] = $search;
 			}
 
 			if ( ! empty( $args ) ) {
-				$op_key   = isset( $args['option_key'] ) ? $args['option_key'] : 'ID';
-				$op_value = isset( $args['option_label'] ) ? $args['option_label'] : 'name';
-				$is_all   = ( false === $op_key && false === $op_value ) ? true : false;
-
+				$op_key          = isset( $args['option_key'] ) ? $args['option_key'] : 'ID';
+				$op_value        = isset( $args['option_label'] ) ? $args['option_label'] : 'name';
+				$is_all          = ( false === $op_key && false === $op_value );
+				$result_callback = isset( $args['result_callback'] ) ? $args['result_callback'] : 'ID';
 				unset( $args['option_key'] );
 				unset( $args['option_label'] );
+				unset( $args['result_callback'] );
 				$this->query_args = $this->parse_args( $args, $this->query_args );
 			}
 
@@ -178,6 +180,20 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			if ( is_wp_error( $result ) || is_null( $result ) || empty( $result ) ) {
 				return array();
 			}
+
+			if ( wponion_is_callable( $result_callback ) ) {
+				$result = wponion_callback( $result_callback );
+			}
+
+			/**
+			 * Runs Once WP Query Is Complete.
+			 *
+			 * @var array  $result WP_Query Result.
+			 * @var string $search User Search Query
+			 * @var string $type Search Type.
+			 * @var array  $args Query Args.
+			 */
+			$result = apply_filters( 'wponion_wp_query_result', $result, $search, $type, $args );
 
 			if ( false === $is_all ) {
 				$result = $this->query_data( $result, array( $op_key, $op_value ), array( $def_key, $def_value ) );

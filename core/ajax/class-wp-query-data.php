@@ -38,6 +38,19 @@ if ( ! class_exists( '\WPOnion\Ajax\WP_Query_Data' ) ) {
 			$search     = $this->post( 'q', '' );
 			$search     = $this->post( 's', $search );
 			$data       = ( wponion_is_callable( $options ) ) ? wponion_callback( $options ) : wponion_query()->query( $options, stripslashes_deep( $query_args ), $search );
+
+			/**
+			 * Provides An Option To Filter WP Query Data.
+			 *
+			 * @var array            $data \WP_Query Request.
+			 * @var string           $search User Entered Search Query.
+			 * @var array            $query_args Field's Query Args.
+			 * @var \WPO\Field|array $field Field's Builder Instance.
+			 * @var string           $module Module Slug.
+			 */
+			$field  = $this->get_field();
+			$module = $this->get_module();
+			$data   = apply_filters( 'wponion_ajax_wp_query_data', $data, $search, $query_args, $field, $module );
 			$this->json_success( array( 'results' => $data ) );
 		}
 	}
