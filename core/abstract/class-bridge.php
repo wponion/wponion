@@ -40,6 +40,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 */
 		public function set_args( $options = array(), $defaults = array() ) {
 			$defaults = empty( $defaults ) ? $this->defaults() : $defaults;
+			$options  = ( ! wponion_is_array( $options ) ) ? array( 'option_name' => $options ) : $options;
 			$options  = $this->parse_args( $options, $defaults );
 			return $options;
 		}
