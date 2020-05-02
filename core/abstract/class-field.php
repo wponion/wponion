@@ -475,7 +475,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$return             = array();
 			$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
 			$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
+
 			switch ( $this->module() ) {
+				case 'user_profile':
+					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-12 wpo-col-lg-2 wpo-col-xl-2';
+					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-12 wpo-col-lg-10 wpo-col-xl-10';
+					break;
 				case 'taxonomy':
 					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3 wpo-col-lg-3 wpo-col-xl-3';
 					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-9 wpo-col-lg-9 wpo-col-xl-9';
@@ -489,15 +494,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 						}
 					}
 					break;
-				case 'wp_importer':
-					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
-					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
-					break;
-				default:
-					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
-					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
-					break;
 			}
+
 			if ( false === $this->has( 'title' ) || true === $this->data( 'hide_title' ) ) {
 				$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-12 wpo-col-lg-12 wpo-col-xl-12';
 			}
