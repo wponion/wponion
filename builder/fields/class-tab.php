@@ -35,12 +35,27 @@ if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 		 * @param bool|string $icon
 		 * @param array       $args
 		 *
-		 * @return bool|false|\WPO\Fields\Fieldset
+		 * @return bool|\WPO\Fields\Fieldset
+		 * @since 1.4.5.4
 		 */
-		public function container( $slug = false, $title = false, $icon = '', $args = array() ) {
+		public function section( $slug = false, $title = false, $icon = '', $args = array() ) {
 			$args['icon'] = $icon;
 			return $this->add_field( 'fieldset', $slug, $title, $args );
 		}
+
+		/**
+		 * @param bool   $slug
+		 * @param bool   $title
+		 * @param string $icon
+		 * @param array  $args
+		 *
+		 * @return bool|\WPO\Fields\Fieldset
+		 * @deprecated Please Use ->section function to create sub section for tab and it will be removed in V 1.5
+		 */
+		public function container( $slug = false, $title = false, $icon = '', $args = array() ) {
+			return $this->section( $slug, $title, $icon, $args );
+		}
+
 
 		/**
 		 * Updated Tab Style.
