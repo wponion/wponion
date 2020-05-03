@@ -26,5 +26,11 @@ export default class extends WPOnion_Field {
 		} else {
 			$menu_wrap.find( '> li:first-child a' ).trigger( 'click' );
 		}
+
+		this.element.find( '> .wpo-row > .wponion-fieldset > .wponion-tab-wrap' )
+			.each( ( i, elem ) => window.wponion_dependency( jQuery( elem ), {
+				nestable: true,
+				parent: this.element
+			} ) );
 	}
 }
