@@ -175,7 +175,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				if ( null === $value ) {
 					return $this->field[ $key ];
 				} else {
-					return ( $value === $this->field[ $key ] ) ? true : false;
+					return ( $value === $this->field[ $key ] );
 				}
 			}
 			return false;
@@ -185,7 +185,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
-			$only_field = ( $this->has( 'only_field' ) && true === $this->data( 'only_field' ) ) ? true : false;
+			$only_field = ( $this->has( 'only_field' ) && true === $this->data( 'only_field' ) );
 			if ( false !== $this->data( 'before_render' ) && wponion_is_callable( $this->data( 'before_render' ) ) ) {
 				wponion_callback( $this->data( 'before_render' ), array( &$this, $only_field ) );
 			}
@@ -230,7 +230,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function default_wrap_class( $extra_class = array() ) {
 			$type      = $this->data( 'type' );
-			$is_nested = ( isset( $this->field['fields'] ) && ! empty( $this->field['fields'] ) ) ? true : false;
+			$is_nested = ( isset( $this->field['fields'] ) && ! empty( $this->field['fields'] ) );
 			$has_error = ( $this->has_errors() ) ? ' wponion-element-has-error ' : '';
 			return wponion_html_class( array(
 				'wponion-element',
@@ -248,7 +248,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function handle_dependency() {
 			$dependency = $this->data( 'dependency' );
-			if ( wponion_is_array( $dependency['rules'] ) && ! empty( array_filter( $dependency ) ) ) {
+			if ( isset( $dependency['rules'] ) && wponion_is_array( $dependency['rules'] ) && ! empty( array_filter( $dependency ) ) ) {
 				/**
 				 * @var \WPO\Helper\Dependency\Builder $group
 				 */
@@ -1043,7 +1043,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @param      $unqiue
 		 * @param bool $is_init
 		 *
-		 * @return mixed
+		 * @return mixed|\WPOnion\Field
 		 * @uses wponion_add_element|wponion_field
 		 *
 		 */
