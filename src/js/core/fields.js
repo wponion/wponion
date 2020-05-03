@@ -3,6 +3,7 @@ import wpo_button_set from './fields/button_set';
 import wpo_checkbox_radio from './fields/checkbox_radio';
 import wpo_chosen from './fields/common/chosen';
 import wpo_clone from './fields/clone_element';
+import wpo_inline_dependency from './fields/common/inline-dependency';
 import wpo_code_editor from './fields/code_editor';
 import wpo_color_picker from './fields/color_picker';
 import wpo_date_picker from './fields/date_picker';
@@ -49,6 +50,7 @@ export function wponion_register_fields() {
 	window.wponion_register_field( 'image_popup', wpo_image_popup );
 	window.wponion_register_field( 'tooltip', wpo_tooltip );
 	window.wponion_register_field( 'global_notice', wpo_global_notice );
+	window.wponion_register_field( 'inline_dependency', wpo_inline_dependency );
 
 
 	/**

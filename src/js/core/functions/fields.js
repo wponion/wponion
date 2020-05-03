@@ -99,6 +99,7 @@ export default function() {
 			'.wponion-help': 'tooltip',
 			'[wponion-help]': 'tooltip',
 			'[wponion-img-popup]': 'image_popup',
+			'[wponion-inline-dependency]': 'inline_dependency',
 		};
 
 		for( let $key in $element_to_check ) {

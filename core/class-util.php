@@ -26,10 +26,18 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		/**
 		 * Stores Element HTML.
 		 *
-		 * @var null
+		 * @var string
 		 * @access
 		 */
 		protected $element = null;
+
+		/**
+		 * Sets To True if js id is added.
+		 *
+		 * @var bool
+		 * @since 1.4.5.4
+		 */
+		protected $is_js_id_added = false;
 
 		/**
 		 * Util constructor.
@@ -43,11 +51,26 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		}
 
 		/**
+		 * Adds WPOnion JS ID.
+		 *
+		 * @since 1.4.5.4
+		 */
+		protected function add_wponion_js_id() {
+			if ( false === $this->is_js_id_added ) {
+				$this->append_attributes( array(
+					'data-wponion-jsid' => $this->js_id(),
+				) );
+				$this->is_js_id_added = true;
+			}
+		}
+
+		/**
 		 * Returns Final Element.
 		 *
-		 * @return bool|string
+		 * @return string
 		 */
 		public function element() {
+			$this->add_wponion_js_id();
 			return $this->element;
 		}
 
@@ -78,11 +101,32 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		}
 
 		/**
+		 * Appends Provided Attributes To Element.
+		 *
+		 * @param      $attrs
+		 * @param bool $element
+		 *
+		 * @return string
+		 * @since 1.4.5.4
+		 */
+		protected function append_attributes( $attrs, $element = false ) {
+			$attrs = wponion_array_to_html_attributes( $attrs );
+			$regex = '/(<[a-zA-Z0-9]* )(.*)/';
+			if ( false === $element ) {
+				$this->element = preg_replace( $regex, '$1 ' . $attrs . ' $2', $this->element );
+			} else {
+				$element = preg_replace( $regex, '$1 ' . $attrs . ' $2', $element );
+			}
+			return ( false === $element ) ? $this->element : $element;
+		}
+
+		/**
 		 * Returns Element String.
 		 *
 		 * @return bool|string|null
 		 */
 		public function __toString() {
+			$this->add_wponion_js_id();
 			return ( ! empty( $this->element ) ) ? $this->element : '';
 		}
 
@@ -181,7 +225,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 			unset( $args['js_field_id'] );
 			wponion_localize()->add( $this->js_id(), array( 'inline_ajax' => $args ) );
 			if ( ! empty( $this->element ) ) {
-				$this->element = preg_replace( '/(<[a-zA-Z0-9]* )(.*)/', '$1 data-wponion-inline-ajax="' . $this->js_id() . '" $2', $this->element );
+				$this->append_attributes( array( 'data-wponion-inline-ajax' => $this->js_id() ) );
 				return $this;
 			}
 			return $this->js_id();
@@ -208,11 +252,27 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 			$this->handle_element( $element );
 
 			if ( ! empty( $this->element ) ) {
-				$this->element = preg_replace( '/(<[a-zA-Z0-9]* )(.*)/', '$1 ' . $full_size . '  $2', $this->element );
+				$this->append_attributes( $full_size );
 			} else {
 				$this->element = '<img src="' . $image_src . '" ' . $full_size . ' />';
 			}
 			return $this;
+		}
+
+		/**
+		 * Handle's Inline Element Dependency
+		 *
+		 * @param array $rules
+		 *
+		 * @since 1.4.5.4
+		 */
+		public function dependency( $rules = array() ) {
+			if ( ! empty( $rules ) && isset( $rules['rules'] ) && wponion_is_array( $rules['rules'] ) && ! empty( array_filter( $rules ) ) ) {
+				wponion_localize()->add( $this->js_id(), array( 'dependency' => $rules ), true, true );
+				$this->append_attributes( array(
+					'wponion-inline-dependency' => true,
+				) );
+			}
 		}
 	}
 }
