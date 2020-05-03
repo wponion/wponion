@@ -27,6 +27,13 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		protected $query = null;
 
 		/**
+		 * Stores Unique Key
+		 *
+		 * @var null
+		 */
+		protected $unique = null;
+
+		/**
 		 * query_arg
 		 *
 		 * @var array
@@ -43,8 +50,13 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 
 		/**
 		 * Query constructor.
+		 *
+		 * @param null $unique
+		 * @param null $module
 		 */
-		public function __construct() {
+		public function __construct( $unique = null, $module = null ) {
+			$this->module = $module;
+			$this->unique = $unique;
 		}
 
 		/**
@@ -157,6 +169,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 				unset( $args['option_key'] );
 				unset( $args['option_label'] );
 				unset( $args['result_callback'] );
+
 				$this->query_args = $this->parse_args( $args, $this->query_args );
 			}
 		}
@@ -179,8 +192,10 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			 *
 			 * @var {$this->query_args} Contains All Query Args as an array
 			 * @var string $type Type of query.
+			 * @var string {$this->unique} Module's Unique Key.
+			 * @var string {$this->module} Module's Slug.
 			 */
-			$this->query_args = apply_filters( 'wponion_query_args', $this->query_args, $type );
+			$this->query_args = apply_filters( 'wponion_query_args', $this->query_args, $type, $this->unique, $this->module );
 		}
 
 		/**
@@ -269,8 +284,10 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			 * @var string $search User Search Query
 			 * @var string $type Search Type.
 			 * @var array  $args Query Args.
+			 * @var string {$this->unique} Module's Unique Key.
+			 * @var string {$this->module} Module's Slug.
 			 */
-			$this->results = apply_filters( 'wponion_wp_query_result', $this->results, $search, $type, $args );
+			$this->results = apply_filters( 'wponion_wp_query_result', $this->results, $search, $type, $args, $this->unique, $this->module );
 
 			if ( true === $this->option( 'customizable' ) && false === $this->option( 'has_option_label_key' ) ) {
 				$this->results = $this->format_output_data();
@@ -356,5 +373,3 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		}
 	}
 }
-
-
