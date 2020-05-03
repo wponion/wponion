@@ -1,6 +1,7 @@
 <?php
 
 use WPOnion\Bridge;
+use WPOnion\DB\Query;
 use WPOnion\Registry\Holder;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -107,13 +108,7 @@ if ( ! function_exists( 'wponion_query' ) ) {
 	 *
 	 * @return \WPOnion\DB\Query|mixed
 	 */
-	function wponion_query() {
-		$class     = 'WPOnion\DB\Query';
-		$_instance = wponion_core_registry( $class );
-		if ( false === $_instance ) {
-			$_instance = new $class();
-			wponion_core_registry( $_instance );
-		}
-		return $_instance;
+	function wponion_query( $unique = null, $module = null ) {
+		return new Query( $unique, $module );
 	}
 }
