@@ -84,8 +84,8 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 	 * @return string
 	 */
 	function wponion_array_to_html_attributes( $attributes ) {
-		$atts = '';
-		if ( ! empty( $attributes ) ) {
+		$atts = ( is_string( $attributes ) ) ? $attributes : '';
+		if ( ! empty( $attributes ) && is_array( $attributes ) ) {
 			foreach ( $attributes as $key => $value ) {
 				if ( 'class' === $key && is_array( $value ) ) {
 					$value = wponion_html_class( $value );
