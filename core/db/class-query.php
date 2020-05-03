@@ -265,7 +265,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			/**
 			 * Runs Once WP Query Is Complete.
 			 *
-			 * @var array  $result WP_Query Result.
+			 * @var array  {$this->result} WP_Query Result.
 			 * @var string $search User Search Query
 			 * @var string $type Search Type.
 			 * @var array  $args Query Args.
