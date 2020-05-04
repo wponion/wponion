@@ -102,9 +102,69 @@ if ( ! function_exists( 'wponion_theme_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_query_module' ) ) {
+	/**
+	 * WPOnion Query Module's Info.
+	 * This function checks and returns proper class name.
+	 *
+	 * @param string $request_type Set true to return all modules name or set alias to return all alias details
+	 *
+	 * @return string|bool
+	 *
+	 * @since 1.4.5.4
+	 */
+	function wponion_query_module( $request_type ) {
+		$alias   = apply_filters( 'wponion_query_modules_alias', array(
+			'posts'           => 'post',
+			'pages'           => 'post',
+			'page'            => 'post',
+			'category'        => 'taxonomies',
+			'categories'      => 'taxonomies',
+			'tag'             => 'taxonomies',
+			'tags'            => 'taxonomies',
+			'body_layouts'    => 'layouts',
+			'body_layout'     => 'layouts',
+			'header_layout'   => 'layouts',
+			'header_layouts'  => 'layouts',
+			'sidebar_layout'  => 'layouts',
+			'sidebar_layouts' => 'layouts',
+		) );
+		$modules = apply_filters( 'wponion_query_modules', array(
+			'post'            => '\WPOnion\DB\Query_Types\Custom_Post_Types',
+			'taxonomies'      => '\WPOnion\DB\Query_Types\Taxonomies',
+			'users'           => '\WPOnion\DB\Query_Types\Users',
+			'menus'           => '\WPOnion\DB\Query_Types\Menus',
+			'post_types'      => '\WPOnion\DB\Query_Types\Post_Types',
+			'menu_location'   => '\WPOnion\DB\Query_Types\Menu_Location',
+			'currency'        => '\WPOnion\DB\Query_Types\Currency',
+			'currency_symbol' => '\WPOnion\DB\Query_Types\Currency_Symbol',
+			'layouts'         => '\WPOnion\DB\Query_Types\Layouts',
+			'sidebars'        => '\WPOnion\DB\Query_Types\Sidebars',
+			'wc_products'     => '\WPOnion\DB\Query_Types\WC_Products',
+			'wc_customers'    => '\WPOnion\DB\Query_Types\WC_Customers',
+		) );
+
+		if ( 'alias' === $request_type ) {
+			return $alias;
+		}
+
+		if ( true === $request_type ) {
+			return $modules;
+		}
+
+		if ( isset( $alias[ $request_type ] ) ) {
+			$request_type = $alias[ $request_type ];
+		}
+		return ( isset( $modules[ $request_type ] ) ) ? $modules[ $request_type ] : false;
+	}
+}
+
 if ( ! function_exists( 'wponion_query' ) ) {
 	/**
 	 * Returns a static instance of \WPOnion\DB\Query
+	 *
+	 * @param string $unique
+	 * @param string $module
 	 *
 	 * @return \WPOnion\DB\Query|mixed
 	 */

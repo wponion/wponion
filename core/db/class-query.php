@@ -2,9 +2,7 @@
 
 namespace WPOnion\DB;
 
-use WP_Query;
 use WPOnion\Bridge;
-use WPOnion\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
@@ -20,11 +18,12 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 	 */
 	class Query extends Bridge {
 		/**
-		 * query
+		 * Stors Handler Instance.
 		 *
-		 * @var null
+		 * @var \WPOnion\DB\Query_Types\WP_Query_Base
+		 * @since 1.4.5.4
 		 */
-		protected $query = null;
+		protected $handler = false;
 
 		/**
 		 * Stores Unique Key
@@ -38,7 +37,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 *
 		 * @var array
 		 */
-		protected $query_args = array();
+		protected $args = array();
 
 		/**
 		 * Stores DB Results
@@ -47,6 +46,14 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @since 1.4.5.1
 		 */
 		protected $results = array();
+
+		/**
+		 * Stores Query Type.
+		 *
+		 * @var bool
+		 * @since 1.4.5.4
+		 */
+		public $type = false;
 
 		/**
 		 * Query constructor.
@@ -65,75 +72,8 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @since 1.4.5.4
 		 */
 		protected function clear() {
-			$this->query      = null;
-			$this->query_args = array();
-			$this->settings   = array();
-		}
-
-		/**
-		 * Handles Query Type.
-		 *
-		 * @param string $type
-		 *
-		 * @since 1.4.5.4
-		 */
-		protected function setup_query_args( $type ) {
-			$this->set_option( 'query_db_type', $type );
-			switch ( $type ) {
-				case 'pages':
-				case 'page':
-				case 'posts':
-				case 'post':
-					if ( ! isset( $this->query_args['post_type'] ) ) {
-						$this->query_args['post_type'] = ( in_array( $type, array(
-							'posts',
-							'post',
-						), true ) ) ? 'post' : 'page';
-					}
-					$this->set_option( 'query_db_type', 'custom_post_type' );
-					$this->set_option( 'default_option_key', 'ID' );
-					$this->set_option( 'default_option_value', 'post_title' );
-					break;
-
-				case 'categories':
-				case 'category':
-				case 'tags':
-				case 'tag':
-					if ( ! isset( $this->query_args['taxonomy'] ) ) {
-						$this->query_args['taxonomy'] = ( in_array( $type, array(
-							'tags',
-							'tag',
-						), true ) ) ? 'post_tag' : 'category';
-					}
-					if ( ! empty( $this->query_args['s'] ) ) {
-						$this->query_args['search'] = $this->query_args['s'];
-						unset( $this->query_args['s'] );
-					}
-					$this->set_option( 'query_db_type', 'terms' );
-					$this->set_option( 'default_option_key', 'term_id' );
-					$this->set_option( 'default_option_value', 'name' );
-					break;
-
-				case 'users':
-					$this->set_option( 'default_option_key', 'ID' );
-					$this->set_option( 'default_option_value', 'user_login' );
-					break;
-
-				case 'menus':
-					$this->set_option( 'default_option_key', 'term_id' );
-					$this->set_option( 'default_option_value', 'name' );
-					break;
-
-				case 'body_layouts':
-				case 'body_layout':
-				case 'header_layouts':
-				case 'header_layout':
-				case 'sidebar_layouts':
-				case 'sidebar_layout':
-					$layout = str_replace( array( '_layouts', '_layout' ), '', $type );
-					$this->set_option( 'query_db_type', $layout . '_layout' );
-					break;
-			}
+			$this->args     = array();
+			$this->settings = array();
 		}
 
 		/**
@@ -145,32 +85,26 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @since 1.4.5.4
 		 */
 		protected function handle_query_args( $args, $search ) {
-			$this->set_option( 'option_key', 'ID' );
-			$this->set_option( 'option_value', 'name' );
-			$this->set_option( 'default_option_key', 'ID' );
-			$this->set_option( 'default_option_value', 'name' );
-			$this->set_option( 'customizable', true );
-
 			if ( ! empty( $search ) ) {
-				$this->query_args['s'] = $search;
+				$this->args['s'] = $search;
 			}
 
 			if ( ! empty( $args ) ) {
-				$op_key   = isset( $args['option_key'] ) ? $args['option_key'] : 'ID';
-				$op_value = isset( $args['option_label'] ) ? $args['option_label'] : 'name';
-				$is_all   = ( false === $op_key && false === $op_value );
-				$callback = isset( $args['result_callback'] ) ? $args['result_callback'] : 'ID';
+				$args = wponion_parse_args( $args, array(
+					'option_key'      => false,
+					'option_label'    => false,
+					'result_callback' => false,
+				) );
 
-				$this->set_option( 'result_callback', $callback );
-				$this->set_option( 'has_option_label_key', $is_all );
-				$this->set_option( 'option_key', $op_key );
-				$this->set_option( 'option_value', $op_value );
+				$this->set_option( 'option_key', $args['option_key'] );
+				$this->set_option( 'option_value', $args['option_label'] );
+				$this->set_option( 'result_callback', $args['result_callback'] );
 
 				unset( $args['option_key'] );
 				unset( $args['option_label'] );
 				unset( $args['result_callback'] );
 
-				$this->query_args = $this->parse_args( $args, $this->query_args );
+				$this->args = $this->parse_args( $args, $this->args );
 			}
 		}
 
@@ -181,21 +115,21 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @param string $type
 		 */
 		protected function handle_pre_query_args( $type ) {
-			foreach ( $this->query_args as $id => $value ) {
+			foreach ( $this->args as $id => $value ) {
 				if ( ! is_array( $value ) ) {
-					$this->query_args[ $id ] = wponion_validate_bool_val( $value );
+					$this->args[ $id ] = wponion_validate_bool_val( $value );
 				}
 			}
 
 			/**
 			 * This filter provides an option to modify DB Query args before fetching the results.
 			 *
-			 * @var {$this->query_args} Contains All Query Args as an array
+			 * @var {$this->args} Contains All Query Args as an array
 			 * @var string $type Type of query.
 			 * @var string {$this->unique} Module's Unique Key.
 			 * @var string {$this->module} Module's Slug.
 			 */
-			$this->query_args = apply_filters( 'wponion_query_args', $this->query_args, $type, $this->unique, $this->module );
+			$this->args = apply_filters( 'wponion_query_args', $this->args, $type, $this->unique, $this->module );
 		}
 
 		/**
@@ -204,88 +138,49 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @since 1.4.5.4
 		 */
 		protected function get_db() {
-			switch ( $this->option( 'query_db_type' ) ) {
-				case 'custom_post_type':
-					$this->query   = new WP_Query( $this->query_args );
-					$this->results = $this->query->posts;
-					break;
-
-				case 'terms':
-					$this->results = get_terms( $this->query_args );
-					break;
-
-				case 'menus':
-					$this->results = wp_get_nav_menus( $this->query_args );
-					break;
-
-				case 'users':
-					$this->results = get_users( $this->query_args );
-					break;
-
-				case 'post_types':
-					$this->results = Helper::get_post_types();
-					$this->set_option( 'customizable', false );
-					break;
-
-				case 'menu_location':
-					$this->results = get_registered_nav_menus();
-					$this->set_option( 'customizable', false );
-					break;
-
-				case 'currency':
-				case 'currency_symbol':
-					$this->results = ( 'currency_symbol' === $this->option( 'query_db_type' ) ) ? Helper::get_currency_symbol() : Helper::get_currency();
-					$this->set_option( 'customizable', false );
-					break;
-
-				case 'body_layout':
-				case 'header_layout':
-				case 'sidebar_layout':
-					$layout        = str_replace( '_layout', '', $this->option( 'query_db_type' ) );
-					$size          = ( isset( $args['size'] ) ) ? $args['size'] : '200';
-					$exclude       = ( isset( $args['exclude'] ) ) ? $args['exclude'] : array();
-					$this->results = wponion_layouts_field_option( $layout, $size, $exclude );
-					$this->set_option( 'customizable', false );
-					break;
-
-				case 'sidebars':
-					global $wp_registered_sidebars;
-					$this->results = $wp_registered_sidebars;
-					$this->set_option( 'customizable', false );
-					break;
-
-				default:
-					/**
-					 * This action provides ability to hook with wponion.
-					 *
-					 * @var {$this->query_args} Contains All Query Args as an array
-					 * @var string $type Type of query.
-					 * @var string {$this->unique} Module's Unique Key.
-					 * @var string {$this->module} Module's Slug.
-					 */
-
-					do_action_ref_array( 'wponion_query_database', array(
-						&$this->results,
-						$this->query_args,
-						$this->option( 'query_db_type' ),
-						$this->unique,
-						$this->module,
-					) );
-					break;
+			if ( method_exists( $this->handler, 'get_results' ) ) {
+				$this->results = $this->handler->get_results( $this->args );
+			} else {
+				/**
+				 * This action provides ability to hook with wponion.
+				 *
+				 * @var array  {$this->args} Contains All Query Args as an array
+				 * @var string $type Type of query.
+				 * @var string {$this->unique} Module's Unique Key.
+				 * @var string {$this->module} Module's Slug.
+				 */
+				do_action_ref_array( 'wponion_query_database', array(
+					&$this->results,
+					$this->args,
+					$this->type,
+					$this->unique,
+					$this->module,
+				) );
 			}
 		}
 
 		/**
 		 * @param string $type
 		 * @param array  $args
-		 * @param null   $search
+		 * @param string $search
 		 *
 		 * @return array
 		 */
 		public function query( $type = '', $args = array(), $search = null ) {
+			wponion_timer( 'ajax_query' );
 			$this->results = array();
+			$this->type    = $type;
+			$class         = wponion_query_module( $type );
+			if ( ! empty( $class ) ) {
+				$this->handler = new $class( $this );
+			}
+
 			$this->handle_query_args( $args, $search );
-			$this->setup_query_args( $type );
+
+			if ( method_exists( $this->handler, 'setup_query_args' ) ) {
+				$this->args = $this->handler->setup_query_args( $this->args );
+			}
+
 			$this->handle_pre_query_args( $type );
 			$this->get_db();
 
@@ -309,7 +204,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			 */
 			$this->results = apply_filters( 'wponion_wp_query_result', $this->results, $search, $type, $args, $this->unique, $this->module );
 
-			if ( true === $this->option( 'customizable' ) && false === $this->option( 'has_option_label_key' ) ) {
+			if ( $this->handler->is_customizable() ) {
 				$this->results = $this->format_output_data();
 			}
 
@@ -328,8 +223,9 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			if ( ! empty( $this->results ) ) {
 				$option_key           = $this->option( 'option_key' );
 				$option_value         = $this->option( 'option_value' );
-				$default_option_key   = $this->option( 'default_option_key' );
-				$default_option_value = $this->option( 'default_option_value' );
+				$default_option_key   = array( $this->handler, 'default_key' );
+				$default_option_value = array( $this->handler, 'default_label' );
+
 				foreach ( $this->results as $values ) {
 					$key            = $this->option_data( $option_key, $default_option_key, $values );
 					$value          = $this->option_data( $option_value, $default_option_value, $values );
@@ -340,25 +236,27 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		}
 
 		/**
-		 * @param $key
-		 * @param $default
-		 * @param $data
+		 * @param string|callable $key
+		 * @param string|callable $default
+		 * @param array           $data
 		 *
-		 * @return mixed|bool
+		 * @return string|bool
 		 */
 		protected function option_data( $key, $default, $data ) {
-			$matches = wponion_is_callable( $key ) ? wponion_callback( $key, array( $data ) ) : false;
+			if ( ! empty( $key ) ) {
+				$user_callback = wponion_is_callable( $key ) ? wponion_callback( $key, array( $data ) ) : false;
+				$matches       = array();
+				if ( ! empty( $user_callback ) && is_string( $user_callback ) ) {
+					return $user_callback;
+				}
 
-			if ( ! empty( $matches ) && is_string( $matches ) ) {
-				return $matches;
-			} elseif ( empty( $matches ) && ! wponion_is_callable( $key ) ) {
+				/** Below Regex Matches All Contents That Are Enclosed With [] | @example #[id] [post_title] - [post_date] */
 				preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)]@', $key, $matches, PREG_SET_ORDER, 0 );
 
 				if ( ! empty( $matches ) ) {
 					foreach ( $matches as $match ) {
 						if ( isset( $match[1] ) && ! empty( $match[1] ) ) {
-							$_data = $this->_single_option_data( $data, $match[1], $default );
-							$key   = str_replace( $match[0], $_data, $key );
+							$key = str_replace( $match[0], $this->_single_option_data( $data, $match[1], $default ), $key );
 						}
 					}
 					return $key;
@@ -371,25 +269,61 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		/**
 		 * Returns Single data.
 		 *
-		 * @param $data
-		 * @param $key
-		 * @param $default
+		 * @param array           $data
+		 * @param string|callable $key
+		 * @param string|callable $default
 		 *
-		 * @return bool|mixed
+		 * @return bool|string
 		 */
 		protected function _single_option_data( $data, $key, $default ) {
-			if ( wponion_is_array( $data ) ) {
-				if ( isset( $data[ $key ] ) ) {
-					return $data[ $key ];
+			$result = false;
+			if ( ! empty( $key ) && is_string( $key ) ) {
+				if ( wponion_is_array( $data ) ) {
+					if ( isset( $data[ $key ] ) ) {
+						$result = $data[ $key ];
+					}
+				} elseif ( is_object( $data ) ) {
+					if ( is_string( $key ) && isset( $data->{$key} ) ) {
+						$result = $data->{$key};
+					} elseif ( isset( $data->{$key} ) && wponion_is_callable( array( $data, $key ) ) ) {
+						$result = $data->{$key}();
+					}
 				}
-				return ( isset( $data[ $default ] ) ) ? $data[ $default ] : false;
-			} elseif ( is_object( $data ) ) {
-				if ( isset( $data->{$key} ) ) {
-					return $data->{$key};
-				}
-				return ( isset( $data->{$default} ) ) ? $data->{$default} : false;
 			}
-			return false;
+
+			if ( empty( $result ) ) {
+				$result = $this->_single_option_data_default( $default, $data );
+			}
+			return ( is_scalar( $result ) ) ? $result : false;
+		}
+
+		/**
+		 * @param string|callable $default
+		 * @param array           $data
+		 *
+		 * @return bool|string
+		 * @since 1.4.5.4
+		 */
+		protected function _single_option_data_default( $default, $data ) {
+			$result = '';
+			if ( wponion_is_callable( $default ) ) {
+				$result = wponion_callback( $default, array( $data ) );
+			}
+
+			if ( empty( $result ) && is_string( $default ) ) {
+				if ( wponion_is_array( $data ) ) {
+					if ( isset( $data[ $default ] ) ) {
+						$result = $data[ $default ];
+					}
+				} elseif ( is_object( $data ) ) {
+					if ( isset( $data->{$default} ) ) {
+						$result = $data->{$default};
+					} elseif ( isset( $data->{$default} ) && wponion_is_callable( array( $data, $default ) ) ) {
+						$result = $data->{$default}();
+					}
+				}
+			}
+			return ( is_scalar( $result ) ) ? $result : false;
 		}
 	}
 }
