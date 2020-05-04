@@ -114,7 +114,9 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * @static
 		 * @return array|bool|\WPOnion\DB\Option
 		 */
-		public static function post_meta( $id, $db_key, $option_key = '', $default = false ) {
+		public static function post_meta( $id = false, $db_key = '', $option_key = '', $default = false ) {
+			$id = ( empty( $id ) ) ? get_the_ID() : $id;
+
 			if ( ! isset( self::$post[ $id ] ) ) {
 				self::$post[ $id ] = array();
 			}
@@ -157,6 +159,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * @return array|bool|\WPOnion\DB\Option
 		 */
 		public static function user_meta( $id, $db_key, $option_key = '', $default = false ) {
+			$id = ( empty( $id ) ) ? get_current_user_id() : $id;
 			if ( ! isset( self::$user_meta[ $id ] ) ) {
 				self::$user_meta[ $id ] = array();
 			}
