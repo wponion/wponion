@@ -106,15 +106,15 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		}
 
 		/**
-		 * @param        $id
-		 * @param        $db_key
-		 * @param string $option_key
-		 * @param bool   $default
+		 * @param string      $db_key
+		 * @param string|bool $id
+		 * @param string      $option_key
+		 * @param bool        $default
 		 *
 		 * @static
 		 * @return array|bool|\WPOnion\DB\Option
 		 */
-		public static function post_meta( $id = false, $db_key = '', $option_key = '', $default = false ) {
+		public static function post_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {
 			$id = ( empty( $id ) ) ? get_the_ID() : $id;
 
 			if ( ! isset( self::$post[ $id ] ) ) {
@@ -129,15 +129,15 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		}
 
 		/**
-		 * @param        $id
-		 * @param        $db_key
-		 * @param string $option_key
-		 * @param bool   $default
+		 * @param string      $db_key
+		 * @param string|bool $id
+		 * @param string      $option_key
+		 * @param bool        $default
 		 *
 		 * @static
 		 * @return array|bool|\WPOnion\DB\Option
 		 */
-		public static function term_meta( $id, $db_key, $option_key = '', $default = false ) {
+		public static function term_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {
 			if ( ! isset( self::$term[ $id ] ) ) {
 				self::$term[ $id ] = array();
 			}
@@ -150,15 +150,15 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		}
 
 		/**
-		 * @param        $id
-		 * @param        $db_key
-		 * @param string $option_key
-		 * @param bool   $default
+		 * @param string      $db_key
+		 * @param string|bool $id
+		 * @param string      $option_key
+		 * @param bool        $default
 		 *
 		 * @static
 		 * @return array|bool|\WPOnion\DB\Option
 		 */
-		public static function user_meta( $id, $db_key, $option_key = '', $default = false ) {
+		public static function user_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {
 			$id = ( empty( $id ) ) ? get_current_user_id() : $id;
 			if ( ! isset( self::$user_meta[ $id ] ) ) {
 				self::$user_meta[ $id ] = array();

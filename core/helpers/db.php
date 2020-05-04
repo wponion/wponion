@@ -96,8 +96,8 @@ if ( ! function_exists( 'wpo_post_meta' ) ) {
 	 *
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
-	function wpo_post_meta( $post_id, $unique, $option_key = false, $default = false ) {
-		return Options::post_meta( $post_id, $unique, $option_key, $default );
+	function wpo_post_meta( $unique, $post_id = false, $option_key = false, $default = false ) {
+		return Options::post_meta( $unique, $post_id, $option_key, $default );
 	}
 }
 
@@ -112,8 +112,8 @@ if ( ! function_exists( 'wpo_user_meta' ) ) {
 	 *
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
-	function wpo_user_meta( $user_id, $unique, $option_key = false, $default = false ) {
-		return Options::user_meta( $user_id, $unique, $option_key, $default );
+	function wpo_user_meta( $unique, $user_id = false, $option_key = false, $default = false ) {
+		return Options::user_meta( $unique, $user_id, $option_key, $default );
 	}
 }
 
@@ -121,14 +121,14 @@ if ( ! function_exists( 'wpo_term_meta' ) ) {
 	/**
 	 * Featches & Returns Saved WPOnion Settings.
 	 *
-	 * @param string|int  $post_id
+	 * @param string|int  $term_id
 	 * @param string      $unique
 	 * @param bool|string $option_key
 	 * @param bool|mixed  $default
 	 *
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
-	function wpo_term_meta( $post_id, $unique, $option_key = false, $default = false ) {
-		return Options::term_meta( $post_id, $unique, $option_key, $default );
+	function wpo_term_meta( $unique, $term_id = false, $option_key = false, $default = false ) {
+		return Options::term_meta( $unique, $term_id, $option_key, $default );
 	}
 }
