@@ -105,15 +105,15 @@ if ( ! function_exists( 'wpo_user_meta' ) ) {
 	/**
 	 * Featches & Returns Saved WPOnion Settings.
 	 *
-	 * @param string|int  $post_id
+	 * @param string|int  $user_id
 	 * @param string      $unique
 	 * @param bool|string $option_key
 	 * @param bool|mixed  $default
 	 *
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
-	function wpo_user_meta( $post_id, $unique, $option_key = false, $default = false ) {
-		return Options::user_meta( $post_id, $unique, $option_key, $default );
+	function wpo_user_meta( $user_id, $unique, $option_key = false, $default = false ) {
+		return Options::user_meta( $user_id, $unique, $option_key, $default );
 	}
 }
 
