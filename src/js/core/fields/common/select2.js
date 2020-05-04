@@ -16,26 +16,42 @@ export default class extends WPOnion_Field {
 		}
 
 		if( window.wponion._.isObject( this.option( 'ajax' ) ) ) {
-			$arg.ajax = {
-				processResults: ( data ) => {
-					let terms = [];
-					if( data.results ) {
-						jQuery.each( data.results, function( id, text ) {
-							terms.push( { id: id, text: text } );
-						} );
+			let $allow_html = ( !window.wponion._.isUndefined( $arg.allow_html ) && true === $arg.allow_html );
+
+			if( false === $allow_html ) {
+				$arg.escapeMarkup = ( m ) => m;
+			}
+
+			if( true === $allow_html && window.wponion._.isUndefined( $arg.templateResult ) ) {
+				$arg.templateResult = ( state ) => {
+					if( !state.id ) {
+						return state.text;
 					}
-					return { results: terms };
-				},
-				data: ( params ) => {
-					return { q: params.term };
-				},
-				transport: ( params, success, failure ) => {
-					return this.ajax( 'wp-query-data', {
-						data: this.parse_args( params.data, this.option( 'ajax' ) ),
-						success: success,
-						error: failure,
-					} ).send();
+					return jQuery( '<span>' + state.text + '</span>' );
+				};
+			}
+
+			if( window.wponion._.isUndefined( $arg.ajax ) ) {
+				$arg.ajax = {};
+			}
+
+			$arg.ajax.delay          = 250;
+			$arg.ajax.processResults = ( data ) => {
+				let terms = [];
+				if( data.results ) {
+					jQuery.each( data.results, ( id, text ) => terms.push( { id: id, text: text } ) );
 				}
+				return { results: terms };
+			};
+			$arg.ajax.data           = ( params ) => {
+				return { q: params.term };
+			};
+			$arg.ajax.transport      = ( params, success, failure ) => {
+				return this.ajax( 'wp-query-data', {
+					data: this.parse_args( params.data, this.option( 'ajax' ) ),
+					success: success,
+					error: failure,
+				} ).send();
 			};
 		}
 
