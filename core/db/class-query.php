@@ -247,10 +247,30 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 					$this->results = wponion_layouts_field_option( $layout, $size, $exclude );
 					$this->set_option( 'customizable', false );
 					break;
+
 				case 'sidebars':
 					global $wp_registered_sidebars;
 					$this->results = $wp_registered_sidebars;
 					$this->set_option( 'customizable', false );
+					break;
+
+				default:
+					/**
+					 * This action provides ability to hook with wponion.
+					 *
+					 * @var {$this->query_args} Contains All Query Args as an array
+					 * @var string $type Type of query.
+					 * @var string {$this->unique} Module's Unique Key.
+					 * @var string {$this->module} Module's Slug.
+					 */
+
+					do_action_ref_array( 'wponion_query_database', array(
+						&$this->results,
+						$this->query_args,
+						$this->option( 'query_db_type' ),
+						$this->unique,
+						$this->module,
+					) );
 					break;
 			}
 		}
