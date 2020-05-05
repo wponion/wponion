@@ -115,19 +115,16 @@ if ( ! function_exists( 'wponion_query_module' ) ) {
 	 */
 	function wponion_query_module( $request_type ) {
 		$alias   = apply_filters( 'wponion_query_modules_alias', array(
-			'posts'           => 'post',
-			'pages'           => 'post',
-			'page'            => 'post',
-			'category'        => 'taxonomies',
-			'categories'      => 'taxonomies',
-			'tag'             => 'taxonomies',
-			'tags'            => 'taxonomies',
-			'body_layouts'    => 'layouts',
-			'body_layout'     => 'layouts',
-			'header_layout'   => 'layouts',
-			'header_layouts'  => 'layouts',
-			'sidebar_layout'  => 'layouts',
-			'sidebar_layouts' => 'layouts',
+			'post'       => array( 'posts', 'pages', 'page' ),
+			'taxonomies' => array( 'categories', 'category', 'tag', 'tags', 'term', 'terms', 'taxonomy' ),
+			'layouts'    => array(
+				'body_layouts',
+				'body_layout',
+				'header_layout',
+				'header_layouts',
+				'sidebar_layout',
+				'sidebar_layouts',
+			),
 		) );
 		$modules = apply_filters( 'wponion_query_modules', array(
 			'post'            => '\WPOnion\DB\Query_Types\Custom_Post_Types',
@@ -135,6 +132,7 @@ if ( ! function_exists( 'wponion_query_module' ) ) {
 			'users'           => '\WPOnion\DB\Query_Types\Users',
 			'menus'           => '\WPOnion\DB\Query_Types\Menus',
 			'post_types'      => '\WPOnion\DB\Query_Types\Post_Types',
+			'image_sizes'     => '\WPOnion\DB\Query_Types\Image_Sizes',
 			'menu_location'   => '\WPOnion\DB\Query_Types\Menu_Location',
 			'currency'        => '\WPOnion\DB\Query_Types\Currency',
 			'currency_symbol' => '\WPOnion\DB\Query_Types\Currency_Symbol',
@@ -152,9 +150,13 @@ if ( ! function_exists( 'wponion_query_module' ) ) {
 			return $modules;
 		}
 
-		if ( isset( $alias[ $request_type ] ) ) {
-			$request_type = $alias[ $request_type ];
+		foreach ( $alias as $id => $clone ) {
+			if ( in_array( $request_type, $clone ) ) {
+				$request_type = $id;
+				break;
+			}
 		}
+
 		return ( isset( $modules[ $request_type ] ) ) ? $modules[ $request_type ] : false;
 	}
 }
