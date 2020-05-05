@@ -2,9 +2,7 @@
 
 namespace WPO\Helper;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use ArrayAccess;
 use Iterator;
