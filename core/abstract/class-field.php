@@ -5,9 +5,7 @@ namespace WPOnion;
 use WPOnion\Registry\Field_Types;
 use WPOnion\Utils\CSS_Parser;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field' ) ) {
 	/**

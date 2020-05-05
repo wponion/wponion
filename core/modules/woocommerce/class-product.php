@@ -9,9 +9,7 @@ use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\WC_Product_Metabox_Save_Handler;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 	/**

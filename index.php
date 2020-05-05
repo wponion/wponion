@@ -10,8 +10,6 @@
  * Domain Path: /i18n/
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 require_once 'wponion.php';

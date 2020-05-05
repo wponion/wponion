@@ -3,9 +3,7 @@
 use WPOnion\Modules\WooCommerce\Product;
 use WPOnion\Modules\WooCommerce\Settings;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_wc_product_registry' ) ) {
 	/**

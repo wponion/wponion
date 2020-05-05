@@ -7,9 +7,7 @@ use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 use WPonion\Helper;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 	/**

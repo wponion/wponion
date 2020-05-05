@@ -5,9 +5,7 @@ namespace WPOnion\Modules\Util;
 use WPOnion\Bridge\Module;
 use WPOnion\Modules\Admin_Page;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 	/**

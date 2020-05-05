@@ -6,9 +6,7 @@ use Exception;
 use ReflectionClass;
 use WPOnion_Loader;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 	/**

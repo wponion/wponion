@@ -6,9 +6,7 @@ use WPOnion\Bridge\Ajax;
 use WPOnion\Modules\Settings\Network;
 use WPOnion\Modules\Settings\Settings;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Ajax\Save_Settings' ) ) {
 	/**

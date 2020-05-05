@@ -2,9 +2,7 @@
 
 use WPOnion\Modules\customizer;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_customizer_registry' ) ) {
 	/**

@@ -2,9 +2,7 @@
 
 namespace WPOnion\Integrations\Page_Builders\Elementor;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Fields' ) ) {
 	/**

@@ -6,9 +6,7 @@ use WPOnion\Theme\WP_Modern;
 use WPOnion\Theme\WP;
 use WPOnion\Themes;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_wp_modern_theme_init' ) ) {
 	/**

@@ -8,9 +8,7 @@ use WPOnion\DB\Multi_Save\Get;
 use WPOnion\DB\Multi_Save\Save;
 use WPOnion\Exception\DB_Cache_Not_Found;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 	/**

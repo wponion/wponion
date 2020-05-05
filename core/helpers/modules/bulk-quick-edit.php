@@ -3,9 +3,7 @@
 use WPOnion\Modules\Edits\Bulk;
 use WPOnion\Modules\Edits\Quick;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_bulk_edit_registry' ) ) {
 	/**

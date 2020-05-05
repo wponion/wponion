@@ -1,9 +1,7 @@
 <?php
 
 namespace WPOnion\Integrations\Page_Builders\Elementor {
-	if ( ! defined( 'ABSPATH' ) ) {
-		die;
-	}
+	defined( 'ABSPATH' ) || exit;
 
 	use \Elementor\Core\DynamicTags\Tag;
 	use \Elementor\Modules\DynamicTags\Module;

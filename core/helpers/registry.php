@@ -4,9 +4,7 @@ use WPOnion\Bridge;
 use WPOnion\DB\Query;
 use WPOnion\Registry\Holder;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_registry' ) ) {
 	/**

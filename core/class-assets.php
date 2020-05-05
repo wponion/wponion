@@ -4,9 +4,7 @@ namespace WPOnion;
 
 use WPOnion_Vendor_Support;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Assets' ) ) {
 	/**

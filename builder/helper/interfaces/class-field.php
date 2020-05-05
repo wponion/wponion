@@ -2,9 +2,7 @@
 
 namespace WPO\Helper\Interfaces;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! interface_exists( 'WPO\Helper\Interfaces\Field' ) ) {
 	/**

@@ -4,9 +4,7 @@ namespace WPOnion\Ajax;
 
 use WPOnion\Bridge\Ajax;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Ajax\WP_Query_Data' ) ) {
 	/**

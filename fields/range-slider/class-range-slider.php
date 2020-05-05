@@ -3,9 +3,7 @@
 namespace WPOnion\Field;
 
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Range_Slider' ) ) {
 	/**

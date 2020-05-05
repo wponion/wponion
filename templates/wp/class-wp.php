@@ -2,9 +2,7 @@
 
 namespace WPOnion\Theme;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
 	require_once wponion()->tpl( 'global/class-global-theme.php' );

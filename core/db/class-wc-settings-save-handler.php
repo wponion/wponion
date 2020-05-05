@@ -2,9 +2,7 @@
 
 namespace WPOnion\DB;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\DB\WC_Settings_Save_Handler' ) ) {
 	/**

@@ -5,9 +5,7 @@ namespace WPOnion\Ajax;
 use WPOnion\Bridge\Ajax;
 use WPOnion\Modules\Metabox\Metabox;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 	/**

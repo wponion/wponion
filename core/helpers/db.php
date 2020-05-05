@@ -2,9 +2,7 @@
 
 use WPOnion\DB\Options;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_wp_db' ) ) {
 	/**

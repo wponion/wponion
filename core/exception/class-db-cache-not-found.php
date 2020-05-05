@@ -4,9 +4,7 @@ namespace WPOnion\Exception;
 
 use WPOnion\DB\Cache;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Exception\DB_Cache_Not_Found' ) ) {
 	/**

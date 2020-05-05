@@ -2,9 +2,7 @@
 
 namespace WPOnion\Modules\Edits;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Edits\Bulk' ) ) {
 	/**

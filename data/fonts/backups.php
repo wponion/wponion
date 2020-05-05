@@ -1,8 +1,6 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 return array(
 	'Arial, Helvetica, sans-serif'                         => 'Arial, Helvetica, sans-serif',

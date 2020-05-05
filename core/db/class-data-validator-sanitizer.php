@@ -6,9 +6,7 @@ use WPOnion\Bridge;
 use WPOnion\DB\Fields\Modal;
 use WPOnion\Helper;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 	/**

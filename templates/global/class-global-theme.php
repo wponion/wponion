@@ -4,9 +4,7 @@ namespace WPOnion\Theme;
 
 use WPOnion\Theme_API;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
 	/**

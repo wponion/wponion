@@ -5,9 +5,7 @@ namespace WPOnion\Bridge;
 use Exception;
 use WPOnion\Helper as Helper;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 	/**

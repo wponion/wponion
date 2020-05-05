@@ -4,9 +4,7 @@ namespace WPOnion\WP\Nav_Menu;
 
 use Walker_Nav_Menu_Edit;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\WP\Nav_Menu\Walker' ) ) {
 	/**

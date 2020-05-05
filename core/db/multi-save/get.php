@@ -2,9 +2,7 @@
 
 namespace WPOnion\DB\Multi_Save;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 
 if ( ! class_exists( '\WPOnion\DB\Multi_Save\Get' ) ) {

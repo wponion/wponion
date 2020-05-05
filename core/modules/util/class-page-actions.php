@@ -2,9 +2,7 @@
 
 namespace WPOnion\Modules\Util;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Util\Page_Actions' ) ) {
 	/**

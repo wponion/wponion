@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 /* @var $this \WPOnion\Theme\WC */
 $metabox = $this->metabox();

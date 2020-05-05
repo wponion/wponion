@@ -2,9 +2,7 @@
 
 namespace WPOnion\WP\Sysinfo;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\WP\Sysinfo\Sysinfo' ) ) {
 	/**

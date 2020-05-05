@@ -5,9 +5,7 @@ namespace WPOnion\Modules\WP;
 use WPOnion\Bridge\Module;
 use WPOnion\Traits\Self_Instance;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 	/**

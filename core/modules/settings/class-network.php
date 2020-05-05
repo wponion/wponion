@@ -2,9 +2,7 @@
 
 namespace WPOnion\Modules\Settings;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Settings\Network' ) ) {
 	/**

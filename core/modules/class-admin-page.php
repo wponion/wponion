@@ -5,9 +5,7 @@ namespace WPOnion\Modules;
 use WPOnion\Bridge\Module;
 use WPOnion\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 	/**

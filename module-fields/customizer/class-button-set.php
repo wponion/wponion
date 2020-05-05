@@ -2,9 +2,7 @@
 
 namespace WPOnion\Module_Fields\Customizer;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use WPOnion\Modules\Customizer\Control as Control;
 

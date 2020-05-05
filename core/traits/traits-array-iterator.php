@@ -2,9 +2,7 @@
 
 namespace WPOnion\Traits;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! trait_exists( '\WPOnion\Traits\Array_Iterator' ) ) {
 	/**

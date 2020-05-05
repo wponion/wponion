@@ -6,9 +6,7 @@ use WPO\Builder;
 use WPOnion\Field;
 use WPOnion\Modules\Metabox\Core;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Metabox' ) ) {
 	/**

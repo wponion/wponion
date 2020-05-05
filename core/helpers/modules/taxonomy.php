@@ -2,9 +2,7 @@
 
 use WPOnion\Modules\taxonomy;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_taxonomy_registry' ) ) {
 	/**

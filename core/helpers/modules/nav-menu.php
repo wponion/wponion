@@ -2,9 +2,7 @@
 
 use WPOnion\Modules\Nav_Menu;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_nav_menu_registry' ) ) {
 	/**

@@ -6,9 +6,7 @@ use WPO\Builder;
 use WPO\Container;
 use WPOnion\Themes;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	/**

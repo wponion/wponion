@@ -8,9 +8,7 @@ use WPO\Field;
 use WPOnion\Bridge;
 use WPOnion\Themes;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Bridge\Module_DB_Cache' ) ) {
 	/**

@@ -2,9 +2,7 @@
 
 namespace WPO\Fields;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use WPO\Helper\Field\Nested_Base;
 

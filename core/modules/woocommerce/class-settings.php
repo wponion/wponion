@@ -5,9 +5,7 @@ namespace WPOnion\Modules\WooCommerce;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\WC_Settings_Save_Handler;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 	/**

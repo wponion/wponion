@@ -2,9 +2,7 @@
 
 use WPOnion\Modules\Metabox\metabox;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 
 if ( ! function_exists( 'wponion_metabox_registry' ) ) {

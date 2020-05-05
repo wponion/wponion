@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 /* @var \WPOnion\Theme\WP_Lite|\WPOnion\Theme\WP $this */
 $module      = $this->settings();

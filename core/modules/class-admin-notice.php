@@ -4,9 +4,7 @@ namespace WPOnion\Modules;
 
 use WPOnion\Bridge;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 	/**

@@ -2,9 +2,7 @@
 
 namespace WPOnion\DB\Fields;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 if ( ! trait_exists( '\WPOnion\DB\Fields\Modal' ) ) {
 	/**
 	 * Trait Modal

@@ -2,9 +2,7 @@
 
 namespace WPOnion\Modules\CPT\Labels;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
 	/**
