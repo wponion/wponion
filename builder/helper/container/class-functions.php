@@ -2,9 +2,7 @@
 
 namespace WPO\Helper\Container;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use WPO\Container;
 
@@ -106,56 +104,56 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		}
 
 		/**
-		 * @param bool|\WPO\Container|string $container_slug_or_instance
+		 * @param bool|\WPO\Container|string $slug_or_instance
 		 * @param bool                       $title
 		 * @param bool                       $icon
 		 *
 		 * @return $this|bool|false|\WPO\Container
 		 */
-		public function container( $container_slug_or_instance = false, $title = false, $icon = false ) {
+		public function container( $slug_or_instance = false, $title = false, $icon = false ) {
 			if ( $this->has_fields() && $this->has_containers() ) {
 				wp_die( __( 'A Container Cannot Have Both Field & Containers', 'wponion' ) );
 			}
-			if ( wpo_is_container( $container_slug_or_instance ) ) {
-				$this->containers[ $container_slug_or_instance->name() ] = $container_slug_or_instance;
-				return $container_slug_or_instance;
+			if ( wpo_is_container( $slug_or_instance ) ) {
+				$this->containers[ $slug_or_instance->name() ] = $slug_or_instance;
+				return $slug_or_instance;
 			}
 
 			$return = false;
 
-			if ( is_string( $container_slug_or_instance ) && false === $title && false === $icon ) {
-				$return = $this->container_exists( $container_slug_or_instance );
+			if ( is_string( $slug_or_instance ) && false === $title && false === $icon ) {
+				$return = $this->container_exists( $slug_or_instance );
 			}
 
 			if ( false === $return ) {
-				$return                              = Container::create( $container_slug_or_instance, $title, $icon );
+				$return                              = Container::create( $slug_or_instance, $title, $icon );
 				$this->containers[ $return->name() ] = $return;
 			}
 			return $return;
 		}
 
 		/**
-		 * @param                $before_container_id
+		 * @param                $container_id
 		 * @param \WPO\Container $new_container
 		 *
 		 * @return $this
 		 */
-		public function container_before( $before_container_id, Container $new_container ) {
+		public function container_before( $container_id, Container $new_container ) {
 			if ( $this->has_containers() ) {
-				$this->containers = \WPOnion\Helper::array_insert_before( $before_container_id, $this->containers, $new_container->name(), $new_container );
+				$this->containers = \WPOnion\Helper::array_insert_before( $container_id, $this->containers, $new_container->name(), $new_container );
 			}
 			return $this;
 		}
 
 		/**
-		 * @param                $after_container_id
+		 * @param                $container_id
 		 * @param \WPO\Container $new_container
 		 *
 		 * @return $this
 		 */
-		public function container_after( $after_container_id, Container $new_container ) {
+		public function container_after( $container_id, Container $new_container ) {
 			if ( $this->has_containers() ) {
-				$this->containers = \WPOnion\Helper::array_insert_after( $after_container_id, $this->containers, $new_container->name(), $new_container );
+				$this->containers = \WPOnion\Helper::array_insert_after( $container_id, $this->containers, $new_container->name(), $new_container );
 			}
 			return $this;
 		}
