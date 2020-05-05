@@ -133,6 +133,7 @@ if ( ! function_exists( 'wponion_query_module' ) ) {
 			'menus'           => '\WPOnion\DB\Query_Types\Menus',
 			'post_types'      => '\WPOnion\DB\Query_Types\Post_Types',
 			'image_sizes'     => '\WPOnion\DB\Query_Types\Image_Sizes',
+			'user_roles'      => '\WPOnion\DB\Query_Types\User_Roles',
 			'menu_location'   => '\WPOnion\DB\Query_Types\Menu_Location',
 			'currency'        => '\WPOnion\DB\Query_Types\Currency',
 			'currency_symbol' => '\WPOnion\DB\Query_Types\Currency_Symbol',
