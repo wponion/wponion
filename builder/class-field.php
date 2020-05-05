@@ -2,9 +2,7 @@
 
 namespace WPO;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use WPO\Helper\Field\Common_Args;
 
