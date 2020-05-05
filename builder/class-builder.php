@@ -2,9 +2,8 @@
 
 namespace WPO;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( 'WPO\Builder' ) ) {
 	/**
 	 * Class Builder
@@ -42,23 +41,6 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 			unset( $this->unique );
 			unset( $this->array_var );
 			$this->settings = array();
-		}
-
-		/**
-		 * @param $data
-		 */
-		public function load_from_existing( $data ) {
-			if ( wponion_is_array( $data ) ) {
-				if ( isset( $data[0] ) ) {
-					foreach ( $data as $_d ) {
-						if ( Container::is_valid( $_d ) ) {
-							$this->container( new Container( $_d ) );
-						} elseif ( Field::is_valid( $_d ) ) {
-							$this->set_fields( $_d );
-						}
-					}
-				}
-			}
 		}
 
 		/**
