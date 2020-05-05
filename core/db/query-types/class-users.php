@@ -38,19 +38,21 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\Users' ) ) {
 
 		/**
 		 * @param array|object $values WP Query Result.
+		 * @param array|object $key WP Query Result key.
 		 *
 		 * @return string
 		 */
-		public function default_key( $values ) {
+		public function default_key( $values, $key ) {
 			return ( isset( $values->ID ) ) ? $values->ID : false;
 		}
 
 		/**
 		 * @param array|object $values WP Query Result.
+		 * @param array|object $key WP Query Result key.
 		 *
 		 * @return string
 		 */
-		public function default_label( $values ) {
+		public function default_label( $values, $key ) {
 			return ( isset( $values->user_login ) ) ? $values->user_login : false;
 		}
 	}

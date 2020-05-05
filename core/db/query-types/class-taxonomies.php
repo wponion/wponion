@@ -55,10 +55,11 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\Taxonomies' ) ) {
 
 		/**
 		 * @param array|object $values WP Query Result.
+		 * @param array|object $key WP Query Result key.
 		 *
 		 * @return string
 		 */
-		public function default_key( $values ) {
+		public function default_key( $values, $key ) {
 			if ( in_array( $this->query->type, array( 'taxonomies', 'taxonomy' ) ) ) {
 				return ( isset( $values->name ) ) ? $values->name : false;
 			}
@@ -67,10 +68,11 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\Taxonomies' ) ) {
 
 		/**
 		 * @param array|object $values WP Query Result.
+		 * @param array|object $key WP Query Result key.
 		 *
 		 * @return string
 		 */
-		public function default_label( $values ) {
+		public function default_label( $values, $key ) {
 			if ( in_array( $this->query->type, array( 'taxonomies', 'taxonomy' ) ) ) {
 				return ( isset( $values->label ) ) ? $values->label : false;
 			}

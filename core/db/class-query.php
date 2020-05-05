@@ -167,10 +167,10 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @return array
 		 */
 		public function query( $type = '', $args = array(), $search = null ) {
-			wponion_timer( 'ajax_query' );
 			$this->results = array();
 			$this->type    = $type;
 			$class         = wponion_query_module( $type );
+
 			if ( ! empty( $class ) ) {
 				$this->handler = new $class( $this );
 			}
@@ -226,9 +226,9 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 				$default_option_key   = array( $this->handler, 'default_key' );
 				$default_option_value = array( $this->handler, 'default_label' );
 
-				foreach ( $this->results as $values ) {
-					$key            = $this->option_data( $option_key, $default_option_key, $values );
-					$value          = $this->option_data( $option_value, $default_option_value, $values );
+				foreach ( $this->results as $result_key => $result_values ) {
+					$key            = $this->option_data( $option_key, $default_option_key, $result_key, $result_values );
+					$value          = $this->option_data( $option_value, $default_option_value, $result_key, $result_values );
 					$return[ $key ] = $value;
 				}
 			}
@@ -238,13 +238,18 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		/**
 		 * @param string|callable $key
 		 * @param string|callable $default
-		 * @param array           $data
+		 * @param string|int      $result_key
+		 * @param mixed           $result_values
 		 *
 		 * @return string|bool
 		 */
-		protected function option_data( $key, $default, $data ) {
+		protected function option_data( $key, $default, $result_key, $result_values ) {
 			if ( ! empty( $key ) ) {
-				$user_callback = wponion_is_callable( $key ) ? wponion_callback( $key, array( $data ) ) : false;
+				/** Callback Provides 1. Result Values , 2. Result Key */
+				$user_callback = wponion_is_callable( $key ) ? wponion_callback( $key, array(
+					$result_values,
+					$result_key,
+				) ) : false;
 				$matches       = array();
 				if ( ! empty( $user_callback ) && is_string( $user_callback ) ) {
 					return $user_callback;
@@ -256,73 +261,61 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 				if ( ! empty( $matches ) ) {
 					foreach ( $matches as $match ) {
 						if ( isset( $match[1] ) && ! empty( $match[1] ) ) {
-							$key = str_replace( $match[0], $this->_single_option_data( $data, $match[1], $default ), $key );
+							$key = str_replace( $match[0], $this->single_option_data( $match[1], $default, $result_key, $result_values ), $key );
 						}
 					}
 					return $key;
 				}
 			}
 
-			return $this->_single_option_data( $data, $key, $default );
+			return $this->single_option_data( $key, $default, $result_key, $result_values );
 		}
 
 		/**
-		 * Returns Single data.
-		 *
-		 * @param array           $data
-		 * @param string|callable $key
-		 * @param string|callable $default
+		 * @param mixed               $callback
+		 * @param mixed               $default_callback
+		 * @param string|int          $result_key
+		 * @param string|object|array $result_value
 		 *
 		 * @return bool|string
 		 */
-		protected function _single_option_data( $data, $key, $default ) {
-			$result = false;
-			if ( ! empty( $key ) && is_string( $key ) ) {
-				if ( wponion_is_array( $data ) ) {
-					if ( isset( $data[ $key ] ) ) {
-						$result = $data[ $key ];
-					}
-				} elseif ( is_object( $data ) ) {
-					if ( is_string( $key ) && isset( $data->{$key} ) ) {
-						$result = $data->{$key};
-					} elseif ( isset( $data->{$key} ) && wponion_is_callable( array( $data, $key ) ) ) {
-						$result = $data->{$key}();
-					}
-				}
+		protected function single_option_data( $callback, $default_callback, $result_key, $result_value ) {
+			$result = $this->_single_option( $result_value, $callback );
+
+			if ( empty( $result ) && wponion_is_callable( $default_callback ) ) {
+				$result = wponion_callback( $default_callback, array( $result_value, $result_key ) );
 			}
 
 			if ( empty( $result ) ) {
-				$result = $this->_single_option_data_default( $default, $data );
+				$result = $this->_single_option( $result_value, $default_callback );
 			}
+
 			return ( is_scalar( $result ) ) ? $result : false;
 		}
 
 		/**
-		 * @param string|callable $default
-		 * @param array           $data
+		 * @param string|array|object $result_values
+		 * @param mixed               $callback
 		 *
 		 * @return bool|string
-		 * @since 1.4.5.4
 		 */
-		protected function _single_option_data_default( $default, $data ) {
-			$result = '';
-			if ( wponion_is_callable( $default ) ) {
-				$result = wponion_callback( $default, array( $data ) );
-			}
+		protected function _single_option( $result_values, $callback ) {
+			$result = false;
 
-			if ( empty( $result ) && is_string( $default ) ) {
-				if ( wponion_is_array( $data ) ) {
-					if ( isset( $data[ $default ] ) ) {
-						$result = $data[ $default ];
+			if ( ! empty( $callback ) && is_string( $callback ) ) {
+				if ( wponion_is_array( $result_values ) ) {
+					if ( isset( $result_values[ $callback ] ) ) {
+						$result = $result_values[ $callback ];
 					}
-				} elseif ( is_object( $data ) ) {
-					if ( isset( $data->{$default} ) ) {
-						$result = $data->{$default};
-					} elseif ( isset( $data->{$default} ) && wponion_is_callable( array( $data, $default ) ) ) {
-						$result = $data->{$default}();
+				} elseif ( is_object( $result_values ) ) {
+					if ( isset( $result_values->{$callback} ) ) {
+						$result = $result_values->{$callback};
+					} elseif ( wponion_is_callable( array( $result_values, $callback ) ) ) {
+						$result = wponion_callback( array( $result_values, $callback ) );
 					}
 				}
 			}
+
 			return ( is_scalar( $result ) ) ? $result : false;
 		}
 	}

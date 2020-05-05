@@ -57,17 +57,19 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\WP_Query_Base' ) ) {
 
 		/**
 		 * @param array $values WP Query Result.
+		 * @param array $key WP Query Result Key.
 		 *
 		 * @return string
 		 */
-		abstract public function default_key( $values );
+		abstract public function default_key( $values, $key );
 
 		/**
 		 * @param array $values WP Query Result.
+		 * @param array $key WP Query Result Key.
 		 *
 		 * @return string
 		 */
-		abstract public function default_label( $values );
+		abstract public function default_label( $values, $key );
 
 	}
 }

@@ -21,12 +21,9 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\Custom_Post_Types' ) ) {
 		 * @return array
 		 */
 		public function setup_query_args( $query_args ) {
-			if ( ! isset( $query_args['post_type'] ) ) {
-				$query_args['post_type'] = ( in_array( $this->query->type, array(
-					'posts',
-					'post',
-				), true ) ) ? 'post' : 'page';
-			}
+			//if ( ! isset( $query_args['posts_per_page'] ) ) {
+			//	$query_args['posts_per_page'] = 20;
+			//}
 			return $query_args;
 		}
 
@@ -38,25 +35,34 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\Custom_Post_Types' ) ) {
 		 * @return array|mixed
 		 */
 		public function get_results( $query_args ) {
+			if ( in_array( $this->query->type, array( 'page', 'pages' ) ) ) {
+				return get_pages( $query_args );
+			}
+
+			if ( in_array( $this->query->type, array( 'post', 'posts' ) ) ) {
+				return get_posts( $query_args );
+			}
 			$query = new WP_Query( $query_args );
 			return $query->posts;
 		}
 
 		/**
 		 * @param array|object $values WP Query Result.
+		 * @param array|object $key WP Query Result key.
 		 *
 		 * @return string
 		 */
-		public function default_key( $values ) {
+		public function default_key( $values, $key ) {
 			return ( isset( $values->ID ) ) ? $values->ID : false;
 		}
 
 		/**
 		 * @param array|object $values WP Query Result.
+		 * @param array|object $key WP Query Result key.
 		 *
 		 * @return string
 		 */
-		public function default_label( $values ) {
+		public function default_label( $values, $key ) {
 			return ( isset( $values->post_title ) ) ? $values->post_title : false;
 		}
 	}

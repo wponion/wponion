@@ -47,19 +47,21 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\Layouts' ) ) {
 
 		/**
 		 * @param array|object $values WP Query Result.
+		 * @param array|object $key WP Query Result key.
 		 *
 		 * @return string
 		 */
-		public function default_key( $values ) {
+		public function default_key( $values, $key ) {
 			return false;
 		}
 
 		/**
 		 * @param array|object $values WP Query Result.
+		 * @param array|object $key WP Query Result key.
 		 *
 		 * @return string
 		 */
-		public function default_label( $values ) {
+		public function default_label( $values, $key ) {
 			return false;
 		}
 	}
