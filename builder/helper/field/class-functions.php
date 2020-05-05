@@ -2,9 +2,7 @@
 
 namespace WPO\Helper\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use WPO\Field;
 
