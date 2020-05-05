@@ -2,16 +2,14 @@
 
 namespace WPO\Helper;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use JsonSerializable;
 use WPOnion\Bridge;
 use WPOnion\Traits\Json_Serialize;
 use WPOnion\Traits\Countable;
 
-if ( ! class_exists( 'WPO\Helper\Base' ) ) {
+if ( ! class_exists( '\WPO\Helper\Base' ) ) {
 	/**
 	 * Class Base
 	 *
