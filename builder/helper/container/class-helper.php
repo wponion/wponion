@@ -2,9 +2,7 @@
 
 namespace WPO\Helper\Container;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use WPO\Container;
 use WPO\Helper\Base;
