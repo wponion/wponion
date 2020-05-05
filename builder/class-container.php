@@ -26,27 +26,10 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		 */
 		protected $custom_data = array();
 
-		/**
-		 * Loads Required Container_Functions.
-		 *
-		 * @see \WPO\Helper\Container\Functions
-		 */
 		use Container_Functions {
 			json_serialize as protected json_serialize_base;
 		}
-
-		/**
-		 * Loads Required Field_Functions.
-		 *
-		 * @see \WPO\Helper\Field\Functions
-		 */
 		use Field_Functions;
-
-		/**
-		 * Loads Required Field_Types.
-		 *
-		 * @see \WPO\Helper\Field\Types
-		 */
 		use Field_Types;
 
 		/**
@@ -59,12 +42,8 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		public function __construct( $slug = false, $title = false, $icon = false ) {
 			if ( wponion_is_array( $slug ) && ! empty( $slug ) ) {
 				foreach ( $slug as $key => $val ) {
-					if ( method_exists( $this, 'set_' . $key ) ) {
-						try {
-							$this->{'set_' . $key}( $val );
-						} catch ( Exception $exception ) {
-
-						}
+					if ( wponion_is_callable( array( $this, $key ) ) ) {
+						wponion_callback( array( $this, $key ), array( $val ) );
 					}
 				}
 			} else {
@@ -75,15 +54,15 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 		}
 
 		/**
-		 * @param bool $container_slug
+		 * @param bool $slug
 		 * @param bool $title
 		 * @param bool $icon
 		 *
 		 * @static
 		 * @return \WPO\Container
 		 */
-		public static function create( $container_slug = false, $title = false, $icon = false ) {
-			return new self( $container_slug, $title, $icon );
+		public static function create( $slug = false, $title = false, $icon = false ) {
+			return new self( $slug, $title, $icon );
 		}
 
 		/**
