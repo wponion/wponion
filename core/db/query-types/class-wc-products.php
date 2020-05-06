@@ -82,7 +82,7 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\WC_Products' ) ) {
 					if ( $product_object->managing_stock() && true === $query_args['display_stock'] ) {
 						$stock_amount = $product_object->get_stock_quantity();
 						/* Translators: %d stock amount */
-						$formatted_name .= ' &ndash; ' . sprintf( __( 'Stock: %d', 'woocommerce' ), wc_format_stock_quantity_for_display( $stock_amount, $product_object ) );
+						$formatted_name .= ' &ndash; ' . sprintf( __( 'Stock: %d', 'woocommerce', 'wponion' ), wc_format_stock_quantity_for_display( $stock_amount, $product_object ) );
 					}
 
 					$result[ $product_object->get_id() ] = rawurldecode( $formatted_name );

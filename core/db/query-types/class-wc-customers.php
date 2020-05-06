@@ -67,7 +67,7 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\WC_Customers' ) ) {
 				foreach ( $ids as $id ) {
 					$cust = new \WC_Customer( $id );
 					/* translators: $1: customer name, $2 customer id, $3: customer email */
-					$label         = esc_html__( '%1$s (#%2$s &ndash; %3$s)', 'woocommerce' );
+					$label         = esc_html__( '%1$s (#%2$s &ndash; %3$s)', 'woocommerce', 'wponion' );
 					$result[ $id ] = sprintf( $label, $cust->get_first_name() . ' ' . $cust->get_last_name(), $cust->get_id(), $cust->get_email() );
 				}
 			} catch ( Exception $exception ) {

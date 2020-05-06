@@ -5,6 +5,44 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.4.6] - 06/0502020
+## Fixed
+* WooCommerce Localizer Issue (Not Properly Loading)
+* Accordion Style In WC Metabox
+* Tab Dependency Issue
+* [Content Field Warning #234](https://github.com/wponion/wponion/issues/234) 
+
+## Added
+* All Modules in WPOnion Can Provide An Option To Load Custom Assets via `"assets" => "your-asset"` in module argument.
+* **ACTION** `wponion_query_database`
+* **ACTION** `wponion_{module_slug}_db_save_before`
+* **ACTION** `wponion_{module_slug}_db_save_after`
+* **FILTER** `wponion_ajax_wp_query_results`
+* **FILTER** `wponion_wp_query_result`
+* **FILTER** `wponion_query_args`
+* **NEW** `add_field` Method In Builder 
+* `wponion-inline-dependency` option 
+* Function `->section` it can be used instead of `->container` inside tab field
+* `image_sizes` WP Query Data Option.
+* `user_roles` WP Query Data Option.
+* `capabilities` WP Query Data Option.
+
+## Changed
+* **Deprecated** `field` Method In Builder 
+* **Deprecated** `->container` inside tab field
+* Swticher style prefix changed from `ckbx-` to `wpock-`
+* Moved custom asset loader functions from admin-page module to `wponion_load_asset`
+* Rearranged Arguments for `wpo_user_meta`,`wpo_post_meta`
+* Bump [css-checkbox-library] from `1.4.0` to `1.5.1`
+* Bump [tippy.js] from `6.2.0` to `6.2.3` 
+* Bump [@popperjs/core] from `2.3.3` to `2.4.0`
+* Bump [jquery] from `3.4.1` to `3.5.1`
+*  `load_from_existing` from builder
+
+## Removed
+* `.wponion-framework` prefxed style changed from (`.wponion-framework.wponion-module-settings`) to (`.wponion-module-settings`) in css
+* `.wponion-framework` prefxed style changed from (`.wponion-framework.wponion-element-accordion`) to (`.wponion-element-accordion`) in css
+
 # [1.4.5.3] - 22/04/2020
 
 ## Fixed
@@ -869,6 +907,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 [Beta : 0.0.1]: https://github.com/wponion/wponion/releases/tag/121010072018
 
 [sweetalert2]: https://github.com/sweetalert2/sweetalert2
+[css-checkbox-library]: https://github.com/hunzaboy/CSS-Checkbox-Library
 [easy-gulp-tasker]: https://github.com/varunsridharan/easy-gulp-tasker
 [@wordpress/hooks]: https://github.com/WordPress/gutenberg/tree/HEAD/packages/hooks
 [tippy.js]: https://github.com/atomiks/tippyjs
