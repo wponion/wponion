@@ -2,10 +2,23 @@ name: On Push
 
 on:
   push:
-    branches: [ master ]
+    tags:
+      - "*"
 
 jobs:
-  build:
+  update_changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetching Contents
+        uses: actions/checkout@v2    
+      - name: Updating Change-Log
+        uses: varunsridharan/action-change-log-updater@master
+        with:
+          REPO_NAME: "wponion/docs"
+          REMOTE_FILE: "others/change-log.md"
+          LOCAL_FILE: "CHANGELOG.md"
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+  upload_demo:
     runs-on: ubuntu-latest
     steps:
     - name: Fetching Contents
@@ -20,10 +33,3 @@ jobs:
         ftp-server: ${{ secrets.FTP_HOST }}
         ftp-username: ${{ secrets.FTP_USERNAME }}
         ftp-password: ${{ secrets.FTP_PASSWORD }}
-    - name: Updating Change-Log
-      uses: varunsridharan/action-change-log-updater@master
-      with:
-        REPO_NAME: "wponion/docs"
-        REMOTE_FILE: "others/change-log.md"
-        LOCAL_FILE: "CHANGELOG.md"
-        GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
