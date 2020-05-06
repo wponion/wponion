@@ -4,9 +4,7 @@ use WPOnion\Helper;
 use WPOnion\Icon;
 use WPOnion\Util;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_timer' ) ) {
 	/**

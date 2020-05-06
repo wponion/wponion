@@ -5,9 +5,7 @@ namespace WPOnion\Modules;
 use WPOnion\Bridge\Module;
 use WPOnion\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 	/**
@@ -31,6 +29,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @var bool
 		 */
 		protected $active_tab = false;
+
 		/**
 		 * active_tab
 		 *
@@ -209,9 +208,8 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * @return bool
 		 */
 		public function has_icon() {
-			return ( ! empty( $this->option( 'icon' ) ) ) ? true : false;
+			return ( ! empty( $this->option( 'icon' ) ) );
 		}
-
 
 		/**
 		 * @param null $icon
@@ -277,7 +275,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				} elseif ( wponion_is_array( $this->option( 'assets' ) ) ) {
 					$_assets   = $this->option( 'assets' );
 					$_assets[] = $assets;
-					$this->set_option( 'on_load', $_assets );
+					$this->set_option( 'assets', $_assets );
 				} else {
 					$this->set_option( 'assets', array( $assets ) );
 				}
@@ -484,6 +482,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 
 		/**
 		 * Triggers On Page Load.
+		 *
+		 * @uses admin_footer_text
+		 * @uses admin_footer_right_text
 		 */
 		public function on_page_load() {
 			$this->add_action( 'admin_enqueue_scripts', 'handle_assets' );
@@ -494,6 +495,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			if ( false !== $this->option( 'footer_right_text' ) ) {
 				$this->add_filter( 'update_footer', 'admin_footer_right_text', 11 );
 			}
+
 			if ( wponion_is_array( $this->option( 'tabs' ) ) ) {
 				$new_tabs = array();
 				foreach ( $this->option( 'tabs' ) as $id => $_tab ) {
@@ -512,6 +514,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 				}
 				$this->set_option( 'tabs', $new_tabs );
 			}
+
 			if ( isset( $_GET['tab'] ) ) {
 				$this->active_tab = sanitize_title( $_GET['tab'] );
 			} elseif ( false !== $this->option( 'tabs' ) ) {
@@ -553,42 +556,12 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		}
 
 		/**
-		 * Handles Callback.
-		 *
-		 * @param $callback
-		 */
-		public function handle_assets_callback( $callback ) {
-			if ( wponion_is_array( $callback ) ) {
-				foreach ( $callback as $call ) {
-					if ( is_string( $call ) ) {
-						if ( wp_script_is( $call, 'registered' ) || wp_style_is( $call, 'registered' ) ) {
-							wp_enqueue_script( $call );
-							wp_enqueue_style( $call );
-						} else {
-							wponion_callback( $call, $this );
-						}
-					} else {
-						echo wponion_callback( $call, $this );
-					}
-				}
-			} elseif ( false !== $callback ) {
-				$status = wponion_callback( $callback, $this );
-				if ( false === $status ) {
-					if ( wp_script_is( $callback, 'registered' ) || wp_style_is( $callback, 'registered' ) ) {
-						wp_enqueue_script( $callback );
-						wp_enqueue_style( $callback );
-					}
-				}
-			}
-		}
-
-		/**
 		 * Handles Page Assets Callback.
 		 */
 		public function handle_assets() {
-			$this->handle_assets_callback( $this->assets() );
+			wponion_load_asset( $this->assets(), $this );
 			if ( false !== $this->active_tab && isset( $this->settings['tabs'][ $this->active_tab ] ) && isset( $this->settings['tabs'][ $this->active_tab ]['assets'] ) ) {
-				$this->handle_assets_callback( $this->settings['tabs'][ $this->active_tab ]['assets'] );
+				wponion_load_asset( $this->settings['tabs'][ $this->active_tab ]['assets'], $this );
 			}
 		}
 

@@ -7,9 +7,7 @@ use WPOnion\Helper;
 use WPOnion\Registry\Field_Types;
 use WPOnion\Setup;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_field_defaults' ) ) {
 	/**

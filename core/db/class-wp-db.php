@@ -1,9 +1,7 @@
 <?php
 
 namespace WPOnion\DB;
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 	/**
@@ -88,14 +86,14 @@ if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 				case 'metabox':
 				case 'nav_menu':
 				case 'media_fields':
-					$return = ( 'get' === $mode ) ? wpo_post_meta( $id, $unique ) : update_post_meta( $id, $unique, $this->handle_values( $values ) );
+					$return = ( 'get' === $mode ) ? wpo_post_meta( $unique, $id ) : update_post_meta( $id, $unique, $this->handle_values( $values ) );
 					break;
 				case 'taxonomy':
 				case 'term':
-					$return = ( 'get' === $mode ) ? wpo_term_meta( $id, $unique ) : wponion_update_term_meta( $id, $unique, $this->handle_values( $values ) );
+					$return = ( 'get' === $mode ) ? wpo_term_meta( $unique, $id ) : wponion_update_term_meta( $id, $unique, $this->handle_values( $values ) );
 					break;
 				case 'user_profile':
-					$return = ( 'get' === $mode ) ? wpo_user_meta( $id, $unique ) : update_user_meta( $id, $unique, $this->handle_values( $values ) );
+					$return = ( 'get' === $mode ) ? wpo_user_meta( $unique, $id ) : update_user_meta( $id, $unique, $this->handle_values( $values ) );
 					break;
 			}
 			return $return;

@@ -11,14 +11,7 @@ if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 	 */
 	function wponion_load_core_assets( $extra = array() ) {
 		wponion_load_asset( 'wponion-core' );
-
-		if ( wponion_is_array( $extra ) ) {
-			foreach ( $extra as $slug ) {
-				wponion_load_asset( $slug );
-			}
-		} elseif ( is_string( $extra ) ) {
-			wponion_load_asset( $extra );
-		}
+		wponion_load_asset( $extra );
 	}
 }
 
@@ -26,18 +19,41 @@ if ( ! function_exists( 'wponion_load_asset' ) ) {
 	/**
 	 * load Framework Assets.
 	 *
-	 * @param string $key
+	 * @param string|array|callable $key
+	 * @param mixed                 $callback_arguments
+	 *
+	 * @return bool
 	 */
-	function wponion_load_asset( $key = '' ) {
-		if ( is_string( $key ) ) {
-			if ( wp_style_is( $key, 'registered' ) && false === wp_style_is( $key ) ) {
-				wp_enqueue_style( $key );
-			}
-
-			if ( wp_script_is( $key, 'registered' ) && false === wp_script_is( $key ) ) {
-				wp_enqueue_script( $key );
-			}
+	function wponion_load_asset( $key = '', ...$callback_arguments ) {
+		if ( empty( $key ) ) {
+			return false;
 		}
+		if ( is_string( $key ) ) {
+			$has_style  = ( wp_style_is( $key, 'registered' ) && false === wp_style_is( $key ) );
+			$has_script = ( wp_script_is( $key, 'registered' ) && false === wp_script_is( $key ) );
+			if ( $has_style && $has_script ) {
+				wp_enqueue_style( $key );
+				wp_enqueue_script( $key );
+				return true;
+			} elseif ( $has_script ) {
+				wp_enqueue_script( $key );
+				return true;
+			} elseif ( $has_style ) {
+				wp_enqueue_style( $key );
+				return true;
+			}
+			if ( wponion_is_callable( $key ) && ( ! wp_style_is( $key, 'registered' ) || ! wp_script_is( $key, 'registered' ) ) ) {
+				return wponion_callback( $key, $callback_arguments );
+			}
+		} elseif ( wponion_is_array( $key ) && wponion_is_callable( $key ) ) {
+			return wponion_callback( $key, $callback_arguments );
+		} elseif ( wponion_is_array( $key ) ) {
+			foreach ( $key as $call ) {
+				wponion_load_asset( $call );
+			}
+			return true;
+		}
+		return false;
 	}
 }
 

@@ -2,9 +2,7 @@
 
 namespace WPOnion\Integrations\Page_Builders\Elementor;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use Elementor\Controls_Manager;
 use Elementor\Core\DynamicTags\Data_Tag;

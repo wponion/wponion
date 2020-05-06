@@ -93,6 +93,7 @@ if ( ! class_exists( 'WC_Settings' ) ) {
 		 */
 		public function output() {
 			wponion_load_core_assets();
+			wponion_load_asset( $this->instance->option( 'assets' ) );
 			$settings = $this->get_settings();
 			echo '<div ' . $this->instance->wrap_attributes() . '><div class="wpo-row">';
 			foreach ( $settings as $field ) {

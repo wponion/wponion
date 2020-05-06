@@ -6,9 +6,7 @@ use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 	/**
@@ -112,7 +110,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 * Loads Core Styles and Scripts.
 		 */
 		public function load_style_script() {
-			wponion_load_core_assets( 'wponion-metabox' );
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**

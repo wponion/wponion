@@ -4,9 +4,7 @@ namespace WPO\Helper\Dependency;
 
 use WPOnion\Traits\Json_Serialize;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPO\Helper\Dependency\Builder' ) ) {
 	/**
@@ -35,9 +33,9 @@ if ( ! class_exists( '\WPO\Helper\Dependency\Builder' ) ) {
 		/**
 		 * Builder constructor.
 		 *
-		 * @param null|string $element Element ID / Condition if $type is element.
-		 * @param null|string $condition Condition To check with / value to check agains. if $type is element.
-		 * @param null|string $values Value to check against or empty.
+		 * @param string $element Element ID / Condition if $type is element.
+		 * @param string $condition Condition To check with / value to check agains. if $type is element.
+		 * @param string $values Value to check against or empty.
 		 */
 		public function __construct( $element, $condition = null, $values = null ) {
 			$this->element( $element );
@@ -45,9 +43,9 @@ if ( ! class_exists( '\WPO\Helper\Dependency\Builder' ) ) {
 		}
 
 		/**
-		 * @param null|string $element_id Element ID
-		 * @param null|string $condition Condition To check with
-		 * @param null|string $values Value to check against.
+		 * @param string $element_id Element ID
+		 * @param string $condition Condition To check with
+		 * @param string $values Value to check against.
 		 *
 		 * @return $this|\WPO\Helper\Dependency\Builder
 		 */
@@ -61,8 +59,6 @@ if ( ! class_exists( '\WPO\Helper\Dependency\Builder' ) ) {
 		 * Sets Element ID.
 		 *
 		 * @param $field_id
-		 *
-		 * @return $this|\WPO\Helper\Dependency\Builder
 		 */
 		private function element( $field_id ) {
 			if ( ! is_null( $field_id ) ) {
@@ -71,7 +67,6 @@ if ( ! class_exists( '\WPO\Helper\Dependency\Builder' ) ) {
 				}
 				$this->elem = $field_id;
 			}
-			return $this;
 		}
 
 		/**
@@ -79,14 +74,11 @@ if ( ! class_exists( '\WPO\Helper\Dependency\Builder' ) ) {
 		 *
 		 * @param $qualifier
 		 * @param $values
-		 *
-		 * @return $this
 		 */
 		private function condition( $qualifier, $values ) {
 			if ( ! is_null( $qualifier ) && ! is_null( $values ) ) {
 				$this->rules[ $this->elem ][ $qualifier ] = $values;
 			}
-			return $this;
 		}
 
 		/**

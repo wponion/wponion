@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 /* @var \WPOnion\Theme\WP_Modern $this */
 $nav_menu = $this->nav_menu();

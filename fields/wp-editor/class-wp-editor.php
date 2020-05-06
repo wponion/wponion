@@ -5,9 +5,7 @@ namespace WPOnion\Field;
 use _WP_Editors;
 use WPOnion\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 	/**

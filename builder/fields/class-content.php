@@ -4,9 +4,7 @@ namespace WPO\Fields;
 
 use WPO\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 	/**
@@ -22,12 +20,25 @@ if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 		 *
 		 * @param bool $content
 		 * @param bool $markdown
+		 * @param bool $content_path
 		 */
-		public function __construct( $content = false, $markdown = false ) {
+		public function __construct( $content = false, $markdown = false, $content_path = false ) {
 			parent::__construct( 'content', false, false, array(
-				'markdown' => $markdown,
-				'content'  => $content,
+				'markdown'     => $markdown,
+				'content'      => $content,
+				'content_path' => $content_path,
 			) );
+		}
+
+		/**
+		 * @param $path
+		 *
+		 * @return $this
+		 * @since 1.4.6
+		 */
+		public function content_path( $path ) {
+			$this['content_path'] = $path;
+			return $this;
 		}
 
 		/**

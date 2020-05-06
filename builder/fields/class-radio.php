@@ -1,9 +1,7 @@
 <?php
 namespace WPO\Fields;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPO\Fields\Radio' ) ) {
 	/**

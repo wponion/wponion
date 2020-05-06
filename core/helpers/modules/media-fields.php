@@ -2,9 +2,7 @@
 
 use WPOnion\Modules\Media_Fields;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_media_fields_registry' ) ) {
 	/**

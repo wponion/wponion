@@ -3,9 +3,7 @@
 use WPOnion\Modules\Util\WP_Pointers;
 use WPOnion\WP\Pointers\Pointer;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_wp_pointers_registry' ) ) {
 	/**

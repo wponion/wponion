@@ -5,9 +5,7 @@ namespace WPOnion\Field\Import_Export;
 use Exception;
 use WPOnion\Core_Ajax;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Import_Export\Backup_Handler' ) ) {
 	/**

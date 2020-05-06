@@ -4,9 +4,7 @@ namespace WPOnion\Modules\Customizer;
 
 use WP_Customize_Section;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Customizer\Section' ) ) {
 	/**

@@ -2,9 +2,7 @@
 
 use WPOnion\Modules\Widgets\Dashboard;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_dashboard_widgets_registry' ) ) {
 	/**

@@ -9,9 +9,7 @@ use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\WC_Product_Metabox_Save_Handler;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 	/**
@@ -118,7 +116,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * Loads Required Assets.
 		 */
 		public function load_style_script() {
-			wponion_load_core_assets();
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**
@@ -502,7 +500,6 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		public function variation_variable_attributes( $loop, $variation_data, $variation ) {
 			$this->render_variation_fields_html( 'default', $loop, $variation_data, $variation );
-			wponion_localize()->render_css_js_args();
 		}
 
 		/**

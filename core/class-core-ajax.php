@@ -4,9 +4,7 @@ namespace WPOnion;
 
 use WPOnion\Traits\Self_Instance;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 	/**

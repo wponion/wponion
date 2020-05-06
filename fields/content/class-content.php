@@ -4,9 +4,7 @@ namespace WPOnion\Field;
 
 use WPOnion\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 	/**
@@ -27,16 +25,14 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 			echo $this->before();
 			$content = $this->data( 'content' );
 
-			if ( ! empty( $this->data( 'content' ) ) ) {
-				if ( wponion_is_callable( $this->data( 'content' ) ) ) {
-					$this->catch_output( 'start' );
-					echo wponion_callback( $this->data( 'content' ) );
-					$content = $this->catch_output( 'end' );
-				} elseif ( file_exists( $this->data( 'content' ) ) ) {
-					$this->catch_output( 'start' );
-					include $this->data( 'content' );
-					$content = $this->catch_output( 'end' );
-				}
+			if ( ! empty( $this->data( 'content_path' ) ) && file_exists( $this->data( 'content_path' ) ) ) {
+				$this->catch_output( 'start' );
+				include $this->data( 'content_path' );
+				$content = $this->catch_output( 'end' );
+			} elseif ( ! empty( $this->data( 'content' ) ) && wponion_is_callable( $this->data( 'content' ) ) ) {
+				$this->catch_output( 'start' );
+				echo wponion_callback( $this->data( 'content' ) );
+				$content = $this->catch_output( 'end' );
 			}
 
 			if ( $this->has( 'markdown' ) && true === $this->has( 'markdown' ) && ! empty( $content ) ) {
@@ -55,8 +51,9 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 		 */
 		protected function field_default() {
 			return array(
-				'content'  => false,
-				'markdown' => false,
+				'content'      => false,
+				'content_path' => false,
+				'markdown'     => false,
 			);
 		}
 

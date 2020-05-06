@@ -2,9 +2,7 @@
 
 namespace WPO\Helper\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use WPO\Field;
 
@@ -76,14 +74,32 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		}
 
 		/**
+		 * Its a simple alais for $this->field
+		 *
+		 * @param array|\WPO\Field $field_type_or_instance
+		 * @param string           $field_id
+		 * @param string|bool      $title
+		 * @param array            $args
+		 *
+		 * @return array|bool|false|\WPO\Field
+		 * @deprecated
+		 */
+		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
+			return $this->add_field( $field_type_or_instance, $field_id, $title, $args );
+		}
+
+		/**
+		 * Its a simple alais for $this->field
+		 *
 		 * @param bool|array|\WPO\Field|array $field_type_or_instance
 		 * @param string                      $field_id
 		 * @param bool                        $title
 		 * @param array                       $args
 		 *
 		 * @return bool|false|\WPO\Field
+		 * @since 1.4.6
 		 */
-		public function field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
+		public function add_field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
 			if ( $this->has_containers() ) {
 				wp_die( 'A Container Cannot Have Both Field & Containers', 'wponion' );
 			}
@@ -108,6 +124,24 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 				}
 			}
 			return $return;
+		}
+
+		/**
+		 * This Can be used to add multiple fields @ once.
+		 *
+		 * @param array|\WPO\Builder $fields
+		 *
+		 * @return $this
+		 * @since 1.4.6
+		 */
+		public function add_fields( $fields ) {
+			$fields = ( wpo_is( $fields ) ) ? $fields->fields() : $fields;
+			if ( ! empty( $fields ) ) {
+				foreach ( $fields as $field_data ) {
+					$this->add_field( $field_data );
+				}
+			}
+			return $this;
 		}
 
 		/**

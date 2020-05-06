@@ -4,9 +4,7 @@ namespace WPO\Helper\Field;
 
 use WPO\Helper\Dependency\Builder;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPO\Helper\Field\Dependency' ) ) {
 	/**

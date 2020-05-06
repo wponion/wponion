@@ -5,9 +5,7 @@ namespace WPOnion\Field;
 use WPOnion\Field;
 use WPOnion\Field\Import_Export\Backup_Handler;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 	/**

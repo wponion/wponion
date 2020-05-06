@@ -1,11 +1,10 @@
 <?php
 
 use WPOnion\Bridge;
+use WPOnion\DB\Query;
 use WPOnion\Registry\Holder;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_registry' ) ) {
 	/**
@@ -101,19 +100,77 @@ if ( ! function_exists( 'wponion_theme_registry' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_query_module' ) ) {
+	/**
+	 * WPOnion Query Module's Info.
+	 * This function checks and returns proper class name.
+	 *
+	 * @param string $request_type Set true to return all modules name or set alias to return all alias details
+	 *
+	 * @return string|bool
+	 *
+	 * @since 1.4.6
+	 */
+	function wponion_query_module( $request_type ) {
+		$alias   = apply_filters( 'wponion_query_modules_alias', array(
+			'post'       => array( 'posts', 'pages', 'page' ),
+			'taxonomies' => array( 'categories', 'category', 'tag', 'tags', 'term', 'terms', 'taxonomy' ),
+			'layouts'    => array(
+				'body_layouts',
+				'body_layout',
+				'header_layout',
+				'header_layouts',
+				'sidebar_layout',
+				'sidebar_layouts',
+			),
+		) );
+		$modules = apply_filters( 'wponion_query_modules', array(
+			'post'            => '\WPOnion\DB\Query_Types\Custom_Post_Types',
+			'taxonomies'      => '\WPOnion\DB\Query_Types\Taxonomies',
+			'users'           => '\WPOnion\DB\Query_Types\Users',
+			'menus'           => '\WPOnion\DB\Query_Types\Menus',
+			'post_types'      => '\WPOnion\DB\Query_Types\Post_Types',
+			'image_sizes'     => '\WPOnion\DB\Query_Types\Image_Sizes',
+			'user_roles'      => '\WPOnion\DB\Query_Types\User_Roles',
+			'capabilities'    => '\WPOnion\DB\Query_Types\Capabilities',
+			'menu_location'   => '\WPOnion\DB\Query_Types\Menu_Location',
+			'currency'        => '\WPOnion\DB\Query_Types\Currency',
+			'currency_symbol' => '\WPOnion\DB\Query_Types\Currency_Symbol',
+			'layouts'         => '\WPOnion\DB\Query_Types\Layouts',
+			'sidebars'        => '\WPOnion\DB\Query_Types\Sidebars',
+			'wc_products'     => '\WPOnion\DB\Query_Types\WC_Products',
+			'wc_customers'    => '\WPOnion\DB\Query_Types\WC_Customers',
+		) );
+
+		if ( 'alias' === $request_type ) {
+			return $alias;
+		}
+
+		if ( true === $request_type ) {
+			return $modules;
+		}
+
+		foreach ( $alias as $id => $clone ) {
+			if ( in_array( $request_type, $clone ) ) {
+				$request_type = $id;
+				break;
+			}
+		}
+
+		return ( isset( $modules[ $request_type ] ) ) ? $modules[ $request_type ] : false;
+	}
+}
+
 if ( ! function_exists( 'wponion_query' ) ) {
 	/**
 	 * Returns a static instance of \WPOnion\DB\Query
 	 *
+	 * @param string $unique
+	 * @param string $module
+	 *
 	 * @return \WPOnion\DB\Query|mixed
 	 */
-	function wponion_query() {
-		$class     = 'WPOnion\DB\Query';
-		$_instance = wponion_core_registry( $class );
-		if ( false === $_instance ) {
-			$_instance = new $class();
-			wponion_core_registry( $_instance );
-		}
-		return $_instance;
+	function wponion_query( $unique = null, $module = null ) {
+		return new Query( $unique, $module );
 	}
 }

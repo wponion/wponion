@@ -6,9 +6,7 @@ use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 	/**
@@ -109,6 +107,7 @@ if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
 		 */
 		public function load_assets() {
 			wponion_load_core_assets();
+			wponion_load_asset( $this->option( 'assets' ) );
 		}
 
 		/**

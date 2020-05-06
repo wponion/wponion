@@ -4,9 +4,7 @@ namespace WPO\Fields;
 
 use WPO\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'WPO\Fields\WP_Link' ) ) {
 	/**

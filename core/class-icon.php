@@ -4,9 +4,7 @@ namespace WPOnion;
 
 use WPOnion\Traits\Class_Options;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Icon' ) ) {
 	/**

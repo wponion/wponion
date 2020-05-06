@@ -1,7 +1,7 @@
 <?php
 /**
- * Last Updated: Wed 22-Apr-2020 / 04:32:00:pm
- * Total Class:  247
+ * Last Updated: Wed 06-May-2020 / 08:24:03:am
+ * Total Class:  263
  * Namespace: 
  */
 
@@ -115,6 +115,22 @@ return array (
   'WPOnion\\DB\\Multi_Save\\Base' => 'db/multi-save/class-base.php',
   'WPOnion\\DB\\Multi_Save\\Get' => 'db/multi-save/get.php',
   'WPOnion\\DB\\Multi_Save\\Save' => 'db/multi-save/save.php',
+  'WPOnion\\DB\\Query_Types\\Capabilities' => 'db/query-types/class-capabilities.php',
+  'WPOnion\\DB\\Query_Types\\Currency_Symbol' => 'db/query-types/class-currency-symbol.php',
+  'WPOnion\\DB\\Query_Types\\Currency' => 'db/query-types/class-currency.php',
+  'WPOnion\\DB\\Query_Types\\Custom_Post_Types' => 'db/query-types/class-custom-post-types.php',
+  'WPOnion\\DB\\Query_Types\\Image_Sizes' => 'db/query-types/class-image-sizes.php',
+  'WPOnion\\DB\\Query_Types\\Layouts' => 'db/query-types/class-layouts.php',
+  'WPOnion\\DB\\Query_Types\\Menu_Location' => 'db/query-types/class-menu-location.php',
+  'WPOnion\\DB\\Query_Types\\Menus' => 'db/query-types/class-menus.php',
+  'WPOnion\\DB\\Query_Types\\Post_Types' => 'db/query-types/class-post-types.php',
+  'WPOnion\\DB\\Query_Types\\Sidebars' => 'db/query-types/class-sidebars.php',
+  'WPOnion\\DB\\Query_Types\\Taxonomies' => 'db/query-types/class-taxonomies.php',
+  'WPOnion\\DB\\Query_Types\\User_Roles' => 'db/query-types/class-user-roles.php',
+  'WPOnion\\DB\\Query_Types\\Users' => 'db/query-types/class-users.php',
+  'WPOnion\\DB\\Query_Types\\WC_Customers' => 'db/query-types/class-wc-customers.php',
+  'WPOnion\\DB\\Query_Types\\WC_Products' => 'db/query-types/class-wc-products.php',
+  'WPOnion\\DB\\Query_Types\\WP_Query_Base' => 'db/query-types/class-wp-query-base.php',
   'WPOnion\\Exception\\Cache_Not_Found' => 'exception/class-cache-not-found.php',
   'WPOnion\\Exception\\DB_Cache_Not_Found' => 'exception/class-db-cache-not-found.php',
   'WPOnion\\Integrations\\Page_Builders\\Elementor' => 'integrations/page-builders/class-elementor.php',

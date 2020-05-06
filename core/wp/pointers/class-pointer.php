@@ -5,9 +5,7 @@ namespace WPOnion\WP\Pointers;
 use JsonSerializable;
 use WPOnion\Bridge\Module;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 	/**

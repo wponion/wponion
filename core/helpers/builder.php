@@ -5,9 +5,7 @@ use WPO\Container;
 use WPO\Field;
 use WPOnion\DB\Option;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_builder' ) ) {
 	/**

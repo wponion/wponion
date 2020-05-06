@@ -17,9 +17,7 @@ namespace WPOnion\Field;
 
 use WPOnion\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Iframe' ) ) {
 	/**

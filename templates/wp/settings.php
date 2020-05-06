@@ -1,6 +1,4 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 include wponion()->tpl( 'global/settings.php' );

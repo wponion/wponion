@@ -2,9 +2,7 @@
 
 use WPOnion\Modules\User_Profile;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_user_profile_registry' ) ) {
 	/**

@@ -5,9 +5,7 @@ namespace WPOnion\Modules\WP;
 use WPOnion\Bridge\Module;
 use WPOnion\Traits\Self_Instance;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 	/**
@@ -68,6 +66,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		 */
 		public function load_assets() {
 			wponion_load_core_assets();
+			wponion_load_asset( $this->option( 'assets' ) );
 		}
 
 		/**
@@ -414,6 +413,7 @@ HTML;
 				'description' => false,
 				'headers'     => 2,
 				'delimiter'   => ',',
+				'assets'      => false,
 			);
 		}
 

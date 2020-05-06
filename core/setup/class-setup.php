@@ -5,13 +5,8 @@ namespace WPOnion;
 use Exception;
 use Varunsridharan\PHP\Autoloader;
 use WPOnion\Integrations\Page_Builders\Elementor;
-use function wponion_admin_notices;
-use function wponion_register_field;
-use function wponion_register_ui_field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	/**
@@ -76,6 +71,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		private static $remaps = array();
 
 		/**
+		 * @uses on_wponion_loaded
 		 * @static
 		 */
 		public static function init() {

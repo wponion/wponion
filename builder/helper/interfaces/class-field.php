@@ -2,9 +2,7 @@
 
 namespace WPO\Helper\Interfaces;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! interface_exists( 'WPO\Helper\Interfaces\Field' ) ) {
 	/**
@@ -51,6 +49,6 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Field' ) ) {
 		 *
 		 * @return bool|\WPO\Field
 		 */
-		public function field( $field_type_or_instance, $field_id = false, $title = false, $args = array() );
+		public function add_field( $field_type_or_instance, $field_id = false, $title = false, $args = array() );
 	}
 }

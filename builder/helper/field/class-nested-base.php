@@ -2,9 +2,7 @@
 
 namespace WPO\Helper\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 use WPO\Field;
 
@@ -58,14 +56,28 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		}
 
 		/**
+		 * @param       $field_type_or_instance
+		 * @param bool  $field_id
+		 * @param bool  $title
+		 * @param array $args
+		 *
+		 * @return false|bool|\WPO\Field
+		 * @deprecated
+		 */
+		public function field( $field_type_or_instance, $field_id = false, $title = false, $args = array() ) {
+			return $this->add_field( $field_type_or_instance, $field_id, $title, $args );
+		}
+
+		/**
 		 * @param string|array|\WPO\Field $field_type_or_instance
 		 * @param bool|\WPO\Field         $field_id
 		 * @param bool                    $title
 		 * @param array                   $args
 		 *
 		 * @return false|bool|\WPO\Field
+		 * @since 1.4.6
 		 */
-		public function field( $field_type_or_instance, $field_id = false, $title = false, $args = array() ) {
+		public function add_field( $field_type_or_instance, $field_id = false, $title = false, $args = array() ) {
 			if ( ! wponion_is_array( $this['fields'] ) ) {
 				$this['fields'] = array();
 			}
@@ -102,7 +114,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		 * @return \WPO\Field
 		 */
 		public function add( $field_instance ) {
-			return $this->field( $field_instance );
+			return $this->add_field( $field_instance );
 		}
 
 		/**

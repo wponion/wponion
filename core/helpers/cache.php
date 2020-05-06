@@ -3,9 +3,7 @@
 use WPOnion\Cache;
 use WPOnion\Exception\Cache_Not_Found;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_set_cache' ) ) {
 	/**

@@ -5,9 +5,7 @@ namespace WPOnion;
 use stdClass;
 use WPOnion\Exception\Cache_Not_Found;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Helper' ) ) {
 	/**

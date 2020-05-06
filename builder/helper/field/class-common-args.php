@@ -2,9 +2,7 @@
 
 namespace WPO\Helper\Field;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 	/**
@@ -254,7 +252,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @param bool|array $clone
 		 *
 		 * @return $this
-		 *
 		 */
 		public function _clone( $clone = false ) {
 			if ( wponion_is_array( $clone ) ) {
@@ -366,7 +363,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @param $class
 		 *
 		 * @return $this
-		 *
 		 */
 		public function field_class( $class = null ) {
 			return $this->_set( 'class', $class );
@@ -393,7 +389,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		public function multiple( $is_multiple = true ) {
 			return $this->_set( 'multiple', $is_multiple );
 		}
-
 
 		/**
 		 * @param callable|string|array $callback

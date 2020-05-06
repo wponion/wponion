@@ -5,9 +5,7 @@ namespace WPOnion\Modules\Util;
 use WPOnion\Bridge\Module;
 use WPOnion\Modules\Admin_Page;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 	/**
@@ -175,7 +173,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		 * Trigged When admin_enqueue_scripts hook is triggered so it can load the required assets.
 		 */
 		public function load_style_script() {
-			wponion_load_core_assets( 'wponion-help-tabs' );
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**

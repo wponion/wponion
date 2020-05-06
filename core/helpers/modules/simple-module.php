@@ -4,9 +4,7 @@ use WPOnion\Modules\Util\Endpoint;
 use WPOnion\Modules\Util\Page_Actions;
 use WPOnion\Modules\Util\Plugin_Links;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_plugin_links' ) ) {
 	/**

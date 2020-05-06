@@ -7,9 +7,7 @@ use WPOnion\Integrations\Page_Builders\Elementor\Metabox_Data;
 use WPOnion\Integrations\Page_Builders\Elementor\Taxonomy;
 use WPOnion\Integrations\Page_Builders\Elementor\Taxonomy_Data;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 	/**

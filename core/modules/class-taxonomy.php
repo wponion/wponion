@@ -6,9 +6,7 @@ use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 	/**
@@ -130,7 +128,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				wp_enqueue_script( 'post' );
 				wp_enqueue_style( 'post' );
 			}
-			wponion_load_core_assets( 'wponion-taxonomy' );
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**

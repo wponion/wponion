@@ -4,9 +4,7 @@ namespace WPOnion\Modules\Util;
 
 use const EP_ROOT;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 	/**

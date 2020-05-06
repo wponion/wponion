@@ -4,9 +4,7 @@ namespace WPOnion\Modules\Util;
 
 use WPOnion\Bridge\Module;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 	/**

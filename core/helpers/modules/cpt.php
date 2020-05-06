@@ -3,9 +3,7 @@
 use WPOnion\Modules\CPT\Post_Type;
 use WPOnion\Modules\CPT\Taxonomy;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_register_post_type' ) ) {
 	/**

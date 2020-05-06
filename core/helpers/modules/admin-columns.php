@@ -2,9 +2,7 @@
 
 use WPOnion\Modules\Util\Admin_Columns;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_admin_columns_registry' ) ) {
 	/**

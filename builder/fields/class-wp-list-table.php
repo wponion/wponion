@@ -4,9 +4,7 @@ namespace WPO\Fields;
 
 use WPO\Helper\Field\Nested_Fields;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 	/**

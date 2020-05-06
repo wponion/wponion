@@ -6,9 +6,7 @@ use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 	/**
@@ -89,8 +87,8 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		public function on_init() {
 			add_action( 'load-profile.php', array( &$this, 'on_user_profile_load' ) );
 			add_action( 'load-user-edit.php', array( &$this, 'on_user_profile_load' ) );
-			add_action( 'show_user_profile', array( &$this, 'render' ), 10, 1 );
-			add_action( 'edit_user_profile', array( &$this, 'render' ), 10, 1 );
+			add_action( 'show_user_profile', array( &$this, 'render' ), $this->option( 'position' ), 1 );
+			add_action( 'edit_user_profile', array( &$this, 'render' ), $this->option( 'position' ), 1 );
 			add_action( 'personal_options_update', array( $this, 'save' ), 10, 2 );
 			add_action( 'edit_user_profile_update', array( $this, 'save' ), 10, 2 );
 			$this->init_metabox();
@@ -103,9 +101,10 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 */
 		protected function defaults() {
 			return $this->parse_args( parent::defaults(), array(
-				'theme'   => 'wp',
-				'heading' => false,
-				'metabox' => false,
+				'theme'    => 'wp',
+				'heading'  => false,
+				'metabox'  => false,
+				'position' => 10,
 			) );
 		}
 
@@ -142,7 +141,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				wp_enqueue_script( 'post' );
 				wp_enqueue_style( 'post' );
 			}
-			wponion_load_core_assets( 'wponion-userprofile' );
+			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**

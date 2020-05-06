@@ -5,9 +5,7 @@ namespace WPOnion;
 use WPOnion\Registry\Field_Types;
 use WPOnion\Utils\CSS_Parser;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field' ) ) {
 	/**
@@ -175,7 +173,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				if ( null === $value ) {
 					return $this->field[ $key ];
 				} else {
-					return ( $value === $this->field[ $key ] ) ? true : false;
+					return ( $value === $this->field[ $key ] );
 				}
 			}
 			return false;
@@ -185,7 +183,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
-			$only_field = ( $this->has( 'only_field' ) && true === $this->data( 'only_field' ) ) ? true : false;
+			$only_field = ( $this->has( 'only_field' ) && true === $this->data( 'only_field' ) );
 			if ( false !== $this->data( 'before_render' ) && wponion_is_callable( $this->data( 'before_render' ) ) ) {
 				wponion_callback( $this->data( 'before_render' ), array( &$this, $only_field ) );
 			}
@@ -230,7 +228,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function default_wrap_class( $extra_class = array() ) {
 			$type      = $this->data( 'type' );
-			$is_nested = ( isset( $this->field['fields'] ) && ! empty( $this->field['fields'] ) ) ? true : false;
+			$is_nested = ( isset( $this->field['fields'] ) && ! empty( $this->field['fields'] ) );
 			$has_error = ( $this->has_errors() ) ? ' wponion-element-has-error ' : '';
 			return wponion_html_class( array(
 				'wponion-element',
@@ -248,7 +246,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function handle_dependency() {
 			$dependency = $this->data( 'dependency' );
-			if ( wponion_is_array( $dependency['rules'] ) && ! empty( array_filter( $dependency ) ) ) {
+			if ( isset( $dependency['rules'] ) && wponion_is_array( $dependency['rules'] ) && ! empty( array_filter( $dependency ) ) ) {
 				/**
 				 * @var \WPO\Helper\Dependency\Builder $group
 				 */
@@ -475,7 +473,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 			$return             = array();
 			$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
 			$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
+
 			switch ( $this->module() ) {
+				case 'user_profile':
+					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-12 wpo-col-lg-2 wpo-col-xl-2';
+					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-12 wpo-col-lg-10 wpo-col-xl-10';
+					break;
 				case 'taxonomy':
 					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3 wpo-col-lg-3 wpo-col-xl-3';
 					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-9 wpo-col-lg-9 wpo-col-xl-9';
@@ -489,15 +492,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 						}
 					}
 					break;
-				case 'wp_importer':
-					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
-					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
-					break;
-				default:
-					$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-3';
-					$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-9';
-					break;
 			}
+
 			if ( false === $this->has( 'title' ) || true === $this->data( 'hide_title' ) ) {
 				$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-12 wpo-col-lg-12 wpo-col-xl-12';
 			}
@@ -1045,7 +1041,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @param      $unqiue
 		 * @param bool $is_init
 		 *
-		 * @return mixed
+		 * @return mixed|\WPOnion\Field
 		 * @uses wponion_add_element|wponion_field
 		 *
 		 */

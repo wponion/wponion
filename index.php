@@ -3,15 +3,13 @@
  * Plugin Name: WPOnion
  * Plugin URI: https://github.com/wponion/
  * Description: ~ Lightweight, Flexible & Rapid WP Development Framework ~
- * Version: 1.4.5.3
+ * Version: 1.4.6
  * Author: varunsridharan
  * Author URI: https://varunsridharan.in
  * Text Domain: wponion
  * Domain Path: /i18n/
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 require_once 'wponion.php';

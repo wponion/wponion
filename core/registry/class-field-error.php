@@ -4,9 +4,7 @@ namespace WPOnion\Registry;
 
 use WPOnion\Helper;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Registry\Field_Error' ) ) {
 	/**

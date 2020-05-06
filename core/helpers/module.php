@@ -2,9 +2,7 @@
 
 use WPOnion\WP\Sysinfo\Sysinfo;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_sysinfo' ) ) {
 	/**

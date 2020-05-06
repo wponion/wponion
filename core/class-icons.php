@@ -2,9 +2,7 @@
 
 namespace WPOnion;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	die;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Icons' ) ) {
 	/**
