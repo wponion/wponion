@@ -64,11 +64,12 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 			if ( wponion_is_array( $taxes ) ) {
 				foreach ( $taxes as $tax ) {
 					$this->add_action( 'load-edit-tags.php', 'on_page_load' );
-					$this->add_action( $tax . '_add_form_fields', 'render', 10, 20 );
-					$this->add_action( $tax . '_edit_form', 'render', 10, 20 );
-					$this->add_action( 'created_' . $tax, 'save_taxonomy', 10, 200 );
-					$this->add_action( 'edited_' . $tax, 'save_taxonomy', 10, 200 );
-					$this->add_action( 'delete_' . $tax, 'delete_taxonomy' );
+					$this->add_action( $tax . '_add_form_fields', 'render', $this->option( 'priority' ) );
+					$this->add_action( $tax . '_edit_form', 'render', $this->option( 'priority' ), 2 );
+					$this->add_action( 'created_' . $tax, 'save_taxonomy', 10 );
+					$this->add_action( 'edited_' . $tax, 'save_taxonomy', 10 );
+					//@todo Create Delete Handler To Clear WP_OPTIONS Table if any updated.
+					//$this->add_action( 'delete_' . $tax, 'delete_taxonomy' );
 				}
 			}
 		}
@@ -140,6 +141,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 			return $this->parse_args( parent::defaults(), array(
 				'taxonomy' => false,
 				'theme'    => 'modern',
+				'priority' => 20,
 				'metabox'  => false,
 			) );
 		}
