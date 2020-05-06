@@ -8,4 +8,19 @@
 			margin-right:   10px;
 		}
 	}
+
+	ul {
+		li {
+			margin-bottom: $element_gurtter;
+
+			.wponion-switcher-labels-container {
+				> div {
+					& + label {
+						display:        inline-block;
+						vertical-align: middle;
+					}
+				}
+			}
+		}
+	}
 }
