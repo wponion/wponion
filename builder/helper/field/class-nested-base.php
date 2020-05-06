@@ -75,7 +75,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		 * @param array                   $args
 		 *
 		 * @return false|bool|\WPO\Field
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		public function add_field( $field_type_or_instance, $field_id = false, $title = false, $args = array() ) {
 			if ( ! wponion_is_array( $this['fields'] ) ) {

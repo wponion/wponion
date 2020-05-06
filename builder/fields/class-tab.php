@@ -34,7 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 		 * @param array       $args
 		 *
 		 * @return bool|\WPO\Fields\Fieldset
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		public function section( $slug = false, $title = false, $icon = '', $args = array() ) {
 			$args['icon'] = $icon;

@@ -109,7 +109,7 @@ if ( ! function_exists( 'wponion_query_module' ) ) {
 	 *
 	 * @return string|bool
 	 *
-	 * @since 1.4.5.4
+	 * @since 1.4.6
 	 */
 	function wponion_query_module( $request_type ) {
 		$alias   = apply_filters( 'wponion_query_modules_alias', array(

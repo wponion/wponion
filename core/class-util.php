@@ -33,7 +33,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		 * Sets To True if js id is added.
 		 *
 		 * @var bool
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		protected $is_js_id_added = false;
 
@@ -51,7 +51,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		/**
 		 * Adds WPOnion JS ID.
 		 *
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		protected function add_wponion_js_id() {
 			if ( false === $this->is_js_id_added ) {
@@ -105,7 +105,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		 * @param bool $element
 		 *
 		 * @return string
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		protected function append_attributes( $attrs, $element = false ) {
 			$attrs = wponion_array_to_html_attributes( $attrs );
@@ -262,7 +262,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		 *
 		 * @param array $rules
 		 *
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		public function dependency( $rules = array() ) {
 			if ( ! empty( $rules ) && isset( $rules['rules'] ) && wponion_is_array( $rules['rules'] ) && ! empty( array_filter( $rules ) ) ) {

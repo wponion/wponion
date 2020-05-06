@@ -10,7 +10,7 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\User_Roles' ) ) {
 	 *
 	 * @package WPOnion\DB\Query_Types
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.4.5.4
+	 * @since 1.4.6
 	 */
 	class User_Roles extends WP_Query_Base {
 		/**

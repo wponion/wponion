@@ -34,7 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 		 * @param $path
 		 *
 		 * @return $this
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		public function content_path( $path ) {
 			$this['content_path'] = $path;

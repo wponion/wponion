@@ -8,7 +8,7 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\WP_Query_Base' ) ) {
 	 *
 	 * @package WPOnion\DB\Query_Types
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.4.5.4
+	 * @since 1.4.6
 	 */
 	abstract class WP_Query_Base {
 		/**

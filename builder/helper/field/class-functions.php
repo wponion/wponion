@@ -97,7 +97,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 * @param array                       $args
 		 *
 		 * @return bool|false|\WPO\Field
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		public function add_field( $field_type_or_instance, $field_id = '', $title = false, $args = array() ) {
 			if ( $this->has_containers() ) {
@@ -132,7 +132,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 * @param array|\WPO\Builder $fields
 		 *
 		 * @return $this
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		public function add_fields( $fields ) {
 			$fields = ( wpo_is( $fields ) ) ? $fields->fields() : $fields;

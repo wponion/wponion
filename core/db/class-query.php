@@ -19,7 +19,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * Stors Handler Instance.
 		 *
 		 * @var \WPOnion\DB\Query_Types\WP_Query_Base
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		protected $handler = false;
 
@@ -49,7 +49,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * Stores Query Type.
 		 *
 		 * @var bool
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		public $type = false;
 
@@ -67,7 +67,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		/**
 		 * Clears All Stored Args.
 		 *
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		protected function clear() {
 			$this->args     = array();
@@ -80,7 +80,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @var array  $args Query Args.
 		 * @var string $search Search Query.
 		 *
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		protected function handle_query_args( $args, $search ) {
 			if ( ! empty( $search ) ) {
@@ -133,7 +133,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		/**
 		 * Fetches Values From Database.
 		 *
-		 * @since 1.4.5.4
+		 * @since 1.4.6
 		 */
 		protected function get_db() {
 			if ( method_exists( $this->handler, 'get_results' ) ) {
