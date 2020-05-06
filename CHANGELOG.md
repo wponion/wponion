@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 * All Modules in WPOnion Can Provide An Option To Load Custom Assets via `"assets" => "your-asset"` in module argument.
+* Function `->section` it can be used instead of `->container` inside tab field
 * **ACTION** `wponion_query_database`
 * **ACTION** `wponion_{module_slug}_db_save_before`
 * **ACTION** `wponion_{module_slug}_db_save_after`
@@ -22,7 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **FILTER** `wponion_query_args`
 * **NEW** `add_field` Method In Builder 
 * `wponion-inline-dependency` option 
-* Function `->section` it can be used instead of `->container` inside tab field
 * `image_sizes` WP Query Data Option.
 * `user_roles` WP Query Data Option.
 * `capabilities` WP Query Data Option.
@@ -37,9 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Bump [tippy.js] from `6.2.0` to `6.2.3` 
 * Bump [@popperjs/core] from `2.3.3` to `2.4.0`
 * Bump [jquery] from `3.4.1` to `3.5.1`
-*  `load_from_existing` from builder
 
 ## Removed
+*  `load_from_existing` from builder
 * `.wponion-framework` prefxed style changed from (`.wponion-framework.wponion-module-settings`) to (`.wponion-module-settings`) in css
 * `.wponion-framework` prefxed style changed from (`.wponion-framework.wponion-element-accordion`) to (`.wponion-element-accordion`) in css
 
