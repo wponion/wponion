@@ -85,7 +85,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Stores Instance In Registry.
 		 */
-		public function save_instance() {
+		protected function save_instance() {
 			if ( function_exists( 'wponion_' . $this->module . '_registry' ) ) {
 				wponion_callback( 'wponion_' . $this->module . '_registry', array( &$this ) );
 			}
@@ -94,7 +94,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		/**
 		 * Inits The Class.
 		 */
-		public function init() {
+		protected function init() {
 			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax( 'heartbeat' ) ) {
 				$this->on_init();
 			}
@@ -362,7 +362,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return null
 		 */
-		public function active( $is_container ) {
+		protected function active( $is_container ) {
 			return $is_container;
 		}
 
@@ -373,7 +373,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return null
 		 */
-		public function page_url( $part_url = false ) {
+		protected function page_url( $part_url = false ) {
 			return $part_url;
 		}
 
@@ -583,7 +583,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return string
 		 */
-		public function instance_id() {
+		protected function instance_id() {
 			return sanitize_title( implode( '_', array_filter( array(
 				$this->module(),
 				$this->unique(),
