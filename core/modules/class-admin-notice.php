@@ -84,15 +84,14 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		public function __construct( $args = array() ) {
 			$args           = $this->set_args( $args );
 			$this->settings = $args;
-			$this->id       = sanitize_title( uniqid( $args['type'] . '_' . md5( $args['content'] ), true ) );
 
-			$this->setContent( $args['content'] );
-			$this->setTitle( $args['title'] );
-			$this->setScreens( (array) $args['screens'] );
-			$this->setTimes( $args['times'] );
+			$this->set_content( $args['content'] );
+			$this->set_title( $args['title'] );
+			$this->set_screens( (array) $args['screens'] );
+			$this->set_times( $args['times'] );
 
-			foreach ( (array) $args['users'] as $userId ) {
-				$this->addUser( $userId );
+			foreach ( (array) $args['users'] as $user_id ) {
+				$this->add_user( $user_id );
 			}
 
 			if ( ! in_array( $args['type'], array(
@@ -104,6 +103,15 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 				'update-nag',
 			) ) ) {
 				$args['type'] = 'success';
+			}
+
+			if ( isset( $args['id'] ) ) {
+				$this->id = $args['id'];
+				unset( $args['id'] );
+			}
+
+			if ( empty( $this->id ) ) {
+				$this->id = sanitize_title( uniqid( $args['type'] . '_' . md5( $args['content'] ), true ) );
 			}
 
 			$this->type = $args['type'];
@@ -164,7 +172,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @return int
 		 */
-		public function countUsers() {
+		public function count_users() {
 			return count( $this->users ) - 1;
 		}
 
@@ -173,7 +181,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return string
 		 */
-		public function getContent() {
+		public function get_content() {
 			return $this->content;
 		}
 
@@ -182,7 +190,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function setContent( $content ) {
+		public function set_content( $content ) {
 			$this->content = (string) $content;
 			return $this;
 		}
@@ -228,15 +236,15 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function incrementDisplayedTimes() {
+		public function increment_displayed_times() {
 			$this->users[0]++;
 			$user = get_user_by( 'ID', get_current_user_id() );
-			if ( $this->hasUser( $user->ID ) ) {
+			if ( $this->has_user( $user->ID ) ) {
 				$this->users[ $user->ID ]++;
 			}
 			$this->roles[0]++;
 			foreach ( $user->roles as $role ) {
-				if ( $this->hasRole( $role ) ) {
+				if ( $this->has_role( $role ) ) {
 					$this->roles[ $role ]++;
 				}
 			}
@@ -246,27 +254,27 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @return mixed
 		 */
-		public function getDisplayedTimes() {
-			return $this->getDisplayedTimesForUser( 0 );
+		public function get_displayed_times() {
+			return $this->get_displayed_times_for_user( 0 );
 		}
 
 		/**
-		 * @param $userId
+		 * @param $user_id
 		 *
 		 * @return int|mixed
 		 */
-		public function getDisplayedTimesForUser( $userId ) {
-			return $this->hasUser( $userId ) ? $this->users[ $userId ] : 0;
+		public function get_displayed_times_for_user( $user_id ) {
+			return $this->has_user( $user_id ) ? $this->users[ $user_id ] : 0;
 		}
 
 		/**
-		 * @param $userId
+		 * @param $user_id
 		 *
 		 * @return bool
 		 */
-		public function exceededMaxTimesToDisplayForUser( $userId ) {
-			$userId = (int) $userId;
-			if ( $this->hasUser( $userId ) && $this->users[ $userId ] < $this->times ) {
+		public function exceeded_max_times_to_display_for_user( $user_id ) {
+			$user_id = (int) $user_id;
+			if ( $this->has_user( $user_id ) && $this->users[ $user_id ] < $this->times ) {
 				return false;
 			}
 			return true;
@@ -277,9 +285,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function exceededMaxTimesForRole( $role ) {
+		public function exceeded_max_times_for_role( $role ) {
 			$role = (string) $role;
-			if ( $this->hasRole( $role ) && $this->roles[ $role ] < $this->times ) {
+			if ( $this->has_role( $role ) && $this->roles[ $role ] < $this->times ) {
 				return false;
 			}
 			return true;
@@ -288,64 +296,64 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @return bool
 		 */
-		public function exceededMaxTimesToDisplay() {
-			if ( $this->isSticky() ) {
+		public function exceeded_max_times_to_display() {
+			if ( $this->is_sticky() ) {
 				return false;
 			}
-			$excMaxTimesForUsers = $this->users[0] >= $this->times;
-			if ( $this->countUsers() > 0 ) {
-				$usersCounter = 0;
-				foreach ( array_keys( $this->getUsers() ) as $userId ) {
-					if ( $this->exceededMaxTimesToDisplayForUser( $userId ) ) {
-						$usersCounter++;
+			$exc_max_times_for_users = $this->users[0] >= $this->times;
+			if ( $this->count_users() > 0 ) {
+				$users_counter = 0;
+				foreach ( array_keys( $this->get_users() ) as $user_id ) {
+					if ( $this->exceeded_max_times_to_display_for_user( $user_id ) ) {
+						$users_counter++;
 					}
 				}
-				$excMaxTimesForUsers = $usersCounter >= $this->countUsers();
+				$exc_max_times_for_users = $users_counter >= $this->count_users();
 			}
-			$excMaxTimesForRoles = $this->roles[0] >= $this->times;
-			if ( $this->countRoles() > 0 ) {
-				$rolesCounter = 0;
-				foreach ( array_keys( $this->getRoles() ) as $role ) {
-					if ( $this->exceededMaxTimesForRole( $role ) ) {
-						$rolesCounter++;
+			$exc_max_times_for_roles = $this->roles[0] >= $this->times;
+			if ( $this->count_roles() > 0 ) {
+				$roles_counter = 0;
+				foreach ( array_keys( $this->get_roles() ) as $role ) {
+					if ( $this->exceeded_max_times_for_role( $role ) ) {
+						$roles_counter++;
 					}
 				}
-				$excMaxTimesForRoles = $rolesCounter >= $this->countRoles();
+				$exc_max_times_for_roles = $roles_counter >= $this->count_roles();
 			}
-			return $excMaxTimesForUsers && $excMaxTimesForRoles;
+			return $exc_max_times_for_users && $exc_max_times_for_roles;
 		}
 
 		/**
-		 * @param $userId
+		 * @param $user_id
 		 *
 		 * @return bool
 		 */
-		public function hasUser( $userId ) {
-			return array_key_exists( (int) $userId, $this->users );
+		public function has_user( $user_id ) {
+			return array_key_exists( (int) $user_id, $this->users );
 		}
 
 		/**
-		 * @param $userId
+		 * @param $user_id
 		 *
 		 * @return $this
 		 */
-		public function addUser( $userId ) {
-			$userId = (int) $userId;
-			if ( ! $this->hasUser( $userId ) ) {
-				$this->users[ $userId ] = 0;
+		public function add_user( $user_id ) {
+			$user_id = (int) $user_id;
+			if ( ! $this->has_user( $user_id ) ) {
+				$this->users[ $user_id ] = 0;
 			}
 			return $this;
 		}
 
 		/**
-		 * @param $userId
+		 * @param $user_id
 		 *
 		 * @return $this
 		 */
-		public function removeUser( $userId ) {
-			$userId = (int) $userId;
-			if ( $userId > 0 && $this->hasUser( $userId ) ) {
-				unset( $this->users[ $userId ] );
+		public function remove_user( $user_id ) {
+			$user_id = (int) $user_id;
+			if ( $user_id > 0 && $this->has_user( $user_id ) ) {
+				unset( $this->users[ $user_id ] );
 			}
 			return $this;
 		}
@@ -355,7 +363,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return array
 		 */
-		public function getScreens() {
+		public function get_screens() {
 			return $this->screens;
 		}
 
@@ -366,7 +374,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function setScreens( $screens ) {
+		public function set_screens( $screens ) {
 			$this->screens = (array) $screens;
 			return $this;
 		}
@@ -374,14 +382,14 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @return int|string
 		 */
-		public function getId() {
+		public function get_id() {
 			return $this->id;
 		}
 
 		/**
 		 * @return int
 		 */
-		public function getTimes() {
+		public function get_times() {
 			return $this->times;
 		}
 
@@ -390,7 +398,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function setTimes( $times ) {
+		public function set_times( $times ) {
 			$this->times = (int) $times;
 			return $this;
 		}
@@ -398,7 +406,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @return array
 		 */
-		public function getUsers() {
+		public function get_users() {
 			$users = $this->users;
 			unset( $users[0] );
 			return $users;
@@ -407,7 +415,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @return string
 		 */
-		public function getTitle() {
+		public function get_title() {
 			return $this->title;
 		}
 
@@ -416,7 +424,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function setTitle( $title ) {
+		public function set_title( $title ) {
 			$this->title = (string) $title;
 			return $this;
 		}
@@ -424,14 +432,14 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @return string
 		 */
-		public function getType() {
+		public function get_type() {
 			return $this->type;
 		}
 
 		/**
 		 * @return bool
 		 */
-		public function isSticky() {
+		public function is_sticky() {
 			return $this->sticky;
 		}
 
@@ -440,9 +448,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function setSticky( $sticky ) {
+		public function set_sticky( $sticky ) {
 			$this->sticky = (bool) $sticky;
-			$this->setTimes( false );
+			$this->set_times( false );
 			return $this;
 		}
 
@@ -451,9 +459,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function addRole( $role ) {
+		public function add_role( $role ) {
 			$role = (string) $role;
-			if ( ! $this->hasRole( $role ) ) {
+			if ( ! $this->has_role( $role ) ) {
 				$this->roles[ $role ] = 0;
 			}
 			return $this;
@@ -464,9 +472,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function removeRole( $role ) {
+		public function remove_role( $role ) {
 			$role = (string) $role;
-			if ( $role != 0 && $this->hasRole( $role ) ) {
+			if ( 0 != $role && $this->has_role( $role ) ) {
 				unset( $this->roles[ $role ] );
 			}
 			return $this;
@@ -477,7 +485,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function hasRole( $roles ) {
+		public function has_role( $roles ) {
 			$roles = (array) $roles;
 			foreach ( $roles as $role ) {
 				if ( array_key_exists( $role, $this->roles ) ) {
@@ -490,21 +498,21 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @return int
 		 */
-		public function countRoles() {
+		public function count_roles() {
 			return count( $this->roles ) - 1;
 		}
 
 		/**
 		 * @return array
 		 */
-		public function getRoles() {
+		public function get_roles() {
 			return array_diff_key( $this->roles, array( 0 ) );
 		}
 
 		/**
 		 * @return string
 		 */
-		public function getContentFormatted() {
+		public function get_content_formatted() {
 			$large   = $this->option( 'large' );
 			$type    = $this->option( 'type' );
 			$alt     = $this->option( 'alt' );
@@ -525,8 +533,8 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 				$class = $type;
 			}
 
-			if ( $this->isSticky() && false === strpos( $content, 'wpo-stick-dismiss' ) ) {
-				$this->setSticky( false );
+			if ( $this->is_sticky() && false === strpos( $content, 'wpo-stick-dismiss' ) ) {
+				$this->set_sticky( false );
 			}
 
 			echo '<div id="' . $this->id() . '" class="' . $class . '" style="position:relative">';

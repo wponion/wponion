@@ -61,12 +61,12 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 			if ( ! empty( $this->db_values ) ) {
 				/* @var $notice \WPOnion\Modules\Admin_Notice */
 				foreach ( $this->db_values as $index => $notice ) {
-					if ( $this->isTimeToDisplayNtc( $notice ) ) {
-						echo $notice->getContentFormatted();
-						$notice->incrementDisplayedTimes();
+					if ( $this->is_time_to_display_ntc( $notice ) ) {
+						echo $notice->get_content_formatted();
+						$notice->increment_displayed_times();
 					}
 
-					if ( $this->isTimeToKillNtc( $notice ) ) {
+					if ( $this->is_time_to_kill_ntc( $notice ) ) {
 						$this->remove_notice( $index );
 					}
 				}
@@ -79,7 +79,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 		/**
 		 * Renders Javascript.
 		 */
-		public function render_script() {
+		protected function render_script() {
 			$action         = $this->option( 'ajax_action' );
 			$notice_handler = $this->unique();
 			$nounce         = wp_create_nonce( 'wpo-admin-notice-sticky-remove' );
@@ -174,7 +174,7 @@ JAVASCRIPT;
 		 *
 		 * @param $index
 		 */
-		public function remove_notice( $index ) {
+		protected function remove_notice( $index ) {
 			if ( isset( $this->db_values[ $index ] ) ) {
 				/* @var $notice \WPOnion\Modules\Admin_Notice */
 				$notice = $this->db_values[ $index ];
@@ -203,8 +203,8 @@ JAVASCRIPT;
 		 *
 		 * @return bool
 		 */
-		private function isTimeToDisplayNtc( Admin_Notice $notice ) {
-			return $this->isTimeToDisplayNtcForScreen( $notice ) && $this->isTimeToDisplayNtcForUser( $notice ) && ! $notice->exceededMaxTimesToDisplay();
+		protected function is_time_to_display_ntc( Admin_Notice $notice ) {
+			return $this->is_time_to_display_ntc_for_screen( $notice ) && $this->is_time_to_display_ntc_for_user( $notice ) && ! $notice->exceeded_max_times_to_display();
 		}
 
 		/**
@@ -212,11 +212,11 @@ JAVASCRIPT;
 		 *
 		 * @return bool
 		 */
-		private function isTimeToKillNtc( Admin_Notice $notice ) {
-			if ( $notice->isSticky() ) {
+		protected function is_time_to_kill_ntc( Admin_Notice $notice ) {
+			if ( $notice->is_sticky() ) {
 				return false;
 			}
-			return $notice->exceededMaxTimesToDisplay();
+			return $notice->exceeded_max_times_to_display();
 		}
 
 		/**
@@ -224,8 +224,8 @@ JAVASCRIPT;
 		 *
 		 * @return bool
 		 */
-		private function isTimeToDisplayNtcForScreen( Admin_Notice $notice ) {
-			$screens = $notice->getScreens();
+		protected function is_time_to_display_ntc_for_screen( Admin_Notice $notice ) {
+			$screens = $notice->get_screens();
 			if ( ! empty( $screens ) ) {
 				$current_screen = get_current_screen();
 				if ( ! wponion_is_array( $screens ) || ! in_array( $current_screen->id, $screens ) ) {
@@ -240,12 +240,12 @@ JAVASCRIPT;
 		 *
 		 * @return bool
 		 */
-		private function isTimeToDisplayNtcForUser( Admin_Notice $notice ) {
+		protected function is_time_to_display_ntc_for_user( Admin_Notice $notice ) {
 			$current_user = get_user_by( 'ID', get_current_user_id() );
-			if ( $notice->countUsers() !== 0 && ! $notice->hasUser( $current_user->ID ) ) {
+			if ( $notice->count_users() !== 0 && ! $notice->has_user( $current_user->ID ) ) {
 				return false;
 			}
-			if ( $notice->countRoles() !== 0 && ! $notice->hasRole( $current_user->roles ) ) {
+			if ( $notice->count_roles() !== 0 && ! $notice->has_role( $current_user->roles ) ) {
 				return false;
 			}
 			return true;
