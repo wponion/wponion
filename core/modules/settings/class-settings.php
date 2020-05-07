@@ -358,7 +358,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return bool|string
 		 */
-		public function active( $is_parent ) {
+		protected function active( $is_parent ) {
 			if ( true === $is_parent ) {
 				return isset( $this->active_menu['container_id'] ) ? $this->active_menu['container_id'] : false;
 			}
