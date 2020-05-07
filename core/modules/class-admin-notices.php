@@ -70,6 +70,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 						$this->remove_notice( $index );
 					}
 				}
+
 				$this->render_script();
 				$this->set_db_option();
 			}
@@ -127,13 +128,24 @@ JAVASCRIPT;
 		}
 
 		/**
+		 * Fetches Values From DB.
+		 *
+		 * @return array|mixed|\WPOnion\DB\Option
+		 * @since 1.4.6.1
+		 */
+		public function get_db_values() {
+			$this->db_values = wponion_get_option( $this->unique );
+			return $this->db_values;
+		}
+
+		/**
 		 * Adds A Notice To Array.
 		 *
 		 * @param \WPOnion\Modules\Admin_Notice $notice
 		 *
 		 * @return $this
 		 */
-		public function add( Admin_Notice &$notice ) {
+		public function add( Admin_Notice $notice ) {
 			$id                     = md5( $notice->id() );
 			$this->db_values[ $id ] = $notice;
 			$this->set_db_option();
@@ -215,8 +227,8 @@ JAVASCRIPT;
 		private function isTimeToDisplayNtcForScreen( Admin_Notice $notice ) {
 			$screens = $notice->getScreens();
 			if ( ! empty( $screens ) ) {
-				$curScreen = get_current_screen();
-				if ( ! wponion_is_array( $screens ) || ! in_array( $curScreen->id, $screens ) ) {
+				$current_screen = get_current_screen();
+				if ( ! wponion_is_array( $screens ) || ! in_array( $current_screen->id, $screens ) ) {
 					return false;
 				}
 			}
@@ -229,11 +241,11 @@ JAVASCRIPT;
 		 * @return bool
 		 */
 		private function isTimeToDisplayNtcForUser( Admin_Notice $notice ) {
-			$curUser = get_user_by( 'ID', get_current_user_id() );
-			if ( $notice->countUsers() !== 0 && ! $notice->hasUser( $curUser->ID ) ) {
+			$current_user = get_user_by( 'ID', get_current_user_id() );
+			if ( $notice->countUsers() !== 0 && ! $notice->hasUser( $current_user->ID ) ) {
 				return false;
 			}
-			if ( $notice->countRoles() !== 0 && ! $notice->hasRole( $curUser->roles ) ) {
+			if ( $notice->countRoles() !== 0 && ! $notice->hasRole( $current_user->roles ) ) {
 				return false;
 			}
 			return true;
