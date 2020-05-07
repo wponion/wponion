@@ -180,7 +180,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return bool|string
 		 */
-		public function active( $is_parent ) {
+		protected function active( $is_parent ) {
 			$this->active_page();
 			return ( true === $is_parent ) ? $this->active_data['container_id'] : $this->active_data['sub_container_id'];
 		}
