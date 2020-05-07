@@ -40,6 +40,20 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 		public function __construct() {
 			/** @uses load_framework */
 			add_action( 'plugins_loaded', [ &$this, 'load_framework' ], -1 );
+
+			/** @uses activate_framework */
+			add_action( 'deactivate_plugin', [ &$this, 'activate_framework' ], -1 );
+			add_action( 'activate_plugin', [ &$this, 'activate_framework' ], -1 );
+		}
+
+		/**
+		 * Loads Framework Using $this->load_framework and inits
+		 *
+		 * @since 1.4.6.1
+		 */
+		public function activate_framework() {
+			$this->load_framework();
+			wponion_setup();
 		}
 
 		/**

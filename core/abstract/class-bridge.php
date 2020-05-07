@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 *
 		 * @return array
 		 */
-		public function set_args( $options = array(), $defaults = array() ) {
+		protected function set_args( $options = array(), $defaults = array() ) {
 			$defaults = empty( $defaults ) ? $this->defaults() : $defaults;
 			$options  = ( ! wponion_is_array( $options ) ) ? array( 'option_name' => $options ) : $options;
 			$options  = $this->parse_args( $options, $defaults );
@@ -76,7 +76,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 *
 		 * @uses add_action
 		 */
-		public function add_action( $hook, $function_to_add, $priority = 30, $accepted_args = 1 ) {
+		protected function add_action( $hook, $function_to_add, $priority = 30, $accepted_args = 1 ) {
 			add_action( $hook, array( &$this, $function_to_add ), $priority, $accepted_args );
 		}
 
@@ -90,7 +90,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 *
 		 * @uses add_action
 		 */
-		public function add_filter( $tag, $function_to_add, $priority = 30, $accepted_args = 1 ) {
+		protected function add_filter( $tag, $function_to_add, $priority = 30, $accepted_args = 1 ) {
 			add_filter( $tag, array( &$this, $function_to_add ), $priority, $accepted_args );
 		}
 
@@ -117,7 +117,7 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_option( $key, $value ) {
+		protected function set_option( $key, $value ) {
 			$this->settings[ $key ] = $value;
 			return $this;
 		}
@@ -154,18 +154,13 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 		/**
 		 * Catchs Output.
 		 *
-		 * @param string $status
+		 * @param bool $start
 		 *
 		 * @return string
 		 */
-		protected function catch_output( $status = 'start' ) {
-			$data = '';
-			if ( 'start' === $status ) {
-				ob_start();
-			} else {
-				$data = ob_get_clean();
-				//ob_flush();
-			}
+		protected function catch_output( $start = true ) {
+			$start = ( 'start' === $start );
+			$data  = wponion_catch_output( $start );
 			return $data;
 		}
 	}
