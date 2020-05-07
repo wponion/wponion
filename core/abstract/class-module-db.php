@@ -105,7 +105,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		/**
 		 * @return array|mixed
 		 */
-		public function get_db_cache() {
+		protected function get_db_cache() {
 			try {
 				return Cache::get( $this->get_cache_id() );
 			} catch ( DB_Cache_Not_Found $exception ) {
@@ -119,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_db_cache( $values ) {
+		protected function set_db_cache( $values ) {
 			$cid                 = $this->get_cache_id();
 			$values              = array_filter( $values );
 			$this->options_cache = $values;
@@ -141,7 +141,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return string
 		 */
-		public function base_unique() {
+		protected function base_unique() {
 			return $this->unique;
 		}
 
