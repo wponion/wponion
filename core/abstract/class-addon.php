@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 			$this->version = $version;
 			$this->dir     = plugin_dir_path( $file );
 			$this->url     = plugin_dir_url( $file );
-			add_action( 'wponion_register_assets_after', array( &$this, 'register_assets' ) );
+			add_action( 'wponion/assets/register/after', array( &$this, 'register_assets' ) );
 		}
 
 		/**

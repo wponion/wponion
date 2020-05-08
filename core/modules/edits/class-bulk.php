@@ -22,7 +22,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Bulk' ) ) {
 
 		public function on_init() {
 			$this->add_action( 'bulk_edit_custom_box', 'render_quick_edit' );
-			$this->add_action( 'wponion_save_bulk_edit', 'save_data' );
+			$this->add_action( 'wponion/bulk_edit/save', 'save_data' );
 		}
 	}
 }

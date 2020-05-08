@@ -54,8 +54,8 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 		 */
 		public function __construct( $name = false, $file = __FILE__, $version = null ) {
 			parent::__construct( $name, $file, $version );
-			add_action( 'wponion_core_fields_registered', array( &$this, 'register_field' ) );
-			add_action( 'wponion_load_field_class', array( &$this, '_load_field_class' ), 10, 3 );
+			add_action( 'wponion/core/fields/registered', array( &$this, 'register_field' ) );
+			add_action( 'wponion/field_class/load', array( &$this, '_load_field_class' ), 10, 3 );
 		}
 
 		/**

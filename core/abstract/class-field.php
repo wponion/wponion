@@ -129,7 +129,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$this->add_action( 'admin_enqueue_scripts', 'field_assets', 1 );
 				$this->add_action( 'customize_controls_enqueue_scripts', 'field_assets', 99999 );
 				$this->add_action( 'wp_enqueue_scripts', 'field_assets', 1 );
-				$this->add_action( 'wponion_ajax_enqueue_scripts', 'field_assets', 10 );
+				$this->add_action( 'wponion/ajax/enqueue_assets', 'field_assets', 10 );
 			}
 
 			$this->init_subfields();
