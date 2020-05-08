@@ -55,7 +55,8 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				} elseif ( method_exists( $this, $function ) ) {
 					wponion_callback( array( &$this, $function ) );
 				} else {
-					do_action( 'wponion_ajax_' . $action );
+					wponion_do_deprecated_action( 'wponion_ajax_' . $action, array(), '1.4.6.1', 'wponion/ajax/request/' . $action );
+					do_action( 'wponion/ajax/request/' . $action );
 				}
 			}
 			wp_send_json_error();
