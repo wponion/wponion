@@ -144,7 +144,7 @@ if ( ! function_exists( 'wponion_get_field_class' ) ) {
 		}
 
 		if ( ! class_exists( $return ) ) {
-			do_action( 'wponion_load_field_class', $return, $type, $module_s );
+			do_action( 'wponion/field_class/load', $return, $type, $module_s );
 		}
 
 		return ( class_exists( $return ) ) ? $return : false;

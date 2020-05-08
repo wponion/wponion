@@ -35,6 +35,7 @@ if ( ! class_exists( '\WPOnion\Deprecation\Actions' ) ) {
 			'wponion/ajax/metabox/render/after'  => 'wponion_metabox_ajax_render',
 			'wponion/icons/setup/before'         => 'wponion_before_icons_setup',
 			'wponion/icons/setup/after'          => 'wponion_after_icons_setup',
+			'wponion/field_class/load'           => 'wponion_load_field_class',
 		);
 
 		/**
