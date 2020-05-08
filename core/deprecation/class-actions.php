@@ -29,6 +29,8 @@ if ( ! class_exists( '\WPOnion\Deprecation\Actions' ) ) {
 			'wponion/ajax/shutdown'             => 'wponion_ajax_shutdown',
 			'wponion/ajax/shutdown/error'       => 'wponion_ajax_shutdown_error',
 			'wponion/ajax/shutdown/success'     => 'wponion_ajax_shutdown_success',
+			'wponion/assets/register/before'    => 'wponion_register_assets_before',
+			'wponion/assets/register/after'     => 'wponion_register_assets_after',
 		);
 
 		/**
