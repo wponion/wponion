@@ -98,9 +98,9 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @static
 		 */
 		public static function setup() {
-			do_action( 'wponion_before_icons_setup' );
+			do_action( 'wponion/icons/setup/before' );
 			require_once WPONION_PATH . 'data/icons.php';
-			do_action( 'wponion_after_icons_setup' );
+			do_action( 'wponion/icons/setup/after' );
 		}
 
 		/**

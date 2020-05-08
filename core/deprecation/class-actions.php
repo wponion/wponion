@@ -33,6 +33,8 @@ if ( ! class_exists( '\WPOnion\Deprecation\Actions' ) ) {
 			'wponion/assets/register/after'      => 'wponion_register_assets_after',
 			'wponion/ajax/metabox/render/before' => 'wponion_metabox_ajax_before_render',
 			'wponion/ajax/metabox/render/after'  => 'wponion_metabox_ajax_render',
+			'wponion/icons/setup/before'         => 'wponion_before_icons_setup',
+			'wponion/icons/setup/after'          => 'wponion_after_icons_setup',
 		);
 
 		/**
