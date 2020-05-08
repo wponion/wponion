@@ -498,7 +498,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-12 wpo-col-lg-12 wpo-col-xl-12';
 			}
 
-			return apply_filters( 'wponion_field_column_css_class', $return, $this->module(), $this );
+			return apply_filters( 'wponion/default/field/column/css_class', $return, $this->module(), $this );
 		}
 
 		/**

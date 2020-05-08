@@ -32,6 +32,7 @@ if ( ! class_exists( '\WPOnion\Deprecation\Filters' ) ) {
 			'wponion/default/theme'                   => 'wponion_default_theme',
 			'wponion/query/args'                      => 'wponion_query_args',
 			'wponion/query/results'                   => 'wponion_wp_query_result',
+			'wponion/default/field/column/css_class'  => 'wponion_field_column_css_class',
 		);
 
 		/**
