@@ -171,7 +171,12 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 					);
 					break;
 			}
-			return apply_filters( 'wponion_' . $this->module() . '_background_' . $type, $return, $this->unique(), $this );
+			$return = wponion_apply_deprecated_filters( "wponion_{$this->module()}_background_{$type}", array(
+				$return,
+				$this->unique(),
+				$this,
+			), '1.4.6.1' );
+			return apply_filters( "wponion/field/{$this->module()}/background_{$type}", $return, $this->unique(), $this );
 		}
 	}
 }
