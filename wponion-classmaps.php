@@ -1,6 +1,6 @@
 <?php
 /**
- * Last Updated: Wed 06-May-2020 / 08:24:03:am
+ * Last Updated: Fri 08-May-2020 / 11:38:35:am
  * Total Class:  263
  * Namespace: 
  */
@@ -75,6 +75,7 @@ return array (
   'WPO\\Helper\\Field\\Types' => 'helper/field/class-types.php',
   'WPO\\Helper\\Interfaces\\Container' => 'helper/interfaces/class-container.php',
   'WPO\\Helper\\Interfaces\\Field' => 'helper/interfaces/class-field.php',
+  'WPOnion\\Bridge\\Deprecated_Hooks' => 'abstract/abstract-deprecated-hooks.php',
   'WPOnion\\Addon_Field' => 'abstract/class-addon-field.php',
   'WPOnion\\Addon' => 'abstract/class-addon.php',
   'WPOnion\\Bridge\\Ajax' => 'abstract/class-ajax.php',
@@ -131,6 +132,8 @@ return array (
   'WPOnion\\DB\\Query_Types\\WC_Customers' => 'db/query-types/class-wc-customers.php',
   'WPOnion\\DB\\Query_Types\\WC_Products' => 'db/query-types/class-wc-products.php',
   'WPOnion\\DB\\Query_Types\\WP_Query_Base' => 'db/query-types/class-wp-query-base.php',
+  'WPOnion\\Deprecation\\Actions' => 'deprecation/class-actions.php',
+  'WPOnion\\Deprecation\\Filters' => 'deprecation/class-filters.php',
   'WPOnion\\Exception\\Cache_Not_Found' => 'exception/class-cache-not-found.php',
   'WPOnion\\Exception\\DB_Cache_Not_Found' => 'exception/class-db-cache-not-found.php',
   'WPOnion\\Integrations\\Page_Builders\\Elementor' => 'integrations/page-builders/class-elementor.php',
@@ -183,9 +186,6 @@ return array (
   'WPOnion\\Registry\\Fields' => 'registry/class-fields.php',
   'WPOnion\\Registry\\Holder' => 'registry/class-holder.php',
   'WPOnion\\Registry\\Modules' => 'registry/class-modules.php',
-  'WPOnion\\Addons' => 'setup/class-addons.php',
-  'WPOnion\\Setup' => 'setup/class-setup.php',
-  'WPOnion' => 'setup/class-wponion.php',
   'WPOnion\\Traits\\Array_Access' => 'traits/trait-array-access.php',
   'WPOnion\\Traits\\Array_Position' => 'traits/trait-array-position.php',
   'WPOnion\\Traits\\Class_Options' => 'traits/trait-class-options.php',
