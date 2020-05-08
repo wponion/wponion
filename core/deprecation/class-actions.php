@@ -38,6 +38,8 @@ if ( ! class_exists( '\WPOnion\Deprecation\Actions' ) ) {
 			'wponion/field_class/load'           => 'wponion_load_field_class',
 			'wponion/ajax/enqueue_assets'        => 'wponion_ajax_enqueue_scripts',
 			'wponion/settings/page/assets'       => 'wponion_settings_page_assets',
+			'wponion/settings/register/submenu'  => 'wponion_settings_register_submenu',
+			'wponion/settings/page/on_load'      => 'wponion_settings_page_onload',
 		);
 
 		/**
