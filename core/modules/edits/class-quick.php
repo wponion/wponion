@@ -162,9 +162,9 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		public function render_hidden_data( $column, $id ) {
 			if ( $column === $this->option( 'column' ) ) {
 				$this->db_values = $this->get_values( $id );
-				$this->catch_output( 'start' );
+				wponion_catch_output();
 				echo $this->render_quick_edit_html();
-				$html = $this->catch_output( 'stop' );
+				$html = wponion_catch_output( false );
 
 				wponion_localize()->add( $this->unique . '_' . $id, array(
 					'html'   => $html,

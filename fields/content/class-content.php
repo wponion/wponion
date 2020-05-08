@@ -26,13 +26,13 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 			$content = $this->data( 'content' );
 
 			if ( ! empty( $this->data( 'content_path' ) ) && file_exists( $this->data( 'content_path' ) ) ) {
-				$this->catch_output( 'start' );
+				wponion_catch_output();
 				include $this->data( 'content_path' );
-				$content = $this->catch_output( 'end' );
+				$content = wponion_catch_output( false );
 			} elseif ( ! empty( $this->data( 'content' ) ) && wponion_is_callable( $this->data( 'content' ) ) ) {
-				$this->catch_output( 'start' );
+				wponion_catch_output();
 				echo wponion_callback( $this->data( 'content' ) );
-				$content = $this->catch_output( 'end' );
+				$content = wponion_catch_output( false );
 			}
 
 			if ( $this->has( 'markdown' ) && true === $this->has( 'markdown' ) && ! empty( $content ) ) {

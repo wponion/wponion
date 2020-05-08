@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Addon {
 		use Self_Instance;
@@ -20,38 +19,35 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 		/**
 		 * Stores Addon File.
 		 *
-		 * @var null
-		 * @access
+		 * @var string
 		 */
 		protected $file = null;
 
 		/**
 		 * Addon Name.
 		 *
-		 * @var null
-		 * @access
+		 * @var string
 		 */
 		protected $name = null;
 
 		/**
 		 * dir
 		 *
-		 * @var bool
+		 * @var string
 		 */
 		protected $dir = false;
 
 		/**
 		 * url
 		 *
-		 * @var bool
+		 * @var string
 		 */
 		protected $url = false;
 
 		/**
 		 * Stores Version Information.
 		 *
-		 * @var null
-		 * @access
+		 * @var string|int
 		 */
 		protected $version = null;
 
@@ -72,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 		}
 
 		/**
-		 * Returns Current Addon URL.
+		 * Returns Addon URL.
 		 *
 		 * @param string $extra
 		 *
@@ -83,7 +79,7 @@ if ( ! class_exists( '\WPOnion\Addon' ) ) {
 		}
 
 		/**
-		 * Returns Current Addon Dir.
+		 * Returns Addon Dir.
 		 *
 		 * @param string $extra
 		 *

@@ -1,6 +1,6 @@
 <?php
 /**
- * Last Updated: Fri 08-May-2020 / 11:38:35:am
+ * Last Updated: Fri 08-May-2020 / 09:04:54:pm
  * Total Class:  263
  * Namespace: 
  */
@@ -75,16 +75,16 @@ return array (
   'WPO\\Helper\\Field\\Types' => 'helper/field/class-types.php',
   'WPO\\Helper\\Interfaces\\Container' => 'helper/interfaces/class-container.php',
   'WPO\\Helper\\Interfaces\\Field' => 'helper/interfaces/class-field.php',
+  'WPOnion\\Addon_Field' => 'abstract/abstract-addon-field.php',
+  'WPOnion\\Addon' => 'abstract/abstract-addon.php',
+  'WPOnion\\Bridge\\Ajax' => 'abstract/abstract-ajax.php',
+  'WPOnion\\Bridge' => 'abstract/abstract-bridge.php',
   'WPOnion\\Bridge\\Deprecated_Hooks' => 'abstract/abstract-deprecated-hooks.php',
-  'WPOnion\\Addon_Field' => 'abstract/class-addon-field.php',
-  'WPOnion\\Addon' => 'abstract/class-addon.php',
-  'WPOnion\\Bridge\\Ajax' => 'abstract/class-ajax.php',
-  'WPOnion\\Bridge' => 'abstract/class-bridge.php',
-  'WPOnion\\Field' => 'abstract/class-field.php',
-  'WPOnion\\Bridge\\Module_DB_Cache' => 'abstract/class-module-db-cache.php',
-  'WPOnion\\Bridge\\Module_DB' => 'abstract/class-module-db.php',
-  'WPOnion\\Bridge\\Module' => 'abstract/class-module.php',
-  'WPOnion\\Theme_API' => 'abstract/class-theme-api.php',
+  'WPOnion\\Field' => 'abstract/abstract-field.php',
+  'WPOnion\\Bridge\\Module_DB_Cache' => 'abstract/abstract-module-db-cache.php',
+  'WPOnion\\Bridge\\Module_DB' => 'abstract/abstract-module-db.php',
+  'WPOnion\\Bridge\\Module' => 'abstract/abstract-module.php',
+  'WPOnion\\Theme_API' => 'abstract/abstract-theme-api.php',
   'WPOnion\\Ajax\\Icon_Picker' => 'ajax/class-icon-picker.php',
   'WPOnion\\Ajax\\Import_Export' => 'ajax/class-import-export.php',
   'WPOnion\\Ajax\\Modal_Fields' => 'ajax/class-modal-fields.php',

@@ -60,7 +60,7 @@ Add the below code your plugin / theme file
 ```php
 require __DIR__.'/wponion/wponion.php';
 
-add_action('wponion_loaded','your-prefix_after_wponion_loaded');
+add_action('wponion/loaded','your-prefix_after_wponion_loaded');
 
 function your-prefix_after_wponion_loaded(){
     //do your stuff here.

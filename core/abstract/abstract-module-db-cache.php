@@ -2,11 +2,7 @@
 
 namespace WPOnion\Bridge;
 
-use WPO\Builder;
-use WPO\Container;
-use WPO\Field;
 use WPOnion\Bridge;
-use WPOnion\Themes;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -16,14 +12,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB_Cache' ) ) {
 	 *
 	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Module_DB_Cache extends Bridge {
 		/**
 		 * Stores All Cache Information.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $cache = false;
@@ -32,7 +26,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB_Cache' ) ) {
 		 * Database DB Cache Key.
 		 *
 		 * @var string
-		 * @access
 		 * @static
 		 */
 		protected static $db_key = '_wponion_db_cache';

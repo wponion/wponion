@@ -13,14 +13,12 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 	 *
 	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Ajax {
 		/**
 		 * If set to true then ajax requests will requires module data to be present.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $validate_module = true;
 
@@ -28,15 +26,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 * If set to true then ajax requests will requires field path data to be present.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $validate_field_path = true;
 
 		/**
 		 * Stores Module.
 		 *
-		 * @var bool
-		 * @access
+		 * @var string|bool
 		 */
 		protected $module = false;
 
@@ -44,7 +40,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 * If set to true then wponion will add all assets to be loaded data in ajax response.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $add_assets = false;
 
@@ -52,7 +47,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 * Ajax constructor.
 		 */
 		public function __construct() {
-
 			if ( $this->validate_module ) {
 				$this->validate( 'module', __( 'Unable To Find The Module', 'wponion' ), false, 'REQUEST' );
 			}
@@ -60,6 +54,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 			if ( $this->validate_field_path ) {
 				$this->validate( 'field_path', __( 'Unable To Find The Field', 'wponion' ), false, 'REQUEST' );
 			}
+
 			$this->run();
 			$this->json_error();
 		}
@@ -199,10 +194,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Ajax' ) ) {
 		 * @return array
 		 */
 		protected function wpo_json_data( $data = array() ) {
-			if ( ! is_array( $data ) ) {
-				return $data;
-			}
-			return wp_parse_args( wponion_ajax_args( $this->add_assets ), $data );
+			return ( ! is_array( $data ) ) ? $data : wp_parse_args( wponion_ajax_args( $this->add_assets ), $data );
 		}
 
 		/**

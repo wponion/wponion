@@ -114,14 +114,14 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 			$this->get_cache();
 			$o = '<div ' . $this->wrap_attributes() . '>';
 			foreach ( $this->fields->fields() as $field ) {
-				$this->catch_output();
+				wponion_catch_output();
 				echo $this->render_field( $field, $this->get_id() );
-				$o .= $this->catch_output( 'stop' );
+				$o .= wponion_catch_output( false );
 			}
 
-			$this->catch_output();
+			wponion_catch_output();
 			wponion_localize()->render_css_js_args();
-			$script = $this->catch_output( 'stop' );
+			$script = wponion_catch_output( false );
 			$form[] = array(
 				'input' => 'html',
 				'html'  => $o . '</div>' . $script,

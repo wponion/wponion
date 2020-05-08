@@ -12,10 +12,8 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Bridge {
-
 		/**
 		 * Settings
 		 *
@@ -149,19 +147,6 @@ if ( ! class_exists( '\WPOnion\Bridge' ) ) {
 				$defaults[ $save_with ] = $data;
 			}
 			return $defaults;
-		}
-
-		/**
-		 * Catchs Output.
-		 *
-		 * @param bool $start
-		 *
-		 * @return string
-		 */
-		protected function catch_output( $start = true ) {
-			$start = ( 'start' === $start );
-			$data  = wponion_catch_output( $start );
-			return $data;
 		}
 	}
 }

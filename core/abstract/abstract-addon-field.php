@@ -10,14 +10,12 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Addon_Field extends Addon {
 		/**
 		 * Field Type.
 		 *
 		 * @var string
-		 * @access
 		 */
 		protected $type = null;
 
@@ -25,7 +23,6 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 		 * An Array/string modules that this field supports.
 		 *
 		 * @var string
-		 * @access
 		 */
 		protected $supports = null;
 
@@ -33,35 +30,31 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 		 * Additional Arguments.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $args = array();
 
 		/**
 		 * Stores Field Class File Location.
 		 *
-		 * @var null
-		 * @access
+		 * @var string
 		 */
 		protected $class_file = null;
 
 		/**
 		 * Addon_Field constructor.
 		 *
-		 * @param bool   $name
+		 * @param string   $name
 		 * @param string $file
-		 * @param null   $version
+		 * @param int   $version
 		 */
 		public function __construct( $name = false, $file = __FILE__, $version = null ) {
 			parent::__construct( $name, $file, $version );
 			add_action( 'wponion/core/fields/registered', array( &$this, 'register_field' ) );
-			add_action( 'wponion/field_class/load', array( &$this, '_load_field_class' ), 10, 3 );
+			add_action( 'wponion/field_class/load', array( &$this, '_load_class' ), 10, 3 );
 		}
 
 		/**
 		 * Place To Register Custom Fields.
-		 *
-		 * @hook wponion_core_fields_registered
 		 */
 		public function register_field() {
 			if ( ! empty( $this->type ) ) {
@@ -72,11 +65,11 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 		/**
 		 * Hooks With WPOnion To Loads Its Class On The Go.
 		 *
-		 * @param $class
-		 * @param $field_type
-		 * @param $module
+		 * @param string $class
+		 * @param string $field_type
+		 * @param string $module
 		 */
-		public function _load_field_class( $class, $field_type, $module ) {
+		public function _load_class( $class, $field_type, $module ) {
 			if ( strtolower( $field_type ) !== strtolower( $this->type ) ) {
 				return;
 			}
@@ -91,11 +84,9 @@ if ( ! class_exists( '\WPOnion\Addon_Field' ) ) {
 		/**
 		 * This function is a internal hook function which is used by
 		 *
-		 * @param $class
-		 * @param $type
-		 * @param $module
-		 *
-		 * @see _load_field_class();
+		 * @param string $class
+		 * @param string $type
+		 * @param string $module
 		 */
 		protected function load_field_class( $class, $type, $module ) {
 		}

@@ -18,6 +18,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Deprecated_Hooks' ) ) {
 
 		/**
 		 * Array of deprecated hooks we need to handle.
+		 * 'new' => 'old',
 		 *
 		 * @var array
 		 */

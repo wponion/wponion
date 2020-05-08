@@ -13,10 +13,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 	 *
 	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Field extends Bridge {
-
 		/**
 		 * Total Fields.
 		 *
@@ -170,11 +168,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 */
 		protected function data( $key = '', $value = null ) {
 			if ( isset( $this->field[ $key ] ) ) {
-				if ( null === $value ) {
-					return $this->field[ $key ];
-				} else {
-					return ( $value === $this->field[ $key ] );
-				}
+				return ( null === $value ) ? $this->field[ $key ] : ( $value === $this->field[ $key ] );
 			}
 			return false;
 		}
@@ -485,11 +479,9 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 					break;
 				case 'metabox':
 					$screen = get_current_screen();
-					if ( $screen ) {
-						if ( in_array( $screen->base, array( 'term', 'edit-tags' ), true ) ) {
-							$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-4';
-							$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-8';
-						}
+					if ( $screen && in_array( $screen->base, array( 'term', 'edit-tags' ), true ) ) {
+						$return['title']    = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-4 wpo-col-lg-4 wpo-col-xl-4';
+						$return['fieldset'] = 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-8 wpo-col-lg-8 wpo-col-xl-8';
 					}
 					break;
 			}
@@ -1043,8 +1035,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @param bool $is_init
 		 *
 		 * @return mixed|\WPOnion\Field
-		 * @uses wponion_add_element|wponion_field
-		 *
+		 * @uses wponion_add_element | wponion_field
 		 */
 		protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
 			$func = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
@@ -1126,12 +1117,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return bool|string|\WPOnion\Bridge\Module
 		 */
 		public function module( $module_instance = false ) {
+			$module = parent::module();
 			if ( true === $module_instance ) {
-				$module   = parent::module();
 				$function = 'wponion_' . $module;
 				return wponion_callback( $function, array( $this->base_unique() ) );
 			}
-			return parent::module();
+			return $module;
 		}
 
 		/**
@@ -1172,6 +1163,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 
 		/**
 		 * Custom Hookable Function to provide custom wrap class.
+		 *
+		 * @return string
 		 */
 		protected function field_wrap_class() {
 			return '';

@@ -200,9 +200,9 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 			if ( isset( $tab['fields'] ) ) {
 				$this->current_tabs = $tab;
 				$theme_instance     = $this->init_theme();
-				$this->catch_output( 'start' );
+				wponion_catch_output();
 				$theme_instance->render_help_tabs();
-				$this->current_tabs['content'] = $this->catch_output( 'stop' );
+				$this->current_tabs['content'] = wponion_catch_output( false );
 				unset( $this->current_tabs['fields'] );
 				unset( $this->current_tabs['callback'] );
 				return $this->current_tabs;

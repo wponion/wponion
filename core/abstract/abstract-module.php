@@ -14,7 +14,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	 *
 	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Module extends Module_DB {
 		/**
@@ -61,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function __call( $name, $arguments ) { //phpcs:ignore
+		public function __call( $name, $arguments ) {
 			return ( isset( $this->{$name} ) ) ? $this->{$name} : false;
 		}
 
@@ -86,9 +85,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * Stores Instance In Registry.
 		 */
 		protected function save_instance() {
-			if ( function_exists( 'wponion_' . $this->module . '_registry' ) ) {
-				wponion_callback( 'wponion_' . $this->module . '_registry', array( &$this ) );
-			}
+			wponion_callback( 'wponion_' . $this->module . '_registry', array( &$this ) );
 		}
 
 		/**
@@ -129,17 +126,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( false === $this->current_theme ) {
 				$theme      = $this->option( 'theme' );
 				$theme_args = $this->theme_callback_args();
-				if ( Themes::is_support( $theme, $this->module() ) ) {
-					$return = Themes::callback( $theme, $theme_args );
-					if ( $return ) {
-						$this->current_theme = $return->uid();
-					}
-				} else {
-					$this->set_option( 'theme', wponion_default_theme() );
-					$return = Themes::callback( wponion_default_theme(), $theme_args );
-					if ( $return ) {
-						$this->current_theme = $return->uid();
-					}
+				$theme      = ( Themes::is_support( $theme, $this->module() ) ) ? $theme : wponion_default_theme();
+				$return     = Themes::callback( $theme, $theme_args );
+				if ( $return ) {
+					$this->current_theme = $return->uid();
 				}
 			} else {
 				$return = wponion_theme_registry( $this->current_theme );
@@ -399,7 +389,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( wpo_is_field( $option ) ) {
 				return true;
 			} elseif ( wponion_is_array( $option ) ) {
-				return ( isset( $option['type'] ) ) ? true : false;
+				return ( isset( $option['type'] ) );
 			}
 			return false;
 		}

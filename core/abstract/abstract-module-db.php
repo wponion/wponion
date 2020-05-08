@@ -16,7 +16,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 	 *
 	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Module_DB extends Bridge {
 		/**
@@ -30,7 +29,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * Stores Module DB Type.
 		 *
 		 * @var string
-		 * @access
 		 */
 		protected $module_db = '';
 
@@ -52,7 +50,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * Stores Current Post ID
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $post_id = false;
 
@@ -60,7 +57,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * Stores Current Term ID.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $term_id = false;
 
@@ -68,7 +64,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * Stores Current User ID.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $user_id = false;
 

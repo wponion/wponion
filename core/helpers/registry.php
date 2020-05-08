@@ -64,7 +64,7 @@ if ( ! function_exists( 'wponion_widget_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool
+	 * @return bool|\WPOnion\Modules\Widgets\Dashboard
 	 */
 	function wponion_widget_registry( &$instance ) {
 		return wponion_get_registry_instance( 'widget', $instance, 'module' );

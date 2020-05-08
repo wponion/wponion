@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Theme_API extends Bridge {
 		/**
