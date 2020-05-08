@@ -18,7 +18,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Module_DB extends Bridge {
+	abstract class Module_DB extends Bridge {
 		/**
 		 * unique for database.
 		 *
