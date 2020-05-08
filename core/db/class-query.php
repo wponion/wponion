@@ -127,7 +127,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			 * @var string {$this->unique} Module's Unique Key.
 			 * @var string {$this->module} Module's Slug.
 			 */
-			$this->args = apply_filters( 'wponion_query_args', $this->args, $type, $this->unique, $this->module );
+			$this->args = apply_filters( 'wponion/query/args', $this->args, $type, $this->unique, $this->module );
 		}
 
 		/**
