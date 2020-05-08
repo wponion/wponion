@@ -28,36 +28,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		private static $vendor_libs = array();
 
 		/**
-		 * @var bool
-		 * @static
-		 */
-		private static $core_autoloader = false;
-
-		/**
-		 * @var bool
-		 * @static
-		 */
-		private static $field_autoloader = false;
-
-		/**
-		 * @var bool
-		 * @static
-		 */
-		private static $module_fields_autoloader = false;
-
-		/**
-		 * @var bool
-		 * @static
-		 */
-		private static $builder_autoloader = false;
-
-		/**
-		 * @var bool
-		 * @static
-		 */
-		private static $theme_autoloader = false;
-
-		/**
 		 * Stores Remaps Class.
 		 *
 		 * @var array
@@ -70,17 +40,15 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function init() {
-			self::load_composer_vendor();
-			self::init_autoloader();
-			self::load_deprecated_handlers();
-
 			self::$vendor_libs = array(
 				'Parsedown' => wponion()->path( 'core/vendors/erusev/parsedown.php' ),
 			);
 
-			add_action( 'wponion/loaded', array( __CLASS__, 'on_wponion_loaded' ), -1000 );
+			add_action( 'wponion/loaded', array( __CLASS__, 'on_wponion_loaded' ), -99999 );
 
-			self::setup_remaps();
+			self::load_composer_vendor();
+			self::init_autoloader();
+			self::load_deprecated_handlers();
 			self::load_required_files();
 		}
 
@@ -127,7 +95,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			do_action( 'wponion/core/loaded' );
 
 			do_action( 'wponion/addon/before/load' );
+
 			self::load_addons();
+
 			do_action( 'wponion/addon/after/loaded' );
 
 			do_action( 'wponion/loaded' );
@@ -138,6 +108,8 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function on_wponion_loaded() {
+			self::setup_remaps();
+
 			if ( is_admin() || wponion_is_ajax() ) {
 				wponion_admin_notices();
 			}
@@ -152,6 +124,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::register_core_fields();
 
 			do_action( 'wponion/integrations/before/load' );
+
 			if ( wp_is_plugin_active( 'elementor/elementor.php' ) ) {
 				if ( is_version_gte( 'php', '7.0' ) ) {
 					Elementor::init();
@@ -159,6 +132,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 					wponion_error_admin_notice( __( 'WPOnion Elementor Integration Requires PHP Version 7.0 or Greater', 'wponion' ) );
 				}
 			}
+
 			do_action( 'wponion/integrations/after/loaded' );
 
 			do_action( 'wponion/init' );
@@ -170,6 +144,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function init_autoloader() {
+			$map_file = wponion()->path( 'wponion-classmaps.php' );
 			try {
 				spl_autoload_register( array( __CLASS__, 'vendor_loader' ) );
 			} catch ( Exception $exception ) {
@@ -178,28 +153,28 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				}
 			}
 
-			self::$theme_autoloader = new Autoloader( 'WPOnion\Theme\\', wponion()->path( 'templates/' ), array(
-				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+			new Autoloader( 'WPOnion\Theme\\', wponion()->path( 'templates/' ), array(
+				'classmap' => $map_file,
 				'prepend'  => true,
 			) );
 
-			self::$field_autoloader = new Autoloader( 'WPOnion\Field\\', wponion()->path( 'fields/' ), array(
-				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+			new Autoloader( 'WPOnion\Field\\', wponion()->path( 'fields/' ), array(
+				'classmap' => $map_file,
 				'prepend'  => true,
 			) );
 
-			self::$module_fields_autoloader = new Autoloader( 'WPOnion\Module_Fields\\', wponion()->path( 'module-fields/' ), array(
-				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+			new Autoloader( 'WPOnion\Module_Fields\\', wponion()->path( 'module-fields/' ), array(
+				'classmap' => $map_file,
 				'prepend'  => true,
 			) );
 
-			self::$core_autoloader = new Autoloader( 'WPOnion\\', wponion()->path( 'core/' ), array(
-				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+			new Autoloader( 'WPOnion\\', wponion()->path( 'core/' ), array(
+				'classmap' => $map_file,
 				'exclude'  => array( 'WPOnion\Field\\', 'WPOnion\Module_Fields\\' ),
 			) );
 
-			self::$builder_autoloader = new Autoloader( 'WPO\\', wponion()->path( 'builder/' ), array(
-				'classmap' => wponion()->path( 'wponion-classmaps.php' ),
+			new Autoloader( 'WPO\\', wponion()->path( 'builder/' ), array(
+				'classmap' => $map_file,
 				'exclude'  => array( 'WPOnion\\' ),
 				'prepend'  => true,
 			) );
@@ -268,9 +243,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_field( 'number', 'all' );
 			wponion_register_field( 'css_unit', 'all' );
 
-			/**
-			 * Registers UI Field.
-			 */
+			// Registers UI Field.
 			wponion_register_ui_field( 'divider', 'all' );
 			wponion_register_ui_field( 'button', 'all' );
 			wponion_register_ui_field( 'content', 'all' );
@@ -286,21 +259,19 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_ui_field( 'import_export', 'all' );
 			wponion_register_ui_field( 'options_object', 'all' );
 
-			/**
-			 * Field Alias
-			 */
+			/** Field Alias **/
 
-			/* Content Field Alias */
+			// Content Field Alias
 			wponion_register_ui_field( 'content_markdown', 'all' );
 			wponion_register_ui_field( 'markdown', 'all' );
 
-			/* WP Notice Fiedl Alias */
+			// WP Notice Fiedl Alias
 			wponion_register_ui_field( 'wp_notice_success', 'all' );
 			wponion_register_ui_field( 'wp_notice_warning', 'all' );
 			wponion_register_ui_field( 'wp_notice_error', 'all' );
 			wponion_register_ui_field( 'wp_notice_info', 'all' );
 
-			/* Notice Field Alias */
+			// Notice Field Alias
 			wponion_register_ui_field( 'notice_danger', 'all' );
 			wponion_register_ui_field( 'notice_dark', 'all' );
 			wponion_register_ui_field( 'notice_info', 'all' );
