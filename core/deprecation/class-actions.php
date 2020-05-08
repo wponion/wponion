@@ -26,6 +26,9 @@ if ( ! class_exists( '\WPOnion\Deprecation\Actions' ) ) {
 			'wponion/integrations/after/loaded' => 'wponion_integrations_loaded',
 			'wponion/init'                      => 'wponion_init',
 			'wponion/core/fields/registered'    => 'wponion_core_fields_registered',
+			'wponion/ajax/shutdown'             => 'wponion_ajax_shutdown',
+			'wponion/ajax/shutdown/error'       => 'wponion_ajax_shutdown_error',
+			'wponion/ajax/shutdown/success'     => 'wponion_ajax_shutdown_success',
 		);
 
 		/**
