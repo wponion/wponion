@@ -407,7 +407,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 				}
 				$this->variation_id = $loop;
 				echo $this->render_tab_fields( $this->variation_fields[ $tab ], array( 'wponion-woocommerce-variation' ) );
-				do_action( 'wponion_module_woocommerce_ajax_variation_fields' );
+				do_action( 'wponion/ajax/woocommerce/variation/fields' );
 			}
 		}
 
