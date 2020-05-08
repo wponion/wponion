@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Ajax\WP_Query_Data' ) ) {
 			 */
 			$field  = $this->get_field();
 			$module = $this->get_module();
-			$data   = apply_filters( 'wponion_ajax_wp_query_results', $data, $search, $query_args, $field, $module );
+			$data   = apply_filters( 'wponion/ajax/query/results', $data, $search, $query_args, $field, $module );
 			$this->json_success( array( 'results' => $data ) );
 		}
 	}

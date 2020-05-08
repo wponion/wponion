@@ -28,6 +28,7 @@ if ( ! class_exists( '\WPOnion\Deprecation\Filters' ) ) {
 			'wponion/fonts/google'                    => 'wponion_google_fonts',
 			'wponion/query/modules/alias'             => 'wponion_query_modules_alias',
 			'wponion/query/modules'                   => 'wponion_query_modules',
+			'wponion/ajax/query/results'              => 'wponion_ajax_wp_query_results',
 		);
 
 		/**
