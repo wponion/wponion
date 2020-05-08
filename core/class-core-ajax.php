@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		public function save_bulk_edit() {
 			if ( isset( $_POST['post_ids'] ) && wponion_is_array( $_POST['post_ids'] ) ) {
 				foreach ( $_POST['post_ids'] as $id ) {
-					do_action( 'wponion_save_bulk_edit', $id );
+					do_action( 'wponion/bulk_edit/save', $id );
 				}
 			}
 		}

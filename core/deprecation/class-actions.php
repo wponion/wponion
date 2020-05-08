@@ -41,6 +41,7 @@ if ( ! class_exists( '\WPOnion\Deprecation\Actions' ) ) {
 			'wponion/settings/register/submenu'         => 'wponion_settings_register_submenu',
 			'wponion/settings/page/on_load'             => 'wponion_settings_page_onload',
 			'wponion/ajax/woocommerce/variation/fields' => 'wponion_module_woocommerce_ajax_variation_fields',
+			'wponion/bulk_edit/save'                    => 'wponion_save_bulk_edit',
 		);
 
 		/**
