@@ -6,6 +6,8 @@ defined( 'ABSPATH' ) || exit;
 
 use Exception;
 use Varunsridharan\PHP\Autoloader;
+use WPOnion\Deprecation\Actions;
+use WPOnion\Deprecation\Filters;
 use WPOnion\Integrations\Page_Builders\Elementor;
 
 
@@ -68,37 +70,67 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function init() {
-			self::setup_remaps();
+			self::load_composer_vendor();
+			self::init_autoloader();
+			self::load_deprecated_handlers();
+
 			self::$vendor_libs = array(
 				'Parsedown' => wponion()->path( 'core/vendors/erusev/parsedown.php' ),
 			);
-			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), -1000 );
+
+			add_action( 'wponion/loaded', array( __CLASS__, 'on_wponion_loaded' ), -1000 );
+
+			self::setup_remaps();
 			self::load_required_files();
+		}
+
+		/**
+		 * Loads Vendor Folder if prepacked.
+		 *
+		 * @static
+		 * @since 1.4.6.1
+		 */
+		protected static function load_composer_vendor() {
+			if ( file_exists( wponion()->path( 'vendor/autoload.php' ) ) ) {
+				require_once wponion()->path( 'vendor/autoload.php' );
+			}
+		}
+
+		/**
+		 * Load Deprecated Handlers For
+		 * 1. Filters
+		 * 2. Actions
+		 * 3. Functions
+		 * 4. Function Arguments.
+		 * 5. Files.
+		 *
+		 * @static
+		 * @since 1.4.6.1
+		 */
+		protected static function load_deprecated_handlers() {
+			require wponion()->path( 'core/deprecation/functions.php' );
+			require wponion()->path( 'core/deprecation/deprecated-functions.php' );
+			Actions::instance();
+			Filters::instance();
 		}
 
 		/**
 		 * @static
 		 */
 		public static function load_required_files() {
-			if ( file_exists( wponion()->path( 'vendor/autoload.php' ) ) ) {
-				require_once wponion()->path( 'vendor/autoload.php' );
-			}
-
-			self::init_autoloader();
-
 			require_once wponion()->path( 'core/helpers/base.php' );
 			require_once wponion()->path( 'core/class-themes.php' );
 			require_once wponion()->path( 'core/class-assets.php' );
 			require_once wponion()->path( 'core/class-shortcodes.php' );
 			require_once wponion()->path( 'core/class-core-ajax.php' );
 
-			do_action( 'wponion_core_loaded' );
+			do_action( 'wponion/core/loaded' );
 
-			do_action( 'wponion_before_addons_load' );
+			do_action( 'wponion/addon/before/load' );
 			self::load_addons();
-			do_action( 'wponion_after_addons_load' );
+			do_action( 'wponion/addon/after/loaded' );
 
-			do_action( 'wponion_loaded' );
+			do_action( 'wponion/loaded' );
 		}
 
 		/**
@@ -119,7 +151,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 			self::register_core_fields();
 
-			do_action( 'wponion_integrations_before_loaded' );
+			do_action( 'wponion/integrations/before/load' );
 			if ( wp_is_plugin_active( 'elementor/elementor.php' ) ) {
 				if ( is_version_gte( 'php', '7.0' ) ) {
 					Elementor::init();
@@ -127,9 +159,9 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 					wponion_error_admin_notice( __( 'WPOnion Elementor Integration Requires PHP Version 7.0 or Greater', 'wponion' ) );
 				}
 			}
-			do_action( 'wponion_integrations_loaded' );
+			do_action( 'wponion/integrations/after/loaded' );
 
-			do_action( 'wponion_init' );
+			do_action( 'wponion/init' );
 		}
 
 		/**
@@ -278,7 +310,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			wponion_register_ui_field( 'notice_success', 'all' );
 			wponion_register_ui_field( 'notice_warning', 'all' );
 
-			do_action( 'wponion_core_fields_registered' );
+			do_action( 'wponion/core/fields/registered' );
 		}
 
 		/**
@@ -332,7 +364,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 			self::$remaps['\WPOnion\Field\Notice_Light']     = '\WPOnion\Field\Notice';
 			self::$remaps['\WPOnion\Field\Notice_Danger']    = '\WPOnion\Field\Notice';
 
-			self::$remaps = apply_filters( 'wponion_field_class_remaps', self::$remaps );
+			self::$remaps = apply_filters( 'wponion/field_class/alias', self::$remaps );
 
 			foreach ( self::$remaps as $key => $val ) {
 				self::$remaps[ strtolower( $key ) ] = strtolower( $val );
