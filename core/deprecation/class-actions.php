@@ -37,6 +37,7 @@ if ( ! class_exists( '\WPOnion\Deprecation\Actions' ) ) {
 			'wponion/icons/setup/after'          => 'wponion_after_icons_setup',
 			'wponion/field_class/load'           => 'wponion_load_field_class',
 			'wponion/ajax/enqueue_assets'        => 'wponion_ajax_enqueue_scripts',
+			'wponion/settings/page/assets'       => 'wponion_settings_page_assets',
 		);
 
 		/**

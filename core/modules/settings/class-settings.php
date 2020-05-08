@@ -115,7 +115,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 * Loads Required Style for the current settings page.
 		 */
 		public function load_admin_styles() {
-			do_action( 'wponion_settings_page_assets', $this->unique() );
+			do_action( 'wponion/settings/page/assets', $this->unique() );
 		}
 
 		/**
