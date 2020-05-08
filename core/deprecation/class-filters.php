@@ -30,7 +30,8 @@ if ( ! class_exists( '\WPOnion\Deprecation\Filters' ) ) {
 			'wponion/query/modules'                   => 'wponion_query_modules',
 			'wponion/ajax/query/results'              => 'wponion_ajax_wp_query_results',
 			'wponion/default/theme'                   => 'wponion_default_theme',
-			'wponion/query/args'                   => 'wponion_query_args',
+			'wponion/query/args'                      => 'wponion_query_args',
+			'wponion/query/results'                   => 'wponion_wp_query_result',
 		);
 
 		/**

@@ -200,7 +200,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			 * @var string {$this->unique} Module's Unique Key.
 			 * @var string {$this->module} Module's Slug.
 			 */
-			$this->results = apply_filters( 'wponion_wp_query_result', $this->results, $search, $type, $args, $this->unique, $this->module );
+			$this->results = apply_filters( 'wponion/query/results', $this->results, $search, $type, $args, $this->unique, $this->module );
 
 			if ( $this->handler->is_customizable() ) {
 				$this->results = $this->format_output_data();
