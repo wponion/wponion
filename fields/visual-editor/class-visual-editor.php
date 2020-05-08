@@ -41,7 +41,6 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Editor' ) ) {
 		<div class="css-builder-layer-padding"> <span class="css-builder-heading">$padding_title</span> $padding_fields	</div>
 		<div class="css-builder-layer-border"> <span class="css-builder-heading">$border_title</span> $border_fields	</div>
 		<div class="css-builder-layer-border-radius"> <span class="css-builder-heading">$border_radius_title</span> $border_radius_fields	</div>
-
 	</div>
 </div>
 HTML;
@@ -178,21 +177,9 @@ HTML;
 					'type'                  => 'select',
 					'style'                 => 'width:250px;',
 					$this->select_framework => $this->data( $this->select_framework ),
-					'options'               => array(
-						''        => __( 'Theme Defaults', 'wponion' ),
-						'solid'   => __( 'Solid', 'wponion' ),
-						'dotted'  => __( 'Dotted', 'wponion' ),
-						'dashed'  => __( 'Dashed', 'wponion' ),
-						'none'    => __( 'None', 'wponion' ),
-						'hidden'  => __( 'Hidden', 'wponion' ),
-						'double'  => __( 'Double', 'wponion' ),
-						'groove'  => __( 'Groove', 'wponion' ),
-						'ridge'   => __( 'Ridge', 'wponion' ),
-						'inset'   => __( 'Inset', 'wponion' ),
-						'outset'  => __( 'Outset', 'wponion' ),
-						'initial' => __( 'Initial', 'wponion' ),
-						'inherit' => __( 'Inherit', 'wponion' ),
-					),
+					'options'               => $this->parse_args( wponion_internal_options_data( 'border-style' ), array(
+						'' => __( 'Theme Defaults', 'wponion' ),
+					) ),
 				), array( 'id' => 'border-style' ) );
 				$html .= $this->sub_field( $args, $this->value( 'border-style' ), $this->name() );
 			}
@@ -217,13 +204,9 @@ HTML;
 					'type'                  => 'select',
 					'style'                 => 'width:250px;',
 					$this->select_framework => $this->data( $this->select_framework ),
-					'options'               => array(
-						''          => __( 'Theme Defaults', 'wponion' ),
-						'cover'     => __( 'Cover', 'wponion' ),
-						'contain'   => __( 'Contain', 'wponion' ),
-						'no-repeat' => __( 'No Repeat', 'wponion' ),
-						'repeat'    => __( 'Repeat', 'wponion' ),
-					),
+					'options'               => $this->parse_args( wponion_internal_options_data( 'background-style' ), array(
+						'' => __( 'Theme Defaults', 'wponion' ),
+					) ),
 				), array( 'id' => 'background-style' ) );
 				$html .= $this->sub_field( $args, $this->value( 'background-style' ), $this->name() );
 			}

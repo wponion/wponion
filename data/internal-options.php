@@ -171,4 +171,24 @@ $return['background_position']   = array(
 	'right center'  => __( 'Right center', 'wponion' ),
 	'right bottom'  => __( 'Right Bottom', 'wponion' ),
 );
+$return['border-style']          = array(
+	'solid'   => __( 'Solid', 'wponion' ),
+	'dotted'  => __( 'Dotted', 'wponion' ),
+	'dashed'  => __( 'Dashed', 'wponion' ),
+	'none'    => __( 'None', 'wponion' ),
+	'hidden'  => __( 'Hidden', 'wponion' ),
+	'double'  => __( 'Double', 'wponion' ),
+	'groove'  => __( 'Groove', 'wponion' ),
+	'ridge'   => __( 'Ridge', 'wponion' ),
+	'inset'   => __( 'Inset', 'wponion' ),
+	'outset'  => __( 'Outset', 'wponion' ),
+	'initial' => __( 'Initial', 'wponion' ),
+	'inherit' => __( 'Inherit', 'wponion' ),
+);
+$return['background_style']      = array(
+	'cover'     => __( 'Cover', 'wponion' ),
+	'contain'   => __( 'Contain', 'wponion' ),
+	'no-repeat' => __( 'No Repeat', 'wponion' ),
+	'repeat'    => __( 'Repeat', 'wponion' ),
+);
 return $return;
