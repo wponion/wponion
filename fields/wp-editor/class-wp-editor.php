@@ -100,7 +100,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_Editor' ) ) {
 					$settings['tinymce']['wp_skip_init'] = true;
 				}
 				$this->field['settings'] = $settings;
-				$defaults                = apply_filters( 'wponion_wp_editor', $settings, $this->field_id(), $this );
+				$defaults                = apply_filters( 'wponion/field/wp_editor/args', $settings, $this->field_id(), $this );
 				$setup                   = _WP_Editors::parse_settings( $id, $defaults );
 				_WP_Editors::editor_settings( $id, $setup );
 			}
