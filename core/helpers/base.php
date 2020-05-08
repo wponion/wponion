@@ -387,7 +387,7 @@ if ( ! function_exists( 'wponion_ajax_args' ) ) {
 		$return = array();
 
 		if ( false !== $with_scripts ) {
-			do_action( 'wponion_ajax_enqueue_scripts' );
+			do_action( 'wponion/ajax/enqueue_assets' );
 
 			if ( is_array( $with_scripts ) ) {
 				foreach ( $with_scripts as $asset ) {
