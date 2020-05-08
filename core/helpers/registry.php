@@ -112,7 +112,7 @@ if ( ! function_exists( 'wponion_query_module' ) ) {
 	 * @since 1.4.6
 	 */
 	function wponion_query_module( $request_type ) {
-		$alias   = apply_filters( 'wponion_query_modules_alias', array(
+		$alias   = apply_filters( 'wponion/query/modules/alias', array(
 			'post'       => array( 'posts', 'pages', 'page' ),
 			'taxonomies' => array( 'categories', 'category', 'tag', 'tags', 'term', 'terms', 'taxonomy' ),
 			'layouts'    => array(
@@ -124,7 +124,7 @@ if ( ! function_exists( 'wponion_query_module' ) ) {
 				'sidebar_layouts',
 			),
 		) );
-		$modules = apply_filters( 'wponion_query_modules', array(
+		$modules = apply_filters( 'wponion/query/modules', array(
 			'post'            => '\WPOnion\DB\Query_Types\Custom_Post_Types',
 			'taxonomies'      => '\WPOnion\DB\Query_Types\Taxonomies',
 			'users'           => '\WPOnion\DB\Query_Types\Users',

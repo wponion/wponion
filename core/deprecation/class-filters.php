@@ -25,7 +25,9 @@ if ( ! class_exists( '\WPOnion\Deprecation\Filters' ) ) {
 			'wponion/js/select_frameworks/html_class' => 'wponion_select_input_frameworks_html_class',
 			'wponion/fonts/backup'                    => 'wponion_backup_fonts',
 			'wponion/fonts/websafe'                   => 'wponion_websafe_fonts',
-			'wponion/fonts/google'                   => 'wponion_google_fonts',
+			'wponion/fonts/google'                    => 'wponion_google_fonts',
+			'wponion/query/modules/alias'             => 'wponion_query_modules_alias',
+			'wponion/query/modules'                   => 'wponion_query_modules',
 		);
 
 		/**
