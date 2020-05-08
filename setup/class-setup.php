@@ -2,11 +2,12 @@
 
 namespace WPOnion;
 
+defined( 'ABSPATH' ) || exit;
+
 use Exception;
 use Varunsridharan\PHP\Autoloader;
 use WPOnion\Integrations\Page_Builders\Elementor;
 
-defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	/**
@@ -14,49 +15,42 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	final class Setup extends Addons {
 		/**
 		 * Stores Vendor Related Libs Inside WPOnion.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		private static $vendor_libs = array();
 
 		/**
 		 * @var bool
-		 * @access
 		 * @static
 		 */
 		private static $core_autoloader = false;
 
 		/**
 		 * @var bool
-		 * @access
 		 * @static
 		 */
 		private static $field_autoloader = false;
 
 		/**
 		 * @var bool
-		 * @access
 		 * @static
 		 */
 		private static $module_fields_autoloader = false;
 
 		/**
 		 * @var bool
-		 * @access
 		 * @static
 		 */
 		private static $builder_autoloader = false;
 
 		/**
 		 * @var bool
-		 * @access
 		 * @static
 		 */
 		private static $theme_autoloader = false;
@@ -65,7 +59,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * Stores Remaps Class.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		private static $remaps = array();
@@ -76,8 +69,10 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 */
 		public static function init() {
 			self::setup_remaps();
-			self::$vendor_libs = array( 'Parsedown' => wponion()->path( 'core/vendors/erusev/parsedown.php' ) );
-			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), -1 );
+			self::$vendor_libs = array(
+				'Parsedown' => wponion()->path( 'core/vendors/erusev/parsedown.php' ),
+			);
+			add_action( 'wponion_loaded', array( __CLASS__, 'on_wponion_loaded' ), -1000 );
 			self::load_required_files();
 		}
 
@@ -115,8 +110,8 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				wponion_admin_notices();
 			}
 
-			if ( is_admin() && file_exists( WP_CONTENT_DIR . '/plugins/wponion/wponion.php' ) ) {
-				wponion_plugin_links( WPONION_FILE )
+			if ( defined( 'WPONION_PLUGIN_FILE' ) && is_admin() && wp_is_plugin_active( WPONION_PLUGIN_FILE ) ) {
+				wponion_plugin_links( WPONION_PLUGIN_FILE )
 					->row_link( '<a href="https://docs.wponion.com">' . __( '📚 Documentation', 'wponion' ) . '</a>' )
 					->row_link( __( '🔍 Demo', 'wponion' ), 'https://wponion.com/demo' )
 					->row_link( __( '💬 Slack Community', 'wponion' ), 'https://wordpress.org/support/plugin/wponion/reviews/#new-post' );

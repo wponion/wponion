@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Addons {
 		/**
@@ -20,7 +19,6 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 		 * );
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $addons = array();
@@ -29,7 +27,6 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 		 * Stores Active Adodns Version.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $loaded_addons = array();
@@ -37,19 +34,18 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 		/**
 		 * Registers A Addon.
 		 *
-		 * @param $addon_name
-		 * @param $version
-		 * @param $callback_or_file
+		 * @param string     $name
+		 * @param string|int $version
+		 * @param string     $callback_or_file
 		 *
 		 * @static
 		 * @return bool
 		 */
-		public static function register_addon( $addon_name, $version, $callback_or_file ) {
-			if ( ! isset( self::$addons[ $addon_name ] ) ) {
-				self::$addons[ $addon_name ] = array();
+		public static function register_addon( $name, $version, $callback_or_file ) {
+			if ( ! isset( self::$addons[ $name ] ) ) {
+				self::$addons[ $name ] = array();
 			}
-
-			self::$addons[ $addon_name ][ $version ] = $callback_or_file;
+			self::$addons[ $name ][ $version ] = $callback_or_file;
 			return true;
 		}
 
@@ -60,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 		 */
 		protected static function load_addons() {
 			if ( ! empty( self::$addons ) ) {
-				foreach ( self::$addons as $addon_name => $data ) {
+				foreach ( self::$addons as $name => $data ) {
 					$version = max( array_keys( $data ) );
 					if ( ! empty( $version ) && isset( $data[ $version ] ) ) {
 						if ( wponion_is_callable( $data[ $version ] ) ) {
@@ -68,7 +64,7 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 						} elseif ( file_exists( $data[ $version ] ) ) {
 							require_once $data[ $version ];
 						}
-						self::$loaded_addons[ $addon_name ] = $version;
+						self::$loaded_addons[ $name ] = $version;
 					}
 				}
 			}
