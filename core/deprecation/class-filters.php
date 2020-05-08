@@ -19,6 +19,8 @@ if ( ! class_exists( '\WPOnion\Deprecation\Filters' ) ) {
 		 */
 		protected $deprecated_hooks = array(
 			'wponion/field_class/alias' => 'wponion_field_class_remaps',
+			'wponion/sysinfo/datas'     => 'wponion_sysinfo_final',
+			'wponion/sysinfo/data'      => 'wponion_sysinfo',
 		);
 
 		/**

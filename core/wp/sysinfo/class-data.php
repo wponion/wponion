@@ -39,7 +39,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 				self::must_use_plugins();
 				self::self_info_data();
 			}
-			return apply_filters( 'wponion_sysinfo_final', self::$status );
+			return apply_filters( 'wponion/sysinfo/datas', self::$status );
 		}
 
 		/**
@@ -115,7 +115,7 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 		 * @static
 		 */
 		private static function filter( $data, $key ) {
-			return apply_filters( 'wponion_sysinfo', $data, $key );
+			return apply_filters( 'wponion/sysinfo/data', $data, $key );
 		}
 
 		/**
