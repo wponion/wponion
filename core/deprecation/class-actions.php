@@ -18,19 +18,21 @@ if ( ! class_exists( '\WPOnion\Deprecation\Actions' ) ) {
 		 * @var array
 		 */
 		protected $deprecated_hooks = array(
-			'wponion/core/loaded'               => 'wponion_core_loaded',
-			'wponion/addon/before/load'         => 'wponion_before_addons_load',
-			'wponion/addon/after/loaded'        => 'wponion_after_addons_load',
-			'wponion/loaded'                    => 'wponion_loaded',
-			'wponion/integrations/before/load'  => 'wponion_integrations_before_loaded',
-			'wponion/integrations/after/loaded' => 'wponion_integrations_loaded',
-			'wponion/init'                      => 'wponion_init',
-			'wponion/core/fields/registered'    => 'wponion_core_fields_registered',
-			'wponion/ajax/shutdown'             => 'wponion_ajax_shutdown',
-			'wponion/ajax/shutdown/error'       => 'wponion_ajax_shutdown_error',
-			'wponion/ajax/shutdown/success'     => 'wponion_ajax_shutdown_success',
-			'wponion/assets/register/before'    => 'wponion_register_assets_before',
-			'wponion/assets/register/after'     => 'wponion_register_assets_after',
+			'wponion/core/loaded'                => 'wponion_core_loaded',
+			'wponion/addon/before/load'          => 'wponion_before_addons_load',
+			'wponion/addon/after/loaded'         => 'wponion_after_addons_load',
+			'wponion/loaded'                     => 'wponion_loaded',
+			'wponion/integrations/before/load'   => 'wponion_integrations_before_loaded',
+			'wponion/integrations/after/loaded'  => 'wponion_integrations_loaded',
+			'wponion/init'                       => 'wponion_init',
+			'wponion/core/fields/registered'     => 'wponion_core_fields_registered',
+			'wponion/ajax/shutdown'              => 'wponion_ajax_shutdown',
+			'wponion/ajax/shutdown/error'        => 'wponion_ajax_shutdown_error',
+			'wponion/ajax/shutdown/success'      => 'wponion_ajax_shutdown_success',
+			'wponion/assets/register/before'     => 'wponion_register_assets_before',
+			'wponion/assets/register/after'      => 'wponion_register_assets_after',
+			'wponion/ajax/metabox/render/before' => 'wponion_metabox_ajax_before_render',
+			'wponion/ajax/metabox/render/after'  => 'wponion_metabox_ajax_render',
 		);
 
 		/**

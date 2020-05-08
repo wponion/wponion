@@ -42,10 +42,10 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 				wponion_localize();
 				$metabox->set_id( $post_id );
 				$metabox->save_metabox( $post_id );
-				do_action( 'wponion_metabox_ajax_before_render', $unique );
+				do_action( 'wponion/ajax/metabox/render/before', $unique );
 				$metabox->on_page_load();
 				$metabox->render( $post_id );
-				do_action( 'wponion_metabox_ajax_render', $unique );
+				do_action( 'wponion/ajax/metabox/render/after', $unique );
 				$this->json_success( array( 'html' => wponion_catch_output( false ) ) );
 			}
 
