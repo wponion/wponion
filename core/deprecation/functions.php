@@ -25,6 +25,30 @@ if ( ! function_exists( 'wponion_do_deprecated_action' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_apply_deprecated_filters' ) ) {
+	/**
+	 * Runs a deprecated action with notice only if used.
+	 *
+	 * @param string $tag The name of the action hook.
+	 * @param array  $args Array of additional function arguments to be passed to do_action().
+	 * @param string $version The version of WooCommerce that deprecated the hook.
+	 * @param string $replacement The hook that should have been used.
+	 * @param string $message A message regarding the change.
+	 *
+	 * @return mixed
+	 *
+	 * @since 1.4.6.1
+	 */
+	function wponion_apply_deprecated_filters( $tag, $args, $version, $replacement = null, $message = null ) {
+		if ( ! has_filter( $tag ) ) {
+			return $args[0];
+		}
+
+		wponion_deprecated_hook( $tag, $version, $replacement, $message );
+		return apply_filters_ref_array( $tag, $args );
+	}
+}
+
 if ( ! function_exists( 'wponion_deprecated_function' ) ) {
 	/**
 	 * Wrapper for deprecated functions so we can apply some extra logic.

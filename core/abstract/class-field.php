@@ -773,7 +773,8 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return string
 		 */
 		protected function element_class( $field_class = '' ) {
-			return apply_filters( 'wponion_' . $this->module() . '_field_html_class', wponion_html_class( $this->data( 'class' ), $field_class, false ) );
+			$element_class = wponion_apply_deprecated_filters( 'wponion_' . $this->module() . '_field_html_class', array( wponion_html_class( $this->data( 'class' ), $field_class, false ) ), '1.4.6.1' );
+			return apply_filters( "wponion/{$this->module()}/field/html/class", $element_class, $this );
 		}
 
 		/**
