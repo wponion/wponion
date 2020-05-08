@@ -388,7 +388,7 @@ if ( ! function_exists( 'wponion_select_frameworks' ) ) {
 	 * @return mixed
 	 */
 	function wponion_select_frameworks() {
-		return apply_filters( 'wponion_select_input_frameworks', array( 'selectize', 'select2', 'chosen' ) );
+		return apply_filters( 'wponion/js/select_frameworks', array( 'selectize', 'select2', 'chosen' ) );
 	}
 }
 
@@ -434,7 +434,7 @@ if ( ! function_exists( 'wponion_select_classes' ) ) {
 					break;
 			}
 		}
-		return apply_filters( 'wponion_select_input_frameworks_html_class', explode( ' ', $return ), $framework );
+		return apply_filters( 'wponion/js/select_frameworks/html_class', explode( ' ', $return ), $framework );
 	}
 }
 
@@ -445,7 +445,7 @@ if ( ! function_exists( 'wponion_backup_fonts' ) ) {
 	 * @return array
 	 */
 	function wponion_backup_fonts() {
-		return apply_filters( 'wponion_backup_fonts', Helper::fonts( 'backup' ) );
+		return apply_filters( 'wponion/fonts/backup', Helper::fonts( 'backup' ) );
 	}
 }
 
@@ -456,7 +456,7 @@ if ( ! function_exists( 'wponion_websafe_fonts' ) ) {
 	 * @return mixed
 	 */
 	function wponion_websafe_fonts() {
-		return apply_filters( 'wponion_websafe_fonts', Helper::fonts( 'websafe' ) );
+		return apply_filters( 'wponion/fonts/websafe', Helper::fonts( 'websafe' ) );
 	}
 }
 
@@ -467,7 +467,7 @@ if ( ! function_exists( 'wponion_google_fonts' ) ) {
 	 * @return mixed
 	 */
 	function wponion_google_fonts() {
-		return apply_filters( 'wponion_google_fonts', Helper::fonts( 'google' ) );
+		return apply_filters( 'wponion/fonts/google', Helper::fonts( 'google' ) );
 	}
 }
 
