@@ -73,7 +73,7 @@ if ( ! function_exists( 'wponion_default_theme' ) ) {
 	 * @return mixed
 	 */
 	function wponion_default_theme() {
-		return apply_filters( 'wponion_default_theme', 'wp' );
+		return apply_filters( 'wponion/default/theme', 'wp' );
 	}
 }
 
