@@ -8,16 +8,14 @@ if ( ! class_exists( '\WPOnion\Exception\Cache_Not_Found' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Cache_Not_Found extends \Exception {
 		/**
 		 * Stores Cache ID.
 		 *
 		 * @var bool
-		 * @access
 		 */
-		protected $cache_id = false;
+		protected $id = false;
 
 		/**
 		 * Returns Cache ID.
@@ -25,7 +23,7 @@ if ( ! class_exists( '\WPOnion\Exception\Cache_Not_Found' ) ) {
 		 * @return bool
 		 */
 		public function get_cache_id() {
-			return $this->cache_id;
+			return $this->id;
 		}
 
 		/**
@@ -34,7 +32,7 @@ if ( ! class_exists( '\WPOnion\Exception\Cache_Not_Found' ) ) {
 		 * @param bool $cache_id
 		 */
 		public function set_cache_id( $cache_id = false ) {
-			$this->cache_id = $cache_id;
+			$this->id = $cache_id;
 		}
 
 		/**
@@ -45,10 +43,7 @@ if ( ! class_exists( '\WPOnion\Exception\Cache_Not_Found' ) ) {
 		 * @return mixed
 		 */
 		public function set( $values ) {
-			if ( false !== $this->cache_id ) {
-				return wponion_set_cache( $this->cache_id, $values );
-			}
-			return false;
+			return ( false !== $this->id ) ? wponion_set_cache( $this->id, $values ) : false;
 		}
 	}
 }
