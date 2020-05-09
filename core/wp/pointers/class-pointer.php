@@ -4,6 +4,7 @@ namespace WPOnion\WP\Pointers;
 
 use JsonSerializable;
 use WPOnion\Bridge\Module;
+use WPOnion\Traits\Json_Serialize;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -13,20 +14,14 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 	 *
 	 * @package WPOnion\WP\Pointers
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Pointer extends Module implements JsonSerializable {
-		/**
-		 * @var null
-		 * @access
-		 */
-		private $pointer_instance = null;
+		use Json_Serialize;
 
 		/**
-		 * @var bool
-		 * @access
+		 * @var null
 		 */
-		private $pending_args = false;
+		private $pointer_instance;
 
 		/**
 		 * Pointer constructor.
@@ -100,7 +95,7 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 		 */
 		public function add() {
 			$instance = wponion_wp_pointers_registry( $this->pointer_instance );
-			return call_user_func_array( array( $instance, 'nested_add' ), array( $this, func_get_args() ) );
+			return wponion_callback( array( $instance, 'nested_add' ), array( $this, func_get_args() ) );
 		}
 
 		public function on_init() {
@@ -111,7 +106,7 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 		 *
 		 * @return array
 		 */
-		public function to_array() {
+		public function get() {
 			$return = array();
 			$args   = $this->default_pointer_args();
 			foreach ( array_keys( $args ) as $method ) {
@@ -122,13 +117,6 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 			$return['class'] = $return['css_class'];
 			unset( $return['css_class'] );
 			return $return;
-		}
-
-		/**
-		 * @return array|mixed
-		 */
-		public function jsonSerialize() {
-			return $this->to_array();
 		}
 
 		/**
@@ -236,7 +224,7 @@ if ( ! class_exists( '\WPOnion\WP\Pointers\Pointer' ) ) {
 					$this->set_option( 'next', $next );
 					return $this;
 				} else {
-					$instance = call_user_func_array( array( &$this, 'add' ), func_get_args() );
+					$instance = wponion_callback( array( $this, 'add' ), func_get_args() );
 					$this->set_option( 'next', $instance->uid() );
 					return $this;
 				}

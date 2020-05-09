@@ -14,12 +14,10 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Data' ) ) {
 	 *
 	 * @package WPOnion\WP\Sysinfo
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Data {
 		/**
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		public static $status = array();

@@ -2,11 +2,9 @@
 
 namespace WPOnion\WP;
 
-
 use WP_Widget;
 
 defined( 'ABSPATH' ) || exit;
-
 
 if ( ! class_exists( '\WPOnion\WP\Widget' ) ) {
 	/**
@@ -14,7 +12,6 @@ if ( ! class_exists( '\WPOnion\WP\Widget' ) ) {
 	 *
 	 * @package WPOnion\WP
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Widget extends WP_Widget {
 		/***

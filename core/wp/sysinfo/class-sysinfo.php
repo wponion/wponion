@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Sysinfo' ) ) {
 	 *
 	 * @package WPOnion\WP\Sysinfo
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Sysinfo {
 
@@ -43,11 +42,11 @@ if ( ! class_exists( '\WPOnion\WP\Sysinfo\Sysinfo' ) ) {
 			echo <<<JAVASCRIPT
 			<script>
 jQuery(function(){
-jQuery(".wponion-debug-report").on("click",function(){
-jQuery(this).parent().find('#sysreport').slideDown();
-jQuery(this).parent().find( 'textarea' ).focus().select();
-jQuery(this).remove();
-})
+	jQuery(".wponion-debug-report").on("click",function(){
+		jQuery(this).parent().find('#sysreport').slideDown();
+			jQuery(this).parent().find( 'textarea' ).focus().select();
+		jQuery(this).remove();
+	})
 });
 </script>
 JAVASCRIPT;

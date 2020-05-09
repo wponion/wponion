@@ -14,7 +14,6 @@ if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class WP_List_Table extends \WP_List_Table {
 		/**
@@ -714,7 +713,7 @@ HTML;
 		 * @param $type
 		 */
 		protected function table_head_foot( $type ) {
-			$is_foot = ( 'foot' === $type ) ? true : false;
+			$is_foot = ( 'foot' === $type );
 			$args    = $this->args_to_table_attr( $this->option( 'table_' . $type ), array(
 				'class' => $this->get_html_classes( 't' . $type ),
 			) );
