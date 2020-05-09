@@ -13,7 +13,7 @@ if ( ! function_exists( 'wponion_ajax_action' ) ) {
 		if ( false === $action ) {
 			return ( isset( $_REQUEST['wponion-ajax'] ) ) ? $_REQUEST['wponion-ajax'] : false;
 		}
-		return ( isset( $_REQUEST['wponion-ajax'] ) && $action === $_REQUEST['wponion-ajax'] ) ? true : false;
+		return ( isset( $_REQUEST['wponion-ajax'] ) && $action === $_REQUEST['wponion-ajax'] );
 	}
 }
 
@@ -30,7 +30,7 @@ if ( ! function_exists( 'wponion_is_ajax' ) ) {
 			if ( false === $action ) {
 				return ( isset( $_REQUEST['action'] ) ) ? $_REQUEST['action'] : false;
 			}
-			return ( isset( $_REQUEST['action'] ) && $action === $_REQUEST['action'] ) ? true : false;
+			return ( isset( $_REQUEST['action'] ) && $action === $_REQUEST['action'] );
 		}
 		return false;
 	}

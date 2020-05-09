@@ -7,8 +7,8 @@ if ( ! function_exists( 'wponion_field_cloneable_sanitize' ) ) {
 	/**
 	 * A Helper function to handle cloneable fields value.
 	 *
-	 * @param string $value
-	 * @param string $callback
+	 * @param string|array $value
+	 * @param string       $callback
 	 *
 	 * @return array|string
 	 */

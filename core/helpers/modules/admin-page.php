@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Modules\Admin_Page;
+
 if ( ! function_exists( 'wponion_admin_page_registry' ) ) {
 	/**
 	 * Creates & Returns an static instance for User Profile. module.
@@ -22,6 +25,6 @@ if ( ! function_exists( 'wponion_admin_page' ) ) {
 		if ( is_string( $arguments ) ) {
 			return wponion_admin_page_registry( $arguments );
 		}
-		return new \WPOnion\Modules\Admin_Page( $arguments );
+		return new Admin_Page( $arguments );
 	}
 }

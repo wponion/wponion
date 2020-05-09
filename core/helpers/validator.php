@@ -101,6 +101,6 @@ if ( ! function_exists( 'wponion_is_valid_html' ) ) {
 	 * @return bool
 	 */
 	function wponion_is_valid_html( $string ) {
-		return strip_tags( $string ) !== $string ? true : false;
+		return ( strip_tags( $string ) !== $string );
 	}
 }

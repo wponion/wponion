@@ -1,4 +1,8 @@
 <?php
+
+use WPOnion\Modules\Admin_Notice;
+use WPOnion\Modules\Admin_Notices;
+
 if ( ! function_exists( 'wponion_admin_notices_registry' ) ) {
 	/**
 	 * @param $instance
@@ -26,7 +30,7 @@ if ( ! function_exists( 'wponion_admin_notices' ) ) {
 				return $instance;
 			}
 		}
-		return new \WPOnion\Modules\Admin_Notices( $instance_id_or_args );
+		return new Admin_Notices( $instance_id_or_args );
 	}
 }
 
@@ -47,7 +51,7 @@ if ( ! function_exists( 'wponion_admin_notice' ) ) {
 			'content' => $content,
 			'type'    => $type,
 		) );
-		return new \WPOnion\Modules\Admin_Notice( $args );
+		return new Admin_Notice( $args );
 	}
 }
 

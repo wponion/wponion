@@ -40,7 +40,7 @@ if ( ! function_exists( 'wponion_tooltip' ) ) {
 	 * @param bool  $element
 	 * @param bool  $localize
 	 *
-	 * @return array|string||\WPOnion\Util
+	 * @return array|string|\WPOnion\Util
 	 */
 	function wponion_tooltip( $content = false, $args = array(), $element = false, $localize = true ) {
 		if ( is_array( $content ) && ! empty( $args ) && is_string( $args ) ) {

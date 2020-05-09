@@ -87,8 +87,8 @@ if ( ! function_exists( 'wpo_post_meta' ) ) {
 	/**
 	 * Featches & Returns Saved WPOnion Settings.
 	 *
-	 * @param string|int  $post_id
 	 * @param string      $unique
+	 * @param string|int  $post_id
 	 * @param bool|string $option_key
 	 * @param bool|mixed  $default
 	 *
@@ -103,8 +103,8 @@ if ( ! function_exists( 'wpo_user_meta' ) ) {
 	/**
 	 * Featches & Returns Saved WPOnion Settings.
 	 *
-	 * @param string|int  $user_id
 	 * @param string      $unique
+	 * @param string|int  $user_id
 	 * @param bool|string $option_key
 	 * @param bool|mixed  $default
 	 *
@@ -119,8 +119,8 @@ if ( ! function_exists( 'wpo_term_meta' ) ) {
 	/**
 	 * Featches & Returns Saved WPOnion Settings.
 	 *
-	 * @param string|int  $term_id
 	 * @param string      $unique
+	 * @param string|int  $term_id
 	 * @param bool|string $option_key
 	 * @param bool|mixed  $default
 	 *
