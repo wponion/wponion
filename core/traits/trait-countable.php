@@ -10,7 +10,6 @@ if ( ! trait_exists( '\WPOnion\Traits\Countable' ) ) {
 	 *
 	 * @package WPOnion\Traits
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	trait Countable {
 		/**

@@ -10,20 +10,17 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 	 *
 	 * @package WPOnion\Traits
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	trait Class_Options {
 		/**
 		 * Stores Options.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $settings = array();
 
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $array_key_delimiter = '/';
 

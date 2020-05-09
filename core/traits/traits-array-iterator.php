@@ -10,12 +10,10 @@ if ( ! trait_exists( '\WPOnion\Traits\Array_Iterator' ) ) {
 	 *
 	 * @package WPOnion\Traits
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	trait Array_Iterator {
 		/**
 		 * @return mixed
-		 * @internal
 		 */
 		public function current() {
 			$keys = array_keys( $this->{$this->array_var} );
