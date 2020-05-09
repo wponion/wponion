@@ -13,7 +13,6 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 	 *
 	 * @package WPOnion\Ajax
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Icon_Picker extends Ajax {
 		protected $validate_field_path = false;
@@ -74,8 +73,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 * @return string
 		 */
 		protected function picker_header( $libs, $selected_lib ) {
-			$html = '<div class="wponion-icon-picker-model-header">';
-			$html .= '<input type="text" placeholder="' . __( 'Search Icon', 'wponion' ) . '"/>';
+			$html = '<div class="wponion-icon-picker-model-header"> <input type="text" placeholder="' . __( 'Search Icon', 'wponion' ) . '"/>';
 			if ( wponion_is_array( $libs ) && count( $libs ) > 1 ) {
 				$select = wpo_field( 'select' )
 					->options( $libs )
@@ -96,8 +94,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 */
 		protected function create_group( $title, $icons ) {
 			/* @var \WPO\Fields\Accordion $acc */
-			$acc = wpo_field( 'accordion', sanitize_title( $title ) );
-			$acc->open();
+			$acc = wpo_field( 'accordion', sanitize_title( $title ) )->open();
 			$acc->heading( $title );
 			$acc->content( $icons );
 			return $acc->render( false, false );
@@ -240,26 +237,17 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 * @return string
 		 */
 		protected function single_icon_html( $icon ) {
-			$icon   = wponion_handle_string_args_with_defaults( 'css', $icon, Icons::icon_defaults() );
-			$title  = ( empty( $icon['title'] ) ) ? $icon['css'] : $icon['title'];
-			$search = $icon['terms'];
-
-			if ( is_string( $search ) ) {
-				$search = explode( ',', $search );
-			}
-
-			if ( is_array( $search ) ) {
-				$search = implode( ' ', $search );
-			}
-			//data-search="{$icon['css']} $search"
+			$icon      = wponion_handle_string_args_with_defaults( 'css', $icon, Icons::icon_defaults() );
+			$title     = ( empty( $icon['title'] ) ) ? $icon['css'] : $icon['title'];
+			$search    = ( is_string( $icon['terms'] ) ) ? explode( ',', $icon['terms'] ) : $icon['terms'];
+			$search    = ( is_array( $icon['terms'] ) ) ? implode( ' ', $search ) : $search;
 			$icon_html = wponion_icon( $icon['css'] );
-			$html      = <<<HTML
+			return <<<HTML
 <div class="wponion-icon-preview-wrap">
 	<span data-icon="{$icon['css']}" title="$title" class="wponion-icon-preview">$icon_html</span>
 	<span class="hidden wpo-icon-terms" style="display: none !important; visibility: hidden !important;">{$icon['css']} $search</span>
  </div>
 HTML;
-			return $html;
 		}
 	}
 }

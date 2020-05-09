@@ -157,15 +157,18 @@
 	.wponion-icon-preview {
 		margin-right: 10px;
 		margin-left:  0;
-		/*+ .wponion-icon-preview */
 	}
 
 	.wponion-icon-picker-input:not(.hidden) {
 		margin-right: 10px;
 	}
 
-	button + button {
-		margin-left: 10px;
+	button {
+		margin-right: 10px !important;
+
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 }
 
