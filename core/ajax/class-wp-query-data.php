@@ -12,19 +12,9 @@ if ( ! class_exists( '\WPOnion\Ajax\WP_Query_Data' ) ) {
 	 *
 	 * @package WPOnion\Ajax
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class WP_Query_Data extends Ajax {
-		/**
-		 * @var bool
-		 * @access
-		 */
-		protected $validate_module = false;
-
-		/**
-		 * @var bool
-		 * @access
-		 */
+		protected $validate_module     = false;
 		protected $validate_field_path = false;
 
 		/**

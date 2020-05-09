@@ -13,19 +13,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 	 *
 	 * @package WPOnion\Ajax
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Save_Metabox extends Ajax {
-		/**
-		 * @var bool
-		 * @access
-		 */
-		protected $validate_module = false;
-
-		/**
-		 * @var bool
-		 * @access
-		 */
+		protected $validate_module     = false;
 		protected $validate_field_path = false;
 
 		/**
@@ -48,7 +38,6 @@ if ( ! class_exists( '\WPOnion\Ajax\Save_Metabox' ) ) {
 				do_action( 'wponion/ajax/metabox/render/after', $unique );
 				$this->json_success( array( 'html' => wponion_catch_output( false ) ) );
 			}
-
 			$this->error( __( 'Metabox Not Found', 'wponion' ), __( 'Unable To Find The Metabox', 'wponion' ) );
 		}
 	}

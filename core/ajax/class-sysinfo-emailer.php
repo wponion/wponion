@@ -12,19 +12,9 @@ if ( ! class_exists( '\WPOnion\Ajax\Sysinfo_Emailer' ) ) {
 	 *
 	 * @package WPOnion\Ajax
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Sysinfo_Emailer extends Ajax {
-		/**
-		 * @var bool
-		 * @access
-		 */
-		protected $validate_module = false;
-
-		/**
-		 * @var bool
-		 * @access
-		 */
+		protected $validate_module     = false;
 		protected $validate_field_path = false;
 
 		/**
@@ -37,16 +27,15 @@ if ( ! class_exists( '\WPOnion\Ajax\Sysinfo_Emailer' ) ) {
 				$this->error( __( 'Developer Email Not Found', 'wponion' ), __( 'Unable To Find Plugin\'s Developer Contact.', 'wponion' ) );
 			}
 
-			$headers = array(
+			$headers = apply_filters( 'wponion/ajax/sysinfo/emailer', array(
 				'From: ' . sanitize_text_field( $data['from_name'] ) . ' <' . sanitize_text_field( $data['from_email'] ) . '>',
 				'Reply-To: ' . sanitize_text_field( $data['from_email'] ),
-			);
+			), $data['developer'] );
 
 			$message = html_entity_decode( $data['message'] );
 			$message .= "\r\n\r\n---------------\r\n\r\n";
-			$message .= $_POST['sysinfo'];
-
-			$sent = wp_mail( $data['developer'], sanitize_text_field( $data['subject'] ), stripslashes( $message ), $headers );
+			$message .= $this->post( 'sysinfo' );
+			$sent    = wp_mail( $data['developer'], sanitize_text_field( $data['subject'] ), stripslashes( $message ), $headers );
 
 			if ( $sent ) {
 				$this->json_success();

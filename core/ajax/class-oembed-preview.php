@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Ajax\OEmbed_Preview' ) ) {
 	 *
 	 * @package WPOnion\Ajax
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class OEmbed_Preview extends Ajax {
 		/**

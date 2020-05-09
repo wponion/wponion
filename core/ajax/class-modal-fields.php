@@ -13,7 +13,6 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 	 *
 	 * @package WPOnion\Ajax
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Modal_Fields extends Ajax {
 		/**

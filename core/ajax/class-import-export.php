@@ -13,7 +13,6 @@ if ( ! class_exists( '\WPOnion\Ajax\Import_Export' ) ) {
 	 *
 	 * @package WPOnion\Ajax
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Import_Export extends Ajax {
 		/**

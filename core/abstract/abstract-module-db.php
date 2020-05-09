@@ -227,7 +227,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		protected function set_db_cache( $values ) {
+		public function set_db_cache( $values ) {
 			$cid                 = $this->get_cache_id();
 			$values              = array_filter( $values );
 			$this->options_cache = $values;
