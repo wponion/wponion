@@ -10,14 +10,12 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 	 *
 	 * @package WPOnion\Registry
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Field_Types {
 		/**
 		 * Stores All Field Types.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		public static $all_fields = array();
@@ -27,7 +25,6 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 		 * array('all' => array('text','textarea'));
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		public static $module_fields = array();
@@ -36,7 +33,6 @@ if ( ! class_exists( '\WPOnion\Registry\Field_Types' ) ) {
 		 * Stores Field Types That Are Used To Just For UI Related.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		public static $design_fields = array();

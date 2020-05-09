@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Registry\Core' ) ) {
 	 *
 	 * @package WPOnion\Registry
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Core implements Common {
 		/**

@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPOnion\Registry\Holder' ) ) {
 	 *
 	 * @package WPOnion\Registry
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Holder {
 		/**
