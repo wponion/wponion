@@ -13,26 +13,22 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 	 *
 	 * @package WPOnion\Integrations\Page_Builders\Elementor
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	trait Base {
 		/**
 		 * @var string
-		 * @access
 		 * @static
 		 */
 		public static $wpo_title = false;
 
 		/**
 		 * @var bool
-		 * @access
 		 * @static
 		 */
 		public static $wpo_slug = false;
 
 		/**
 		 * @var \WPOnion\Modules\Metabox\Metabox|\WPOnion\Modules\Taxonomy|\WPOnion\Modules\Settings\Settings
-		 * @access
 		 * @static
 		 */
 		public static $wpo_instance = null;
@@ -41,7 +37,6 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 		 * Stores Field ID & Its Type.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $wpo_ids = array();
 
@@ -49,7 +44,6 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 		 * Stores WPO Values.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $wpo_values = false;
 
@@ -57,7 +51,6 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 		 * Stores All Field Types => ids
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $wpo_types_ids = array();
 

@@ -12,7 +12,6 @@ namespace WPOnion\Integrations\Page_Builders\Elementor {
 		 *
 		 * @package WPOnion\Integrations\Page_Builders\Elementor
 		 * @author Varun Sridharan <varunsridharan23@gmail.com>
-		 * @since 1.0
 		 */
 		class Taxonomy extends Tag {
 			use Base;
@@ -72,7 +71,6 @@ namespace WPOnion\Integrations\Page_Builders\Elementor {
 		 *
 		 * @package WPOnion\Integrations\Page_Builders\Elementor
 		 * @author Varun Sridharan <varunsridharan23@gmail.com>
-		 * @since 1.0
 		 */
 		class Taxonomy_Data extends Data_Tag {
 			use Base;

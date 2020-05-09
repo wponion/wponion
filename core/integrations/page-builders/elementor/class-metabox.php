@@ -12,7 +12,6 @@ namespace WPOnion\Integrations\Page_Builders\Elementor {
 		 *
 		 * @package WPOnion\Integrations\Page_Builders\Elementor
 		 * @author Varun Sridharan <varunsridharan23@gmail.com>
-		 * @since 1.0
 		 */
 		class Metabox extends Tag {
 			use Base;
@@ -66,7 +65,6 @@ namespace WPOnion\Integrations\Page_Builders\Elementor {
 		 *
 		 * @package WPOnion\Integrations\Page_Builders\Elementor
 		 * @author Varun Sridharan <varunsridharan23@gmail.com>
-		 * @since 1.0
 		 */
 		class Metabox_Data extends Data_Tag {
 			use Base;

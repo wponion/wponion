@@ -10,10 +10,8 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Fields' ) ) 
 	 *
 	 * @package WPOnion\Integrations\Page_Builders\Elementor
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	trait Fields {
-
 		/**
 		 * @param $image
 		 *

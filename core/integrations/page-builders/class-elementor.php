@@ -15,10 +15,8 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 	 *
 	 * @package WPOnion\Integrations\Page_Builders
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	final class Elementor {
-
 		/**
 		 * Inits Base Class.
 		 *
