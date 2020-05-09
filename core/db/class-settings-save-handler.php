@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 	 *
 	 * @package WPOnion\DB\Settings
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Settings_Save_Handler extends Data_Validator_Sanitizer {
 		/**

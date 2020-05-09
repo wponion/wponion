@@ -14,7 +14,6 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 	 *
 	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Data_Validator_Sanitizer extends Bridge {
 		/**
@@ -24,9 +23,6 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 
 		/**
 		 * Stores Unique ID.
-		 *
-		 * @var
-		 * @access
 		 */
 		protected $unique;
 
@@ -34,13 +30,11 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * Stores Field's / Containers / Both.
 		 *
 		 * @var \WPO\Builder
-		 * @access
 		 */
 		protected $fields;
 
 		/**
-		 * @var
-		 * @access
+		 * @var mixed
 		 */
 		protected $retain_values;
 
@@ -48,23 +42,16 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * Fetches & Stores values that are stored in DB.
 		 *
 		 * @var array|\WPOnion\DB\Option
-		 * @access
 		 */
 		protected $db_values;
 
 		/**
 		 * Stores $_GET / $_POST Values.
-		 *
-		 * @var
-		 * @access
 		 */
 		protected $posted_values;
 
 		/**
 		 * Stores Returnable Values.
-		 *
-		 * @var
-		 * @access
 		 */
 		protected $return_values;
 
@@ -79,7 +66,6 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * Custom Arguments On how this handler work.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $args = array();
 
@@ -87,7 +73,6 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * How array delimiter works with.
 		 *
 		 * @var string
-		 * @access
 		 */
 		protected $delimiter = '/';
 
@@ -132,9 +117,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 			$parent['field_path'] = ( is_string( $parent['field_path'] ) ) ? explode( '/', $parent['field_path'] ) : $parent['field_path'];
 
 			if ( ! isset( $field['field_path'] ) ) {
-				$field['field_path'] = array_filter( wp_parse_args( array(
-					( ! wponion_is_unarrayed( $field ) ) ? $field['id'] : '',
-				), $parent['field_path'] ) );
+				$field['field_path'] = array_filter( wp_parse_args( array( ( ! wponion_is_unarrayed( $field ) ) ? $field['id'] : '' ), $parent['field_path'] ) );
 			}
 			return $field;
 		}
@@ -147,15 +130,13 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * @return bool
 		 */
 		protected function is_valid_field( $field ) {
-			$type   = wponion_get_field_type( $field, false );
-			$return = true;
-			switch ( $type ) {
+			switch ( wponion_get_field_type( $field, false ) ) {
 				case 'modal':
-					$return = ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) ? true : false;
+					return ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) );
 					break;
 			}
 
-			return $return;
+			return true;
 		}
 
 		/**
@@ -355,7 +336,6 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 					$_values = Helper::array_key_get( $path, $this->return_values, '/' );
 					$value   = array_merge( $_values, $value );
 				}
-
 				Helper::array_key_set( $path, $value, $this->return_values, '/' );
 			}
 			return true;

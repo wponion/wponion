@@ -19,7 +19,6 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 	 *
 	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Option implements ArrayAccess, Iterator, JsonSerializable, \Serializable, \Countable {
 		use Json_Serialize;
@@ -29,19 +28,16 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 
 		/**
 		 * @var bool
-		 * @access
 		 */
 		protected $module = false;
 
 		/**
 		 * @var bool
-		 * @access
 		 */
 		protected $unique = false;
 
 		/**
 		 * @var bool
-		 * @access
 		 */
 		protected $extra = false;
 
@@ -49,14 +45,12 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * Stores All Network Options.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected $options = array();
 
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $delimiter = '/';
 
@@ -112,7 +106,6 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 					$return = get_user_meta( $this->extra, $this->unique, true );
 					break;
 			}
-			///$this->options = ( ! is_array( $return ) || ! empty( $return ) ) ? array() : $return;
 			$this->options = $return;
 		}
 
@@ -132,7 +125,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 */
 		public function save() {
 			$instance = wponion_wp_db()->set( $this->module, $this->unique, $this->extra, $this->options );
-			return ( ! is_wp_error( $instance ) && false !== $instance ) ? true : false;
+			return ( ! is_wp_error( $instance ) && false !== $instance );
 		}
 
 		/**

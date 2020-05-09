@@ -11,14 +11,11 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 	 *
 	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Cache {
 		/**
 		 * Stores Cache Not Found Value.
 		 *
-		 * @var
-		 * @access
 		 * @static
 		 */
 		protected static $not_found_value;
@@ -27,7 +24,6 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		 * Stores Cache Database Key.
 		 *
 		 * @var string
-		 * @access
 		 * @static
 		 */
 		protected static $db_key = '_wponion_db_cache';
@@ -36,7 +32,6 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		 * Stores Current Database Cache.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $cache = false;
@@ -79,7 +74,6 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		 *
 		 * @static
 		 * @return array
-		 * @uses \array_filter()
 		 */
 		public static function filter_save( $data ) {
 			return ( is_array( $data ) ) ? array_filter( $data ) : $data;
@@ -116,8 +110,7 @@ if ( ! class_exists( '\WPOnion\DB\Cache' ) ) {
 		 * @return array|object
 		 */
 		public static function set( $key, $value = false ) {
-			$return = Helper::array_key_set( $key, $value, self::$cache );
-			return $return;
+			return Helper::array_key_set( $key, $value, self::$cache );
 		}
 
 		/**

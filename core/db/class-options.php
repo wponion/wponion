@@ -10,14 +10,12 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 	 *
 	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Options {
 		/**
 		 * Stores All Network Options.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $network_options = array();
@@ -26,7 +24,6 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * Stores All Options
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $settings = array();
@@ -35,7 +32,6 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * Stores All Post Meta
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $post = array();
@@ -44,7 +40,6 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * Stores All Taxonomy Meta.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $term = array();
@@ -53,7 +48,6 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * Stores All User Meta.
 		 *
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $user_meta = array();

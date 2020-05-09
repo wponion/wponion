@@ -9,7 +9,6 @@ if ( ! trait_exists( '\WPOnion\DB\Fields\Modal' ) ) {
 	 *
 	 * @package WPOnion\DB\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	trait Modal {
 		/**

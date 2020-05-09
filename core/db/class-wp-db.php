@@ -7,8 +7,8 @@ if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 	/**
 	 * Class WP_DB
 	 *
+	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class WP_DB {
 		/**

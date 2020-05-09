@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 	 *
 	 * @package WPOnion\DB
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Query extends Bridge {
 		/**
