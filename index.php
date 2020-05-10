@@ -12,6 +12,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'WPONION_PLUGIN_FILE' ) || define( 'WPONION_PLUGIN_FILE', __FILE__ );
+defined( 'WPONION_PLUGIN_FILE' ) || define( 'WPONION_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 
 require_once 'wponion.php';

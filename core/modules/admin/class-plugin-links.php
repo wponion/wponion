@@ -2,6 +2,9 @@
 
 namespace WPOnion\Modules\Admin;
 
+use WPOnion\Traits\Class_Options;
+use WPOnion\Traits\Internal\Unique;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
@@ -12,35 +15,8 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
 	class Plugin_Links {
-		/**
-		 * @var null
-		 * @access
-		 */
-		protected $file = null;
-
-		/**
-		 * Stores All Action Links.
-		 *
-		 * @var array
-		 * @access
-		 */
-		protected $action_link = array(
-			'before' => array(),
-			'after'  => array(),
-			'center' => array(),
-		);
-
-		/**
-		 * Stores All Action Links.
-		 *
-		 * @var array
-		 * @access
-		 */
-		protected $row_links = array(
-			'before' => array(),
-			'after'  => array(),
-			'center' => array(),
-		);
+		use Class_Options;
+		use Unique;
 
 		/**
 		 * Plugin_Links constructor.
@@ -49,9 +25,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 		 */
 		public function __construct( $plugin_file ) {
 			if ( is_admin() ) {
-				$this->file = plugin_basename( $plugin_file );
-				add_filter( 'plugin_row_meta', array( $this, 'row_links' ), 10, 2 );
-				add_filter( 'plugin_action_links_' . $this->file, array( $this, 'action_links' ) );
+				$this->unique = plugin_basename( $plugin_file );
+				add_filter( 'plugin_row_meta', array( $this, 'register_row_links' ), 10, 2 );
+				add_filter( 'plugin_action_links_' . $this->unique(), array( $this, 'register_action_links' ) );
 			}
 		}
 
@@ -62,16 +38,17 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 		 * @return array
 		 */
 		protected function _merge( $type, $data ) {
-			if ( ! empty( $this->{$type}['before'] ) ) {
-				$data = array_merge( $this->{$type}['before'], $data );
+			$key = "data/${type}";
+			if ( ! empty( $this->option( "${key}/before" ) ) ) {
+				$data = wponion_parse_args( $this->option( "${key}/before" ), $data );
 			}
 
-			if ( ! empty( $this->{$type}['center'] ) ) {
-				$data = array_merge( $data, $this->{$type}['center'] );
+			if ( ! empty( $this->option( "${key}/center" ) ) ) {
+				$data = wponion_parse_args( $data, $this->option( "${key}/center" ) );
 			}
 
-			if ( ! empty( $this->{$type}['after'] ) ) {
-				$data = array_merge( $data, $this->{$type}['after'] );
+			if ( ! empty( $this->option( "${key}/after" ) ) ) {
+				$data = wponion_parse_args( $data, $this->option( "${key}/after" ) );
 			}
 			return $data;
 		}
@@ -84,8 +61,8 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 		 *
 		 * @return array
 		 */
-		public function row_links( $links, $plugin_file ) {
-			return ( $plugin_file === $this->file ) ? $this->_merge( 'row_links', $links ) : $links;
+		public function register_row_links( $links, $plugin_file ) {
+			return ( $plugin_file === $this->unique() ) ? $this->_merge( 'row', $links ) : $links;
 		}
 
 		/**
@@ -95,25 +72,21 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 		 *
 		 * @return array
 		 */
-		public function action_links( $actions ) {
-			return $this->_merge( 'action_link', $actions );
+		public function register_action_links( $actions ) {
+			return $this->_merge( 'action', $actions );
 		}
 
 		/**
-		 * @param string      $var
-		 * @param string      $type
-		 * @param string|null $slug
-		 * @param string      $element
+		 * @param string $var
+		 * @param string $type
+		 * @param string $slug
+		 * @param string $element
 		 *
 		 * @return $this
 		 */
 		protected function _store( $var, $type, $slug, $element ) {
-			if ( false !== $slug ) {
-				$this->{$var}[ $type ][ $slug ] = $element;
-			} else {
-				$this->{$var}[ $type ][] = $element;
-			}
-			return $this;
+			$key = ( false !== $slug ) ? "data/${var}/${type}/${slug}" : "data/${var}/${type}/";
+			return $this->set_option( $key, $element );
 		}
 
 		/**
@@ -133,10 +106,10 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Admin\Plugin_Links
+		 * @return $this
 		 */
 		public function action_link( $slug, $element_or_title, $href = false ) {
-			return $this->_store( 'action_link', 'center', $slug, $this->element( $element_or_title, $href ) );
+			return $this->_store( 'action', 'center', $slug, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
@@ -144,10 +117,10 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Admin\Plugin_Links
+		 * @return $this
 		 */
 		public function action_link_before( $slug, $element_or_title, $href = false ) {
-			return $this->_store( 'action_link', 'before', $slug, $this->element( $element_or_title, $href ) );
+			return $this->_store( 'action', 'before', $slug, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
@@ -155,40 +128,40 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Admin\Plugin_Links
+		 * @return $this
 		 */
 		public function action_link_after( $slug, $element_or_title, $href = false ) {
-			return $this->_store( 'action_link', 'after', $slug, $this->element( $element_or_title, $href ) );
+			return $this->_store( 'action', 'after', $slug, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Admin\Plugin_Links
+		 * @return $this
 		 */
 		public function row_link( $element_or_title, $href = false ) {
-			return $this->_store( 'row_links', 'center', false, $this->element( $element_or_title, $href ) );
+			return $this->_store( 'row', 'center', false, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Admin\Plugin_Links
+		 * @return $this
 		 */
 		public function row_link_before( $element_or_title, $href = false ) {
-			return $this->_store( 'row_links', 'before', false, $this->element( $element_or_title, $href ) );
+			return $this->_store( 'row', 'before', false, $this->element( $element_or_title, $href ) );
 		}
 
 		/**
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Admin\Plugin_Links
+		 * @return $this
 		 */
 		public function row_link_after( $element_or_title, $href = false ) {
-			return $this->_store( 'row_links', 'after', false, $this->element( $element_or_title, $href ) );
+			return $this->_store( 'row', 'after', false, $this->element( $element_or_title, $href ) );
 		}
 	}
 }
