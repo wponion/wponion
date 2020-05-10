@@ -39,7 +39,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 					$col['post_type'] = $this->option( 'post_type' );
 				}
 				$instance = wponion_admin_columns( $col );
-				$this->set_option( 'column', $instance->slug() );
+				$this->set_option( 'column', $instance->unique() );
 			}
 		}
 

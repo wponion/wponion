@@ -1,20 +1,19 @@
 <?php
 
-namespace WPOnion\Modules\Util;
+namespace WPOnion\Modules\Admin;
 
-use WPOnion\Bridge\Module;
+use WPOnion\Bridge\Module_Utility;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Columns' ) ) {
 	/**
-	 * Class Admin_Columns
+	 * Class Columns
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Admin
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
-	class Admin_Columns extends Module {
+	class Columns extends Module_Utility {
 		/**
 		 * @var string
 		 * @access
@@ -22,14 +21,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		protected $module = 'admin_columns';
 
 		/**
-		 * already_exists
-		 *
-		 * @var bool
-		 */
-		protected $already_exists = false;
-
-		/**
-		 * Admin_Columns constructor.
+		 * Columns constructor.
 		 *
 		 * @param array $post_type
 		 * @param array $arguments
@@ -37,7 +29,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		 */
 		public function __construct( $post_type = array(), $arguments = array(), $render_callback = array() ) {
 			if ( ! empty( $post_type ) && isset( $post_type['title'] ) ) {
-				parent::__construct( null, $post_type );
+				parent::__construct( $post_type );
 				$this->on_init();
 			} elseif ( ! empty( $post_type ) && ! empty( $arguments ) ) {
 				$arguments = ( is_string( $arguments ) ) ? array( 'title' => $arguments ) : $arguments;
@@ -65,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 					} else {
 						$arguments = $this->parse_args( $post_type, $arguments );
 					}
-					parent::__construct( null, $arguments );
+					parent::__construct( $arguments );
 					$this->on_init();
 				}
 			} elseif ( ! empty( $post_type ) && empty( $arguments ) ) {
@@ -74,7 +66,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 						new self( $types );
 					}
 				} else {
-					parent::__construct( null, $post_type );
+					parent::__construct( $post_type );
 					$this->on_init();
 				}
 			}
@@ -91,21 +83,22 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_hook_name( $post_type, $surfix = 'custom_column', $prefix = 'manage_', $middle = '_posts_' ) {
+		protected function get_hook_name( $post_type, $surfix = 'custom_column', $prefix = 'manage_', $middle = '_posts_' ) {
 			return $prefix . $post_type . $middle . $surfix;
 		}
 
 		/**
 		 * Triggers An Instance.
 		 */
-		public function on_init() {
-			$post_types = $this->option( 'post_type' );
-			$post_types = ( ! wponion_is_array( $post_types ) ) ? array( $post_types ) : $post_types;
+		protected function on_init() {
+			$this->unique = ( ! empty( $this->option( 'name' ) ) ) ? $this->option( 'name' ) : sanitize_title( $this->option( 'title' ) );
+			$post_types   = $this->option( 'post_type' );
+			$post_types   = ( ! wponion_is_array( $post_types ) ) ? array( $post_types ) : $post_types;
 			foreach ( $post_types as $type ) {
-				$this->add_filter( $this->get_hook_name( $type, 'columns' ), 'add_custom_column' );
+				$this->add_filter( $this->get_hook_name( $type, 'columns' ), 'register_columns' );
 				$this->add_filter( $this->get_hook_name( $type ), 'render_column', 30, 2 );
 				if ( false !== $this->option( 'sortable' ) ) {
-					$this->add_filter( $this->get_hook_name( $type, '_sortable_columns', 'manage_edit-', '' ), 'sortable_column' );
+					$this->add_filter( $this->get_hook_name( $type, '_sortable_columns', 'manage_edit-', '' ), 'register_sortable_column' );
 				}
 			}
 		}
@@ -116,7 +109,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		 * @return string
 		 */
 		public function uid() {
-			return $this->slug();
+			return $this->unique();
 		}
 
 		/**
@@ -126,13 +119,13 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function sortable_column( $sort_cols ) {
-			if ( true === $this->already_exists && false === $this->option( 'force_add' ) ) {
+		public function register_sortable_column( $sort_cols ) {
+			if ( true === $this->option( 'already_exists' ) && false === $this->option( 'force_add' ) ) {
 				return $sort_cols;
 			}
 
 			if ( false !== $this->option( 'sortable' ) && true !== $this->option( 'sortable' ) ) {
-				$sort_cols[ $this->slug() ] = $this->option( 'sortable' );
+				$sort_cols[ $this->unique() ] = $this->option( 'sortable' );
 			}
 			return $sort_cols;
 		}
@@ -144,12 +137,12 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		 * @param $post_id
 		 */
 		public function render_column( $col_name, $post_id ) {
-			if ( true === $this->already_exists && false === $this->option( 'force_add' ) ) {
+			if ( true === $this->option( 'already_exists' ) && false === $this->option( 'force_add' ) ) {
 				return;
 			}
 
 			$render = $this->option( 'render' );
-			if ( $col_name === $this->slug() ) {
+			if ( $col_name === $this->unique() ) {
 				if ( wponion_is_callable( $render ) ) {
 					echo wponion_callback( $render, array( $post_id, $col_name, get_post_type( $post_id ) ) );
 				} else {
@@ -159,31 +152,22 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 		}
 
 		/**
-		 * Returns A Proper Col Slug.
-		 *
-		 * @return string
-		 */
-		public function slug() {
-			return ( ! empty( $this->option( 'name' ) ) ) ? $this->option( 'name' ) : sanitize_title( $this->option( 'title' ) );
-		}
-
-		/**
 		 * Creates A Custom Column.
 		 *
 		 * @param $data
 		 *
 		 * @return mixed
 		 */
-		public function add_custom_column( $data ) {
+		public function register_columns( $data ) {
 			global $typenow;
 
-			if ( isset( $data[ $this->slug() ] ) ) {
-				$this->already_exists = true;
+			if ( isset( $data[ $this->unique() ] ) ) {
+				$this->set_option( 'already_exists', true );
 			}
 
 			if ( false !== $this->option( 'reorder' ) ) {
 				if ( wponion_is_callable( $this->option( 'reorder' ) ) ) {
-					$slug          = $this->slug();
+					$slug          = $this->unique();
 					$data[ $slug ] = $this->option( 'title' );
 					$data          = wponion_callback( $this->option( 'reorder' ), array( $data, $slug, $typenow ) );
 				} else {
@@ -191,13 +175,13 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Admin_Columns' ) ) {
 					foreach ( $data as $key => $val ) {
 						$new[ $key ] = $val;
 						if ( $key === $this->option( 'reorder' ) ) {
-							$new[ $this->slug() ] = $this->option( 'title' );
+							$new[ $this->unique() ] = $this->option( 'title' );
 						}
 					}
 					$data = $new;
 				}
 			} else {
-				$data[ $this->slug() ] = $this->option( 'title' );
+				$data[ $this->unique() ] = $this->option( 'title' );
 			}
 			return $data;
 		}
