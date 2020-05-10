@@ -77,6 +77,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Page_Actions' ) ) {
 
 			if ( ! empty( self::$output ) ) {
 				wponion_localize()->add( 'wponion_page_actions', implode( ' ', self::$output ) );
+				wponion_load_core_assets();
 			}
 		}
 
