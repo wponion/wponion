@@ -2,6 +2,9 @@
 
 namespace WPOnion\Modules\CPT\Labels;
 
+use WPOnion\Traits\Class_Options;
+use WPOnion\Traits\Magic_Methods\Options;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
@@ -10,7 +13,6 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
 	 *
 	 * @package WPOnion\Modules\CPT\Labels
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 *
 	 * @method $this name( $label );
 	 * @method $this singular_name( $label );
@@ -27,14 +29,8 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
 	 * @method $this items_list_navigation( $label );
 	 */
 	abstract class Common {
-		/**
-		 * Stores All Labels.
-		 *
-		 * @var array
-		 * @access
-		 */
-		protected $labels = array();
-
+		use Class_Options;
+		use Options;
 
 		/**
 		 * Common constructor.
@@ -44,7 +40,7 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
 		 */
 		public function __construct( $singular = '', $plural = false ) {
 			if ( is_array( $singular ) ) {
-				$this->labels = $singular;
+				$this->settings = $singular;
 			} else {
 				$this->set( $singular, $plural );
 			}
@@ -58,39 +54,19 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
 		 */
 		public function set( $singular, $plural ) {
 			if ( ! empty( $singular ) && ! empty( $plural ) ) {
-				$this->labels['name']                  = $plural;
-				$this->labels['singular_name']         = $singular;
-				$this->labels['menu_name']             = $plural;
-				$this->labels['add_new_item']          = sprintf( 'Add New %s', $singular );
-				$this->labels['edit_item']             = sprintf( 'Edit %s', $singular );
-				$this->labels['view_item']             = sprintf( 'View %s', $singular );
-				$this->labels['search_items']          = sprintf( 'Search %s', $plural );
-				$this->labels['not_found']             = sprintf( 'No %s found.', strtolower( $plural ) );
-				$this->labels['parent_item_colon']     = sprintf( 'Parent %s:', $singular );
-				$this->labels['all_items']             = sprintf( 'All %s', $plural );
-				$this->labels['items_list_navigation'] = sprintf( '%s list navigation', $plural );
-				$this->labels['items_list']            = sprintf( '%s list', $plural );
+				$this->set_option( 'name', $plural );
+				$this->set_option( 'singular_name', $singular );
+				$this->set_option( 'menu_name', $plural );
+				$this->set_option( 'add_new_item', sprintf( 'Add New %s', $singular ) );
+				$this->set_option( 'edit_item', sprintf( 'Edit %s', $singular ) );
+				$this->set_option( 'view_item', sprintf( 'View %s', $singular ) );
+				$this->set_option( 'search_items', sprintf( 'Search %s', $plural ) );
+				$this->set_option( 'not_found', sprintf( 'No %s found.', strtolower( $plural ) ) );
+				$this->set_option( 'parent_item_colon', sprintf( 'Parent %s:', $singular ) );
+				$this->set_option( 'all_items', sprintf( 'All %s', $plural ) );
+				$this->set_option( 'items_list_navigation', sprintf( '%s list navigation', $plural ) );
+				$this->set_option( 'items_list', sprintf( '%s list', $plural ) );
 			}
-			return $this;
-		}
-
-		/**
-		 * Returns Labels.
-		 *
-		 * @return array
-		 */
-		public function get_labels() {
-			return $this->labels;
-		}
-
-		/**
-		 * @param $label
-		 * @param $content
-		 *
-		 * @return $this
-		 */
-		protected function set_label( $label, $content ) {
-			$this->labels[ $label ] = $content;
 			return $this;
 		}
 
@@ -98,43 +74,10 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Labels\Common' ) ) {
 		 * @param $name
 		 * @param $arguments
 		 *
-		 * @return bool|\WPOnion\Modules\CPT\Labels\Common
+		 * @return bool|$this
 		 */
 		public function __call( $name, $arguments ) {
-			return $this->set_label( $name, $arguments[0] );
-		}
-
-		/**
-		 * @param $name
-		 * @param $value
-		 */
-		public function __set( $name, $value ) {
-			$this->set_label( $name, $value );
-		}
-
-		/**
-		 * @param $name
-		 *
-		 * @return bool
-		 */
-		public function __isset( $name ) {
-			return ( isset( $this->labels[ $name ] ) );
-		}
-
-		/**
-		 * @param $name
-		 *
-		 * @return bool
-		 */
-		public function __get( $name ) {
-			return ( isset( $this->labels[ $name ] ) );
-		}
-
-		/**
-		 * @param $name
-		 */
-		public function __unset( $name ) {
-			unset( $this->labels[ $name ] );
+			return $this->option( $name, $arguments[0] );
 		}
 	}
 }
