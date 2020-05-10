@@ -1,21 +1,20 @@
 <?php
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Admin;
 
-use WPOnion\Bridge\Module;
+use WPOnion\Bridge\Module_Utility;
 use WPOnion\Field;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Page' ) ) {
 	/**
 	 * Admin Page Class to handle custom admin page creation in wp-admin.
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Admin
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
-	class Admin_Page extends Module {
+	class Page extends Module_Utility {
 		/**
 		 * option
 		 *
@@ -52,21 +51,19 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		protected $page_slug = null;
 
 		/**
-		 * Admin_Page constructor.
+		 * Page constructor.
 		 *
 		 * @param array $options
 		 */
 		public function __construct( $options = array() ) {
 			if ( false === $this->is_multiple( $options ) ) {
 				foreach ( $options as $option ) {
-					new Admin_Page( $option );
+					new Page( $option );
 				}
 			} else {
-				$this->settings = $this->parse_args( $options, $this->defaults() );
+				parent::__construct( $options );
 				$this->init();
 			}
-
-			$this->save_instance();
 		}
 
 		/**
@@ -113,7 +110,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param null $submenu
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function submenu( $submenu = null ) {
 			if ( ! is_null( $submenu ) ) {
@@ -121,7 +118,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			}
 
 			if ( is_object( $this->option( 'submenu', false ) ) ) {
-				if ( $this->option( 'submenu', false ) instanceof Admin_Page ) {
+				if ( $this->option( 'submenu', false ) instanceof Page ) {
 					return $this->option( 'submenu', false )
 						->menu_slug();
 				}
@@ -133,7 +130,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param array $help_tab
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function help_tab( $help_tab = null ) {
 			return ( ! is_null( $help_tab ) ) ? $this->set_option( 'help_tab', $help_tab ) : $this->option( 'help_tab', $help_tab );
@@ -142,7 +139,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param array $help_sidebar
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function help_sidebar( $help_sidebar = null ) {
 			return ( ! is_null( $help_sidebar ) ) ? $this->set_option( 'help_sidebar', $help_sidebar ) : $this->option( 'help_sidebar', $help_sidebar );
@@ -160,7 +157,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param null $menu_title
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function menu_title( $menu_title = null ) {
 			return ( ! is_null( $menu_title ) ) ? $this->set_option( 'menu_title', $menu_title ) : $this->option( 'menu_title', false );
@@ -169,7 +166,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param null $page_title
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function page_title( $page_title = null ) {
 			return ( ! is_null( $page_title ) ) ? $this->set_option( 'page_title', $page_title ) : $this->option( 'page_title', false );
@@ -178,7 +175,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param null $capability
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function capability( $capability = null ) {
 			return ( ! is_null( $capability ) ) ? $this->set_option( 'capability', $capability ) : $this->option( 'capability', false );
@@ -187,7 +184,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param null $menu_slug
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function menu_slug( $menu_slug = null ) {
 			return ( ! is_null( $menu_slug ) ) ? $this->set_option( 'menu_slug', $menu_slug ) : $this->option( 'menu_slug', false );
@@ -214,7 +211,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param null $icon
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function icon( $icon = null ) {
 			if ( ! is_null( $icon ) ) {
@@ -228,7 +225,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param null $position
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function position( $position = null ) {
 			return ( ! is_null( $position ) ) ? $this->set_option( 'position', $position ) : $this->option( 'position', null );
@@ -237,7 +234,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		/**
 		 * @param null $hook_priority
 		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|\WPOnion\Modules\Admin\Page
 		 */
 		public function hook_priority( $hook_priority = null ) {
 			return ( ! is_null( $hook_priority ) ) ? $this->set_option( 'hook_priority', $hook_priority ) : $this->option( 'hook_priority', false );
@@ -288,7 +285,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 */
 		public function init() {
 			if ( ! empty( $this->option( 'menu_title' ) ) ) {
-
 				if ( false !== $this->option( 'network' ) ) {
 					if ( ! did_action( 'network_admin_menu' ) ) {
 						$this->add_action( 'network_admin_menu', 'add_menu', $this->hook_priority() );
@@ -308,31 +304,13 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		}
 
 		/**
-		 * Checks and returns a valid title.
-		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
-		 */
-		public function get_menu_title() {
-			return $this->menu_title();
-		}
-
-		/**
-		 * Checks and returns a valid title
-		 *
-		 * @return bool|mixed|\WPOnion\Modules\Admin_Page
-		 */
-		public function get_page_title() {
-			return $this->page_title();
-		}
-
-		/**
 		 * Returns A Valid Slug.
 		 *
-		 * @return bool|mixed|string|\WPOnion\Modules\Admin_Page
+		 * @return bool|mixed|string|\WPOnion\Modules\Admin\Page
 		 */
 		public function get_slug() {
 			if ( empty( $this->menu_slug() ) ) {
-				$title = sanitize_title( $this->get_page_title() );
+				$title = sanitize_title( $this->page_title() );
 				if ( empty( $title ) ) {
 					return 'wponion-' . md5( json_encode( $this->settings ) );
 				}
@@ -354,14 +332,14 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * Registers Menu With WP.
 		 */
 		public function add_menu() {
-			$_slug = $this->get_slug();
-			$this->menu_slug( $_slug );
-			$menu_title = $this->get_menu_title();
-			$page_title = $this->get_page_title();
+			$this->menu_slug( $this->get_slug() );
+			$slug       = $this->menu_slug();
+			$menu_title = $this->menu_title();
+			$page_title = $this->page_title();
 			$render     = array( &$this, 'render' );
 
 			if ( false === $this->submenu() || wponion_is_array( $this->submenu() ) ) {
-				$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $_slug, $render, $this->icon(), $this->position() );
+				$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $slug, $render, $this->icon(), $this->position() );
 			} else {
 				switch ( $this->submenu() ) {
 					case 'management':
@@ -374,13 +352,13 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 								$page_title,
 								$menu_title,
 								$this->capability(),
-								$_slug,
+								$slug,
 								$render,
 							) );
 						}
 						break;
 					default:
-						$this->page_slug = add_submenu_page( $this->submenu(), $page_title, $menu_title, $this->capability(), $_slug, $render );
+						$this->page_slug = add_submenu_page( $this->submenu(), $page_title, $menu_title, $this->capability(), $slug, $render );
 						break;
 				}
 			}
@@ -390,7 +368,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 			 * added a manuall str_replace.
 			 * Check Github Issue @ https://github.com/wponion/wponion/issues/161
 			 */
-			$this->menu_url = menu_page_url( $_slug, false );
+			$this->menu_url = menu_page_url( $slug, false );
 			$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), $this->menu_url );
 
 			if ( wponion_is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
@@ -559,13 +537,11 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Page' ) ) {
 		 * Handles Page Assets Callback.
 		 */
 		public function handle_assets() {
+			wponion_load_core_assets();
 			wponion_load_asset( $this->assets(), $this );
 			if ( false !== $this->active_tab && isset( $this->settings['tabs'][ $this->active_tab ] ) && isset( $this->settings['tabs'][ $this->active_tab ]['assets'] ) ) {
 				wponion_load_asset( $this->settings['tabs'][ $this->active_tab ]['assets'], $this );
 			}
-		}
-
-		public function on_init() {
 		}
 
 		/**

@@ -23,7 +23,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		/**
 		 * menu_instance
 		 *
-		 * @var \WPOnion\Modules\Admin_Page
+		 * @var \WPOnion\Modules\Admin\Page
 		 */
 		public $menu_instance = '';
 

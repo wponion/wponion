@@ -3,7 +3,7 @@
 namespace WPOnion\Modules\Util;
 
 use WPOnion\Bridge\Module;
-use WPOnion\Modules\Admin_Page;
+use WPOnion\Modules\Admin\Page;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -108,7 +108,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		 */
 		public function get_page_id( $id, $page ) {
 			if ( isset( $page['page'] ) ) {
-				if ( $page['page'] instanceof Admin_Page ) {
+				if ( $page['page'] instanceof Page ) {
 					return $page['page']->get_page_slug();
 				}
 				return is_string( $page['page'] ) ? $page['page'] : false;

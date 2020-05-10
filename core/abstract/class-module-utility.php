@@ -29,10 +29,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_Utility' ) ) {
 		 * @param string|array|\WPO\Builder $fields Array of settings fields.
 		 */
 		public function __construct( $settings = array(), $fields = null ) {
-			$this->fields = $fields;
 			//$this->raw_fields = $fields;
+			$this->fields   = $fields;
 			$this->settings = $this->set_args( $settings );
-			$this->unique   = ( isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
+			$this->unique   = ( wponion_is_array( $this->settings ) && isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
 			$this->save_instance();
 		}
 

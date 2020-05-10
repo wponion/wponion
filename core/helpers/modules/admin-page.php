@@ -1,6 +1,6 @@
 <?php
 
-use WPOnion\Modules\Admin_Page;
+use WPOnion\Modules\Admin\Page;
 
 if ( ! function_exists( 'wponion_admin_page_registry' ) ) {
 	/**
@@ -8,7 +8,7 @@ if ( ! function_exists( 'wponion_admin_page_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\Admin_Page
+	 * @return bool|\WPOnion\Modules\Admin\Page
 	 */
 	function wponion_admin_page_registry( &$instance ) {
 		return wponion_get_registry_instance( 'admin_page', $instance, 'module' );
@@ -19,12 +19,12 @@ if ( ! function_exists( 'wponion_admin_page' ) ) {
 	/**
 	 * @param array|string $arguments
 	 *
-	 * @return \WPOnion\Modules\Admin_Page
+	 * @return \WPOnion\Modules\Admin\Page
 	 */
 	function wponion_admin_page( $arguments = array() ) {
 		if ( is_string( $arguments ) ) {
 			return wponion_admin_page_registry( $arguments );
 		}
-		return new Admin_Page( $arguments );
+		return new Page( $arguments );
 	}
 }
