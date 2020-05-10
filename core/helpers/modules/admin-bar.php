@@ -1,14 +1,14 @@
 <?php
 
-use WPOnion\Modules\Admin_Bar;
+use WPOnion\Modules\Admin\Admin_Bar;
 
 if ( ! function_exists( 'wponion_admin_bar' ) ) {
 	/**
-	 * @param $admin_bar_menus
+	 * @param $menus
 	 *
-	 * @return \WPOnion\Modules\Admin_Bar
+	 * @return \WPOnion\Modules\Admin\Admin_Bar
 	 */
-	function wponion_admin_bar( $admin_bar_menus ) {
-		return new Admin_Bar( $admin_bar_menus );
+	function wponion_admin_bar( $menus ) {
+		return new Admin_Bar( $menus );
 	}
 }

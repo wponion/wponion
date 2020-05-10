@@ -1,32 +1,24 @@
 <?php
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Admin;
 
-use WPOnion\Bridge\Module;
+use WPOnion\Bridge\Module_Utility;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Admin_Bar' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Admin_Bar' ) ) {
 	/**
 	 * Class Admin_Bar
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Admin
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
-	class Admin_Bar extends Module {
+	class Admin_Bar extends Module_Utility {
 		/**
 		 * @var string
 		 * @access
 		 */
 		protected $module = 'admin_bar';
-
-		/**
-		 * hook_priority
-		 *
-		 * @var null
-		 */
-		protected $hook_priority = null;
 
 		/**
 		 * admin_bar_instance
@@ -38,16 +30,10 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Bar' ) ) {
 		/**
 		 * Admin_Bar constructor.
 		 *
-		 * @param array             $settings
-		 * @param null|\WPO\Builder $fields
+		 * @param array $menus
 		 */
-		public function __construct( $settings = array(), $fields = null ) {
-			if ( ! empty( $settings ) && empty( $fields ) ) {
-				$fields   = $settings;
-				$settings = array();
-			}
-			parent::__construct( null, $settings );
-			$this->fields = $fields;
+		public function __construct( $menus = array() ) {
+			parent::__construct( array(), $menus );
 			$this->on_init();
 		}
 
@@ -55,23 +41,21 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Bar' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( array(
-				'hook_priority' => 999,
-			), parent::defaults() );
+			return $this->parse_args( array( 'hook_priority' => 999 ), parent::defaults() );
 		}
 
 		/**
 		 * @return mixed|void
 		 */
-		public function on_init() {
-			$this->add_action( 'admin_bar_menu', 'add_menu', $this->option( 'hook_priority' ) );
+		protected function on_init() {
+			$this->add_action( 'admin_bar_menu', 'register_menu', $this->option( 'hook_priority' ) );
 		}
 
 		/**
 		 * @param \WP_Admin_Bar $wp_admin_bar
 		 *
 		 */
-		public function add_menu( $wp_admin_bar ) {
+		public function register_menu( $wp_admin_bar ) {
 			$this->admin_bar_instance = $wp_admin_bar;
 			$this->add_menus( $this->fields );
 		}
