@@ -1,7 +1,7 @@
 <?php
 
 use WPOnion\Modules\Util\Endpoint;
-use WPOnion\Modules\Util\Page_Actions;
+use WPOnion\Modules\Admin\Page_Actions;
 use WPOnion\Modules\Admin\Plugin_Links;
 
 defined( 'ABSPATH' ) || exit;
