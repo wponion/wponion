@@ -7,6 +7,7 @@ use WPOnion\DB\Cache;
 use WPOnion\DB\Multi_Save\Get;
 use WPOnion\DB\Multi_Save\Save;
 use WPOnion\Exception\DB_Cache_Not_Found;
+use WPOnion\Traits\Internal\Unique;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,12 +19,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
 	abstract class Module_DB extends Bridge {
-		/**
-		 * unique for database.
-		 *
-		 * @var string
-		 */
-		protected $unique = '';
+		use Unique;
 
 		/**
 		 * Stores Module DB Type.
@@ -236,24 +232,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		}
 
 		/**
-		 * Returns DB Slug.
-		 *
-		 * @return string
-		 */
-		public function unique() {
-			return $this->unique;
-		}
-
-		/**
-		 * Returns Base Unique.
-		 *
-		 * @return string
-		 */
-		protected function base_unique() {
-			return $this->unique;
-		}
-
-		/**
 		 * Checks and returns module db.
 		 *
 		 * @return string
@@ -326,6 +304,49 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 */
 		public function get_id() {
 			return $this->get_set_id( false, 'get' );
+		}
+
+		/**
+		 * Reloads System Cache
+		 *
+		 * @return $this
+		 */
+		public function reload_cache() {
+			$this->options_cache = false;
+			$this->get_cache();
+			return $this;
+		}
+
+		/**
+		 * Reloads System values.
+		 *
+		 * @return $this
+		 */
+		public function reload_values() {
+			if ( wpo_is_option( $this->db_values ) ) {
+				$this->db_values->reload();
+			}
+			return $this;
+		}
+
+		/**
+		 * Returns Options Cache.
+		 */
+		protected function get_cache() {
+			if ( false === $this->options_cache ) {
+				$values              = $this->get_db_cache();
+				$this->options_cache = ( wponion_is_array( $values ) ) ? $values : array();
+
+				if ( isset( $this->options_cache['field_errors'] ) && ! empty( $this->options_cache['field_errors'] ) ) {
+					$this->init_error_registry( $this->options_cache['field_errors'] );
+					if ( wponion_is_debug() ) {
+						wponion_localize()->add( 'wponion_errors', $this->options_cache['field_errors'], true, false );
+					}
+					unset( $this->options_cache['field_errors'] );
+					$this->set_db_cache( $this->options_cache );
+				}
+			}
+			return $this->options_cache;
 		}
 	}
 }
