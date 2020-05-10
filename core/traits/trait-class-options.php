@@ -100,7 +100,16 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 * @since {NEWVERSION}
 		 */
 		protected function remove_option( $key ) {
-			Helper::array_key_unset( $key, $this->settings, $this->array_key_delimiter );
+			if ( is_string( $key ) ) {
+				Helper::array_key_unset( $key, $this->settings, $this->array_key_delimiter );
+			}
+
+			if ( is_array( $key ) ) {
+				foreach ( $key as $id ) {
+					$this->remove_option( $id );
+				}
+			}
+
 			return $this;
 		}
 
@@ -124,11 +133,8 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function option( $key, $default = false ) {
-			if ( true === $key ) {
-				return $this->settings;
-			}
-			return Helper::array_key_get( $key, $this->settings, $default, $this->array_key_delimiter );
+		public function option( $key = null, $default = false ) {
+			return ( empty( $key ) ) ? $this->settings : Helper::array_key_get( $key, $this->settings, $default, $this->array_key_delimiter );
 		}
 	}
 }
