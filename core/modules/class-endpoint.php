@@ -1,23 +1,21 @@
 <?php
 
-namespace WPOnion\Modules\Util;
+namespace WPOnion\Modules;
 
 use const EP_ROOT;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Endpoint' ) ) {
 	/**
 	 * Class Endpoint
 	 *
 	 * @package WPOnion\Modules\Util
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Endpoint {
 		/**
 		 * @var array
-		 * @access
 		 * @static
 		 */
 		protected static $cache = array();
@@ -26,60 +24,57 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 		 * Stores Custom Prefix.
 		 *
 		 * @var string
-		 * @access
 		 */
 		protected $prefix = null;
 
 		/**
 		 * @var array
-		 * @access
 		 */
 		protected $endpoints = array();
 
 		/**
 		 * @var array
-		 * @access
 		 */
 		protected $rules = array();
 
 		/**
 		 * @var array
-		 * @access
 		 */
 		protected $tags = array();
 
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $parameter_pattern = '/{([\w\d]+)}/';
 
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $value_pattern_replace = '([^\/]+)';
 
 		/**
 		 * @var array
-		 * @access
 		 */
 		protected $rules_queryvars = array();
 
 		/**
 		 * Endpoint constructor.
 		 *
-		 * @param $custom_prefix
+		 * @param string $custom_prefix
+		 *
+		 * @uses save_cache
+		 * @uses on_wp_shutdown
+		 * @uses register_query_args
 		 */
 		public function __construct( $custom_prefix ) {
 			$this->prefix = $custom_prefix;
 			if ( did_action( 'init' ) ) {
-				$this->on_wp_init();
+				$this->init();
 			} else {
-				add_action( 'init', array( &$this, 'on_wp_init' ) );
+				add_action( 'init', array( &$this, 'init' ) );
 			}
 			add_action( 'parse_request', array( $this, 'parse_request' ) );
-			add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+			add_filter( 'query_vars', array( $this, 'register_query_args' ) );
 			add_action( 'shutdown', array( $this, 'on_wp_shutdown' ) );
 			add_action( 'shutdown', array( __CLASS__, 'save_cache' ), 99999999 );
 		}
@@ -108,7 +103,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 		/**
 		 * @see wp_init
 		 */
-		public function on_wp_init() {
+		public function init() {
 			$this->register_rewrite_rules();
 			$this->register_rewrite_tags();
 			$this->register_rewrite_endpoints();
@@ -230,6 +225,19 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 		}
 
 		/**
+		 * Adds Query Args To WP.
+		 *
+		 * @param array $vars
+		 *
+		 * @return array
+		 */
+		public function register_query_args( $vars = array() ) {
+			$vars = ( ! empty( $this->endpoints ) ) ? array_merge( $vars, array_keys( $this->endpoints ) ) : $vars;
+			$vars = ( ! empty( $this->rules_queryvars ) ) ? array_merge( $vars, array_unique( $this->rules_queryvars ) ) : $vars;
+			return $vars;
+		}
+
+		/**
 		 * Parses Request And Triggers Callback / Action.
 		 * Based On the $callback Arg when using add_endpoint()
 		 *
@@ -243,19 +251,6 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Endpoint' ) ) {
 					}
 				}
 			}
-		}
-
-		/**
-		 * Adds Query Args To WP.
-		 *
-		 * @param array $vars
-		 *
-		 * @return array
-		 */
-		public function add_query_vars( $vars = array() ) {
-			$vars = ( ! empty( $this->endpoints ) ) ? array_merge( $vars, array_keys( $this->endpoints ) ) : $vars;
-			$vars = ( ! empty( $this->rules_queryvars ) ) ? array_merge( $vars, array_unique( $this->rules_queryvars ) ) : $vars;
-			return $vars;
 		}
 	}
 }

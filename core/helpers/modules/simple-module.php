@@ -1,6 +1,6 @@
 <?php
 
-use WPOnion\Modules\Util\Endpoint;
+use WPOnion\Modules\Endpoint;
 use WPOnion\Modules\Admin\Page_Actions;
 use WPOnion\Modules\Admin\Plugin_Links;
 
@@ -21,7 +21,7 @@ if ( ! function_exists( 'wponion_endpoint' ) ) {
 	/**
 	 * @param $slug
 	 *
-	 * @return \WPOnion\Modules\Util\Endpoint
+	 * @return \WPOnion\Modules\Endpoint
 	 */
 	function wponion_endpoint( $slug ) {
 		return new Endpoint( $slug );
