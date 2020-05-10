@@ -1,7 +1,7 @@
 <?php
 
-use WPOnion\Modules\Admin_Notice;
-use WPOnion\Modules\Admin_Notices;
+use WPOnion\Modules\Admin\Notice\Notice;
+use WPOnion\Modules\Admin\Notice\Handler;
 
 if ( ! function_exists( 'wponion_admin_notices_registry' ) ) {
 	/**
@@ -18,7 +18,7 @@ if ( ! function_exists( 'wponion_admin_notices' ) ) {
 	/**
 	 * @param array $instance_id_or_args
 	 *
-	 * @return bool|\WPOnion\Modules\Admin_Notices
+	 * @return bool|\WPOnion\Modules\Admin\Notice\Handler
 	 */
 	function wponion_admin_notices( $instance_id_or_args = array() ) {
 		if ( is_scalar( $instance_id_or_args ) ) {
@@ -30,7 +30,7 @@ if ( ! function_exists( 'wponion_admin_notices' ) ) {
 				return $instance;
 			}
 		}
-		return new Admin_Notices( $instance_id_or_args );
+		return new Handler( $instance_id_or_args );
 	}
 }
 
@@ -43,7 +43,7 @@ if ( ! function_exists( 'wponion_admin_notice' ) ) {
 	 * @param       $title
 	 * @param array $args
 	 *
-	 * @return \WPOnion\Modules\Admin_Notice
+	 * @return \WPOnion\Modules\Admin\Notice\Notice
 	 */
 	function wponion_admin_notice( $type, $content, $title, $args = array() ) {
 		$args = wp_parse_args( $args, array(
@@ -51,7 +51,7 @@ if ( ! function_exists( 'wponion_admin_notice' ) ) {
 			'content' => $content,
 			'type'    => $type,
 		) );
-		return new Admin_Notice( $args );
+		return new Notice( $args );
 	}
 }
 
@@ -61,7 +61,7 @@ if ( ! function_exists( 'wponion_success_admin_notice' ) ) {
 	 * @param string $title
 	 * @param array  $args
 	 *
-	 * @return \WPOnion\Modules\Admin_Notice
+	 * @return \WPOnion\Modules\Admin\Notice\Notice
 	 */
 	function wponion_success_admin_notice( $content = '', $title = '', $args = array() ) {
 		return wponion_admin_notice( 'success', $content, $title, $args );
@@ -74,7 +74,7 @@ if ( ! function_exists( 'wponion_info_admin_notice' ) ) {
 	 * @param string $title
 	 * @param array  $args
 	 *
-	 * @return \WPOnion\Modules\Admin_Notice
+	 * @return \WPOnion\Modules\Admin\Notice\Notice
 	 */
 	function wponion_info_admin_notice( $content = '', $title = '', $args = array() ) {
 		return wponion_admin_notice( 'info', $content, $title, $args );
@@ -87,7 +87,7 @@ if ( ! function_exists( 'wponion_error_admin_notice' ) ) {
 	 * @param string $title
 	 * @param array  $args
 	 *
-	 * @return \WPOnion\Modules\Admin_Notice
+	 * @return \WPOnion\Modules\Admin\Notice\Notice
 	 */
 	function wponion_error_admin_notice( $content = '', $title = '', $args = array() ) {
 		return wponion_admin_notice( 'error', $content, $title, $args );
@@ -100,7 +100,7 @@ if ( ! function_exists( 'wponion_warning_admin_notice' ) ) {
 	 * @param string $title
 	 * @param array  $args
 	 *
-	 * @return \WPOnion\Modules\Admin_Notice
+	 * @return \WPOnion\Modules\Admin\Notice\Notice
 	 */
 	function wponion_warning_admin_notice( $content = '', $title = '', $args = array() ) {
 		return wponion_admin_notice( 'warning', $content, $title, $args );
@@ -113,7 +113,7 @@ if ( ! function_exists( 'wponion_upgrade_admin_notice' ) ) {
 	 * @param string $title
 	 * @param array  $args
 	 *
-	 * @return \WPOnion\Modules\Admin_Notice
+	 * @return \WPOnion\Modules\Admin\Notice\Notice
 	 */
 	function wponion_upgrade_admin_notice( $content = '', $title = '', $args = array() ) {
 		return wponion_admin_notice( 'update-nag', $content, $title, $args );

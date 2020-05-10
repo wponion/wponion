@@ -1,18 +1,18 @@
 <?php
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Admin\Notice;
 
 use WPOnion\Bridge;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Notice\Notice' ) ) {
 	/**
-	 * Class Admin_Notice
+	 * Class Notice
 	 *
 	 * @package WPOnion\Modules
 	 */
-	class Admin_Notice extends Bridge {
+	class Notice extends Bridge {
 		/**
 		 * Notice message to be displayed
 		 *
@@ -77,7 +77,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		protected $sticky = false;
 
 		/**
-		 * Admin_Notice constructor.
+		 * Notice constructor.
 		 *
 		 * @param array $args
 		 */
@@ -149,13 +149,13 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		}
 
 		/**
-		 * @return bool|\WPOnion\Modules\Admin_Notices
+		 * @return bool|\WPOnion\Modules\Admin\Notice\Handler
 		 */
 		protected function handler_instance() {
 			$save = $this->option( 'save' );
 			if ( false !== $save ) {
 				$instance = wponion_admin_notices( $save );
-				if ( $instance instanceof Admin_Notices ) {
+				if ( $instance instanceof Handler ) {
 					return $instance;
 				}
 			}
@@ -198,7 +198,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @param bool $is_large_notice
 		 *
-		 * @return \WPOnion\Modules\Admin_Notice
+		 * @return $this
 		 */
 		public function set_large( $is_large_notice = true ) {
 			return $this->set_option( 'large', $is_large_notice );
@@ -207,7 +207,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @param bool $is_inline_notice
 		 *
-		 * @return \WPOnion\Modules\Admin_Notice
+		 * @return $this
 		 */
 		public function set_inline( $is_inline_notice = true ) {
 			return $this->set_option( 'inline', $is_inline_notice );
@@ -216,7 +216,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notice' ) ) {
 		/**
 		 * @param bool $is_alternate_notice
 		 *
-		 * @return \WPOnion\Modules\Admin_Notice
+		 * @return $this
 		 */
 		public function set_alt( $is_alternate_notice = true ) {
 			return $this->set_option( 'alt', $is_alternate_notice );

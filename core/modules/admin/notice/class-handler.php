@@ -1,39 +1,40 @@
 <?php
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Admin\Notice;
 
-use WPOnion\Bridge\Module;
+use WPOnion\Bridge\Module_Utility;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Notice\Handler' ) ) {
 	/**
-	 * Class Admin_Notice
+	 * Class Handler
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Admin\Notice
+	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	class Admin_Notices extends Module {
-		/**
-		 * @var bool
-		 */
-		protected $script_renderd = false;
-
+	class Handler extends Module_Utility {
 		/**
 		 * @var string
 		 */
 		protected $module = 'admin_notices';
 
 		/**
-		 * Admin_Notice constructor.
-		 *
-		 * @param array $settings
+		 * @var array
+		 */
+		protected $db_values = false;
+
+		/**
+		 * Handler constructor.
 		 */
 		public function __construct( $settings = array() ) {
-			if ( is_string( $settings ) ) {
-				$settings = array( 'option_name' => $settings );
+			$settings = ( is_string( $settings ) ) ? array( 'option_name' => $settings ) : $settings;
+			parent::__construct( $settings );
+
+			if ( is_admin() || defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
+				$this->get_db_values();
 			}
-			parent::__construct( null, $settings );
-			$this->on_init();
+
 			$this->add_action( 'admin_notices', 'display_notices' );
 			$this->add_action( 'shutdown', 'save_notices' );
 		}
@@ -46,20 +47,11 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 		}
 
 		/**
-		 * @return mixed|void
-		 */
-		public function on_init() {
-			if ( is_admin() || defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
-				$this->get_db_values();
-			}
-		}
-
-		/**
 		 * Renders Notice's HTML.
 		 */
 		public function display_notices() {
 			if ( ! empty( $this->db_values ) ) {
-				/* @var $notice \WPOnion\Modules\Admin_Notice */
+				/* @var $notice \WPOnion\Modules\Admin\Notice\Notice */
 				foreach ( $this->db_values as $index => $notice ) {
 					if ( $this->is_time_to_display_ntc( $notice ) ) {
 						echo $notice->get_content_formatted();
@@ -83,7 +75,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin_Notices' ) ) {
 			$action         = $this->option( 'ajax_action' );
 			$notice_handler = $this->unique();
 			$nounce         = wp_create_nonce( 'wpo-admin-notice-sticky-remove' );
-			if ( false === $this->script_renderd ) {
+			if ( false === $this->option( 'script_renderd' ) ) {
 				wponion_load_core_assets();
 				echo <<<JAVASCRIPT
 <script type="text/javascript">
@@ -105,7 +97,7 @@ jQuery(document).ready(function(){
 });
 </script>
 JAVASCRIPT;
-				$this->script_renderd = true;
+				$this->set_option( 'script_renderd', true );
 
 			}
 		}
@@ -133,7 +125,7 @@ JAVASCRIPT;
 		 * @return array|mixed|\WPOnion\DB\Option
 		 * @since 1.4.6.1
 		 */
-		public function get_db_values() {
+		protected function get_db_values() {
 			$this->db_values = wponion_get_option( $this->unique );
 			return $this->db_values;
 		}
@@ -141,11 +133,11 @@ JAVASCRIPT;
 		/**
 		 * Adds A Notice To Array.
 		 *
-		 * @param \WPOnion\Modules\Admin_Notice $notice
+		 * @param \WPOnion\Modules\Admin\Notice\Notice $notice
 		 *
 		 * @return $this
 		 */
-		public function add( Admin_Notice $notice ) {
+		public function add( Notice $notice ) {
 			$id                     = md5( $notice->id() );
 			$this->db_values[ $id ] = $notice;
 			$this->set_db_option();
@@ -160,7 +152,7 @@ JAVASCRIPT;
 		public function remove( $notice_id ) {
 			if ( ! empty( $this->db_values ) && is_array( $this->db_values ) ) {
 				foreach ( $this->db_values as $index => $notice ) {
-					/* @var $notice \WPOnion\Modules\Admin_Notice */
+					/* @var $notice \WPOnion\Modules\Admin\Notice\Notice */
 					if ( $notice->id() === $notice_id ) {
 						$this->remove_notice( $index );
 					}
@@ -176,7 +168,7 @@ JAVASCRIPT;
 		 */
 		protected function remove_notice( $index ) {
 			if ( isset( $this->db_values[ $index ] ) ) {
-				/* @var $notice \WPOnion\Modules\Admin_Notice */
+				/* @var $notice \WPOnion\Modules\Admin\Notice\Notice */
 				$notice = $this->db_values[ $index ];
 				unset( $this->db_values[ $index ] );
 				if ( false !== $notice->option( 'remove_callback' ) && wponion_is_callable( $notice->option( 'remove_callback' ) ) ) {
@@ -199,20 +191,20 @@ JAVASCRIPT;
 		/**
 		 * Checks if is time to display a notice
 		 *
-		 * @param Admin_Notice $notice
+		 * @param \WPOnion\Modules\Admin\Notice\Notice $notice
 		 *
 		 * @return bool
 		 */
-		protected function is_time_to_display_ntc( Admin_Notice $notice ) {
+		protected function is_time_to_display_ntc( Notice $notice ) {
 			return $this->is_time_to_display_ntc_for_screen( $notice ) && $this->is_time_to_display_ntc_for_user( $notice ) && ! $notice->exceeded_max_times_to_display();
 		}
 
 		/**
-		 * @param Admin_Notice $notice
+		 * @param \WPOnion\Modules\Admin\Notice\Notice $notice
 		 *
 		 * @return bool
 		 */
-		protected function is_time_to_kill_ntc( Admin_Notice $notice ) {
+		protected function is_time_to_kill_ntc( Notice $notice ) {
 			if ( $notice->is_sticky() ) {
 				return false;
 			}
@@ -220,11 +212,11 @@ JAVASCRIPT;
 		}
 
 		/**
-		 * @param Admin_Notice $notice
+		 * @param \WPOnion\Modules\Admin\Notice\Notice $notice
 		 *
 		 * @return bool
 		 */
-		protected function is_time_to_display_ntc_for_screen( Admin_Notice $notice ) {
+		protected function is_time_to_display_ntc_for_screen( Notice $notice ) {
 			$screens = $notice->get_screens();
 			if ( ! empty( $screens ) ) {
 				$current_screen = get_current_screen();
@@ -236,11 +228,11 @@ JAVASCRIPT;
 		}
 
 		/**
-		 * @param Admin_Notice $notice
+		 * @param \WPOnion\Modules\Admin\Notice\Notice $notice
 		 *
 		 * @return bool
 		 */
-		protected function is_time_to_display_ntc_for_user( Admin_Notice $notice ) {
+		protected function is_time_to_display_ntc_for_user( Notice $notice ) {
 			$current_user = get_user_by( 'ID', get_current_user_id() );
 			if ( $notice->count_users() !== 0 && ! $notice->has_user( $current_user->ID ) ) {
 				return false;
@@ -250,6 +242,5 @@ JAVASCRIPT;
 			}
 			return true;
 		}
-
 	}
 }
