@@ -1,16 +1,15 @@
 <?php
 
-namespace WPOnion\Modules\Util;
+namespace WPOnion\Modules\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 	/**
 	 * Class Plugin_Links
 	 *
-	 * @package WPOnion\Modules\Util
+	 * @package WPOnion\Modules\Admin
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Plugin_Links {
 		/**
@@ -134,7 +133,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Util\Plugin_Links
+		 * @return \WPOnion\Modules\Admin\Plugin_Links
 		 */
 		public function action_link( $slug, $element_or_title, $href = false ) {
 			return $this->_store( 'action_link', 'center', $slug, $this->element( $element_or_title, $href ) );
@@ -145,7 +144,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Util\Plugin_Links
+		 * @return \WPOnion\Modules\Admin\Plugin_Links
 		 */
 		public function action_link_before( $slug, $element_or_title, $href = false ) {
 			return $this->_store( 'action_link', 'before', $slug, $this->element( $element_or_title, $href ) );
@@ -156,7 +155,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Util\Plugin_Links
+		 * @return \WPOnion\Modules\Admin\Plugin_Links
 		 */
 		public function action_link_after( $slug, $element_or_title, $href = false ) {
 			return $this->_store( 'action_link', 'after', $slug, $this->element( $element_or_title, $href ) );
@@ -166,7 +165,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Util\Plugin_Links
+		 * @return \WPOnion\Modules\Admin\Plugin_Links
 		 */
 		public function row_link( $element_or_title, $href = false ) {
 			return $this->_store( 'row_links', 'center', false, $this->element( $element_or_title, $href ) );
@@ -176,7 +175,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Util\Plugin_Links
+		 * @return \WPOnion\Modules\Admin\Plugin_Links
 		 */
 		public function row_link_before( $element_or_title, $href = false ) {
 			return $this->_store( 'row_links', 'before', false, $this->element( $element_or_title, $href ) );
@@ -186,7 +185,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Plugin_Links' ) ) {
 		 * @param string      $element_or_title
 		 * @param string|bool $href
 		 *
-		 * @return \WPOnion\Modules\Util\Plugin_Links
+		 * @return \WPOnion\Modules\Admin\Plugin_Links
 		 */
 		public function row_link_after( $element_or_title, $href = false ) {
 			return $this->_store( 'row_links', 'after', false, $this->element( $element_or_title, $href ) );
