@@ -1,6 +1,6 @@
 <?php
 
-use WPOnion\Modules\Util\WP_Pointers;
+use WPOnion\Modules\Admin\Pointers;
 use WPOnion\WP\Pointers\Pointer;
 
 defined( 'ABSPATH' ) || exit;
@@ -9,7 +9,7 @@ if ( ! function_exists( 'wponion_wp_pointers_registry' ) ) {
 	/**
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\Util\WP_Pointers
+	 * @return bool|\WPOnion\Modules\Admin\Pointers
 	 */
 	function wponion_wp_pointers_registry( &$instance ) {
 		return wponion_get_registry_instance( 'wp_pointers', $instance, 'module' );
@@ -20,13 +20,13 @@ if ( ! function_exists( 'wponion_wp_pointers' ) ) {
 	/**
 	 * @param $pointer_id_or_instance_id
 	 *
-	 * @return \WPOnion\Modules\Util\WP_Pointers
+	 * @return \WPOnion\Modules\Admin\Pointers
 	 */
 	function wponion_wp_pointers( $pointer_id_or_instance_id ) {
 		if ( false !== wponion_wp_pointers_registry( $pointer_id_or_instance_id ) ) {
 			return wponion_wp_pointers_registry( $pointer_id_or_instance_id );
 		}
-		return new WP_Pointers( $pointer_id_or_instance_id );
+		return new Pointers( $pointer_id_or_instance_id );
 	}
 }
 

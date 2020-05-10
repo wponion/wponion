@@ -906,7 +906,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 *
 		 * @param bool $pointer_id
 		 *
-		 * @return \WPOnion\Modules\Util\WP_Pointers
+		 * @return \WPOnion\Modules\Admin\Pointers
 		 */
 		private function wp_pointer_instance( $pointer_id = false ) {
 			$pointer_id = ( empty( $pointer_id ) ) ? sanitize_title( $this->unique() ) : $pointer_id;

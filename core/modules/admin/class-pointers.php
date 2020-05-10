@@ -1,19 +1,27 @@
 <?php
 
-namespace WPOnion\Modules\Util;
+namespace WPOnion\Modules\Admin;
 
-use WPOnion\Bridge\Module;
+use WP_Screen;
+use WPOnion\Bridge\Module_Utility;
 use WPOnion\WP\Pointers\Pointer;
 
-if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Pointers' ) ) {
 	/**
-	 * Class WP_Pointers
+	 * Class Pointers
 	 *
 	 * @package WPOnion\Modules
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class WP_Pointers extends Module {
+	class Pointers extends Module_Utility {
+		/**
+		 * Type - Value can be anything like (settings,text_field)
+		 *
+		 * @var string
+		 */
+		protected $module = 'wp_pointers';
+
 		/**
 		 * Stores Printable Pointers.
 		 *
@@ -47,12 +55,6 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		private static $pointers_ids = array();
 
 		/**
-		 * @var bool
-		 * @access
-		 */
-		protected $is_hooked = false;
-
-		/**
 		 * WP_Pointers constructor.
 		 *
 		 * @param string $pointer_id
@@ -60,12 +62,11 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		public function __construct( $pointer_id = '' ) {
 			$this->module = 'wp_pointers';
 			if ( ! empty( $pointer_id ) ) {
-				$this->unique                          = $pointer_id;
-				$this->fields                          = array();
-				$this->is_hooked                       = false;
+				parent::__construct( array(
+					'option_name' => $pointer_id,
+				) );
 				self::$pointers_ids[ $this->unique() ] = array();
-				$this->on_init();
-				$this->save_instance();
+				$this->init();
 			}
 		}
 
@@ -76,10 +77,10 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function on_init( $single_pointer_id = false ) {
-			if ( ! did_action( 'current_screen' ) && false === $this->is_hooked ) {
+		protected function init( $single_pointer_id = false ) {
+			if ( ! did_action( 'current_screen' ) && false === $this->option( 'is_hooked' ) ) {
 				add_action( 'current_screen', array( $this, 'maybe_add_pointers' ) );
-				$this->is_hooked = true;
+				$this->set_option( 'is_hooked', true );
 			} elseif ( did_action( 'current_screen' ) ) {
 				$this->maybe_add_pointers( $single_pointer_id );
 			}
@@ -116,7 +117,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 
 			$this->fields[ $instance->uid() ]        = $instance;
 			self::$pointers_ids[ $this->unique() ][] = $instance->uid();
-			$this->on_init( $instance->uid() );
+			$this->init( $instance->uid() );
 			return $instance;
 		}
 
@@ -144,7 +145,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		 */
 		public function maybe_add_pointers( $single_pointer_id = false ) {
 			$dismissed = explode( ',', get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
-			if ( false === $single_pointer_id || $single_pointer_id instanceof \WP_Screen ) {
+			if ( false === $single_pointer_id || $single_pointer_id instanceof WP_Screen ) {
 				self::_reset();
 				$pointers = $this->pointers_data();
 				$diff     = array_diff_key( $pointers, array_combine( $dismissed, $dismissed ) );
@@ -216,30 +217,6 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		}
 
 		/**
-		 * Returns Default Pointer Data.
-		 *
-		 * @return array
-		 */
-		protected function default_pointer_args() {
-			return array(
-				'selector'   => null,
-				'title'      => null,
-				'text'       => null,
-				'show'       => null,
-				'jsnext'     => null,
-				'phpcode'    => null,
-				'next'       => null,
-				'class'      => null,
-				'width'      => 300,
-				'align'      => 'middle',
-				'edge'       => 'left',
-				'post_type'  => array(),
-				'pages'      => array(),
-				'icon_class' => '',
-			);
-		}
-
-		/**
 		 * Resets Pointer Data.
 		 *
 		 * @static
@@ -247,27 +224,23 @@ if ( ! class_exists( '\WPOnion\Modules\Util\WP_Pointers' ) ) {
 		public static function _reset() {
 			if ( ! empty( self::$reset ) ) {
 				static $in_reset = false;
-				if ( true === $in_reset ) {
-					return true;
-				}
-
-				$in_reset = true;
-
-				foreach ( self::$reset as $unique => $user_id ) {
-					$pointers = explode( ',', get_user_meta( $user_id, 'dismissed_wp_pointers', true ) );
-
-					foreach ( $pointers as $key => $pointer ) {
-						if ( isset( self::$pointers_ids[ $unique ] ) ) {
-							if ( in_array( $pointer, self::$pointers_ids[ $unique ], true ) ) {
-								unset( $pointers[ $key ] );
+				if ( false === $in_reset ) {
+					$in_reset = true;
+					foreach ( self::$reset as $unique => $user_id ) {
+						$pointers = explode( ',', get_user_meta( $user_id, 'dismissed_wp_pointers', true ) );
+						foreach ( $pointers as $key => $pointer ) {
+							if ( isset( self::$pointers_ids[ $unique ] ) ) {
+								if ( in_array( $pointer, self::$pointers_ids[ $unique ], true ) ) {
+									unset( $pointers[ $key ] );
+								}
 							}
 						}
+						$meta = implode( ',', $pointers );
+						update_user_meta( get_current_user_id(), 'dismissed_wp_pointers', $meta );
 					}
-					$meta = implode( ',', $pointers );
-					update_user_meta( get_current_user_id(), 'dismissed_wp_pointers', $meta );
+					self::$reset = array();
+					$in_reset    = false;
 				}
-				self::$reset = array();
-				$in_reset    = false;
 			}
 		}
 
