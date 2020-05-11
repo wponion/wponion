@@ -21,22 +21,14 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		use Hooks;
 
 		/**
-		 * Raw options
+		 * Module constructor.
 		 *
-		 * @var array
+		 * @param array                                $settings
+		 * @param string|array|\WPO\Builder|\WPO\Field $fields
 		 */
-		protected $raw_options = array();
-
-		/**
-		 * PHP Magic Function.
-		 *
-		 * @param $name
-		 * @param $arguments
-		 *
-		 * @return bool
-		 */
-		public function __call( $name, $arguments ) {
-			return ( isset( $this->{$name} ) ) ? $this->{$name} : false;
+		public function __construct( $settings = array(), $fields = null ) {
+			parent::__construct( $settings, $fields );
+			$this->init();
 		}
 
 		/**
@@ -46,18 +38,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax( 'heartbeat' ) ) {
 				$this->on_init();
 			}
-		}
-
-		/**
-		 * Creates A Error Registry
-		 *
-		 * @used in Widgets Module.
-		 *
-		 * @param $errors
-		 */
-		protected function init_error_registry( $errors ) {
-			$instance = wponion_registry( sanitize_title( $this->module() . '_' . $this->unique() . '_errors' ), '\WPOnion\Registry\Field_Error' );
-			$instance->set( $errors );
 		}
 
 		/**
@@ -71,28 +51,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 				'assets'      => false,
 				'save_type'   => 'all', # Options : combine/all / container / section / fields
 			);
-		}
-
-		/**
-		 * Renders / Creates An First Instance based on the $is_init_field variable value.
-		 *
-		 * @param array $field
-		 * @param bool  $hash
-		 * @param bool  $is_init_field
-		 *
-		 * @return mixed
-		 * @uses \wponion_field()
-		 *
-		 * @uses \wponion_add_element()
-		 */
-		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
-			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
-			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
-				'module' => $this->module(),
-				'unique' => $this->unique(),
-				'base'   => $this->base_unique(),
-				'hash'   => $hash,
-			) );
 		}
 
 		/**
@@ -135,7 +93,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 			unset( $this->current_theme );
 			unset( $this->menus );
 			unset( $this->fields );
-			unset( $this->raw_options );
 			unset( $this->raw_fields );
 			unset( $this->unique );
 			unset( $this->db_values );
