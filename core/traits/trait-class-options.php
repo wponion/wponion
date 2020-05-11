@@ -32,7 +32,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 *
 		 * @return array
 		 */
-		private function get_class_defaults( $key, $defaults = array() ) {
+		protected function call_method( $key, $defaults = array() ) {
 			return ( method_exists( $this, $key ) ) ? $this->$key() : $defaults;
 		}
 
@@ -46,7 +46,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 */
 		protected function set_args( $user_options = array(), $defaults = array() ) {
 			$user_options   = ( ! is_array( $user_options ) ) ? array() : $user_options;
-			$defaults       = $this->parse_args( $this->get_class_defaults( 'defaults', $defaults ), $this->get_class_defaults( 'base_defaults' ) );
+			$defaults       = $this->parse_args( $this->call_method( 'defaults', $defaults ), $this->call_method( 'base_defaults' ) );
 			$this->settings = $this->parse_args( $user_options, $defaults );
 			return $this->settings;
 		}
@@ -133,7 +133,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function option( $key = null, $default = false ) {
+		protected function option( $key = null, $default = false ) {
 			return ( empty( $key ) ) ? $this->settings : Helper::array_key_get( $key, $this->settings, $default, $this->array_key_delimiter );
 		}
 	}
