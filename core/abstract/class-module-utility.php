@@ -23,6 +23,15 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_Utility' ) ) {
 		use Fields_Handler;
 
 		/**
+		 * Returns a default array.
+		 *
+		 * @return array
+		 */
+		protected function defaults() {
+			return array( 'assets' => false );
+		}
+
+		/**
 		 * WPOnion_Settings constructor.
 		 *
 		 * @param string|array              $settings array of WPOnion Settings Configuration.
