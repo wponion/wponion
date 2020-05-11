@@ -2,6 +2,8 @@
 
 namespace WPOnion;
 
+use WPOnion\Traits\Internal\Unique;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
@@ -12,6 +14,8 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
 	abstract class Theme_API extends Bridge {
+		use Unique;
+
 		/**
 		 * dir
 		 *
@@ -34,13 +38,6 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		protected $theme = null;
 
 		/**
-		 * Stores Custom Unique Data.
-		 *
-		 * @var null
-		 */
-		protected $unique = null;
-
-		/**
 		 * module_instance
 		 *
 		 * @var null
@@ -55,17 +52,18 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		 * @param bool   $theme_name
 		 */
 		public function __construct( $data, $theme_file = __FILE__, $theme_name = false ) {
-			$data = $this->parse_args( $data, array(
+			$data                  = $this->parse_args( $data, array(
 				'unique'      => false,
 				'instance_id' => false,
 			) );
-			add_action( 'admin_enqueue_scripts', array( &$this, 'register_assets' ), 1 );
 			$this->dir             = plugin_dir_path( $theme_file );
 			$this->url             = plugin_dir_url( $theme_file );
 			$this->theme           = $theme_name;
 			$this->unique          = $data['unique'];
 			$this->module_instance = $data['instance_id'];
+
 			wponion_theme_registry( $this );
+			add_action( 'admin_enqueue_scripts', array( &$this, 'register_assets' ), 1 );
 		}
 
 		/**
