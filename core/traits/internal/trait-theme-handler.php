@@ -37,21 +37,13 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 * @return \WPOnion\Theme_API
 		 */
 		protected function init_theme() {
-			$return = null;
-
 			if ( false === $this->current_theme ) {
-				$theme      = $this->option( 'theme' );
-				$theme_args = $this->theme_callback_args();
-				$theme      = ( Themes::is_support( $theme, $this->module() ) ) ? $theme : wponion_default_theme();
-				$return     = Themes::callback( $theme, $theme_args );
-				if ( $return ) {
-					$this->current_theme = $return->uid();
-				}
-			} else {
-				$return = wponion_theme_registry( $this->current_theme );
+				$theme               = $this->option( 'theme' );
+				$theme               = ( Themes::is_support( $theme, $this->module() ) ) ? $theme : wponion_default_theme();
+				$return              = Themes::callback( $theme, $this->theme_callback_args() );
+				$this->current_theme = ( wpo_is( $return, 'theme' ) ) ? $return->uid() : false;
 			}
-
-			return $return;
+			return $this->theme();
 		}
 
 		/**
@@ -71,10 +63,10 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		/**
 		 * Returns Current Theme's instance.
 		 *
-		 * @return bool
+		 * @return bool|\WPOnion\Theme_API
 		 */
-		protected function theme_instance() {
-			return wponion_core_registry( $this->current_theme );
+		protected function theme() {
+			return ( ! empty( $this->current_theme ) ) ? wponion_theme_registry( $this->current_theme ) : null;
 		}
 
 		/**
@@ -231,7 +223,8 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return string
 		 */
-		public function wrap_class( $extra_class = '' ) {
+		protected function wrap_class( $extra_class = '' ) {
+			var_dump( 1 );
 			return esc_attr( wponion_html_class( $extra_class, $this->default_wrap_class() ) );
 		}
 
@@ -242,7 +235,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return array|string
 		 */
-		public function container_wrap_class( $container = false, $sub_container = false, $first_container = false ) {
+		protected function container_wrap_class( $container = false, $sub_container = false, $first_container = false ) {
 			$_class   = array( $this->container_wrap_id( $container ), 'wpo-row' );
 			$_class[] = ( ( wpo_is_container( $sub_container ) && $sub_container->has_callback() ) || ( wpo_is_container( $container ) && $container->has_callback() ) ) ? 'wponion-has-callback' : '';
 			$_class[] = ( ( wpo_is_container( $sub_container ) && $sub_container->has_fields() ) || ( wpo_is_container( $container ) && $container->has_fields() ) ) ? 'wponion-has-fields' : '';
@@ -264,7 +257,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return string
 		 */
-		public function container_wrap_id( $container, $sub_container = false ) {
+		protected function container_wrap_id( $container, $sub_container = false ) {
 			if ( wpo_is_container( $container ) && wpo_is_container( $sub_container ) ) {
 				return 'wponion-tab-' . $container->name() . '-' . $sub_container->name();
 			} elseif ( wpo_is_container( $container ) ) {
@@ -279,7 +272,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return string
 		 */
-		public function wrap_attributes( $extra_class = '', $extra_attributes = array() ) {
+		protected function wrap_attributes( $extra_class = '', $extra_attributes = array() ) {
 			wponion_localize()->add( 'wponion_module_args', array(
 				$this->instance_id() => array(
 					'theme'     => $this->option( 'theme' ),
@@ -303,7 +296,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 * @return bool
 		 * @deprecated Please Use Valid Container.
 		 */
-		public function valid_option( $option = array() ) {
+		protected function valid_option( $option = array() ) {
 			return $this->valid_container( $option );
 		}
 
@@ -314,7 +307,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function valid_container( $option = array() ) {
+		protected function valid_container( $option = array() ) {
 			return ( false === $option->is_disabled() && ( $option->has_callback() || $option->has_fields() || $option->has_containers() ) );
 		}
 
@@ -325,7 +318,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function valid_field( $option ) {
+		protected function valid_field( $option ) {
 			if ( wpo_is_field( $option ) ) {
 				return true;
 			} elseif ( wponion_is_array( $option ) ) {
@@ -342,7 +335,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return array
 		 */
-		public function validate_container_sub_container( $container_id = '', $sub_container_id = '' ) {
+		protected function validate_container_sub_container( $container_id = '', $sub_container_id = '' ) {
 			if ( false === $container_id && false === $sub_container_id ) {
 				$container = $this->fields->first_container();
 				if ( $container ) {
@@ -384,6 +377,5 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 				'container_id'     => $container_id,
 			);
 		}
-
 	}
 }
