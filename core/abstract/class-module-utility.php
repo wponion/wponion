@@ -23,6 +23,26 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_Utility' ) ) {
 		use Fields_Handler;
 
 		/**
+		 * Stores List of Methods that are accessable in public.
+		 *
+		 * @var array
+		 */
+		protected $public_access_methods = array();
+
+		/**
+		 * @param $name
+		 * @param $arguments
+		 *
+		 * @return mixed
+		 */
+		public function __call( $name, $arguments ) {
+			if ( in_array( $name, $this->public_access_methods ) ) {
+				return $this->$name( $arguments );
+			}
+			return null;
+		}
+
+		/**
 		 * Returns a default array.
 		 *
 		 * @return array
@@ -38,7 +58,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_Utility' ) ) {
 		 * @param string|array|\WPO\Builder $fields Array of settings fields.
 		 */
 		public function __construct( $settings = array(), $fields = null ) {
-			//$this->raw_fields = $fields;
 			$this->fields   = $fields;
 			$this->settings = $this->set_args( $settings );
 			$this->unique   = ( wponion_is_array( $this->settings ) && isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
