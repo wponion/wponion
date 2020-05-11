@@ -16,7 +16,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Columns' ) ) {
 	class Columns extends Module_Utility {
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $module = 'admin_columns';
 
@@ -30,7 +29,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Columns' ) ) {
 		public function __construct( $post_type = array(), $arguments = array(), $render_callback = array() ) {
 			if ( ! empty( $post_type ) && isset( $post_type['title'] ) ) {
 				parent::__construct( $post_type );
-				$this->on_init();
+				$this->init();
 			} elseif ( ! empty( $post_type ) && ! empty( $arguments ) ) {
 				$arguments = ( is_string( $arguments ) ) ? array( 'title' => $arguments ) : $arguments;
 				$post_type = ( is_string( $post_type ) ) ? array( 'post_type' => $post_type ) : $post_type;
@@ -58,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Columns' ) ) {
 						$arguments = $this->parse_args( $post_type, $arguments );
 					}
 					parent::__construct( $arguments );
-					$this->on_init();
+					$this->init();
 				}
 			} elseif ( ! empty( $post_type ) && empty( $arguments ) ) {
 				if ( isset( $post_type[0] ) ) {
@@ -67,7 +66,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Columns' ) ) {
 					}
 				} else {
 					parent::__construct( $post_type );
-					$this->on_init();
+					$this->init();
 				}
 			}
 
@@ -76,7 +75,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Columns' ) ) {
 		/**
 		 * Returns A Proper Hook Name.
 		 *
-		 * @param        $post_type
+		 * @param string $post_type
 		 * @param string $surfix
 		 * @param string $prefix
 		 * @param string $middle
@@ -90,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Columns' ) ) {
 		/**
 		 * Triggers An Instance.
 		 */
-		protected function on_init() {
+		protected function init() {
 			$this->unique = ( ! empty( $this->option( 'name' ) ) ) ? $this->option( 'name' ) : sanitize_title( $this->option( 'title' ) );
 			$post_types   = $this->option( 'post_type' );
 			$post_types   = ( ! wponion_is_array( $post_types ) ) ? array( $post_types ) : $post_types;

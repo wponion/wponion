@@ -16,7 +16,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Admin_Bar' ) ) {
 	class Admin_Bar extends Module_Utility {
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $module = 'admin_bar';
 
@@ -34,26 +33,18 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Admin_Bar' ) ) {
 		 */
 		public function __construct( $menus = array() ) {
 			parent::__construct( array(), $menus );
-			$this->on_init();
+			$this->add_action( 'admin_bar_menu', 'register_menu', $this->option( 'hook_priority' ) );
 		}
 
 		/**
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( array( 'hook_priority' => 999 ), parent::defaults() );
-		}
-
-		/**
-		 * @return mixed|void
-		 */
-		protected function on_init() {
-			$this->add_action( 'admin_bar_menu', 'register_menu', $this->option( 'hook_priority' ) );
+			return $this->parse_args( array( 'hook_priority' => 20 ), parent::defaults() );
 		}
 
 		/**
 		 * @param \WP_Admin_Bar $wp_admin_bar
-		 *
 		 */
 		public function register_menu( $wp_admin_bar ) {
 			$this->admin_bar_instance = $wp_admin_bar;
@@ -61,8 +52,8 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Admin_Bar' ) ) {
 		}
 
 		/**
-		 * @param      $menus
-		 * @param bool $parent_id
+		 * @param array $menus
+		 * @param bool  $parent_id
 		 */
 		protected function add_menus( $menus, $parent_id = false ) {
 			foreach ( $menus as $menu ) {

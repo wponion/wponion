@@ -519,18 +519,17 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Notice\Notice' ) ) {
 			$inline  = $this->option( 'inline' );
 			$title   = $this->option( 'title' );
 			$content = $this->option( 'content' );
+			$class   = $type;
 
 			if ( 'update-nag' !== $type ) {
 				$class = wponion_html_class( array(
-					( true === $this->option( 'dismissible' ) ) ? 'is-dismissible' : '',
 					'notice',
+					( true === $this->option( 'dismissible' ) ) ? 'is-dismissible' : '',
 					( true === $large ) ? 'notice-large' : '',
 					( false !== $type ) ? 'notice-' . $type : 'notice-success',
 					( true === $alt ) ? 'notice-alt' : '',
 					( true === $inline ) ? 'notice-inline inline' : '',
 				) );
-			} else {
-				$class = $type;
 			}
 
 			if ( $this->is_sticky() && false === strpos( $content, 'wpo-stick-dismiss' ) ) {

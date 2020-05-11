@@ -58,7 +58,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Page' ) ) {
 		public function __construct( $options = array() ) {
 			if ( false === $this->is_multiple( $options ) ) {
 				foreach ( $options as $option ) {
-					new Page( $option );
+					new self( $option );
 				}
 			} else {
 				parent::__construct( $options );
@@ -216,10 +216,9 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Page' ) ) {
 		public function icon( $icon = null ) {
 			if ( ! is_null( $icon ) ) {
 				return $this->set_option( 'icon', $icon );
-			} elseif ( $this->has_icon() ) {
-				return $this->option( 'icon' );
 			}
-			return $this->default_icon();
+
+			return ( $this->has_icon() ) ? $this->option( 'icon' ) : $this->default_icon();
 		}
 
 		/**
@@ -310,11 +309,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Page' ) ) {
 		 */
 		public function get_slug() {
 			if ( empty( $this->menu_slug() ) ) {
-				$title = sanitize_title( $this->page_title() );
-				if ( empty( $title ) ) {
-					return 'wponion-' . md5( json_encode( $this->settings ) );
-				}
-				return $title;
+				return ( empty( $this->page_title() ) ) ? 'wponion-' . md5( json_encode( $this->settings ) ) : sanitize_title( $this->page_title() );
 			}
 			return $this->menu_slug();
 		}
