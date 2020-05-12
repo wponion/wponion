@@ -35,7 +35,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Unique' ) ) {
 		 * @return string
 		 */
 		protected function base_unique() {
-			return $this->unique;
+			return ( isset( $this->base_unique ) ) ? $this->base_unique : $this->unique;
 		}
 	}
 }
