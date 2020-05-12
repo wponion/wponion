@@ -2,6 +2,8 @@
 
 namespace WPOnion\Traits;
 
+use WPOnion\Helper;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! trait_exists( '\WPOnion\Traits\Array_Access' ) ) {
@@ -18,7 +20,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Array_Access' ) ) {
 		 * @return bool
 		 */
 		public function offsetExists( $offset ) {
-			return ( isset( $this->{$this->array_var}[ $offset ] ) );
+			return Helper::array_key_isset( $offset, $this->{$this->array_var} );
 		}
 
 		/**
@@ -41,14 +43,14 @@ if ( ! trait_exists( '\WPOnion\Traits\Array_Access' ) ) {
 		 * @param mixed $value
 		 */
 		public function offsetSet( $offset, $value ) {
-			$this->{$this->array_var}[ $offset ] = $value;
+			Helper::array_key_set( $offset, $value, $this->{$this->array_var} );
 		}
 
 		/**
 		 * @param mixed $offset
 		 */
 		public function offsetUnset( $offset ) {
-			unset( $this->{$this->array_var}[ $offset ] );
+			Helper::array_key_unset( $offset, $this->{$this->array_var} );
 		}
 	}
 }
