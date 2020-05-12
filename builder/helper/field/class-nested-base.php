@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 	 *
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Nested_Base extends Field implements \WPO\Helper\Interfaces\Field {
 
@@ -49,10 +48,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		public function field_exists( $field_id ) {
-			if ( $this->has_fields() ) {
-				return ( isset( $this['fields'][ $field_id ] ) ) ? $this['fields'][ $field_id ] : false;
-			}
-			return false;
+			return ( $this->has_fields() && isset( $this['fields'][ $field_id ] ) ) ? $this['fields'][ $field_id ] : false;
 		}
 
 		/**
@@ -131,7 +127,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 					return ( method_exists( $field, 'get_field' ) ) ? $field->get_field( implode( '/', $key ) ) : $field;
 				}
 			}
-
 			return parent::get_field( $key );
 		}
 	}

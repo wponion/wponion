@@ -12,7 +12,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 	 *
 	 * @package WPO
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Field extends Common_Args {
 		/**

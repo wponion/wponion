@@ -5,7 +5,6 @@ namespace WPO;
 defined( 'ABSPATH' ) || exit;
 
 use Error;
-use Exception;
 use WPO\Helper\Container\Functions as Container_Functions;
 use WPO\Helper\Container\Helper;
 use WPO\Helper\Field\Functions as Field_Functions;
@@ -17,12 +16,10 @@ if ( ! class_exists( 'WPO\Container' ) ) {
 	 *
 	 * @package WPO
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Container extends Helper {
 		/**
 		 * @var array
-		 * @access
 		 */
 		protected $custom_data = array();
 

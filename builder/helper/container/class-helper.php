@@ -14,14 +14,12 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 	 *
 	 * @package WPO\Helper\Container
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Helper extends Base implements \WPO\Helper\Interfaces\Container, Field {
 		/**
 		 * Container Title.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $title = false;
 
@@ -29,7 +27,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Container separator.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $separator = false;
 
@@ -37,7 +34,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Container Slug / Name.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $slug = false;
 
@@ -45,7 +41,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Container Icon.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $icon = false;
 
@@ -53,7 +48,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Container Callback
 		 *
 		 * @var null
-		 * @access
 		 */
 		protected $callback = false;
 
@@ -62,7 +56,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Custom Link
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $href = false;
 
@@ -70,7 +63,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * True / False if container is disabled.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $disabled = false;
 
@@ -78,7 +70,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Fields.
 		 *
 		 * @var bool|array
-		 * @access
 		 */
 		protected $fields = false;
 
@@ -86,7 +77,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Href Query Args.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $query_args = array();
 
@@ -94,7 +84,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * CSS Class.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $class = array();
 
@@ -102,7 +91,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Attributes.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $attributes = array();
 
@@ -110,7 +98,6 @@ if ( ! class_exists( '\WPO\Helper\Container\Helper' ) ) {
 		 * Sub Containers
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $containers = array();
 

@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 	 *
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Array_Args extends Helper {
 		/**

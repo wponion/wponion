@@ -15,7 +15,6 @@ if ( ! class_exists( '\WPO\Helper\Base' ) ) {
 	 *
 	 * @package WPO\Helper
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Base extends Bridge implements JsonSerializable, \Countable {
 		use Json_Serialize;
@@ -26,7 +25,6 @@ if ( ! class_exists( '\WPO\Helper\Base' ) ) {
 		 *
 		 * @uses \ArrayAccess
 		 * @var string
-		 * @access protected
 		 */
 		protected $array_var = 'settings';
 
@@ -34,7 +32,6 @@ if ( ! class_exists( '\WPO\Helper\Base' ) ) {
 		 * Stores Unique value.
 		 *
 		 * @var string
-		 * @access
 		 */
 		protected $unique = '';
 

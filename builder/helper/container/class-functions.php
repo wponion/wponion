@@ -12,7 +12,6 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 	 *
 	 * @package WPO\Helper\Container
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	trait Functions {
 		/**
@@ -23,17 +22,13 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return array|mixed|\WPO\Container
 		 */
 		public function containers( $key = false ) {
-			if ( $this->has_containers() ) {
-				if ( empty( $key ) ) {
-					return $this->containers;
-				}
+			if ( ! empty( $key ) && $this->has_containers() ) {
 				$key       = array_filter( explode( '/', $key ) );
 				$_key      = array_shift( $key );
 				$container = $this->container_exists( $_key );
 				return ( method_exists( $container, 'get' ) ) ? $container->get( implode( '/', $key ) ) : $container;
-
 			}
-			return ( $this->has_containers() ) ? $this->containers : array();
+			return ( empty( $key ) || $this->has_containers() ) ? $this->containers : array();
 		}
 
 		/**
@@ -42,7 +37,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return bool
 		 */
 		public function has_containers() {
-			return ( false !== $this->containers && wponion_is_array( $this->containers ) && ! empty( $this->containers ) );
+			return ( ! empty( $this->containers ) && wponion_is_array( $this->containers ) );
 		}
 
 		/**
@@ -69,10 +64,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 		 * @return \WPO\Container|false
 		 */
 		public function container_exists( $container_id ) {
-			if ( $this->has_containers() ) {
-				return ( isset( $this->containers[ $container_id ] ) ) ? $this->containers[ $container_id ] : false;
-			}
-			return false;
+			return ( $this->has_containers() && isset( $this->containers[ $container_id ] ) ) ? $this->containers[ $container_id ] : false;
 		}
 
 		/**
@@ -114,6 +106,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 			if ( $this->has_fields() && $this->has_containers() ) {
 				wp_die( __( 'A Container Cannot Have Both Field & Containers', 'wponion' ) );
 			}
+
 			if ( wpo_is_container( $slug_or_instance ) ) {
 				$this->containers[ $slug_or_instance->name() ] = $slug_or_instance;
 				return $slug_or_instance;
@@ -129,6 +122,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 				$return                              = Container::create( $slug_or_instance, $title, $icon );
 				$this->containers[ $return->name() ] = $return;
 			}
+
 			return $return;
 		}
 
@@ -216,6 +210,7 @@ if ( ! trait_exists( '\WPO\Helper\Container\Functions' ) ) {
 					if ( $this->has_fields() ) {
 						return array( 'fields' => $this->fields() );
 					}
+
 					if ( $this->has_containers() ) {
 						return array( 'containers' => $this->containers() );
 					}

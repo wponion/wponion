@@ -12,7 +12,6 @@ if ( ! trait_exists( '\WPO\Helper\Field\Types' ) ) {
 	 *
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 *
 	 * @method \WPO\Fields\Accordion accordion( $id = false, $title = false, $args = array() )
 	 * @method \WPO\Fields\Background background( $id = false, $title = false, $args = array() )

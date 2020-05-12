@@ -10,7 +10,6 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Container' ) ) {
 	 *
 	 * @package WPO\Helper\Interfaces
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	interface Container {
 		/**

@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 	 *
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Common_Args extends Dependency {
 		/**

@@ -10,7 +10,6 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 	 *
 	 * @package WPO
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Builder extends Helper\Base implements Helper\Interfaces\Container, Helper\Interfaces\Field {
 		use Helper\Container\Functions;
@@ -21,7 +20,6 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		 * Fields.
 		 *
 		 * @var bool|array
-		 * @access
 		 */
 		public $fields = false;
 
@@ -29,7 +27,6 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		 * Stores All Containers.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		public $containers = false;
 
@@ -74,7 +71,7 @@ if ( ! class_exists( 'WPO\Builder' ) ) {
 		/**
 		 * @param $instance
 		 *
-		 * @return bool|false|\WPO\Container|\WPO\Field
+		 * @return bool|\WPO\Container|\WPO\Field
 		 */
 		public function add( $instance ) {
 			if ( wpo_is_container( $instance ) ) {

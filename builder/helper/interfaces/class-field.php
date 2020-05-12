@@ -10,7 +10,6 @@ if ( ! interface_exists( 'WPO\Helper\Interfaces\Field' ) ) {
 	 *
 	 * @package WPO\Helper\Interface
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	interface Field {
 		/**

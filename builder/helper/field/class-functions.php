@@ -12,7 +12,6 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 	 *
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	trait Functions {
 		/**
@@ -32,16 +31,13 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 * @return array|\WPO\Field
 		 */
 		public function fields( $key = false ) {
-			if ( $this->has_fields() ) {
-				if ( false === $key ) {
-					return $this->fields;
-				}
+			if ( ! empty( $key ) && $this->has_fields() ) {
 				$key   = array_filter( explode( '/', $key ) );
 				$_key  = array_shift( $key );
 				$field = $this->field_exists( $_key );
 				return ( method_exists( $field, 'get_field' ) ) ? $field->get_field( implode( '/', $key ) ) : $field;
 			}
-			return ( $this->has_fields() ) ? $this->fields : array();
+			return ( false === $key || $this->has_fields() ) ? $this->fields : array();
 		}
 
 		/**
@@ -52,10 +48,7 @@ if ( ! trait_exists( '\WPO\Helper\Field\Functions' ) ) {
 		 * @return bool|array|\WPO\Field
 		 */
 		public function field_exists( $field_id ) {
-			if ( $this->has_fields() ) {
-				return ( isset( $this->fields[ $field_id ] ) ) ? $this->fields[ $field_id ] : false;
-			}
-			return false;
+			return ( $this->has_fields() && isset( $this->fields[ $field_id ] ) ) ? $this->fields[ $field_id ] : false;
 		}
 
 		/**
