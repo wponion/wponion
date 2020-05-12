@@ -22,7 +22,7 @@
   "license": "MIT",
   "devDependencies": {
     "@wordpress/hooks": "^2.8.0",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.0",
     "css-checkbox-library": "^1.5.1",
     "easy-gulp-tasker": "^1.0.15",
     "@popperjs/core": "^2.4.0",
