@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_ajax_action' ) ) {
 	/**
@@ -256,6 +254,26 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_cast_array' ) ) {
+	/**
+	 * Casts As array.
+	 *
+	 * @param mixed  $array
+	 * @param string $array_key
+	 *
+	 * @return array
+	 * @example wponion_cast_array('mystring') --> array('mystring')
+	 * @example wponion_cast_array('mystring','custom_key') --> array('custom_key' => 'mystring')
+	 * @since {NEWVERSION}
+	 */
+	function wponion_cast_array( $array, $array_key = null ) {
+		if ( ! wponion_is_array( $array ) && ! empty( $array ) ) {
+			return ( ! empty( $array_key ) ) ? array( $array_key => $array ) : array( $array );
+		}
+		return ( ! wponion_is_array( $array ) ) ? array() : $array;
+	}
+}
+
 if ( ! function_exists( 'wponion_parse_args' ) ) {
 	/**
 	 * @param array|\WPO\Field $new
@@ -282,6 +300,102 @@ if ( ! function_exists( 'wponion_parse_args' ) ) {
 		}
 
 		return $new;
+	}
+}
+
+if ( ! function_exists( 'wponion_parse_args_mixed' ) ) {
+	/**
+	 * Parses Args Even if $user_values is a not a array. it just appends with $defaults and returns it.
+	 *
+	 * @param string $save_with
+	 * @param array  $user_values
+	 * @param array  $defaults
+	 *
+	 * @return array|object|\WPO\Field
+	 * @example
+	 *    wponion_parse_args_mixed('content','some string', array('content' => false,'title' => 'Some Value'));
+	 *        --> array('content' => 'some string','title' =>'Some Value');
+	 * @since {NEWVERSION}
+	 */
+	function wponion_parse_args_mixed( $save_with = '', $user_values = array(), $defaults = array() ) {
+		if ( true === $user_values ) {
+			return $user_values;
+		} elseif ( is_array( $user_values ) ) {
+			return wponion_parse_args( wponion_cast_array( $user_values ), wponion_cast_array( $defaults ) );
+		} elseif ( false !== $user_values ) {
+			$defaults[ $save_with ] = $user_values;
+		}
+		return $defaults;
+	}
+}
+
+if ( ! function_exists( 'wponion_parse_args_forced_values' ) ) {
+	/**
+	 * Parses Args & Force Set Values Provided in $forced_values
+	 *
+	 * @param string|array $save_with
+	 * @param mixed        $user_values
+	 * @param array        $defaults
+	 * @param array        $forced_values
+	 *
+	 * @return array|object
+	 * @uses wponion_parse_args_mixed
+	 * @example  {
+	 *    wponion_parse_args_forced_values('title','yourtitle',array(
+	 *        'arg2'=>false,
+	 *        'title'=>false,
+	 *    ),array( 'force_arg'=>false ) );
+	 *    return: array(
+	 *            'title' => 'yourtitle',
+	 *            'arg2' =>false,
+	 *            'force_arg'=>false
+	 *        );
+	 * }
+	 *
+	 */
+	function wponion_parse_args_forced_values( $save_with, $user_values, $defaults = array(), $forced_values = array() ) {
+		if ( wponion_is_array( $user_values ) || wponion_is_array( $defaults ) ) {
+			$_defaults = wponion_parse_args_mixed( $save_with, $user_values, $defaults );
+			$defaults  = ( true === $_defaults ) ? $defaults : $_defaults;
+			foreach ( $forced_values as $_key => $val ) {
+				$defaults[ $_key ] = ( ! isset( $defaults[ $_key ] ) ) ? '' : $defaults[ $_key ];
+				$defaults[ $_key ] = wponion_parse_args_forced_values( $_key, $val, $defaults[ $_key ] );
+			}
+			return $defaults;
+		}
+		return $user_values;
+	}
+}
+
+if ( ! function_exists( 'wponion_handle_array_merge' ) ) {
+	/**
+	 * @param array|mixed $new_values
+	 * @param array|mixed $old_values
+	 * @param bool        $merge
+	 *
+	 * @return array|object
+	 */
+	function wponion_handle_array_merge( $new_values, $old_values, $merge = false ) {
+		if ( false === $merge ) {
+			return $new_values;
+		}
+		$old_values = ( ! wponion_is_array( $old_values ) ) ? array() : $old_values;
+		return wponion_parse_args( $new_values, $old_values );
+	}
+}
+
+if ( ! function_exists( 'wponion_has_column_class' ) ) {
+	/**
+	 * Validates Provided string & check if CSS Grid class exists.
+	 *
+	 * @param $class
+	 *
+	 * @return bool
+	 * @since {NEWVERSION}
+	 */
+	function wponion_has_column_class( $class ) {
+		preg_match_all( '/col\b-(xs|sm|md|lg|xl)?\b-?\b(1[0-2]|[1-9])/', $class, $matches, PREG_SET_ORDER, 0 );
+		return ( empty( $matches ) ) ? false : $matches;
 	}
 }
 
@@ -314,64 +428,6 @@ if ( ! function_exists( 'wponion_get_possible_column_class' ) ) {
 			}
 		}
 		return join( ' ', $return );
-	}
-}
-
-if ( ! function_exists( 'wponion_handle_array_merge' ) ) {
-	/**
-	 * @param array|mixed $new_values
-	 * @param array|mixed $old_values
-	 * @param bool        $merge
-	 *
-	 * @return array|object
-	 */
-	function wponion_handle_array_merge( $new_values, $old_values, $merge = false ) {
-		if ( false === $merge ) {
-			return $new_values;
-		}
-		$old_values = ( ! wponion_is_array( $old_values ) ) ? array() : $old_values;
-		return wponion_parse_args( $new_values, $old_values );
-	}
-}
-
-if ( ! function_exists( 'wponion_handle_string_args_with_defaults' ) ) {
-	/**
-	 * @param string|array $key
-	 * @param mixed        $value
-	 * @param array        $defaults
-	 * @param array        $force_defaults
-	 *
-	 * @return array|object
-	 * @example  {
-	 *    wponion_handle_string_args_with_defaults('title','yourtitle',array(
-	 *        'arg2'=>false,
-	 *        'title'=>false,
-	 *    ),array( 'force_arg'=>false ) );
-	 *    return: array(
-	 *            'title' => 'yourtitle',
-	 *            'arg2' =>false,
-	 *            'force_arg'=>false
-	 *        );
-	 * }
-	 *
-	 */
-	function wponion_handle_string_args_with_defaults( $key, $value, $defaults = array(), $force_defaults = array() ) {
-		if ( wponion_is_array( $value ) ) {
-			$defaults = wponion_parse_args( $value, $defaults );
-		} elseif ( wponion_is_array( $defaults ) ) {
-			$defaults[ $key ] = $value;
-		} else {
-			return $value;
-		}
-
-		foreach ( $force_defaults as $_key => $val ) {
-			if ( ! isset( $defaults[ $_key ] ) ) {
-				$defaults[ $_key ] = '';
-			}
-			$defaults[ $_key ] = wponion_handle_string_args_with_defaults( $_key, $val, $defaults[ $_key ] );
-		}
-
-		return $defaults;
 	}
 }
 
@@ -425,7 +481,6 @@ if ( ! function_exists( 'wponion_ajax_args' ) ) {
 		return array( 'wpo_core' => $return );
 	}
 }
-
 
 if ( ! function_exists( 'wponion_catch_output' ) ) {
 	/**
