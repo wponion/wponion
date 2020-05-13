@@ -237,7 +237,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 * @return string
 		 */
 		protected function single_icon_html( $icon ) {
-			$icon      = wponion_handle_string_args_with_defaults( 'css', $icon, Icons::icon_defaults() );
+			$icon      = wponion_parse_args_forced_values( 'css', $icon, Icons::icon_defaults() );
 			$title     = ( empty( $icon['title'] ) ) ? $icon['css'] : $icon['title'];
 			$search    = ( is_string( $icon['terms'] ) ) ? explode( ',', $icon['terms'] ) : $icon['terms'];
 			$search    = ( is_array( $icon['terms'] ) ) ? implode( ' ', $search ) : $search;
