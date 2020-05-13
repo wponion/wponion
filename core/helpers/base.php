@@ -1,4 +1,11 @@
 <?php
+
+use WPO\Builder;
+use WPO\Container;
+use WPO\Field;
+use WPOnion\DB\Option;
+use WPOnion\Theme_API;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_ajax_action' ) ) {
@@ -533,6 +540,41 @@ if ( ! function_exists( 'wponion_fix_json_string' ) ) {
 	 */
 	function wponion_fix_json_string( $string ) {
 		return preg_replace( '/(?<!")([a-zA-Z0-9_]+)(?!")(?=:)/i', '"$1"', $string );
+	}
+}
+
+if ( ! function_exists( 'wponion_is' ) ) {
+	/**
+	 * Checks if given builder is a instance of any in below
+	 *
+	 * @param bool|\WPO\Container|\WPO\Builder|\WPO\Field|\WPOnion\DB\Option $builder
+	 * @param string                                                         $type
+	 *
+	 * @return bool
+	 */
+	function wponion_is( $builder, $type = 'builder' ) {
+		switch ( strtolower( $type ) ) {
+			case 'builder':
+				return ( $builder instanceof Builder );
+				break;
+			case 'dependency_builder':
+				return ( $builder instanceof \WPO\Helper\Dependency\Builder );
+			case 'container':
+			case 'page':
+			case 'section':
+				return ( $builder instanceof Container );
+				break;
+			case 'field':
+				return ( $builder instanceof Field );
+				break;
+			case 'option':
+				return ( $builder instanceof Option );
+				break;
+			case 'theme':
+				return ( $builder instanceof Theme_API );
+				break;
+		}
+		return false;
 	}
 }
 
