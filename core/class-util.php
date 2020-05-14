@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 	 *
 	 * @package WPOnion\JS
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Util {
 		/**
@@ -55,9 +54,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		 */
 		protected function add_wponion_js_id() {
 			if ( false === $this->is_js_id_added ) {
-				$this->append_attributes( array(
-					'data-wponion-jsid' => $this->js_id(),
-				) );
+				$this->append_attributes( array( 'data-wponion-jsid' => $this->js_id() ) );
 				$this->is_js_id_added = true;
 			}
 		}
@@ -150,7 +147,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		 * @return array|mixed
 		 */
 		public function tooltip( $content, $args = array(), $localize = true ) {
-			$args = wp_parse_args( $args, array(
+			$args          = wp_parse_args( $args, array(
 				'content'     => $content,
 				'image'       => false,
 				'arrow'       => true,
@@ -159,9 +156,9 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 				'element'     => $this->element,
 				'placement'   => 'top',
 			) );
-
 			$this->js_id   = $args['js_field_id'];
 			$this->element = $args['element'];
+
 			unset( $args['js_field_id'] );
 			unset( $args['element'] );
 
@@ -175,7 +172,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 
 			if ( false !== $localize ) {
 				$localize                        = ( true === $localize ) ? 'wponion-help' : $localize;
-				$localize                        = ( false !== $this->element ) ? md5( $this->element ) : $localize;
+				$localize                        = ( false !== $this->element ) ? md5( $this->element . '_' . $localize ) : $localize;
 				$attr['data-wponion-tooltip-id'] = $localize;
 				wponion_localize()->add( $this->js_id, array( $localize => $args ) );
 			} else {
@@ -267,9 +264,7 @@ if ( ! class_exists( '\WPOnion\Util' ) ) {
 		public function dependency( $rules = array() ) {
 			if ( ! empty( $rules ) && isset( $rules['rules'] ) && wponion_is_array( $rules['rules'] ) && ! empty( array_filter( $rules ) ) ) {
 				wponion_localize()->add( $this->js_id(), array( 'dependency' => $rules ), true, true );
-				$this->append_attributes( array(
-					'wponion-inline-dependency' => true,
-				) );
+				$this->append_attributes( array( 'wponion-inline-dependency' => true ) );
 			}
 		}
 	}
