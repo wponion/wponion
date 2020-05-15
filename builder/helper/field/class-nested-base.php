@@ -48,7 +48,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		 * @return false|\WPO\Field
 		 */
 		public function field_exists( $field_id ) {
-			return ( $this->has_fields() && isset( $this['fields'][ $field_id ] ) ) ? $this['fields'][ $field_id ] : false;
+			return ( $this->has_fields() && isset( $this[ 'fields/' . $field_id ] ) ) ? $this[ 'fields/' . $field_id ] : false;
 		}
 
 		/**
@@ -79,10 +79,10 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 			}
 
 			if ( wpo_is_field( $field_type_or_instance ) ) {
-				$this['fields'][ $this->get_field_id( $field_type_or_instance ) ] = $field_type_or_instance;
+				$this[ 'fields/' . $this->get_field_id( $field_type_or_instance ) ] = $field_type_or_instance;
 				return $field_type_or_instance;
 			} elseif ( wpo_is_field( $field_id ) ) {
-				$this['fields'][ $this->get_field_id( $field_id ) ] = $field_id;
+				$this[ 'fields/' . $this->get_field_id( $field_id ) ] = $field_id;
 				return $field_id;
 			}
 
@@ -95,7 +95,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 			if ( false === $return ) {
 				$return = Field::create( $field_type_or_instance, $field_id, $title, $args );
 				if ( $return ) {
-					$this['fields'][ $this->get_field_id( $return ) ] = $return;
+					$this[ 'fields/' . $this->get_field_id( $return ) ] = $return;
 				} else {
 					$return = false;
 				}

@@ -15,16 +15,6 @@ if ( ! class_exists( 'WPO\Helper\Field\Helper' ) ) {
 	 */
 	class Helper extends Array_Helper {
 		/**
-		 * @param mixed $offset
-		 *
-		 * @return mixed
-		 */
-		public function &offsetGet( $offset ) {
-			$value = parent::offsetGet( $offset );
-			return $value;
-		}
-
-		/**
 		 * Checks & Returns Field Args.
 		 *
 		 * @param $name

@@ -34,10 +34,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function wpautop( $wpautop ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['wpautop'] = $wpautop;
+			$this['settings/wpautop'] = $wpautop;
 			return $this;
 		}
 
@@ -49,10 +46,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function media_buttons( $media_buttons ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['media_buttons'] = $media_buttons;
+			$this['settings/media_buttons'] = $media_buttons;
 			return $this;
 		}
 
@@ -64,10 +58,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function textarea_rows( $textarea_rows ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['textarea_rows'] = $textarea_rows;
+			$this['settings/textarea_rows'] = $textarea_rows;
 			return $this;
 		}
 
@@ -79,10 +70,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function editor_css( $editor_css ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['editor_css'] = $editor_css;
+			$this['settings/editor_css'] = $editor_css;
 			return $this;
 		}
 
@@ -94,10 +82,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function editor_class( $editor_class ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['editor_class'] = $editor_class;
+			$this['settings/editor_class'] = $editor_class;
 			return $this;
 		}
 
@@ -109,10 +94,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function editor_height( $editor_height ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['editor_height'] = $editor_height;
+			$this['settings/editor_height'] = $editor_height;
 			return $this;
 		}
 
@@ -124,10 +106,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function teeny( $teeny ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['teeny'] = $teeny;
+			$this['settings/teeny'] = $teeny;
 			return $this;
 		}
 
@@ -139,10 +118,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function dfw( $dfw ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['dfw'] = $dfw;
+			$this['settings/dfw'] = $dfw;
 			return $this;
 		}
 
@@ -154,10 +130,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function tinymce( $tinymce ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['tinymce'] = $tinymce;
+			$this['settings/tinymce'] = $tinymce;
 			return $this;
 		}
 
@@ -169,10 +142,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function quicktags( $quicktags ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['quicktags'] = $quicktags;
+			$this['settings/quicktags'] = $quicktags;
 			return $this;
 		}
 
@@ -184,10 +154,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Editor' ) ) {
 		 * @return $this
 		 */
 		public function drag_drop_upload( $drag_drop_upload ) {
-			if ( ! isset( $this['settings'] ) ) {
-				$this['settings'] = array();
-			}
-			$this['settings']['drag_drop_upload'] = $drag_drop_upload;
+			$this['settings/drag_drop_upload'] = $drag_drop_upload;
 			return $this;
 		}
 

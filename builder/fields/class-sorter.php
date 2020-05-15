@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 */
 		public function enabled( $enabled, $merge = true ) {
 			$this->_set_array_handler( 'enabled', $enabled, $merge );
-			$this['options']['enabled'] = $this['enabled'];
+			$this['options/enabled'] = $this['enabled'];
 			return $this;
 		}
 
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 */
 		public function disabled( $disabled = array(), $merge = true ) {
 			$this->_set_array_handler( 'disabled', $disabled, $merge );
-			$this['options']['disabled'] = $this['disabled'];
+			$this['options/disabled'] = $this['disabled'];
 			return $this;
 		}
 
