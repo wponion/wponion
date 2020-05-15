@@ -5,7 +5,6 @@ namespace WPO\Helper;
 defined( 'ABSPATH' ) || exit;
 
 use JsonSerializable;
-use WPOnion\Bridge;
 use WPOnion\Traits\Json_Serialize;
 use WPOnion\Traits\Countable;
 
@@ -16,9 +15,16 @@ if ( ! class_exists( '\WPO\Helper\Base' ) ) {
 	 * @package WPO\Helper
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	abstract class Base extends Bridge implements JsonSerializable, \Countable {
+	abstract class Base implements JsonSerializable, \Countable {
 		use Json_Serialize;
 		use Countable;
+
+		/**
+		 * Stores Options.
+		 *
+		 * @var array
+		 */
+		protected $settings = array();
 
 		/**
 		 * Custom Variable Name That Class Uses To Work As Array.
