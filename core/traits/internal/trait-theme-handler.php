@@ -224,7 +224,6 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 * @return string
 		 */
 		protected function wrap_class( $extra_class = '' ) {
-			var_dump( 1 );
 			return esc_attr( wponion_html_class( $extra_class, $this->default_wrap_class() ) );
 		}
 
