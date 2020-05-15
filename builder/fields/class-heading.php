@@ -23,7 +23,7 @@ if ( ! class_exists( 'WPO\Fields\Heading' ) ) {
 		 * @param array $args
 		 */
 		public function __construct( $content = false, $id = false, $args = array() ) {
-			parent::__construct( 'heading', $id, false, $this->parse_args( array( 'content' => $content ), $args ) );
+			parent::__construct( 'heading', $id, false, wponion_parse_args( array( 'content' => $content ), $args ) );
 		}
 
 		/**
