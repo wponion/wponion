@@ -152,7 +152,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 			}
 
 			$args = wponion_is_array( $args ) ? $args : array();
-			$args = $this->parse_args( $args, array(
+			$args = wponion_parse_args( $args, array(
 				'type'  => $type,
 				'id'    => $id,
 				'title' => $title,
