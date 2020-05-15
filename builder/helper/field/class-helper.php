@@ -20,14 +20,8 @@ if ( ! class_exists( 'WPO\Helper\Field\Helper' ) ) {
 		 * @return mixed
 		 */
 		public function &offsetGet( $offset ) {
-			$return   = false;
-			$defaults = $this->defaults();
-			if ( $this->offsetExists( $offset ) ) {
-				$return = \WPOnion\Helper::array_key_get( $offset, $this->{$this->array_var} );
-			} elseif ( \WPOnion\Helper::array_key_isset( $offset, $defaults ) ) {
-				$return = \WPOnion\Helper::array_key_get( $offset, $defaults );
-			}
-			return $return;
+			$value = parent::offsetGet( $offset );
+			return $value;
 		}
 
 		/**
