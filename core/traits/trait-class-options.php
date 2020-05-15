@@ -25,6 +25,18 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		protected $array_key_delimiter = '/';
 
 		/**
+		 * If set to true then it utliezes
+		 *
+		 * @uses \WPOnion\Helper::array_key_get()
+		 * @uses \WPOnion\Helper::array_key_set()
+		 * @uses \WPOnion\Helper::array_key_isset()
+		 * @uses \WPOnion\Helper::array_key_unset()
+		 * @var bool
+		 * @since {NEWVERSION}
+		 */
+		protected $array_helper = true;
+
+		/**
 		 * Fetchs Class Defaults.
 		 *
 		 * @param       $key
@@ -43,9 +55,11 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 * @param array $defaults
 		 *
 		 * @return array
+		 * @uses defaults
+		 * @uses base_defaults
 		 */
 		protected function set_args( $user_options = array(), $defaults = array() ) {
-			$user_options   = ( ! is_array( $user_options ) ) ? array() : $user_options;
+			$user_options   = ( ! wponion_is_array( $user_options ) ) ? array() : $user_options;
 			$defaults       = $this->parse_args( $this->call_method( 'defaults', $defaults ), $this->call_method( 'base_defaults' ) );
 			$this->settings = $this->parse_args( $user_options, $defaults );
 			return $this->settings;
@@ -60,22 +74,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 * @return array
 		 */
 		protected function parse_args( $new = array(), $defaults = array() ) {
-			$new      = ( ! is_array( $new ) ) ? array() : $new;
-			$defaults = ( ! is_array( $defaults ) ) ? array() : $defaults;
-			return wponion_parse_args( $new, $defaults );
-		}
-
-		/**
-		 * Sets A Value With Options.
-		 *
-		 * @param string $key
-		 * @param mixed  $value
-		 *
-		 * @return $this
-		 */
-		protected function set_option( $key, $value ) {
-			Helper::array_key_set( $key, $value, $this->settings, $this->array_key_delimiter );
-			return $this;
+			return wponion_parse_args( wponion_cast_array( $new ), wponion_cast_array( $defaults ) );
 		}
 
 		/**
@@ -92,6 +91,39 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		}
 
 		/**
+		 * Sets Default Option Value if option does not exists.
+		 *
+		 * @param string $key
+		 * @param mixed  $default
+		 *
+		 * @return $this
+		 * @since {NEWVERSION}
+		 */
+		protected function set_option_default( $key, $default ) {
+			if ( ! $this->has_option( $key ) ) {
+				$this->option( $key, $default );
+			}
+			return $this;
+		}
+
+		/**
+		 * Sets A Value With Options.
+		 *
+		 * @param string $key
+		 * @param mixed  $value
+		 *
+		 * @return $this
+		 */
+		protected function set_option( $key, $value ) {
+			if ( $this->array_helper ) {
+				Helper::array_key_set( $key, $value, $this->settings, $this->array_key_delimiter );
+			} else {
+				$this->settings[ $key ] = $value;
+			}
+			return $this;
+		}
+
+		/**
 		 * Removes A Value From Stored Options.
 		 *
 		 * @param $key
@@ -101,7 +133,11 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 */
 		protected function remove_option( $key ) {
 			if ( is_string( $key ) ) {
-				Helper::array_key_unset( $key, $this->settings, $this->array_key_delimiter );
+				if ( $this->array_helper ) {
+					Helper::array_key_unset( $key, $this->settings, $this->array_key_delimiter );
+				} else {
+					unset( $this->settings[ $key ] );
+				}
 			}
 
 			if ( is_array( $key ) ) {
@@ -109,7 +145,6 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 					$this->remove_option( $id );
 				}
 			}
-
 			return $this;
 		}
 
@@ -122,7 +157,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 * @since {NEWVERSION}
 		 */
 		protected function has_option( $key ) {
-			return Helper::array_key_isset( $key, $this->settings, $this->array_key_delimiter );
+			return ( $this->array_helper ) ? Helper::array_key_isset( $key, $this->settings, $this->array_key_delimiter ) : isset( $this->settings[ $key ] );
 		}
 
 		/**
@@ -134,7 +169,14 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 * @return mixed
 		 */
 		protected function option( $key = null, $default = false ) {
-			return ( empty( $key ) ) ? $this->settings : Helper::array_key_get( $key, $this->settings, $default, $this->array_key_delimiter );
+			if ( empty( $key ) ) {
+				return $this->settings;
+			}
+
+			if ( $this->array_helper ) {
+				return Helper::array_key_get( $key, $this->settings, $default, $this->array_key_delimiter );
+			}
+			return ( $this->has_option( $key ) ) ? $this->settings[ $key ] : $default;
 		}
 	}
 }
