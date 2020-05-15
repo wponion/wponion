@@ -6,7 +6,6 @@ defined( 'ABSPATH' ) || exit;
 
 use ArrayAccess;
 use Iterator;
-use WPOnion\Helper;
 use WPOnion\Traits\Array_Access;
 use WPOnion\Traits\Array_Iterator;
 use WPOnion\Traits\Array_Position;
