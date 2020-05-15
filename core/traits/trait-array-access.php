@@ -29,13 +29,14 @@ if ( ! trait_exists( '\WPOnion\Traits\Array_Access' ) ) {
 		 * @return mixed
 		 */
 		public function offsetGet( $offset ) {
+			$return   = false;
 			$defaults = $this->defaults();
 			if ( $this->offsetExists( $offset ) ) {
-				return $this->{$this->array_var}[ $offset ];
-			} elseif ( isset( $defaults[ $offset ] ) ) {
-				return $defaults[ $offset ];
+				$return = Helper::array_key_get( $offset, $this->{$this->array_var} );
+			} elseif ( Helper::array_key_isset( $offset, $defaults ) ) {
+				$return = Helper::array_key_get( $offset, $defaults );
 			}
-			return false;
+			return $return;
 		}
 
 		/**
