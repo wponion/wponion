@@ -82,11 +82,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 			}
 
 			if ( true === $merge ) {
-				if ( wponion_is_array( $_options ) ) {
-					$_options = $this->parse_args( $options, $_options );
-				} else {
-					$_options = $options;
-				}
+				$_options = ( wponion_is_array( $_options ) ) ? wponion_parse_args( $options, $_options ) : $options;
 			} else {
 				$_options = $options;
 			}
