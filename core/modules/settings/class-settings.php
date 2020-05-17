@@ -133,7 +133,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 
 					global $submenu;
 
-					if ( isset( $submenu[ $menu['menu_slug'] ] ) && ! empty( $submenu[ $menu_slug ] ) ) {
+					if ( isset( $submenu[ $menu_slug ] ) && ! empty( $submenu[ $menu_slug ] ) ) {
 						foreach ( $submenu[ $menu_slug ] as $id => $smenu ) {
 							if ( $menu_slug !== $submenu[ $menu_slug ][ $id ][2] ) {
 								$submenu[ $menu_slug ][ $id ][2] = isset( $menus[ $smenu[2] ]['part_href'] ) ? $menus[ $smenu[2] ]['part_href'] : false;
