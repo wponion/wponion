@@ -308,7 +308,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		/**
 		 * @param null $title_column
 		 *
-		 * @return \WPO\Helper\Field\Common_Args
+		 * @return $this
 		 */
 		public function title_column( $title_column = null ) {
 			return $this->_set( 'title_column', $title_column );
@@ -317,7 +317,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		/**
 		 * @param null $fieldset_column
 		 *
-		 * @return \WPO\Helper\Field\Common_Args
+		 * @return $this
 		 */
 		public function fieldset_column( $fieldset_column = null ) {
 			return $this->_set( 'fieldset_column', $fieldset_column );
