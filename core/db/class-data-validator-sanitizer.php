@@ -5,6 +5,7 @@ namespace WPOnion\DB;
 use WPOnion\Bridge;
 use WPOnion\DB\Fields\Modal;
 use WPOnion\Helper;
+use WPOnion\Traits\Internal\Module;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,6 +21,7 @@ if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
 		 * Modal Field Handler.
 		 */
 		use Modal;
+		use Module;
 
 		/**
 		 * Stores Unique ID.
