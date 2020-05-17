@@ -39,7 +39,13 @@
     "varunsridharan/wp-conditional-logic" : "^1.0"
   },
   "scripts"     : {
-    "classmaps"           : "classmap-generator \"builder/,core/,fields/,module-fields/,templates/\" ./wponion-classmaps.php",
+    "classmaps"           : [
+      "classmap-generator includes/builder ./data/classmaps/builder.php",
+      "classmap-generator core/ ./data/classmaps/core.php",
+      "classmap-generator includes/fields ./data/classmaps/fields.php",
+      "classmap-generator includes/module-fields ./data/classmaps/module-fields.php",
+      "classmap-generator includes/templates ./data/classmaps/templates.php"
+    ],
     "makepot"             : "makepot ./wp-pot.json",
     "add-textdomain"      : "add-textdomain -i wponion ./",
     "update-icons"        : "php ./src/php/icon-exporter/all-icons.php",

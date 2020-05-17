@@ -64,7 +64,7 @@ if ( ! class_exists( 'WPOnion' ) ) {
 		 * @return string
 		 */
 		public function tpl( $extra = '', $is_url = false ) {
-			return $this->url_path( 'templates/' . $extra, $is_url );
+			return $this->url_path( 'includes/templates/' . $extra, $is_url );
 		}
 
 		/**

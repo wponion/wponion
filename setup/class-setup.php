@@ -144,7 +144,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @static
 		 */
 		public static function init_autoloader() {
-			$map_file = wponion()->path( 'wponion-classmaps.php' );
 			try {
 				spl_autoload_register( array( __CLASS__, 'vendor_loader' ) );
 			} catch ( Exception $exception ) {
@@ -153,28 +152,28 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				}
 			}
 
-			new Autoloader( 'WPOnion\Theme\\', wponion()->path( 'templates/' ), array(
-				'classmap' => $map_file,
+			new Autoloader( 'WPOnion\Theme\\', wponion()->path( 'includes/templates/' ), array(
+				'classmap' => wponion()->path( 'data/classmaps/templates.php' ),
 				'prepend'  => true,
 			) );
 
-			new Autoloader( 'WPOnion\Field\\', wponion()->path( 'fields/' ), array(
-				'classmap' => $map_file,
+			new Autoloader( 'WPOnion\Field\\', wponion()->path( 'includes/fields/' ), array(
+				'classmap' => wponion()->path( 'data/classmaps/fields.php' ),
 				'prepend'  => true,
 			) );
 
-			new Autoloader( 'WPOnion\Module_Fields\\', wponion()->path( 'module-fields/' ), array(
-				'classmap' => $map_file,
+			new Autoloader( 'WPOnion\Module_Fields\\', wponion()->path( 'includes/module-fields/' ), array(
+				'classmap' => wponion()->path( 'data/classmaps/module-fields.php' ),
 				'prepend'  => true,
 			) );
 
 			new Autoloader( 'WPOnion\\', wponion()->path( 'core/' ), array(
-				'classmap' => $map_file,
+				'classmap' => wponion()->path( 'data/classmaps/core.php' ),
 				'exclude'  => array( 'WPOnion\Field\\', 'WPOnion\Module_Fields\\' ),
 			) );
 
-			new Autoloader( 'WPO\\', wponion()->path( 'builder/' ), array(
-				'classmap' => $map_file,
+			new Autoloader( 'WPO\\', wponion()->path( 'includes/builder/' ), array(
+				'classmap' => wponion()->path( 'data/classmaps/builder.php' ),
 				'exclude'  => array( 'WPOnion\\' ),
 				'prepend'  => true,
 			) );
