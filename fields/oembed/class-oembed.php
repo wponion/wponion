@@ -26,7 +26,6 @@ if ( ! class_exists( '\WPOnion\Field\OEmbed' ) ) {
 		protected function handle_arguments() {
 			parent::handle_arguments();
 			$this->set_option( 'text_type', 'text' );
-			$this->set_option( 'type', 'text' );
 		}
 
 		/**

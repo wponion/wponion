@@ -2,8 +2,9 @@
 
 namespace WPOnion\Modules\Util;
 
-use WPOnion\Bridge\Module;
+use WPOnion\Bridge\Module_Utility;
 use WPOnion\Modules\Admin\Page;
+use WPOnion\Traits\Internal\Theme_Handler;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,7 +16,8 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
-	class Help_Tabs extends Module {
+	class Help_Tabs extends Module_Utility {
+		use Theme_Handler;
 
 		/**
 		 * module
@@ -31,6 +33,8 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		 */
 		public $current_tabs = null;
 
+		protected $public_access_methods = array( 'wrap_attributes', 'render_field' );
+
 		/**
 		 * Help_Tabs constructor.
 		 *
@@ -42,8 +46,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 			if ( wponion_is_array( $page ) ) {
 				$settings = $this->get_settings( $page );
 				unset( $page['option_name'] );
-				parent::__construct( null, $settings );
-				$this->fields = $page;
+				parent::__construct( $settings, $page );
 			} elseif ( wponion_is_array( $help_tabs ) && false !== $page ) {
 				if ( is_string( $page ) ) {
 					$help_tabs = array(
@@ -61,17 +64,13 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 						),
 					);
 				}
-
-				parent::__construct( null, $this->get_settings( $page ) );
-				$this->fields = $help_tabs;
+				parent::__construct( $this->get_settings( $page ), $help_tabs );
 			}
 
 			if ( isset( $this->fields['page'] ) ) {
 				$this->fields = array( $this->fields );
 			}
-
 			$this->add_action( 'current_screen', 'render_help_tabs' );
-			//	parent::__construct( $fields, $settings );
 		}
 
 		/**
@@ -79,12 +78,12 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		 *
 		 * @return array
 		 */
-		public function get_settings( $help_tabs ) {
+		protected function get_settings( $help_tabs ) {
 			$settings = array( 'option_name' => false );
-			if ( wponion_is_array( $help_tabs ) ) {
-				if ( isset( $help_tabs['option_name'] ) ) {
-					$settings['option_name'] = $help_tabs['option_name'];
-				}
+			if ( wponion_is_array( $help_tabs ) && isset( $help_tabs['option_name'] ) ) {
+				$settings['option_name'] = $help_tabs['option_name'];
+			} else {
+				$settings['option_name'] = md5( wp_json_encode( $this->settings ) );
 			}
 			return $settings;
 		}
@@ -106,7 +105,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		 *
 		 * @return bool|string
 		 */
-		public function get_page_id( $id, $page ) {
+		protected function get_page_id( $id, $page ) {
 			if ( isset( $page['page'] ) ) {
 				if ( $page['page'] instanceof Page ) {
 					return $page['page']->get_page_slug();
@@ -114,18 +113,6 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 				return is_string( $page['page'] ) ? $page['page'] : false;
 			}
 			return ( false === is_numeric( $id ) ) ? $id : false;
-		}
-
-		/**
-		 * Registers a Hook with WordPress To Render Help Tabs.
-		 */
-		public function hook_pages() {
-			foreach ( $this->fields as $id => $field ) {
-				$hook_id = $this->get_page_id( $id, $field );
-				if ( ! is_numeric( $hook_id ) ) {
-					$this->add_action( 'load-' . $hook_id, 'render_help_tabs' );
-				}
-			}
 		}
 
 		/**
@@ -170,7 +157,8 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		}
 
 		/**
-		 * Trigged When admin_enqueue_scripts hook is triggered so it can load the required assets.
+		 * Trigged When admin_enqueue_scripts hook
+		 * is triggered so it can load the required assets.
 		 */
 		public function load_style_script() {
 			wponion_load_core_assets( $this->option( 'assets' ) );
@@ -179,12 +167,12 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		/**
 		 * Renders HTML and returns it.
 		 *
-		 * @param $id
-		 * @param $tab
+		 * @param string $id
+		 * @param array  $tab
 		 *
 		 * @return array
 		 */
-		public function render_help_tab_contents( $id, $tab ) {
+		protected function render_help_tab_contents( $id, $tab ) {
 			if ( ! isset( $tab['id'] ) && ! isset( $tab['title'] ) && ! is_numeric( $id ) && isset( $tab['content'] ) || isset( $tab['callback'] ) ) {
 				$tab['id']    = sanitize_title( $id );
 				$tab['title'] = $id;
@@ -193,7 +181,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 				$tab = array(
 					'id'     => sanitize_title( $id ),
 					'title'  => $id,
-					'fields' => $tab,
+					'fields' => ( isset( $tab['fields'] ) ) ? $tab['fields'] : $tab,
 				);
 			}
 
@@ -213,33 +201,21 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		/**
 		 * Returns a wrap class.
 		 *
-		 * @param string $extra_class
-		 *
 		 * @return array|string
 		 */
-		public function wrap_class( $extra_class = '' ) {
+		protected function wrap_class() {
 			$screen = get_current_screen();
 			return wponion_html_class( array( 'wponion-help-tabs-' . $screen->id ), $this->default_wrap_class() );
 		}
 
-		/**
-		 * Triggers On Init.
-		 *
-		 * @return mixed|void
-		 */
-		public function on_init() {
-		}
-
-		/**
-		 * Returns A Unique Name.
-		 *
-		 * @return string
-		 */
-		public function unique() {
-			if ( empty( $this->unique ) ) {
-				$this->unique = md5( wp_json_encode( $this->settings ) );
+		protected function render_field( $field = array(), $hash = false, $is_init_field = false ) {
+			$html = '';
+			if ( ! wpo_is_field( $field ) && isset( $field[0] ) ) {
+				foreach ( $field as $single ) {
+					$html .= parent::render_field( $single, $hash, $is_init_field );
+				}
 			}
-			return $this->unique;
+			return ( isset( $field[0] ) ) ? $html : parent::render_field( $field, $hash, $is_init_field );
 		}
 	}
 }

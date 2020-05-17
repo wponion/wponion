@@ -342,6 +342,7 @@ HTML;
 
 			$user_attrs['data-depend-id'] = $this->depend_id();
 			$user_attrs                   = $this->parse_args( $user_attrs, $field_attributes );
+			$user_attrs['class']          = ( isset( $user_attrs['class'] ) ) ? $user_attrs['class'] : array();
 			$user_attrs['class']          = wponion_html_class( $user_attrs['class'], isset( $field_attributes['class'] ) ? $field_attributes['class'] : array() );
 
 			if ( ! isset( $user_attrs['data-wponion-jsid'] ) ) {

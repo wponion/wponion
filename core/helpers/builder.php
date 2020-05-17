@@ -1,5 +1,9 @@
 <?php
 
+use WPO\Builder;
+use WPO\Container;
+use WPO\Field;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_builder' ) ) {
@@ -9,7 +13,7 @@ if ( ! function_exists( 'wponion_builder' ) ) {
 	 * @return \WPO\Builder
 	 */
 	function wponion_builder() {
-		return new WPO\Builder();
+		return new Builder();
 	}
 }
 
@@ -36,7 +40,7 @@ if ( ! function_exists( 'wpo_field' ) ) {
 	 * @return false|\WPO\Field
 	 */
 	function wpo_field( $type = false, $id = false, $title = false, $args = array() ) {
-		return WPO\Field::create( $type, $id, $title, $args );
+		return Field::create( $type, $id, $title, $args );
 	}
 }
 
