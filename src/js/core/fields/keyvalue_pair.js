@@ -38,10 +38,10 @@ export default class extends WPOnion_Field {
 				this.hook.doAction( 'wponion_key_value_updated', $elem );
 			},
 			onLimitReached: () => {
-				if( this.element.find( 'div.alert' ).length === 0 ) {
+				if( this.element.find( 'div.wpo-alert' ).length === 0 ) {
 					this.element.find( '.wponion-keyvalue_wrap' ).after( jQuery( this.option( 'error_msg' ) ).hide() );
-					this.element.find( 'div.alert' ).slideDown();
-					window.wponion_notice( this.element.find( 'div.alert, div.notice' ) );
+					this.element.find( 'div.wpo-alert' ).slideDown();
+					window.wponion_notice( this.element.find( 'div.wpo-alert, div.wpo-notice' ) );
 				}
 			}
 		} );

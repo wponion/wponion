@@ -82,10 +82,10 @@ export default class extends WPOnion_Field {
 
 			},
 			onLimitReached: () => {
-				if( $add.parent().find( 'div.alert' ).length === 0 ) {
+				if( $add.parent().find( 'div.wpo-alert' ).length === 0 ) {
 					$add.before( jQuery( this.option( 'error_msg', '' ) ).hide() );
-					$add.parent().find( 'div.alert' ).slideDown();
-					window.wponion_notice( $add.parent().find( 'div.alert, div.notice' ) );
+					$add.parent().find( 'div.wpo-alert' ).slideDown();
+					window.wponion_notice( $add.parent().find( 'div.wpo-alert, div.wpo-notice' ) );
 				}
 			}
 		} );

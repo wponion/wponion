@@ -33,10 +33,10 @@ export default class extends WPOnion_Field {
 			onRemoveAfter: () => this.element.trigger( 'change' ),
 			sortable: $sort,
 			onLimitReached: function() {
-				if( $add_btn.parent().find( 'div.alert' ).length === 0 ) {
+				if( $add_btn.parent().find( 'div.wpo-alert' ).length === 0 ) {
 					$add_btn.parent().prepend( jQuery( $arg.error_msg ).hide() );
-					$add_btn.parent().find( 'div.alert' ).slideDown();
-					window.wponion_notice( $add_btn.parent().find( 'div.alert, div.notice' ) );
+					$add_btn.parent().find( 'div.wpo-alert' ).slideDown();
+					window.wponion_notice( $add_btn.parent().find( 'div.wpo-alert, div.wpo-notice' ) );
 				}
 			},
 			show_animation: $arg.animations.show,
