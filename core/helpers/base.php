@@ -8,6 +8,42 @@ use WPOnion\Theme_API;
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! function_exists( 'wponion_is_defined' ) ) {
+	/**
+	 * Validates if a constant if defined ?
+	 *
+	 * @param string $key
+	 * @param bool   $is_strict
+	 *
+	 * @return bool
+	 * @since {NEWVERSION}
+	 */
+	function wponion_is_defined( $key, $is_strict = false ) {
+		return ( $is_strict ) ? ( defined( $key ) && true === constant( $key ) ) : ( defined( $key ) );
+	}
+}
+
+if ( ! function_exists( 'wponion_define' ) ) {
+	/**
+	 * Defines A Constant if not exists.
+	 *
+	 * @param string $key
+	 * @param mixed  $value
+	 * @param mixed  $case_insensitive If set to true, the constant will be defined case-insensitive.
+	 *
+	 * @return bool
+	 * @since {NEWVERSION}
+	 */
+	function wponion_define( $key, $value, $case_insensitive = false ) {
+		$is_strict = ( true === $value );
+		if ( ! wponion_is_defined( $key, $is_strict ) ) {
+			define( $key, $value, $case_insensitive );
+			return true;
+		}
+		return false;
+	}
+}
+
 if ( ! function_exists( 'wponion_ajax_action' ) ) {
 	/**
 	 * @param bool $action
@@ -327,7 +363,7 @@ if ( ! function_exists( 'wponion_parse_args_mixed' ) ) {
 	function wponion_parse_args_mixed( $save_with = '', $user_values = array(), $defaults = array() ) {
 		if ( true === $user_values ) {
 			return $user_values;
-		} elseif ( is_array( $user_values ) ) {
+		} elseif ( wponion_is_array( $user_values ) ) {
 			return wponion_parse_args( wponion_cast_array( $user_values ), wponion_cast_array( $defaults ) );
 		} elseif ( false !== $user_values ) {
 			$defaults[ $save_with ] = $user_values;
