@@ -15,7 +15,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	abstract class Module extends Module_Utility {
+	abstract class Module extends Module_DB {
 		use Theme_Handler;
 		use Fields_Handler;
 		use Hooks;
@@ -45,7 +45,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function defaults() {
+		protected function base_defaults() {
 			return array(
 				'option_name' => false,
 				'assets'      => false,
@@ -57,6 +57,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * Extracts Field Default Values.
 		 *
 		 * @param $field
+		 *
+		 * @deprecated
 		 */
 		protected function get_fields_defaults_value( $field ) {
 			if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
@@ -87,24 +89,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * Unsets Global Args.
-		 */
-		protected function _unset_globals() {
-			unset( $this->current_theme );
-			unset( $this->menus );
-			unset( $this->fields );
-			unset( $this->raw_fields );
-			unset( $this->unique );
-			unset( $this->db_values );
-			unset( $this->options_cache );
-			unset( $this->module );
-		}
-
-		/**
 		 * Required Callback On Instance Init.
 		 *
 		 * @return mixed
 		 */
-		abstract public function on_init();
+		abstract protected function on_init();
 	}
 }
