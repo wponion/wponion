@@ -2,14 +2,11 @@
 
 namespace WPOnion\Modules\Settings;
 
-use WPO\Builder;
 use WPO\Container;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Settings_Save_Handler;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 	/**
@@ -17,7 +14,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 	 *
 	 * @package WPOnion\Modules\Settings
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Settings extends Module {
 		/**
@@ -25,7 +21,25 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @var \WPOnion\Modules\Admin\Page
 		 */
-		public $menu_instance = '';
+		protected $menu_instance = '';
+
+		protected $public_access_methods = array(
+			'wrap_attributes',
+			'is_single_page',
+			'settings_button',
+			'valid_field',
+			'valid_option',
+			'container_wrap_id',
+			'container_wrap_class',
+			'search_no_result',
+			'render_field',
+			'has_fields',
+			'get_id',
+			'settings_menus',
+			'reload_cache',
+			'reload_values',
+		);
+
 
 		/**
 		 * Module Type.
@@ -33,15 +47,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 * @var string
 		 */
 		protected $module = 'settings';
-
-		/**
-		 * Stores WP Admin Menu Page Slug / Hook which returns from any of these functions
-		 *
-		 * page_hook
-		 *
-		 * @var null
-		 */
-		protected $page_hook = null;
 
 		/**
 		 * Active Menu Info.
@@ -58,63 +63,52 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		protected $page_url = array();
 
 		/**
-		 * Settings constructor.
-		 *
-		 * @param \WPO\Builder|null $fields
-		 * @param array             $settings
-		 */
-		public function __construct( $settings = array(), Builder $fields = null ) {
-			parent::__construct( $fields, $settings );
-			$this->raw_options = $settings;
-			$this->init();
-		}
-
-		/**
 		 * Inits The Class.
+		 *
+		 * @uses load_assets
+		 * @uses register_admin_menu
 		 */
-		public function on_init() {
+		protected function on_init() {
 			$this->add_action( 'admin_init', 'wp_admin_init' );
-			$menu              = $this->parse_args( $this->option( 'menu' ), $this->defaults( 'menu' ) );
-			$menu['on_load']   = ( ! wponion_is_array( $menu['on_load'] ) ) ? array() : $menu['on_load'];
-			$menu['assets']    = ( ! wponion_is_array( $menu['assets'] ) ) ? array() : $menu['assets'];
-			$menu['on_load'][] = array( &$this, 'on_settings_page_load' );
-			$menu['render']    = array( &$this, 'render' );
-			$menu['assets'][]  = 'wponion_load_core_assets';
+			$arg              = $this->parse_args( $this->option( 'menu' ), $this->defaults( 'menu' ) );
+			$arg['on_load']   = ( ! wponion_is_array( $arg['on_load'] ) ) ? array() : $arg['on_load'];
+			$arg['assets']    = ( ! wponion_is_array( $arg['assets'] ) ) ? array() : $arg['assets'];
+			$arg['on_load'][] = array( &$this, 'on_settings_page_load' );
+			$arg['render']    = array( &$this, 'render' );
+			$arg['assets'][]  = 'wponion_load_core_assets';
+			$user_asset       = $this->option( 'assets' );
 
-			if ( wponion_is_array( $this->option( 'assets' ) ) ) {
-				$asset = $this->option( 'assets' );
-				if ( wponion_is_callable( $asset ) ) {
-					$menu['assets'][] = $asset;
-				} else {
-					$menu['assets'] = $this->parse_args( $menu['assets'], $this->option( 'assets' ) );
-				}
-			} elseif ( ! empty( $this->option( 'assets' ) ) ) {
-				$menu['assets'][] = $this->option( 'assets' );
+			if ( ! empty( $user_asset ) && ( is_string( $user_asset ) || wponion_is_callable( $user_asset ) ) ) {
+				$arg['assets'][] = $user_asset;
+			} elseif ( ! empty( $user_asset ) && wponion_is_array( $user_asset ) ) {
+				$arg['assets'] = $this->parse_args( $user_asset, $arg['assets'] );
 			}
 
-			$menu['assets'][] = array( $this, 'load_admin_styles' );
+			$arg['assets'][] = array( $this, 'load_assets' );
 
-			if ( false !== $menu['submenu'] ) {
-				if ( true === $menu['submenu'] ) {
-					$menu['submenu'] = array();
-				}
-				if ( ! is_string( $menu['submenu'] ) ) {
-					if ( wponion_is_array( $menu['submenu'] ) && ! isset( $menu['submenu'][0] ) || ! wponion_is_array( $menu['submenu'] ) ) {
-						$menu['submenu'] = array( $menu['submenu'] );
+			if ( false !== $arg['submenu'] ) {
+				$arg['submenu'] = ( true === $arg['submenu'] ) ? array() : $arg['submenu'];
+
+				if ( ! is_string( $arg['submenu'] ) ) {
+					if ( wponion_is_array( $arg['submenu'] ) && ! isset( $arg['submenu'][0] ) || ! wponion_is_array( $arg['submenu'] ) ) {
+						$arg['submenu'] = array( $arg['submenu'] );
 					}
-					$menu['submenu'] = wponion_parse_args( array(
-						array( &$this, 'register_admin_menu' ),
-					), $menu['submenu'] );
+					$arg['submenu'] = wponion_parse_args( array(
+						array(
+							&$this,
+							'register_admin_menu',
+						),
+					), $arg['submenu'] );
 				}
 			}
-			$this->set_option( 'menu', $menu );
-			$this->menu_instance = wponion_admin_page( $menu );
+			$this->set_option( 'menu', $arg );
+			$this->menu_instance = wponion_admin_page( $arg );
 		}
 
 		/**
 		 * Loads Required Style for the current settings page.
 		 */
-		public function load_admin_styles() {
+		public function load_assets() {
 			do_action( 'wponion/settings/page/assets', $this->unique() );
 		}
 
@@ -122,31 +116,34 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 * Registers Admin Menu.
 		 */
 		public function register_admin_menu() {
-			if ( isset( $this->settings['menu'] ) ) {
-				$menu     = $this->option( 'menu' );
-				$callback = array( &$this, 'render' );
+			if ( $this->has_option( 'menu/submenu' ) && $this->has_option( 'menu/menu_slug' ) ) {
+				$submenu   = $this->option( 'menu/submenu' );
+				$menu_slug = $this->has_option( 'menu/menu_slug' );
+				$callback  = array( &$this, 'render' );
 
-				if ( isset( $menu['submenu'] ) && ( true === $menu['submenu'] || wponion_is_array( $menu['submenu'] ) ) ) {
+				if ( true === $submenu || wponion_is_array( $submenu ) ) {
 					$this->find_active_menu();
 					$menus = $this->settings_menus();
 					foreach ( $menus as $id => $_menu ) {
 						if ( isset( $_menu['is_separator'] ) && false !== $_menu['is_separator'] ) {
 							continue;
 						}
-						add_submenu_page( $menu['menu_slug'], $_menu['title'], $_menu['title'], $menu['capability'], $id, $callback );
+						add_submenu_page( $menu_slug, $_menu['title'], $_menu['title'], $this->option( 'menu/capability' ), $id, $callback );
 					}
 
 					global $submenu;
-					if ( isset( $submenu[ $menu['menu_slug'] ] ) && ! empty( $submenu[ $menu['menu_slug'] ] ) ) {
-						foreach ( $submenu[ $menu['menu_slug'] ] as $id => $smenu ) {
-							if ( $menu['menu_slug'] !== $submenu[ $menu['menu_slug'] ][ $id ][2] ) {
-								$submenu[ $menu['menu_slug'] ][ $id ][2] = isset( $menus[ $smenu[2] ]['part_href'] ) ? $menus[ $smenu[2] ]['part_href'] : false;
-							} elseif ( $menu['menu_slug'] === $submenu[ $menu['menu_slug'] ][ $id ][2] ) {
-								unset( $submenu[ $menu['menu_slug'] ][ $id ] );
+
+					if ( isset( $submenu[ $menu['menu_slug'] ] ) && ! empty( $submenu[ $menu_slug ] ) ) {
+						foreach ( $submenu[ $menu_slug ] as $id => $smenu ) {
+							if ( $menu_slug !== $submenu[ $menu_slug ][ $id ][2] ) {
+								$submenu[ $menu_slug ][ $id ][2] = isset( $menus[ $smenu[2] ]['part_href'] ) ? $menus[ $smenu[2] ]['part_href'] : false;
+							} elseif ( $menu_slug === $submenu[ $menu_slug ][ $id ][2] ) {
+								unset( $submenu[ $menu_slug ][ $id ] );
 							}
 						}
 					}
-					do_action( 'wponion/settings/register/submenu', $menu['menu_slug'], $this->unique(), $this );
+
+					do_action( 'wponion/settings/register/submenu', $menu_slug, $this->unique(), $this );
 				}
 			}
 		}
@@ -158,7 +155,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 			register_setting( $this->unique, $this->unique, array(
 				'sanitize_callback' => array( &$this, 'save_validate' ),
 			) );
-			$this->force_set_defaults();
 		}
 
 		/**
@@ -189,14 +185,20 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 
 		/**
 		 * Handles SettingUP Settings Defaults.
+		 *
+		 * @deprecated
+		 * @todo Check & Remove It.
 		 */
-		public function force_set_defaults() {
+		protected function force_set_defaults() {
 			$this->get_cache();
 			$this->set_defaults();
 		}
 
 		/**
 		 * Handles To Set Defaults.
+		 *
+		 * @deprecated
+		 * @todo Check & Remove It.
 		 */
 		protected function set_defaults() {
 			$this->get_db_values();
@@ -253,7 +255,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function page_url( $part_url = false ) {
+		protected function page_url( $part_url = false ) {
 			$this->set_page_url();
 			return ( false === $part_url ) ? $this->page_url['full_url'] : $this->page_url['part'];
 		}
@@ -261,7 +263,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		/**
 		 * @return string
 		 */
-		public function form_post_page() {
+		protected function form_post_page() {
 			return 'options.php';
 		}
 
@@ -370,7 +372,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return void|\WPOnion\Bridge\Module
 		 */
-		public function reload_cache() {
+		protected function reload_cache() {
 			$this->active_menu = false;
 			parent::reload_cache();
 			return $this;
@@ -381,7 +383,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return array
 		 */
-		public function settings_menus() {
+		protected function settings_menus() {
 			if ( empty( $this->menus ) && false === $this->fields->has_fields() ) {
 				$this->menus = $this->extract_fields_menus( $this->fields->get() );
 			}
@@ -414,11 +416,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 				'render'        => false,
 			);
 
-			if ( 'menu' === $type ) {
-				return $menu;
-			}
-
-			return array(
+			return ( 'menu' === $type ) ? $menu : array(
 				'menu'        => $menu,
 				'ajax'        => false,
 				'option_name' => '_wponion',
@@ -432,7 +430,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return bool|string
 		 */
-		public function is_single_page() {
+		protected function is_single_page() {
 			$key = strtolower( $this->option( 'is_single_page' ) );
 			if ( in_array( $key, array( 'submenu', 'submenus', 'section', 'sections' ), true ) ) {
 				return 'only_submenu';
@@ -449,7 +447,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		public function wrap_class( $extra_class = '' ) {
+		protected function wrap_class( $extra_class = '' ) {
 			$class   = array();
 			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
 			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
@@ -472,7 +470,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function valid_option( $container = array(), $sub_container = false, $check_current_page = true ) {
+		protected function valid_option( $container = array(), $sub_container = false, $check_current_page = true ) {
 			if ( ! $container->has_fields() && ! $container->has_containers() && ! $container->has_callback() || true === $container->is_disabled() ) {
 				return false;
 			}
@@ -502,9 +500,9 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function is_tab_active( $container = false, $sub_container = false, $first_container = false ) {
+		protected function is_tab_active( $container = false, $sub_container = false, $first_container = false ) {
 			if ( false !== $container && false === $sub_container ) {
-				return ( $container === $this->active( true ) ) ? true : false;
+				return ( $container === $this->active( true ) );
 			} else {
 				if ( $container === $this->active( true ) && $sub_container === $this->active( false ) ) {
 					return true;
@@ -525,7 +523,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function render_field( $field = array(), $parent_container = false, $sub_container = false, $is_init_field = false ) {
+		protected function render_field( $field = array(), $parent_container = false, $sub_container = false, $is_init_field = false ) {
 			$hash = implode( '/', array_filter( array(
 				( wpo_is_container( $parent_container ) ) ? $parent_container->name() : '',
 				( wpo_is_container( $sub_container ) ) ? $sub_container->name() : '',
@@ -543,7 +541,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		public function _button( $user, $default_attr = array(), $label = '' ) {
+		protected function _button( $user, $default_attr = array(), $label = '' ) {
 			$user_attr = ( wponion_is_array( $user ) && isset( $user['attributes'] ) ) ? $user['attributes'] : array();
 			$text      = ( wponion_is_array( $user ) && isset( $user['label'] ) ) ? $user['label'] : false;
 			$text      = ( false === $text && is_string( $user ) ) ? $user : $label;
@@ -555,7 +553,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		public function settings_button() {
+		protected function settings_button() {
 			$options = $this->option( 'save_button' );
 			$html    = '';
 			if ( false !== $options ) {
@@ -570,7 +568,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		/**
 		 * @return string
 		 */
-		public function search_no_result() {
+		protected function search_no_result() {
 			return '<div class="search-no-result"><h3>' . __( 'No Result Found', 'wponion' ) . '</h3></div>';
 		}
 	}
