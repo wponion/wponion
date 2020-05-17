@@ -7,7 +7,6 @@ use WPOnion\DB\Cache;
 use WPOnion\DB\Multi_Save\Get;
 use WPOnion\DB\Multi_Save\Save;
 use WPOnion\Exception\DB_Cache_Not_Found;
-use WPOnion\Traits\Internal\Unique;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -18,8 +17,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 	 * @package WPOnion\Bridge
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	abstract class Module_DB extends Bridge {
-		use Unique;
+	abstract class Module_DB extends Module_Utility {
+		/**
+		 * Stores Options.
+		 *
+		 * @var array|\WPOnion\DB\Option
+		 */
+		protected $db_values = array();
 
 		/**
 		 * Stores Module DB Type.
@@ -27,13 +31,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 * @var string
 		 */
 		protected $module_db = '';
-
-		/**
-		 * Stores Database Values.
-		 *
-		 * @var array|\WPOnion\DB\Option
-		 */
-		protected $db_values = array();
 
 		/**
 		 * options_cache
@@ -66,7 +63,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		/**
 		 * @return array|mixed|\WPOnion\DB\Option
 		 */
-		public function get_db_values() {
+		protected function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				/**
 				 * Fires Action With Exact Unique Key Before Fetching Values From Database
@@ -128,7 +125,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_db_values( $values = array() ) {
+		protected function set_db_values( $values = array() ) {
 			wponion_do_deprecated_action( "wponion_{$this->module()}_db_save_before", array(
 				$values,
 				$this->unique(),
@@ -223,7 +220,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function set_db_cache( $values ) {
+		protected function set_db_cache( $values ) {
 			$cid                 = $this->get_cache_id();
 			$values              = array_filter( $values );
 			$this->options_cache = $values;
@@ -293,7 +290,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return string|bool
 		 */
-		public function set_id( $id ) {
+		protected function set_id( $id ) {
 			return $this->get_set_id( $id, 'set' );
 		}
 
@@ -302,7 +299,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return bool|int|string
 		 */
-		public function get_id() {
+		protected function get_id() {
 			return $this->get_set_id( false, 'get' );
 		}
 
@@ -311,7 +308,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function reload_cache() {
+		protected function reload_cache() {
 			$this->options_cache = false;
 			$this->get_cache();
 			return $this;
@@ -322,7 +319,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		public function reload_values() {
+		protected function reload_values() {
 			if ( wpo_is_option( $this->db_values ) ) {
 				$this->db_values->reload();
 			}
