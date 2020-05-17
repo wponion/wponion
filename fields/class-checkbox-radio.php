@@ -17,10 +17,8 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 	class Checkbox_Radio extends Field {
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
@@ -28,7 +26,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'options' => array(),
 				'label'   => false,
@@ -43,8 +41,8 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			$is_inline = ( true === $this->data( 'inline' ) ) ? 'wpo-inline-list' : '';
-			$options   = $this->data( 'options' );
+			$is_inline = ( true === $this->option( 'inline' ) ) ? 'wpo-inline-list' : '';
+			$options   = $this->option( 'options' );
 			$options   = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 
 			if ( wponion_is_array( $options ) && ! empty( $options ) ) {
@@ -58,7 +56,7 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 						echo '<ul class="wponion-checkbox-group-lists">';
 						foreach ( $option as $key => $value ) {
 							echo '<li>';
-							echo $this->render_element( $this->handle_options( $key, $value ), true, $option_key );
+							echo $this->render_element( $this->handle_options( $key, $value ), true );
 							echo '</li>';
 						}
 						echo '</ul>';
@@ -66,10 +64,10 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 					}
 				}
 				echo '</ul>';
-			} elseif ( 'checkbox' === $this->element_type() && empty( $options ) && empty( $this->data( 'query_args' ) ) ) {
-				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
+			} elseif ( 'checkbox' === $this->element_type() && empty( $options ) && empty( $this->option( 'query_args' ) ) ) {
+				echo $this->render_element( $this->handle_options( $this->field_id(), $this->option( 'label' ) ), 'single' );
 			} elseif ( 'switcher' === $this->element_type() ) {
-				echo $this->render_element( $this->handle_options( $this->field_id(), $this->data( 'label' ) ), 'single' );
+				echo $this->render_element( $this->handle_options( $this->field_id(), $this->option( 'label' ) ), 'single' );
 			} else {
 				echo '<p class="wpo-text-danger">' . __( 'No Options Found.', 'wponion' ) . '</p>';
 			}
@@ -90,7 +88,9 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 				'id'    => $id,
 				'type'  => 'text',
 				'class' => array( 'wponion-custom-value-input' ),
-			), array( 'only_field' => true ) ), $value, $this->name() );
+			), array(
+				'only_field' => true,
+			) ), $value, $this->name() );
 		}
 
 		/**
@@ -109,11 +109,10 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 		 *
 		 * @param      $options
 		 * @param bool $in_group
-		 * @param bool $group_title
 		 *
 		 * @return string
 		 */
-		protected function render_element( $options, $in_group = false, $group_title = false ) {
+		protected function render_element( $options, $in_group = false ) {
 			$attr         = $options['attributes'];
 			$attr['type'] = ( 'switcher' === $this->element_type() ) ? 'checkbox' : $this->element_type();
 
@@ -130,8 +129,8 @@ if ( ! class_exists( '\WPOnion\Field\Checkbox_Radio' ) ) {
 				$attr['name'] = $this->name();
 				if ( 'switcher' === $this->element_type() ) {
 					$attr['value'] = true;
-				} elseif ( 'checkbox' === $this->element_type() && empty( $this->data( 'options' ) ) ) {
-					$attr['value'] = ( $this->data( 'id' ) !== $options['key'] ) ? $options['key'] : true;
+				} elseif ( 'checkbox' === $this->element_type() && empty( $this->option( 'options' ) ) ) {
+					$attr['value'] = ( $this->option( 'id' ) !== $options['key'] ) ? $options['key'] : true;
 				} else {
 					$attr['value'] = $options['key'];
 				}

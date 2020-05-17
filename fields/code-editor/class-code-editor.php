@@ -10,21 +10,17 @@ if ( ! class_exists( '\WPOnion\Field\Code_Editor' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Code_Editor extends Textarea {
 		/**
 		 * Stores CDN Url.
 		 *
 		 * @var string
-		 * @access
 		 */
 		protected $cdn_url = 'https://cdn.jsdelivr.net/npm/codemirror@';
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -32,8 +28,8 @@ if ( ! class_exists( '\WPOnion\Field\Code_Editor' ) ) {
 			echo $this->after();
 		}
 
-		protected function js_field_args() {
-			$args = ( ! is_array( $this->data( 'settings' ) ) ) ? array() : $this->data( 'settings' );
+		protected function js_args() {
+			$args = ( ! is_array( $this->option( 'settings' ) ) ) ? array() : $this->option( 'settings' );
 			return array(
 				'settings' => $this->parse_args( $args, array(
 					'tabSize'     => 2,
@@ -41,22 +37,20 @@ if ( ! class_exists( '\WPOnion\Field\Code_Editor' ) ) {
 					'theme'       => 'default',
 					'mode'        => 'htmlmixed',
 				) ),
-				'cdn_url'  => $this->cdn_url . $this->data( 'version' ),
+				'cdn_url'  => $this->cdn_url . $this->option( 'version' ),
 			);
 		}
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			// Do not loads CodeMirror in revslider page.
 			if ( in_array( wponion_get_var( 'page' ), array( 'revslider' ), true ) ) {
 				return;
 			}
 
-			$version = $this->data( 'version' );
+			$version = $this->option( 'version' );
 
 			if ( ! wp_script_is( 'wpo-codemirror' ) ) {
 				wp_register_script( 'wpo-codemirror', $this->cdn_url . $version . '/lib/codemirror.min.js', array(), $version, true );
@@ -73,10 +67,8 @@ if ( ! class_exists( '\WPOnion\Field\Code_Editor' ) ) {
 
 		/**
 		 * Returns Field's Default Value.
-		 *
-		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'version'  => '5.41.0',
 				'settings' => array(),

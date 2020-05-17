@@ -10,50 +10,43 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Color_Picker extends Checkbox_Radio {
-
 		/**
 		 * Generates Final HTML Output.
 		 *
 		 * @return mixed|void
 		 */
 		protected function output() {
-			if ( empty( $this->data( 'options' ) ) ) {
+			if ( empty( $this->option( 'options' ) ) ) {
 				echo $this->before();
 
-				$attributes = array(
+				$attr    = $this->attributes( array(
 					'type'  => 'text',
 					'name'  => $this->name(),
 					'value' => $this->value(),
 					'class' => 'wponion-color-picker-element wponion-form-control',
-				);
-
-				//wponion-form-control
-				echo '<div class="colorpickerwrap">';
-				$settings = $this->data( 'settings' );
-				$input    = '<input ' . $this->attributes( $attributes ) . '/>';
-
-				if ( isset( $settings['inline'] ) && true === $settings['inline'] ) {
-					echo $input;
-				} else {
-					echo wponion_input_group_html( '<span class="cpickr-bg " style="background-color: ' . $this->value . '"></span>', '', $input );
-				}
-				echo '<div class="wponion-color-picker-element" ></div>';
-				echo '</div>';
-				//echo wponion_input_group_html( '', '<div class="wponion-color-picker-element" ></div>', '<input ' . $this->attributes( $attributes ) . '/>' );
+				) );
+				$input   = "<input ${attr} />";
+				$args    = $this->option( 'settings' );
+				$inline  = ( isset( $args['inline'] ) && true === $args['inline'] );
+				$element = ( $inline ) ? $input : wponion_input_group_html( "<span class=\"cpickr-bg\" style=\"background-color:{$this->value}\"></span>", '', $input );
+				echo "<div class=\"colorpickerwrap\"> ${element} <div class=\"wponion-color-picker-element\" ></div> </div>";
 				echo $this->after();
 			} else {
-				echo '<div class=" colors-wrapper ' . $this->data( 'layout' ) . ' ">';
-				$this->field['type'] = ( true === $this->field['multiple'] ) ? 'checkbox' : 'radio';
+				$type = ( true === $this->option( 'multiple' ) ) ? 'checkbox' : 'radio';
+				$this->set_option( 'type', $type );
+				echo "<div class=\"colors-wrapper {$this->option( 'layout' )}\">";
 				parent::output();
 				echo '</div>';
 			}
 		}
 
-		protected function js_field_args() {
-			return array( 'settings' => $this->data( 'settings' ) );
+		/**
+		 * @return array
+		 */
+		protected function js_args() {
+			return array( 'settings' => $this->option( 'settings' ) );
 		}
 
 		/**
@@ -61,7 +54,7 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wponion_load_asset( 'wponion-pickr' );
 		}
 
@@ -70,15 +63,13 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return $this->parse_args( array(
-				'settings' => array(
-					'theme' => 'nano',
-				),
+				'settings' => array( 'theme' => 'nano' ),
 				'layout'   => 'round with-margin',
 				'multiple' => false,
 				'size'     => 25,
-			), parent::field_default() );
+			), parent::defaults() );
 		}
 
 		/**
@@ -93,20 +84,25 @@ if ( ! class_exists( '\WPOnion\Field\Color_Picker' ) ) {
 		/**
 		 * Renders Single Option as html.
 		 *
-		 * @param $label_attr
-		 * @param $field_attr
-		 * @param $value
-		 * @param $attr
-		 * @param $options
+		 * @param array        $label_attr
+		 * @param array        $field_attr
+		 * @param array|string $value
+		 * @param array        $attr
+		 * @param array        $options
 		 *
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			$attr['value'] = ( is_numeric( $options['key'] ) ) ? $options['label'] : $options['key'];
-			return '
-			<label ' . wponion_array_to_html_attributes( $label_attr ) . ' style="width:' . absint( $this->data( 'size' ) ) . 'px; height:' . absint( $this->data( 'size' ) ) . 'px;">
-				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '   /><span class="color-palette-color" style="background:' . $attr['value'] . '">' . $attr['value'] . '</span>
-			</label>';
+			$attr['value'] = $this->element_value( $options );
+			$label_attr    = wponion_array_to_html_attributes( $label_attr );
+			$size          = absint( $this->option( 'size' ) );
+			$checked       = $this->checked( $value, $attr['value'], 'checked' );
+			return <<<HTML
+<label ${label_attr} style="width:${size}px; height:${size}px;">
+	<input ${field_attr} ${checked} />
+	<span class="color-palette-color" style="background:{$attr['value']}">{$attr['value']}</span>
+</label>
+HTML;
 		}
 	}
 }

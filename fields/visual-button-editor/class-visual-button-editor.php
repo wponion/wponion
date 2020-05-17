@@ -16,8 +16,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 		 * @param \WPO\Fields\Fieldset $tab
 		 */
 		protected function basic( $tab ) {
-			if ( false !== $this->data( 'label' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'label' ), array(
+			if ( false !== $this->option( 'label' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'label' ), array(
 					'title'       => __( 'Button Label', 'wponion' ),
 					'placeholder' => __( 'Click To Learn More', 'wponion' ),
 					'style'       => 'min-width:350px',
@@ -26,16 +26,16 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 					->wrap_id( 'button-label' );
 			}
 
-			if ( false !== $this->data( 'icon' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'icon' ), array(
+			if ( false !== $this->option( 'icon' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'icon' ), array(
 					'title' => __( 'Icon', 'wponion' ),
 					'type'  => 'icon_picker',
 				), array( 'id' => 'icon' ) ) )
 					->wrap_id( 'button-icon' );
 			}
 
-			if ( false !== $this->data( 'url' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'url' ), array(
+			if ( false !== $this->option( 'url' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'url' ), array(
 					'title'    => __( 'Link', 'wponion' ),
 					'type'     => 'wp_link',
 					'settings' => array(
@@ -48,8 +48,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				), array( 'id' => 'link' ) ) );
 			}
 
-			if ( false !== $this->data( 'css_id' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'css_id' ), array(
+			if ( false !== $this->option( 'css_id' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'css_id' ), array(
 					'title'      => __( 'Element ID', 'wponion' ),
 					'style'      => 'min-width:350px',
 					'desc_field' => __( 'Apply unique Id to element to link directly to it by using #your_id (for element id use lowercase input only).', 'wponion' ),
@@ -57,8 +57,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				), array( 'id' => 'elem-id' ) ) );
 			}
 
-			if ( false !== $this->data( 'css_class' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'css_class' ), array(
+			if ( false !== $this->option( 'css_class' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'css_class' ), array(
 					'title'      => __( 'Element CSS Class', 'wponion' ),
 					'style'      => 'min-width:350px',
 					'desc_field' => __( 'Add an extra class name to the element and refer to it from Custom CSS option.', 'wponion' ),
@@ -71,8 +71,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 		 * @param \WPO\Fields\Fieldset $tab
 		 */
 		protected function spacing( $tab ) {
-			if ( false !== $this->data( 'margin' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'margin' ), array(
+			if ( false !== $this->option( 'margin' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'margin' ), array(
 					'desc_field' => __( 'CSS `margin` properties are used to create space around elements', 'wponion' ),
 				), array(
 					'id'      => 'margin',
@@ -81,8 +81,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				) ) );
 			}
 
-			if ( false !== $this->data( 'padding' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'padding' ), array(
+			if ( false !== $this->option( 'padding' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'padding' ), array(
 					'desc_field' => __( 'The CSS `padding` properties are used to generate space around an element\'s content, inside of any defined borders', 'wponion' ),
 				), array(
 					'id'      => 'padding',
@@ -91,8 +91,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				) ) );
 			}
 
-			if ( false !== $this->data( 'border-radius' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'border-radius' ), array(), array(
+			if ( false !== $this->option( 'border-radius' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'border-radius' ), array(), array(
 					'id'         => 'border-radius',
 					'desc_field' => __( '`border-radius` property defines the radius of the element\'s corners', 'wponion' ),
 					'type'       => 'spacing',
@@ -110,8 +110,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 		 * @param \WPO\Fields\Fieldset $tab
 		 */
 		protected function typography( $tab ) {
-			if ( false !== $this->data( 'typography' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'typography' ), array(
+			if ( false !== $this->option( 'typography' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'typography' ), array(
 					'title'            => __( 'Text Styling', 'wponion' ),
 					'style'            => 'min-width:350px',
 					'desc_field'       => __( 'Add an extra class name to the element and refer to it from Custom CSS option.', 'wponion' ),
@@ -132,8 +132,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 		 * @param string               $css_action
 		 */
 		protected function css_actions( $tab, $css_action ) {
-			if ( false !== $this->data( 'background' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'background' ), array(
+			if ( false !== $this->option( 'background' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'background' ), array(
 					'title' => __( 'Background', 'wponion' ),
 				), array(
 					'id'      => 'background',
@@ -142,8 +142,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				) ) );
 			}
 
-			if ( false !== $this->data( 'text_color' ) ) {
-				$tab->field( $this->handle_args( 'title', $this->data( 'text_color' ), array(
+			if ( false !== $this->option( 'text_color' ) ) {
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'text_color' ), array(
 					'title' => __( 'Text Color', 'wponion' ),
 				), array(
 					'id'      => 'text_color',
@@ -152,10 +152,10 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				) ) );
 			}
 
-			if ( false !== $this->data( 'text_shadow' ) ) {
-				$data      = $this->data( 'text_shadow' );
+			if ( false !== $this->option( 'text_shadow' ) ) {
+				$data      = $this->option( 'text_shadow' );
 				$is_single = ( is_array( $data ) && isset( $data['multiple'] ) && false === $data['multiple'] ) ? false : true;
-				$tab->field( $this->handle_args( 'title', $this->data( 'text_shadow' ), array(
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'text_shadow' ), array(
 					'title'      => __( 'Text Shadow', 'wponion' ),
 					'desc_field' => $css_action,
 				), array(
@@ -168,10 +168,10 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				) ) );
 			}
 
-			if ( false !== $this->data( 'box_shadow' ) ) {
-				$data      = $this->data( 'box_shadow' );
+			if ( false !== $this->option( 'box_shadow' ) ) {
+				$data      = $this->option( 'box_shadow' );
 				$is_single = ( is_array( $data ) && isset( $data['multiple'] ) && false === $data['multiple'] ) ? false : true;
-				$tab->field( $this->handle_args( 'title', $this->data( 'box_shadow' ), array(
+				$tab->add_field( $this->handle_args( 'title', $this->option( 'box_shadow' ), array(
 					'title' => __( 'Box Shadow', 'wponion' ),
 				), array(
 					'id'          => 'box_shadow',
@@ -211,7 +211,7 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function field_wrap_class() {
+		protected function wrap_class() {
 			return 'wponion-has-nested-fields';
 		}
 
@@ -227,27 +227,25 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 				->tab_style( 'style2' )
 				->horizontal( true );
 
-			$this->basic( $field->container( 'general', __( 'Basic', 'wponion' ) )
+			$this->basic( $field->section( 'general', __( 'Basic', 'wponion' ) )
 				->un_array( true ) );
 
-			if ( false !== $this->data( 'typography' ) ) {
-				$this->typography( $field->container( 'font-styler', __( 'Text Styling', 'wponion' ) ) );
+			if ( false !== $this->option( 'typography' ) ) {
+				$this->typography( $field->section( 'font-styler', __( 'Text Styling', 'wponion' ) ) );
 			}
 
-			$this->spacing( $field->container( 'spacing', __( 'Spacing', 'wponion' ) )
+			$this->spacing( $field->section( 'spacing', __( 'Spacing', 'wponion' ) )
 				->un_array( true ) );
 
-			$this->normal( $field->container( 'normal', __( 'General Style', 'wponion' ) ) );
-			$this->hover( $field->container( 'hover', __( 'Hover Style', 'wponion' ) ) );
-			$this->focus( $field->container( 'focus', __( 'Focus Style', 'wponion' ) ) );
+			$this->normal( $field->section( 'normal', __( 'General Style', 'wponion' ) ) );
+			$this->hover( $field->section( 'hover', __( 'Hover Style', 'wponion' ) ) );
+			$this->focus( $field->section( 'focus', __( 'Focus Style', 'wponion' ) ) );
 
 			return $field;
 		}
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -265,10 +263,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 
 		/**
 		 * Returns Field's Default Value.
-		 *
-		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'label'           => __( 'Button Label', 'wponion' ),
 				'icon'            => __( 'Button Icon', 'wponion' ),
@@ -290,10 +286,8 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Button_Editor' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 	}
 }

@@ -8,11 +8,10 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 	/**
-	 * Class Color_Picker
+	 * Class Input_Group
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Input_Group extends Field {
 
@@ -23,23 +22,23 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			if ( wponion_is_array( $this->data( 'fields' ) ) ) {
+			$fields = $this->option( 'fields' );
+			if ( wponion_is_array( $fields ) ) {
 				echo '<div class=" wpo-row">';
-				foreach ( $this->data( 'fields' ) as $id => $data ) {
-					$field_id   = ( wpo_is_field( $data ) ) ? wponion_field_id( $data ) : false;
-					$field_id   = ( true === is_numeric( $id ) && false === $field_id ) ? wponion_hash_array( $data ) : $id;
-					$field_args = $this->handle_args( 'title', $data, array(
+				foreach ( $fields as $id => $data ) {
+					$fid  = ( wpo_is_field( $data ) ) ? wponion_field_id( $data ) : false;
+					$fid  = ( true === is_numeric( $id ) && false === $fid ) ? wponion_hash_array( $data ) : $id;
+					$args = $this->handle_args( 'title', $data, array(
 						'type'       => 'text',
 						'horizontal' => true,
 						'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
-						'id'         => $field_id,
+						'id'         => $fid,
 					) );
 
-					if ( empty( $field_args['id'] ) ) {
-						$field_args['id'] = $field_id;
+					if ( empty( $args['id'] ) ) {
+						$args['id'] = $fid;
 					}
-
-					echo $this->sub_field( $field_args, $this->value( $field_args['id'] ), $this->name() );
+					echo $this->sub_field( $args, $this->value( $args['id'] ), $this->name() );
 				}
 				echo '</div>';
 			}
@@ -48,21 +47,17 @@ if ( ! class_exists( '\WPOnion\Field\Input_Group' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
-			return array(
-				'fields' => array(),
-			);
+		protected function defaults() {
+			return array( 'fields' => array() );
 		}
 	}
 }

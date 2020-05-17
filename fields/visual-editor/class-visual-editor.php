@@ -12,14 +12,11 @@ if ( ! class_exists( '\WPOnion\Field\Visual_Editor' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Visual_Editor extends Field {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -143,8 +140,8 @@ HTML;
 			/**
 			 * Border Color
 			 */
-			if ( false !== $this->data( 'border-color' ) ) {
-				$args = $this->handle_args( 'title', $this->data( 'border-color' ), array(
+			if ( false !== $this->option( 'border-color' ) ) {
+				$args = $this->handle_args( 'title', $this->option( 'border-color' ), array(
 					'title'    => __( 'Border Color', 'wponion' ),
 					'settings' => array( 'theme' => 'nano' ),
 				), array(
@@ -157,8 +154,8 @@ HTML;
 			/**
 			 * Background Color
 			 */
-			if ( false !== $this->data( 'background-color' ) ) {
-				$args = $this->handle_args( 'title', $this->data( 'background-color' ), array(
+			if ( false !== $this->option( 'background-color' ) ) {
+				$args = $this->handle_args( 'title', $this->option( 'background-color' ), array(
 					'title'    => __( 'Border Color', 'wponion' ),
 					'settings' => array( 'theme' => 'nano' ),
 				), array(
@@ -171,12 +168,12 @@ HTML;
 			/**
 			 * Border Style
 			 */
-			if ( false !== $this->data( 'border-style' ) ) {
-				$args = $this->handle_args( 'title', $this->data( 'border-style' ), array(
+			if ( false !== $this->option( 'border-style' ) ) {
+				$args = $this->handle_args( 'title', $this->option( 'border-style' ), array(
 					'title'                 => __( 'Border Style', 'wponion' ),
 					'type'                  => 'select',
 					'style'                 => 'width:250px;',
-					$this->select_framework => $this->data( $this->select_framework ),
+					$this->select_framework => $this->option( $this->select_framework ),
 					'options'               => $this->parse_args( wponion_internal_options_data( 'border-style' ), array(
 						'' => __( 'Theme Defaults', 'wponion' ),
 					) ),
@@ -187,8 +184,8 @@ HTML;
 			/**
 			 * Background Image
 			 */
-			if ( false !== $this->data( 'background-image' ) ) {
-				$args = $this->handle_args( 'title', $this->data( 'background-image' ), array(
+			if ( false !== $this->option( 'background-image' ) ) {
+				$args = $this->handle_args( 'title', $this->option( 'background-image' ), array(
 					'title' => __( 'Background Image', 'wponion' ),
 					'type'  => 'image',
 				), array( 'id' => 'background-image' ) );
@@ -198,12 +195,12 @@ HTML;
 			/**
 			 * Background Style
 			 */
-			if ( false !== $this->data( 'background-style' ) ) {
-				$args = $this->handle_args( 'title', $this->data( 'background-style' ), array(
+			if ( false !== $this->option( 'background-style' ) ) {
+				$args = $this->handle_args( 'title', $this->option( 'background-style' ), array(
 					'title'                 => __( 'Background Style', 'wponion' ),
 					'type'                  => 'select',
 					'style'                 => 'width:250px;',
-					$this->select_framework => $this->data( $this->select_framework ),
+					$this->select_framework => $this->option( $this->select_framework ),
 					'options'               => $this->parse_args( wponion_internal_options_data( 'background-style' ), array(
 						'' => __( 'Theme Defaults', 'wponion' ),
 					) ),
@@ -211,8 +208,8 @@ HTML;
 				$html .= $this->sub_field( $args, $this->value( 'background-style' ), $this->name() );
 			}
 
-			if ( false !== $this->data( 'box-controls' ) ) {
-				$args = $this->handle_args( 'title', $this->data( 'box-controls' ), array(
+			if ( false !== $this->option( 'box-controls' ) ) {
+				$args = $this->handle_args( 'title', $this->option( 'box-controls' ), array(
 					'title'   => __( 'Box Controls', 'wponion' ),
 					'label'   => __( 'Simplify controls', 'wponion' ),
 					'type'    => 'switcher',
@@ -227,30 +224,23 @@ HTML;
 
 		/**
 		 * Checks & Updat fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
 		 */
-		protected function handle_field_args( $data = array() ) {
-			$this->select_framework = wponion_validate_select_framework( $data );
-			return $data;
+		protected function handle_arguments() {
+			$this->select_framework = wponion_validate_select_framework( $this->settings );
 		}
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'background-color' => __( 'Background Color', 'wponion' ),
 				'border-style'     => __( 'Border Style', 'wponion' ),

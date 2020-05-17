@@ -9,49 +9,41 @@ if ( ! class_exists( '\WPOnion\Field\Spinner' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Spinner extends Text {
-
 		/**
-		 * Checks & Updat fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
+		 * Checks & Update fields args based on field config.
 		 */
-		protected function handle_field_args( $data = array() ) {
-			$data['text_type'] = 'text';
-			return parent::handle_field_args( $data );
+		protected function handle_arguments() {
+			$this->set_option( 'text_type', 'text' );
+			parent::handle_arguments();
 		}
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wp_enqueue_script( 'jquery-ui-spinner' );
 		}
 
 		/**
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return $this->parse_args( array(
-				'max'     => $this->data( 'max' ),
-				'min'     => $this->data( 'min' ),
-				'step'    => $this->data( 'step' ),
-				'spinner' => ( ! is_array( $this->data( 'spinner' ) ) ) ? array() : $this->data( 'spinner' ),
-			), parent::js_field_args() );
+				'max'     => $this->option( 'max' ),
+				'min'     => $this->option( 'min' ),
+				'step'    => $this->option( 'step' ),
+				'spinner' => ( ! is_array( $this->option( 'spinner' ) ) ) ? array() : $this->option( 'spinner' ),
+			), parent::js_args() );
 		}
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'max'     => 100,
 				'min'     => 0,

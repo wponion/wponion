@@ -10,63 +10,59 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Spacing extends Input_Group {
-
 		/**
 		 * Field's Custom Wrap Class.
 		 *
 		 * @return string
 		 */
-		protected function field_wrap_class() {
+		protected function wrap_class() {
 			return 'wponion-element-input_group';
 		}
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			$fields = array();
 			$icons  = $this->default_icons();
 			$titles = $this->default_title();
-
 			$button = wpo_field( 'button', array(
 				'id'          => 'showcasebutton',
 				'button_type' => 'button',
 				'class'       => 'button button-secondary',
 			) )->horizontal( true );
 
-			if ( false === $this->data( 'all' ) ) {
+			if ( false === $this->option( 'all' ) ) {
 				$fields[] = $button;
 			}
 
 			$is_all_hidden  = ( empty( $this->value( 'all' ) ) ) ? 'hidden' : '';
 			$is_rest_hidden = ( empty( $this->value( 'all' ) ) ) ? '' : 'hidden';
+
 			if ( empty( $this->value( 'all' ) ) ) {
 				$this->value['showcasebutton'] = '<i class="wpoic-collapse"></i>';
 			} else {
 				$this->value['showcasebutton'] = '<i class="wpoic-expand"></i>';
 			}
 
-			if ( false === $this->data( 'all' ) ) {
+			if ( false === $this->option( 'all' ) ) {
 				foreach ( $this->field_slugs() as $slug ) {
-					if ( false !== $this->data( $slug ) ) {
+					if ( false !== $this->option( $slug ) ) {
 						$defaults                      = array(
 							'type'        => 'number',
 							'prefix'      => isset( $icons[ $slug ] ) ? $icons[ $slug ] : false,
 							'placeholder' => isset( $titles[ $slug ] ) ? $titles[ $slug ] : false,
 						);
-						$fields[ $slug ]               = ( true === $this->data( $slug ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( $slug ), $defaults );
+						$fields[ $slug ]               = ( true === $this->option( $slug ) ) ? $defaults : $this->handle_args( 'placeholder', $this->option( $slug ), $defaults );
 						$fields[ $slug ]['wrap_class'] = ( isset( $fields[ $slug ]['wrap_class'] ) ) ? $fields[ $slug ]['wrap_class'] : array();
 						$fields[ $slug ]['wrap_class'] = wponion_html_class( $fields[ $slug ]['wrap_class'], 'wponion-spacing-input wponion-spacing-input-' . $slug . ' ' . $is_rest_hidden );
 					}
 				}
 			}
 
-			if ( false !== $this->data( 'all' ) ) {
+			if ( false !== $this->option( 'all' ) ) {
 				$is_all_hidden = '';
 			}
 
@@ -75,34 +71,26 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 				'placeholder' => __( 'All', 'wponion' ),
 				'type'        => 'number',
 			);
-			$fields['all']               = ( true === $this->data( 'all' ) ) ? $defaults : $this->handle_args( 'placeholder', $this->data( 'all' ), $defaults );
+			$fields['all']               = ( true === $this->option( 'all' ) ) ? $defaults : $this->handle_args( 'placeholder', $this->option( 'all' ), $defaults );
 			$fields['all']['wrap_class'] = ( isset( $fields['all']['wrap_class'] ) ) ? $fields['all']['wrap_class'] : array();
 			$fields['all']['wrap_class'] = wponion_html_class( $fields['all']['wrap_class'], 'wponion-spacing-input wponion-spacing-input-all ' . $is_all_hidden );
 
-			if ( false !== $this->data( 'unit' ) ) {
-				if ( true === $this->data( 'unit' ) ) {
+			if ( false !== $this->option( 'unit' ) ) {
+				if ( true === $this->option( 'unit' ) ) {
 					$fields['unit'] = array(
 						'type'    => 'select',
-						'options' => $this->data( 'unit_options' ),
+						'options' => $this->option( 'unit_options' ),
 					);
 				} else {
-					$fields['unit'] = $this->parse_args( $this->data( 'unit' ), array(
-						'options' => $this->data( 'unit_options' ),
+					$fields['unit'] = $this->parse_args( $this->option( 'unit' ), array(
+						'options' => $this->option( 'unit_options' ),
 						'type'    => 'select',
 					) );
 				}
 			}
 
-			$this->field['fields'] = $fields;
+			$this->set_option( 'fields', $fields );
 			echo parent::output();
-		}
-
-		/**
-		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
-		 */
-		public function field_assets() {
 		}
 
 		/**
@@ -149,7 +137,7 @@ if ( ! class_exists( '\WPOnion\Field\Spacing' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'top'          => true,
 				'bottom'       => true,

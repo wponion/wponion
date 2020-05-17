@@ -24,7 +24,6 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Image extends Field {
 
@@ -58,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		protected function style() {
 			return '<style>
 #wponion-image-preview' . $this->js_field_id() . ' .wponion-preview,
-#wponion-image-preview' . $this->js_field_id() . ' .wponion-preview img {width:' . $this->data( 'size' ) . 'px;}
+#wponion-image-preview' . $this->js_field_id() . ' .wponion-preview img {width:' . $this->option( 'size' ) . 'px;}
 </style>';
 		}
 
@@ -85,10 +84,13 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 			return $return;
 		}
 
-		protected function js_field_args() {
-			return array(
-				'frame_title' => $this->data( 'frame_title' ),
-			);
+		/**
+		 * Returns JS Args.
+		 *
+		 * @return array
+		 */
+		protected function js_args() {
+			return array( 'frame_title' => $this->option( 'frame_title' ) );
 		}
 
 		/**
@@ -96,7 +98,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'frame_title' => __( 'Select A Image', 'wponion' ),
 				'remove'      => __( 'Remove', 'wponion' ),
@@ -109,7 +111,7 @@ if ( ! class_exists( '\WPOnion\Field\Image' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wp_enqueue_media();
 		}
 	}

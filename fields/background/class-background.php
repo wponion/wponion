@@ -12,22 +12,19 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Background extends Field {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
 
 			echo '<div class="wpo-row">';
 
-			if ( false !== $this->data( 'background-color' ) ) {
-				$title = ( true === $this->data( 'background-color' ) ) ? __( 'Background Color', 'wponion' ) : $this->data( 'background-color' );
+			if ( false !== $this->option( 'background-color' ) ) {
+				$title = ( true === $this->option( 'background-color' ) ) ? __( 'Background Color', 'wponion' ) : $this->option( 'background-color' );
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
 					'type'       => 'color_picker',
 					'id'         => 'color',
@@ -46,8 +43,8 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 			);
 
 			foreach ( $parts as $id => $title ) {
-				if ( false !== $this->data( 'background-' . $id ) ) {
-					$title = ( true === $this->data( 'background-' . $id ) ) ? $title : $this->data( 'background-' . $id );
+				if ( false !== $this->option( 'background-' . $id ) ) {
+					$title = ( true === $this->option( 'background-' . $id ) ) ? $title : $this->option( 'background-' . $id );
 					echo $this->sub_field( $this->handle_args( 'title', $title, array(
 						'type'                  => 'select',
 						'options'               => $this->get_options( $id ),
@@ -60,8 +57,8 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 				}
 			}
 
-			if ( false !== $this->data( 'background-image' ) ) {
-				$title = ( true === $this->data( 'background-image' ) ) ? __( 'Background Image', 'wponion' ) : $this->data( 'background-image' );
+			if ( false !== $this->option( 'background-image' ) ) {
+				$title = ( true === $this->option( 'background-image' ) ) ? __( 'Background Image', 'wponion' ) : $this->option( 'background-image' );
 				echo $this->sub_field( $this->handle_args( 'title', $title, array(
 					'type'       => 'upload',
 					'id'         => 'image',
@@ -76,9 +73,9 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'background-repeat'     => true,
 				'background-attachment' => true,
@@ -97,22 +94,15 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
 		 * Checks & Updat fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
 		 */
-		protected function handle_field_args( $data = array() ) {
-			$this->select_framework = wponion_validate_select_framework( $data );
-			return $data;
+		protected function handle_arguments() {
+			$this->select_framework = wponion_validate_select_framework( $this->settings );
 		}
 
 		/**

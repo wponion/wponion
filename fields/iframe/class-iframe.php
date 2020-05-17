@@ -23,31 +23,29 @@ if ( ! class_exists( '\WPOnion\Field\Iframe' ) ) {
 	/**
 	 * Class Iframe
 	 *
+	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Iframe extends Field {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
 
-			if ( false !== $this->data( 'heading' ) ) {
-				printf( '<h3>%s</h3>', $this->data( 'heading' ) );
+			if ( false !== $this->option( 'heading' ) ) {
+				printf( '<h3>%s</h3>', $this->option( 'heading' ) );
 			}
 
-			if ( false !== $this->data( 'url' ) ) {
+			if ( false !== $this->option( 'url' ) ) {
 				$attrs = $this->attributes( array(
-					'height'      => $this->data( 'height' ),
-					'width'       => $this->data( 'width' ),
-					'src'         => $this->data( 'url' ),
+					'height'      => $this->option( 'height' ),
+					'width'       => $this->option( 'width' ),
+					'src'         => $this->option( 'url' ),
 					'frameborder' => '0',
 				) );
-				echo '<iframe ' . $attrs . '></iframe>';
+				echo "<iframe ${attrs}></iframe>";
 			}
 
 			echo $this->after();
@@ -55,18 +53,14 @@ if ( ! class_exists( '\WPOnion\Field\Iframe' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
 		 * Returns Field's Default Value.
-		 *
-		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'heading' => false,
 				'url'     => false,

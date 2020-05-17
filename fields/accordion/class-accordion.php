@@ -21,19 +21,24 @@ if ( ! class_exists( '\WPOnion\Field\Accordion' ) ) {
 		 * @return string
 		 */
 		protected function render_fields() {
-			$is_open = ( true === $this->data( 'is_open' ) ) ? 'is_open' : '';
-			$return  = '<div class="wponion-accordion-wrap ' . $is_open . '">';
-			$return  .= '<h4 class="wponion-accordion-title"> <span class="heading">' . $this->data( 'heading' ) . '</span><a title="' . __( 'Delete', 'wponion' ) . '" class="wponion-remove wponion-group-remove wpoic wpoic-delete"></a></h4>';
-			$return  .= '<div class="wponion-accordion-content">';
-			$return  .= '<div class="wponion-row wpo-row">';
-			foreach ( $this->data( 'fields' ) as $field_id => $field ) {
-				$return .= $this->render_single_field( $field );
+			$open = ( true === $this->option( 'is_open' ) ) ? 'is_open' : '';
+			$del  = __( 'Delete', 'wponion' );
+			$html = '';
+			foreach ( $this->option( 'fields' ) as $field_id => $field ) {
+				$html .= $this->render_single_field( $field );
 			}
-			$return .= $this->after_accordion();
-			$return .= '</div>';
-			$return .= '</div>';
-			$return .= '</div>';
-			return $return;
+			return <<<HTML
+<div class="wponion-accordion-wrap ${open}">
+	<h4 class="wponion-accordion-title">
+		<span class="heading">{$this->option( 'heading' )}</span> <a title="${del}" class="wponion-remove wponion-group-remove wpoic wpoic-delete"></a>
+	</h4>
+	<div class="wponion-accordion-content">
+		<div class="wponion-row wpo-row">
+			${html} {$this->after_accordion()}
+		</div>
+	</div>
+</div>
+HTML;
 		}
 
 		/**
@@ -70,7 +75,7 @@ if ( ! class_exists( '\WPOnion\Field\Accordion' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'fields'   => array(),
 				'heading'  => __( 'Accordion', 'wponion' ),
@@ -81,10 +86,8 @@ if ( ! class_exists( '\WPOnion\Field\Accordion' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wp_enqueue_script( 'jquery-ui-accordion' );
 		}
 	}

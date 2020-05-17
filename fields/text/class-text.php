@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Text extends Field {
 		/**
@@ -23,21 +22,20 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		protected function _input_attributes() {
 			$field_class = 'wponion-form-control';
 			$field_class = ( $this->has_errors() ) ? $field_class . ' is-invalid ' : $field_class;
-
 			return $this->attributes( array(
 				'type'              => $this->element_type(),
 				'class'             => $this->element_class( $field_class ),
 				'value'             => $this->value(),
 				'name'              => $this->name(),
 				'data-wponion-jsid' => $this->js_field_id(),
-				'list'              => $this->js_field_id() . 'inputLists',
+				'list'              => ( ! empty( $this->option( 'datalist/html' ) ) ) ? $this->js_field_id() . '_inputlists' : '',
 			) );
 		}
 
 		/**
 		 * Renders Element HTML.
 		 */
-		public function element_html() {
+		protected function element_html() {
 			return '<input ' . $this->_input_attributes() . '/>';
 		}
 
@@ -48,36 +46,38 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			echo wponion_input_group_html( $this->data( 'prefix' ), $this->data( 'surfix' ), $this->element_html() );
 			echo $this->datalist();
+			echo wponion_input_group_html( $this->option( 'prefix' ), $this->option( 'surfix' ), $this->element_html() );
 			echo $this->after();
 		}
 
 		/**
 		 * Renders Textfield Data List.
 		 */
-		public function datalist() {
-			if ( false !== $this->data( 'options' ) ) {
-				echo '<datalist id="' . $this->js_field_id() . 'inputLists">';
-				$options = ( ! wponion_is_array( $this->data( 'options' ) ) ) ? $this->element_data( $this->data( 'options' ) ) : $this->data( 'options' );
-
+		protected function datalist() {
+			if ( $this->has( 'options' ) ) {
+				$options      = $this->option( 'options' );
+				$options      = ( ! wponion_is_array( $options ) ) ? $this->element_data( $options ) : $options;
+				$options_html = array();
 				foreach ( $options as $key => $option ) {
 					if ( wponion_is_array( $option ) && isset( $option['label'] ) ) {
-						echo $this->sel_option( $this->handle_options( $key, $option ) );
+						echo $this->sel_option( $this->handle_options( $key, $option, array(), false ) );
 					} elseif ( wponion_is_array( $option ) && ! isset( $option['label'] ) ) {
-						echo '<optgroup label="' . $key . '">';
+						$options_html[] = '<optgroup label="' . $key . '">';
 						foreach ( $option as $k => $v ) {
-							echo $this->sel_option( $this->handle_options( $k, $v ) );
+							$options_html[] = $this->sel_option( $this->handle_options( $k, $v, array(), false ) );
 						}
-						echo '</optgroup>';
+						$options_html[] = '</optgroup>';
 					} else {
-						echo $this->sel_option( $this->handle_options( $key, $option ) );
+						$options_html[] = $this->sel_option( $this->handle_options( $key, $option, array(), false ) );
 					}
 				}
-				echo '</datalist>';
+				$options_html = implode( ' ', $options_html );
+				$this->set_option( 'datalist/html', "<datalist id=\"{$this->js_field_id()}_inputlists\"> ${options_html} </datalist>" );
+				return $this->option( 'datalist/html' );
 			}
+			return '';
 		}
-
 
 		/**
 		 * Handles Option array.
@@ -87,53 +87,31 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 * @return string
 		 */
 		protected function sel_option( $data ) {
-			$elem_id = sanitize_title( $this->name() . '_' . $data['key'] );
-			if ( isset( $data['tooltip'] ) && wponion_is_array( $data['tooltip'] ) ) {
-				$data['attributes']['title']             = $data['tooltip']['attr']['title'];
-				$data['attributes']['data-wponion-jsid'] = $this->js_field_id();
-				$data['attributes']['data-field-jsid']   = $elem_id;
-				$data['attributes']['class']             = ' wponion-field-tooltip ';
-				wponion_localize()->add( $this->js_field_id(), array( $elem_id . 'tooltip' => $data['tooltip']['data'] ) );
-			}
-
 			$data['attributes']['value'] = $data['key'];
-			return '<option ' . wponion_array_to_html_attributes( $data['attributes'] ) . $this->checked( $this->value(), $data['key'], 'selected' ) . ' > ' . $data['label'] . ' </option > ';
-		}
-
-		/**
-		 * @return bool
-		 */
-		protected function has_prefix_surfix() {
-			return ( false !== $this->has( 'prefix' ) || false !== $this->has( 'surfix' ) );
+			$data['attributes']          = wponion_array_to_html_attributes( $data['attributes'] );
+			$selected                    = $this->checked( $this->value(), $data['key'], 'selected' );
+			return "<option ${data['attributes']} ${selected}>${data['label']}</option>";
 		}
 
 		/**
 		 * Checks & Updat fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
 		 */
-		protected function handle_field_args( $data = array() ) {
-			if ( false !== $data['inputmask'] ) {
-				$data['wrap_class']                           = ( false !== $data['wrap_class'] ) ? $data['wrap_class'] : '';
-				$data['wrap_class']                           = $data['wrap_class'] . ' ' . ' wponion-inputmask ';
-				$data['attributes']['data-wponion-inputmask'] = 'yes';
+		protected function handle_arguments() {
+			if ( $this->has_option( 'inputmask' ) ) {
+				$this->set_option_default( 'wrap_class', '' );
+				$this->set_option( 'wrap_class', wponion_html_class( $this->option( 'wrap_class' ), 'wponion-inputmask' ) );
+				$this->set_option( 'attributes/data-wponion-inputmask', 'yes' );
 			}
 
-			if ( false !== $data['placeholder'] ) {
-				$data['attributes']['placeholder'] = $data['placeholder'];
+			if ( $this->has_option( 'placeholder' ) ) {
+				$this->set_option( 'attributes/placeholder', $this->option( 'placeholder' ) );
 			}
-
-			return $data;
 		}
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			if ( false !== $this->has( 'inputmask' ) ) {
 				wponion_load_asset( 'wponion-inputmask' );
 			}
@@ -144,7 +122,7 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'inputmask'   => false,
 				'placeholder' => false,
@@ -159,12 +137,10 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function js_field_args() {
-			$args = array();
-			if ( false !== $this->has( 'inputmask' ) ) {
-				$args['inputmask'] = $this->data( 'inputmask' );
-			}
-			return $args;
+		protected function js_args() {
+			return array(
+				'inputmask' => ( $this->has( 'inputmask' ) ) ? $this->option( 'inputmask' ) : false,
+			);
 		}
 	}
 }

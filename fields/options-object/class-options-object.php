@@ -17,10 +17,8 @@ if ( ! class_exists( '\WPOnion\Field\Options_Object' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
@@ -42,8 +40,6 @@ if ( ! class_exists( '\WPOnion\Field\Options_Object' ) ) {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo '<div class="json-output">';
@@ -53,9 +49,9 @@ if ( ! class_exists( '\WPOnion\Field\Options_Object' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array();
 		}
 	}

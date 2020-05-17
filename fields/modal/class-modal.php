@@ -19,7 +19,7 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 * Inits Sub Fields.
 		 */
 		protected function init_subfields() {
-			switch ( $this->data( 'modal_type' ) ) {
+			switch ( $this->option( 'modal_type' ) ) {
 				case 'wp':
 					$this->wp();
 					break;
@@ -37,17 +37,17 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		protected function output() {
 			echo $this->before();
 
-			$btn = $this->handle_args( 'label', $this->data( 'modal_button' ), array( 'class' => 'button button-secondary' ), array(
+			$btn = $this->handle_args( 'label', $this->option( 'modal_button' ), array( 'class' => 'button button-secondary' ), array(
 				'type'       => 'button',
 				'only_field' => true,
 			) );
 			echo $this->sub_field( $btn, null, null );
 
 			echo '<div class="wponion-modal-overview-data">';
-			if ( wponion_is_callable( $this->data( 'overview_html' ) ) ) {
-				wponion_callback( $this->data( 'overview_html' ), array( $this->value, &$this ) );
+			if ( wponion_is_callable( $this->option( 'overview_html' ) ) ) {
+				wponion_callback( $this->option( 'overview_html' ), array( $this->value, &$this ) );
 			} else {
-				echo $this->data( 'overview_html' );
+				echo $this->option( 'overview_html' );
 			}
 			echo '</div>';
 			echo $this->after();
@@ -66,8 +66,8 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 				$output = '<div class=" wponion-modal-html wponion-modal-field wponion-on-modal">';
 			}
 
-			if ( ! empty( $this->data( 'fields' ) ) && is_array( $this->data( 'fields' ) ) ) {
-				foreach ( $this->data( 'fields' ) as $field ) {
+			if ( ! empty( $this->option( 'fields' ) ) && is_array( $this->option( 'fields' ) ) ) {
+				foreach ( $this->option( 'fields' ) as $field ) {
 					if ( true === $is_init ) {
 						$this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), true );
 					} else {
@@ -91,7 +91,7 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 			$final_output = array();
 			/* @var \WPO\Builder|\WPO\Container|array $builder */
 			/* @var \WPO\Container|array $container */
-			$builder = $this->data( 'fields' );
+			$builder = $this->option( 'fields' );
 			if ( wpo_is_container( $builder ) ) {
 				if ( wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
 					$final_output = $this->wp_render_containers( $builder );
@@ -178,8 +178,8 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function field_assets() {
-			if ( 'wp' === $this->data( 'modal_type' ) ) {
+		public function assets() {
+			if ( 'wp' === $this->option( 'modal_type' ) ) {
 				wp_enqueue_script( 'backbone' );
 				wp_enqueue_media();
 				wp_enqueue_script( 'underscore' );
@@ -190,14 +190,14 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		/**
 		 * @return array
 		 */
-		protected function js_field_args() {
-			$config    = ( empty( $this->data( 'modal_config' ) ) ) ? array() : $this->data( 'modal_config' );
+		protected function js_args() {
+			$config    = ( empty( $this->option( 'modal_config' ) ) ) ? array() : $this->option( 'modal_config' );
 			$config    = $this->parse_args( $config, $this->default_modal_config() );
-			$ajax_args = ( ! is_array( $this->data( 'ajax_args' ) ) ) ? array() : $this->data( 'ajax_args' );
+			$ajax_args = ( ! is_array( $this->option( 'ajax_args' ) ) ) ? array() : $this->option( 'ajax_args' );
 			return array(
-				'modal_type'   => $this->data( 'modal_type' ),
+				'modal_type'   => $this->option( 'modal_type' ),
 				'modal_config' => $config,
-				'modal_html'   => $this->field['modal_html'],
+				'modal_html'   => $this->option( 'modal_html' ),
 				'ajax_args'    => $ajax_args,
 			);
 		}
@@ -208,14 +208,11 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		 * @return array
 		 */
 		protected function default_modal_config() {
-			if ( 'wp' === $this->data( 'module_type' ) ) {
-				return array(
-					'size'            => 'default',
-					'save_btn_label'  => __( 'Save', 'wponion' ),
-					'close_btn_label' => __( 'Close', 'wponion' ),
-				);
-			}
-			return array(
+			return ( 'wp' === $this->option( 'module_type' ) ) ? array(
+				'size'            => 'default',
+				'save_btn_label'  => __( 'Save', 'wponion' ),
+				'close_btn_label' => __( 'Close', 'wponion' ),
+			) : array(
 				'showCloseButton'     => true,
 				'reverseButtons'      => true,
 				'showLoaderOnConfirm' => true,
@@ -232,9 +229,9 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'ajax_args'     => array(),
 				'fields'        => array(),

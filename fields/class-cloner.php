@@ -12,9 +12,27 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Cloner extends Field {
+		/**
+		 * orginal_field
+		 *
+		 * @var array
+		 */
+		protected $orginal_field = array();
+
+		/**
+		 * WPOnion_Field constructor.
+		 *
+		 * @param array        $field
+		 * @param array        $value
+		 * @param string|array $unique
+		 */
+		public function __construct( $field = array(), $value = array(), $unique = array() ) {
+			$this->orginal_field = $field;
+			parent::__construct( $field, $value, $unique );
+		}
+
 		/**
 		 * @var null
 		 * @access
@@ -26,7 +44,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function field_wrap_class() {
+		protected function wrap_class() {
 			return 'wponion-has-nested-fields';
 		}
 
@@ -34,10 +52,10 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 * Handles Fields Wrapper.
 		 */
 		protected function wrapper() {
-			$this->actual_type   = $this->field['type'];
-			$this->field['type'] = 'clone';
+			$this->actual_type = $this->option( 'type' );
+			$this->set_option( 'type', 'clone' );
 			parent::wrapper();
-			$this->field['type'] = $this->actual_type;
+			$this->set_option( 'type', $this->actual_type );
 		}
 
 		/**
@@ -49,7 +67,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 */
 		protected function clone_btn( $type = 'add' ) {
 			if ( 'add' === $type ) {
-				return $this->sub_field( $this->handle_args( 'label', $this->data( 'clone' )['add_button'], array(
+				return $this->sub_field( $this->handle_args( 'label', $this->option( 'clone/add_button' ), array(
 					'class'       => array( 'button', 'button-primary' ),
 					'type'        => 'button',
 					'attributes'  => array(
@@ -76,17 +94,17 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 * @return string
 		 */
 		protected function clone_single_element( $value, $extra_unique ) {
-			$sort   = $this->data( 'clone' );
+			//$sort   = $this->option( 'clone' );
 			$return = '<div class="wponion-field-clone" data-wponion-jsid="' . $this->js_field_id() . '">';
-			if ( false !== $sort['sort'] ) {
-				//$return .= '<div class="wponion-field-clone-sorter">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
-			}
+			//if ( false !== $sort['sort'] ) {
+			//$return .= '<div class="wponion-field-clone-sorter">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
+			//}
 			$args                    = $this->get_clone_attrs();
 			$args['value']           = $value;
 			$args['fieldset_column'] = 'wpo-col-xs-12';
 			$args['name']            = $this->unique( $this->field_id() . '/' . $extra_unique . '/' );
 			$return                  .= '<div class="wponion-clone-action">';
-			$return                  .= '<div class="cloner-sort">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
+			$return                  .= '<div class="cloner-sort">' . wponion_icon( $this->option( 'clone/sort' ) ) . '</div>';
 			$return                  .= '<div class="cloner-remove">' . $this->clone_btn( 'delete' ) . '</div>';
 			$return                  .= '</div>';
 			$return                  .= '<div class="wponion-clone-content">';
@@ -123,7 +141,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 * @return mixed|void
 		 */
 		protected function output() {
-			$this->field['type'] = $this->actual_type;
+			$this->set_option( 'type', $this->actual_type );
 			echo $this->before();
 			echo $this->_clone_fields();
 			echo $this->after();
@@ -162,12 +180,8 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 
 		/**
 		 * Checks & Updat fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
 		 */
-		protected function handle_field_args( $data = array() ) {
+		protected function handle_arguments() {
 			$defaults = array(
 				'animations'  => array(
 					'show' => false,
@@ -179,37 +193,34 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 				'limit'       => null,
 				'add_button'  => sprintf( __( 'Add %s ', 'wponion' ), wponion_icon( 'wpoic-plus-circle' ) ),
 			);
+			$clone    = $this->option( 'clone' );
 
-			if ( ! wponion_is_array( $data['clone'] ) ) {
-				$data['clone'] = ( isset( $data['clone_settings'] ) && is_array( $data['clone_settings'] ) ) ? $data['clone_settings'] : array();
+			if ( ! wponion_is_array( $clone ) ) {
+				$clone = ( is_array( $this->option( 'clone_settings' ) ) ) ? $this->option( 'clone_settings' ) : array();
 			}
-			$data['clone'] = $this->parse_args( $data['clone'], $defaults );
 
-			if ( null === $data['clone']['error_msg'] ) {
+			$clone = $this->parse_args( $clone, $defaults );
+
+			if ( null === $clone['error_msg'] ) {
 				/* translators: Adds Max Count */
-				$data['clone']['error_msg'] = sprintf( __( 'You Cannot Add More Than %s', 'wponion' ), $data['clone']['limit'] );
+				$clone['error_msg'] = sprintf( __( 'You Cannot Add More Than %s', 'wponion' ), $clone['limit'] );
 			}
 
-			$data['clone']['error_msg'] = $this->handle_args( 'content', $data['clone']['error_msg'], array(
-				'type' => 'notice_danger',
-			), array( 'only_field' => true ) );
-			$data['clone']['error_msg'] = wponion_add_element( $data['clone']['error_msg'], false, false );
+			$clone['error_msg'] = $this->handle_args( 'content', $clone['error_msg'], array( 'type' => 'notice_danger' ), array( 'only_field' => true ) );
+			$clone['error_msg'] = wponion_add_element( $clone['error_msg'], false, false );
 
-			if ( true === $data['clone']['sort'] ) {
-				$data['clone']['sort'] = 'wpoic-menu';
+			if ( true === $clone['sort'] ) {
+				$clone['sort'] = 'wpoic-menu';
 			}
 
-			return $data;
+			$this->set_option( 'clone', $clone );
 		}
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
-			$sort = $this->data( 'clone' );
-			if ( false !== $sort['sort'] ) {
+		public function assets() {
+			if ( false !== $this->option( 'clone/sort' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
 		}
@@ -217,9 +228,9 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array();
 		}
 
@@ -228,15 +239,15 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return array(
 				'clone' => array(
-					'animations'  => $this->data( 'clone' )['animations'],
-					'add_button'  => $this->data( 'clone' )['add_button'],
-					'sort'        => $this->data( 'clone' )['sort'],
-					'limit'       => $this->data( 'clone' )['limit'],
-					'error_msg'   => $this->data( 'clone' )['error_msg'],
-					'toast_error' => $this->data( 'clone' )['toast_error'],
+					'animations'  => $this->option( 'clone/animations' ),
+					'add_button'  => $this->option( 'clone/add_button' ),
+					'sort'        => $this->option( 'clone/sort' ),
+					'limit'       => $this->option( 'clone/limit' ),
+					'error_msg'   => $this->option( 'clone/error_msg' ),
+					'toast_error' => $this->option( 'clone/toast_error' ),
 				),
 			);
 		}

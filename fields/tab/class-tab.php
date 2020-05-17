@@ -9,10 +9,10 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 	/**
-	 * Class WPOnion_Field_tab
+	 * Class Tab
 	 *
+	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Tab extends Field {
 
@@ -32,10 +32,10 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 		 */
 		protected function tab_output() {
 			$return = '';
-			$fields = $this->field['fields'];
+			$fields = $this->option( 'fields' );
 			if ( ! empty( $fields ) && wponion_is_array( $fields ) ) {
 
-				$return  .= '<div class="wponion-tab-wrap wponion-tabs-' . $this->data( 'tab_style' ) . '">';
+				$return  .= '<div class="wponion-tab-wrap wponion-tabs-' . $this->option( 'tab_style' ) . '">';
 				$nav     = '<ul class="wponion-tab-menus">';
 				$content = '';
 
@@ -64,7 +64,7 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 						foreach ( $section['fields'] as $field ) {
 							$value = ( false === $this->value( $slug ) ) ? $this->value : $this->value( $slug );
 							if ( ! isset( $field['sub'] ) ) {
-								$field['sub'] = ( isset( $this->field['sub'] ) ) ? $this->field['sub'] . '_' . $this->field_id() . '_' . $section['id'] : $this->field_id() . '_' . $section['id'];
+								$field['sub'] = ( $this->has( 'sub' ) ) ? $this->option( 'sub' ) . '_' . $this->field_id() . '_' . $section['id'] : $this->field_id() . '_' . $section['id'];
 							}
 							$content .= $this->sub_field( $field, wponion_get_field_value( $field, $value ), $unique );
 						}
@@ -80,10 +80,8 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
@@ -91,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Field\Tab' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array( 'tab_style' => 'style1' );
 		}
 	}

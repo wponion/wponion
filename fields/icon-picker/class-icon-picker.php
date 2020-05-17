@@ -12,20 +12,14 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Icon_Picker extends Field {
-
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
-			echo $this->render_input();
-			echo $this->render_value();
-			echo $this->render_buttons();
+			echo $this->render_input() . ' ' . $this->render_value() . ' ' . $this->render_buttons();
 			echo $this->after();
 		}
 
@@ -56,55 +50,46 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function js_field_args() {
-			$tooltip = ( false === $this->data( 'icon_tooltip' ) ) ? 'false' : $this->data( 'icon_tooltip' );
+		protected function js_args() {
 			return array(
-				'popup_tooltip' => $tooltip,
-				'enabled'       => $this->data( 'enabled' ),
-				'disabled'      => $this->data( 'disabled' ),
-				'group_icons'   => $this->data( 'group_icons' ),
+				'popup_tooltip' => ( false === $this->option( 'icon_tooltip' ) ) ? 'false' : $this->option( 'icon_tooltip' ),
+				'enabled'       => $this->option( 'enabled' ),
+				'disabled'      => $this->option( 'disabled' ),
+				'group_icons'   => $this->option( 'group_icons' ),
 			);
 		}
 
 		/**
 		 * Renders IT Subfield buttons.
 		 *
-		 * @return mixed|string
+		 * @return string
 		 */
 		protected function render_buttons() {
-			$html = $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
-				'class'       => array( 'button', 'button-primary' ),
-				'type'        => 'button',
-				'attributes'  => array(
-					'data-wponion-jsid'           => $this->js_field_id(),
-					'data-wponion-iconpicker-add' => 'yes',
-				),
-				'only_field'  => true,
-				'button_type' => 'button',
-				'label'       => __( 'Add Icon', 'wponion' ),
-			) ), false, $this->unique() );
+			/** @var \WPO\Fields\Button $arg */
+			$arg        = wpo_field( 'button' )
+				->field_class( array( 'button', 'button-primary' ) )
+				->attribute( 'data-wponion-jsid', $this->js_field_id() )
+				->only_field( true )
+				->button_type( 'button' )
+				->label( __( 'Add Icon', 'wponion' ) );
+			$add_btn    = clone $arg;
+			$remove_btn = clone $arg;
+			$add_btn->attribute( 'data-wponion-iconpicker-add', 'yes' );
+			$remove_btn->label( __( 'Remove Icon', 'wponion' ) );
+			$remove_btn->field_class( array( 'button', 'button-secondary' ) );
+			$remove_btn->attribute( 'data-wponion-iconpicker-remove', 'yes' );
 
-			$html .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
-				'class'       => array( 'button button-secondary' ),
-				'type'        => 'button',
-				'attributes'  => array(
-					'data-wponion-jsid'              => $this->js_field_id(),
-					'data-wponion-iconpicker-remove' => 'yes',
-				),
-				'only_field'  => true,
-				'button_type' => 'button',
-				'label'       => __( 'Remove Icon', 'wponion' ),
-			) ), false, $this->unique() );
-
-			return $html;
+			$return = $this->sub_field( $this->handle_args( 'label', $this->option( 'add_button' ), $add_btn ), false, $this->unique() );
+			$return .= $this->sub_field( $this->handle_args( 'label', $this->option( 'remove_button' ), $remove_btn ), false, $this->unique() );
+			return $return;
 		}
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'add_button'    => __( 'Add Icon', 'wponion' ),
 				'remove_button' => __( 'Remove Icon', 'wponion' ),
@@ -121,10 +106,8 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 	}
 }

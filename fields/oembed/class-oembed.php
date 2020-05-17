@@ -8,29 +8,25 @@ if ( ! class_exists( '\WPOnion\Field\OEmbed' ) ) {
 	/**
 	 * Class OEmbed
 	 *
+	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class OEmbed extends Text {
 		/**
 		 * @return string
 		 */
 		protected function after() {
-			echo '<div class="wponion-oembed-preview" data-wponion-jsid="' . $this->js_field_id() . '"></div>';
-			return parent::after();
+			$return = '<div class="wponion-oembed-preview" data-wponion-jsid="' . $this->js_field_id() . '"></div>';
+			return $return . ' ' . parent::after();
 		}
 
 		/**
 		 * Checks & Updat fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
 		 */
-		protected function handle_field_args( $data = array() ) {
-			$data              = parent::handle_field_args( $data );
-			$data['text_type'] = 'text';
-			return $data;
+		protected function handle_arguments() {
+			parent::handle_arguments();
+			$this->set_option( 'text_type', 'text' );
+			$this->set_option( 'type', 'text' );
 		}
 
 		/**
@@ -43,13 +39,13 @@ if ( ! class_exists( '\WPOnion\Field\OEmbed' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return $this->parse_args( array(
 				'oembed_width'  => '500px',
 				'oembed_height' => '500px',
-			), parent::field_default() );
+			), parent::defaults() );
 		}
 	}
 }

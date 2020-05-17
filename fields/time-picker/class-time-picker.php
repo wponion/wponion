@@ -9,19 +9,15 @@ if ( ! class_exists( '\WPOnion\Field\Time_Picker' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Time_Picker extends Date_Picker {
-
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
 
-			echo $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'time' ), array(
+			echo $this->sub_field( $this->handle_args( 'placeholder', $this->option( 'time' ), array(
 				'id'         => $this->field_id(),
 				'type'       => 'text',
 				'prefix'     => '<i class="wpoic-clock"></i>',
@@ -34,9 +30,9 @@ if ( ! class_exists( '\WPOnion\Field\Time_Picker' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'time'     => __( 'Time', 'wponion' ),
 				'settings' => array(),

@@ -12,26 +12,23 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Content extends Field {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
-			$content = $this->data( 'content' );
+			$content = $this->option( 'content' );
 
-			if ( ! empty( $this->data( 'content_path' ) ) && file_exists( $this->data( 'content_path' ) ) ) {
+			if ( ! empty( $this->option( 'content_path' ) ) && file_exists( $this->option( 'content_path' ) ) ) {
 				wponion_catch_output();
-				include $this->data( 'content_path' );
+				include $this->option( 'content_path' );
 				$content = wponion_catch_output( false );
-			} elseif ( ! empty( $this->data( 'content' ) ) && wponion_is_callable( $this->data( 'content' ) ) ) {
+			} elseif ( ! empty( $this->option( 'content' ) ) && wponion_is_callable( $this->option( 'content' ) ) ) {
 				wponion_catch_output();
-				echo wponion_callback( $this->data( 'content' ) );
+				echo wponion_callback( $this->option( 'content' ) );
 				$content = wponion_catch_output( false );
 			}
 
@@ -47,9 +44,9 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'content'      => false,
 				'content_path' => false,
@@ -59,10 +56,8 @@ if ( ! class_exists( '\WPOnion\Field\Content' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 	}
 }

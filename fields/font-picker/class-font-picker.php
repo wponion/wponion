@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Font_Picker extends Field {
 		/**
@@ -23,32 +22,27 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 		 * @param array $unique
 		 */
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
-			if ( ! defined( 'WPONION_ADD_FONT_DATA' ) ) {
-				define( 'WPONION_ADD_FONT_DATA', true );
-			}
+			wponion_define( 'WPONION_ADD_FONT_DATA', true );
 			parent::__construct( $field, $value, $unique );
 		}
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
-			$this->select_framework = wponion_validate_select_framework( $this->field );
 
-			//echo '<div class="wpo-row">';
+			$this->select_framework = wponion_validate_select_framework( $this->settings );
+
 			echo '<div class="wponion-font-select-container">';
 			echo $this->sub_field( $this->font_select(), $this->value( 'font' ), $this->name() );
 			echo '</div>';
 
-			if ( false !== $this->data( 'variant' ) ) {
+			if ( false !== $this->option( 'variant' ) ) {
 				echo '<div class="wponion-font-select-container">';
 				echo $this->sub_field( $this->variant_select(), $this->value( 'variant' ), $this->name() );
 				echo '</div>';
 			}
-			//echo '</div>';
 
 			echo $this->after();
 		}
@@ -59,17 +53,14 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 		 * @return array
 		 */
 		protected function font_select() {
-			$data = array_filter( array(
+			return array_filter( array(
 				'type'                  => 'select',
 				'id'                    => 'font',
 				'only_field'            => true,
 				'class'                 => 'wponion-font-selector',
-				//'options'               => wponion_get_fonts_array( $this->data( 'google_fonts' ), $this->data( 'websafe_fonts' ), $this->data( 'group' ) ),
-				'options_html'          => wponion_fonts_options_html( $this->data( 'google_fonts' ), $this->data( 'websafe_fonts' ), $this->data( 'group' ), $this->value( 'font' ) ),
-				$this->select_framework => $this->data( $this->select_framework ),
+				'options_html'          => wponion_fonts_options_html( $this->option( 'google_fonts' ), $this->option( 'websafe_fonts' ), $this->option( 'group' ), $this->value( 'font' ) ),
+				$this->select_framework => $this->option( $this->select_framework ),
 			) );
-			$this->debug( 'Font Select', $data );
-			return $data;
 		}
 
 		/**
@@ -79,24 +70,22 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 		 */
 		protected function variant_select() {
 			$websafe = wponion_websafe_fonts();
-			$data    = array_filter( array(
+			return array_filter( array(
 				'type'                  => 'select',
 				'id'                    => 'variant',
 				'only_field'            => true,
 				'class'                 => 'wponion-variant-selector',
 				'options'               => $websafe['variants'],
-				$this->select_framework => $this->data( $this->select_framework ),
+				$this->select_framework => $this->option( $this->select_framework ),
 			) );
-			$this->debug( 'variant Fonts', $data );
-			return $data;
 		}
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'google_fonts'  => true,
 				'websafe_fonts' => true,
@@ -110,16 +99,14 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return array();
 		}
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			$this->select_framework = wponion_validate_select_framework( $this->field );
 			wponion_load_asset( $this->select_framework );
 		}

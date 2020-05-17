@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Key_Value extends Field {
 		/**
@@ -27,36 +26,31 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		protected function key_value( $name = '', $key = '', $value = '' ) {
 			$return = '<div class="wponion-keyvalue-field">';
 			$return .= '<div class="sortable-handler">' . wponion_icon( 'wpoic-menu' ) . '</div>';
-			$return .= $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'key_input' ), array(
+			$return .= $this->sub_field( $this->handle_args( 'placeholder', $this->option( 'key_input' ), array(
 				'id'         => 'key',
 				'type'       => 'text',
 				'prefix'     => __( 'Key', 'wponion' ),
 				'only_field' => true,
 			) ), $key, $name );
-
-			$return .= $this->sub_field( $this->handle_args( 'placeholder', $this->data( 'value_input' ), array(
+			$return .= $this->sub_field( $this->handle_args( 'placeholder', $this->option( 'value_input' ), array(
 				'id'         => 'value',
 				'type'       => 'text',
 				'prefix'     => __( 'Value', 'wponion' ),
 				'only_field' => true,
 			) ), $value, $name );
-
-			$return .= $this->sub_field( $this->handle_args( 'label', $this->data( 'remove_button' ), array(
+			$return .= $this->sub_field( $this->handle_args( 'label', $this->option( 'remove_button' ), array(
 				'type'       => 'button',
 				'label'      => '-',
 				'only_field' => true,
 				'attributes' => array( 'data-wponion-keyvalue-remove' => 'yes' ),
 				'class'      => 'button button-secondary',
 			) ), false, $this->unique() );
-
 			$return .= '</div>';
 			return $return;
 		}
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
@@ -75,20 +69,8 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 			}
 			echo '</div>';
 
-			$template = $this->key_value( $this->name( '{wponionCloneID}' ) );
-
-			$error_notice = $this->handle_args( 'content', $this->data( 'error_msg' ), array(
-				'type' => 'notice_danger',
-			), array( 'only_field' => true ) );
-
-			$this->localize_field( array(
-				'html_template' => $template,
-				'limit'         => $this->data( 'limit' ),
-				'error_msg'     => wponion_add_element( $error_notice, false, false ),
-			) );
-
 			echo '<div class="wponion-keyvalue-action-container">';
-			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'add_button' ), array(
+			echo $this->sub_field( $this->handle_args( 'label', $this->option( 'add_button' ), array(
 				'type'       => 'button',
 				'label'      => __( 'Add +', 'wponion' ),
 				'attributes' => array( 'data-wponion-keyvalue-add' => 'yes' ),
@@ -100,11 +82,27 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 		}
 
 		/**
+		 * This function is used to set any args that requires in javascript for the current field.
+		 *
+		 * @return array
+		 */
+		protected function js_args() {
+			$error_notice = $this->handle_args( 'content', $this->option( 'error_msg' ), array(
+				'type' => 'notice_danger',
+			), array( 'only_field' => true ) );
+			return array(
+				'html_template' => $this->key_value( $this->name( '{wponionCloneID}' ) ),
+				'limit'         => $this->option( 'limit' ),
+				'error_msg'     => wponion_add_element( $error_notice, false, false ),
+			);
+		}
+
+		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				// translators: 1. Add Icon
 				'add_button'    => sprintf( __( 'Add %s', 'wponion' ), wpo_icon( 'wpoic-plus-circle' ) ),
@@ -119,10 +117,8 @@ if ( ! class_exists( '\WPOnion\Field\Key_Value' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wp_enqueue_script( 'jquery-ui-sortable' );
 		}
 	}

@@ -19,18 +19,17 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 	/**
 	 * Class Image_Select
 	 *
+	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Image_Select extends checkbox_radio {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
-			$this->field['type'] = ( true === $this->field['multiple'] ) ? 'checkbox' : 'radio';
+			$type = ( true === $this->option( 'multiple' ) ) ? 'checkbox' : 'radio';
+			$this->set_option( 'type', $type );
 			return parent::output();
 		}
 
@@ -46,23 +45,20 @@ if ( ! class_exists( '\WPOnion\Field\Image_Select' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			$url = ( isset( $options['image'] ) && true === wponion_is_url( $options['image'] ) ) ? $options['image'] : $options['label'];
-			return '<div class="wponion-checker">
-				<label ' . wponion_array_to_html_attributes( $label_attr ) . '>
-					<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />
-					<div class="wponion-image-select-thumbnail wponion-checker-content"><img alt="" src="' . $url . '" /></div>
-				</label>
-			</div>';
+			$url        = ( isset( $options['image'] ) && true === wponion_is_url( $options['image'] ) ) ? $options['image'] : $options['label'];
+			$label_attr = wponion_array_to_html_attributes( $label_attr );
+			$checked    = $this->checked( $value, $attr['value'], 'checked' );
+			return "<div class=\"wponion-checker\"> <label ${label_attr}> <input ${field_attr} ${checked}/> <div class=\"wponion-image-select-thumbnail wponion-checker-content\"> <img src=\"${url}\"/> </div> </label></div>";
 		}
 
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
-			return $this->parse_args( parent::field_default(), array( 'multiple' => false ) );
+		protected function defaults() {
+			return $this->parse_args( parent::defaults(), array( 'multiple' => false ) );
 		}
 	}
 }

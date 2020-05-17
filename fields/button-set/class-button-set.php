@@ -8,17 +8,15 @@ if ( ! class_exists( '\WPOnion\Field\Button_Set' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Button_Set extends Checkbox_Radio {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
-			$this->field['type'] = ( true === $this->data( 'multiple' ) ) ? 'checkbox' : 'radio';
+			$type = ( true === $this->option( 'multiple' ) ) ? 'checkbox' : 'radio';
+			$this->set_option( 'type', $type );
 			echo '<div class="wponion-button-group-container">';
 			parent::output();
 			echo '</div>';
@@ -34,18 +32,22 @@ if ( ! class_exists( '\WPOnion\Field\Button_Set' ) ) {
 		 * @return string
 		 */
 		protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-			return '<div class="wponion-checker wponion-button-group ' . $this->data( 'inactive' ) . ' ' . $this->data( 'size' ) . '"><label ' . wponion_array_to_html_attributes( $label_attr ) . '>
-				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />' . $options['label'] . '
-			</label></div>';
+			$label_attr = wponion_array_to_html_attributes( $label_attr );
+			$checked    = $this->checked( $value, $attr['value'], 'checked' );
+			return <<<HTML
+<div class="wponion-checker wponion-button-group {$this->option( 'inactive' )} {$this->option( 'size' )}">
+	<label ${label_attr}> <input ${field_attr} ${checked}/> {$options['label']} </label>
+</div>
+HTML;
 		}
 
 		/**
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return array(
-				'active'   => $this->data( 'active' ),
-				'inactive' => $this->data( 'inactive' ),
+				'active'   => $this->option( 'active' ),
+				'inactive' => $this->option( 'inactive' ),
 			);
 		}
 
@@ -54,13 +56,13 @@ if ( ! class_exists( '\WPOnion\Field\Button_Set' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return $this->parse_args( array(
 				'multiple' => false,
 				'size'     => false,
 				'active'   => 'button button-primary',
 				'inactive' => 'button button-secondary',
-			), parent::field_default() );
+			), parent::defaults() );
 		}
 	}
 }

@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Link_Color extends Color_Group {
 
@@ -19,26 +18,24 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function field_wrap_class() {
-			return ' wponion-element-color_group ';
+		protected function wrap_class() {
+			return 'wponion-element-color_group';
 		}
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			$options = array();
 
 			foreach ( $this->get_options() as $key => $title ) {
-				if ( false !== $this->data( $key ) ) {
-					$options[ $key ] = ( true === $this->data( $key ) ) ? $title : $this->data( $key );
+				if ( false !== $this->option( $key ) ) {
+					$options[ $key ] = ( true === $this->option( $key ) ) ? $title : $this->option( $key );
 				}
 			}
 
-			$this->field['options'] = $options;
-			echo parent::output();
+			$this->set_option( 'options', $options );
+			parent::output();
 		}
 
 		/**
@@ -59,12 +56,10 @@ if ( ! class_exists( '\WPOnion\Field\Link_Color' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
-			return $this->parse_args( array(
-				'rgba' => false,
-			), $this->get_options() );
+		protected function defaults() {
+			return $this->parse_args( array( 'rgba' => false ), $this->get_options() );
 		}
 	}
 }

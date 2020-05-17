@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class WP_Link extends Field {
 		/**
@@ -27,14 +26,12 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
 
 			echo '<div class="wponion-wp-links-wrap">';
-			$settings   = $this->parse_args( $this->data( 'settings' ), array(
+			$settings   = $this->parse_args( $this->option( 'settings' ), array(
 				'url'        => true,
 				'title'      => true,
 				'target'     => true,
@@ -45,32 +42,32 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 			$show_value = ( 'text' === $show_input ) ? false : true;
 
 			if ( true === $settings['url'] ) {
-				$_value = ( true === $show_value ) ? '<span class="value">' . $this->get_value( 'url' ) . '</span>' : '';
+				$_value = ( true === $show_value ) ? '<span class="value">' . $this->value( 'url' ) . '</span>' : '';
 				echo '<span class="url"><strong>' . __( 'URL : ', 'wponion' ) . '</strong> ' . $_value;
-				echo '<input style="width:350px" type="' . $show_input . '" name="' . $this->name( 'url' ) . '" value="' . $this->get_value( 'url' ) . '" id="url"/>';
+				echo '<input style="width:350px" type="' . $show_input . '" name="' . $this->name( 'url' ) . '" value="' . $this->value( 'url' ) . '" id="url"/>';
 				echo '</span><br/><br/>';
 			}
 
 			if ( true === $settings['title'] ) {
-				$_value = ( true === $show_value ) ? '<span class="value">' . $this->get_value( 'title' ) . '</span>' : '';
+				$_value = ( true === $show_value ) ? '<span class="value">' . $this->value( 'title' ) . '</span>' : '';
 				echo '<span class="title"><strong>' . __( 'Title : ', 'wponion' ) . '</strong> ' . $_value;
-				echo '<input  style="width:350px" type="' . $show_input . '" name="' . $this->name( 'title' ) . '" value="' . $this->get_value( 'title' ) . '" id="title"/>';
+				echo '<input  style="width:350px" type="' . $show_input . '" name="' . $this->name( 'title' ) . '" value="' . $this->value( 'title' ) . '" id="title"/>';
 				echo '</span><br/><br/>';
 
 			}
 
 			if ( true === $settings['target'] ) {
-				echo '<input type="hidden" name="' . $this->name( 'target' ) . '" value="' . $this->get_value( 'target' ) . '" id="target"/>';
+				echo '<input type="hidden" name="' . $this->name( 'target' ) . '" value="' . $this->value( 'target' ) . '" id="target"/>';
 			}
 
 			if ( true === $settings['example'] ) {
-				$example = sprintf( '<a href="%3$s" target="%2$s">%1$s</a>', $this->get_value( 'title' ), $this->get_value( 'target' ), $this->get_value( 'url' ) );
+				$example = sprintf( '<a href="%3$s" target="%2$s">%1$s</a>', $this->value( 'title' ), $this->value( 'target' ), $this->value( 'url' ) );
 				echo '<span class="example_output"><strong>' . __( 'Example : ', 'wponion' ) . '</strong><span class="value">' . $example . '</span></span><br/><br/>';
 			}
 			echo '<textarea id="' . $this->js_field_id() . 'wplinks" class="hidden wponion-validation-ignore"></textarea>';
 
 			echo '<div id="wponion-wp-link-picker">';
-			echo $this->sub_field( $this->handle_args( 'label', $this->data( 'button' ), array(
+			echo $this->sub_field( $this->handle_args( 'label', $this->option( 'button' ), array(
 				'button_type' => 'button',
 				'only_field'  => true,
 				'type'        => 'button',
@@ -89,9 +86,9 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'button'   => __( 'Select URL', 'wponion' ),
 				'settings' => array(
@@ -106,10 +103,8 @@ if ( ! class_exists( '\WPOnion\Field\WP_Link' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wp_enqueue_script( 'jquery-ui-dialog' );
 			wp_enqueue_style( 'editor-buttons' );
 			add_thickbox();

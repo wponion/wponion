@@ -6,10 +6,10 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 	/**
-	 * Class WPOnion_Field_text
+	 * Class Textarea
 	 *
+	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Textarea extends text {
 		/**
@@ -20,22 +20,18 @@ if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 		}
 
 		/**
-		 * Checks & Updat fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
+		 * Checks & Update fields args based on field config.
 		 */
-		protected function handle_field_args( $data = array() ) {
-			$data = parent::handle_field_args( $data );
-			if ( isset( $data['rows'] ) ) {
-				$data['attributes']['rows'] = $data['rows'];
-			}
-			if ( isset( $data['cols'] ) ) {
-				$data['attributes']['cols'] = $data['cols'];
+		protected function handle_arguments() {
+			parent::handle_arguments();
+
+			if ( $this->has( 'rows' ) ) {
+				$this->set_option( 'attributes/row', $this->option( 'rows' ) );
 			}
 
-			return $data;
+			if ( $this->has( 'cols' ) ) {
+				$this->set_option( 'attributes/cols', $this->option( 'cols' ) );
+			}
 		}
 
 		/**
@@ -43,8 +39,8 @@ if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
-			return $this->parse_args( parent::field_default(), array(
+		protected function defaults() {
+			return $this->parse_args( parent::defaults(), array(
 				'rows' => 5,
 				'cols' => 5,
 			) );

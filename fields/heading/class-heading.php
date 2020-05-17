@@ -12,10 +12,8 @@ if ( ! class_exists( '\WPOnion\Field\Heading' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Heading extends Field {
-
 		/**
 		 * Generates Final HTML Output.
 		 *
@@ -23,24 +21,22 @@ if ( ! class_exists( '\WPOnion\Field\Heading' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			echo $this->data( 'content' );
+			echo $this->option( 'content' );
 			echo $this->after();
 		}
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array( 'content' => false );
 		}
 	}

@@ -11,28 +11,27 @@ if ( ! class_exists( '\WPOnion\Field\Range_Slider' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Range_Slider extends Spinner {
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return $this->parse_args( array(
 				'slider_width' => '90%',
-			), parent::field_default() );
+			), parent::defaults() );
 		}
 
 		/**
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return $this->parse_args( array(
 				'slider' => ( ! is_array( $this->data( 'slider' ) ) ) ? array() : $this->data( 'slider' ),
-			), parent::js_field_args() );
+			), parent::defaults() );
 		}
 
 		/**
@@ -51,10 +50,8 @@ if ( ! class_exists( '\WPOnion\Field\Range_Slider' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wp_enqueue_script( 'jquery-ui-slider' );
 		}
 	}

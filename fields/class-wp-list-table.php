@@ -12,22 +12,19 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class WP_List_Table extends Field {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
 			echo '<div class="wponion-inner-wp-list-table">';
-			$settings          = $this->data( 'settings' );
+			$settings          = $this->option( 'settings' );
 			$settings          = ( ! is_array( $settings ) ) ? array() : $settings;
 			$settings['field'] = &$this;
-			$instance          = new \WPOnion\WP\WP_List_Table( $settings, $this->data( 'data' ) );
+			$instance          = new \WPOnion\WP\WP_List_Table( $settings, $this->option( 'data' ) );
 			$instance->prepare_items();
 			$instance->views();
 			$instance->search_box( __( 'Search', 'wponion' ), 'search' );
@@ -42,7 +39,7 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 		 * @return bool|array|\WPO\Builder|\WPO\Field|\WPO\Container
 		 */
 		public function fields() {
-			return $this->data( 'fields' );
+			return $this->option( 'fields' );
 		}
 
 		/**
@@ -60,9 +57,9 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'settings'   => array(),
 				'data'       => array(),
@@ -72,10 +69,8 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 	}
 }

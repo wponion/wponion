@@ -12,119 +12,58 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
 	class CSS_Shadow extends Field {
-
 		/**
 		 * Field's Custom Wrap Class.
 		 *
 		 * @return string
 		 */
-		protected function field_wrap_class() {
+		protected function wrap_class() {
 			return 'wponion-has-nested-fields';
 		}
 
 		/**
-		 * @return false|\WPO\Field
+		 * @param string $id
+		 * @param string $title
+		 * @param string $type
+		 *
+		 * @return \WPO\Field
 		 */
-		protected function h_shadow() {
-			return wpo_field( 'number', 'h-shadow', __( 'Horizontal Length', 'wponion' ), array( 'surfix' => 'px' ) )
-				->attribute( 'data-css-id', 'h-shadow' )
+		protected function sh_field( $id, $title, $type = 'number' ) {
+			return wpo_field( $type, $id, $title, array( 'surfix' => 'px' ) )
+				->attribute( 'data-css-id', $id )
 				->horizontal( true )
 				->wrap_class( 'wpo-col-xs-12 wpo-col-md-2' );
-		}
-
-		/**
-		 * @return false|\WPO\Field
-		 */
-		protected function v_shadow() {
-			return wpo_field( 'number', 'v-shadow', __( 'Vertical Length', 'wponion' ), array( 'surfix' => 'px' ) )
-				->attribute( 'data-css-id', 'v-shadow' )
-				->horizontal( true )
-				->wrap_class( 'wpo-col-xs-12 wpo-col-md-2' );
-		}
-
-		/**
-		 * @return false|\WPO\Field
-		 */
-		protected function blur() {
-			return wpo_field( 'number', 'blur', __( 'Blur Radius', 'wponion' ), array( 'surfix' => 'px' ) )
-				->attribute( 'data-css-id', 'blur' )
-				->horizontal( true )
-				->wrap_class( 'wpo-col-xs-12 wpo-col-md-2' );
-		}
-
-		/**
-		 * @return false|\WPO\Field
-		 */
-		protected function spread() {
-			return wpo_field( 'number', 'spread', __( 'Spread Radius', 'wponion' ), array( 'surfix' => 'px' ) )
-				->attribute( 'data-css-id', 'spread' )
-				->horizontal( true )
-				->wrap_class( 'wpo-col-xs-12 wpo-col-md-2' );
-		}
-
-		/**
-		 * @return false|\WPO\Field
-		 */
-		protected function color() {
-			return wpo_field( 'color_picker', 'color', __( 'Shadow Color', 'wponion' ) )
-				->attribute( 'data-css-id', 'color' )
-				->horizontal( true )
-				->wrap_class( 'wpo-col-xs-12 wpo-col-md-2' );
-		}
-
-		/**
-		 * @return false|\WPO\Field
-		 */
-		protected function shadow_type() {
-			return wpo_field( 'switcher', 'inset', __( 'Inset ?', 'wponion' ) )
-				->attribute( 'data-css-id', 'inset' )
-				->horizontal( true )
-				->wrap_class( 'wpo-col-xs-12 wpo-col-md-1' );
 		}
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
 
 			echo '<div class="wpo-row wponion-row">';
+			$name = $this->name();
 
-			//H Shadow
-			echo $this->sub_field( $this->h_shadow(), $this->value( 'h-shadow' ), $this->name() );
+			echo $this->sub_field( $this->sh_field( 'h-shadow', __( 'Horizontal Length', 'wponion' ) ), $this->value( 'h-shadow' ), $name );
+			echo $this->sub_field( $this->sh_field( 'v-shadow', __( 'Vertical Length', 'wponion' ) ), $this->value( 'v-shadow' ), $name );
+			echo $this->sub_field( $this->sh_field( 'blur', __( 'Blur Radius', 'wponion' ) ), $this->value( 'blur' ), $name );
 
-			//V Shadow
-			echo $this->sub_field( $this->v_shadow(), $this->value( 'v-shadow' ), $this->name() );
-
-			//Blur
-			echo $this->sub_field( $this->blur(), $this->value( 'blur' ), $this->name() );
-
-			if ( 'box' === $this->data( 'shadow_type' ) ) {
-				// Spread
-				echo $this->sub_field( $this->spread(), $this->value( 'spread' ), $this->name() );
+			if ( 'box' === $this->option( 'shadow_type' ) ) {
+				echo $this->sub_field( $this->sh_field( 'spread', __( 'Spread Radius', 'wponion' ) ), $this->value( 'spread' ), $name );
 			}
 
-			// Shadow Color
-			echo $this->sub_field( $this->color(), $this->value( 'color' ), $this->name() );
+			echo $this->sub_field( $this->sh_field( 'color', __( 'Shadow Color', 'wponion' ), 'color_picker' ), $this->value( 'color' ), $name );
 
-			if ( 'box' === $this->data( 'shadow_type' ) ) {
-				// Shadow Type
-				echo $this->sub_field( $this->shadow_type(), $this->value( 'inset' ), $this->name() );
+			if ( 'box' === $this->option( 'shadow_type' ) ) {
+				echo $this->sub_field( $this->sh_field( 'inset', __( 'Inset ?', 'wponion' ), 'switcher' ), $this->value( 'inset' ), $name );
 			}
 
 			echo '</div>';
 
-			if ( $this->data( 'preview' ) ) {
-				$type  = $this->data( 'shadow_type' );
-				$class = ( 'box' === $type ) ? 'box-shadow' : '';
-				echo '<div class="wpo-row wponion-row">';
-				echo '<div class="wpo-col-xs-12 wpo-col-md-6 css-shadow-preview ' . $class . '">';
-				$text = ( true === $this->data( 'preview' ) ) ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' : $this->data( 'preview' );
-				echo '<p>' . $text . '</p>';
-				echo '</div>';
-				echo '</div>';
+			if ( $this->option( 'preview' ) ) {
+				$class = ( 'box' === $this->option( 'shadow_type' ) ) ? 'box-shadow' : '';
+				$text  = ( $this->option( 'preview' ) ) ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' : $this->option( 'preview' );
+				echo "<div class=\"wpo-row wponion-row\"> <div class=\"wpo-col-xs-12 wpo-col-md-6 css-shadow-preview ${class}\"> <p>${text}</p> </div> </div>";
 			}
 
 			echo $this->after();
@@ -133,16 +72,16 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 		/**
 		 * @return array
 		 */
-		protected function js_field_args() {
-			return array( 'shadow_type' => $this->data( 'shadow_type' ) );
+		protected function js_args() {
+			return array( 'shadow_type' => $this->option( 'shadow_type' ) );
 		}
 
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'shadow_type' => 'text',
 				'preview'     => true,
@@ -151,10 +90,8 @@ if ( ! class_exists( '\WPOnion\Fields\CSS_Shadow' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 	}
 }

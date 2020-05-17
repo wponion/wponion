@@ -19,10 +19,8 @@ if ( ! class_exists( '\WPOnion\Field\Import_Export' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 
 		/**
@@ -104,7 +102,7 @@ HTML;
 		/**
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return array(
 				'export_textarea' => $this->js_field_id() . '_backup_export',
 				'import_textarea' => $this->js_field_id() . '_backup_import',
@@ -114,9 +112,9 @@ HTML;
 		/**
 		 * Returns Field's Default Value.
 		 *
-		 * @return array|mixed
+		 * @return array
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array();
 		}
 	}

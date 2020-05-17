@@ -11,7 +11,6 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Select extends Field {
 		/**
@@ -28,11 +27,12 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		 */
 		protected function output() {
 			echo $this->before();
-			$options = $this->data( 'options' );
+			$options      = $this->option( 'options' );
+			$options_html = $this->option( 'options_html' );
 
-			if ( isset( $this->field['ajax'] ) && true === $this->field['ajax'] && ! empty( $this->value ) && wponion_is_callable( $options ) ) {
+			if ( $this->has( 'ajax' ) && true === $this->option( 'ajax' ) && ! empty( $this->value ) && wponion_is_callable( $options ) ) {
 				$options = wponion_callback( $options, array( $this ) );
-			} elseif ( ( ! isset( $this->field['ajax'] ) || isset( $this->field['ajax'] ) && false === $this->field['ajax'] ) && wponion_is_callable( $options ) ) {
+			} elseif ( ! $this->option( 'ajax' ) && wponion_is_callable( $options ) ) {
 				$options = wponion_callback( $options, array( $this ) );
 			}
 
@@ -42,33 +42,30 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 				'class' => array( 'form-control wponion-select-control' ),
 			) );
 
-			$element = '<select ' . $attr . '>';
-			if ( $this->has( 'options_html' ) && ! empty( $this->data( 'options_html' ) ) ) {
-				$element .= $this->data( 'options_html' );
+			$element = '';
+			if ( $options_html && ! empty( $options_html ) ) {
+				$element .= $options_html;
 			} else {
-				if ( true === $this->data( 'empty_option' ) ) {
-					$element .= '<option value=""></option>';
-				}
+				$element .= ( true === $this->option( 'empty_option' ) ) ? '<option value=""></option>' : '';
 
 				foreach ( $options as $key => $option ) {
-					if ( wponion_is_array( $option ) && isset( $option['label'] ) ) {
-						$element .= $this->sel_option( $this->handle_options( $key, $option ) );
-					} elseif ( wponion_is_array( $option ) && ! isset( $option['label'] ) ) {
-						$element .= '<optgroup label="' . $key . '">';
+					if ( wponion_is_array( $option ) && ! isset( $option['label'] ) ) {
+						$element .= "<optgroup label=\"${key}\">";
 						foreach ( $option as $k => $v ) {
-							$element .= $this->sel_option( $this->handle_options( $k, $v ) );
+							$element .= $this->option_tag( $this->handle_options( $k, $v, array(), false ) );
 						}
 						$element .= '</optgroup>';
 					} else {
-						$element .= $this->sel_option( $this->handle_options( $key, $option ) );
+						$element .= $this->option_tag( $this->handle_options( $key, $option, array(), false ) );
 					}
 				}
 			}
-			$element .= '</select>';
 
-			echo wponion_input_group_html( $this->data( 'prefix' ), $this->data( 'surfix' ), $element );
+			$element = "<select ${attr}>${element}</select>";
 
-			if ( false === $this->select_framework && true === $this->data( 'ajax' ) ) {
+			echo wponion_input_group_html( $this->option( 'prefix' ), $this->option( 'surfix' ), $element );
+
+			if ( ! $this->select_framework && $this->option( 'ajax' ) ) {
 				echo wponion_add_element( array(
 					'type'    => 'wp_notice_error',
 					'before'  => '<br/>',
@@ -88,43 +85,26 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function sel_option( $data ) {
-			$elem_id = sanitize_title( $this->name() . '_' . $data['key'] );
-			if ( isset( $data['tooltip'] ) && wponion_is_array( $data['tooltip'] ) ) {
-				$data['attributes']['title']             = $data['tooltip']['attr']['title'];
-				$data['attributes']['data-wponion-jsid'] = $this->js_field_id();
-				$data['attributes']['data-field-jsid']   = $elem_id;
-				$data['attributes']['class']             = ' wponion-field-tooltip ';
-				wponion_localize()->add( $this->js_field_id(), array( $elem_id . 'tooltip' => $data['tooltip']['data'] ) );
-			}
-
+		protected function option_tag( $data ) {
 			$data['attributes']['value'] = $data['key'];
-			return '<option ' . wponion_array_to_html_attributes( $data['attributes'] ) . $this->checked( $this->value(), $data['key'], 'selected' ) . ' > ' . $data['label'] . ' </option > ';
+			$attr                        = wponion_array_to_html_attributes( $data['attributes'] );
+			$label                       = $data['label'];
+			$checked                     = $this->checked( $this->value(), $data['key'], 'selected' );
+			return "<option ${attr} ${checked}>${label}</option>";
 		}
 
 		/**
 		 * Checks & Updat fields args based on field config.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
 		 */
-		protected function handle_field_args( $data = array() ) {
-			if ( true === $data['multiple'] ) {
-				$data['attributes']['multiple'] = 'multiple';
+		protected function handle_arguments() {
+			if ( $this->option( 'multiple' ) ) {
+				$this->set_option( 'attributes/multiple', 'multiple' );
 			}
 
-			if ( ! isset( $data['attributes']['class'] ) ) {
-				$data['attributes']['class'] = array();
-			}
-
-			$this->select_framework      = wponion_validate_select_framework( $data );
-			$select_class                = wponion_select_classes( $this->select_framework );
-			$data['attributes']['class'] = wponion_html_class( $data['attributes']['class'], $select_class, false );
-			wponion_localize()->add( $this->js_field_id(), array(
-				$this->select_framework => ( isset( $data[ $this->select_framework ] ) && wponion_is_array( $data[ $this->select_framework ] ) ) ? $data[ $this->select_framework ] : array(),
-			) );
-			return $data;
+			$this->set_option_default( 'attributes/class', array() );
+			$this->select_framework = wponion_validate_select_framework( $this->settings );
+			$class                  = wponion_html_class( $this->option( 'attributes/class' ), wponion_select_classes( $this->select_framework ), false );
+			$this->set_option( 'attributes/class', $class );
 		}
 
 		/**
@@ -132,7 +112,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'options'      => array(),
 				'multiple'     => false,
@@ -146,11 +126,12 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		/**
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return array(
-				'ajax' => ( true === $this->data( 'ajax' ) ) ? array(
-					'query_args'  => ( is_array( $this->data( 'query_args' ) ) && ! empty( $this->data( 'query_args' ) ) ) ? $this->data( 'query_args' ) : array(),
-					'option_type' => ( ! empty( $this->data( 'options' ) ) ) ? $this->data( 'options' ) : false,
+				$this->select_framework => ( wponion_is_array( $this->option( $this->select_framework ) ) ) ? $this->option( $this->select_framework ) : array(),
+				'ajax'                  => ( true === $this->option( 'ajax' ) ) ? array(
+					'query_args'  => ( is_array( $this->option( 'query_args' ) ) && ! empty( $this->option( 'query_args' ) ) ) ? $this->option( 'query_args' ) : array(),
+					'option_type' => ( ! empty( $this->option( 'options' ) ) ) ? $this->option( 'options' ) : false,
 				) : false,
 			);
 		}
@@ -160,7 +141,7 @@ if ( ! class_exists( '\WPOnion\Field\Select' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wponion_load_asset( $this->select_framework );
 		}
 	}

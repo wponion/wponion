@@ -12,21 +12,20 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Color_Group extends Field {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
-			if ( wponion_is_array( $this->data( 'options' ) ) ) {
-				foreach ( $this->data( 'options' ) as $slug => $option ) {
+			$options = $this->option( 'options' );
+			$options = ( ! wponion_is_array( $options ) && wponion_is_callable( $options ) ) ? wponion_callback( $options ) : $options;
+			if ( wponion_is_array( $options ) ) {
+				foreach ( $options as $slug => $option ) {
 					$field_args = $this->handle_args( 'title', $option, array(
-						'settings' => $this->data( 'settings' ),
+						'settings' => $this->option( 'settings' ),
 					), array(
 						'id'         => $slug,
 						'type'       => 'color_picker',
@@ -46,10 +45,8 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wponion_load_asset( 'wponion-pickr' );
 		}
 
@@ -58,11 +55,9 @@ if ( ! class_exists( '\WPOnion\Field\Color_Group' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
-				'settings' => array(
-					'theme' => 'monolith',
-				),
+				'settings' => array( 'theme' => 'monolith' ),
 				'options'  => array(),
 			);
 		}

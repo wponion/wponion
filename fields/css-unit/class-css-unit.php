@@ -12,25 +12,22 @@ if ( ! class_exists( '\WPOnion\Field\CSS_Unit' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class CSS_Unit extends Field {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
 
-			$number_field = $this->sub_field( $this->handle_args( 'prefix', $this->data( 'css_value' ), array(), array(
+			$number_field = $this->sub_field( $this->handle_args( 'prefix', $this->option( 'css_value' ), array(), array(
 				'type'       => 'number',
 				'id'         => 'css_value',
 				'only_field' => true,
 			) ), $this->value( 'css_value' ), $this->name() );
 
-			$units_field = $this->sub_field( $this->handle_args( 'prefix', $this->data( 'unit' ), array(
+			$units_field = $this->sub_field( $this->handle_args( 'prefix', $this->option( 'unit' ), array(
 				'options' => wponion_internal_options_data( 'css-units' ),
 			), array(
 				'type'       => 'select',
@@ -48,7 +45,7 @@ if ( ! class_exists( '\WPOnion\Field\CSS_Unit' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return array();
 		}
 
@@ -57,7 +54,7 @@ if ( ! class_exists( '\WPOnion\Field\CSS_Unit' ) ) {
 		 *
 		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'css_value' => '',
 				'unit'      => '',
@@ -66,10 +63,8 @@ if ( ! class_exists( '\WPOnion\Field\CSS_Unit' ) ) {
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 		}
 	}
 }

@@ -10,20 +10,20 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 	 *
 	 * @package WPOnion\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Gallery extends image {
 
 		/**
 		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
 		 */
 		protected function output() {
 			echo $this->before();
-			echo '<input type="hidden" id="image_id" value="' . $this->value() . '" name="' . $this->name() . '"/>';
-			$ex_class = ( true === $this->data( 'sort' ) ) ? 'gallery-sortable' : 'gallery-non-sortable';
-			echo '<div class="wponion-image-preview ' . $ex_class . '" id="wponion-image-preview' . $this->js_field_id() . '">';
+			$sortable = ( true === $this->option( 'sort' ) ) ? 'gallery-sortable' : 'gallery-non-sortable';
+
+			echo <<<HTML
+<input type="hidden" id="image_id" value="{$this->value()}" name="{$this->name()}"/>
+<div class="wponion-image-preview ${sortable}" id="wponion-image-preview{$this->js_field_id()}">
+HTML;
 			if ( ! empty( $this->value() ) ) {
 				$ids = explode( ',', $this->value() );
 				if ( ! empty( $ids ) ) {
@@ -33,8 +33,7 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 				}
 			}
 
-			echo '</div>';
-			echo '<div class="wponion-gallery-actions">';
+			echo '</div> <div class="wponion-gallery-actions">';
 			echo $this->button( 'add' );
 			echo $this->button( 'edit' );
 			echo $this->button( 'clear' );
@@ -51,36 +50,27 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 * @return mixed
 		 */
 		protected function button( $type ) {
-			$button = array();
+			$button     = array();
+			$base_field = wpo_field( 'button' );
+			$base_field->button_type( 'button' )
+				->only_field( true )
+				->label( __( 'Add Gallery', 'wponion' ) )
+				->field_class( 'button button-primary' );
 			if ( 'add' === $type ) {
-				$button = $this->handle_args( 'label', $this->data( 'add_button' ), array(
-					'button_type' => 'button',
-					'type'        => 'button',
-					'label'       => __( 'Add Gallery', 'wponion' ),
-					'class'       => 'button button-primary',
-				), array(
-					'only_field' => true,
+				$button = $this->handle_args( 'label', $this->option( 'add_button' ), $base_field, array(
 					'attributes' => array( 'data-wponion-gallery-add' => 'yes' ),
 				) );
 			} elseif ( 'edit' === $type ) {
-				$button = $this->handle_args( 'label', $this->data( 'edit_button' ), array(
-					'button_type' => 'button',
-					'type'        => 'button',
-					'label'       => __( 'Edit Gallery', 'wponion' ),
-					'class'       => 'button button-secondary',
-				), array(
-					'only_field' => true,
+				$button = $this->handle_args( 'label', $this->option( 'edit_button' ), $base_field, array(
 					'attributes' => array( 'data-wponion-gallery-edit' => 'yes' ),
+					'label'      => __( 'Edit Gallery' ),
+					'class'      => 'button button-secondary',
 				) );
 			} elseif ( 'clear' === $type ) {
-				$button = $this->handle_args( 'label', $this->data( 'remove_button' ), array(
-					'button_type' => 'button',
-					'type'        => 'button',
-					'label'       => __( 'Edit Gallery', 'wponion' ),
-					'class'       => 'button button-secondary',
-				), array(
-					'only_field' => true,
+				$button = $this->handle_args( 'label', $this->option( 'remove_button' ), $base_field, array(
 					'attributes' => array( 'data-wponion-gallery-clear' => 'yes' ),
+					'label'      => __( 'Clear Gallery' ),
+					'class'      => 'button button-secondary',
 				) );
 			}
 
@@ -89,10 +79,8 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 
 		/**
 		 * Returns Field's Default Value.
-		 *
-		 * @return array|mixed
 		 */
-		protected function field_default() {
+		protected function defaults() {
 			return array(
 				'add_button'    => __( 'Create Gallery', 'wponion' ),
 				'edit_button'   => __( 'Edit Gallery', 'wponion' ),
@@ -107,16 +95,14 @@ if ( ! class_exists( '\WPOnion\Field\Gallery' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function js_field_args() {
+		protected function js_args() {
 			return array( 'html_template' => $this->show_image( false, null ) );
 		}
 
 		/**
 		 * Handles Fields Assets.
-		 *
-		 * @return mixed|void
 		 */
-		public function field_assets() {
+		public function assets() {
 			wp_enqueue_media();
 			if ( $this->has( 'sort' ) && true === $this->data( 'sort' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
