@@ -21,29 +21,32 @@ if ( ! class_exists( '\WPOnion\Theme\Global_Theme' ) ) {
 		 * @return string
 		 */
 		public function main_menu( $menus ) {
-			$return = '<nav class="nav-tab-wrapper">';
-			foreach ( $menus as $slug => $menu ) {
-				if ( isset( $menu['is_separator'] ) && true === $menu['is_separator'] ) {
-					continue;
-				}
+			if ( ! empty( $menus ) ) {
+				$return = '<nav class="nav-tab-wrapper">';
+				foreach ( $menus as $slug => $menu ) {
+					if ( isset( $menu['is_separator'] ) && true === $menu['is_separator'] ) {
+						continue;
+					}
 
-				$attr          = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
-				$attr['title'] = isset( $attr['title'] ) ? $attr['title'] : $menu['title'];
-				$page_title    = $menu['title'];
-				$attr['href']  = $menu['href'];
-				$attr['class'] = isset( $attr['class'] ) ? $attr['class'] : array();
-				$attr['class'] = wponion_html_class( $attr['class'], array(
-					wponion_html_class( $menu['class'] ),
-					'nav-tab',
-					( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
-					( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'wpo-internal-href' : '',
-					( true === $menu['is_active'] ) ? 'nav-tab-active' : '',
-					( true === $menu['is_disabled'] ) ? ' disabled ' : '',
-				) );
-				$attr          = wponion_array_to_html_attributes( $attr );
-				$return        .= '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+					$attr          = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
+					$attr['title'] = isset( $attr['title'] ) ? $attr['title'] : $menu['title'];
+					$page_title    = $menu['title'];
+					$attr['href']  = $menu['href'];
+					$attr['class'] = isset( $attr['class'] ) ? $attr['class'] : array();
+					$attr['class'] = wponion_html_class( $attr['class'], array(
+						wponion_html_class( $menu['class'] ),
+						'nav-tab',
+						( ! empty( $men['icon'] ) ) ? 'nav-with-icon' : '',
+						( isset( $menu['is_internal_href'] ) && true === $menu['is_internal_href'] ) ? 'wpo-internal-href' : '',
+						( true === $menu['is_active'] ) ? 'nav-tab-active' : '',
+						( true === $menu['is_disabled'] ) ? ' disabled ' : '',
+					) );
+					$attr          = wponion_array_to_html_attributes( $attr );
+					$return        .= '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+				}
+				return $return . '</nav>';
 			}
-			return $return . '</nav>';
+			return '';
 		}
 
 		/**
