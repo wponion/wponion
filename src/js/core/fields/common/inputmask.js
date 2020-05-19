@@ -8,7 +8,11 @@ export default class extends WPOnion_Field {
 		if( this.element.length > 0 ) {
 			let $settings = this.option( 'inputmask' );
 			if( $settings ) {
-				this.element.inputmask( this.handle_args( $settings, 'inputmask' ) );
+				try {
+					this.element.inputmask( this.handle_args( $settings, 'inputmask' ) );
+				} catch {
+
+				}
 			}
 		}
 	}
