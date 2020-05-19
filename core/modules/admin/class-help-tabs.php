@@ -1,18 +1,17 @@
 <?php
 
-namespace WPOnion\Modules\Util;
+namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module_Utility;
-use WPOnion\Modules\Admin\Page;
 use WPOnion\Traits\Internal\Theme_Handler;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Help_Tabs' ) ) {
 	/**
 	 * Class Help_Tabs
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Admin
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 * @since 1.0
 	 */
@@ -206,6 +205,16 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 			return wponion_html_class( array( 'wponion-help-tabs-' . $screen->id ), $this->default_wrap_class() );
 		}
 
+		/**
+		 * Renders Field.
+		 *
+		 * @param array $field
+		 * @param bool  $hash
+		 * @param bool  $is_init_field
+		 *
+		 * @return mixed|string
+		 * @since {NEWVERSION}
+		 */
 		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
 			$html = '';
 			if ( ! wpo_is_field( $field ) && isset( $field[0] ) ) {
