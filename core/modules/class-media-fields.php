@@ -13,7 +13,6 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 	 *
 	 * @package WPOnion\Modules
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Media_Fields extends Module {
 		/**
@@ -22,22 +21,6 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		 * @var string
 		 */
 		protected $module = 'media_fields';
-
-		/**
-		 * @var bool
-		 */
-		protected $post_id = false;
-
-		/**
-		 * Media_Fields constructor.
-		 *
-		 * @param array             $settings
-		 * @param null|\WPO\Builder $fields
-		 */
-		public function __construct( $settings = array(), $fields = null ) {
-			parent::__construct( $fields, $settings );
-			$this->on_init();
-		}
 
 		/**
 		 * Instance Class Instance.
@@ -112,6 +95,7 @@ if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
 		public function display_fields( $form, $attachment ) {
 			$this->set_id( $attachment->ID );
 			$this->get_cache();
+			$this->flush_values();
 			$o = '<div ' . $this->wrap_attributes() . '>';
 			foreach ( $this->fields->fields() as $field ) {
 				wponion_catch_output();
