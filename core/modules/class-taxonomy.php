@@ -90,7 +90,7 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
 				$metabox['module']        = $this->module();
-				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
+				$this->metabox_instance   = new Metabox\Core( $metabox, $this->fields );
 			}
 		}
 
