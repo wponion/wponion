@@ -2,7 +2,6 @@
 
 namespace WPOnion\Modules;
 
-use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
@@ -14,7 +13,6 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 	 *
 	 * @package WPOnion\Modules
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class User_Profile extends Module {
 		/**
@@ -25,29 +23,11 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		protected $module = 'user_profile';
 
 		/**
-		 * Stores Current User ID.
-		 *
-		 * @var bool
-		 */
-		protected $user_id = false;
-
-		/**
 		 * metabox_instance
 		 *
 		 * @var \WPOnion\Modules\Metabox\Core
 		 */
 		protected $metabox_instance = false;
-
-		/**
-		 * User_Profile constructor.
-		 *
-		 * @param array             $settings
-		 * @param \WPO\Builder|null $fields
-		 */
-		public function __construct( $settings = array(), Builder $fields = null ) {
-			parent::__construct( $fields, $settings );
-			$this->init();
-		}
 
 		/**
 		 * Creates Metabox Instance.
@@ -77,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
 				$metabox['module']        = $this->module();
-				$this->metabox_instance   = new Metabox\Core( $metabox, $this->raw_fields );
+				$this->metabox_instance   = new Metabox\Core( $metabox, $this->fields );
 			}
 		}
 
@@ -100,12 +80,12 @@ if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( parent::defaults(), array(
+			return $this->parse_args( array(
 				'theme'    => 'wp',
 				'heading'  => false,
 				'metabox'  => false,
 				'position' => 10,
-			) );
+			), parent::defaults() );
 		}
 
 		/**
