@@ -66,9 +66,14 @@ if ( ! class_exists( '\WPOnion\WP\Widget' ) ) {
 		 * @return string|void
 		 */
 		public function form( $instance ) {
-			$unique = $this->get_field_name( '{demo}' );
-			$unique = str_replace( '[{demo}]', '', $unique );
-			$this->widget_instance->render( $unique, $instance );
+			$unique      = $this->get_field_name( '{demo}' );
+			$unique      = str_replace( '[{demo}]', '', $unique );
+			$is_template = ( ! is_numeric( $this->number ) );
+
+			$this->widget_instance->render( $unique, $instance, $is_template );
+			if ( wponion_is_ajax( 'save-widget' ) ) {
+				wponion_localize()->render_css_js_args();
+			}
 		}
 
 		/**

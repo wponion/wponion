@@ -15,7 +15,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 	 *
 	 * @package WPOnion\Modules\Widgets
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Widget extends Module {
 		/**
@@ -27,19 +26,10 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 
 		/**
 		 * @var bool|array
-		 * @access protected
 		 */
 		protected $errors = false;
 
-		/**
-		 * Widget constructor.
-		 *
-		 * @param array             $settings
-		 * @param \WPO\Builder|null $fields
-		 */
-		public function __construct( $settings = array(), Builder $fields = null ) {
-			parent::__construct( $fields, $settings );
-			$this->init();
+		public function on_init() {
 			add_action( 'admin_print_styles-widgets.php', array( __CLASS__, 'load_assets' ) );
 		}
 
@@ -58,7 +48,8 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 		 * @param $unique
 		 * @param $values
 		 */
-		public function render( $unique, $values ) {
+		public function render( $unique, $values, $is_template ) {
+			$this->set_option( 'is_template', $is_template );
 			$instance        = $this->init_theme();
 			$this->unique    = $unique;
 			$this->db_values = $values;
@@ -66,6 +57,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 				$this->init_error_registry( $this->errors );
 			}
 			echo $instance->render_widgets();
+			$this->remove_option( 'is_template' );
 		}
 
 		/**
@@ -101,9 +93,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 		 */
 		protected function defaults() {
 			return $this->parse_args( parent::defaults(), array() );
-		}
-
-		public function on_init() {
 		}
 	}
 }

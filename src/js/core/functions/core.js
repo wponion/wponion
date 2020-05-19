@@ -104,7 +104,7 @@ export default function() {
 			window.wponion_module_metabox( jQuery( this ) );
 		} );
 
-		$element.find( '.wponion-framework:not(.wponion-quick_edit)' ).each( function() {
+		$element.find( '.wponion-framework:not(.wponion-quick_edit):not(.wponion-module-widget-template)' ).each( function() {
 			let $elem = jQuery( this );
 
 			// Reloads General Fields.
