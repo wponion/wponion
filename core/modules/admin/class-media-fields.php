@@ -1,13 +1,13 @@
 <?php
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Media_Fields' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Media_Fields' ) ) {
 	/**
 	 * Class Media_Fields
 	 *
