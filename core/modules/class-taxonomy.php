@@ -14,7 +14,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 	 *
 	 * @package WPOnion\Modules
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Taxonomy extends Module {
 		/**
@@ -37,17 +36,6 @@ if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
 		 * @var \WPOnion\Modules\Metabox\metabox
 		 */
 		public $metabox_instance = false;
-
-		/**
-		 * Taxonomy constructor.
-		 *
-		 * @param \WPO\Builder|null $fields
-		 * @param array             $settings
-		 */
-		public function __construct( $settings = array(), Builder $fields = null ) {
-			parent::__construct( $fields, $settings );
-			$this->init();
-		}
 
 		/**
 		 * Runs In Instance Init.
