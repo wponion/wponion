@@ -14,7 +14,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 	 *
 	 * @package WPOnion\Modules\Widgets
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Dashboard extends Module {
 		/**
@@ -23,33 +22,6 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 		 * @var string
 		 */
 		protected $module = 'dashboard_widgets';
-
-		/**
-		 * is_widget_edit
-		 *
-		 * @var bool
-		 */
-		protected $is_widget_edit = false;
-
-		/**
-		 * current_widget
-		 *
-		 * @var bool
-		 */
-		protected $current_widget = false;
-
-		/**
-		 * Dashboard_Widgets constructor.
-		 *
-		 * @param array             $settings
-		 * @param \WPO\Builder|null $fields
-		 */
-		public function __construct( array $settings = array(), Builder $fields = null ) {
-			parent::__construct( $fields, $settings );
-			if ( ! empty( $this->settings ) && false === wponion_is_ajax( 'heartbeat' ) ) {
-				$this->on_init();
-			}
-		}
 
 		/**
 		 * Inits Class Instance.
