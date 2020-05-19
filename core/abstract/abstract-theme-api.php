@@ -179,7 +179,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns Nav Menu Instance.
 		 *
-		 * @return bool|\WPOnion\Modules\Nav_Menu
+		 * @return bool|\WPOnion\Modules\Admin\Nav_Menu
 		 */
 		public function nav_menu() {
 			return wponion_nav_menu_registry( $this->module_instance );

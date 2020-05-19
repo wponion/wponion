@@ -1,6 +1,6 @@
 <?php
 
-use WPOnion\Modules\Nav_Menu;
+use WPOnion\Modules\Admin\Nav_Menu;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -8,7 +8,7 @@ if ( ! function_exists( 'wponion_nav_menu_registry' ) ) {
 	/**
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\Nav_Menu
+	 * @return bool|\WPOnion\Modules\Admin\Nav_Menu
 	 */
 	function wponion_nav_menu_registry( &$instance ) {
 		return wponion_get_registry_instance( 'nav_menu', $instance, 'module' );
@@ -20,7 +20,7 @@ if ( ! function_exists( 'wponion_nav_menu' ) ) {
 	 * @param array              $settings
 	 * @param array|\WPO\Builder $fields
 	 *
-	 * @return \WPOnion\Modules\Nav_Menu
+	 * @return \WPOnion\Modules\Admin\Nav_Menu
 	 */
 	function wponion_nav_menu( $settings = array(), $fields = array() ) {
 		if ( is_string( $settings ) && empty( $fields ) ) {

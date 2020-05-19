@@ -1,20 +1,18 @@
 <?php
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Admin;
 
-use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Nav_Menu' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Nav_Menu' ) ) {
 	/**
 	 * Class Nav_Menu
 	 *
 	 * @package WPOnion\Modules
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Nav_Menu extends Module {
 		/**
