@@ -1,20 +1,18 @@
 <?php
 
-namespace WPOnion\Modules\Edits;
+namespace WPOnion\Modules\Admin\Edits;
 
-use WPO\Builder;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Edits\Quick' ) ) {
 	/**
 	 * Class Quick
 	 *
-	 * @package WPOnion\Modules\Edits
+	 * @package WPOnion\Modules\Admin\Edits
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Quick extends Module {
 		/**
@@ -23,25 +21,6 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		 * @var string
 		 */
 		protected $module = 'quick_edit';
-
-		/**
-		 * Quick_Edit constructor.
-		 *
-		 * @param array             $settings
-		 * @param \WPO\Builder|null $fields
-		 */
-		public function __construct( $settings = array(), Builder $fields = null ) {
-			parent::__construct( $fields, $settings );
-			$this->init();
-			if ( wponion_is_array( $this->option( 'column' ) ) ) {
-				$col = $this->option( 'column' );
-				if ( ! isset( $col['post_type'] ) ) {
-					$col['post_type'] = $this->option( 'post_type' );
-				}
-				$instance = wponion_admin_columns( $col );
-				$this->set_option( 'column', $instance->unique() );
-			}
-		}
 
 		/**
 		 * Returns A Proper Hook Name.
@@ -53,7 +32,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		 *
 		 * @return string
 		 */
-		public function get_hook_name( $post_type, $surfix = 'custom_column', $prefix = 'manage_', $middle = '_posts_' ) {
+		protected function get_hook_name( $post_type, $surfix = 'custom_column', $prefix = 'manage_', $middle = '_posts_' ) {
 			return $prefix . $post_type . $middle . $surfix;
 		}
 
@@ -62,7 +41,16 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		 *
 		 * @return mixed|void
 		 */
-		public function on_init() {
+		protected function on_init() {
+			if ( wponion_is_array( $this->option( 'column' ) ) ) {
+				$col = $this->option( 'column' );
+				if ( ! isset( $col['post_type'] ) ) {
+					$col['post_type'] = $this->option( 'post_type' );
+				}
+				$instance = wponion_admin_columns( $col );
+				$this->set_option( 'column', $instance->unique() );
+			}
+
 			if ( false !== $this->option( 'post_type' ) && ! wponion_is_array( $this->option( 'post_type' ) ) ) {
 				$this->set_option( 'post_type', array( $this->option( 'post_type' ) ) );
 			}
@@ -73,8 +61,11 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 				}
 			}
 
-			$this->add_action( 'quick_edit_custom_box', 'render_quick_edit' );
-			$this->add_action( 'save_post', 'save_data' );
+			$render_hook = ( 'quick_edit' === $this->module() ) ? 'quick_edit_custom_box' : 'bulk_edit_custom_box';
+			$save_hook   = ( 'quick_edit' === $this->module() ) ? 'save_post' : 'wponion/bulk_edit/save';
+
+			$this->add_action( $render_hook, 'render_quick_edit' );
+			$this->add_action( $save_hook, 'save_data' );
 		}
 
 		/**
@@ -121,7 +112,7 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		/**
 		 * Renders Quick Edit HTML for each row.
 		 */
-		public function render_quick_edit_html() {
+		protected function render_quick_edit_html() {
 			echo '<fieldset class="wponion-quick-edit-fieldset ' . $this->option( 'wrap_class' ) . '">';
 			echo '<div ' . $this->wrap_attributes( '', array( 'data-wpo-quick-edit-id' => $this->unique ) ) . '>';
 			/* @var $field \WPO\Field */
@@ -183,13 +174,13 @@ if ( ! class_exists( '\WPOnion\Modules\Edits\Quick' ) ) {
 		 * @return array
 		 */
 		protected function defaults() {
-			return $this->parse_args( parent::defaults(), array(
+			return $this->parse_args( array(
 				'post_type'  => false,
 				'column'     => false,
 				'values'     => false,
 				'save'       => false,
 				'wrap_class' => '',
-			) );
+			), parent::defaults() );
 		}
 	}
 }

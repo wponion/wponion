@@ -1,7 +1,7 @@
 <?php
 
-use WPOnion\Modules\Edits\Bulk;
-use WPOnion\Modules\Edits\Quick;
+use WPOnion\Modules\Admin\Edits\Bulk;
+use WPOnion\Modules\Admin\Edits\Quick;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -11,7 +11,7 @@ if ( ! function_exists( 'wponion_bulk_edit_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\Edits\Bulk
+	 * @return bool|\WPOnion\Modules\Admin\Edits\Bulk
 	 */
 	function wponion_bulk_edit_registry( &$instance ) {
 		return wponion_get_registry_instance( 'bulk_edit', $instance, 'module' );
@@ -24,7 +24,7 @@ if ( ! function_exists( 'wponion_quick_edit_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\Edits\Quick
+	 * @return bool|\WPOnion\Modules\Admin\Edits\Quick
 	 */
 	function wponion_quick_edit_registry( &$instance ) {
 		return wponion_get_registry_instance( 'quick_edit', $instance, 'module' );
@@ -36,7 +36,7 @@ if ( ! function_exists( 'wponion_quick_edit' ) ) {
 	 * @param array|string       $settings
 	 * @param array|\WPO\Builder $fields
 	 *
-	 * @return \WPOnion\Modules\Edits\Quick
+	 * @return \WPOnion\Modules\Admin\Edits\Quick
 	 */
 	function wponion_quick_edit( $settings = array(), $fields = null ) {
 		if ( is_string( $settings ) && empty( $fields ) ) {
@@ -51,7 +51,7 @@ if ( ! function_exists( 'wponion_bulk_edit' ) ) {
 	 * @param array|string       $settings
 	 * @param array|\WPO\Builder $fields
 	 *
-	 * @return \WPOnion\Modules\Edits\Quick
+	 * @return \WPOnion\Modules\Admin\Edits\Quick
 	 */
 	function wponion_bulk_edit( $settings = array(), $fields = null ) {
 		if ( is_string( $settings ) && empty( $fields ) ) {
