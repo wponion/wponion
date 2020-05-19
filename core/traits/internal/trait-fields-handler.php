@@ -80,7 +80,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Fields_Handler' ) ) {
 		 *
 		 * @uses \wponion_add_element()
 		 */
-		protected function render_field( $field = array(), $hash = false, $is_init_field = false ) {
+		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
 			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
 			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
 				'module' => $this->module(),

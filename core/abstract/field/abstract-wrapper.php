@@ -80,7 +80,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Wrapper' ) ) {
 		 * @return string|array
 		 * @since {NEWVERSION}
 		 */
-		protected function wrap_attributes() {
+		public function wrap_attributes() {
 			return array();
 		}
 

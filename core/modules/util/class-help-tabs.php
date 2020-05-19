@@ -33,8 +33,6 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 		 */
 		public $current_tabs = null;
 
-		protected $public_access_methods = array( 'wrap_attributes', 'render_field' );
-
 		/**
 		 * Help_Tabs constructor.
 		 *
@@ -208,7 +206,7 @@ if ( ! class_exists( '\WPOnion\Modules\Util\Help_Tabs' ) ) {
 			return wponion_html_class( array( 'wponion-help-tabs-' . $screen->id ), $this->default_wrap_class() );
 		}
 
-		protected function render_field( $field = array(), $hash = false, $is_init_field = false ) {
+		public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
 			$html = '';
 			if ( ! wpo_is_field( $field ) && isset( $field[0] ) ) {
 				foreach ( $field as $single ) {

@@ -23,24 +23,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 */
 		protected $menu_instance = '';
 
-		protected $public_access_methods = array(
-			'wrap_attributes',
-			'is_single_page',
-			'settings_button',
-			'valid_field',
-			'valid_option',
-			'container_wrap_id',
-			'container_wrap_class',
-			'search_no_result',
-			'render_field',
-			'has_fields',
-			'get_id',
-			'settings_menus',
-			'reload_cache',
-			'reload_values',
-		);
-
-
 		/**
 		 * Module Type.
 		 *
@@ -372,7 +354,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return void|\WPOnion\Bridge\Module
 		 */
-		protected function reload_cache() {
+		public function reload_cache() {
 			$this->active_menu = false;
 			parent::reload_cache();
 			return $this;
@@ -383,7 +365,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function settings_menus() {
+		public function settings_menus() {
 			if ( empty( $this->menus ) && false === $this->fields->has_fields() ) {
 				$this->menus = $this->extract_fields_menus( $this->fields->get() );
 			}
@@ -430,7 +412,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return bool|string
 		 */
-		protected function is_single_page() {
+		public function is_single_page() {
 			$key = strtolower( $this->option( 'is_single_page' ) );
 			if ( in_array( $key, array( 'submenu', 'submenus', 'section', 'sections' ), true ) ) {
 				return 'only_submenu';
@@ -470,7 +452,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return bool
 		 */
-		protected function valid_option( $container = array(), $sub_container = false, $check_current_page = true ) {
+		public function valid_option( $container = array(), $sub_container = false, $check_current_page = true ) {
 			if ( ! $container->has_fields() && ! $container->has_containers() && ! $container->has_callback() || true === $container->is_disabled() ) {
 				return false;
 			}
@@ -523,7 +505,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return mixed
 		 */
-		protected function render_field( $field = array(), $parent_container = false, $sub_container = false, $is_init_field = false ) {
+		public function render_field( $field = array(), $parent_container = false, $sub_container = false, $is_init_field = false ) {
 			$hash = implode( '/', array_filter( array(
 				( wpo_is_container( $parent_container ) ) ? $parent_container->name() : '',
 				( wpo_is_container( $sub_container ) ) ? $sub_container->name() : '',
@@ -553,7 +535,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function settings_button() {
+		public function settings_button() {
 			$options = $this->option( 'save_button' );
 			$html    = '';
 			if ( false !== $options ) {
@@ -568,7 +550,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		/**
 		 * @return string
 		 */
-		protected function search_no_result() {
+		public function search_no_result() {
 			return '<div class="search-no-result"><h3>' . __( 'No Result Found', 'wponion' ) . '</h3></div>';
 		}
 	}

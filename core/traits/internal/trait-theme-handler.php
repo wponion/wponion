@@ -234,7 +234,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return array|string
 		 */
-		protected function container_wrap_class( $container = false, $sub_container = false, $first_container = false ) {
+		public function container_wrap_class( $container = false, $sub_container = false, $first_container = false ) {
 			$_class   = array( $this->container_wrap_id( $container ), 'wpo-row' );
 			$_class[] = ( ( wpo_is_container( $sub_container ) && $sub_container->has_callback() ) || ( wpo_is_container( $container ) && $container->has_callback() ) ) ? 'wponion-has-callback' : '';
 			$_class[] = ( ( wpo_is_container( $sub_container ) && $sub_container->has_fields() ) || ( wpo_is_container( $container ) && $container->has_fields() ) ) ? 'wponion-has-fields' : '';
@@ -256,7 +256,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function container_wrap_id( $container, $sub_container = false ) {
+		public function container_wrap_id( $container, $sub_container = false ) {
 			if ( wpo_is_container( $container ) && wpo_is_container( $sub_container ) ) {
 				return 'wponion-tab-' . $container->name() . '-' . $sub_container->name();
 			} elseif ( wpo_is_container( $container ) ) {
@@ -271,7 +271,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function wrap_attributes( $extra_class = '', $extra_attributes = array() ) {
+		public function wrap_attributes( $extra_class = '', $extra_attributes = array() ) {
 			wponion_localize()->add( 'wponion_module_args', array(
 				$this->instance_id() => array(
 					'theme'     => $this->option( 'theme' ),
@@ -295,7 +295,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 * @return bool
 		 * @deprecated Please Use Valid Container.
 		 */
-		protected function valid_option( $option = array() ) {
+		public function valid_option( $option = array() ) {
 			return $this->valid_container( $option );
 		}
 
@@ -317,7 +317,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return bool
 		 */
-		protected function valid_field( $option ) {
+		public function valid_field( $option ) {
 			if ( wpo_is_field( $option ) ) {
 				return true;
 			} elseif ( wponion_is_array( $option ) ) {

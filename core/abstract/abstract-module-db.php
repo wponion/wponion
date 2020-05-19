@@ -290,7 +290,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return string|bool
 		 */
-		protected function set_id( $id ) {
+		public function set_id( $id ) {
 			return $this->get_set_id( $id, 'set' );
 		}
 
@@ -299,7 +299,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return bool|int|string
 		 */
-		protected function get_id() {
+		public function get_id() {
 			return $this->get_set_id( false, 'get' );
 		}
 
@@ -308,7 +308,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		protected function reload_cache() {
+		public function reload_cache() {
 			$this->options_cache = false;
 			$this->get_cache();
 			return $this;
@@ -319,7 +319,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		 *
 		 * @return $this
 		 */
-		protected function reload_values() {
+		public function reload_values() {
 			if ( wpo_is_option( $this->db_values ) ) {
 				$this->db_values->reload();
 			}
@@ -344,6 +344,27 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 				}
 			}
 			return $this->options_cache;
+		}
+
+		/**
+		 * Clears DB Values and loads from DB Again.
+		 *
+		 * @return mixed
+		 * @since {NEWVERSION}
+		 */
+		protected function flush_values() {
+			$this->db_values = array();
+			return $this->get_db_values();
+		}
+
+		/**
+		 * Clears Cache And Loads From DB Again.
+		 *
+		 * @return $this
+		 * @since {NEWVERSION}
+		 */
+		protected function flush_cache() {
+			return $this->reload_cache();
 		}
 	}
 }

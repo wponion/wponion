@@ -37,27 +37,6 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 */
 		protected $active_data = null;
 
-		protected $public_access_methods = array(
-			'get_id',
-			'set_id',
-			'wrap_attributes',
-			'container_wrap_class',
-			'container_wrap_id',
-			'valid_option',
-			'valid_field',
-			'custom_metabox_class',
-			'load_style_script',
-			'register_metabox',
-			'on_page_load',
-			'metabox_menus',
-			'page_url',
-			'render',
-			'render_field',
-			'save_button',
-			'save_metabox',
-			'hidden_secure_data',
-		);
-
 		/**
 		 * Inits The Class.
 		 */
@@ -73,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function wrap_class( $extra_class = '' ) {
+		public function wrap_class( $extra_class = '' ) {
 			return parent::wrap_class( wponion_html_class( $extra_class, array(
 				'wponion-module-metabox-' . $this->option( 'context' ),
 				'wponion-module-metabox-' . $this->option( 'context' ) . '-framework',
@@ -83,7 +62,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		/**
 		 * Triggers Few Functions On Page Load.
 		 */
-		protected function on_page_load() {
+		public function on_page_load() {
 			$this->add_action( 'add_meta_boxes', 'register_metabox', 10, 2 );
 			$this->add_action( 'admin_enqueue_scripts', 'load_style_script' );
 			$this->add_action( 'save_post', 'save_metabox' );
@@ -105,7 +84,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function custom_metabox_class( $class ) {
+		public function custom_metabox_class( $class ) {
 			return array(
 				'wponion-metabox',
 				'wponion-metabox-' . $this->option( 'theme' ),
@@ -118,14 +97,14 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		/**
 		 * Loads Core Styles and Scripts.
 		 */
-		protected function load_style_script() {
+		public function load_style_script() {
 			wponion_load_core_assets( $this->option( 'assets' ) );
 		}
 
 		/**
 		 * Registers Metabox With WordPress.
 		 */
-		protected function register_metabox() {
+		public function register_metabox() {
 			add_meta_box( $this->metabox_id(), $this->option( 'metabox_title' ), array(
 				&$this,
 				'render',
@@ -164,7 +143,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function metabox_menus() {
+		public function metabox_menus() {
 			if ( empty( $this->menus ) && false === $this->fields->has_fields() ) {
 				$this->menus = $this->extract_fields_menus( $this->fields->get() );
 			}
@@ -178,7 +157,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return null
 		 */
-		protected function page_url( $part_url = false ) {
+		public function page_url( $part_url = false ) {
 			return null;
 		}
 
@@ -189,7 +168,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return bool|string
 		 */
-		protected function active( $is_parent ) {
+		public function active( $is_parent ) {
 			$this->active_page();
 			return ( true === $is_parent ) ? $this->active_data['container_id'] : $this->active_data['sub_container_id'];
 		}
@@ -199,7 +178,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @param $post
 		 */
-		protected function render( $post ) {
+		public function render( $post ) {
 			$post_id = ( is_object( $post ) ) ? $post->ID : $post;
 			$this->set_id( $post_id );
 			$instance = $this->init_theme();
@@ -218,7 +197,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return mixed
 		 */
-		protected function render_field( $field = array(), $container = false, $sub_container = false, $is_init_field = false ) {
+		public function render_field( $field = array(), $container = false, $sub_container = false, $is_init_field = false ) {
 			$hash = implode( '/', array_filter( array(
 				( wpo_is_container( $container ) ) ? $container->name() : '',
 				( wpo_is_container( $sub_container ) ) ? $sub_container->name() : '',
@@ -231,7 +210,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return string
 		 */
-		protected function get_cache_id() {
+		public function get_cache_id() {
 			return wponion_hash_string( "{$this->get_id()}_{$this->metabox_id()}_{$this->unique()}_{$this->module()}" );
 		}
 
@@ -240,7 +219,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 *
 		 * @return array
 		 */
-		protected function active_page() {
+		public function active_page() {
 			if ( null === $this->active_data ) {
 				$active            = wponion_validate_parent_container_ids( array(
 					'container_id'     => isset( $this->options_cache['container_id'] ) ? $this->options_cache['container_id'] : false,
@@ -255,7 +234,7 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		/**
 		 * Renders Metabox Hidden Data.
 		 */
-		protected function hidden_secure_data() {
+		public function hidden_secure_data() {
 			echo <<<HTML
 <div class="hidden wponion-metabox-secure-data">
 	<input type="hidden" value="{$this->metabox_id()}" id="metabox_id">
@@ -270,7 +249,7 @@ HTML;
 		 *
 		 * @return string
 		 */
-		protected function save_button() {
+		public function save_button() {
 			$user         = $this->option( 'save_button' );
 			$default_attr = array(
 				'class' => 'button button-success wponion-save',
@@ -291,7 +270,7 @@ HTML;
 		 *
 		 * @return bool
 		 */
-		protected function is_tab_active( $container = false, $sub_container = false, $first_container = false ) {
+		public function is_tab_active( $container = false, $sub_container = false, $first_container = false ) {
 			if ( false !== $container && false === $sub_container ) {
 				return ( $container === $this->active( true ) );
 			} else {
@@ -309,7 +288,7 @@ HTML;
 		 *
 		 * @param $post_id
 		 */
-		protected function save_metabox( $post_id ) {
+		public function save_metabox( $post_id ) {
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->set_id( $post_id );
 				$instance = new Data_Validator_Sanitizer( array(

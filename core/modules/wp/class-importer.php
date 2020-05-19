@@ -274,7 +274,7 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 		 *
 		 * @return false|string
 		 */
-		protected function render_fields( $step ) {
+		public function render_fields( $step ) {
 			$fields = false;
 			$this->get_fields();
 			if ( wponion_is_array( $this->fields ) && isset( $this->fields[ $step ] ) ) {
