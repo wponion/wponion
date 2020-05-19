@@ -1,6 +1,6 @@
 <?php
 
-use WPOnion\Modules\User_Profile;
+use WPOnion\Modules\Admin\User_Profile;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -10,7 +10,7 @@ if ( ! function_exists( 'wponion_user_profile_registry' ) ) {
 	 *
 	 * @param $instance
 	 *
-	 * @return bool|\WPOnion\Modules\User_Profile
+	 * @return bool|\WPOnion\Modules\Admin\User_Profile
 	 */
 	function wponion_user_profile_registry( &$instance ) {
 		return wponion_get_registry_instance( 'user_profile', $instance, 'module' );
@@ -24,7 +24,7 @@ if ( ! function_exists( 'wponion_user_profile' ) ) {
 	 * @param array              $instance_id_or_args
 	 * @param array|\WPO\Builder $fields
 	 *
-	 * @return bool|\WPOnion\Modules\User_Profile
+	 * @return bool|\WPOnion\Modules\Admin\User_Profile
 	 */
 	function wponion_user_profile( $instance_id_or_args = array(), $fields = array() ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {

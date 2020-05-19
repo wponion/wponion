@@ -1,6 +1,6 @@
 <?php
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Admin;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
@@ -8,11 +8,11 @@ use WPOnion\DB\Data_Validator_Sanitizer;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Taxonomy' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\Taxonomy' ) ) {
 	/**
 	 * Class Taxonomy
 	 *
-	 * @package WPOnion\Modules
+	 * @package WPOnion\Modules\Admin
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
 	class Taxonomy extends Module {

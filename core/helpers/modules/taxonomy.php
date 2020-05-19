@@ -1,6 +1,6 @@
 <?php
 
-use WPOnion\Modules\taxonomy;
+use WPOnion\Modules\Admin\Taxonomy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -24,13 +24,13 @@ if ( ! function_exists( 'wponion_taxonomy' ) ) {
 	 * @param array              $instance_id_or_args
 	 * @param array|\WPO\Builder $fields
 	 *
-	 * @return bool|\WPOnion\Modules\taxonomy
+	 * @return bool|\WPOnion\Modules\Admin\Taxonomy
 	 */
 	function wponion_taxonomy( $instance_id_or_args = array(), $fields = array() ) {
 		if ( is_string( $instance_id_or_args ) && empty( $fields ) ) {
 			return wponion_taxonomy_registry( $instance_id_or_args );
 		}
-		return new taxonomy( $instance_id_or_args, $fields );
+		return new Taxonomy( $instance_id_or_args, $fields );
 	}
 }
 

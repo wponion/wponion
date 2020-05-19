@@ -170,7 +170,7 @@ if ( ! class_exists( '\WPOnion\Theme_API' ) ) {
 		/**
 		 * Returns User Profile Instance.
 		 *
-		 * @return bool|\WPOnion\Modules\User_Profile
+		 * @return bool|\WPOnion\Modules\Admin\User_Profile
 		 */
 		public function user_profile() {
 			return wponion_user_profile_registry( $this->module_instance );

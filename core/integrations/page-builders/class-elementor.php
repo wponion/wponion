@@ -43,14 +43,14 @@ if ( ! class_exists( '\WPOnion\Integrations\Page_Builders\Elementor' ) ) {
 		 */
 		private static function set_taxonomy( $dynamic_tags ) {
 			/**
-			 * @var \WPOnion\Modules\Taxonomy                              $mb
+			 * @var \WPOnion\Modules\Admin\Taxonomy                              $mb
 			 * @var \WPOnion\Integrations\Page_Builders\Elementor\Taxonomy $new_class
 			 */
 			$instances = 'all';
 			$taxonomy  = wponion_taxonomy_registry( $instances );
 			if ( is_array( $taxonomy ) && ! empty( array_filter( $taxonomy ) ) ) {
 				foreach ( $taxonomy as $mb ) {
-					if ( ! $mb instanceof \WPOnion\Modules\Taxonomy ) {
+					if ( ! $mb instanceof \WPOnion\Modules\Admin\Taxonomy ) {
 						continue;
 					}
 					if ( false !== $mb->option( 'elementor' ) ) {

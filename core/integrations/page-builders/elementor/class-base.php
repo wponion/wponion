@@ -28,7 +28,7 @@ if ( ! trait_exists( '\WPOnion\Integrations\Page_Builders\Elementor\Base' ) ) {
 		public static $wpo_slug = false;
 
 		/**
-		 * @var \WPOnion\Modules\Metabox\Metabox|\WPOnion\Modules\Taxonomy|\WPOnion\Modules\Settings\Settings
+		 * @var \WPOnion\Modules\Metabox\Metabox|\WPOnion\Modules\Admin\Taxonomy|\WPOnion\Modules\Settings\Settings
 		 * @static
 		 */
 		public static $wpo_instance = null;

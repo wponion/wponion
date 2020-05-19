@@ -2,9 +2,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * @var \WPOnion\Theme\WP_Modern  $this
- * @var \WPOnion\Modules\Taxonomy $taxonomy
- * @var \WPO\Builder              $fields
+ * @var \WPOnion\Theme\WP_Modern        $this
+ * @var \WPOnion\Modules\Admin\Taxonomy $taxonomy
+ * @var \WPO\Builder                    $fields
  */
 $taxonomy = $this->taxonomy();
 $fields   = $taxonomy->fields();
