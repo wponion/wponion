@@ -4,6 +4,7 @@ namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
+use WPOnion\Modules\Metabox\Core;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -57,7 +58,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\User_Profile' ) ) {
 				$metabox['get_db_values'] = array( $this, 'get_db_values' );
 				$metabox['set_db_values'] = array( $this, 'set_db_values' );
 				$metabox['module']        = $this->module();
-				$this->metabox_instance   = new Metabox\Core( $metabox, $this->fields );
+				$this->metabox_instance   = new Core( $metabox, $this->fields );
 			}
 		}
 
