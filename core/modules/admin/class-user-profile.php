@@ -1,13 +1,13 @@
 <?php
 
-namespace WPOnion\Modules;
+namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Data_Validator_Sanitizer;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\User_Profile' ) ) {
+if ( ! class_exists( '\WPOnion\Modules\Admin\User_Profile' ) ) {
 	/**
 	 * Class User_Profile
 	 *
