@@ -87,8 +87,8 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Fields_Handler' ) ) {
 			$callback = ( false === $is_init_field ) ? 'wponion_add_element' : 'wponion_field';
 			return $callback( $field, wponion_get_field_value( $field, $this->get_db_values() ), array(
 				'module' => $this->module(),
-				'unique' => $this->unique(),
-				'base'   => $this->base_unique(),
+				'unique' => $this->field_unique(),
+				'base'   => $this->field_base_unique(),
 				'hash'   => $hash,
 			) );
 		}

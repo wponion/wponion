@@ -37,5 +37,25 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Unique' ) ) {
 		protected function base_unique() {
 			return ( isset( $this->base_unique ) ) ? $this->base_unique : $this->unique;
 		}
+
+		/**
+		 * Returns Unique Value For Fields That Renders.
+		 *
+		 * @return string
+		 * @since {NEWVERSION}
+		 */
+		protected function field_unique() {
+			return $this->unique();
+		}
+
+		/**
+		 * Returns Unique Value For Fields That Renders.
+		 *
+		 * @return string
+		 * @since {NEWVERSION}
+		 */
+		protected function field_base_unique() {
+			return $this->base_unique();
+		}
 	}
 }
