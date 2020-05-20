@@ -72,13 +72,14 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Nav_Menu' ) ) {
 				return;
 			}
 
-			if ( isset( $_POST[ $this->unique ] ) ) {
+			if ( isset( $_POST[ $this->unique ][ $menu_item_db_id ] ) ) {
 				$this->set_id( $menu_item_db_id );
 				$instance = new Data_Validator_Sanitizer( array(
-					'module'    => &$this,
-					'unique'    => $this->unique(),
-					'fields'    => $this->fields(),
-					'db_values' => $this->get_db_values(),
+					'module'        => &$this,
+					'unique'        => $this->unique(),
+					'fields'        => $this->fields(),
+					'db_values'     => $this->get_db_values(),
+					'posted_values' => $_POST[ $this->unique ][ $menu_item_db_id ],
 				) );
 
 				$instance->run();
@@ -104,8 +105,20 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Nav_Menu' ) ) {
 		 */
 		public function render( $item_id ) {
 			$this->set_id( $item_id );
+			$this->flush_values();
+			$this->reload_cache();
 			$this->get_cache();
 			$this->init_theme()->render_nav_menu();
+		}
+
+		/**
+		 * Custom Field Unique For Rendering Values.
+		 *
+		 * @return string
+		 * @since {NEWVERSION}
+		 */
+		protected function field_unique() {
+			return $this->unique() . '/' . $this->get_id();
 		}
 
 		/**
