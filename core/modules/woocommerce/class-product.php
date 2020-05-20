@@ -302,7 +302,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			global $post, $thepostid;
 			$id = is_object( $post ) ? $post->ID : $thepostid;
 			$this->set_id( $id );
-			$container = $this->fields->container_exists( $page );
+			$container = $this->fields()->container_exists( $page );
 			if ( wpo_is_container( $container ) ) {
 				$is_var = $this->is_variation( $container );
 				if ( 'only' !== $is_var ) {
@@ -360,7 +360,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * Inits Class on Product Variation Ajax Request.
 		 */
 		public function handle_variation_options() {
-			foreach ( $this->fields->get() as $page ) {
+			foreach ( $this->fields()->get() as $page ) {
 				if ( wpo_is_container( $page ) ) {
 					$is_var = $this->is_variation( $page );
 
@@ -507,7 +507,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 */
 		public function save_product_data( $product ) {
 			$values = ( false === $this->variation_id ) ? $_POST[ $this->unique ] : $_POST[ $this->unique ][ $product ];
-			$fields = ( false === $this->variation_id ) ? $this->fields : $this->variation_fields;
+			$fields = ( false === $this->variation_id ) ? $this->fields() : $this->variation_fields;
 			$is_var = ( false === $this->variation_id ) ? false : true;
 			if ( false === $this->variation_id ) {
 				$pid = ( $product instanceof WC_Product && method_exists( $product, 'get_id' ) ) ? $product->get_id() : $product;
@@ -574,7 +574,6 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 		 * @return string
 		 */
 		protected function get_cache_id() {
-			//return 'wponion_' . wponion_hash_string( $this->post_id() . '_' . $this->unique() . '_' . $this->module() ) . '_cache';
 			return wponion_hash_string( $this->get_id() . '_' . $this->unique() . '_' . $this->module() );
 		}
 	}

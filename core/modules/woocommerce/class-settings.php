@@ -50,7 +50,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 		public function register_settings( $tabs ) {
 			$this->get_cache();
 			/* @var \WPO\Container $data */
-			foreach ( $this->fields->get() as $data ) {
+			foreach ( $this->fields()->get() as $data ) {
 				if ( wpo_is_container( $data ) ) {
 					new WC_Settings( $data, $this );
 				}
@@ -71,7 +71,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 			$instance = new WC_Settings_Save_Handler( array(
 				'module'    => &$this,
 				'unique'    => $this->unique,
-				'fields'    => $this->fields,
+				'fields'    => $this->fields(),
 				'db_values' => $this->get_db_values(),
 				'args'      => array(
 					'current_tab'     => $current_tab,

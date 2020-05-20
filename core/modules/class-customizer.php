@@ -82,7 +82,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 			 * @var \WPO\Container $options
 			 * @var \WPO\Container $section
 			 */
-			foreach ( $this->fields->get() as $options ) {
+			foreach ( $this->fields()->get() as $options ) {
 				if ( $options->has_callback() ) {
 					continue;
 				}
@@ -123,7 +123,7 @@ if ( ! class_exists( '\WPOnion\Modules\Customizer' ) ) {
 			/**
 			 * @var \WPO\Container $page
 			 */
-			foreach ( $this->fields->get() as $page ) {
+			foreach ( $this->fields()->get() as $page ) {
 				if ( $page->has_containers() ) {
 					$this->register_section( $page->containers(), $this->panels( $page, true ) );
 				} elseif ( $page->has_fields() ) {

@@ -206,7 +206,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		/**
 		 * @return array|mixed
 		 */
-		protected function get_db_cache() {
+		public function get_db_cache() {
 			try {
 				return Cache::get( $this->get_cache_id() );
 			} catch ( DB_Cache_Not_Found $exception ) {

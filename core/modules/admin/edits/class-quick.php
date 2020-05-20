@@ -63,7 +63,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Edits\Quick' ) ) {
 
 			$render_hook = ( 'quick_edit' === $this->module() ) ? 'quick_edit_custom_box' : 'bulk_edit_custom_box';
 			$save_hook   = ( 'quick_edit' === $this->module() ) ? 'save_post' : 'wponion/bulk_edit/save';
-
 			$this->add_action( $render_hook, 'render_quick_edit' );
 			$this->add_action( $save_hook, 'save_data' );
 		}
@@ -74,13 +73,13 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Edits\Quick' ) ) {
 		 * @param $post_id
 		 */
 		public function save_data( $post_id ) {
-			if ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] || 'bulk_edit' === $this->module() ) {
+			if ( ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] ) || 'bulk_edit' === $this->module() ) {
 				if ( isset( $_POST[ $this->unique ] ) ) {
 					$this->db_values = $this->get_values( $post_id );
 					$instance        = new Data_Validator_Sanitizer( array(
 						'module'       => &$this,
 						'unique'       => $this->unique(),
-						'fields'       => $this->fields,
+						'fields'       => $this->fields(),
 						'user_values'  => $_POST[ $this->unique ],
 						'retain_value' => true,
 						'db_values'    => $this->db_values,
@@ -116,7 +115,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Edits\Quick' ) ) {
 			echo '<fieldset class="wponion-quick-edit-fieldset ' . $this->option( 'wrap_class' ) . '">';
 			echo '<div ' . $this->wrap_attributes( '', array( 'data-wpo-quick-edit-id' => $this->unique ) ) . '>';
 			/* @var $field \WPO\Field */
-			foreach ( $this->fields->fields() as $field ) {
+			foreach ( $this->fields()->fields() as $field ) {
 				$field['__no_instance'] = true;
 				echo $this->render_field( $field );
 			}

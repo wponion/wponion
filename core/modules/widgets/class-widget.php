@@ -74,7 +74,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 				'module'        => &$this,
 				'posted_values' => $new_values,
 				'unique'        => $unique,
-				'fields'        => $this->fields,
+				'fields'        => $this->fields(),
 				'db_values'     => $old_values,
 			) );
 

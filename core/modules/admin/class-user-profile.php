@@ -162,18 +162,16 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\User_Profile' ) ) {
 		 */
 		public function save( $user_id ) {
 			$this->set_id( $user_id );
-
 			if ( isset( $_POST[ $this->unique ] ) ) {
 				$this->get_db_values();
 				$this->get_cache();
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique,
-					'fields'    => $this->fields,
+					'fields'    => $this->fields(),
 					'db_values' => $this->get_db_values(),
 				) );
 				$instance->run();
-
 				$this->options_cache['field_errors'] = $instance->get_errors();
 				$this->set_db_cache( $this->options_cache );
 				$this->set_db_values( $instance->get_values() );

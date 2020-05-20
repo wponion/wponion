@@ -152,7 +152,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 			$instance = new Settings_Save_Handler( array(
 				'module'        => &$this,
 				'unique'        => $this->unique(),
-				'fields'        => $this->fields,
+				'fields'        => $this->fields(),
 				'posted_values' => $request,
 				'db_values'     => $this->get_db_values(),
 			) );
@@ -189,7 +189,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 			/**
 			 * @var $options \WPO\Container
 			 */
-			foreach ( $this->fields->get() as $options ) {
+			foreach ( $this->fields()->get() as $options ) {
 				if ( $this->valid_field( $options ) ) {
 					$this->get_fields_defaults_value( $options );
 				} elseif ( false !== $this->valid_option( $options, false, false ) ) {
@@ -299,7 +299,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 				return $this->active_menu;
 			}
 
-			if ( $this->fields->has_fields() ) {
+			if ( $this->fields()->has_fields() ) {
 				$this->active_menu = array(
 					'container_id'     => false,
 					'sub_container_id' => false,
@@ -366,8 +366,8 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 * @return array
 		 */
 		public function settings_menus() {
-			if ( empty( $this->menus ) && false === $this->fields->has_fields() ) {
-				$this->menus = $this->extract_fields_menus( $this->fields->get() );
+			if ( empty( $this->menus ) && false === $this->fields()->has_fields() ) {
+				$this->menus = $this->extract_fields_menus( $this->fields()->get() );
 			}
 
 			return $this->menus;
@@ -434,9 +434,10 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 			$class[] = ( 'only_submenu' === $this->is_single_page() ) ? 'wponion-submenu-single-page' : '';
 			$class[] = ( true === $this->is_single_page() ) ? 'wponion-single-page' : '';
 			$class[] = ( false !== $this->option( 'ajax' ) ) ? 'wponion-ajax-save' : '';
-			if ( 1 === count( $this->fields->get() ) ) {
+			if ( 1 === count( $this->fields()->get() ) ) {
 				$class[] = 'wponion-hide-nav';
-				if ( $this->fields->has_fields() || ( $this->fields->has_containers() && 1 === count( $this->fields->containers() ) ) ) {
+				if ( $this->fields()->has_fields() || ( $this->fields()
+							->has_containers() && 1 === count( $this->fields()->containers() ) ) ) {
 					$class[] = 'wponion-no-subnav';
 				}
 			}

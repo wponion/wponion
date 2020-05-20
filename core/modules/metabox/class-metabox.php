@@ -144,8 +144,8 @@ if ( ! class_exists( '\WPOnion\Modules\Metabox\Metabox' ) ) {
 		 * @return array
 		 */
 		public function metabox_menus() {
-			if ( empty( $this->menus ) && false === $this->fields->has_fields() ) {
-				$this->menus = $this->extract_fields_menus( $this->fields->get() );
+			if ( empty( $this->menus ) && false === $this->fields()->has_fields() ) {
+				$this->menus = $this->extract_fields_menus( $this->fields()->get() );
 			}
 			return $this->menus;
 		}
@@ -294,7 +294,7 @@ HTML;
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique,
-					'fields'    => $this->fields,
+					'fields'    => $this->fields(),
 					'db_values' => $this->get_db_values(),
 				) );
 				$instance->run();

@@ -194,7 +194,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Taxonomy' ) ) {
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique,
-					'fields'    => $this->fields,
+					'fields'    => $this->fields(),
 					'db_values' => $this->get_db_values(),
 				) );
 				$instance->run();

@@ -77,7 +77,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Nav_Menu' ) ) {
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique(),
-					'fields'    => $this->fields,
+					'fields'    => $this->fields(),
 					'db_values' => $this->get_db_values(),
 				) );
 
@@ -105,8 +105,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Nav_Menu' ) ) {
 		public function render( $item_id ) {
 			$this->set_id( $item_id );
 			$this->get_cache();
-			$this->init_theme()
-				->render_nav_menu();
+			$this->init_theme()->render_nav_menu();
 		}
 
 		/**

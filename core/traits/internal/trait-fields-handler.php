@@ -14,13 +14,6 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Fields_Handler' ) ) {
 	 */
 	trait Fields_Handler {
 		/**
-		 * Raw options
-		 *
-		 * @var array
-		 */
-		protected $raw_fields = array();
-
-		/**
 		 * Fields
 		 *
 		 * @var string|array|\WPO\Builder
@@ -28,11 +21,21 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Fields_Handler' ) ) {
 		protected $fields = array();
 
 		/**
+		 * @var bool
+		 * @since {NEWVERSION}
+		 */
+		protected $fields_called = false;
+
+		/**
 		 * Returns Fields.
 		 *
 		 * @return array|\WPO\Builder
 		 */
 		public function fields() {
+			if ( ! wponion_is_array( $this->fields ) && wponion_is_callable( $this->fields ) && false === $this->fields_called ) {
+				$this->fields        = wponion_callback( $this->fields );
+				$this->fields_called = true;
+			}
 			return $this->fields;
 		}
 

@@ -62,8 +62,8 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 			$this->get_db_values();
 			$default = array();
 
-			if ( wpo_is( $this->fields ) || wpo_is_container( $this->fields ) ) {
-				foreach ( $this->fields->fields() as $field ) {
+			if ( wpo_is( $this->fields() ) || wpo_is_container( $this->fields() ) ) {
+				foreach ( $this->fields()->fields() as $field ) {
 					if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
 						continue;
 					}
@@ -119,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique(),
-					'fields'    => $this->fields,
+					'fields'    => $this->fields(),
 					'db_values' => $this->get_db_values(),
 				) );
 				$instance->run();

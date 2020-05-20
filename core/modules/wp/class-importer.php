@@ -13,7 +13,6 @@ if ( ! class_exists( '\WPOnion\Modules\WP\Importer' ) ) {
 	 *
 	 * @package WPOnion\Modules\WP
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Importer extends Module {
 		use Self_Instance;

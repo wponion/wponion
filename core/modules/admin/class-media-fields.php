@@ -45,7 +45,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Media_Fields' ) ) {
 				$instance = new Data_Validator_Sanitizer( array(
 					'module'    => &$this,
 					'unique'    => $this->unique(),
-					'fields'    => $this->fields,
+					'fields'    => $this->fields(),
 					'db_values' => $this->get_db_values(),
 				) );
 				$instance->run();
@@ -97,7 +97,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Media_Fields' ) ) {
 			$this->get_cache();
 			$this->flush_values();
 			$o = '<div ' . $this->wrap_attributes() . '>';
-			foreach ( $this->fields->fields() as $field ) {
+			foreach ( $this->fields()->fields() as $field ) {
 				wponion_catch_output();
 				echo $this->render_field( $field, $this->get_id() );
 				$o .= wponion_catch_output( false );

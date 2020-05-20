@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Core_Ajax extends Bridge {
 		use Self_Instance;
@@ -55,8 +54,8 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 				} elseif ( method_exists( $this, $function ) ) {
 					wponion_callback( array( &$this, $function ) );
 				} else {
-					wponion_do_deprecated_action( 'wponion_ajax_' . $action, array(), '1.4.6.1', 'wponion/ajax/request/' . $action );
-					do_action( 'wponion/ajax/request/' . $action );
+					wponion_do_deprecated_action( 'wponion_ajax_' . $action, array(), '1.4.6.1', "wponion/ajax/request/${action}" );
+					do_action( "wponion/ajax/request/${action}" );
 				}
 			}
 			wp_send_json_error();

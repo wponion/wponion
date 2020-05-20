@@ -48,7 +48,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Admin_Bar' ) ) {
 		 */
 		public function register_menu( $wp_admin_bar ) {
 			$this->admin_bar_instance = $wp_admin_bar;
-			$this->add_menus( $this->fields );
+			$this->add_menus( $this->fields() );
 		}
 
 		/**
