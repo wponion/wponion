@@ -41,7 +41,7 @@
   "scripts"     : {
     "classmaps"           : [
       "classmap-generator includes/builder ./data/classmaps/builder.php",
-      "classmap-generator core/ ./data/classmaps/core.php",
+      "classmap-generator core/,includes/integrations ./data/classmaps/core.php",
       "classmap-generator includes/fields ./data/classmaps/fields.php",
       "classmap-generator includes/module-fields ./data/classmaps/module-fields.php",
       "classmap-generator includes/templates ./data/classmaps/templates.php"

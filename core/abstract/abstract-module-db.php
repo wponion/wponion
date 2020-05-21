@@ -63,7 +63,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		/**
 		 * @return array|mixed|\WPOnion\DB\Option
 		 */
-		protected function get_db_values() {
+		public function get_db_values() {
 			if ( empty( $this->db_values ) ) {
 				/**
 				 * Fires Action With Exact Unique Key Before Fetching Values From Database
