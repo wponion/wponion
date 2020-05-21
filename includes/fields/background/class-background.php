@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Field\Background' ) ) {
 						'style'                 => 'width:100%;',
 						'wrap_class'            => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 						'horizontal'            => true,
-						$this->select_framework => $this->data( $this->select_framework ),
+						$this->select_framework => $this->option( $this->select_framework ),
 					) ), $this->value( $id ), $this->name() );
 				}
 			}

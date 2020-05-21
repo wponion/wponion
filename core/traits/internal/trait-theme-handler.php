@@ -293,18 +293,6 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 * @param array|\WPO\Container $option
 		 *
 		 * @return bool
-		 * @deprecated Please Use Valid Container.
-		 */
-		public function valid_option( $option = array() ) {
-			return $this->valid_container( $option );
-		}
-
-		/**
-		 * Check if option loop is valid.
-		 *
-		 * @param array|\WPO\Container $option
-		 *
-		 * @return bool
 		 */
 		protected function valid_container( $option = array() ) {
 			return ( false === $option->is_disabled() && ( $option->has_callback() || $option->has_fields() || $option->has_containers() ) );

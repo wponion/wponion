@@ -27,13 +27,13 @@ if ( ! class_exists( '\WPOnion\DB\Settings_Save_Handler' ) ) {
 				$this->field_loop( $this->fields );
 			} else {
 				foreach ( $this->fields->get() as $container ) {
-					if ( ! $settings->valid_option( $container, false, true ) ) {
+					if ( ! $settings->valid_container( $container, false, true ) ) {
 						continue;
 					}
 
 					if ( $container->has_containers() ) {
 						foreach ( $container->containers() as $sub_container ) {
-							if ( ! $settings->valid_option( $sub_container, true, true ) ) {
+							if ( ! $settings->valid_container( $sub_container, true, true ) ) {
 								continue;
 							}
 

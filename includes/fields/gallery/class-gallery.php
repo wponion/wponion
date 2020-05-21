@@ -104,7 +104,7 @@ HTML;
 		 */
 		public function assets() {
 			wp_enqueue_media();
-			if ( $this->has( 'sort' ) && true === $this->data( 'sort' ) ) {
+			if ( $this->has( 'sort' ) && true === $this->option( 'sort' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
 		}

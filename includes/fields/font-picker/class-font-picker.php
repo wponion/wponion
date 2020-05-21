@@ -107,7 +107,7 @@ if ( ! class_exists( '\WPOnion\Field\Font_Picker' ) ) {
 		 * Handles Fields Assets.
 		 */
 		public function assets() {
-			$this->select_framework = wponion_validate_select_framework( $this->field );
+			$this->select_framework = wponion_validate_select_framework( $this->settings );
 			wponion_load_asset( $this->select_framework );
 		}
 	}

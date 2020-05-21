@@ -103,18 +103,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\User_Profile' ) ) {
 		}
 
 		/**
-		 * Sets Default Values.
-		 */
-		public function set_defaults() {
-			$this->get_db_values();
-			$default = array();
-			$this->get_defaults();
-			if ( ! empty( $default ) ) {
-				$this->set_db_values( $this->db_values );
-			}
-		}
-
-		/**
 		 * Loads Required Style & Scripts.
 		 */
 		public function load_style_script() {
@@ -134,7 +122,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\User_Profile' ) ) {
 			$id = ( is_object( $user ) ) ? $user->ID : $user;
 			$this->set_id( $id );
 			$this->get_cache();
-			$this->set_defaults();
+			$this->get_db_values();
 
 			if ( false !== $this->option( 'metabox' ) ) {
 				$screen = get_current_screen();

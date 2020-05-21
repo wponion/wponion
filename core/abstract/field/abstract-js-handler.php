@@ -54,7 +54,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\JS_Handler' ) ) {
 					foreach ( $path as $id ) {
 						$new_path[] = $id;
 						if ( $current === $id ) {
-							$new_path[] = $this->data( 'builder_path' );
+							$new_path[] = $this->option( 'builder_path' );
 						}
 					}
 				}

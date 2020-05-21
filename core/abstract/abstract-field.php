@@ -88,13 +88,6 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		}
 
 		/**
-		 * @deprecated
-		 */
-		protected function data( $key = '', $default = null ) {
-			return $this->option( $key, $default );
-		}
-
-		/**
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
@@ -486,43 +479,5 @@ HTML;
 			$data = wponion_query()->query( $type, $query_args, '' );
 			return ( ! is_array( $data ) ) ? array() : $data;
 		}
-
-		/**
-		 * This function is used to set any args that requires in javascript for the current field.
-		 *
-		 * @return array
-		 * @uses js_args()
-		 *
-		 * @deprecated
-		 */
-		protected function js_field_args() {
-			return array();
-		}
-
-
-		/**
-		 * This function is called after array merge with default is done.
-		 *
-		 * @param array $data
-		 *
-		 * @return array
-		 * @uses handle_arguments()
-		 * @deprecated
-		 */
-		protected function handle_field_args( $data = array() ) {
-			return $data;
-		}
-
-		/**
-		 * Custom Hookable Function to provide custom wrap class.
-		 *
-		 * @return string
-		 * @uses wrap_class()
-		 * @deprecated
-		 */
-		protected function field_wrap_class() {
-			return '';
-		}
-
 	}
 }

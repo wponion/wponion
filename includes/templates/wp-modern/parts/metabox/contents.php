@@ -21,7 +21,7 @@ $extra_class = ( true === $has_fields ) ? ' wpo-row only-fields ' : '';
 			if ( $metabox->valid_field( $container ) ) {
 				echo $metabox->render_field( $container );
 			} else {
-				if ( false === $metabox->valid_option( $container ) ) {
+				if ( false === $metabox->valid_container( $container ) ) {
 					continue;
 				}
 				$container_id    = $metabox->container_wrap_id( $container );
@@ -30,7 +30,7 @@ $extra_class = ( true === $has_fields ) ? ' wpo-row only-fields ' : '';
 				if ( $container->has_containers() ) :
 					$first_container = $container->first_container();
 					foreach ( $container->containers() as $sub_container ) :
-						if ( false === $metabox->valid_option( $sub_container ) ) {
+						if ( false === $metabox->valid_container( $sub_container ) ) {
 							continue;
 						}
 						$sub_id    = $metabox->container_wrap_id( $container, $sub_container );

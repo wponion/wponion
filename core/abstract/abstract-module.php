@@ -54,28 +54,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		}
 
 		/**
-		 * Extracts Field Default Values.
-		 *
-		 * @param $field
-		 *
-		 * @deprecated
-		 */
-		protected function get_fields_defaults_value( $field ) {
-			if ( ! isset( $field['id'] ) || ! isset( $field['default'] ) ) {
-				return;
-			}
-
-			if ( ! isset( $this->db_values[ $field['id'] ] ) ) {
-				$default[ $field['id'] ] = $field['default'];
-				if ( wponion_is_unarrayed( $field ) ) {
-					$this->db_values = $this->parse_args( $this->db_values, $field['default'] );
-				} else {
-					$this->db_values[ $field['id'] ] = $field['default'];
-				}
-			}
-		}
-
-		/**
 		 * Returns Unique Instance ID.
 		 *
 		 * @return string

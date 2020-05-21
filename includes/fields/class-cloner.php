@@ -97,7 +97,7 @@ if ( ! class_exists( '\WPOnion\Field\Cloner' ) ) {
 			//$sort   = $this->option( 'clone' );
 			$return = '<div class="wponion-field-clone" data-wponion-jsid="' . $this->js_field_id() . '">';
 			//if ( false !== $sort['sort'] ) {
-			//$return .= '<div class="wponion-field-clone-sorter">' . wponion_icon( $this->data( 'clone' )['sort'] ) . '</div>';
+			//$return .= '<div class="wponion-field-clone-sorter">' . wponion_icon( $this->option( 'clone' )['sort'] ) . '</div>';
 			//}
 			$args                    = $this->get_clone_attrs();
 			$args['value']           = $value;

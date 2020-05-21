@@ -37,7 +37,11 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_Utility' ) ) {
 		 */
 		public function __call( $name, $arguments ) {
 			if ( in_array( $name, $this->public_access_methods ) ) {
+				//return call_user_func_array( array( &$this, $name ), $arguments );
 				return $this->$name( ...$arguments );
+			} else {
+				console( $name );
+				console( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ) );
 			}
 			return null;
 		}

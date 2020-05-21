@@ -166,58 +166,6 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		}
 
 		/**
-		 * Handles SettingUP Settings Defaults.
-		 *
-		 * @deprecated
-		 * @todo Check & Remove It.
-		 */
-		protected function force_set_defaults() {
-			$this->get_cache();
-			$this->set_defaults();
-		}
-
-		/**
-		 * Handles To Set Defaults.
-		 *
-		 * @deprecated
-		 * @todo Check & Remove It.
-		 */
-		protected function set_defaults() {
-			$this->get_db_values();
-			$default = array();
-
-			/**
-			 * @var $options \WPO\Container
-			 */
-			foreach ( $this->fields()->get() as $options ) {
-				if ( $this->valid_field( $options ) ) {
-					$this->get_fields_defaults_value( $options );
-				} elseif ( false !== $this->valid_option( $options, false, false ) ) {
-					if ( $options->has_fields() ) {
-						foreach ( $options->fields() as $field ) {
-							$this->get_fields_defaults_value( $field );
-						}
-					} elseif ( $options->has_containers() ) {
-						foreach ( $options->containers() as $containers ) {
-							/* @var $containers \WPO\Container */
-							if ( ! $containers->has_fields() ) {
-								continue;
-							}
-							if ( false !== $this->valid_option( $containers, true, false ) ) {
-								foreach ( $containers->fields() as $field ) {
-									$this->get_fields_defaults_value( $field );
-								}
-							}
-						}
-					}
-				}
-			}
-			if ( ! empty( $default ) ) {
-				$this->set_db_values( array() );
-			}
-		}
-
-		/**
 		 * Set Admin Page Url.
 		 */
 		protected function set_page_url() {
@@ -453,7 +401,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function valid_option( $container = array(), $sub_container = false, $check_current_page = true ) {
+		public function valid_container( $container = array(), $sub_container = false, $check_current_page = true ) {
 			if ( ! $container->has_fields() && ! $container->has_containers() && ! $container->has_callback() || true === $container->is_disabled() ) {
 				return false;
 			}

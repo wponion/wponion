@@ -17,7 +17,7 @@ if ( wponion_is_array( $options ) ) {
 		if ( $module->valid_field( $container ) ) {
 			echo $module->render_field( $container );
 		} else {
-			if ( false === $module->valid_option( $container ) ) {
+			if ( false === $module->valid_container( $container ) ) {
 				continue;
 			}
 
@@ -29,7 +29,7 @@ if ( wponion_is_array( $options ) ) {
 				echo $this->settings_submenu( $container->slug(), $menus );
 				$first_container = $container->first_container();
 				foreach ( $container->containers() as $sub_container ) {
-					if ( false === $module->valid_option( $sub_container ) ) {
+					if ( false === $module->valid_container( $sub_container ) ) {
 						continue;
 					}
 					$sub_id    = $module->container_wrap_id( $container, $sub_container );

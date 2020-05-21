@@ -30,7 +30,7 @@ if ( ! class_exists( '\WPOnion\Field\Range_Slider' ) ) {
 		 */
 		protected function js_args() {
 			return $this->parse_args( array(
-				'slider' => ( ! is_array( $this->data( 'slider' ) ) ) ? array() : $this->data( 'slider' ),
+				'slider' => ( ! is_array( $this->option( 'slider' ) ) ) ? array() : $this->option( 'slider' ),
 			), parent::defaults() );
 		}
 
@@ -38,7 +38,7 @@ if ( ! class_exists( '\WPOnion\Field\Range_Slider' ) ) {
 		 * @return bool|mixed|string
 		 */
 		protected function before() {
-			return parent::before() . '<div class="wponion-range-slider-container"><div class="wponion-range-slider" style="width:' . $this->data( 'slider_width' ) . '"></div>';
+			return parent::before() . '<div class="wponion-range-slider-container"><div class="wponion-range-slider" style="width:' . $this->option( 'slider_width' ) . '"></div>';
 		}
 
 		/**

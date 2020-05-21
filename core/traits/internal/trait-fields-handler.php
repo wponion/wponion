@@ -40,38 +40,6 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Fields_Handler' ) ) {
 		}
 
 		/**
-		 * Handles Field's Default Value For Each Module.
-		 */
-		protected function get_defaults() {
-			/**
-			 * @var $options \WPO\Container
-			 */
-			foreach ( $this->fields()->get() as $options ) {
-				if ( $this->valid_field( $options ) ) {
-					$this->get_fields_defaults_value( $options );
-				} elseif ( false !== $this->valid_option( $options ) ) {
-					if ( $options->has_fields() ) {
-						foreach ( $options->fields() as $field ) {
-							$this->get_fields_defaults_value( $field );
-						}
-					} elseif ( $options->has_containers() ) {
-						foreach ( $options->containers() as $containers ) {
-							/* @var $containers \WPO\Container */
-							if ( ! $containers->has_fields() ) {
-								continue;
-							}
-							if ( false !== $this->valid_option( $containers ) ) {
-								foreach ( $containers->fields() as $field ) {
-									$this->get_fields_defaults_value( $field );
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		/**
 		 * Renders / Creates An First Instance based on the $is_init_field variable value.
 		 *
 		 * @param array $field

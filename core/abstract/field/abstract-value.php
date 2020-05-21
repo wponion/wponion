@@ -25,17 +25,5 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Value' ) ) {
 			}
 			return ( ! empty( $key ) && isset( $this->value[ $key ] ) ) ? $this->value[ $key ] : false;
 		}
-
-		/**
-		 * Checks if array key exists in $this->value
-		 *
-		 * @param string $key
-		 *
-		 * @return bool|mixed
-		 * @deprecated
-		 */
-		protected function get_value( $key = '' ) {
-			return ( isset( $this->value[ $key ] ) ) ? $this->value[ $key ] : false;
-		}
 	}
 }

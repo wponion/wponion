@@ -30,15 +30,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Base' ) ) {
 		 */
 		public static $total_fields = 0;
 
-
-		/**
-		 * field
-		 *
-		 * @var array
-		 * @deprecated Use $this->settings
-		 */
-		protected $field = array();
-
 		/**
 		 * value
 		 *
@@ -148,23 +139,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Base' ) ) {
 		abstract public function assets();
 
 		/**
-		 * Function Required To Register / Load current field's assets.
-		 *
-		 * @return mixed
-		 * @deprecated
-		 */
-		public function field_assets() {
-		}
-
-		/**
 		 * Custom Function To Return Current Fields Default Args.
 		 *
-		 * @return mixed
-		 * @deprecated
+		 * @return array
 		 */
-		protected function field_default() {
-		}
-
 		abstract protected function defaults();
 
 		/**
