@@ -13,25 +13,12 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 	 *
 	 * @package WPOnion\Modules\WooCommerce
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Settings extends Module {
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $module = 'wc_settings';
-
-		/**
-		 * Settings constructor.
-		 *
-		 * @param array $settings
-		 * @param null  $fields
-		 */
-		public function __construct( $settings = array(), $fields = null ) {
-			parent::__construct( $fields, $settings );
-			$this->init();
-		}
 
 		/**
 		 * Registers Tabs With WoCommerce
@@ -70,7 +57,7 @@ if ( ! class_exists( '\WPOnion\Modules\WooCommerce\Settings' ) ) {
 			$this->get_cache();
 			$instance = new WC_Settings_Save_Handler( array(
 				'module'    => &$this,
-				'unique'    => $this->unique,
+				'unique'    => $this->unique(),
 				'fields'    => $this->fields(),
 				'db_values' => $this->get_db_values(),
 				'args'      => array(

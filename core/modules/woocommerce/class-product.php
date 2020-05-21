@@ -17,36 +17,24 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 	 *
 	 * @package WPOnion\Modules\WooCommerce
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Product extends Module {
 		/**
 		 * Stores Group Slug To Exclude From Global Render.
 		 *
 		 * @var array
-		 * @access
 		 */
 		protected $exclude_global_render = array();
 
 		/**
 		 * @var string
-		 * @access protected
 		 */
 		protected $module = 'wc_product';
-
-		/**
-		 * Stores Product ID.
-		 *
-		 * @var bool
-		 * @access
-		 */
-		protected $post_id = false;
 
 		/**
 		 * Stores Variation ID.
 		 *
 		 * @var bool
-		 * @access
 		 */
 		protected $variation_id = false;
 
@@ -64,17 +52,6 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			'download'   => array(),
 			'default'    => array(),
 		);
-
-		/**
-		 * Product constructor.
-		 *
-		 * @param array             $settings
-		 * @param \WPO\Builder|null $fields
-		 */
-		public function __construct( $settings = array(), Builder $fields = null ) {
-			parent::__construct( $fields, $settings );
-			$this->init();
-		}
 
 		/**
 		 * Hooks With WordPress.
@@ -218,7 +195,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			/**
 			 * @var \WPO\Container $data
 			 */
-			foreach ( $this->fields->get() as $data ) {
+			foreach ( $this->fields()->get() as $data ) {
 				if ( wpo_is_container( $data ) && false === $data->has_containers() ) {
 					$is_var = $this->is_variation( $data );
 					if ( isset( $tabs[ $data->name() ] ) && 'only' !== $is_var ) {
@@ -274,7 +251,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 			/**
 			 * @var \WPO\Container $data
 			 */
-			foreach ( $this->fields->get() as $data ) {
+			foreach ( $this->fields()->get() as $data ) {
 				if ( wpo_is_container( $data ) && false === $data->has_containers() && ! in_array( $data->name(), $this->exclude_global_render, true ) ) {
 					$is_var = $this->is_variation( $data );
 					if ( 'only' !== $is_var ) {
