@@ -46,7 +46,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Fields_Handler' ) ) {
 			/**
 			 * @var $options \WPO\Container
 			 */
-			foreach ( $this->fields->get() as $options ) {
+			foreach ( $this->fields()->get() as $options ) {
 				if ( $this->valid_field( $options ) ) {
 					$this->get_fields_defaults_value( $options );
 				} elseif ( false !== $this->valid_option( $options ) ) {

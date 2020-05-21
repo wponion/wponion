@@ -168,7 +168,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Class_Options' ) ) {
 		 *
 		 * @return mixed
 		 */
-		protected function option( $key = null, $default = false ) {
+		public function option( $key = null, $default = false ) {
 			if ( empty( $key ) ) {
 				return $this->settings;
 			}
