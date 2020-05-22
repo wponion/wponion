@@ -76,10 +76,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 						$arg['submenu'] = array( $arg['submenu'] );
 					}
 					$arg['submenu'] = wponion_parse_args( array(
-						array(
-							&$this,
-							'register_admin_menu',
-						),
+						array( &$this, 'register_admin_menu' ),
 					), $arg['submenu'] );
 				}
 			}
@@ -100,7 +97,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		public function register_admin_menu() {
 			if ( $this->has_option( 'menu/submenu' ) && $this->has_option( 'menu/menu_slug' ) ) {
 				$submenu   = $this->option( 'menu/submenu' );
-				$menu_slug = $this->has_option( 'menu/menu_slug' );
+				$menu_slug = $this->option( 'menu/menu_slug' );
 				$callback  = array( &$this, 'render' );
 
 				if ( true === $submenu || wponion_is_array( $submenu ) ) {
