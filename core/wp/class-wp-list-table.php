@@ -2,20 +2,22 @@
 
 namespace WPOnion\WP;
 
+use WP_List_Table;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WP_List_Table' ) ) {
 	require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 }
 
-if ( ! class_exists( '\WPOnion\WP\WP_List_Table' ) ) {
+if ( ! class_exists( '\WPOnion\WP\List_Table' ) ) {
 	/**
-	 * Class WP_List_Table
+	 * Class List_Table
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	class WP_List_Table extends \WP_List_Table {
+	class List_Table extends WP_List_Table {
 		/**
 		 * items
 		 *

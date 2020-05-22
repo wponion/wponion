@@ -15,6 +15,10 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 	 */
 	class WP_List_Table extends Field {
 
+		private function default_class() {
+			return '\WPOnion\WP\List_Table';
+		}
+
 		/**
 		 * Generates Final HTML Output.
 		 */
@@ -24,7 +28,11 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 			$settings          = $this->option( 'settings' );
 			$settings          = ( ! is_array( $settings ) ) ? array() : $settings;
 			$settings['field'] = &$this;
-			$instance          = new \WPOnion\WP\WP_List_Table( $settings, $this->option( 'data' ) );
+
+			$class = $this->option( 'list_table_class', $this->default_class() );
+			$class = ( ! class_exists( $class ) ) ? $this->default_class() : $class;
+
+			$instance = new $class( $settings, $this->option( 'data' ) );
 			$instance->prepare_items();
 			$instance->views();
 			$instance->search_box( __( 'Search', 'wponion' ), 'search' );
@@ -61,9 +69,10 @@ if ( ! class_exists( '\WPOnion\Field\WP_List_Table' ) ) {
 		 */
 		protected function defaults() {
 			return array(
-				'settings'   => array(),
-				'data'       => array(),
-				'query_args' => array(),
+				'settings'         => array(),
+				'data'             => array(),
+				'query_args'       => array(),
+				'list_table_class' => $this->default_class(),
 			);
 		}
 
