@@ -62,7 +62,6 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Page' ) ) {
 				}
 			} else {
 				parent::__construct( $options );
-				$this->init();
 			}
 		}
 
@@ -104,6 +103,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Page' ) ) {
 				'hook_priority'     => 10,
 				'tabs'              => false,
 				'render'            => false,
+				'href'              => false,
 			);
 		}
 
@@ -119,8 +119,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Page' ) ) {
 
 			if ( is_object( $this->option( 'submenu', false ) ) ) {
 				if ( $this->option( 'submenu', false ) instanceof Page ) {
-					return $this->option( 'submenu', false )
-						->menu_slug();
+					return $this->option( 'submenu', false )->menu_slug();
 				}
 			}
 
@@ -357,39 +356,61 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Page' ) ) {
 						break;
 				}
 			}
-			$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
-			/**
-			 * WordPres `esc_url` changes & to &#038 in url even if single & exists so to over come it.
-			 * added a manuall str_replace.
-			 * Check Github Issue @ https://github.com/wponion/wponion/issues/161
-			 */
-			$this->menu_url = menu_page_url( $slug, false );
-			$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), $this->menu_url );
 
-			if ( wponion_is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
-				wponion_callback( $this->submenu(), $this );
-			} elseif ( wponion_is_array( $this->submenu() ) ) {
-				$subemnus = array();
-				if ( true === $this->is_multiple( $this->submenu() ) ) {
-					$subemnus[] = $this->submenu();
-				} else {
-					$subemnus = $this->submenu();
-				}
-
-				foreach ( $subemnus as $sub_menu ) {
-					if ( wponion_is_callable( $sub_menu ) ) {
-						wponion_callback( $sub_menu, $this );
-					} elseif ( ! is_scalar( $sub_menu ) ) {
-						if ( ! isset( $sub_menu['submenu'] ) ) {
-							$sub_menu['submenu'] = $this;
+			if ( ! empty( $this->option( 'href' ) ) ) {
+				global $submenu, $_parent_pages, $menu;
+				$menu_slug = $this->menu_slug();
+				if ( isset( $_parent_pages[ $menu_slug ] ) ) {
+					$menu_pos = $_parent_pages[ $menu_slug ];
+					if ( ! empty( $menu_pos ) && ! empty( $submenu[ $menu_pos ] ) && wponion_is_array( $submenu[ $menu_pos ] ) ) {
+						foreach ( $submenu[ $menu_pos ] as $id => $smenu ) {
+							if ( $menu_slug === $submenu[ $menu_pos ][ $id ][2] ) {
+								$submenu[ $menu_pos ][ $id ][2] = $this->option( 'href' );
+							}
 						}
-						new self( $sub_menu );
+					} else {
+						foreach ( $menu as $id => $smenu ) {
+							if ( $menu_slug === $menu[ $id ][2] ) {
+								$menu[ $id ][2] = $this->option( 'href' );
+							}
+						}
 					}
 				}
-			}
+			} else {
+				$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
+				/**
+				 * WordPres `esc_url` changes & to &#038 in url even if single & exists so to over come it.
+				 * added a manuall str_replace.
+				 * Check Github Issue @ https://github.com/wponion/wponion/issues/161
+				 */
+				$this->menu_url = menu_page_url( $slug, false );
+				$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), $this->menu_url );
 
-			if ( ! empty( $this->help_tab() ) || ! empty( $this->help_sidebar() ) ) {
-				wponion_help_tabs( $this, $this->help_tab(), $this->help_sidebar() );
+				if ( wponion_is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
+					wponion_callback( $this->submenu(), $this );
+				} elseif ( wponion_is_array( $this->submenu() ) ) {
+					$subemnus = array();
+					if ( true === $this->is_multiple( $this->submenu() ) ) {
+						$subemnus[] = $this->submenu();
+					} else {
+						$subemnus = $this->submenu();
+					}
+
+					foreach ( $subemnus as $sub_menu ) {
+						if ( wponion_is_callable( $sub_menu ) ) {
+							wponion_callback( $sub_menu, $this );
+						} elseif ( ! is_scalar( $sub_menu ) ) {
+							if ( ! isset( $sub_menu['submenu'] ) ) {
+								$sub_menu['submenu'] = $this;
+							}
+							new self( $sub_menu );
+						}
+					}
+				}
+
+				if ( ! empty( $this->help_tab() ) || ! empty( $this->help_sidebar() ) ) {
+					wponion_help_tabs( $this, $this->help_tab(), $this->help_sidebar() );
+				}
 			}
 		}
 
