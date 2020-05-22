@@ -65,6 +65,13 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_Utility' ) ) {
 			$this->fields   = $fields;
 			$this->settings = $this->set_args( $settings );
 			$this->unique   = ( wponion_is_array( $this->settings ) && isset( $this->settings['option_name'] ) ) ? $this->settings['option_name'] : false;
+			$this->init();
+		}
+
+		/**
+		 * Inits The Class.
+		 */
+		protected function init() {
 			$this->save_instance();
 		}
 

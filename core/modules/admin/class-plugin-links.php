@@ -39,18 +39,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Plugin_Links' ) ) {
 		 */
 		protected function _merge( $type, $data ) {
 			$key = "data/${type}";
-			if ( ! empty( $this->option( "${key}/before" ) ) ) {
-				$data = wponion_parse_args( $this->option( "${key}/before" ), $data );
-			}
-
-			if ( ! empty( $this->option( "${key}/center" ) ) ) {
-				$data = wponion_parse_args( $data, $this->option( "${key}/center" ) );
-			}
-
-			if ( ! empty( $this->option( "${key}/after" ) ) ) {
-				$data = wponion_parse_args( $data, $this->option( "${key}/after" ) );
-			}
-			return $data;
+			return wponion_array_merge( $data, $this->option( "${key}/before" ), $this->option( "${key}/center" ), $this->option( "${key}/after" ) );
 		}
 
 		/**

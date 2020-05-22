@@ -7,6 +7,7 @@ use WPOnion\Modules\Admin\Notice\Handler;
 use WPOnion\Modules\Admin\Page;
 use WPOnion\Modules\Admin\Edits\Bulk;
 use WPOnion\Modules\Admin\Edits\Quick;
+use WPOnion\Modules\Admin\Row_Actions;
 use WPOnion\Modules\CPT\Post_Type;
 use WPOnion\Modules\CPT\Taxonomy as Custom_Taxonomy;
 use WPOnion\Modules\customizer;
@@ -306,6 +307,24 @@ if ( ! function_exists( 'wponion_user_profile' ) ) {
 			return wponion_user_profile_registry( $instance_id_or_args );
 		}
 		return new User_Profile( $instance_id_or_args, $fields );
+	}
+}
+
+if ( ! function_exists( 'wponion_row_actions' ) ) {
+	/**
+	 * @param string $type
+	 * @param int    $priority
+	 * @param bool   $hook
+	 *
+	 * @return \WPOnion\Modules\Admin\Row_Actions
+	 * @since {NEWVERSION}
+	 */
+	function wponion_row_actions( $type = 'post', $priority = 20, $hook = false ) {
+		return new Row_Actions( array(
+			'type'     => $type,
+			'priority' => $priority,
+			'hook'     => $hook,
+		) );
 	}
 }
 

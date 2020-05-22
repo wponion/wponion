@@ -386,3 +386,22 @@ if ( ! function_exists( 'wponion_google_fonts_data' ) ) {
 		return $return;
 	}
 }
+
+if ( ! function_exists( 'wponion_extract_template_tags' ) ) {
+	/**
+	 * this function extracts all possible template tags in a string
+	 *
+	 * @example #[id] -  [post_title] Created By [author] will be given as array
+	 *
+	 * @param $string
+	 *
+	 * @return array
+	 * @since {NEWVERSION}
+	 */
+	function wponion_extract_template_tags( $string ) {
+		$matches = array();
+		/** Below Regex Matches All Contents That Are Enclosed With [] | @example #[id] [post_title] - [post_date] */
+		preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)]@', $string, $matches, PREG_SET_ORDER, 0 );
+		return $matches;
+	}
+}

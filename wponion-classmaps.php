@@ -1,6 +1,6 @@
 <?php
 /**
- * Last Updated: Fri 22-May-2020 / 08:32:06:am
+ * Last Updated: Fri 22-May-2020 / 09:33:53:am
  * Total Class:  280
  * Namespace: 
  */
@@ -136,7 +136,7 @@ return array (
   'WPOnion\\Traits\\Serializable' => 'traits/trait-serializable.php',
   'WPOnion\\Traits\\Array_Iterator' => 'traits/traits-array-iterator.php',
   'WPOnion\\WP\\Widget' => 'wp/class-widget.php',
-  'WPOnion\\WP\\WP_List_Table' => 'wp/class-wp-list-table.php',
+  'WPOnion\\WP\\List_Table' => 'wp/class-wp-list-table.php',
   'WPOnion\\WP\\Nav_Menu\\Walker' => 'wp/nav-menu/class-walker.php',
   'WPOnion\\WP\\Pointers\\Pointer' => 'wp/pointers/class-pointer.php',
   'WPOnion\\WP\\Sysinfo\\Data' => 'wp/sysinfo/class-data.php',

@@ -35,6 +35,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		 * Inits The Class.
 		 */
 		protected function init() {
+			parent::init();
 			if ( ! empty( $this->settings ) && ! empty( $this->fields ) && false === wponion_is_ajax( 'heartbeat' ) ) {
 				$this->on_init();
 			}

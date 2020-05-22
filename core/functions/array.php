@@ -202,3 +202,66 @@ if ( ! function_exists( 'wponion_internal_options_data' ) ) {
 		return ( isset( $data[ $slug ] ) ) ? $data[ $slug ] : $default;
 	}
 }
+
+if ( ! function_exists( 'wponion_extract_data_from_array_object' ) ) {
+	/**
+	 * This function can be used to extract values from an object / array or a callable methods in runtime.
+	 *
+	 * @param $array_or_object
+	 * @param $key_to_call
+	 *
+	 * @return bool|false|mixed|string
+	 * @since {NEWVERSION}
+	 */
+	function wponion_extract_data_from_array_object( $array_or_object, $key_to_call ) {
+		$result = false;
+		if ( ! empty( $key_to_call ) && is_string( $key_to_call ) ) {
+			if ( wponion_is_array( $array_or_object ) ) {
+				if ( isset( $array_or_object[ $key_to_call ] ) ) {
+					$result = $array_or_object[ $key_to_call ];
+				}
+			} elseif ( is_object( $array_or_object ) ) {
+				if ( isset( $array_or_object->{$key_to_call} ) ) {
+					$result = $array_or_object->{$key_to_call};
+				} elseif ( wponion_is_callable( array( $array_or_object, $key_to_call ) ) ) {
+					$result = wponion_callback( array( $array_or_object, $key_to_call ) );
+				}
+			}
+		}
+		return $result;
+	}
+}
+
+if ( ! function_exists( 'wponion_array_merge' ) ) {
+	/**
+	 * This function merges array with before,after&center option.
+	 *
+	 * @param       $source
+	 * @param array $before
+	 * @param array $middle
+	 * @param array $after
+	 *
+	 * @return array|object|\WPO\Field
+	 * @since {NEWVERSION}
+	 */
+	function wponion_array_merge( $source, $before = array(), $middle = array(), $after = array() ) {
+		if ( ! empty( $source ) && wponion_is_array( $source ) ) {
+			$before = wponion_cast_array( $before );
+			$middle = wponion_cast_array( $middle );
+			$after  = wponion_cast_array( $after );
+
+			if ( ! empty( $before ) ) {
+				$source = array_merge( $before, $source );
+			}
+
+			if ( ! empty( $middle ) ) {
+				$source = array_merge( $source, $middle );
+			}
+
+			if ( ! empty( $after ) ) {
+				$source = array_merge( $source, $after );
+			}
+		}
+		return $source;
+	}
+}

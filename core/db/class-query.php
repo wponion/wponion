@@ -243,17 +243,12 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		protected function option_data( $key, $default, $result_key, $result_values ) {
 			if ( ! empty( $key ) ) {
 				/** Callback Provides 1. Result Values , 2. Result Key */
-				$user_callback = wponion_is_callable( $key ) ? wponion_callback( $key, array(
-					$result_values,
-					$result_key,
-				) ) : false;
-				$matches       = array();
+				$args          = array( $result_values, $result_key );
+				$user_callback = wponion_is_callable( $key ) ? wponion_callback( $key, $args ) : false;
+
 				if ( ! empty( $user_callback ) && is_string( $user_callback ) ) {
 					return $user_callback;
 				}
-
-				/** Below Regex Matches All Contents That Are Enclosed With [] | @example #[id] [post_title] - [post_date] */
-				preg_match_all( '@\[([^<>&/\[\]\x00-\x20=]++)]@', $key, $matches, PREG_SET_ORDER, 0 );
 
 				if ( ! empty( $matches ) ) {
 					foreach ( $matches as $match ) {
@@ -297,22 +292,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @return bool|string
 		 */
 		protected function _single_option( $result_values, $callback ) {
-			$result = false;
-
-			if ( ! empty( $callback ) && is_string( $callback ) ) {
-				if ( wponion_is_array( $result_values ) ) {
-					if ( isset( $result_values[ $callback ] ) ) {
-						$result = $result_values[ $callback ];
-					}
-				} elseif ( is_object( $result_values ) ) {
-					if ( isset( $result_values->{$callback} ) ) {
-						$result = $result_values->{$callback};
-					} elseif ( wponion_is_callable( array( $result_values, $callback ) ) ) {
-						$result = wponion_callback( array( $result_values, $callback ) );
-					}
-				}
-			}
-
+			$result = wponion_extract_data_from_array_object( $result_values, $callback );
 			return ( is_scalar( $result ) ) ? $result : false;
 		}
 	}
