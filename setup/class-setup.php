@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 */
 		public static function init() {
 			self::$vendor_libs = array(
-				'Parsedown' => wponion()->path( 'core/vendors/erusev/parsedown.php' ),
+				'Parsedown' => wponion()->path( 'core/libraries/erusev/parsedown.php' ),
 			);
 
 			add_action( 'wponion/loaded', array( __CLASS__, 'on_wponion_loaded' ), -99999 );

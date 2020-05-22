@@ -1,8 +1,8 @@
 <?php
 /**
- * Last Updated: Thu 21-May-2020 / 07:53:13:pm
+ * Last Updated: Fri 22-May-2020 / 08:27:59:am
  * Total Class:  280
- * Namespace:
+ * Namespace: 
  */
 
 return array (
@@ -135,8 +135,6 @@ return array (
   'WPOnion\\Traits\\Self_Instance' => 'traits/trait-self-instance.php',
   'WPOnion\\Traits\\Serializable' => 'traits/trait-serializable.php',
   'WPOnion\\Traits\\Array_Iterator' => 'traits/traits-array-iterator.php',
-  'WPOnion\\Utils\\CSS_Parser' => 'utils/class-css-parser.php',
-  'Parsedown' => 'vendors/erusev/parsedown.php',
   'WPOnion\\WP\\Widget' => 'wp/class-widget.php',
   'WPOnion\\WP\\WP_List_Table' => 'wp/class-wp-list-table.php',
   'WPOnion\\WP\\Nav_Menu\\Walker' => 'wp/nav-menu/class-walker.php',
@@ -278,6 +276,8 @@ return array (
   'WPOnion\\Integrations\\Page_Builders\\Elementor\\Metabox_Data' => 'integrations/page-builders/elementor/class-metabox.php',
   'WPOnion\\Integrations\\Page_Builders\\Elementor\\Taxonomy' => 'integrations/page-builders/elementor/class-taxonomy.php',
   'WPOnion\\Integrations\\Page_Builders\\Elementor\\Taxonomy_Data' => 'integrations/page-builders/elementor/class-taxonomy.php',
+  'WPOnion\\Utils\\CSS_Parser' => 'libraries/css-parser.php',
+  'Parsedown' => 'libraries/parsedown.php',
   'WPOnion\\Module_Fields\\Customizer\\Button_Set' => 'module-fields/customizer/class-button-set.php',
   'WPOnion\\Module_Fields\\Customizer\\Checkbox' => 'module-fields/customizer/class-checkbox.php',
   'WPOnion\\Module_Fields\\Customizer\\Cloner' => 'module-fields/customizer/class-cloner.php',

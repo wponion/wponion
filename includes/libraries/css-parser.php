@@ -3,6 +3,7 @@
 namespace WPOnion\Utils;
 
 defined( 'ABSPATH' ) || exit;
+
 if ( ! class_exists( '\WPOnion\Utils\CSS_Parser' ) ) {
 	/**
 	 * Class CSS_Parser
