@@ -55,7 +55,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 				if ( is_array( $type ) ) {
 					$_type = wponion_get_field_type( $type, false );
 				}
-				$class = wponion_get_field_class_remap( '\WPO\Fields\\' . $_type, false );
+				$class = wponion_field_class_remaps( '\WPO\Fields\\' . $_type, false );
 				if ( false === $class ) {
 					$class = class_exists( '\WPO\Fields\\' . $_type ) ? '\WPO\Fields\\' . $_type : false;
 				}

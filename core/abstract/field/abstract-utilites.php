@@ -119,7 +119,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Utilites' ) ) {
 		 * @return string
 		 */
 		protected function checked( $values = '', $value = '', $type = 'checked' ) {
-			return ( ( wponion_is_array( $values ) && in_array( $value, $values ) ) || ( wponion_validate_bool_val( $values ) === wponion_validate_bool_val( $value ) ) ) ? sprintf( ' %s="%s" ', $type, $type ) : '';
+			return ( ( wponion_is_array( $values ) && in_array( $value, $values ) ) || ( wponion_is_bool_val( $values ) === wponion_is_bool_val( $value ) ) ) ? sprintf( ' %s="%s" ', $type, $type ) : '';
 		}
 
 		/**

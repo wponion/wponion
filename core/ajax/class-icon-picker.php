@@ -27,7 +27,7 @@ if ( ! class_exists( '\WPOnion\Ajax\icon_picker' ) ) {
 		 */
 		protected function enabled_icons( $libs ) {
 			$enabled = $this->request( 'enabled', true );
-			if ( wponion_validate_bool_val( $enabled ) ) {
+			if ( wponion_is_bool_val( $enabled ) ) {
 				return $libs;
 			}
 			$enabled = ( ! is_array( $enabled ) ) ? array( $enabled ) : $enabled;

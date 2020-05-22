@@ -89,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Shortcodes' ) ) {
 						'rule'    => $rule,
 						'compare' => isset( $args['compare'][ $i ] ) ? $args['compare'][ $i ] : '=',
 						'extra'   => isset( $args['extra'][ $i ] ) ? $args['extra'][ $i ] : null,
-						'value'   => isset( $args['value'][ $i ] ) ? wponion_validate_bool_val( $args['value'][ $i ] ) : null,
+						'value'   => isset( $args['value'][ $i ] ) ? wponion_is_bool_val( $args['value'][ $i ] ) : null,
 					);
 				}
 			}

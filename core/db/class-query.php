@@ -114,7 +114,7 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		protected function handle_pre_query_args( $type ) {
 			foreach ( $this->args as $id => $value ) {
 				if ( ! is_array( $value ) ) {
-					$this->args[ $id ] = wponion_validate_bool_val( $value );
+					$this->args[ $id ] = wponion_is_bool_val( $value );
 				}
 			}
 

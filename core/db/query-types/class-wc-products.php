@@ -35,8 +35,8 @@ if ( ! class_exists( '\WPOnion\DB\Query_Types\WC_Products' ) ) {
 				'include_variations' => true,
 				'display_stock'      => false,
 			) );
-			$query_args['include_variations'] = wponion_validate_bool_val( $query_args['include_variations'] );
-			$query_args['display_stock']      = wponion_validate_bool_val( $query_args['display_stock'] );
+			$query_args['include_variations'] = wponion_is_bool_val( $query_args['include_variations'] );
+			$query_args['display_stock']      = wponion_is_bool_val( $query_args['display_stock'] );
 			return $query_args;
 		}
 
