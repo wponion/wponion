@@ -45,14 +45,14 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		 */
 		public function handle_ajax_request() {
 			if ( isset( $_REQUEST['wponion-ajax'] ) && ! empty( $_REQUEST['wponion-ajax'] ) ) {
+				wponion_define( 'WPONION_DOING_AJAX', true );
 				$action = $_REQUEST['wponion-ajax'];
-				defined( 'WPONION_DOING_AJAX' ) || define( 'WPONION_DOING_AJAX', true );
-				$function = str_replace( '-', '_', sanitize_title( sanitize_text_field( $action ) ) );
-				$class    = '\WPOnion\Ajax\\' . strtolower( $function );
+				$func   = str_replace( '-', '_', sanitize_title( sanitize_text_field( $action ) ) );
+				$class  = '\WPOnion\Ajax\\' . strtolower( $func );
 				if ( class_exists( $class ) ) {
 					new $class();
-				} elseif ( method_exists( $this, $function ) ) {
-					wponion_callback( array( &$this, $function ) );
+				} elseif ( method_exists( $this, $func ) ) {
+					wponion_callback( array( &$this, $func ) );
 				} else {
 					wponion_do_deprecated_action( 'wponion_ajax_' . $action, array(), '1.4.6.1', "wponion/ajax/request/${action}" );
 					do_action( "wponion/ajax/request/${action}" );
@@ -92,4 +92,4 @@ if ( ! class_exists( '\WPOnion\Core_Ajax' ) ) {
 		}
 	}
 }
-return Core_Ajax::instance();
+Core_Ajax::instance();

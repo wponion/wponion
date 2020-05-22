@@ -13,15 +13,12 @@ if ( ! class_exists( '\WPOnion\Helper' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Helper {
 		/**
 		 * Stores Timer Information.
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		protected static $timer = array();
 

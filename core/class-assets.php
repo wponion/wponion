@@ -12,15 +12,12 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	final class Assets {
 		/**
 		 * Stores Icon Library Data.
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		public static $icon_libs = array();
 
@@ -28,8 +25,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * Stores All Javascript's File Data.
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		public static $scripts = array();
 
@@ -37,8 +32,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * Stores All Stylesheets File Data.
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		public static $styles = array();
 
@@ -46,8 +39,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * Stores CDN Info for each css file.
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		public static $cdn_styles = array();
 
@@ -55,8 +46,6 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 		 * Stores CDN Info for each css file
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		public static $cdn_scripts = array();
 
@@ -135,10 +124,7 @@ if ( ! class_exists( '\WPOnion\Assets' ) ) {
 					'deps' => array( 'wponion-plugins' ),
 				),
 			);
-			self::$styles      = array(
-				//'wponion-plugins' => array( 'src' => wponion()->assets( 'css/wponion-plugins.css' ) ),
-				'wponion-core' => array( 'src' => wponion()->assets( 'css/wponion-base.css' ) ),
-			);
+			self::$styles      = array( 'wponion-core' => array( 'src' => wponion()->assets( 'css/wponion-base.css' ) ) );
 			add_action( 'admin_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'load-customize.php', array( __CLASS__, 'register_assets' ), 1 );
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'register_assets' ), 1 );

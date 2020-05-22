@@ -10,15 +10,12 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Icons {
 		/**
 		 * Stores All Icon's Class Instance.
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		protected static $instances = array();
 
@@ -26,8 +23,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * Stores All Icon's Info.
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		protected static $icons = array();
 
@@ -36,7 +31,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 *
 		 * @param array|\WPOnion\Icon $instance_or_args
 		 *
-		 * @static
 		 * @return \WPOnion\Icon
 		 */
 		public static function add( $instance_or_args ) {
@@ -51,7 +45,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		/**
 		 * Returns All Icons.
 		 *
-		 * @static
 		 * @return array
 		 */
 		public static function get_all() {
@@ -76,7 +69,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * @param $slug
 		 *
 		 * @return bool|mixed
-		 * @static
 		 */
 		public static function name( $slug ) {
 			return ( isset( self::$icons[ $slug ] ) ) ? self::$icons[ $slug ] : false;
@@ -86,7 +78,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		 * Returns List of icons.
 		 *
 		 * @return array
-		 * @static
 		 */
 		public static function icon_list() {
 			return self::$icons;
@@ -94,8 +85,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 
 		/**
 		 * Basic Setup.
-		 *
-		 * @static
 		 */
 		public static function setup() {
 			do_action( 'wponion/icons/setup/before' );
@@ -106,7 +95,6 @@ if ( ! class_exists( '\WPOnion\Icons' ) ) {
 		/**
 		 * Retuns Icons Defaults.
 		 *
-		 * @static
 		 * @return array
 		 */
 		public static function icon_defaults() {

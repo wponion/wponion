@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPOnion\Themes' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Themes {
 		/**

@@ -24,15 +24,12 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	final class Cache {
 		/**
 		 * Stores Cached Data.
 		 *
 		 * @var array
-		 * @access
-		 * @static
 		 */
 		protected static $cache = array();
 
@@ -48,8 +45,6 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		 * We can't use null|false because these can be values set by user and we can't treat them as not existing values
 		 *
 		 * @var \WPOnion\Exception\Cache_Not_Found
-		 * @access
-		 * @static
 		 */
 		protected static $not_found_value;
 
@@ -57,7 +52,6 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		 * The amount of times the data was already stored in the cache.
 		 *
 		 * @var int
-		 * @since 2.4.17
 		 */
 		protected static $hits = 0;
 
@@ -65,7 +59,6 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		 * Amount of times the cache did not have the value in cache.
 		 *
 		 * @var int
-		 * @since 2.4.17
 		 */
 		protected static $misses = 0;
 
@@ -73,7 +66,6 @@ if ( ! class_exists( '\WPOnion\Cache' ) ) {
 		 * Amount of times the cache free was called.
 		 *
 		 * @var int
-		 * @since 2.4.17
 		 */
 		protected static $freed = 0;
 

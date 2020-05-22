@@ -2,8 +2,6 @@
 
 namespace WPOnion;
 
-use WPOnion\CSS_Parser;
-
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
@@ -12,7 +10,6 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 	 *
 	 * @package WPOnion\JS
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Localize_API extends Bridge {
 		/**
@@ -112,7 +109,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		 * @param bool   $merge
 		 * @param bool   $convert_js_funcion
 		 *
-		 * @return self
+		 * @return $this
 		 */
 		public function add( $object_id = '', $args = array(), $merge = true, $convert_js_funcion = true ) {
 			$arg                         = ( true === $convert_js_funcion ) ? $this->handle_js_function( $args ) : $args;
@@ -238,7 +235,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 				}
 			}
 
-			if ( defined( 'WPONION_ADD_FONT_DATA' ) && true === WPONION_ADD_FONT_DATA ) {
+			if ( wponion_is_defined( 'WPONION_ADD_FONT_DATA', true ) ) {
 				$this->add( 'wponion_websafe_fonts', wponion_websafe_fonts(), true, false );
 				$this->add( 'wponion_gfonts', wponion_google_fonts_data(), true, false );
 			}
@@ -268,7 +265,7 @@ if ( ! class_exists( '\WPOnion\Localize_API' ) ) {
 		public function render_css_js_args( $return = false ) {
 			$this->append_data();
 
-			if ( defined( 'DOING_AJAX' ) && true === DOING_AJAX ) {
+			if ( wponion_is_defined( 'DOING_AJAX', true ) ) {
 				$return = $this->print_js_data( $return ) . ' ' . $this->print_css_data();
 				$this->clear();
 				return $return;

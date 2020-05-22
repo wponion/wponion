@@ -10,12 +10,10 @@ if ( ! class_exists( '\WPOnion\Shortcodes' ) ) {
 	 *
 	 * @package WPOnion
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Shortcodes extends Bridge {
 		/**
 		 * @var array
-		 * @access
 		 */
 		protected static $shortcodes = array();
 

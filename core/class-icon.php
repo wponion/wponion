@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPOnion\Icon' ) ) {
 	 *
 	 * @package WPOnion\Utils
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Icon {
 		/**
