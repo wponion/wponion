@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_load_core_assets' ) ) {
 	/**
@@ -235,7 +233,8 @@ if ( ! function_exists( 'wponion_js_vars' ) ) {
 			}
 			$l10n[ $key ] = html_entity_decode( (string) $value, ENT_QUOTES, 'UTF-8' );
 		}
-		$script = ( ! empty( $object_name ) ) ? "var $object_name = " . wp_json_encode( $l10n ) . ';' : wp_json_encode( $l10n );
+		$l10n   = wp_json_encode( $l10n );
+		$script = ( ! empty( $object_name ) ) ? "var ${object_name} = ${l10n};" : $l10n;
 
 		if ( ! empty( $after ) ) {
 			$script .= "\n$after;";

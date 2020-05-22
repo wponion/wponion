@@ -1,7 +1,5 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_field_cloneable_sanitize' ) ) {
 	/**
@@ -53,7 +51,6 @@ if ( ! function_exists( 'wponion_field_textarea_sanitize' ) ) {
 if ( ! function_exists( 'wponion_field_checkbox_sanitize' ) ) {
 	/**
 	 * Checkbox sanitize
-	 * Do not touch, or think twice.
 	 *
 	 * @param $value
 	 *
@@ -63,7 +60,6 @@ if ( ! function_exists( 'wponion_field_checkbox_sanitize' ) ) {
 		if ( ! empty( $value ) && 1 === $value ) {
 			$value = true;
 		}
-
 		return ( empty( $value ) ) ? false : $value;
 	}
 }
@@ -75,7 +71,7 @@ if ( ! function_exists( 'wponion_field_image_select_sanitize' ) ) {
 	 *
 	 * @param $value
 	 *
-	 * @return array|mixed|string
+	 * @return mixed
 	 */
 	function wponion_field_image_select_sanitize( $value ) {
 		if ( isset( $value ) && wponion_is_array( $value ) && ! count( $value ) ) {
@@ -88,7 +84,6 @@ if ( ! function_exists( 'wponion_field_image_select_sanitize' ) ) {
 if ( ! function_exists( 'wponion_field_group_sanitize' ) ) {
 	/**
 	 * Group sanitize
-	 * Do not touch, or think twice.
 	 *
 	 * @param $value
 	 *
@@ -109,19 +104,6 @@ if ( ! function_exists( 'wponion_field_title' ) ) {
 	 */
 	function wponion_field_title( $value ) {
 		return sanitize_title( $value );
-	}
-}
-
-if ( ! function_exists( 'wponion_field_clean' ) ) {
-	/**
-	 * Text Clean
-	 *
-	 * @param $value
-	 *
-	 * @return mixed
-	 */
-	function wponion_field_clean( $value ) {
-		return $value;
 	}
 }
 

@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_builder' ) ) {
 	/**
-	 * Returns A New Builder Instance.
+	 * Returns Builder Instance.
 	 *
 	 * @return \WPO\Builder
 	 */
@@ -17,20 +17,20 @@ if ( ! function_exists( 'wponion_builder' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wpo_container' ) ) {
+if ( ! function_exists( 'wponion_builder_container' ) ) {
 	/**
-	 * @param bool $slug
-	 * @param bool $title
-	 * @param bool $icon
+	 * @param bool|string $slug
+	 * @param bool|string $title
+	 * @param bool|string $icon
 	 *
 	 * @return \WPO\Container
 	 */
-	function wpo_container( $slug = false, $title = false, $icon = false ) {
+	function wponion_builder_container( $slug = false, $title = false, $icon = false ) {
 		return new Container( $slug, $title, $icon );
 	}
 }
 
-if ( ! function_exists( 'wpo_field' ) ) {
+if ( ! function_exists( 'wponion_builder_field' ) ) {
 	/**
 	 * @param bool|string|array $type
 	 * @param bool|string|array $id
@@ -39,7 +39,7 @@ if ( ! function_exists( 'wpo_field' ) ) {
 	 *
 	 * @return false|\WPO\Field
 	 */
-	function wpo_field( $type = false, $id = false, $title = false, $args = array() ) {
+	function wponion_builder_field( $type = false, $id = false, $title = false, $args = array() ) {
 		return Field::create( $type, $id, $title, $args );
 	}
 }

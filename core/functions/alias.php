@@ -3,11 +3,9 @@ defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wpo_builder' ) ) {
 	/**
-	 * Creates A New Builder Instance
+	 * Alias Function
 	 *
 	 * @return \WPO\Builder
-	 * @uses \wponion_builder()
-	 *
 	 */
 	function wpo_builder() {
 		return wponion_builder();
@@ -16,13 +14,13 @@ if ( ! function_exists( 'wpo_builder' ) ) {
 
 if ( ! function_exists( 'wpo_is' ) ) {
 	/**
-	 * @param bool|\WPO\Container|\WPO\Builder|\WPO\Field|\WPOnion\DB\Option $instance
-	 * @param string                                                         $type [builder|field|container|page|section|option]
+	 * @param        $instance
+	 * @param string $type [builder|field|container|page|section|option]
 	 *
 	 * @return bool
 	 */
 	function wpo_is( $instance = false, $type = 'builder' ) {
-		return wponion_is( $instance, $type );
+		return wponion_is_instance( $instance, $type );
 	}
 }
 
@@ -59,18 +57,30 @@ if ( ! function_exists( 'wpo_is_container' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wpo_help' ) ) {
+if ( ! function_exists( 'wpo_container' ) ) {
 	/**
-	 * @param null  $content
-	 * @param array $args
-	 * @param bool  $element
-	 * @param bool  $localize
+	 * @param bool|string $slug
+	 * @param bool|string $title
+	 * @param bool|string $icon
 	 *
-	 * @return array|string|\WPOnion\Util
-	 * @uses \wponion_tooltip()
+	 * @return \WPO\Container
 	 */
-	function wpo_help( $content = null, $args = array(), $element = false, $localize = true ) {
-		return wponion_tooltip( $content, $args, $element, $localize );
+	function wpo_container( $slug = false, $title = false, $icon = false ) {
+		return wponion_builder_container( $slug, $title, $icon );
+	}
+}
+
+if ( ! function_exists( 'wpo_field' ) ) {
+	/**
+	 * @param bool|string|array $type
+	 * @param bool|string|array $id
+	 * @param bool|string|array $title
+	 * @param array             $args
+	 *
+	 * @return false|\WPO\Field
+	 */
+	function wpo_field( $type = false, $id = false, $title = false, $args = array() ) {
+		return wponion_builder_field( $type, $id, $title, $args );
 	}
 }
 
@@ -84,7 +94,7 @@ if ( ! function_exists( 'wpo_tooltip' ) ) {
 	 * @return array|string|\WPOnion\Util
 	 */
 	function wpo_tooltip( $content = null, $args = array(), $element = false, $localize = true ) {
-		return wpo_help( $content, $args, $element, $localize );
+		return wponion_tooltip( $content, $args, $element, $localize );
 	}
 }
 
