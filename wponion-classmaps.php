@@ -1,6 +1,6 @@
 <?php
 /**
- * Last Updated: Fri 22-May-2020 / 08:27:59:am
+ * Last Updated: Fri 22-May-2020 / 08:32:06:am
  * Total Class:  280
  * Namespace: 
  */
@@ -276,7 +276,7 @@ return array (
   'WPOnion\\Integrations\\Page_Builders\\Elementor\\Metabox_Data' => 'integrations/page-builders/elementor/class-metabox.php',
   'WPOnion\\Integrations\\Page_Builders\\Elementor\\Taxonomy' => 'integrations/page-builders/elementor/class-taxonomy.php',
   'WPOnion\\Integrations\\Page_Builders\\Elementor\\Taxonomy_Data' => 'integrations/page-builders/elementor/class-taxonomy.php',
-  'WPOnion\\Utils\\CSS_Parser' => 'libraries/css-parser.php',
+  'WPOnion\\CSS_Parser' => 'libraries/css-parser.php',
   'Parsedown' => 'libraries/parsedown.php',
   'WPOnion\\Module_Fields\\Customizer\\Button_Set' => 'module-fields/customizer/class-button-set.php',
   'WPOnion\\Module_Fields\\Customizer\\Checkbox' => 'module-fields/customizer/class-checkbox.php',

@@ -1,10 +1,10 @@
 <?php
 
-namespace WPOnion\Utils;
+namespace WPOnion;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Utils\CSS_Parser' ) ) {
+if ( ! class_exists( '\WPOnion\CSS_Parser' ) ) {
 	/**
 	 * Class CSS_Parser
 	 *

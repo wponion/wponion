@@ -2,7 +2,7 @@
 
 namespace WPOnion;
 
-use WPOnion\Utils\CSS_Parser;
+use WPOnion\CSS_Parser;
 
 defined( 'ABSPATH' ) || exit;
 
