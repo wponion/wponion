@@ -162,7 +162,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			}
 
 			$registry_key = implode( '_', array_filter( array( $module, $unique ) ) );
-			$registry     = wponion_registry( $registry_key, '\WPOnion\Registry\Fields' );
+			$registry     = wponion_registry( '\WPOnion\Registry\Fields', $registry_key );
 
 			if ( false !== $registry->get( $uid ) ) {
 				return $registry->get( $uid );

@@ -21,17 +21,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Module' ) ) {
 		use Hooks;
 
 		/**
-		 * Module constructor.
-		 *
-		 * @param array                                $settings
-		 * @param string|array|\WPO\Builder|\WPO\Field $fields
-		 */
-		public function __construct( $settings = array(), $fields = null ) {
-			parent::__construct( $settings, $fields );
-			$this->init();
-		}
-
-		/**
 		 * Inits The Class.
 		 */
 		protected function init() {

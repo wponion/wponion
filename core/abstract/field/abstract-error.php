@@ -20,7 +20,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Error' ) ) {
 		protected function get_errors() {
 			if ( null === $this->errors ) {
 				$this->errors   = false;
-				$error_instance = wponion_registry( sanitize_title( $this->module() . '_' . $this->base_unique() . '_errors' ), '\WPOnion\Registry\Field_Error' );
+				$key            = sanitize_title( $this->module() . '_' . $this->base_unique() . '_errors' );
+				$error_instance = wponion_registry( '\WPOnion\Registry\Field_Error', $key );
 				if ( $error_instance ) {
 					$id           = str_replace( array( '[', ']' ), array( '/', '' ), $this->name() );
 					$this->errors = $error_instance->get( $id );

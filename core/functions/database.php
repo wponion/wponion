@@ -85,10 +85,10 @@ if ( ! function_exists( 'wponion_wp_db' ) ) {
 	/**
 	 * Returns an active instance of WPOnion_Localize_API.
 	 *
-	 * @return \WPOnion\DB\WP_DB
+	 * @return bool|\WPOnion\DB\WP_DB
 	 */
 	function wponion_wp_db() {
-		return wponion_registry( 'wponion-global-wp-db-api', '\WPOnion\DB\WP_DB' );
+		return wponion_registry( '\WPOnion\DB\WP_DB', 'wponion-global-wp-db-api' );
 	}
 }
 

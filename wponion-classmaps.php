@@ -1,7 +1,7 @@
 <?php
 /**
- * Last Updated: Fri 22-May-2020 / 09:33:53:am
- * Total Class:  280
+ * Last Updated: Sat 23-May-2020 / 09:00:17:pm
+ * Total Class:  282
  * Namespace: 
  */
 
@@ -87,6 +87,7 @@ return array (
   'WPOnion\\Modules\\Admin\\Page' => 'modules/admin/class-page.php',
   'WPOnion\\Modules\\Admin\\Plugin_Links' => 'modules/admin/class-plugin-links.php',
   'WPOnion\\Modules\\Admin\\Pointers' => 'modules/admin/class-pointers.php',
+  'WPOnion\\Modules\\Admin\\Row_Actions' => 'modules/admin/class-row-actions.php',
   'WPOnion\\Modules\\Admin\\Taxonomy' => 'modules/admin/class-taxonomy.php',
   'WPOnion\\Modules\\Admin\\User_Profile' => 'modules/admin/class-user-profile.php',
   'WPOnion\\Modules\\Admin\\Edits\\Bulk' => 'modules/admin/edits/class-bulk.php',
@@ -121,6 +122,7 @@ return array (
   'WPOnion\\Registry\\Fields' => 'registry/class-fields.php',
   'WPOnion\\Registry\\Holder' => 'registry/class-holder.php',
   'WPOnion\\Registry\\Modules' => 'registry/class-modules.php',
+  'WPOnion\\Registry\\Storage' => 'registry/class-storage.php',
   'WPOnion\\Traits\\Internal\\Fields_Handler' => 'traits/internal/trait-fields-handler.php',
   'WPOnion\\Traits\\Internal\\Module' => 'traits/internal/trait-module.php',
   'WPOnion\\Traits\\Internal\\Theme_Handler' => 'traits/internal/trait-theme-handler.php',

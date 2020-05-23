@@ -50,3 +50,14 @@ if ( ! function_exists( 'wponion_get_field_class_remap' ) ) {
 		return wponion_field_class_remaps( $class, $default );
 	}
 }
+
+if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
+	/**
+	 * Adds An Instance To / Retrives An Instance.
+	 *
+	 * @deprecated
+	 */
+	function wponion_get_registry_instance() {
+		wponion_doing_it_wrong( __FUNCTION__, __( 'This function has been disabled' ), '1.4.7' );
+	}
+}

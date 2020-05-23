@@ -1,7 +1,6 @@
 <?php
 
-use WPOnion\Bridge;
-use WPOnion\Registry\Holder;
+use WPOnion\Registry\Storage;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -13,63 +12,13 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	 * Get the registry by type.
 	 * Always return the same instance of the registry.
 	 *
-	 * @param string $type
-	 * @param null   $class
+	 * @param string|\WPOnion\Bridge $instance
+	 * @param string|bool            $id
 	 *
 	 * @return mixed
 	 */
-	function wponion_registry( $type = '', $class = null ) {
-		switch ( $type ) {
-			case 'module':
-			case 'theme':
-				$class = '\WPOnion\Registry\Modules';
-				break;
-			case 'core':
-				$class = '\WPOnion\Registry\Core';
-				break;
-			case 'field':
-			case 'settings_fields':
-				$class = '\WPOnion\Registry\Fields';
-				break;
-		}
-		return Holder::registry( $type, $class );
-	}
-}
-
-if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
-	/**
-	 * Adds An Instance To / Retrives An Instance.
-	 *
-	 * @param string $module
-	 * @param        $instance
-	 * @param string $registry_type
-	 *
-	 * @return bool
-	 */
-	function wponion_get_registry_instance( $module, &$instance, $registry_type = 'core' ) {
-		if ( $instance instanceof Bridge ) {
-			$_registry = wponion_registry( $registry_type );
-			$_registry->add( $module, $instance );
-		} elseif ( is_string( $instance ) ) {
-			if ( 'all' === $instance ) {
-				return wponion_registry( $registry_type )->get_all( $module );
-			}
-			return wponion_registry( $registry_type )->get( $module, $instance );
-		}
-		return true;
-	}
-}
-
-if ( ! function_exists( 'wponion_widget_registry' ) ) {
-	/**
-	 * Creates & Returns an static instance for widgets module.
-	 *
-	 * @param $instance
-	 *
-	 * @return bool|\WPOnion\Modules\Widgets\Dashboard
-	 */
-	function wponion_widget_registry( &$instance ) {
-		return wponion_get_registry_instance( 'widget', $instance, 'module' );
+	function wponion_registry( $instance, $id = false ) {
+		return ( is_string( $instance ) && is_string( $id ) && Storage::has( $id . '/' . $instance ) ) ? Storage::get( $id . '/' . $instance ) : Storage::add( $instance, $id );
 	}
 }
 
@@ -80,12 +29,13 @@ if ( ! function_exists( 'wponion_core_registry' ) ) {
 	/**
 	 * Creates an static instance for core classes.
 	 *
-	 * @param $instance
+	 * @param      $instance
+	 * @param null $key
 	 *
 	 * @return bool
 	 */
-	function wponion_core_registry( &$instance ) {
-		return wponion_get_registry_instance( 'core', $instance );
+	function wponion_core_registry( $instance, $key = null ) {
+		return wponion_registry( $instance, 'core/' . $key );
 	}
 }
 
@@ -97,22 +47,35 @@ if ( ! function_exists( 'wponion_theme_registry' ) ) {
 	 *
 	 * @return bool
 	 */
-	function wponion_theme_registry( &$instance ) {
-		return wponion_get_registry_instance( 'theme', $instance, 'theme' );
+	function wponion_theme_registry( $instance ) {
+		return wponion_registry( $instance, 'themes' );
 	}
 }
 
 /**
  * Modules Registry
  */
+if ( ! function_exists( 'wponion_widget_registry' ) ) {
+	/**
+	 * Creates & Returns an static instance for widgets module.
+	 *
+	 * @param $instance
+	 *
+	 * @return bool|\WPOnion\Modules\Widgets\Dashboard
+	 */
+	function wponion_widget_registry( $instance ) {
+		return wponion_registry( $instance, 'module/widget' );
+	}
+}
+
 if ( ! function_exists( 'wponion_wp_pointers_registry' ) ) {
 	/**
 	 * @param $instance
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\Pointers
 	 */
-	function wponion_wp_pointers_registry( &$instance ) {
-		return wponion_get_registry_instance( 'wp_pointers', $instance, 'module' );
+	function wponion_wp_pointers_registry( $instance ) {
+		return wponion_registry( $instance, 'module/wp_pointers' );
 	}
 }
 
@@ -124,8 +87,8 @@ if ( ! function_exists( 'wponion_wc_product_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\WooCommerce\Product
 	 */
-	function wponion_wc_product_registry( &$instance ) {
-		return wponion_get_registry_instance( 'wc_product', $instance, 'module' );
+	function wponion_wc_product_registry( $instance ) {
+		return wponion_registry( $instance, 'module/wc_product' );
 	}
 }
 
@@ -137,8 +100,8 @@ if ( ! function_exists( 'wponion_wc_settings_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\WooCommerce\Product
 	 */
-	function wponion_wc_settings_registry( &$instance ) {
-		return wponion_get_registry_instance( 'wc_settings', $instance, 'module' );
+	function wponion_wc_settings_registry( $instance ) {
+		return wponion_registry( $instance, 'module/wc_settings' );
 	}
 }
 
@@ -150,8 +113,8 @@ if ( ! function_exists( 'wponion_user_profile_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\User_Profile
 	 */
-	function wponion_user_profile_registry( &$instance ) {
-		return wponion_get_registry_instance( 'user_profile', $instance, 'module' );
+	function wponion_user_profile_registry( $instance ) {
+		return wponion_registry( $instance, 'module/user_profile' );
 	}
 }
 
@@ -163,8 +126,8 @@ if ( ! function_exists( 'wponion_taxonomy_registry' ) ) {
 	 *
 	 * @return bool
 	 */
-	function wponion_taxonomy_registry( &$instance ) {
-		return wponion_get_registry_instance( 'taxonomy', $instance, 'module' );
+	function wponion_taxonomy_registry( $instance ) {
+		return wponion_registry( $instance, 'module/taxonomy' );
 	}
 }
 
@@ -176,8 +139,8 @@ if ( ! function_exists( 'wponion_settings_registry' ) ) {
 	 *
 	 * @return bool|mixed|\WPOnion\Modules\Settings\Settings
 	 */
-	function wponion_settings_registry( &$instance ) {
-		return wponion_get_registry_instance( 'settings', $instance, 'module' );
+	function wponion_settings_registry( $instance ) {
+		return wponion_registry( $instance, 'module/settings' );
 	}
 }
 
@@ -189,8 +152,8 @@ if ( ! function_exists( 'wponion_network_settings_registry' ) ) {
 	 *
 	 * @return bool|mixed|\WPOnion\Modules\Settings\Settings
 	 */
-	function wponion_network_settings_registry( &$instance ) {
-		return wponion_get_registry_instance( 'network_settings', $instance, 'module' );
+	function wponion_network_settings_registry( $instance ) {
+		return wponion_registry( $instance, 'module/network_settings' );
 	}
 }
 
@@ -200,8 +163,8 @@ if ( ! function_exists( 'wponion_nav_menu_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\Nav_Menu
 	 */
-	function wponion_nav_menu_registry( &$instance ) {
-		return wponion_get_registry_instance( 'nav_menu', $instance, 'module' );
+	function wponion_nav_menu_registry( $instance ) {
+		return wponion_registry( $instance, 'module/nav_menu' );
 	}
 }
 
@@ -213,8 +176,8 @@ if ( ! function_exists( 'wponion_metabox_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Metabox\Metabox
 	 */
-	function wponion_metabox_registry( &$instance ) {
-		return wponion_get_registry_instance( 'metabox', $instance, 'module' );
+	function wponion_metabox_registry( $instance ) {
+		return wponion_registry( $instance, 'module/metabox' );
 	}
 }
 
@@ -226,8 +189,8 @@ if ( ! function_exists( 'wponion_media_fields_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\Media_Fields
 	 */
-	function wponion_media_fields_registry( &$instance ) {
-		return wponion_get_registry_instance( 'media_fields', $instance, 'module' );
+	function wponion_media_fields_registry( $instance ) {
+		return wponion_registry( $instance, 'module/media_fields' );
 	}
 }
 
@@ -239,8 +202,8 @@ if ( ! function_exists( 'wponion_help_tabs_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\Help_Tabs
 	 */
-	function wponion_help_tabs_registry( &$instance ) {
-		return wponion_get_registry_instance( 'help_tabs', $instance, 'module' );
+	function wponion_help_tabs_registry( $instance ) {
+		return wponion_registry( $instance, 'module/help_tabs' );
 	}
 }
 
@@ -252,8 +215,8 @@ if ( ! function_exists( 'wponion_dashboard_widgets_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Widgets\Dashboard
 	 */
-	function wponion_dashboard_widgets_registry( &$instance ) {
-		return wponion_get_registry_instance( 'dashboard_widgets', $instance, 'module' );
+	function wponion_dashboard_widgets_registry( $instance ) {
+		return wponion_registry( $instance, 'module/dashboard_widgets' );
 	}
 }
 
@@ -265,8 +228,8 @@ if ( ! function_exists( 'wponion_admin_page_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\Page
 	 */
-	function wponion_admin_page_registry( &$instance ) {
-		return wponion_get_registry_instance( 'admin_page', $instance, 'module' );
+	function wponion_admin_page_registry( $instance ) {
+		return wponion_registry( $instance, 'module/admin_page' );
 	}
 }
 
@@ -278,8 +241,8 @@ if ( ! function_exists( 'wponion_admin_columns_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\Columns
 	 */
-	function wponion_admin_columns_registry( &$instance ) {
-		return wponion_get_registry_instance( 'admin_columns', $instance, 'module' );
+	function wponion_admin_columns_registry( $instance ) {
+		return wponion_registry( $instance, 'module/admin_columns' );
 	}
 }
 
@@ -289,8 +252,8 @@ if ( ! function_exists( 'wponion_admin_notices_registry' ) ) {
 	 *
 	 * @return bool
 	 */
-	function wponion_admin_notices_registry( &$instance ) {
-		return wponion_get_registry_instance( 'admin_notices', $instance, 'module' );
+	function wponion_admin_notices_registry( $instance ) {
+		return wponion_registry( $instance, 'module/admin_notices' );
 	}
 }
 
@@ -302,8 +265,8 @@ if ( ! function_exists( 'wponion_bulk_edit_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\Edits\Bulk
 	 */
-	function wponion_bulk_edit_registry( &$instance ) {
-		return wponion_get_registry_instance( 'bulk_edit', $instance, 'module' );
+	function wponion_bulk_edit_registry( $instance ) {
+		return wponion_registry( $instance, 'module/bulk_edit' );
 	}
 }
 
@@ -315,8 +278,8 @@ if ( ! function_exists( 'wponion_quick_edit_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\Admin\Edits\Quick
 	 */
-	function wponion_quick_edit_registry( &$instance ) {
-		return wponion_get_registry_instance( 'quick_edit', $instance, 'module' );
+	function wponion_quick_edit_registry( $instance ) {
+		return wponion_registry( $instance, 'module/quick_edit' );
 	}
 }
 
@@ -328,7 +291,7 @@ if ( ! function_exists( 'wponion_customizer_registry' ) ) {
 	 *
 	 * @return bool|\WPOnion\Modules\customizer
 	 */
-	function wponion_customizer_registry( &$instance ) {
-		return wponion_get_registry_instance( 'customizer', $instance, 'module' );
+	function wponion_customizer_registry( $instance ) {
+		return wponion_registry( $instance, 'module/customizer' );
 	}
 }

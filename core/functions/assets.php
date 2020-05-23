@@ -62,7 +62,7 @@ if ( ! function_exists( 'wponion_localize' ) ) {
 	 * @return mixed|\WPOnion\Localize_API
 	 */
 	function wponion_localize() {
-		return wponion_registry( 'wponion-global-localize-api', '\WPOnion\Localize_API' );
+		return wponion_registry( '\WPOnion\Localize_API', 'wponion-global-localize-api' );
 	}
 }
 
