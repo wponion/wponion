@@ -55,7 +55,7 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Post_Type' ) ) {
 		 * Registers Post Type With WordPress.
 		 */
 		public function init() {
-			$args           = $this->option( true );
+			$args           = $this->option();
 			$args['labels'] = $this->labels->option();
 			register_post_type( $this->unique(), $args );
 		}

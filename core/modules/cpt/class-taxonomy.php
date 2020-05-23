@@ -69,7 +69,7 @@ if ( ! class_exists( '\WPOnion\Modules\CPT\Taxonomy' ) ) {
 		 * Init
 		 */
 		public function init() {
-			$args           = $this->option( true );
+			$args           = $this->option();
 			$args['labels'] = $this->labels->option();
 			register_taxonomy( $this->unique(), $this->object_type, $args );
 		}
