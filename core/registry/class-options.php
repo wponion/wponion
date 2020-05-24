@@ -1,16 +1,17 @@
 <?php
 
-namespace WPOnion\DB;
+namespace WPOnion\Registry;
 
+use WPOnion\DB\Option;
 use WPOnion\Exception\Cache_Not_Found;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
+if ( ! class_exists( '\WPOnion\Registry\Options' ) ) {
 	/**
 	 * Class Options
 	 *
-	 * @package WPOnion\DB
+	 * @package WPOnion\Registry
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
 	class Options {

@@ -1,6 +1,6 @@
 <?php
 
-use WPOnion\DB\Options;
+use WPOnion\Registry\Options;
 use WPOnion\DB\Query;
 use WPOnion\DB\WP_DB;
 
