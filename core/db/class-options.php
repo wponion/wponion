@@ -2,6 +2,8 @@
 
 namespace WPOnion\DB;
 
+use WPOnion\Exception\Cache_Not_Found;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
@@ -13,58 +15,25 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 	 */
 	class Options {
 		/**
-		 * Stores All Network Options.
-		 *
-		 * @var array
-		 * @static
-		 */
-		protected static $network_options = array();
-
-		/**
-		 * Stores All Options
-		 *
-		 * @var array
-		 * @static
-		 */
-		protected static $settings = array();
-
-		/**
-		 * Stores All Post Meta
-		 *
-		 * @var array
-		 * @static
-		 */
-		protected static $post = array();
-
-		/**
-		 * Stores All Taxonomy Meta.
-		 *
-		 * @var array
-		 * @static
-		 */
-		protected static $term = array();
-
-		/**
-		 * Stores All User Meta.
-		 *
-		 * @var array
-		 * @static
-		 */
-		protected static $user_meta = array();
-
-		/**
-		 * @param        $option
-		 * @param string $key
-		 * @param bool   $default
+		 * @param      $module
+		 * @param      $db_key
+		 * @param bool $wp_id
+		 * @param bool $option_key
+		 * @param bool $option_default
 		 *
 		 * @static
 		 * @return bool|\WPOnion\DB\Option|array
+		 * @since {NEWVERSION}
 		 */
-		protected static function get( $option, $key = '', $default = false ) {
-			if ( $option instanceof Option && ! empty( $key ) ) {
-				return $option->get( $key, $default );
+		protected static function get_db_instance( $module, $db_key, $wp_id = false, $option_key = false, $option_default = false ) {
+			try {
+				$key    = ( false === $wp_id ) ? "db_values/${module}/${db_key}" : "db_values/${module}/${db_key}/${wp_id}";
+				$option = wponion_get_cache( $key );
+			} catch ( Cache_Not_Found $exception ) {
+				$option = $exception->set( new Option( $module, $db_key, $wp_id ) );
 			}
-			return $option;
+
+			return ( wpo_is_option( $option ) && ! empty( $option_key ) ) ? $option->get( $option_key, $option_default ) : $option;
 		}
 
 		/**
@@ -76,10 +45,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * @return bool|\WPOnion\DB\Option|array
 		 */
 		public static function settings( $db_key, $option_key = '', $default = false ) {
-			if ( ! isset( self::$settings[ $db_key ] ) ) {
-				self::$settings[ $db_key ] = new Option( 'settings', $db_key );
-			}
-			return self::get( self::$settings[ $db_key ], $option_key, $default );
+			return self::get_db_instance( 'settings', $db_key, false, $option_key, $default );
 		}
 
 		/**
@@ -91,10 +57,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * @return bool|\WPOnion\DB\Option|array
 		 */
 		public static function network_settings( $db_key, $option_key = '', $default = false ) {
-			if ( ! isset( self::$network_options[ $db_key ] ) ) {
-				self::$network_options[ $db_key ] = new Option( 'network_settings', $db_key );
-			}
-			return self::get( self::$network_options[ $db_key ], $option_key, $default );
+			return self::get_db_instance( 'network_settings', $db_key, false, $option_key, $default );
 		}
 
 		/**
@@ -108,16 +71,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 */
 		public static function post_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {
 			$id = ( empty( $id ) ) ? get_the_ID() : $id;
-
-			if ( ! isset( self::$post[ $id ] ) ) {
-				self::$post[ $id ] = array();
-			}
-
-			if ( ! isset( self::$post[ $id ][ $db_key ] ) ) {
-				self::$post[ $id ][ $db_key ] = new Option( 'post_meta', $db_key, $id );
-			}
-
-			return self::get( self::$post[ $id ][ $db_key ], $option_key, $default );
+			return self::get_db_instance( 'post_meta', $db_key, $id, $option_key, $default );
 		}
 
 		/**
@@ -130,15 +84,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 * @return array|bool|\WPOnion\DB\Option
 		 */
 		public static function term_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {
-			if ( ! isset( self::$term[ $id ] ) ) {
-				self::$term[ $id ] = array();
-			}
-
-			if ( ! isset( self::$term[ $id ][ $db_key ] ) ) {
-				self::$term[ $id ][ $db_key ] = new Option( 'taxonomy', $db_key, $id );
-			}
-
-			return self::get( self::$term[ $id ][ $db_key ], $option_key, $default );
+			return self::get_db_instance( 'taxonomy', $db_key, $id, $option_key, $default );
 		}
 
 		/**
@@ -152,14 +98,7 @@ if ( ! class_exists( '\WPOnion\DB\Options' ) ) {
 		 */
 		public static function user_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {
 			$id = ( empty( $id ) ) ? get_current_user_id() : $id;
-			if ( ! isset( self::$user_meta[ $id ] ) ) {
-				self::$user_meta[ $id ] = array();
-			}
-
-			if ( ! isset( self::$user_meta[ $id ][ $db_key ] ) || empty( self::$user_meta[ $id ][ $db_key ] ) ) {
-				self::$user_meta[ $id ][ $db_key ] = new Option( 'user_profile', $db_key, $id );
-			}
-			return self::get( self::$user_meta[ $id ][ $db_key ], $option_key, $default );
+			return self::get_db_instance( 'user_profile', $db_key, $id, $option_key, $default );
 		}
 	}
 }
