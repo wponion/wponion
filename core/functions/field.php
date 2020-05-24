@@ -161,11 +161,10 @@ if ( ! function_exists( 'wponion_field' ) ) {
 				$uid = $field['id'] . '_' . $field['type'] . '_' . $unique . '_' . $hash;
 			}
 
-			$registry_key = implode( '_', array_filter( array( $module, $unique ) ) );
-			$registry     = wponion_registry( '\WPOnion\Registry\Fields', $registry_key );
+			$registry_key = "fields/${module}/${unique}/${uid}";
 
-			if ( false !== $registry->get( $uid ) ) {
-				return $registry->get( $uid );
+			if ( ! empty( wponion_registry( $registry_key ) ) ) {
+				return wponion_registry( $registry_key );
 			}
 
 			if ( ! isset( $field['builder_path'] ) ) {
@@ -173,11 +172,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 			}
 
 			$instance = new $class( $field, $value, $base_unique );
-
-			if ( method_exists( $registry, 'add' ) ) {
-				$registry->add( $uid, $instance );
-			}
-
+			wponion_registry( $instance, $registry_key );
 			return $instance;
 		}
 		return false;
