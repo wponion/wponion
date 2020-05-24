@@ -61,3 +61,32 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 		wponion_doing_it_wrong( __FUNCTION__, __( 'This function has been disabled' ), '1.4.7' );
 	}
 }
+
+if ( ! function_exists( 'wponion_is' ) ) {
+	/**
+	 * Checks if given builder is a instance of any in below
+	 *
+	 * @param mixed  $builder
+	 * @param string $type
+	 *
+	 * @return bool
+	 * @deprecated Please use wponion_is_instance
+	 */
+	function wponion_is( $builder, $type = 'builder' ) {
+		wponion_deprecated_function( __FUNCTION__, '1.4.7', 'wponion_is_instance' );
+		return wponion_is_instance( $builder, $type );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_debug' ) ) {
+	/**
+	 * Checks if field debug is enabled.
+	 *
+	 * @return bool
+	 * @deprecated Please use wponion_is_field_debug
+	 */
+	function wponion_field_debug() {
+		wponion_deprecated_function( __FUNCTION__, '1.4.7', 'wponion_is_field_debug' );
+		return wponion_is_field_debug();
+	}
+}
