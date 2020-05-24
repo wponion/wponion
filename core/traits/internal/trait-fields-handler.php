@@ -69,7 +69,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Fields_Handler' ) ) {
 		 * @param $errors
 		 */
 		protected function init_error_registry( $errors ) {
-			$instance = wponion_registry( '\WPOnion\Registry\Field_Error', sanitize_title( $this->module() . '_' . $this->unique() . '_errors' ) );
+			$instance = wponion_field_error_registry( sanitize_title( $this->module() . '_' . $this->unique() . '_errors' ) );
 			$instance->set( $errors );
 		}
 	}
