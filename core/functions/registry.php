@@ -1,5 +1,6 @@
 <?php
 
+use WPOnion\Registry\Field_Error;
 use WPOnion\Registry\Storage;
 
 defined( 'ABSPATH' ) || exit;
@@ -18,7 +19,14 @@ if ( ! function_exists( 'wponion_registry' ) ) {
 	 * @return mixed
 	 */
 	function wponion_registry( $instance, $id = false ) {
-		return ( is_string( $instance ) && is_string( $id ) && Storage::has( $id . '/' . $instance ) ) ? Storage::get( $id . '/' . $instance ) : Storage::add( $instance, $id );
+		if ( is_string( $instance ) && empty( $id ) ) {
+			return Storage::get( $instance );
+		}
+
+		if ( is_string( $instance ) && is_string( $id ) && Storage::has( trim( $id, '/' ) . '/' . $instance ) ) {
+			return Storage::get( trim( $id, '/' ) . '/' . $instance );
+		}
+		return Storage::add( $instance, $id );
 	}
 }
 
@@ -32,7 +40,7 @@ if ( ! function_exists( 'wponion_core_registry' ) ) {
 	 * @param      $instance
 	 * @param null $key
 	 *
-	 * @return bool
+	 * @return mixed
 	 */
 	function wponion_core_registry( $instance, $key = null ) {
 		return wponion_registry( $instance, 'core/' . $key );
@@ -49,6 +57,20 @@ if ( ! function_exists( 'wponion_theme_registry' ) ) {
 	 */
 	function wponion_theme_registry( $instance ) {
 		return wponion_registry( $instance, 'themes' );
+	}
+}
+
+if ( ! function_exists( 'wponion_field_error_registry' ) ) {
+	/**
+	 * Returns an active instance of WPOnion_Localize_API.
+	 *
+	 * @param string $instance_id
+	 *
+	 * @return \WPOnion\Registry\Field_Error
+	 */
+	function wponion_field_error_registry( $instance_id ) {
+		$instance = wponion_core_registry( $instance_id );
+		return ( ! wponion_is_instance( $instance, $instance_id ) ) ? wponion_core_registry( new Field_Error(), $instance_id ) : $instance;
 	}
 }
 
