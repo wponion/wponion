@@ -16,6 +16,9 @@ require wponion()->path( 'core/functions/assets.php' );
 /* Builder Related Functions */
 require wponion()->path( 'core/functions/builder.php' );
 
+/* Cache Related Functions */
+require wponion()->path( 'core/functions/cache.php' );
+
 /* Conditional Checks Related Functions */
 require wponion()->path( 'core/functions/conditional-checks.php' );
 
