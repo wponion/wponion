@@ -322,6 +322,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Module_DB' ) ) {
 		public function reload_values() {
 			if ( wpo_is_option( $this->db_values ) ) {
 				$this->db_values->reload();
+			} else {
+				$this->db_values = array();
+				$this->get_db_values();
 			}
 			return $this;
 		}

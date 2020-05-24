@@ -26,6 +26,7 @@ if ( ! function_exists( 'wponion_module_db_type' ) ) {
 				$return = 'options';
 				break;
 			case 'network_settings':
+			case 'network_dashboard_widgets':
 				$return = 'network_options';
 				break;
 			case 'post_meta':

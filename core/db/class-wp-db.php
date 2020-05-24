@@ -1,6 +1,13 @@
 <?php
 
 namespace WPOnion\DB;
+
+use WPOnion\DB\Storage\Network_Options;
+use WPOnion\DB\Storage\Options;
+use WPOnion\DB\Storage\Post;
+use WPOnion\DB\Storage\Term;
+use WPOnion\DB\Storage\User;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
@@ -18,18 +25,6 @@ if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 		 */
 		protected function is_get( $return ) {
 			return ( 'get' === $return );
-		}
-
-		/**
-		 * @param mixed $values
-		 *
-		 * @return mixed
-		 */
-		protected function handle_values( $values ) {
-			if ( wpo_is_option( $values ) ) {
-				return $values->get();
-			}
-			return $values;
 		}
 
 		/**
@@ -65,35 +60,36 @@ if ( ! class_exists( '\WPOnion\DB\WP_DB' ) ) {
 		 * @return array|bool|int|mixed|\WP_Error|\WPOnion\DB\Option
 		 */
 		public function get_set( $module_db, $unique, $id = false, $values = false, $mode = 'get' ) {
-			$return = false;
-			switch ( $module_db ) {
-				case 'dashboard_widgets':
-					if ( $this->is_get( $mode ) ) {
-						return wponion_get_option( $unique );
+			$return  = false;
+			$db_type = wponion_module_db_type( $module_db );
+			$is_get  = $this->is_get( $mode );
+
+			if ( $is_get ) {
+				$values = ( wpo_is_option( $values ) ) ? $values->get() : $values;
+			}
+
+			switch ( $db_type ) {
+				case 'options':
+				case 'network_options':
+					$db     = ( 'options' === $db_type ) ? new Options() : new Network_Options();
+					$return = ( $is_get ) ? $db->get( $unique, false ) : $db->update( $unique, $values, false );
+					break;
+				case 'post':
+				case 'term':
+				case 'user':
+					if ( 'post' === $db_type ) {
+						$db = new Post();
+					} elseif ( 'term' === $db_type ) {
+						$db = new Term();
+					} elseif ( 'user' === $db_type ) {
+						$db = new User();
 					}
 
-					return wponion_update_option( $unique, $this->handle_values( $values ) );
+					$return = ( $is_get ) ? $db->get( $id, $unique, true ) : $db->update( $id, $unique, $values );
 					break;
-				case 'settings':
-				case 'wc_settings':
-					$return = ( 'get' === $mode ) ? wpo_settings( $unique ) : update_option( $unique, $this->handle_values( $values ), false );
-					break;
-				case 'network_settings':
-					$return = ( 'get' === $mode ) ? wpo_network_settings( $unique ) : update_site_option( $unique, $this->handle_values( $values ) );
-					break;
-				case 'post_meta':
-				case 'wc_product':
-				case 'metabox':
-				case 'nav_menu':
-				case 'media_fields':
-					$return = ( 'get' === $mode ) ? wpo_post_meta( $unique, $id ) : update_post_meta( $id, $unique, $this->handle_values( $values ) );
-					break;
-				case 'taxonomy':
-				case 'term':
-					$return = ( 'get' === $mode ) ? wpo_term_meta( $unique, $id ) : wponion_update_term_meta( $id, $unique, $this->handle_values( $values ) );
-					break;
-				case 'user_profile':
-					$return = ( 'get' === $mode ) ? wpo_user_meta( $unique, $id ) : update_user_meta( $id, $unique, $this->handle_values( $values ) );
+				default:
+					$hook   = ( $is_get ) ? "wponion/${module_db}/db/get" : "wponion/${module_db}/db/update";
+					$return = apply_filters( $hook, false, $unique, $id, $values, $db_type );
 					break;
 			}
 			return $return;

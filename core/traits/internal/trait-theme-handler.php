@@ -92,8 +92,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 						if ( false !== $menu ) {
 							$_name                       = $menu['name'];
 							$return[ $_name ]            = $menu;
-							$first_container_name        = $field->first_container()
-								->name();
+							$first_container_name        = $field->first_container()->name();
 							$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->containers(), true, $_name, $first_container_name );
 						}
 					} elseif ( ( $field->has_fields() && ! empty( $field->fields() ) ) || $field->has_callback() || $field->has_href() ) {
@@ -294,7 +293,7 @@ if ( ! trait_exists( '\WPOnion\Traits\Internal\Theme_Handler' ) ) {
 		 *
 		 * @return bool
 		 */
-		protected function valid_container( $option = array() ) {
+		public function valid_container( $option = array() ) {
 			return ( false === $option->is_disabled() && ( $option->has_callback() || $option->has_fields() || $option->has_containers() ) );
 		}
 

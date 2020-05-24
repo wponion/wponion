@@ -1,7 +1,7 @@
 <?php
 /**
- * Last Updated: Sat 23-May-2020 / 09:00:17:pm
- * Total Class:  282
+ * Last Updated: Sun 24-May-2020 / 01:42:17:pm
+ * Total Class:  285
  * Namespace: 
  */
 
@@ -46,15 +46,9 @@ return array (
   'WPOnion\\Themes' => 'class-themes.php',
   'WPOnion\\Util' => 'class-util.php',
   'WPOnion\\DB\\Cache' => 'db/class-cache.php',
-  'WPOnion\\DB\\Data_Validator_Sanitizer' => 'db/class-data-validator-sanitizer.php',
   'WPOnion\\DB\\Option' => 'db/class-option.php',
-  'WPOnion\\DB\\Options' => 'db/class-options.php',
   'WPOnion\\DB\\Query' => 'db/class-query.php',
-  'WPOnion\\DB\\Settings_Save_Handler' => 'db/class-settings-save-handler.php',
-  'WPOnion\\DB\\WC_Product_Metabox_Save_Handler' => 'db/class-wc-product-metabox-save-handler.php',
-  'WPOnion\\DB\\WC_Settings_Save_Handler' => 'db/class-wc-settings-save-handler.php',
   'WPOnion\\DB\\WP_DB' => 'db/class-wp-db.php',
-  'WPOnion\\DB\\Fields\\Modal' => 'db/fields/trait-modal.php',
   'WPOnion\\DB\\Multi_Save\\Base' => 'db/multi-save/class-base.php',
   'WPOnion\\DB\\Multi_Save\\Get' => 'db/multi-save/get.php',
   'WPOnion\\DB\\Multi_Save\\Save' => 'db/multi-save/save.php',
@@ -74,6 +68,19 @@ return array (
   'WPOnion\\DB\\Query_Types\\WC_Customers' => 'db/query-types/class-wc-customers.php',
   'WPOnion\\DB\\Query_Types\\WC_Products' => 'db/query-types/class-wc-products.php',
   'WPOnion\\DB\\Query_Types\\WP_Query_Base' => 'db/query-types/class-wp-query-base.php',
+  'WPOnion\\DB\\Save_Handler\\Base' => 'db/save-handler/class-data-validator-sanitizer.php',
+  'WPOnion\\DB\\Save_Handler\\Settings' => 'db/save-handler/class-settings-save-handler.php',
+  'WPOnion\\DB\\Save_Handler\\WC_Product_Metabox' => 'db/save-handler/class-wc-product-metabox-save-handler.php',
+  'WPOnion\\DB\\Save_Handler\\WC_Settings' => 'db/save-handler/class-wc-settings-save-handler.php',
+  'WPOnion\\DB\\Save_Handler\\Fields\\Modal' => 'db/save-handler/fields/trait-modal.php',
+  'WPOnion\\DB\\Storage\\Base' => 'db/storage/class-base.php',
+  'WPOnion\\DB\\Storage\\Comment' => 'db/storage/class-comment.php',
+  'WPOnion\\DB\\Storage\\Network_Options' => 'db/storage/class-network-options.php',
+  'WPOnion\\DB\\Storage\\Options' => 'db/storage/class-options.php',
+  'WPOnion\\DB\\Storage\\Post' => 'db/storage/class-post.php',
+  'WPOnion\\DB\\Storage\\Sites' => 'db/storage/class-sites.php',
+  'WPOnion\\DB\\Storage\\Term' => 'db/storage/class-term.php',
+  'WPOnion\\DB\\Storage\\User' => 'db/storage/class-user.php',
   'WPOnion\\Deprecation\\Actions' => 'deprecation/class-actions.php',
   'WPOnion\\Deprecation\\Filters' => 'deprecation/class-filters.php',
   'WPOnion\\Exception\\Cache_Not_Found' => 'exception/class-cache-not-found.php',
@@ -115,13 +122,9 @@ return array (
   'WPOnion\\Modules\\WooCommerce\\Settings' => 'modules/woocommerce/class-settings.php',
   'WPOnion\\Modules\\WooCommerce\\WC_Settings' => 'modules/woocommerce/class-wc-settings.php',
   'WPOnion\\Modules\\WP\\Importer' => 'modules/wp/class-importer.php',
-  'WPOnion\\Registry\\Common' => 'registry/class-common.php',
-  'WPOnion\\Registry\\Core' => 'registry/class-core.php',
   'WPOnion\\Registry\\Field_Error' => 'registry/class-field-error.php',
   'WPOnion\\Registry\\Field_Types' => 'registry/class-field-types.php',
-  'WPOnion\\Registry\\Fields' => 'registry/class-fields.php',
-  'WPOnion\\Registry\\Holder' => 'registry/class-holder.php',
-  'WPOnion\\Registry\\Modules' => 'registry/class-modules.php',
+  'WPOnion\\Registry\\Options' => 'registry/class-options.php',
   'WPOnion\\Registry\\Storage' => 'registry/class-storage.php',
   'WPOnion\\Traits\\Internal\\Fields_Handler' => 'traits/internal/trait-fields-handler.php',
   'WPOnion\\Traits\\Internal\\Module' => 'traits/internal/trait-module.php',
