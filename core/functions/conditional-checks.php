@@ -176,6 +176,20 @@ if ( ! function_exists( 'wponion_is_cloneable' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_is_network' ) ) {
+	/**
+	 * Checks if current request is network admin. / network
+	 *
+	 * @param bool $is_admin
+	 *
+	 * @return bool
+	 * @since {NEWVERSION}
+	 */
+	function wponion_is_network( $is_admin = false ) {
+		return ( $is_admin ) ? ( is_network_admin() && is_multisite() ) : is_multisite();
+	}
+}
+
 /**
  * Field Validators
  */
