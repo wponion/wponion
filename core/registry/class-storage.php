@@ -27,13 +27,18 @@ if ( ! class_exists( '\WPOnion\Registry\Storage' ) ) {
 		 * @param bool|string     $instance_id
 		 *
 		 * @static
-		 * @return bool
+		 * @return mixed
 		 */
 		public static function add( $instance, $instance_id = false ) {
-			$instance      = ( is_string( $instance ) && class_exists( $instance ) ) ? new $instance() : $instance;
 			$instance_slug = ( method_exists( $instance, 'uid' ) ) ? $instance->uid() : '';
 			$instance_slug = ( empty( $instance_slug ) && method_exists( $instance, 'unique' ) ) ? $instance->unique() : $instance_slug;
-			$instance_id   = ( empty( $instance_id ) ) ? $instance_slug : trim( $instance_id, '/' ) . '/' . $instance_slug;
+
+			if ( empty( $instance_id ) && ! empty( $instance_slug ) ) {
+				$instance_id = $instance_slug;
+			} else {
+				$instance_id = ( ! empty( $instance_id ) && empty( $instance_slug ) ) ? $instance_id : trim( $instance_id, '/' ) . '/' . $instance_slug;
+			}
+
 			if ( ! self::has( $instance_id ) ) {
 				Helper::array_key_set( $instance_id, $instance, self::$storage );
 				return $instance;
@@ -48,7 +53,7 @@ if ( ! class_exists( '\WPOnion\Registry\Storage' ) ) {
 		 * @return bool
 		 */
 		public static function has( $key ) {
-			return Helper::array_key_isset( $key, self::$storage );
+			return ( ! empty( self::$storage ) || ! empty( $key ) ) ? Helper::array_key_isset( $key, self::$storage ) : false;
 		}
 
 		/**
