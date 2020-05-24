@@ -3,7 +3,7 @@
 namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Data_Validator_Sanitizer;
+use WPOnion\DB\Save_Handler\Base as Save_Handler;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -42,7 +42,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Media_Fields' ) ) {
 		public function save_data( $post ) {
 			if ( isset( $_POST[ $this->unique() ] ) ) {
 				$this->set_id( $post['ID'] );
-				$instance = new Data_Validator_Sanitizer( array(
+				$instance = new Save_Handler( array(
 					'module'    => &$this,
 					'unique'    => $this->unique(),
 					'fields'    => $this->fields(),

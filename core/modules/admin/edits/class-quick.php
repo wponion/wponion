@@ -3,7 +3,7 @@
 namespace WPOnion\Modules\Admin\Edits;
 
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Data_Validator_Sanitizer;
+use WPOnion\DB\Save_Handler\Base as Save_Handler;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -76,7 +76,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Edits\Quick' ) ) {
 			if ( ( isset( $_POST['action'] ) && 'inline-save' === $_POST['action'] ) || 'bulk_edit' === $this->module() ) {
 				if ( isset( $_POST[ $this->unique ] ) ) {
 					$this->db_values = $this->get_values( $post_id );
-					$instance        = new Data_Validator_Sanitizer( array(
+					$instance        = new Save_Handler( array(
 						'module'       => &$this,
 						'unique'       => $this->unique(),
 						'fields'       => $this->fields(),

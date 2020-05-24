@@ -4,7 +4,7 @@ namespace WPOnion\Modules\Widgets;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Data_Validator_Sanitizer;
+use WPOnion\DB\Save_Handler\Base as Save_Handler;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -89,7 +89,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Dashboard' ) ) {
 			if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST[ $this->unique() ] ) ) {
 				$this->get_db_values();
 				$this->get_cache();
-				$instance = new Data_Validator_Sanitizer( array(
+				$instance = new Save_Handler( array(
 					'module'    => &$this,
 					'unique'    => $this->unique(),
 					'fields'    => $this->fields(),

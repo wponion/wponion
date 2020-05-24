@@ -4,7 +4,7 @@ namespace WPOnion\Modules\Widgets;
 
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Data_Validator_Sanitizer;
+use WPOnion\DB\Save_Handler\Base as Save_Handler;
 use WPonion\Helper;
 
 defined( 'ABSPATH' ) || exit;
@@ -70,7 +70,7 @@ if ( ! class_exists( '\WPOnion\Modules\Widgets\Widget' ) ) {
 		 * @return array
 		 */
 		public function save( $old_values, $new_values, $unique ) {
-			$instance = new Data_Validator_Sanitizer( array(
+			$instance = new Save_Handler( array(
 				'module'        => &$this,
 				'posted_values' => $new_values,
 				'unique'        => $unique,

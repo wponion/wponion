@@ -1,22 +1,22 @@
 <?php
 
-namespace WPOnion\DB;
+namespace WPOnion\DB\Save_Handler;
 
 use WPOnion\Bridge;
-use WPOnion\DB\Fields\Modal;
+use WPOnion\DB\Save_Handler\Fields\Modal;
 use WPOnion\Helper;
 use WPOnion\Traits\Internal\Module;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\DB\Data_Validator_Sanitizer' ) ) {
+if ( ! class_exists( '\WPOnion\DB\Save_Handler\Base' ) ) {
 	/**
-	 * Class Data_Validator_Sanitizer
+	 * Class Base
 	 *
-	 * @package WPOnion\DB
+	 * @package WPOnion\DB\Save_Handler
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	class Data_Validator_Sanitizer extends Bridge {
+	class Base extends Bridge {
 		/**
 		 * Modal Field Handler.
 		 */

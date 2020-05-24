@@ -1,9 +1,10 @@
 <?php
 
-namespace WPOnion\DB\Fields;
+namespace WPOnion\DB\Save_Handler\Fields;
 
 defined( 'ABSPATH' ) || exit;
-if ( ! trait_exists( '\WPOnion\DB\Fields\Modal' ) ) {
+
+if ( ! trait_exists( '\WPOnion\DB\Save_Handler\Fields\Modal' ) ) {
 	/**
 	 * Trait Modal
 	 *

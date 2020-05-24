@@ -2,8 +2,6 @@
 
 namespace WPOnion\DB\Save_Handler;
 
-use WPOnion\DB\Data_Validator_Sanitizer;
-
 defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( '\WPOnion\DB\Save_Handler\WC_Settings' ) ) {
@@ -13,7 +11,7 @@ if ( ! class_exists( '\WPOnion\DB\Save_Handler\WC_Settings' ) ) {
 	 * @package WPOnion\DB\Save_Handler
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	class WC_Settings extends Data_Validator_Sanitizer {
+	class WC_Settings extends Base {
 		/**
 		 * Runs custom loop to work with Settings fields array.
 		 */

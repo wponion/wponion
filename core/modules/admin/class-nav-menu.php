@@ -3,7 +3,8 @@
 namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Data_Validator_Sanitizer;
+use WPOnion\DB\Multi_Save\Save;
+use WPOnion\DB\Save_Handler\Base as Save_Handler;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -74,7 +75,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Nav_Menu' ) ) {
 
 			if ( isset( $_POST[ $this->unique ][ $menu_item_db_id ] ) ) {
 				$this->set_id( $menu_item_db_id );
-				$instance = new Data_Validator_Sanitizer( array(
+				$instance = new Save_Handler( array(
 					'module'        => &$this,
 					'unique'        => $this->unique(),
 					'fields'        => $this->fields(),

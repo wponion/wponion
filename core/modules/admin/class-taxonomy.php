@@ -3,7 +3,7 @@
 namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Data_Validator_Sanitizer;
+use WPOnion\DB\Save_Handler\Base as Save_Handler;
 use WPOnion\Modules\Metabox\Core;
 
 defined( 'ABSPATH' ) || exit;
@@ -191,7 +191,7 @@ if ( ! class_exists( '\WPOnion\Modules\Admin\Taxonomy' ) ) {
 		public function save_taxonomy( $term_id ) {
 			$this->set_id( $term_id );
 			if ( isset( $_POST[ $this->unique ] ) ) {
-				$instance = new Data_Validator_Sanitizer( array(
+				$instance = new Save_Handler( array(
 					'module'    => &$this,
 					'unique'    => $this->unique,
 					'fields'    => $this->fields(),
