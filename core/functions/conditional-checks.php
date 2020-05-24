@@ -4,24 +4,11 @@ defined( 'ABSPATH' ) || exit;
 use WPO\Builder;
 use WPO\Container;
 use WPO\Field;
+use WPO\Helper\Dependency\Builder as Dependency_Builder;
 use WPOnion\DB\Option;
-use \WPO\Helper\Dependency\Builder as Dependency_Builder;
+use WPOnion\DB\WP_DB;
+use WPOnion\Localize_API;
 use WPOnion\Theme_API;
-
-if ( ! function_exists( 'wponion_is' ) ) {
-	/**
-	 * Checks if given builder is a instance of any in below
-	 *
-	 * @param mixed  $builder
-	 * @param string $type
-	 *
-	 * @return bool
-	 * @deprecated Please use wponion_is_instance
-	 */
-	function wponion_is( $builder, $type = 'builder' ) {
-		return wponion_is_instance( $builder, $type );
-	}
-}
 
 if ( ! function_exists( 'wponion_is_instance' ) ) {
 	/**
@@ -52,6 +39,12 @@ if ( ! function_exists( 'wponion_is_instance' ) ) {
 				break;
 			case 'theme':
 				return ( $builder instanceof Theme_API );
+				break;
+			case 'localizer':
+				return ( $builder instanceof Localize_API );
+				break;
+			case 'wpdb':
+				return ( $builder instanceof WP_DB );
 				break;
 		}
 		return false;
@@ -105,18 +98,6 @@ if ( ! function_exists( 'wponion_is_debug' ) ) {
 			return false;
 		}
 		return ( defined( 'WPONION_DEV_MODE' ) && true === WPONION_DEV_MODE || defined( 'WP_DEBUG' ) && true === WP_DEBUG );
-	}
-}
-
-if ( ! function_exists( 'wponion_field_debug' ) ) {
-	/**
-	 * Checks if field debug is enabled.
-	 *
-	 * @return bool
-	 * @deprecated Please use wponion_is_field_debug
-	 */
-	function wponion_field_debug() {
-		return wponion_is_field_debug();
 	}
 }
 
