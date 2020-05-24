@@ -1,17 +1,19 @@
 <?php
 
-namespace WPOnion\DB;
+namespace WPOnion\DB\Save_Handler;
+
+use WPOnion\DB\Data_Validator_Sanitizer;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\DB\WC_Product_Metabox_Save_Handler' ) ) {
+if ( ! class_exists( '\WPOnion\DB\Save_Handler\WC_Product_Metabox' ) ) {
 	/**
-	 * Class Save_Handler
+	 * Class WC_Product_Metabox
 	 *
-	 * @package WPOnion\DB\Settings
+	 * @package WPOnion\DB\Save_Handler
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	class WC_Product_Metabox_Save_Handler extends Data_Validator_Sanitizer {
+	class WC_Product_Metabox extends Data_Validator_Sanitizer {
 		/**
 		 * is_variation
 		 *

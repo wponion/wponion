@@ -7,7 +7,7 @@ use WC_Product_Variation;
 use WP_Post;
 use WPO\Builder;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\WC_Product_Metabox_Save_Handler;
+use WPOnion\DB\Save_Handler\WC_Product_Metabox as Save_Handler;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -490,7 +490,7 @@ if ( ! class_exists( 'WPOnion\Modules\WooCommerce\Product' ) ) {
 				$pid = ( $product instanceof WC_Product && method_exists( $product, 'get_id' ) ) ? $product->get_id() : $product;
 				$this->set_id( $pid );
 			}
-			$instance = new WC_Product_Metabox_Save_Handler( array(
+			$instance = new Save_Handler( array(
 				'module'        => &$this,
 				'unique'        => $this->base_unique(),
 				'fields'        => $fields,

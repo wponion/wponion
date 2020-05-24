@@ -4,7 +4,7 @@ namespace WPOnion\Modules\Settings;
 
 use WPO\Container;
 use WPOnion\Bridge\Module;
-use WPOnion\DB\Settings_Save_Handler;
+use WPOnion\DB\Save_Handler\Settings as Settings_Save;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -146,7 +146,7 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		public function save_validate( $request ) {
 			$this->get_cache();
 			$this->find_active_menu();
-			$instance = new Settings_Save_Handler( array(
+			$instance = new Settings_Save( array(
 				'module'        => &$this,
 				'unique'        => $this->unique(),
 				'fields'        => $this->fields(),
