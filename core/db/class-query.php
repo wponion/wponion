@@ -3,6 +3,8 @@
 namespace WPOnion\DB;
 
 use WPOnion\Bridge;
+use WPOnion\Traits\Internal\Module;
+use WPOnion\Traits\Internal\Unique;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -14,6 +16,9 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
 	class Query extends Bridge {
+		use Unique;
+		use Module;
+
 		/**
 		 * Stors Handler Instance.
 		 *
@@ -21,13 +26,6 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 		 * @since 1.4.6
 		 */
 		protected $handler = false;
-
-		/**
-		 * Stores Unique Key
-		 *
-		 * @var null
-		 */
-		protected $unique = null;
 
 		/**
 		 * query_arg
@@ -123,10 +121,10 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			 *
 			 * @var {$this->args} Contains All Query Args as an array
 			 * @var string $type Type of query.
-			 * @var string {$this->unique} Module's Unique Key.
-			 * @var string {$this->module} Module's Slug.
+			 * @var string {$this->unique()} Module's Unique Key.
+			 * @var string {$this->module()} Module's Slug.
 			 */
-			$this->args = apply_filters( 'wponion/query/args', $this->args, $type, $this->unique, $this->module );
+			$this->args = apply_filters( 'wponion/query/args', $this->args, $type, $this->unique(), $this->module() );
 		}
 
 		/**
@@ -143,15 +141,15 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 				 *
 				 * @var array  {$this->args} Contains All Query Args as an array
 				 * @var string $type Type of query.
-				 * @var string {$this->unique} Module's Unique Key.
-				 * @var string {$this->module} Module's Slug.
+				 * @var string {$this->unique()} Module's Unique Key.
+				 * @var string {$this->module()} Module's Slug.
 				 */
 				do_action_ref_array( 'wponion_query_database', array(
 					&$this->results,
 					$this->args,
 					$this->type,
-					$this->unique,
-					$this->module,
+					$this->unique(),
+					$this->module(),
 				) );
 			}
 		}
@@ -196,10 +194,10 @@ if ( ! class_exists( '\WPOnion\DB\Query' ) ) {
 			 * @var string $search User Search Query
 			 * @var string $type Search Type.
 			 * @var array  $args Query Args.
-			 * @var string {$this->unique} Module's Unique Key.
-			 * @var string {$this->module} Module's Slug.
+			 * @var string {$this->unique()} Module's Unique Key.
+			 * @var string {$this->module()} Module's Slug.
 			 */
-			$this->results = apply_filters( 'wponion/query/results', $this->results, $search, $type, $args, $this->unique, $this->module );
+			$this->results = apply_filters( 'wponion/query/results', $this->results, $search, $type, $args, $this->unique(), $this->module() );
 
 			if ( $this->handler->is_customizable() ) {
 				$this->results = $this->format_output_data();
