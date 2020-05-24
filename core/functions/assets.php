@@ -1,4 +1,7 @@
 <?php
+
+use WPOnion\Localize_API;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'wponion_load_core_assets' ) ) {
@@ -59,10 +62,11 @@ if ( ! function_exists( 'wponion_localize' ) ) {
 	/**
 	 * Returns an active instance of WPOnion_Localize_API.
 	 *
-	 * @return mixed|\WPOnion\Localize_API
+	 * @return \WPOnion\Localize_API
 	 */
 	function wponion_localize() {
-		return wponion_registry( '\WPOnion\Localize_API', 'wponion-global-localize-api' );
+		$instance = wponion_core_registry( 'localizer-api' );
+		return ( ! wponion_is_instance( $instance, 'localizer' ) ) ? wponion_core_registry( new Localize_API(), 'localizer-api' ) : $instance;
 	}
 }
 

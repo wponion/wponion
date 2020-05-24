@@ -2,6 +2,7 @@
 
 use WPOnion\DB\Options;
 use WPOnion\DB\Query;
+use WPOnion\DB\WP_DB;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -88,7 +89,8 @@ if ( ! function_exists( 'wponion_wp_db' ) ) {
 	 * @return bool|\WPOnion\DB\WP_DB
 	 */
 	function wponion_wp_db() {
-		return wponion_registry( '\WPOnion\DB\WP_DB', 'wponion-global-wp-db-api' );
+		$instance = wponion_core_registry( 'wponion-global-wp-db-api' );
+		return ( ! wponion_is_instance( $instance, 'localizer' ) ) ? wponion_core_registry( new WP_DB(), 'wpdb-api' ) : $instance;
 	}
 }
 
