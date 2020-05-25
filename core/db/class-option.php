@@ -82,31 +82,7 @@ if ( ! class_exists( '\WPOnion\DB\Option' ) ) {
 		 * Loads Values From Database.
 		 */
 		protected function load() {
-			$return = false;
-			switch ( $this->module ) {
-				case 'settings':
-				case 'wc_settings':
-					$return = get_option( $this->unique, true );
-					break;
-				case 'network_settings':
-					$return = get_site_option( $this->unique );
-					break;
-				case 'post_meta':
-				case 'wc_product':
-				case 'metabox':
-				case 'nav_menu':
-				case 'media_fields':
-					$return = get_post_meta( $this->extra, $this->unique, true );
-					break;
-				case 'taxonomy':
-				case 'term':
-					$return = wponion_get_term_meta( $this->extra, $this->unique );
-					break;
-				case 'user_profile':
-					$return = get_user_meta( $this->extra, $this->unique, true );
-					break;
-			}
-			$this->options = $return;
+			$this->options = wponion_wp_db()->get( $this->module, $this->unique, $this->extra );
 		}
 
 		/**
