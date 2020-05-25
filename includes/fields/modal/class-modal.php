@@ -163,7 +163,7 @@ if ( ! class_exists( '\WPOnion\Field\Modal' ) ) {
 		protected function wp_render_fields( $fields ) {
 			$final_output = '';
 			foreach ( $fields as $field ) {
-				if ( ! wponion_is_ajax() && wponion_ajax_action( 'modal-fields' ) ) {
+				if ( ! wponion_is_ajax() && ! wponion_ajax_action( 'modal-fields' ) ) {
 					$field['__no_instance'] = true;
 					$this->sub_field( $field, null, $this->name(), true );
 				} else {
