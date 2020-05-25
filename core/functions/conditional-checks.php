@@ -51,6 +51,25 @@ if ( ! function_exists( 'wponion_is_instance' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_is_set' ) ) {
+	/**
+	 * Checks if a given key isset and if force check.
+	 *
+	 * @param string       $key
+	 * @param array|object $array_or_object
+	 * @param bool         $is_strict
+	 *
+	 * @return bool
+	 * @since {NEWVERSION}
+	 */
+	function wponion_is_set( $key, $array_or_object, $is_strict = false ) {
+		if ( wponion_is_array( $array_or_object ) ) {
+			return ( $is_strict ) ? ( isset( $array_or_object[ $key ] ) && true === $array_or_object[ $key ] ) : isset( $array_or_object[ $key ] );
+		}
+		return ( $is_strict ) ? ( isset( $array_or_object->{$key} ) && true === $array_or_object->{$key} ) : isset( $array_or_object->{$key} );
+	}
+}
+
 if ( ! function_exists( 'wponion_is_defined' ) ) {
 	/**
 	 * Validates if a constant if defined ?
