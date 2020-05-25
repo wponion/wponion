@@ -4,6 +4,7 @@ namespace WPOnion\Ajax;
 
 use WPOnion\Bridge\Ajax;
 use WPOnion\Field\Modal;
+use WPOnion\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -52,14 +53,14 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 				array_shift( $field_id );
 				$field['id'] = end( $field_id );
 			}
+
 			$module->set_db_cache( array(
 				'container_id'     => $this->builder_path( 'container_id' ),
 				'sub_container_id' => $this->builder_path( 'sub_container_id' ),
 			) );
 
 			if ( wpo_is_option( $db_values ) ) {
-				$db_values->set( $field_key, $values );
-				$db_values->save();
+				$db_values->set( $field_key, $values )->save();
 				$this->json_success();
 			}
 			$this->json_error();
@@ -73,19 +74,19 @@ if ( ! class_exists( '\WPOnion\Ajax\Modal_Fields' ) ) {
 			$field     = $this->get_field();
 			$module    = $this->get_module();
 			$field_key = ( wponion_is_unarrayed( $field ) ) ? $unique : $unique . '/' . $field['id'];
-			$values    = $module->get_db_values()
-				->get( $field_key );
+			$values    = $module->get_db_values()->get( $field_key );
 			$field->only_field( true );
-
+			console( $values );
 			$data = $field->init_field( $values, array(
 				'unique' => $unique,
 				'module' => $this->post( 'module' ),
 				'hash'   => implode( '/', $this->builder_path() ),
 			) );
 			if ( $data instanceof Modal ) {
-				$this->json_success( array(
+				$data = array(
 					'html' => ( isset( $field['modal_type'] ) && 'wp' === $field['modal_type'] ) ? $data->wp() : $data->swal(),
-				) );
+				);
+				$this->json_success( $data );
 			} else {
 				$this->json_error( __( 'Modal Field Not Found', 'wponion' ) );
 			}

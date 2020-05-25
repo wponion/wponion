@@ -165,7 +165,7 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 			$this->unique = null;
 
 			if ( ! isset( $this['id'] ) || isset( $this['id'] ) && empty( $this['id'] ) ) {
-				$this->unique = wponion_hash_string( $this->unique . wponion_hash_array( $args ) . microtime( true ) );
+				$this->unique = wponion_hash_string( wponion_hash_array( $args ) . uniqid( 'wponion_' ) );
 				$this['id']   = $this->unique;
 			} elseif ( isset( $this['id'] ) ) {
 				$this->unique = $this['id'];
