@@ -22,14 +22,20 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		protected function _input_attributes() {
 			$field_class = 'wponion-form-control';
 			$field_class = ( $this->has_errors() ) ? $field_class . ' is-invalid ' : $field_class;
-			return $this->attributes( array(
-				'type'              => $this->element_type(),
+			$attr        = array(
+
 				'class'             => $this->element_class( $field_class ),
-				'value'             => $this->value(),
 				'name'              => $this->name(),
 				'data-wponion-jsid' => $this->js_field_id(),
-				'list'              => ( ! empty( $this->option( 'datalist/html' ) ) ) ? $this->js_field_id() . '_inputlists' : '',
-			) );
+			);
+
+			if ( 'textarea' !== $this->element_type() ) {
+				$attr['value'] = $this->value();
+				$attr['type']  = $this->element_type();
+				$attr['list']  = ( ! empty( $this->option( 'datalist/html' ) ) ) ? $this->js_field_id() . '_inputlists' : '';
+
+			}
+			return $this->attributes( $attr );
 		}
 
 		/**

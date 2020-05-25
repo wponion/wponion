@@ -74,11 +74,11 @@ if ( ! class_exists( '\WPOnion\Field\Icon_Picker' ) ) {
 				->label( __( 'Add Icon', 'wponion' ) );
 			$add_btn    = clone $arg;
 			$remove_btn = clone $arg;
-			$add_btn->attribute( 'data-wponion-iconpicker-add', 'yes' );
-			$remove_btn->label( __( 'Remove Icon', 'wponion' ) );
-			$remove_btn->field_class( array( 'button', 'button-secondary' ) );
-			$remove_btn->attribute( 'data-wponion-iconpicker-remove', 'yes' );
-
+			$add_btn->id( 'btnadd' )->attribute( 'data-wponion-iconpicker-add', 'yes' );
+			$remove_btn->id( 'btnremove' )->label( __( 'Remove Icon', 'wponion' ) )->field_class( array(
+				'button',
+				'button-secondary',
+			) )->attribute( 'data-wponion-iconpicker-remove', 'yes' );
 			$return = $this->sub_field( $this->handle_args( 'label', $this->option( 'add_button' ), $add_btn ), false, $this->unique() );
 			$return .= $this->sub_field( $this->handle_args( 'label', $this->option( 'remove_button' ), $remove_btn ), false, $this->unique() );
 			return $return;
