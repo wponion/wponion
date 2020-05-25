@@ -99,21 +99,22 @@ export default class extends WPOnion_Field {
 	 * Handles SweatAlert
 	 */
 	init_sweatalert() {
-		this.fetch_fields( ( res ) => {
-			let $args          = this.option( 'modal_config' );
-			let $validation    = false;
-			$args.preConfirm   = () => {
-				return new Promise( ( resolve, reject ) => {
-					if( $validation.form.valid() ) {
-						this.convert_form_fields( this.element.find( '#swal2-content' ) );
-						resolve();
-					}
-					return reject();
-				} ).catch( () => {
-					return false;
-				} );
-			};
-			$args.onBeforeOpen = () => {
+		let $args          = this.option( 'modal_config' );
+		let $validation    = false;
+		$args.preConfirm   = () => {
+			return new Promise( ( resolve, reject ) => {
+				if( $validation.form.valid() ) {
+					this.convert_form_fields( this.element.find( '#swal2-content' ) );
+					resolve();
+				}
+				return reject();
+			} ).catch( () => {
+				return false;
+			} );
+		};
+		$args.onBeforeOpen = () => {
+			window.swal.showLoading();
+			this.fetch_fields( ( res ) => {
 				let $mainelem = this.element.find( '#swal2-content' );
 				let $html     = '<form method="post">' + res.html + '</form>';
 				$mainelem.html( jQuery( $html ) );
@@ -121,10 +122,11 @@ export default class extends WPOnion_Field {
 				$mainelem.show();
 				window.wponion_field_reload_all( $mainelem );
 				window.wponion_dependency( $mainelem );
-			};
-			$args              = this.handle_args( $args, 'SweatAlert Modal' );
-			$args.target       = this.element[ 0 ];
-			window.swal.fire( $args );
-		} );
+				window.swal.hideLoading();
+			} );
+		};
+		$args              = this.handle_args( $args, 'SweatAlert Modal' );
+		$args.target       = this.element[ 0 ];
+		window.swal.fire( $args );
 	}
 }
