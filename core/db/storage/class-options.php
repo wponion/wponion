@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\DB\Storage\Options' ) ) {
 		 * @return int|bool
 		 */
 		public function update( $meta_key, $meta_value, $autoload = false ) {
-			return ( $this->is_network ) ? update_site_option( $meta_key, $meta_value ) : update_option( $meta_value, $meta_value, $autoload );
+			return ( $this->is_network ) ? update_site_option( $meta_key, $meta_value ) : update_option( $meta_key, $meta_value, $autoload );
 		}
 
 		/**
