@@ -2,6 +2,8 @@
 
 namespace WPOnion\DB\Multi_Save;
 
+use WPOnion\DB\Option;
+
 defined( 'ABSPATH' ) || exit;
 
 
@@ -29,7 +31,7 @@ if ( ! class_exists( '\WPOnion\DB\Multi_Save\Get' ) ) {
 		public function run() {
 			$db_vals = array();
 			if ( $this->is_save_single() ) {
-				$db_vals = wponion_wp_db()->get( $this->instance->module_db(), $this->instance->unique(), $this->instance->get_id() );
+				$db_vals = new Option( $this->instance->module_db(), $this->instance->unique(), $this->instance->get_id() );
 			} else {
 				$instance = $this->instance;
 				$fileds   = $instance->fields();
@@ -45,7 +47,7 @@ if ( ! class_exists( '\WPOnion\DB\Multi_Save\Get' ) ) {
 					foreach ( $fileds->containers() as $container ) {
 						if ( $container->has_fields() ) {
 							if ( in_array( $this->type, array( 'container', 'subcontainer' ), true ) ) {
-								$values  = wponion_wp_db()->get( $instance->module_db(), $unique . '_' . $container->name(), $instance->get_id() );
+								$values  = new Option( $instance->module_db(), $unique . '_' . $container->name(), $instance->get_id() );
 								$values  = $this->sanitize_value( $values );
 								$db_vals = wponion_parse_args( $values, $db_vals );
 							} elseif ( 'field' === $this->type ) {
@@ -56,11 +58,11 @@ if ( ! class_exists( '\WPOnion\DB\Multi_Save\Get' ) ) {
 						if ( $container->has_containers() ) {
 							foreach ( $container->containers() as $sub_container ) {
 								if ( 'container' === $this->type && $sub_container->has_fields() ) {
-									$values  = wponion_wp_db()->get( $instance->module_db(), $unique . '_' . $container->name(), $instance->get_id() );
+									$values  = new Option( $instance->module_db(), $unique . '_' . $container->name(), $instance->get_id() );
 									$values  = $this->sanitize_value( $values );
 									$db_vals = wponion_parse_args( $values, $db_vals );
 								} elseif ( 'subcontainer' === $this->type && $sub_container->has_fields() ) {
-									$values  = wponion_wp_db()->get( $instance->module_db(), $unique . '_' . $sub_container->name(), $instance->get_id() );
+									$values  = new Option( $instance->module_db(), $unique . '_' . $sub_container->name(), $instance->get_id() );
 									$values  = $this->sanitize_value( $values );
 									$db_vals = wponion_parse_args( $values, $db_vals );
 								} elseif ( 'field' === $this->type && $sub_container->has_fields() ) {
@@ -87,7 +89,7 @@ if ( ! class_exists( '\WPOnion\DB\Multi_Save\Get' ) ) {
 			foreach ( $fields as $field ) {
 				if ( ! empty( wponion_field_id( $field ) ) ) {
 					$field_id            = wponion_field_id( $field );
-					$value               = wponion_wp_db()->get( $this->instance->module_db(), $this->instance->unique() . '_' . $field_id, $this->instance->get_id() );
+					$value               = new Option( $this->instance->module_db(), $this->instance->unique() . '_' . $field_id, $this->instance->get_id() );
 					$return[ $field_id ] = $this->sanitize_value( $value );
 				}
 			}
