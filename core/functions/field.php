@@ -140,14 +140,15 @@ if ( ! function_exists( 'wponion_field' ) ) {
 		$class       = wponion_get_field_class( $field );
 		$base_unique = $unique;
 		$field       = ( wpo_is_field( $field ) ) ? clone $field : $field;
+		$module      = 'user_fields';
+		$hash        = null;
+		$uid         = wponion_field_id( $field );
 
 		if ( false !== $class ) {
-			if ( isset( $field['__no_instance'] ) && true === $field['__no_instance'] ) {
+
+			if ( wponion_is_set( '__no_instance', $field, true ) ) {
 				return new $class( $field, $value, $base_unique );
 			}
-
-			$module = 'user_fields';
-			$hash   = null;
 
 			if ( wponion_is_array( $unique ) ) {
 				$module = isset( $unique['module'] ) ? $unique['module'] : '';
@@ -155,25 +156,26 @@ if ( ! function_exists( 'wponion_field' ) ) {
 				$unique = isset( $unique['unique'] ) ? $unique['unique'] : '';
 			}
 
-			if ( is_string( $base_unique ) || ! isset( $field['id'] ) || isset( $field['id'] ) && empty( $field['id'] ) ) {
+			if ( empty( $uid ) ) {
 				$uid = wponion_hash_array( $field );
-			} else {
-				$uid = $field['id'] . '_' . $field['type'] . '_' . $unique . '_' . $hash;
+				$uid = wponion_hash_string( $uid . uniqid( 'wponion_', true ) );
 			}
 
-			$registry_key = "fields/${module}/${unique}/${uid}";
+			$uid          = implode( '/', array_filter( array( $field['type'], $uid, $hash ) ) );
+			$registry_key = "fields/${module}/${unique}/${uid}/";
+			$instance     = wponion_registry( $registry_key );
 
-			if ( ! empty( wponion_registry( $registry_key ) ) ) {
+			if ( ! empty( $instance ) && $instance instanceof $class ) {
 				return wponion_registry( $registry_key );
 			}
 
-			if ( ! isset( $field['builder_path'] ) ) {
+			if ( ! wponion_is_set( 'builder_path', $field ) ) {
 				$field['builder_path'] = ( ! empty( $hash ) ) ? $hash : '';
 			}
 
 			$instance = new $class( $field, $value, $base_unique );
 			wponion_registry( $instance, $registry_key );
-			return $instance;
+			return ( $instance instanceof $class ) ? $instance : false;
 		}
 		return false;
 	}
@@ -200,7 +202,6 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 		}
 
 		$class = ( isset( $field['__instance'] ) ) ? $field['__instance'] : false;
-
 		if ( false === $class ) {
 			$class = wponion_field( $field, $value, $unique );
 			if ( false === $class ) {
@@ -276,7 +277,7 @@ if ( ! function_exists( 'wponion_field_id' ) ) {
 	/**
 	 * Checks And Returns Field ID.
 	 *
-	 * @param $field
+	 * @param array|\WPO\Field $field
 	 *
 	 * @return bool
 	 */
