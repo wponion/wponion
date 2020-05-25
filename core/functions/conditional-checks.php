@@ -10,6 +10,21 @@ use WPOnion\DB\WP_DB;
 use WPOnion\Localize_API;
 use WPOnion\Theme_API;
 
+if ( ! function_exists( 'wponion_is_version' ) ) {
+	/**
+	 * Adds Option to compare WPOnion Version.
+	 *
+	 * @param bool   $version_to_check
+	 * @param string $compare
+	 *
+	 * @return bool|int|string
+	 * @since {NEWVERSION}
+	 */
+	function wponion_is_version( $version_to_check = false, $compare = '>=' ) {
+		return version_compare( wponion()->version(), $version_to_check, $compare );
+	}
+}
+
 if ( ! function_exists( 'wponion_is_instance' ) ) {
 	/**
 	 * Checks if given builder is a instance of any in below
@@ -55,18 +70,18 @@ if ( ! function_exists( 'wponion_is_set' ) ) {
 	/**
 	 * Checks if a given key isset and if force check.
 	 *
-	 * @param string       $key
 	 * @param array|object $array_or_object
-	 * @param bool         $is_strict
+	 * @param string       $key
+	 * @param mixed        $is_strict
 	 *
 	 * @return bool
 	 * @since {NEWVERSION}
 	 */
-	function wponion_is_set( $key, $array_or_object, $is_strict = false ) {
+	function wponion_is_set( $array_or_object, $key, $is_strict = null ) {
 		if ( wponion_is_array( $array_or_object ) ) {
-			return ( $is_strict ) ? ( isset( $array_or_object[ $key ] ) && true === $array_or_object[ $key ] ) : isset( $array_or_object[ $key ] );
+			return ( ! is_null( $is_strict ) ) ? ( isset( $array_or_object[ $key ] ) && $is_strict === $array_or_object[ $key ] ) : isset( $array_or_object[ $key ] );
 		}
-		return ( $is_strict ) ? ( isset( $array_or_object->{$key} ) && true === $array_or_object->{$key} ) : isset( $array_or_object->{$key} );
+		return ( ! is_null( $is_strict ) ) ? ( isset( $array_or_object->{$key} ) && $is_strict === $array_or_object->{$key} ) : isset( $array_or_object->{$key} );
 	}
 }
 

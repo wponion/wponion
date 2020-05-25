@@ -146,7 +146,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 
 		if ( false !== $class ) {
 
-			if ( wponion_is_set( '__no_instance', $field, true ) ) {
+			if ( wponion_is_set( $field, '__no_instance', true ) ) {
 				return new $class( $field, $value, $base_unique );
 			}
 
@@ -169,7 +169,7 @@ if ( ! function_exists( 'wponion_field' ) ) {
 				return wponion_registry( $registry_key );
 			}
 
-			if ( ! wponion_is_set( 'builder_path', $field ) ) {
+			if ( ! wponion_is_set( $field, 'builder_path' ) ) {
 				$field['builder_path'] = ( ! empty( $hash ) ) ? $hash : '';
 			}
 

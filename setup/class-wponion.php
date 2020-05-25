@@ -76,5 +76,15 @@ if ( ! class_exists( 'WPOnion' ) ) {
 		public function data( $extra = '', $is_url = false ) {
 			return $this->url_path( 'data/' . $extra, $is_url );
 		}
+
+		/**
+		 * Returns WPOnion Version.
+		 *
+		 * @return bool|string
+		 * @since {NEWVERSION}
+		 */
+		public function version() {
+			return ( wponion_is_defined( 'WPONION_VERSION' ) ) ? WPONION_VERSION : false;
+		}
 	}
 }
