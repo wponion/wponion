@@ -14,4 +14,15 @@ export default function() {
 		downloadAnchorNode.click();
 		downloadAnchorNode.remove();
 	};
+
+	/**
+	 * Changes Current Tab Page Url Without Reload.
+	 * @param page
+	 * @param url
+	 */
+	window.wponion_change_url_no_reload = ( page, url ) => {
+		if( typeof ( history.pushState ) !== 'undefined' ) {
+			history.pushState( { Page: page, Url: url }, page, url );
+		}
+	};
 }

@@ -109,6 +109,7 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 							$elem.addClass( 'active' );
 							$elem.parent().parent().parent().find( '> a' ).addClass( 'active' );
 							this.hide_element_non_ui( $lookup );
+							window.wponion_change_url_no_reload( $elem.text(), $elem.attr( 'href' ) );
 						} else if( false === $elem.hasClass( 'disabled' ) ) {
 						}
 					} else if( false === $elem.hasClass( 'disabled' ) ) {
