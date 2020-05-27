@@ -54,9 +54,20 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 
 	/**
 	 * @param $container
+	 * @return {boolean}
+	 */
+	has_only_uifields( $container ) {
+		let $element    = $container.find( '.wponion-element' ).length;
+		let $ui_element = $container.find( '.wponion-ui-field' ).length;
+		console.log( $container, $element, $ui_element );
+		return ( $element === $ui_element || $element === 0 && $ui_element > 0 );
+	}
+
+	/**
+	 * @param $container
 	 */
 	hide_element_non_ui( $container ) {
-		if( WPOnion_Theme_Base.has_only_uifields( $container ) ) {
+		if( this.has_only_uifields( $container ) ) {
 			this.element.find( 'button.wponion-save' ).hide();
 		} else {
 			this.element.find( 'button.wponion-save' ).show();
@@ -71,7 +82,7 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 		if( $main.hasClass( 'wponion-has-containers' ) ) {
 			this.hide_element_non_ui( $main.find( '.wponion-sub-container-wraps:not(.hidden)' ) );
 		} else {
-			this.hide_element_non_ui( $main );
+			this.hide_element_non_ui( this.element );
 		}
 
 		this.element.find( '.wponion-menu > ul a' ).on( 'click', ( e ) => {
