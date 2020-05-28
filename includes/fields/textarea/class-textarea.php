@@ -24,14 +24,8 @@ if ( ! class_exists( '\WPOnion\Field\Textarea' ) ) {
 		 */
 		protected function handle_arguments() {
 			parent::handle_arguments();
-
-			if ( $this->has( 'rows' ) ) {
-				$this->set_option( 'attributes/row', $this->option( 'rows' ) );
-			}
-
-			if ( $this->has( 'cols' ) ) {
-				$this->set_option( 'attributes/cols', $this->option( 'cols' ) );
-			}
+			$this->set_option( 'attributes/row', $this->option( 'rows', '' ) );
+			$this->set_option( 'attributes/cols', $this->option( 'cols', '' ) );
 		}
 
 		/**

@@ -23,7 +23,6 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 			$field_class = 'wponion-form-control';
 			$field_class = ( $this->has_errors() ) ? $field_class . ' is-invalid ' : $field_class;
 			$attr        = array(
-
 				'class'             => $this->element_class( $field_class ),
 				'name'              => $this->name(),
 				'data-wponion-jsid' => $this->js_field_id(),
@@ -61,8 +60,8 @@ if ( ! class_exists( '\WPOnion\Field\Text' ) ) {
 		 * Renders Textfield Data List.
 		 */
 		protected function datalist() {
-			if ( $this->has( 'options' ) ) {
-				$options      = $this->option( 'options' );
+			$options = $this->option( 'options' );
+			if ( ! empty( $options ) ) {
 				$options      = ( ! wponion_is_array( $options ) ) ? $this->element_data( $options ) : $options;
 				$options_html = array();
 				foreach ( $options as $key => $option ) {
