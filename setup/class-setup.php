@@ -153,27 +153,27 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				}
 			}
 
-			new Autoloader( 'WPOnion\Theme\\', wponion()->path( 'includes/templates/' ), array(
+			new Autoloader( 'WPOnion\Theme\\', wponion()->path( 'includes/' ), array(
 				'classmap' => $classmap,
 				'prepend'  => true,
 			) );
 
-			new Autoloader( 'WPOnion\Field\\', wponion()->path( 'includes/fields/' ), array(
+			new Autoloader( 'WPOnion\Field\\', wponion()->path( 'includes/' ), array(
 				'classmap' => $classmap,
 				'prepend'  => true,
 			) );
 
-			new Autoloader( 'WPOnion\Module_Fields\\', wponion()->path( 'includes/module-fields/' ), array(
+			new Autoloader( 'WPOnion\Module_Fields\\', wponion()->path( 'includes/' ), array(
 				'classmap' => $classmap,
 				'prepend'  => true,
 			) );
 
 			new Autoloader( 'WPOnion\\', wponion()->path( 'core/' ), array(
 				'classmap' => $classmap,
-				'exclude'  => array( 'WPOnion\Field\\', 'WPOnion\Module_Fields\\' ),
+				'exclude'  => array( 'WPOnion\Field\\', 'WPOnion\Module_Fields\\', 'WPO\\' ),
 			) );
 
-			new Autoloader( 'WPO\\', wponion()->path( 'includes/builder/' ), array(
+			new Autoloader( 'WPO\\', wponion()->path( 'includes/' ), array(
 				'classmap' => $classmap,
 				'exclude'  => array( 'WPOnion\\' ),
 				'prepend'  => true,
