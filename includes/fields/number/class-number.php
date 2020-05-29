@@ -4,34 +4,32 @@ namespace WPOnion\Field;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Field\Number' ) ) {
+/**
+ * Class Number
+ *
+ * @package WPOnion\Field
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Number extends Text {
 	/**
-	 * Class Number
-	 *
-	 * @package WPOnion\Field
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * Checks & Updat fields args based on field config.
 	 */
-	class Number extends Text {
-		/**
-		 * Checks & Updat fields args based on field config.
-		 */
-		protected function handle_arguments() {
-			$this->set_option( 'text_type', 'number' );
-			$this->set_option( 'type', 'text' );
-			parent::handle_arguments();
-		}
+	protected function handle_arguments() {
+		$this->set_option( 'text_type', 'number' );
+		$this->set_option( 'type', 'text' );
+		parent::handle_arguments();
+	}
 
-		/**
-		 * Returns Field's Default Value.
-		 *
-		 * @return array|mixed
-		 */
-		protected function defaults() {
-			return $this->parse_args( array(
-				'min'  => null,
-				'max'  => null,
-				'step' => null,
-			), parent::defaults() );
-		}
+	/**
+	 * Returns Field's Default Value.
+	 *
+	 * @return array|mixed
+	 */
+	protected function defaults() {
+		return $this->parse_args( array(
+			'min'  => null,
+			'max'  => null,
+			'step' => null,
+		), parent::defaults() );
 	}
 }

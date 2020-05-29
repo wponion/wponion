@@ -54,7 +54,6 @@ class Container extends Helper {
 	 * @param bool $title
 	 * @param bool $icon
 	 *
-	 * @static
 	 * @return \WPO\Container
 	 */
 	public static function create( $slug = false, $title = false, $icon = false ) {
@@ -205,7 +204,6 @@ class Container extends Helper {
 	 *
 	 * @param $args
 	 *
-	 * @static
 	 * @return bool
 	 */
 	public static function is_valid( $args ) {

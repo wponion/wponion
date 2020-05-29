@@ -6,28 +6,24 @@ defined( 'ABSPATH' ) || exit;
 
 use WPOnion\Modules\Customizer\Control as Control;
 
-if ( ! class_exists( '\WPOnion\Module_Fields\Customizer\Cloner' ) ) {
+/**
+ * Class Cloner
+ *
+ * @package WPOnion\Module_Fields\Customizer
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Cloner extends Control {
 	/**
-	 * Class Cloner
-	 *
-	 * @package WPOnion\Module_Fields\Customizer
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
+	 * @var bool
 	 */
-	class Cloner extends Control {
-		/**
-		 * @var bool
-		 * @access
-		 */
-		protected $link_attr = false;
+	protected $link_attr = false;
 
-		/**
-		 * Returns Element Value.
-		 *
-		 * @return mixed
-		 */
-		protected function el_value() {
-			return array_filter( $this->value() );
-		}
+	/**
+	 * Returns Element Value.
+	 *
+	 * @return mixed
+	 */
+	protected function el_value() {
+		return array_filter( $this->value() );
 	}
 }

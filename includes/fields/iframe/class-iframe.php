@@ -19,54 +19,52 @@ use WPOnion\Field;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Field\Iframe' ) ) {
+/**
+ * Class Iframe
+ *
+ * @package WPOnion\Field
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Iframe extends Field {
+
 	/**
-	 * Class Iframe
-	 *
-	 * @package WPOnion\Field
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * Generates Final HTML Output.
 	 */
-	class Iframe extends Field {
+	protected function output() {
+		echo $this->before();
 
-		/**
-		 * Generates Final HTML Output.
-		 */
-		protected function output() {
-			echo $this->before();
-
-			if ( false !== $this->option( 'heading' ) ) {
-				printf( '<h3>%s</h3>', $this->option( 'heading' ) );
-			}
-
-			if ( false !== $this->option( 'url' ) ) {
-				$attrs = $this->attributes( array(
-					'height'      => $this->option( 'height' ),
-					'width'       => $this->option( 'width' ),
-					'src'         => $this->option( 'url' ),
-					'frameborder' => '0',
-				) );
-				echo "<iframe ${attrs}></iframe>";
-			}
-
-			echo $this->after();
+		if ( false !== $this->option( 'heading' ) ) {
+			printf( '<h3>%s</h3>', $this->option( 'heading' ) );
 		}
 
-		/**
-		 * Handles Fields Assets.
-		 */
-		public function assets() {
+		if ( false !== $this->option( 'url' ) ) {
+			$attrs = $this->attributes( array(
+				'height'      => $this->option( 'height' ),
+				'width'       => $this->option( 'width' ),
+				'src'         => $this->option( 'url' ),
+				'frameborder' => '0',
+			) );
+			echo "<iframe ${attrs}></iframe>";
 		}
 
-		/**
-		 * Returns Field's Default Value.
-		 */
-		protected function defaults() {
-			return array(
-				'heading' => false,
-				'url'     => false,
-				'height'  => '100%',
-				'width'   => '100%',
-			);
-		}
+		echo $this->after();
+	}
+
+	/**
+	 * Handles Fields Assets.
+	 */
+	public function assets() {
+	}
+
+	/**
+	 * Returns Field's Default Value.
+	 */
+	protected function defaults() {
+		return array(
+			'heading' => false,
+			'url'     => false,
+			'height'  => '100%',
+			'width'   => '100%',
+		);
 	}
 }

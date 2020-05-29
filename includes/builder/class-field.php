@@ -46,7 +46,6 @@ class Field extends Common_Args {
 	 * @param array $args
 	 *
 	 * @return false|\WPO\Field
-	 * @static
 	 */
 	public static function create( $type = false, $id = false, $title = false, $args = array() ) {
 		if ( $type ) {
@@ -73,7 +72,6 @@ class Field extends Common_Args {
 	 * @param                                                   $name
 	 * @param \WPO\Field|\WPO\Fields\Notice|\WPO\Fields\Content $instance
 	 *
-	 * @static
 	 * @return mixed
 	 */
 	protected static function _field_after_create( $name, $instance ) {
@@ -175,7 +173,6 @@ class Field extends Common_Args {
 	 *
 	 * @param $data
 	 *
-	 * @static
 	 * @return bool
 	 */
 	public static function is_valid( $data ) {

@@ -6,38 +6,36 @@ use WPOnion\Field;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Field\Heading' ) ) {
+/**
+ * Class Heading
+ *
+ * @package WPOnion\Field
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Heading extends Field {
 	/**
-	 * Class Heading
+	 * Generates Final HTML Output.
 	 *
-	 * @package WPOnion\Field
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @return mixed|void
 	 */
-	class Heading extends Field {
-		/**
-		 * Generates Final HTML Output.
-		 *
-		 * @return mixed|void
-		 */
-		protected function output() {
-			echo $this->before();
-			echo $this->option( 'content' );
-			echo $this->after();
-		}
+	protected function output() {
+		echo $this->before();
+		echo $this->option( 'content' );
+		echo $this->after();
+	}
 
-		/**
-		 * Handles Fields Assets.
-		 */
-		public function assets() {
-		}
+	/**
+	 * Handles Fields Assets.
+	 */
+	public function assets() {
+	}
 
-		/**
-		 * Returns Field's Default Value.
-		 *
-		 * @return array
-		 */
-		protected function defaults() {
-			return array( 'content' => false );
-		}
+	/**
+	 * Returns Field's Default Value.
+	 *
+	 * @return array
+	 */
+	protected function defaults() {
+		return array( 'content' => false );
 	}
 }

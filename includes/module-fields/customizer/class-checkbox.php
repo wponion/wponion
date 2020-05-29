@@ -6,28 +6,24 @@ defined( 'ABSPATH' ) || exit;
 
 use WPOnion\Modules\Customizer\Control as Control;
 
-if ( ! class_exists( '\WPOnion\Module_Fields\Customizer\Checkbox' ) ) {
+/**
+ * Class Cloner
+ *
+ * @package WPOnion\Module_Fields\Customizer
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Checkbox extends Control {
 	/**
-	 * Class Cloner
-	 *
-	 * @package WPOnion\Module_Fields\Customizer
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
+	 * @var bool
 	 */
-	class Checkbox extends Control {
-		/**
-		 * @var bool
-		 * @access
-		 */
-		protected $link_attr = false;
+	protected $link_attr = false;
 
-		/**
-		 * Returns Element Value.
-		 *
-		 * @return mixed
-		 */
-		protected function el_value() {
-			return is_array( $this->value() ) ? array_filter( $this->value() ) : $this->value();
-		}
+	/**
+	 * Returns Element Value.
+	 *
+	 * @return mixed
+	 */
+	protected function el_value() {
+		return is_array( $this->value() ) ? array_filter( $this->value() ) : $this->value();
 	}
 }
