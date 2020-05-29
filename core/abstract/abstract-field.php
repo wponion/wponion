@@ -84,7 +84,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		protected function base_defaults() {
-			return wponion_field_defaults();
+			return array();//wponion_field_defaults();
 		}
 
 		/**
@@ -204,7 +204,7 @@ HTML;
 		protected function field_help() {
 			$help = $this->option( 'help' );
 			if ( $help ) {
-				$data = $this->tooltip_data( $help, array( 'icon' => 'wpoic-help' ), 'field_help' );
+				$data                              = $this->tooltip_data( $help, array( 'icon' => 'wpoic-help' ), 'field_help' );
 				$data['attr']['data-wponion-jsid'] = $this->js_field_id();
 				$span_attr                         = wponion_array_to_html_attributes( $data['attr'] );
 				$icon                              = $data['data']['icon'];
