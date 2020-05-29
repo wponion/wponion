@@ -2,7 +2,6 @@
 
 defined( 'ABSPATH' ) || exit;
 
-
 if ( ! function_exists( 'wponion_do_deprecated_action' ) ) {
 	/**
 	 * Runs a deprecated action with notice only if used.

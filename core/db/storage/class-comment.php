@@ -2,20 +2,18 @@
 
 namespace WPOnion\DB\Storage;
 
-if ( ! class_exists( '\WPOnion\DB\Storage\Comment' ) ) {
+/**
+ * Class Comment
+ *
+ * @package WPOnion\DB\Storage
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ * @since {NEWVERSION}
+ */
+class Comment extends Base {
 	/**
-	 * Class Comment
+	 * Metadata Type.
 	 *
-	 * @package WPOnion\DB\Storage
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since {NEWVERSION}
+	 * @var string
 	 */
-	class Comment extends Base {
-		/**
-		 * Metadata Type.
-		 *
-		 * @var string
-		 */
-		protected $object_type = 'comment';
-	}
+	protected $object_type = 'comment';
 }

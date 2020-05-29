@@ -4,29 +4,27 @@ namespace WPOnion\Traits\Internal;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! trait_exists( '\WPOnion\Traits\Internal\Module' ) ) {
+/**
+ * Trait Unique
+ *
+ * @package WPOnion\Traits\Internal
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ * @since {NEWVERSION}
+ */
+trait Module {
 	/**
-	 * Trait Unique
+	 * Type - Value can be anything like (settings,text_field)
 	 *
-	 * @package WPOnion\Traits\Internal
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since {NEWVERSION}
+	 * @var string
 	 */
-	trait Module {
-		/**
-		 * Type - Value can be anything like (settings,text_field)
-		 *
-		 * @var string
-		 */
-		protected $module = '';
+	protected $module = '';
 
-		/**
-		 * Returns Module Slug..
-		 *
-		 * @return string
-		 */
-		public function module() {
-			return $this->module;
-		}
+	/**
+	 * Returns Module Slug..
+	 *
+	 * @return string
+	 */
+	public function module() {
+		return $this->module;
 	}
 }
