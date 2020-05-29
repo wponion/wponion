@@ -64,11 +64,6 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Base' ) ) {
 		protected $base_unique = false;
 
 		/**
-		 * @var bool
-		 */
-		protected $array_helper = false;
-
-		/**
 		 * Returns Module name or module instance.
 		 *
 		 * @param bool $instance
