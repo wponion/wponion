@@ -175,12 +175,13 @@ if ( ! function_exists( 'wponion_is_callable' ) ) {
 
 if ( ! function_exists( 'wponion_is_array' ) ) {
 	/**
-	 * @param $data
+	 * @param      $data
+	 * @param bool $is_empty if set to true then it checks for empty and returns true / false
 	 *
 	 * @return bool
 	 */
-	function wponion_is_array( $data ) {
-		return ( wpo_is_field( $data ) || is_array( $data ) );
+	function wponion_is_array( $data, $is_empty = false ) {
+		return ( $is_empty ) ? ( wponion_is_array( $data, false ) && ! empty( $data ) ) : ( wpo_is_field( $data ) || is_array( $data ) );
 	}
 }
 
