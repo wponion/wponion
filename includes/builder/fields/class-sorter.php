@@ -12,7 +12,6 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Sorter extends Field {
 		/**

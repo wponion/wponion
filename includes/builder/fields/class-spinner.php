@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPO\Fields\Spinner' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Spinner extends Text {
 		/**

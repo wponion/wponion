@@ -12,7 +12,6 @@ if ( ! class_exists( 'WPO\Fields\Input_Group' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Input_Group extends Nested_Fields {
 		/**

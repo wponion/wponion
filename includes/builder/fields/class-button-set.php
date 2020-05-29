@@ -10,12 +10,10 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Button_Set extends Checkbox_Radio {
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $checkbox_type = 'button_set';
 

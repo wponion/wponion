@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class WP_List_Table extends Nested_Fields {
 		/**

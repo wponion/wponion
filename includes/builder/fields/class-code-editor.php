@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPO\Fields\Code_Editor' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Code_Editor extends Field {
 		/**

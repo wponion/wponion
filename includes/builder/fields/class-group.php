@@ -11,8 +11,6 @@ if ( ! class_exists( 'WPO\Fields\Group' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
-	 *
 	 */
 	class Group extends Accordion {
 		/**

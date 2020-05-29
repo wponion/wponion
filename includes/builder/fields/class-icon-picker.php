@@ -12,7 +12,6 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Icon_Picker extends Field {
 		/**

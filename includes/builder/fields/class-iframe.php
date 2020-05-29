@@ -12,7 +12,6 @@ if ( ! class_exists( 'WPO\Fields\Iframe' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Iframe extends Field {
 		/**

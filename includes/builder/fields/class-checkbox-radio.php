@@ -12,18 +12,15 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Checkbox_Radio extends Field {
 		/**
 		 * @var string
-		 * @access
 		 */
 		protected $checkbox_type = '';
 
 		/**
 		 * @var bool
-		 * @access
 		 */
 		protected $option_group = false;
 

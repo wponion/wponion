@@ -12,7 +12,6 @@ if ( ! class_exists( 'WPO\Fields\Divider' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Divider extends Field {
 		/**

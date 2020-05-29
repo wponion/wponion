@@ -10,7 +10,6 @@ if ( ! class_exists( 'WPO\Fields\Number' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Number extends Text {
 		/**

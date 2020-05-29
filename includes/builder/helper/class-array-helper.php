@@ -16,7 +16,6 @@ if ( ! class_exists( 'WPO\Helper\Array_Helper' ) ) {
 	 *
 	 * @package WPO\Helper
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	abstract class Array_Helper extends Base implements ArrayAccess, Iterator {
 		use Array_Position;

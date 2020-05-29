@@ -4,7 +4,6 @@ namespace WPO\Fields;
 
 defined( 'ABSPATH' ) || exit;
 
-use WPO\Field;
 use WPO\Helper\Field\Nested_Fields;
 
 if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
@@ -13,7 +12,6 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Modal extends Nested_Fields {
 		/**

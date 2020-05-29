@@ -12,7 +12,6 @@ if ( ! class_exists( '\WPO\Fields\Button' ) ) {
 	 *
 	 * @package WPO\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Button extends Field {
 		/**

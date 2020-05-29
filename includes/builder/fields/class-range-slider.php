@@ -10,7 +10,6 @@ if ( ! class_exists( '\WPO\Fields\Range_Slider' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Range_Slider extends Text {
 		/**

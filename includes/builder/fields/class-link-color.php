@@ -10,7 +10,6 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 	 *
 	 * @package WPO\Fields
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	class Link_Color extends Color_Group {
 		/**
