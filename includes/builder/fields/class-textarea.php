@@ -4,42 +4,40 @@ namespace WPO\Fields;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WPO\Fields\Textarea' ) ) {
+/**
+ * Class Textarea
+ *
+ * @package WPO\Fields
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Textarea extends Text {
 	/**
-	 * Class Textarea
+	 * Text constructor.
 	 *
-	 * @package WPO\Fields
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @param bool  $id
+	 * @param bool  $title
+	 * @param array $args
 	 */
-	class Textarea extends Text {
-		/**
-		 * Text constructor.
-		 *
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 */
-		public function __construct( $id = false, $title = false, $args = array() ) {
-			parent::__construct( $id, $title, $args );
-			$this->__set( 'type', 'textarea' );
-		}
+	public function __construct( $id = false, $title = false, $args = array() ) {
+		parent::__construct( $id, $title, $args );
+		$this->__set( 'type', 'textarea' );
+	}
 
-		/**
-		 * @param int $rows
-		 *
-		 * @return \WPO\Fields\Textarea
-		 */
-		public function rows( $rows = 5 ) {
-			return $this->__set( 'rows', $rows );
-		}
+	/**
+	 * @param int $rows
+	 *
+	 * @return \WPO\Fields\Textarea
+	 */
+	public function rows( $rows = 5 ) {
+		return $this->__set( 'rows', $rows );
+	}
 
-		/**
-		 * @param int $cols
-		 *
-		 * @return \WPO\Fields\Textarea
-		 */
-		public function cols( $cols = 5 ) {
-			return $this->__set( 'cols', $cols );
-		}
+	/**
+	 * @param int $cols
+	 *
+	 * @return \WPO\Fields\Textarea
+	 */
+	public function cols( $cols = 5 ) {
+		return $this->__set( 'cols', $cols );
 	}
 }

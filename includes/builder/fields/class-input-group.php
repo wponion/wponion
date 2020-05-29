@@ -6,23 +6,21 @@ use WPO\Helper\Field\Nested_Fields;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WPO\Fields\Input_Group' ) ) {
+/**
+ * Class Input_Group
+ *
+ * @package WPO\Fields
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Input_Group extends Nested_Fields {
 	/**
-	 * Class Input_Group
+	 * Input_Group constructor.
 	 *
-	 * @package WPO\Fields
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @param bool  $id
+	 * @param bool  $title
+	 * @param array $args
 	 */
-	class Input_Group extends Nested_Fields {
-		/**
-		 * Input_Group constructor.
-		 *
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 */
-		public function __construct( $id = false, $title = false, $args = array() ) {
-			parent::__construct( 'input_group', $id, $title, $args );
-		}
+	public function __construct( $id = false, $title = false, $args = array() ) {
+		parent::__construct( 'input_group', $id, $title, $args );
 	}
 }

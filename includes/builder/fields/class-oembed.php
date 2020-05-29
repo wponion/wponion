@@ -4,24 +4,22 @@ namespace WPO\Fields;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WPO\Fields\OEmbed' ) ) {
+/**
+ * Class OEmbed
+ *
+ * @package WPO\Fields
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class OEmbed extends Text {
 	/**
-	 * Class OEmbed
+	 * OEmbed constructor.
 	 *
-	 * @package WPO\Fields
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @param bool  $id
+	 * @param bool  $title
+	 * @param array $args
 	 */
-	class OEmbed extends Text {
-		/**
-		 * OEmbed constructor.
-		 *
-		 * @param bool  $id
-		 * @param bool  $title
-		 * @param array $args
-		 */
-		public function __construct( $id = false, $title = false, $args = array() ) {
-			parent::__construct( $id, $title, $args );
-			$this->__set( 'type', 'oembed' );
-		}
+	public function __construct( $id = false, $title = false, $args = array() ) {
+		parent::__construct( $id, $title, $args );
+		$this->__set( 'type', 'oembed' );
 	}
 }

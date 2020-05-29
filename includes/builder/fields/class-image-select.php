@@ -4,17 +4,15 @@ namespace WPO\Fields;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WPO\Fields\Image_Select' ) ) {
+/**
+ * Class Image_Select
+ *
+ * @package WPO\Fields
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Image_Select extends Checkbox_Radio {
 	/**
-	 * Class Image_Select
-	 *
-	 * @package WPO\Fields
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @var string
 	 */
-	class Image_Select extends Checkbox_Radio {
-		/**
-		 * @var string
-		 */
-		protected $checkbox_type = 'image_select';
-	}
+	protected $checkbox_type = 'image_select';
 }

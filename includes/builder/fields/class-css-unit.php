@@ -6,40 +6,38 @@ use WPO\Field;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'WPO\Fields\CSS_Unit' ) ) {
+/**
+ * Class CSS_Unit
+ *
+ * @package WPO\Fields
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class CSS_Unit extends Field {
 	/**
-	 * Class CSS_Unit
+	 * Faq constructor.
 	 *
-	 * @package WPO\Fields
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @param bool  $title
+	 * @param array $args
 	 */
-	class CSS_Unit extends Field {
-		/**
-		 * Faq constructor.
-		 *
-		 * @param bool  $title
-		 * @param array $args
-		 */
-		public function __construct( $title = false, $args = array() ) {
-			parent::__construct( 'css_unit', false, $title, $args );
-		}
+	public function __construct( $title = false, $args = array() ) {
+		parent::__construct( 'css_unit', false, $title, $args );
+	}
 
-		/**
-		 * @param $css_value
-		 *
-		 * @return $this
-		 */
-		public function css_value( $css_value ) {
-			return $this->__set( 'css_value', $css_value );
-		}
+	/**
+	 * @param $css_value
+	 *
+	 * @return $this
+	 */
+	public function css_value( $css_value ) {
+		return $this->__set( 'css_value', $css_value );
+	}
 
-		/**
-		 * @param $unit
-		 *
-		 * @return $this
-		 */
-		public function unit( $unit ) {
-			return $this->__set( 'unit', $unit );
-		}
+	/**
+	 * @param $unit
+	 *
+	 * @return $this
+	 */
+	public function unit( $unit ) {
+		return $this->__set( 'unit', $unit );
 	}
 }
