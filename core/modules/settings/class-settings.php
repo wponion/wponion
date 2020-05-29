@@ -5,6 +5,7 @@ namespace WPOnion\Modules\Settings;
 use WPO\Container;
 use WPOnion\Bridge\Module;
 use WPOnion\DB\Save_Handler\Settings as Settings_Save;
+use WPOnion\Modules\Admin\Page;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -167,11 +168,18 @@ if ( ! class_exists( '\WPOnion\Modules\Settings\Settings' ) ) {
 		 */
 		protected function set_page_url() {
 			if ( empty( $this->page_url ) ) {
-				$page_url       = ( wponion_is_ajax() ) ? wp_get_raw_referer() : $this->menu_instance->menu_url();
-				$this->page_url = array(
-					'full_url' => $page_url,
-					'part'     => str_replace( admin_url(), '', $page_url ),
-				);
+				$page_url = false;
+				if ( wponion_is_ajax() ) {
+					$page_url = wp_get_raw_referer();
+				} elseif ( $this->menu_instance instanceof Page ) {
+					$page_url = $this->menu_instance->menu_url();
+				}
+				if ( ! empty( $page_url ) ) {
+					$this->page_url = array(
+						'full_url' => $page_url,
+						'part'     => str_replace( admin_url(), '', $page_url ),
+					);
+				}
 			}
 		}
 
