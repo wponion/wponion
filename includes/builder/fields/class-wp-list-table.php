@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 		 * @return $this
 		 */
 		public function settings( $settings ) {
-			return $this->_set( 'settings', $settings );
+			return $this->__set( 'settings', $settings );
 		}
 
 		/**
@@ -43,7 +43,7 @@ if ( ! class_exists( '\WPO\Fields\WPO_List_Table' ) ) {
 		 * @return $this
 		 */
 		public function data( $data ) {
-			return $this->_set( 'data', $data );
+			return $this->__set( 'data', $data );
 		}
 
 		/**

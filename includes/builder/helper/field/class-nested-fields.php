@@ -21,7 +21,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Fields' ) ) {
 		 * @return $this
 		 */
 		public function heading( $heading ) {
-			return $this->_set( 'heading', $heading );
+			return $this->__set( 'heading', $heading );
 		}
 	}
 }

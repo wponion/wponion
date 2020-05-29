@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\Subheading' ) ) {
 		 */
 		public function __construct( $content = false, $id = false, $args = array() ) {
 			parent::__construct( $content, $id, $args );
-			$this->_set( 'type', 'subheading' );
+			$this->__set( 'type', 'subheading' );
 		}
 	}
 }

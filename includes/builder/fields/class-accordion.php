@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Accordion' ) ) {
 		 * @return $this
 		 */
 		public function is_open( $is_open = false ) {
-			return $this->_set( 'is_open', $is_open );
+			return $this->__set( 'is_open', $is_open );
 		}
 
 		/**

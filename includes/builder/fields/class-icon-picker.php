@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 		 * @return $this
 		 */
 		public function add_button( $button ) {
-			return $this->_set( 'add_button', $button );
+			return $this->__set( 'add_button', $button );
 		}
 
 		/**
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 		 * @return $this
 		 */
 		public function remove_button( $button ) {
-			return $this->_set( 'remove_button', $button );
+			return $this->__set( 'remove_button', $button );
 		}
 
 		/**
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 		 * @return $this
 		 */
 		public function show_input( $show_input = true ) {
-			return $this->_set( 'show_input', $show_input );
+			return $this->__set( 'show_input', $show_input );
 		}
 
 		/**
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 		 * @return $this
 		 */
 		public function icon_tooltip( $args = array() ) {
-			return $this->_set( 'icon_tooltip', $args );
+			return $this->__set( 'icon_tooltip', $args );
 		}
 
 		/**
@@ -85,7 +85,7 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 		 * @return $this
 		 */
 		public function enabled( $enabled_icon_frameworks = true ) {
-			return $this->_set( 'enabled', $enabled_icon_frameworks );
+			return $this->__set( 'enabled', $enabled_icon_frameworks );
 		}
 
 		/**
@@ -96,7 +96,7 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 		 * @return $this
 		 */
 		public function disabled( $disabled_icon_frameworks = true ) {
-			return $this->_set( 'disabled', $disabled_icon_frameworks );
+			return $this->__set( 'disabled', $disabled_icon_frameworks );
 		}
 
 		/**
@@ -105,7 +105,7 @@ if ( ! class_exists( 'WPO\Fields\Icon_Picker' ) ) {
 		 * @return $this
 		 */
 		public function group_icons( $is_group = true ) {
-			return $this->_set( 'group_icons', $is_group );
+			return $this->__set( 'group_icons', $is_group );
 		}
 	}
 }

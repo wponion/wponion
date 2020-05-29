@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Gallery' ) ) {
 		 * @return $this
 		 */
 		public function add_button( $button ) {
-			return $this->_set( 'add_button', $button );
+			return $this->__set( 'add_button', $button );
 		}
 
 		/**
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Gallery' ) ) {
 		 * @return $this
 		 */
 		public function edit_button( $button ) {
-			return $this->_set( 'edit_button', $button );
+			return $this->__set( 'edit_button', $button );
 		}
 
 		/**
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Gallery' ) ) {
 		 * @return $this
 		 */
 		public function remove_button( $button ) {
-			return $this->_set( 'remove_button', $button );
+			return $this->__set( 'remove_button', $button );
 		}
 
 		/**
@@ -59,7 +59,7 @@ if ( ! class_exists( 'WPO\Fields\Gallery' ) ) {
 		 * @return $this
 		 */
 		public function size( $size = 150 ) {
-			return $this->_set( 'size', $size );
+			return $this->__set( 'size', $size );
 		}
 
 		/**
@@ -68,7 +68,7 @@ if ( ! class_exists( 'WPO\Fields\Gallery' ) ) {
 		 * @return $this
 		 */
 		public function sort( $sort = false ) {
-			return $this->_set( 'sort', $sort );
+			return $this->__set( 'sort', $sort );
 		}
 
 		/**

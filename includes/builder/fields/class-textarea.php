@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\Textarea' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( $id, $title, $args );
-			$this->_set( 'type', 'textarea' );
+			$this->__set( 'type', 'textarea' );
 		}
 
 		/**
@@ -31,7 +31,7 @@ if ( ! class_exists( 'WPO\Fields\Textarea' ) ) {
 		 * @return \WPO\Fields\Textarea
 		 */
 		public function rows( $rows = 5 ) {
-			return $this->_set( 'rows', $rows );
+			return $this->__set( 'rows', $rows );
 		}
 
 		/**
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPO\Fields\Textarea' ) ) {
 		 * @return \WPO\Fields\Textarea
 		 */
 		public function cols( $cols = 5 ) {
-			return $this->_set( 'cols', $cols );
+			return $this->__set( 'cols', $cols );
 		}
 	}
 }

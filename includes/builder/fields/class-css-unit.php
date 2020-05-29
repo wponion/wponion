@@ -31,7 +31,7 @@ if ( ! class_exists( 'WPO\Fields\CSS_Unit' ) ) {
 		 * @return $this
 		 */
 		public function css_value( $css_value ) {
-			return $this->_set( 'css_value', $css_value );
+			return $this->__set( 'css_value', $css_value );
 		}
 
 		/**
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPO\Fields\CSS_Unit' ) ) {
 		 * @return $this
 		 */
 		public function unit( $unit ) {
-			return $this->_set( 'unit', $unit );
+			return $this->__set( 'unit', $unit );
 		}
 	}
 }

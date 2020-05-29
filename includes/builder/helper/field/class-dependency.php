@@ -13,7 +13,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Dependency' ) ) {
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	class Dependency extends Array_Args {
+	abstract class Dependency extends Array_Args {
 		/**
 		 * @param bool|string $element Element ID / Condition if $type is element.
 		 * @param bool|string $condition Condition To check with / value to check agains. if $type is element.
@@ -22,11 +22,11 @@ if ( ! class_exists( '\WPO\Helper\Field\Dependency' ) ) {
 		 * @return \WPO\Helper\Dependency\Builder
 		 */
 		public function dependency( $element = null, $condition = null, $values = null ) {
-			$instance         = new Builder( $element, $condition, $values );
-			$data             = ( is_array( $this->dependency ) ) ? $this->dependency : array();
-			$data['rules']    = ( isset( $data['rules'] ) ) ? $data['rules'] : array();
-			$data['rules'][]  = $instance;
-			$this->dependency = $data;
+			$instance       = new Builder( $element, $condition, $values );
+			$dep            = wponion_cast_array( $this->__get( 'dependency' ) );
+			$dep['rules']   = ( isset( $dep['rules'] ) ) ? $dep['rules'] : array();
+			$dep['rules'][] = $instance;
+			$this->__set( 'dependency', $dep );
 			return $instance;
 		}
 
@@ -38,10 +38,9 @@ if ( ! class_exists( '\WPO\Helper\Field\Dependency' ) ) {
 		 * @return $this
 		 */
 		public function dependency_settings( $settings = array() ) {
-			$data             = ( is_array( $this->dependency ) ) ? $this->dependency : array();
+			$data             = wponion_cast_array( $this->__get( 'dependency' ) );
 			$data['settings'] = $settings;
-			$this->dependency = $data;
-			return $this;
+			return $this->__set( 'dependency', $data );
 		}
 	}
 }

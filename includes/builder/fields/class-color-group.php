@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Color_Group' ) ) {
 		 * @return $this
 		 */
 		public function settings( $settings = array() ) {
-			return $this->_set( 'settings', $settings );
+			return $this->__set( 'settings', $settings );
 		}
 	}
 }

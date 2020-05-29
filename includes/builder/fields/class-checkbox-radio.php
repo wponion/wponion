@@ -44,7 +44,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 		 * @return $this
 		 */
 		public function label( $label ) {
-			return $this->_set( 'label', $label );
+			return $this->__set( 'label', $label );
 		}
 
 		/**
@@ -53,7 +53,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 		 * @return $this
 		 */
 		public function inline( $is_inline = false ) {
-			return $this->_set( 'inline', $is_inline );
+			return $this->__set( 'inline', $is_inline );
 		}
 
 		/**

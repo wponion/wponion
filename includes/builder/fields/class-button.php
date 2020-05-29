@@ -32,7 +32,7 @@ if ( ! class_exists( '\WPO\Fields\Button' ) ) {
 		 * @return $this
 		 */
 		public function button_type( $button_type = 'button' ) {
-			return $this->_set( 'button_type', $button_type );
+			return $this->__set( 'button_type', $button_type );
 		}
 
 		/**
@@ -41,7 +41,7 @@ if ( ! class_exists( '\WPO\Fields\Button' ) ) {
 		 * @return $this
 		 */
 		public function label( $label ) {
-			return $this->_set( 'label', $label );
+			return $this->__set( 'label', $label );
 		}
 	}
 }

@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\OEmbed' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( $id, $title, $args );
-			$this->_set( 'type', 'oembed' );
+			$this->__set( 'type', 'oembed' );
 		}
 	}
 }

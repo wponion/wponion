@@ -34,7 +34,7 @@ if ( ! class_exists( 'WPO\Fields\CSS_Shadow' ) ) {
 		 * @return $this
 		 */
 		public function shadow_type( $shadow_type ) {
-			return $this->_set( 'shadow_type', $shadow_type );
+			return $this->__set( 'shadow_type', $shadow_type );
 		}
 
 		/**
@@ -59,14 +59,14 @@ if ( ! class_exists( 'WPO\Fields\CSS_Shadow' ) ) {
 		 * @return $this
 		 */
 		public function preview( $show = true ) {
-			return $this->_set( 'preview', $show );
+			return $this->__set( 'preview', $show );
 		}
 
 		/**
 		 * @return $this
 		 */
 		public function hide_preview() {
-			return $this->_set( 'preview', false );
+			return $this->__set( 'preview', false );
 		}
 
 		/**
@@ -75,7 +75,7 @@ if ( ! class_exists( 'WPO\Fields\CSS_Shadow' ) ) {
 		 * @return $this
 		 */
 		public function preview_text( $text ) {
-			return $this->_set( 'preview', $text );
+			return $this->__set( 'preview', $text );
 		}
 	}
 }

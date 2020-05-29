@@ -80,7 +80,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 * @return $this
 		 */
 		public function enabled_title( $title = null ) {
-			return $this->_set( 'enabled_title', $title );
+			return $this->__set( 'enabled_title', $title );
 		}
 
 		/**
@@ -89,7 +89,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 * @return $this
 		 */
 		public function disabled_title( $title = null ) {
-			return $this->_set( 'disabled_title', $title );
+			return $this->__set( 'disabled_title', $title );
 		}
 	}
 }

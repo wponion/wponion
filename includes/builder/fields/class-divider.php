@@ -30,7 +30,7 @@ if ( ! class_exists( 'WPO\Fields\Divider' ) ) {
 		 * @return $this
 		 */
 		public function text( $text ) {
-			return $this->_set( 'text', $text );
+			return $this->__set( 'text', $text );
 		}
 	}
 }

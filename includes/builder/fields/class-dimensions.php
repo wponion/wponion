@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Dimensions' ) ) {
 		 * @return $this
 		 */
 		public function width( $width = true ) {
-			return $this->_set( 'width', $width );
+			return $this->__set( 'width', $width );
 		}
 
 		/**
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Dimensions' ) ) {
 		 * @return $this
 		 */
 		public function height( $height = true ) {
-			return $this->_set( 'height', $height );
+			return $this->__set( 'height', $height );
 		}
 
 		/**
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Dimensions' ) ) {
 		 * @return $this
 		 */
 		public function unit( $unit ) {
-			return $this->_set( 'unit', $unit );
+			return $this->__set( 'unit', $unit );
 		}
 
 		/**
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPO\Fields\Dimensions' ) ) {
 		 * @return $this
 		 */
 		public function unit_options( $options ) {
-			return $this->_set( 'unit_options', $options );
+			return $this->__set( 'unit_options', $options );
 		}
 
 
@@ -82,7 +82,7 @@ if ( ! class_exists( 'WPO\Fields\Dimensions' ) ) {
 		 * @return $this
 		 */
 		public function icons( $icons ) {
-			return $this->_set( 'icons', $icons );
+			return $this->__set( 'icons', $icons );
 		}
 	}
 }

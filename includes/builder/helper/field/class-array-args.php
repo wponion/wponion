@@ -11,22 +11,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	class Array_Args extends Helper {
-		/**
-		 * @param $key
-		 * @param $data
-		 *
-		 * @return $this
-		 */
-		protected function _set( $key, $data ) {
-			$this->settings[ $key ] = $data;
-			return $this;
-		}
-
-		protected function _get( $key ) {
-			return ( isset( $this->settings[ $key ] ) ) ? $this->settings[ $key ] : false;
-		}
-
+	abstract class Array_Args extends Helper {
 		/**
 		 * @param bool $key
 		 * @param null $data
@@ -35,7 +20,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		protected function _set_array_handler( $key = false, $data = null, $merge = true ) {
-			return $this->_set( $key, wponion_handle_array_merge( $data, $this->_get( $key ), $merge ) );
+			return $this->__set( $key, wponion_handle_array_merge( $data, $this->__get( $key ), $merge ) );
 		}
 
 		/**

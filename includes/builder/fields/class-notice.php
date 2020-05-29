@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\Notice' ) ) {
 		 */
 		public function __construct( $content = false, $id = false, $args = array() ) {
 			parent::__construct( $content, $id, $args );
-			$this->_set( 'type', 'notice' );
+			$this->__set( 'type', 'notice' );
 		}
 
 		/**
@@ -31,7 +31,7 @@ if ( ! class_exists( 'WPO\Fields\Notice' ) ) {
 		 * @return $this
 		 */
 		public function notice_type( $notice_type ) {
-			return $this->_set( 'notice_type', $notice_type );
+			return $this->__set( 'notice_type', $notice_type );
 		}
 
 		/**
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPO\Fields\Notice' ) ) {
 		 * @return $this
 		 */
 		public function autoclose( $autoclose ) {
-			return $this->_set( 'autoclose', $autoclose );
+			return $this->__set( 'autoclose', $autoclose );
 		}
 
 		/**
@@ -49,7 +49,7 @@ if ( ! class_exists( 'WPO\Fields\Notice' ) ) {
 		 * @return $this
 		 */
 		public function close( $close ) {
-			return $this->_set( 'close', $close );
+			return $this->__set( 'close', $close );
 		}
 	}
 }

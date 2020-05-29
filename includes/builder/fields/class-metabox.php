@@ -33,7 +33,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function metabox_title( $metabox_title ) {
-			return $this->_set( 'metabox_title', $metabox_title );
+			return $this->__set( 'metabox_title', $metabox_title );
 		}
 
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function metabox_id( $metabox_id ) {
-			return $this->_set( 'metabox_id', $metabox_id );
+			return $this->__set( 'metabox_id', $metabox_id );
 		}
 
 		/**
@@ -51,7 +51,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function context( $context ) {
-			return $this->_set( 'context', $context );
+			return $this->__set( 'context', $context );
 		}
 
 		/**
@@ -60,7 +60,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function screens( $screens ) {
-			return $this->_set( 'screens', $screens );
+			return $this->__set( 'screens', $screens );
 		}
 
 		/**
@@ -69,7 +69,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function priority( $priority ) {
-			return $this->_set( 'priority', $priority );
+			return $this->__set( 'priority', $priority );
 		}
 
 		/**
@@ -78,7 +78,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function theme( $theme ) {
-			return $this->_set( 'theme', $theme );
+			return $this->__set( 'theme', $theme );
 		}
 
 		/**
@@ -87,7 +87,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function theme_color( $theme_color ) {
-			return $this->_set( 'theme_color', $theme_color );
+			return $this->__set( 'theme_color', $theme_color );
 		}
 
 		/**
@@ -96,7 +96,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function ajax( $ajax ) {
-			return $this->_set( 'ajax', $ajax );
+			return $this->__set( 'ajax', $ajax );
 		}
 
 		/**
@@ -105,7 +105,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this|string
 		 */
 		public function metabox_module( $module ) {
-			return $this->_set( 'module', $module );
+			return $this->__set( 'module', $module );
 		}
 	}
 }

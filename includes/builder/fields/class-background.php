@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function preview( $show_preview = true ) {
-			return $this->_set( 'preview', $show_preview );
+			return $this->__set( 'preview', $show_preview );
 		}
 
 		/**
@@ -55,7 +55,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function preview_height( $height = '200px' ) {
-			return $this->_set( 'height', $height );
+			return $this->__set( 'height', $height );
 		}
 
 		/**
@@ -64,7 +64,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function background_repeat( $background_repeat = true ) {
-			return $this->_set( 'background-repeat', $background_repeat );
+			return $this->__set( 'background-repeat', $background_repeat );
 		}
 
 		/**
@@ -73,7 +73,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function background_attachment( $background_attachment = true ) {
-			return $this->_set( 'background-attachment', $background_attachment );
+			return $this->__set( 'background-attachment', $background_attachment );
 		}
 
 		/**
@@ -82,7 +82,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function background_position( $background_position = true ) {
-			return $this->_set( 'background-position', $background_position );
+			return $this->__set( 'background-position', $background_position );
 		}
 
 		/**
@@ -91,7 +91,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function background_clip( $background_clip = true ) {
-			return $this->_set( 'background-clip', $background_clip );
+			return $this->__set( 'background-clip', $background_clip );
 		}
 
 		/**
@@ -100,7 +100,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function background_origin( $background_origin = true ) {
-			return $this->_set( 'background-origin', $background_origin );
+			return $this->__set( 'background-origin', $background_origin );
 		}
 
 		/**
@@ -109,7 +109,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function background_size( $background_size = true ) {
-			return $this->_set( 'background-size', $background_size );
+			return $this->__set( 'background-size', $background_size );
 		}
 
 		/**
@@ -118,7 +118,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function background_color( $background_color = true ) {
-			return $this->_set( 'background-color', $background_color );
+			return $this->__set( 'background-color', $background_color );
 		}
 
 		/**
@@ -127,7 +127,7 @@ if ( ! class_exists( 'WPO\Fields\Background' ) ) {
 		 * @return $this
 		 */
 		public function background_image( $background_image = true ) {
-			return $this->_set( 'background-image', $background_image );
+			return $this->__set( 'background-image', $background_image );
 		}
 	}
 }

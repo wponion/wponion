@@ -21,7 +21,7 @@ if ( ! class_exists( 'WPO\Fields\Jambo_Content' ) ) {
 		 */
 		public function __construct( $content = false, $markdown = false ) {
 			parent::__construct( $content, $markdown );
-			$this->_set( 'type', 'jambo_content' );
+			$this->__set( 'type', 'jambo_content' );
 		}
 	}
 }

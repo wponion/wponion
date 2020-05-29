@@ -13,7 +13,7 @@ if ( ! class_exists( 'WPO\Helper\Field\Helper' ) ) {
 	 * @package WPO\Helper\Field
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
 	 */
-	class Helper extends Array_Helper {
+	abstract class Helper extends Array_Helper {
 		/**
 		 * Checks & Returns Field Args.
 		 *

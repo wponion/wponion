@@ -69,7 +69,7 @@ if ( ! class_exists( 'WPO\Fields\Upload' ) ) {
 		 * @return $this
 		 */
 		public function button( $button ) {
-			return $this->_set( 'button', $button );
+			return $this->__set( 'button', $button );
 		}
 	}
 }

@@ -25,7 +25,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function on( $label = null ) {
-			return $this->_set( 'on', $label );
+			return $this->__set( 'on', $label );
 		}
 
 		/**
@@ -34,7 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function off( $label = null ) {
-			return $this->_set( 'off', $label );
+			return $this->__set( 'off', $label );
 		}
 
 		/**
@@ -48,7 +48,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function switch_style( $style = 'style-8' ) {
-			return $this->_set( 'switch_style', $style );
+			return $this->__set( 'switch_style', $style );
 		}
 
 		/**
@@ -57,7 +57,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function switch_size( $size ) {
-			return $this->_set( 'switch_size', $size );
+			return $this->__set( 'switch_size', $size );
 		}
 
 		/**
@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function switch_width( $size ) {
-			return $this->_set( 'switch_width', $size );
+			return $this->__set( 'switch_width', $size );
 		}
 	}
 }

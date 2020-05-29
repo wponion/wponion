@@ -25,7 +25,7 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 		 * @return $this
 		 */
 		public function size( $size ) {
-			return $this->_set( 'size', $size );
+			return $this->__set( 'size', $size );
 		}
 
 		/**
@@ -34,7 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 		 * @return $this
 		 */
 		public function active( $active = 'button-primary' ) {
-			return $this->_set( 'active', $active );
+			return $this->__set( 'active', $active );
 		}
 
 		/**
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 		 * @return $this
 		 */
 		public function inactive( $inactive = 'button-secondary' ) {
-			return $this->_set( 'inactive', $inactive );
+			return $this->__set( 'inactive', $inactive );
 		}
 
 		/**

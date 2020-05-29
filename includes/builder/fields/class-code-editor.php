@@ -30,7 +30,7 @@ if ( ! class_exists( '\WPO\Fields\Code_Editor' ) ) {
 		 * @return $this
 		 */
 		public function version( $version ) {
-			return $this->_set( 'version', $version );
+			return $this->__set( 'version', $version );
 		}
 
 		/**
@@ -39,7 +39,7 @@ if ( ! class_exists( '\WPO\Fields\Code_Editor' ) ) {
 		 * @return $this
 		 */
 		public function settings( $settings ) {
-			return $this->_set( 'settings', $settings );
+			return $this->__set( 'settings', $settings );
 		}
 	}
 }

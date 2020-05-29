@@ -34,7 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Font_Picker' ) ) {
 		 * @return $this
 		 */
 		public function google_fonts( $show_google_fonts = true ) {
-			return $this->_set( 'google_fonts', $show_google_fonts );
+			return $this->__set( 'google_fonts', $show_google_fonts );
 		}
 
 		/**
@@ -45,7 +45,7 @@ if ( ! class_exists( 'WPO\Fields\Font_Picker' ) ) {
 		 * @return $this
 		 */
 		public function websafe_fonts( $show_websafe_fonts = true ) {
-			return $this->_set( 'websafe_fonts', $show_websafe_fonts );
+			return $this->__set( 'websafe_fonts', $show_websafe_fonts );
 		}
 
 		/**
@@ -56,7 +56,7 @@ if ( ! class_exists( 'WPO\Fields\Font_Picker' ) ) {
 		 * @return $this
 		 */
 		public function group( $show_in_group = true ) {
-			return $this->_set( 'group', $show_in_group );
+			return $this->__set( 'group', $show_in_group );
 		}
 	}
 }

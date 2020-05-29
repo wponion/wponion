@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Heading' ) ) {
 		 * @return $this
 		 */
 		public function content( $content = null ) {
-			return $this->_set( 'content', $content );
+			return $this->__set( 'content', $content );
 		}
 	}
 }

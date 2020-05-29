@@ -34,7 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Select' ) ) {
 		 * @return $this
 		 */
 		public function ajax( $load_via_ajax = false ) {
-			return $this->_set( 'ajax', $load_via_ajax );
+			return $this->__set( 'ajax', $load_via_ajax );
 		}
 
 		/**
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WPO\Fields\Select' ) ) {
 		 * @return \WPO\Fields\Select
 		 */
 		public function select_framework( $framework, $options = true ) {
-			return $this->_set( $framework, $options );
+			return $this->__set( $framework, $options );
 		}
 
 		/**
@@ -61,7 +61,7 @@ if ( ! class_exists( 'WPO\Fields\Select' ) ) {
 		 * @return $this
 		 */
 		public function prefix( $prefix ) {
-			return $this->_set( 'prefix', $prefix );
+			return $this->__set( 'prefix', $prefix );
 		}
 
 		/**
@@ -70,7 +70,7 @@ if ( ! class_exists( 'WPO\Fields\Select' ) ) {
 		 * @return $this
 		 */
 		public function surfix( $surfix ) {
-			return $this->_set( 'surfix', $surfix );
+			return $this->__set( 'surfix', $surfix );
 		}
 	}
 }

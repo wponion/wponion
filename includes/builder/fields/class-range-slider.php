@@ -22,7 +22,7 @@ if ( ! class_exists( '\WPO\Fields\Range_Slider' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( $id, $title, $args );
-			$this->_set( 'type', 'range_slider' );
+			$this->__set( 'type', 'range_slider' );
 		}
 
 		/**
@@ -31,7 +31,7 @@ if ( ! class_exists( '\WPO\Fields\Range_Slider' ) ) {
 		 * @return $this
 		 */
 		public function min( $min = 0 ) {
-			return $this->_set( 'min', $min );
+			return $this->__set( 'min', $min );
 		}
 
 		/**
@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPO\Fields\Range_Slider' ) ) {
 		 * @return $this
 		 */
 		public function slider_width( $slider_width = '90%' ) {
-			return $this->_set( 'slider_width', $slider_width );
+			return $this->__set( 'slider_width', $slider_width );
 		}
 
 		/**
@@ -49,7 +49,7 @@ if ( ! class_exists( '\WPO\Fields\Range_Slider' ) ) {
 		 * @return $this
 		 */
 		public function max( $max = 100 ) {
-			return $this->_set( 'max', $max );
+			return $this->__set( 'max', $max );
 
 		}
 
@@ -59,7 +59,7 @@ if ( ! class_exists( '\WPO\Fields\Range_Slider' ) ) {
 		 * @return $this
 		 */
 		public function step( $step = 1 ) {
-			return $this->_set( 'step', $step );
+			return $this->__set( 'step', $step );
 		}
 
 		/**
@@ -77,7 +77,7 @@ if ( ! class_exists( '\WPO\Fields\Range_Slider' ) ) {
 		 * @return $this
 		 */
 		public function slider( $args = array() ) {
-			return $this->_set( 'slider', $args );
+			return $this->__set( 'slider', $args );
 		}
 
 

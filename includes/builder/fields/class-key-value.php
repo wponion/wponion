@@ -32,7 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 		 * @return $this
 		 */
 		public function add_button( $button ) {
-			return $this->_set( 'add_button', $button );
+			return $this->__set( 'add_button', $button );
 		}
 
 		/**
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 		 * @return $this
 		 */
 		public function remove_button( $button ) {
-			return $this->_set( 'remove_button', $button );
+			return $this->__set( 'remove_button', $button );
 		}
 
 		/**
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 		 * @return $this
 		 */
 		public function limit( $limit = false ) {
-			return $this->_set( 'limit', $limit );
+			return $this->__set( 'limit', $limit );
 		}
 
 		/**
@@ -59,7 +59,7 @@ if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 		 * @return $this
 		 */
 		public function error_msg( $error_msg ) {
-			return $this->_set( 'error_msg', $error_msg );
+			return $this->__set( 'error_msg', $error_msg );
 		}
 
 		/**
@@ -68,7 +68,7 @@ if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 		 * @return $this
 		 */
 		public function key_input( $input ) {
-			return $this->_set( 'key_input', $input );
+			return $this->__set( 'key_input', $input );
 		}
 
 		/**
@@ -77,7 +77,7 @@ if ( ! class_exists( 'WPO\Fields\Key_Value' ) ) {
 		 * @return $this
 		 */
 		public function value_input( $input ) {
-			return $this->_set( 'value_input', $input );
+			return $this->__set( 'value_input', $input );
 		}
 	}
 }

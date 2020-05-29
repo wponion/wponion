@@ -21,7 +21,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		 * @return $this
 		 */
 		public function un_array( $un_array = false ) {
-			return $this->_set( 'un_array', $un_array );
+			return $this->__set( 'un_array', $un_array );
 		}
 
 		/**

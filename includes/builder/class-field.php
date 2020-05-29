@@ -158,16 +158,16 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 			) );
 
 			foreach ( $args as $key => $val ) {
-				$this->_set( $key, $val );
+				$this->__set( $key, $val );
 			}
 
 			$this->unique = null;
 
-			if ( empty( $this->id ) ) {
+			if ( empty( $this->__get( 'id' ) ) ) {
 				$this->unique = wponion_hash_string( wponion_hash_array( $args ) . uniqid( 'wponion_' ) );
-				$this->id     = $this->unique;
-			} elseif ( ! empty( $this->id ) ) {
-				$this->unique = $this->id;
+				$this->__set( 'id', $this->unique );
+			} elseif ( ! empty( $this->__get( 'id' ) ) ) {
+				$this->unique = $this->__get( 'id' );
 			}
 		}
 
@@ -186,9 +186,13 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		/**
 		 * @param $name
 		 * @param $value
+		 *
+		 * @return $this
+		 * @since {NEWVERSION}
 		 */
 		public function __set( $name, $value ) {
 			$this->{$this->array_var}[ $name ] = $value;
+			return $this;
 		}
 
 		/**
@@ -214,15 +218,6 @@ if ( ! class_exists( 'WPO\Field' ) ) {
 		 */
 		public function __unset( $name ) {
 			unset( $this->{$this->array_var}[ $name ] );
-		}
-
-		/**
-		 * @param bool $key
-		 *
-		 * @return $this
-		 */
-		public function get_field( $key = false ) {
-			return $this;
 		}
 	}
 }
