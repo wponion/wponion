@@ -59,7 +59,6 @@ export default class WPOnion_Module_Base extends WPOnion_Base {
 	has_only_uifields( $container ) {
 		let $element    = $container.find( '.wponion-element' ).length;
 		let $ui_element = $container.find( '.wponion-ui-field' ).length;
-		console.log( $container, $element, $ui_element );
 		return ( $element === $ui_element || $element === 0 && $ui_element > 0 );
 	}
 
