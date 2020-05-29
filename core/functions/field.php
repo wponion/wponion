@@ -194,7 +194,7 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 	function wponion_add_element( $field = array(), $value = array(), $unique = '' ) {
 		if ( false === wponion_get_field_type( $field ) ) {
 			// translators: Creates a msg says that <p>requested field type not found</p>
-			$error = sprintf( __( 'Requested Field Type %2$s  Is Not Registed With WPOnion', 'wponion' ), '<code>' . wponion_get_field_type( $field, false ) . '</code>' );
+			$error = sprintf( __( 'Requested Field Type %1$s  Is Not Registed With WPOnion', 'wponion' ), '<code>' . wponion_get_field_type( $field, false ) . '</code>' );
 			return wponion_add_element( wpo_field( 'wp_notice_error' )
 				->alt( true )
 				->large( true )
