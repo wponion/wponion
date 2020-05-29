@@ -24,7 +24,7 @@ if ( ! class_exists( 'WPO\Fields\Group' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( $id, $title, $args );
-			$this['type'] = 'group';
+			$this->_set( 'type', 'group' );
 		}
 
 		/**
@@ -33,8 +33,7 @@ if ( ! class_exists( 'WPO\Fields\Group' ) ) {
 		 * @return $this
 		 */
 		public function add_button( $button ) {
-			$this['add_button'] = $button;
-			return $this;
+			return $this->_set( 'add_button', $button );
 		}
 
 		/**
@@ -43,8 +42,7 @@ if ( ! class_exists( 'WPO\Fields\Group' ) ) {
 		 * @return $this
 		 */
 		public function remove_button( $button ) {
-			$this['remove_button'] = $button;
-			return $this;
+			return $this->_set( 'remove_button', $button );
 		}
 
 		/**
@@ -53,8 +51,7 @@ if ( ! class_exists( 'WPO\Fields\Group' ) ) {
 		 * @return $this
 		 */
 		public function limit( $limit = false ) {
-			$this['limit'] = $limit;
-			return $this;
+			return $this->_set( 'limit', $limit );
 		}
 
 		/**
@@ -63,8 +60,7 @@ if ( ! class_exists( 'WPO\Fields\Group' ) ) {
 		 * @return $this
 		 */
 		public function error_msg( $error_msg ) {
-			$this['error_msg'] = $error_msg;
-			return $this;
+			return $this->_set( 'error_msg', $error_msg );
 		}
 	}
 }

@@ -32,8 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Date_Picker' ) ) {
 		 * @return $this
 		 */
 		public function range( $is_range = false ) {
-			$this['range'] = $is_range;
-			return $this;
+			return $this->_set( 'range', $is_range );
 		}
 
 		/**
@@ -45,8 +44,7 @@ if ( ! class_exists( 'WPO\Fields\Date_Picker' ) ) {
 		 * @return $this
 		 */
 		public function settings( $args ) {
-			$this['settings'] = $args;
-			return $this;
+			return $this->_set( 'settings', $args );
 		}
 
 		/**
@@ -65,8 +63,7 @@ if ( ! class_exists( 'WPO\Fields\Date_Picker' ) ) {
 		 * @return $this
 		 */
 		public function theme( $theme = 'default' ) {
-			$this['theme'] = $theme;
-			return $this;
+			return $this->_set( 'theme', $theme );
 		}
 
 		/**
@@ -131,8 +128,7 @@ if ( ! class_exists( 'WPO\Fields\Date_Picker' ) ) {
 		 * @return $this
 		 */
 		public function date( $date ) {
-			$this['date'] = $date;
-			return $this;
+			return $this->_set( 'date', $date );
 		}
 
 		/**
@@ -141,8 +137,7 @@ if ( ! class_exists( 'WPO\Fields\Date_Picker' ) ) {
 		 * @return $this
 		 */
 		public function to_date( $date ) {
-			$this['to_date'] = $date;
-			return $this;
+			return $this->_set( 'to_date', $date );
 		}
 	}
 }

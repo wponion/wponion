@@ -32,8 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		 * @return $this
 		 */
 		public function top( $top ) {
-			$this['top'] = $top;
-			return $this;
+			return $this->_set( 'top', $top );
 		}
 
 		/**
@@ -42,8 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		 * @return $this
 		 */
 		public function bottom( $bottom ) {
-			$this['bottom'] = $bottom;
-			return $this;
+			return $this->_set( 'bottom', $bottom );
 		}
 
 		/**
@@ -52,8 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		 * @return $this
 		 */
 		public function left( $left ) {
-			$this['left'] = $left;
-			return $this;
+			return $this->_set( 'left', $left );
 		}
 
 		/**
@@ -62,8 +59,7 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		 * @return $this
 		 */
 		public function right( $right ) {
-			$this['right'] = $right;
-			return $this;
+			return $this->_set( 'right', $right );
 		}
 
 		/**
@@ -72,8 +68,7 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		 * @return $this
 		 */
 		public function all( $all = true ) {
-			$this['all'] = $all;
-			return $this;
+			return $this->_set( 'all', $all );
 		}
 
 		/**
@@ -82,8 +77,7 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		 * @return $this
 		 */
 		public function unit( $unit ) {
-			$this['unit'] = $unit;
-			return $this;
+			return $this->_set( 'unit', $unit );
 		}
 
 		/**
@@ -99,8 +93,7 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		 * @return $this
 		 */
 		public function unit_options( $options ) {
-			$this['unit_options'] = $options;
-			return $this;
+			return $this->_set( 'unit_options', $options );
 		}
 
 
@@ -119,8 +112,7 @@ if ( ! class_exists( 'WPO\Fields\Spacing' ) ) {
 		 * @return $this
 		 */
 		public function icons( $icons ) {
-			$this['icons'] = $icons;
-			return $this;
+			return $this->_set( 'icons', $icons );
 		}
 	}
 }

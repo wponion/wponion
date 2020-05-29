@@ -32,8 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Image' ) ) {
 		 * @return $this
 		 */
 		public function frame_title( $title ) {
-			$this['frame_title'] = $title;
-			return $this;
+			return $this->_set( 'frame_title', $title );
 		}
 
 		/**
@@ -42,8 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Image' ) ) {
 		 * @return $this
 		 */
 		public function remove( $remove_text ) {
-			$this['remove'] = $remove_text;
-			return $this;
+			return $this->_set( 'remove', $remove_text );
 		}
 
 		/**
@@ -52,8 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Image' ) ) {
 		 * @return $this
 		 */
 		public function size( $size = 100 ) {
-			$this['size'] = $size;
-			return $this;
+			return $this->_set( 'size', $size );
 		}
 	}
 }

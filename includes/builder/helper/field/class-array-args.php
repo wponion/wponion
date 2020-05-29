@@ -19,8 +19,12 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		protected function _set( $key, $data ) {
-			$this[ $key ] = $data;
+			$this->settings[ $key ] = $data;
 			return $this;
+		}
+
+		protected function _get( $key ) {
+			return ( isset( $this->settings[ $key ] ) ) ? $this->settings[ $key ] : false;
 		}
 
 		/**
@@ -31,8 +35,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Array_Args' ) ) {
 		 * @return $this
 		 */
 		protected function _set_array_handler( $key = false, $data = null, $merge = true ) {
-			$this[ $key ] = wponion_handle_array_merge( $data, $this[ $key ], $merge );
-			return $this;
+			return $this->_set( $key, wponion_handle_array_merge( $data, $this->_get( $key ), $merge ) );
 		}
 
 		/**

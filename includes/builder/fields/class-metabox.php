@@ -33,8 +33,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function metabox_title( $metabox_title ) {
-			$this['metabox_title'] = $metabox_title;
-			return $this;
+			return $this->_set( 'metabox_title', $metabox_title );
 		}
 
 		/**
@@ -43,8 +42,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function metabox_id( $metabox_id ) {
-			$this['metabox_id'] = $metabox_id;
-			return $this;
+			return $this->_set( 'metabox_id', $metabox_id );
 		}
 
 		/**
@@ -53,8 +51,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function context( $context ) {
-			$this['context'] = $context;
-			return $this;
+			return $this->_set( 'context', $context );
 		}
 
 		/**
@@ -63,8 +60,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function screens( $screens ) {
-			$this['screens'] = $screens;
-			return $this;
+			return $this->_set( 'screens', $screens );
 		}
 
 		/**
@@ -73,8 +69,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function priority( $priority ) {
-			$this['priority'] = $priority;
-			return $this;
+			return $this->_set( 'priority', $priority );
 		}
 
 		/**
@@ -83,8 +78,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function theme( $theme ) {
-			$this['theme'] = $theme;
-			return $this;
+			return $this->_set( 'theme', $theme );
 		}
 
 		/**
@@ -93,8 +87,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function theme_color( $theme_color ) {
-			$this['theme_color'] = $theme_color;
-			return $this;
+			return $this->_set( 'theme_color', $theme_color );
 		}
 
 		/**
@@ -103,8 +96,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this
 		 */
 		public function ajax( $ajax ) {
-			$this['ajax'] = $ajax;
-			return $this;
+			return $this->_set( 'ajax', $ajax );
 		}
 
 		/**
@@ -113,8 +105,7 @@ if ( ! class_exists( 'WPO\Fields\Metabox' ) ) {
 		 * @return $this|string
 		 */
 		public function metabox_module( $module ) {
-			$this['module'] = $module;
-			return $this;
+			return $this->_set( 'module', $module );
 		}
 	}
 }

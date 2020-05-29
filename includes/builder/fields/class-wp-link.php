@@ -97,8 +97,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Link' ) ) {
 		 * @return $this
 		 */
 		public function button( $button ) {
-			$this['button'] = $button;
-			return $this;
+			return $this->_set( 'button', $button );
 		}
 	}
 }

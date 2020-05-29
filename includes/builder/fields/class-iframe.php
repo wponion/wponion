@@ -32,8 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Iframe' ) ) {
 		 * @return $this
 		 */
 		public function width( $width = true ) {
-			$this['width'] = $width;
-			return $this;
+			return $this->_set( 'width', $width );
 		}
 
 		/**
@@ -42,8 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Iframe' ) ) {
 		 * @return $this
 		 */
 		public function height( $height = true ) {
-			$this['height'] = $height;
-			return $this;
+			return $this->_set( 'height', $height );
 		}
 
 		/**
@@ -52,8 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Iframe' ) ) {
 		 * @return $this
 		 */
 		public function url( $url = true ) {
-			$this['url'] = $url;
-			return $this;
+			return $this->_set( 'url', $url );
 		}
 
 		/**
@@ -62,8 +59,7 @@ if ( ! class_exists( 'WPO\Fields\Iframe' ) ) {
 		 * @return $this
 		 */
 		public function heading( $heading = true ) {
-			$this['heading'] = $heading;
-			return $this;
+			return $this->_set( 'heading', $heading );
 		}
 	}
 }

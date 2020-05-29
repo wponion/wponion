@@ -21,9 +21,7 @@ if ( ! class_exists( 'WPO\Fields\Divider' ) ) {
 		 * @param $text
 		 */
 		public function __construct( $text ) {
-			parent::__construct( 'divider', false, false, array(
-				'text' => $text,
-			) );
+			parent::__construct( 'divider', false, false, array( 'text' => $text ) );
 		}
 
 		/**
@@ -32,8 +30,7 @@ if ( ! class_exists( 'WPO\Fields\Divider' ) ) {
 		 * @return $this
 		 */
 		public function text( $text ) {
-			$this['text'] = $text;
-			return $this;
+			return $this->_set( 'text', $text );
 		}
 	}
 }

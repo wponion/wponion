@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( $id, $title, $args );
-			$this['type'] = 'link_color';
+			$this->_set( 'type', 'link_color' );
 		}
 
 		/**
@@ -34,8 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 		 * @return $this
 		 */
 		public function color( $field = false ) {
-			$this['color'] = $field;
-			return $this;
+			return $this->_set( 'color', $field );
 		}
 
 		/**
@@ -47,8 +46,7 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 		 * @return $this
 		 */
 		public function hover( $field = false ) {
-			$this['hover'] = $field;
-			return $this;
+			return $this->_set( 'hover', $field );
 		}
 
 		/**
@@ -60,8 +58,7 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 		 * @return $this
 		 */
 		public function active( $field = false ) {
-			$this['active'] = $field;
-			return $this;
+			return $this->_set( 'active', $field );
 		}
 
 		/**
@@ -73,8 +70,7 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 		 * @return $this
 		 */
 		public function visited( $field = false ) {
-			$this['visited'] = $field;
-			return $this;
+			return $this->_set( 'visited', $field );
 		}
 
 		/**
@@ -86,8 +82,7 @@ if ( ! class_exists( 'WPO\Fields\Link_Color' ) ) {
 		 * @return $this
 		 */
 		public function foucs( $field = false ) {
-			$this['foucs'] = $field;
-			return $this;
+			return $this->_set( 'foucs', $field );
 		}
 
 	}

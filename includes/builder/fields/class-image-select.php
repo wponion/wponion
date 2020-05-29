@@ -17,6 +17,6 @@ if ( ! class_exists( 'WPO\Fields\Image_Select' ) ) {
 		 * @var string
 		 * @access
 		 */
-		protected $type = 'image_select';
+		protected $checkbox_type = 'image_select';
 	}
 }

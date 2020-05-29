@@ -16,6 +16,6 @@ if ( ! class_exists( 'WPO\Fields\Radio' ) ) {
 		 * @var string
 		 * @access
 		 */
-		protected $type = 'radio';
+		protected $checkbox_type = 'radio';
 	}
 }

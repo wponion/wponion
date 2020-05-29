@@ -17,6 +17,6 @@ if ( ! class_exists( 'WPO\Fields\Checkbox' ) ) {
 		 * @var string
 		 * @access
 		 */
-		protected $type = 'checkbox';
+		protected $checkbox_type = 'checkbox';
 	}
 }

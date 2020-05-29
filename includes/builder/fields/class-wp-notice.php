@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Notice' ) ) {
 		 */
 		public function __construct( $content = false, $id = false, $args = array() ) {
 			parent::__construct( $content, $id, $args );
-			$this['type'] = 'wp_notice';
+			$this->_set( 'type', 'wp_notice' );
 		}
 
 		/**
@@ -31,8 +31,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Notice' ) ) {
 		 * @return $this
 		 */
 		public function large( $large = false ) {
-			$this['large'] = $large;
-			return $this;
+			return $this->_set( 'large', $large );
 		}
 
 		/**
@@ -41,8 +40,7 @@ if ( ! class_exists( 'WPO\Fields\WP_Notice' ) ) {
 		 * @return $this
 		 */
 		public function alt( $alt = false ) {
-			$this['alt'] = $alt;
-			return $this;
+			return $this->_set( 'alt', $alt );
 		}
 	}
 }

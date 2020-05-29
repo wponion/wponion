@@ -17,7 +17,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @var string
 		 * @access
 		 */
-		protected $type = 'switcher';
+		protected $checkbox_type = 'switcher';
 
 		/**
 		 * @param null $label
@@ -25,8 +25,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function on( $label = null ) {
-			$this['on'] = $label;
-			return $this;
+			return $this->_set( 'on', $label );
 		}
 
 		/**
@@ -35,8 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function off( $label = null ) {
-			$this['off'] = $label;
-			return $this;
+			return $this->_set( 'off', $label );
 		}
 
 		/**
@@ -50,8 +48,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function switch_style( $style = 'style-8' ) {
-			$this['switch_style'] = $style;
-			return $this;
+			return $this->_set( 'switch_style', $style );
 		}
 
 		/**
@@ -60,8 +57,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function switch_size( $size ) {
-			$this['switch_size'] = $size;
-			return $this;
+			return $this->_set( 'switch_size', $size );
 		}
 
 		/**
@@ -70,8 +66,7 @@ if ( ! class_exists( 'WPO\Fields\Switcher' ) ) {
 		 * @return $this
 		 */
 		public function switch_width( $size ) {
-			$this['switch_width'] = $size;
-			return $this;
+			return $this->_set( 'switch_width', $size );
 		}
 	}
 }

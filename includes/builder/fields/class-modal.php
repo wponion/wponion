@@ -35,8 +35,7 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 		 * @return $this
 		 */
 		public function modal_type( $type = 'wp' ) {
-			$this['modal_type'] = $type;
-			return $this;
+			return $this->_set( 'modal_type', $type );
 		}
 
 		/**
@@ -45,8 +44,7 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 		 * @return $this
 		 */
 		public function modal_config( $config = array() ) {
-			$this['modal_config'] = $config;
-			return $this;
+			return $this->_set( 'modal_config', $config );
 		}
 
 		/**
@@ -81,8 +79,7 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 		 * @return $this
 		 */
 		public function modal_button( $button_label_or_args ) {
-			$this['modal_button'] = $button_label_or_args;
-			return $this;
+			return $this->_set( 'modal_button', $button_label_or_args );
 		}
 
 
@@ -92,8 +89,7 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 		 * @return $this
 		 */
 		public function ajax_args( $ajax_args ) {
-			$this['ajax_args'] = $ajax_args;
-			return $this;
+			return $this->_set( 'ajax_args', $ajax_args );
 		}
 
 		/**
@@ -102,8 +98,7 @@ if ( ! class_exists( 'WPO\Fields\Modal' ) ) {
 		 * @return $this
 		 */
 		public function overview_html( $overview_html ) {
-			$this['overview_html'] = $overview_html;
-			return $this;
+			return $this->_set( 'overview_html', $overview_html );
 		}
 	}
 }

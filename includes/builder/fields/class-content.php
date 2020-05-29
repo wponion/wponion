@@ -37,8 +37,7 @@ if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 		 * @since 1.4.6
 		 */
 		public function content_path( $path ) {
-			$this['content_path'] = $path;
-			return $this;
+			return $this->_set( 'content_path', $path );
 		}
 
 		/**
@@ -47,8 +46,7 @@ if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 		 * @return $this
 		 */
 		public function content( $content ) {
-			$this['content'] = $content;
-			return $this;
+			return $this->_set( 'content', $content );
 		}
 
 		/**
@@ -57,8 +55,7 @@ if ( ! class_exists( 'WPO\Fields\Content' ) ) {
 		 * @return $this
 		 */
 		public function markdown( $is_markdown = false ) {
-			$this['markdown'] = $is_markdown;
-			return $this;
+			return $this->_set( 'markdown', $is_markdown );
 		}
 	}
 }

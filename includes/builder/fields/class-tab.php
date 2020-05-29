@@ -63,8 +63,7 @@ if ( ! class_exists( 'WPO\Fields\Tab' ) ) {
 		 * @return $this
 		 */
 		public function tab_style( $style ) {
-			$this['tab_style'] = $style;
-			return $this;
+			return $this->_set( 'tab_style', $style );
 		}
 	}
 }

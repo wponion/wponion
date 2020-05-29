@@ -17,7 +17,7 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 		 * @var string
 		 * @access
 		 */
-		protected $type = 'button_set';
+		protected $checkbox_type = 'button_set';
 
 		/**
 		 * @param $size
@@ -25,8 +25,7 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 		 * @return $this
 		 */
 		public function size( $size ) {
-			$this['size'] = $size;
-			return $this;
+			return $this->_set( 'size', $size );
 		}
 
 		/**
@@ -35,8 +34,7 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 		 * @return $this
 		 */
 		public function active( $active = 'button-primary' ) {
-			$this['active'] = $active;
-			return $this;
+			return $this->_set( 'active', $active );
 		}
 
 		/**
@@ -45,8 +43,7 @@ if ( ! class_exists( 'WPO\Fields\Button_Set' ) ) {
 		 * @return $this
 		 */
 		public function inactive( $inactive = 'button-secondary' ) {
-			$this['inactive'] = $inactive;
-			return $this;
+			return $this->_set( 'inactive', $inactive );
 		}
 
 		/**

@@ -24,7 +24,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( 'sorter', $id, $title, $args );
-			$this['options'] = array(
+			$this->options = array(
 				'enabled'  => array(),
 				'disabled' => array(),
 			);
@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 */
 		public function enabled( $enabled, $merge = true ) {
 			$this->_set_array_handler( 'enabled', $enabled, $merge );
-			$this['options/enabled'] = $this['enabled'];
+			$this['options/enabled'] = $this->enabled;
 			return $this;
 		}
 
@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 */
 		public function disabled( $disabled = array(), $merge = true ) {
 			$this->_set_array_handler( 'disabled', $disabled, $merge );
-			$this['options/disabled'] = $this['disabled'];
+			$this['options/disabled'] = $this->disabled;
 			return $this;
 		}
 
@@ -80,8 +80,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 * @return $this
 		 */
 		public function enabled_title( $title = null ) {
-			$this['enabled_title'] = $title;
-			return $this;
+			return $this->_set( 'enabled_title', $title );
 		}
 
 		/**
@@ -90,8 +89,7 @@ if ( ! class_exists( 'WPO\Fields\Sorter' ) ) {
 		 * @return $this
 		 */
 		public function disabled_title( $title = null ) {
-			$this['disabled_title'] = $title;
-			return $this;
+			return $this->_set( 'disabled_title', $title );
 		}
 	}
 }

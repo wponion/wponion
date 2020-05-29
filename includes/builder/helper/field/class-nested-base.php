@@ -30,7 +30,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		 * @return bool
 		 */
 		public function has_fields() {
-			return ( isset( $this['fields'] ) && wponion_is_array( $this['fields'] ) && ! empty( $this['fields'] ) );
+			return ( wponion_is_array( $this->fields ) && ! empty( $this->fields ) );
 		}
 
 		/**
@@ -39,7 +39,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		 * @return bool|mixed
 		 */
 		public function fields() {
-			return ( $this->has_fields() ) ? $this['fields'] : false;
+			return ( $this->has_fields() ) ? $this->fields : false;
 		}
 
 		/**
@@ -74,8 +74,8 @@ if ( ! class_exists( '\WPO\Helper\Field\Nested_Base' ) ) {
 		 * @since 1.4.6
 		 */
 		public function add_field( $field_type_or_instance, $field_id = false, $title = false, $args = array() ) {
-			if ( ! wponion_is_array( $this['fields'] ) ) {
-				$this['fields'] = array();
+			if ( ! wponion_is_array( $this->fields ) ) {
+				$this->fields = array();
 			}
 
 			if ( wpo_is_field( $field_type_or_instance ) ) {

@@ -22,7 +22,7 @@ if ( ! class_exists( 'WPO\Fields\Number' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( $id, $title, $args );
-			$this['type'] = 'number';
+			$this->_set( 'type', 'number' );
 		}
 
 		/**
@@ -31,8 +31,7 @@ if ( ! class_exists( 'WPO\Fields\Number' ) ) {
 		 * @return $this
 		 */
 		public function min( $min ) {
-			$this['min'] = $min;
-			return $this;
+			return $this->_set( 'min', $min );
 		}
 
 		/**
@@ -41,8 +40,7 @@ if ( ! class_exists( 'WPO\Fields\Number' ) ) {
 		 * @return $this
 		 */
 		public function max( $max ) {
-			$this['max'] = $max;
-			return $this;
+			return $this->_set( 'max', $max );
 		}
 
 		/**
@@ -51,8 +49,7 @@ if ( ! class_exists( 'WPO\Fields\Number' ) ) {
 		 * @return $this
 		 */
 		public function step( $step ) {
-			$this['step'] = $step;
-			return $this;
+			return $this->_set( 'step', $step );
 		}
 	}
 }

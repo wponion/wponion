@@ -32,8 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Text' ) ) {
 		 * @return $this
 		 */
 		public function prefix( $prefix ) {
-			$this['prefix'] = $prefix;
-			return $this;
+			return $this->_set( 'prefix', $prefix );
 		}
 
 		/**
@@ -42,8 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Text' ) ) {
 		 * @return $this
 		 */
 		public function surfix( $surfix ) {
-			$this['surfix'] = $surfix;
-			return $this;
+			return $this->_set( 'surfix', $surfix );
 		}
 
 		/**
@@ -52,8 +50,7 @@ if ( ! class_exists( 'WPO\Fields\Text' ) ) {
 		 * @return $this
 		 */
 		public function inputmask( $inputmask ) {
-			$this['inputmask'] = $inputmask;
-			return $this;
+			return $this->_set( 'inputmask', $inputmask );
 		}
 
 		/**

@@ -42,7 +42,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @return $this
 		 */
 		public function id( $id ) {
-			$this['id']   = $id;
+			$this->id     = $id;
 			$this->unique = $id;
 			return $this;
 		}
@@ -112,11 +112,11 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		 * @return $this
 		 */
 		public function desc_field( $desc_field = true ) {
-			if ( true === $desc_field && ! empty( $this['desc'] ) ) {
-				$this['desc_field'] = $this['desc'];
+			if ( true === $desc_field && ! empty( $this->desc ) ) {
+				$this->desc_field = $this->desc;
 				$this->desc( false );
 			} else {
-				$this['desc_field'] = $desc_field;
+				$this->desc_field = $desc_field;
 			}
 
 			return $this;
@@ -146,7 +146,7 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 				}
 			}
 
-			return $this->_set( 'style', ( true === $merge ) ? $this['style'] . ' ' . $style : $style );
+			return $this->_set( 'style', ( true === $merge ) ? $this->style . ' ' . $style : $style );
 		}
 
 		/**
@@ -255,9 +255,10 @@ if ( ! class_exists( '\WPO\Helper\Field\Common_Args' ) ) {
 		public function _clone( $clone = false ) {
 			if ( wponion_is_array( $clone ) ) {
 				$this->clone_settings( $clone );
-				$this['clone'] = true;
+				$this->clone = true;
+			} else {
+				$this->clone = $clone;
 			}
-			$this['clone'] = $clone;
 			return $this;
 		}
 

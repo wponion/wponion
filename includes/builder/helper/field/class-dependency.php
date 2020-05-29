@@ -22,11 +22,11 @@ if ( ! class_exists( '\WPO\Helper\Field\Dependency' ) ) {
 		 * @return \WPO\Helper\Dependency\Builder
 		 */
 		public function dependency( $element = null, $condition = null, $values = null ) {
-			$instance           = new Builder( $element, $condition, $values );
-			$data               = ( isset( $this['dependency'] ) && is_array( $this['dependency'] ) ) ? $this['dependency'] : array();
-			$data['rules']      = ( isset( $data['rules'] ) ) ? $data['rules'] : array();
-			$data['rules'][]    = $instance;
-			$this['dependency'] = $data;
+			$instance         = new Builder( $element, $condition, $values );
+			$data             = ( is_array( $this->dependency ) ) ? $this->dependency : array();
+			$data['rules']    = ( isset( $data['rules'] ) ) ? $data['rules'] : array();
+			$data['rules'][]  = $instance;
+			$this->dependency = $data;
 			return $instance;
 		}
 
@@ -38,9 +38,9 @@ if ( ! class_exists( '\WPO\Helper\Field\Dependency' ) ) {
 		 * @return $this
 		 */
 		public function dependency_settings( $settings = array() ) {
-			$data               = ( isset( $this['dependency'] ) && is_array( $this['dependency'] ) ) ? $this['dependency'] : array();
-			$data['settings']   = $settings;
-			$this['dependency'] = $data;
+			$data             = ( is_array( $this->dependency ) ) ? $this->dependency : array();
+			$data['settings'] = $settings;
+			$this->dependency = $data;
 			return $this;
 		}
 	}

@@ -32,8 +32,7 @@ if ( ! class_exists( 'WPO\Fields\Color_Picker' ) ) {
 		 * @return $this
 		 */
 		public function settings( $settings = array() ) {
-			$this['settings'] = $settings;
-			return $this;
+			return $this->_set( 'settings', $settings );
 		}
 
 		/**
@@ -42,8 +41,7 @@ if ( ! class_exists( 'WPO\Fields\Color_Picker' ) ) {
 		 * @return $this
 		 */
 		public function size( $size = 30 ) {
-			$this['size'] = $size;
-			return $this;
+			return $this->_set( 'size', $size );
 		}
 
 		/**
@@ -71,8 +69,7 @@ if ( ! class_exists( 'WPO\Fields\Color_Picker' ) ) {
 				$custom .= ( true === $with_margin ) ? ' with-margin ' : '';
 				$custom .= ( true === $box_shadow ) ? ' box-shadow ' : '';
 			}
-			$this['layout'] = $custom;
-			return $this;
+			return $this->_set( 'layout', $custom );
 		}
 	}
 }

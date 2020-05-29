@@ -22,7 +22,7 @@ if ( ! class_exists( '\WPO\Fields\Spinner' ) ) {
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
 			parent::__construct( $id, $title, $args );
-			$this['type'] = 'spinner';
+			$this->_set( 'type', 'spinner' );
 		}
 
 		/**
@@ -31,8 +31,7 @@ if ( ! class_exists( '\WPO\Fields\Spinner' ) ) {
 		 * @return $this
 		 */
 		public function min( $min = 0 ) {
-			$this['min'] = $min;
-			return $this;
+			return $this->_set( 'min', $min );
 		}
 
 		/**
@@ -41,8 +40,7 @@ if ( ! class_exists( '\WPO\Fields\Spinner' ) ) {
 		 * @return $this
 		 */
 		public function max( $max = 100 ) {
-			$this['max'] = $max;
-			return $this;
+			return $this->_set( 'max', $max );
 
 		}
 
@@ -52,8 +50,7 @@ if ( ! class_exists( '\WPO\Fields\Spinner' ) ) {
 		 * @return $this
 		 */
 		public function step( $step = 1 ) {
-			$this['step'] = $step;
-			return $this;
+			return $this->_set( 'step', $step );
 		}
 
 		/**
@@ -62,8 +59,7 @@ if ( ! class_exists( '\WPO\Fields\Spinner' ) ) {
 		 * @return $this
 		 */
 		public function spinner( $args = array() ) {
-			$this['spinner'] = $args;
-			return $this;
+			return $this->_set( 'spinner', $args );
 		}
 
 

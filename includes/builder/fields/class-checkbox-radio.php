@@ -19,7 +19,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 		 * @var string
 		 * @access
 		 */
-		protected $type = '';
+		protected $checkbox_type = '';
 
 		/**
 		 * @var bool
@@ -35,7 +35,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 		 * @param array $args
 		 */
 		public function __construct( $id = false, $title = false, $args = array() ) {
-			parent::__construct( $this->type, $id, $title, $args );
+			parent::__construct( $this->checkbox_type, $id, $title, $args );
 		}
 
 		/**
@@ -44,8 +44,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 		 * @return $this
 		 */
 		public function label( $label ) {
-			$this['label'] = $label;
-			return $this;
+			return $this->_set( 'label', $label );
 		}
 
 		/**
@@ -54,8 +53,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 		 * @return $this
 		 */
 		public function inline( $is_inline = false ) {
-			$this['inline'] = $is_inline;
-			return $this;
+			return $this->_set( 'inline', $is_inline );
 		}
 
 		/**
@@ -78,7 +76,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 			if ( false !== $this->option_group ) {
 				$_options = ( isset( $this[ 'options/' . $this->option_group ] ) ) ? $this[ 'options/' . $this->option_group ] : array();
 			} else {
-				$_options = $this['options'];
+				$_options = $this->options;
 			}
 
 			if ( true === $merge ) {
@@ -90,7 +88,7 @@ if ( ! class_exists( 'WPO\Fields\Checkbox_Radio' ) ) {
 			if ( false !== $this->option_group ) {
 				$this[ 'options/' . $this->option_group ] = $_options;
 			} else {
-				$this['options'] = $_options;
+				$this->options = $_options;
 			}
 			return $this;
 		}
