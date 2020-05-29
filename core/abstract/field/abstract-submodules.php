@@ -18,8 +18,9 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Submodules' ) ) {
 		 * Compiles And Add CSS Code To WPonion localize.
 		 */
 		protected function field_custom_css() {
-			if ( ! empty( $this->option( 'css' ) ) ) {
-				$css = CSS_Parser::parse( $this->option( 'css' ), 'div[data-wponion-jsid="' . $this->js_field_id() . '"]' );
+			$css = $this->option( 'css' );
+			if ( ! empty( $css ) ) {
+				$css = CSS_Parser::parse( $css, 'div[data-wponion-jsid="' . $this->js_field_id() . '"]' );
 				wponion_localize()->css( 'fields', $css, false );
 			}
 		}
@@ -44,11 +45,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Submodules' ) ) {
 			$pointer = $this->option( 'wp_pointer' );
 
 			if ( is_string( $pointer ) ) {
-				$this->wp_pointer_instance()
-					->add( '#' . $this->wrap_id(), $pointer, array(
-						'align' => 'right',
-						'edge'  => 'right',
-					) );
+				$this->wp_pointer_instance()->add( '#' . $this->wrap_id(), $pointer, array(
+					'align' => 'right',
+					'edge'  => 'right',
+				) );
 			} elseif ( wponion_is_array( $pointer ) ) {
 				if ( isset( $pointer[0] ) ) {
 					$title       = false;
@@ -65,11 +65,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Submodules' ) ) {
 						$text        = $pointer[2];
 					}
 
-					$this->wp_pointer_instance( $instance_id )
-						->add( '#' . $this->wrap_id(), $title, $text, array(
-							'align' => 'right',
-							'edge'  => 'right',
-						) );
+					$this->wp_pointer_instance( $instance_id )->add( '#' . $this->wrap_id(), $title, $text, array(
+						'align' => 'right',
+						'edge'  => 'right',
+					) );
 				} elseif ( isset( $pointer['title'] ) || isset( $pointer['pointer_id'] ) || isset( $pointer['id'] ) ) {
 					$pointer_id = false;
 

@@ -40,7 +40,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Debug' ) ) {
 		 * @return array|bool
 		 */
 		protected function debug( $key = '', $data = array() ) {
-			if ( ! empty( $key ) && $this->has( 'debug' ) && ! isset( $this->debug[ $key ] ) ) {
+			if ( ! empty( $key ) && ! isset( $this->debug[ $key ] ) ) {
 				$this->debug[ $key ] = $data;
 			}
 			return ( empty( $key ) ) ? $this->debug : false;

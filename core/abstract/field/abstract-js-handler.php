@@ -33,9 +33,10 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\JS_Handler' ) ) {
 			$js_id     = $this->js_field_id();
 			$localizer = wponion_localize();
 			if ( null === $data ) {
-				$data     = $this->js_args();
-				$path     = explode( '/', $this->unique( $this->field_id() ) );
-				$new_path = array();
+				$data        = $this->js_args();
+				$path        = explode( '/', $this->unique( $this->field_id() ) );
+				$new_path    = array();
+				$js_validate = $this->option( 'js_validate' );
 
 				if ( ! empty( $data ) ) {
 					$localizer->add( $js_id, $data );
@@ -45,8 +46,8 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\JS_Handler' ) ) {
 					$localizer->add( $js_id, array( 'debug_info' => $this->debug( true ) ), true, false );
 				}
 
-				if ( $this->has( 'js_validate' ) ) {
-					$localizer->add( $js_id, array( 'js_validate' => $this->option( 'js_validate' ) ) );
+				if ( ! empty( $js_validate ) ) {
+					$localizer->add( $js_id, array( 'js_validate' => $js_validate ) );
 				}
 
 				if ( ! empty( $path ) ) {

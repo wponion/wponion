@@ -33,7 +33,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Conditional_Check' ) ) {
 		 * @return bool
 		 */
 		protected function is_ajax() {
-			return ( $this->has( 'ajax' ) && false !== $this->option( 'ajax' ) );
+			return ( $this->has( 'ajax' ) );
 		}
 
 		/**

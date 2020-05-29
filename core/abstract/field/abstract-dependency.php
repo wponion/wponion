@@ -16,7 +16,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Dependency' ) ) {
 		 * Handles Field Dependency
 		 */
 		protected function register_dependency() {
-			$dependency = ( $this->has( 'dependency/rules' ) ) ? $this->option( 'dependency/rules' ) : false;
+			$dependency = $this->option( 'dependency/rules' );
 			if ( wponion_is_array( $dependency ) && ! empty( array_filter( $dependency ) ) ) {
 				/**
 				 * @var \WPO\Helper\Dependency\Builder $group
@@ -60,7 +60,7 @@ if ( ! class_exists( '\WPOnion\Bridge\Field\Dependency' ) ) {
 					wponion_localize()->add( $this->js_field_id(), array(
 						'dependency' => array(
 							'rules'    => $dependency,
-							'settings' => ( $this->has( 'dependency/settings' ) ) ? $this->option( 'dependency/settings' ) : false,
+							'settings' => $this->option( 'dependency/settings' ),
 						),
 					), true, true );
 				}

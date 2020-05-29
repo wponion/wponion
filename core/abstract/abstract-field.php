@@ -91,24 +91,27 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * Generates Final HTML output of the current field.
 		 */
 		public function final_output() {
+			$only_field      = $this->is_only_field();
 			$before_render   = $this->option( 'before_render' );
 			$after_render    = $this->option( 'after_render' );
-			$render_callback = array( &$this, $this->js_field_id(), $this->is_only_field() );
+			$render_callback = array( &$this, $this->js_field_id(), $only_field );
 
 			if ( wponion_is_callable( $before_render ) ) {
 				wponion_callback( $before_render, $render_callback );
 			}
 
-			if ( $this->is_only_field() ) {
+			if ( $only_field ) {
 				echo $this->field_html();
 			} else {
 				$this->wrapper();
 			}
 
-			$this->debug( __( 'Field Args', 'wponion' ), $this->settings );
-			$this->debug( __( 'Field Value', 'wponion' ), $this->value );
-			$this->debug( __( 'Unique', 'wponion' ), $this->unique() );
-			$this->debug( __( 'Module', 'wponion' ), $this->module() );
+			if ( $this->has( 'debug' ) ) {
+				$this->debug( __( 'Field Args', 'wponion' ), $this->settings );
+				$this->debug( __( 'Field Value', 'wponion' ), $this->value );
+				$this->debug( __( 'Unique', 'wponion' ), $this->unique() );
+				$this->debug( __( 'Module', 'wponion' ), $this->module() );
+			}
 
 			$this->wp_pointer();
 			$this->localize_field();
@@ -199,15 +202,15 @@ HTML;
 		 * @return string
 		 */
 		protected function field_help() {
-			$html = '';
-			if ( $this->has( 'help' ) ) {
-				$data                              = $this->tooltip_data( $this->option( 'help' ), array( 'icon' => 'wpoic-help' ), 'field_help' );
+			$help = $this->option( 'help' );
+			if ( $help ) {
+				$data = $this->tooltip_data( $help, array( 'icon' => 'wpoic-help' ), 'field_help' );
 				$data['attr']['data-wponion-jsid'] = $this->js_field_id();
 				$span_attr                         = wponion_array_to_html_attributes( $data['attr'] );
 				$icon                              = $data['data']['icon'];
-				$html                              = "<span ${span_attr}> <span class=\"${icon}\"></span> </span>";
+				return "<span ${span_attr}> <span class=\"${icon}\"></span> </span>";
 			}
-			return $html;
+			return '';
 		}
 
 		/**
