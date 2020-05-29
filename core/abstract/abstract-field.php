@@ -24,10 +24,12 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		public function __construct( $field = array(), $value = array(), $unique = array() ) {
 			self::$total_fields++;
 
-			$this->value       = $value;
-			$this->unique      = $unique;
-			$this->base_unique = $unique;
-			$this->module      = false;
+			$this->value        = $value;
+			$this->unique       = $unique;
+			$this->base_unique  = $unique;
+			$this->module       = false;
+			$this->settings     = $field;
+			$this->array_helper = ( ! wpo_is_field( $this->settings ) );
 
 			if ( wponion_is_array( $unique ) ) {
 				$this->unique      = ( isset( $unique['unique'] ) ) ? $unique['unique'] : false;
@@ -35,12 +37,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 				$this->module      = ( isset( $unique['module'] ) ) ? $unique['module'] : false;
 			}
 
-			$this->set_args( $field );
-
-			$this->array_helper = ( ! wpo_is_field( $this->settings ) );
-
 			$this->_handle_arguments();
-
 			$this->get_errors();
 
 			if ( wponion_is_defined( 'WPONION_FIELD_ASSETS', true ) || true === $this->is_assets_actions_fired() ) {
@@ -84,7 +81,7 @@ if ( ! class_exists( '\WPOnion\Field' ) ) {
 		 * @return array
 		 */
 		protected function base_defaults() {
-			return array();//wponion_field_defaults();
+			return array();
 		}
 
 		/**
