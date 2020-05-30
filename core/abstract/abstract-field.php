@@ -38,6 +38,7 @@ abstract class Field extends Wrapper {
 
 		$this->_handle_arguments();
 		$this->get_errors();
+		$this->set_args( $field );
 
 		if ( wponion_is_defined( 'WPONION_FIELD_ASSETS', true ) || true === $this->is_assets_actions_fired() ) {
 			$this->assets();
