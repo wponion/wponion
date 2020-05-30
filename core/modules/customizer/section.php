@@ -6,20 +6,17 @@ use WP_Customize_Section;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Customizer\Section' ) ) {
+/**
+ * Class Section
+ *
+ * @package WPOnion\Modules\Customizer
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Section extends WP_Customize_Section {
 	/**
-	 * Class Section
-	 *
-	 * @package WPOnion\Modules\Customizer
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
+	 * @var string
+	 * @access
 	 */
-	class Section extends WP_Customize_Section {
-		/**
-		 * @var string
-		 * @access
-		 */
-		public $type = 'wponion';
+	public $type = 'wponion';
 
-	}
 }

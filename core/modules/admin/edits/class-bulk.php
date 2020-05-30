@@ -4,19 +4,17 @@ namespace WPOnion\Modules\Admin\Edits;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Admin\Edits\Bulk' ) ) {
+/**
+ * Class Bulk
+ *
+ * @package WPOnion\Modules\Admin\Edits
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Bulk extends Quick {
 	/**
-	 * Class Bulk
+	 * module
 	 *
-	 * @package WPOnion\Modules\Admin\Edits
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
+	 * @var string
 	 */
-	class Bulk extends Quick {
-		/**
-		 * module
-		 *
-		 * @var string
-		 */
-		protected $module = 'bulk_edit';
-	}
+	protected $module = 'bulk_edit';
 }

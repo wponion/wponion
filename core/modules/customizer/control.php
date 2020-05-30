@@ -6,149 +6,146 @@ use WP_Customize_Control;
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\Modules\Customizer\Control' ) ) {
+/**
+ * Class customize_control
+ *
+ * @package WPOnion\Modules
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ */
+class Control extends WP_Customize_Control {
 	/**
-	 * Class customize_control
+	 * unique
 	 *
-	 * @package WPOnion\Modules
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
+	 * @var array
 	 */
-	class Control extends WP_Customize_Control {
-		/**
-		 * unique
-		 *
-		 * @var array
-		 */
-		protected $unique = '';
+	protected $unique = '';
 
-		/**
-		 * @var bool
-		 * @access
-		 */
-		protected $link_attr = true;
+	/**
+	 * @var bool
+	 * @access
+	 */
+	protected $link_attr = true;
 
-		/**
-		 * type
-		 *
-		 * @var string
-		 */
-		public $type = 'wponion_field';
+	/**
+	 * type
+	 *
+	 * @var string
+	 */
+	public $type = 'wponion_field';
 
-		/**
-		 * options
-		 *
-		 * @var array
-		 */
-		public $options = array();
+	/**
+	 * options
+	 *
+	 * @var array
+	 */
+	public $options = array();
 
-		/**
-		 * wrap_class
-		 *
-		 * @var null|string
-		 */
-		protected $wrap_class = null;
+	/**
+	 * wrap_class
+	 *
+	 * @var null|string
+	 */
+	protected $wrap_class = null;
 
-		/**
-		 * after_field
-		 *
-		 * @var null
-		 */
-		protected $after_field = null;
+	/**
+	 * after_field
+	 *
+	 * @var null
+	 */
+	protected $after_field = null;
 
-		/**
-		 * before_field
-		 *
-		 * @var null
-		 */
-		protected $before_field = null;
+	/**
+	 * before_field
+	 *
+	 * @var null
+	 */
+	protected $before_field = null;
 
-		/**
-		 * customize_control constructor.
-		 *
-		 * @param \WP_Customize_Manager $manager
-		 * @param string                $id
-		 * @param array                 $args
-		 * @param string                $wrap_class
-		 */
-		public function __construct( $manager, $id, $args = array(), $wrap_class = '' ) {
-			parent::__construct( $manager, $id, $args );
+	/**
+	 * customize_control constructor.
+	 *
+	 * @param \WP_Customize_Manager $manager
+	 * @param string                $id
+	 * @param array                 $args
+	 * @param string                $wrap_class
+	 */
+	public function __construct( $manager, $id, $args = array(), $wrap_class = '' ) {
+		parent::__construct( $manager, $id, $args );
 
-			if ( wponion_is_cloneable( $args['options'] ) ) {
-				$this->type = 'wponion_field_clone';
-			} else {
-				$this->type = ( isset( $args['type'] ) && ! empty( $args['type'] ) ) ? 'wponion_field_' . $args['type'] : 'wponion_field';
-			}
-
-			$this->wrap_class = $wrap_class;
+		if ( wponion_is_cloneable( $args['options'] ) ) {
+			$this->type = 'wponion_field_clone';
+		} else {
+			$this->type = ( isset( $args['type'] ) && ! empty( $args['type'] ) ) ? 'wponion_field_' . $args['type'] : 'wponion_field';
 		}
 
-		/**
-		 * Renders the control wrapper and calls $this->render_content() for the internals.
-		 *
-		 * @since 3.4.0
-		 */
-		protected function render() {
-			$id    = 'customize-control-' . str_replace( array( '[', ']' ), array( '-', '' ), $this->id );
-			$class = 'customize-control customize-control-' . $this->type . ' wponion-field';
+		$this->wrap_class = $wrap_class;
+	}
 
-			printf( '<li id="%s" class="%s">', esc_attr( $id ), esc_attr( $class ) );
-			$this->render_content();
-			echo '</li>';
+	/**
+	 * Renders the control wrapper and calls $this->render_content() for the internals.
+	 *
+	 * @since 3.4.0
+	 */
+	protected function render() {
+		$id    = 'customize-control-' . str_replace( array( '[', ']' ), array( '-', '' ), $this->id );
+		$class = 'customize-control customize-control-' . $this->type . ' wponion-field';
+
+		printf( '<li id="%s" class="%s">', esc_attr( $id ), esc_attr( $class ) );
+		$this->render_content();
+		echo '</li>';
+	}
+
+	/**
+	 * Returns Element Value.
+	 *
+	 * @return mixed
+	 */
+	protected function el_value() {
+		return $this->value();
+	}
+
+	/**
+	 * Returns Element Unique
+	 *
+	 * @return string|array
+	 */
+	protected function unique() {
+		return $this->unique;
+	}
+
+	/**
+	 * Returns Field Args.
+	 *
+	 * @return array
+	 */
+	protected function field() {
+		$this->options['id']            = $this->id;
+		$this->options['default']       = $this->setting->default;
+		$this->options['__no_instance'] = true;
+		if ( true === $this->link_attr ) {
+			$this->options['attributes']                                = ( ! is_array( $this->options['attributes'] ) ) ? array() : $this->options['attributes'];
+			$this->options['attributes']['data-customize-setting-link'] = $this->settings['default']->id;
+		}
+		return $this->options;
+	}
+
+	/**
+	 * Renders HTML Output.
+	 */
+	public function render_content() {
+		if ( ! empty( $this->wrap_class ) ) {
+			echo '<div class="' . $this->wrap_class . '">';
 		}
 
-		/**
-		 * Returns Element Value.
-		 *
-		 * @return mixed
-		 */
-		protected function el_value() {
-			return $this->value();
-		}
+		echo $this->before_field;
+		$field               = $this->field();
+		$field['horizontal'] = true;
 
-		/**
-		 * Returns Element Unique
-		 *
-		 * @return string|array
-		 */
-		protected function unique() {
-			return $this->unique;
-		}
+		echo wponion_add_element( $this->field(), $this->el_value(), $this->unique() );
+		echo $this->after_field;
 
-		/**
-		 * Returns Field Args.
-		 *
-		 * @return array
-		 */
-		protected function field() {
-			$this->options['id']            = $this->id;
-			$this->options['default']       = $this->setting->default;
-			$this->options['__no_instance'] = true;
-			if ( true === $this->link_attr ) {
-				$this->options['attributes']                                = ( ! is_array( $this->options['attributes'] ) ) ? array() : $this->options['attributes'];
-				$this->options['attributes']['data-customize-setting-link'] = $this->settings['default']->id;
-			}
-			return $this->options;
-		}
-
-		/**
-		 * Renders HTML Output.
-		 */
-		public function render_content() {
-			if ( ! empty( $this->wrap_class ) ) {
-				echo '<div class="' . $this->wrap_class . '">';
-			}
-
-			echo $this->before_field;
-			$field               = $this->field();
-			$field['horizontal'] = true;
-
-			echo wponion_add_element( $this->field(), $this->el_value(), $this->unique() );
-			echo $this->after_field;
-
-			if ( ! empty( $this->wrap_class ) ) {
-				echo '</div>';
-			}
+		if ( ! empty( $this->wrap_class ) ) {
+			echo '</div>';
 		}
 	}
 }
