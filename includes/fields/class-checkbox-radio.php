@@ -43,10 +43,11 @@ class Checkbox_Radio extends Field {
 		$options   = $this->option( 'options' );
 		$options   = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 
-		if ( wponion_is_array( $options ) && ! empty( $options ) ) {
+		if ( wponion_is_array( $options, true ) ) {
 			echo '<ul class="' . $is_inline . '">';
 			foreach ( $options as $option_key => $option ) {
-				if ( ! wponion_is_array( $option ) || wponion_is_array( $option ) && ( isset( $option['label'] ) || isset( $option['custom_input'] ) ) ) {
+
+				if ( ! wponion_is_array( $option ) || ( wponion_is_array( $option ) && wponion_is_set( $option, 'label' ) || wponion_is_set( $option, 'custom_input' ) ) ) {
 					echo '<li>' . $this->render_element( $this->handle_options( $option_key, $option ) ) . '</li>';
 				} elseif ( wponion_is_array( $option ) && false === isset( $option['label'] ) ) {
 					echo '<li class="has-subgroup">';
@@ -86,9 +87,7 @@ class Checkbox_Radio extends Field {
 			'id'    => $id,
 			'type'  => 'text',
 			'class' => array( 'wponion-custom-value-input' ),
-		), array(
-			'only_field' => true,
-		) ), $value, $this->name() );
+		), array( 'only_field' => true ) ), $value, $this->name() );
 	}
 
 	/**
@@ -119,12 +118,12 @@ class Checkbox_Radio extends Field {
 		}
 		$attr['class'] = wponion_html_class( $attr['class'], $this->element_class( 'form-check-input' ) );
 		$attr['value'] = $this->element_value( $options );
+		$attr['name']  = ( 'single' === $in_group ) ? $this->name() : $this->name( ( 'radio' !== $this->element_type() ) ? '[]' : '' );
+		$attr['id']    = sanitize_title( $attr['name'] . '_' . $options['key'] );
 		$value         = $this->value();
-		$wrap_attr     = array();
 		$label_attr    = array();
 
 		if ( 'single' === $in_group ) {
-			$attr['name'] = $this->name();
 			if ( 'switcher' === $this->element_type() ) {
 				$attr['value'] = true;
 			} elseif ( 'checkbox' === $this->element_type() && empty( $this->option( 'options' ) ) ) {
@@ -132,24 +131,15 @@ class Checkbox_Radio extends Field {
 			} else {
 				$attr['value'] = $options['key'];
 			}
-		} else {
-			$is_checkbox  = ( 'radio' !== $this->element_type() ) ? '[]' : '';
-			$attr['name'] = $this->name( $is_checkbox );
 		}
 
-		$elem_id    = sanitize_title( $attr['name'] . '_' . $options['key'] );
-		$attr['id'] = $elem_id;
-
-		if ( isset( $options['tooltip'] ) && wponion_is_array( $options['tooltip'] ) ) {
+		if ( wponion_is_set( $options, 'tooltip' ) && wponion_is_array( $options['tooltip'] ) ) {
 			$label_attr                      = array();
 			$label_attr['data-wponion-jsid'] = $this->js_field_id();
-			$label_attr['data-field-jsid']   = $elem_id;
+			$label_attr['data-field-jsid']   = $attr['id'];
 			$label_attr['class']             = ( 'image_select' !== $this->element_type() ) ? ' wponion-field-tooltip ' : ' wponion-checkbox-radio-tooltip ';
-			wponion_localize()->add( $this->js_field_id(), array( $elem_id . 'tooltip' => $options['tooltip']['data'] ) );
+			wponion_localize()->add( $this->js_field_id(), array( $attr['id'] . 'tooltip' => $options['tooltip']['data'] ) );
 		}
-
-		$wrap_attr['class'] = wponion_html_class( array( 'form-group', 'form-check' ) );
-		$field_attr         = $this->attributes( $attr );
 
 		if ( true === $options['custom_input'] || true === wponion_is_array( $options['custom_input'] ) ) {
 			$name             = $options['key'];
@@ -160,7 +150,8 @@ class Checkbox_Radio extends Field {
 		if ( wponion_is_array( $value ) && true === $options['custom_input'] || true === wponion_is_array( $options['custom_input'] ) ) {
 			$value = isset( $value[ $options['key'] ] ) ? $options['key'] : false;
 		}
-		return $this->_element_html( $label_attr, $field_attr, $value, $attr, $options );
+
+		return $this->_element_html( $label_attr, $this->attributes( $attr ), $value, $attr, $options );
 	}
 
 	/**

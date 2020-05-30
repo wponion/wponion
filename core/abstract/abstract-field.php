@@ -417,40 +417,42 @@ HTML;
 	 * @return array
 	 */
 	protected function handle_options( $key, $value, $defaults = array(), $tooltip = true ) {
-		$defaults = $this->parse_args( $defaults, array(
+		$base     = array(
 			'label'        => '',
 			'key'          => '',
 			'attributes'   => array(),
 			'disabled'     => false,
 			'tooltip'      => false,
 			'custom_input' => false,
-		) );
+		);
+		$defaults = ( empty( $defaults ) ) ? $base : $this->parse_args( $defaults, $base );
 
 		if ( ! wponion_is_array( $value ) ) {
 			$defaults['key']   = $key;
 			$defaults['label'] = $value;
-			$value             = $defaults;
-		} else {
-			$value = $this->parse_args( $value, $defaults );
+			return $defaults;
+		}
+		$value = $this->parse_args( $value, $defaults );
 
-			if ( true === $tooltip && false !== $value['tooltip'] ) {
-				$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
-				$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'placement' => 'right' ), false );
-			}
+		if ( true === $tooltip && false !== $value['tooltip'] ) {
+			$value['tooltip'] = ( true === $value['tooltip'] ) ? $value['label'] : $value['tooltip'];
+			$value['tooltip'] = $this->tooltip_data( $value['tooltip'], array( 'placement' => 'right' ), false );
+		}
 
-			if ( true === $value['disabled'] ) {
-				$value['attributes']['disabled'] = 'disabled';
-			}
+		if ( true === $value['disabled'] ) {
+			$value['attributes']['disabled'] = 'disabled';
+		}
 
-			if ( '' === $value['key'] ) {
-				$value['key'] = $key;
-			}
+		if ( '' === $value['key'] ) {
+			$value['key'] = $key;
 		}
 
 		$value['custom_input'] = ( true === $value['label'] && false === $value['custom_input'] ) ? true : $value['custom_input'];
+
 		if ( false === $tooltip ) {
 			unset( $value['tooltip'] );
 		}
+
 		return $value;
 	}
 
