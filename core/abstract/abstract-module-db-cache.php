@@ -17,7 +17,6 @@ abstract class Module_DB_Cache extends Bridge {
 	 * Stores All Cache Information.
 	 *
 	 * @var array
-	 * @static
 	 */
 	protected static $cache = false;
 
@@ -25,7 +24,6 @@ abstract class Module_DB_Cache extends Bridge {
 	 * Database DB Cache Key.
 	 *
 	 * @var string
-	 * @static
 	 */
 	protected static $db_key = '_wponion_db_cache';
 
@@ -39,8 +37,6 @@ abstract class Module_DB_Cache extends Bridge {
 
 	/**
 	 * Updates Database Cache.
-	 *
-	 * @static
 	 */
 	public static function update_db_cache() {
 		self::$cache = array_map( 'array_filter', self::$cache );
@@ -49,8 +45,6 @@ abstract class Module_DB_Cache extends Bridge {
 
 	/**
 	 * Retrives Cache From Database.
-	 *
-	 * @static
 	 */
 	public static function retrive_db_cache() {
 		if ( false === self::$cache ) {

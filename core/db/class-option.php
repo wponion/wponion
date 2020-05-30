@@ -44,7 +44,6 @@ class Option implements ArrayAccess, Iterator, JsonSerializable, \Serializable, 
 	 * Stores All Network Options.
 	 *
 	 * @var array
-	 * @static
 	 */
 	protected $options = array();
 

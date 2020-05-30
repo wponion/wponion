@@ -14,8 +14,6 @@ use WPOnion\Helper;
 class Cache {
 	/**
 	 * Stores Cache Not Found Value.
-	 *
-	 * @static
 	 */
 	protected static $not_found_value;
 
@@ -23,7 +21,6 @@ class Cache {
 	 * Stores Cache Database Key.
 	 *
 	 * @var string
-	 * @static
 	 */
 	protected static $db_key = '_wponion_db_cache';
 
@@ -31,14 +28,11 @@ class Cache {
 	 * Stores Current Database Cache.
 	 *
 	 * @var array
-	 * @static
 	 */
 	protected static $cache = false;
 
 	/**
 	 * Retrives DB Cache.
-	 *
-	 * @static
 	 */
 	private static function get_db_cache() {
 		if ( false === self::$cache ) {
@@ -58,8 +52,6 @@ class Cache {
 
 	/**
 	 * Updates Database Cache.
-	 *
-	 * @static
 	 */
 	public static function update_db_cache() {
 		self::$cache = array_map( array( __CLASS__, 'filter_save' ), self::$cache );
@@ -71,7 +63,6 @@ class Cache {
 	 *
 	 * @param $data
 	 *
-	 * @static
 	 * @return array
 	 */
 	public static function filter_save( $data ) {
@@ -83,7 +74,6 @@ class Cache {
 	 *
 	 * @param string $key cache_id.
 	 *
-	 * @static
 	 * @return mixed
 	 * @throws \WPOnion\Exception\DB_Cache_Not_Found
 	 */
@@ -105,7 +95,6 @@ class Cache {
 	 * @param string $key cache_id.
 	 * @param mixed  $value catch_data.
 	 *
-	 * @static
 	 * @return array|object
 	 */
 	public static function set( $key, $value = false ) {
@@ -116,8 +105,6 @@ class Cache {
 	 * Removes A Cached Data.
 	 *
 	 * @param string $key
-	 *
-	 * @static
 	 */
 	public static function remove( $key ) {
 		Helper::array_key_unset( $key, self::$cache );

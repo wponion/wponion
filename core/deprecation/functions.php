@@ -56,7 +56,7 @@ if ( ! function_exists( 'wponion_deprecated_function' ) ) {
 	 * @param string $version Version the message was added in.
 	 * @param string $replacement Replacement for the called function.
 	 *
-	 * @since 3.0.0
+	 * @since {NEWVERSION}
 	 */
 	function wponion_deprecated_function( $function, $version, $replacement = null ) {
 		// @codingStandardsIgnoreStart
@@ -81,7 +81,7 @@ if ( ! function_exists( 'wponion_deprecated_hook' ) ) {
 	 * @param string $replacement The hook that should have been used.
 	 * @param string $message A message regarding the change.
 	 *
-	 * @since 3.3.0
+	 * @since {NEWVERSION}
 	 */
 	function wponion_deprecated_hook( $hook, $version, $replacement = null, $message = null ) {
 		// @codingStandardsIgnoreStart
@@ -108,7 +108,7 @@ if ( ! function_exists( 'wponion_caught_exception' ) ) {
 	 * @param string    $function The function which threw exception.
 	 * @param array     $args The args passed to the function.
 	 *
-	 * @since 3.3.0
+	 * @since {NEWVERSION}
 	 */
 	function wponion_caught_exception( $exception_object, $function = '', $args = array() ) {
 		// @codingStandardsIgnoreStart
@@ -129,7 +129,7 @@ if ( ! function_exists( 'wponion_doing_it_wrong' ) ) {
 	 * @param string $message Message to log.
 	 * @param string $version Version the message was added in.
 	 *
-	 * @since  3.0.0
+	 * @since {NEWVERSION}
 	 */
 	function wponion_doing_it_wrong( $function, $message, $version ) {
 		// @codingStandardsIgnoreStart
@@ -153,7 +153,7 @@ if ( ! function_exists( 'wponion_deprecated_argument' ) ) {
 	 * @param string $version
 	 * @param string $message
 	 *
-	 * @since  3.0.0
+	 * @since {NEWVERSION}
 	 */
 	function wponion_deprecated_argument( $argument, $version, $message = null ) {
 		if ( wponion_is_ajax() ) {

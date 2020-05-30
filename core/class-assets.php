@@ -50,8 +50,6 @@ final class Assets {
 
 	/**
 	 * Inits WPOnion_Assets Class.
-	 *
-	 * @static
 	 */
 	public static function init() {
 		self::$icon_libs   = array(
@@ -132,8 +130,6 @@ final class Assets {
 
 	/**
 	 * Registers Assets With WordPress.
-	 *
-	 * @static
 	 */
 	public static function register_assets() {
 		do_action( 'wponion/assets/register/before' );
@@ -157,8 +153,6 @@ final class Assets {
 	 *
 	 * @param $type
 	 * @param $data
-	 *
-	 * @static
 	 */
 	protected static function handle_assets( $type, $data ) {
 		foreach ( $data as $key => $src ) {
@@ -172,8 +166,6 @@ final class Assets {
 	 * @param $type
 	 * @param $src
 	 * @param $key
-	 *
-	 * @static
 	 */
 	protected static function regiser_asset( $type, $src, $key ) {
 		$src = wp_parse_args( $src, array(
@@ -196,8 +188,6 @@ final class Assets {
 	 *
 	 * @param $type
 	 * @param $data
-	 *
-	 * @static
 	 */
 	protected static function cdn( $type, $data ) {
 		foreach ( $data as $key => $src ) {

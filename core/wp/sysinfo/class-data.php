@@ -17,13 +17,11 @@ defined( 'ABSPATH' ) || exit;
 class Data {
 	/**
 	 * @var array
-	 * @static
 	 */
 	public static $status = array();
 
 	/**
 	 * @return array
-	 * @static
 	 */
 	public static function get() {
 		if ( empty( self::$status ) ) {
@@ -43,7 +41,6 @@ class Data {
 	 * @param $key
 	 *
 	 * @return bool
-	 * @static
 	 */
 	public static function is_defined( $key ) {
 		return ( true === defined( $key ) && true === constant( $key ) );
@@ -51,7 +48,6 @@ class Data {
 
 	/**
 	 * @return bool|string
-	 * @static
 	 */
 	public static function is_debug() {
 		if ( self::is_defined( 'WP_DEBUG' ) && self::is_defined( 'WP_DEBUG_LOG' ) && self::is_defined( 'WP_DEBUG_DISPLAY' ) ) {
@@ -109,7 +105,6 @@ class Data {
 	 * @param $key
 	 *
 	 * @return mixed
-	 * @static
 	 */
 	private static function filter( $data, $key ) {
 		return apply_filters( 'wponion/sysinfo/data', $data, $key );
@@ -117,8 +112,6 @@ class Data {
 
 	/**
 	 * Stores Basic Version Information.
-	 *
-	 * @static
 	 */
 	public static function server_information() {
 		global $wpdb;
@@ -133,8 +126,6 @@ class Data {
 
 	/**
 	 * Stores Basic WordPress Information.
-	 *
-	 * @static
 	 */
 	public static function wordpress_information() {
 		global $wpdb;
@@ -155,8 +146,6 @@ class Data {
 
 	/**
 	 * Stores PHP Information.
-	 *
-	 * @static
 	 */
 	public static function php_information() {
 		self::$status[ __( 'PHP Information', 'wponion' ) ] = self::filter( array(
@@ -184,8 +173,6 @@ class Data {
 
 	/**
 	 * Stores Active Theme Information.
-	 *
-	 * @static
 	 */
 	public static function active_theme() {
 		$active_theme                                    = wp_get_theme();
@@ -210,8 +197,6 @@ class Data {
 
 	/**
 	 * Stores Information About MustUsePlugins.
-	 *
-	 * @static
 	 */
 	public static function must_use_plugins() {
 		$muplugins = wp_get_mu_plugins();
@@ -228,8 +213,6 @@ class Data {
 
 	/**
 	 * Stores Active,Installed & Multisite Active plugin informations.
-	 *
-	 * @static
 	 */
 	public static function plugins() {
 		$plugins        = get_plugins();
@@ -272,7 +255,6 @@ class Data {
 	 * @param        $plugin
 	 * @param string $base_file
 	 *
-	 * @static
 	 * @return array
 	 */
 	public static function get_plugin_info( $plugin, $base_file = '' ) {
@@ -281,8 +263,6 @@ class Data {
 
 	/**
 	 * WPOnion Information.
-	 *
-	 * @static
 	 */
 	public static function self_info_data() {
 		$main_file = null;

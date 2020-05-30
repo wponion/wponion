@@ -13,7 +13,6 @@ defined( 'ABSPATH' ) || exit;
 class Page_Actions {
 	/**
 	 * @var array
-	 * @static
 	 */
 	protected static $output = array();
 
@@ -21,7 +20,6 @@ class Page_Actions {
 	 * Stores Button Informations.
 	 *
 	 * @var array
-	 * @static
 	 */
 	protected static $post_types = array();
 
@@ -29,7 +27,6 @@ class Page_Actions {
 	 * Stores Button Informations.
 	 *
 	 * @var array
-	 * @static
 	 */
 	protected static $screen_ids = array();
 
@@ -37,7 +34,6 @@ class Page_Actions {
 	 * Stores Button Informations.
 	 *
 	 * @var array
-	 * @static
 	 */
 	protected static $taxonomy = array();
 
@@ -45,14 +41,13 @@ class Page_Actions {
 	 * Inits Class.
 	 *
 	 * @uses validate_current_post_type
-	 * @static
 	 */
 	public static function init() {
 		add_action( 'admin_footer', array( __CLASS__, 'validate_current_post_type' ) );
 	}
 
 	/**
-	 * @static
+	 * Validates
 	 */
 	public static function validate_current_post_type() {
 		$current_screen = get_current_screen();
@@ -83,7 +78,6 @@ class Page_Actions {
 	/**
 	 * @param $data
 	 *
-	 * @static
 	 * @return array
 	 */
 	protected static function generate_buttons( $data ) {
@@ -124,8 +118,6 @@ class Page_Actions {
 	 *
 	 * @param $post_type
 	 * @param $buttons
-	 *
-	 * @static
 	 */
 	public static function add( $post_type, $buttons ) {
 		if ( is_array( $post_type ) ) {

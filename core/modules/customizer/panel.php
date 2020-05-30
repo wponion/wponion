@@ -15,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
 class Panel extends WP_Customize_Panel {
 	/**
 	 * @var string
-	 * @access
 	 */
 	public $type = 'wponion';
 }

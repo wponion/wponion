@@ -34,8 +34,6 @@ class Widget extends Module {
 
 	/**
 	 * Loads Required Assets.
-	 *
-	 * @static
 	 */
 	public static function load_assets() {
 		wponion_load_core_assets();

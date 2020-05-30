@@ -15,7 +15,6 @@ class Util {
 	 * Stores Fields JS id.
 	 *
 	 * @var bool
-	 * @access
 	 */
 	protected $js_id = false;
 
@@ -23,7 +22,6 @@ class Util {
 	 * Stores Element HTML.
 	 *
 	 * @var string
-	 * @access
 	 */
 	protected $element = null;
 

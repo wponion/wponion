@@ -25,7 +25,6 @@ class Storage {
 	 * @param \WPOnion\Bridge $instance
 	 * @param bool|string     $instance_id
 	 *
-	 * @static
 	 * @return mixed
 	 */
 	public static function add( $instance, $instance_id = false ) {
@@ -48,7 +47,6 @@ class Storage {
 	/**
 	 * @param string $key
 	 *
-	 * @static
 	 * @return bool
 	 */
 	public static function has( $key ) {
@@ -61,7 +59,6 @@ class Storage {
 	 * @param string $key
 	 *
 	 * @return bool
-	 * @static
 	 */
 	public static function get( $key ) {
 		return ( ! empty( self::$storage ) || ! empty( $key ) ) ? Helper::array_key_get( $key, self::$storage ) : false;

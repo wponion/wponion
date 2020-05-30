@@ -372,8 +372,6 @@ class List_Table extends WP_List_Table {
 	 * Generates content for a single row of the table
 	 *
 	 * @param object $item The current item
-	 *
-	 * @since 3.1.0
 	 */
 	public function single_row( $item ) {
 		$class      = $this->get_html_classes( 'content' );
@@ -401,8 +399,6 @@ class List_Table extends WP_List_Table {
 	 * Display the pagination.
 	 *
 	 * @param string $which
-	 *
-	 * @since 3.1.0
 	 *
 	 */
 	protected function pagination( $which ) {
@@ -506,8 +502,6 @@ class List_Table extends WP_List_Table {
 	 *
 	 * @param string $which
 	 *
-	 * @since 3.1.0
-	 *
 	 */
 	protected function extra_tablenav( $which ) {
 		if ( wponion_is_callable( $this->option( 'extra_tablenav' ) ) ) {
@@ -519,8 +513,6 @@ class List_Table extends WP_List_Table {
 	 * Generate the table navigation above or below the table
 	 *
 	 * @param string $which
-	 *
-	 * @since 3.1.0
 	 */
 	protected function display_tablenav( $which ) {
 		$nounce = '';
@@ -562,8 +554,6 @@ HTML;
 	 * Print column headers, accounting for hidden and sortable columns.
 	 *
 	 * @param bool $with_id Whether to set the id attribute or not
-	 *
-	 * @since 3.1.0
 	 *
 	 * @staticvar int $cb_counter
 	 */
@@ -618,8 +608,6 @@ HTML;
 	 * Get a list of CSS classes for the WP_List_Table table tag.
 	 *
 	 * @return array List of CSS classes for the table tag.
-	 * @since 3.1.0
-	 *
 	 */
 	protected function get_table_classes() {
 		$class = wponion_html_class( $this->get_html_classes( 'table' ), array(), false );
@@ -648,8 +636,6 @@ HTML;
 
 	/**
 	 * Display the table
-	 *
-	 * @since 3.1.0
 	 */
 	public function display() {
 		if ( true === $this->option( 'tablenav_top' ) ) {

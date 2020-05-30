@@ -27,7 +27,6 @@ class Helper {
 	 * @param $file
 	 *
 	 * @return mixed
-	 * @static
 	 */
 	public static function get_data( $file ) {
 		return include wponion()->data( $file . '.php' );
@@ -36,7 +35,6 @@ class Helper {
 	/**
 	 * Returns Internal Array Data.
 	 *
-	 * @static
 	 * @return array
 	 */
 	public static function get_internal_options() {
@@ -55,7 +53,6 @@ class Helper {
 	 * @param string $file File Path
 	 * @param bool   $as_array
 	 *
-	 * @static
 	 * @return array|object
 	 */
 	public static function read_json_file( $file, $as_array = false ) {
@@ -77,7 +74,6 @@ class Helper {
 	 *
 	 * @param string $type [google/websafe/backup]
 	 *
-	 * @static
 	 * @return mixed
 	 */
 	public static function fonts( $type ) {
@@ -105,7 +101,6 @@ class Helper {
 	 * Returns A List Of Post Types.
 	 *
 	 * @return array
-	 * @static
 	 */
 	public static function get_post_types() {
 		try {
@@ -125,7 +120,6 @@ class Helper {
 	 *
 	 * @param string $type [list,symbol]
 	 *
-	 * @static
 	 * @return mixed
 	 */
 	public static function get_currencies( $type ) {
@@ -152,7 +146,6 @@ class Helper {
 	 * Returns Full Currency List.
 	 *
 	 * @return array
-	 * @static
 	 */
 	public static function get_currency() {
 		return self::get_currencies( 'list' );
@@ -162,7 +155,6 @@ class Helper {
 	 * Returns Currency Symbol.
 	 *
 	 * @return array
-	 * @static
 	 */
 	public static function get_currency_symbol() {
 		return self::get_currencies( 'symbol' );
@@ -210,7 +202,6 @@ class Helper {
 	 * @param               $array_or_object
 	 * @param string        $delimiter
 	 *
-	 * @static
 	 * @return bool
 	 */
 	public static function array_key_isset( $keys, $array_or_object, $delimiter = '/' ) {
@@ -383,7 +374,6 @@ class Helper {
 	 *
 	 * @param string $key Unique Timer Key.
 	 *
-	 * @static
 	 * @return mixed
 	 */
 	public static function timer_start( $key ) {
@@ -397,7 +387,6 @@ class Helper {
 	 * @param string $key Unqiue Timer Key.
 	 * @param int    $precision
 	 *
-	 * @static
 	 * @return bool|string
 	 */
 	public static function timer_stop( $key = '', $precision = 3 ) {

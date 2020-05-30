@@ -21,7 +21,6 @@ class Options {
 	 * @param bool $option_key
 	 * @param bool $option_default
 	 *
-	 * @static
 	 * @return bool|\WPOnion\DB\Option|array
 	 * @since {NEWVERSION}
 	 */
@@ -41,7 +40,6 @@ class Options {
 	 * @param string $option_key
 	 * @param bool   $default
 	 *
-	 * @static
 	 * @return bool|\WPOnion\DB\Option|array
 	 */
 	public static function settings( $db_key, $option_key = '', $default = false ) {
@@ -53,7 +51,6 @@ class Options {
 	 * @param string $option_key
 	 * @param bool   $default
 	 *
-	 * @static
 	 * @return bool|\WPOnion\DB\Option|array
 	 */
 	public static function network_settings( $db_key, $option_key = '', $default = false ) {
@@ -66,7 +63,6 @@ class Options {
 	 * @param string      $option_key
 	 * @param bool        $default
 	 *
-	 * @static
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
 	public static function post_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {
@@ -80,7 +76,6 @@ class Options {
 	 * @param string      $option_key
 	 * @param bool        $default
 	 *
-	 * @static
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
 	public static function term_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {
@@ -93,7 +88,6 @@ class Options {
 	 * @param string      $option_key
 	 * @param bool        $default
 	 *
-	 * @static
 	 * @return array|bool|\WPOnion\DB\Option
 	 */
 	public static function user_meta( $db_key = '', $id = false, $option_key = '', $default = false ) {

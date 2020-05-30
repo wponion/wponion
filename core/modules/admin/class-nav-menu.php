@@ -125,7 +125,6 @@ class Nav_Menu extends Module {
 	 * Changes Nav Menu Walker.
 	 *
 	 * @return string
-	 * @static
 	 */
 	public static function change_nav_walker() {
 		return '\WPOnion\WP\Nav_Menu\Walker';

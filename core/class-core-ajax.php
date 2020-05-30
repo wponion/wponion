@@ -21,7 +21,6 @@ class Core_Ajax extends Bridge {
 	 * @param bool  $action
 	 * @param array $args
 	 *
-	 * @static
 	 * @return string
 	 */
 	public static function url( $action = false, $args = array() ) {

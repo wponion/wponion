@@ -15,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
 class Endpoint {
 	/**
 	 * @var array
-	 * @static
 	 */
 	protected static $cache = array();
 
@@ -80,8 +79,6 @@ class Endpoint {
 
 	/**
 	 * Inits Cache.
-	 *
-	 * @static
 	 */
 	public static function save_cache() {
 		$cache    = get_option( '_wponion_endpoints', false );

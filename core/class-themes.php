@@ -26,7 +26,6 @@ class Themes {
 	 * @param string $callback
 	 *
 	 * @return bool
-	 * @static
 	 */
 	public static function register( $name = '', $supports = array(), $callback = '' ) {
 		if ( ! isset( self::$themes[ $name ] ) ) {
@@ -47,7 +46,6 @@ class Themes {
 	 * @param string $module
 	 *
 	 * @return bool
-	 * @static
 	 */
 	public static function is_support( $theme_name = '', $module = '' ) {
 		if ( isset( self::$themes[ $theme_name ] ) && ( isset( self::$themes[ $theme_name ]['supports'][ $module ] ) || in_array( $module, self::$themes[ $theme_name ]['supports'], true ) ) ) {
@@ -58,8 +56,6 @@ class Themes {
 
 	/**
 	 * Basic Setup
-	 *
-	 * @static
 	 */
 	public static function setup() {
 		self::register( 'wp_modern', array(
@@ -104,7 +100,6 @@ class Themes {
 	 * @param array  $callback_args
 	 *
 	 * @return bool|\WPOnion\Theme_API
-	 * @static
 	 */
 	public static function callback( $name = '', $callback_args = array() ) {
 		if ( isset( self::$themes[ $name ] ) ) {

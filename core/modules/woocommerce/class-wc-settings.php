@@ -18,7 +18,6 @@ if ( ! defined( 'WPINC' ) ) {
 class WC_Settings extends WC_Settings_Page {
 	/**
 	 * @var bool|\WPO\Container
-	 * @access
 	 */
 	protected $container = false;
 
@@ -26,7 +25,6 @@ class WC_Settings extends WC_Settings_Page {
 	 * Stores Settings Instance.
 	 *
 	 * @var bool|\WPOnion\Modules\WooCommerce\Settings
-	 * @access
 	 */
 	protected $instance = false;
 

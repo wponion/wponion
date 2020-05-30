@@ -14,8 +14,6 @@ class Sysinfo {
 
 	/**
 	 * @param $args
-	 *
-	 * @static
 	 */
 	public static function get( $args ) {
 		$reports = ( isset( $args->reports ) ) ? $args->reports : array();
@@ -35,7 +33,7 @@ class Sysinfo {
 	}
 
 	/**
-	 * @static
+	 * JS
 	 */
 	public static function js() {
 		echo <<<JAVASCRIPT
@@ -56,8 +54,6 @@ JAVASCRIPT;
 	 * @param                      $data
 	 * @param                      $args
 	 * @param \WPO\Container|false $container_arg
-	 *
-	 * @static
 	 */
 	public static function render_html( $data, $args, $container_arg = false ) {
 		$content  = self::render_text_data( $data );
@@ -148,7 +144,6 @@ JAVASCRIPT;
 	 * @param     $data
 	 * @param int $times
 	 *
-	 * @static
 	 * @return string
 	 */
 	protected static function eol( $data, $times = 2 ) {
@@ -158,7 +153,6 @@ JAVASCRIPT;
 	/**
 	 * @param $data
 	 *
-	 * @static
 	 * @return string
 	 */
 	public static function render_text_data( $data ) {
@@ -179,7 +173,6 @@ JAVASCRIPT;
 	 * @param      $times
 	 * @param bool $incode
 	 *
-	 * @static
 	 * @return string
 	 */
 	protected static function render_text_array( $value, $times, $incode = false ) {
@@ -226,7 +219,6 @@ JAVASCRIPT;
 	 * @param     $value
 	 * @param int $times
 	 *
-	 * @static
 	 * @return string
 	 */
 	protected static function render_text_string( $value, $times = 1 ) {
@@ -249,7 +241,6 @@ JAVASCRIPT;
 	 * @param $data
 	 *
 	 * @return string|array
-	 * @static
 	 */
 	protected static function render_text_bool( $data ) {
 		if ( is_array( $data ) ) {

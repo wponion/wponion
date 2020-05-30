@@ -22,7 +22,6 @@ class Control extends WP_Customize_Control {
 
 	/**
 	 * @var bool
-	 * @access
 	 */
 	protected $link_attr = true;
 
@@ -83,8 +82,6 @@ class Control extends WP_Customize_Control {
 
 	/**
 	 * Renders the control wrapper and calls $this->render_content() for the internals.
-	 *
-	 * @since 3.4.0
 	 */
 	protected function render() {
 		$id    = 'customize-control-' . str_replace( array( '[', ']' ), array( '-', '' ), $this->id );

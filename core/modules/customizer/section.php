@@ -15,7 +15,6 @@ defined( 'ABSPATH' ) || exit;
 class Section extends WP_Customize_Section {
 	/**
 	 * @var string
-	 * @access
 	 */
 	public $type = 'wponion';
 

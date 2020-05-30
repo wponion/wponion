@@ -24,7 +24,6 @@ class Pointers extends Module_Utility {
 	 * Stores Printable Pointers.
 	 *
 	 * @var array
-	 * @access
 	 */
 	private $print_pointers = array();
 
@@ -32,14 +31,11 @@ class Pointers extends Module_Utility {
 	 * Custom Static Var To Check if Assets Are Loaded.
 	 *
 	 * @var bool
-	 * @access
-	 * @static
 	 */
 	private static $load_script = false;
 
 	/**
 	 * @var bool|array
-	 * @access
 	 */
 	private static $reset = false;
 
@@ -47,8 +43,6 @@ class Pointers extends Module_Utility {
 	 * Stores Pointe Ids.
 	 *
 	 * @var array
-	 * @access
-	 * @static
 	 */
 	private static $pointers_ids = array();
 
@@ -216,8 +210,6 @@ class Pointers extends Module_Utility {
 
 	/**
 	 * Resets Pointer Data.
-	 *
-	 * @static
 	 */
 	public static function _reset() {
 		if ( ! empty( self::$reset ) ) {

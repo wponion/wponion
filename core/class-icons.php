@@ -56,7 +56,6 @@ class Icons {
 	 * @param $icon_name
 	 *
 	 * @return array|\WPOnion\Icon|bool
-	 * @static
 	 */
 	public static function get( $icon_name ) {
 		return isset( self::$instances[ $icon_name ] ) ? self::$instances[ $icon_name ] : false;

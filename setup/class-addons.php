@@ -14,12 +14,10 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 	abstract class Addons {
 		/**
 		 * Stores All Addons List as
-		 * array(
-		 *    'addon_name' => array( 'file' => 'version' )
-		 * );
+		 *
+		 * @example array( addon_name' => array( 'file' => 'version' ) );
 		 *
 		 * @var array
-		 * @static
 		 */
 		protected static $addons = array();
 
@@ -27,7 +25,6 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 		 * Stores Active Adodns Version.
 		 *
 		 * @var array
-		 * @static
 		 */
 		protected static $loaded_addons = array();
 
@@ -38,7 +35,6 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 		 * @param string|int $version
 		 * @param string     $callback_or_file
 		 *
-		 * @static
 		 * @return bool
 		 */
 		public static function register_addon( $name, $version, $callback_or_file ) {
@@ -51,8 +47,6 @@ if ( ! class_exists( '\WPOnion\Addons' ) ) {
 
 		/**
 		 * Loads Latest Addon.
-		 *
-		 * @static
 		 */
 		protected static function load_addons() {
 			if ( ! empty( self::$addons ) ) {

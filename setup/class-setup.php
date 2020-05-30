@@ -23,7 +23,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * Stores Vendor Related Libs Inside WPOnion.
 		 *
 		 * @var array
-		 * @static
 		 */
 		private static $vendor_libs = array();
 
@@ -31,13 +30,11 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * Stores Remaps Class.
 		 *
 		 * @var array
-		 * @static
 		 */
 		private static $remaps = array();
 
 		/**
 		 * @uses on_wponion_loaded
-		 * @static
 		 */
 		public static function init() {
 			self::$vendor_libs = array(
@@ -55,7 +52,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		/**
 		 * Loads Vendor Folder if prepacked.
 		 *
-		 * @static
 		 * @since 1.4.6.1
 		 */
 		protected static function load_composer_vendor() {
@@ -72,7 +68,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * 4. Function Arguments.
 		 * 5. Files.
 		 *
-		 * @static
 		 * @since 1.4.6.1
 		 */
 		protected static function load_deprecated_handlers() {
@@ -83,7 +78,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		}
 
 		/**
-		 * @static
+		 *
 		 */
 		public static function load_required_files() {
 			require_once wponion()->path( 'core/functions/index.php' );
@@ -105,7 +100,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 		/**
 		 * @hook wponion_init
-		 * @static
 		 */
 		public static function on_wponion_loaded() {
 			self::setup_remaps();
@@ -140,8 +134,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 		/**
 		 * Inits Autoloader.
-		 *
-		 * @static
 		 */
 		public static function init_autoloader() {
 			$classmap = wponion()->path( 'wponion-classmaps.php' );
@@ -181,8 +173,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * Loads Vendor Files.
 		 *
 		 * @param $class
-		 *
-		 * @static
 		 */
 		public static function vendor_loader( $class ) {
 			if ( isset( self::$vendor_libs[ $class ] ) ) {
@@ -192,8 +182,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 		/**
 		 * Registers Field.
-		 *
-		 * @static
 		 */
 		public static function register_core_fields() {
 			wponion_register_field( 'clone', 'all' );
@@ -283,8 +271,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 
 		/**
 		 * Setups Remaps.
-		 *
-		 * @static
 		 */
 		private static function setup_remaps() {
 			$notice              = '\WPO\Fields\Notice';
@@ -345,7 +331,6 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * @param $class
 		 * @param $default
 		 *
-		 * @static
 		 * @return bool|mixed
 		 */
 		public static function remap( $class, $default = false ) {

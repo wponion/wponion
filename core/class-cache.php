@@ -70,7 +70,6 @@ final class Cache {
 	/**
 	 * Returns Proper Memory Limit.
 	 *
-	 * @static
 	 * @return float|int
 	 */
 	protected static function get_memory_limit() {
@@ -95,7 +94,6 @@ final class Cache {
 	 * about memory_get_usage(false)
 	 *
 	 * @see  http://stackoverflow.com/a/16239377/1794248
-	 * @static
 	 * @return bool
 	 */
 	protected static function memory_exceeded() {
@@ -104,8 +102,6 @@ final class Cache {
 
 	/**
 	 * Inits Cache System.
-	 *
-	 * @static
 	 */
 	public static function init() {
 		self::$not_found_value = new Cache_Not_Found();
@@ -202,7 +198,6 @@ final class Cache {
 	 *
 	 * @param string $key cache_id
 	 *
-	 * @static
 	 * @return mixed
 	 * @throws \WPOnion\Exception\Cache_Not_Found
 	 */
@@ -228,7 +223,6 @@ final class Cache {
 	 * @param string $key cache_id.
 	 * @param mixed  $value cache_data.
 	 *
-	 * @static
 	 * @return array|object
 	 */
 	public static function set( $key, $value = false ) {
@@ -242,8 +236,6 @@ final class Cache {
 	 * Removes a cached data.
 	 *
 	 * @param string $key cache_id
-	 *
-	 * @static
 	 */
 	public static function remove( $key ) {
 		Helper::array_key_unset( $key, self::$cache );

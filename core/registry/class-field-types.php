@@ -15,7 +15,6 @@ class Field_Types {
 	 * Stores All Field Types.
 	 *
 	 * @var array
-	 * @static
 	 */
 	public static $all_fields = array();
 
@@ -24,7 +23,6 @@ class Field_Types {
 	 * array('all' => array('text','textarea'));
 	 *
 	 * @var array
-	 * @static
 	 */
 	public static $module_fields = array();
 
@@ -32,7 +30,6 @@ class Field_Types {
 	 * Stores Field Types That Are Used To Just For UI Related.
 	 *
 	 * @var array
-	 * @static
 	 */
 	public static $design_fields = array();
 
@@ -42,8 +39,6 @@ class Field_Types {
 	 * @param        $type
 	 * @param string $supports
 	 * @param array  $extra_args
-	 *
-	 * @static
 	 */
 	public static function add( $type, $supports = 'all', $extra_args = array() ) {
 		self::$all_fields[ $type ] = ( self::exists( $type ) ) ? wp_parse_args( self::$all_fields[ $type ], $extra_args ) : $extra_args;
@@ -61,8 +56,6 @@ class Field_Types {
 	 * Removes A Field.
 	 *
 	 * @param $type
-	 *
-	 * @static
 	 */
 	public static function remove( $type ) {
 		if ( self::exists( $type ) ) {
@@ -76,8 +69,6 @@ class Field_Types {
 	 * Removes a Field From Design.
 	 *
 	 * @param $type
-	 *
-	 * @static
 	 */
 	public static function remove_design_field( $type ) {
 		if ( self::design_exists( $type ) ) {
@@ -95,7 +86,6 @@ class Field_Types {
 	 * @param string $module
 	 * @param bool   $global
 	 *
-	 * @static
 	 * @return array
 	 */
 	public static function get( $module = '', $global = true ) {
@@ -112,7 +102,6 @@ class Field_Types {
 	/**
 	 * Returns Only Design Fields
 	 *
-	 * @static
 	 * @return array
 	 */
 	public static function get_design() {
@@ -124,7 +113,6 @@ class Field_Types {
 	 *
 	 * @param $type
 	 *
-	 * @static
 	 * @return bool|array
 	 */
 	public static function get_field( $type ) {
@@ -136,7 +124,6 @@ class Field_Types {
 	 *
 	 * @param $type
 	 *
-	 * @static
 	 * @return bool
 	 */
 	public static function exists( $type ) {
@@ -148,7 +135,6 @@ class Field_Types {
 	 *
 	 * @param $type
 	 *
-	 * @static
 	 * @return bool
 	 */
 	public static function design_exists( $type ) {
@@ -160,8 +146,6 @@ class Field_Types {
 	 *
 	 * @param $type
 	 * @param $supports
-	 *
-	 * @static
 	 */
 	public static function add_support( $type, $supports ) {
 		$supports = ( ! wponion_is_array( $supports ) ) ? array( $supports ) : $supports;
@@ -182,7 +166,6 @@ class Field_Types {
 	 * @param $type
 	 * @param $module
 	 *
-	 * @static
 	 * @return bool
 	 */
 	public static function is_supported( $type, $module ) {
@@ -194,8 +177,6 @@ class Field_Types {
 	 *
 	 * @param $type
 	 * @param $supports
-	 *
-	 * @static
 	 */
 	public static function remove_support( $type, $supports ) {
 		$supports = ( ! wponion_is_array( $supports ) ) ? array( $supports ) : $supports;

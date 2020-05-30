@@ -15,15 +15,12 @@ trait Self_Instance {
 	 * Stores Self Instance.
 	 *
 	 * @var
-	 * @access
-	 * @static
 	 */
 	protected static $self_instance;
 
 	/**
 	 * Creates Instance.
 	 *
-	 * @static
 	 * @return static
 	 */
 	public static function instance() {
