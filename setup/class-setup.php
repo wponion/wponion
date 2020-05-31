@@ -157,9 +157,13 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 				'classmap' => $classmap,
 			) );
 
+			new Autoloader( 'WPOnion\libraries\\', wponion()->path( 'includes/' ), array(
+				'classmap' => $classmap,
+			) );
+
 			new Autoloader( 'WPOnion\\', wponion()->path( 'core/' ), array(
 				'classmap' => $classmap,
-				'exclude'  => array( 'WPOnion\Field\\', 'WPOnion\Module_Fields\\', 'WPO\\' ),
+				'exclude'  => array( 'WPOnion\Field\\', 'WPOnion\Module_Fields\\', 'WPOnion\libraries\\', 'WPO\\' ),
 			) );
 
 			new Autoloader( 'WPO\\', wponion()->path( 'includes/' ), array(

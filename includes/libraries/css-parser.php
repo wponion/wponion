@@ -1,13 +1,13 @@
 <?php
 
-namespace WPOnion;
+namespace WPOnion\libraries;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
  * Class CSS_Parser
  *
- * @package WPOnion\Utils
+ * @package WPOnion\libraries
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  */
 class CSS_Parser {

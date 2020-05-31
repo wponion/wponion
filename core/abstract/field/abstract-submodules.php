@@ -2,7 +2,7 @@
 
 namespace WPOnion\Bridge\Field;
 
-use WPOnion\CSS_Parser;
+use WPOnion\libraries\CSS_Parser;
 
 defined( 'ABSPATH' ) || exit;
 
