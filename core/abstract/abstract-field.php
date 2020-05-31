@@ -36,9 +36,9 @@ abstract class Field extends Wrapper {
 			$this->module      = ( isset( $unique['module'] ) ) ? $unique['module'] : false;
 		}
 
+		$this->set_args( $field );
 		$this->_handle_arguments();
 		$this->get_errors();
-		$this->set_args( $field );
 
 		if ( wponion_is_defined( 'WPONION_FIELD_ASSETS', true ) || true === $this->is_assets_actions_fired() ) {
 			$this->assets();
@@ -73,15 +73,6 @@ abstract class Field extends Wrapper {
 			$this->set_option( 'attributes/class', wponion_html_class( $this->option( 'attributes/class' ), $this->option( 'class' ), false ) );
 		}
 		$this->handle_arguments();
-	}
-
-	/**
-	 * This function Returns Global Default Field Args.
-	 *
-	 * @return array
-	 */
-	protected function base_defaults() {
-		return array();
 	}
 
 	/**
