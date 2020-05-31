@@ -56,8 +56,10 @@ trait Class_Options {
 	 */
 	protected function set_args( $user_options = array(), $defaults = array() ) {
 		$user_options   = ( ! wponion_is_array( $user_options ) ) ? array() : $user_options;
-		$defaults       = $this->parse_args( $this->call_method( 'defaults', $defaults ), $this->call_method( 'base_defaults' ) );
-		$this->settings = $this->parse_args( $user_options, $defaults );
+		$base_defauls   = $this->call_method( 'base_defaults', false );
+		$defaults       = $this->call_method( 'defaults', $defaults );
+		$defaults       = ( ! empty( $base_defauls ) ) ? $this->parse_args( $defaults, $base_defauls ) : $defaults;
+		$this->settings = ( ! empty( $defaults ) ) ? $this->parse_args( $user_options, $defaults ) : $user_options;
 		return $this->settings;
 	}
 
