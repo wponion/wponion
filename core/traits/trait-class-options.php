@@ -97,7 +97,7 @@ trait Class_Options {
 	 */
 	protected function set_option_default( $key, $default ) {
 		if ( ! $this->has_option( $key ) ) {
-			$this->option( $key, $default );
+			$this->set_option( $key, $default );
 		}
 		return $this;
 	}
@@ -172,6 +172,6 @@ trait Class_Options {
 		if ( $this->array_helper ) {
 			return Helper::array_key_get( $key, $this->settings, $default, $this->array_key_delimiter );
 		}
-		return ( $this->has_option( $key ) ) ? $this->settings[ $key ] : $default;
+		return ( isset( $this->settings[ $key ] ) ) ? $this->settings[ $key ] : $default;
 	}
 }

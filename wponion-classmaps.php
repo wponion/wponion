@@ -1,7 +1,7 @@
 <?php
 /**
- * Last Updated: Fri 29-May-2020 / 09:22:44:pm
- * Total Class:  285
+ * Last Updated: Sun 31-May-2020 / 08:30:59:am
+ * Total Class:  286
  * Namespace: 
  */
 
@@ -85,6 +85,7 @@ return array (
   'WPOnion\\Deprecation\\Filters' => 'deprecation/class-filters.php',
   'WPOnion\\Exception\\Cache_Not_Found' => 'exception/class-cache-not-found.php',
   'WPOnion\\Exception\\DB_Cache_Not_Found' => 'exception/class-db-cache-not-found.php',
+  'WPOnion\\Helpers\\Array_Access' => 'helpers/class-array-access.php',
   'WPOnion\\Modules\\Admin\\Admin_Bar' => 'modules/admin/class-admin-bar.php',
   'WPOnion\\Modules\\Admin\\Columns' => 'modules/admin/class-columns.php',
   'WPOnion\\Modules\\Admin\\Help_Tabs' => 'modules/admin/class-help-tabs.php',
