@@ -185,6 +185,24 @@ if ( ! function_exists( 'wponion_is_array' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wponion_is_countable' ) ) {
+	/**
+	 * Counts Given values.
+	 *
+	 * @param      $data
+	 * @param bool $strict
+	 *
+	 * @return bool|int
+	 * @since {NEWVERSION}
+	 */
+	function wponion_is_countable( $data, $strict = false ) {
+		if ( is_countable( $data ) ) {
+			return ( $strict ) ? count( $data ) == $strict : count( $data );
+		}
+		return false;
+	}
+}
+
 if ( ! function_exists( 'wponion_is_unarrayed' ) ) {
 	/**
 	 * Check if a field is unarrayed.

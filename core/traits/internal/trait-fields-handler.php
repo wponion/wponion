@@ -31,7 +31,7 @@ trait Fields_Handler {
 	 * @return array|\WPO\Builder
 	 */
 	public function fields() {
-		if ( ! wponion_is_array( $this->fields ) && wponion_is_callable( $this->fields ) && false === $this->fields_called ) {
+		if ( ( is_string( $this->fields ) || ( wponion_is_array( $this->fields ) && wponion_is_countable( $this->fields, 2 ) ) ) && wponion_is_callable( $this->fields ) && false === $this->fields_called ) {
 			$this->fields        = wponion_callback( $this->fields );
 			$this->fields_called = true;
 		}
