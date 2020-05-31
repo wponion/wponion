@@ -15,13 +15,6 @@ defined( 'ABSPATH' ) || exit;
  */
 class Page extends Module_Utility {
 	/**
-	 * option
-	 *
-	 * @var array
-	 */
-	protected $option = array();
-
-	/**
 	 * active_tab
 	 *
 	 * @var bool
@@ -244,12 +237,12 @@ class Page extends Module_Utility {
 	 */
 	public function on_load( $on_load = null ) {
 		if ( ! is_null( $on_load ) ) {
-			if ( ! wponion_is_array( $this->option( 'on_load' ) ) && false !== $this->option( 'on_load' ) ) {
-				$this->set_option( 'on_load', array( $this->option( 'on_load' ), $on_load ) );
-			} elseif ( wponion_is_array( $this->option( 'on_load' ) ) ) {
-				$_on_load   = $this->option( 'on_load' );
-				$_on_load[] = $on_load;
-				$this->set_option( 'on_load', $_on_load );
+			$sys_on_load = $this->option( 'on_load' );
+			if ( ! wponion_is_array( $sys_on_load ) && false !== $sys_on_load ) {
+				$this->set_option( 'on_load', array( $sys_on_load, $on_load ) );
+			} elseif ( wponion_is_array( $sys_on_load ) ) {
+				$sys_on_load[] = $on_load;
+				$this->set_option( 'on_load', $on_load );
 			} else {
 				$this->set_option( 'on_load', array( $on_load ) );
 			}
@@ -264,12 +257,12 @@ class Page extends Module_Utility {
 	 */
 	public function assets( $assets = null ) {
 		if ( ! is_null( $assets ) ) {
-			if ( ! wponion_is_array( $this->option( 'assets' ) ) && false !== $this->option( 'assets' ) ) {
-				$this->set_option( 'assets', array( $this->option( 'assets' ), $assets ) );
-			} elseif ( wponion_is_array( $this->option( 'assets' ) ) ) {
-				$_assets   = $this->option( 'assets' );
-				$_assets[] = $assets;
-				$this->set_option( 'assets', $_assets );
+			$sys_assets = $this->option( 'assets' );
+			if ( ! wponion_is_array( $sys_assets ) && false !== $sys_assets ) {
+				$this->set_option( 'assets', array( $sys_assets, $assets ) );
+			} elseif ( wponion_is_array( $sys_assets ) ) {
+				$sys_assets[] = $assets;
+				$this->set_option( 'assets', $sys_assets );
 			} else {
 				$this->set_option( 'assets', array( $assets ) );
 			}
@@ -282,7 +275,9 @@ class Page extends Module_Utility {
 	 */
 	public function init() {
 		if ( ! empty( $this->option( 'menu_title' ) ) ) {
-			if ( false !== $this->option( 'network' ) ) {
+			$is_network = $this->option( 'network' );
+
+			if ( false !== $is_network ) {
 				if ( ! did_action( 'network_admin_menu' ) ) {
 					$this->add_action( 'network_admin_menu', 'add_menu', $this->hook_priority() );
 				} else {
@@ -290,7 +285,7 @@ class Page extends Module_Utility {
 				}
 			}
 
-			if ( 'only' !== $this->option( 'network' ) ) {
+			if ( 'only' !== $is_network ) {
 				if ( ! did_action( 'admin_menu' ) ) {
 					$this->add_action( 'admin_menu', 'add_menu', $this->hook_priority() );
 				} else {
@@ -330,18 +325,19 @@ class Page extends Module_Utility {
 		$menu_title = $this->menu_title();
 		$page_title = $this->page_title();
 		$render     = array( &$this, 'render' );
+		$submenu    = $this->submenu();
 
-		if ( false === $this->submenu() || wponion_is_array( $this->submenu() ) ) {
+		if ( false === $submenu || wponion_is_array( $submenu ) ) {
 			$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $slug, $render, $this->icon(), $this->position() );
 		} else {
-			switch ( $this->submenu() ) {
+			switch ( $submenu ) {
 				case 'management':
 				case 'dashboard':
 				case 'options':
 				case 'plugins':
 				case 'theme':
-					if ( function_exists( 'add_' . $this->submenu() . '_page' ) ) {
-						$this->page_slug = wponion_callback( 'add_' . $this->submenu() . '_page', array(
+					if ( function_exists( 'add_' . $submenu . '_page' ) ) {
+						$this->page_slug = wponion_callback( 'add_' . $submenu . '_page', array(
 							$page_title,
 							$menu_title,
 							$this->capability(),
@@ -351,7 +347,7 @@ class Page extends Module_Utility {
 					}
 					break;
 				default:
-					$this->page_slug = add_submenu_page( $this->submenu(), $page_title, $menu_title, $this->capability(), $slug, $render );
+					$this->page_slug = add_submenu_page( $submenu, $page_title, $menu_title, $this->capability(), $slug, $render );
 					break;
 			}
 		}
@@ -385,14 +381,14 @@ class Page extends Module_Utility {
 			$this->menu_url = menu_page_url( $slug, false );
 			$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), $this->menu_url );
 
-			if ( wponion_is_array( $this->submenu() ) && wponion_is_callable( $this->submenu() ) ) {
-				wponion_callback( $this->submenu(), $this );
-			} elseif ( wponion_is_array( $this->submenu() ) ) {
+			if ( wponion_is_array( $submenu ) && wponion_is_callable( $submenu ) ) {
+				wponion_callback( $submenu, $this );
+			} elseif ( wponion_is_array( $submenu ) ) {
 				$subemnus = array();
-				if ( true === $this->is_multiple( $this->submenu() ) ) {
-					$subemnus[] = $this->submenu();
+				if ( true === $this->is_multiple( $submenu ) ) {
+					$subemnus[] = $submenu;
 				} else {
-					$subemnus = $this->submenu();
+					$subemnus = $submenu;
 				}
 
 				foreach ( $subemnus as $sub_menu ) {
@@ -424,10 +420,11 @@ class Page extends Module_Utility {
 		echo '<h1>' . get_admin_page_title() . '</h1>';
 
 		$_callback = $this->option( 'render' );
+		$tabs      = $this->option( 'tabs' );
 
-		if ( false !== $this->option( 'tabs' ) ) {
+		if ( false !== $tabs ) {
 			echo '<nav class="nav-tab-wrapper">';
-			foreach ( $this->option( 'tabs' ) as $slug => $tab ) {
+			foreach ( $tabs as $slug => $tab ) {
 				$icon      = ( false !== $tab['icon'] ) ? '<i class="' . $tab['icon'] . '"></i>' : '';
 				$is_active = ( $this->active_tab === $slug ) ? ' nav-tab-active ' : '';
 				$url       = add_query_arg( 'tab', $slug );
@@ -481,17 +478,13 @@ class Page extends Module_Utility {
 	 */
 	public function on_page_load() {
 		$this->add_action( 'admin_enqueue_scripts', 'handle_assets' );
-		if ( false !== $this->option( 'footer_text' ) ) {
-			$this->add_filter( 'admin_footer_text', 'admin_footer_text', 10 );
-		}
+		$this->add_filter( 'admin_footer_text', 'admin_footer_text', 10 );
+		$this->add_filter( 'update_footer', 'admin_footer_right_text', 11 );
 
-		if ( false !== $this->option( 'footer_right_text' ) ) {
-			$this->add_filter( 'update_footer', 'admin_footer_right_text', 11 );
-		}
-
-		if ( wponion_is_array( $this->option( 'tabs' ) ) ) {
+		$tabs = $this->option( 'tabs' );
+		if ( wponion_is_array( $tabs ) ) {
 			$new_tabs = array();
-			foreach ( $this->option( 'tabs' ) as $id => $_tab ) {
+			foreach ( $tabs as $id => $_tab ) {
 				$_tab = $this->parse_args( $_tab, array(
 					'title'   => false,
 					'name'    => false,
@@ -528,11 +521,12 @@ class Page extends Module_Utility {
 	 * @return string
 	 */
 	public function admin_footer_text() {
-		if ( empty( $this->option( 'footer_text' ) ) ) {
+		$footer_text = $this->option( 'footer_text' );
+		if ( empty( $footer_text ) ) {
 			/* translators: Added WPOnion */
 			return sprintf( __( 'Proudly Powered By %1$s %2$s %3$s ', 'wponion' ), '<a href="http://wponion.com"><strong>', __( 'WPOnion', 'wponion' ), '</strong></a>' );
 		}
-		return ( wponion_is_callable( $this->option( 'footer_text' ) ) ) ? wponion_callback( $this->option( 'footer_text' ) ) : $this->option( 'footer_text' );
+		return ( wponion_is_callable( $footer_text ) ) ? wponion_callback( $footer_text ) : $footer_text;
 	}
 
 	/**
@@ -541,11 +535,12 @@ class Page extends Module_Utility {
 	 * @return string
 	 */
 	public function admin_footer_right_text() {
-		if ( empty( $this->option( 'footer_right_text' ) ) ) {
+		$footer_right_text = $this->option( 'footer_right_text' );
+		if ( empty( $footer_right_text ) ) {
 			/* translators: Added WPOnionVersion  */
 			return sprintf( __( 'WPOnion Version : %s', 'wponion' ), WPONION_VERSION ) . ' | ' . core_update_footer();
 		}
-		return ( wponion_is_callable( $this->option( 'footer_right_text' ) ) ) ? wponion_callback( $this->option( 'footer_right_text' ) ) : $this->option( 'footer_right_text' );
+		return ( wponion_is_callable( $footer_right_text ) ) ? wponion_callback( $footer_right_text ) : $footer_right_text;
 	}
 
 	/**
