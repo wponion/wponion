@@ -166,22 +166,20 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 					$settings           = ( !window.wponion._.isUndefined( $dep.settings ) ) ? $dep.settings : {},
 					$onEnable           = ( !window.wponion._.isUndefined( $settings.onEnable ) ) ? $settings.onEnable : false,
 					$onDisable          = ( !window.wponion._.isUndefined( $settings.onDisable ) ) ? $settings.onDisable : false;
-
-				$settings.onEnable = ( event, subject ) => {
+				$settings               = ( !window.wponion._.isObject( $dep.settings ) ) ? {} : $settings;
+				$settings.onEnable      = ( event, subject ) => {
 					subject.find( ':input' ).removeClass( 'wponion-dependent' );
 					if( is_callable( $onEnable ) ) {
 						call_user_func_array( $onEnable, [ event, subject ] );
 					}
 				};
-
-				$settings.onDisable = ( event, subject ) => {
+				$settings.onDisable     = ( event, subject ) => {
 					subject.find( ':input' ).addClass( 'wponion-dependent' );
 					if( is_callable( $onDisable ) ) {
 						call_user_func_array( $onDisable, [ event, subject ] );
 					}
 				};
-
-				$settings = this.handle_args( $settings, 'dependency_settings' );
+				$settings               = this.handle_args( $settings, 'dependency_settings' );
 
 				if( !window.wponion._.isUndefined( $dep.rules ) ) {
 					for( let $key in $dep.rules ) {
