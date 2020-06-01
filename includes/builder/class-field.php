@@ -215,4 +215,13 @@ class Field extends Common_Args {
 	public function __unset( $name ) {
 		unset( $this->{$this->array_var}[ $name ] );
 	}
+
+	/**
+	 * @param bool $key
+	 *
+	 * @return $this
+	 */
+	public function get_field( $key = false ) {
+		return $this;
+	}
 }
