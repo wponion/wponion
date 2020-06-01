@@ -86,13 +86,12 @@ trait Theme_Handler {
 
 		if ( ! empty( $fields ) ) {
 			foreach ( $fields as $field ) {
-				if ( $field->has_containers() && ! empty( $field->containers() ) ) {
+				if ( $field->has_containers() ) {
 					$menu = $this->handle_single_menu( $field, $is_child, $container, $first_container );
 					if ( false !== $menu ) {
-						$_name                       = $menu['name'];
-						$return[ $_name ]            = $menu;
-						$first_container_name        = $field->first_container()->name();
-						$return[ $_name ]['submenu'] = $this->extract_fields_menus( $field->containers(), true, $_name, $first_container_name );
+						$return[ $menu['name'] ]            = $menu;
+						$return[ $menu['name'] ]['submenu'] = $this->extract_fields_menus( $field->containers(), true, $menu['name'], $field->first_container()
+							->name() );
 					}
 				} elseif ( ( $field->has_fields() && ! empty( $field->fields() ) ) || $field->has_callback() || $field->has_href() ) {
 					$menu = $this->handle_single_menu( $field, $is_child, $container, $first_container );
@@ -133,6 +132,7 @@ trait Theme_Handler {
 		$href          = $menu->href();
 		$part_href     = false;
 		$is_active     = false;
+		$query_args    = $menu->query_args();
 
 		if ( false === $container ) {
 			$is_active = ( $name === $this->active( true ) ) ? true : $is_active;
@@ -162,9 +162,9 @@ trait Theme_Handler {
 			}
 		}
 
-		if ( ! empty( $menu->query_args() ) ) {
-			$href      = add_query_arg( $menu->query_args(), $href );
-			$part_href = add_query_arg( $menu->query_args(), $part_href );
+		if ( ! empty( $query_args ) ) {
+			$href      = add_query_arg( $query_args, $href );
+			$part_href = add_query_arg( $query_args, $part_href );
 		}
 
 		return array(
@@ -177,7 +177,7 @@ trait Theme_Handler {
 			'is_disabled'      => $menu->is_disabled(),
 			'href'             => $href,
 			'part_href'        => $part_href,
-			'query_args'       => $menu->query_args(),
+			'query_args'       => $query_args,
 			'class'            => $menu->container_class(),
 			'separator'        => $menu->is_separator(),
 		);
