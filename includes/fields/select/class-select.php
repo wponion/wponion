@@ -23,10 +23,9 @@ class Select extends Field {
 	/**
 	 * Generates Final HTML Output.
 	 *
-	 * @return mixed|void
+	 * @return string
 	 */
 	protected function output() {
-		echo $this->before();
 		$options      = $this->option( 'options' );
 		$options_html = $this->option( 'options_html' );
 
@@ -47,7 +46,6 @@ class Select extends Field {
 			$element .= $options_html;
 		} else {
 			$element .= ( true === $this->option( 'empty_option' ) ) ? '<option value=""></option>' : '';
-
 			foreach ( $options as $key => $option ) {
 				if ( wponion_is_array( $option ) && ! isset( $option['label'] ) ) {
 					$element .= "<optgroup label=\"${key}\">";
@@ -61,21 +59,19 @@ class Select extends Field {
 			}
 		}
 
-		$element = "<select ${attr}>${element}</select>";
-
-		echo wponion_input_group_html( $this->option( 'prefix' ), $this->option( 'surfix' ), $element );
+		$this->html( wponion_input_group_html( $this->option( 'prefix' ), $this->option( 'surfix' ), "<select ${attr}>${element}</select>" ) );
 
 		if ( ! $this->select_framework && $this->option( 'ajax' ) ) {
-			echo wponion_add_element( array(
+			$this->html( wponion_add_element( array(
 				'type'    => 'wp_notice_error',
 				'before'  => '<br/>',
 				'large'   => true,
 				'alt'     => true,
 				'content' => __( 'Ajax Search Will Not Work In Select Field If Not Javascript Select Framework Used Such As <code>Select2</code> / <code>Chosen</code> / <code>Selectize</code>', 'wponion' ),
-			) );
+			) ) );
 		}
 
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

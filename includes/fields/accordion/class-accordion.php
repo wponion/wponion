@@ -63,9 +63,7 @@ HTML;
 	 * @return mixed|void
 	 */
 	protected function output() {
-		echo $this->before();
-		echo $this->render_fields();
-		echo $this->after();
+		return $this->before() . $this->render_fields() . $this->after();
 	}
 
 	/**

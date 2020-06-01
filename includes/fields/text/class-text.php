@@ -46,13 +46,14 @@ class Text extends Field {
 	/**
 	 * Generates Final HTML Output.
 	 *
-	 * @return mixed|void
+	 * @return string
 	 */
 	protected function output() {
-		echo $this->before();
-		echo $this->datalist();
-		echo wponion_input_group_html( $this->option( 'prefix' ), $this->option( 'surfix' ), $this->element_html() );
-		echo $this->after();
+		//echo $this->before();
+		//echo $this->datalist();
+		$html = wponion_input_group_html( $this->option( 'prefix' ), $this->option( 'surfix' ), $this->element_html() );
+		//echo $this->after();
+		return $this->before() . $this->datalist() . $html . $this->after();
 	}
 
 	/**

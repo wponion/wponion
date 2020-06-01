@@ -33,20 +33,22 @@ class Notice extends Heading {
 	protected function output() {
 		echo $this->before();
 
-		$auto_close = ( false === $this->option( 'autoclose' ) ) ? '' : ' data-autoclose="' . intval( $this->option( 'autoclose' ) ) . '" ';
-		echo '<div class="wpo-alert wpo-alert-' . $this->option( 'notice_type' ) . '" ' . $auto_close . '>';
-		$content = $this->option( 'content' );
-		$content = str_replace( array(
+		$autoclose   = $this->option( 'autoclose' );
+		$auto_close  = ( false === $autoclose ) ? '' : ' data-autoclose="' . intval( $autoclose ) . '" ';
+		$notice_type = $this->option( 'notice_type' );
+
+		$this->html( "<div class=\"wpo-alert wpo-alert-${notice_type}\" ${auto_close}>" );
+
+		$this->html( str_replace( array(
 			'[count]',
 			'[counter]',
-		), '<span class="wpo-counter">' . intval( $this->option( 'autoclose' ) / 1000 ) . '</span>', $content );
-		echo $content;
+		), '<span class="wpo-counter">' . intval( $this->option( 'autoclose' ) / 1000 ) . '</span>', $this->option( 'content' ) ) );
 
 		if ( true === $this->option( 'close' ) && false === $this->option( 'autoclose' ) ) {
-			echo '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide', 'wponion' ) . '"></a>';
+			$this->html( '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide', 'wponion' ) . '"></a>' );
 		}
-		echo '</div>';
-		echo $this->after();
+		$this->html( '</div>' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

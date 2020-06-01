@@ -15,8 +15,6 @@ class Jambo_Content extends Heading {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo '<div class="wpo-jumbotron">' . $this->option( 'content' ) . '</div>';
-		echo $this->after();
+		return $this->before() . '<div class="wpo-jumbotron">' . $this->option( 'content' ) . '</div>' . $this->after();
 	}
 }

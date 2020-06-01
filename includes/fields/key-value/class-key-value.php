@@ -52,32 +52,32 @@ class Key_Value extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
 		$values = ( wponion_is_array( $this->value() ) ) ? $this->value() : array();
 		$values = array_filter( $values );
 		$_count = ( count( $values ) === 0 ) ? 1 : count( $values );
-		echo '<div class="wponion-keyvalue_wrap" data-wponion-clone-count="' . $_count . '">';
+		$this->html( "<div class=\"wponion-keyvalue_wrap\" data-wponion-clone-count=\"${_count}\">" );
 		if ( wponion_is_array( $this->value() ) ) {
 			foreach ( $values as $i => $value ) {
 				if ( isset( $value['key'] ) && isset( $value['value'] ) ) {
-					echo $this->key_value( $this->name( $i ), $value['key'], $value['value'] );
+					$this->html( $this->key_value( $this->name( $i ), $value['key'], $value['value'] ) );
 				}
 			}
 		} else {
-			echo $this->key_value( $this->name( '1' ), '', '' );
+			$this->html( $this->key_value( $this->name( '1' ), '', '' ) );
 		}
-		echo '</div>';
 
-		echo '<div class="wponion-keyvalue-action-container">';
-		echo $this->sub_field( $this->handle_args( 'label', $this->option( 'add_button' ), array(
+		$this->html( '</div>' );
+		$this->html( '<div class="wponion-keyvalue-action-container">' );
+
+		$this->html( $this->sub_field( $this->handle_args( 'label', $this->option( 'add_button' ), array(
 			'type'       => 'button',
 			'label'      => __( 'Add +', 'wponion' ),
 			'attributes' => array( 'data-wponion-keyvalue-add' => 'yes' ),
 			'only_field' => true,
 			'class'      => 'button button-primary',
-		) ), false, $this->unique() );
-		echo '</div>';
-		echo $this->after();
+		) ), false, $this->unique() ) );
+		$this->html( '</div>' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

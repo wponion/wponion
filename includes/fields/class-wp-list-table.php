@@ -22,22 +22,21 @@ class WP_List_Table extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo '<div class="wponion-inner-wp-list-table">';
+		$this->html( '<div class="wponion-inner-wp-list-table">' );
 		$settings          = $this->option( 'settings' );
 		$settings          = ( ! is_array( $settings ) ) ? array() : $settings;
 		$settings['field'] = &$this;
 
 		$class = $this->option( 'list_table_class', $this->default_class() );
 		$class = ( ! class_exists( $class ) ) ? $this->default_class() : $class;
-
+		wponion_catch_output();
 		$instance = new $class( $settings, $this->option( 'data' ) );
 		$instance->prepare_items();
 		$instance->views();
 		$instance->search_box( __( 'Search', 'wponion' ), 'search' );
 		$instance->display();
-		echo '</div>';
-		echo $this->after();
+		$this->html( wponion_catch_output( false ) )->html( '</div>' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

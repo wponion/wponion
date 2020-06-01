@@ -20,10 +20,9 @@ class Input_Group extends Field {
 	 * @return mixed|void
 	 */
 	protected function output() {
-		echo $this->before();
 		$fields = $this->option( 'fields' );
 		if ( wponion_is_array( $fields ) ) {
-			echo '<div class=" wpo-row">';
+			$this->html( '<div class="wpo-row">' );
 			foreach ( $fields as $id => $data ) {
 				$fid  = ( wpo_is_field( $data ) ) ? wponion_field_id( $data ) : false;
 				$fid  = ( true === is_numeric( $id ) && false === $fid ) ? wponion_hash_array( $data ) : $id;
@@ -37,11 +36,11 @@ class Input_Group extends Field {
 				if ( empty( $args['id'] ) ) {
 					$args['id'] = $fid;
 				}
-				echo $this->sub_field( $args, $this->value( $args['id'] ), $this->name() );
+				$this->html( $this->sub_field( $args, $this->value( $args['id'] ), $this->name() ) );
 			}
-			echo '</div>';
+			$this->html( '</div>' );
 		}
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

@@ -29,7 +29,7 @@ class Hidden extends Field {
 		if ( ! empty( $this->option( 'fields' ) ) ) {
 			foreach ( $this->option( 'fields' ) as $field ) {
 				$field['type'] = 'hidden';
-				echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name() );
+				$this->html( $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name() ) );
 			}
 		} else {
 			$attr = $this->attributes( array(
@@ -39,8 +39,9 @@ class Hidden extends Field {
 				'name'              => $this->name(),
 				'data-wponion-jsid' => $this->js_field_id(),
 			) );
-			echo '<input ' . $attr . '/>';
+			$this->html( '<input ' . $attr . '/>' );
 		}
+		return $this->html( true );
 	}
 
 	/**

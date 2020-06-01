@@ -17,11 +17,10 @@ class FAQ extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo '<ul class="faqs-container">';
+		$this->html( '<ul class="faqs-container">' );
 		foreach ( $this->option( 'options', array() ) as $faq ) {
 			$content = wpo_field( 'markdown', $faq['content'] )->only_field( true );
-			echo <<<HTML
+			$content = <<<HTML
 <li class="faq">
 	<div class="faq-title">
 		<h3><i class="dashicons"></i> <span class="title-name">${faq['heading']}</span></h3>
@@ -29,9 +28,10 @@ class FAQ extends Field {
 	</div>
 </li>
 HTML;
+			$this->html( $content );
 		}
-		echo '</ul>';
-		echo $this->after();
+		$this->html( '</ul>' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

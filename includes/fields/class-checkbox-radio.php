@@ -38,40 +38,36 @@ class Checkbox_Radio extends Field {
 	 * @return mixed|void
 	 */
 	protected function output() {
-		echo $this->before();
 		$is_inline = ( true === $this->option( 'inline' ) ) ? 'wpo-inline-list' : '';
 		$options   = $this->option( 'options' );
 		$options   = ( wponion_is_array( $options ) ) ? $options : array_filter( $this->element_data( $options ) );
 
 		if ( wponion_is_array( $options, true ) ) {
-			echo '<ul class="' . $is_inline . '">';
+			$this->html( "<ul class=\"${is_inline}\" >" );
 			foreach ( $options as $option_key => $option ) {
-
 				if ( ! wponion_is_array( $option ) || ( wponion_is_array( $option ) && wponion_is_set( $option, 'label' ) || wponion_is_set( $option, 'custom_input' ) ) ) {
-					echo '<li>' . $this->render_element( $this->handle_options( $option_key, $option ) ) . '</li>';
+					$this->html( '<li>' )
+						->html( $this->render_element( $this->handle_options( $option_key, $option ) ) )
+						->html( '</li>' );
 				} elseif ( wponion_is_array( $option ) && false === isset( $option['label'] ) ) {
-					echo '<li class="has-subgroup">';
-					echo '<h4 class="wponion-checkbox-radio-header">' . $option_key . '</h4>';
-					echo '<ul class="wponion-checkbox-group-lists">';
+					$this->html( "<li class=\"has-subgroup\"><h4 class=\"wponion-checkbox-radio-header\">${option_key}</h4><ul class=\"wponion-checkbox-group-lists\">" );
 					foreach ( $option as $key => $value ) {
-						echo '<li>';
-						echo $this->render_element( $this->handle_options( $key, $value ), true );
-						echo '</li>';
+						$this->html( '<li>' )
+							->html( $this->render_element( $this->handle_options( $key, $value ), true ) )
+							->html( '</li>' );
 					}
-					echo '</ul>';
-					echo '</li>';
+					$this->html( '</ul></li>' );
 				}
 			}
-			echo '</ul>';
+			$this->html( '</ul>' );
 		} elseif ( 'checkbox' === $this->element_type() && empty( $options ) && empty( $this->option( 'query_args' ) ) ) {
-			echo $this->render_element( $this->handle_options( $this->field_id(), $this->option( 'label' ) ), 'single' );
+			$this->html( $this->render_element( $this->handle_options( $this->field_id(), $this->option( 'label' ) ), 'single' ) );
 		} elseif ( 'switcher' === $this->element_type() ) {
-			echo $this->render_element( $this->handle_options( $this->field_id(), $this->option( 'label' ) ), 'single' );
+			$this->html( $this->render_element( $this->handle_options( $this->field_id(), $this->option( 'label' ) ), 'single' ) );
 		} else {
-			echo '<p class="wpo-text-danger">' . __( 'No Options Found.', 'wponion' ) . '</p>';
+			$this->html( '<p class="wpo-text-danger">' . __( 'No Options Found.', 'wponion' ) . '</p>' );
 		}
-
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

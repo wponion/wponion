@@ -41,7 +41,7 @@ class Import_Export extends Field {
 		$values = $this->get_db_values();
 
 		if ( false === $values ) {
-			echo $this->sub_field( array(
+			return $this->sub_field( array(
 				'alt'     => true,
 				'large'   => true,
 				'debug'   => false,
@@ -49,7 +49,6 @@ class Import_Export extends Field {
 				// translators: Added Module Name.
 				'content' => sprintf( __( '%s Module Is Not Yet Supported In Import / Export Field', 'wponion' ), $this->module() ),
 			), false, false );
-			return;
 		}
 
 		$backup_import_id = $this->js_field_id() . '_backup_import';
@@ -60,8 +59,7 @@ class Import_Export extends Field {
 		$create_backup    = wpo_icon( 'wpoic-database' ) . ' ' . __( 'Create Backup', 'wponion' );
 		$ptag             = __( 'You options have been backed up. You can always restore your options by clicking the <strong>Restore</strong> button below:', 'wponion' );
 		$list             = Backup_Handler::get_backup_lists( $this->base_unique(), $this->module(), false );
-
-		echo <<<HTML
+		$html             = <<<HTML
 <div class="import-export-base-wrap">
 	<div class="left">
 		<div class="backup-importer-container">
@@ -94,7 +92,7 @@ class Import_Export extends Field {
 </div>
 
 HTML;
-
+		return $this->before() . $html . $this->after();
 	}
 
 	/**

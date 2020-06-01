@@ -16,9 +16,10 @@ class Button_Set extends Checkbox_Radio {
 	protected function output() {
 		$type = ( true === $this->option( 'multiple' ) ) ? 'checkbox' : 'radio';
 		$this->set_option( 'type', $type );
-		echo '<div class="wponion-button-group-container">';
-		parent::output();
-		echo '</div>';
+		$html = '<div class="wponion-button-group-container">';
+		$html .= parent::output();
+		$html .= '</div>';
+		return $html;
 	}
 
 	/**

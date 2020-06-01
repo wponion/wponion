@@ -17,10 +17,8 @@ class Button extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
 		$label = ( false !== $this->has( 'label' ) ) ? $this->option( 'label' ) : $this->value();
-		echo "<button {$this->attributes()}>${label}</button>";
-		echo $this->after();
+		return $this->before() . "<button {$this->attributes()}>${label}</button>" . $this->after();
 	}
 
 	/**

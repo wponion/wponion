@@ -18,8 +18,6 @@ class Color_Picker extends Checkbox_Radio {
 	 */
 	protected function output() {
 		if ( empty( $this->option( 'options' ) ) ) {
-			echo $this->before();
-
 			$attr    = $this->attributes( array(
 				'type'  => 'text',
 				'name'  => $this->name(),
@@ -30,14 +28,11 @@ class Color_Picker extends Checkbox_Radio {
 			$args    = $this->option( 'settings' );
 			$inline  = ( isset( $args['inline'] ) && true === $args['inline'] );
 			$element = ( $inline ) ? $input : wponion_input_group_html( "<span class=\"cpickr-bg\" style=\"background-color:{$this->value}\"></span>", '', $input );
-			echo "<div class=\"colorpickerwrap\"> ${element} <div class=\"wponion-color-picker-element\" ></div> </div>";
-			echo $this->after();
+			return $this->before() . "<div class=\"colorpickerwrap\"> ${element} <div class=\"wponion-color-picker-element\" ></div> </div>" . $this->after();
 		} else {
 			$type = ( true === $this->option( 'multiple' ) ) ? 'checkbox' : 'radio';
 			$this->set_option( 'type', $type );
-			echo "<div class=\"colors-wrapper {$this->option( 'layout' )}\">";
-			parent::output();
-			echo '</div>';
+			return "<div class=\"colors-wrapper {$this->option( 'layout' )}\">" . parent::output() . '</div>';
 		}
 	}
 

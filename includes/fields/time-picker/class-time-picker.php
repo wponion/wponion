@@ -14,16 +14,13 @@ class Time_Picker extends Date_Picker {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-
-		echo $this->sub_field( $this->handle_args( 'placeholder', $this->option( 'time' ), array(
+		$this->html( $this->sub_field( $this->handle_args( 'placeholder', $this->option( 'time' ), array(
 			'id'         => $this->field_id(),
 			'type'       => 'text',
 			'prefix'     => '<i class="wpoic-clock"></i>',
 			'only_field' => true,
-		) ), $this->value(), $this->unique() );
-
-		echo $this->after();
+		) ), $this->value(), $this->unique() ) );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

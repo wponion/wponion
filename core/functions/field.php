@@ -188,19 +188,15 @@ if ( ! function_exists( 'wponion_add_element' ) ) {
 
 		if ( false !== $class ) {
 			$element = ( is_string( $class ) ) ? new $class( $field, $value, $unique ) : $class;
-			wponion_catch_output();
-			echo $element->final_output();
-			$html = wponion_catch_output( false );
+			return $element->final_output();
 		} else {
 			$title = __( 'Callback Arguments', 'wponion' );
 			$data  = print_r( func_get_args(), true );
 			$html  = "<h2>${title}</h2> <pre>${data}</pre>";
-			$html  = wponion_add_element( wpo_field( 'notice' )
+			return wponion_add_element( wpo_field( 'notice' )
 				->notice_type( 'danger' )
 				->content( sprintf( __( '<code>%s</code> Field Class Not Found.', 'wponion' ), wponion_get_field_type( $field, false ) ) . $html ) );
 		}
-
-		return $html;
 	}
 }
 

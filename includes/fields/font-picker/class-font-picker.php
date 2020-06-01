@@ -29,21 +29,19 @@ class Font_Picker extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-
 		$this->select_framework = wponion_validate_select_framework( $this->settings );
 
-		echo '<div class="wponion-font-select-container">';
-		echo $this->sub_field( $this->font_select(), $this->value( 'font' ), $this->name() );
-		echo '</div>';
+		$this->html( '<div class="wponion-font-select-container">' );
+		$this->html( $this->sub_field( $this->font_select(), $this->value( 'font' ), $this->name() ) );
+		$this->html( '</div>' );
 
 		if ( false !== $this->option( 'variant' ) ) {
-			echo '<div class="wponion-font-select-container">';
-			echo $this->sub_field( $this->variant_select(), $this->value( 'variant' ), $this->name() );
-			echo '</div>';
+			$this->html( '<div class="wponion-font-select-container">' );
+			$this->html( $this->sub_field( $this->variant_select(), $this->value( 'variant' ), $this->name() ) );
+			$this->html( '</div>' );
 		}
 
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

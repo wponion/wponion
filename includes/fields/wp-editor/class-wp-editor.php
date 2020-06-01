@@ -19,17 +19,16 @@ class WP_Editor extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo ( wponion_wp_editor_api() ) ? '<div class="wponion-wp-editor">' : '';
-		echo '<textarea ' . $this->attributes( array(
+		$this->html( ( wponion_wp_editor_api() ) ? '<div class="wponion-wp-editor">' : '' );
+		$this->html( '<textarea ' . $this->attributes( array(
 				'name'         => $this->name(),
 				'autocomplete' => 'off',
 				'rows'         => 10,
 				'class'        => 'wp-editor-area',
 				'id'           => 'wpeditor_' . $this->js_field_id(),
-			) ) . '>' . $this->value() . '</textarea>';
-		echo ( wponion_wp_editor_api() ) ? '</div>' : '';
-		echo $this->after();
+			) ) . '>' . $this->value() . '</textarea>' );
+		$this->html( ( wponion_wp_editor_api() ) ? '</div>' : '' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

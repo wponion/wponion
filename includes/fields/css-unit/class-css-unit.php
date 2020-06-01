@@ -18,8 +18,6 @@ class CSS_Unit extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-
 		$number_field = $this->sub_field( $this->handle_args( 'prefix', $this->option( 'css_value' ), array(), array(
 			'type'       => 'number',
 			'id'         => 'css_value',
@@ -34,9 +32,7 @@ class CSS_Unit extends Field {
 			'only_field' => true,
 		) ), $this->value( 'unit' ), $this->name() );
 
-		echo $number_field . $units_field;
-
-		echo $this->after();
+		return $this->before() . $number_field . $units_field . $this->after();
 	}
 
 	/**

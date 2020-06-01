@@ -52,8 +52,9 @@ class Cloner extends Field {
 	protected function wrapper() {
 		$this->actual_type = $this->option( 'type' );
 		$this->set_option( 'type', 'clone' );
-		parent::wrapper();
+		$html = parent::wrapper();
 		$this->set_option( 'type', $this->actual_type );
+		return $html;
 	}
 
 	/**
@@ -140,9 +141,7 @@ class Cloner extends Field {
 	 */
 	protected function output() {
 		$this->set_option( 'type', $this->actual_type );
-		echo $this->before();
-		echo $this->_clone_fields();
-		echo $this->after();
+		return $this->before() . $this->_clone_fields() . $this->after();
 	}
 
 	/**

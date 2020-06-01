@@ -18,10 +18,7 @@ class Typography extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-
-		echo '<div id="fontfields" class="wpo-row"><div class="wpo-col-xs-12 wpo-col-sm-10">';
-		echo '<div class="wpo-row">';
+		$this->html( '<div id="fontfields" class="wpo-row"><div class="wpo-col-xs-12 wpo-col-sm-10"><div class="wpo-row">' );
 
 		// Font Family.
 		if ( false !== $this->option( 'font_family' ) ) {
@@ -34,7 +31,7 @@ class Typography extends Field {
 				'variant'      => false,
 				'attributes'   => array( 'data-css-property' => 'font-family-set' ),
 			) );
-			echo $this->sub_field( $field, $this->value( 'font_family' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'font_family' ), $this->name() ) );
 		}
 
 		// Backup Font Family.
@@ -48,11 +45,10 @@ class Typography extends Field {
 				'options'      => wponion_internal_options_data( 'backup_font_family' ),
 				'horizontal'   => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'backup_font' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'backup_font' ), $this->name() ) );
 		}
 
-		echo '</div>';
-		echo '<div class="wpo-row">';
+		$this->html( '</div> <div class="wpo-row">' );
 
 		// Font Style
 		if ( false !== $this->option( 'font_weight' ) ) {
@@ -66,7 +62,7 @@ class Typography extends Field {
 				'attributes' => array( 'data-css-property' => 'font-weight' ),
 				'horizontal' => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'font_weight' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'font_weight' ), $this->name() ) );
 		}
 
 		// Font Style
@@ -82,7 +78,7 @@ class Typography extends Field {
 				'attributes'   => array( 'data-css-property' => 'font-style' ),
 				'horizontal'   => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'font_style' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'font_style' ), $this->name() ) );
 		}
 
 		// Text Align
@@ -98,7 +94,7 @@ class Typography extends Field {
 				'attributes'   => array( 'data-css-property' => 'text-align' ),
 				'horizontal'   => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'text_align' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'text_align' ), $this->name() ) );
 		}
 
 		// Writing Mode
@@ -114,7 +110,7 @@ class Typography extends Field {
 				'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal'   => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'writing_mode' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'writing_mode' ), $this->name() ) );
 		}
 
 		// Text Orientation
@@ -130,11 +126,8 @@ class Typography extends Field {
 				'empty_option' => true,
 				'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 			) );
-			echo $this->sub_field( $field, $this->value( 'text_orientation' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'text_orientation' ), $this->name() ) );
 		}
-
-		//echo '</div>';
-		//echo '<div class="wpo-row">';
 
 		// Text Direction
 		if ( false !== $this->option( 'text_direction' ) ) {
@@ -149,7 +142,7 @@ class Typography extends Field {
 				'attributes'   => array( 'data-css-property' => 'direction' ),
 				'horizontal'   => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'text_direction' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'text_direction' ), $this->name() ) );
 		}
 
 		// Text Transform
@@ -165,7 +158,7 @@ class Typography extends Field {
 				'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal'   => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'text_transform' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'text_transform' ), $this->name() ) );
 		}
 
 		// Text Decoration Line
@@ -181,7 +174,7 @@ class Typography extends Field {
 				'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal'   => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'text_decoration_line' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'text_decoration_line' ), $this->name() ) );
 		}
 
 		// Text Decoration Style
@@ -197,7 +190,7 @@ class Typography extends Field {
 				'wrap_class'   => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal'   => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'text_decoration_style' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'text_decoration_style' ), $this->name() ) );
 		}
 
 		// Text Decoration Color
@@ -209,11 +202,10 @@ class Typography extends Field {
 				'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal' => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'text_decoration_color' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'text_decoration_color' ), $this->name() ) );
 		}
 
-		echo '</div>';
-		echo '<div class="wpo-row" id="fontsize-and-color">';
+		$this->html( '</div> <div class="wpo-row" id="fontsize-and-color">' );
 
 		// Font Size
 		if ( false !== $this->option( 'font_size' ) ) {
@@ -224,7 +216,7 @@ class Typography extends Field {
 				'wrap_class'      => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal'      => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'font_size' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'font_size' ), $this->name() ) );
 		}
 
 		// Line Height
@@ -236,7 +228,7 @@ class Typography extends Field {
 				'wrap_class'      => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal'      => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'line_height' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'line_height' ), $this->name() ) );
 		}
 
 		// Letter Spacing
@@ -248,7 +240,7 @@ class Typography extends Field {
 				'wrap_class'      => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal'      => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'letter_spacing' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'letter_spacing' ), $this->name() ) );
 		}
 
 		// Color
@@ -260,23 +252,18 @@ class Typography extends Field {
 				'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal' => true,
 			) );
-			echo $this->sub_field( $field, $this->value( 'color' ), $this->name() );
+			$this->html( $this->sub_field( $field, $this->value( 'color' ), $this->name() ) );
 		}
-		echo '</div>';
-		echo '</div>';
-		echo '</div>';
+
+		$this->html( '</div> </div> </div>' );
 
 		if ( false !== $this->option( 'preview' ) ) {
 			$txt   = $this->option( 'preview' );
 			$style = $this->generate_preview_css();
-			echo <<<HTML
-<div class="wpo-row previewtxt-wrap">
-<div class="wpo-col-xs-12"><div class="previewtxt" style="$style">$txt</div></div>
-</div>
-HTML;
+			$this->html( "<div class=\"wpo-row previewtxt-wrap\"> <div class=\"wpo-col-xs-12\"><div class=\"previewtxt\" style=\"$style\">$txt</div></div> </div>" );
 		}
 
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

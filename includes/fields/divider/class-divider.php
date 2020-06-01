@@ -17,7 +17,7 @@ class Divider extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo "<hr class=\"hr-text\" data-content=\"{$this->option( 'text', '' )}\"/>";
+		return "<hr class=\"hr-text\" data-content=\"{$this->option( 'text', '' )}\"/>";
 	}
 
 	/**

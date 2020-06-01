@@ -31,23 +31,24 @@ class Iframe extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
+		$url     = $this->option( 'url' );
+		$heading = $this->option( 'heading' );
 
-		if ( false !== $this->option( 'heading' ) ) {
-			printf( '<h3>%s</h3>', $this->option( 'heading' ) );
+		if ( false !== $heading ) {
+			$this->html( sprintf( '<h3>%s</h3>', $heading ) );
 		}
 
-		if ( false !== $this->option( 'url' ) ) {
+		if ( false !== $url ) {
 			$attrs = $this->attributes( array(
 				'height'      => $this->option( 'height' ),
 				'width'       => $this->option( 'width' ),
-				'src'         => $this->option( 'url' ),
+				'src'         => $url,
 				'frameborder' => '0',
 			) );
-			echo "<iframe ${attrs}></iframe>";
+			$this->html( "<iframe ${attrs}></iframe>" );
 		}
 
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

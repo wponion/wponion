@@ -241,17 +241,15 @@ class Visual_Button_Editor extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo $this->sub_field( $this->tab_field(), $this->value(), $this->unique( $this->field_id() ) );
-
-		echo '<div class="button-editor-preview" id="' . $this->js_field_id() . 'buttonpreview">';
-		echo '<button type="button" id="' . $this->js_field_id() . 'buttonpreview"><span class="button-icon"></span><span class="button-label">' . __( 'Preview', 'wponion' ) . '</span></button>';
-		echo '<style></style>';
-		echo '</div>';
-		echo '<style class="hidden hover"></style>
+		$html = $this->sub_field( $this->tab_field(), $this->value(), $this->unique( $this->field_id() ) );
+		$html .= '<div class="button-editor-preview" id="' . $this->js_field_id() . 'buttonpreview">';
+		$html .= '<button type="button" id="' . $this->js_field_id() . 'buttonpreview"><span class="button-icon"></span><span class="button-label">' . __( 'Preview', 'wponion' ) . '</span></button>';
+		$html .= '<style></style>';
+		$html .= '</div>';
+		$html .= '<style class="hidden hover"></style>
 <style class="hidden focus"></style>
 <style class="hidden normal">a</style>';
-		echo $this->after();
+		return $this->before() . $html . $this->after();
 	}
 
 	/**

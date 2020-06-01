@@ -17,11 +17,11 @@ abstract class Debug extends Conditional_Check {
 	 * @since {NEWVERSION}
 	 */
 	protected function debug_timer( $start = true ) {
-		if ( $start && wponion_is_debug() ) {
+		if ( $start && wponion_is_field_debug() ) {
 			wponion_timer( $this->unique() );
 		}
 
-		if ( ! $start && $this->option( 'debug' ) || wponion_is_debug() ) {
+		if ( ! $start && $this->option( 'debug' ) || wponion_is_field_debug() ) {
 			$heading = __( 'Field Rendered In', 'wponion' );
 			$timer   = wponion_timer( $this->unique(), true );
 			$seconds = __( 'Seconds', 'wponion' );

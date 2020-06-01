@@ -89,7 +89,7 @@ class Spacing extends Input_Group {
 		}
 
 		$this->set_option( 'fields', $fields );
-		echo parent::output();
+		return parent::output();
 	}
 
 	/**

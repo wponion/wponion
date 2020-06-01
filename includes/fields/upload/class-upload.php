@@ -19,15 +19,14 @@ class Upload extends Field {
 	 * @return mixed|void
 	 */
 	protected function output() {
-		echo $this->before();
-		echo "<input type=\"text\" name=\"{$this->name()}\" value=\"{$this->value()}\"/>";
-		echo $this->sub_field( $this->handle_args( 'label', $this->option( 'button' ), array(
+		$this->html( "<input type=\"text\" name=\"{$this->name()}\" value=\"{$this->value()}\"/>" );
+		$this->html( $this->sub_field( $this->handle_args( 'label', $this->option( 'button' ), array(
 			'type'       => 'button',
 			'label'      => __( 'Upload', 'wponion' ),
 			'only_field' => true,
 			'class'      => 'button button-secondary',
-		) ), false, $this->unique() );
-		echo $this->after();
+		) ), false, $this->unique() ) );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

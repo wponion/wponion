@@ -63,24 +63,24 @@ class Group extends Accordion {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
 		$this->get_first_field();
 		$this->loop_count = 0;
 		$default_title    = $this->option( 'heading' );
 		$count            = ( empty( $this->value ) ) ? 0 : count( $this->value );
-		echo '<div class="wponion-group-wrap" data-wponion-clone-count="' . $count . '">';
+
+		$this->html( '<div class="wponion-group-wrap" data-wponion-clone-count="' . $count . '">' );
 		if ( wponion_is_array( $this->value ) ) {
 			$this->value = array_filter( $this->value );
 			foreach ( $this->value as $i => $value ) {
 				$this->loop_count = $this->loop_count + 1;
 				$this->loop_value = $value;
 				$this->set_option( 'heading', $this->get_accordion_title( $value, $default_title ) );
-				echo $this->render_fields();
+				$this->html( $this->render_fields() );
 			}
 		}
-		echo '</div>';
+		$this->html( '</div>' );
 
-		echo $this->sub_field( $this->handle_args( 'label', $this->option( 'add_button' ), array(
+		$this->html( $this->sub_field( $this->handle_args( 'label', $this->option( 'add_button' ), array(
 			'class'       => array( 'button button-primary' ),
 			'type'        => 'button',
 			'attributes'  => array(
@@ -90,7 +90,7 @@ class Group extends Accordion {
 			'only_field'  => true,
 			'button_type' => 'button',
 			'label'       => __( 'Add New', 'wponion' ),
-		) ), false, $this->unique() );
+		) ), false, $this->unique() ) );
 
 		$this->is_js_sample = true;
 		$this->loop_value   = array();
@@ -98,9 +98,8 @@ class Group extends Accordion {
 		$this->set_option( 'heading', $default_title );
 		$template           = $this->render_fields();
 		$this->is_js_sample = false;
-		echo $this->after();
-
 		$this->localize_field( array( 'group_template' => $template ) );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

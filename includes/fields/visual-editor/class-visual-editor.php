@@ -18,9 +18,7 @@ class Visual_Editor extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo '<div class="css-builder-main-wrap">';
-		echo '<div class="css-editor-left">';
+		$this->html( '<div class="css-builder-main-wrap"> <div class="css-editor-left">' );
 
 		$margin_title         = __( 'Margin', 'wponion' );
 		$border_title         = __( 'Border', 'wponion' );
@@ -30,7 +28,7 @@ class Visual_Editor extends Field {
 		$padding_fields       = $this->css_fields( 'padding' );
 		$border_fields        = $this->css_fields( 'border' );
 		$border_radius_fields = $this->css_border_radius_fields();
-		echo <<<HTML
+		$html                 = <<<HTML
 <div class="css-builder-wrap">
 	<div class="css-builder-container">
 		<div class="css-builder-layer-margin"> <span class="css-builder-heading">$margin_title</span> $margin_fields	</div>
@@ -40,13 +38,12 @@ class Visual_Editor extends Field {
 	</div>
 </div>
 HTML;
-		echo '</div>';
 
-		echo '<div class="css-editor-right">';
-		echo $this->right_side_fields();
-		echo '</div>';
-		echo '</div>';
-		echo $this->after();
+		$this->html( $html )
+			->html( '</div> <div class="css-editor-right">' )
+			->html( $this->right_side_fields() )
+			->html( '</div> </div>' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

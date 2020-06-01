@@ -31,27 +31,28 @@ class WP_Notice extends Heading {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		$auto_close = ( false === $this->option( 'autoclose' ) ) ? '' : ' data-autoclose="' . intval( $this->option( 'autoclose' ) ) . '" ';
+		$autoclose   = $this->option( 'autoclose' );
+		$notice_type = $this->option( 'notice_type' );
+		$auto_close  = ( false === $autoclose ) ? '' : ' data-autoclose="' . intval( $autoclose ) . '" ';
 
 		$notice_class = 'notice inline ';
-		$notice_class = $notice_class . ' notice-' . $this->option( 'notice_type' );
-
+		$notice_class = $notice_class . ' notice-' . $notice_type;
 		$notice_class .= ( true === $this->option( 'large' ) ) ? ' notice-large ' : ' ';
 		$notice_class .= ( true === $this->option( 'alt' ) ) ? ' notice-alt ' : ' ';
-		echo '<div class="' . $notice_class . '" ' . $auto_close . '>';
+
+		$this->html( '<div class="' . $notice_class . '" ' . $auto_close . '>' );
 		$content = $this->option( 'content' );
 		$content = str_replace( array(
 			'[count]',
 			'[counter]',
-		), '<span class="wpo-counter">' . intval( $this->option( 'autoclose' ) / 1000 ) . '</span>', $content );
-		echo $content;
+		), '<span class="wpo-counter">' . intval( $autoclose / 1000 ) . '</span>', $content );
+		$this->html( $content );
 
-		if ( true === $this->option( 'close' ) && false === $this->option( 'autoclose' ) ) {
-			echo '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide', 'wponion' ) . '"></a>';
+		if ( true === $this->option( 'close' ) && false === $autoclose ) {
+			$this->html( '<a class="wponion-remove dashicons" data-tippy="' . __( 'Hide', 'wponion' ) . '"></a>' );
 		}
-		echo '</div>';
-		echo $this->after();
+		$this->html( '</div>' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

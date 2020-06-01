@@ -18,18 +18,16 @@ class Background extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-
-		echo '<div class="wpo-row">';
+		$this->html( '<div class="wpo-row">' );
 
 		if ( false !== $this->option( 'background-color' ) ) {
 			$title = ( true === $this->option( 'background-color' ) ) ? __( 'Background Color', 'wponion' ) : $this->option( 'background-color' );
-			echo $this->sub_field( $this->handle_args( 'title', $title, array(
+			$this->html( $this->sub_field( $this->handle_args( 'title', $title, array(
 				'type'       => 'color_picker',
 				'id'         => 'color',
 				'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal' => true,
-			) ), $this->value( 'color' ), $this->name() );
+			) ), $this->value( 'color' ), $this->name() ) );
 		}
 
 		$parts = array(
@@ -44,7 +42,7 @@ class Background extends Field {
 		foreach ( $parts as $id => $title ) {
 			if ( false !== $this->option( 'background-' . $id ) ) {
 				$title = ( true === $this->option( 'background-' . $id ) ) ? $title : $this->option( 'background-' . $id );
-				echo $this->sub_field( $this->handle_args( 'title', $title, array(
+				$this->html( $this->sub_field( $this->handle_args( 'title', $title, array(
 					'type'                  => 'select',
 					'options'               => $this->get_options( $id ),
 					'id'                    => $title,
@@ -52,21 +50,21 @@ class Background extends Field {
 					'wrap_class'            => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 					'horizontal'            => true,
 					$this->select_framework => $this->option( $this->select_framework ),
-				) ), $this->value( $id ), $this->name() );
+				) ), $this->value( $id ), $this->name() ) );
 			}
 		}
 
 		if ( false !== $this->option( 'background-image' ) ) {
 			$title = ( true === $this->option( 'background-image' ) ) ? __( 'Background Image', 'wponion' ) : $this->option( 'background-image' );
-			echo $this->sub_field( $this->handle_args( 'title', $title, array(
+			$this->html( $this->sub_field( $this->handle_args( 'title', $title, array(
 				'type'       => 'upload',
 				'id'         => 'image',
 				'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-3',
 				'horizontal' => true,
-			) ), $this->value( 'image' ), $this->name() );
+			) ), $this->value( 'image' ), $this->name() ) );
 		}
-		echo '</div>';
-		echo $this->after();
+		$this->html( '</div>' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

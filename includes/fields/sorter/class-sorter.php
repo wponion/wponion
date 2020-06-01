@@ -17,49 +17,52 @@ class Sorter extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-
 		$value      = $this->get_element_values();
 		$wrap_class = ( ! empty( $value['enabled'] ) && ! empty( $value['disabled'] ) ) ? 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-6 wpo-col-lg-6 wpo-col-xl-6' : 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-6';
 
-		echo '<div class="wpo-row">';
+		$this->html( '<div class="wpo-row">' );
+
 		if ( false !== $value['enabled'] && is_array( $value['enabled'] ) ) {
-			echo '<div class="wponion-modules ' . $wrap_class . '">';
+			$this->html( "<div class=\"wponion-modules ${wrap_class}\">" );
 			if ( ! empty( $this->option( 'enabled_title' ) ) ) {
-				echo $this->sub_field( array(
+				$this->html( $this->sub_field( array(
 					'type'    => 'subheading',
 					'content' => $this->option( 'enabled_title' ),
-				), null, null );
+				), null, null ) );
 			}
 
-			echo '<ul class="wponion-enabled">';
+			$this->html( '<ul class="wponion-enabled">' );
 			if ( ! empty( $value ['enabled'] ) ) {
 				foreach ( $value ['enabled'] as $id => $_name ) {
-					echo '<li><input type="hidden" name="' . $this->name( '[enabled][' . $id . ']' ) . '" value="' . $_name . '"/><label>' . $_name . '</label></li>';
+					$name = $this->name( "[enabled][${id}]" );
+					$this->html( "<li><input type=\"hidden\" name=\"${name}\" value=\"${_name}\"/><label>${_name}</label></li>" );
 				}
 			}
-			echo '</ul></div>';
+			$this->html( '</ul></div>' );
 		}
 
 		if ( false !== $value['disabled'] && is_array( $value['disabled'] ) ) {
-			echo '<div class="wponion-modules ' . $wrap_class . '">';
+			$this->html( "<div class=\"wponion-modules  ${wrap_class}\">" );
 			if ( ! empty( $this->option( 'disabled_title' ) ) ) {
-				echo $this->sub_field( array(
+				$this->html( $this->sub_field( array(
 					'type'    => 'subheading',
 					'content' => $this->option( 'disabled_title' ),
-				), null, null );
+				), null, null ) );
 			}
 
-			echo '<ul class="wponion-disabled">';
+			$this->html( '<ul class="wponion-disabled">' );
 			if ( ! empty( $value ['disabled'] ) ) {
 				foreach ( $value ['disabled'] as $id => $_name ) {
-					echo '<li><input type="hidden" name="' . $this->name( '[disabled][' . $id . ']' ) . '" value="' . $_name . '"/><label>' . $_name . '</label></li>';
+					$name = $this->name( "[disabled][${id}]" );
+					$this->html( "<li><input type=\"hidden\" name=\"${name}\" value=\"${_name}\"/><label>${_name}</label></li>" );
 				}
 			}
-			echo '</ul> </div>';
+			$this->html( '</ul> </div>' );
 		}
-		echo '</div>';
-		echo $this->after();
+
+		$this->html( '</div>' );
+
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

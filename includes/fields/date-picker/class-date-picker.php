@@ -18,42 +18,38 @@ class Date_Picker extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		if ( $this->has( 'range' ) && true === $this->option( 'range' ) ) {
-			$date = $this->option( 'date' );
+		$date  = $this->option( 'date' );
+		$range = $this->option( 'range' );
+		if ( true === $range ) {
 			$date = ( false === $date ) ? __( 'From Date', 'wponion' ) : $date;
-			echo '<div class="date-range-container wpo-row">';
-			echo $this->sub_field( $this->handle_args( 'title', $date, array(
-				'id'         => 'from',
-				'type'       => 'text',
-				'title'      => __( 'From Date', 'wponion' ),
-				'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-2',
-				'horizontal' => true,
-				'attributes' => array(
-					'data-wponion-datepicker-from-date' => true,
-				),
-			) ), $this->value( 'from' ), $this->name() );
-			echo $this->sub_field( $this->handle_args( 'title', $this->option( 'to_date' ), array(
-				'id'         => 'to',
-				'type'       => 'text',
-				'title'      => __( 'To Date', 'wponion' ),
-				'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-2',
-				'horizontal' => true,
-				'attributes' => array(
-					'data-wponion-datepicker-to-date' => true,
-				),
-			) ), $this->value( 'to' ), $this->name() );
-			echo '</div>';
+			$this->html( '<div class="date-range-container wpo-row">' )
+				->html( $this->sub_field( $this->handle_args( 'title', $date, array(
+					'id'         => 'from',
+					'type'       => 'text',
+					'title'      => __( 'From Date', 'wponion' ),
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-2',
+					'horizontal' => true,
+					'attributes' => array( 'data-wponion-datepicker-from-date' => true ),
+				) ), $this->value( 'from' ), $this->name() ) )
+				->html( $this->sub_field( $this->handle_args( 'title', $this->option( 'to_date' ), array(
+					'id'         => 'to',
+					'type'       => 'text',
+					'title'      => __( 'To Date', 'wponion' ),
+					'wrap_class' => 'wpo-col-xs-12 wpo-col-sm-12 wpo-col-md-2',
+					'horizontal' => true,
+					'attributes' => array( 'data-wponion-datepicker-to-date' => true ),
+				) ), $this->value( 'to' ), $this->name() ) )
+				->html( '</div>' );
 		} else {
-			echo $this->sub_field( $this->handle_args( 'placeholder', $this->option( 'date' ), array(
+			$this->html( $this->sub_field( $this->handle_args( 'placeholder', $date, array(
 				'id'         => $this->field_id(),
 				'type'       => 'text',
 				'prefix'     => wpo_icon( 'wpoic-calendar' ),
 				'only_field' => true,
-			) ), $this->value(), $this->unique() );
+			) ), $this->value(), $this->unique() ) );
 		}
 
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**
@@ -62,7 +58,7 @@ class Date_Picker extends Field {
 	 * @return string
 	 */
 	protected function wrap_class() {
-		return ( $this->has( 'range' ) && true === $this->option( 'range' ) ) ? ' wponion-datepicker-range ' : '';
+		return ( true === $this->option( 'range' ) ) ? ' wponion-datepicker-range ' : '';
 	}
 
 	/**
@@ -76,12 +72,10 @@ class Date_Picker extends Field {
 	 * @return array
 	 */
 	protected function js_args() {
-		$js_args             = array();
-		$settings            = ( $this->has( 'settings' ) ) ? $this->option( 'settings' ) : array();
-		$settings['theme']   = $this->option( 'theme' );
-		$settings['range']   = $this->option( 'range' );
-		$js_args['settings'] = $settings;
-		return $js_args;
+		$settings          = wponion_cast_array( $this->option( 'settings' ) );
+		$settings['theme'] = $this->option( 'theme' );
+		$settings['range'] = $this->option( 'range' );
+		return array( 'settings' => $settings );
 	}
 
 	/**

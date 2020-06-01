@@ -33,9 +33,9 @@ class Textarea extends text {
 	 * @return array|mixed
 	 */
 	protected function defaults() {
-		return $this->parse_args( parent::defaults(), array(
+		return $this->parse_args( array(
 			'rows' => 5,
 			'cols' => 5,
-		) );
+		), parent::defaults() );
 	}
 }

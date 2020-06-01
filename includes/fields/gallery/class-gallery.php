@@ -16,13 +16,13 @@ class Gallery extends image {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
 		$sortable = ( true === $this->option( 'sort' ) ) ? 'gallery-sortable' : 'gallery-non-sortable';
-
-		echo <<<HTML
+		$html     = <<<HTML
 <input type="hidden" id="image_id" value="{$this->value()}" name="{$this->name()}"/>
 <div class="wponion-image-preview ${sortable}" id="wponion-image-preview{$this->js_field_id()}">
 HTML;
+		$this->html( $html );
+
 		if ( ! empty( $this->value() ) ) {
 			$ids = explode( ',', $this->value() );
 			if ( ! empty( $ids ) ) {
@@ -32,13 +32,14 @@ HTML;
 			}
 		}
 
-		echo '</div> <div class="wponion-gallery-actions">';
-		echo $this->button( 'add' );
-		echo $this->button( 'edit' );
-		echo $this->button( 'clear' );
-		echo '</div>';
-		echo $this->style();
-		echo $this->after();
+		$this->html( '</div> <div class="wponion-gallery-actions">' )
+			->html( $this->button( 'add' ) )
+			->html( $this->button( 'edit' ) )
+			->html( $this->button( 'clear' ) )
+			->html( '</div>' )
+			->html( $this->style() );
+
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

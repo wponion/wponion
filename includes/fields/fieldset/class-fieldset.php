@@ -17,23 +17,21 @@ class Fieldset extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo ( true !== $this->option( 'only_field' ) ) ? '<div class="wponion-fieldset-wrap wpo-row">' : '';
-		if ( $this->has( 'fields' ) ) {
-			if ( $this->has( 'heading' ) ) {
-				echo $this->sub_field( array(
-					'type'    => 'subheading',
-					'content' => $this->option( 'heading' ),
-				), $this->option( 'heading' ), $this->unique() );
+		$fields = $this->option( 'fields' );
+		$this->html( ( true !== $this->option( 'only_field' ) ) ? '<div class="wponion-fieldset-wrap wpo-row">' : '' );
+		if ( $fields ) {
+			$heading = $this->option( 'heading' );
+			if ( $heading ) {
+				$this->html( $this->sub_field( wpo_field( 'subheading', $heading ), $heading, $this->unique() ) );
 			}
 
-			foreach ( $this->option( 'fields' ) as $field ) {
-				echo $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), false );
+			foreach ( $fields as $field ) {
+				$this->html( $this->sub_field( $field, wponion_get_field_value( $field, $this->value() ), $this->name(), false ) );
 			}
 		}
 
-		echo ( true !== $this->option( 'only_field' ) ) ? '</div>' : '';
-		echo $this->after();
+		$this->html( ( true !== $this->option( 'only_field' ) ) ? '</div>' : '' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

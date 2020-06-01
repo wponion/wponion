@@ -1,4 +1,5 @@
 <?php
+
 namespace WPOnion\Field;
 
 use WPOnion\Field;
@@ -19,22 +20,18 @@ class Image extends Field {
 	 * @return mixed|void
 	 */
 	protected function output() {
-		echo $this->before();
 		$add_show     = ( ! empty( $this->value() ) ) ? 'style="display:none;"' : false;
 		$preview_show = ( empty( $this->value() ) ) ? 'style="display:none;"' : false;
 
-		echo '<input type="hidden" id="image_id" value="' . $this->value() . '" name="' . $this->name() . '"/>';
-		echo '<div class="wponion-image-preview" id="wponion-image-preview-' . $this->js_field_id() . '">';
-
-		echo '<div class="wponion-preview-add" ' . $add_show . '>';
-		echo wponion_icon( 'wpoic-plus wponion-add' );
-		echo '</div>';
-
-		echo $this->show_image( $this->value(), $preview_show );
-
-		echo '</div>';
-		echo $this->style();
-		echo $this->after();
+		$this->html( "<input type=\"hidden\" id=\"image_id\" value=\"{$this->value()}\" name=\"{$this->name()}\"/>" )
+			->html( "<div class=\"wponion-image-preview\" id=\"wponion-image-preview-{$this->js_field_id()}\">" )
+			->html( "<div class=\"wponion-preview-add\" ${add_show}>" )
+			->html( wponion_icon( 'wpoic-plus wponion-add' ) )
+			->html( '</div>' )
+			->html( $this->show_image( $this->value(), $preview_show ) )
+			->html( '</div>' )
+			->html( $this->style() );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**
@@ -65,7 +62,7 @@ class Image extends Field {
 		$fullsize  = wp_get_attachment_image_src( $value, 'full' );
 		$thumbnail = isset( $thumbnail[0] ) ? $thumbnail[0] : false;
 		$fullsize  = isset( $fullsize[0] ) ? $fullsize[0] : false;
-		$return    .= wponion_image_popup( '<img src="' . $thumbnail . '" class="hidden">', $fullsize );
+		$return    .= wponion_image_popup( "<img src=\"${thumbnail}\" class=\"hidden\">", $fullsize );
 		$return    .= '</div>';
 		return $return;
 	}

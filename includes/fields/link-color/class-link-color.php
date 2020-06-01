@@ -34,7 +34,7 @@ class Link_Color extends Color_Group {
 		}
 
 		$this->set_option( 'options', $options );
-		parent::output();
+		return parent::output();
 	}
 
 	/**

@@ -22,9 +22,7 @@ class Code_Editor extends Textarea {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo '<textarea ' . $this->_input_attributes() . '>' . $this->value() . '</textarea>';
-		echo $this->after();
+		return $this->before() . '<textarea ' . $this->_input_attributes() . '>' . $this->value() . '</textarea>' . $this->after();
 	}
 
 	protected function js_args() {

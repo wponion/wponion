@@ -17,9 +17,7 @@ class Icon_Picker extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		echo $this->render_input() . ' ' . $this->render_value() . ' ' . $this->render_buttons();
-		echo $this->after();
+		return $this->before() . $this->render_input() . ' ' . $this->render_value() . ' ' . $this->render_buttons() . $this->after();
 	}
 
 	/**

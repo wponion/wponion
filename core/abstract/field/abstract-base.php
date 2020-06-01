@@ -23,6 +23,14 @@ abstract class Base extends Bridge {
 	}
 
 	/**
+	 * Stores Output HTML.
+	 *
+	 * @var string
+	 * @since {NEWVERSION}
+	 */
+	protected $output_html = '';
+
+	/**
 	 * Total Fields.
 	 *
 	 * @var int
@@ -126,6 +134,24 @@ abstract class Base extends Bridge {
 	}
 
 	/**
+	 * Stors HTML Output.
+	 *
+	 * @param $content
+	 *
+	 * @return $this|string
+	 * @since {NEWVERSION}
+	 */
+	protected function html( $content ) {
+		if ( true === $content ) {
+			$html              = $this->output_html;
+			$this->output_html = '';
+			return $html;
+		}
+		$this->output_html .= $content;
+		return $this;
+	}
+
+	/**
 	 * Function Required To Register / Load current field's assets.
 	 *
 	 * @return mixed
@@ -142,7 +168,7 @@ abstract class Base extends Bridge {
 	/**
 	 * Function Where all field can output their html.
 	 *
-	 * @return mixed
+	 * @return string
 	 */
 	abstract protected function output();
 }

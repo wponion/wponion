@@ -19,9 +19,7 @@ class Heading extends Field {
 	 * @return mixed|void
 	 */
 	protected function output() {
-		echo $this->before();
-		echo $this->option( 'content' );
-		echo $this->after();
+		return $this->before() . $this->option( 'content' ) . $this->after();
 	}
 
 	/**

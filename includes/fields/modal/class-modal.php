@@ -33,22 +33,19 @@ class Modal extends Field {
 	 * @return mixed|void
 	 */
 	protected function output() {
-		echo $this->before();
-
-		$btn = $this->handle_args( 'label', $this->option( 'modal_button' ), array( 'class' => 'button button-secondary' ), array(
+		$this->html( $this->sub_field( $this->handle_args( 'label', $this->option( 'modal_button' ), array( 'class' => 'button button-secondary' ), array(
 			'type'       => 'button',
 			'only_field' => true,
-		) );
-		echo $this->sub_field( $btn, null, null );
+		) ), null, null ) );
 
-		echo '<div class="wponion-modal-overview-data">';
+		$this->html( '<div class="wponion-modal-overview-data">' );
 		if ( wponion_is_callable( $this->option( 'overview_html' ) ) ) {
 			wponion_callback( $this->option( 'overview_html' ), array( $this->value, &$this ) );
 		} else {
-			echo $this->option( 'overview_html' );
+			$this->html( $this->option( 'overview_html' ) );
 		}
-		echo '</div>';
-		echo $this->after();
+		$this->html( '</div>' );
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

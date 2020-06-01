@@ -18,18 +18,14 @@ class Range_Slider extends Spinner {
 	 * @return array
 	 */
 	protected function defaults() {
-		return $this->parse_args( array(
-			'slider_width' => '90%',
-		), parent::defaults() );
+		return $this->parse_args( array( 'slider_width' => '90%' ), parent::defaults() );
 	}
 
 	/**
 	 * @return array
 	 */
 	protected function js_args() {
-		return $this->parse_args( array(
-			'slider' => ( ! is_array( $this->option( 'slider' ) ) ) ? array() : $this->option( 'slider' ),
-		), parent::defaults() );
+		return $this->parse_args( array( 'slider' => ( ! is_array( $this->option( 'slider' ) ) ) ? array() : $this->option( 'slider' ) ), parent::defaults() );
 	}
 
 	/**

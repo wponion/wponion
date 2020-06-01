@@ -23,9 +23,7 @@ class Color_Group extends Field {
 		$options = ( ! wponion_is_array( $options ) && wponion_is_callable( $options ) ) ? wponion_callback( $options ) : $options;
 		if ( wponion_is_array( $options ) ) {
 			foreach ( $options as $slug => $option ) {
-				$field_args = $this->handle_args( 'title', $option, array(
-					'settings' => $this->option( 'settings' ),
-				), array(
+				$field_args = $this->handle_args( 'title', $option, array( 'settings' => $this->option( 'settings' ) ), array(
 					'id'         => $slug,
 					'type'       => 'color_picker',
 					'wrap_class' => 'wpo-col-xs-12 wpo-col-md-3',
@@ -36,10 +34,10 @@ class Color_Group extends Field {
 					$field_args['title'] = $title;
 					unset( $field_args['label'] );
 				}
-				echo $this->sub_field( $field_args, $this->value( $slug ), $this->name() );
+				$this->html( $this->sub_field( $field_args, $this->value( $slug ), $this->name() ) );
 			}
 		}
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**

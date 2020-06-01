@@ -18,26 +18,24 @@ class Content extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-		$content = $this->option( 'content' );
+		$content      = $this->option( 'content' );
+		$content_path = $this->option( 'content_path' );
+		$mmarkdown    = $this->option( 'markdown' );
 
-		if ( ! empty( $this->option( 'content_path' ) ) && file_exists( $this->option( 'content_path' ) ) ) {
+		if ( ! empty( $content_path ) && file_exists( $content_path ) ) {
 			wponion_catch_output();
-			include $this->option( 'content_path' );
+			include $content_path;
 			$content = wponion_catch_output( false );
-		} elseif ( ! empty( $this->option( 'content' ) ) && wponion_is_callable( $this->option( 'content' ) ) ) {
+		} elseif ( ! empty( $content ) && wponion_is_callable( $content ) ) {
 			wponion_catch_output();
-			echo wponion_callback( $this->option( 'content' ) );
+			echo wponion_callback( $content );
 			$content = wponion_catch_output( false );
 		}
 
-		if ( $this->has( 'markdown' ) && true === $this->has( 'markdown' ) && ! empty( $content ) ) {
+		if ( true === $mmarkdown && ! empty( $content ) ) {
 			$content = '<div class="wponion-markdown-output">' . wponion_markdown( $content ) . '</div>';
 		}
-
-		echo do_shortcode( $content );
-
-		echo $this->after();
+		return $this->before() . do_shortcode( $content ) . $this->after();
 	}
 
 	/**

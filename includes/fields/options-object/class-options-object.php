@@ -41,8 +41,7 @@ class Options_Object extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo '<div class="json-output">';
-		echo '</div>';
+		return '<div class="json-output"></div>';
 	}
 
 	/**

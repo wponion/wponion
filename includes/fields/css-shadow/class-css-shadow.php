@@ -38,34 +38,32 @@ class CSS_Shadow extends Field {
 	 * Generates Final HTML Output.
 	 */
 	protected function output() {
-		echo $this->before();
-
-		echo '<div class="wpo-row wponion-row">';
 		$name = $this->name();
 
-		echo $this->sub_field( $this->sh_field( 'h-shadow', __( 'Horizontal Length', 'wponion' ) ), $this->value( 'h-shadow' ), $name );
-		echo $this->sub_field( $this->sh_field( 'v-shadow', __( 'Vertical Length', 'wponion' ) ), $this->value( 'v-shadow' ), $name );
-		echo $this->sub_field( $this->sh_field( 'blur', __( 'Blur Radius', 'wponion' ) ), $this->value( 'blur' ), $name );
+		$this->html( '<div class="wpo-row wponion-row">' )
+			->html( $this->sub_field( $this->sh_field( 'h-shadow', __( 'Horizontal Length', 'wponion' ) ), $this->value( 'h-shadow' ), $name ) )
+			->html( $this->sub_field( $this->sh_field( 'v-shadow', __( 'Vertical Length', 'wponion' ) ), $this->value( 'v-shadow' ), $name ) )
+			->html( $this->sub_field( $this->sh_field( 'blur', __( 'Blur Radius', 'wponion' ) ), $this->value( 'blur' ), $name ) );
 
 		if ( 'box' === $this->option( 'shadow_type' ) ) {
-			echo $this->sub_field( $this->sh_field( 'spread', __( 'Spread Radius', 'wponion' ) ), $this->value( 'spread' ), $name );
+			$this->html( $this->sub_field( $this->sh_field( 'spread', __( 'Spread Radius', 'wponion' ) ), $this->value( 'spread' ), $name ) );
 		}
 
-		echo $this->sub_field( $this->sh_field( 'color', __( 'Shadow Color', 'wponion' ), 'color_picker' ), $this->value( 'color' ), $name );
+		$this->html( $this->sub_field( $this->sh_field( 'color', __( 'Shadow Color', 'wponion' ), 'color_picker' ), $this->value( 'color' ), $name ) );
 
 		if ( 'box' === $this->option( 'shadow_type' ) ) {
-			echo $this->sub_field( $this->sh_field( 'inset', __( 'Inset ?', 'wponion' ), 'switcher' ), $this->value( 'inset' ), $name );
+			$this->html( $this->sub_field( $this->sh_field( 'inset', __( 'Inset ?', 'wponion' ), 'switcher' ), $this->value( 'inset' ), $name ) );
 		}
 
-		echo '</div>';
+		$this->html( '</div>' );
 
 		if ( $this->option( 'preview' ) ) {
 			$class = ( 'box' === $this->option( 'shadow_type' ) ) ? 'box-shadow' : '';
 			$text  = ( $this->option( 'preview' ) ) ? 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' : $this->option( 'preview' );
-			echo "<div class=\"wpo-row wponion-row\"> <div class=\"wpo-col-xs-12 wpo-col-md-6 css-shadow-preview ${class}\"> <p>${text}</p> </div> </div>";
+			$this->html( "<div class=\"wpo-row wponion-row\"> <div class=\"wpo-col-xs-12 wpo-col-md-6 css-shadow-preview ${class}\"> <p>${text}</p> </div> </div>" );
 		}
 
-		echo $this->after();
+		return $this->before() . $this->html( true ) . $this->after();
 	}
 
 	/**
