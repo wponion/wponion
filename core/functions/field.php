@@ -137,44 +137,21 @@ if ( ! function_exists( 'wponion_field' ) ) {
 	 * @return bool|array|\WPOnion\Field
 	 */
 	function wponion_field( $field = array(), $value = '', $unique = array() ) {
-		$class       = wponion_get_field_class( $field );
-		$base_unique = $unique;
-		$field       = ( wpo_is_field( $field ) ) ? clone $field : $field;
-		$module      = 'user_fields';
-		$hash        = null;
-		$uid         = wponion_field_id( $field );
-
+		$class = wponion_get_field_class( $field );
 		if ( false !== $class ) {
+			$base_unique = $unique;
+			$field       = ( wpo_is_field( $field ) ) ? clone $field : $field;
+			$hash        = null;
+			if ( ! wponion_is_set( $field, '__no_instance', true ) ) {
+				if ( wponion_is_array( $unique ) ) {
+					$hash = isset( $unique['hash'] ) ? $unique['hash'] : '';
+				}
 
-			if ( wponion_is_set( $field, '__no_instance', true ) ) {
-				return new $class( $field, $value, $base_unique );
+				if ( ! wponion_is_set( $field, 'builder_path' ) ) {
+					$field['builder_path'] = ( ! empty( $hash ) ) ? $hash : '';
+				}
 			}
-
-			if ( wponion_is_array( $unique ) ) {
-				$module = isset( $unique['module'] ) ? $unique['module'] : '';
-				$hash   = isset( $unique['hash'] ) ? $unique['hash'] : '';
-				$unique = isset( $unique['unique'] ) ? $unique['unique'] : '';
-			}
-
-			if ( empty( $uid ) ) {
-				$uid = wponion_hash_array( $field );
-				$uid = wponion_hash_string( $uid . uniqid( 'wponion_', true ) );
-			}
-
-			$uid          = implode( '/', array_filter( array( $field['type'], $uid, $hash ) ) );
-			$registry_key = "fields/${module}/${unique}/${uid}/";
-			$instance     = wponion_registry( $registry_key );
-
-			if ( ! empty( $instance ) && $instance instanceof $class ) {
-				return wponion_registry( $registry_key );
-			}
-
-			if ( ! wponion_is_set( $field, 'builder_path' ) ) {
-				$field['builder_path'] = ( ! empty( $hash ) ) ? $hash : '';
-			}
-
 			$instance = new $class( $field, $value, $base_unique );
-			wponion_registry( $instance, $registry_key );
 			return ( $instance instanceof $class ) ? $instance : false;
 		}
 		return false;
