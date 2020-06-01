@@ -13,18 +13,27 @@ if ( ! function_exists( 'wponion_array_to_html_attributes' ) ) {
 	 * @return string
 	 */
 	function wponion_array_to_html_attributes( $attributes ) {
-		$atts = ( is_string( $attributes ) ) ? $attributes : '';
 		if ( ! empty( $attributes ) && is_array( $attributes ) ) {
-			foreach ( $attributes as $key => $value ) {
+			$atts = array_map( function ( $key, $value ) {
 				if ( 'class' === $key && is_array( $value ) ) {
 					$value = wponion_html_class( $value );
 				}
 
-				$value = ( wponion_is_array( $value ) ) ? wp_json_encode( $value ) : $value;
-				$atts  .= ( 'only-key' === $value ) ? ' ' . esc_attr( $key ) : ' ' . esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
-			}
+				if ( wponion_is_array( $value ) ) {
+					$value = wp_json_encode( $value );
+				}
+
+				if ( 'only-key' === $value ) {
+					return esc_attr( $key );
+				} elseif ( is_numeric( $key ) ) {
+					return esc_attr( $value );
+				} else {
+					return sprintf( '%1$s="%2$s"', esc_attr( $key ), esc_attr( $value ) );
+				}
+			}, array_keys( $attributes ), array_values( $attributes ) );
+			return implode( ' ', $atts );
 		}
-		return $atts;
+		return ( is_string( $attributes ) ) ? $attributes : '';
 	}
 }
 
