@@ -53,11 +53,11 @@ class Settings extends Module {
 	protected function on_init() {
 		$this->add_action( 'admin_init', 'wp_admin_init' );
 		$arg              = $this->parse_args( $this->option( 'menu' ), $this->defaults( 'menu' ) );
-		$arg['on_load']   = ( ! wponion_is_array( $arg['on_load'] ) ) ? array() : $arg['on_load'];
-		$arg['assets']    = ( ! wponion_is_array( $arg['assets'] ) ) ? array() : $arg['assets'];
+		$arg['on_load']   = wponion_cast_array( $arg['on_load'] );
+		$arg['assets']    = wponion_cast_array( $arg['assets'] );
 		$arg['on_load'][] = array( &$this, 'on_settings_page_load' );
-		$arg['render']    = array( &$this, 'render' );
 		$arg['assets'][]  = 'wponion_load_core_assets';
+		$arg['render']    = array( &$this, 'render' );
 		$user_asset       = $this->option( 'assets' );
 
 		if ( ! empty( $user_asset ) && ( is_string( $user_asset ) || wponion_is_callable( $user_asset ) ) ) {
@@ -95,10 +95,10 @@ class Settings extends Module {
 	 * Registers Admin Menu.
 	 */
 	public function register_admin_menu() {
-		if ( $this->has_option( 'menu/submenu' ) && $this->has_option( 'menu/menu_slug' ) ) {
-			$submenu   = $this->option( 'menu/submenu' );
-			$menu_slug = $this->option( 'menu/menu_slug' );
-			$callback  = array( &$this, 'render' );
+		$submenu   = $this->option( 'menu/submenu' );
+		$menu_slug = $this->option( 'menu/menu_slug' );
+		if ( $submenu && $menu_slug ) {
+			$callback = array( &$this, 'render' );
 
 			if ( true === $submenu || wponion_is_array( $submenu ) ) {
 				$this->find_active_menu();
