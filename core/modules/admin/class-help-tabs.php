@@ -182,9 +182,8 @@ class Help_Tabs extends Module_Utility {
 
 		if ( isset( $tab['fields'] ) ) {
 			$this->current_tabs = $tab;
-			$theme_instance     = $this->init_theme();
 			wponion_catch_output();
-			$theme_instance->render();
+			$this->init_theme()->render();
 			$this->current_tabs['content'] = wponion_catch_output( false );
 			unset( $this->current_tabs['fields'] );
 			unset( $this->current_tabs['callback'] );

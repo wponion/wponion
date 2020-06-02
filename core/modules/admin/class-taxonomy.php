@@ -151,8 +151,7 @@ class Taxonomy extends Module {
 			do_meta_boxes( $screen->id, 'normal', $term );
 			echo '</div>';
 		} else {
-			$theme_instance = $this->init_theme();
-			$theme_instance->render();
+			$this->init_theme()->render();
 		}
 	}
 

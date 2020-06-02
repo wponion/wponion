@@ -180,10 +180,9 @@ class Metabox extends Module {
 	public function render( $post ) {
 		$post_id = ( is_object( $post ) ) ? $post->ID : $post;
 		$this->set_id( $post_id );
-		$instance = $this->init_theme();
 		$this->get_cache();
 		$this->get_db_values();
-		$instance->render();
+		$this->init_theme()->render();
 	}
 
 	/**

@@ -47,13 +47,12 @@ class Widget extends Module {
 	 */
 	public function render( $unique, $values, $is_template ) {
 		$this->set_option( 'is_template', $is_template );
-		$instance        = $this->init_theme();
 		$this->unique    = $unique;
 		$this->db_values = $values;
 		if ( false !== $this->errors ) {
 			$this->init_error_registry( $this->errors );
 		}
-		echo $instance->render();
+		echo $this->init_theme()->render();
 		$this->remove_option( 'is_template' );
 	}
 
