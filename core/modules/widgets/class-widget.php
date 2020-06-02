@@ -53,7 +53,7 @@ class Widget extends Module {
 		if ( false !== $this->errors ) {
 			$this->init_error_registry( $this->errors );
 		}
-		echo $instance->render_widgets();
+		echo $instance->render();
 		$this->remove_option( 'is_template' );
 	}
 

@@ -105,7 +105,7 @@ class Dashboard extends Module {
 			}
 		} else {
 			$instance = $this->init_theme();
-			echo $instance->render_dashboard_widgets();
+			echo $instance->render();
 		}
 	}
 

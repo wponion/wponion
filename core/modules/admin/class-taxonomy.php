@@ -152,7 +152,7 @@ class Taxonomy extends Module {
 			echo '</div>';
 		} else {
 			$theme_instance = $this->init_theme();
-			$theme_instance->render_taxonomy();
+			$theme_instance->render();
 		}
 	}
 

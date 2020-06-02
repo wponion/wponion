@@ -131,7 +131,7 @@ class User_Profile extends Module {
 			do_meta_boxes( $screen->id . '_' . $this->unique(), 'normal', $this->get_id() );
 		} else {
 			$instance = $this->init_theme();
-			$instance->render_user_profile();
+			$instance->render();
 		}
 	}
 

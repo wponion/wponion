@@ -126,6 +126,17 @@ abstract class Theme_API extends Bridge {
 	}
 
 	/**
+	 * Renders HTML for current module.
+	 *
+	 * @since {NEWVERSION}
+	 */
+	public function render() {
+		if ( false !== $this->find_html_file( $this->module() . '.php' ) ) {
+			include $this->find_html_file( $this->module() . '.php' );
+		}
+	}
+
+	/**
 	 * Loads A Given File From Theme.
 	 *
 	 * @param      $file
@@ -150,61 +161,5 @@ abstract class Theme_API extends Bridge {
 	 */
 	protected function find_html_file( $file ) {
 		return file_exists( $this->dir . $file ) ? $this->dir . $file : false;
-	}
-
-	/**
-	 * Generates Metabox HTML Webpage.
-	 */
-	public function render_metabox() {
-		include $this->find_html_file( 'metabox.php' );
-	}
-
-	/**
-	 * Generates Settings Page HTML.
-	 */
-	public function render_settings() {
-		include $this->find_html_file( 'settings.php' );
-	}
-
-	/**
-	 * Generates Taxonomy Page HTML.
-	 */
-	public function render_taxonomy() {
-		include $this->find_html_file( 'taxonomy.php' );
-	}
-
-	/**
-	 * Generates User Profile HTML.
-	 */
-	public function render_user_profile() {
-		include $this->find_html_file( 'user-profile.php' );
-	}
-
-	/**
-	 * Generates Taxonomy Page HTML.
-	 */
-	public function render_dashboard_widgets() {
-		include $this->find_html_file( 'dashboard-widgets.php' );
-	}
-
-	/**
-	 * Generates Taxonomy Page HTML.
-	 */
-	public function render_widgets() {
-		include $this->find_html_file( 'widgets.php' );
-	}
-
-	/**
-	 * Generates Help Tabs HTML.
-	 */
-	public function render_help_tabs() {
-		include $this->find_html_file( 'help-tabs.php' );
-	}
-
-	/**
-	 * Generates Nav Menu HTML.
-	 */
-	public function render_nav_menu() {
-		include $this->find_html_file( 'nav-menu.php' );
 	}
 }

@@ -108,7 +108,7 @@ class Nav_Menu extends Module {
 		$this->flush_values();
 		$this->reload_cache();
 		$this->get_cache();
-		$this->init_theme()->render_nav_menu();
+		$this->init_theme()->render();
 	}
 
 	/**

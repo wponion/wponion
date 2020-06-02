@@ -183,7 +183,7 @@ class Metabox extends Module {
 		$instance = $this->init_theme();
 		$this->get_cache();
 		$this->get_db_values();
-		$instance->render_metabox();
+		$instance->render();
 	}
 
 	/**

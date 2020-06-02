@@ -212,7 +212,7 @@ class Settings extends Module {
 		echo '<input type="hidden" name="sub-container-id" value="' . $this->active( false ) . '"/>';
 		echo '</div>';
 		$instance = $this->init_theme();
-		$instance->render_settings();
+		$instance->render();
 		echo '</form>';
 
 		if ( false !== $this->option( 'ajax' ) ) {
