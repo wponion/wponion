@@ -113,9 +113,7 @@ abstract class Theme_API extends Bridge {
 	/**
 	 * Fetches Module's Instance.
 	 *
-	 * @param bool $callback
-	 *
-	 * @return bool|false|mixed|string|null
+	 * @return \WPOnion\Bridge\Module_Utility|\WPOnion\Bridge\Module|bool
 	 * @since {NEWVERSION}
 	 */
 	public function module_instance() {

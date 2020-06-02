@@ -31,9 +31,14 @@ trait Fields_Handler {
 	 * @return array|\WPO\Builder
 	 */
 	public function fields() {
-		if ( ( is_string( $this->fields ) || ( wponion_is_array( $this->fields ) && wponion_is_countable( $this->fields, 2 ) ) ) && wponion_is_callable( $this->fields ) && false === $this->fields_called ) {
-			$this->fields        = wponion_callback( $this->fields );
-			$this->fields_called = true;
+		if ( false === $this->fields_called ) {
+			$is_string = ( is_string( $this->fields ) );
+			$is_array  = ( wponion_is_array( $this->fields ) && wponion_is_countable( $this->fields, 2 ) );
+			$is_inline = ( is_object( $this->fields ) && ( $this->fields instanceof \Closure ) );
+			if ( ( $is_string || $is_array && wponion_is_callable( $this->fields ) ) || $is_inline ) {
+				$this->fields        = wponion_callback( $this->fields );
+				$this->fields_called = true;
+			}
 		}
 		return $this->fields;
 	}
