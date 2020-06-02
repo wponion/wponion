@@ -99,6 +99,7 @@ class Base extends Bridge {
 		$this->posted_values = $args['posted_values'];
 		$this->db_values     = $args['db_values'];
 		$this->args          = $args['args'];
+		$this->return_values = wponion_cast_array( $this->return_values );
 
 		if ( false === $this->posted_values ) {
 			$this->posted_values = ( isset( $_POST[ $this->unique ] ) ) ? $_POST[ $this->unique ] : array();
@@ -334,7 +335,7 @@ class Base extends Bridge {
 		$path = implode( '/', array_filter( $field['field_path'] ) );
 		if ( ! empty( $path ) ) {
 			if ( wponion_is_unarrayed( $field ) || true === $merge ) {
-				$_values = Helper::array_key_get( $path, $this->return_values, '/' );
+				$_values = Helper::array_key_get( $path, $this->return_values );
 				$value   = array_merge( $_values, $value );
 			}
 			Helper::array_key_set( $path, $value, $this->return_values, '/' );
