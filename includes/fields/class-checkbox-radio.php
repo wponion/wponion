@@ -106,23 +106,24 @@ class Checkbox_Radio extends Field {
 	 * @return string
 	 */
 	protected function render_element( $options, $in_group = false ) {
+		$elm_type     = $this->element_type();
 		$attr         = $options['attributes'];
-		$attr['type'] = ( 'switcher' === $this->element_type() ) ? 'checkbox' : $this->element_type();
+		$attr['type'] = ( 'switcher' === $elm_type ) ? 'checkbox' : $elm_type;
 
 		if ( ! isset( $attr['class'] ) ) {
 			$attr['class'] = array();
 		}
 		$attr['class'] = wponion_html_class( $attr['class'], $this->element_class( 'form-check-input' ) );
 		$attr['value'] = $this->element_value( $options );
-		$attr['name']  = ( 'single' === $in_group ) ? $this->name() : $this->name( ( 'radio' !== $this->element_type() ) ? '[]' : '' );
+		$attr['name']  = ( 'single' === $in_group ) ? $this->name() : $this->name( ( 'radio' !== $elm_type ) ? '[]' : '' );
 		$attr['id']    = sanitize_title( $attr['name'] . '_' . $options['key'] );
 		$value         = $this->value();
 		$label_attr    = array();
 
 		if ( 'single' === $in_group ) {
-			if ( 'switcher' === $this->element_type() ) {
+			if ( 'switcher' === $elm_type ) {
 				$attr['value'] = true;
-			} elseif ( 'checkbox' === $this->element_type() && empty( $this->option( 'options' ) ) ) {
+			} elseif ( 'checkbox' === $elm_type && empty( $this->option( 'options' ) ) ) {
 				$attr['value'] = ( $this->option( 'id' ) !== $options['key'] ) ? $options['key'] : true;
 			} else {
 				$attr['value'] = $options['key'];
@@ -133,7 +134,7 @@ class Checkbox_Radio extends Field {
 			$label_attr                      = array();
 			$label_attr['data-wponion-jsid'] = $this->js_field_id();
 			$label_attr['data-field-jsid']   = $attr['id'];
-			$label_attr['class']             = ( 'image_select' !== $this->element_type() ) ? ' wponion-field-tooltip ' : ' wponion-checkbox-radio-tooltip ';
+			$label_attr['class']             = ( 'image_select' !== $elm_type ) ? ' wponion-field-tooltip ' : ' wponion-checkbox-radio-tooltip ';
 			wponion_localize()->add( $this->js_field_id(), array( $attr['id'] . 'tooltip' => $options['tooltip']['data'] ) );
 		}
 
@@ -146,7 +147,6 @@ class Checkbox_Radio extends Field {
 		if ( wponion_is_array( $value ) && true === $options['custom_input'] || true === wponion_is_array( $options['custom_input'] ) ) {
 			$value = isset( $value[ $options['key'] ] ) ? $options['key'] : false;
 		}
-
 		return $this->_element_html( $label_attr, $this->attributes( $attr ), $value, $attr, $options );
 	}
 
@@ -162,9 +162,8 @@ class Checkbox_Radio extends Field {
 	 * @return string
 	 */
 	protected function _element_html( $label_attr, $field_attr, $value, $attr, $options ) {
-		$label_attr['class'] = ( isset( $label_attr['class'] ) ) ? $label_attr['class'] . ' wponion-checker ' : ' wponion-checker ';
-		return '<div ' . wponion_array_to_html_attributes( $label_attr ) . '><label >
-				<input ' . $field_attr . ' ' . $this->checked( $value, $attr['value'], 'checked' ) . '  />' . $options['label'] . '
-			</label></div>';
+		$label_attr['class'] = ( isset( $label_attr['class'] ) ) ? $label_attr['class'] . ' wponion-checker ' : 'wponion-checker';
+		$label_attr          = wponion_array_to_html_attributes( $label_attr );
+		return "<div ${label_attr}> <label> <input ${field_attr} {$this->checked( $value, $attr['value'], 'checked' )}/> {$options['label']} </label> </div>";
 	}
 }
