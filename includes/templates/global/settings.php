@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * @var $this \WPOnion\Theme\WP_Lite|\WPOnion\Theme\WP
  */
-$module = $this->settings();
+$module = $this->module_instance();
 
 echo '<div ' . $module->wrap_attributes() . '>';
 include wponion()->tpl( 'global/parts/settings/header.php' );

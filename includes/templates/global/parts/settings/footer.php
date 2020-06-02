@@ -1,10 +1,9 @@
 <?php
 defined( 'ABSPATH' ) || exit;
-
 /**
  * @var \WPOnion\Theme\WP|\WPOnion\Theme\WP_Lite $this
  */
-$module = $this->settings();
+$module = $this->module_instance();
 ?>
 <footer>
 	<div class="inner-container wpo-row wpo-middle-xs">

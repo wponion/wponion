@@ -8,7 +8,7 @@ defined( 'ABSPATH' ) || exit;
  * @var $field \WPO\Field
  *
  */
-$module      = $this->settings();
+$module      = $this->module_instance();
 $fields      = $module->fields();
 $has_fields  = $fields->has_fields();
 $extra_class = ( true === $has_fields ) ? ' wpo-row only-fields ' : '';

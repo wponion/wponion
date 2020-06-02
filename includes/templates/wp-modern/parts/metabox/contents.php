@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
  * @var \WPO\Container            $sub_container
  * @var \WPO\Field                $field
  */
-$metabox     = $this->metabox();
+$metabox     = $this->module_instance();
 $fields      = $metabox->fields();
 $has_fields  = $fields->has_fields();
 $extra_class = ( true === $has_fields ) ? ' wpo-row only-fields ' : '';

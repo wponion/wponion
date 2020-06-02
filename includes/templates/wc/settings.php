@@ -2,14 +2,14 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var $this \WPOnion\Theme\WC */
-$module = $this->settings();
+$module = $this->module_instance();
 $desc   = $module->option( 'framework_desc' );
 echo '<div ' . $module->wrap_attributes() . '>';
 
 $this->load_file( 'parts/settings/header.php' );
 echo '<div class="postbox ">';
 echo '<div class="content-outer-wrap">';
-$metabox = $this->settings();
+$metabox = $this->module_instance();
 if ( ! empty( $metabox->settings_menus() ) ) {
 	?>
 	<div class="menu-wrap main-navigation">

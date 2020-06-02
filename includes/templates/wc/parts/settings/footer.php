@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var $this \WPOnion\Theme\WC */
-$module = $this->settings();
+$module = $this->module_instance();
 ?>
 
 <footer>

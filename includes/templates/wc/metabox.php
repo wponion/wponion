@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var $this \WPOnion\Theme\WC */
-$metabox = $this->metabox();
+$metabox = $this->module_instance();
 echo '<div ' . $metabox->wrap_attributes() . '>';
 echo '<div class="wponion-metabox-inside-wrap">';
 echo '<div class="content-outer-wrap">';

@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
  * @var $sub_container \WPO\Container
  * @var $field \WPO\Field
  */
-$module  = $this->metabox();
+$module  = $this->module_instance();
 $menus   = $module->metabox_menus();
 $options = $module->fields()
 	->get();

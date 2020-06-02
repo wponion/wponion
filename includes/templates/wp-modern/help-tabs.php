@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var WPOnion\Theme\WP_Modern $this */
-$help_tabs = $this->help_tabs();
+$help_tabs = $this->module_instance();
 ?>
 
 <div <?php echo $help_tabs->wrap_attributes(); ?>>

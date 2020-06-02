@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var \WPOnion\Theme\WP_Modern $this */
-$widget      = $this->widgets();
+$widget      = $this->module_instance();
 $fields      = $widget->fields();
 $is_template = ( $widget->option( 'is_template' ) ) ? 'wponion-template wponion-module-widget-template' : '';
 ?>

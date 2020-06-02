@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var $this \WPOnion\Theme\WP_Lite */
-$metabox = $this->metabox();
+$metabox = $this->module_instance();
 
 if ( ! empty( $metabox->metabox_menus() ) ) {
 	echo '<div class="wponion-menu main-navigation">';

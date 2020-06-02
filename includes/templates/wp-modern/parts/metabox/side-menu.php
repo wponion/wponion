@@ -4,7 +4,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * @var $this \WPOnion\Theme\WP_Modern
  */
-$metabox = $this->metabox();
+$metabox = $this->module_instance();
 if ( ! empty( $metabox->metabox_menus() ) ) {
 	?>
 	<div class="menu-wrap">

@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var \WPOnion\Theme\WP_Lite|\WPOnion\Theme\WP $this */
-$module      = $this->settings();
+$module      = $this->module_instance();
 $title       = $module->option( 'framework_title' );
 $desc        = $module->option( 'framework_desc' );
 $single_page = $module->is_single_page();

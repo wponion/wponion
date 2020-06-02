@@ -28,7 +28,6 @@ abstract class Global_Theme extends Theme_API {
 
 				$attr          = isset( $menu['attributes'] ) ? $menu['attributes'] : array();
 				$attr['title'] = isset( $attr['title'] ) ? $attr['title'] : $menu['title'];
-				$page_title    = $menu['title'];
 				$attr['href']  = $menu['href'];
 				$attr['class'] = isset( $attr['class'] ) ? $attr['class'] : array();
 				$attr['class'] = wponion_html_class( $attr['class'], array(
@@ -39,8 +38,7 @@ abstract class Global_Theme extends Theme_API {
 					( true === $menu['is_active'] ) ? 'nav-tab-active' : '',
 					( true === $menu['is_disabled'] ) ? ' disabled ' : '',
 				) );
-				$attr          = wponion_array_to_html_attributes( $attr );
-				$return        .= '<a ' . $attr . '>' . wponion_icon( $menu['icon'] ) . $page_title . '</a>';
+				$return        .= '<a ' . wponion_array_to_html_attributes( $attr ) . '>' . wponion_icon( $menu['icon'] ) . $menu['title'] . '</a>';
 			}
 			return $return . '</nav>';
 		}

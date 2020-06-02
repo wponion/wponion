@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
  * @var \WPOnion\Theme\WP_Modern $this
  * @var \WPO\Builder             $fields
  */
-$user_profile = $this->user_profile();
+$user_profile = $this->module_instance();
 $fields       = $user_profile->fields();
 ?>
 

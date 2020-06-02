@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) || exit;
  * @var \WPOnion\Modules\Admin\Taxonomy $taxonomy
  * @var \WPO\Builder                    $fields
  */
-$taxonomy = $this->taxonomy();
+$taxonomy = $this->module_instance();
 $fields   = $taxonomy->fields();
 ?>
 

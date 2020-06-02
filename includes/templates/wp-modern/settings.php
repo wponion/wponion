@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var $this \WPOnion\Theme\WP_Modern */
-$module = $this->settings();
+$module = $this->module_instance();
 $colors = $this->color_scheme( $module->option( 'color_scheme', array() ) );
 
 if ( ! empty( $colors ) ) {

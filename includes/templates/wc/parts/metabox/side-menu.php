@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /* @var $this \WPOnion\Theme\WC */
-$metabox = $this->metabox();
+$metabox = $this->module_instance();
 if ( ! empty( $metabox->metabox_menus() ) ) {
 	?>
 	<div class="menu-wrap main-navigation">

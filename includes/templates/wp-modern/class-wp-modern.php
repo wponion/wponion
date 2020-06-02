@@ -232,7 +232,7 @@ class WP_Modern extends Theme_API {
 	 */
 	public function get_main_menu_html( $menus = false ) {
 		if ( false === $menus ) {
-			$menus = $this->settings()->settings_menus();
+			$menus = $this->module_instance()->settings_menus();
 		}
 
 		if ( wponion_is_array( $menus ) ) {

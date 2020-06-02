@@ -7,7 +7,7 @@ defined( 'ABSPATH' ) || exit;
  * @var \WPO\Container                           $sub_container
  * @var \WPO\Field                               $field
  */
-$module = $this->settings();
+$module = $this->module_instance();
 echo '<div class="main-navigation">';
 echo $this->main_menu( $module->settings_menus() );
 echo '</div>';
