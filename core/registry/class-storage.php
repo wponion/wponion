@@ -28,13 +28,17 @@ class Storage {
 	 * @return mixed
 	 */
 	public static function add( $instance, $instance_id = false ) {
-		$instance_slug = ( method_exists( $instance, 'uid' ) ) ? $instance->uid() : '';
-		$instance_slug = ( empty( $instance_slug ) && method_exists( $instance, 'unique' ) ) ? $instance->unique() : $instance_slug;
+		$instance_slug = false;
+		if ( method_exists( $instance, 'uid' ) ) {
+			$instance_slug = $instance->uid();
+		} elseif ( empty( $instance_slug ) && method_exists( $instance, 'unique' ) ) {
+			$instance_slug = $instance->unique();
+		}
 
 		if ( empty( $instance_id ) && ! empty( $instance_slug ) ) {
 			$instance_id = $instance_slug;
-		} else {
-			$instance_id = ( ! empty( $instance_id ) && empty( $instance_slug ) ) ? $instance_id : trim( $instance_id, '/' ) . '/' . $instance_slug;
+		} elseif ( ! empty( $instance_id ) && ! empty( $instance_slug ) ) {
+			$instance_id = trim( $instance_id, '/' ) . '/' . $instance_slug;
 		}
 
 		if ( ! self::has( $instance_id ) ) {
