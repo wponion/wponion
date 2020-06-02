@@ -489,15 +489,19 @@ class Settings extends Module {
 	 * @return string
 	 */
 	public function settings_button() {
-		$options = $this->option( 'save_button' );
-		$html    = '';
-		if ( false !== $options ) {
-			$html .= $this->_button( $options, array(
-				'class' => 'button button-primary wponion-save',
-				'type'  => 'submit',
-			), __( 'Save Settings', 'wponion' ) );
+		if ( false === $this->option( 'save_button_html' ) ) {
+			$options = $this->option( 'save_button' );
+			$html    = '';
+			if ( false !== $options ) {
+				$html .= $this->_button( $options, array(
+					'class' => 'button button-primary wponion-save',
+					'type'  => 'submit',
+				), __( 'Save Settings', 'wponion' ) );
+			}
+			$this->set_option( 'save_button_html', $html );
+			return $html;
 		}
-		return $html;
+		return $this->option( 'save_button_html' );
 	}
 
 	/**
