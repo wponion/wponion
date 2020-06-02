@@ -2,6 +2,7 @@
 
 namespace WPOnion;
 
+use WPOnion\Traits\Internal\Module;
 use WPOnion\Traits\Internal\Unique;
 
 defined( 'ABSPATH' ) || exit;
@@ -14,6 +15,7 @@ defined( 'ABSPATH' ) || exit;
  */
 abstract class Theme_API extends Bridge {
 	use Unique;
+	use Module;
 
 	/**
 	 * dir
@@ -41,7 +43,7 @@ abstract class Theme_API extends Bridge {
 	 *
 	 * @var null
 	 */
-	protected $module_instance = null;
+	protected $instance = null;
 
 	/**
 	 * Theme_API constructor.
@@ -51,16 +53,12 @@ abstract class Theme_API extends Bridge {
 	 * @param bool   $theme_name
 	 */
 	public function __construct( $data, $theme_file = __FILE__, $theme_name = false ) {
-		$data                  = $this->parse_args( $data, array(
-			'unique'      => false,
-			'instance_id' => false,
-		) );
-		$this->dir             = plugin_dir_path( $theme_file );
-		$this->url             = plugin_dir_url( $theme_file );
-		$this->theme           = $theme_name;
-		$this->unique          = $data['unique'];
-		$this->module_instance = $data['instance_id'];
-
+		$this->dir      = plugin_dir_path( $theme_file );
+		$this->url      = plugin_dir_url( $theme_file );
+		$this->theme    = $theme_name;
+		$this->unique   = wponion_is_set( $data, 'unique' ) ? $data['unique'] : false;
+		$this->instance = wponion_is_set( $data, 'instance_id' ) ? $data['instance_id'] : false;
+		$this->module   = wponion_is_set( $data, 'module' ) ? $data['module'] : false;
 		wponion_theme_registry( $this );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'register_assets' ), 1 );
 	}
@@ -113,75 +111,18 @@ abstract class Theme_API extends Bridge {
 	}
 
 	/**
-	 * Returns Settings Instance.
+	 * Fetches Module's Instance.
 	 *
-	 * @return \WPOnion\Modules\Settings\Settings
-	 */
-	public function settings() {
-		return wponion_settings_registry( $this->module_instance );
-	}
-
-	/**
-	 * Returns Metabox Instance.
+	 * @param bool $callback
 	 *
-	 * @return \WPOnion\Modules\Metabox\metabox
+	 * @return bool|false|mixed|string|null
+	 * @since {NEWVERSION}
 	 */
-	public function metabox() {
-		return wponion_metabox_registry( $this->module_instance );
-	}
-
-	/**
-	 * Returns Taxonomy Instance.
-	 *
-	 * @return mixed
-	 */
-	public function taxonomy() {
-		return wponion_taxonomy_registry( $this->module_instance );
-	}
-
-	/**
-	 * Returns Dashboard Instance.
-	 *
-	 * @return \WPOnion\Modules\Widgets\Dashboard
-	 */
-	public function dashboard_widgets() {
-		return wponion_dashboard_widgets_registry( $this->module_instance );
-	}
-
-	/**
-	 * Returns Dashboard Instance.
-	 *
-	 * @return \WPOnion\Modules\Widgets\Dashboard
-	 */
-	public function widgets() {
-		return wponion_widget_registry( $this->module_instance );
-	}
-
-	/**
-	 * Returns Help Tab Instance.
-	 *
-	 * @return \WPOnion\Modules\Admin\Help_Tabs
-	 */
-	public function help_tabs() {
-		return wponion_help_tabs_registry( $this->module_instance );
-	}
-
-	/**
-	 * Returns User Profile Instance.
-	 *
-	 * @return bool|\WPOnion\Modules\Admin\User_Profile
-	 */
-	public function user_profile() {
-		return wponion_user_profile_registry( $this->module_instance );
-	}
-
-	/**
-	 * Returns Nav Menu Instance.
-	 *
-	 * @return bool|\WPOnion\Modules\Admin\Nav_Menu
-	 */
-	public function nav_menu() {
-		return wponion_nav_menu_registry( $this->module_instance );
+	public function module_instance() {
+		if ( is_string( $this->instance ) ) {
+			$this->instance = wponion_callback( 'wponion_' . $this->module() . '_registry', array( $this->instance ) );
+		}
+		return $this->instance;
 	}
 
 	/**
