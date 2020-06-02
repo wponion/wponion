@@ -55,6 +55,7 @@ trait Theme_Handler {
 			'data' => array(
 				'unique'      => $this->unique(),
 				'instance_id' => $this->unique(),
+				'module'      => $this->module(),
 			),
 		);
 	}
