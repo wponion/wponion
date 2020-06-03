@@ -23,11 +23,4 @@ class WP_Lite extends Global_Theme {
 	public function __construct( $data ) {
 		parent::__construct( $data, __FILE__, 'wp-lite' );
 	}
-
-	/**
-	 * Registers Assets With WP.
-	 */
-	public function register_assets() {
-
-	}
 }

@@ -24,12 +24,6 @@ class WC extends Global_Theme {
 		parent::__construct( $data, __FILE__, 'wc' );
 	}
 
-	/**
-	 * Registers Assets With WP.
-	 */
-	public function register_assets() {
-	}
-
 	public function main_menu( $menus ) {
 		$return = '<nav >';
 		foreach ( $menus as $slug => $menu ) {

@@ -80,4 +80,10 @@ abstract class Global_Theme extends Theme_API {
 		}
 		return $return;
 	}
+
+	/**
+	 * Registers Assets With WP.
+	 */
+	public function register_assets() {
+	}
 }
