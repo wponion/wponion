@@ -18,6 +18,23 @@ jobs:
           REMOTE_FILE: "others/change-log.md"
           LOCAL_FILE: "CHANGELOG.md"
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+          
+  upload_assets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Installing Composer
+        uses: nanasess/composer-installer-action@master
+      - name: Create Github Release Archive
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          mkdir dist/
+          composer install --no-dev && git archive -o dist/"$VERSION.zip"  HEAD && zip -gr dist/"$VERSION.zip" vendor/
+      - name: Upload To Github
+        uses: Roang-zero1/github-upload-release-artifacts-action@master
+        with:
+          args: dist/
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   upload_demo:
     runs-on: ubuntu-latest
     steps:
