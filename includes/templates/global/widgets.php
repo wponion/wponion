@@ -3,16 +3,13 @@ defined( 'ABSPATH' ) || exit;
 
 /* @var \WPOnion\Theme\WP_Modern $this */
 $widget      = $this->module_instance();
-$fields      = $widget->fields();
 $is_template = ( $widget->option( 'is_template' ) ) ? 'wponion-template wponion-module-widget-template' : '';
-?>
+$fields      = $widget->fields()->get();
 
-<div <?php echo $widget->wrap_attributes( $is_template ); ?>>
-	<?php
-	if ( ! empty( $fields->get() ) ) {
-		foreach ( $fields->get() as $field ) {
-			echo $widget->render_field( $field );
-		}
+if ( ! empty( $fields ) ) {
+	echo "<div {$widget->wrap_attributes( $is_template )}>";
+	foreach ( $fields as $field ) {
+		echo $widget->render_field( $field );
 	}
-	?>
-</div>
+	echo '</div>';
+}
