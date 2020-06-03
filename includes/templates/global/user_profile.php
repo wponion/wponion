@@ -1,22 +1,19 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-/**
- * @var \WPOnion\Theme\WP_Modern $this
- * @var \WPO\Builder             $fields
- */
+/* @var \WPOnion\Theme\WP_Modern $this */
+/* @var \WPO\Builder $fields */
 $user_profile = $this->module_instance();
-$fields       = $user_profile->fields();
-?>
+$fields       = $user_profile->fields()->get();
+if ( ! empty( $fields ) ) {
+	$heading = $user_profile->option( 'heading' );
+	if ( ! empty( $heading ) ) {
+		echo "<h2>{$heading}</h2>";
+	}
 
-<?php if ( ! empty( $user_profile->option( 'heading' ) ) ) { ?>
-	<h2><?php echo $user_profile->option( 'heading' ); ?></h2>
-<?php } ?>
-
-<div <?php echo $user_profile->wrap_attributes(); ?>>
-	<?php
+	echo "<div {$user_profile->wrap_attributes()}>";
 	foreach ( $fields->get() as $field ) {
 		echo $user_profile->render_field( $field );
 	}
-	?>
-</div>
+	echo '</div>';
+}
