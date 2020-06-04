@@ -8,6 +8,7 @@ use WPO\Helper\Dependency\Builder as Dependency_Builder;
 use WPOnion\DB\Option;
 use WPOnion\DB\WP_DB;
 use WPOnion\Localize_API;
+use WPOnion\Registry\Field_Error;
 use WPOnion\Theme_API;
 
 if ( ! function_exists( 'wponion_is_version' ) ) {
@@ -48,6 +49,9 @@ if ( ! function_exists( 'wponion_is_instance' ) ) {
 				break;
 			case 'field':
 				return ( $builder instanceof Field );
+				break;
+			case 'field_error':
+				return ( $builder instanceof Field_Error );
 				break;
 			case 'option':
 				return ( $builder instanceof Option );

@@ -7,3 +7,4 @@ composer.lock export-ignore
 package.json export-ignore
 package-lock.json export-ignore
 wp-pot.json export-ignore
+.editorconfig export-ignore

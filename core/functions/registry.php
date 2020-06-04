@@ -70,7 +70,7 @@ if ( ! function_exists( 'wponion_field_error_registry' ) ) {
 	 */
 	function wponion_field_error_registry( $instance_id ) {
 		$instance = wponion_core_registry( $instance_id );
-		return ( ! wponion_is_instance( $instance, $instance_id ) ) ? wponion_core_registry( new Field_Error(), $instance_id ) : $instance;
+		return ( ! wponion_is_instance( $instance, 'field_error' ) ) ? wponion_core_registry( new Field_Error(), $instance_id ) : $instance;
 	}
 }
 
