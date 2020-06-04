@@ -49,7 +49,30 @@ class Actions extends Deprecated_Hooks {
 	 * @var array
 	 */
 	protected $deprecated_version = array(
-		'wponion_core_loaded' => '1.4.6.1',
+		'wponion_core_loaded'                              => '1.5',
+		'wponion_before_addons_load'                       => '1.5',
+		'wponion_after_addons_load'                        => '1.5',
+		'wponion_loaded'                                   => '1.5',
+		'wponion_integrations_before_loaded'               => '1.5',
+		'wponion_integrations_loaded'                      => '1.5',
+		'wponion_init'                                     => '1.5',
+		'wponion_core_fields_registered'                   => '1.5',
+		'wponion_ajax_shutdown'                            => '1.5',
+		'wponion_ajax_shutdown_error'                      => '1.5',
+		'wponion_ajax_shutdown_success'                    => '1.5',
+		'wponion_register_assets_before'                   => '1.5',
+		'wponion_register_assets_after'                    => '1.5',
+		'wponion_metabox_ajax_before_render'               => '1.5',
+		'wponion_metabox_ajax_render'                      => '1.5',
+		'wponion_before_icons_setup'                       => '1.5',
+		'wponion_after_icons_setup'                        => '1.5',
+		'wponion_load_field_class'                         => '1.5',
+		'wponion_ajax_enqueue_scripts'                     => '1.5',
+		'wponion_settings_page_assets'                     => '1.5',
+		'wponion_settings_register_submenu'                => '1.5',
+		'wponion_settings_page_onload'                     => '1.5',
+		'wponion_module_woocommerce_ajax_variation_fields' => '1.5',
+		'wponion_save_bulk_edit'                           => '1.5',
 	);
 
 	/**

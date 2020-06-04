@@ -41,7 +41,22 @@ class Filters extends Deprecated_Hooks {
 	 * @var array
 	 */
 	protected $deprecated_version = array(
-		'wponion_field_class_remaps' => '1.4.6.1',
+		'wponion_field_class_remaps'                 => '1.5',
+		'wponion_sysinfo_final'                      => '1.5',
+		'wponion_sysinfo'                            => '1.5',
+		'wponion_select_input_frameworks'            => '1.5',
+		'wponion_select_input_frameworks_html_class' => '1.5',
+		'wponion_backup_fonts'                       => '1.5',
+		'wponion_websafe_fonts'                      => '1.5',
+		'wponion_google_fonts'                       => '1.5',
+		'wponion_query_modules_alias'                => '1.5',
+		'wponion_query_modules'                      => '1.5',
+		'wponion_ajax_wp_query_results'              => '1.5',
+		'wponion_default_theme'                      => '1.5',
+		'wponion_query_args'                         => '1.5',
+		'wponion_wp_query_result'                    => '1.5',
+		'wponion_field_column_css_class'             => '1.5',
+		'wponion_wp_editor'                          => '1.5',
 	);
 
 	/**
