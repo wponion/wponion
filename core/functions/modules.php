@@ -317,7 +317,7 @@ if ( ! function_exists( 'wponion_row_actions' ) ) {
 	 * @param bool   $hook
 	 *
 	 * @return \WPOnion\Modules\Admin\Row_Actions
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_row_actions( $type = 'post', $priority = 20, $hook = false ) {
 		return new Row_Actions( array(

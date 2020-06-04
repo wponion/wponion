@@ -81,7 +81,7 @@ if ( ! class_exists( 'WPOnion' ) ) {
 		 * Returns WPOnion Version.
 		 *
 		 * @return bool|string
-		 * @since {NEWVERSION}
+		 * @since 1.5
 		 */
 		public function version() {
 			return ( wponion_is_defined( 'WPONION_VERSION' ) ) ? WPONION_VERSION : false;

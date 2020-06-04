@@ -22,7 +22,7 @@ class Options {
 	 * @param bool $option_default
 	 *
 	 * @return bool|\WPOnion\DB\Option|array
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected static function get_db_instance( $module, $db_key, $wp_id = false, $option_key = false, $option_default = false ) {
 		try {

@@ -45,7 +45,7 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 		/**
 		 * Loads Framework Using $this->load_framework and inits
 		 *
-		 * @since 1.4.6.1
+		 * @since 1.5
 		 */
 		public function activate_framework() {
 			$this->load_framework();

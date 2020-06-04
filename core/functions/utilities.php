@@ -16,7 +16,7 @@ if ( ! function_exists( 'wponion_define' ) ) {
 	 * @param mixed  $case_insensitive If set to true, the constant will be defined case-insensitive.
 	 *
 	 * @return bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_define( $key, $value, $case_insensitive = false ) {
 		$is_strict = ( true === $value );
@@ -98,7 +98,7 @@ if ( ! function_exists( 'wponion_has_column_class' ) ) {
 	 * @param $class
 	 *
 	 * @return bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_has_column_class( $class ) {
 		preg_match_all( '/col\b-(xs|sm|md|lg|xl)?\b-?\b(1[0-2]|[1-9])/', $class, $matches, PREG_SET_ORDER, 0 );
@@ -396,7 +396,7 @@ if ( ! function_exists( 'wponion_extract_template_tags' ) ) {
 	 * @param $string
 	 *
 	 * @return array
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_extract_template_tags( $string ) {
 		$matches = array();

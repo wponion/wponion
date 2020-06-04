@@ -128,7 +128,7 @@ abstract class Module_DB extends Module_Utility {
 			$values,
 			$this->unique(),
 			$this,
-		), '1.4.6.1', "wponion/{$this->module()}/save/before" );
+		), '1.5', "wponion/{$this->module()}/save/before" );
 
 		/**
 		 * Fires a Common Action After Saving Values In DB
@@ -171,7 +171,7 @@ abstract class Module_DB extends Module_Utility {
 			$values,
 			$this->unique(),
 			$this,
-		), '1.4.6.1', "wponion/{$this->module()}/save/after" );
+		), '1.5', "wponion/{$this->module()}/save/after" );
 
 		/**
 		 * Fires Action With Exact Unique Key After Saving Values In DB
@@ -351,7 +351,7 @@ abstract class Module_DB extends Module_Utility {
 	 * Clears DB Values and loads from DB Again.
 	 *
 	 * @return mixed
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function flush_values() {
 		$this->db_values = array();
@@ -362,7 +362,7 @@ abstract class Module_DB extends Module_Utility {
 	 * Clears Cache And Loads From DB Again.
 	 *
 	 * @return $this
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function flush_cache() {
 		return $this->reload_cache();

@@ -7,7 +7,7 @@ namespace WPOnion\DB\Storage;
  *
  * @package WPOnion\DB\Storage
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 class Post extends Base {
 	/**

@@ -28,7 +28,7 @@ trait Class_Options {
 	 *
 	 * @uses \WPOnion\Helper::array_key_get() | array_key_set/array_key_isset/array_key_unset
 	 * @var bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected $array_helper = true;
 
@@ -84,7 +84,7 @@ trait Class_Options {
 	 * @return mixed
 	 */
 	protected function get_option( $key, $default = false ) {
-		wponion_deprecated_function( __METHOD__, '1.4.6.1', 'option' );
+		wponion_deprecated_function( __METHOD__, '1.5', 'option' );
 		return $this->option( $key, $default );
 	}
 
@@ -95,7 +95,7 @@ trait Class_Options {
 	 * @param mixed  $default
 	 *
 	 * @return $this
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function set_option_default( $key, $default ) {
 		if ( ! $this->has_option( $key ) ) {
@@ -127,7 +127,7 @@ trait Class_Options {
 	 * @param $key
 	 *
 	 * @return $this
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function remove_option( $key ) {
 		if ( is_string( $key ) ) {
@@ -152,7 +152,7 @@ trait Class_Options {
 	 * @param $key
 	 *
 	 * @return bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function has_option( $key ) {
 		return ( $this->array_helper ) ? Helper::array_key_isset( $key, $this->settings, $this->array_key_delimiter ) : isset( $this->settings[ $key ] );

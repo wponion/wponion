@@ -9,14 +9,14 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package WPOnion\Helpers
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 class Array_Access {
 	/**
 	 * @param $keys
 	 *
 	 * @return bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public static function is_array_access_keys( $keys ) {
 		return ( is_string( $keys ) && false !== strpos( $keys, '/' ) );
@@ -66,7 +66,7 @@ class Array_Access {
 	 * @param string       $delimiter
 	 *
 	 * @return mixed|null
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public static function array_key_get( $keys, $array_or_object, $default = null, $delimiter = '/' ) {
 		if ( ! self::is_array_access_keys( $keys ) ) {

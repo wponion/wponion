@@ -17,7 +17,7 @@ abstract class Wrapper extends Value {
 	 * Generates Final Field Wrap HTML Class.
 	 *
 	 * @return string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 * @internal
 	 */
 	protected function _wrap_class() {
@@ -50,7 +50,7 @@ abstract class Wrapper extends Value {
 	 * Generates Final Wrap HTML Attributes.
 	 *
 	 * @return string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 * @internal
 	 */
 	protected function _wrap_attributes() {
@@ -77,7 +77,7 @@ abstract class Wrapper extends Value {
 	 * Provides a hook able function for fields.
 	 *
 	 * @return string|array
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public function wrap_attributes() {
 		return array();
@@ -87,7 +87,7 @@ abstract class Wrapper extends Value {
 	 * Provides a hook able function for fields.
 	 *
 	 * @return string|array
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function wrap_class() {
 		return '';

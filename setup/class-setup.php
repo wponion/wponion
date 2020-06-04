@@ -52,7 +52,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		/**
 		 * Loads Vendor Folder if prepacked.
 		 *
-		 * @since 1.4.6.1
+		 * @since 1.5
 		 */
 		protected static function load_composer_vendor() {
 			if ( file_exists( wponion()->path( 'vendor/autoload.php' ) ) ) {
@@ -68,7 +68,7 @@ if ( ! class_exists( '\WPOnion\Setup' ) ) {
 		 * 4. Function Arguments.
 		 * 5. Files.
 		 *
-		 * @since 1.4.6.1
+		 * @since 1.5
 		 */
 		protected static function load_deprecated_handlers() {
 			require wponion()->path( 'core/deprecation/functions.php' );

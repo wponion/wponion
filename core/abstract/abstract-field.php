@@ -56,7 +56,7 @@ abstract class Field extends Wrapper {
 	 * Returns True when any of the actions are fired.
 	 *
 	 * @return bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	private function is_assets_actions_fired() {
 		return ( did_action( 'wponion_ajax_enqueue_scripts' ) || did_action( 'admin_enqueue_scripts' ) || did_action( 'customize_controls_enqueue_scripts' ) || did_action( 'wp_enqueue_scripts' ) || did_action( 'customize_controls_print_scripts' ) || did_action( 'customize_controls_print_footer_scripts' ) || did_action( 'customize_controls_print_styles' ) );
@@ -143,7 +143,7 @@ HTML;
 	 * and returns it.
 	 *
 	 * @return string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function field_html() {
 		return $this->output();
@@ -351,7 +351,7 @@ HTML;
 	protected function element_class( $field_class = '' ) {
 		$element_class = wponion_apply_deprecated_filters( 'wponion_' . $this->module() . '_field_html_class', array(
 			wponion_html_class( $this->option( 'class' ), $field_class, false ),
-		), '1.4.6.1' );
+		), '1.5' );
 		return apply_filters( "wponion/{$this->module()}/field/html/class", $element_class, $this );
 	}
 

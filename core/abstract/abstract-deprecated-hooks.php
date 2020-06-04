@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
  * \WPOnion\Bridge\Deprecated_Hooks class maps old actions and filters to new ones.
  * This is the base class for handling those deprecated hooks.
  *
- * @since 1.4.6.1
+ * @since 1.5
  */
 abstract class Deprecated_Hooks {
 	use self_instance;

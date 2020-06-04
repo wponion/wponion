@@ -69,7 +69,7 @@ if ( ! function_exists( 'wponion_cast_array' ) ) {
 	 * @return array
 	 * @example wponion_cast_array('mystring') --> array('mystring')
 	 * @example wponion_cast_array('mystring','custom_key') --> array('custom_key' => 'mystring')
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_cast_array( $array, $array_key = null ) {
 		if ( ! wponion_is_array( $array ) && ! empty( $array ) ) {
@@ -128,7 +128,7 @@ if ( ! function_exists( 'wponion_parse_args_mixed' ) ) {
 	 * @example
 	 *    wponion_parse_args_mixed('content','some string', array('content' => false,'title' => 'Some Value'));
 	 *        --> array('content' => 'some string','title' =>'Some Value');
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_parse_args_mixed( $save_with = '', $user_values = array(), $defaults = array() ) {
 		if ( true === $user_values ) {
@@ -221,7 +221,7 @@ if ( ! function_exists( 'wponion_extract_data_from_array_object' ) ) {
 	 * @param $key_to_call
 	 *
 	 * @return bool|false|mixed|string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_extract_data_from_array_object( $array_or_object, $key_to_call ) {
 		$result = false;
@@ -252,7 +252,7 @@ if ( ! function_exists( 'wponion_array_merge' ) ) {
 	 * @param array $after
 	 *
 	 * @return array|object|\WPO\Field
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_array_merge( $source, $before = array(), $middle = array(), $after = array() ) {
 		if ( ! empty( $source ) && wponion_is_array( $source ) ) {

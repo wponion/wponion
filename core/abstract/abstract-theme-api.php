@@ -114,7 +114,7 @@ abstract class Theme_API extends Bridge {
 	 * Fetches Module's Instance.
 	 *
 	 * @return \WPOnion\Bridge\Module_Utility|\WPOnion\Bridge\Module|bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public function module_instance() {
 		if ( is_string( $this->instance ) ) {
@@ -126,7 +126,7 @@ abstract class Theme_API extends Bridge {
 	/**
 	 * Renders HTML for current module.
 	 *
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public function render() {
 		if ( false !== $this->find_html_file( $this->module() . '.php' ) ) {

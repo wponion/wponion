@@ -184,7 +184,7 @@ class Field extends Common_Args {
 	 * @param $value
 	 *
 	 * @return $this
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public function __set( $name, $value ) {
 		$this->{$this->array_var}[ $name ] = $value;

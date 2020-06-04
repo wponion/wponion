@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package WPOnion\Traits\Internal
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 trait Fields_Handler {
 	/**
@@ -21,7 +21,7 @@ trait Fields_Handler {
 
 	/**
 	 * @var bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected $fields_called = false;
 

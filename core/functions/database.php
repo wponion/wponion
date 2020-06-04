@@ -13,7 +13,7 @@ if ( ! function_exists( 'wponion_module_db_type' ) ) {
 	 * @param $module
 	 *
 	 * @return mixed|void
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_module_db_type( $module ) {
 		$return = 'options';

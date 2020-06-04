@@ -14,7 +14,7 @@ abstract class Debug extends Conditional_Check {
 	 * @param bool $start
 	 *
 	 * @return string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function debug_timer( $start = true ) {
 		if ( $start && wponion_is_field_debug() ) {

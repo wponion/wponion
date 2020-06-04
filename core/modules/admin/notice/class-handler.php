@@ -122,7 +122,7 @@ JAVASCRIPT;
 	 * Fetches Values From DB.
 	 *
 	 * @return array|mixed|\WPOnion\DB\Option
-	 * @since 1.4.6.1
+	 * @since 1.5
 	 */
 	protected function get_db_values() {
 		$this->db_values = wponion_get_option( $this->unique );

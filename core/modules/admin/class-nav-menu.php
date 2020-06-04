@@ -115,7 +115,7 @@ class Nav_Menu extends Module {
 	 * Custom Field Unique For Rendering Values.
 	 *
 	 * @return string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function field_unique() {
 		return $this->unique() . '/' . $this->get_id();

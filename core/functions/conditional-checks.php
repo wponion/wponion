@@ -19,7 +19,7 @@ if ( ! function_exists( 'wponion_is_version' ) ) {
 	 * @param string $compare
 	 *
 	 * @return bool|int|string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_is_version( $version_to_check = false, $compare = '>=' ) {
 		return version_compare( wponion()->version(), $version_to_check, $compare );
@@ -79,7 +79,7 @@ if ( ! function_exists( 'wponion_is_set' ) ) {
 	 * @param mixed        $is_strict
 	 *
 	 * @return bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_is_set( $array_or_object, $key, $is_strict = null ) {
 		if ( wponion_is_array( $array_or_object ) ) {
@@ -97,7 +97,7 @@ if ( ! function_exists( 'wponion_is_defined' ) ) {
 	 * @param bool   $is_strict
 	 *
 	 * @return bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_is_defined( $key, $is_strict = false ) {
 		return ( $is_strict ) ? ( defined( $key ) && true === constant( $key ) ) : ( defined( $key ) );
@@ -197,7 +197,7 @@ if ( ! function_exists( 'wponion_is_countable' ) ) {
 	 * @param bool $strict
 	 *
 	 * @return bool|int
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_is_countable( $data, $strict = false ) {
 		if ( is_countable( $data ) ) {
@@ -240,7 +240,7 @@ if ( ! function_exists( 'wponion_is_network' ) ) {
 	 * @param bool $is_admin
 	 *
 	 * @return bool
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	function wponion_is_network( $is_admin = false ) {
 		return ( $is_admin ) ? ( is_network_admin() && is_multisite() ) : is_multisite();

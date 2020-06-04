@@ -115,7 +115,7 @@ class Background extends Field {
 			$return,
 			$this->unique(),
 			$this,
-		), '1.4.6.1' );
+		), '1.5' );
 		return apply_filters( "wponion/field/{$this->module()}/background_{$type}", $return, $this->unique(), $this );
 	}
 }

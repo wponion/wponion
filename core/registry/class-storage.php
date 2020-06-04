@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package WPOnion\Registry
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 class Storage {
 	/**

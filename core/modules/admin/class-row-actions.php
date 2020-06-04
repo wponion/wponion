@@ -9,7 +9,7 @@ use WPOnion\Bridge\Module_Utility;
  *
  * @package WPOnion\Modules\Admin
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 class Row_Actions extends Module_Utility {
 	/**
@@ -33,7 +33,7 @@ class Row_Actions extends Module_Utility {
 	 * @param $array_object
 	 *
 	 * @return bool|int|mixed|string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function links_data( $type, $array_object ) {
 		$key  = "links/${type}";
@@ -63,7 +63,7 @@ class Row_Actions extends Module_Utility {
 	 * @param $array_object
 	 *
 	 * @return mixed
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public function register_row_actions( $row_actions, $array_object ) {
 		return wponion_array_merge( $row_actions, $this->links_data( 'before', $array_object ), $this->links_data( 'center', $array_object ), $this->links_data( 'after', $array_object ) );

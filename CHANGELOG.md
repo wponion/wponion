@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.4.7] - 30/05/2020
+# [1.5] - 30/05/2020
 ## Added
 * **Hook Priority** option in taxonomy
 * `WPONION_PLUGIN_FILE` constant in plugin file.
@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Improved Performance.
 
 ## Changed
+* Bump [sweetalert2] from `9.10.12` to `9.14.0`
 * Reworked Admin Notice Module and changed all function names to match wponion format
 * Moved `Setup` folder from `core/` to `/`
 * Moved Some Internal Options Arg to data folder
@@ -920,9 +921,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
-[1.4.9]: https://github.com/wponion/wponion/releases/tag/1.4.9
-[1.4.8]: https://github.com/wponion/wponion/releases/tag/1.4.8
-[1.4.7]: https://github.com/wponion/wponion/releases/tag/1.4.7
+[1.5]: https://github.com/wponion/wponion/releases/tag/1.5
 [1.4.6]: https://github.com/wponion/wponion/releases/tag/1.4.6
 [1.4.5.3]: https://github.com/wponion/wponion/releases/tag/1.4.5.3
 [1.4.5.2]: https://github.com/wponion/wponion/releases/tag/1.4.5.2

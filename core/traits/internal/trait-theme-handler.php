@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package WPOnion\Traits\Internal
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 trait Theme_Handler {
 	/**

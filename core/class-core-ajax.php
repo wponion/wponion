@@ -52,7 +52,7 @@ class Core_Ajax extends Bridge {
 			} elseif ( method_exists( $this, $func ) ) {
 				wponion_callback( array( &$this, $func ) );
 			} else {
-				wponion_do_deprecated_action( 'wponion_ajax_' . $action, array(), '1.4.6.1', "wponion/ajax/request/${action}" );
+				wponion_do_deprecated_action( 'wponion_ajax_' . $action, array(), '1.5', "wponion/ajax/request/${action}" );
 				do_action( "wponion/ajax/request/${action}" );
 			}
 		}

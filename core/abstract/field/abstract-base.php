@@ -26,7 +26,7 @@ abstract class Base extends Bridge {
 	 * Stores Output HTML.
 	 *
 	 * @var string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected $output_html = '';
 
@@ -139,7 +139,7 @@ abstract class Base extends Bridge {
 	 * @param $content
 	 *
 	 * @return $this|string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function html( $content ) {
 		if ( true === $content ) {

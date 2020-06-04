@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package WPOnion\Traits\Internal
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 trait Unique {
 	/**
@@ -41,7 +41,7 @@ trait Unique {
 	 * Returns Unique Value For Fields That Renders.
 	 *
 	 * @return string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function field_unique() {
 		return $this->unique();
@@ -51,7 +51,7 @@ trait Unique {
 	 * Returns Unique Value For Fields That Renders.
 	 *
 	 * @return string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	protected function field_base_unique() {
 		return $this->base_unique();

@@ -210,7 +210,7 @@ class Help_Tabs extends Module_Utility {
 	 * @param bool  $is_init_field
 	 *
 	 * @return mixed|string
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public function render_field( $field = array(), $hash = false, $is_init_field = false ) {
 		$html = '';

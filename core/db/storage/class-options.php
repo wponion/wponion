@@ -7,7 +7,7 @@ namespace WPOnion\DB\Storage;
  *
  * @package WPOnion\DB\Storage
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 class Options {
 	/**
@@ -22,7 +22,7 @@ class Options {
 	 * @param bool $default
 	 *
 	 * @return bool|mixed|void
-	 * @since {NEWVERSION}
+	 * @since 1.5
 	 */
 	public function get( $meta_key, $default = false ) {
 		return ( $this->is_network ) ? get_site_option( $meta_key, $default ) : get_option( $meta_key, $default );

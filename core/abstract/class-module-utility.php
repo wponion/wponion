@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package WPOnion\Bridge
  * @author Varun Sridharan <varunsridharan23@gmail.com>
- * @since {NEWVERSION}
+ * @since 1.5
  */
 abstract class Module_Utility extends Bridge {
 	use Module;
