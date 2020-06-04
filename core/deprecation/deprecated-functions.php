@@ -58,7 +58,7 @@ if ( ! function_exists( 'wponion_get_registry_instance' ) ) {
 	 * @deprecated
 	 */
 	function wponion_get_registry_instance() {
-		wponion_doing_it_wrong( __FUNCTION__, __( 'This function has been disabled' ), '1.5' );
+		wponion_doing_it_wrong( __FUNCTION__, __( 'This function has been disabled', 'wponion' ), '1.5' );
 	}
 }
 

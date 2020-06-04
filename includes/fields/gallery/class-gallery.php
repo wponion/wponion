@@ -63,13 +63,13 @@ HTML;
 		} elseif ( 'edit' === $type ) {
 			$button = $this->handle_args( 'label', $this->option( 'edit_button' ), $base_field, array(
 				'attributes' => array( 'data-wponion-gallery-edit' => 'yes' ),
-				'label'      => __( 'Edit Gallery' ),
+				'label'      => __( 'Edit Gallery', 'wponion' ),
 				'class'      => 'button button-secondary',
 			) );
 		} elseif ( 'clear' === $type ) {
 			$button = $this->handle_args( 'label', $this->option( 'remove_button' ), $base_field, array(
 				'attributes' => array( 'data-wponion-gallery-clear' => 'yes' ),
-				'label'      => __( 'Clear Gallery' ),
+				'label'      => __( 'Clear Gallery', 'wponion' ),
 				'class'      => 'button button-secondary',
 			) );
 		}
