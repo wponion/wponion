@@ -29,7 +29,8 @@ class Options {
 			$key    = ( false === $wp_id ) ? "db_values/${module}/${db_key}" : "db_values/${module}/${db_key}/${wp_id}";
 			$option = wponion_get_cache( $key );
 		} catch ( Cache_Not_Found $exception ) {
-			$option = $exception->set( new Option( $module, $db_key, $wp_id ) );
+			$option = new Option( $module, $db_key, $wp_id );
+			$exception->set( $option );
 		}
 
 		return ( wpo_is_option( $option ) && ! empty( $option_key ) ) ? $option->get( $option_key, $option_default ) : $option;
