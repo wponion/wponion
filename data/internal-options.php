@@ -136,5 +136,59 @@ $return['font_weight']           = array(
 	'initial' => 'initial',
 	'unset'   => 'unset',
 );
-
+$return['background_repeat']     = array(
+	'no-repeat' => __( 'No Repeat', 'wponion' ),
+	'repeat'    => __( 'Repeat All', 'wponion' ),
+	'repeat-x'  => __( 'Repeat Horizontally', 'wponion' ),
+	'repeat-y'  => __( 'Repeat Vertically', 'wponion' ),
+	'inherit'   => __( 'Inherit', 'wponion' ),
+);
+$return['background_clip']       = array(
+	'inherit'     => __( 'Inherit', 'wponion' ),
+	'border-box'  => __( 'Border Box', 'wponion' ),
+	'content-box' => __( 'Content Box', 'wponion' ),
+	'padding-box' => __( 'Padding Box', 'wponion' ),
+);
+$return['background_origin']     = $return['background_clip'];
+$return['background_size']       = array(
+	'inherit' => __( 'Inherit', 'wponion' ),
+	'cover'   => __( 'Cover', 'wponion' ),
+	'contain' => __( 'Contain', 'wponion' ),
+);
+$return['background_attachment'] = array(
+	'fixed'   => __( 'Fixed', 'wponion' ),
+	'scroll'  => __( 'Scroll', 'wponion' ),
+	'inherit' => __( 'Inherit', 'wponion' ),
+);
+$return['background_position']   = array(
+	'left top'      => __( 'Left Top', 'wponion' ),
+	'left center'   => __( 'Left center', 'wponion' ),
+	'left bottom'   => __( 'Left Bottom', 'wponion' ),
+	'center top'    => __( 'Center Top', 'wponion' ),
+	'center center' => __( 'Center Center', 'wponion' ),
+	'center bottom' => __( 'Center Bottom', 'wponion' ),
+	'right top'     => __( 'Right Top', 'wponion' ),
+	'right center'  => __( 'Right center', 'wponion' ),
+	'right bottom'  => __( 'Right Bottom', 'wponion' ),
+);
+$return['border-style']          = array(
+	'solid'   => __( 'Solid', 'wponion' ),
+	'dotted'  => __( 'Dotted', 'wponion' ),
+	'dashed'  => __( 'Dashed', 'wponion' ),
+	'none'    => __( 'None', 'wponion' ),
+	'hidden'  => __( 'Hidden', 'wponion' ),
+	'double'  => __( 'Double', 'wponion' ),
+	'groove'  => __( 'Groove', 'wponion' ),
+	'ridge'   => __( 'Ridge', 'wponion' ),
+	'inset'   => __( 'Inset', 'wponion' ),
+	'outset'  => __( 'Outset', 'wponion' ),
+	'initial' => __( 'Initial', 'wponion' ),
+	'inherit' => __( 'Inherit', 'wponion' ),
+);
+$return['background_style']      = array(
+	'cover'     => __( 'Cover', 'wponion' ),
+	'contain'   => __( 'Contain', 'wponion' ),
+	'no-repeat' => __( 'No Repeat', 'wponion' ),
+	'repeat'    => __( 'Repeat', 'wponion' ),
+);
 return $return;

@@ -2,81 +2,76 @@
 
 namespace WPOnion\DB\Query_Types;
 
-
-use WP_Query;
-
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( '\WPOnion\DB\Query_Types\Taxonomies' ) ) {
+/**
+ * Class Taxonomies
+ *
+ * @package WPOnion\DB\Query_Types
+ * @author Varun Sridharan <varunsridharan23@gmail.com>
+ * @since 1.4.6
+ */
+class Taxonomies extends WP_Query_Base {
 	/**
-	 * Class Taxonomies
+	 * @param array $query_args
 	 *
-	 * @package WPOnion\DB\Query_Types
-	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.4.6
+	 * @return array
 	 */
-	class Taxonomies extends WP_Query_Base {
-		/**
-		 * @param array $query_args
-		 *
-		 * @return array
-		 */
-		public function setup_query_args( $query_args ) {
-			if ( ! empty( $query_args['s'] ) ) {
-				$query_args['search'] = $query_args['s'];
-				unset( $query_args['s'] );
-			}
-
-			return $query_args;
+	public function setup_query_args( $query_args ) {
+		if ( ! empty( $query_args['s'] ) ) {
+			$query_args['search'] = $query_args['s'];
+			unset( $query_args['s'] );
 		}
 
-		/**
-		 * Fetches Results From Database.
-		 *
-		 * @param $query_args
-		 *
-		 * @return array
-		 */
-		public function get_results( $query_args ) {
-			if ( in_array( $this->query->type, array( 'tags', 'tag' ) ) ) {
-				return get_tags( $query_args );
-			}
+		return $query_args;
+	}
 
-			if ( in_array( $this->query->type, array( 'categories', 'category' ) ) ) {
-				return get_categories( $query_args );
-			}
-
-			if ( in_array( $this->query->type, array( 'terms', 'term' ) ) ) {
-				return get_terms( $query_args );
-			}
-
-			return get_taxonomies( $query_args, 'objects' );
+	/**
+	 * Fetches Results From Database.
+	 *
+	 * @param $query_args
+	 *
+	 * @return array
+	 */
+	public function get_results( $query_args ) {
+		if ( in_array( $this->query->type, array( 'tags', 'tag' ) ) ) {
+			return get_tags( $query_args );
 		}
 
-		/**
-		 * @param array|object $values WP Query Result.
-		 * @param array|object $key WP Query Result key.
-		 *
-		 * @return string
-		 */
-		public function default_key( $values, $key ) {
-			if ( in_array( $this->query->type, array( 'taxonomies', 'taxonomy' ) ) ) {
-				return ( isset( $values->name ) ) ? $values->name : false;
-			}
-			return ( isset( $values->term_id ) ) ? $values->term_id : false;
+		if ( in_array( $this->query->type, array( 'categories', 'category' ) ) ) {
+			return get_categories( $query_args );
 		}
 
-		/**
-		 * @param array|object $values WP Query Result.
-		 * @param array|object $key WP Query Result key.
-		 *
-		 * @return string
-		 */
-		public function default_label( $values, $key ) {
-			if ( in_array( $this->query->type, array( 'taxonomies', 'taxonomy' ) ) ) {
-				return ( isset( $values->label ) ) ? $values->label : false;
-			}
+		if ( in_array( $this->query->type, array( 'terms', 'term' ) ) ) {
+			return get_terms( $query_args );
+		}
+
+		return get_taxonomies( $query_args, 'objects' );
+	}
+
+	/**
+	 * @param array|object $values WP Query Result.
+	 * @param array|object $key WP Query Result key.
+	 *
+	 * @return string
+	 */
+	public function default_key( $values, $key ) {
+		if ( in_array( $this->query->type, array( 'taxonomies', 'taxonomy' ) ) ) {
 			return ( isset( $values->name ) ) ? $values->name : false;
 		}
+		return ( isset( $values->term_id ) ) ? $values->term_id : false;
+	}
+
+	/**
+	 * @param array|object $values WP Query Result.
+	 * @param array|object $key WP Query Result key.
+	 *
+	 * @return string
+	 */
+	public function default_label( $values, $key ) {
+		if ( in_array( $this->query->type, array( 'taxonomies', 'taxonomy' ) ) ) {
+			return ( isset( $values->label ) ) ? $values->label : false;
+		}
+		return ( isset( $values->name ) ) ? $values->name : false;
 	}
 }

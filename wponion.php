@@ -7,14 +7,12 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 	 * Class WPOnion_Loader
 	 *
 	 * @author Varun Sridharan <varunsridharan23@gmail.com>
-	 * @since 1.0
 	 */
 	final class WPOnion_Loader {
 		/**
 		 * Stores Loader Instance.
 		 *
 		 * @var \WPOnion_Loader
-		 * @static
 		 */
 		public static $_instance = null;
 
@@ -22,7 +20,6 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 		 * Stores Framework Informations.
 		 *
 		 * @var array
-		 * @static
 		 */
 		public static $_loaded = array();
 
@@ -30,7 +27,6 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 		 * Stores Data.
 		 *
 		 * @var array
-		 * @static
 		 */
 		public static $data = array();
 
@@ -40,6 +36,20 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 		public function __construct() {
 			/** @uses load_framework */
 			add_action( 'plugins_loaded', [ &$this, 'load_framework' ], -1 );
+
+			/** @uses activate_framework */
+			add_action( 'deactivate_plugin', [ &$this, 'activate_framework' ], -1 );
+			add_action( 'activate_plugin', [ &$this, 'activate_framework' ], -1 );
+		}
+
+		/**
+		 * Loads Framework Using $this->load_framework and inits
+		 *
+		 * @since 1.5
+		 */
+		public function activate_framework() {
+			$this->load_framework();
+			wponion_setup();
 		}
 
 		/**
@@ -50,14 +60,12 @@ if ( ! class_exists( 'WPOnion_Loader' ) ) {
 			$info           = ( isset( self::$data[ $latest_version ] ) ) ? self::$data[ $latest_version ] : [];
 
 			if ( empty( $info ) ) {
-				$ms = __( 'Unable To Load WPOnion Framework. Please Contact The Author', 'wponion' );
-				wp_die( $ms . '<p style="word-break: break-all;"> <strong>' . __( 'ERROR ID : ', 'wponion' ) . '</strong>' . base64_encode( wp_json_encode( self::$data ) ) . '</p>' );
+				wp_die( __( 'Unable To Load WPOnion Framework. Please Contact The Author', 'wponion' ) . '<p style="word-break: break-all;"> <strong>' . __( 'ERROR ID : ', 'wponion' ) . '</strong>' . base64_encode( wp_json_encode( self::$data ) ) . '</p>' );
 			}
 
 			if ( ! version_compare( PHP_VERSION, '5.6', '>=' ) ) {
 				// translators: 1. Added PHP Version
-				$msg = sprintf( __( 'WPOnion incompatible with PHP Version %2$s. Please Install/Upgrade PHP To %1$s or Higher ', 'wponion' ), '<strong>5.6</strong>', '<code>' . PHP_VERSION . '</code>' );
-				wp_die( $msg );
+				wp_die( sprintf( __( 'WPOnion incompatible with PHP Version %2$s. Please Install/Upgrade PHP To %1$s or Higher ', 'wponion' ), '<strong>5.6</strong>', '<code>' . PHP_VERSION . '</code>' ) );
 			}
 
 			self::$_loaded = array(
@@ -109,8 +117,7 @@ if ( ! function_exists( 'wponion_load' ) ) {
 	 * @param bool   $version
 	 */
 	function wponion_load( $framework_path = __DIR__, $version = false ) {
-		WPOnion_Loader::instance()
-			->add( $framework_path, $version );
+		WPOnion_Loader::instance()->add( $framework_path, $version );
 	}
 }
 

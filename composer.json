@@ -39,7 +39,7 @@
     "varunsridharan/wp-conditional-logic" : "^1.0"
   },
   "scripts"     : {
-    "classmaps"           : "classmap-generator \"builder/,core/,fields/,module-fields/,templates/\" ./wponion-classmaps.php",
+    "classmaps"           : [ "classmap-generator core/,includes/ ./wponion-classmaps.php" ],
     "makepot"             : "makepot ./wp-pot.json",
     "add-textdomain"      : "add-textdomain -i wponion ./",
     "update-icons"        : "php ./src/php/icon-exporter/all-icons.php",

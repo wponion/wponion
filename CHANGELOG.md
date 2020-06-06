@@ -5,7 +5,75 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.4.6] - 06/0502020
+# [1.5] - 06/06/2020
+## Added
+* **Hook Priority** option in taxonomy
+* `WPONION_PLUGIN_FILE` constant in plugin file.
+* Deprecation handlers for (Function,Actions,Filters)
+* Nested Array Support for `Class_Options` Trait
+* Option to have external links in **Admin Page** Module
+* Changes Browser URL when click tab in settings page (useful if everything loads in a single page)
+* is empty check with array `wponion_is_array`
+* Created Storage Handlers which interacts with wordpress DB.
+* **Action**   :  "wponion/{$this->module()}/get/before"
+* **Action**   :  "wponion/{$this->module()}/{$this->unique()}/get/before"
+* **Action**   :  "wponion/{$this->module()}/{$this->unique()}/get/after"
+* **Action**   :  "wponion/{$this->module()}/get/after"
+* **Action**   :  "wponion/{$this->module()}/save/before"
+* **Action**   :  "wponion/{$this->module()}/{$this->unique()}/save/before"
+* **Action**   :  "wponion/{$this->module()}/{$this->unique()}/save/after"
+* **Action**   :  "wponion/{$this->module()}/save/after"
+* **Filters**  :  "wponion/{$this->module()}/get/values"
+* **Filters**  :  "wponion/{$this->module()}/{$this->unique()}/get/values"
+* **Filters**  :  "wponion/{$this->module()}/save/values"
+* **Filters**  :  "wponion/{$this->module()}/{$this->unique()}//save/values"
+* **Function** :  `wponion_cast_array`
+* **Function** :  `wponion_has_column_class`
+* **Function** :  `wponion_parse_args_mixed`
+* **Function** :  `wponion_parse_args_forced_values`
+* **Function** :  `wponion_cast_array`
+* **Function** :  `wponion_define`
+* **Function** :  `wponion_is_defined`
+* **Function** :  `wponion_is_set`
+* **Function** :  `wponion_is_version`
+
+## Fixed
+* [#233  `theme` arg in Taxonomy Module produces error if theme is not `wp_modern`](https://github.com/wponion/wponion/issues/233)
+* CSS fix for switcher field.
+* Admin Notice Database Fetching Issue.
+* Assets Loading issue in `Page Actions` Module
+* Improved Performance.
+
+## Changed
+* Bump [sweetalert2] from `9.10.12` to `9.14.0`
+* Reworked Admin Notice Module and changed all function names to match wponion format
+* Moved `Setup` folder from `core/` to `/`
+* Moved Some Internal Options Arg to data folder
+* Moved `builder` Files From Root To `includes/`
+* Moved `Templates` From Root To `includes/`
+* Moved `module-fields` from Root to `includes/`
+* Moved `fields` from Root to `includes/`
+* Moved `integrations` from `core/` to `includes/`
+* Cleanup done for `core/helpers` and moved to `core/functions`
+* Renamed Certain Files With Proper Prefix
+* 24+ **Deprecated Action**
+* 16+ **Deprecated Filters**
+* **Deprecated Function** `wpo_help` use `wponion_tooltip`
+* **Deprecated Function** `wponion_validate_bool_val` use `wponion_is_bool_val`
+* **Deprecated Function** `wponion_get_field_class_remap` use `wponion_field_class_remaps`
+* **Deprecated Function** `wponion_get_registry_instance`
+* **Deprecated Function** `wponion_is` use `wponion_is_instance`
+* **Deprecated Function** `wponion_field_debug` use `wponion_is_field_debug`
+* Refactor for all modules and rearranged in its proper folder.
+* Base Unique Returns Unique Value if Base Unique not exists.
+
+## Removed
+* Autoloader's Instance
+* `if(class_exists())`,`if(trait_exists())`,`if(interface_exists())` checks
+
+---
+
+# [1.4.6] - 06/05/2020
 ## Fixed
 * WooCommerce Localizer Issue (Not Properly Loading)
 * Accordion Style In WC Metabox
@@ -853,9 +921,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
-[1.4.9]: https://github.com/wponion/wponion/releases/tag/1.4.9
-[1.4.8]: https://github.com/wponion/wponion/releases/tag/1.4.8
-[1.4.7]: https://github.com/wponion/wponion/releases/tag/1.4.7
+[1.5]: https://github.com/wponion/wponion/releases/tag/1.5
 [1.4.6]: https://github.com/wponion/wponion/releases/tag/1.4.6
 [1.4.5.3]: https://github.com/wponion/wponion/releases/tag/1.4.5.3
 [1.4.5.2]: https://github.com/wponion/wponion/releases/tag/1.4.5.2
