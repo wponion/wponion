@@ -29,10 +29,13 @@ class Storage {
 	 */
 	public static function add( $instance, $instance_id = false ) {
 		$instance_slug = false;
-		if ( method_exists( $instance, 'uid' ) ) {
-			$instance_slug = $instance->uid();
-		} elseif ( empty( $instance_slug ) && method_exists( $instance, 'unique' ) ) {
-			$instance_slug = $instance->unique();
+
+		if ( is_object( $instance ) ) {
+			if ( method_exists( $instance, 'uid' ) ) {
+				$instance_slug = $instance->uid();
+			} elseif ( empty( $instance_slug ) && method_exists( $instance, 'unique' ) ) {
+				$instance_slug = $instance->unique();
+			}
 		}
 
 		if ( empty( $instance_id ) && ! empty( $instance_slug ) ) {

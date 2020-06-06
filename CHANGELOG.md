@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.5.1] - 06/06/2020
+
+## Changed
+* `wponion_icon` function now can handle image link
+
+## Fixed
+* Performace Fix in Storage Interface.
+
 # [1.5] - 06/06/2020
 ## Added
 * **Hook Priority** option in taxonomy
@@ -921,6 +929,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
+[1.5.1]: https://github.com/wponion/wponion/releases/tag/1.5.1
 [1.5]: https://github.com/wponion/wponion/releases/tag/1.5
 [1.4.6]: https://github.com/wponion/wponion/releases/tag/1.4.6
 [1.4.5.3]: https://github.com/wponion/wponion/releases/tag/1.4.5.3

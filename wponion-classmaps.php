@@ -1,9 +1,6 @@
 <?php
-/**
- * Last Updated: Sat 06-Jun-2020 / 08:39:49:am
- * Total Class:  286
- * Namespace: 
- */
+// Last Updated: Sat 06-Jun-2020 | 12:35:44:pm
+// Total Class: 286
 
 return array (
   'WPOnion\\Addon_Field' => 'abstract/abstract-addon-field.php',

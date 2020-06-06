@@ -98,7 +98,8 @@ abstract class Submodules extends JS_Handler {
 	 */
 	protected function sub_field( $field, $value, $unqiue, $is_init = false ) {
 		if ( ! isset( $field['sub'] ) ) {
-			$field['sub'] = ( $this->has( 'sub' ) ) ? $this->option( 'sub' ) . '_' . $this->field_id() : $this->field_id();
+			$sub          = $this->option( 'sub' );
+			$field['sub'] = ( ! empty( $sub ) ) ? $sub . '_' . $this->field_id() : $this->field_id();
 		}
 
 		$func                  = ( false === $is_init ) ? 'wponion_add_element' : 'wponion_field';
