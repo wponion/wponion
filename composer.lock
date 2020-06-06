@@ -529,16 +529,16 @@
         },
         {
             "name": "varunsridharan/php-classmap-generator",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/php-classmap-generator.git",
-                "reference": "35d2fc55eb56d83bc9ec5fcb00353328d2eea6aa"
+                "reference": "d725695cf78344764fe1fd70eaf07cc6c9692a06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/php-classmap-generator/zipball/35d2fc55eb56d83bc9ec5fcb00353328d2eea6aa",
-                "reference": "35d2fc55eb56d83bc9ec5fcb00353328d2eea6aa",
+                "url": "https://api.github.com/repos/varunsridharan/php-classmap-generator/zipball/d725695cf78344764fe1fd70eaf07cc6c9692a06",
+                "reference": "d725695cf78344764fe1fd70eaf07cc6c9692a06",
                 "shasum": ""
             },
             "require": {
@@ -561,7 +561,17 @@
                 }
             ],
             "description": "Lightweight PHP Classmap Generator",
-            "time": "2019-10-25T04:48:09+00:00"
+            "funding": [
+                {
+                    "url": "https://paypal.me/varunsridharan23",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/varunsridharan",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-06-06T02:54:56+00:00"
         },
         {
             "name": "varunsridharan/wp-cli-textdomain",

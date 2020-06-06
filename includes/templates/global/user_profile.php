@@ -12,7 +12,7 @@ if ( ! empty( $fields ) ) {
 	}
 
 	echo "<div {$user_profile->wrap_attributes()}>";
-	foreach ( $fields->get() as $field ) {
+	foreach ( $fields as $field ) {
 		echo $user_profile->render_field( $field );
 	}
 	echo '</div>';
