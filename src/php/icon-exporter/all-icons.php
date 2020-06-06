@@ -84,11 +84,9 @@ class Icon_Exporter {
 <?php
 /* Last Updated : $current_time */
 
-use WPOnion\Helper as Helper;
+defined( 'ABSPATH' ) || exit;
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+use WPOnion\Helper as Helper;
 
 PHP;
 

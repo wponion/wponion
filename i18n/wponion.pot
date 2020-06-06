@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.4.6\n"
+"Project-Id-Version: WPOnion 1.5\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-06-04T13:31:50+05:30\n"
+"POT-Creation-Date: 2020-06-06T08:39:57+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -1599,35 +1599,35 @@ msgstr ""
 msgid "Times New Roman"
 msgstr ""
 
-#: data/icons.php:11
+#: data/icons.php:9
 msgid "Dashicons"
 msgstr ""
 
-#: data/icons.php:21
+#: data/icons.php:17
 msgid "Icofont"
 msgstr ""
 
-#: data/icons.php:31
+#: data/icons.php:25
 msgid "FontAwesome 4"
 msgstr ""
 
-#: data/icons.php:41
+#: data/icons.php:33
 msgid "Material Design Icons"
 msgstr ""
 
-#: data/icons.php:51
+#: data/icons.php:41
 msgid "Foundation"
 msgstr ""
 
-#: data/icons.php:61
+#: data/icons.php:49
 msgid "Box Icons"
 msgstr ""
 
-#: data/icons.php:71
+#: data/icons.php:57
 msgid "FontAwesome 5"
 msgstr ""
 
-#: data/icons.php:82
+#: data/icons.php:68
 msgid "FontAwesome 5 Pro"
 msgstr ""
 

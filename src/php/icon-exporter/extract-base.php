@@ -17,7 +17,11 @@ abstract class Icon_Export_Base {
 		$assets = ( is_array( $assets ) ) ? var_export_strip_array_keys( $assets ) : "'$assets'";
 
 		$prefix = ( isset( $lib['prefix'] ) ) ? $lib['prefix'] : '';
-		$prefix = ( is_array( $prefix ) ) ? var_export_strip_array_keys( $prefix ) : "'$prefix'";
+		if ( is_string( $prefix ) || is_array( $prefix ) && count( $prefix ) == 1 ) {
+			$prefix = ( is_array( $prefix ) ) ? "'{$prefix[0]}'" : "'$prefix'";
+		} elseif ( is_array( $prefix ) ) {
+			$prefix = var_export_strip_array_keys( $prefix );
+		}
 
 		$search  = array( '[name]', '[slug]', '[assets]', '[css_prefix]' );
 		$replace = array( $lib['name'], $slug, $assets, $prefix );

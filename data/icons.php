@@ -1,19 +1,15 @@
 <?php
-/* Last Updated : 04/06/2020 - 01:31:47:pm */
+/* Last Updated : 06/06/2020 - 08:39:56:am */
+
+defined( 'ABSPATH' ) || exit;
 
 use WPOnion\Helper as Helper;
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
 
 wponion_add_icon_library( array(
 	'name'       => __( 'Dashicons', 'wponion' ),
 	'slug'       => 'dashicons',
 	'assets'     => 'dashicons',
-	'css_prefix' => array (
-   'dashicons',
-),
+	'css_prefix' => 'dashicons',
 	'icons'      => 'wponion_icon_dashicons',
 ) )->register();
 
@@ -21,9 +17,7 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Icofont', 'wponion' ),
 	'slug'       => 'icofont',
 	'assets'     => 'icofont',
-	'css_prefix' => array (
-   'icofont',
-),
+	'css_prefix' => 'icofont',
 	'icons'      => 'wponion_icon_icofont',
 ) )->register();
 
@@ -31,9 +25,7 @@ wponion_add_icon_library( array(
 	'name'       => __( 'FontAwesome 4', 'wponion' ),
 	'slug'       => 'fontawesome4',
 	'assets'     => 'fontawesome4',
-	'css_prefix' => array (
-   'fa',
-),
+	'css_prefix' => 'fa',
 	'icons'      => 'wponion_icon_fontawesome4',
 ) )->register();
 
@@ -41,9 +33,7 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Material Design Icons', 'wponion' ),
 	'slug'       => 'materialdesignicons',
 	'assets'     => 'materialdesignicons',
-	'css_prefix' => array (
-   'mdi',
-),
+	'css_prefix' => 'mdi',
 	'icons'      => 'wponion_icon_materialdesignicons',
 ) )->register();
 
@@ -51,9 +41,7 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Foundation', 'wponion' ),
 	'slug'       => 'foundation',
 	'assets'     => 'foundation',
-	'css_prefix' => array (
-   'fi',
-),
+	'css_prefix' => 'fi',
 	'icons'      => 'wponion_icon_foundation',
 ) )->register();
 
@@ -61,9 +49,7 @@ wponion_add_icon_library( array(
 	'name'       => __( 'Box Icons', 'wponion' ),
 	'slug'       => 'boxicons',
 	'assets'     => 'boxicons',
-	'css_prefix' => array (
-   'bx',
-),
+	'css_prefix' => 'bx',
 	'icons'      => 'wponion_icon_boxicons',
 ) )->register();
 
