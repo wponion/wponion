@@ -1,6 +1,13 @@
-* text=CRLF
+.gitattributes export-ignore
+./src/ export-ignore
+gulpfile.js export-ignore
+config.js export-ignore
+composer.lock export-ignore
+package.json export-ignore
+package-lock.json export-ignore
+wp-pot.json export-ignore
+.editorconfig export-ignore
 .github/ export-ignore
 .wordpress-org/ export-ignore
 .all-contributorsrc export-ignore
-.gitattributes export-ignore
 .wporgignore
