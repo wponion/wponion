@@ -22,12 +22,13 @@ jobs:
   upload_assets:
     runs-on: ubuntu-latest
     steps:
+      - name: Fetching Contents
+        uses: actions/checkout@v2   
       - name: Installing Composer
         uses: nanasess/composer-installer-action@master
       - name: Create Github Release Archive
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
-          cd $GITHUB_WORKSPACE && ls -lah
           mkdir dist/
           composer install --no-dev && git archive -o dist/"$VERSION.zip"  HEAD && zip -gr dist/"$VERSION.zip" vendor/
       - name: Upload To Github
