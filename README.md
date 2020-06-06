@@ -35,11 +35,6 @@ You can also **clone the complete repository** with Git:
 ### Development 
 The preferred way to install this extension is through [Composer](http://getcomposer.org/download/).
 
-[![Total Downloads](https://poser.pugx.org/wponion/dev/downloads)](https://packagist.org/packages/wponion/dev)
-[![WP](https://img.shields.io/badge/WordPress-Standar-1abc9c.svg)](https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/)
-[![License](https://poser.pugx.org/wponion/dev/license)](https://packagist.org/packages/wponion/dev)
-[![composer.lock available](https://poser.pugx.org/wponion/dev/composerlock)](https://packagist.org/packages/wponion/dev)
-
 To install **WPOnion library**, simply:
 
     $ composer require wponion/wponion:dev-development
@@ -54,7 +49,8 @@ You can also **clone the complete repository** with Git:
 
 ---
 
-## Usage {If Downloaded Manually}
+## Usage 
+***If Downloaded Manually***
 Add the below code your plugin / theme file 
 
 ```php
