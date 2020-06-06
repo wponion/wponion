@@ -216,7 +216,15 @@ if ( ! function_exists( 'wponion_icon' ) ) {
 	 * @return string
 	 */
 	function wponion_icon( $icon, $xtra_attrs = '' ) {
-		return ( ! empty( $icon ) ) ? '<i class="' . $icon . ' wponion-icon" ' . wponion_array_to_html_attributes( $xtra_attrs ) . '> </i>' : '';
+		if ( ! empty( $icon ) ) {
+			$attr = wponion_array_to_html_attributes( $xtra_attrs );
+			if ( filter_var( $icon, FILTER_VALIDATE_URL ) ) {
+				return "<img src=\"${icon}\" ${attr} />";
+			} else {
+				return "<i class='${icon} wponion-icon' ${attr}> </i>";
+			}
+		}
+		return '';
 	}
 }
 
