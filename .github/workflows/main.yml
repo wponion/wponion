@@ -27,7 +27,7 @@ jobs:
       - name: Create Github Release Archive
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
-          cd $GITHUB_WORKSPACE
+          cd $GITHUB_WORKSPACE && ls -lah
           mkdir dist/
           composer install --no-dev && git archive -o dist/"$VERSION.zip"  HEAD && zip -gr dist/"$VERSION.zip" vendor/
       - name: Upload To Github
