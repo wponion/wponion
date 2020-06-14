@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.5.2] - 14/06/2020
+## Fixed 
+* [Fatal Error When Using Along Side Elementor Plugin](https://github.com/wponion/wponion/issues/252)
+
+## Changed
+* Bump `sweetalert2` from `9.14.0` to `9.14.4` #250 
+* Bump `@popperjs/core` from `2.4.0` to `2.4.2` #251 
+
 # [1.5.1] - 06/06/2020
 
 ## Changed
