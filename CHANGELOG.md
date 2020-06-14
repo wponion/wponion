@@ -937,6 +937,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
+[1.5.2]: https://github.com/wponion/wponion/releases/tag/1.5.2
 [1.5.1]: https://github.com/wponion/wponion/releases/tag/1.5.1
 [1.5]: https://github.com/wponion/wponion/releases/tag/1.5
 [1.4.6]: https://github.com/wponion/wponion/releases/tag/1.4.6
