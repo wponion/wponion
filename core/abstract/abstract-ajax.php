@@ -36,6 +36,13 @@ abstract class Ajax {
 	protected $module = false;
 
 	/**
+	 * Stores Unique Value.
+	 *
+	 * @var string|bool
+	 */
+	protected $unique = false;
+
+	/**
 	 * If set to true then wponion will add all assets to be loaded data in ajax response.
 	 *
 	 * @var bool
@@ -386,17 +393,46 @@ abstract class Ajax {
 	}
 
 	/**
+	 * Fetches & Returns Unique Value Form $_POST/$_GET
+	 *
+	 * @param bool $is_required
+	 *
+	 * @return bool|string
+	 * @since {NEWVERSION}
+	 */
+	protected function get_unique( $is_required = false ) {
+		if ( false !== $this->unique ) {
+			return $this->unique;
+		}
+
+		if ( ! $is_required ) {
+			$this->unique = $this->request( 'unique', false );
+		} else {
+			$this->unique = $this->validate( 'unique', __( 'Unique Key Not Found' ), __( 'Fields Unique Key Not Found.' ), 'REQUEST' );
+		}
+		return false;
+	}
+
+	/**
 	 * Fetches And Returns the module.
 	 *
+	 * @param bool $is_required if set to true then it make sure module instance is required
+	 * if not it just closes the current request.
+	 *
 	 * @return bool|mixed|\WPOnion\Bridge\Module
+	 * @since {NEWVERSION} Added Optiont to have module as a required field.
 	 */
-	protected function get_module() {
+	protected function get_module( $is_required = false ) {
 		if ( false !== $this->module ) {
 			return $this->module;
 		}
 
 		$module   = $this->post( 'module', false );
 		$function = 'wponion_' . $module;
+
+		if ( ! $is_required && empty( $module ) || ! function_exists( $function ) ) {
+			return false;
+		}
 
 		if ( ! function_exists( $function ) || ! function_exists( $this->get_value_function_name( $module ) ) ) {
 			$this->error( __( 'Module Not Found', 'wponion' ), __( 'Module Callback / Registry Function Not Found', 'wponion' ) );
