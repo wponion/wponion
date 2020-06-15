@@ -400,7 +400,7 @@ abstract class Ajax {
 	 * @return bool|string
 	 * @since {NEWVERSION}
 	 */
-	protected function get_unique( $is_required = false ) {
+	protected function get_unique( $is_required = true ) {
 		if ( false !== $this->unique ) {
 			return $this->unique;
 		}
@@ -422,7 +422,7 @@ abstract class Ajax {
 	 * @return bool|mixed|\WPOnion\Bridge\Module
 	 * @since {NEWVERSION} Added Optiont to have module as a required field.
 	 */
-	protected function get_module( $is_required = false ) {
+	protected function get_module( $is_required = true ) {
 		if ( false !== $this->module ) {
 			return $this->module;
 		}
