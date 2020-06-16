@@ -65,7 +65,7 @@ class WC_Products extends WP_Query_Base {
 				}
 				$exclude_types = array_intersect( array_merge( array( 'variation' ), array_keys( wc_get_product_types() ) ), $exclude_types );
 			}
-			var_dump( $query_args );
+
 			/**
 			 * @var \WC_Product_Data_Store_CPT $data_store
 			 */
