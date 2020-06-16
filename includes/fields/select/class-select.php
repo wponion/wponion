@@ -29,7 +29,7 @@ class Select extends Field {
 		$options      = $this->option( 'options' );
 		$options_html = $this->option( 'options_html' );
 
-		if ( $this->has( 'ajax' ) && true === $this->option( 'ajax' ) && ! empty( $this->value ) && wponion_is_callable( $options ) ) {
+		if ( true === $this->option( 'ajax' ) && ! empty( $this->value ) && wponion_is_callable( $options ) ) {
 			$options = wponion_callback( $options, array( $this ) );
 		} elseif ( ! $this->option( 'ajax' ) && wponion_is_callable( $options ) ) {
 			$options = wponion_callback( $options, array( $this ) );
