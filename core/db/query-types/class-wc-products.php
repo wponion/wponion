@@ -36,6 +36,8 @@ class WC_Products extends WP_Query_Base {
 		) );
 		$query_args['include_variations'] = wponion_is_bool_val( $query_args['include_variations'] );
 		$query_args['display_stock']      = wponion_is_bool_val( $query_args['display_stock'] );
+		$query_args['include']            = ( isset( $query_args['post__in'] ) && ! empty( $query_args['post__in'] ) ) ? $query_args['post__in'] : $query_args['include'];
+		$query_args['exclude']            = ( isset( $query_args['post__not_in'] ) && ! empty( $query_args['post__not_in'] ) ) ? $query_args['post__not_in'] : $query_args['exclude'];
 		return $query_args;
 	}
 
@@ -63,7 +65,7 @@ class WC_Products extends WP_Query_Base {
 				}
 				$exclude_types = array_intersect( array_merge( array( 'variation' ), array_keys( wc_get_product_types() ) ), $exclude_types );
 			}
-
+			var_dump( $query_args );
 			/**
 			 * @var \WC_Product_Data_Store_CPT $data_store
 			 */
