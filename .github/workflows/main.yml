@@ -13,9 +13,8 @@ jobs:
         uses: m1ner79/Github-Twittction@master
         with:
           twitter_status: |
-            📢 Announcing a new release of #WPOnion V ${{github.event.release.tag_name}}
-            Checkout the release📜 to see the full list of enhancements and fixes.
-            Release 📜 : ${{github.event.release.html_url}}
+            📢 Announcing a new release of #WPOnion V ${{github.event.release.tag_name}} Checkout the release 📑 👇. 
+            ${{github.event.release.html_url}}
             #Wordpress #framework #library
           twitter_consumer_key: ${{ secrets.TWITTER_API_KEY }} 
           twitter_consumer_secret: ${{ secrets.TWITTER_API_SECRET_KEY }} 
