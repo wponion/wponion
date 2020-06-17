@@ -5,13 +5,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.5.3] - 17/06/2020
+## Added
+* Option To Customize Page's Browser Title
+
+## Fixed
+* Select Ajax Query Args Not Working Fields Outside WPOnion Module 
+
+## Changed
+* Bump [sweetalert2] from `9.14.4` to `9.15.1`
+* WPOnion Core Assets CDN Version To `1.4`
+
 # [1.5.2] - 14/06/2020
 ## Fixed 
 * [Fatal Error When Using Along Side Elementor Plugin](https://github.com/wponion/wponion/issues/252)
 
 ## Changed
-* Bump `sweetalert2` from `9.14.0` to `9.14.4` #250 
-* Bump `@popperjs/core` from `2.4.0` to `2.4.2` #251 
+* Bump [sweetalert2] from `9.14.0` to `9.14.4` #250 
+* Bump [@popperjs/core] from `2.4.0` to `2.4.2` #251 
 
 # [1.5.1] - 06/06/2020
 
@@ -937,6 +948,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
+[1.5.3]: https://github.com/wponion/wponion/releases/tag/1.5.3
 [1.5.2]: https://github.com/wponion/wponion/releases/tag/1.5.2
 [1.5.1]: https://github.com/wponion/wponion/releases/tag/1.5.1
 [1.5]: https://github.com/wponion/wponion/releases/tag/1.5

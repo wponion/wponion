@@ -24,11 +24,13 @@ class WP_Query_Data extends Ajax {
 		$query_args = $this->post( 'query_args', array() );
 		$search     = $this->post( 'q', '' );
 		$search     = $this->post( 's', $search );
-		$module     = $this->get_module();
+		$module     = $this->get_module( false );
 		if ( wponion_is_callable( $options ) ) {
 			$data = wponion_callback( $options );
-		} else {
+		} elseif ( is_object( $module ) ) {
 			$data = wponion_query( $module->unique(), $module->module() )->query( $options, stripslashes_deep( $query_args ), $search );
+		} else {
+			$data = wponion_query( $this->get_unique( false ), false )->query( $options, stripslashes_deep( $query_args ), $search );
 		}
 		/**
 		 * Provides An Option To Filter WP Query Data.
@@ -39,9 +41,8 @@ class WP_Query_Data extends Ajax {
 		 * @var \WPO\Field|array $field Field's Builder Instance.
 		 * @var string           $module Module Slug.
 		 */
-		$field  = $this->get_field();
-		$module = $this->get_module();
-		$data   = apply_filters( 'wponion/ajax/query/results', $data, $search, $query_args, $field, $module );
+		$field = ( ! is_object( $module ) ) ? false : $this->get_field();
+		$data  = apply_filters( 'wponion/ajax/query/results', $data, $search, $query_args, $field, $module );
 		$this->json_success( array( 'results' => $data ) );
 	}
 }

@@ -82,6 +82,7 @@ class Page extends Module_Utility {
 			'submenu'           => false,
 			'menu_title'        => false,
 			'page_title'        => false,
+			'browser_title'     => false,
 			'capability'        => 'manage_options',
 			'menu_slug'         => false,
 			'icon'              => false,
@@ -161,6 +162,15 @@ class Page extends Module_Utility {
 	 */
 	public function page_title( $page_title = null ) {
 		return ( ! is_null( $page_title ) ) ? $this->set_option( 'page_title', $page_title ) : $this->option( 'page_title', false );
+	}
+
+	/**
+	 * @param null $browser_title
+	 *
+	 * @return bool|mixed|\WPOnion\Modules\Admin\Page
+	 */
+	public function browser_title( $browser_title = null ) {
+		return ( ! is_null( $browser_title ) ) ? $this->set_option( 'browser_title', $browser_title ) : $this->option( 'browser_title', false );
 	}
 
 	/**
@@ -480,6 +490,7 @@ class Page extends Module_Utility {
 		$this->add_action( 'admin_enqueue_scripts', 'handle_assets' );
 		$this->add_filter( 'admin_footer_text', 'admin_footer_text', 10 );
 		$this->add_filter( 'update_footer', 'admin_footer_right_text', 11 );
+		$this->add_filter( 'admin_title', 'handle_page_title', 10, 2 );
 
 		$tabs = $this->option( 'tabs' );
 		if ( wponion_is_array( $tabs ) ) {
@@ -513,6 +524,52 @@ class Page extends Module_Utility {
 		if ( false !== $this->active_tab && isset( $this->settings['tabs'][ $this->active_tab ] ) && isset( $this->settings['tabs'][ $this->active_tab ]['on_load'] ) ) {
 			$this->handle_on_load_callbacks( $this->settings['tabs'][ $this->active_tab ]['on_load'] );
 		}
+	}
+
+	/**
+	 * Updates Browser Tab Title.
+	 *
+	 * @param $existing_title
+	 * @param $title
+	 *
+	 * @return string
+	 * @see https://github.com/wponion/wponion/issues/228
+	 * @since {NEWVERSION}
+	 */
+	public function handle_page_title( $existing_title, $title ) {
+		$prefix        = '';
+		$browser_title = $this->option( 'browser_title' );
+
+		if ( ! empty( $browser_title ) && wponion_is_callable( $browser_title ) ) {
+			/**
+			 * Passed Arguments
+			 *
+			 * @var string $existing_title Existing Title Provided By WordPress
+			 * @var string $title Current Page Title Provided by WordPress
+			 * @var        $this . Self Instnace.
+			 */
+			return wponion_callback( $browser_title, array( $existing_title, $title, $this ) );
+		}
+
+		if ( ! empty( $browser_title ) ) {
+			return $browser_title . $existing_title;
+		}
+
+		if ( empty( $title ) ) {
+			if ( ! empty( $this->page_title() ) ) {
+				$prefix = $this->page_title();
+			} elseif ( ! empty( $this->menu_title() ) ) {
+				$prefix = $this->menu_title();
+			}
+		}
+
+		if ( $this->has_tab() ) {
+			$tabs_data = $this->option( 'tabs/' . $this->active_tab() );
+			if ( ! empty( $tabs_data ) && isset( $tabs_data['title'] ) && ! empty( $tabs_data['title'] ) ) {
+				$prefix = $tabs_data['title'] . ' &lsaquo; ' . $prefix;
+			}
+		}
+		return $prefix . $existing_title;
 	}
 
 	/**

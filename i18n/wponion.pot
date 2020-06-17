@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.5.2\n"
+"Project-Id-Version: WPOnion 1.5.3\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-06-14T13:36:52+05:30\n"
+"POT-Creation-Date: 2020-06-17T16:17:20+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
 
 #. Plugin Name of the plugin
 #. translators: Added WPOnion
-#: core/modules/admin/class-page.php:527
+#: core/modules/admin/class-page.php:584
 #: core/wp/sysinfo/class-data.php:285
 msgid "WPOnion"
 msgstr ""
@@ -37,33 +37,42 @@ msgstr ""
 msgid "https://varunsridharan.in"
 msgstr ""
 
-#: core/abstract/abstract-ajax.php:50
+#: core/abstract/abstract-ajax.php:57
 msgid "Unable To Find The Module"
 msgstr ""
 
-#: core/abstract/abstract-ajax.php:54
-#: core/abstract/abstract-ajax.php:438
+#: core/abstract/abstract-ajax.php:61
+#: core/abstract/abstract-ajax.php:474
 msgid "Unable To Find The Field"
 msgstr ""
 
-#: core/abstract/abstract-ajax.php:402
+#: core/abstract/abstract-ajax.php:411
+#: core/ajax/class-modal-fields.php:23
+msgid "Unique Key Not Found"
+msgstr ""
+
+#: core/abstract/abstract-ajax.php:411
+msgid "Fields Unique Key Not Found."
+msgstr ""
+
+#: core/abstract/abstract-ajax.php:438
 msgid "Module Not Found"
 msgstr ""
 
-#: core/abstract/abstract-ajax.php:402
-#: core/abstract/abstract-ajax.php:414
+#: core/abstract/abstract-ajax.php:438
+#: core/abstract/abstract-ajax.php:450
 msgid "Module Callback / Registry Function Not Found"
 msgstr ""
 
-#: core/abstract/abstract-ajax.php:414
+#: core/abstract/abstract-ajax.php:450
 msgid "Module Instance Not Found"
 msgstr ""
 
-#: core/abstract/abstract-ajax.php:434
+#: core/abstract/abstract-ajax.php:470
 msgid "Field Not Found"
 msgstr ""
 
-#: core/abstract/abstract-ajax.php:436
+#: core/abstract/abstract-ajax.php:472
 msgid "Unable To Fetch The Field"
 msgstr ""
 
@@ -171,10 +180,6 @@ msgstr ""
 
 #: core/ajax/class-import-export.php:125
 msgid "Restore Will Fail If both database & backup values are same"
-msgstr ""
-
-#: core/ajax/class-modal-fields.php:23
-msgid "Unique Key Not Found"
 msgstr ""
 
 #: core/ajax/class-modal-fields.php:24
@@ -437,12 +442,12 @@ msgid "Google Fonts"
 msgstr ""
 
 #. translators: Added WPOnion
-#: core/modules/admin/class-page.php:527
+#: core/modules/admin/class-page.php:584
 msgid "Proudly Powered By %1$s %2$s %3$s "
 msgstr ""
 
 #. translators: Added WPOnionVersion
-#: core/modules/admin/class-page.php:541
+#: core/modules/admin/class-page.php:598
 msgid "WPOnion Version : %s"
 msgstr ""
 

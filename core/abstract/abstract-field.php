@@ -470,7 +470,7 @@ HTML;
 			$query_args['post__in'] = ( ! wponion_is_array( $this->value ) ) ? explode( ',', $this->value ) : $this->value;
 		}
 
-		$data = wponion_query()->query( $type, $query_args, '' );
+		$data = wponion_query( $this->unique(), $this->module() )->query( $type, $query_args, '' );
 		return ( ! is_array( $data ) ) ? array() : $data;
 	}
 }
