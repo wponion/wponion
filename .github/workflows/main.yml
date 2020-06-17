@@ -13,10 +13,11 @@ jobs:
         uses: m1ner79/Github-Twittction@master
         with:
           twitter_status: |
-            📢 New version V ${{github.event.release.tag_name}} 🎉 is available
-            Checkout the release 📑 at 👉 ${{github.event.release.html_url}} to see the full list of enhancements and fixes
-            #wordpress #wpplugins #wpthemes #wpframework
-            #wordpressplugin #wordpressframework #wp #framework #library
+            📢 New Version ${{github.event.release.tag_name}} 🎉 is available
+
+            ${{github.event.release.html_url}}
+
+            #wordpress #wpplugins #wpthemes #wpframework #wordpressplugin #wordpressframework #wp #framework #library
           twitter_consumer_key: ${{ secrets.TWITTER_API_KEY }} 
           twitter_consumer_secret: ${{ secrets.TWITTER_API_SECRET_KEY }} 
           twitter_access_token_key: ${{ secrets.TWITTER_ACCESS_TOKEN }} 
