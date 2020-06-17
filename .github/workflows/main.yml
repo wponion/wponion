@@ -13,7 +13,7 @@ jobs:
         uses: m1ner79/Github-Twittction@master
         with:
           twitter_status: |
-            📢 New version V ${{github.event.release.tag_name}} 🎉is available
+            📢 New version V ${{github.event.release.tag_name}} 🎉 is available
             Checkout the release 📑 at 👉 ${{github.event.release.html_url}} to see the full list of enhancements and fixes
             #wordpress #wpplugins #wpthemes #wpframework
             #wordpressplugin #wordpressframework #wp #framework #library
