@@ -408,7 +408,7 @@ abstract class Ajax {
 		if ( ! $is_required ) {
 			$this->unique = $this->request( 'unique', false );
 		} else {
-			$this->unique = $this->validate( 'unique', __( 'Unique Key Not Found' ), __( 'Fields Unique Key Not Found.' ), 'REQUEST' );
+			$this->unique = $this->validate( 'unique', __( 'Unique Key Not Found', 'wponion' ), __( 'Fields Unique Key Not Found.', 'wponion' ), 'REQUEST' );
 		}
 		return false;
 	}
