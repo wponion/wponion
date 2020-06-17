@@ -1,11 +1,27 @@
 name: On Push
 
-on:
-  push:
-    tags:
-      - "*"
+on: 
+  release:
+    types: 
+      - published
 
 jobs:
+  publish_to_twitter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Posting To Twitter
+        uses: m1ner79/Github-Twittction@master
+        with:
+          twitter_status: |
+            📢 Announcing a new release of #WPOnion V ${{github.event.release.tag_name}}
+            Checkout the release📜 to see the full list of enhancements and fixes.
+            Release 📜 : ${{github.event.release.html_url}}
+            #Wordpress #framework #library
+          twitter_consumer_key: ${{ secrets.TWITTER_API_KEY }} 
+          twitter_consumer_secret: ${{ secrets.TWITTER_API_SECRET_KEY }} 
+          twitter_access_token_key: ${{ secrets.TWITTER_ACCESS_TOKEN }} 
+          twitter_access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+
   update_changelog:
     runs-on: ubuntu-latest
     steps:
@@ -37,6 +53,7 @@ jobs:
           args: dist/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
   upload_demo:
     runs-on: ubuntu-latest
     steps:
