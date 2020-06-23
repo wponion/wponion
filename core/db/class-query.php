@@ -247,6 +247,7 @@ class Query extends Bridge {
 				return $user_callback;
 			}
 
+			$matches = wponion_extract_template_tags( $key );
 			if ( ! empty( $matches ) ) {
 				foreach ( $matches as $match ) {
 					if ( isset( $match[1] ) && ! empty( $match[1] ) ) {
