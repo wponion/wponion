@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.5.3.1] - 23/06/2020
+## Fixed
+* Custom Template Tags Not Working In Selectbox
+
 # [1.5.3] - 17/06/2020
 ## Added
 * Option To Customize Page's Browser Title
@@ -948,6 +952,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
+[1.5.3.1]: https://github.com/wponion/wponion/releases/tag/1.5.3.1
 [1.5.3]: https://github.com/wponion/wponion/releases/tag/1.5.3
 [1.5.2]: https://github.com/wponion/wponion/releases/tag/1.5.2
 [1.5.1]: https://github.com/wponion/wponion/releases/tag/1.5.1
