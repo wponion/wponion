@@ -25,7 +25,7 @@
     "bootstrap": "^4.4.1",
     "css-checkbox-library": "^1.5.1",
     "easy-gulp-tasker": "^1.0.15",
-    "@popperjs/core": "^2.4.2",
+    "@popperjs/core": "^2.4.4",
     "jquery-serializejson": "^2.9.0",
     "jquery-validation": "^1.18.0",
     "sweetalert2": "^9.15.1",
