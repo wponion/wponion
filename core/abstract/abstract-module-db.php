@@ -164,8 +164,10 @@ abstract class Module_DB extends Module_Utility {
 		 */
 		$values = apply_filters( "wponion/{$this->module()}/{$this->unique()}/save/values", $values, $this->get_id() );
 
-		$instance = new Save( $this->option( 'save_type' ), $values, $this );
-		$instance->run();
+		if ( ! in_array( $this->module_db(), array( 'settings', 'network_settings' ) ) ) {
+			$instance = new Save( $this->option( 'save_type' ), $values, $this );
+			$instance->run();
+		}
 
 		wponion_do_deprecated_action( "wponion_{$this->module()}_db_save_after", array(
 			$values,

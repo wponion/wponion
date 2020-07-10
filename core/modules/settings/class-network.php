@@ -11,6 +11,21 @@ defined( 'ABSPATH' ) || exit;
  * @author Varun Sridharan <varunsridharan23@gmail.com>
  */
 class Network extends Settings {
+
+	/**
+	 * Stores Module DB Type.
+	 *
+	 * @var string
+	 */
+	protected $module_db = 'network_settings';
+
+	/**
+	 * Module Type.
+	 *
+	 * @var string
+	 */
+	protected $module = 'network_settings';
+
 	/**
 	 * Inits Class Instance.
 	 *
