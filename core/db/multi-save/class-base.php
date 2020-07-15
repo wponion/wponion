@@ -2,6 +2,8 @@
 
 namespace WPOnion\DB\Multi_Save;
 
+use WPOnion\Bridge\Custom_DB_Storage_Handler;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -15,7 +17,7 @@ class Base {
 	 * Save Type
 	 * ('combine','container','subcontainer','fields')
 	 *
-	 * @var string
+	 * @var string|\WPOnion\Bridge\Custom_DB_Storage_Handler
 	 */
 	protected $type = '';
 
@@ -58,6 +60,32 @@ class Base {
 	 * @return bool
 	 */
 	public function is_save_single() {
-		return ( ! in_array( $this->type, $this->save_types, true ) );
+		return ( $this->is_valid_save_type() && ! in_array( $this->type, array( 'all', 'combined' ) ) );
+	}
+
+	/**
+	 * Validates if Its A Custom Handler.
+	 *
+	 * @return bool
+	 * @since {NEWVERSION}
+	 */
+	public function is_custom_save_handler() {
+		return ( $this->type instanceof Custom_DB_Storage_Handler || ! $this->is_valid_save_type() && ! $this->is_save_single() && class_exists( $this->type ) );
+	}
+
+	/**
+	 * Creates Instance.
+	 *
+	 * @return bool|\WPOnion\Bridge\Custom_DB_Storage_Handler
+	 * @since {NEWVERSION}
+	 */
+	public function custom_handler() {
+		if ( $this->is_custom_save_handler() ) {
+			if ( ! $this->type instanceof Custom_DB_Storage_Handler ) {
+				$this->type = new $this->type( $this->instance->unique(), $this->instance->module(), $this->instance->get_id() );
+			}
+			return $this->type;
+		}
+		return false;
 	}
 }
