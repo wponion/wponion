@@ -59,7 +59,6 @@ class WP_DB {
 	 * @return array|bool|int|mixed|\WP_Error|\WPOnion\DB\Option
 	 */
 	public function get_set( $module_db, $unique, $id = false, $values = false, $mode = 'get' ) {
-		$return  = false;
 		$db_type = wponion_module_db_type( $module_db );
 		$is_get  = $this->is_get( $mode );
 
