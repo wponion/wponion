@@ -57,7 +57,7 @@ class Network extends Settings {
 	 */
 	public function on_settings_page_load() {
 		if ( isset( $_POST[ $this->unique ] ) ) {
-			$this->set_db_values( $this->save_validate( $_POST[ $this->unique ] ) );
+			$this->save_validate( $_POST[ $this->unique ] );
 		}
 		parent::on_settings_page_load();
 	}
