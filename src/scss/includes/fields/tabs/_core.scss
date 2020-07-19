@@ -50,7 +50,7 @@
 						border-bottom-width: 1px;
 
 						> a {
-							z-index:             50 !important;
+							z-index:             5 !important;
 							background-color:    #FFF;
 							border:              1px solid #E1E1E1;
 							border-bottom-color: #FFF;
@@ -106,7 +106,7 @@
 				width:    165px;
 				margin:   10px 0 0;
 				position: relative;
-				z-index:  10;
+				z-index:  2;
 
 				> li {
 					clear:               left;
@@ -133,7 +133,7 @@
 					}
 
 					&.wponion-tab-current > a {
-						z-index:            50 !important;
+						z-index:            5 !important;
 						background-color:   #FFF;
 						border:             1px solid #E1E1E1;
 						border-right-color: #FFF;
