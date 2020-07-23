@@ -4,6 +4,7 @@ namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module_Utility;
 use WPOnion\Field;
+use WPOnion\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -78,6 +79,7 @@ class Page extends Module_Utility {
 	 */
 	protected function defaults() {
 		return array(
+			'separator'         => false,
 			'notification'      => false,
 			'network'           => false,
 			'css_class'         => false,
@@ -425,9 +427,40 @@ class Page extends Module_Utility {
 		}
 
 		if ( ! empty( $this->option( 'notification' ) ) || ! empty( $this->option( 'css_class' ) ) ) {
-			$this->add_filter( 'add_menu_classes', 'add_css_class' );
+			$this->add_filter( 'add_menu_classes', 'add_css_class', 10 );
 		}
 	}
+
+	/**
+	 * Generates Seperator Slug.
+	 *
+	 * @return string[]
+	 * @since {NEWVERSION}
+	 */
+	protected function seperator_args() {
+		return array(
+			'',
+			'read',
+			'separator-woocommerce',
+			'',
+			'wp-menu-separator wponion wponion-' . $this->menu_slug(),
+		);
+	}
+
+	/**
+	 * Generates New Pos For Menu.
+	 *
+	 * @param string $type
+	 * @param bool   $current_pos
+	 *
+	 * @return bool|float
+	 * @since {NEWVERSION}
+	 */
+	protected function handle_seperator_position( $type = 'sub', $current_pos = false ) {
+		$uid = substr( base_convert( md5( 'wpo-seperator' . $this->menu_title() ), 16, 10 ), -5 ) * 0.00001;
+		return ( 'before' === $type ) ? $current_pos - $uid : $current_pos + $uid;
+	}
+
 
 	/**
 	 * Generates Notification Bubble.
@@ -460,6 +493,16 @@ class Page extends Module_Utility {
 					if ( ! empty( $this->option( 'notification' ) ) ) {
 						$top_level_menus[ $id ][0] .= ' ' . $this->notification_bubble();
 					}
+
+					if ( 'before' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
+						$pos             = $this->handle_seperator_position( 'before', $id );
+						$top_level_menus = Helper::array_insert_before( $id, $top_level_menus, "$pos", $this->seperator_args() );
+					}
+
+					if ( 'after' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
+						$pos             = $this->handle_seperator_position( 'after', $id );
+						$top_level_menus = Helper::array_insert_after( $id, $top_level_menus, "$pos", $this->seperator_args() );
+					}
 				}
 			}
 		} else {
@@ -475,6 +518,16 @@ class Page extends Module_Utility {
 
 						if ( ! empty( $this->option( 'notification' ) ) ) {
 							$submenu[ $parent_name ][ $id ][0] .= ' ' . $this->notification_bubble();
+						}
+
+						if ( 'before' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
+							$pos                     = $this->handle_seperator_position( 'before', $id );
+							$submenu[ $parent_name ] = Helper::array_insert_before( $id, $submenu[ $parent_name ], "$pos", $this->seperator_args() );
+						}
+
+						if ( 'after' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
+							$pos                     = $this->handle_seperator_position( 'after', $id );
+							$submenu[ $parent_name ] = Helper::array_insert_after( $id, $submenu[ $parent_name ], "$pos", $this->seperator_args() );
 						}
 					}
 				}
