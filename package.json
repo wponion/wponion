@@ -21,7 +21,7 @@
   "author": "varunsridharan",
   "license": "MIT",
   "devDependencies": {
-    "@wordpress/hooks": "^2.8.0",
+    "@wordpress/hooks": "^2.9.0",
     "bootstrap": "^4.4.1",
     "css-checkbox-library": "^1.5.1",
     "easy-gulp-tasker": "^1.0.15",
