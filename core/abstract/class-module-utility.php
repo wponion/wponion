@@ -39,8 +39,8 @@ abstract class Module_Utility extends Bridge {
 			//return call_user_func_array( array( &$this, $name ), $arguments );
 			return $this->$name( ...$arguments );
 		} else {
-			console( $name );
-			console( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ) );
+			//console( $name );
+			//console( debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS ) );
 		}
 		return null;
 	}

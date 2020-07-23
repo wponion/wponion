@@ -75,7 +75,6 @@ class Modal_Fields extends Ajax {
 		$field_key = ( wponion_is_unarrayed( $field ) ) ? $unique : $unique . '/' . $field['id'];
 		$values    = $module->get_db_values()->get( $field_key );
 		$field->only_field( true );
-		console( $values );
 		$data = $field->init_field( $values, array(
 			'unique' => $unique,
 			'module' => $this->post( 'module' ),
