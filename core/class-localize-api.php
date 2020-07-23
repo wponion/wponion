@@ -47,8 +47,6 @@ class Localize_API extends Bridge {
 	public function __construct() {
 		$this->add_action( 'admin_footer', 'render_css_js_args' );
 		$this->add_action( 'customize_controls_print_footer_scripts', 'render_css_js_args', 9999999999999 );
-		$this->add_action( 'wponion/ajax/metabox/render/after', 'render_css_js_args' );
-		$this->add_action( 'wponion/ajax/woocommerce/variation/fields', 'render_css_js_args' );
 		$this->add_action( 'wp_footer', 'render_css_js_args' );
 		$this->add_action( 'before_wp_tiny_mce', 'copy_wpeditor_args' );
 		$this->add_action( 'quicktags_settings', 'copy_quicktags_settings', 9999, 2 );
