@@ -78,7 +78,9 @@ class Page extends Module_Utility {
 	 */
 	protected function defaults() {
 		return array(
+			'notification'      => false,
 			'network'           => false,
+			'css_class'         => false,
 			'submenu'           => false,
 			'menu_title'        => false,
 			'page_title'        => false,
@@ -308,7 +310,7 @@ class Page extends Module_Utility {
 	/**
 	 * Returns A Valid Slug.
 	 *
-	 * @return bool|mixed|string|\WPOnion\Modules\Admin\Page
+	 * @return bool|mixed|string
 	 */
 	public function get_slug() {
 		if ( empty( $this->menu_slug() ) ) {
@@ -327,6 +329,35 @@ class Page extends Module_Utility {
 	}
 
 	/**
+	 * Fetches Actual Parent File.
+	 *
+	 * @param string $key
+	 *
+	 * @return bool|string|string[]
+	 * @since {NEWVERSION}
+	 */
+	public static function parent_file_name( $key = '' ) {
+		$parent_files = array(
+			'management' => 'tools.php',
+			'options'    => 'options-general.php',
+			'theme'      => 'themes.php',
+			'dashboard'  => 'index.php',
+			'posts'      => 'edit.php',
+			'plugins'    => 'plugins.php',
+			'media'      => 'upload.php',
+			'links'      => 'link-manager.php',
+			'comments'   => 'edit-comments.php',
+			'pages'      => 'edit.php?post_type=page',
+			'users'      => ( current_user_can( 'edit_users' ) ) ? 'users.php' : 'profile.php',
+		);
+
+		if ( empty( $key ) ) {
+			return $parent_files;
+		}
+		return ( isset( $parent_files[ $key ] ) ) ? $parent_files[ $key ] : $key;
+	}
+
+	/**
 	 * Registers Menu With WP.
 	 */
 	public function add_menu() {
@@ -340,26 +371,7 @@ class Page extends Module_Utility {
 		if ( false === $submenu || wponion_is_array( $submenu ) ) {
 			$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $slug, $render, $this->icon(), $this->position() );
 		} else {
-			switch ( $submenu ) {
-				case 'management':
-				case 'dashboard':
-				case 'options':
-				case 'plugins':
-				case 'theme':
-					if ( function_exists( 'add_' . $submenu . '_page' ) ) {
-						$this->page_slug = wponion_callback( 'add_' . $submenu . '_page', array(
-							$page_title,
-							$menu_title,
-							$this->capability(),
-							$slug,
-							$render,
-						) );
-					}
-					break;
-				default:
-					$this->page_slug = add_submenu_page( $submenu, $page_title, $menu_title, $this->capability(), $slug, $render );
-					break;
-			}
+			$this->page_slug = add_submenu_page( self::parent_file_name( $submenu ), $page_title, $menu_title, $this->capability(), $slug, $render );
 		}
 
 		if ( ! empty( $this->option( 'href' ) ) ) {
@@ -388,18 +400,12 @@ class Page extends Module_Utility {
 			 * added a manuall str_replace.
 			 * Check Github Issue @ https://github.com/wponion/wponion/issues/161
 			 */
-			$this->menu_url = menu_page_url( $slug, false );
-			$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), $this->menu_url );
+			$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), menu_page_url( $slug, false ) );
 
 			if ( wponion_is_array( $submenu ) && wponion_is_callable( $submenu ) ) {
 				wponion_callback( $submenu, $this );
 			} elseif ( wponion_is_array( $submenu ) ) {
-				$subemnus = array();
-				if ( true === $this->is_multiple( $submenu ) ) {
-					$subemnus[] = $submenu;
-				} else {
-					$subemnus = $submenu;
-				}
+				$subemnus = ( true === $this->is_multiple( $submenu ) ) ? array( $submenu ) : $submenu;
 
 				foreach ( $subemnus as $sub_menu ) {
 					if ( wponion_is_callable( $sub_menu ) ) {
@@ -417,6 +423,64 @@ class Page extends Module_Utility {
 				wponion_help_tabs( $this, $this->help_tab(), $this->help_sidebar() );
 			}
 		}
+
+		if ( ! empty( $this->option( 'notification' ) ) || ! empty( $this->option( 'css_class' ) ) ) {
+			$this->add_filter( 'add_menu_classes', 'add_css_class' );
+		}
+	}
+
+	/**
+	 * Generates Notification Bubble.
+	 *
+	 * @return bool|mixed|string
+	 * @since {NEWVERSION}
+	 */
+	private function notification_bubble() {
+		$notification = $this->option( 'notification' );
+		return ( strip_tags( $notification ) === $notification ) ? '<span class="awaiting-mod">' . $notification . '</span>' : $notification;
+	}
+
+	/**
+	 * Appends CSS Class.
+	 *
+	 * @param $top_level_menus
+	 *
+	 * @return mixed
+	 * @since {NEWVERSION}
+	 */
+	public function add_css_class( $top_level_menus ) {
+		$slug = $this->menu_slug();
+		if ( empty( $this->submenu() ) ) {
+			foreach ( $top_level_menus as $id => $menu ) {
+				if ( isset( $menu[2] ) && $menu[2] === $slug ) {
+					if ( ! empty( $this->option( 'css_class' ) ) ) {
+						$top_level_menus[ $id ][4] = wponion_html_class( $this->option( 'css_class' ), $menu[4] );
+					}
+
+					if ( ! empty( $this->option( 'notification' ) ) ) {
+						$top_level_menus[ $id ][0] .= ' ' . $this->notification_bubble();
+					}
+				}
+			}
+		} else {
+			global $submenu;
+			$parent_name = self::parent_file_name( $this->submenu() );
+			if ( isset( $submenu[ $parent_name ] ) ) {
+				foreach ( $submenu[ $parent_name ] as $id => $menu ) {
+					if ( isset( $menu[2] ) && $menu[2] === $slug ) {
+						if ( ! empty( $this->option( 'css_class' ) ) ) {
+							$menu[4]                           = ( isset( $menu[4] ) ) ? $menu[4] : '';
+							$submenu[ $parent_name ][ $id ][4] = wponion_html_class( $this->option( 'css_class' ), $menu[4] );
+						}
+
+						if ( ! empty( $this->option( 'notification' ) ) ) {
+							$submenu[ $parent_name ][ $id ][0] .= ' ' . $this->notification_bubble();
+						}
+					}
+				}
+			}
+		}
+		return $top_level_menus;
 	}
 
 	/**
