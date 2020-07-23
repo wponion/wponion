@@ -426,7 +426,7 @@ class Page extends Module_Utility {
 			}
 		}
 
-		if ( ! empty( $this->option( 'notification' ) ) || ! empty( $this->option( 'css_class' ) ) ) {
+		if ( ! empty( $this->option( 'notification' ) ) || ! empty( $this->option( 'css_class' ) ) || ! empty( $this->option( 'separator' ) ) ) {
 			$this->add_filter( 'add_menu_classes', 'add_css_class', 10 );
 		}
 	}
