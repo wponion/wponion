@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Bump [@popperjs/core] from `2.4.2` to `2.4.4`
 * Bump [tippy.js] from `6.2.3` to `6.2.5`
 * Bump [sweetalert2] from `9.15.1` to `9.17.0`
+* Bump [css-checkbox-library] from `1.5.1` to `1.5.2`
 
 ## Removed
 * Deleted local function calls added by mistake
