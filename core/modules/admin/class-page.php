@@ -377,24 +377,6 @@ class Page extends Module_Utility {
 		}
 
 		if ( ! empty( $this->option( 'href' ) ) ) {
-			global $submenu, $_parent_pages, $menu;
-			$menu_slug = $this->menu_slug();
-			if ( isset( $_parent_pages[ $menu_slug ] ) ) {
-				$menu_pos = $_parent_pages[ $menu_slug ];
-				if ( ! empty( $menu_pos ) && ! empty( $submenu[ $menu_pos ] ) && wponion_is_array( $submenu[ $menu_pos ] ) ) {
-					foreach ( $submenu[ $menu_pos ] as $id => $smenu ) {
-						if ( $menu_slug === $submenu[ $menu_pos ][ $id ][2] ) {
-							$submenu[ $menu_pos ][ $id ][2] = $this->option( 'href' );
-						}
-					}
-				} else {
-					foreach ( $menu as $id => $smenu ) {
-						if ( $menu_slug === $menu[ $id ][2] ) {
-							$menu[ $id ][2] = $this->option( 'href' );
-						}
-					}
-				}
-			}
 		} else {
 			$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
 			/**
@@ -426,7 +408,7 @@ class Page extends Module_Utility {
 			}
 		}
 
-		if ( ! empty( $this->option( 'notification' ) ) || ! empty( $this->option( 'css_class' ) ) || ! empty( $this->option( 'separator' ) ) ) {
+		if ( ! empty( $this->option( 'href' ) ) || ! empty( $this->option( 'notification' ) ) || ! empty( $this->option( 'css_class' ) ) || ! empty( $this->option( 'separator' ) ) ) {
 			$this->add_filter( 'add_menu_classes', 'add_css_class', 10 );
 		}
 	}
@@ -461,7 +443,6 @@ class Page extends Module_Utility {
 		return ( 'before' === $type ) ? $current_pos - $uid : $current_pos + $uid;
 	}
 
-
 	/**
 	 * Generates Notification Bubble.
 	 *
@@ -471,6 +452,41 @@ class Page extends Module_Utility {
 	private function notification_bubble() {
 		$notification = $this->option( 'notification' );
 		return ( strip_tags( $notification ) === $notification ) ? '<span class="awaiting-mod">' . $notification . '</span>' : $notification;
+	}
+
+	/**
+	 * Handles Single Menu Data
+	 *
+	 * @param $current_menu
+	 * @param $parent_array
+	 *
+	 * @return array
+	 * @since {NEWVERSION}
+	 */
+	private function handle_single_menu( $current_menu, $parent_array ) {
+		if ( ! empty( $this->option( 'css_class' ) ) ) {
+			$parent_array[ $current_menu ][4] = ( isset( $parent_array[ $current_menu ][4] ) ) ? $parent_array[ $current_menu ][4] : '';
+			$parent_array[ $current_menu ][4] = wponion_html_class( $this->option( 'css_class' ), $parent_array[ $current_menu ][4] );
+		}
+
+		if ( ! empty( $this->option( 'notification' ) ) ) {
+			$parent_array[ $current_menu ][0] .= ' ' . $this->notification_bubble();
+		}
+
+		if ( 'before' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
+			$pos          = $this->handle_seperator_position( 'before', $current_menu );
+			$parent_array = Helper::array_insert_before( $current_menu, $parent_array, "$pos", $this->seperator_args() );
+		}
+
+		if ( 'after' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
+			$pos          = $this->handle_seperator_position( 'after', $current_menu );
+			$parent_array = Helper::array_insert_after( $current_menu, $parent_array, "$pos", $this->seperator_args() );
+		}
+
+		if ( ! empty( $this->option( 'href' ) ) ) {
+			$parent_array[ $current_menu ][2] = $this->option( 'href' );
+		}
+		return $parent_array;
 	}
 
 	/**
@@ -486,23 +502,7 @@ class Page extends Module_Utility {
 		if ( empty( $this->submenu() ) ) {
 			foreach ( $top_level_menus as $id => $menu ) {
 				if ( isset( $menu[2] ) && $menu[2] === $slug ) {
-					if ( ! empty( $this->option( 'css_class' ) ) ) {
-						$top_level_menus[ $id ][4] = wponion_html_class( $this->option( 'css_class' ), $menu[4] );
-					}
-
-					if ( ! empty( $this->option( 'notification' ) ) ) {
-						$top_level_menus[ $id ][0] .= ' ' . $this->notification_bubble();
-					}
-
-					if ( 'before' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
-						$pos             = $this->handle_seperator_position( 'before', $id );
-						$top_level_menus = Helper::array_insert_before( $id, $top_level_menus, "$pos", $this->seperator_args() );
-					}
-
-					if ( 'after' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
-						$pos             = $this->handle_seperator_position( 'after', $id );
-						$top_level_menus = Helper::array_insert_after( $id, $top_level_menus, "$pos", $this->seperator_args() );
-					}
+					$top_level_menus = $this->handle_single_menu( $id, $top_level_menus );
 				}
 			}
 		} else {
@@ -511,24 +511,7 @@ class Page extends Module_Utility {
 			if ( isset( $submenu[ $parent_name ] ) ) {
 				foreach ( $submenu[ $parent_name ] as $id => $menu ) {
 					if ( isset( $menu[2] ) && $menu[2] === $slug ) {
-						if ( ! empty( $this->option( 'css_class' ) ) ) {
-							$menu[4]                           = ( isset( $menu[4] ) ) ? $menu[4] : '';
-							$submenu[ $parent_name ][ $id ][4] = wponion_html_class( $this->option( 'css_class' ), $menu[4] );
-						}
-
-						if ( ! empty( $this->option( 'notification' ) ) ) {
-							$submenu[ $parent_name ][ $id ][0] .= ' ' . $this->notification_bubble();
-						}
-
-						if ( 'before' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
-							$pos                     = $this->handle_seperator_position( 'before', $id );
-							$submenu[ $parent_name ] = Helper::array_insert_before( $id, $submenu[ $parent_name ], "$pos", $this->seperator_args() );
-						}
-
-						if ( 'after' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
-							$pos                     = $this->handle_seperator_position( 'after', $id );
-							$submenu[ $parent_name ] = Helper::array_insert_after( $id, $submenu[ $parent_name ], "$pos", $this->seperator_args() );
-						}
+						$submenu[ $parent_name ] = $this->handle_single_menu( $id, $submenu[ $parent_name ] );
 					}
 				}
 			}
@@ -669,7 +652,7 @@ class Page extends Module_Utility {
 		}
 
 		if ( ! empty( $browser_title ) ) {
-			return $browser_title . $existing_title;
+			return rtrim( $browser_title ) . ' ' . $existing_title;
 		}
 
 		if ( empty( $title ) ) {
