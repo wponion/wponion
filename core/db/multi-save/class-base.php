@@ -60,7 +60,7 @@ class Base {
 	 * @return bool
 	 */
 	public function is_save_single() {
-		return ( $this->is_valid_save_type() && ! in_array( $this->type, array( 'all', 'combined' ) ) );
+		return ( ! $this->is_valid_save_type() && in_array( $this->type, array( 'all', 'combined' ) ) );
 	}
 
 	/**
