@@ -56,4 +56,17 @@ trait Unique {
 	protected function field_base_unique() {
 		return $this->base_unique();
 	}
+
+	/**
+	 * Sets Unique Value.
+	 *
+	 * @param string $unique
+	 *
+	 * @return $this
+	 * @since {NEWVERSION}
+	 */
+	protected function set_unique( $unique ) {
+		$this->unique = $unique;
+		return $this;
+	}
 }

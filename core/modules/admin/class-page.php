@@ -4,6 +4,7 @@ namespace WPOnion\Modules\Admin;
 
 use WPOnion\Bridge\Module_Utility;
 use WPOnion\Field;
+use WPOnion\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -78,7 +79,10 @@ class Page extends Module_Utility {
 	 */
 	protected function defaults() {
 		return array(
+			'separator'         => false,
+			'notification'      => false,
 			'network'           => false,
+			'css_class'         => false,
 			'submenu'           => false,
 			'menu_title'        => false,
 			'page_title'        => false,
@@ -308,7 +312,7 @@ class Page extends Module_Utility {
 	/**
 	 * Returns A Valid Slug.
 	 *
-	 * @return bool|mixed|string|\WPOnion\Modules\Admin\Page
+	 * @return bool|mixed|string
 	 */
 	public function get_slug() {
 		if ( empty( $this->menu_slug() ) ) {
@@ -327,6 +331,35 @@ class Page extends Module_Utility {
 	}
 
 	/**
+	 * Fetches Actual Parent File.
+	 *
+	 * @param string $key
+	 *
+	 * @return bool|string|string[]
+	 * @since {NEWVERSION}
+	 */
+	public static function parent_file_name( $key = '' ) {
+		$parent_files = array(
+			'management' => 'tools.php',
+			'options'    => 'options-general.php',
+			'theme'      => 'themes.php',
+			'dashboard'  => 'index.php',
+			'posts'      => 'edit.php',
+			'plugins'    => 'plugins.php',
+			'media'      => 'upload.php',
+			'links'      => 'link-manager.php',
+			'comments'   => 'edit-comments.php',
+			'pages'      => 'edit.php?post_type=page',
+			'users'      => ( current_user_can( 'edit_users' ) ) ? 'users.php' : 'profile.php',
+		);
+
+		if ( empty( $key ) ) {
+			return $parent_files;
+		}
+		return ( isset( $parent_files[ $key ] ) ) ? $parent_files[ $key ] : $key;
+	}
+
+	/**
 	 * Registers Menu With WP.
 	 */
 	public function add_menu() {
@@ -340,47 +373,10 @@ class Page extends Module_Utility {
 		if ( false === $submenu || wponion_is_array( $submenu ) ) {
 			$this->page_slug = add_menu_page( $page_title, $menu_title, $this->capability(), $slug, $render, $this->icon(), $this->position() );
 		} else {
-			switch ( $submenu ) {
-				case 'management':
-				case 'dashboard':
-				case 'options':
-				case 'plugins':
-				case 'theme':
-					if ( function_exists( 'add_' . $submenu . '_page' ) ) {
-						$this->page_slug = wponion_callback( 'add_' . $submenu . '_page', array(
-							$page_title,
-							$menu_title,
-							$this->capability(),
-							$slug,
-							$render,
-						) );
-					}
-					break;
-				default:
-					$this->page_slug = add_submenu_page( $submenu, $page_title, $menu_title, $this->capability(), $slug, $render );
-					break;
-			}
+			$this->page_slug = add_submenu_page( self::parent_file_name( $submenu ), $page_title, $menu_title, $this->capability(), $slug, $render );
 		}
 
 		if ( ! empty( $this->option( 'href' ) ) ) {
-			global $submenu, $_parent_pages, $menu;
-			$menu_slug = $this->menu_slug();
-			if ( isset( $_parent_pages[ $menu_slug ] ) ) {
-				$menu_pos = $_parent_pages[ $menu_slug ];
-				if ( ! empty( $menu_pos ) && ! empty( $submenu[ $menu_pos ] ) && wponion_is_array( $submenu[ $menu_pos ] ) ) {
-					foreach ( $submenu[ $menu_pos ] as $id => $smenu ) {
-						if ( $menu_slug === $submenu[ $menu_pos ][ $id ][2] ) {
-							$submenu[ $menu_pos ][ $id ][2] = $this->option( 'href' );
-						}
-					}
-				} else {
-					foreach ( $menu as $id => $smenu ) {
-						if ( $menu_slug === $menu[ $id ][2] ) {
-							$menu[ $id ][2] = $this->option( 'href' );
-						}
-					}
-				}
-			}
 		} else {
 			$this->add_action( 'load-' . $this->page_slug, 'on_page_load', 1 );
 			/**
@@ -388,18 +384,12 @@ class Page extends Module_Utility {
 			 * added a manuall str_replace.
 			 * Check Github Issue @ https://github.com/wponion/wponion/issues/161
 			 */
-			$this->menu_url = menu_page_url( $slug, false );
-			$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), $this->menu_url );
+			$this->menu_url = str_replace( array( '&#038;' ), array( '&' ), menu_page_url( $slug, false ) );
 
 			if ( wponion_is_array( $submenu ) && wponion_is_callable( $submenu ) ) {
 				wponion_callback( $submenu, $this );
 			} elseif ( wponion_is_array( $submenu ) ) {
-				$subemnus = array();
-				if ( true === $this->is_multiple( $submenu ) ) {
-					$subemnus[] = $submenu;
-				} else {
-					$subemnus = $submenu;
-				}
+				$subemnus = ( true === $this->is_multiple( $submenu ) ) ? array( $submenu ) : $submenu;
 
 				foreach ( $subemnus as $sub_menu ) {
 					if ( wponion_is_callable( $sub_menu ) ) {
@@ -417,6 +407,116 @@ class Page extends Module_Utility {
 				wponion_help_tabs( $this, $this->help_tab(), $this->help_sidebar() );
 			}
 		}
+
+		if ( ! empty( $this->option( 'href' ) ) || ! empty( $this->option( 'notification' ) ) || ! empty( $this->option( 'css_class' ) ) || ! empty( $this->option( 'separator' ) ) ) {
+			$this->add_filter( 'add_menu_classes', 'add_css_class', 10 );
+		}
+	}
+
+	/**
+	 * Generates Seperator Slug.
+	 *
+	 * @return string[]
+	 * @since {NEWVERSION}
+	 */
+	protected function seperator_args() {
+		return array(
+			'',
+			'read',
+			'separator-woocommerce',
+			'',
+			'wp-menu-separator wponion wponion-' . $this->menu_slug(),
+		);
+	}
+
+	/**
+	 * Generates New Pos For Menu.
+	 *
+	 * @param string $type
+	 * @param bool   $current_pos
+	 *
+	 * @return bool|float
+	 * @since {NEWVERSION}
+	 */
+	protected function handle_seperator_position( $type = 'sub', $current_pos = false ) {
+		$uid = substr( base_convert( md5( 'wpo-seperator' . $this->menu_title() ), 16, 10 ), -5 ) * 0.00001;
+		return ( 'before' === $type ) ? $current_pos - $uid : $current_pos + $uid;
+	}
+
+	/**
+	 * Generates Notification Bubble.
+	 *
+	 * @return bool|mixed|string
+	 * @since {NEWVERSION}
+	 */
+	private function notification_bubble() {
+		$notification = $this->option( 'notification' );
+		return ( strip_tags( $notification ) === $notification ) ? '<span class="awaiting-mod">' . $notification . '</span>' : $notification;
+	}
+
+	/**
+	 * Handles Single Menu Data
+	 *
+	 * @param $current_menu
+	 * @param $parent_array
+	 *
+	 * @return array
+	 * @since {NEWVERSION}
+	 */
+	private function handle_single_menu( $current_menu, $parent_array ) {
+		if ( ! empty( $this->option( 'css_class' ) ) ) {
+			$parent_array[ $current_menu ][4] = ( isset( $parent_array[ $current_menu ][4] ) ) ? $parent_array[ $current_menu ][4] : '';
+			$parent_array[ $current_menu ][4] = wponion_html_class( $this->option( 'css_class' ), $parent_array[ $current_menu ][4] );
+		}
+
+		if ( ! empty( $this->option( 'notification' ) ) ) {
+			$parent_array[ $current_menu ][0] .= ' ' . $this->notification_bubble();
+		}
+
+		if ( 'before' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
+			$pos          = $this->handle_seperator_position( 'before', $current_menu );
+			$parent_array = Helper::array_insert_before( $current_menu, $parent_array, "$pos", $this->seperator_args() );
+		}
+
+		if ( 'after' === $this->option( 'separator' ) || 'both' === $this->option( 'separator' ) ) {
+			$pos          = $this->handle_seperator_position( 'after', $current_menu );
+			$parent_array = Helper::array_insert_after( $current_menu, $parent_array, "$pos", $this->seperator_args() );
+		}
+
+		if ( ! empty( $this->option( 'href' ) ) ) {
+			$parent_array[ $current_menu ][2] = $this->option( 'href' );
+		}
+		return $parent_array;
+	}
+
+	/**
+	 * Appends CSS Class.
+	 *
+	 * @param $top_level_menus
+	 *
+	 * @return mixed
+	 * @since {NEWVERSION}
+	 */
+	public function add_css_class( $top_level_menus ) {
+		$slug = $this->menu_slug();
+		if ( empty( $this->submenu() ) ) {
+			foreach ( $top_level_menus as $id => $menu ) {
+				if ( isset( $menu[2] ) && $menu[2] === $slug ) {
+					$top_level_menus = $this->handle_single_menu( $id, $top_level_menus );
+				}
+			}
+		} else {
+			global $submenu;
+			$parent_name = self::parent_file_name( $this->submenu() );
+			if ( isset( $submenu[ $parent_name ] ) ) {
+				foreach ( $submenu[ $parent_name ] as $id => $menu ) {
+					if ( isset( $menu[2] ) && $menu[2] === $slug ) {
+						$submenu[ $parent_name ] = $this->handle_single_menu( $id, $submenu[ $parent_name ] );
+					}
+				}
+			}
+		}
+		return $top_level_menus;
 	}
 
 	/**
@@ -552,7 +652,7 @@ class Page extends Module_Utility {
 		}
 
 		if ( ! empty( $browser_title ) ) {
-			return $browser_title . $existing_title;
+			return rtrim( $browser_title ) . ' ' . $existing_title;
 		}
 
 		if ( empty( $title ) ) {

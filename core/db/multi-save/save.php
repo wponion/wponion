@@ -53,7 +53,9 @@ class Save extends Base {
 	 * Runs Custom Code To Save Values.
 	 */
 	public function run() {
-		if ( $this->is_save_single() ) {
+		if ( $this->is_custom_save_handler() ) {
+			$this->custom_handler()->save( $this->values );
+		} elseif ( $this->is_save_single() ) {
 			wponion_wp_db()->set( $this->instance->module_db(), $this->instance->unique(), $this->instance->get_id(), $this->values );
 		} else {
 			$instance = $this->instance;

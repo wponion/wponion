@@ -45,7 +45,7 @@ class Taxonomy extends Common {
 			$this->object_type = $object_type;
 			$this->settings    = $args;
 		}
-		if ( ! empty( $this->taxonomy ) ) {
+		if ( ! empty( $this->unique() ) ) {
 			$this->init_labels( '\WPOnion\Modules\CPT\Labels\Taxonomy' );
 			add_action( 'init', array( &$this, 'init' ) );
 		}

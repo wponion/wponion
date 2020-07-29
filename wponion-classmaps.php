@@ -1,12 +1,13 @@
 <?php
-// Last Updated: Tue 23-Jun-2020 | 07:47:46:am
-// Total Class: 286
+// Last Updated: Wed 29-Jul-2020 | 07:07:38:am
+// Total Class: 288
 
 return array (
   'WPOnion\\Addon_Field' => 'abstract/abstract-addon-field.php',
   'WPOnion\\Addon' => 'abstract/abstract-addon.php',
   'WPOnion\\Bridge\\Ajax' => 'abstract/abstract-ajax.php',
   'WPOnion\\Bridge' => 'abstract/abstract-bridge.php',
+  'WPOnion\\Bridge\\Custom_DB_Storage_Handler' => 'abstract/abstract-custom-db-storage-handler.php',
   'WPOnion\\Bridge\\Deprecated_Hooks' => 'abstract/abstract-deprecated-hooks.php',
   'WPOnion\\Field' => 'abstract/abstract-field.php',
   'WPOnion\\Bridge\\Module_DB_Cache' => 'abstract/abstract-module-db-cache.php',
@@ -126,6 +127,7 @@ return array (
   'WPOnion\\Registry\\Storage' => 'registry/class-storage.php',
   'WPOnion\\Traits\\Internal\\Fields_Handler' => 'traits/internal/trait-fields-handler.php',
   'WPOnion\\Traits\\Internal\\Module' => 'traits/internal/trait-module.php',
+  'WPOnion\\Traits\\Internal\\Object_ID' => 'traits/internal/trait-object-id.php',
   'WPOnion\\Traits\\Internal\\Theme_Handler' => 'traits/internal/trait-theme-handler.php',
   'WPOnion\\Traits\\Internal\\Unique' => 'traits/internal/trait-unique.php',
   'WPOnion\\Traits\\Magic_Methods\\Options' => 'traits/magic-methods/trait-options.php',

@@ -25,7 +25,7 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			'default'         => null, # Stores Default Value,
 			'desc'            => false, # Field Description to print after title,
 			'desc_field'      => false, # Field description to print after field output.
-			'name'            => false,
+			'name'            => false, # Custom Name attribute value.
 			/// DB Save Handler Related.
 			'sanitize'        => null,    #sanitize of field. can be enabled or disabled
 			'validate'        => null,    #validate of field. can be enabled or disabled
@@ -362,14 +362,15 @@ if ( ! function_exists( 'wponion_extract_all_fields_ids_defaults' ) ) {
 	 *
 	 * @return array
 	 */
-	function wponion_extract_all_fields_ids_defaults( $fields = array(), $parent_id = true ) {
-		$return = array();
+	function wponion_extract_all_fields_ids_defaults( $fields = array(), $parent_id = null ) {
+		$return    = array();
+		$parent_id = ( ! empty( $parent_id ) ) ? $parent_id . '_' : '';
 
 		if ( $fields instanceof Base && $fields->has_containers() && ! $fields->has_callback() ) {
 			foreach ( $fields->containers() as $container ) {
 				/* @var $container WPO\Container */
 				if ( $container->has_fields() && ! $container->has_callback() ) {
-					$return = wponion_parse_args( $return, wponion_extract_all_fields_ids_defaults( $container, $parent_id . '_' . $container->name() ) );
+					$return = wponion_parse_args( $return, wponion_extract_all_fields_ids_defaults( $container, $parent_id . $container->name() ) );
 				}
 			}
 		} elseif ( $fields instanceof Base && $fields->has_fields() && ! $fields->has_callback() ) {
@@ -378,10 +379,10 @@ if ( ! function_exists( 'wponion_extract_all_fields_ids_defaults' ) ) {
 				if ( ! empty( $field['id'] ) ) {
 					$nested = array();
 					if ( ! empty( $field['fields'] ) && wponion_is_array( $field['fields'] ) ) {
-						$nested = wponion_extract_all_fields_ids_defaults( $field, $parent_id . '_' . $field['id'] );
+						$nested = wponion_extract_all_fields_ids_defaults( $field, $parent_id . $field['id'] );
 					}
 
-					$return[ $parent_id . '_' . $field['id'] ] = isset( $field['default'] ) ? $field['default'] : null;
+					$return[ $parent_id . $field['id'] ] = isset( $field['default'] ) ? $field['default'] : null;
 
 					if ( ! empty( $nested ) ) {
 						$return = wponion_parse_args( $return, $nested );
@@ -391,9 +392,12 @@ if ( ! function_exists( 'wponion_extract_all_fields_ids_defaults' ) ) {
 		} elseif ( wponion_is_array( $fields ) ) {
 			foreach ( $fields as $data ) {
 				if ( $data instanceof Container ) {
-					$return = wponion_parse_args( $return, wponion_extract_all_fields_ids_defaults( $data, $parent_id . '_' . $data->name() ) );
+					$return = wponion_parse_args( $return, wponion_extract_all_fields_ids_defaults( $data, $parent_id . $data->name() ) );
 				} elseif ( $data instanceof WPO\Field || isset( $data['id'] ) && isset( $data['type'] ) ) {
 					$return[ $data['id'] ] = isset( $data['default'] ) ? $data['default'] : null;
+					if ( ! empty( $data['fields'] ) && wponion_is_array( $data['fields'] ) ) {
+						$return = wponion_extract_all_fields_ids_defaults( $data, $parent_id . $data['id'] );
+					}
 				}
 			}
 		}

@@ -18,7 +18,9 @@ class Get extends Base {
 	 */
 	public function run() {
 		$db_vals = array();
-		if ( $this->is_save_single() ) {
+		if ( $this->is_custom_save_handler() ) {
+			$db_vals = $this->custom_handler()->get();
+		} elseif ( $this->is_save_single() ) {
 			$db_vals = new Option( $this->instance->module_db(), $this->instance->unique(), $this->instance->get_id() );
 		} else {
 			$instance = $this->instance;

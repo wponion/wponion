@@ -180,9 +180,13 @@ class Metabox extends Module {
 	public function render( $post ) {
 		$post_id = ( is_object( $post ) ) ? $post->ID : $post;
 		$this->set_id( $post_id );
+		do_action( 'wponion/metabox/render/before', $post_id, $post, $this );
+		do_action( "wponion/metabox/render/{$this->unique()}/before", $post_id, $post, $this );
 		$this->get_cache();
 		$this->get_db_values();
 		$this->init_theme()->render();
+		do_action( "wponion/metabox/render/{$this->unique()}/after", $post_id, $post, $this );
+		do_action( 'wponion/metabox/render/after', $post_id, $post, $this );
 	}
 
 	/**

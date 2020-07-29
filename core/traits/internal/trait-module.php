@@ -27,4 +27,17 @@ trait Module {
 	public function module() {
 		return $this->module;
 	}
+
+	/**
+	 * Sets Module Value.
+	 *
+	 * @param string $module
+	 *
+	 * @return $this
+	 * @since {NEWVERSION}
+	 */
+	protected function set_module( $module ) {
+		$this->module = $module;
+		return $this;
+	}
 }
