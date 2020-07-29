@@ -1,5 +1,5 @@
 <?php
-// Last Updated : 2020-06-23 05:49:36:am
+// Last Updated : 2020-07-29 05:55:48:am
 if ( ! defined( "ABSPATH") ) { die; } 
 return array (
   'ABeeZee' => 
@@ -1769,6 +1769,27 @@ return array (
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
   ),
+  'Epilogue' => 
+  array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
+    '100italic' => 'Thin 100 Italic',
+    '200italic' => 'Extra Light 200 Italic',
+    '300italic' => 'Light 300 Italic',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
+    '700italic' => 'Bold 700 Italic',
+    '800italic' => 'Extra Bold 800 Italic',
+    '900italic' => 'Black 900 Italic',
+  ),
   'Erica One' => 
   array (
     400 => 'Regular 400',
@@ -2259,6 +2280,18 @@ return array (
     '800italic' => 'Extra Bold 800 Italic',
     '900italic' => 'Black 900 Italic',
   ),
+  'Grenze Gotisch' => 
+  array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
+  ),
   'Griffy' => 
   array (
     400 => 'Regular 400',
@@ -2327,6 +2360,7 @@ return array (
   'Harmattan' => 
   array (
     400 => 'Regular 400',
+    700 => 'Bold 700',
   ),
   'Headland One' => 
   array (
@@ -3797,7 +3831,7 @@ return array (
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
   ),
-  'Muli' => 
+  'Mulish' => 
   array (
     200 => 'Extra Light 200',
     300 => 'Light 300',
@@ -4753,6 +4787,16 @@ return array (
   array (
     400 => 'Regular 400',
   ),
+  'Recursive' => 
+  array (
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
+  ),
   'Red Hat Display' => 
   array (
     400 => 'Regular 400',
@@ -4772,6 +4816,12 @@ return array (
     '400italic' => 'Regular 400 Italic',
     '500italic' => 'Medium 500 Italic',
     '700italic' => 'Bold 700 Italic',
+  ),
+  'Red Rose' => 
+  array (
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    700 => 'Bold 700',
   ),
   'Redressed' => 
   array (
@@ -4912,6 +4962,12 @@ return array (
   'Rouge Script' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Rowdies' => 
+  array (
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    700 => 'Bold 700',
   ),
   'Rozha One' => 
   array (
@@ -5215,6 +5271,7 @@ return array (
   array (
     300 => 'Light 300',
     400 => 'Regular 400',
+    500 => 'Medium 500',
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
   ),
@@ -5311,6 +5368,17 @@ return array (
   array (
     400 => 'Regular 400',
   ),
+  'Sora' => 
+  array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+  ),
   'Sorts Mill Goudy' => 
   array (
     400 => 'Regular 400',
@@ -5350,9 +5418,18 @@ return array (
   ),
   'Source Serif Pro' => 
   array (
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
     400 => 'Regular 400',
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
+    900 => 'Black 900',
+    '200italic' => 'Extra Light 200 Italic',
+    '300italic' => 'Light 300 Italic',
+    '400italic' => 'Regular 400 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
+    '700italic' => 'Bold 700 Italic',
+    '900italic' => 'Black 900 Italic',
   ),
   'Space Mono' => 
   array (
@@ -5809,6 +5886,14 @@ return array (
   'Varela Round' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Varta' => 
+  array (
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
   ),
   'Vast Shadow' => 
   array (
