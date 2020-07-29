@@ -25,7 +25,7 @@ if ( ! function_exists( 'wponion_field_defaults' ) ) {
 			'default'         => null, # Stores Default Value,
 			'desc'            => false, # Field Description to print after title,
 			'desc_field'      => false, # Field description to print after field output.
-			'name'            => false,
+			'name'            => false, # Custom Name attribute value.
 			/// DB Save Handler Related.
 			'sanitize'        => null,    #sanitize of field. can be enabled or disabled
 			'validate'        => null,    #validate of field. can be enabled or disabled
