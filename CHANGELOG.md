@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * **Action :** `wponion/metabox/render/{$this->unique()}/before`
 * **Action :** `wponion/metabox/render/{$this->unique()}/after`
 * **Action :** `wponion/metabox/render/after`
+* Custom Class Option In Admin Page Module
+* Notification Bubble Support In Admin Page Module
+* Menu Separator Support In Admin Page Module
  
 ## Fixed
 * Taxonmy Register Issue . fixed by changing `$this->taxonomy` to `$this->unique()`
