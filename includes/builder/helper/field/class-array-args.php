@@ -107,6 +107,9 @@ abstract class Array_Args extends Helper {
 	 * @return $this
 	 */
 	public function options( $options = array(), $merge = true ) {
+		if ( is_string( $options ) ) {
+			return $this->__set( 'options', $options );
+		}
 		return $this->_set_array_handler( 'options', $options, $merge );
 	}
 
