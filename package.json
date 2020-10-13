@@ -26,7 +26,7 @@
     "@wponion/dependon": "^2.0.5",
     "@wponion/flexboxgrid2": "^1.0.2",
     "@wponion/icons": "^1.0.3",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.5.3",
     "css-checkbox-library": "^1.5.2",
     "easy-gulp-tasker": "^1.0.15",
     "jquery-serializejson": "^2.9.0",
