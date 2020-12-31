@@ -29,7 +29,7 @@
     "bootstrap": "^4.5.0",
     "css-checkbox-library": "^1.5.2",
     "easy-gulp-tasker": "^1.0.15",
-    "jquery-serializejson": "^2.9.0",
+    "jquery-serializejson": "^3.1.2",
     "jquery-validation": "^1.19.2",
     "sweetalert2": "^9.17.0",
     "tippy.js": "^6.2.5",
