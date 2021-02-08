@@ -30,7 +30,7 @@
     "css-checkbox-library": "^1.5.2",
     "easy-gulp-tasker": "^1.0.15",
     "jquery-serializejson": "^3.2.0",
-    "jquery-validation": "^1.19.2",
+    "jquery-validation": "^1.19.3",
     "sweetalert2": "^9.17.0",
     "tippy.js": "^6.2.7",
     "vsp-js-helper": "^1.0.32",
