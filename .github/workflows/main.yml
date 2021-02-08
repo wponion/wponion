@@ -55,18 +55,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
-  upload_demo:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Fetching Contents
-      uses: actions/checkout@v2
-    - name: Installing Composer
-      uses: pxgamer/composer-action@master
-      with:
-        command: install --no-dev
-    - name: Uploading To FTP
-      uses: SamKirkland/FTP-Deploy-Action@3.1.0
-      with:
-        ftp-server: ${{ secrets.FTP_HOST }}
-        ftp-username: ${{ secrets.FTP_USERNAME }}
-        ftp-password: ${{ secrets.FTP_PASSWORD }}
+  #upload_demo:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #  - name: Fetching Contents
+  #    uses: actions/checkout@v2
+  #  - name: Installing Composer
+  #    uses: pxgamer/composer-action@master
+  #    with:
+  #      command: install --no-dev
+  #  - name: Uploading To FTP
+  #    uses: SamKirkland/FTP-Deploy-Action@3.1.0
+  #    with:
+  #      ftp-server: ${{ secrets.FTP_HOST }}
+  #      ftp-username: ${{ secrets.FTP_USERNAME }}
+  #      ftp-password: ${{ secrets.FTP_PASSWORD }}
