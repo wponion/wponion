@@ -5,6 +5,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.5.3.3] - 08/02/2021
+## Changed
+* Bump [wordpress-js-ports] from `1.0.9` to `1.0.11` #287 
+* Bump [tippy.js] from `6.2.5` to `6.2.7` #291 
+* Bump [@popperjs/core] from `2.4.4` to `2.6.0` #319 
+* Bump [jquery-serializejson] from `2.9.0` to `3.2.0` #323 
+* Bump [bootstrap] from `4.5.0` to `4.6.0` #327
+* Bump [sweetalert2] from `9.17.0` to `10.14.0` #331 
+* Bump [@wordpress/hooks] from `2.9.0` to `2.11.1` #332 
+* __[Security]__ Bump ini from `1.3.5` to `1.3.8` #318 
+* __[Security]__ Bump jquery-validation from `1.19.2` to `1.19.3` #326
+* __[Security]__ Bump node-sass from `4.12.0` to `4.14.1` #270
+* __[Security]__ Bump elliptic from `6.5.0` to `6.5.4` #333 
+* Support Files (Icons, Google Fonts) Updated
+
+---
+
 # [1.5.3.2] - 23/07/2020
 ## Added
 * DB Save Hook Support For Settings & Network Settings Module
@@ -983,6 +1000,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
+[1.5.3.3]: https://github.com/wponion/wponion/releases/tag/1.5.3.3
 [1.5.3.2]: https://github.com/wponion/wponion/releases/tag/1.5.3.2
 [1.5.3.1]: https://github.com/wponion/wponion/releases/tag/1.5.3.1
 [1.5.3]: https://github.com/wponion/wponion/releases/tag/1.5.3
