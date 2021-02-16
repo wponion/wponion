@@ -21,7 +21,7 @@
   "author": "varunsridharan",
   "license": "MIT",
   "devDependencies": {
-    "@popperjs/core": "^2.6.0",
+    "@popperjs/core": "^2.7.0",
     "@wordpress/hooks": "^2.11.1",
     "@wponion/dependon": "^2.0.5",
     "@wponion/flexboxgrid2": "^1.0.2",
