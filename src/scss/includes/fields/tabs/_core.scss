@@ -114,6 +114,7 @@
 					border-bottom-width: 1px !important;
 					border-right-width:  1px !important;
 					margin:              0 -1px 0.2em 0;
+					white-space:         unset;
 
 					&.wponion-tab-current {
 						padding-bottom:     0;
@@ -123,7 +124,7 @@
 					}
 
 					> a {
-						padding:         10px 10px 10px 8px !important;
+						padding:         10px 0px 10px 8px !important;
 						border:          1px solid transparent;
 						/*padding: .5em 1em;*/
 						text-decoration: none;
