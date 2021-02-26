@@ -6,7 +6,7 @@ import {
 	to_jquery,
 	is_callable, call_user_func_array, is_url, url_params, parse_str, parse_url
 } from 'vsp-js-helper/index';
-import { remove_query_arg } from 'wordpress-js-ports';
+import remove_query_arg from 'wordpress-js-ports/src/functions/remove_query_arg';
 
 /**
  * Ajax Handler.

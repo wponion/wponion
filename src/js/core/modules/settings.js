@@ -55,7 +55,7 @@ export default class extends WPOnion_Module {
 							window.wponion_init_theme( $elm );
 							window.wponion_dependency( $elm );
 						},
-						error: () => this.element.parent().submit(),
+						error: () => this.element.parent().trigger( 'submit' ),
 						always: () => this.save_progress = false,
 					} ).send();
 				}
