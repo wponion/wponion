@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.5.3.4] - 27/02/2021
+## Fixed
+* Tab Field CSS Issue
+* Settings Page Ajax Saving Issue
+
 # [1.5.3.3] - 08/02/2021
 ## Changed
 * Bump [wordpress-js-ports] from `1.0.9` to `1.0.11` #287 
@@ -1000,6 +1005,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
+[1.5.3.4]: https://github.com/wponion/wponion/releases/tag/1.5.3.4
 [1.5.3.3]: https://github.com/wponion/wponion/releases/tag/1.5.3.3
 [1.5.3.2]: https://github.com/wponion/wponion/releases/tag/1.5.3.2
 [1.5.3.1]: https://github.com/wponion/wponion/releases/tag/1.5.3.1
