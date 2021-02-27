@@ -42,7 +42,7 @@ class Save_Settings extends Ajax {
 				$this->json_error( $cheating );
 			}
 
-			$whitelist_options = apply_filters( 'whitelist_options', array() );
+			$whitelist_options = apply_filters( 'allowed_options', array() );
 			$options           = $whitelist_options[ $option_page ];
 
 			if ( empty( $options[0] ) || $options[0] !== $option_page ) {

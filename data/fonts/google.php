@@ -1,5 +1,5 @@
 <?php
-// Last Updated : 2021-02-08 06:07:38:am
+// Last Updated : 2021-02-27 06:08:52:am
 if ( ! defined( "ABSPATH") ) { die; } 
 return array (
   'ABeeZee' => 
@@ -53,6 +53,14 @@ return array (
   array (
     400 => 'Regular 400',
   ),
+  'Akaya Kanadaka' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Akaya Telivigala' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Akronim' => 
   array (
     400 => 'Regular 400',
@@ -82,11 +90,13 @@ return array (
   array (
     400 => 'Regular 400',
     500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
     900 => 'Black 900',
     '400italic' => 'Regular 400 Italic',
     '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
     '700italic' => 'Bold 700 Italic',
     '800italic' => 'Extra Bold 800 Italic',
     '900italic' => 'Black 900 Italic',
@@ -558,6 +568,10 @@ return array (
     '600italic' => 'Semi-Bold 600 Italic',
     '700italic' => 'Bold 700 Italic',
   ),
+  'Ballet' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Baloo 2' => 
   array (
     400 => 'Regular 400',
@@ -795,6 +809,10 @@ return array (
     400 => 'Regular 400',
     700 => 'Bold 700',
   ),
+  'Benne' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Bentham' => 
   array (
     400 => 'Regular 400',
@@ -1005,6 +1023,13 @@ return array (
   'Bree Serif' => 
   array (
     400 => 'Regular 400',
+  ),
+  'Brygada 1918' => 
+  array (
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
   ),
   'Bubblegum Sans' => 
   array (
@@ -1726,6 +1751,10 @@ return array (
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
     800 => 'Extra Bold 800',
+  ),
+  'DotGothic16' => 
+  array (
+    400 => 'Regular 400',
   ),
   'Dr Sugiyama' => 
   array (
@@ -4174,6 +4203,23 @@ return array (
     400 => 'Regular 400',
     700 => 'Bold 700',
   ),
+  'Newsreader' => 
+  array (
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    '200italic' => 'Extra Light 200 Italic',
+    '300italic' => 'Light 300 Italic',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
+    '700italic' => 'Bold 700 Italic',
+    '800italic' => 'Extra Bold 800 Italic',
+  ),
   'Niconne' => 
   array (
     400 => 'Regular 400',
@@ -4412,6 +4458,10 @@ return array (
     400 => 'Regular 400',
   ),
   'Offside' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Oi' => 
   array (
     400 => 'Regular 400',
   ),
@@ -5136,6 +5186,10 @@ return array (
   array (
     400 => 'Regular 400',
   ),
+  'Reggae One' => 
+  array (
+    400 => 'Regular 400',
+  ),
   'Revalia' => 
   array (
     400 => 'Regular 400',
@@ -5218,6 +5272,10 @@ return array (
     400 => 'Regular 400',
   ),
   'Rock Salt' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'RocknRoll One' => 
   array (
     400 => 'Regular 400',
   ),
@@ -5571,6 +5629,22 @@ return array (
   array (
     400 => 'Regular 400',
   ),
+  'Shippori Mincho' => 
+  array (
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+  ),
+  'Shippori Mincho B1' => 
+  array (
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+  ),
   'Shojumaru' => 
   array (
     400 => 'Regular 400',
@@ -5865,6 +5939,10 @@ return array (
   array (
     400 => 'Regular 400',
     700 => 'Bold 700',
+  ),
+  'Stick' => 
+  array (
+    400 => 'Regular 400',
   ),
   'Stint Ultra Condensed' => 
   array (
@@ -6171,6 +6249,18 @@ return array (
     400 => 'Regular 400',
     700 => 'Bold 700',
     '400italic' => 'Regular 400 Italic',
+  ),
+  'Truculenta' => 
+  array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
   ),
   'Trykker' => 
   array (
