@@ -23,6 +23,17 @@ class Dashboard extends Module {
 	protected $module = 'dashboard_widgets';
 
 	/**
+	 * Inits The Class.
+	 */
+	protected function init() {
+		if ( empty( $this->fields ) ) {
+			$this->fields = wpo_builder();
+		}
+		parent::init();
+		$this->fields = null;
+	}
+
+	/**
 	 * Inits Class Instance.
 	 */
 	public function on_init() {
