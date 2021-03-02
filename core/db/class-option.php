@@ -81,6 +81,7 @@ class Option implements ArrayAccess, Iterator, JsonSerializable, \Serializable, 
 	 */
 	protected function load() {
 		$this->options = wponion_wp_db()->get( $this->module, $this->unique, $this->extra );
+		$this->options = ( ! wponion_is_array( $this->options ) ) ? array() : $this->options;
 	}
 
 	/**
