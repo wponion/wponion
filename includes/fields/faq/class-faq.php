@@ -24,8 +24,8 @@ class FAQ extends Field {
 <li class="faq">
 	<div class="faq-title">
 		<h3><i class="dashicons"></i> <span class="title-name">${faq['heading']}</span></h3>
-		<div class="faq-content">{$content->render( null, null )}</div>
 	</div>
+	<div class="faq-content">{$content->render( null, null )}</div>
 </li>
 HTML;
 			$this->html( $content );
