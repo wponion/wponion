@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [1.5.3.5] - 28/02/2021
+## Fixed
+* Fixed Dashboard Widget Loading if no fields are set
+* Fixed FAQ Field Content Area
+* Fixed PHP Warning when saving settings for the first time.
+
+## Changed
+* Bump [sweetalert2] from `10.14.0` to `10.15.5` #342
+* Bump [jquery-serializejson] from `3.2.0` to `3.2.1` #350
+* Bump [tippy.js] from `6.2.7` to `6.3.1` #351
+* Bump [@popperjs/core] from `2.6.0` to `2.9.0` #354
+
 # [1.5.3.4] - 27/02/2021
 ## Fixed
 * Tab Field CSS Issue
@@ -1005,6 +1017,7 @@ Migrated From WordPress VIP Coding Standards To WordPress Core Coding Standards.
 8. WP Module   -  Settings Page
 
 ---
+[1.5.3.4]: https://github.com/wponion/wponion/releases/tag/1.5.3.4
 [1.5.3.4]: https://github.com/wponion/wponion/releases/tag/1.5.3.4
 [1.5.3.3]: https://github.com/wponion/wponion/releases/tag/1.5.3.3
 [1.5.3.2]: https://github.com/wponion/wponion/releases/tag/1.5.3.2
