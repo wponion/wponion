@@ -101,7 +101,6 @@
 		display:    inline-block;
 		text-align: center;
 
-
 		span.input-group-text {
 			padding: .10rem .2rem;
 		}
@@ -121,6 +120,11 @@
 			bottom:     0;
 			width:      auto;
 			z-index:    -1;
+		}
+
+		> .wponion-input-group-wrap + .pickr {
+			position: relative;
+			height:   10px;
 		}
 
 		input.wponion-color-picker-element {
