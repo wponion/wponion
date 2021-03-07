@@ -9,10 +9,10 @@ export default class extends WPOnion_Field {
 			let $data       = this.option( 'settings', {} );
 			$data           = ( !window.wponion._.isObject( $data ) ) ? {} : $data;
 			let $save_color = ( $color ) => {
-					let $value = '';
+					let $value   = '';
 					let $display = '';
 					if( !window.wponion._.isNull( $color ) ) {
-						$value = $color.toHEXA().toString();
+						$value   = $color.toHEXA().toString();
 						$display = $color.toHEXA().toString();
 						if( !window.wponion._.isUndefined( $instance._representation ) ) {
 							switch( $instance._representation ) {
@@ -65,8 +65,13 @@ export default class extends WPOnion_Field {
 			$args.default      = this.element.find( 'input.wponion-color-picker-element' ).val() || '#fff';
 			$args              = this.handle_args( $args, 'colorpicker' );
 			$args.el           = this.element.find( 'div.wponion-color-picker-element' )[ 0 ];
-			let $instance      = new Pickr( $args ),
-				$input         = this.element.find( 'input.wponion-color-picker-element' );
+
+			if( $is_inline && $is_show_input ) {
+				$args.components.interaction.input = false;
+			}
+
+			let $instance = new Pickr( $args ),
+				$input    = this.element.find( 'input.wponion-color-picker-element' );
 
 			$instance.on( 'save', $save_color );
 			$instance.on( 'change', $save_color );
