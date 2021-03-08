@@ -18,17 +18,21 @@ class Color_Picker extends Checkbox_Radio {
 	 */
 	protected function output() {
 		if ( empty( $this->option( 'options' ) ) ) {
-			$attr    = $this->attributes( array(
+			$attr  = $this->attributes( array(
 				'type'  => 'text',
 				'name'  => $this->name(),
 				'value' => $this->value(),
 				'class' => 'wponion-color-picker-element wponion-form-control',
 			) );
-			$input   = "<input ${attr} />";
-			$args    = $this->option( 'settings' );
-			$inline  = ( isset( $args['inline'] ) && true === $args['inline'] );
-			$element = ( $inline ) ? $input : wponion_input_group_html( "<span class=\"cpickr-bg\" style=\"background-color:{$this->value}\"></span>", '', $input );
-			return $this->before() . "<div class=\"colorpickerwrap\"> ${element} <div class=\"wponion-color-picker-element\" ></div> </div>" . $this->after();
+			$input = "<input ${attr} />";
+
+			if ( true === $this->option( 'settings/inline' ) ) {
+				$element = $input;
+				if ( true === $this->option( 'settings/components/interaction/input' ) ) {
+					$element = wponion_input_group_html( "<span class=\"cpickr-bg\" style=\"background-color:{$this->value}\"></span>", '', $input );
+				}
+				return $this->before() . "<div class=\"colorpickerwrap\"> ${element} <div class=\"wponion-color-picker-element\" ></div> </div>" . $this->after();
+			}
 		} else {
 			$type = ( true === $this->option( 'multiple' ) ) ? 'checkbox' : 'radio';
 			$this->set_option( 'type', $type );

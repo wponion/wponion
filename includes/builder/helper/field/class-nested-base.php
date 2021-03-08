@@ -113,6 +113,24 @@ class Nested_Base extends Field implements \WPO\Helper\Interfaces\Field {
 	}
 
 	/**
+	 * This Can be used to add multiple fields @ once.
+	 *
+	 * @param array|\WPO\Builder $fields
+	 *
+	 * @return $this
+	 * @since 1.5.3.6
+	 */
+	public function add_fields( $fields ) {
+		$fields = ( wpo_is( $fields ) ) ? $fields->fields() : $fields;
+		if ( ! empty( $fields ) ) {
+			foreach ( $fields as $field_data ) {
+				$this->add_field( $field_data );
+			}
+		}
+		return $this;
+	}
+
+	/**
 	 * @param bool $key
 	 *
 	 * @return array|\WPO\Field|\WPO\Container

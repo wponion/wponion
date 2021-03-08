@@ -383,6 +383,7 @@ class Product extends Module {
 			}
 			$this->variation_id = $loop;
 			echo $this->render_tab_fields( $this->variation_fields[ $tab ], array( 'wponion-woocommerce-variation' ) );
+			wponion_localize()->render_css_js_args();
 			do_action( 'wponion/ajax/woocommerce/variation/fields' );
 		}
 	}
