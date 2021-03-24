@@ -32,10 +32,10 @@ export default class WPOButton {
 
 			if( 'loadingText' === state ) {
 				this.isLoading = true;
-				$el.addClass( d ).attr( d, d ).prop( d, true );
+				$el.addClass( d ).prop( d, true );
 			} else if( this.isLoading ) {
 				this.isLoading = false;
-				$el.removeClass( d ).removeAttr( d ).prop( d, false );
+				$el.removeClass( d ).prop( d, false );
 			}
 
 			if( 'val' === val ) {

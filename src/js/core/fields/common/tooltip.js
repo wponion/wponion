@@ -72,7 +72,7 @@ export default class extends WPOnion_Field {
 				let $image        = $arg.image;
 				$arg.interactive  = true;
 				$arg.allowHTML    = true;
-				$arg.flipOnUpdate = true;
+				//$arg.flipOnUpdate = true; //@see check https://github.com/atomiks/tippyjs/blob/master/MIGRATION_GUIDE.md#if-you-were-using-flip-flipbehavior-or-fliponupdate
 				$arg.content      = 'Loading...';
 				//$arg.html           = '#wpotpimg';
 				//$arg.updateDuration = 2000;
@@ -115,7 +115,7 @@ export default class extends WPOnion_Field {
 		 * @todo check and remove https://github.com/atomiks/tippyjs/blob/master/MIGRATION_GUIDE.md#if-you-were-using-boundary
 		 * @type {string}
 		 */
-		$arg.boundary = 'window';
+		//$arg.boundary = 'window';
 		if( false === window.wponion._.isUndefined( $arg.followCursor ) && true === $arg.followCursor && window.wponion._.isUndefined( $arg.appendTo ) ) {
 			$arg.appendTo = () => document.body;
 		} else if( window.wponion._.isUndefined( $arg.appendTo ) ) {

@@ -67,8 +67,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 		if( false !== $found ) {
 			$found.find( '> .wpo-row > .wponion-field-title > h4' ).tippy( {
 				content: window.wpo_core.txt( 'click_to_view_debug_info', 'Click To View Field Debug Info' ),
-				arrow: true,
-				arrowType: 'round',
+				arrow: tippy.roundArrow,
 				placement: 'bottom',
 				theme: 'light',
 				animation: 'scale',

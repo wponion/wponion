@@ -73,47 +73,49 @@ export default {
 	tippy: function( $arguments ) {
 		let tippy_helper = {
 			create_instance: function( $elem, $arguments ) {
-				$arguments         = ( typeof $arguments === 'undefined' ) ? {} : $arguments;
-				$arguments.plugins = [];
+				if( false === window.wponion._.isUndefined( $elem.length ) && $elem.length > 0 ) {
+					$arguments         = ( typeof $arguments === 'undefined' ) ? {} : $arguments;
+					$arguments.plugins = [];
 
-				if( $elem.attr( 'data-tippy-instance-id' ) === undefined ) {
-					let $_instance_id = 'Tippy' + window.wpo_core.rand_id();
-					$elem.attr( 'data-tippy-instance-id', $_instance_id );
+					if( $elem.attr( 'data-tippy-instance-id' ) === undefined ) {
+						let $_instance_id = 'Tippy' + window.wpo_core.rand_id();
+						$elem.attr( 'data-tippy-instance-id', $_instance_id );
 
-					let $title      = $elem.attr( 'title' ),
-						$data_tippy = $elem.attr( 'data-tippy' );
+						let $title      = $elem.attr( 'title' ),
+							$data_tippy = $elem.attr( 'data-tippy' );
 
-					if( $title && $title !== '' && window.wponion._.isUndefined( $arguments.content ) ) {
-						$arguments.content = $title;
+						if( $title && $title !== '' && window.wponion._.isUndefined( $arguments.content ) ) {
+							$arguments.content = $title;
+						}
+
+						if( $data_tippy && $data_tippy !== '' && window.wponion._.isUndefined( $arguments.content ) ) {
+							$arguments.content = $data_tippy;
+						}
+
+						/**
+						 * TippyJS Plugins
+						 * @since V6.0
+						 * @see https://atomiks.github.io/tippyjs/v6/plugins/
+						 */
+						if( false === window.wponion._.isUndefined( $arguments.followCursor ) && false !== $arguments.followCursor ) {
+							$arguments.plugins.push( window.tippy_plugins.followCursor );
+						}
+
+						if( false === window.wponion._.isUndefined( $arguments.animateFill ) && false !== $arguments.animateFill ) {
+							$arguments.plugins.push( window.tippy_plugins.animateFill );
+						}
+
+						if( false === window.wponion._.isUndefined( $arguments.inlinePositioning ) && false !== $arguments.inlinePositioning ) {
+							$arguments.plugins.push( window.tippy_plugins.inlinePositioning );
+						}
+
+						if( false === window.wponion._.isUndefined( $arguments.sticky ) && false !== $arguments.sticky ) {
+							$arguments.plugins.push( window.tippy_plugins.sticky );
+						}
+
+						window[ $_instance_id ] = window.tippy( $elem[ 0 ], $arguments );
+						return true;
 					}
-
-					if( $data_tippy && $data_tippy !== '' && window.wponion._.isUndefined( $arguments.content ) ) {
-						$arguments.content = $data_tippy;
-					}
-
-					/**
-					 * TippyJS Plugins
-					 * @since V6.0
-					 * @see https://atomiks.github.io/tippyjs/v6/plugins/
-					 */
-					if( false === window.wponion._.isUndefined( $arguments.followCursor ) && false !== $arguments.followCursor ) {
-						$arguments.plugins.push( window.tippy_plugins.followCursor );
-					}
-
-					if( false === window.wponion._.isUndefined( $arguments.animateFill ) && false !== $arguments.animateFill ) {
-						$arguments.plugins.push( window.tippy_plugins.animateFill );
-					}
-
-					if( false === window.wponion._.isUndefined( $arguments.inlinePositioning ) && false !== $arguments.inlinePositioning ) {
-						$arguments.plugins.push( window.tippy_plugins.inlinePositioning );
-					}
-
-					if( false === window.wponion._.isUndefined( $arguments.sticky ) && false !== $arguments.sticky ) {
-						$arguments.plugins.push( window.tippy_plugins.sticky );
-					}
-
-					window[ $_instance_id ] = window.tippy( $elem[ 0 ], $arguments );
-					return true;
 				}
 				return false;
 			},

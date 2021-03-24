@@ -68,7 +68,7 @@ export default class extends WPOnion_Module {
 	 * When CTRL+S is clicked
 	 */
 	enable_shortcut_key_handler() {
-		jQuery( document ).keydown( function( event ) {
+		jQuery( document ).on( 'keydown', function( event ) {
 			if( ( event.ctrlKey || event.metaKey ) && event.which === 83 ) {
 				jQuery( 'button.wponion-save' ).trigger( 'click' );
 				event.preventDefault();
