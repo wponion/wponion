@@ -112,7 +112,7 @@ export default class extends WPOnion_Field {
 				return false;
 			} );
 		};
-		$args.onBeforeOpen = () => {
+		$args.willOpen = () => {
 			window.swal.showLoading();
 			this.fetch_fields( ( res ) => {
 				let $mainelem = this.element.find( '#swal2-content' );

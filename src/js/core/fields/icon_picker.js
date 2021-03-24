@@ -151,7 +151,7 @@ export default class extends WPOnion_Field {
 				showCloseButton: true,
 				width: '850px',
 				customClass: 'wponion-icon-picker-model',
-				onBeforeOpen: ( $elem ) => {
+				willOpen: ( $elem ) => {
 					swal.enableLoading();
 					this.ajax( 'icon_picker', {
 						data: {

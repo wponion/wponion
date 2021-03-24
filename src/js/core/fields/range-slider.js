@@ -15,7 +15,7 @@ export default class extends WPOnion_Field {
 
 		let $slider = this.element.find( '.wponion-range-slider' ).slider( $options );
 
-		$input.keyup( function() {
+		$input.on( 'keyup', function() {
 			$slider.slider( 'value', $input.val() );
 		} );
 	}

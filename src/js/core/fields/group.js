@@ -20,8 +20,11 @@ export default class extends WPOnion_Field {
 		} );
 
 		this.element.on( 'click', '.wponion-group-remove', function() {
-			jQuery( this ).parent().parent()
-						  .find( '> .wponion-accordion-content .wpo-row > .wponion-group-action > button' ).click();
+			jQuery( this )
+				.parent()
+				.parent()
+				.find( '> .wponion-accordion-content .wpo-row > .wponion-group-action > button' )
+				.trigger( 'click' );
 			$this.update_groups_title();
 			$this.element.trigger( 'change' );
 			$this.element.trigger( 'wponion_field_updated' );

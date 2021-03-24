@@ -45,9 +45,9 @@ export default class WP_WC_WP_Lite extends WPOnion_Theme_Base {
 
 						if( $lookup.find( '.wponion-submenus' ).length > 0 ) {
 							if( $lookup.find( '.wponion-submenus a.current' ).length === 0 ) {
-								$lookup.find( '.wponion-submenus li:first-child a' ).click();
+								$lookup.find( '.wponion-submenus li:first-child a' ).trigger( 'click' );
 							} else {
-								$lookup.find( '.wponion-submenus a.current' ).click();
+								$lookup.find( '.wponion-submenus a.current' ).trigger( 'click' );
 							}
 						} else {
 							this.hide_element_non_ui( $lookup );

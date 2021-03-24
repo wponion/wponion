@@ -11,7 +11,7 @@ export default function() {
 		downloadAnchorNode.setAttribute( 'href', dataStr );
 		downloadAnchorNode.setAttribute( 'download', file_name );
 		document.body.appendChild( downloadAnchorNode );
-		downloadAnchorNode.click();
+		downloadAnchorNode.trigger( 'click' );
 		downloadAnchorNode.remove();
 	};
 

@@ -86,7 +86,7 @@ export default class WPOnion_Field extends WPOnion_Field_Base {
 					confirmButtonText: window.wpo_core.txt( 'get_json_output', 'As JSON' ),
 					showCloseButton: false,
 					width: '800px',
-					onOpen: () => jQuery( '#swal2-content > div > #' + $d ).jsonView( $data )
+					didOpen: () => jQuery( '#swal2-content > div > #' + $d ).jsonView( $data )
 				} ).then( ( result ) => {
 					if( result.value ) {
 						$data = JSON.stringify( $data );

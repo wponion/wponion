@@ -73,11 +73,11 @@ export default Backbone.View.extend( {
 	activate_main_menu: function( $sub_menu = false ) {
 		if( false === $sub_menu ) {
 			if( this.$el.find( '.media-menu > .media-menu-item.active' ).length === 0 ) {
-				this.$el.find( '.media-menu > .media-menu-item:first-child' ).click();
+				this.$el.find( '.media-menu > .media-menu-item:first-child' ).trigger( 'click' );
 			}
 		} else {
 			if( $sub_menu.find( '.media-frame-router .media-router > .active' ).length === 0 ) {
-				$sub_menu.find( '.media-frame-router .media-router > a:first-child' ).click();
+				$sub_menu.find( '.media-frame-router .media-router > a:first-child' ).trigger( 'click' );
 			}
 		}
 	},
