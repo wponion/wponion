@@ -519,7 +519,9 @@ class Notice extends Bridge {
 		$content = $this->option( 'content' );
 		$class   = $type;
 
-		if ( 'update-nag' !== $type ) {
+		if ( 'update-nag' === $type ) {
+			$class = wponion_html_class( array( 'notice', 'notice-warning', 'inline', $type ) );
+		} else {
 			$class = wponion_html_class( array(
 				'notice',
 				( true === $this->option( 'dismissible' ) ) ? 'is-dismissible' : '',

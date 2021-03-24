@@ -341,7 +341,7 @@ if ( ! function_exists( 'wponion_admin_notices' ) ) {
 		if ( is_scalar( $instance_id_or_args ) ) {
 			return wponion_admin_notices_registry( $instance_id_or_args );
 		} elseif ( empty( $instance_id_or_args ) ) {
-			$instance_id_or_args = '_wponion_admin_notices';
+			$instance_id_or_args = new Handler( '_wponion_admin_notices' );
 			$instance            = wponion_admin_notices_registry( $instance_id_or_args );
 			if ( $instance ) {
 				return $instance;
