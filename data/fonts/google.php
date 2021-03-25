@@ -1,5 +1,5 @@
 <?php
-// Last Updated : 2021-03-08 06:14:47:am
+// Last Updated : 2021-03-25 05:48:46:am
 if ( ! defined( "ABSPATH") ) { die; } 
 return array (
   'ABeeZee' => 
@@ -323,14 +323,24 @@ return array (
   ),
   'Archivo' => 
   array (
+    100 => 'Thin 100',
+    200 => 'Extra Light 200',
+    300 => 'Light 300',
     400 => 'Regular 400',
     500 => 'Medium 500',
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
+    800 => 'Extra Bold 800',
+    900 => 'Black 900',
+    '100italic' => 'Thin 100 Italic',
+    '200italic' => 'Extra Light 200 Italic',
+    '300italic' => 'Light 300 Italic',
     '400italic' => 'Regular 400 Italic',
     '500italic' => 'Medium 500 Italic',
     '600italic' => 'Semi-Bold 600 Italic',
     '700italic' => 'Bold 700 Italic',
+    '800italic' => 'Extra Bold 800 Italic',
+    '900italic' => 'Black 900 Italic',
   ),
   'Archivo Black' => 
   array (
@@ -1030,6 +1040,10 @@ return array (
     500 => 'Medium 500',
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
+    '400italic' => 'Regular 400 Italic',
+    '500italic' => 'Medium 500 Italic',
+    '600italic' => 'Semi-Bold 600 Italic',
+    '700italic' => 'Bold 700 Italic',
   ),
   'Bubblegum Sans' => 
   array (
@@ -1671,6 +1685,10 @@ return array (
     400 => 'Regular 400',
   ),
   'Dekko' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Dela Gothic One' => 
   array (
     400 => 'Regular 400',
   ),
@@ -3179,6 +3197,12 @@ return array (
   array (
     400 => 'Regular 400',
   ),
+  'Kiwi Maru' => 
+  array (
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+  ),
   'Knewave' => 
   array (
     400 => 'Regular 400',
@@ -3388,6 +3412,16 @@ return array (
     500 => 'Medium 500',
     600 => 'Semi-Bold 600',
     700 => 'Bold 700',
+  ),
+  'Lexend' => 
+  array (
+    100 => 'Thin 100',
+    300 => 'Light 300',
+    400 => 'Regular 400',
+    500 => 'Medium 500',
+    600 => 'Semi-Bold 600',
+    700 => 'Bold 700',
+    800 => 'Extra Bold 800',
   ),
   'Lexend Deca' => 
   array (
@@ -4195,6 +4229,10 @@ return array (
     '400italic' => 'Regular 400 Italic',
   ),
   'New Rocker' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'New Tegomin' => 
   array (
     400 => 'Regular 400',
   ),
@@ -6205,6 +6243,10 @@ return array (
     '900italic' => 'Black 900 Italic',
   ),
   'Trade Winds' => 
+  array (
+    400 => 'Regular 400',
+  ),
+  'Train One' => 
   array (
     400 => 'Regular 400',
   ),

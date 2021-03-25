@@ -148,7 +148,6 @@ class Util {
 			'content'     => $content,
 			'image'       => false,
 			'arrow'       => true,
-			'arrowType'   => 'round',
 			'js_field_id' => $this->js_id(),
 			'element'     => $this->element,
 			'placement'   => 'top',

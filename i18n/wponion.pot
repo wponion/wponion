@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the WPOnion plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: WPOnion 1.5.3.6\n"
+"Project-Id-Version: WPOnion 1.5.3.7\n"
 "Report-Msgid-Bugs-To: https:\/\/wordpress.org\/support\/plugin\/wponion\n\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: hello@wponion.com\n\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-03-08T18:11:36+05:30\n"
+"POT-Creation-Date: 2021-03-25T10:46:26+05:30\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: wponion\n"
@@ -451,7 +451,7 @@ msgstr ""
 msgid "WPOnion Version : %s"
 msgstr ""
 
-#: core/modules/admin/notice/class-notice.php:544
+#: core/modules/admin/notice/class-notice.php:546
 msgid "Dismiss this notice."
 msgstr ""
 

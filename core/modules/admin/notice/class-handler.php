@@ -126,6 +126,7 @@ JAVASCRIPT;
 	 */
 	protected function get_db_values() {
 		$this->db_values = wponion_get_option( $this->unique );
+		$this->db_values = ( ! wponion_is_array( $this->db_values ) ) ? array() : $this->db_values;
 		return $this->db_values;
 	}
 
