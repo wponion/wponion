@@ -8,7 +8,7 @@ export default class extends WPOnion_Field {
 		if( this.element.find( '.faq .faq-title' ).hasClass( 'active' ) ) {
 			this.element.find( '.faq .faq-title.active' ).closest( '.faq' ).find( '.faq-inner' ).show();
 		}
-		this.element.find( '.faq .faq-title' ).click( function() {
+		this.element.find( '.faq .faq-title' ).on( 'click', function() {
 			if( jQuery( this ).hasClass( 'active' ) ) {
 				jQuery( this ).removeClass( 'active' ).closest( '.faq' ).find( '.faq-content' ).slideUp( 200 );
 			} else {
