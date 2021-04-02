@@ -118,7 +118,16 @@ abstract class Utilites extends Submodules {
 	 * @return string
 	 */
 	protected function checked( $values = '', $value = '', $type = 'checked' ) {
-		return ( ( wponion_is_array( $values ) && in_array( $value, $values ) ) || ( wponion_is_bool_val( $values ) === wponion_is_bool_val( $value ) ) ) ? "${type}=\"${type}\"" : '';
+		$status = false;
+		if ( wponion_is_array( $values ) && in_array( $value, $values ) ) {
+			$status = true;
+		} elseif ( wponion_is_bool_val( $values ) === wponion_is_bool_val( $value ) ) {
+			$status = true;
+		} elseif ( is_scalar( $value ) && is_scalar( $values ) && $value == $values ) {
+			$status = true;
+		}
+		return ( $status ) ? "${type}=\"${type}\"" : '';
+		#return ( ( wponion_is_array( $values ) && in_array( $value, $values ) ) || ( wponion_is_bool_val( $values ) === wponion_is_bool_val( $value ) ) ) ? "${type}=\"${type}\"" : '';
 	}
 
 	/**
