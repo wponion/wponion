@@ -43,16 +43,16 @@
         },
         {
             "name": "varunsridharan/wp-conditional-logic",
-            "version": "1.2",
+            "version": "1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/wp-conditional-logic.git",
-                "reference": "e0fa820b495ccce6cb6a30619ba45a774c4b56bc"
+                "reference": "255d3e2ca935b22668a1ca58d3b855eb7d733981"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/wp-conditional-logic/zipball/e0fa820b495ccce6cb6a30619ba45a774c4b56bc",
-                "reference": "e0fa820b495ccce6cb6a30619ba45a774c4b56bc",
+                "url": "https://api.github.com/repos/varunsridharan/wp-conditional-logic/zipball/255d3e2ca935b22668a1ca58d3b855eb7d733981",
+                "reference": "255d3e2ca935b22668a1ca58d3b855eb7d733981",
                 "shasum": ""
             },
             "type": "library",
@@ -85,11 +85,15 @@
                     "type": "custom"
                 },
                 {
+                    "url": "https://www.buymeacoffee.com/varunsridharan",
+                    "type": "custom"
+                },
+                {
                     "url": "https://github.com/varunsridharan",
                     "type": "github"
                 }
             ],
-            "time": "2020-05-07T14:18:14+00:00"
+            "time": "2021-04-11T05:35:53+00:00"
         },
         {
             "name": "varunsridharan/wp-dependencies",
