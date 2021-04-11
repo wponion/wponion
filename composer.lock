@@ -93,16 +93,16 @@
         },
         {
             "name": "varunsridharan/wp-dependencies",
-            "version": "1.6.1",
+            "version": "1.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/varunsridharan/wp-dependencies.git",
-                "reference": "b1514529480223b8cfae5cbc33c7cc9e4ee7420b"
+                "reference": "69cb89d618b0c30f4a1b7ee4abc2796eabe064a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/varunsridharan/wp-dependencies/zipball/b1514529480223b8cfae5cbc33c7cc9e4ee7420b",
-                "reference": "b1514529480223b8cfae5cbc33c7cc9e4ee7420b",
+                "url": "https://api.github.com/repos/varunsridharan/wp-dependencies/zipball/69cb89d618b0c30f4a1b7ee4abc2796eabe064a6",
+                "reference": "69cb89d618b0c30f4a1b7ee4abc2796eabe064a6",
                 "shasum": ""
             },
             "type": "library",
@@ -147,7 +147,21 @@
                 "wp-plugin",
                 "wp-theme"
             ],
-            "time": "2019-06-28T11:21:34+00:00"
+            "funding": [
+                {
+                    "url": "https://paypal.me/varunsridharan23",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.buymeacoffee.com/varunsridharan",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/varunsridharan",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-04-11T07:04:40+00:00"
         }
     ],
     "packages-dev": [
