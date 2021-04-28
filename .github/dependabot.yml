@@ -1,0 +1,59 @@
+version: 2
+updates:
+- package-ecosystem: composer
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  target-branch: development
+  assignees:
+  - Varunsridharan
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  target-branch: development
+  ignore:
+  - dependency-name: sweetalert2
+    versions:
+    - 10.14.1
+    - 10.15.0
+    - 10.15.1
+    - 10.15.2
+    - 10.15.3
+    - 10.15.4
+    - 10.15.7
+    - 10.16.0
+    - 10.16.2
+    - 10.16.5
+    - 10.16.6
+  - dependency-name: "@wordpress/hooks"
+    versions:
+    - 2.11.0
+    - 2.12.1
+  - dependency-name: bootstrap
+    versions:
+    - 4.6.0
+  - dependency-name: "@popperjs/core"
+    versions:
+    - 2.7.0
+    - 2.7.1
+    - 2.7.2
+    - 2.8.0
+    - 2.8.1
+    - 2.8.2
+    - 2.8.3
+    - 2.8.4
+    - 2.8.5
+    - 2.8.6
+    - 2.9.0
+  - dependency-name: jquery-serializejson
+    versions:
+    - 3.2.1
+  - dependency-name: tippy.js
+    versions:
+    - 6.3.0
+  - dependency-name: elliptic
+    versions:
+    - 6.5.3
